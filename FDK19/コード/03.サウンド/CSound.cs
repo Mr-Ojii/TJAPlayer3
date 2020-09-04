@@ -828,7 +828,7 @@ namespace FDK
 				int nPCMサイズbyte;
 				CWin32.WAVEFORMATEX cw32wfx;
 				tオンメモリ方式でデコードする(strファイル名, out this.byArrWAVファイルイメージ,
-				out nPCMデータの先頭インデックス, out nPCMサイズbyte, out cw32wfx, true);
+				out nPCMデータの先頭インデックス, out nPCMサイズbyte, out cw32wfx, false);
 
 				// セカンダリバッファを作成し、PCMデータを書き込む。
 				tOpenALサウンドを作成する_セカンダリバッファの作成とWAVデータ書き込み
