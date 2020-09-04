@@ -117,40 +117,49 @@ namespace FDK
 							}
 							else
 							{
-								if (swr == null)
-								{
-									swr = ffmpeg.swr_alloc();
-									if (swr == null)
-									{
-										Trace.TraceError("swr_alloc error.\n");
-										break;
-									}
-									ffmpeg.av_opt_set_int(swr, "in_channel_layout", (long)frame->channel_layout, 0);
-									ffmpeg.av_opt_set_int(swr, "out_channel_layout", (long)frame->channel_layout, 0);
-									ffmpeg.av_opt_set_int(swr, "in_sample_rate", frame->sample_rate, 0);
-									ffmpeg.av_opt_set_int(swr, "out_sample_rate", frame->sample_rate, 0);
-									ffmpeg.av_opt_set_sample_fmt(swr, "in_sample_fmt", (AVSampleFormat)frame->format, 0);
-									ffmpeg.av_opt_set_sample_fmt(swr, "out_sample_fmt", AVSampleFormat.AV_SAMPLE_FMT_S16, 0);
-									ret = ffmpeg.swr_init(swr);
-									if (ret < 0)
-									{
-										Trace.TraceError("swr_init error.\n");
-										break;
-									}
-									swr_buf_len = ffmpeg.av_samples_get_buffer_size(null, frame->channels, frame->sample_rate, AVSampleFormat.AV_SAMPLE_FMT_S16, 1);
-									swr_buf = (byte*)ffmpeg.av_malloc((ulong)swr_buf_len);
-								}
-
 								nFrame++;
 								nSample += frame->nb_samples;
 
-								//正常
-								ret = ffmpeg.swr_convert(swr, &swr_buf, frame->nb_samples, frame->extended_data, frame->nb_samples);
-
-								for (int index = 0; index < frame->nb_samples * (16 / 8) * frame->channels; index++)
+								if ((AVSampleFormat)frame->format != AVSampleFormat.AV_SAMPLE_FMT_S16)
 								{
-									bw.Write(swr_buf[index]);
+									if (swr == null)
+									{
+										swr = ffmpeg.swr_alloc();
+										if (swr == null)
+										{
+											Trace.TraceError("swr_alloc error.\n");
+											break;
+										}
+										ffmpeg.av_opt_set_int(swr, "in_channel_layout", (long)frame->channel_layout, 0);
+										ffmpeg.av_opt_set_int(swr, "out_channel_layout", (long)frame->channel_layout, 0);
+										ffmpeg.av_opt_set_int(swr, "in_sample_rate", frame->sample_rate, 0);
+										ffmpeg.av_opt_set_int(swr, "out_sample_rate", frame->sample_rate, 0);
+										ffmpeg.av_opt_set_sample_fmt(swr, "in_sample_fmt", (AVSampleFormat)frame->format, 0);
+										ffmpeg.av_opt_set_sample_fmt(swr, "out_sample_fmt", AVSampleFormat.AV_SAMPLE_FMT_S16, 0);
+										ret = ffmpeg.swr_init(swr);
+										if (ret < 0)
+										{
+											Trace.TraceError("swr_init error.\n");
+											break;
+										}
+										swr_buf_len = ffmpeg.av_samples_get_buffer_size(null, frame->channels, frame->sample_rate, AVSampleFormat.AV_SAMPLE_FMT_S16, 1);
+										swr_buf = (byte*)ffmpeg.av_malloc((ulong)swr_buf_len);
+									}
+
+									ret = ffmpeg.swr_convert(swr, &swr_buf, frame->nb_samples, frame->extended_data, frame->nb_samples);
+									for (int index = 0; index < frame->nb_samples * (16 / 8) * frame->channels; index++)
+									{
+										bw.Write(swr_buf[index]);
+									}
 								}
+								else 
+								{
+									for (int index = 0; index < frame->nb_samples * (16 / 8) * frame->channels; index++)
+									{
+										bw.Write((*(frame->extended_data))[index]);
+									}
+								}
+
 
 							}
 						}
