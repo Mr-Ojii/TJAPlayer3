@@ -92,6 +92,7 @@ namespace FDK
 						bw.Write((UInt16)16);                    // サンプルあたりのビット数
 						bw.Write(new byte[] { 0x64, 0x61, 0x74, 0x61 });        // 'data'
 						pos = (int)ms.Position;
+						bw.Write((UInt32)0);
 					}
 					while (true)
 					{

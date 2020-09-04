@@ -325,6 +325,7 @@ move /y "$(TargetDir)SharpDX*" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)Newtonsoft.Json*" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)Hnx8.ReadJEnc*" "$(SolutionDir)Test\dll\"
 move /y "$(TargetDir)FFmpeg.AutoGen*" "$(SolutionDir)Test\dll\"
+move /y "$(TargetDir)OpenTK*" "$(SolutionDir)Test\dll\"
 copy /y "$(SolutionDir)Readme.txt" "$(SolutionDir)Test\"
 call "$(DevEnvDir)..\Tools\VsDevCmd.bat"</PostBuildEvent>
   </PropertyGroup>

@@ -81,10 +81,6 @@
       <HintPath>..\packages\SharpDX.DirectInput.4.2.0\lib\net45\SharpDX.DirectInput.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SharpDX.DirectSound, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpDX.DirectSound.4.2.0\lib\net45\SharpDX.DirectSound.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="SharpDX.DXGI, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.DXGI.4.2.0\lib\net45\SharpDX.DXGI.dll</HintPath>
       <Private>False</Private>
@@ -141,7 +137,7 @@
     <Compile Include="コード\03.サウンド\CAudioDecoder.cs" />
     <Compile Include="コード\03.サウンド\CSound.cs" />
     <Compile Include="コード\03.サウンド\CSoundDeviceASIO.cs" />
-    <Compile Include="コード\03.サウンド\CSoundDeviceDirectSound.cs" />
+    <Compile Include="コード\03.サウンド\CSoundDeviceOpenAL.cs" />
     <Compile Include="コード\03.サウンド\CSoundDeviceWASAPI.cs" />
     <Compile Include="コード\03.サウンド\CSoundTimer.cs" />
     <Compile Include="コード\03.サウンド\ESoundDeviceType.cs" />

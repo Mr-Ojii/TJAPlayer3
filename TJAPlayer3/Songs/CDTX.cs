@@ -1207,7 +1207,7 @@ namespace TJAPlayer3
 				#region [ 同時発音数を、チャンネルによって変える ]
 
 				int nPoly = nPolyphonicSounds;
-				if (TJAPlayer3.Sound管理.GetCurrentSoundDeviceType() != "DirectSound") // DShowでの再生の場合はミキシング負荷が高くないため、
+				if (TJAPlayer3.Sound管理.GetCurrentSoundDeviceType() != "OpenAL") // DShowでの再生の場合はミキシング負荷が高くないため、
 				{
 					// チップのライフタイム管理を行わない
 					if (cwav.bIsBassSound) nPoly = (nPolyphonicSounds >= 2) ? 2 : 1;
@@ -1425,7 +1425,6 @@ namespace TJAPlayer3
 					CSound sound = wc.rSound[index];
 					if (sound != null)
 					{
-						sound.db周波数倍率 = 1.0;
 						sound.db再生速度 = ((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0;
 						// 再生速度によって、WASAPI/ASIOで使う使用mixerが決まるため、付随情報の設定(音量/PAN)は、再生速度の設定後に行う
 
@@ -6825,7 +6824,7 @@ namespace TJAPlayer3
 		/// </summary>
 		public void PlanToAddMixerChannel()
 		{
-			if (TJAPlayer3.Sound管理.GetCurrentSoundDeviceType() == "DirectSound") // DShowでの再生の場合はミキシング負荷が高くないため、
+			if (TJAPlayer3.Sound管理.GetCurrentSoundDeviceType() == "OpenAL") // DShowでの再生の場合はミキシング負荷が高くないため、
 			{                                                                       // チップのライフタイム管理を行わない
 				return;
 			}

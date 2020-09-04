@@ -9,7 +9,7 @@ namespace FDK
 		ExclusiveWASAPI,
 		SharedWASAPI,
 		ASIO,
-		DirectSound,
+		OpenAL,
 		Unknown,
 	}
 }

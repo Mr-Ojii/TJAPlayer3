@@ -1917,7 +1917,7 @@ namespace TJAPlayer3
 				//pChip.bHit = true;
 				//this.actPlayInfo.n小節番号 = n小節番号plus1 - 1;
 				//this.actPlayInfo.n小節番号++;
-				if ( configIni.bWave再生位置自動調整機能有効 && ( bIsDirectSound || bUseOSTimer ) )
+				if ( configIni.bWave再生位置自動調整機能有効 && ( bIsOpenAL || bUseOSTimer ) )
 				{
 					dTX.tWave再生位置自動補正();
 				}

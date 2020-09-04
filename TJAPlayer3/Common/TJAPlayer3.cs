@@ -1161,7 +1161,7 @@ for (int i = 0; i < 3; i++) {
 #if !GPUFlushAfterPresent
 			actFlushGPU?.On進行描画();      // Flush GPU	// EndScene()～Present()間 (つまりVSync前) でFlush実行
 #endif
-			if (Sound管理?.GetCurrentSoundDeviceType() != "DirectSound")
+			if (Sound管理?.GetCurrentSoundDeviceType() != "OpenAL")
 			{
 				Sound管理?.t再生中の処理をする();  // サウンドバッファの更新; 画面描画と同期させることで、スクロールをスムーズにする
 			}
@@ -1765,7 +1765,7 @@ for (int i = 0; i < 3; i++) {
 				switch (TJAPlayer3.ConfigIni.nSoundDeviceType)
 				{
 					case 0:
-						soundDeviceType = ESoundDeviceType.DirectSound;
+						soundDeviceType = ESoundDeviceType.OpenAL;
 						break;
 					case 1:
 						soundDeviceType = ESoundDeviceType.ASIO;
@@ -1921,7 +1921,7 @@ for (int i = 0; i < 3; i++) {
 		public void ShowWindowTitleWithSoundType()
 		{
 			string delay = "";
-			if (Sound管理.GetCurrentSoundDeviceType() != "DirectSound")
+			if (Sound管理.GetCurrentSoundDeviceType() != "OpenAL")
 			{
 				delay = "(" + Sound管理.GetSoundDelay() + "ms)";
 			}
@@ -2039,22 +2039,22 @@ for (int i = 0; i < 3; i++) {
 				}
 				//---------------------
 				#endregion
-				#region [ DirectSoundの終了処理 ]
+				#region [ OpenALの終了処理 ]
 				//---------------------
 				if (Sound管理 != null)
 				{
-					Trace.TraceInformation( "DirectSound の終了処理を行います。" );
+					Trace.TraceInformation( "OpenAL の終了処理を行います。" );
 					Trace.Indent();
 					try
 					{
 						Sound管理.Dispose();
 						Sound管理 = null;
-						Trace.TraceInformation( "DirectSound の終了処理を完了しました。" );
+						Trace.TraceInformation( "OpenAL の終了処理を完了しました。" );
 					}
 					catch( Exception exception3 )
 					{
 						Trace.TraceError( exception3.ToString() );
-						Trace.TraceError( "DirectSound の終了処理に失敗しました。" );
+						Trace.TraceError( "OpenAL の終了処理に失敗しました。" );
 					}
 					finally
 					{

@@ -53,9 +53,9 @@ namespace FDK
 						}
 					}
 				}
-				else if( this.Device.e出力デバイス == ESoundDeviceType.DirectSound )
+				else if( this.Device.e出力デバイス == ESoundDeviceType.OpenAL )
 				{
-					//return this.Device.n経過時間ms;		// #24820 2013.2.3 yyagi TESTCODE DirectSoundでスクロールが滑らかにならないため、
+					//return this.Device.n経過時間ms;		// #24820 2013.2.3 yyagi TESTCODE OpenALでスクロールが滑らかにならないため、
 					return ct.nシステム時刻ms;				// 仮にCSoundTimerをCTimer相当の動作にしてみた
 				}
 				return CTimerBase.n未使用;
@@ -66,13 +66,13 @@ namespace FDK
 		{
 			this.Device = device;
 
-			if ( this.Device.e出力デバイス != ESoundDeviceType.DirectSound )
+			if ( this.Device.e出力デバイス != ESoundDeviceType.OpenAL )
 			{
 				TimerCallback timerDelegate = new TimerCallback( SnapTimers );	// CSoundTimerをシステム時刻に変換するために、
 				timer = new Timer( timerDelegate, null, 0, 1000 );				// CSoundTimerとCTimerを両方とも走らせておき、
 				ctDInputTimer = new CTimer( CTimer.E種別.MultiMedia );			// 1秒に1回時差を測定するようにしておく
 			}
-			else																// TESTCODE DirectSound時のみ、CSoundTimerでなくCTimerを使う
+			else																// TESTCODE OpenAL時のみ、CSoundTimerでなくCTimerを使う
 			{
 			    ct = new CTimer( CTimer.E種別.MultiMedia );
 			}
@@ -80,7 +80,7 @@ namespace FDK
 	
 		private void SnapTimers(object o)	// 1秒に1回呼び出され、2つのタイマー間の現在値をそれぞれ保持する。
 		{
-			if ( this.Device.e出力デバイス != ESoundDeviceType.DirectSound )
+			if ( this.Device.e出力デバイス != ESoundDeviceType.OpenAL )
 			{
 				try
 				{
