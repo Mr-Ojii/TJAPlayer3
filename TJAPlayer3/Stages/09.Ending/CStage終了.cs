@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
-using DirectShowLib;
 using SharpDX.Direct3D9;
 using FDK;
 using SharpDX;

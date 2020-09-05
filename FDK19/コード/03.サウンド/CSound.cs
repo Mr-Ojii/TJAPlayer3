@@ -817,30 +817,7 @@ namespace FDK
 		{
 			this.e作成方法 = E作成方法.ファイルから;
 			this.strファイル名 = strファイル名;
-			try
-			{
-				this.e作成方法 = E作成方法.ファイルから;
-				this.strファイル名 = strファイル名;
-
-				int nPCMデータの先頭インデックス = 0;
-				//			int nPCMサイズbyte = (int) ( xa.xaheader.nSamples * xa.xaheader.nChannels * 2 );	// nBytes = Bass.BASS_ChannelGetLength( this.hBassStream );
-
-				int nPCMサイズbyte;
-				CWin32.WAVEFORMATEX cw32wfx;
-				tオンメモリ方式でデコードする(strファイル名, out this.byArrWAVファイルイメージ,
-				out nPCMデータの先頭インデックス, out nPCMサイズbyte, out cw32wfx, false);
-
-				// セカンダリバッファを作成し、PCMデータを書き込む。
-				tOpenALサウンドを作成する_セカンダリバッファの作成とWAVデータ書き込み
-					(ref this.byArrWAVファイルイメージ, cw32wfx, nPCMサイズbyte, nPCMデータの先頭インデックス);
-				return;
-			}
-			catch (Exception e)
-			{
-				string s = Path.GetFileName(strファイル名);
-				Trace.TraceWarning($"Failed to create OpenAL buffer by using libav({s}: {e.Message})");
-			}
-			// すべてのファイルを DirectShow でデコードすると時間がかかるので、ファイルが WAV かつ PCM フォーマットでない場合のみ DirectShow でデコードする。
+			// すべてのファイルを FFmpeg でデコードすると時間がかかるので、ファイルが WAV かつ PCM フォーマットでない場合のみ FFmpeg でデコードする。
 
 			byte[] byArrWAVファイルイメージ = null;
 			bool bファイルがWAVかつPCMフォーマットである = true;
@@ -889,11 +866,29 @@ namespace FDK
 				}
 				else
 				{
-					#region [ DirectShow でデコード変換し、 byArrWAVファイルイメージへ格納。]
-					//-----------------
-					CDStoWAVFileImage.t変換(strファイル名, out byArrWAVファイルイメージ);
-					//-----------------
-					#endregion
+					try
+					{
+						this.e作成方法 = E作成方法.ファイルから;
+						this.strファイル名 = strファイル名;
+
+						int nPCMデータの先頭インデックス = 0;
+						//			int nPCMサイズbyte = (int) ( xa.xaheader.nSamples * xa.xaheader.nChannels * 2 );	// nBytes = Bass.BASS_ChannelGetLength( this.hBassStream );
+
+						int nPCMサイズbyte;
+						CWin32.WAVEFORMATEX cw32wfx;
+						tオンメモリ方式でデコードする(strファイル名, out this.byArrWAVファイルイメージ,
+						out nPCMデータの先頭インデックス, out nPCMサイズbyte, out cw32wfx, false);
+
+						// セカンダリバッファを作成し、PCMデータを書き込む。
+						tOpenALサウンドを作成する_セカンダリバッファの作成とWAVデータ書き込み
+							(ref this.byArrWAVファイルイメージ, cw32wfx, nPCMサイズbyte, nPCMデータの先頭インデックス);
+						return;
+					}
+					catch (Exception e)
+					{
+						string s = Path.GetFileName(strファイル名);
+						Trace.TraceWarning($"Failed to create OpenAL buffer by using libav({s}: {e.Message})");
+					}
 				}
 			}
 
@@ -1630,7 +1625,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 			switch ( Path.GetExtension( strファイル名 ).ToLower() )
 			{
 				case ".wav":
-					if ( tRIFFchunkedVorbisならDirectShowでDecodeする( strファイル名, ref byArrWAVファイルイメージ ) )
+					if ( tRIFFchunkedVorbisならFFmpegでDecodeする( strファイル名, ref byArrWAVファイルイメージ ) )
 					{
 						tBASSサウンドを作成する( byArrWAVファイルイメージ, hMixer, flags );
 						return;
@@ -1687,11 +1682,11 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 		/// <param name="strファイル名">wave filename</param>
 		/// <param name="byArrWAVファイルイメージ">wav file image</param>
 		/// <returns></returns>
-		private bool tRIFFchunkedVorbisならDirectShowでDecodeする( string strファイル名, ref byte[] byArrWAVファイルイメージ )
+		private bool tRIFFchunkedVorbisならFFmpegでDecodeする( string strファイル名, ref byte[] byArrWAVファイルイメージ )
 		{
 			bool bファイルにVorbisコンテナが含まれている = false;
 
-			#region [ ファイルがWAVかつ、Vorbisコンテナが含まれているかを調べ、それに該当するなら、DirectShowでデコードする。]
+			#region [ ファイルがWAVかつ、Vorbisコンテナが含まれているかを調べ、それに該当するなら、FFmpegでデコードする。]
 			//-----------------
 			try
 			{
@@ -1704,7 +1699,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 						Trace.TraceInformation( Path.GetFileName( strファイル名 ) + ": RIFF chunked Vorbis. Decode to raw Wave first, to avoid BASS.DLL troubles" );
 						try
 						{
-							CDStoWAVFileImage.t変換( strファイル名, out byArrWAVファイルイメージ );
+							tオンメモリ方式でデコードする(strファイル名, out byArrWAVファイルイメージ, out _, out _, out _, true);
 							bファイルにVorbisコンテナが含まれている = true;
 						}
 						catch

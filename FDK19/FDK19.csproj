@@ -164,7 +164,6 @@
     <Compile Include="コード\00.共通\CWin32.cs" />
     <Compile Include="コード\00.共通\C変換.cs" />
     <Compile Include="コード\05.DirectShow\CDirectShow.cs" />
-    <Compile Include="コード\05.DirectShow\CDStoWAVFileImage.cs" />
     <Compile Include="コード\05.DirectShow\MemoryRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
