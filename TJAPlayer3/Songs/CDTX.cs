@@ -100,24 +100,10 @@ namespace TJAPlayer3
 		{
 			public int nAVI番号;
 			public int n移動時間ct;
-			public int n番号;
-			public Point pt動画側開始位置 = new Point(0, 0);
-			public Point pt動画側終了位置 = new Point(0, 0);
-			public Point pt表示側開始位置 = new Point(0, 0);
-			public Point pt表示側終了位置 = new Point(0, 0);
-			public Size sz開始サイズ = new Size(0, 0);
-			public Size sz終了サイズ = new Size(0, 0);
 
 			public override string ToString()
 			{
-				return string.Format("CAVIPAN{0}: AVI:{14}, 開始サイズ:{1}x{2}, 終了サイズ:{3}x{4}, 動画側開始位置:{5}x{6}, 動画側終了位置:{7}x{8}, 表示側開始位置:{9}x{10}, 表示側終了位置:{11}x{12}, 移動時間:{13}ct",
-					CDTX.tZZ(this.n番号),
-					this.sz開始サイズ.Width, this.sz開始サイズ.Height,
-					this.sz終了サイズ.Width, this.sz終了サイズ.Height,
-					this.pt動画側開始位置.X, this.pt動画側開始位置.Y,
-					this.pt動画側終了位置.X, this.pt動画側終了位置.Y,
-					this.pt表示側開始位置.X, this.pt表示側開始位置.Y,
-					this.pt表示側終了位置.X, this.pt表示側終了位置.Y,
+				return string.Format("AVI:{1}, 移動時間:{0}ct",
 					this.n移動時間ct,
 					CDTX.tZZ(this.nAVI番号));
 			}
