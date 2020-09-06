@@ -151,9 +151,6 @@ namespace FDK
 
 		// メソッド
 
-		public CDirectShow()
-		{
-		}
 		public CDirectShow( string fileName, IntPtr hWnd, bool bオーディオレンダラなし )
 		{
 			// 初期化。

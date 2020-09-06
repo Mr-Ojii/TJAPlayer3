@@ -164,7 +164,6 @@ namespace TJAPlayer3
 	{
 		Unknown,
 		AVI,
-		AVIPAN
 	}
 	internal enum EFIFOモード
 	{

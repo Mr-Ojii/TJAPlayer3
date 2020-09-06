@@ -25,7 +25,6 @@ namespace TJAPlayer3
 			public CAvi avi;
 			private bool bDispose済み;
 			public int n番号;
-			public string strコメント文 = "";
 			public string strファイル名 = "";
 
 			public void OnDeviceCreated()
@@ -42,7 +41,7 @@ namespace TJAPlayer3
 
 				if (!File.Exists(strAVIファイル名))
 				{
-					Trace.TraceWarning("ファイルが存在しません。({0})({1})", this.strコメント文, strAVIファイル名);
+					Trace.TraceWarning("ファイルが存在しません。({0})", strAVIファイル名);
 					this.avi = null;
 					return;
 				}
@@ -52,18 +51,18 @@ namespace TJAPlayer3
 				try
 				{
 					this.avi = new CAvi(strAVIファイル名);
-					Trace.TraceInformation("動画を生成しました。({0})({1})({2}frames)", this.strコメント文, strAVIファイル名, this.avi.GetMaxFrameCount());
+					Trace.TraceInformation("動画を生成しました。({0})({1}frames)", strAVIファイル名, this.avi.GetMaxFrameCount());
 				}
 				catch (Exception e)
 				{
 					Trace.TraceError(e.ToString());
-					Trace.TraceError("動画の生成に失敗しました。({0})({1})", this.strコメント文, strAVIファイル名);
+					Trace.TraceError("動画の生成に失敗しました。({0})", strAVIファイル名);
 					this.avi = null;
 				}
 			}
 			public override string ToString()
 			{
-				return string.Format("CAVI{0}: File:{1}, Comment:{2}", CDTX.tZZ(this.n番号), this.strファイル名, this.strコメント文);
+				return string.Format("CAVI{0}: File:{1}", CDTX.tZZ(this.n番号), this.strファイル名);
 			}
 
 			#region [ IDisposable 実装 ]
@@ -88,7 +87,7 @@ namespace TJAPlayer3
 					this.avi.Dispose();
 					this.avi = null;
 
-					Trace.TraceInformation("動画を解放しました。({0})({1})", this.strコメント文, strAVIファイル名);
+					Trace.TraceInformation("動画を解放しました。({0})", strAVIファイル名);
 				}
 
 				this.bDispose済み = true;
@@ -96,24 +95,11 @@ namespace TJAPlayer3
 			//-----------------
 			#endregion
 		}
-		public class CAVIPAN
-		{
-			public int nAVI番号;
-			public int n移動時間ct;
-
-			public override string ToString()
-			{
-				return string.Format("AVI:{1}, 移動時間:{0}ct",
-					this.n移動時間ct,
-					CDTX.tZZ(this.nAVI番号));
-			}
-		}
 		public class CDirectShow : IDisposable
 		{
 			public FDK.CDirectShow dshow;
 			private bool bDispose済み;
 			public int n番号;
-			public string strコメント文 = "";
 			public string strファイル名 = "";
 
 			public void OnDeviceCreated()
@@ -130,7 +116,7 @@ namespace TJAPlayer3
 
 				if (!File.Exists(str動画ファイル名))
 				{
-					Trace.TraceWarning("ファイルが存在しません。({0})({1})", this.strコメント文, str動画ファイル名);
+					Trace.TraceWarning("ファイルが存在しません。({0})", str動画ファイル名);
 					this.dshow = null;
 				}
 
@@ -139,18 +125,18 @@ namespace TJAPlayer3
 				try
 				{
 					this.dshow = new FDK.CDirectShow(TJAPlayer3.stage選曲.r確定されたスコア.ファイル情報.フォルダの絶対パス + this.strファイル名, TJAPlayer3.app.WindowHandle, true);
-					Trace.TraceInformation("DirectShowを生成しました。({0})({1})({2}byte)", this.strコメント文, str動画ファイル名, this.dshow.nデータサイズbyte);
+					Trace.TraceInformation("DirectShowを生成しました。({0})({1}byte)", str動画ファイル名, this.dshow.nデータサイズbyte);
 				}
 				catch (Exception e)
 				{
 					Trace.TraceError(e.ToString());
-					Trace.TraceError("DirectShowの生成に失敗しました。({0})({1})", this.strコメント文, str動画ファイル名);
+					Trace.TraceError("DirectShowの生成に失敗しました。({0})", str動画ファイル名);
 					this.dshow = null;
 				}
 			}
 			public override string ToString()
 			{
-				return string.Format("CAVI{0}: File:{1}, Comment:{2}", CDTX.tZZ(this.n番号), this.strファイル名, this.strコメント文);
+				return string.Format("CAVI{0}: File:{1}", CDTX.tZZ(this.n番号), this.strファイル名);
 			}
 
 			#region [ IDisposable 実装 ]
@@ -175,7 +161,7 @@ namespace TJAPlayer3
 					this.dshow.Dispose();
 					this.dshow = null;
 
-					Trace.TraceInformation("動画を解放しました。({0})({1})", this.strコメント文, str動画ファイル名);
+					Trace.TraceInformation("動画を解放しました。({0})", str動画ファイル名);
 				}
 
 				this.bDispose済み = true;
@@ -365,7 +351,6 @@ namespace TJAPlayer3
 			public int n連打音符State;
 			public int nLag;                // 2011.2.1 yyagi
 			public CDTX.CAVI rAVI;
-			public CDTX.CAVIPAN rAVIPan;
 			public CDTX.CDirectShow rDShow;
 			public int nPlayerSide;
 			public bool bGOGOTIME = false; //2018.03.11 k1airera0467 ゴーゴータイム内のチップであるか
@@ -413,7 +398,6 @@ namespace TJAPlayer3
 				this.nバーからの距離dot.Drums = 0;
 				this.nバーからの距離dot.Taiko = 0;
 				this.nバーからのノーツ末端距離dot = 0;
-				this.n総移動時間 = 0;
 				this.dbBPM = 120.0;
 				this.fNow_Measure_m = 4.0f; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
 				this.fNow_Measure_s = 4.0f; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
@@ -858,7 +842,6 @@ namespace TJAPlayer3
 		public bool HIDDENLEVEL;
 		public int[] LEVELtaiko = new int[(int)Difficulty.Total] { -1, -1, -1, -1, -1, -1, -1 };
 		public Dictionary<int, CAVI> listAVI;
-		public Dictionary<int, CAVIPAN> listAVIPAN;
 		public Dictionary<int, CDirectShow> listDS;
 		public Dictionary<int, CBPM> listBPM;
 		public List<CChip> listChip;
@@ -1091,19 +1074,6 @@ namespace TJAPlayer3
 						chip.eAVI種別 = EAVI種別.Unknown;
 						chip.rAVI = null;
 						chip.rDShow = null;
-						chip.rAVIPan = null;
-						if (this.listAVIPAN.TryGetValue(chip.n整数値, out CAVIPAN cavipan))
-						{
-							if (this.listAVI.TryGetValue(cavipan.nAVI番号, out CAVI cavi) && (cavi.avi != null))
-							{
-								chip.eAVI種別 = EAVI種別.AVIPAN;
-								chip.rAVI = cavi;
-								//if( CDTXMania.ConfigIni.bDirectShowMode == true )
-								chip.rDShow = this.listDS[cavipan.nAVI番号];
-								chip.rAVIPan = cavipan;
-								continue;
-							}
-						}
 
 						CDirectShow ds = null;
 						if (this.listAVI.TryGetValue(chip.n整数値, out CAVI cavi2) && (cavi2.avi != null) || (this.listDS.TryGetValue(chip.n整数値, out ds) && (ds.dshow != null)))
@@ -1989,12 +1959,6 @@ namespace TJAPlayer3
 									chip.n発声時刻ms += this.nMOVIEOFFSET;
 								else
 									chip.n発声時刻ms -= this.nMOVIEOFFSET;
-								if (this.listAVIPAN.TryGetValue(chip.n整数値, out CAVIPAN cavipan))
-								{
-									int num21 = ms + ((int)(((0x271 * (chip.n発声位置 - n発声位置)) * this.dbBarLength) / bpm));
-									int num22 = ms + ((int)(((0x271 * ((chip.n発声位置 + cavipan.n移動時間ct) - n発声位置)) * this.dbBarLength) / bpm));
-									chip.n総移動時間 = num22 - num21;
-								}
 								continue;
 							}
 						case 0x97:
@@ -2965,7 +2929,6 @@ namespace TJAPlayer3
 					{
 						n番号 = 1,
 						strファイル名 = this.strBGVIDEO_PATH,
-						strコメント文 = "BGMOVIE命令",
 					};
 
 					if (this.listAVI.ContainsKey(1))    // 既にリスト中に存在しているなら削除。後のものが有効。
@@ -2977,7 +2940,6 @@ namespace TJAPlayer3
 					{
 						n番号 = 1,
 						strファイル名 = this.strBGVIDEO_PATH,
-						strコメント文 = "BGMOVIE命令",
 					};
 
 					if (this.listDS.ContainsKey(1)) // 既にリスト中に存在しているなら削除。後のものが有効。
@@ -5943,7 +5905,6 @@ namespace TJAPlayer3
 				{
 					n番号 = 1,
 					strファイル名 = this.strBGVIDEO_PATH,
-					strコメント文 = "BGMOVIE命令",
 				};
 
 				if (this.listAVI.ContainsKey(1))	// 既にリスト中に存在しているなら削除。後のものが有効。
@@ -5955,7 +5916,6 @@ namespace TJAPlayer3
 				{
 					n番号 = 1,
 					strファイル名 = this.strBGVIDEO_PATH,
-					strコメント文 = "BGMOVIE命令",
 				};
 
 				if (this.listDS.ContainsKey(1))	// 既にリスト中に存在しているなら削除。後のものが有効。
@@ -7076,7 +7036,6 @@ namespace TJAPlayer3
 			this.listDELAY = new Dictionary<int, CDELAY>();
 			this.listBRANCH = new Dictionary<int, CBRANCH>();
 			this.listAVI = new Dictionary<int, CAVI>();
-			this.listAVIPAN = new Dictionary<int, CAVIPAN>();
 			this.listDS = new Dictionary<int, CDirectShow>();
 			this.listChip = new List<CChip>();
 			this.listBalloon_Normal = new List<int>();
@@ -7105,11 +7064,6 @@ namespace TJAPlayer3
 					cavi.Dispose();
 				}
 				this.listAVI = null;
-			}
-			if (this.listAVIPAN != null)
-			{
-				this.listAVIPAN.Clear();
-				this.listAVIPAN = null;
 			}
 			if (this.listDS != null)
 			{

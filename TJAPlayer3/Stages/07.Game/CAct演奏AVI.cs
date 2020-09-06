@@ -266,8 +266,6 @@ namespace TJAPlayer3
 				Size szフレーム幅 = new Size( nフレーム幅, nフレーム高さ );
 				Size sz最大フレーム幅 = new Size( 1280, 720 );
 				Size size3 = new Size( this.n開始サイズW, this.n開始サイズH );
-				Point location = new Point( 0, 0 );
-				Point point3 = new Point( 0, 0 );
 				long num3 = this.n総移動時間ms;
 				long num4 = this.n移動開始時刻ms;
 				if ( CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0) < num4 )
@@ -277,14 +275,14 @@ namespace TJAPlayer3
 				time = (int)(((CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) - num4));
 				if ( num3 == 0 )
 				{
-					rectangle = new Rectangle( location, size3 );
-					rectangle2 = new Rectangle( point3, size3 );
+					rectangle = new Rectangle(0, 0, size3.Width, size3.Height);
+					rectangle2 = new Rectangle(0, 0, size3.Width, size3.Height);
 				}
 				else
 				{
 					double num5 = ( (double) time ) / ( (double) num3 );
 					Size size5 = new Size( size3.Width + ( (int) ( ( - size3.Width ) * num5 ) ), size3.Height + ( (int) ( ( - size3.Height ) * num5 ) ) );
-					rectangle = new Rectangle( (int) ( ( - location.X ) * num5 ), (int) ( ( - location.Y ) * num5 ), ( (int) ( (  - location.X ) * num5 ) ) + size5.Width, ( (int) ( ( - location.Y ) * num5 ) ) + size5.Height );
+					rectangle = new Rectangle(0, 0, size5.Width, size5.Height);
 					rectangle2 = new Rectangle(0, 0, size5.Width, size5.Height);
 					if ( ( ( rectangle.Right <= 0 ) || ( rectangle.Bottom <= 0 ) ) || ( ( rectangle.Left >= szフレーム幅.Width ) || ( rectangle.Top >= szフレーム幅.Height ) ) )
 					{
