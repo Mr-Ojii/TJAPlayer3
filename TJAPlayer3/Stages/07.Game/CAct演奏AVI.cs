@@ -25,7 +25,7 @@ namespace TJAPlayer3
 
 		// メソッド
 
-		public void Start( int nチャンネル番号, CDTX.CAVI rAVI, CDTX.CDirectShow dsBGV, int n開始サイズW, int n開始サイズH, int n終了サイズW, int n終了サイズH, int n画像側開始位置X, int n画像側開始位置Y, int n画像側終了位置X, int n画像側終了位置Y, int n表示側開始位置X, int n表示側開始位置Y, int n表示側終了位置X, int n表示側終了位置Y, int n総移動時間ms, int n移動開始時刻ms )
+		public void Start( int nチャンネル番号, CDTX.CAVI rAVI, CDTX.CDirectShow dsBGV, int n開始サイズW, int n開始サイズH, int n移動開始時刻ms )
 		{
 			if ( ( nチャンネル番号 == 0x54 || nチャンネル番号 == 0x5A ) && TJAPlayer3.ConfigIni.bAVI有効 )
 			{
@@ -44,17 +44,7 @@ namespace TJAPlayer3
 						#region[ 旧規格クリップ時の処理。結果的には面倒な処理なんだよな____ ]
 						this.n開始サイズW = n開始サイズW;
 						this.n開始サイズH = n開始サイズH;
-						this.n終了サイズW = n終了サイズW;
-						this.n終了サイズH = n終了サイズH;
-						this.n画像側開始位置X = n画像側開始位置X;
-						this.n画像側開始位置Y = n画像側開始位置Y;
-						this.n画像側終了位置X = n画像側終了位置X;
-						this.n画像側終了位置Y = n画像側終了位置Y;
-						this.n表示側開始位置X = n表示側開始位置X;
-						this.n表示側開始位置Y = n表示側開始位置Y;
-						this.n表示側終了位置X = n表示側終了位置X;
-						this.n表示側終了位置Y = n表示側終了位置Y;
-						this.n総移動時間ms = n総移動時間ms;
+						this.n総移動時間ms = 0;
 						this.n移動開始時刻ms = (n移動開始時刻ms != -1) ? n移動開始時刻ms : (long)(CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 						this.n前回表示したフレーム番号 = -1;
 
@@ -161,7 +151,7 @@ namespace TJAPlayer3
 						{
 							if ( chip.rAVI != null )
 							{
-								this.Start( chip.nチャンネル番号, chip.rAVI, chip.rDShow, 1280, 720, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, chip.n発声時刻ms );
+								this.Start( chip.nチャンネル番号, chip.rAVI, chip.rDShow, 1280, 720, chip.n発声時刻ms );
 							}
 							continue;
 						}
@@ -276,11 +266,8 @@ namespace TJAPlayer3
 				Size szフレーム幅 = new Size( nフレーム幅, nフレーム高さ );
 				Size sz最大フレーム幅 = new Size( 1280, 720 );
 				Size size3 = new Size( this.n開始サイズW, this.n開始サイズH );
-				Size size4 = new Size( this.n終了サイズW, this.n終了サイズH );
-				Point location = new Point( this.n画像側開始位置X, this.n画像側終了位置Y );
-				Point point2 = new Point( this.n画像側終了位置X, this.n画像側終了位置Y );
-				Point point3 = new Point( this.n表示側開始位置X, this.n表示側開始位置Y );
-				Point point4 = new Point( this.n表示側終了位置X, this.n表示側終了位置Y );
+				Point location = new Point( 0, 0 );
+				Point point3 = new Point( 0, 0 );
 				long num3 = this.n総移動時間ms;
 				long num4 = this.n移動開始時刻ms;
 				if ( CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0) < num4 )
@@ -296,9 +283,9 @@ namespace TJAPlayer3
 				else
 				{
 					double num5 = ( (double) time ) / ( (double) num3 );
-					Size size5 = new Size( size3.Width + ( (int) ( ( size4.Width - size3.Width ) * num5 ) ), size3.Height + ( (int) ( ( size4.Height - size3.Height ) * num5 ) ) );
-					rectangle = new Rectangle( (int) ( ( point2.X - location.X ) * num5 ), (int) ( ( point2.Y - location.Y ) * num5 ), ( (int) ( ( point2.X - location.X ) * num5 ) ) + size5.Width, ( (int) ( ( point2.Y - location.Y ) * num5 ) ) + size5.Height );
-					rectangle2 = new Rectangle( (int) ( ( point4.X - point3.X ) * num5 ), (int) ( ( point4.Y - point3.Y ) * num5 ), ( (int) ( ( point4.X - point3.X ) * num5 ) ) + size5.Width, ( (int) ( ( point4.Y - point3.Y ) * num5 ) ) + size5.Height );
+					Size size5 = new Size( size3.Width + ( (int) ( ( - size3.Width ) * num5 ) ), size3.Height + ( (int) ( ( - size3.Height ) * num5 ) ) );
+					rectangle = new Rectangle( (int) ( ( - location.X ) * num5 ), (int) ( ( - location.Y ) * num5 ), ( (int) ( (  - location.X ) * num5 ) ) + size5.Width, ( (int) ( ( - location.Y ) * num5 ) ) + size5.Height );
+					rectangle2 = new Rectangle(0, 0, size5.Width, size5.Height);
 					if ( ( ( rectangle.Right <= 0 ) || ( rectangle.Bottom <= 0 ) ) || ( ( rectangle.Left >= szフレーム幅.Width ) || ( rectangle.Top >= szフレーム幅.Height ) ) )
 					{
 						return 0;
@@ -526,12 +513,9 @@ namespace TJAPlayer3
 		{
 			if ( !base.b活性化してない )
 			{
-#if TEST_Direct3D9Ex
-				this.tx描画用 = new CTexture( CDTXMania.app.Device, 320, 355, CDTXMania.app.GraphicsDeviceManager.CurrentSettings.BackBufferFormat, Pool.Default, Usage.Dynamic );
-#else
 				this.tx描画用 = new CTexture( TJAPlayer3.app.Device, 1280, 720, TJAPlayer3.app.GraphicsDeviceManager.CurrentSettings.BackBufferFormat, Pool.Managed );
 				this.tx窓描画用 = new CTexture( TJAPlayer3.app.Device, 1280, 720, TJAPlayer3.app.GraphicsDeviceManager.CurrentSettings.BackBufferFormat, Pool.Managed );
-#endif
+
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -564,20 +548,10 @@ namespace TJAPlayer3
 		//-----------------
 		private bool bフレームを作成した;
 		private long n移動開始時刻ms;
-		private int n画像側開始位置X;
-		private int n画像側開始位置Y;
-		private int n画像側終了位置X;
-		private int n画像側終了位置Y;
 		private int n開始サイズH;
 		private int n開始サイズW;
-		private int n終了サイズH;
-		private int n終了サイズW;
 		private int n前回表示したフレーム番号;
 		private int n総移動時間ms;
-		private int n表示側開始位置X;
-		private int n表示側開始位置Y;
-		private int n表示側終了位置X;
-		private int n表示側終了位置Y;
 
 		public float fAVIアスペクト比;
 		private uint frameheight;

@@ -276,9 +276,7 @@ namespace FDK
 
 				if( bオーディオレンダラなし )
 				{
-					WaveFormat dummy1;
-					byte[] dummy2;
-					CDirectShow.tオーディオレンダラをNullレンダラに変えてフォーマットを取得する( this.graphBuilder, out dummy1, out dummy2 );
+					CDirectShow.tオーディオレンダラをNullレンダラに変えてフォーマットを取得する( this.graphBuilder, out WaveFormat _, out byte[] _ );
 				}
 
 

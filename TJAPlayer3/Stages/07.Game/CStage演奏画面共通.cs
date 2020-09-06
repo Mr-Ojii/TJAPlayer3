@@ -3216,13 +3216,13 @@ namespace TJAPlayer3
 									case EAVI種別.AVI:
 										if ( pChip.rAVI != null )
 										{
-											this.actAVI.Start( pChip.nチャンネル番号, pChip.rAVI, pChip.rDShow, 278, 355, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, pChip.n発声時刻ms );
+											this.actAVI.Start( pChip.nチャンネル番号, pChip.rAVI, pChip.rDShow, 278, 355, pChip.n発声時刻ms );
 										}
 										break;
 									case EAVI種別.Unknown:
 										if ( pChip.rAVI != null || pChip.rDShow != null )
 										{
-											this.actAVI.Start( pChip.nチャンネル番号, pChip.rAVI, pChip.rDShow, 278, 355, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, pChip.n発声時刻ms );
+											this.actAVI.Start( pChip.nチャンネル番号, pChip.rAVI, pChip.rDShow, 278, 355, pChip.n発声時刻ms );
 										}
 										break;
 								}
