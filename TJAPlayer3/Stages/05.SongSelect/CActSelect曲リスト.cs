@@ -2345,7 +2345,7 @@ namespace TJAPlayer3
 		}
 		private void tジャンル別選択されていない曲バーの描画(int x, int y, int nジャンル,Eバー種別 Eバー,C曲リストノード.Eノード種別 Eノード)
 		{
-			if (x >= SampleFramework.GameWindowSize.Width || y >= SampleFramework.GameWindowSize.Height)
+			if (x >= GameWindowSize.Width || y >= GameWindowSize.Height)
 				return;
 			const int boxsabun = 10;
 

@@ -937,8 +937,8 @@ namespace TJAPlayer3
 			this.b垂直帰線待ちを行う = true;
 			this.n初期ウィンドウ開始位置X = 0; // #30675 2013.02.04 ikanick add
 			this.n初期ウィンドウ開始位置Y = 0;  
-			this.nウインドウwidth = SampleFramework.GameWindowSize.Width;			// #23510 2010.10.31 yyagi add
-			this.nウインドウheight = SampleFramework.GameWindowSize.Height;			// 
+			this.nウインドウwidth = GameWindowSize.Width;			// #23510 2010.10.31 yyagi add
+			this.nウインドウheight = GameWindowSize.Height;			// 
 			this.nフレーム毎スリープms = -1;			// #xxxxx 2011.11.27 yyagi add
 			this.n非フォーカス時スリープms = 1;			// #23568 2010.11.04 ikanick add
 			this.nBGAlpha = 100;
@@ -1796,7 +1796,7 @@ namespace TJAPlayer3
 												this.nウインドウwidth = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 65535, this.nウインドウwidth );
 												if( this.nウインドウwidth <= 0 )
 												{
-													this.nウインドウwidth = SampleFramework.GameWindowSize.Width;
+													this.nウインドウwidth = GameWindowSize.Width;
 												}
 											}
 											else if( str3.Equals( "WindowHeight" ) )		// #23510 2010.10.31 yyagi add
@@ -1804,7 +1804,7 @@ namespace TJAPlayer3
 												this.nウインドウheight = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 65535, this.nウインドウheight );
 												if( this.nウインドウheight <= 0 )
 												{
-													this.nウインドウheight = SampleFramework.GameWindowSize.Height;
+													this.nウインドウheight = GameWindowSize.Height;
 												}
 											}
 											else if ( str3.Equals( "DoubleClickFullScreen" ) )	// #26752 2011.11.27 yyagi

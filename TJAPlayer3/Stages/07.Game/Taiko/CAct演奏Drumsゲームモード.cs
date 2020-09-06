@@ -449,9 +449,9 @@ namespace TJAPlayer3
 					else
 						TJAPlayer3.Tx.Tile_Black.Opacity = 0;
 
-					for (int i = 0; i <= (SampleFramework.GameWindowSize.Width / 64); i++)
+					for (int i = 0; i <= (GameWindowSize.Width / 64); i++)
 					{
-						for (int j = 0; j <= (SampleFramework.GameWindowSize.Height / 64); j++)
+						for (int j = 0; j <= (GameWindowSize.Height / 64); j++)
 						{
 							TJAPlayer3.Tx.Tile_Black.t2D描画(TJAPlayer3.app.Device, i * 64, j * 64);
 						}

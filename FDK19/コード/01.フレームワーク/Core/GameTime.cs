@@ -20,7 +20,7 @@
 * THE SOFTWARE.
 */
 
-namespace SampleFramework
+namespace FDK
 {
 	/// <summary>
 	/// Contains the current timing state of the game.

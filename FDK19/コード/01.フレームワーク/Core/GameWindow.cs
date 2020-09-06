@@ -29,7 +29,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 
-namespace SampleFramework
+namespace FDK
 {
 	/// <summary>
 	/// Implements a specialized window for games and rendering.
@@ -281,8 +281,8 @@ namespace SampleFramework
 
 		#region #23510 2010.11.14 yyagi add: 縦横比固定でのウインドウサイズ変更 定数定義 from http://www.vcskicks.com/maintain-aspect-ratio.php
 		//double so division keeps decimal points
-		const double widthRatio = SampleFramework.GameWindowSize.Width;
-		const double heightRatio = SampleFramework.GameWindowSize.Height;
+		const double widthRatio = GameWindowSize.Width;
+		const double heightRatio = GameWindowSize.Height;
 		const int WM_SIZING = 0x214;
 		const int WMSZ_LEFT = 1;
 		const int WMSZ_RIGHT = 2;
@@ -403,7 +403,7 @@ namespace SampleFramework
 				#region #23510 2010.11.13 yyagi: reset to 640x480
 				if ((m.WParam.ToInt32() & 0xFFFF) == MENU_VIEW)		
 				{
-					base.ClientSize = new Size(SampleFramework.GameWindowSize.Width, SampleFramework.GameWindowSize.Height);
+					base.ClientSize = new Size(GameWindowSize.Width, GameWindowSize.Height);
 					this.OnResizeEnd(new EventArgs());		// #23510 2010.11.20 yyagi: to set window size to Config.ini
 				}
 				#endregion
@@ -599,7 +599,7 @@ namespace SampleFramework
 			item2.cbSize = (uint)Marshal.SizeOf(item2);
 			item2.fMask = MIIM_STRING | MIIM_ID;
 			item2.wID = MENU_VIEW;
-			item2.dwTypeData = "&" + SampleFramework.GameWindowSize.Width.ToString() + "x" + SampleFramework.GameWindowSize.Height.ToString();
+			item2.dwTypeData = "&" + GameWindowSize.Width.ToString() + "x" + GameWindowSize.Height.ToString();
 			InsertMenuItem(hSysMenu, 6, true, ref item2);
 		}   
 		#endregion

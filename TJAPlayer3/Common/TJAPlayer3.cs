@@ -12,7 +12,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 using SharpDX;
 using SharpDX.Direct3D9;
 using FDK;
-using SampleFramework;
 using System.Reflection;
 
 using Rectangle = System.Drawing.Rectangle;
@@ -461,7 +460,7 @@ namespace TJAPlayer3
 				Cursor.Hide();
 				this.bマウスカーソル表示中 = false;
 			}
-			this.Device.SetTransform(TransformState.View, Matrix.LookAtLH(new Vector3(0f, 0f, (float)(-SampleFramework.GameWindowSize.Height / 2 * Math.Sqrt(3.0))), new Vector3(0f, 0f, 0f), new Vector3(0f, 1f, 0f)));
+			this.Device.SetTransform(TransformState.View, Matrix.LookAtLH(new Vector3(0f, 0f, (float)(-GameWindowSize.Height / 2 * Math.Sqrt(3.0))), new Vector3(0f, 0f, 0f), new Vector3(0f, 1f, 0f)));
 			this.Device.SetTransform(TransformState.Projection, Matrix.PerspectiveFovLH(C変換.DegreeToRadian((float)60f), ((float)this.Device.Viewport.Width) / ((float)this.Device.Viewport.Height), -100f, 100f));
 			this.Device.SetRenderState(RenderState.Lighting, false);
 			this.Device.SetRenderState(RenderState.ZEnable, false);
@@ -1575,8 +1574,8 @@ for (int i = 0; i < 3; i++) {
 #else
 			settings.Windowed = ConfigIni.bウィンドウモード;
 #endif
-			settings.BackBufferWidth = SampleFramework.GameWindowSize.Width;
-			settings.BackBufferHeight = SampleFramework.GameWindowSize.Height;
+			settings.BackBufferWidth = GameWindowSize.Width;
+			settings.BackBufferHeight = GameWindowSize.Height;
 			//			settings.BackBufferCount = 3;
 			settings.EnableVSync = ConfigIni.b垂直帰線待ちを行う;
 			//			settings.BackBufferFormat = Format.A8R8G8B8;

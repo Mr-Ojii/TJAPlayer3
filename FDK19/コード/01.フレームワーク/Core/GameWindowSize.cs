@@ -1,6 +1,6 @@
 using System;
 
-namespace SampleFramework
+namespace FDK
 {
 	public static class GameWindowSize
 	{

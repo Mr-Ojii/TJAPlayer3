@@ -1002,7 +1002,6 @@ namespace FDK
 
 		#region [ private ]
 		//-----------------
-		private int _n音量 = 100;
 #if DEBUG
 		private DsROTEntry rot = null;
 #endif

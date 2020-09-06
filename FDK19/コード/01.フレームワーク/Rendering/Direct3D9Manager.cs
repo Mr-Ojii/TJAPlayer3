@@ -28,7 +28,7 @@ using SharpDX;
 using SharpDX.Direct3D9;
 
 
-namespace SampleFramework
+namespace FDK
 {
 	/// <summary>
 	/// Manages aspects of the graphics device unique to Direct3D9.

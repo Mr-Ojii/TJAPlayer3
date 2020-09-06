@@ -117,7 +117,6 @@
     <Compile Include="コード\01.フレームワーク\Enumeration\Enumeration9.cs" />
     <Compile Include="コード\01.フレームワーク\Rendering\DeviceCreationException.cs" />
     <Compile Include="コード\01.フレームワーク\Rendering\Direct3D9Manager.cs" />
-    <Compile Include="コード\01.フレームワーク\Rendering\Enums.cs" />
     <Compile Include="コード\01.フレームワーク\Rendering\GraphicsDeviceManager.cs" />
     <Compile Include="コード\01.フレームワーク\Rendering\NoCompatibleDevicesException.cs" />
     <Compile Include="コード\01.フレームワーク\Rendering\VertexElementAttribute.cs" />

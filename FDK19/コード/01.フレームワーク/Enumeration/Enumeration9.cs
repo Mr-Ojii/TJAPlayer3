@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using SharpDX.Direct3D9;
 
-namespace SampleFramework
+namespace FDK
 {
 	class AdapterInfo9
 	{

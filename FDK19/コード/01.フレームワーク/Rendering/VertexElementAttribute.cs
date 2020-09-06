@@ -22,7 +22,7 @@
 using System;
 using SharpDX.Direct3D9;
 
-namespace SampleFramework
+namespace FDK
 {
 	/// <summary>
 	/// Indicates that the target code element is part of a vertex declaration.

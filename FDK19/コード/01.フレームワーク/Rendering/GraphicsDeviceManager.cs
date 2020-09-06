@@ -31,7 +31,7 @@ using System.Diagnostics;
 
 using Rectangle = System.Drawing.Rectangle;
 
-namespace SampleFramework
+namespace FDK
 {
 	/// <summary>
 	/// Handles the configuration and management of the graphics device.

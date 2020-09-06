@@ -778,7 +778,7 @@ namespace TJAPlayer3
 
 						Matrix mat = Matrix.Identity;
 						mat *= Matrix.Scaling(f倍率, f倍率, 1.0f);
-						mat *= Matrix.Translation(TJAPlayer3.Skin.nScrollFieldX[i] - SampleFramework.GameWindowSize.Width / 2.0f, -(TJAPlayer3.Skin.nJudgePointY[i] - SampleFramework.GameWindowSize.Height / 2.0f), 0f);
+						mat *= Matrix.Translation(TJAPlayer3.Skin.nScrollFieldX[i] - GameWindowSize.Width / 2.0f, -(TJAPlayer3.Skin.nJudgePointY[i] - GameWindowSize.Height / 2.0f), 0f);
 
 						//this.txゴーゴー炎.b加算合成 = true;
 
