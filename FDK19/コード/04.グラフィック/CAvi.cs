@@ -102,59 +102,6 @@ namespace FDK
 			return AVIStreamLength( this.aviStream );
 		}
 		
-		public unsafe void tBitmap24ToGraphicsStreamR5G6B5( BitmapUtil.BITMAPINFOHEADER* pBITMAPINFOHEADER, DataStream gs, int nWidth, int nHeight )
-		{
-			int nBmpWidth = pBITMAPINFOHEADER->biWidthビットマップの幅dot;
-			int nBmpHeight = pBITMAPINFOHEADER->biHeightビットマップの高さdot;
-			int nBmpLineByte = ( nBmpWidth * 3 ) + ( ( 4 - ( ( nBmpWidth * 3 ) % 4 ) ) % 4 );
-
-			ushort* pTexture = (ushort*) gs.DataPointer.ToPointer();
-			byte* pBitmap = (byte*) ( pBITMAPINFOHEADER + 1 );
-			
-			for( int i = 0; i < nBmpHeight; i++ )
-			{
-				if( i >= nHeight )
-					break;
-
-				for( int j = 0; j < nBmpWidth; j++ )
-				{
-					if( j >= nWidth )
-						break;
-
-					ushort B = (ushort) ( ( *( ( pBitmap + ( ( ( nBmpHeight - i ) - 1 ) * nBmpLineByte ) ) + ( j * 3 ) + 0 ) >> 3 ) & 0x1f );
-					ushort G = (ushort) ( ( *( ( pBitmap + ( ( ( nBmpHeight - i ) - 1 ) * nBmpLineByte ) ) + ( j * 3 ) + 1 ) >> 2 ) & 0x3f );
-					ushort R = (ushort) ( ( *( ( pBitmap + ( ( ( nBmpHeight - i ) - 1 ) * nBmpLineByte ) ) + ( j * 3 ) + 2 ) >> 3 ) & 0x1f );
-					*( pTexture + ( i * nWidth ) + j ) = (ushort) ( ( R << 11 ) | ( G << 5 ) | B );
-				}
-			}
-		}
-		public unsafe void tBitmap24ToGraphicsStreamX8R8G8B8( BitmapUtil.BITMAPINFOHEADER* pBITMAPINFOHEADER, DataStream ds, int nWidth, int nHeight )
-		{
-			int nBmpWidth = pBITMAPINFOHEADER->biWidthビットマップの幅dot;
-			int nBmpHeight = pBITMAPINFOHEADER->biHeightビットマップの高さdot;
-			int nBmpLineByte = ( nBmpWidth * 3 ) + ( ( 4 - ( ( nBmpWidth * 3 ) % 4 ) ) % 4 );
-			
-			uint* pTexture = (uint*) ds.DataPointer.ToPointer();
-			byte* pBitmap = (byte*) ( pBITMAPINFOHEADER + 1 );
-			
-			for( int i = 0; i < nBmpHeight; i++ )
-			{
-				if( i >= nHeight )
-					break;
-
-				for( int j = 0; j < nBmpWidth; j++ )
-				{
-					if( j >= nWidth )
-						break;
-
-					uint B = *( ( pBitmap + ( ( ( nBmpHeight - i ) - 1 ) * nBmpLineByte ) ) + ( j * 3 ) + 0 );
-					uint G = *( ( pBitmap + ( ( ( nBmpHeight - i ) - 1 ) * nBmpLineByte ) ) + ( j * 3 ) + 1 );
-					uint R = *( ( pBitmap + ( ( ( nBmpHeight - i ) - 1 ) * nBmpLineByte ) ) + ( j * 3 ) + 2 );
-					*( pTexture + ( i * nWidth ) + j ) = ( R << 16 ) | ( G << 8 ) | B;
-				}
-			}
-		}
-
 		#region [ Dispose-Finalize パターン実装 ]
 		//-----------------
 		public void Dispose()
