@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FFmpeg.AutoGen;
 using SharpDX.Direct3D9;
+using System.Diagnostics.Eventing.Reader;
 
 namespace FDK
 {
@@ -69,7 +70,7 @@ namespace FDK
 				if (convert_context == null) throw new ApplicationException("Could not initialize the conversion context.");
 				_dstData = new byte_ptrArray4();
 				_dstLinesize = new int_array4();
-				decodedframes = new Queue<Bitmap>();
+				decodedframes = new Queue<CDecodedFrame>();
 			}
 		}
 
@@ -89,18 +90,53 @@ namespace FDK
 			}
 			if (lastTexture != null)
 				lastTexture.Dispose();
+			if (nextTexture != null)
+				nextTexture.Dispose();
+		}
+
+		public void Start()
+		{
+			CTimer.tリセット();
+			CTimer.t再開();
+			this.bPlaying = true;
+		}
+
+		public void Stop() 
+		{
+			CTimer.t一時停止();
+			this.bPlaying = false;
 		}
 
 		public CTexture GetNowFrame(Device device) 
 		{
-			if (decodedframes.Count != 0)
+			if (nextframetime <= CTimer.n現在時刻ms)
 			{
-				if (lastTexture != null)
-					lastTexture.Dispose();
-				Bitmap nowbitmap = decodedframes.Dequeue();
-				EnqueueFrames();
-				lastTexture = new CTexture(device, nowbitmap, Format.A8R8G8B8);
-				return lastTexture;
+				if (decodedframes.Count != 0)
+				{
+					if (lastTexture != null)
+						lastTexture.Dispose();
+					if (nextTexture == null)	
+						nextTexture = new CTexture(device, new Bitmap(1, 1), Format.A8R8G8B8);
+				
+					lastTexture = nextTexture;
+					CDecodedFrame cdecodedframe = decodedframes.Dequeue();
+					Bitmap nowbitmap = cdecodedframe.Bitmap;
+					nextframetime = cdecodedframe.Time;
+					EnqueueFrames();
+					nextTexture = new CTexture(device, nowbitmap, Format.A8R8G8B8);
+					return lastTexture;
+				}
+				else
+                {
+					if (nextTexture != null)
+						lastTexture = nextTexture;
+					if (lastTexture == null)
+					{
+						Bitmap nowbitmap = new Bitmap(1, 1);
+						lastTexture = new CTexture(device, nowbitmap, Format.A8R8G8B8);
+					}
+					return lastTexture;
+				}
 			}
 			else
 			{
@@ -182,7 +218,7 @@ namespace FDK
 				height = FrameSize.Height
 			};
 
-			decodedframes.Enqueue(new Bitmap(outframe.width, outframe.height, outframe.linesize[0], PixelFormat.Format24bppRgb, (IntPtr)outframe.data[0]));
+			decodedframes.Enqueue(new CDecodedFrame { Time = (frame->best_effort_timestamp - video_stream->start_time) * (video_stream->time_base.num / video_stream->time_base.den) * 1000, Bitmap = new Bitmap(outframe.width, outframe.height, outframe.linesize[0], PixelFormat.Format24bppRgb, (IntPtr)outframe.data[0]) });
 
 			ffmpeg.av_frame_unref(&outframe);
 			ffmpeg.av_free(&outframe);
@@ -198,11 +234,17 @@ namespace FDK
 		private AVFrame* received_frame;
 		private AVFrame* frame;
 		private AVPacket* packet;
-		private Queue<Bitmap> decodedframes;
+		private Queue<CDecodedFrame> decodedframes;
 		private Size FrameSize;
 		private AVPixelFormat pixelFormat;
 		private int framecount;
 		private CTexture lastTexture;
+		private CTexture nextTexture;
+		private double nextframetime;
+
+		//for play
+		private bool bPlaying = false;
+		private CTimer CTimer;
 
 		//for convert
 		private SwsContext* convert_context;
