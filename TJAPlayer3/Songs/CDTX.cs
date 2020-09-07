@@ -51,7 +51,7 @@ namespace TJAPlayer3
 				try
 				{
 					this.avi = new CAvi(strAVIファイル名);
-					Trace.TraceInformation("動画を生成しました。({0})({1}frames)", strAVIファイル名, this.avi.GetMaxFrameCount());
+					Trace.TraceInformation("動画を生成しました。({0})", strAVIファイル名);
 				}
 				catch (Exception e)
 				{

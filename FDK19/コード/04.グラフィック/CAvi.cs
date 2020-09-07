@@ -76,23 +76,9 @@ namespace FDK
 			AVIFileExit();
 		}
 		
-		public Bitmap GetFrame( int no )
-		{
-			if( this.aviStream == IntPtr.Zero )
-				throw new InvalidOperationException();
-
-			return BitmapUtil.ToBitmap( AVIStreamGetFrame( this.frame, no ) );
-		}
 		public int GetFrameNoFromTime( int time )
 		{
 			return (int) ( time * ( ( (double) this.dwレート ) / ( 1000.0 * this.dwスケール ) ) );
-		}
-		public IntPtr GetFramePtr( int no )
-		{
-			if( this.aviStream == IntPtr.Zero )
-				throw new InvalidOperationException();
-
-			return AVIStreamGetFrame( this.frame, no );
 		}
 		public int GetMaxFrameCount()
 		{
@@ -202,8 +188,6 @@ namespace FDK
 		private static extern uint AVIFileOpen( out IntPtr ppfile, string szFile, OpenFileFlags mode, IntPtr pclsidHandler );
 		[DllImport( "AVIFIL32" )]
 		private static extern int AVIFileRelease( IntPtr pfile );
-		[DllImport( "AVIFIL32" )]
-		private static extern IntPtr AVIStreamGetFrame( IntPtr pgf, int lPos );
 		[DllImport( "AVIFIL32" )]
 		private static extern uint AVIStreamGetFrameClose( IntPtr pget );
 		[DllImport( "AVIFIL32" )]

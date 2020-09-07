@@ -152,6 +152,7 @@
     <Compile Include="コード\04.グラフィック\CAvi.cs" />
     <Compile Include="コード\04.グラフィック\CTexture.cs" />
     <Compile Include="コード\04.グラフィック\CTextureCreateFailedException.cs" />
+    <Compile Include="コード\04.グラフィック\CVideoDecoder.cs" />
     <Compile Include="コード\04.グラフィック\頂点フォーマット%28Vertex%29\PositionColoredTexturedVertex.cs" />
     <Compile Include="コード\04.グラフィック\頂点フォーマット%28Vertex%29\TransformedColoredTexturedVertex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
