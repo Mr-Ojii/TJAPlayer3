@@ -13,7 +13,7 @@ using System.Diagnostics.Eventing.Reader;
 
 namespace FDK
 {
-	unsafe class CVideoDecoder : IDisposable
+	public unsafe class CVideoDecoder : IDisposable
 	{
 		public CVideoDecoder(string filename) {
 
@@ -71,6 +71,7 @@ namespace FDK
 				_dstData = new byte_ptrArray4();
 				_dstLinesize = new int_array4();
 				decodedframes = new Queue<CDecodedFrame>();
+				CTimer = new CTimer(CTimer.E種別.MultiMedia);
 			}
 		}
 
@@ -101,10 +102,24 @@ namespace FDK
 			this.bPlaying = true;
 		}
 
+		public void SkipStart() { 
+		
+		}
+
 		public void Stop() 
 		{
 			CTimer.t一時停止();
 			this.bPlaying = false;
+		}
+
+		public void InitRead() 
+		{
+			this.EnqueueFrames();
+		}
+
+		public void Reset() 
+		{
+		
 		}
 
 		public CTexture GetNowFrame(Device device) 
@@ -235,7 +250,7 @@ namespace FDK
 		private AVFrame* frame;
 		private AVPacket* packet;
 		private Queue<CDecodedFrame> decodedframes;
-		private Size FrameSize;
+		public Size FrameSize;
 		private AVPixelFormat pixelFormat;
 		private int framecount;
 		private CTexture lastTexture;
