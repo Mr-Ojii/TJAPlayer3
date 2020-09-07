@@ -40,9 +40,6 @@ namespace TJAPlayer3
 					if ( fAVIアスペクト比 < 1.77f )
 					{
 						#region[ 旧規格クリップ時の処理。結果的には面倒な処理なんだよな____ ]
-						this.n開始サイズW = n開始サイズW;
-						this.n開始サイズH = n開始サイズH;
-						this.n総移動時間ms = 0;
 						this.n移動開始時刻ms = (n移動開始時刻ms != -1) ? n移動開始時刻ms : (long)(CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 						this.n前回表示したフレーム番号 = -1;
 
@@ -120,8 +117,6 @@ namespace TJAPlayer3
 		{
 			if ( !base.b活性化してない )
 			{
-				Rectangle rectangle;
-				Rectangle rectangle2;
 				if( !this.bDShowクリップを再生している || ( this.dsBGV.dshow == null || this.dsBGV == null ) )
 				{
 					if( ( ( this.n移動開始時刻ms == -1 ) || ( this.rAVI == null ) ) || ( this.rAVI.avi == null ) )
@@ -151,15 +146,8 @@ namespace TJAPlayer3
 				}
 				#endregion
 
-				if ( ( this.n総移動時間ms != 0 ) && ( this.n総移動時間ms < time ) )
-				{
-					this.n総移動時間ms = 0;
-					this.n移動開始時刻ms = -1;
-					return 0;
-				}
-
 				//2014.11.17 kairera0467 AVIが無い状態でAVIのフレームカウントをさせるとエラーを吐くため、かなり雑ではあるが対策。
-				if( ( this.n総移動時間ms == 0 ) && this.rAVI.avi != null ? ( frameNoFromTime >= this.rAVI.avi.GetMaxFrameCount() ) : false )
+				if( this.rAVI.avi != null ? ( frameNoFromTime >= this.rAVI.avi.GetMaxFrameCount() ) : false )
 				{
 					this.n移動開始時刻ms = -1;
 				}
@@ -181,89 +169,7 @@ namespace TJAPlayer3
 					this.bDShowクリップを再生している = false;
 				}
 
-				#region[ フレーム幅 ]
-				//uintじゃなくてint。DTXHDでは無駄に変換してたね。
-				int nフレーム幅 = 0;
-				int nフレーム高さ = 0;
-
-				if( this.dsBGV != null )
-				{
-				   nフレーム幅 = this.dsBGV.dshow.n幅px;
-				   nフレーム高さ = this.dsBGV.dshow.n高さpx;
-				}
-				else if( this.rAVI != null || this.rAVI.avi != null )
-				{
-					nフレーム幅 = (int)this.rAVI.avi.nフレーム幅;
-					nフレーム高さ = (int)this.rAVI.avi.nフレーム高さ;
-				}
-				#endregion
-
 				//2014.11.17 kairera0467 フレーム幅をrAVIから参照していたため、先にローカル関数で決めるよう変更。
-				Size szフレーム幅 = new Size( nフレーム幅, nフレーム高さ );
-				Size sz最大フレーム幅 = new Size( 1280, 720 );
-				Size size3 = new Size( this.n開始サイズW, this.n開始サイズH );
-				long num3 = this.n総移動時間ms;
-				long num4 = this.n移動開始時刻ms;
-				if ( CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0) < num4 )
-				{
-					num4 = (long)(CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
-				}
-				time = (int)(((CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) - num4));
-				if ( num3 != 0 )
-				{
-					double num5 = ( (double) time ) / ( (double) num3 );
-					Size size5 = new Size( size3.Width + ( (int) ( ( - size3.Width ) * num5 ) ), size3.Height + ( (int) ( ( - size3.Height ) * num5 ) ) );
-					rectangle = new Rectangle(0, 0, size5.Width, size5.Height);
-					rectangle2 = new Rectangle(0, 0, size5.Width, size5.Height);
-					if ( ( ( rectangle.Right <= 0 ) || ( rectangle.Bottom <= 0 ) ) || ( ( rectangle.Left >= szフレーム幅.Width ) || ( rectangle.Top >= szフレーム幅.Height ) ) )
-					{
-						return 0;
-					}
-					if ( ( ( rectangle2.Right <= 0 ) || ( rectangle2.Bottom <= 0 ) ) || ( ( rectangle2.Left >= sz最大フレーム幅.Width ) || ( rectangle2.Top >= sz最大フレーム幅.Height ) ) )
-					{
-						return 0;
-					}
-					if ( rectangle.Right > szフレーム幅.Width )
-					{
-						int num8 = rectangle.Right - szフレーム幅.Width;
-						rectangle2.Width -= num8;
-						rectangle.Width -= num8;
-					}
-					if ( rectangle.Bottom > szフレーム幅.Height )
-					{
-						int num9 = rectangle.Bottom - szフレーム幅.Height;
-						rectangle2.Height -= num9;
-						rectangle.Height -= num9;
-					}
-					if ( rectangle2.Right > sz最大フレーム幅.Width )
-					{
-						int num12 = rectangle2.Right - sz最大フレーム幅.Width;
-						rectangle.Width -= num12;
-						rectangle2.Width -= num12;
-					}
-					if ( rectangle2.Bottom > sz最大フレーム幅.Height )
-					{
-						int num13 = rectangle2.Bottom - sz最大フレーム幅.Height;
-						rectangle.Height -= num13;
-						rectangle2.Height -= num13;
-					}
-					if ( ( rectangle.X >= rectangle.Right ) || ( rectangle.Y >= rectangle.Bottom ) )
-					{
-						return 0;
-					}
-					if ( ( rectangle2.X >= rectangle2.Right ) || ( rectangle2.Y >= rectangle2.Bottom ) )
-					{
-						return 0;
-					}
-					if ( ( ( rectangle.Right < 0 ) || ( rectangle.Bottom < 0 ) ) || ( ( rectangle.X > szフレーム幅.Width ) || ( rectangle.Y > szフレーム幅.Height ) ) )
-					{
-						return 0;
-					}
-					if ( ( ( rectangle2.Right < 0 ) || ( rectangle2.Bottom < 0 ) ) || ( ( rectangle2.X > sz最大フレーム幅.Width ) || ( rectangle2.Y > sz最大フレーム幅.Height ) ) )
-					{
-						return 0;
-					}
-				}
 				if( ( this.tx描画用 != null ))
 				{
 					if ( ( this.bDShowクリップを再生している == true ) && this.dsBGV.dshow != null )
@@ -413,10 +319,7 @@ namespace TJAPlayer3
 		//-----------------
 		private bool bフレームを作成した;
 		private long n移動開始時刻ms;
-		private int n開始サイズH;
-		private int n開始サイズW;
 		private int n前回表示したフレーム番号;
-		private int n総移動時間ms;
 
 		public float fAVIアスペクト比;
 		private uint frameheight;
