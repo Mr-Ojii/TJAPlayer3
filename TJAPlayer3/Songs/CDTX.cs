@@ -20,81 +20,6 @@ namespace TJAPlayer3
 
 		// クラス
 
-		public class CAVI : IDisposable
-		{
-			public CAvi avi;
-			private bool bDispose済み;
-			public int n番号;
-			public string strファイル名 = "";
-
-			public void OnDeviceCreated()
-			{
-				#region [ strAVIファイル名の作成。]
-				//-----------------
-				string strAVIファイル名;
-				if (!string.IsNullOrEmpty(TJAPlayer3.DTX[0].PATH_WAV))
-					strAVIファイル名 = TJAPlayer3.DTX[0].PATH_WAV + this.strファイル名;
-				else
-					strAVIファイル名 = TJAPlayer3.DTX[0].strフォルダ名 + this.strファイル名;
-				//-----------------
-				#endregion
-
-				if (!File.Exists(strAVIファイル名))
-				{
-					Trace.TraceWarning("ファイルが存在しません。({0})", strAVIファイル名);
-					this.avi = null;
-					return;
-				}
-
-				// AVI の生成。
-
-				try
-				{
-					this.avi = new CAvi(strAVIファイル名);
-					Trace.TraceInformation("動画を生成しました。({0})", strAVIファイル名);
-				}
-				catch (Exception e)
-				{
-					Trace.TraceError(e.ToString());
-					Trace.TraceError("動画の生成に失敗しました。({0})", strAVIファイル名);
-					this.avi = null;
-				}
-			}
-			public override string ToString()
-			{
-				return string.Format("CAVI{0}: File:{1}", CDTX.tZZ(this.n番号), this.strファイル名);
-			}
-
-			#region [ IDisposable 実装 ]
-			//-----------------
-			public void Dispose()
-			{
-				if (this.bDispose済み)
-					return;
-
-				if (this.avi != null)
-				{
-					#region [ strAVIファイル名 の作成。 ]
-					//-----------------
-					string strAVIファイル名;
-					if (!string.IsNullOrEmpty(TJAPlayer3.DTX[0].PATH_WAV))
-						strAVIファイル名 = TJAPlayer3.DTX[0].PATH_WAV + this.strファイル名;
-					else
-						strAVIファイル名 = TJAPlayer3.DTX[0].strフォルダ名 + this.strファイル名;
-					//-----------------
-					#endregion
-
-					this.avi.Dispose();
-					this.avi = null;
-
-					Trace.TraceInformation("動画を解放しました。({0})", strAVIファイル名);
-				}
-
-				this.bDispose済み = true;
-			}
-			//-----------------
-			#endregion
-		}
 		public class CDirectShow : IDisposable
 		{
 			public FDK.CDirectShow dshow;
@@ -350,7 +275,6 @@ namespace TJAPlayer3
 			public int n分岐回数;
 			public int n連打音符State;
 			public int nLag;                // 2011.2.1 yyagi
-			public CDTX.CAVI rAVI;
 			public CDTX.CDirectShow rDShow;
 			public int nPlayerSide;
 			public bool bGOGOTIME = false; //2018.03.11 k1airera0467 ゴーゴータイム内のチップであるか
@@ -499,15 +423,6 @@ namespace TJAPlayer3
 					else
 					{
 						nDuration = (wc.rSound[0] == null) ? 0 : wc.rSound[0].n総演奏時間ms;
-					}
-				}
-				else if (this.nチャンネル番号 == 0x54) // AVI
-				{
-					if (this.rAVI != null && this.rAVI.avi != null)
-					{
-						int dwRate = (int)this.rAVI.avi.dwレート;
-						int dwScale = (int)this.rAVI.avi.dwスケール;
-						nDuration = (int)(1000.0f * dwScale / dwRate * this.rAVI.avi.GetMaxFrameCount());
 					}
 				}
 
@@ -841,7 +756,6 @@ namespace TJAPlayer3
 		public bool bLyrics;
 		public bool HIDDENLEVEL;
 		public int[] LEVELtaiko = new int[(int)Difficulty.Total] { -1, -1, -1, -1, -1, -1, -1 };
-		public Dictionary<int, CAVI> listAVI;
 		public Dictionary<int, CDirectShow> listDS;
 		public Dictionary<int, CBPM> listBPM;
 		public List<CChip> listChip;
@@ -1051,13 +965,6 @@ namespace TJAPlayer3
 
 		public void tAVIの読み込み()
 		{
-			if (this.listAVI != null)
-			{
-				foreach (CAVI cavi in this.listAVI.Values)
-				{
-					cavi.OnDeviceCreated();
-				}
-			}
 			if (this.listDS != null)
 			{
 				foreach (CDirectShow cds in this.listDS.Values)
@@ -1072,14 +979,12 @@ namespace TJAPlayer3
 					if (chip.nチャンネル番号 == 0x54 || chip.nチャンネル番号 == 0x5A)
 					{
 						chip.eAVI種別 = EAVI種別.Unknown;
-						chip.rAVI = null;
 						chip.rDShow = null;
 
 						CDirectShow ds = null;
-						if (this.listAVI.TryGetValue(chip.n整数値, out CAVI cavi2) && (cavi2.avi != null) || (this.listDS.TryGetValue(chip.n整数値, out ds) && (ds.dshow != null)))
+						if ((this.listDS.TryGetValue(chip.n整数値, out ds) && (ds.dshow != null)))
 						{
 							chip.eAVI種別 = EAVI種別.AVI;
-							chip.rAVI = cavi2;
 							//if(CDTXMania.ConfigIni.bDirectShowMode == true)
 							chip.rDShow = ds;
 						}
@@ -2221,10 +2126,6 @@ namespace TJAPlayer3
 					{
 						Trace.TraceInformation(cwav.ToString());
 					}
-					foreach (CAVI cavi in this.listAVI.Values)
-					{
-						Trace.TraceInformation(cavi.ToString());
-					}
 					foreach (CBPM cbpm3 in this.listBPM.Values)
 					{
 						Trace.TraceInformation(cbpm3.ToString());
@@ -2924,17 +2825,6 @@ namespace TJAPlayer3
 						this.strBGVIDEO_PATH =
 							CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, obj.BGFile);
 					}
-
-					var avi = new CAVI()
-					{
-						n番号 = 1,
-						strファイル名 = this.strBGVIDEO_PATH,
-					};
-
-					if (this.listAVI.ContainsKey(1))    // 既にリスト中に存在しているなら削除。後のものが有効。
-						this.listAVI.Remove(1);
-
-					this.listAVI.Add(1, avi);
 
 					var ds = new CDirectShow()
 					{
@@ -5901,17 +5791,6 @@ namespace TJAPlayer3
 						CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, strCommandParam);
 				}
 
-				var avi = new CAVI()
-				{
-					n番号 = 1,
-					strファイル名 = this.strBGVIDEO_PATH,
-				};
-
-				if (this.listAVI.ContainsKey(1))	// 既にリスト中に存在しているなら削除。後のものが有効。
-					this.listAVI.Remove(1);
-
-				this.listAVI.Add(1, avi);
-
 				var ds = new CDirectShow()
 				{
 					n番号 = 1,
@@ -7035,7 +6914,6 @@ namespace TJAPlayer3
 			this.listJPOSSCROLL = new Dictionary<int, CJPOSSCROLL>();
 			this.listDELAY = new Dictionary<int, CDELAY>();
 			this.listBRANCH = new Dictionary<int, CBRANCH>();
-			this.listAVI = new Dictionary<int, CAVI>();
 			this.listDS = new Dictionary<int, CDirectShow>();
 			this.listChip = new List<CChip>();
 			this.listBalloon_Normal = new List<int>();
@@ -7056,14 +6934,6 @@ namespace TJAPlayer3
 					cwav.Dispose();
 				}
 				this.listWAV = null;
-			}
-			if (this.listAVI != null)
-			{
-				foreach (CAVI cavi in this.listAVI.Values)
-				{
-					cavi.Dispose();
-				}
-				this.listAVI = null;
 			}
 			if (this.listDS != null)
 			{
@@ -7161,13 +7031,6 @@ namespace TJAPlayer3
 			if (!base.b活性化してない)
 			{
 				TJAPlayer3.t安全にDisposeする(ref this.pf歌詞フォント);
-				if (this.listAVI != null)
-				{
-					foreach (CAVI cavi in this.listAVI.Values)
-					{
-						cavi.Dispose();
-					}
-				}
 				if (this.listDS != null)
 				{
 					foreach (CDirectShow cds in this.listDS.Values)

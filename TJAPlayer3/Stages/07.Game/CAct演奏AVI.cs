@@ -25,11 +25,10 @@ namespace TJAPlayer3
 
 		// メソッド
 
-		public void Start( int nチャンネル番号, CDTX.CAVI rAVI, CDTX.CDirectShow dsBGV, int n開始サイズW, int n開始サイズH, int n移動開始時刻ms )
+		public void Start( int nチャンネル番号, CDTX.CDirectShow dsBGV, int n移動開始時刻ms )
 		{
 			if ( ( nチャンネル番号 == 0x54 || nチャンネル番号 == 0x5A ) && TJAPlayer3.ConfigIni.bAVI有効 )
 			{
-				this.rAVI = rAVI;
 				this.dsBGV = dsBGV;
 				if (this.dsBGV != null && this.dsBGV.dshow != null)
 				{
@@ -40,7 +39,6 @@ namespace TJAPlayer3
 					if ( fAVIアスペクト比 < 1.77f )
 					{
 						#region[ 旧規格クリップ時の処理。結果的には面倒な処理なんだよな____ ]
-						this.n移動開始時刻ms = (n移動開始時刻ms != -1) ? n移動開始時刻ms : (long)(CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 						this.n前回表示したフレーム番号 = -1;
 
 						this.dsBGV = null;
@@ -90,10 +88,7 @@ namespace TJAPlayer3
 				{
 					case EAVI種別.AVI:
 						{
-							if ( chip.rAVI != null )
-							{
-								this.Start( chip.nチャンネル番号, chip.rAVI, chip.rDShow, 1280, 720, chip.n発声時刻ms );
-							}
+							this.Start( chip.nチャンネル番号, chip.rDShow, chip.n発声時刻ms );
 							continue;
 						}
 				}
@@ -101,11 +96,6 @@ namespace TJAPlayer3
 		}
 		public void Stop()
 		{
-			if ( ( this.rAVI != null ) && ( this.rAVI.avi != null ) )
-			{
-				this.n移動開始時刻ms = -1;
-			}
-
 			if( this.dsBGV != null )
 			{
 				if( this.dsBGV.dshow != null )
@@ -117,40 +107,25 @@ namespace TJAPlayer3
 		{
 			if ( !base.b活性化してない )
 			{
-				if( !this.bDShowクリップを再生している || ( this.dsBGV.dshow == null || this.dsBGV == null ) )
+				if (!this.bDShowクリップを再生している || (this.dsBGV.dshow == null || this.dsBGV == null))
 				{
-					if( ( ( this.n移動開始時刻ms == -1 ) || ( this.rAVI == null ) ) || ( this.rAVI.avi == null ) )
-					{
-						return 0;
-					}
+					return 0;
 				}
 				if ( this.tx描画用 == null )
 				{
 					return 0;
 				}
-				int time = (int) ( ( CSound管理.rc演奏用タイマ.n現在時刻 - this.n移動開始時刻ms ) * ( ( (double) TJAPlayer3.ConfigIni.n演奏速度 ) / 20.0 ) );
+				int time = (int) ( ( CSound管理.rc演奏用タイマ.n現在時刻 - (-1) ) * ( ( (double) TJAPlayer3.ConfigIni.n演奏速度 ) / 20.0 ) );
 				int frameNoFromTime = 0;
 
 				#region[ frameNoFromTime ]
 				if ( (this.dsBGV != null) )
 				{
-					if ( this.fAVIアスペクト比 > 1.77f )
-					{
-						this.dsBGV.dshow.MediaSeeking.GetPositions(out this.lDshowPosition, out this.lStopPosition);
-						frameNoFromTime = (int)lDshowPosition;
-					}
-					else
-					{
-						frameNoFromTime = this.rAVI.avi.GetFrameNoFromTime(time);
-					}
+					this.dsBGV.dshow.MediaSeeking.GetPositions(out this.lDshowPosition, out this.lStopPosition);
+					frameNoFromTime = (int)lDshowPosition;	
 				}
 				#endregion
 
-				//2014.11.17 kairera0467 AVIが無い状態でAVIのフレームカウントをさせるとエラーを吐くため、かなり雑ではあるが対策。
-				if( this.rAVI.avi != null ? ( frameNoFromTime >= this.rAVI.avi.GetMaxFrameCount() ) : false )
-				{
-					this.n移動開始時刻ms = -1;
-				}
 				if((((this.n前回表示したフレーム番号 != frameNoFromTime) || !this.bフレームを作成した)) && (fAVIアスペクト比 < 1.77f ))
 				{
 					this.n前回表示したフレーム番号 = frameNoFromTime;
@@ -169,7 +144,6 @@ namespace TJAPlayer3
 					this.bDShowクリップを再生している = false;
 				}
 
-				//2014.11.17 kairera0467 フレーム幅をrAVIから参照していたため、先にローカル関数で決めるよう変更。
 				if( ( this.tx描画用 != null ))
 				{
 					if ( ( this.bDShowクリップを再生している == true ) && this.dsBGV.dshow != null )
@@ -201,15 +175,9 @@ namespace TJAPlayer3
 				#region[ ワイドクリップ ]
 				float fRet = this.dsBGV.dshow.n幅px / this.dsBGV.dshow.n高さpx;
 
-				//横幅,縦幅,X,Y
-				float[] fRatio = new float[] { 320.0f, 180.0f, 6, 450 }; //左下表示
 				if( this.tx窓描画用 != null && fRet == 1.0 )
 				{
-					//if(  )
-					{
-						fRatio = new float[] { 640.0f - 4.0f, 360.0f - 4.0f, 322, 362 }; //中央下表示
-					}
-					//
+					float[] fRatio = new float[] { 640.0f - 4.0f, 360.0f - 4.0f, 322, 362 }; //中央下表示
 
 					this.tx窓描画用.vc拡大縮小倍率.X = (float)( fRatio[ 0 ] / this.dsBGV.dshow.n幅px );
 					this.tx窓描画用.vc拡大縮小倍率.Y = (float)( fRatio[ 1 ] / this.dsBGV.dshow.n高さpx );
@@ -274,8 +242,6 @@ namespace TJAPlayer3
 
 		public override void On活性化()
 		{
-			this.rAVI = null;
-			this.n移動開始時刻ms = -1;
 			this.n前回表示したフレーム番号 = -1;
 			this.bフレームを作成した = false;
 			base.On活性化();
@@ -318,7 +284,6 @@ namespace TJAPlayer3
 		#region [ private ]
 		//-----------------
 		private bool bフレームを作成した;
-		private long n移動開始時刻ms;
 		private int n前回表示したフレーム番号;
 
 		public float fAVIアスペクト比;
@@ -326,7 +291,6 @@ namespace TJAPlayer3
 		private uint framewidth;
 		private float ratio1;
 
-		private CDTX.CAVI rAVI;
 		private CTexture tx描画用;
 		private CTexture tx窓描画用;
 
