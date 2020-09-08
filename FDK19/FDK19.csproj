@@ -163,8 +163,6 @@
     <Compile Include="コード\00.共通\CTraceLogListener.cs" />
     <Compile Include="コード\00.共通\CWin32.cs" />
     <Compile Include="コード\00.共通\C変換.cs" />
-    <Compile Include="コード\05.DirectShow\CDirectShow.cs" />
-    <Compile Include="コード\05.DirectShow\MemoryRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="コード\01.フレームワーク\Resources\sdx_icon_black.ico" />

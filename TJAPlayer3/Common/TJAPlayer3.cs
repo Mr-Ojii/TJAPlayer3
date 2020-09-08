@@ -1312,37 +1312,6 @@ for (int i = 0; i < 3; i++) {
 			return TJAPlayer3.tテクスチャの生成(bmp);
 		}
 
-		public static CDirectShow t失敗してもスキップ可能なDirectShowを生成する(string fileName, IntPtr hWnd, bool bオーディオレンダラなし)
-		{
-			CDirectShow ds = null;
-			if (File.Exists(fileName))
-			{
-				try
-				{
-					ds = new CDirectShow(fileName, hWnd, bオーディオレンダラなし);
-				}
-				catch (FileNotFoundException e)
-				{
-					Trace.TraceError(e.ToString());
-					Trace.TraceError("動画ファイルが見つかりませんでした。({0})", fileName);
-					ds = null;      // Dispose はコンストラクタ内で実施済み
-				}
-				catch (Exception e)
-				{
-					Trace.TraceError(e.ToString());
-					Trace.TraceError("DirectShow の生成に失敗しました。[{0}]", fileName);
-					ds = null;      // Dispose はコンストラクタ内で実施済み
-				}
-			}
-			else
-			{
-				Trace.TraceError("動画ファイルが見つかりませんでした。({0})", fileName);
-				return null;
-			}
-
-			return ds;
-		}
-
 		/// <summary>プロパティ、インデクサには ref は使用できないので注意。</summary>
 		public static void t安全にDisposeする<T>(ref T obj) where T : class, IDisposable //2020.06.06 Mr-Ojii twopointzero氏のソースコードをもとに改良
 		{

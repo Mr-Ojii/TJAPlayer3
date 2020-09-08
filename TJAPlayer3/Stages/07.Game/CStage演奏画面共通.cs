@@ -3214,15 +3214,7 @@ namespace TJAPlayer3
 								switch ( pChip.eAVI種別 )
 								{
 									case EAVI種別.AVI:
-										
-										this.actAVI.Start( pChip.nチャンネル番号, pChip.rDShow );
-										
-										break;
-									case EAVI種別.Unknown:
-										if ( pChip.rDShow != null )
-										{
-											this.actAVI.Start( pChip.nチャンネル番号, pChip.rDShow );
-										}
+										this.actAVI.Start( pChip.nチャンネル番号, pChip.rVD );
 										break;
 								}
 							}

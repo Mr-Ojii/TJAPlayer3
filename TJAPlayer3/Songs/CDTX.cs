@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using FDK;
 using FDK.ExtensionMethods;
+using System.Runtime.CompilerServices;
 
 namespace TJAPlayer3
 {
@@ -20,80 +21,6 @@ namespace TJAPlayer3
 
 		// クラス
 
-		public class CDirectShow : IDisposable
-		{
-			public FDK.CDirectShow dshow;
-			private bool bDispose済み;
-			public int n番号;
-			public string strファイル名 = "";
-
-			public void OnDeviceCreated()
-			{
-				#region [ str動画ファイル名の作成。]
-				//-----------------
-				string str動画ファイル名;
-				if (!string.IsNullOrEmpty(TJAPlayer3.DTX[0].PATH_WAV))
-					str動画ファイル名 = TJAPlayer3.DTX[0].PATH_WAV + this.strファイル名;
-				else
-					str動画ファイル名 = TJAPlayer3.DTX[0].strフォルダ名 + this.strファイル名;
-				//-----------------
-				#endregion
-
-				if (!File.Exists(str動画ファイル名))
-				{
-					Trace.TraceWarning("ファイルが存在しません。({0})", str動画ファイル名);
-					this.dshow = null;
-				}
-
-				// AVI の生成。
-
-				try
-				{
-					this.dshow = new FDK.CDirectShow(TJAPlayer3.stage選曲.r確定されたスコア.ファイル情報.フォルダの絶対パス + this.strファイル名, TJAPlayer3.app.WindowHandle, true);
-					Trace.TraceInformation("DirectShowを生成しました。({0})({1}byte)", str動画ファイル名, this.dshow.nデータサイズbyte);
-				}
-				catch (Exception e)
-				{
-					Trace.TraceError(e.ToString());
-					Trace.TraceError("DirectShowの生成に失敗しました。({0})", str動画ファイル名);
-					this.dshow = null;
-				}
-			}
-			public override string ToString()
-			{
-				return string.Format("CAVI{0}: File:{1}", CDTX.tZZ(this.n番号), this.strファイル名);
-			}
-
-			#region [ IDisposable 実装 ]
-			//-----------------
-			public void Dispose()
-			{
-				if (this.bDispose済み)
-					return;
-
-				if (this.dshow != null)
-				{
-					#region [ strAVIファイル名 の作成。 ]
-					//-----------------
-					string str動画ファイル名;
-					if (!string.IsNullOrEmpty(TJAPlayer3.DTX[0].PATH_WAV))
-						str動画ファイル名 = TJAPlayer3.DTX[0].PATH_WAV + this.strファイル名;
-					else
-						str動画ファイル名 = TJAPlayer3.DTX[0].strフォルダ名 + this.strファイル名;
-					//-----------------
-					#endregion
-
-					this.dshow.Dispose();
-					this.dshow = null;
-
-					Trace.TraceInformation("動画を解放しました。({0})", str動画ファイル名);
-				}
-
-				this.bDispose済み = true;
-			}
-			//-----------------
-			#endregion
-		}
 
 		public class CBPM
 		{
@@ -275,7 +202,7 @@ namespace TJAPlayer3
 			public int n分岐回数;
 			public int n連打音符State;
 			public int nLag;                // 2011.2.1 yyagi
-			public CDTX.CDirectShow rDShow;
+			public CVideoDecoder rVD;
 			public int nPlayerSide;
 			public bool bGOGOTIME = false; //2018.03.11 k1airera0467 ゴーゴータイム内のチップであるか
 			public int nList上の位置;
@@ -756,7 +683,7 @@ namespace TJAPlayer3
 		public bool bLyrics;
 		public bool HIDDENLEVEL;
 		public int[] LEVELtaiko = new int[(int)Difficulty.Total] { -1, -1, -1, -1, -1, -1, -1 };
-		public Dictionary<int, CDirectShow> listDS;
+		public Dictionary<int, CVideoDecoder> listVD;
 		public Dictionary<int, CBPM> listBPM;
 		public List<CChip> listChip;
 		public Dictionary<int, CWAV> listWAV;
@@ -965,11 +892,11 @@ namespace TJAPlayer3
 
 		public void tAVIの読み込み()
 		{
-			if (this.listDS != null)
+			if (this.listVD != null)
 			{
-				foreach (CDirectShow cds in this.listDS.Values)
+				foreach (CVideoDecoder cvd in this.listVD.Values)
 				{
-					cds.OnDeviceCreated();
+					cvd.InitRead();
 				}
 			}
 			if (!this.bヘッダのみ)//&& this.b動画読み込み )
@@ -979,14 +906,13 @@ namespace TJAPlayer3
 					if (chip.nチャンネル番号 == 0x54 || chip.nチャンネル番号 == 0x5A)
 					{
 						chip.eAVI種別 = EAVI種別.Unknown;
-						chip.rDShow = null;
+						chip.rVD = null;
 
-						CDirectShow ds = null;
-						if ((this.listDS.TryGetValue(chip.n整数値, out ds) && (ds.dshow != null)))
+						CVideoDecoder vd;
+						if ((this.listVD.TryGetValue(chip.n整数値, out vd)))
 						{
 							chip.eAVI種別 = EAVI種別.AVI;
-							//if(CDTXMania.ConfigIni.bDirectShowMode == true)
-							chip.rDShow = ds;
+							chip.rVD = vd;
 						}
 					}
 				}
@@ -2826,16 +2752,18 @@ namespace TJAPlayer3
 							CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, obj.BGFile);
 					}
 
-					var ds = new CDirectShow()
-					{
-						n番号 = 1,
-						strファイル名 = this.strBGVIDEO_PATH,
-					};
+					string strVideoFilename;
+					if (!string.IsNullOrEmpty(this.PATH_WAV))
+						strVideoFilename = this.PATH_WAV + this.strBGVIDEO_PATH;
+					else
+						strVideoFilename = this.strフォルダ名 + this.strBGVIDEO_PATH;
 
-					if (this.listDS.ContainsKey(1)) // 既にリスト中に存在しているなら削除。後のものが有効。
-						this.listDS.Remove(1);
+					CVideoDecoder vd = new CVideoDecoder(strVideoFilename);
 
-					this.listDS.Add(1, ds);
+					if (this.listVD.ContainsKey(1))
+						this.listVD.Remove(1);
+
+					this.listVD.Add(1, vd);
 				}
 			}
 
@@ -5791,16 +5719,18 @@ namespace TJAPlayer3
 						CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, strCommandParam);
 				}
 
-				var ds = new CDirectShow()
-				{
-					n番号 = 1,
-					strファイル名 = this.strBGVIDEO_PATH,
-				};
+				string strVideoFilename;
+				if (!string.IsNullOrEmpty(this.PATH_WAV))
+					strVideoFilename = this.PATH_WAV + this.strBGVIDEO_PATH;
+				else
+					strVideoFilename = this.strフォルダ名 + this.strBGVIDEO_PATH;
 
-				if (this.listDS.ContainsKey(1))	// 既にリスト中に存在しているなら削除。後のものが有効。
-					this.listDS.Remove(1);
+				CVideoDecoder vd = new CVideoDecoder(strVideoFilename);
 
-				this.listDS.Add(1, ds);
+				if (this.listVD.ContainsKey(1))
+					this.listVD.Remove(1);
+
+				this.listVD.Add(1, vd);
 			}
 			else if (strCommandName.Equals("BGIMAGE"))
 			{
@@ -6914,7 +6844,7 @@ namespace TJAPlayer3
 			this.listJPOSSCROLL = new Dictionary<int, CJPOSSCROLL>();
 			this.listDELAY = new Dictionary<int, CDELAY>();
 			this.listBRANCH = new Dictionary<int, CBRANCH>();
-			this.listDS = new Dictionary<int, CDirectShow>();
+			this.listVD = new Dictionary<int, CVideoDecoder>();
 			this.listChip = new List<CChip>();
 			this.listBalloon_Normal = new List<int>();
 			this.listBalloon_Expert = new List<int>();
@@ -6935,13 +6865,13 @@ namespace TJAPlayer3
 				}
 				this.listWAV = null;
 			}
-			if (this.listDS != null)
+			if (this.listVD != null)
 			{
-				foreach (CDirectShow cds in this.listDS.Values)
+				foreach (CVideoDecoder cvd in this.listVD.Values)
 				{
-					cds.Dispose();
+					cvd.Dispose();
 				}
-				this.listDS = null;
+				this.listVD = null;
 			}
 			if (this.listBPM != null)
 			{
@@ -7031,11 +6961,11 @@ namespace TJAPlayer3
 			if (!base.b活性化してない)
 			{
 				TJAPlayer3.t安全にDisposeする(ref this.pf歌詞フォント);
-				if (this.listDS != null)
+				if (this.listVD != null)
 				{
-					foreach (CDirectShow cds in this.listDS.Values)
+					foreach (CVideoDecoder cvd in this.listVD.Values)
 					{
-						cds.Dispose();
+						cvd.Dispose();
 					}
 				}
 				base.OnManagedリソースの解放();

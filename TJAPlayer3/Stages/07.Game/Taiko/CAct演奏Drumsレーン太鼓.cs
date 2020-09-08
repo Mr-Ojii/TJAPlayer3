@@ -669,7 +669,7 @@ namespace TJAPlayer3
 				}
 			}
 
-			if (TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listDS.Count > 0)
+			if (TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listVD.Count > 0)
 			{
 				if (TJAPlayer3.Tx.Lane_Background_Main != null) TJAPlayer3.Tx.Lane_Background_Main.Opacity = TJAPlayer3.ConfigIni.nBGAlpha;
 				if(TJAPlayer3.Tx.Lane_Background_Sub != null) TJAPlayer3.Tx.Lane_Background_Sub.Opacity = TJAPlayer3.ConfigIni.nBGAlpha;

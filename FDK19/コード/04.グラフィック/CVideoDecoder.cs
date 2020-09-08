@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,6 @@ namespace FDK
 				throw new FileNotFoundException(filename + " not found...");
 
 			format_context = ffmpeg.avformat_alloc_context();
-			received_frame = ffmpeg.av_frame_alloc();
 			fixed (AVFormatContext** format_contexttmp = &format_context)
 			{
 				if (ffmpeg.avformat_open_input(format_contexttmp, filename, null, null) != 0)
@@ -70,11 +70,18 @@ namespace FDK
 				if (convert_context == null) throw new ApplicationException("Could not initialize the conversion context.");
 				decodedframes = new Queue<CDecodedFrame>();
 				CTimer = new CTimer(CTimer.E種別.MultiMedia);
+
+				_convertedFrameBufferPtr = Marshal.AllocHGlobal(ffmpeg.av_image_get_buffer_size(CVPxfmt, codec_context->width, codec_context->height, 1));
+
+				_dstData = new byte_ptrArray4();
+				_dstLinesize = new int_array4();
+				ffmpeg.av_image_fill_arrays(ref _dstData, ref _dstLinesize, (byte*)_convertedFrameBufferPtr, CVPxfmt, codec_context->width, codec_context->height, 1);
 			}
 		}
 
 		public void Dispose()
 		{
+			Marshal.FreeHGlobal(_convertedFrameBufferPtr);
 			ffmpeg.sws_freeContext(convert_context);
 			ffmpeg.av_frame_unref(frame);
 			ffmpeg.av_free(frame);
@@ -92,15 +99,14 @@ namespace FDK
 			if (nextTexture != null)
 				nextTexture.Dispose();
 			decodedframes.Clear();
-			decodedframes = null;
 		}
 
 
 		public void Start()
 		{
-			EnqueueFrames();
+			this.EnqueueFrames();
 			CTimer.tリセット();
-			CTimer.t再開();
+			
 			this.bPlaying = true;
 		}
 
@@ -140,7 +146,7 @@ namespace FDK
 
 		public void Reset() 
 		{
-			ffmpeg.av_seek_frame(format_context, video_stream->index, 1, ffmpeg.AVSEEK_FLAG_BACKWARD);
+			this.Seek(1);
 			CTimer.tリセット();
 			this.decodedframes.Clear();
 			this.EnqueueFrames();
@@ -148,15 +154,17 @@ namespace FDK
 
 		private void Seek(long timestamp)
 		{
-			ffmpeg.av_seek_frame(format_context, video_stream->index, timestamp, ffmpeg.AVSEEK_FLAG_BACKWARD);
+			ffmpeg.av_seek_frame(format_context, video_stream->index, timestamp, ffmpeg.AVSEEK_FLAG_ANY);
 			ffmpeg.avcodec_flush_buffers(codec_context);
+			CTimer.n現在時刻ms = timestamp;
 			this.decodedframes.Clear();
 			this.EnqueueFrames();
 		}
 
-		public CTexture GetNowFrame(Device device) 
+		public CTexture GetNowFrame(Device device)
 		{
-			if (nextframetime <= CTimer.n現在時刻ms)
+			CTimer.t更新();
+			while (nextframetime <= (CTimer.n現在時刻ms * fPlaySpeed))
 			{
 				if (decodedframes.Count != 0)
 				{
@@ -167,48 +175,42 @@ namespace FDK
 				
 					lastTexture = nextTexture;
 					CDecodedFrame cdecodedframe = decodedframes.Dequeue();
+					if (cdecodedframe.Time <= (CTimer.n現在時刻ms * fPlaySpeed))
+						continue;
 					Bitmap nowbitmap = cdecodedframe.Bitmap;
 					nextframetime = cdecodedframe.Time;
-					EnqueueFrames();
-					nextTexture = new CTexture(device, nowbitmap, Format.A8R8G8B8);
-					return lastTexture;
+					this.EnqueueFrames();
+					nextTexture = new CTexture(device, nowbitmap, Format.A8R8G8B8, false);
 				}
 				else
                 {
-					if (nextTexture != null)
-						lastTexture = nextTexture;
-					if (lastTexture == null)
-					{
-						Bitmap nowbitmap = new Bitmap(1, 1);
-						lastTexture = new CTexture(device, nowbitmap, Format.A8R8G8B8);
-					}
-					return lastTexture;
+					break;
 				}
 			}
-			else
-			{
-				if (lastTexture == null)
-				{
-					Bitmap nowbitmap = new Bitmap(1, 1);
-					lastTexture = new CTexture(device, nowbitmap, Format.A8R8G8B8);
-				}
-				return lastTexture;
-			}
+			
+			if (lastTexture == null)
+				lastTexture = new CTexture(device, new Bitmap(1, 1), Format.A8R8G8B8);
+
+			return lastTexture;
+			
 		}
 
-		private bool EnqueueFrames()
+		private void EnqueueFrames()
 		{
-			bool ret = false;
+			decodingTask = Task.Factory.StartNew(() => TaskEnqueueFrame());
+		}
 
-			while (!(ret = EnqueueOneFrame()) && decodedframes.Count < (int)(Framerate.num / Framerate.den) + 1) ;
-
-			return ret;
+		private void TaskEnqueueFrame()
+		{
+			if (decodedframes.Count < ((int)(Framerate.num / Framerate.den)) * 2)
+			{
+				while (EnqueueOneFrame() && decodedframes.Count < ((int)(Framerate.num / Framerate.den)) * 2) ;
+			}
 		}
 
 		private bool EnqueueOneFrame() {
 			AVFrame outframe;
 			ffmpeg.av_frame_unref(frame);
-			ffmpeg.av_frame_unref(received_frame);
 			int error;
 			do
 			{
@@ -219,7 +221,6 @@ namespace FDK
 						error = ffmpeg.av_read_frame(format_context, packet);
 						if (error == ffmpeg.AVERROR_EOF)
 						{
-							outframe = *frame;
 							return false;
 						}
 
@@ -240,19 +241,8 @@ namespace FDK
 			} while (error == ffmpeg.AVERROR(ffmpeg.EAGAIN));
 			if (error != 0)
 				Trace.TraceError("error.\n");
-			if (codec_context->hw_device_ctx != null)
-			{
-				if (ffmpeg.av_hwframe_transfer_data(received_frame, frame, 0) < 0)
-					Trace.TraceError("av_hwframe_transfer_data error.\n");
-				outframe = *received_frame;
-			}
-			else
-			{
-				outframe = *frame;
-			}
-			byte_ptrArray4 _dstData = new byte_ptrArray4();
-			int_array4 _dstLinesize = new int_array4();
-			ffmpeg.sws_scale(convert_context, outframe.data, outframe.linesize, 0, outframe.height, _dstData, _dstLinesize);
+						
+			ffmpeg.sws_scale(convert_context, frame->data, frame->linesize, 0, frame->height, _dstData, _dstLinesize);
 
 			var data = new byte_ptrArray8();
 			data.UpdateFrom(_dstData);
@@ -267,8 +257,8 @@ namespace FDK
 				height = FrameSize.Height
 			};
 
-			decodedframes.Enqueue(new CDecodedFrame { Time = (frame->best_effort_timestamp - video_stream->start_time) * (video_stream->time_base.num / video_stream->time_base.den) * 1000, Bitmap = new Bitmap(outframe.width, outframe.height, outframe.linesize[0], PixelFormat.Format24bppRgb, (IntPtr)outframe.data[0]) });
-
+			decodedframes.Enqueue(new CDecodedFrame { Time = (frame->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Bitmap = new Bitmap(outframe.width, outframe.height, outframe.linesize[0], PixelFormat.Format24bppRgb, (IntPtr)outframe.data[0]) });
+			
 			ffmpeg.av_frame_unref(&outframe);
 			ffmpeg.av_free(&outframe);
 			return true;
@@ -278,17 +268,16 @@ namespace FDK
 
 		#region[private]
 		//for read & decode
-		private float fPlaySpeed;
+		private float fPlaySpeed = 1.0f;
 		private static AVFormatContext* format_context;
 		private AVStream* video_stream;
 		private AVCodec* codec;
 		private AVCodecContext* codec_context;
-		private AVFrame* received_frame;
 		private AVFrame* frame;
 		private AVPacket* packet;
 		private Queue<CDecodedFrame> decodedframes;
 		private int framecount;
-
+		private Task decodingTask;
 
 		//for play
 		private bool bPlaying = false;
@@ -302,6 +291,10 @@ namespace FDK
 		//for convert
 		private SwsContext* convert_context;
 		private AVPixelFormat pixelFormat;
-        #endregion
-    }
+		private readonly byte_ptrArray4 _dstData;
+		private readonly int_array4 _dstLinesize;
+		private readonly IntPtr _convertedFrameBufferPtr;
+		private const AVPixelFormat CVPxfmt = AVPixelFormat.AV_PIX_FMT_RGB24;
+		#endregion
+	}
 }
