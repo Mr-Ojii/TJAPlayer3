@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FFmpeg.AutoGen;
 using SharpDX.Direct3D9;
+using System.Threading;
 
 namespace FDK
 {
@@ -98,8 +99,6 @@ namespace FDK
 			}
 			if (lastTexture != null)
 				lastTexture.Dispose();
-			if (nextTexture != null)
-				nextTexture.Dispose();
 			decodedframes.Clear();
 		}
 
@@ -150,16 +149,17 @@ namespace FDK
 		{
 			this.Seek(1);
 			CTimer.tリセット();
-			this.decodedframes.Clear();
+			decodedframes.Clear();
 			this.EnqueueFrames();
 		}
 
 		private void Seek(long timestamp)
 		{
-			ffmpeg.av_seek_frame(format_context, video_stream->index, timestamp, ffmpeg.AVSEEK_FLAG_ANY);
+			cts.Cancel();
+			ffmpeg.av_seek_frame(format_context, video_stream->index, timestamp, ffmpeg.AVSEEK_FLAG_BACKWARD);
 			ffmpeg.avcodec_flush_buffers(codec_context);
 			CTimer.n現在時刻ms = timestamp;
-			this.decodedframes.Clear();
+			decodedframes.Clear();
 			this.EnqueueFrames();
 		}
 
@@ -169,20 +169,18 @@ namespace FDK
 			while (nextframetime <= (CTimer.n現在時刻ms * fPlaySpeed))
 			{
 				if (decodedframes.Count != 0)
-				{
-					if (lastTexture != null)
-						lastTexture.Dispose();
-					if (nextTexture == null)
-						nextTexture = GeneFrmTx(new Bitmap(1, 1));
-				
-					lastTexture = nextTexture;
-					CDecodedFrame cdecodedframe = decodedframes.Dequeue();
-					this.EnqueueFrames();
-					if (cdecodedframe.Time <= (CTimer.n現在時刻ms * fPlaySpeed))
-						continue;
-					nextframetime = cdecodedframe.Time;
-					nextTexture = GeneFrmTx(cdecodedframe.Bitmap);
-					cdecodedframe.Bitmap.Dispose();
+				{			
+					using (CDecodedFrame cdecodedframe = decodedframes.Dequeue())
+					{
+						if (cdecodedframe.Time <= (CTimer.n現在時刻ms * fPlaySpeed))
+							continue;
+						CTexture txtmp = GeneFrmTx(cdecodedframe.Bitmap);
+						this.EnqueueFrames();
+						if (lastTexture != null)
+							lastTexture.Dispose();
+						nextframetime = cdecodedframe.Time;
+						lastTexture = txtmp;
+					}
 				}
 				else
                 {
@@ -202,16 +200,28 @@ namespace FDK
 
 		private void EnqueueFrames()
 		{
-			decodingTask = Task.Factory.StartNew(() =>
+			if (DS != DecodingState.Running)
 			{
-				if (decodedframes.Count < ((int)(Framerate.num / Framerate.den)) * 2)
+				cts = new CancellationTokenSource();
+				decodingTask = Task.Factory.StartNew(() =>
 				{
-					while (EnqueueOneFrame() && decodedframes.Count < ((int)(Framerate.num / Framerate.den)) * 2) ;
+					if (decodedframes.Count < ((int)(Framerate.num / Framerate.den)) * 2)
+					{
+						while (EnqueueOneFrame() && decodedframes.Count < ((int)(Framerate.num / Framerate.den)) * 2) ;
+					}
+					DS = DecodingState.Stopped;
+				});
+				Exception e = decodingTask.Exception;
+                if (e!=null)
+				{
+					Trace.TraceError(e.ToString());
+					DS = DecodingState.Stopped;
 				}
-			});
+			}
 		}
 
 		private bool EnqueueOneFrame() {
+			DS = DecodingState.Running;
 			AVFrame outframe;
 			ffmpeg.av_frame_unref(frame);
 			int error;
@@ -221,6 +231,7 @@ namespace FDK
 				{
 					do
 					{
+						cts.Token.ThrowIfCancellationRequested();
 						error = ffmpeg.av_read_frame(format_context, packet);
 						if (error == ffmpeg.AVERROR_EOF)
 						{
@@ -259,19 +270,28 @@ namespace FDK
 				width = FrameSize.Width,
 				height = FrameSize.Height
 			};
+			
 
 			decodedframes.Enqueue(new CDecodedFrame { Time = (frame->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Bitmap = new Bitmap(outframe.width, outframe.height, outframe.linesize[0], PixelFormat.Format24bppRgb, (IntPtr)outframe.data[0]) });
+
 			
+			ffmpeg.av_frame_unref(frame);
 			ffmpeg.av_frame_unref(&outframe);
 			ffmpeg.av_free(&outframe);
 			return true;
 		}
 
 		private CTexture GeneFrmTx(Bitmap bitmap) {
-			return new CTexture(this.device, bitmap, Format.A8R8G8B8, false);
+			return new CTexture(this.device, bitmap, Format.R8G8B8, false);
 		}
 
 		public Size FrameSize;
+
+		private enum DecodingState 
+		{
+			Stopped,
+			Running
+		}
 
 		#region[private]
 		//for read & decode
@@ -286,13 +306,14 @@ namespace FDK
 		private int framecount;
 		private Task decodingTask;
 		private Device device;
+		private CancellationTokenSource cts;
+		private DecodingState DS = DecodingState.Stopped;
 
 		//for play
 		private bool bPlaying = false;
 		private CTimer CTimer;
 		private AVRational Framerate;
 		private CTexture lastTexture;
-		private CTexture nextTexture;
 		private double nextframetime = 0;
 		private bool bqueueinitialized = false;
 

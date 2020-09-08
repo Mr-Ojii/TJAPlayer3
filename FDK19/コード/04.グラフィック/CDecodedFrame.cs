@@ -7,9 +7,14 @@ using System.Threading.Tasks;
 
 namespace FDK
 {
-    class CDecodedFrame
+    class CDecodedFrame : IDisposable 
     {
         public double Time;
         public Bitmap Bitmap;
+
+        public void Dispose() 
+        {
+            this.Bitmap.Dispose();
+        }
     }
 }

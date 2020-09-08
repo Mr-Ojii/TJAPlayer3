@@ -287,11 +287,12 @@ namespace FDK
 		}
 		public void MakeTexture(Device device, Bitmap bitmap, Format format, bool b黒を透過する, Pool pool)
 		{
-			MemoryStream ms = new MemoryStream();
-			bitmap.Save(ms,ImageFormat.Bmp);
-			byte[] img = ms.GetBuffer();
-			MakeTexture(device, img, format, b黒を透過する, pool);
-			ms.Dispose();
+			using (MemoryStream ms = new MemoryStream())
+			{
+				bitmap.Save(ms, ImageFormat.Bmp);
+				byte[] img = ms.GetBuffer();
+				MakeTexture(device, img, format, b黒を透過する, pool);
+			}
 		}
 		// メソッド
 
