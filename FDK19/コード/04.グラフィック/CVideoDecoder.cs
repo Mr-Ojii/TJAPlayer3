@@ -181,7 +181,7 @@ namespace FDK
 					if (cdecodedframe.Time <= (CTimer.n現在時刻ms * fPlaySpeed))
 						continue;
 					nextframetime = cdecodedframe.Time;
-					nextTexture = new CTexture(this.device, cdecodedframe.Bitmap, Format.A8R8G8B8, false);
+					nextTexture = GeneFrmTx(cdecodedframe.Bitmap);
 					cdecodedframe.Bitmap.Dispose();
 				}
 				else
@@ -189,7 +189,6 @@ namespace FDK
 					break;
 				}
 			}
-
 
 			if (lastTexture == null)
 				lastTexture = GeneFrmTx(new Bitmap(1, 1));

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
-using SharpDX;
-using SharpDX.Direct3D9;
 using FDK;
 
 namespace TJAPlayer3
@@ -29,19 +27,9 @@ namespace TJAPlayer3
 				{
 					this.frameheight = (uint)rVD.FrameSize.Height;
 					this.framewidth = (uint)rVD.FrameSize.Width;
-
-					#region[ リサイズ処理 ]
-					if (((float)this.framewidth) / ((float)this.frameheight) < 1.77f)
-					{
-						//旧企画クリップだった場合
-						this.ratio1 = (float)GameWindowSize.Height / ((float)this.frameheight);
-					}
-					else
-					{
-						//ワイドクリップの処理
-						this.ratio1 = (float)GameWindowSize.Width / ((float)this.framewidth);
-					}
-					#endregion
+					
+					this.ratio1 = Math.Min((float)GameWindowSize.Height / ((float)this.frameheight), (float)GameWindowSize.Width / ((float)this.framewidth));
+					
 					this.rVD.Start();
 				}
 			}
@@ -73,7 +61,6 @@ namespace TJAPlayer3
 				{
 					#region[ ワイドクリップ ]
 					this.rVD.GetNowFrame(ref this.tx描画用);
-					this.rVD.GetNowFrame(ref this.tx窓描画用);
 
 					this.tx描画用.vc拡大縮小倍率.X = this.ratio1;
 					this.tx描画用.vc拡大縮小倍率.Y = this.ratio1;
@@ -95,15 +82,15 @@ namespace TJAPlayer3
 			{
 				#region[ ワイドクリップ ]
 
-				if( this.tx窓描画用 != null )
+				if( this.tx描画用 != null )
 				{
 					float[] fRatio = new float[] { 640.0f - 4.0f, 360.0f - 4.0f }; //中央下表示
 
 					float ratio = Math.Min((float)(fRatio[0] / this.rVD.FrameSize.Width), (float)(fRatio[1] / this.rVD.FrameSize.Height));
-					this.tx窓描画用.vc拡大縮小倍率.X = ratio;
-					this.tx窓描画用.vc拡大縮小倍率.Y = ratio;
+					this.tx描画用.vc拡大縮小倍率.X = ratio;
+					this.tx描画用.vc拡大縮小倍率.Y = ratio;
 
-					this.tx窓描画用.t2D拡大率考慮下拡大率考慮中心基準描画(TJAPlayer3.app.Device, GameWindowSize.Width / 2, GameWindowSize.Height);
+					this.tx描画用.t2D拡大率考慮下拡大率考慮中心基準描画(TJAPlayer3.app.Device, GameWindowSize.Width / 2, GameWindowSize.Height);
 				}
 
 				#endregion
@@ -148,11 +135,6 @@ namespace TJAPlayer3
 					this.tx描画用.Dispose();
 					this.tx描画用 = null;
 				}
-				if( this.tx窓描画用 != null )
-				{
-					this.tx窓描画用.Dispose();
-					this.tx窓描画用 = null;
-				}
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -172,7 +154,6 @@ namespace TJAPlayer3
 		private float ratio1;
 
 		private CTexture tx描画用;
-		private CTexture tx窓描画用;
 
 		public CVideoDecoder rVD;
 
