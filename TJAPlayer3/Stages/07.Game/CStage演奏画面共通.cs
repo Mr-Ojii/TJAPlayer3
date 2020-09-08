@@ -2770,13 +2770,11 @@ namespace TJAPlayer3
 			}
 		}
 
-
-		protected abstract void t進行描画_AVI();
-		protected void t進行描画_AVI(int x, int y)
+		protected virtual void t進行描画_AVI()
 		{
 			if ( ( ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED ) && ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED_フェードアウト ) ) && ( !TJAPlayer3.ConfigIni.bストイックモード && TJAPlayer3.ConfigIni.bAVI有効 ) )
 			{
-				this.actAVI.t進行描画( x, y );
+				this.actAVI.t進行描画();
 			}
 		}
 		protected abstract void t進行描画_DANGER();

@@ -15,8 +15,9 @@ namespace FDK
 {
 	public unsafe class CVideoDecoder : IDisposable
 	{
-		public CVideoDecoder(string filename) {
-
+		public CVideoDecoder(Device device, string filename)
+		{
+			this.device = device;
 			if (!File.Exists(filename))
 				throw new FileNotFoundException(filename + " not found...");
 
@@ -76,6 +77,7 @@ namespace FDK
 				_dstData = new byte_ptrArray4();
 				_dstLinesize = new int_array4();
 				ffmpeg.av_image_fill_arrays(ref _dstData, ref _dstLinesize, (byte*)_convertedFrameBufferPtr, CVPxfmt, codec_context->width, codec_context->height, 1);
+
 			}
 		}
 
@@ -161,7 +163,7 @@ namespace FDK
 			this.EnqueueFrames();
 		}
 
-		public CTexture GetNowFrame(Device device)
+		public void GetNowFrame(ref CTexture Texture)
 		{
 			CTimer.t更新();
 			while (nextframetime <= (CTimer.n現在時刻ms * fPlaySpeed))
@@ -170,42 +172,44 @@ namespace FDK
 				{
 					if (lastTexture != null)
 						lastTexture.Dispose();
-					if (nextTexture == null)	
-						nextTexture = new CTexture(device, new Bitmap(1, 1), Format.A8R8G8B8);
+					if (nextTexture == null)
+						nextTexture = GeneFrmTx(new Bitmap(1, 1));
 				
 					lastTexture = nextTexture;
 					CDecodedFrame cdecodedframe = decodedframes.Dequeue();
+					this.EnqueueFrames();
 					if (cdecodedframe.Time <= (CTimer.n現在時刻ms * fPlaySpeed))
 						continue;
-					Bitmap nowbitmap = cdecodedframe.Bitmap;
 					nextframetime = cdecodedframe.Time;
-					this.EnqueueFrames();
-					nextTexture = new CTexture(device, nowbitmap, Format.A8R8G8B8, false);
+					nextTexture = new CTexture(this.device, cdecodedframe.Bitmap, Format.A8R8G8B8, false);
+					cdecodedframe.Bitmap.Dispose();
 				}
 				else
                 {
 					break;
 				}
 			}
-			
-			if (lastTexture == null)
-				lastTexture = new CTexture(device, new Bitmap(1, 1), Format.A8R8G8B8);
 
-			return lastTexture;
+
+			if (lastTexture == null)
+				lastTexture = GeneFrmTx(new Bitmap(1, 1));
+
+			if (Texture == lastTexture)
+				return;
+
+			Texture = lastTexture;
 			
 		}
 
 		private void EnqueueFrames()
 		{
-			decodingTask = Task.Factory.StartNew(() => TaskEnqueueFrame());
-		}
-
-		private void TaskEnqueueFrame()
-		{
-			if (decodedframes.Count < ((int)(Framerate.num / Framerate.den)) * 2)
+			decodingTask = Task.Factory.StartNew(() =>
 			{
-				while (EnqueueOneFrame() && decodedframes.Count < ((int)(Framerate.num / Framerate.den)) * 2) ;
-			}
+				if (decodedframes.Count < ((int)(Framerate.num / Framerate.den)) * 2)
+				{
+					while (EnqueueOneFrame() && decodedframes.Count < ((int)(Framerate.num / Framerate.den)) * 2) ;
+				}
+			});
 		}
 
 		private bool EnqueueOneFrame() {
@@ -264,6 +268,10 @@ namespace FDK
 			return true;
 		}
 
+		private CTexture GeneFrmTx(Bitmap bitmap) {
+			return new CTexture(this.device, bitmap, Format.A8R8G8B8, false);
+		}
+
 		public Size FrameSize;
 
 		#region[private]
@@ -278,6 +286,7 @@ namespace FDK
 		private Queue<CDecodedFrame> decodedframes;
 		private int framecount;
 		private Task decodingTask;
+		private Device device;
 
 		//for play
 		private bool bPlaying = false;

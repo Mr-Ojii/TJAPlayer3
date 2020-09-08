@@ -2758,7 +2758,7 @@ namespace TJAPlayer3
 					else
 						strVideoFilename = this.strフォルダ名 + this.strBGVIDEO_PATH;
 
-					CVideoDecoder vd = new CVideoDecoder(strVideoFilename);
+					CVideoDecoder vd = new CVideoDecoder(TJAPlayer3.app.Device, strVideoFilename);
 
 					if (this.listVD.ContainsKey(1))
 						this.listVD.Remove(1);
@@ -5725,7 +5725,7 @@ namespace TJAPlayer3
 				else
 					strVideoFilename = this.strフォルダ名 + this.strBGVIDEO_PATH;
 
-				CVideoDecoder vd = new CVideoDecoder(strVideoFilename);
+				CVideoDecoder vd = new CVideoDecoder(TJAPlayer3.app.Device, strVideoFilename);
 
 				if (this.listVD.ContainsKey(1))
 					this.listVD.Remove(1);

@@ -5,13 +5,6 @@ using System.Drawing;
 using SharpDX;
 using SharpDX.Direct3D9;
 using FDK;
-using DirectShowLib;
-
-using Rectangle = System.Drawing.Rectangle;
-using Point = System.Drawing.Point;
-using Color = System.Drawing.Color;
-using System.Runtime.CompilerServices;
-using System.Windows.Forms;
 
 namespace TJAPlayer3
 {
@@ -69,7 +62,7 @@ namespace TJAPlayer3
 			}
 		}
 
-		public unsafe int t進行描画( int x, int y )
+		public unsafe int t進行描画()
 		{
 			if ( !base.b活性化してない )
 			{
@@ -79,15 +72,15 @@ namespace TJAPlayer3
 				if (this.rVD != null)
 				{
 					#region[ ワイドクリップ ]
-					this.tx描画用 = this.rVD.GetNowFrame(TJAPlayer3.app.Device);
-					this.tx窓描画用 = this.rVD.GetNowFrame(TJAPlayer3.app.Device);
+					this.rVD.GetNowFrame(ref this.tx描画用);
+					this.rVD.GetNowFrame(ref this.tx窓描画用);
 
 					this.tx描画用.vc拡大縮小倍率.X = this.ratio1;
 					this.tx描画用.vc拡大縮小倍率.Y = this.ratio1;
 
 					if (TJAPlayer3.ConfigIni.eClipDispType == EClipDispType.背景のみ || TJAPlayer3.ConfigIni.eClipDispType == EClipDispType.両方)
 					{
-						this.tx描画用.t2D描画(TJAPlayer3.app.Device, x, y);
+						this.tx描画用.t2D拡大率考慮下拡大率考慮中心基準描画(TJAPlayer3.app.Device, GameWindowSize.Width / 2, GameWindowSize.Height);
 					}
 					#endregion
 				}
@@ -104,12 +97,13 @@ namespace TJAPlayer3
 
 				if( this.tx窓描画用 != null )
 				{
-					float[] fRatio = new float[] { 640.0f - 4.0f, 360.0f - 4.0f, 322, 362 }; //中央下表示
+					float[] fRatio = new float[] { 640.0f - 4.0f, 360.0f - 4.0f }; //中央下表示
 
-					this.tx窓描画用.vc拡大縮小倍率.X = (float)(fRatio[0] / this.rVD.FrameSize.Width);
-					this.tx窓描画用.vc拡大縮小倍率.Y = (float)(fRatio[1] / this.rVD.FrameSize.Height);
-						
-					this.tx窓描画用.t2D描画( TJAPlayer3.app.Device, (int)fRatio[ 2 ], (int)fRatio[ 3 ] );
+					float ratio = Math.Min((float)(fRatio[0] / this.rVD.FrameSize.Width), (float)(fRatio[1] / this.rVD.FrameSize.Height));
+					this.tx窓描画用.vc拡大縮小倍率.X = ratio;
+					this.tx窓描画用.vc拡大縮小倍率.Y = ratio;
+
+					this.tx窓描画用.t2D拡大率考慮下拡大率考慮中心基準描画(TJAPlayer3.app.Device, GameWindowSize.Width / 2, GameWindowSize.Height);
 				}
 
 				#endregion

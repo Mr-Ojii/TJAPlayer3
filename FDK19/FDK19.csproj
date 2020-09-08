@@ -59,11 +59,6 @@
       <HintPath>..\Test\dll\Bass.Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DirectShowLib-2005, Version=2.1.0.0, Culture=neutral, PublicKeyToken=67e7b740cdfc2d3f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Test\dll\DirectShowLib-2005.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="FFmpeg.AutoGen, Version=4.3.0.1, Culture=neutral, PublicKeyToken=9b7632533a381715, processorArchitecture=MSIL">
       <HintPath>..\packages\FFmpeg.AutoGen.4.3.0.1\lib\net472\FFmpeg.AutoGen.dll</HintPath>
     </Reference>

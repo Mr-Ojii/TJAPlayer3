@@ -739,7 +739,7 @@ namespace TJAPlayer3
 	
 		protected override void t進行描画_AVI()
 		{
-			base.t進行描画_AVI( 0, 0 );
+			base.t進行描画_AVI();
 		}
 		protected override void t進行描画_DANGER()
 		{
