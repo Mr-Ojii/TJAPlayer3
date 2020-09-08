@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using FFmpeg.AutoGen;
 using SharpDX.Direct3D9;
-using System.Diagnostics.Eventing.Reader;
 
 namespace FDK
 {
@@ -58,6 +57,7 @@ namespace FDK
 				FrameSize = new Size(codec_context->width, codec_context->height);
 				pixelFormat = codec_context->pix_fmt;
 				framecount = codec_context->frame_number;
+				Framerate = video_stream->avg_frame_rate;
 
 				frame = ffmpeg.av_frame_alloc();
 				packet = ffmpeg.av_packet_alloc();
@@ -68,8 +68,6 @@ namespace FDK
 				AVPixelFormat.AV_PIX_FMT_BGR24,
 				ffmpeg.SWS_FAST_BILINEAR, null, null, null);
 				if (convert_context == null) throw new ApplicationException("Could not initialize the conversion context.");
-				_dstData = new byte_ptrArray4();
-				_dstLinesize = new int_array4();
 				decodedframes = new Queue<CDecodedFrame>();
 				CTimer = new CTimer(CTimer.E種別.MultiMedia);
 			}
@@ -93,17 +91,37 @@ namespace FDK
 				lastTexture.Dispose();
 			if (nextTexture != null)
 				nextTexture.Dispose();
+			decodedframes.Clear();
+			decodedframes = null;
 		}
+
 
 		public void Start()
 		{
+			EnqueueFrames();
 			CTimer.tリセット();
 			CTimer.t再開();
 			this.bPlaying = true;
 		}
 
-		public void SkipStart() { 
-		
+		public void SkipStart(long timestamp) 
+		{
+			this.Seek(timestamp);
+			this.PauseControl();
+		}
+
+		public void PauseControl()
+		{
+			if (this.bPlaying)
+			{
+				CTimer.t一時停止();
+				this.bPlaying = false;
+			}
+			else
+			{
+				CTimer.t再開();
+				this.bPlaying = true;
+			}
 		}
 
 		public void Stop() 
@@ -114,12 +132,26 @@ namespace FDK
 
 		public void InitRead() 
 		{
-			this.EnqueueFrames();
+			if (!bqueueinitialized)
+				this.EnqueueFrames();
+			else
+				Trace.TraceError("The class has already been initialized.");
 		}
 
 		public void Reset() 
 		{
-		
+			ffmpeg.av_seek_frame(format_context, video_stream->index, 1, ffmpeg.AVSEEK_FLAG_BACKWARD);
+			CTimer.tリセット();
+			this.decodedframes.Clear();
+			this.EnqueueFrames();
+		}
+
+		private void Seek(long timestamp)
+		{
+			ffmpeg.av_seek_frame(format_context, video_stream->index, timestamp, ffmpeg.AVSEEK_FLAG_BACKWARD);
+			ffmpeg.avcodec_flush_buffers(codec_context);
+			this.decodedframes.Clear();
+			this.EnqueueFrames();
 		}
 
 		public CTexture GetNowFrame(Device device) 
@@ -168,7 +200,7 @@ namespace FDK
 		{
 			bool ret = false;
 
-			while (!(ret = EnqueueOneFrame()) && decodedframes.Count < 10) ;
+			while (!(ret = EnqueueOneFrame()) && decodedframes.Count < (int)(Framerate.num / Framerate.den) + 1) ;
 
 			return ret;
 		}
@@ -218,6 +250,8 @@ namespace FDK
 			{
 				outframe = *frame;
 			}
+			byte_ptrArray4 _dstData = new byte_ptrArray4();
+			int_array4 _dstLinesize = new int_array4();
 			ffmpeg.sws_scale(convert_context, outframe.data, outframe.linesize, 0, outframe.height, _dstData, _dstLinesize);
 
 			var data = new byte_ptrArray8();
@@ -240,6 +274,9 @@ namespace FDK
 			return true;
 		}
 
+		public Size FrameSize;
+
+		#region[private]
 		//for read & decode
 		private float fPlaySpeed;
 		private static AVFormatContext* format_context;
@@ -250,20 +287,21 @@ namespace FDK
 		private AVFrame* frame;
 		private AVPacket* packet;
 		private Queue<CDecodedFrame> decodedframes;
-		public Size FrameSize;
-		private AVPixelFormat pixelFormat;
 		private int framecount;
-		private CTexture lastTexture;
-		private CTexture nextTexture;
-		private double nextframetime;
+
 
 		//for play
 		private bool bPlaying = false;
 		private CTimer CTimer;
+		private AVRational Framerate;
+		private CTexture lastTexture;
+		private CTexture nextTexture;
+		private double nextframetime = 0;
+		private bool bqueueinitialized = false;
 
 		//for convert
 		private SwsContext* convert_context;
-		private byte_ptrArray4 _dstData;
-		private int_array4 _dstLinesize;
-	}
+		private AVPixelFormat pixelFormat;
+        #endregion
+    }
 }

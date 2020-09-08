@@ -25,7 +25,7 @@ namespace TJAPlayer3
 
 		// メソッド
 
-		public void Start( int nチャンネル番号, CDTX.CDirectShow dsBGV, int n移動開始時刻ms )
+		public void Start( int nチャンネル番号, CDTX.CDirectShow dsBGV )
 		{
 			if ( ( nチャンネル番号 == 0x54 || nチャンネル番号 == 0x5A ) && TJAPlayer3.ConfigIni.bAVI有効 )
 			{
@@ -88,7 +88,7 @@ namespace TJAPlayer3
 				{
 					case EAVI種別.AVI:
 						{
-							this.Start( chip.nチャンネル番号, chip.rDShow, chip.n発声時刻ms );
+							this.Start( chip.nチャンネル番号, chip.rDShow );
 							continue;
 						}
 				}
