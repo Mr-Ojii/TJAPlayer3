@@ -90,9 +90,11 @@ namespace FDK
 			ffmpeg.av_free(frame);
 
 			ffmpeg.av_packet_unref(packet);
-			ffmpeg.av_free(packet); 
+			ffmpeg.av_free(packet);
 
+			ffmpeg.avcodec_flush_buffers(codec_context);
 			ffmpeg.avcodec_close(codec_context);
+			video_stream = null;
 			fixed (AVFormatContext** format_contexttmp = &format_context)
 			{
 				ffmpeg.avformat_close_input(format_contexttmp);
@@ -140,22 +142,20 @@ namespace FDK
 		public void InitRead() 
 		{
 			if (!bqueueinitialized)
-				this.EnqueueFrames();
+				this.Reset();
 			else
 				Trace.TraceError("The class has already been initialized.");
 		}
 
-		public void Reset() 
+		public void Reset()
 		{
 			this.Seek(1);
 			CTimer.tリセット();
-			decodedframes.Clear();
-			this.EnqueueFrames();
 		}
 
 		private void Seek(long timestamp)
 		{
-			cts.Cancel();
+			cts?.Cancel();
 			ffmpeg.av_seek_frame(format_context, video_stream->index, timestamp, ffmpeg.AVSEEK_FLAG_BACKWARD);
 			ffmpeg.avcodec_flush_buffers(codec_context);
 			CTimer.n現在時刻ms = timestamp;
@@ -169,13 +169,12 @@ namespace FDK
 			while (nextframetime <= (CTimer.n現在時刻ms * fPlaySpeed))
 			{
 				if (decodedframes.Count != 0)
-				{			
+				{
 					using (CDecodedFrame cdecodedframe = decodedframes.Dequeue())
 					{
 						if (cdecodedframe.Time <= (CTimer.n現在時刻ms * fPlaySpeed))
 							continue;
 						CTexture txtmp = GeneFrmTx(cdecodedframe.Bitmap);
-						this.EnqueueFrames();
 						if (lastTexture != null)
 							lastTexture.Dispose();
 						nextframetime = cdecodedframe.Time;
@@ -183,10 +182,11 @@ namespace FDK
 					}
 				}
 				else
-                {
+				{
 					break;
 				}
 			}
+			this.EnqueueFrames();
 
 			if (lastTexture == null)
 				lastTexture = GeneFrmTx(new Bitmap(1, 1));
@@ -211,74 +211,77 @@ namespace FDK
 					}
 					DS = DecodingState.Stopped;
 				});
-				Exception e = decodingTask.Exception;
-                if (e!=null)
-				{
-					Trace.TraceError(e.ToString());
-					DS = DecodingState.Stopped;
-				}
 			}
 		}
 
-		private bool EnqueueOneFrame() {
-			DS = DecodingState.Running;
-			AVFrame outframe;
-			ffmpeg.av_frame_unref(frame);
-			int error;
-			do
+		private bool EnqueueOneFrame()
+		{
+			try
 			{
-				try
+				DS = DecodingState.Running;
+				AVFrame outframe;
+				int error;
+				do
 				{
-					do
+					try
 					{
-						cts.Token.ThrowIfCancellationRequested();
-						error = ffmpeg.av_read_frame(format_context, packet);
-						if (error == ffmpeg.AVERROR_EOF)
+						do
 						{
-							return false;
-						}
+							error = ffmpeg.av_read_frame(format_context, packet);
+							if (error == ffmpeg.AVERROR_EOF)
+							{
+								DS = DecodingState.Stopped;
+								return false;
+							}
 
-						if (error != 0)
-							Trace.TraceError("av_read_frame eof or error.\n");
+							if (error != 0)
+								Trace.TraceError("av_read_frame eof or error.\n");
 
-					} while (packet->stream_index != video_stream->index);
+						} while (packet->stream_index != video_stream->index);
 
-					if (ffmpeg.avcodec_send_packet(codec_context, packet) < 0)
-						Trace.TraceError("avcodec_send_packet error\n");
-				}
-				finally
+						if (ffmpeg.avcodec_send_packet(codec_context, packet) < 0)
+							Trace.TraceError("avcodec_send_packet error\n");
+					}
+					finally
+					{
+						ffmpeg.av_packet_unref(packet);
+					}
+
+					error = ffmpeg.avcodec_receive_frame(codec_context, frame);
+				} while (error == ffmpeg.AVERROR(ffmpeg.EAGAIN));
+				if (error != 0)
+					Trace.TraceError("error.\n");
+
+				ffmpeg.sws_scale(convert_context, frame->data, frame->linesize, 0, frame->height, _dstData, _dstLinesize);
+
+				var data = new byte_ptrArray8();
+				data.UpdateFrom(_dstData);
+				var linesize = new int_array8();
+				linesize.UpdateFrom(_dstLinesize);
+
+				outframe = new AVFrame
 				{
-					ffmpeg.av_packet_unref(packet);
-				}
+					data = data,
+					linesize = linesize,
+					width = FrameSize.Width,
+					height = FrameSize.Height
+				};
 
-				error = ffmpeg.avcodec_receive_frame(codec_context, frame);
-			} while (error == ffmpeg.AVERROR(ffmpeg.EAGAIN));
-			if (error != 0)
-				Trace.TraceError("error.\n");
-						
-			ffmpeg.sws_scale(convert_context, frame->data, frame->linesize, 0, frame->height, _dstData, _dstLinesize);
+				decodedframes.Enqueue(new CDecodedFrame { Time = (frame->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Bitmap = new Bitmap(outframe.width, outframe.height, outframe.linesize[0], PixelFormat.Format24bppRgb, (IntPtr)outframe.data[0]) });
+				
 
-			var data = new byte_ptrArray8();
-			data.UpdateFrom(_dstData);
-			var linesize = new int_array8();
-			linesize.UpdateFrom(_dstLinesize);
-
-			outframe = new AVFrame
+				ffmpeg.av_frame_unref(frame);
+				ffmpeg.av_frame_unref(&outframe);
+				ffmpeg.av_free(&outframe);
+				cts.Token.ThrowIfCancellationRequested();
+				return true;
+			}
+			catch (Exception e)
 			{
-				data = data,
-				linesize = linesize,
-				width = FrameSize.Width,
-				height = FrameSize.Height
-			};
-			
-
-			decodedframes.Enqueue(new CDecodedFrame { Time = (frame->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Bitmap = new Bitmap(outframe.width, outframe.height, outframe.linesize[0], PixelFormat.Format24bppRgb, (IntPtr)outframe.data[0]) });
-
-			
-			ffmpeg.av_frame_unref(frame);
-			ffmpeg.av_frame_unref(&outframe);
-			ffmpeg.av_free(&outframe);
-			return true;
+				Trace.TraceError(e.ToString());
+				DS = DecodingState.Stopped;
+				return false;
+			}
 		}
 
 		private CTexture GeneFrmTx(Bitmap bitmap) {
