@@ -3203,8 +3203,8 @@ namespace TJAPlayer3
 						break;
 #endregion
 #region [ 54: 動画再生 ]
-					case 0x54:	// 動画再生
-						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
+					case 0x54:  // 動画再生
+						if (!pChip.bHit && (pChip.nバーからの距離dot.Drums < 0) && pChip.nPlayerSide == 0)
 						{
 							pChip.bHit = true;
 							if ( configIni.bAVI有効 )

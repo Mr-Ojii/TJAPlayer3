@@ -20,7 +20,7 @@ namespace TJAPlayer3
 
 		public void Start( int nチャンネル番号, CVideoDecoder rVD )
 		{
-			if ( ( nチャンネル番号 == 0x54 || nチャンネル番号 == 0x5A ) && TJAPlayer3.ConfigIni.bAVI有効 )
+			if ( nチャンネル番号 == 0x54 && TJAPlayer3.ConfigIni.bAVI有効 )
 			{
 				this.rVD = rVD;
 				if (this.rVD != null)

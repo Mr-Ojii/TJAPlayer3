@@ -897,6 +897,7 @@ namespace TJAPlayer3
 				foreach (CVideoDecoder cvd in this.listVD.Values)
 				{
 					cvd.InitRead();
+					cvd.dbPlaySpeed = ((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0;
 				}
 			}
 			if (!this.bヘッダのみ)//&& this.b動画読み込み )
@@ -2230,6 +2231,7 @@ namespace TJAPlayer3
 				chip1.fNow_Measure_s = this.fNow_Measure_s;
 				chip1.n整数値 = 0x01;
 				chip1.n整数値_内部番号 = 1;
+				chip1.nPlayerSide = this.nPlayerSide;
 				chip1.eAVI種別 = EAVI種別.AVI;
 
 				// チップを配置。
@@ -2866,6 +2868,7 @@ namespace TJAPlayer3
 			chip1.fNow_Measure_s = this.fNow_Measure_s;
 			chip1.n整数値 = 0x01;
 			chip1.n整数値_内部番号 = 1;
+			chip1.nPlayerSide = this.nPlayerSide;
 			chip1.eAVI種別 = EAVI種別.AVI;
 
 			// チップを配置。
@@ -4109,6 +4112,7 @@ namespace TJAPlayer3
 				chip1.fNow_Measure_s = this.fNow_Measure_s;
 				chip1.n整数値 = 0x01;
 				chip1.n整数値_内部番号 = 1;
+				chip1.nPlayerSide = this.nPlayerSide;
 				chip1.eAVI種別 = EAVI種別.AVI;
 
 				// チップを配置。

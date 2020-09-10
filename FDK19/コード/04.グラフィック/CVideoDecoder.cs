@@ -107,7 +107,7 @@ namespace FDK
 		public void Start()
 		{
 			CTimer.tリセット();
-			
+			CTimer.t再開();
 			this.bPlaying = true;
 		}
 
@@ -142,15 +142,17 @@ namespace FDK
 		public void InitRead()
 		{
 			if (!bqueueinitialized)
-				this.Reset();
+				this.EnqueueFrames();
 			else
 				Trace.TraceError("The class has already been initialized.\n");
 		}
 
 		public void Reset()
 		{
-			this.Seek(0);
 			CTimer.tリセット();
+			this.Seek(0);
+			CTimer.t一時停止();
+			this.bPlaying = false;
 		}
 
 		private void Seek(long timestampms)
@@ -168,29 +170,32 @@ namespace FDK
 
 		public void GetNowFrame(ref CTexture Texture)
 		{
-			CTimer.t更新();
-			while (nextframetime <= (CTimer.n現在時刻ms * fPlaySpeed))
+			if (this.bPlaying)
 			{
-				if (decodedframes.Count != 0)
+				CTimer.t更新();
+				while (nextframetime <= (CTimer.n現在時刻ms * _dbPlaySpeed))
 				{
-					using (CDecodedFrame cdecodedframe = decodedframes.Dequeue())
+					if (decodedframes.Count != 0)
 					{
-						if (cdecodedframe.Time <= (CTimer.n現在時刻ms * fPlaySpeed))
-							continue;
-						CTexture txtmp = GeneFrmTx(cdecodedframe.Bitmap);
-						if (lastTexture != null)
-							lastTexture.Dispose();
-						nextframetime = cdecodedframe.Time;
-						lastTexture = txtmp;
+						using (CDecodedFrame cdecodedframe = decodedframes.Dequeue())
+						{
+							if (cdecodedframe.Time <= (CTimer.n現在時刻ms * _dbPlaySpeed))
+								continue;
+							CTexture txtmp = GeneFrmTx(cdecodedframe.Bitmap);
+							if (lastTexture != null)
+								lastTexture.Dispose();
+							nextframetime = cdecodedframe.Time;
+							lastTexture = txtmp;
 
+						}
+					}
+					else
+					{
+						break;
 					}
 				}
-				else
-				{
-					break;
-				}
+				this.EnqueueFrames();
 			}
-			this.EnqueueFrames();
 
 			if (lastTexture == null)
 				lastTexture = GeneFrmTx(new Bitmap(1, 1));
@@ -299,15 +304,28 @@ namespace FDK
 
 		public Size FrameSize;
 
-		private enum DecodingState 
+		public double dbPlaySpeed 
 		{
-			Stopped,
-			Running
+			get 
+			{
+				return this._dbPlaySpeed;
+			}
+			set 
+			{
+				if (value > 0)
+				{
+					this._dbPlaySpeed = value;
+				}
+				else 
+				{
+					throw new ArgumentOutOfRangeException();
+				}
+			}
 		}
 
 		#region[private]
 		//for read & decode
-		private float fPlaySpeed = 1.0f;
+		private double _dbPlaySpeed = 1.0f;
 		private static AVFormatContext* format_context;
 		private AVStream* video_stream;
 		private AVCodec* codec;
@@ -320,6 +338,11 @@ namespace FDK
 		private Device device;
 		private CancellationTokenSource cts;
 		private DecodingState DS = DecodingState.Stopped;
+		private enum DecodingState
+		{
+			Stopped,
+			Running
+		}
 
 		//for play
 		private bool bPlaying = false;
