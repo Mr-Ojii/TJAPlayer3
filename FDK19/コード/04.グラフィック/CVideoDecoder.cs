@@ -69,7 +69,7 @@ namespace FDK
 				FrameSize.Height, 
 				AVPixelFormat.AV_PIX_FMT_BGR24,
 				ffmpeg.SWS_FAST_BILINEAR, null, null, null);
-				if (convert_context == null) throw new ApplicationException("Could not initialize the conversion context.");
+				if (convert_context == null) throw new ApplicationException("Could not initialize the conversion context.\n");
 				decodedframes = new Queue<CDecodedFrame>();
 				CTimer = new CTimer(CTimer.E種別.MultiMedia);
 
@@ -78,7 +78,6 @@ namespace FDK
 				_dstData = new byte_ptrArray4();
 				_dstLinesize = new int_array4();
 				ffmpeg.av_image_fill_arrays(ref _dstData, ref _dstLinesize, (byte*)_convertedFrameBufferPtr, CVPxfmt, codec_context->width, codec_context->height, 1);
-
 			}
 		}
 
@@ -107,7 +106,6 @@ namespace FDK
 
 		public void Start()
 		{
-			this.EnqueueFrames();
 			CTimer.tリセット();
 			
 			this.bPlaying = true;
@@ -116,7 +114,8 @@ namespace FDK
 		public void SkipStart(long timestamp) 
 		{
 			this.Seek(timestamp);
-			this.PauseControl();
+			CTimer.t再開();
+			this.bPlaying = true;
 		}
 
 		public void PauseControl()
@@ -133,32 +132,36 @@ namespace FDK
 			}
 		}
 
-		public void Stop() 
+		public void Stop()
 		{
+			cts?.Cancel();
 			CTimer.t一時停止();
 			this.bPlaying = false;
 		}
 
-		public void InitRead() 
+		public void InitRead()
 		{
 			if (!bqueueinitialized)
 				this.Reset();
 			else
-				Trace.TraceError("The class has already been initialized.");
+				Trace.TraceError("The class has already been initialized.\n");
 		}
 
 		public void Reset()
 		{
-			this.Seek(1);
+			this.Seek(0);
 			CTimer.tリセット();
 		}
 
-		private void Seek(long timestamp)
+		private void Seek(long timestampms)
 		{
 			cts?.Cancel();
-			ffmpeg.av_seek_frame(format_context, video_stream->index, timestamp, ffmpeg.AVSEEK_FLAG_BACKWARD);
+			while (DS != DecodingState.Stopped) ;
+			if (ffmpeg.av_seek_frame(format_context, video_stream->index, timestampms, ffmpeg.AVSEEK_FLAG_BACKWARD) < 0)
+				Trace.TraceError("av_seek_frame failed\n");
 			ffmpeg.avcodec_flush_buffers(codec_context);
-			CTimer.n現在時刻ms = timestamp;
+			CTimer.n現在時刻ms = timestampms;
+			nextframetime = timestampms;
 			decodedframes.Clear();
 			this.EnqueueFrames();
 		}
@@ -179,6 +182,7 @@ namespace FDK
 							lastTexture.Dispose();
 						nextframetime = cdecodedframe.Time;
 						lastTexture = txtmp;
+
 					}
 				}
 				else
@@ -216,10 +220,10 @@ namespace FDK
 
 		private bool EnqueueOneFrame()
 		{
+			AVFrame outframe;
 			try
 			{
 				DS = DecodingState.Running;
-				AVFrame outframe;
 				int error;
 				do
 				{
@@ -239,6 +243,8 @@ namespace FDK
 
 						} while (packet->stream_index != video_stream->index);
 
+						cts.Token.ThrowIfCancellationRequested();
+
 						if (ffmpeg.avcodec_send_packet(codec_context, packet) < 0)
 							Trace.TraceError("avcodec_send_packet error\n");
 					}
@@ -246,6 +252,8 @@ namespace FDK
 					{
 						ffmpeg.av_packet_unref(packet);
 					}
+
+					cts.Token.ThrowIfCancellationRequested();
 
 					error = ffmpeg.avcodec_receive_frame(codec_context, frame);
 				} while (error == ffmpeg.AVERROR(ffmpeg.EAGAIN));
@@ -268,11 +276,7 @@ namespace FDK
 				};
 
 				decodedframes.Enqueue(new CDecodedFrame { Time = (frame->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Bitmap = new Bitmap(outframe.width, outframe.height, outframe.linesize[0], PixelFormat.Format24bppRgb, (IntPtr)outframe.data[0]) });
-				
 
-				ffmpeg.av_frame_unref(frame);
-				ffmpeg.av_frame_unref(&outframe);
-				ffmpeg.av_free(&outframe);
 				cts.Token.ThrowIfCancellationRequested();
 				return true;
 			}
@@ -282,10 +286,15 @@ namespace FDK
 				DS = DecodingState.Stopped;
 				return false;
 			}
+			finally 
+			{
+				ffmpeg.av_frame_unref(&outframe);
+				ffmpeg.av_free(&outframe);
+			}
 		}
 
 		private CTexture GeneFrmTx(Bitmap bitmap) {
-			return new CTexture(this.device, bitmap, Format.R8G8B8, false);
+			return new CTexture(this.device, bitmap, fmt, false);
 		}
 
 		public Size FrameSize;
@@ -327,6 +336,7 @@ namespace FDK
 		private readonly int_array4 _dstLinesize;
 		private readonly IntPtr _convertedFrameBufferPtr;
 		private const AVPixelFormat CVPxfmt = AVPixelFormat.AV_PIX_FMT_RGB24;
+		private const Format fmt = Format.R8G8B8;
 		#endregion
 	}
 }

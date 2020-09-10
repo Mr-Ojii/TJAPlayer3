@@ -290,8 +290,21 @@ namespace FDK
 			using (MemoryStream ms = new MemoryStream())
 			{
 				bitmap.Save(ms, ImageFormat.Bmp);
-				byte[] img = ms.GetBuffer();
-				MakeTexture(device, img, format, b黒を透過する, pool);
+				try
+				{
+					this.Format = format;
+					this.sz画像サイズ = new Size(bitmap.Width, bitmap.Height);
+					this.rc全画像 = new Rectangle(0, 0, this.sz画像サイズ.Width, this.sz画像サイズ.Height);
+					int colorKey = (b黒を透過する) ? unchecked((int)0xFF000000) : 0;
+					this.szテクスチャサイズ = this.t指定されたサイズを超えない最適なテクスチャサイズを返す(device, this.sz画像サイズ);
+
+					this.texture = Texture.FromMemory(device, ms.GetBuffer(), this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, format, pool, Filter.Point, Filter.None, colorKey);
+				}
+				catch
+				{
+					this.Dispose();
+					throw new CTextureCreateFailedException(string.Format("テクスチャの生成に失敗しました。\n"));
+				}
 			}
 		}
 		// メソッド

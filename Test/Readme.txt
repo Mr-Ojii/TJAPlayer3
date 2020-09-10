@@ -22,7 +22,7 @@ SkinConfig.iniのパラメータも追加しています。
 スキンのサウンドについては徐々に自作にすり替えていきます。  
 耳コピできないので、Domino & Softalkで適当に作った音声類になると思います。
 
-スキン作成ツール : AviUtl/Blender/FFmpeg/GIMP/Domino/Audacity/Softalk/UTAU & それぞれのソフトのプラグインなど
+スキン作成ツール : AviUtl/Blender/FFmpeg/GIMP/Domino/Audacity/SofTalk/UTAU/FontForge & それぞれのソフトのプラグインなど
 とてもお世話になっています。ありがとうございます。
 
 ==追加機能について==
@@ -46,6 +46,11 @@ DLL群のみでもよいのですが、デバッグ用に残しておきたい�
 
 DLL群のバージョンアップをしたい方は自己責任で差し替えをしてください。
 LGPLやGPLに気を付けてくださいね。
+
+==OpenAL Softについて==
+このリポジトリにはあらかじめOpenAL Softライブラリが同梱されています。  
+同梱しているライブラリはx86ライブラリです。  
+バージョンは1.15.1です。(2020/09/04現在)
 
 以下はAioiLight様作成のReadmeです。
 
