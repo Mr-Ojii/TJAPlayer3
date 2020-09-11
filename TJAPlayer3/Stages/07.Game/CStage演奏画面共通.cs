@@ -3365,7 +3365,7 @@ namespace TJAPlayer3
 								if (TJAPlayer3.Skin.Game_Mob_Ptn != 0)
 								{
 									double db値 = this.actMob.ctMob.db現在の値;
-                                    this.actMob.ctMob = new CCounter(1, 180, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.Game_Mob_Beat / 180 / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSound管理.rc演奏用タイマ);
+									this.actMob.ctMob = new CCounter(1, 180, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.Game_Mob_Beat / 180 / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSound管理.rc演奏用タイマ);
 									this.actMob.ctMob.t時間Resetdb();
 									this.actMob.ctMob.db現在の値 = db値;
 

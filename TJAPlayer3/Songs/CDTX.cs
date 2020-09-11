@@ -5453,11 +5453,11 @@ namespace TJAPlayer3
 			{
 				//this.TITLE = strCommandParam;
 				this.TITLE = InputText.Substring(InputText.IndexOf(":") + 1);
-                //tbTitle.Text = strCommandParam;
-                if (InputText.Contains("\n"))
-                {
+				//tbTitle.Text = strCommandParam;
+				if (InputText.Contains("\n"))
+				{
 					Debug.Print("");
-                }
+				}
 			}
 			if (strCommandName.Equals("SUBTITLE"))
 			{
@@ -6971,6 +6971,7 @@ namespace TJAPlayer3
 					{
 						cvd.Dispose();
 					}
+					this.listVD = null;
 				}
 				base.OnManagedリソースの解放();
 			}
