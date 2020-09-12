@@ -114,7 +114,7 @@ PlayOption_Box_Section_Y=0,72,118
 PlayOption_Name_XY_Diff=-150,-2
 PlayOption_List_XY_Diff=90,-2
 
-//ゲームのBGAの上背景の上下に動くとこの動きパターン(各パラメータ値は1P,2Pの順)(0:ただ上下に動く 1:め組っぽく 2:祭りっぽく)
+//ゲームのBGAの上背景の上下に動くとこの動きパターン(各パラメータ値は1P,2Pの順)(0:ただ上下に動く 1:め組っぽく 2:祭りっぽく 3:ニジイロのめ組っぽく)
 Background_Scroll_PatternY=0,0
 
 //2P側のキャラのモーションを指定するコンフィグ

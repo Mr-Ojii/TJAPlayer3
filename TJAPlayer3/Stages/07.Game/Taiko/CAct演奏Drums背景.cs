@@ -80,10 +80,25 @@ namespace TJAPlayer3
 				if (TJAPlayer3.Tx.Background_Up[i] != null)
 				{
 					this.ct上背景スクロール用タイマー[i] = new CCounter(1, TJAPlayer3.Tx.Background_Up[i].szテクスチャサイズ.Width, 16, TJAPlayer3.Timer);
-					if(TJAPlayer3.Skin.Background_Scroll_PatternY[i] == 0)
-						this.ct上背景上下用タイマー[i] = new CCounter(1, 100 , 30, TJAPlayer3.Timer);
-					else
-						this.ct上背景上下用タイマー[i] = new CCounter(0, 3140 , 1, TJAPlayer3.Timer);
+
+					switch (TJAPlayer3.Skin.Background_Scroll_PatternY[i])
+					{
+						case 0:
+						this.ct上背景上下用タイマー[i] = new CCounter(1, 100, 30, TJAPlayer3.Timer);
+							break;
+
+						case 1:
+						case 2:
+							this.ct上背景上下用タイマー[i] = new CCounter(0, 3140, 1, TJAPlayer3.Timer);
+							break;
+						case 3:
+						default:
+							if (TJAPlayer3.Tx.Background_Up_YMove != null)
+								this.ct上背景上下用タイマー[i] = new CCounter(1, TJAPlayer3.Tx.Background_Up_YMove[i].szテクスチャサイズ.Width, 6, TJAPlayer3.Timer);
+							break;
+					}
+
+
 					this.ct上背景桜用タイマー[i] = new CCounter(0, 400, 8, TJAPlayer3.Timer);
 					if(TJAPlayer3.Tx.Background_Up_Sakura[i]!=null)
 						this.ct上背景桜スクロール用タイマー[i] = new CCounter(0, TJAPlayer3.Tx.Background_Up_Sakura[i].szテクスチャサイズ.Width, 8, TJAPlayer3.Timer);
@@ -215,54 +230,100 @@ namespace TJAPlayer3
 						if (TJAPlayer3.Tx.Background_Up_YMove[i] != null)
 						{
 							int ym;
+							int xm;
 
-							if (TJAPlayer3.Skin.Background_Scroll_PatternY[i] == 0)
+							switch (TJAPlayer3.Skin.Background_Scroll_PatternY[i]) 
 							{
-								if (ct上背景上下用タイマー[i].n現在の値 <= ct上背景上下用タイマー[i].n終了値 * 0.5)
-									ym = (int)((-ct上背景上下用タイマー[i].n現在の値) * 0.5);
-								else
-									ym = (int)((ct上背景上下用タイマー[i].n現在の値 - ct上背景上下用タイマー[i].n終了値) * 0.5);
-								ym -= (int)(ct上背景上下用タイマー[i].n終了値 * 0.0625);
-							}
-							else if (TJAPlayer3.Skin.Background_Scroll_PatternY[i] == 1)
-							{
-								ym = (int) (Math.Sin(ct上背景上下用タイマー[i].n現在の値 / 1000.0) * 100.0);
-							}
-							else
-							{
-								ym = (int)(Math.Min(Math.Sin(ct上背景上下用タイマー[i].n現在の値 / 1000.0),0.2) * 100.0);
+								case 0:
+									if (ct上背景上下用タイマー[i].n現在の値 <= ct上背景上下用タイマー[i].n終了値 * 0.5)
+										ym = (int)((-ct上背景上下用タイマー[i].n現在の値) * 0.5);
+									else
+										ym = (int)((ct上背景上下用タイマー[i].n現在の値 - ct上背景上下用タイマー[i].n終了値) * 0.5);
+									ym -= (int)(ct上背景上下用タイマー[i].n終了値 * 0.0625);
+									xm = this.ct上背景スクロール用タイマー[i].n現在の値;
+									break;
+								case 1:
+									ym = (int)(Math.Sin(ct上背景上下用タイマー[i].n現在の値 / 1000.0) * 100.0);
+									xm = this.ct上背景スクロール用タイマー[i].n現在の値;
+									break;
+								case 2:
+									ym = (int)(Math.Min(Math.Sin(ct上背景上下用タイマー[i].n現在の値 / 1000.0), 0.2) * 100.0);
+									xm = this.ct上背景スクロール用タイマー[i].n現在の値;
+									break;
+								case 3:
+									const double seams = 0.4;
+									if (ct上背景上下用タイマー[i].n現在の値 <= ct上背景上下用タイマー[i].n終了値 * seams)
+									{
+										ym = -(int)(Math.Sin((ct上背景上下用タイマー[i].n現在の値 / (ct上背景上下用タイマー[i].n終了値 * seams)) * Math.PI) * 20.0);
+										xm = (int)this.ct上背景上下用タイマー[i].n現在の値;
+									}
+									else
+									{
+										ym = -(int)(Math.Sin(((ct上背景上下用タイマー[i].n現在の値 - (ct上背景上下用タイマー[i].n終了値 * seams)) / (ct上背景上下用タイマー[i].n終了値 * (1.0 - seams))) * Math.PI) * 50.0);
+
+										xm = (int)((this.ct上背景上下用タイマー[i].n現在の値 - (ct上背景上下用タイマー[i].n終了値 * seams)) * (2.0 - seams) / (1.0 - seams) + (ct上背景上下用タイマー[i].n終了値 * seams));
+									}
+									ym += 100;
+									break;
+								default:
+									ym = 0;
+									xm = this.ct上背景スクロール用タイマー[i].n現在の値;
+									break;
 							}
 
 
 							double TexSize = 1280 / TJAPlayer3.Tx.Background_Up_YMove[i].szテクスチャサイズ.Width;
-							// 1280をテクスチャサイズで割ったものを切り上げて、プラス+1足す。
-							int ForLoop = (int)Math.Ceiling(TexSize) + 1;
+							// 1280をテクスチャサイズで割ったものを切り上げて、プラス+2足す。
+							int ForLoop = (int)Math.Ceiling(TexSize) + 2;
 							//int nループ幅 = 328;
-							TJAPlayer3.Tx.Background_Up_YMove[i].t2D描画(TJAPlayer3.app.Device, 0 - this.ct上背景スクロール用タイマー[i].n現在の値, TJAPlayer3.Skin.Background_Scroll_Y[i] + ym);
+							TJAPlayer3.Tx.Background_Up_YMove[i].t2D描画(TJAPlayer3.app.Device, 0 - xm, TJAPlayer3.Skin.Background_Scroll_Y[i] + ym);
 							for (int l = 1; l < ForLoop + 1; l++)
 							{
-								TJAPlayer3.Tx.Background_Up_YMove[i].t2D描画(TJAPlayer3.app.Device, +(l * TJAPlayer3.Tx.Background_Up_YMove[i].szテクスチャサイズ.Width) - this.ct上背景スクロール用タイマー[i].n現在の値, TJAPlayer3.Skin.Background_Scroll_Y[i] + ym);
+								TJAPlayer3.Tx.Background_Up_YMove[i].t2D描画(TJAPlayer3.app.Device, +(l * TJAPlayer3.Tx.Background_Up_YMove[i].szテクスチャサイズ.Width) - xm, TJAPlayer3.Skin.Background_Scroll_Y[i] + ym);
 							}
 						}
 						if (TJAPlayer3.Tx.Background_Up_YMove_Clear[i] != null)
 						{
 							int ym;
+							int xm;
 
-							if (TJAPlayer3.Skin.Background_Scroll_PatternY[i] == 0)
+							switch (TJAPlayer3.Skin.Background_Scroll_PatternY[i])
 							{
-								if (ct上背景上下用タイマー[i].n現在の値 <= ct上背景上下用タイマー[i].n終了値 * 0.5)
-									ym = (int)((-ct上背景上下用タイマー[i].n現在の値) * 0.5);
-								else
-									ym = (int)((ct上背景上下用タイマー[i].n現在の値 - ct上背景上下用タイマー[i].n終了値) * 0.5);
-								ym -= (int)(ct上背景上下用タイマー[i].n終了値 * 0.0625);
-							}
-							else if (TJAPlayer3.Skin.Background_Scroll_PatternY[i] == 1)
-							{
-								ym = (int)(Math.Sin(ct上背景上下用タイマー[i].n現在の値 / 1000.0) * 100.0);
-							}
-							else
-							{
-								ym = (int)(Math.Min(Math.Sin(ct上背景上下用タイマー[i].n現在の値 / 1000.0), 0.2) * 100.0);
+								case 0:
+									if (ct上背景上下用タイマー[i].n現在の値 <= ct上背景上下用タイマー[i].n終了値 * 0.5)
+										ym = (int)((-ct上背景上下用タイマー[i].n現在の値) * 0.5);
+									else
+										ym = (int)((ct上背景上下用タイマー[i].n現在の値 - ct上背景上下用タイマー[i].n終了値) * 0.5);
+									ym -= (int)(ct上背景上下用タイマー[i].n終了値 * 0.0625);
+									xm = this.ct上背景スクロール用タイマー[i].n現在の値;
+									break;
+								case 1:
+									ym = (int)(Math.Sin(ct上背景上下用タイマー[i].n現在の値 / 1000.0) * 100.0);
+									xm = this.ct上背景スクロール用タイマー[i].n現在の値;
+									break;
+								case 2:
+									ym = (int)(Math.Min(Math.Sin(ct上背景上下用タイマー[i].n現在の値 / 1000.0), 0.2) * 100.0);
+									xm = this.ct上背景スクロール用タイマー[i].n現在の値;
+									break;
+								case 3:
+									const double seams = 0.4;
+									if (ct上背景上下用タイマー[i].n現在の値 <= ct上背景上下用タイマー[i].n終了値 * seams)
+									{
+										ym = -(int)(Math.Sin((ct上背景上下用タイマー[i].n現在の値 / (ct上背景上下用タイマー[i].n終了値 * seams)) * Math.PI) * 20.0);
+										xm = (int)this.ct上背景上下用タイマー[i].n現在の値;
+									}
+									else
+									{
+										ym = -(int)(Math.Sin(((ct上背景上下用タイマー[i].n現在の値 - (ct上背景上下用タイマー[i].n終了値 * seams)) / (ct上背景上下用タイマー[i].n終了値 * (1.0 - seams))) * Math.PI) * 50.0);
+
+										xm = (int)((this.ct上背景上下用タイマー[i].n現在の値 - (ct上背景上下用タイマー[i].n終了値 * seams)) * (2.0 - seams) / (1.0 - seams) + (ct上背景上下用タイマー[i].n終了値 * seams));
+									}
+									ym += 100;
+									break;
+								default:
+									ym = 0;
+									xm = this.ct上背景スクロール用タイマー[i].n現在の値;
+									break;
 							}
 
 							if (TJAPlayer3.stage演奏ドラム画面.bIsAlreadyCleared[i])
@@ -271,13 +332,13 @@ namespace TJAPlayer3
 								TJAPlayer3.Tx.Background_Up_YMove_Clear[i].Opacity = 0;
 
 							double TexSize = 1280 / TJAPlayer3.Tx.Background_Up_YMove_Clear[i].szテクスチャサイズ.Width;
-							// 1280をテクスチャサイズで割ったものを切り上げて、プラス+1足す。
-							int ForLoop = (int)Math.Ceiling(TexSize) + 1;
+							// 1280をテクスチャサイズで割ったものを切り上げて、プラス+2足す。
+							int ForLoop = (int)Math.Ceiling(TexSize) + 2;
 							//int nループ幅 = 328;
-							TJAPlayer3.Tx.Background_Up_YMove_Clear[i].t2D描画(TJAPlayer3.app.Device, 0 - this.ct上背景スクロール用タイマー[i].n現在の値, TJAPlayer3.Skin.Background_Scroll_Y[i] + ym);
+							TJAPlayer3.Tx.Background_Up_YMove_Clear[i].t2D描画(TJAPlayer3.app.Device, 0 - xm, TJAPlayer3.Skin.Background_Scroll_Y[i] + ym);
 							for (int l = 1; l < ForLoop + 1; l++)
 							{
-								TJAPlayer3.Tx.Background_Up_YMove_Clear[i].t2D描画(TJAPlayer3.app.Device, +(l * TJAPlayer3.Tx.Background_Up_YMove_Clear[i].szテクスチャサイズ.Width) - this.ct上背景スクロール用タイマー[i].n現在の値, TJAPlayer3.Skin.Background_Scroll_Y[i] + ym);
+								TJAPlayer3.Tx.Background_Up_YMove_Clear[i].t2D描画(TJAPlayer3.app.Device, +(l * TJAPlayer3.Tx.Background_Up_YMove_Clear[i].szテクスチャサイズ.Width) - xm, TJAPlayer3.Skin.Background_Scroll_Y[i] + ym);
 							}
 						}
 					}
