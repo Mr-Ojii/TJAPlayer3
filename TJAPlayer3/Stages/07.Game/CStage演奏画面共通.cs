@@ -4179,9 +4179,22 @@ namespace TJAPlayer3
 				}
 			}
 #endregion
-			
-			#region [ 演奏開始時点で既に表示されているBGAとAVIの、シークと再生 ]
-			this.actAVI.SkipStart( nStartTime );
+
+#region [ 演奏開始時点で既に表示されているBGAとAVIの、シークと再生 ]
+			for (int i = 0; i < dTX.listChip.Count; i++)
+				if (dTX.listChip[i].nチャンネル番号 == 0x54)
+					if (dTX.listChip[i].n発声時刻ms <= nStartTime)
+					{
+						this.actAVI.Seek(nStartTime - dTX.listChip[i].n発声時刻ms);
+						this.actAVI.Start(0x54, this.actAVI.rVD);
+						break;
+					}
+					else
+					{
+						this.actAVI.Seek(0);
+					}
+				
+
 #endregion
 #region [ PAUSEしていたサウンドを一斉に再生再開する(ただしタイマを止めているので、ここではまだ再生開始しない) ]
 			foreach ( CSound cs in pausedCSound )

@@ -108,7 +108,7 @@ namespace FDK
 			}
 			if (lastTexture != null)
 				lastTexture.Dispose();
-			this.DeleteFramequeue();
+			decodedframes.Clear();
 		}
 
 
@@ -116,13 +116,6 @@ namespace FDK
 		{
 			CTimer.tリセット();
 			CTimer.t再開();
-			this.bPlaying = true;
-		}
-
-		public void SkipStart(long timestamp)
-		{
-			CTimer.tリセット();
-			this.Seek(timestamp);
 			this.bPlaying = true;
 		}
 
@@ -151,14 +144,14 @@ namespace FDK
 		{
 			if (!bqueueinitialized)
 			{
-				this.Seek(1);
+				this.Seek(0);
 				bqueueinitialized = true;
 			}
 			else
 				Trace.TraceError("The class has already been initialized.\n");
 		}
 
-		private void Seek(long timestampms)
+		public void Seek(long timestampms)
 		{
 			cts?.Cancel();
 			while (DS != DecodingState.Stopped) ;
@@ -166,20 +159,10 @@ namespace FDK
 				Trace.TraceError("av_seek_frame failed\n");
 			ffmpeg.avcodec_flush_buffers(codec_context);
 			CTimer.n現在時刻ms = timestampms;
-			nextframetime = timestampms;
-			this.ResetFramequeue();
-		}
-
-		private void ResetFramequeue()
-		{
-			this.DeleteFramequeue();
-			if (DS == DecodingState.Stopped)
-				this.EnqueueFrames();
-		}
-
-		private void DeleteFramequeue()
-		{
 			decodedframes.Clear();
+			this.EnqueueFrames();
+			if (lastTexture != null)
+				lastTexture.Dispose();
 		}
 
 		public void GetNowFrame(ref CTexture Texture)
@@ -197,7 +180,6 @@ namespace FDK
 
 					if (lastTexture != null)
 						lastTexture.Dispose();
-					nextframetime = cdecodedframe.Time;
 					lastTexture = GeneFrmTx(cdecodedframe.Bitmap);
 
 					break;
@@ -316,7 +298,8 @@ namespace FDK
 			}
 		}
 
-		private CTexture GeneFrmTx(Bitmap bitmap) {
+		private CTexture GeneFrmTx(Bitmap bitmap) 
+		{
 			return new CTexture(this.device, bitmap, fmt, false);
 		}
 		private CTexture GeneFrmTx(byte[] bitmap)
@@ -371,7 +354,6 @@ namespace FDK
 		private CTimer CTimer;
 		private AVRational Framerate;
 		private CTexture lastTexture;
-		private double nextframetime = 0;
 		private bool bqueueinitialized = false;
 
 		//for convert

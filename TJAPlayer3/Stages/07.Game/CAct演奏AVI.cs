@@ -31,11 +31,11 @@ namespace TJAPlayer3
 				}
 			}
 		}
-		public void SkipStart( int n移動開始時刻ms )
+		public void Seek( int n再生開始時刻ms )
 		{
 			if (this.rVD != null)
 			{
-				this.rVD.SkipStart(n移動開始時刻ms);
+				this.rVD.Seek(n再生開始時刻ms);
 			}
 		}
 

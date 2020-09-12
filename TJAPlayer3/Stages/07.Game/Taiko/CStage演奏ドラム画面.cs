@@ -382,7 +382,7 @@ namespace TJAPlayer3
 					this.t進行描画_背景();
 				}
 
-				if (TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listVD.Count > 0)
+				if (TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listVD.Count > 0 && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
 				{
 					this.t進行描画_AVI();
 				}
@@ -472,9 +472,8 @@ namespace TJAPlayer3
 					this.t進行描画_スコア();
 
 				if (TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
-				{
 					actTokkun.On進行描画();
-				}
+				
 
 
 				this.Rainbow.On進行描画();
