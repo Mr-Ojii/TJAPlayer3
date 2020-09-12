@@ -3997,7 +3997,6 @@ namespace TJAPlayer3
 			{
 				TJAPlayer3.stage演奏ドラム画面.actDan.Update();
 			}
-			this.actAVI.tReset();
 			this.actPanel.t歌詞テクスチャを削除する();
 			for (int i = 0; i < 2; i++)
 			{

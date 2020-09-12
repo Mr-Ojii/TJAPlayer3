@@ -24,11 +24,8 @@ namespace TJAPlayer3
 			{
 				this.rVD = rVD;
 				if (this.rVD != null)
-				{
-					this.frameheight = (uint)rVD.FrameSize.Height;
-					this.framewidth = (uint)rVD.FrameSize.Width;
-					
-					this.ratio1 = Math.Min((float)GameWindowSize.Height / ((float)this.frameheight), (float)GameWindowSize.Width / ((float)this.framewidth));
+				{					
+					this.ratio1 = Math.Min((float)GameWindowSize.Height / ((float)this.rVD.FrameSize.Height), (float)GameWindowSize.Width / ((float)this.rVD.FrameSize.Height));
 					
 					this.rVD.Start();
 				}
@@ -105,14 +102,6 @@ namespace TJAPlayer3
 			}
 		}
 
-		public void tReset()
-		{
-			if (this.rVD != null) 
-			{
-				this.rVD.Reset();
-			}
-		}
-
 		// CActivity 実装
 
 		public override void On活性化()
@@ -148,9 +137,6 @@ namespace TJAPlayer3
 
 		#region [ private ]
 		//-----------------
-
-		private uint frameheight;
-		private uint framewidth;
 		private float ratio1;
 
 		private CTexture tx描画用;
