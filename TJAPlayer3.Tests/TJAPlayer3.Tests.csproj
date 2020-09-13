@@ -400,11 +400,5 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TJAPlayer3\TJAPlayer3-f.csproj">
-      <Project>{81BEC512-8074-4BD1-8A3C-AC73BC7BF846}</Project>
-      <Name>TJAPlayer3-f</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
