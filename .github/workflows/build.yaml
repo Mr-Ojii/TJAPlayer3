@@ -12,14 +12,12 @@ jobs:
       uses: actions/checkout@v1
     - name: Set up NuGet
       uses: warrenbuckley/Setup-Nuget@v1
-    - name: EchoItem
-      run: dir
     - name: Restore NuGet Packages
-      run: nuget restore $Env:GITHUB_WORKSPACE\TJAPlayer3.sln
+      run: nuget restore $Env:GITHUB_WORKSPACE\TJAPlayer3-f.sln
     - name: Set up MSBuild
       uses: warrenbuckley/Setup-MSBuild@v1
     - name: Build the Solution
-      run: MSBuild.exe $Env:GITHUB_WORKSPACE\TJAPlayer3.sln -p:Configuration=Release
+      run: MSBuild.exe $Env:GITHUB_WORKSPACE\TJAPlayer3-f.sln -p:Configuration=Release
       timeout-minutes: 5
     - name: Upload artifacts
       uses: actions/upload-artifact@v1.0.0
