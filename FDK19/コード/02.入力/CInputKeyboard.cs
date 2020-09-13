@@ -51,12 +51,12 @@ namespace FDK
 
 				if (currentState.IsConnected)
 				{
-					for (int index = 0; index < Enum.GetNames(typeof(OpenTK.Input.Key)).Length; index++) 
+					for (int index = 0; index < Enum.GetNames(typeof(Key)).Length; index++) 
 					{ 
-						if (currentState[(OpenTK.Input.Key)index])
+						if (currentState[(Key)index])
 						{
-							// #xxxxx: 2017.5.7: from: DIK (SharpDX.DirectInput.Key) を SlimDX.DirectInput.Key に変換。
-							var key = DeviceConstantConverter.TKKtoKey((OpenTK.Input.Key)index);
+							// #xxxxx: 2017.5.7: from: TKK (OpenTK.Input.Key) を SlimDX.DirectInput.Key に変換。
+							var key = DeviceConstantConverter.TKKtoKey((Key)index);
 							if (SlimDXKey.Unknown == key)
 								continue;   // 未対応キーは無視。
 
@@ -77,20 +77,15 @@ namespace FDK
 									this.bKeyState[(int)key] = true;
 									this.bKeyPushDown[(int)key] = true;
 								}
-
-								//if ( (int) key == (int) SlimDXKey.Space )
-								//{
-								//    Trace.TraceInformation( "FDK(direct): SPACE key registered. " + ct.nシステム時刻 );
-								//}
 							}
                         }
 						{
-							// #xxxxx: 2017.5.7: from: DIK (SharpDX.DirectInput.Key) を SlimDX.DirectInput.Key に変換。
-							var key = DeviceConstantConverter.TKKtoKey((OpenTK.Input.Key)index);
+							// #xxxxx: 2017.5.7: from: TKK (OpenTK.Input.Key) を SlimDX.DirectInput.Key に変換。
+							var key = DeviceConstantConverter.TKKtoKey((Key)index);
 							if (SlimDXKey.Unknown == key)
 								continue;   // 未対応キーは無視。
 
-							if (this.bKeyState[(int)key] == true && !currentState.IsKeyDown((OpenTK.Input.Key)index)) // 前回は押されているのに今回は押されていない → 離された
+							if (this.bKeyState[(int)key] == true && !currentState.IsKeyDown((Key)index)) // 前回は押されているのに今回は押されていない → 離された
 							{
 								var ev = new STInputEvent()
 								{
@@ -113,7 +108,7 @@ namespace FDK
 		}
 
 		/// <param name="nKey">
-		///		調べる SlimDX.DirectInput.Key を int にキャストした値。（SharpDX.DirectInput.Key ではないので注意。）
+		///		調べる SlimDX.DirectInput.Key を int にキャストした値。
 		/// </param>
 		public bool bキーが押された(int nKey)
 		{
@@ -121,7 +116,7 @@ namespace FDK
 		}
 
 		/// <param name="nKey">
-		///		調べる SlimDX.DirectInput.Key を int にキャストした値。（SharpDX.DirectInput.Key ではないので注意。）
+		///		調べる SlimDX.DirectInput.Key を int にキャストした値。
 		/// </param>
 		public bool bキーが押されている(int nKey)
 		{
@@ -129,7 +124,7 @@ namespace FDK
 		}
 
 		/// <param name="nKey">
-		///		調べる SlimDX.DirectInput.Key を int にキャストした値。（SharpDX.DirectInput.Key ではないので注意。）
+		///		調べる SlimDX.DirectInput.Key を int にキャストした値。
 		/// </param>
 		public bool bキーが離された(int nKey)
 		{
@@ -137,7 +132,7 @@ namespace FDK
 		}
 
 		/// <param name="nKey">
-		///		調べる SlimDX.DirectInput.Key を int にキャストした値。（SharpDX.DirectInput.Key ではないので注意。）
+		///		調べる SlimDX.DirectInput.Key を int にキャストした値。
 		/// </param>
 		public bool bキーが離されている(int nKey)
 		{

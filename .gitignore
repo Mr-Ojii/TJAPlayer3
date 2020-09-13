@@ -18,6 +18,11 @@
 /Test/Config.ini
 /Test/bs1770gain**
 /Test/dll/CSharpTest.Net.Collections.*
+/Test/dll/Hnx8.ReadJEnc*
+/Test/dll/SharpDX*
+/Test/dll/Newtonsoft.Json*
+/Test/dll/OpenTK*
+/Test/dll/FFmpeg.AutoGen*
 /Test/System/*Style*/
 /Test/System/Honkehuu/Sounds/*Combo*/
 /Test/System/Honkehuu/Sounds/Config*
