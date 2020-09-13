@@ -21,6 +21,8 @@ jobs:
       timeout-minutes: 5
     - name: Upload artifacts
       uses: actions/upload-artifact@v1.0.0
+      env:
+        ENVSHA: "$Env:GITHUB_SHA"
       with:
-        name: TJAPlayer3-f-Release-@${Env:GITHUB_SHA}
+        name: TJAPlayer3-f-Release-$ENVSHA
         path: Test
