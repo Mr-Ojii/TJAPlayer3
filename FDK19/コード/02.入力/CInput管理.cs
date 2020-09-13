@@ -74,7 +74,7 @@ namespace FDK
 			try
 			{
 				cinputkeyboard = new CInputKeyboard(hWnd, directInput);
-				cinputmouse = new CInputMouse(hWnd, directInput);
+				cinputmouse = new CInputMouse();
 			}
 			catch
 			{
