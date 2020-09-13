@@ -8,11 +8,6 @@ namespace FDK
 {
 	public class CInputMouse : IInputDevice, IDisposable
 	{
-		// 定数
-
-		public const int nマウスの最大ボタン数 = 8;
-
-
 		// コンストラクタ
 
 		public CInputMouse()
@@ -27,7 +22,6 @@ namespace FDK
 			//this.timer = new CTimer( CTimer.E種別.MultiMedia );
 			this.list入力イベント = new List<STInputEvent>(32);
 		}
-
 
 		// メソッド
 
@@ -51,7 +45,6 @@ namespace FDK
 
 				this.list入力イベント.Clear();            // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
 				
-				#region [ b.状態入力 ]
 				//-----------------------------
 				MouseState currentState = Mouse.GetState();
 
@@ -92,7 +85,6 @@ namespace FDK
 					}
 				}
 				//-----------------------------
-				#endregion
 				
 			}
 		}
