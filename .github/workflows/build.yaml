@@ -25,4 +25,4 @@ jobs:
         name: TJAPlayer3-f-ReleaseBuild
         path: Test
     - name: Echo SHA
-      run: echo $Env:GITHUB_SHA
+      run: echo github['sha']
