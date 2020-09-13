@@ -21,7 +21,7 @@
 */
 using System;
 using SharpDX.Direct3D9;
-namespace SampleFramework
+namespace FDK
 {
 	/// <summary>
 	/// Contains settings for creating a 3D device.

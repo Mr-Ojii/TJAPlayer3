@@ -2770,13 +2770,11 @@ namespace TJAPlayer3
 			}
 		}
 
-
-		protected abstract void t進行描画_AVI();
-		protected void t進行描画_AVI(int x, int y)
+		protected virtual void t進行描画_AVI()
 		{
 			if ( ( ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED ) && ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED_フェードアウト ) ) && ( !TJAPlayer3.ConfigIni.bストイックモード && TJAPlayer3.ConfigIni.bAVI有効 ) )
 			{
-				this.actAVI.t進行描画( x, y );
+				this.actAVI.t進行描画();
 			}
 		}
 		protected abstract void t進行描画_DANGER();
@@ -3205,8 +3203,8 @@ namespace TJAPlayer3
 						break;
 #endregion
 #region [ 54: 動画再生 ]
-					case 0x54:	// 動画再生
-						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
+					case 0x54:  // 動画再生
+						if (!pChip.bHit && (pChip.nバーからの距離dot.Drums < 0) && pChip.nPlayerSide == 0)
 						{
 							pChip.bHit = true;
 							if ( configIni.bAVI有効 )
@@ -3214,16 +3212,7 @@ namespace TJAPlayer3
 								switch ( pChip.eAVI種別 )
 								{
 									case EAVI種別.AVI:
-										if ( pChip.rAVI != null )
-										{
-											this.actAVI.Start( pChip.nチャンネル番号, pChip.rAVI, pChip.rDShow, 278, 355, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, pChip.n発声時刻ms );
-										}
-										break;
-									case EAVI種別.Unknown:
-										if ( pChip.rAVI != null || pChip.rDShow != null )
-										{
-											this.actAVI.Start( pChip.nチャンネル番号, pChip.rAVI, pChip.rDShow, 278, 355, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, pChip.n発声時刻ms );
-										}
+										this.actAVI.Start( pChip.nチャンネル番号, pChip.rVD );
 										break;
 								}
 							}
@@ -3376,7 +3365,7 @@ namespace TJAPlayer3
 								if (TJAPlayer3.Skin.Game_Mob_Ptn != 0)
 								{
 									double db値 = this.actMob.ctMob.db現在の値;
-                                    this.actMob.ctMob = new CCounter(1, 180, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.Game_Mob_Beat / 180 / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSound管理.rc演奏用タイマ);
+									this.actMob.ctMob = new CCounter(1, 180, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.Game_Mob_Beat / 180 / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSound管理.rc演奏用タイマ);
 									this.actMob.ctMob.t時間Resetdb();
 									this.actMob.ctMob.db現在の値 = db値;
 
@@ -4008,7 +3997,6 @@ namespace TJAPlayer3
 			{
 				TJAPlayer3.stage演奏ドラム画面.actDan.Update();
 			}
-			this.actAVI.tReset();
 			this.actPanel.t歌詞テクスチャを削除する();
 			for (int i = 0; i < 2; i++)
 			{
@@ -4191,9 +4179,22 @@ namespace TJAPlayer3
 				}
 			}
 #endregion
-			
-			#region [ 演奏開始時点で既に表示されているBGAとAVIの、シークと再生 ]
-			this.actAVI.SkipStart( nStartTime );
+
+#region [ 演奏開始時点で既に表示されているBGAとAVIの、シークと再生 ]
+			for (int i = 0; i < dTX.listChip.Count; i++)
+				if (dTX.listChip[i].nチャンネル番号 == 0x54)
+					if (dTX.listChip[i].n発声時刻ms <= nStartTime)
+					{
+						this.actAVI.Seek(nStartTime - dTX.listChip[i].n発声時刻ms);
+						this.actAVI.Start(0x54, this.actAVI.rVD);
+						break;
+					}
+					else
+					{
+						this.actAVI.Seek(0);
+					}
+				
+
 #endregion
 #region [ PAUSEしていたサウンドを一斉に再生再開する(ただしタイマを止めているので、ここではまだ再生開始しない) ]
 			foreach ( CSound cs in pausedCSound )

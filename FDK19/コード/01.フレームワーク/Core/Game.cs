@@ -26,7 +26,7 @@ using System.Windows.Forms;
 using System.IO;
 using SharpDX;
 
-namespace SampleFramework
+namespace FDK
 {
 	/// <summary>
 	/// Presents an easy to use wrapper for making games and samples.

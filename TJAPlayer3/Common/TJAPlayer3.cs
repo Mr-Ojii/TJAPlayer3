@@ -12,7 +12,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 using SharpDX;
 using SharpDX.Direct3D9;
 using FDK;
-using SampleFramework;
 using System.Reflection;
 
 using Rectangle = System.Drawing.Rectangle;
@@ -461,7 +460,7 @@ namespace TJAPlayer3
 				Cursor.Hide();
 				this.bマウスカーソル表示中 = false;
 			}
-			this.Device.SetTransform(TransformState.View, Matrix.LookAtLH(new Vector3(0f, 0f, (float)(-SampleFramework.GameWindowSize.Height / 2 * Math.Sqrt(3.0))), new Vector3(0f, 0f, 0f), new Vector3(0f, 1f, 0f)));
+			this.Device.SetTransform(TransformState.View, Matrix.LookAtLH(new Vector3(0f, 0f, (float)(-GameWindowSize.Height / 2 * Math.Sqrt(3.0))), new Vector3(0f, 0f, 0f), new Vector3(0f, 1f, 0f)));
 			this.Device.SetTransform(TransformState.Projection, Matrix.PerspectiveFovLH(C変換.DegreeToRadian((float)60f), ((float)this.Device.Viewport.Width) / ((float)this.Device.Viewport.Height), -100f, 100f));
 			this.Device.SetRenderState(RenderState.Lighting, false);
 			this.Device.SetRenderState(RenderState.ZEnable, false);
@@ -1313,37 +1312,6 @@ for (int i = 0; i < 3; i++) {
 			return TJAPlayer3.tテクスチャの生成(bmp);
 		}
 
-		public static CDirectShow t失敗してもスキップ可能なDirectShowを生成する(string fileName, IntPtr hWnd, bool bオーディオレンダラなし)
-		{
-			CDirectShow ds = null;
-			if (File.Exists(fileName))
-			{
-				try
-				{
-					ds = new CDirectShow(fileName, hWnd, bオーディオレンダラなし);
-				}
-				catch (FileNotFoundException e)
-				{
-					Trace.TraceError(e.ToString());
-					Trace.TraceError("動画ファイルが見つかりませんでした。({0})", fileName);
-					ds = null;      // Dispose はコンストラクタ内で実施済み
-				}
-				catch (Exception e)
-				{
-					Trace.TraceError(e.ToString());
-					Trace.TraceError("DirectShow の生成に失敗しました。[{0}]", fileName);
-					ds = null;      // Dispose はコンストラクタ内で実施済み
-				}
-			}
-			else
-			{
-				Trace.TraceError("動画ファイルが見つかりませんでした。({0})", fileName);
-				return null;
-			}
-
-			return ds;
-		}
-
 		/// <summary>プロパティ、インデクサには ref は使用できないので注意。</summary>
 		public static void t安全にDisposeする<T>(ref T obj) where T : class, IDisposable //2020.06.06 Mr-Ojii twopointzero氏のソースコードをもとに改良
 		{
@@ -1575,8 +1543,8 @@ for (int i = 0; i < 3; i++) {
 #else
 			settings.Windowed = ConfigIni.bウィンドウモード;
 #endif
-			settings.BackBufferWidth = SampleFramework.GameWindowSize.Width;
-			settings.BackBufferHeight = SampleFramework.GameWindowSize.Height;
+			settings.BackBufferWidth = GameWindowSize.Width;
+			settings.BackBufferHeight = GameWindowSize.Height;
 			//			settings.BackBufferCount = 3;
 			settings.EnableVSync = ConfigIni.b垂直帰線待ちを行う;
 			//			settings.BackBufferFormat = Format.A8R8G8B8;
@@ -1853,11 +1821,6 @@ for (int i = 0; i < 3; i++) {
 			}
 			//---------------------
 			#endregion
-			#region [ CAvi の初期化 ]
-			//---------------------
-			CAvi.t初期化();
-			//---------------------
-			#endregion
 			#region [ Random の初期化 ]
 			//---------------------
 			Random = new Random((int)Timer.nシステム時刻);
@@ -2009,7 +1972,6 @@ for (int i = 0; i < 3; i++) {
 						Trace.Unindent();
 					}
 				}
-				CAvi.t終了();
 				//---------------------
 				#endregion
 				#region TextureLoaderの処理

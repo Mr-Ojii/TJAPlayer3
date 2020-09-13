@@ -24,7 +24,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Security;
 
-namespace SampleFramework
+namespace FDK
 {
 	static class NativeMethods
 	{

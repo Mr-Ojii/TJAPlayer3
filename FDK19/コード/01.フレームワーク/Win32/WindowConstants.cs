@@ -21,7 +21,7 @@
 */
 using System;
 
-namespace SampleFramework
+namespace FDK
 {
 	static class WindowConstants
 	{

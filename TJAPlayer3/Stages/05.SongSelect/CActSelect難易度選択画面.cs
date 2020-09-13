@@ -8,7 +8,6 @@ using System.Drawing.Imaging;
 using System.Diagnostics;
 using System.Drawing.Text;
 using FDK;
-using SampleFramework;
 using System.Reflection;
 
 namespace TJAPlayer3

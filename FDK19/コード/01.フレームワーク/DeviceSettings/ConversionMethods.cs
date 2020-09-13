@@ -23,7 +23,7 @@ using SharpDX.Direct3D9;
 
 using DXGI = SharpDX.DXGI;
 
-namespace SampleFramework
+namespace FDK
 {
 	static class ConversionMethods
 	{

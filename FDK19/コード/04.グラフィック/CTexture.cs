@@ -287,11 +287,25 @@ namespace FDK
 		}
 		public void MakeTexture(Device device, Bitmap bitmap, Format format, bool b黒を透過する, Pool pool)
 		{
-			MemoryStream ms = new MemoryStream();
-			bitmap.Save(ms,ImageFormat.Bmp);
-			byte[] img = ms.GetBuffer();
-			MakeTexture(device, img, format, b黒を透過する, pool);
-			ms.Dispose();
+			using (MemoryStream ms = new MemoryStream())
+			{
+				bitmap.Save(ms, ImageFormat.Bmp);
+				try
+				{
+					this.Format = format;
+					this.sz画像サイズ = new Size(bitmap.Width, bitmap.Height);
+					this.rc全画像 = new Rectangle(0, 0, this.sz画像サイズ.Width, this.sz画像サイズ.Height);
+					int colorKey = (b黒を透過する) ? unchecked((int)0xFF000000) : 0;
+					this.szテクスチャサイズ = this.t指定されたサイズを超えない最適なテクスチャサイズを返す(device, this.sz画像サイズ);
+
+					this.texture = Texture.FromMemory(device, ms.GetBuffer(), this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, format, pool, Filter.Point, Filter.None, colorKey);
+				}
+				catch
+				{
+					this.Dispose();
+					throw new CTextureCreateFailedException(string.Format("テクスチャの生成に失敗しました。\n"));
+				}
+			}
 		}
 		// メソッド
 
@@ -330,6 +344,11 @@ namespace FDK
 		public void t2D拡大率考慮下中心基準描画(Device device, float x, float y)
 		{
 			this.t2D拡大率考慮下中心基準描画(device, (int)x, (int)y);
+		}
+
+		public void t2D拡大率考慮下拡大率考慮中心基準描画(Device device, int x, int y)
+		{
+			this.t2D描画(device, x - (this.szテクスチャサイズ.Width * this.vc拡大縮小倍率.X / 2), y - (szテクスチャサイズ.Height * this.vc拡大縮小倍率.Y), 1f, this.rc全画像);
 		}
 
 		public void t2D拡大率考慮下中心基準描画(Device device, int x, int y, Rectangle rc画像内の描画領域)

@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace SampleFramework
+namespace FDK
 {
 	/// <summary>
 	/// Thrown when no available graphics device fits the given device preferences.

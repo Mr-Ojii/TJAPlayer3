@@ -669,7 +669,7 @@ namespace TJAPlayer3
 				}
 			}
 
-			if (TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listAVI.Count > 0)
+			if (TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listVD.Count > 0)
 			{
 				if (TJAPlayer3.Tx.Lane_Background_Main != null) TJAPlayer3.Tx.Lane_Background_Main.Opacity = TJAPlayer3.ConfigIni.nBGAlpha;
 				if(TJAPlayer3.Tx.Lane_Background_Sub != null) TJAPlayer3.Tx.Lane_Background_Sub.Opacity = TJAPlayer3.ConfigIni.nBGAlpha;
@@ -778,7 +778,7 @@ namespace TJAPlayer3
 
 						Matrix mat = Matrix.Identity;
 						mat *= Matrix.Scaling(f倍率, f倍率, 1.0f);
-						mat *= Matrix.Translation(TJAPlayer3.Skin.nScrollFieldX[i] - SampleFramework.GameWindowSize.Width / 2.0f, -(TJAPlayer3.Skin.nJudgePointY[i] - SampleFramework.GameWindowSize.Height / 2.0f), 0f);
+						mat *= Matrix.Translation(TJAPlayer3.Skin.nScrollFieldX[i] - GameWindowSize.Width / 2.0f, -(TJAPlayer3.Skin.nJudgePointY[i] - GameWindowSize.Height / 2.0f), 0f);
 
 						//this.txゴーゴー炎.b加算合成 = true;
 

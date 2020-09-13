@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using SharpDX.Direct3D9;
 
-namespace SampleFramework
+namespace FDK
 {
 	class Direct3D9Settings : ICloneable
 	{

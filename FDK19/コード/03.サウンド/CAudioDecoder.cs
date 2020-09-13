@@ -63,8 +63,8 @@ namespace FDK
 
 			// フレームの確保
 			AVFrame* frame = ffmpeg.av_frame_alloc();
-			AVPacket packet;
-			ffmpeg.av_init_packet(&packet);
+			AVPacket* packet = ffmpeg.av_packet_alloc();
+			ffmpeg.av_init_packet(packet);
 			SwrContext* swr = null;
 			byte* swr_buf = null;
 			int swr_buf_len = 0;
@@ -96,14 +96,14 @@ namespace FDK
 					}
 					while (true)
 					{
-						if (ffmpeg.av_read_frame(format_context, &packet) < 0)
+						if (ffmpeg.av_read_frame(format_context, packet) < 0)
 						{
 							Trace.TraceError("av_read_frame eof or error.\n");
 							break; // eof or error
 						}
-						if (packet.stream_index == audio_stream->index)
+						if (packet->stream_index == audio_stream->index)
 						{
-							if (ffmpeg.avcodec_send_packet(codec_context, &packet) < 0)
+							if (ffmpeg.avcodec_send_packet(codec_context, packet) < 0)
 							{
 								Trace.TraceError("avcodec_send_packet error\n");
 							}
@@ -163,7 +163,7 @@ namespace FDK
 
 							}
 						}
-						ffmpeg.av_packet_unref(&packet);
+						ffmpeg.av_packet_unref(packet);
 					}
 					if (enablechunk)
 					{

@@ -22,7 +22,7 @@
 using System;
 using System.Diagnostics;
 
-namespace SampleFramework
+namespace FDK
 {
 	class GameClock
 	{

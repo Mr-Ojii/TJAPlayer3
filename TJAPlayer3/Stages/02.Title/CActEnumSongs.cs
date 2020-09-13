@@ -10,7 +10,6 @@ using System.Globalization;
 using System.Runtime.Serialization.Formatters.Binary;
 using SharpDX;
 using FDK;
-using SampleFramework;
 
 namespace TJAPlayer3
 {

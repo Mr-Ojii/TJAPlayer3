@@ -377,12 +377,12 @@ namespace TJAPlayer3
 					TJAPlayer3.DTX[0].t全チップの再生停止();
 					base.eフェーズID = CStage.Eフェーズ.演奏_STAGE_FAILED;
 				}
-				if( (!String.IsNullOrEmpty( TJAPlayer3.DTX[0].strBGIMAGE_PATH ) || ( TJAPlayer3.DTX[0].listAVI.Count == 0 )) || !TJAPlayer3.ConfigIni.bAVI有効  ) //背景動画があったら背景画像を描画しない。
+				if( (!String.IsNullOrEmpty( TJAPlayer3.DTX[0].strBGIMAGE_PATH ) || ( TJAPlayer3.DTX[0].listVD.Count == 0 )) || !TJAPlayer3.ConfigIni.bAVI有効  ) //背景動画があったら背景画像を描画しない。
 				{
 					this.t進行描画_背景();
 				}
 
-				if (TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listAVI.Count > 0)
+				if (TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listVD.Count > 0 && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
 				{
 					this.t進行描画_AVI();
 				}
@@ -472,9 +472,8 @@ namespace TJAPlayer3
 					this.t進行描画_スコア();
 
 				if (TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
-				{
 					actTokkun.On進行描画();
-				}
+				
 
 
 				this.Rainbow.On進行描画();
@@ -739,7 +738,7 @@ namespace TJAPlayer3
 	
 		protected override void t進行描画_AVI()
 		{
-			base.t進行描画_AVI( 0, 0 );
+			base.t進行描画_AVI();
 		}
 		protected override void t進行描画_DANGER()
 		{
