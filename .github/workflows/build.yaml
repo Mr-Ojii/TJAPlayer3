@@ -19,10 +19,13 @@ jobs:
     - name: Build the Solution
       run: MSBuild.exe $Env:GITHUB_WORKSPACE\TJAPlayer3-f.sln -p:Configuration=Release
       timeout-minutes: 5
+    - name: Get current time
+      uses: gerred/actions/current-time@master
+      id: current-time
     - name: Upload artifacts
       uses: actions/upload-artifact@v1.0.0
       env:
-        ENVSHA: "$Env:GITHUB_SHA"
+        TIME: "${{ steps.current-time.outputs.time }}"
       with:
-        name: TJAPlayer3-f-Release-$Env:ENVSHA
+        name: TJAPlayer3-f-Release-$TIME
         path: Test
