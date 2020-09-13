@@ -1,0 +1,27 @@
+name: build
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: windows-2019
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v1
+    - name: Set up NuGet
+      uses: warrenbuckley/Setup-Nuget@v1
+    - name: Restore NuGet Packages
+      run: nuget restore $Env:GITHUB_WORKSPACE\TJAPlayer3.sln
+    - name: Set up MSBuild
+      uses: warrenbuckley/Setup-MSBuild@v1
+    - name: Build the Solution
+      run: MSBuild.exe $Env:GITHUB_WORKSPACE\TJAPlayer3.sln -p:Configuration=Release
+      timeout-minutes: 5
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: TJAPlayer3-f $GITHUB_SHA
+        path: Test
+      
