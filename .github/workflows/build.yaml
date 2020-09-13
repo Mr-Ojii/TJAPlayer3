@@ -27,5 +27,5 @@ jobs:
       env:
         TIME: "${{ steps.current-time.outputs.time }}"
       with:
-        name: TJAPlayer3-f-Release-$TIME
+        name: TJAPlayer3-f-Release-$Env:TIME
         path: Test
