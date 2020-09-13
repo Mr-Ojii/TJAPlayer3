@@ -2,7 +2,7 @@
 TJAPlayer3-f Readme.txt
 ############
 公開日:2018/5/5
-更新日:2020/06/08(Mr-Ojii)
+更新日:2020/09/13(Mr-Ojii)
 
 このTJAPlayer3はMr-Ojiiによる改造版です。
 
