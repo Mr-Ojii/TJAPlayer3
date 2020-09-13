@@ -22,5 +22,5 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v1.0.0
       with:
-        name: TJAPlayer3-f-ReleaseBuild-"$Env:GITHUB_SHA"
+        name: TJAPlayer3-f-Release-@${GITHUB_SHA}
         path: Test
