@@ -125,30 +125,17 @@ namespace TJAPlayer3
 			public int n分岐の種類; //0:精度分岐 1:連打分岐 2:スコア分岐 3:大音符のみの精度分岐
 			public double n条件数値A;
 			public double n条件数値B;
-			public double db分岐時間;
-			public double db分岐時間ms;
-			public double db判定時間;
-			public double dbBMScrollTime;
-			public double dbBPM;
-			public double dbSCROLL;
 			public int n現在の小節;
 			public int n命令時のChipList番号;
 
-			public int n表記上の番号;
-			public int n内部番号;
+			public int n番号;
 
 			public override string ToString()
 			{
 				StringBuilder builder = new StringBuilder(0x80);
-				if (this.n内部番号 != this.n表記上の番号)
-				{
-					builder.Append(string.Format("CBRANCH{0}(内部{1})", CDTX.tZZ(this.n表記上の番号), this.n内部番号));
-				}
-				else
-				{
-					builder.Append(string.Format("CBRANCH{0}", CDTX.tZZ(this.n表記上の番号)));
-				}
-				builder.Append(string.Format(", BRANCH:{0}", this.n分岐の種類));
+
+				builder.Append(string.Format("CBRANCH{0}, BRANCH:{1}", CDTX.tZZ(this.n番号), this.n分岐の種類));
+
 				return builder.ToString();
 			}
 		}
@@ -182,9 +169,7 @@ namespace TJAPlayer3
 			public STDGBVALUE<int> nバーからの距離dot;
 			public int nバーからのノーツ末端距離dot;
 			public int n整数値;
-			public int n文字数 = 16; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
 			public int n整数値_内部番号;
-			public int n総移動時間;
 			public int n発声位置;
 			public double db条件数値A; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
 			public double db条件数値B; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
@@ -205,7 +190,6 @@ namespace TJAPlayer3
 			public CVideoDecoder rVD;
 			public int nPlayerSide;
 			public bool bGOGOTIME = false; //2018.03.11 k1airera0467 ゴーゴータイム内のチップであるか
-			public int nList上の位置;
 			public bool IsFixedSENote;
 			public bool IsHitted = false;
 			public bool IsMissed = false; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
@@ -240,7 +224,6 @@ namespace TJAPlayer3
 				this.n描画優先度 = 0;
 				this.nLag = -999;
 				this.b演奏終了後も再生が続くチップである = false;
-				this.nList上の位置 = 0;
 				this.dbチップサイズ倍率 = 1.0;
 				this.bHit = false;
 				this.IsMissed = false; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
@@ -2978,7 +2961,6 @@ namespace TJAPlayer3
 					chip.nチャンネル番号 = 0x50;
 					chip.n発声時刻ms = (int)this.dbNowTime;
 					chip.n整数値 = this.n現在の小節数;
-					chip.n文字数 = n文字数;
 					chip.n整数値_内部番号 = this.n現在の小節数;
 					chip.dbBPM = this.dbNowBPM;
 					chip.fNow_Measure_m = this.fNow_Measure_m;
@@ -4843,7 +4825,6 @@ namespace TJAPlayer3
 							chip.nチャンネル番号 = 0x50;
 							chip.n発声時刻ms = (int)this.dbNowTime;
 							chip.n整数値 = this.n現在の小節数;
-							chip.n文字数 = n文字数;
 							chip.n整数値_内部番号 = this.n現在の小節数;
 							chip.dbBPM = this.dbNowBPM;
 							chip.fNow_Measure_m = this.fNow_Measure_m;

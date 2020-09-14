@@ -185,7 +185,6 @@ namespace TJAPlayer3
 		{
 			LoudnessMetadataScanner.StopBackgroundScanning(joinImmediately: false);
 
-			this.bフィルイン中 = false;
 			this.n待機中の大音符の座標 = 0;
 			this.actGame.t叩ききりまショー_初期化();
 			for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++)
@@ -605,19 +604,14 @@ namespace TJAPlayer3
 		public FlyingNotes FlyingNotes;
 		public FireWorks FireWorks;
 		public PuchiChara PuchiChara;
-		private bool bフィルイン中;
-		private int[] nチャンネルtoX座標 = new int[] { 370, 470, 582, 527, 645, 748, 694, 373, 815, 298, 419, 419 };
 		private CCounter ct手つなぎ;
 
 		public float nGauge = 0.0f;
 
 		private int ShownLyric2 = 0 ;
 
-		private StreamWriter stream;
-
 		private int n待機中の大音符の座標;
 		private readonly ST文字位置[] st小文字位置;
-		private readonly ST文字位置[] st大文字位置;
 		//-----------------
 
 		private bool tドラムヒット処理( long nHitTime, Eパッド type, CDTX.CChip pChip, bool b両手入力, int nPlayer )

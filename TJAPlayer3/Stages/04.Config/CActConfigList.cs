@@ -872,7 +872,7 @@ namespace TJAPlayer3
 				{
 					TJAPlayer3.t安全にDisposeする( ref txSkinSample1 );
 				}
-				txSkinSample1 = TJAPlayer3.tテクスチャの生成( bmDest, false );
+				txSkinSample1 = TJAPlayer3.tテクスチャの生成( bmDest );
 				g.Dispose();
 				bmDest.Dispose();
 				bmSrc.Dispose();
@@ -1412,7 +1412,7 @@ namespace TJAPlayer3
 				{
 					using (var bmpStr = prvFont.DrawPrivateFont(strParam, Color.Black, Color.White, Color.Yellow, Color.OrangeRed))
 					{
-						using (var txStr = TJAPlayer3.tテクスチャの生成( bmpStr, false ))
+						using (var txStr = TJAPlayer3.tテクスチャの生成( bmpStr ))
 						{
 							txStr.t2D描画( TJAPlayer3.app.Device, x + 400 + TJAPlayer3.Skin.Config_ItemText_Correction_X, y + 12 + TJAPlayer3.Skin.Config_ItemText_Correction_Y );
 						}
@@ -1430,7 +1430,7 @@ namespace TJAPlayer3
 
 						using (var bmpStr = prvFont.DrawPrivateFont( strParam, Color.White, Color.Black ))
 						{
-							stm.txParam = TJAPlayer3.tテクスチャの生成( bmpStr, false );
+							stm.txParam = TJAPlayer3.tテクスチャの生成( bmpStr );
 						}
 
 						listMenu[ nItem ] = stm;

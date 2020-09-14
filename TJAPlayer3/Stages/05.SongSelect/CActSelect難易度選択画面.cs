@@ -8,7 +8,10 @@ using System.Drawing.Imaging;
 using System.Diagnostics;
 using System.Drawing.Text;
 using FDK;
+using SharpDX;
 using System.Reflection;
+
+using Rectangle = System.Drawing.Rectangle;
 
 namespace TJAPlayer3
 {
@@ -106,7 +109,7 @@ namespace TJAPlayer3
 					if (TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]] != null)
 					{
 						TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].Opacity = 100;
-						TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].vc拡大縮小倍率 = new SharpDX.Vector3(0.75f);
+						TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].vc拡大縮小倍率 = new Vector3(0.75f);
 						TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].t2D拡大率考慮下基準描画(TJAPlayer3.app.Device, i * 1075 - 30, TJAPlayer3.Skin.Difficulty_Mark_Y);
 					}
 				}else if (現在の選択行[i] >= 3)
@@ -116,7 +119,7 @@ namespace TJAPlayer3
 						if (TJAPlayer3.Tx.Difficulty_Mark[4] != null)
 						{
 							TJAPlayer3.Tx.Difficulty_Mark[4].Opacity = 100;
-							TJAPlayer3.Tx.Difficulty_Mark[4].vc拡大縮小倍率 = new SharpDX.Vector3(0.75f);
+							TJAPlayer3.Tx.Difficulty_Mark[4].vc拡大縮小倍率 = new Vector3(0.75f);
 							TJAPlayer3.Tx.Difficulty_Mark[4].vc拡大縮小倍率.Y = 0.75f * (float)(1 + Math.Sin(ct難易度拡大用[i].n現在の値 * Math.PI / 180) * 0.25);
 							TJAPlayer3.Tx.Difficulty_Mark[4].t2D拡大率考慮下基準描画(TJAPlayer3.app.Device, i * 1075 - 30, TJAPlayer3.Skin.Difficulty_Mark_Y);
 						}
@@ -126,7 +129,7 @@ namespace TJAPlayer3
 						if (TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3] != null)
 						{
 							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].Opacity = 100;
-							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].vc拡大縮小倍率 = new SharpDX.Vector3(0.75f);
+							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].vc拡大縮小倍率 = new Vector3(0.75f);
 							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].vc拡大縮小倍率.Y = 0.75f * (float)(1 + Math.Sin(ct難易度拡大用[i].n現在の値 * Math.PI / 180) * 0.25);
 							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].t2D拡大率考慮下基準描画(TJAPlayer3.app.Device, i * 1075 - 30, TJAPlayer3.Skin.Difficulty_Mark_Y);
 						}
@@ -222,9 +225,9 @@ namespace TJAPlayer3
 					if (TJAPlayer3.Tx.Difficulty_Bar[4] != null)
 					{
 						if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[4])
-							TJAPlayer3.Tx.Difficulty_Bar[4].color4 = new SharpDX.Color4(1f, 1f, 1f, 1f);
+							TJAPlayer3.Tx.Difficulty_Bar[4].color4 = new Color4(1f, 1f, 1f, 1f);
 						else
-							TJAPlayer3.Tx.Difficulty_Bar[4].color4 = new SharpDX.Color4(0.5f, 0.5f, 0.5f, 1f);
+							TJAPlayer3.Tx.Difficulty_Bar[4].color4 = new Color4(0.5f, 0.5f, 0.5f, 1f);
 						if (TJAPlayer3.Tx.Difficulty_Bar[4] != null)
 							TJAPlayer3.Tx.Difficulty_Bar[4].t2D描画(TJAPlayer3.app.Device, i * TJAPlayer3.Skin.Difficulty_Bar_Padding + TJAPlayer3.Skin.Difficulty_Bar_XY[0], TJAPlayer3.Skin.Difficulty_Bar_XY[1]);
 					}
@@ -234,9 +237,9 @@ namespace TJAPlayer3
 					if (TJAPlayer3.Tx.Difficulty_Bar[i] != null)
 					{
 						if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[i])
-							TJAPlayer3.Tx.Difficulty_Bar[i].color4 = new SharpDX.Color4(1f, 1f, 1f, 1f);
+							TJAPlayer3.Tx.Difficulty_Bar[i].color4 = new Color4(1f, 1f, 1f, 1f);
 						else
-							TJAPlayer3.Tx.Difficulty_Bar[i].color4 = new SharpDX.Color4(0.5f, 0.5f, 0.5f, 1f);
+							TJAPlayer3.Tx.Difficulty_Bar[i].color4 = new Color4(0.5f, 0.5f, 0.5f, 1f);
 						if (TJAPlayer3.Tx.Difficulty_Bar[i] != null)
 							TJAPlayer3.Tx.Difficulty_Bar[i].t2D描画(TJAPlayer3.app.Device, i * TJAPlayer3.Skin.Difficulty_Bar_Padding + TJAPlayer3.Skin.Difficulty_Bar_XY[0], TJAPlayer3.Skin.Difficulty_Bar_XY[1]);
 					}
@@ -288,7 +291,7 @@ namespace TJAPlayer3
 			if (TJAPlayer3.Tx.Crown_t != null)//王冠テクスチャがないなら、通す必要なし！
 			{
 				TJAPlayer3.Tx.Crown_t.Opacity = 255;
-				TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率 = new SharpDX.Vector3(0.35f);
+				TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率 = new Vector3(0.35f);
 				for (int i = 0; i < 4; i++)
 				{
 					if (裏表示 && i == 3)

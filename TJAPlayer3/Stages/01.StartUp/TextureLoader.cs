@@ -954,7 +954,7 @@ namespace TJAPlayer3
 			using (var bmp = new Bitmap(titleTextureKey.cPrivateFastFont.DrawPrivateFont(
 				titleTextureKey.str文字, titleTextureKey.forecolor, titleTextureKey.backcolor, true)))
 			{
-				CTexture tx文字テクスチャ = TJAPlayer3.tテクスチャの生成(bmp, false);
+				CTexture tx文字テクスチャ = TJAPlayer3.tテクスチャの生成(bmp);
 				if (tx文字テクスチャ.szテクスチャサイズ.Height > titleTextureKey.maxHeight)
 				{
 					tx文字テクスチャ.vc拡大縮小倍率.Y = (float)(((double)titleTextureKey.maxHeight) / tx文字テクスチャ.szテクスチャサイズ.Height);

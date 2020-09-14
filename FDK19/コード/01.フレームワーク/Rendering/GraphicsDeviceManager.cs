@@ -527,7 +527,7 @@ namespace FDK
 				}
 				Direct3D9.Device.MaximumFrameLatency = 1;
 #else
-				Direct3D9.Device = new SharpDX.Direct3D9.Device(
+				Direct3D9.Device = new Device(
 					Direct3D9Object,
 					CurrentSettings.Direct3D9.AdapterOrdinal,
 					CurrentSettings.Direct3D9.DeviceType,
@@ -565,7 +565,7 @@ namespace FDK
 
 			var result = Result.GetResultFromWin32Error( System.Runtime.InteropServices.Marshal.GetLastWin32Error());
 
-			if (result == SharpDX.Direct3D9.ResultCode.DeviceLost)
+			if (result == ResultCode.DeviceLost)
 				return result;
 
 			PropogateSettings();

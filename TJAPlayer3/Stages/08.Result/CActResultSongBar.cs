@@ -52,13 +52,13 @@ namespace TJAPlayer3
 			using (var bmpSongTitle = pfMusicName.DrawPrivateFont(title, TJAPlayer3.Skin.Result_MusicName_ForeColor, TJAPlayer3.Skin.Result_MusicName_BackColor))
 
 			{
-				this.txMusicName = TJAPlayer3.tテクスチャの生成(bmpSongTitle, false);
+				this.txMusicName = TJAPlayer3.tテクスチャの生成(bmpSongTitle);
 				txMusicName.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref txMusicName);
 			}
 
 			using (var bmpStageText = pfStageText.DrawPrivateFont(TJAPlayer3.Skin.Game_StageText, TJAPlayer3.Skin.Result_StageText_ForeColor, TJAPlayer3.Skin.Result_StageText_BackColor))
 			{
-				this.txStageText = TJAPlayer3.tテクスチャの生成(bmpStageText, false);
+				this.txStageText = TJAPlayer3.tテクスチャの生成(bmpStageText);
 			}
 
 			base.On活性化();

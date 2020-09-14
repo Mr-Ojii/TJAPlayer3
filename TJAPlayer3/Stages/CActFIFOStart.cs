@@ -96,7 +96,6 @@ namespace TJAPlayer3
 		#region [ private ]
 		//-----------------
 		private CCounter counter;
-		private CCounter ct待機;
 		private EFIFOモード mode;
 		//private CTexture tx幕;
 		//private CTexture tx幕2;

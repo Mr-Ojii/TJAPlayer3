@@ -40,29 +40,6 @@ namespace FDK
 		{
 			return bCheckOSVersion(10, 0);
 		}
-		/// <summary>
-		/// OSがWin10以降、かつ指定build以降ならtrueを返す
-		/// </summary>
-		/// <returns></returns>
-		public static bool bIsWin10OrLater(WIN10BUILD build)
-		{
-			if (bCheckOSVersion(10, 0))
-			{
-				if (GetWin10BuildNumber() >= build)
-				{
-					return true;
-				}
-				else
-				{
-					return false;
-				}
-			}
-			else
-			{
-				return false;
-			};
-		}
-
 
 		/// <summary>
 		/// 指定のOSバージョン以上であればtrueを返す
@@ -122,39 +99,6 @@ namespace FDK
 			mc.Dispose();
 
 			//return result;
-		}
-		public enum WIN10BUILD : int
-		{
-			TH1 = 10240,    // 1507: 
-			TH2 = 10586,    // 1511: November Update
-			RS1 = 14393,    // 1607: Anniversary Update
-			RS2 = 15063,    // 1703: Creators Update
-			RS3 = 16299,    // 1709: Fall Creators Update
-			RS4 = 17134,    // 1803: April 2018 Update
-			RS5 = 17763,    // 1809: October 2018 Update
-			_19H1 = 18362,  // 1903: May 2019 Update
-			_19H2 = 18363,  // 1909: November 2019 Update
-			UNKNOWN = -1,
-			NOTWIN10 = 0
-		}
-		public static WIN10BUILD GetWin10BuildNumber()
-		{
-			WIN10BUILD ret = WIN10BUILD.UNKNOWN;
-
-			//var mmb = tpGetOSVersion();
-			int major, minor, build;
-			tpGetOSVersion(out major, out minor, out build);
-
-			if (major != 10)
-			{
-				ret = WIN10BUILD.NOTWIN10;
-			}
-			else
-			{
-				ret = (WIN10BUILD)build;
-			}
-
-			return ret;
 		}
 	}
 }

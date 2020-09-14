@@ -2202,14 +2202,11 @@ namespace TJAPlayer3
 
 		public bool b選択曲が変更された = true;
 		private bool b登場アニメ全部完了;
-		private Color color文字影 = Color.FromArgb(0x40, 10, 10, 10);
 		private CCounter[] ct登場アニメ用 = new CCounter[13];
 		private CCounter ct三角矢印アニメ;
-		private CCounter counter;
 		private CCounter ct分岐フェード用タイマー;
 		private CCounter ctバー展開用タイマー;
 		private CCounter ctバー展開ディレイ用タイマー;
-		private EFIFOモード mode;
 		private CPrivateFastFont pfMusicName;
 		private CPrivateFastFont pfSubtitle;
 		private CTexture kari;
@@ -2506,7 +2503,7 @@ namespace TJAPlayer3
 			/*using (var bmp = new Bitmap(titleTextureKey.cPrivateFastFont.DrawPrivateFont(
 				titleTextureKey.str文字, titleTextureKey.forecolor, titleTextureKey.backcolor, true)))
 			{*/
-			CTexture tx文字テクスチャ = TJAPlayer3.tテクスチャの生成(bmp, false);
+			CTexture tx文字テクスチャ = TJAPlayer3.tテクスチャの生成(bmp);
 			bmp.Dispose();
 
 			tx文字テクスチャ.vc拡大縮小倍率.Y = 0.5f;
@@ -2532,7 +2529,7 @@ namespace TJAPlayer3
 			using (var bmp = new Bitmap(titleTextureKey.cPrivateFastFont.DrawPrivateFont(
 				titleTextureKey.str文字, titleTextureKey.forecolor, titleTextureKey.backcolor, true)))
 			{
-				CTexture tx文字テクスチャ = TJAPlayer3.tテクスチャの生成(bmp, false);
+				CTexture tx文字テクスチャ = TJAPlayer3.tテクスチャの生成(bmp);
 				if (tx文字テクスチャ.szテクスチャサイズ.Height > titleTextureKey.maxHeight)
 				{
 					tx文字テクスチャ.vc拡大縮小倍率.Y = (float)(((double)titleTextureKey.maxHeight) / tx文字テクスチャ.szテクスチャサイズ.Height);

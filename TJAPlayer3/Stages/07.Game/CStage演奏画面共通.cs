@@ -138,7 +138,6 @@ namespace TJAPlayer3
 				{
 					foreach (CDTX.CChip chip in listChip[i])
 					{
-						chip.nList上の位置 = n整数値管理;
 						if ((chip.nチャンネル番号 == 0x15 || chip.nチャンネル番号 == 0x16) && (n整数値管理 < this.listChip[i].Count - 1))
 						{
 
@@ -471,10 +470,6 @@ namespace TJAPlayer3
 		protected DateTime dtLastQueueOperation;				//
 		protected bool bIsOpenAL;							//
 		protected double db再生速度;
-//		protected bool bDTXVmode;
-
-		protected CTexture txチップ;
-		protected CTexture txヒットバー;
 
 		protected CTexture tx背景;
 
@@ -497,7 +492,6 @@ namespace TJAPlayer3
 
 		public bool[] b強制的に分岐させた = new bool[] { false, false, false, false };
 		public bool[] bLEVELHOLD = new bool[] { false, false, false, false };
-		protected int nListCount;
 
 		private readonly int[] ShownLyric = new int[] { 0, 0 };
 		public bool[] b連打中 = new bool[]{ false, false, false, false }; //奥の手
@@ -505,9 +499,6 @@ namespace TJAPlayer3
 		protected int[] n風船残り = new int[ 4 ];
 		protected int[] n現在の連打数 = new int[ 4 ];
 		protected E連打State eRollState;
-
-		protected int nタイマ番号;
-		protected int n現在の音符の顔番号;
 
 		protected int nWaitButton;
 		

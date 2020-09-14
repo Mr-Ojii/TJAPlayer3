@@ -129,11 +129,11 @@ namespace TJAPlayer3
 					{
 						using (var bmpStr = prvFont.DrawPrivateFont(strMenuItem[i], Color.White, Color.Black))
 						{
-							txMenuItemLeft[i, 0] = TJAPlayer3.tテクスチャの生成(bmpStr, false);
+							txMenuItemLeft[i, 0] = TJAPlayer3.tテクスチャの生成(bmpStr);
 						}
 						using (var bmpStr = prvFont.DrawPrivateFont(strMenuItem[i], Color.White, Color.Black, Color.Yellow, Color.OrangeRed))
 						{
-							txMenuItemLeft[i, 1] = TJAPlayer3.tテクスチャの生成(bmpStr, false);
+							txMenuItemLeft[i, 1] = TJAPlayer3.tテクスチャの生成(bmpStr);
 						}
 					}
 				}

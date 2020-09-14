@@ -65,78 +65,11 @@ namespace TJAPlayer3
 
 		public override void OnManagedリソースの作成()
 		{
-			//this.txLane = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_fieldbgA.png"));
-			//this.txLaneB = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_fieldbgB.png"));
-			//this.txゴーゴー = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_fieldbgC.png"));
-			//this.tx普通譜面[0] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_normal_base.png"));
-			//this.tx玄人譜面[0] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_expert_base.png"));
-			//this.tx達人譜面[0] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_master_base.png"));
-			//this.tx普通譜面[1] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_normal.png"));
-			//this.tx玄人譜面[1] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_expert.png"));
-			//this.tx達人譜面[1] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_field_master.png"));
-			//this.tx枠線 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_mtaiko_B.png"));
-			//this.tx判定枠 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_taiko_notes.png"));
-			//this.txアタックエフェクトLower = CDTXMania.tテクスチャの生成Af( CSkin.Path( @"Graphics\7_explosion_lower.png" ) );
-
-			//this.txゴーゴー炎 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_gogo_fire.png"));
-
-			//this.txゴーゴースプラッシュ = new CTexture[29];
-			//for (int i = 0; i < 29; i++)
-			//{
-			//    this.txゴーゴースプラッシュ[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Dancer\gogo_splash\" + i.ToString() + ".png"));
-			//    this.txゴーゴースプラッシュ[i].b加算合成 = true;
-			//}
-
-			//this.txArアタックエフェクトLower_A = new CTexture[15];
-			//this.txArアタックエフェクトLower_B = new CTexture[15];
-			//this.txArアタックエフェクトLower_C = new CTexture[15];
-			//this.txArアタックエフェクトLower_D = new CTexture[15];
-			//for (int i = 0; i < 15; i++)
-			//{
-			//    this.txArアタックエフェクトLower_A[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Effect\lower_1_" + i.ToString() + ".png"));
-			//    this.txArアタックエフェクトLower_B[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Effect\lower_2_" + i.ToString() + ".png"));
-			//    this.txArアタックエフェクトLower_C[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Effect\lower_3_" + i.ToString() + ".png"));
-			//    this.txArアタックエフェクトLower_D[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Effect\lower_4_" + i.ToString() + ".png"));
-
-			//    //this.txArアタックエフェクトLower_A[ i ].b加算合成 = true;
-			//    //this.txArアタックエフェクトLower_B[ i ].b加算合成 = true;
-			//    //this.txArアタックエフェクトLower_C[ i ].b加算合成 = true;
-			//    //this.txArアタックエフェクトLower_D[ i ].b加算合成 = true;
-			//}
 			base.OnManagedリソースの作成();
 		}
 
 		public override void OnManagedリソースの解放()
 		{
-			//CDTXMania.t安全にDisposeする(ref this.txLane);
-			//CDTXMania.t安全にDisposeする(ref this.txLaneB);
-			//CDTXMania.t安全にDisposeする(ref this.txゴーゴー);
-			//CDTXMania.t安全にDisposeする(ref this.tx普通譜面[0]);
-			//CDTXMania.t安全にDisposeする(ref this.tx玄人譜面[0]);
-			//CDTXMania.t安全にDisposeする(ref this.tx達人譜面[0]);
-			//CDTXMania.t安全にDisposeする(ref this.tx普通譜面[1]);
-			//CDTXMania.t安全にDisposeする(ref this.tx玄人譜面[1]);
-			//CDTXMania.t安全にDisposeする(ref this.tx達人譜面[1]);
-
-			//CDTXMania.t安全にDisposeする(ref this.tx枠線);
-			//CDTXMania.t安全にDisposeする(ref this.tx判定枠);
-			////CDTXMania.t安全にDisposeする( ref this.txアタックエフェクトLower );
-
-			//CDTXMania.t安全にDisposeする(ref this.txゴーゴー炎);
-
-			//for (int i = 0; i < 29; i++)
-			//{
-			//    CDTXMania.t安全にDisposeする(ref this.txゴーゴースプラッシュ[i]);
-			//}
-
-			//for (int i = 0; i < 15; i++)
-			//{
-			//    CDTXMania.t安全にDisposeする(ref this.txArアタックエフェクトLower_A[i]);
-			//    CDTXMania.t安全にDisposeする(ref this.txArアタックエフェクトLower_B[i]);
-			//    CDTXMania.t安全にDisposeする(ref this.txArアタックエフェクトLower_C[i]);
-			//    CDTXMania.t安全にDisposeする(ref this.txArアタックエフェクトLower_D[i]);
-			//}
-
 			base.OnManagedリソースの解放();
 		}
 

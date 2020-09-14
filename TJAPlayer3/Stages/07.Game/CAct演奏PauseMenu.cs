@@ -146,7 +146,6 @@ namespace TJAPlayer3
 
 		#region [ private ]
 		//-----------------
-		private int nCurrentTarget = 0;
 		private int nCurrentConfigSet = 0;
 		private List<List<CItemBase>> lci;
 		private enum EOrder : int

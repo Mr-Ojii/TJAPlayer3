@@ -394,15 +394,6 @@ namespace TJAPlayer3
 		private STパッド状態[] stパッド状態 = new STパッド状態[ 4 * 4 ];
 		private long nフラッシュ制御タイマ;
 
-		//private CTexture[] txコースシンボル = new CTexture[ 6 ];
-		private string[] strCourseSymbolFileName;
-
-		//オプション
-		private CTexture txオプションパネル_HS;
-		private CTexture txオプションパネル_RANMIR;
-		private CTexture txオプションパネル_特殊;
-		private int nHS;
-
 		//ネームプレート
 		//private CTexture txネームプレート;
 		//private CTexture txネームプレート2P;

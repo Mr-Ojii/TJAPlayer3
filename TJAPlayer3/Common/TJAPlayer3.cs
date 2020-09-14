@@ -1224,17 +1224,13 @@ for (int i = 0; i < 3; i++) {
 		}
 		public static CTexture tテクスチャの生成(byte[] txData)
 		{
-			return tテクスチャの生成(txData, false);
-		}
-		public static CTexture tテクスチャの生成(byte[] txData, bool b黒を透過する)
-		{
 			if (app == null)
 			{
 				return null;
 			}
 			try
 			{
-				return new CTexture(app.Device, txData, TextureFormat, b黒を透過する);
+				return new CTexture(app.Device, txData, TextureFormat, false);
 			}
 			catch (CTextureCreateFailedException e)
 			{
