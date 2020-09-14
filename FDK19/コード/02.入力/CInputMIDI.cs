@@ -46,7 +46,6 @@ namespace FDK
 					item.nKey = nPara1;
 					item.b押された = true;
 					item.nTimeStamp = n受信システム時刻;
-					item.nVelocity = nPara2;
 					this.listEventBuffer.Add(item);
 				}
 				//else if ( ( nMIDIevent == 0xB0 ) && ( nPara1 == 4 ) )	// Ctrl Chg #04: Foot Controller
@@ -69,7 +68,7 @@ namespace FDK
 		public List<STInputEvent> list入力イベント { get; private set; }
 		public string strDeviceName { get; set; }
 
-		public void tポーリング(bool bWindowがアクティブ中, bool bバッファ入力を使用する)
+		public void tポーリング(bool bWindowがアクティブ中)
 		{
 			// this.list入力イベント = new List<STInputEvent>( 32 );
 			this.list入力イベント.Clear();                                // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();

@@ -741,7 +741,6 @@ namespace TJAPlayer3
 		public int nInputAdjustTimeMs;
 		public bool bIsAutoResultCapture;			// #25399 2011.6.9 yyagi リザルト画像自動保存機能のON/OFF制御
 		public int nPoliphonicSounds;				// #28228 2012.5.1 yyagi レーン毎の最大同時発音数
-		public bool bバッファ入力を行う;
 		public bool bIsEnabledSystemMenu;			// #28200 2012.5.1 yyagi System Menuの使用可否切替
 		public string strSystemSkinSubfolderFullName;	// #28195 2012.5.2 yyagi Skin切替用 System/以下のサブフォルダ名
 		public bool bConfigIniがないかDTXManiaのバージョンが異なる
@@ -1012,7 +1011,6 @@ namespace TJAPlayer3
 			this.nRisky = 0;							// #23539 2011.7.26 yyagi RISKYモード
 			this.bIsAutoResultCapture = false;			// #25399 2011.6.9 yyagi リザルト画像自動保存機能ON/OFF
 
-			this.bバッファ入力を行う = true;
 			this.bIsAllowedDoubleClickFullscreen = false;	// #26752 2011.11.26 ダブルクリックでのフルスクリーンモード移行を許可 2020.03.24初期値をfalseにした。 Mr-Ojii
 			this.nPoliphonicSounds = 4;					// #28228 2012.5.1 yyagi レーン毎の最大同時発音数
 														// #24820 2013.1.15 yyagi 初期値を4から2に変更。BASS.net使用時の負荷軽減のため。
@@ -1346,10 +1344,6 @@ namespace TJAPlayer3
 			sw.WriteLine( "; Stoic mode. (0:OFF, 1:ON)" );
 			sw.WriteLine( "StoicMode={0}", this.bストイックモード ? 1 : 0 );
 			sw.WriteLine();
-			sw.WriteLine( "; バッファ入力モード(0:OFF, 1:ON)" );
-			sw.WriteLine( "; Using Buffered input (0:OFF, 1:ON)" );
-			sw.WriteLine( "BufferedInput={0}", this.bバッファ入力を行う ? 1 : 0 );
-			sw.WriteLine();
 			sw.WriteLine( "; リザルト画像自動保存機能(0:OFF, 1:ON)" );						// #25399 2011.6.9 yyagi
 			sw.WriteLine( "; Set \"1\" if you'd like to save result screen image automatically");	//
 			sw.WriteLine( "; when you get hiscore/hiskill.");								//
@@ -1553,7 +1547,7 @@ namespace TJAPlayer3
 			sw.WriteLine( ";-------------------" );
 			sw.WriteLine( "; キーアサイン" );
 			sw.WriteLine( ";   項　目：Keyboard → 'K'＋'0'＋キーコード(10進数)" );
-			sw.WriteLine( ";           Mouse    → 'N'＋'0'＋ボタン番号(0～7)" );
+			sw.WriteLine( ";           Mouse    → 'N'＋'0'＋ボタン番号(0～13)" );
 			sw.WriteLine( ";           MIDI In  → 'M'＋デバイス番号1桁(0～9,A～Z)＋ノート番号(10進数)" );
 			sw.WriteLine( ";           Joystick → 'J'＋デバイス番号1桁(0～9,A～Z)＋ 0 ...... Ｘ減少(左)ボタン" );
 			sw.WriteLine( ";                                                         1 ...... Ｘ増加(右)ボタン" );
@@ -1561,14 +1555,17 @@ namespace TJAPlayer3
 			sw.WriteLine( ";                                                         3 ...... Ｙ増加(下)ボタン" );
 			sw.WriteLine( ";                                                         4 ...... Ｚ減少(前)ボタン" );
 			sw.WriteLine( ";                                                         5 ...... Ｚ増加(後)ボタン" );
-			sw.WriteLine( ";                                                         6～133.. ボタン1～128" );
+			sw.WriteLine( ";                                                         6 ...... Ｚ回転(ＣＣＷ)");
+			sw.WriteLine( ";                                                         7 ...... Ｚ回転(ＣＷ)");
+			sw.WriteLine( ";                                                         8～135.. ボタン1～128" );
 			sw.WriteLine( ";           これらの項目を 16 個まで指定可能(',' で区切って記述）。" );
 			sw.WriteLine( ";" );
-			sw.WriteLine( ";   表記例：HH=K044,M042,J16" );
-			sw.WriteLine( ";           → HiHat を Keyboard の 44 ('Z'), MidiIn#0 の 42, JoyPad#1 の 6(ボタン1) に割当て" );
+			sw.WriteLine( ";   表記例：LeftRed=K044,M042,J18");
+			sw.WriteLine( ";           → LeftRed を Keyboard の 44 ('Z'), MidiIn#0 の 42, JoyPad#1 の 8(ボタン1) に割当て" );
 			sw.WriteLine( ";" );
 			sw.WriteLine( ";   ※Joystick のデバイス番号とデバイスとの関係は [GUID] セクションに記してあるものが有効。" );
 			sw.WriteLine( ";" );
+			sw.WriteLine( ";   ※改造者はJoystickと呼べるようなものを所持していないため、Ｚ回転のＣＷ、ＣＣＷは逆である可能性があります。");
 			sw.WriteLine();
 			sw.WriteLine( "[DrumsKeyAssign]" );
 			sw.WriteLine();
@@ -2008,10 +2005,6 @@ namespace TJAPlayer3
 												this.nInputAdjustTimeMs = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, -99, 99, this.nInputAdjustTimeMs );
 											}
 											#endregion
-											else if( str3.Equals( "BufferedInput" ) )
-											{
-												this.bバッファ入力を行う = C変換.bONorOFF( str4[ 0 ] );
-											}
 											else if ( str3.Equals( "PolyphonicSounds" ) )		// #28228 2012.5.1 yyagi
 											{
 												this.nPoliphonicSounds = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 8, this.nPoliphonicSounds );

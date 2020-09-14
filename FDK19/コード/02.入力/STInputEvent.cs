@@ -14,6 +14,5 @@ namespace FDK
 		public bool b押された { get; set; }
 		public bool b離された { get; set; }
 		public long nTimeStamp { get; set; }
-		public int nVelocity { get; set; }
 	}
 }

@@ -28,7 +28,7 @@ namespace FDK
 
 		// メソッドインターフェース
 
-		void tポーリング( bool bWindowがアクティブ中, bool bバッファ入力を使用する );
+		void tポーリング( bool bWindowがアクティブ中 );
 		bool bキーが押された( int nKey );
 		bool bキーが押されている( int nKey );
 		bool bキーが離された( int nKey );

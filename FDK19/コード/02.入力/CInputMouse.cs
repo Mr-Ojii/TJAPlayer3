@@ -32,7 +32,7 @@ namespace FDK
 		public int ID { get; private set; }
 		public List<STInputEvent> list入力イベント { get; private set; }
 
-		public void tポーリング(bool bWindowがアクティブ中, bool bバッファ入力を使用する)
+		public void tポーリング(bool bWindowがアクティブ中)
 		{
 			for (int i = 0; i < Enum.GetNames(typeof(MouseButton)).Length; i++)
 			{
@@ -60,7 +60,6 @@ namespace FDK
 								b押された = true,
 								b離された = false,
 								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-								nVelocity = CInput管理.n通常音量,
 							};
 							this.list入力イベント.Add(ev);
 
@@ -75,7 +74,6 @@ namespace FDK
 								b押された = false,
 								b離された = true,
 								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-								nVelocity = CInput管理.n通常音量,
 							};
 							this.list入力イベント.Add(ev);
 
