@@ -4173,29 +4173,32 @@ namespace TJAPlayer3
 					}
 				}
 			}
-#endregion
+			#endregion
 
 #region [ 演奏開始時点で既に表示されているBGAとAVIの、シークと再生 ]
-			for (int i = 0; i < dTX.listChip.Count; i++)
-				if (dTX.listChip[i].nチャンネル番号 == 0x54)
-					if (dTX.listChip[i].n発声時刻ms <= nStartTime)
-					{
-						this.actAVI.Seek(nStartTime - dTX.listChip[i].n発声時刻ms);
-						this.actAVI.Start(0x54, this.actAVI.rVD);
-						break;
-					}
-					else
-					{
-						this.actAVI.Seek(0);
-					}
-				
+			if (dTX.listVD.Count > 0)
+				for (int i = 0; i < dTX.listChip.Count; i++)
+					if (dTX.listChip[i].nチャンネル番号 == 0x54)
+						if (dTX.listChip[i].n発声時刻ms <= nStartTime)
+						{
+							this.actAVI.Seek(nStartTime - dTX.listChip[i].n発声時刻ms);
+							this.actAVI.Start(0x54, this.actAVI.rVD);
+							break;
+						}
+						else
+						{
+							this.actAVI.Seek(0);
+						}
 
-#endregion
-#region [ PAUSEしていたサウンドを一斉に再生再開する(ただしタイマを止めているので、ここではまだ再生開始しない) ]
-			foreach ( CSound cs in pausedCSound )
-			{
-				cs.tサウンドを再生する();
-			}
+
+			#endregion
+			#region [ PAUSEしていたサウンドを一斉に再生再開する(ただしタイマを止めているので、ここではまだ再生開始しない) ]
+
+			if (!(TJAPlayer3.ConfigIni.b演奏速度が一倍速であるとき以外音声を再生しない && TJAPlayer3.ConfigIni.n演奏速度 != 20))
+				foreach (CSound cs in pausedCSound)
+				{
+					cs.tサウンドを再生する();
+				}
 			pausedCSound.Clear();
 			pausedCSound = null;
 #endregion

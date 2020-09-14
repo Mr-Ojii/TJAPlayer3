@@ -111,7 +111,6 @@ namespace FDK
 			decodedframes.Clear();
 		}
 
-
 		public void Start()
 		{
 			CTimer.tリセット();

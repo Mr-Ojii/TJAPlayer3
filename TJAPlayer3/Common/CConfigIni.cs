@@ -618,6 +618,7 @@ namespace TJAPlayer3
 		public int n非フォーカス時スリープms;       // #23568 2010.11.04 ikanick add
 		public int nフレーム毎スリープms;			// #xxxxx 2011.11.27 yyagi add
 		public int n演奏速度;
+		public bool b演奏速度が一倍速であるとき以外音声を再生しない;
 		public int n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms;
 
 		private bool _applyLoudnessMetadata;
@@ -994,6 +995,7 @@ namespace TJAPlayer3
 			this.n譜面スクロール速度[1] = 9;
 
 			this.n演奏速度 = 20;
+			this.b演奏速度が一倍速であるとき以外音声を再生しない = false;
 			#region [ AutoPlay ]
 			this.b太鼓パートAutoPlay[0] = true;
 			this.b太鼓パートAutoPlay[1] = true;
@@ -1476,6 +1478,9 @@ namespace TJAPlayer3
 			sw.WriteLine();
 			sw.WriteLine( "; 演奏速度(5～40)(→x5/20～x40/20)" );
 			sw.WriteLine( "PlaySpeed={0}", this.n演奏速度 );
+			sw.WriteLine();
+			sw.WriteLine( "; 演奏速度が一倍速であるときのみBGMを再生する(0:OFF, 1:ON)");
+			sw.WriteLine( "PlaySpeedNotEqualOneNoSound={0}", this.b演奏速度が一倍速であるとき以外音声を再生しない ? 1 : 0);
 			sw.WriteLine();
 
 			sw.WriteLine("; デフォルトで選択される難易度");
@@ -2169,6 +2174,10 @@ namespace TJAPlayer3
 											else if( str3.Equals( "PlaySpeed" ) )
 											{
 												this.n演奏速度 = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 5, 400, this.n演奏速度 );
+											}
+											else if (str3.Equals("PlaySpeedNotEqualOneNoSound"))
+											{
+												this.b演奏速度が一倍速であるとき以外音声を再生しない = C変換.bONorOFF(str4[0]);
 											}
 											//else if ( str3.Equals( "JudgeDispPriorityDrums" ) )
 											//{
