@@ -62,16 +62,10 @@ namespace TJAPlayer3
 		{
 			if( this.bやり直しを選択した )
 			{
-				if( !sw.IsRunning )
-					this.sw = Stopwatch.StartNew();
-				if( sw.ElapsedMilliseconds > 1500 )
-				{
-					TJAPlayer3.stage演奏ドラム画面.bPAUSE = false;
-					TJAPlayer3.stage演奏ドラム画面.t演奏やりなおし();
+				TJAPlayer3.stage演奏ドラム画面.bPAUSE = false;
+				TJAPlayer3.stage演奏ドラム画面.t演奏やりなおし();
 
-					this.tDeativatePopupMenu();
-					this.sw.Reset();
-				}
+				this.tDeativatePopupMenu();
 			}
 		}
 
@@ -115,7 +109,6 @@ namespace TJAPlayer3
 		{
 			base.On活性化();
 			this.bGotoDetailConfig = false;
-			this.sw = new Stopwatch();
 		}
 		public override void On非活性化()
 		{
@@ -158,7 +151,6 @@ namespace TJAPlayer3
 
 		private CTexture txパネル本体;
 		private CTexture tx文字列パネル;
-		private Stopwatch sw;
 		private bool bやり直しを選択した;
 		//-----------------
 		#endregion
