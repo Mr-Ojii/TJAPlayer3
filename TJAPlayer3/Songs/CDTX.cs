@@ -11,7 +11,6 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using FDK;
 using FDK.ExtensionMethods;
-using System.Runtime.CompilerServices;
 
 namespace TJAPlayer3
 {
@@ -123,10 +122,9 @@ namespace TJAPlayer3
 		public class CBRANCH
 		{
 			public int n分岐の種類; //0:精度分岐 1:連打分岐 2:スコア分岐 3:大音符のみの精度分岐
-			public double n条件数値A;
-			public double n条件数値B;
-			public int n現在の小節;
-			public int n命令時のChipList番号;
+			public double db条件数値A;
+			public double db条件数値B;
+			public double db分岐時刻ms;
 
 			public int n番号;
 
@@ -171,20 +169,15 @@ namespace TJAPlayer3
 			public int n整数値;
 			public int n整数値_内部番号;
 			public int n発声位置;
-			public double db条件数値A; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
-			public double db条件数値B; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
-			public int n分岐の種類; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
 			public double db発声位置;  // 発声時刻を格納していた変数のうちの１つをfloat型からdouble型に変更。(kairera0467)
 			public double fBMSCROLLTime;
 			public double fBMSCROLLTime_end;
 			public int n発声時刻ms;
-			public double db分岐時刻ms; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
 			public double db発声時刻ms;
 			public int nノーツ終了位置;
 			public int nノーツ終了時刻ms;
 			public int nノーツ出現時刻ms;
 			public int nノーツ移動開始時刻ms;
-			public int n分岐回数;
 			public int n連打音符State;
 			public int nLag;                // 2011.2.1 yyagi
 			public CVideoDecoder rVD;
@@ -754,6 +747,8 @@ namespace TJAPlayer3
 		private int listBalloon_Expert_数値管理;
 		private int listBalloon_Master_数値管理;
 
+		private int nBRANCH現在番号;
+
 		public bool[] b譜面が存在する = new bool[(int)Difficulty.Total];
 
 		private string[] dlmtSpace = { " " };
@@ -824,6 +819,7 @@ namespace TJAPlayer3
 			this.listBalloon_Normal_数値管理 = 0;
 			this.listBalloon_Expert_数値管理 = 0;
 			this.listBalloon_Master_数値管理 = 0;
+			this.nBRANCH現在番号 = 0;
 
 			this.nBGMAdjust = 0;
 			this.nPolyphonicSounds = TJAPlayer3.ConfigIni.nPoliphonicSounds;
@@ -1576,7 +1572,6 @@ namespace TJAPlayer3
 				//span = (TimeSpan) ( DateTime.Now - timeBeginLoad );
 				//Trace.TraceInformation( "C2 [拍線_小節線表示指定]:  {0}", span.ToString() );
 				//timeBeginLoad = DateTime.Now;
-				this.n内部番号BRANCH1to = 0;
 				this.n内部番号JSCROLL1to = 0;
 				#region [ 発声時刻の計算 ]
 				double bpm = 120.0;
@@ -1703,42 +1698,7 @@ namespace TJAPlayer3
 							{
 								if (this.bOFFSETの値がマイナスである)
 									chip.n発声時刻ms += this.nOFFSET;
-								//chip.n発声時刻ms += this.nDELAY;
-								//chip.dbBPM = this.dbNowBPM;
-								//chip.dbSCROLL = this.dbNowSCROLL;
 
-								if (this.n内部番号BRANCH1to + 1 > this.listBRANCH.Count)
-									continue;
-
-								if (this.listBRANCH[this.n内部番号BRANCH1to].n現在の小節 == nBar)
-								{
-									chip.bBranch = true;
-									this.n内部番号BRANCH1to++;
-								}
-
-								//switch (this.n現在のコース)
-								//{
-								//    case 0:
-								//        chip.dbSCROLL = this.dbNowSCROLL_Normal;
-								//        break;
-								//    case 1:
-								//        chip.dbSCROLL = this.dbNowSCROLL_Expert;
-								//        break;
-								//    case 2:
-								//        chip.dbSCROLL = this.dbNowSCROLL_Master;
-								//        break;
-								//}
-
-								//if( this.bBarLine == true )
-								//    chip.b可視 = true;
-								//else
-								//    chip.b可視 = false;
-
-								//if( this.b次の小節が分岐である )
-								//{
-								//    chip.bBranch = true;
-								//    this.b次の小節が分岐である = false;
-								//}
 								continue;
 							}
 
@@ -1894,7 +1854,10 @@ namespace TJAPlayer3
 								if (this.bOFFSETの値がマイナスである)
 								{
 									chip.n発声時刻ms += this.nOFFSET;
-									chip.db分岐時刻ms += this.nOFFSET; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
+									if (this.listBRANCH.ContainsKey(chip.n整数値_内部番号))
+									{
+										this.listBRANCH[chip.n整数値_内部番号].db分岐時刻ms += this.nOFFSET; 
+									}
 								}
 								this.n現在のコース = chip.nコース;
 								continue;
@@ -1904,7 +1867,6 @@ namespace TJAPlayer3
 								if (this.bOFFSETの値がマイナスである)
 								{
 									chip.n発声時刻ms += this.nOFFSET;
-									chip.db分岐時刻ms += this.nOFFSET;
 								}
 								this.n現在のコース = chip.nコース;
 								continue;
@@ -3104,7 +3066,6 @@ namespace TJAPlayer3
 							chip.nコース = i;
 						else
 							chip.nコース = n現在のコース;
-						chip.n分岐回数 = this.n内部番号BRANCH1to;
 						chip.e楽器パート = E楽器パート.TAIKO;
 						chip.nノーツ出現時刻ms = (int)(this.db出現時刻 * 1000.0);
 						chip.nノーツ移動開始時刻ms = (int)(this.db移動待機時刻 * 1000.0);
@@ -4437,14 +4398,19 @@ namespace TJAPlayer3
 				chip.fNow_Measure_m = c小節前の小節線情報.fNow_Measure_m;
 				chip.fNow_Measure_s = c小節前の小節線情報.fNow_Measure_s;
 
-				//ノーツ * 0.5分後ろにして、ノーツが残らないようにする
-				chip.db分岐時刻ms = this.dbNowTime - ((15000.0 / this.dbNowBPM * (this.fNow_Measure_s / this.fNow_Measure_m)) * 0.5);
-				chip.n分岐の種類 = n条件;
-				chip.db条件数値A = nNum[0];// listに追加していたが仕様を変更。
-				chip.db条件数値B = nNum[1];// ""
 				chip.dbSCROLL = c小節前の小節線情報.dbSCROLL;
 				chip.dbBPM = c小節前の小節線情報.dbBPM;
+				chip.n整数値_内部番号 = nBRANCH現在番号;
 				this.listChip.Add(chip);
+				this.listBRANCH.Add(nBRANCH現在番号,
+					new CBRANCH { db条件数値A = nNum[0],
+						db条件数値B = nNum[1],
+						n分岐の種類 = n条件,
+						n番号 = nBRANCH現在番号,
+						//ノーツ * 0.5分後ろにして、ノーツが残らないようにする
+						db分岐時刻ms = this.dbNowTime - ((15000.0 / this.dbNowBPM * (this.fNow_Measure_s / this.fNow_Measure_m)) * 0.5) 
+					});
+				this.nBRANCH現在番号++;
 				#endregion
 
 				for (int i = 0; i < 3; i++)
@@ -4962,7 +4928,6 @@ namespace TJAPlayer3
 									chip.nコース = i;
 								else
 									chip.nコース = n現在のコース;
-								chip.n分岐回数 = this.n内部番号BRANCH1to;
 								chip.e楽器パート = E楽器パート.TAIKO;
 								chip.nノーツ出現時刻ms = (int)(this.db出現時刻 * 1000.0);
 								chip.nノーツ移動開始時刻ms = (int)(this.db移動待機時刻 * 1000.0);
@@ -6971,7 +6936,6 @@ namespace TJAPlayer3
 		private int n内部番号SCROLL1to;
 		private int n内部番号JSCROLL1to;
 		private int n内部番号DELAY1to;
-		private int n内部番号BRANCH1to;
 		private int n内部番号WAV1to;
 		private int[] n無限管理SIZE;
 

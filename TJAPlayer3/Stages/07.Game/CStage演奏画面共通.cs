@@ -3546,28 +3546,32 @@ namespace TJAPlayer3
 						{
 							this.b強制分岐譜面[nPlayer] = false;
 
-							//分岐の種類はプレイヤー関係ないと思う
-							this.nBranch条件数値A = pChip.db条件数値A;
-							this.nBranch条件数値B = pChip.db条件数値B;
-
-							if (!this.bLEVELHOLD[nPlayer])
+							if (dTX.listBRANCH.TryGetValue(pChip.n整数値_内部番号, out CDTX.CBRANCH cBranch))
 							{
-								//成仏2000にある-2,-1だったら達人に強制分岐みたいな。
-								this.t強制用条件かを判断する(pChip, nPlayer);
 
-								TJAPlayer3.stage演奏ドラム画面.bUseBranch[nPlayer] = true;
-								this.tBranchJudge(pChip, this.CBranchScore[nPlayer].cBigNotes, this.CBranchScore[nPlayer].nScore, this.CBranchScore[nPlayer].nRoll, this.CBranchScore[nPlayer].nGreat, this.CBranchScore[nPlayer].nGood, this.CBranchScore[nPlayer].nMiss, nPlayer);
+								//分岐の種類はプレイヤー関係ないと思う
+								this.nBranch条件数値A = cBranch.db条件数値A;
+								this.nBranch条件数値B = cBranch.db条件数値B;
 
-								if (this.b強制分岐譜面[nPlayer])//強制分岐譜面だったら次回コースをそのコースにセット
-									this.n次回のコース[nPlayer] = this.N強制コース[nPlayer];
+								if (!this.bLEVELHOLD[nPlayer])
+								{
+									//成仏2000にある-2,-1だったら達人に強制分岐みたいな。
+									this.t強制用条件かを判断する(cBranch, nPlayer);
 
-								this.t分岐処理(this.n次回のコース[nPlayer], nPlayer,pChip.db分岐時刻ms, pChip.n分岐の種類);
+									TJAPlayer3.stage演奏ドラム画面.bUseBranch[nPlayer] = true;
+									this.tBranchJudge(cBranch, this.CBranchScore[nPlayer].cBigNotes, this.CBranchScore[nPlayer].nScore, this.CBranchScore[nPlayer].nRoll, this.CBranchScore[nPlayer].nGreat, this.CBranchScore[nPlayer].nGood, this.CBranchScore[nPlayer].nMiss, nPlayer);
 
-								TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化(TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.stBranch[nPlayer].nAfter, this.n次回のコース[nPlayer], nPlayer);
-								TJAPlayer3.stage演奏ドラム画面.actMtaiko.tBranchEvent(TJAPlayer3.stage演奏ドラム画面.actMtaiko.After[nPlayer], this.n次回のコース[nPlayer], nPlayer);
-								this.n現在のコース[nPlayer] = this.n次回のコース[nPlayer];
+									if (this.b強制分岐譜面[nPlayer])//強制分岐譜面だったら次回コースをそのコースにセット
+										this.n次回のコース[nPlayer] = this.N強制コース[nPlayer];
+
+									this.t分岐処理(this.n次回のコース[nPlayer], nPlayer, cBranch.db分岐時刻ms, cBranch.n分岐の種類);
+
+									TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t分岐レイヤー_コース変化(TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.stBranch[nPlayer].nAfter, this.n次回のコース[nPlayer], nPlayer);
+									TJAPlayer3.stage演奏ドラム画面.actMtaiko.tBranchEvent(TJAPlayer3.stage演奏ドラム画面.actMtaiko.After[nPlayer], this.n次回のコース[nPlayer], nPlayer);
+									this.n現在のコース[nPlayer] = this.n次回のコース[nPlayer];
+								}
+								this.n分岐した回数[nPlayer]++;
 							}
-							this.n分岐した回数[nPlayer]++;
 							pChip.bHit = true;
 						}
 						break;
@@ -3746,11 +3750,11 @@ namespace TJAPlayer3
 		}
 
 		//2020.04.23 Mr-Ojii akasokoさんの分岐方法を参考にして、変更
-		public void tBranchJudge(CDTX.CChip pChip, CBRANCHSCORE cBRANCHSCORE, int nスコア, int n連打数, int n良, int n可, int n不可, int nPlayer)
+		public void tBranchJudge(CDTX.CBRANCH cBranch, CBRANCHSCORE cBRANCHSCORE, int nスコア, int n連打数, int n良, int n可, int n不可, int nPlayer)
 		{
 			if (this.b強制的に分岐させた[nPlayer]) return;
 
-			int n種類 = pChip.n分岐の種類;
+			int n種類 = cBranch.n分岐の種類;
 
 			double dbRate = 0;
 
@@ -3775,17 +3779,17 @@ namespace TJAPlayer3
 
 			if (n種類 == 0 || n種類 == 1)
 			{
-				if (dbRate < pChip.db条件数値A)
+				if (dbRate < cBranch.db条件数値A)
 				{
 					this.n次回のコース[nPlayer] = 0;
 					this.nレーン用表示コース[nPlayer] = 0;
 				}
-				else if (dbRate >= pChip.db条件数値A && dbRate < pChip.db条件数値B)
+				else if (dbRate >= cBranch.db条件数値A && dbRate < cBranch.db条件数値B)
 				{
 					this.n次回のコース[nPlayer] = 1;
 					this.nレーン用表示コース[nPlayer] = 1;
 				}
-				else if (dbRate >= pChip.db条件数値B)
+				else if (dbRate >= cBranch.db条件数値B)
 				{
 					this.n次回のコース[nPlayer] = 2;
 					this.nレーン用表示コース[nPlayer] = 2;
@@ -3793,19 +3797,19 @@ namespace TJAPlayer3
 			}
 			else if (n種類 == 2)
 			{
-				if (!(pChip.db条件数値A == 0 && pChip.db条件数値B == 0))
+				if (!(cBranch.db条件数値A == 0 && cBranch.db条件数値B == 0))
 				{
-					if (dbRate < pChip.db条件数値A)
+					if (dbRate < cBranch.db条件数値A)
 					{
 						this.nレーン用表示コース[nPlayer] = 0;
 						this.n次回のコース[nPlayer] = 0;
 					}
-					else if (dbRate >= pChip.db条件数値A && dbRate < pChip.db条件数値B)
+					else if (dbRate >= cBranch.db条件数値A && dbRate < cBranch.db条件数値B)
 					{
 						this.nレーン用表示コース[nPlayer] = 1;
 						this.n次回のコース[nPlayer] = 1;
 					}
-					else if (dbRate >= pChip.db条件数値B)
+					else if (dbRate >= cBranch.db条件数値B)
 					{
 						this.nレーン用表示コース[nPlayer] = 2;
 						this.n次回のコース[nPlayer] = 2;
@@ -3813,19 +3817,19 @@ namespace TJAPlayer3
 				}
 			}
 			else if (n種類 == 3) {
-				if (!(pChip.db条件数値A == 0 && pChip.db条件数値B == 0))
+				if (!(cBranch.db条件数値A == 0 && cBranch.db条件数値B == 0))
 				{
-					if (dbRate < pChip.db条件数値A)
+					if (dbRate < cBranch.db条件数値A)
 					{
 						this.nレーン用表示コース[nPlayer] = 0;
 						this.n次回のコース[nPlayer] = 0;
 					}
-					else if (dbRate >= pChip.db条件数値A && dbRate < pChip.db条件数値B)
+					else if (dbRate >= cBranch.db条件数値A && dbRate < cBranch.db条件数値B)
 					{
 						this.nレーン用表示コース[nPlayer] = 1;
 						this.n次回のコース[nPlayer] = 1;
 					}
-					else if (dbRate >= pChip.db条件数値B)
+					else if (dbRate >= cBranch.db条件数値B)
 					{
 						this.nレーン用表示コース[nPlayer] = 2;
 						this.n次回のコース[nPlayer] = 2;
@@ -3836,11 +3840,11 @@ namespace TJAPlayer3
 
 		//2020.04.23 Mr-Ojii akasokoさんの分岐方法を参考にして、追加
 		private int[] N強制コース = new int[4];
-		private void t強制用条件かを判断する(CDTX.CChip pChip, int nPlayer)
+		private void t強制用条件かを判断する(CDTX.CBRANCH cBranch, int nPlayer)
 		{
-			double db条件A = pChip.db条件数値A;
-			double db条件B = pChip.db条件数値B;
-			int n種類 = pChip.n分岐の種類;
+			double db条件A = cBranch.db条件数値A;
+			double db条件B = cBranch.db条件数値B;
+			int n種類 = cBranch.n分岐の種類;
 
 			if (n種類 == 0)//精度分岐だったら
 			{
