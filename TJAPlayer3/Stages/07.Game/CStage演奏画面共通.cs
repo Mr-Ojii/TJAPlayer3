@@ -63,8 +63,23 @@ namespace TJAPlayer3
 				if( !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] )
 				{
 					Drums.nハイスコア = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nハイスコア; //2015.06.16 kairera0467 他難易度の上書き防止。
-					if ( TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nハイスコア[ TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer] ] < (int)this.actScore.Get( nPlayer ) )
-						Drums.nハイスコア[ TJAPlayer3.stage選曲.n確定された曲の難易度[0] ] = (int)this.actScore.Get( nPlayer );
+					Drums.nSecondScore = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nSecondScore;
+					Drums.nThirdScore = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nThirdScore;
+					if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < (int)this.actScore.Get(nPlayer))
+					{
+						Drums.nThirdScore[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = Drums.nSecondScore[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]];
+						Drums.nSecondScore[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = Drums.nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]];
+						Drums.nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = (int)this.actScore.Get(nPlayer);
+					}
+					else if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nSecondScore[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < (int)this.actScore.Get(nPlayer)) 
+					{
+						Drums.nThirdScore[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = Drums.nSecondScore[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]];
+						Drums.nSecondScore[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = (int)this.actScore.Get(nPlayer);
+					}
+					else if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nThirdScore[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < (int)this.actScore.Get(nPlayer))
+					{
+						Drums.nThirdScore[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = (int)this.actScore.Get(nPlayer);
+					}
 
 					var danC = TJAPlayer3.stage演奏ドラム画面.actDan.GetExam();
 					for (int i = 0; i < danC.Length; i++)

@@ -781,6 +781,20 @@ namespace TJAPlayer3
 			cスコア.譜面情報.nハイスコア[4] = br.ReadInt32();
 			cスコア.譜面情報.nハイスコア[5] = br.ReadInt32();
 			cスコア.譜面情報.nハイスコア[6] = br.ReadInt32();
+			cスコア.譜面情報.nSecondScore[0] = br.ReadInt32();
+			cスコア.譜面情報.nSecondScore[1] = br.ReadInt32();
+			cスコア.譜面情報.nSecondScore[2] = br.ReadInt32();
+			cスコア.譜面情報.nSecondScore[3] = br.ReadInt32();
+			cスコア.譜面情報.nSecondScore[4] = br.ReadInt32();
+			cスコア.譜面情報.nSecondScore[5] = br.ReadInt32();
+			cスコア.譜面情報.nSecondScore[6] = br.ReadInt32();
+			cスコア.譜面情報.nThirdScore[0] = br.ReadInt32();
+			cスコア.譜面情報.nThirdScore[1] = br.ReadInt32();
+			cスコア.譜面情報.nThirdScore[2] = br.ReadInt32();
+			cスコア.譜面情報.nThirdScore[3] = br.ReadInt32();
+			cスコア.譜面情報.nThirdScore[4] = br.ReadInt32();
+			cスコア.譜面情報.nThirdScore[5] = br.ReadInt32();
+			cスコア.譜面情報.nThirdScore[6] = br.ReadInt32();
 			cスコア.譜面情報.strサブタイトル = br.ReadString();
 			cスコア.譜面情報.nレベル[0] = br.ReadInt32();
 			cスコア.譜面情報.nレベル[1] = br.ReadInt32();
@@ -1203,6 +1217,20 @@ namespace TJAPlayer3
 			bw.Write(node.arスコア.譜面情報.nハイスコア[4]);
 			bw.Write(node.arスコア.譜面情報.nハイスコア[5]);
 			bw.Write(node.arスコア.譜面情報.nハイスコア[6]);
+			bw.Write(node.arスコア.譜面情報.nSecondScore[0]);
+			bw.Write(node.arスコア.譜面情報.nSecondScore[1]);
+			bw.Write(node.arスコア.譜面情報.nSecondScore[2]);
+			bw.Write(node.arスコア.譜面情報.nSecondScore[3]);
+			bw.Write(node.arスコア.譜面情報.nSecondScore[4]);
+			bw.Write(node.arスコア.譜面情報.nSecondScore[5]);
+			bw.Write(node.arスコア.譜面情報.nSecondScore[6]);
+			bw.Write(node.arスコア.譜面情報.nThirdScore[0]);
+			bw.Write(node.arスコア.譜面情報.nThirdScore[1]);
+			bw.Write(node.arスコア.譜面情報.nThirdScore[2]);
+			bw.Write(node.arスコア.譜面情報.nThirdScore[3]);
+			bw.Write(node.arスコア.譜面情報.nThirdScore[4]);
+			bw.Write(node.arスコア.譜面情報.nThirdScore[5]);
+			bw.Write(node.arスコア.譜面情報.nThirdScore[6]);
 			bw.Write(node.arスコア.譜面情報.strサブタイトル);
 			bw.Write(node.arスコア.譜面情報.nレベル[0]);
 			bw.Write(node.arスコア.譜面情報.nレベル[1]);
@@ -1421,6 +1449,8 @@ Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
 					for (int i = 0; i < (int)Difficulty.Total; i++)
 					{
 						score.譜面情報.nハイスコア[i] = (int)ini.stセクション.HiScore.nハイスコア[i];
+						score.譜面情報.nSecondScore[i] = (int)ini.stセクション.HiScore.nSecondScore[i];
+						score.譜面情報.nThirdScore[i] = (int)ini.stセクション.HiScore.nThirdScore[i];
 						score.譜面情報.n王冠[i] = (int)ini.stセクション.HiScore.n王冠[i];
 					}
 				}

@@ -94,11 +94,8 @@ namespace TJAPlayer3
 						ini.stファイル.BestRank = this.nランク値;
 					}
 
-					// 新記録スコアチェック
-					if ((this.st演奏記録[0].nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度[0]] > ini.stセクション.HiScore.nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度[0]]) && !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0])//2020.04.18 Mr-Ojii それぞれの難易度のハイスコアでハイスコアを変更するように修正
-					{
-						ini.stセクション.HiScore = this.st演奏記録[0];
-					}
+					
+					ini.stセクション.HiScore = this.st演奏記録[0];
 
 					// ラストプレイ #23595 2011.1.9 ikanick
 					// オートじゃなければプレイ結果を書き込む
@@ -142,6 +139,8 @@ namespace TJAPlayer3
 
 						cスコア.譜面情報.n王冠 = st演奏記録[0].n王冠;//2020.05.22 Mr-Ojii データが保存されない問題の解決策。
 						cスコア.譜面情報.nハイスコア = st演奏記録[0].nハイスコア;
+						cスコア.譜面情報.nSecondScore = st演奏記録[0].nSecondScore;
+						cスコア.譜面情報.nThirdScore = st演奏記録[0].nThirdScore;
 					}
 					
 					TJAPlayer3.stage選曲.r確定されたスコア = cスコア;

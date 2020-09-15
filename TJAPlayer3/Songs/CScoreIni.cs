@@ -135,6 +135,8 @@ namespace TJAPlayer3
 			public int[] n可 = new int[(int)Difficulty.Total];
 			public int[] n不可 = new int[(int)Difficulty.Total];
 			public int[] nハイスコア = new int[(int)Difficulty.Total];
+			public int[] nSecondScore = new int[(int)Difficulty.Total];
+			public int[] nThirdScore = new int[(int)Difficulty.Total];
 			public int[] n王冠 = new int[(int)Difficulty.Total];
 			public Dan_C[] Dan_C;
 
@@ -452,7 +454,63 @@ namespace TJAPlayer3
 												else if (item.Equals("HiScore7"))
 												{
 													c演奏記録.nハイスコア[ 6 ] = int.Parse( para );
-												}					
+												}
+												else if ( item.Equals( "SecondScore1" ) )
+												{
+													c演奏記録.nSecondScore[ 0 ] = int.Parse( para );
+												}
+												else if ( item.Equals( "SecondScore2" ) )
+												{
+													c演奏記録.nSecondScore[ 1 ] = int.Parse( para );
+												}
+												else if ( item.Equals( "SecondScore3" ) )
+												{
+													c演奏記録.nSecondScore[ 2 ] = int.Parse( para );
+												}
+												else if ( item.Equals( "SecondScore4" ) )
+												{
+													c演奏記録.nSecondScore[ 3 ] = int.Parse( para );
+												}
+												else if ( item.Equals( "SecondScore5" ) )
+												{
+													c演奏記録.nSecondScore[ 4 ] = int.Parse( para );
+												}
+												else if (item.Equals("SecondScore6"))
+												{
+													c演奏記録.nSecondScore[ 5 ] = int.Parse( para );
+												}
+												else if (item.Equals("SecondScore7"))
+												{
+													c演奏記録.nSecondScore[ 6 ] = int.Parse( para );
+												}
+												else if ( item.Equals( "ThirdScore1" ) )
+												{
+													c演奏記録.nThirdScore[ 0 ] = int.Parse( para );
+												}
+												else if ( item.Equals( "ThirdScore2" ) )
+												{
+													c演奏記録.nThirdScore[ 1 ] = int.Parse( para );
+												}
+												else if ( item.Equals( "ThirdScore3" ) )
+												{
+													c演奏記録.nThirdScore[ 2 ] = int.Parse( para );
+												}
+												else if ( item.Equals( "ThirdScore4" ) )
+												{
+													c演奏記録.nThirdScore[ 3 ] = int.Parse( para );
+												}
+												else if ( item.Equals( "ThirdScore5" ) )
+												{
+													c演奏記録.nThirdScore[ 4 ] = int.Parse( para );
+												}
+												else if (item.Equals("ThirdScore6"))
+												{
+													c演奏記録.nThirdScore[ 5 ] = int.Parse( para );
+												}
+												else if (item.Equals("ThirdScore7"))
+												{
+													c演奏記録.nThirdScore[ 6 ] = int.Parse( para );
+												}
 							if ( item.Equals( "PlaySkill" ) )
 							{
 								try
@@ -651,6 +709,62 @@ namespace TJAPlayer3
 											{
 												c演奏記録.nハイスコア[ 6 ] = int.Parse( para );
 											}
+											else if ( item.Equals( "SecondScore1" ) )
+											{
+												c演奏記録.nSecondScore[ 0 ] = int.Parse( para );
+											}
+											else if ( item.Equals( "SecondScore2" ) )
+											{
+												c演奏記録.nSecondScore[ 1 ] = int.Parse( para );
+											}
+											else if ( item.Equals( "SecondScore3" ) )
+											{
+												c演奏記録.nSecondScore[ 2 ] = int.Parse( para );
+											}
+											else if ( item.Equals( "SecondScore4" ) )
+											{
+												c演奏記録.nSecondScore[ 3 ] = int.Parse( para );
+											}
+											else if ( item.Equals( "SecondScore5" ) )
+											{
+												c演奏記録.nSecondScore[ 4 ] = int.Parse( para );
+											}
+											else if (item.Equals("SecondScore6"))
+											{
+												c演奏記録.nSecondScore[ 5 ] = int.Parse( para );
+											}
+											else if (item.Equals("SecondScore7"))
+											{
+												c演奏記録.nSecondScore[ 6 ] = int.Parse( para );
+											}
+											else if ( item.Equals( "ThirdScore1" ) )
+											{
+												c演奏記録.nThirdScore[ 0 ] = int.Parse( para );
+											}
+											else if ( item.Equals( "ThirdScore2" ) )
+											{
+												c演奏記録.nThirdScore[ 1 ] = int.Parse( para );
+											}
+											else if ( item.Equals( "ThirdScore3" ) )
+											{
+												c演奏記録.nThirdScore[ 2 ] = int.Parse( para );
+											}
+											else if ( item.Equals( "ThirdScore4" ) )
+											{
+												c演奏記録.nThirdScore[ 3 ] = int.Parse( para );
+											}
+											else if ( item.Equals( "ThirdScore5" ) )
+											{
+												c演奏記録.nThirdScore[ 4 ] = int.Parse( para );
+											}
+											else if (item.Equals("ThirdScore6"))
+											{
+												c演奏記録.nThirdScore[ 5 ] = int.Parse( para );
+											}
+											else if (item.Equals("ThirdScore7"))
+											{
+												c演奏記録.nThirdScore[ 6 ] = int.Parse( para );
+											}
 											else if (item.Equals("Crown1"))
 											{
 												c演奏記録.n王冠[0] = int.Parse(para);
@@ -768,6 +882,20 @@ namespace TJAPlayer3
 				writer.WriteLine("HiScore5={0}", this.stセクション[i].nハイスコア[4]);
 				writer.WriteLine("HiScore6={0}", this.stセクション[i].nハイスコア[5]);
 				writer.WriteLine("HiScore7={0}", this.stセクション[i].nハイスコア[6]);
+				writer.WriteLine("SecondScore1={0}", this.stセクション[i].nSecondScore[0]);
+				writer.WriteLine("SecondScore2={0}", this.stセクション[i].nSecondScore[1]);
+				writer.WriteLine("SecondScore3={0}", this.stセクション[i].nSecondScore[2]);
+				writer.WriteLine("SecondScore4={0}", this.stセクション[i].nSecondScore[3]);
+				writer.WriteLine("SecondScore5={0}", this.stセクション[i].nSecondScore[4]);
+				writer.WriteLine("SecondScore6={0}", this.stセクション[i].nSecondScore[5]);
+				writer.WriteLine("SecondScore7={0}", this.stセクション[i].nSecondScore[6]);
+				writer.WriteLine("ThirdScore1={0}", this.stセクション[i].nThirdScore[0]);
+				writer.WriteLine("ThirdScore2={0}", this.stセクション[i].nThirdScore[1]);
+				writer.WriteLine("ThirdScore3={0}", this.stセクション[i].nThirdScore[2]);
+				writer.WriteLine("ThirdScore4={0}", this.stセクション[i].nThirdScore[3]);
+				writer.WriteLine("ThirdScore5={0}", this.stセクション[i].nThirdScore[4]);
+				writer.WriteLine("ThirdScore6={0}", this.stセクション[i].nThirdScore[5]);
+				writer.WriteLine("ThirdScore7={0}", this.stセクション[i].nThirdScore[6]);
 				writer.WriteLine("Crown1={0}", this.stセクション[i].n王冠[0]);
 				writer.WriteLine("Crown2={0}", this.stセクション[i].n王冠[1]);
 				writer.WriteLine("Crown3={0}", this.stセクション[i].n王冠[2]);
