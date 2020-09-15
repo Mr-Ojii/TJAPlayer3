@@ -3960,7 +3960,7 @@ namespace TJAPlayer3
 			float bpm_time = 0;
 			int last_input = 0;
 			float last_bpm_change_time;
-			play_time = CSound管理.rc演奏用タイマ.n現在時刻ms - tja.nOFFSET;
+			play_time = CSound管理.rc演奏用タイマ.n現在時刻ms * (((float)TJAPlayer3.ConfigIni.n演奏速度) / 20.0f) - tja.nOFFSET;
 
 			for (int i = 1; ; i++)
 			{
