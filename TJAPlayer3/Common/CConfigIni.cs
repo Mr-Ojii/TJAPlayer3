@@ -314,6 +314,7 @@ namespace TJAPlayer3
 		public int nフレーム毎スリープms;			// #xxxxx 2011.11.27 yyagi add
 		public int n演奏速度;
 		public bool b演奏速度が一倍速であるとき以外音声を再生しない;
+		public string[] strPlayerName;
 		public int n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms;
 
 		private bool _applyLoudnessMetadata;
@@ -691,6 +692,7 @@ namespace TJAPlayer3
 
 			this.n演奏速度 = 20;
 			this.b演奏速度が一倍速であるとき以外音声を再生しない = false;
+			this.strPlayerName = new string[] { "1PUnknown", "2PUnknown" };
 			#region [ AutoPlay ]
 			this.b太鼓パートAutoPlay[0] = true;
 			this.b太鼓パートAutoPlay[1] = true;
@@ -1132,6 +1134,11 @@ namespace TJAPlayer3
 			sw.WriteLine("; 閉じるノードの差し込み間隔");   // 2020.06.12 Mr-Ojii
 			sw.WriteLine("; BackBoxes Interval.");     //
 			sw.WriteLine("BackBoxInterval={0}", this.n閉じる差し込み間隔);
+			sw.WriteLine();
+			sw.WriteLine("; プレイヤーネーム");   // 2020.09.15 Mr-Ojii
+			sw.WriteLine("; PlayerName");
+			sw.WriteLine("1PPlayerName={0}", this.strPlayerName[0]);
+			sw.WriteLine("2PPlayerName={0}", this.strPlayerName[1]);
 			sw.WriteLine();
 			sw.WriteLine("; 各画像の表示設定");
 			sw.WriteLine("; キャラクター画像を表示する (0:OFF, 1:ON)");
@@ -1815,6 +1822,14 @@ namespace TJAPlayer3
 											else if (str3.Equals("BackBoxInterval"))
 											{
 												this.n閉じる差し込み間隔 = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 9999, this.n閉じる差し込み間隔);
+											}
+											else if (str3.Equals("1PPlayerName"))
+											{
+												this.strPlayerName[0] = str4;
+											}
+											else if (str3.Equals("2PPlayerName"))
+											{
+												this.strPlayerName[1] = str4;
 											}
 											else if (str3.Equals("ShowChara"))
 											{

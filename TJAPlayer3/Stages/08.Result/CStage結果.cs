@@ -141,6 +141,10 @@ namespace TJAPlayer3
 						cスコア.譜面情報.nハイスコア = st演奏記録[0].nハイスコア;
 						cスコア.譜面情報.nSecondScore = st演奏記録[0].nSecondScore;
 						cスコア.譜面情報.nThirdScore = st演奏記録[0].nThirdScore;
+
+						cスコア.譜面情報.strHiScorerName = st演奏記録[0].strHiScorerName;
+						cスコア.譜面情報.strSecondScorerName = st演奏記録[0].strSecondScorerName;
+						cスコア.譜面情報.strThirdScorerName = st演奏記録[0].strThirdScorerName;
 					}
 					
 					TJAPlayer3.stage選曲.r確定されたスコア = cスコア;

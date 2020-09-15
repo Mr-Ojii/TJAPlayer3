@@ -137,6 +137,9 @@ namespace TJAPlayer3
 			public int[] nハイスコア = new int[(int)Difficulty.Total];
 			public int[] nSecondScore = new int[(int)Difficulty.Total];
 			public int[] nThirdScore = new int[(int)Difficulty.Total];
+			public string[] strHiScorerName = new string[(int)Difficulty.Total];
+			public string[] strSecondScorerName = new string[(int)Difficulty.Total];
+			public string[] strThirdScorerName = new string[(int)Difficulty.Total];
 			public int[] n王冠 = new int[(int)Difficulty.Total];
 			public Dan_C[] Dan_C;
 
@@ -765,6 +768,90 @@ namespace TJAPlayer3
 											{
 												c演奏記録.nThirdScore[ 6 ] = int.Parse( para );
 											}
+											else if (item.Equals("HiScorerName1"))
+											{
+												c演奏記録.strHiScorerName[0] = para;
+											}
+											else if (item.Equals("HiScorerName2"))
+											{
+												c演奏記録.strHiScorerName[1] = para;
+											}
+											else if (item.Equals("HiScorerName3"))
+											{
+												c演奏記録.strHiScorerName[2] = para;
+											}
+											else if (item.Equals("HiScorerName4"))
+											{
+												c演奏記録.strHiScorerName[3] = para;
+											}
+											else if (item.Equals("HiScorerName5"))
+											{
+												c演奏記録.strHiScorerName[4] = para;
+											}
+											else if (item.Equals("HiScorerName6"))
+											{
+												c演奏記録.strHiScorerName[5] = para;
+											}
+											else if (item.Equals("HiScorerName7"))
+											{
+												c演奏記録.strHiScorerName[6] = para;
+											}
+											else if (item.Equals("SecondScorerName1"))
+											{
+												c演奏記録.strSecondScorerName[0] = para;
+											}
+											else if (item.Equals("SecondScorerName2"))
+											{
+												c演奏記録.strSecondScorerName[1] = para;
+											}
+											else if (item.Equals("SecondScorerName3"))
+											{
+												c演奏記録.strSecondScorerName[2] = para;
+											}
+											else if (item.Equals("SecondScorerName4"))
+											{
+												c演奏記録.strSecondScorerName[3] = para;
+											}
+											else if (item.Equals("SecondScorerName5"))
+											{
+												c演奏記録.strSecondScorerName[4] = para;
+											}
+											else if (item.Equals("SecondScorerName6"))
+											{
+												c演奏記録.strSecondScorerName[5] = para;
+											}
+											else if (item.Equals("SecondScorerName7"))
+											{
+												c演奏記録.strSecondScorerName[6] = para;
+											}
+											else if (item.Equals("ThirdScorerName1"))
+											{
+												c演奏記録.strThirdScorerName[0] = para;
+											}
+											else if (item.Equals("ThirdScorerName2"))
+											{
+												c演奏記録.strThirdScorerName[1] = para;
+											}
+											else if (item.Equals("ThirdScorerName3"))
+											{
+												c演奏記録.strThirdScorerName[2] = para;
+											}
+											else if (item.Equals("ThirdScorerName4"))
+											{
+												c演奏記録.strThirdScorerName[3] = para;
+											}
+											else if (item.Equals("ThirdScorerName5"))
+											{
+												c演奏記録.strThirdScorerName[4] = para;
+											}
+											else if (item.Equals("ThirdScorerName6"))
+											{
+												c演奏記録.strThirdScorerName[5] = para;
+											}
+											else if (item.Equals("ThirdScorerName7"))
+											{
+												c演奏記録.strThirdScorerName[6] = para;
+											}
 											else if (item.Equals("Crown1"))
 											{
 												c演奏記録.n王冠[0] = int.Parse(para);
@@ -896,6 +983,27 @@ namespace TJAPlayer3
 				writer.WriteLine("ThirdScore5={0}", this.stセクション[i].nThirdScore[4]);
 				writer.WriteLine("ThirdScore6={0}", this.stセクション[i].nThirdScore[5]);
 				writer.WriteLine("ThirdScore7={0}", this.stセクション[i].nThirdScore[6]);
+				writer.WriteLine("HiScorerName1={0}", this.stセクション[i].strHiScorerName[0]);
+				writer.WriteLine("HiScorerName2={0}", this.stセクション[i].strHiScorerName[1]);
+				writer.WriteLine("HiScorerName3={0}", this.stセクション[i].strHiScorerName[2]);
+				writer.WriteLine("HiScorerName4={0}", this.stセクション[i].strHiScorerName[3]);
+				writer.WriteLine("HiScorerName5={0}", this.stセクション[i].strHiScorerName[4]);
+				writer.WriteLine("HiScorerName6={0}", this.stセクション[i].strHiScorerName[5]);
+				writer.WriteLine("HiScorerName7={0}", this.stセクション[i].strHiScorerName[6]);
+				writer.WriteLine("SecondScorerName1={0}", this.stセクション[i].strSecondScorerName[0]);
+				writer.WriteLine("SecondScorerName2={0}", this.stセクション[i].strSecondScorerName[1]);
+				writer.WriteLine("SecondScorerName3={0}", this.stセクション[i].strSecondScorerName[2]);
+				writer.WriteLine("SecondScorerName4={0}", this.stセクション[i].strSecondScorerName[3]);
+				writer.WriteLine("SecondScorerName5={0}", this.stセクション[i].strSecondScorerName[4]);
+				writer.WriteLine("SecondScorerName6={0}", this.stセクション[i].strSecondScorerName[5]);
+				writer.WriteLine("SecondScorerName7={0}", this.stセクション[i].strSecondScorerName[6]);
+				writer.WriteLine("ThirdScorerName1={0}", this.stセクション[i].strThirdScorerName[0]);
+				writer.WriteLine("ThirdScorerName2={0}", this.stセクション[i].strThirdScorerName[1]);
+				writer.WriteLine("ThirdScorerName3={0}", this.stセクション[i].strThirdScorerName[2]);
+				writer.WriteLine("ThirdScorerName4={0}", this.stセクション[i].strThirdScorerName[3]);
+				writer.WriteLine("ThirdScorerName5={0}", this.stセクション[i].strThirdScorerName[4]);
+				writer.WriteLine("ThirdScorerName6={0}", this.stセクション[i].strThirdScorerName[5]);
+				writer.WriteLine("ThirdScorerName7={0}", this.stセクション[i].strThirdScorerName[6]);
 				writer.WriteLine("Crown1={0}", this.stセクション[i].n王冠[0]);
 				writer.WriteLine("Crown2={0}", this.stセクション[i].n王冠[1]);
 				writer.WriteLine("Crown3={0}", this.stセクション[i].n王冠[2]);

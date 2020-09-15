@@ -74,6 +74,9 @@ namespace TJAPlayer3
 			public int[] nハイスコア;
 			public int[] nSecondScore;
 			public int[] nThirdScore;
+			public string[] strHiScorerName;
+			public string[] strSecondScorerName;
+			public string[] strThirdScorerName;
 			public int[] n王冠;
 			public string strサブタイトル;
 			public int[] nレベル;
@@ -193,6 +196,9 @@ namespace TJAPlayer3
 			this.譜面情報.nハイスコア = new int[(int)Difficulty.Total];
 			this.譜面情報.nSecondScore = new int[(int)Difficulty.Total];
 			this.譜面情報.nThirdScore = new int[(int)Difficulty.Total];
+			this.譜面情報.strHiScorerName = new string[(int)Difficulty.Total];
+			this.譜面情報.strSecondScorerName = new string[(int)Difficulty.Total];
+			this.譜面情報.strThirdScorerName = new string[(int)Difficulty.Total];
 			this.譜面情報.n王冠 = new int[(int)Difficulty.Total];
 			this.譜面情報.strサブタイトル = "";
 			this.譜面情報.nレベル = new int[(int)Difficulty.Total] { -1, -1, -1, -1, -1, -1, -1};
