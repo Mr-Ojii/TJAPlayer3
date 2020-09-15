@@ -48,43 +48,19 @@ namespace TJAPlayer3
 	}
 	public enum Eパッド			// 演奏用のenum。ここを修正するときは、次に出てくる EKeyConfigPad と EパッドFlag もセットで修正すること。
 	{
-		HH		= 0,
-		SD		= 1,
-		BD		= 2,
-		Pick	= 3,
-		LT		= 4,
-		FT		= 5,
-		CY		= 6,
-		HHO		= 7,
-		RD		= 8,
-		LC		= 9,
-		LP		= 10,	// #27029 2012.1.4 from
-		LBD     = 11,
-		LRed    = 12,
-		RRed    = 13,
-		LBlue   = 14,
-		RBlue   = 15,
-		LRed2P  = 16,
-		RRed2P  = 17,
-		LBlue2P = 18,
-		RBlue2P = 19,
+		LRed    = 0,
+		RRed    = 1,
+		LBlue   = 2,
+		RBlue   = 3,
+		LRed2P  = 4,
+		RRed2P  = 5,
+		LBlue2P = 6,
+		RBlue2P = 7,
 		MAX,			// 門番用として定義
 		UNKNOWN = 99
 	}
 	public enum EKeyConfigPad		// #24609 キーコンフィグで使うenum。capture要素あり。
 	{
-		HH		= Eパッド.HH,
-		SD		= Eパッド.SD,
-		BD		= Eパッド.BD,
-		Pick	= Eパッド.Pick,
-		LT		= Eパッド.LT,
-		FT		= Eパッド.FT,
-		CY		= Eパッド.CY,
-		HHO		= Eパッド.HHO,
-		RD		= Eパッド.RD,
-		LC		= Eパッド.LC,
-		LP		= Eパッド.LP,		// #27029 2012.1.4 from
-		LBD     = Eパッド.LBD,
 		LRed    = Eパッド.LRed,
 		RRed    = Eパッド.RRed,
 		LBlue   = Eパッド.LBlue,

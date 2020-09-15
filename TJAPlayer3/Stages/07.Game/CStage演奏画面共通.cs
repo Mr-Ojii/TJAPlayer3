@@ -1450,7 +1450,7 @@ namespace TJAPlayer3
 							}
 						}
 
-						if (this.actCombo.n現在のコンボ数[nPlayer] % 10 == 0 && this.actCombo.n現在のコンボ数[0] > 0)
+						if (this.actCombo.n現在のコンボ数[nPlayer] % 10 == 0 && this.actCombo.n現在のコンボ数[nPlayer] > 0)
 						{
 							//if (this.actChara.bマイどんアクション中 == false)
 							//{
@@ -2874,7 +2874,7 @@ namespace TJAPlayer3
 				{
 					if( !play_bpm_time.HasValue )
 					{
-						play_bpm_time = this.GetNowPBMTime( dTX, 0 );
+						play_bpm_time = this.GetNowPBMTime( dTX );
 					}
 
 					var dbSCROLL = configIni.eScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.dbSCROLL;
@@ -3929,8 +3929,9 @@ namespace TJAPlayer3
 			return n合計連打数[player];
 		}
 
-		protected float GetNowPBMTime( CDTX tja, float play_time )
+		protected float GetNowPBMTime( CDTX tja )
 		{
+			float play_time = 0;
 			float bpm_time = 0;
 			int last_input = 0;
 			float last_bpm_change_time;

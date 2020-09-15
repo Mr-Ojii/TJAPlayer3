@@ -14,20 +14,6 @@ namespace TJAPlayer3
 	internal class CStage選曲 : CStage
 	{
 		// プロパティ
-		public int nスクロールバー相対y座標
-		{
-			get
-			{
-				if (act曲リスト != null)
-				{
-					return act曲リスト.nスクロールバー相対y座標;
-				}
-				else
-				{
-					return 0;
-				}
-			}
-		}
 		public bool bIsEnumeratingSongs
 		{
 			get

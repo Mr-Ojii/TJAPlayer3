@@ -7,7 +7,6 @@ using System.IO;
 using System.Drawing;
 using System.Threading;
 using System.Globalization;
-using System.Runtime.Serialization.Formatters.Binary;
 using SharpDX;
 using FDK;
 

@@ -792,20 +792,20 @@ namespace TJAPlayer3
 
 					//2015.03.19 kairera0467 Chipを1つにまとめて1つのレーン扱いにする。
 					int nUsePlayer = 0;
-					if( nPad >= 12 && nPad <= 15 ) {
+					if(nPad >= (int)Eパッド.LRed && nPad <= (int)Eパッド.RBlue) {
 						nUsePlayer = 0;
-					} else if( nPad >= 16 && nPad <= 19 ) {
+					} else if(nPad >= (int)Eパッド.LRed2P && nPad <= (int)Eパッド.RBlue2P) {
 						nUsePlayer = 1;
 						if( TJAPlayer3.ConfigIni.nPlayerCount < 2 ) //プレイ人数が2人以上でなければ入力をキャンセル
 							break;
 					}
 
-					if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] && (nPad >= 12 && nPad <= 15))//2020.05.18 Mr-Ojii オート時の入力キャンセル
+					if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] && (nPad >= (int)Eパッド.LRed && nPad <= (int)Eパッド.RBlue))//2020.05.18 Mr-Ojii オート時の入力キャンセル
 						break;
-					else if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] && (nPad >= 16 && nPad <= 19))
+					else if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] && (nPad >= (int)Eパッド.LRed2P && nPad <= (int)Eパッド.RBlue2P))
 						break;
 
-					var padTo = nUsePlayer == 0 ? nPad - 12 : nPad - 12 - 4;
+					var padTo = nPad - (nUsePlayer * 4);
 					var isDon = padTo < 2 ? true : false;
 
 					CDTX.CChip chipNoHit = chip現在処理中の連打チップ[nUsePlayer] == null ? GetChipOfNearest( nTime, nUsePlayer, isDon) : GetChipOfNearest(nTime, nUsePlayer);
@@ -823,7 +823,7 @@ namespace TJAPlayer3
 
 					switch (nPad)
 					{
-						case 12:
+						case (int)Eパッド.LRed:
 							nLane = 0;
 							nHand = 0;
 							nChannel = 0x11;
@@ -832,7 +832,7 @@ namespace TJAPlayer3
 								this.soundRed[0]?.t再生を開始する();
 							}
 							break;
-						case 13:
+						case (int)Eパッド.RRed:
 							nLane = 0;
 							nHand = 1;
 							nChannel = 0x11;
@@ -841,14 +841,14 @@ namespace TJAPlayer3
 								this.soundRed[0]?.t再生を開始する();
 							}
 							break;
-						case 14:
+						case (int)Eパッド.LBlue:
 							nLane = 1;
 							nHand = 0;
 							nChannel = 0x12;
 							if( b太鼓音再生フラグ )
 								this.soundBlue[0]?.t再生を開始する();
 							break;
-						case 15:
+						case (int)Eパッド.RBlue:
 							nLane = 1;
 							nHand = 1;
 							nChannel = 0x12;
@@ -856,7 +856,7 @@ namespace TJAPlayer3
 								this.soundBlue[0]?.t再生を開始する();
 							break;
 						//以下2P
-						case 16:
+						case (int)Eパッド.LRed2P:
 							nLane = 0;
 							nHand = 0;
 							nChannel = 0x11;
@@ -865,7 +865,7 @@ namespace TJAPlayer3
 								this.soundRed[1]?.t再生を開始する();
 							}
 							break;
-						case 17:
+						case (int)Eパッド.RRed2P:
 							nLane = 0;
 							nHand = 1;
 							nChannel = 0x11;
@@ -874,14 +874,14 @@ namespace TJAPlayer3
 								this.soundRed[1]?.t再生を開始する();
 							}
 							break;
-						case 18:
+						case (int)Eパッド.LBlue2P:
 							nLane = 1;
 							nHand = 0;
 							nChannel = 0x12;
 							if( b太鼓音再生フラグ)
 								this.soundBlue[1]?.t再生を開始する();
 							break;
-						case 19:
+						case (int)Eパッド.RBlue2P:
 							nLane = 1;
 							nHand = 1;
 							nChannel = 0x12;
@@ -1381,7 +1381,7 @@ namespace TJAPlayer3
 							float? play_bpm_time = null;
 							if (!play_bpm_time.HasValue)
 							{
-								play_bpm_time = this.GetNowPBMTime(dTX, 0);
+								play_bpm_time = this.GetNowPBMTime(dTX);
 							}
 							var dbSCROLL_Y = configIni.eScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.dbSCROLL_Y;
 

@@ -488,15 +488,9 @@ namespace TJAPlayer3
 			Gauge_Soul_Explosion[1] = TxC(GAME + GAUGE + @"2P_Explosion.png");
 
             #region[Gauge_DanC]
-            Gauge_Danc = new CTexture[2];
-			Gauge_Danc[0] = TxC(GAME + GAUGE + @"DanC\" + @"1P.png");
-			Gauge_Danc[1] = TxC(GAME + GAUGE + @"DanC\" + @"2P.png");
-			Gauge_Base_Danc = new CTexture[2];
-			Gauge_Base_Danc[0] = TxC(GAME + GAUGE + @"DanC\" + @"1P_Base.png");
-			Gauge_Base_Danc[1] = TxC(GAME + GAUGE + @"DanC\" + @"2P_Base.png");
-			Gauge_Line_Danc = new CTexture[2];
-			Gauge_Line_Danc[0] = TxC(GAME + GAUGE + @"DanC\" + @"1P_Line.png");
-			Gauge_Line_Danc[1] = TxC(GAME + GAUGE + @"DanC\" + @"2P_Line.png");
+			Gauge_Danc = TxC(GAME + GAUGE + @"DanC\" + @"1P.png");
+			Gauge_Base_Danc = TxC(GAME + GAUGE + @"DanC\" + @"1P_Base.png");
+			Gauge_Line_Danc = TxC(GAME + GAUGE + @"DanC\" + @"1P_Line.png");
 			TJAPlayer3.Skin.Game_Gauge_Rainbow_Danc_Ptn = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + GAUGE + @"DanC\" + @"Rainbow\"));
 			if (TJAPlayer3.Skin.Game_Gauge_Rainbow_Danc_Ptn != 0)
 			{
@@ -1177,11 +1171,11 @@ namespace TJAPlayer3
 			Gauge_Line,
 			Gauge_Rainbow,
 			Gauge_Soul_Explosion,
+			Gauge_Rainbow_Danc;
+		public CTexture Gauge_Soul,
 			Gauge_Danc,
 			Gauge_Base_Danc,
 			Gauge_Line_Danc,
-			Gauge_Rainbow_Danc;
-		public CTexture Gauge_Soul,
 			Gauge_Soul_Fire;
 		#endregion
 		#region 吹き出し

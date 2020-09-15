@@ -48,6 +48,7 @@ namespace TJAPlayer3
 			try
 			{
 				this.ct分岐表示用タイマー = null;
+				this.b開いた直後 = true;
 			}
 			finally { 
 			}

@@ -1392,21 +1392,21 @@ Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
 				{
 					#region socre.譜面情報.最大ランク.Drums = ... 
 					//-----------------
-					if (ini.stセクション.HiSkillDrums.b演奏にMIDI入力を使用した ||
-						ini.stセクション.HiSkillDrums.b演奏にキーボードを使用した ||
-						ini.stセクション.HiSkillDrums.b演奏にジョイパッドを使用した ||
-						ini.stセクション.HiSkillDrums.b演奏にマウスを使用した)
+					if (ini.stセクション.HiScore.b演奏にMIDI入力を使用した ||
+						ini.stセクション.HiScore.b演奏にキーボードを使用した ||
+						ini.stセクション.HiScore.b演奏にジョイパッドを使用した ||
+						ini.stセクション.HiScore.b演奏にマウスを使用した)
 					{
 						// (A) 全オートじゃないようなので、演奏結果情報を有効としてランクを算出する。
 
 						score.譜面情報.最大ランク =
 							CScoreIni.tランク値を計算して返す(
-								ini.stセクション.HiSkillDrums.n全チップ数,
-								ini.stセクション.HiSkillDrums.nPerfect数,
-								ini.stセクション.HiSkillDrums.nGreat数,
-								ini.stセクション.HiSkillDrums.nGood数,
-								ini.stセクション.HiSkillDrums.nPoor数,
-								ini.stセクション.HiSkillDrums.nMiss数);
+								ini.stセクション.HiScore.n全チップ数,
+								ini.stセクション.HiScore.nPerfect数,
+								ini.stセクション.HiScore.nGreat数,
+								ini.stセクション.HiScore.nGood数,
+								ini.stセクション.HiScore.nPoor数,
+								ini.stセクション.HiScore.nMiss数);
 					}
 					else
 					{
@@ -1416,12 +1416,12 @@ Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
 					}
 					//-----------------
 					#endregion
-					score.譜面情報.最大スキル = ini.stセクション.HiSkillDrums.db演奏型スキル値;
-					score.譜面情報.フルコンボ = ini.stセクション.HiSkillDrums.bフルコンボである;
+					score.譜面情報.最大スキル = ini.stセクション.HiScore.db演奏型スキル値;
+					score.譜面情報.フルコンボ = ini.stセクション.HiScore.bフルコンボである;
 					for (int i = 0; i < (int)Difficulty.Total; i++)
 					{
-						score.譜面情報.nハイスコア[i] = (int)ini.stセクション.HiScoreDrums.nハイスコア[i];
-						score.譜面情報.n王冠[i] = (int)ini.stセクション.HiScoreDrums.n王冠[i];
+						score.譜面情報.nハイスコア[i] = (int)ini.stセクション.HiScore.nハイスコア[i];
+						score.譜面情報.n王冠[i] = (int)ini.stセクション.HiScore.n王冠[i];
 					}
 				}
 				score.譜面情報.演奏回数 = ini.stファイル.PlayCountDrums;

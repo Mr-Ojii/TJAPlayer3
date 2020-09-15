@@ -58,8 +58,6 @@ namespace TJAPlayer3
 				
 				string strDTXファイルパス = TJAPlayer3.stage選曲.r確定されたスコア.ファイル情報.ファイルの絶対パス;
 
-				var strフォルダ名 = Path.GetDirectoryName(strDTXファイルパス) + @"\";
-
 				var 譜面情報 = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報;
 				this.str曲タイトル = 譜面情報.タイトル;
 				this.strサブタイトル = 譜面情報.strサブタイトル;

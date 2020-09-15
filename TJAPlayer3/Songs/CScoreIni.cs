@@ -34,14 +34,13 @@ namespace TJAPlayer3
 			public int BGMAdjust;
 		}
 
-		// 演奏記録セクション（9種類）
+		// 演奏記録セクション（2種類）
 		public STセクション stセクション;
 		[StructLayout( LayoutKind.Sequential )]
 		public struct STセクション
 		{
-			public CScoreIni.C演奏記録 HiScoreDrums;
-			public CScoreIni.C演奏記録 HiSkillDrums;
-			public CScoreIni.C演奏記録 LastPlayDrums;   // #23595 2011.1.9 ikanick
+			public CScoreIni.C演奏記録 HiScore;
+			public CScoreIni.C演奏記録 LastPlay;   // #23595 2011.1.9 ikanick
 			public CScoreIni.C演奏記録 this[ int index ]
 			{
 				get
@@ -49,14 +48,10 @@ namespace TJAPlayer3
 					switch( index )
 					{
 						case 0:
-							return this.HiScoreDrums;
+							return this.HiScore;
 
 						case 1:
-							return this.HiSkillDrums;
-
-						// #23595 2011.1.9 ikanick
-						case 2:
-							return this.LastPlayDrums;
+							return this.LastPlay;
 						//------------
 					}
 					throw new IndexOutOfRangeException();
@@ -66,16 +61,11 @@ namespace TJAPlayer3
 					switch( index )
 					{
 						case 0:
-							this.HiScoreDrums = value;
+							this.HiScore = value;
 							return;
 
 						case 1:
-							this.HiSkillDrums = value;
-							return;
-
-						// #23595 2011.1.9 ikanick
-						case 2:
-							this.LastPlayDrums = value;
+							this.LastPlay = value;
 							return;
 						//------------------
 					}
@@ -87,9 +77,8 @@ namespace TJAPlayer3
 		{
 			Unknown = -2,
 			File = -1,
-			HiScoreDrums = 0,
-			HiSkillDrums = 1,
-			LastPlayDrums = 2,  // #23595 2011.1.9 ikanick
+			HiScore = 0,
+			LastPlayDrums = 1,
 		}
 		public enum ERANK : int		// #24459 yyagi
 		{
@@ -145,7 +134,6 @@ namespace TJAPlayer3
 			public int[] n良 = new int[(int)Difficulty.Total];
 			public int[] n可 = new int[(int)Difficulty.Total];
 			public int[] n不可 = new int[(int)Difficulty.Total];
-			public int[] n連打 = new int[(int)Difficulty.Total];
 			public int[] nハイスコア = new int[(int)Difficulty.Total];
 			public int[] n王冠 = new int[(int)Difficulty.Total];
 			public Dan_C[] Dan_C;
@@ -239,9 +227,8 @@ namespace TJAPlayer3
 			stファイル.BestRank =  (int)ERANK.UNKNOWN;		// #24459 2011.2.24 yyagi
 	
 			this.stセクション = new STセクション();
-			stセクション.HiScoreDrums = new C演奏記録();
-			stセクション.HiSkillDrums = new C演奏記録();
-			stセクション.LastPlayDrums = new C演奏記録();
+			stセクション.HiScore = new C演奏記録();
+			stセクション.LastPlay = new C演奏記録();
 		}
 
 		/// <summary>
@@ -332,11 +319,7 @@ namespace TJAPlayer3
 								}
 								else if( str2.Equals( "HiScore.Drums" ) )
 								{
-									section = Eセクション種別.HiScoreDrums;
-								}
-								else if( str2.Equals( "HiSkill.Drums" ) )
-								{
-									section = Eセクション種別.HiSkillDrums;
+									section = Eセクション種別.HiScore;
 								}
 								// #23595 2011.1.9 ikanick
 								else if (str2.Equals("LastPlay.Drums"))
@@ -368,8 +351,7 @@ namespace TJAPlayer3
 												this.stファイル.Title = para;
 												continue;
 											}
-										case Eセクション種別.HiScoreDrums:
-										case Eセクション種別.HiSkillDrums:
+										case Eセクション種別.HiScore:
 										case Eセクション種別.LastPlayDrums:// #23595 2011.1.9 ikanick
 											{
 												c演奏記録 = this.stセクション[ (int) section ];
@@ -745,9 +727,9 @@ namespace TJAPlayer3
 			writer.WriteLine( "BGMAdjust={0}", this.stファイル.BGMAdjust );
 			writer.WriteLine();
 
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < 2; i++)
 			{
-				string[] strArray = { "HiScore.Drums", "HiSkill.Drums", "LastPlay.Drums" };
+				string[] strArray = { "HiScore.Drums", "LastPlay.Drums" };
 				writer.WriteLine("[{0}]", strArray[i]);
 				writer.WriteLine("Score={0}", this.stセクション[i].nスコア);
 				writer.WriteLine("PlaySkill={0}", this.stセクション[i].db演奏型スキル値);
@@ -786,13 +768,6 @@ namespace TJAPlayer3
 				writer.WriteLine("HiScore5={0}", this.stセクション[i].nハイスコア[4]);
 				writer.WriteLine("HiScore6={0}", this.stセクション[i].nハイスコア[5]);
 				writer.WriteLine("HiScore7={0}", this.stセクション[i].nハイスコア[6]);
-				writer.WriteLine("Roll1={0}", this.stセクション[i].n連打[0]);
-				writer.WriteLine("Roll2={0}", this.stセクション[i].n連打[1]);
-				writer.WriteLine("Roll3={0}", this.stセクション[i].n連打[2]);
-				writer.WriteLine("Roll4={0}", this.stセクション[i].n連打[3]);
-				writer.WriteLine("Roll5={0}", this.stセクション[i].n連打[4]);
-				writer.WriteLine("Roll6={0}", this.stセクション[i].n連打[5]);
-				writer.WriteLine("Roll7={0}", this.stセクション[i].n連打[6]);
 				writer.WriteLine("Crown1={0}", this.stセクション[i].n王冠[0]);
 				writer.WriteLine("Crown2={0}", this.stセクション[i].n王冠[1]);
 				writer.WriteLine("Crown3={0}", this.stセクション[i].n王冠[2]);
@@ -806,7 +781,7 @@ namespace TJAPlayer3
 		}
 		internal void t全演奏記録セクションの整合性をチェックし不整合があればリセットする()
 		{
-			for( int i = 0; i < 3; i++ )
+			for( int i = 0; i < 2; i++ )
 			{ 
 				if (!this.b整合性がある((Eセクション種別)i))
 					this.stセクション[i] = new C演奏記録();
@@ -866,7 +841,6 @@ namespace TJAPlayer3
 				ret = 0.0;
 
 			ret = ( ( nLevel * ( ( nPerfect * 0.8 + nCombo * 0.2 ) / ( (double) nTotal ) ) ) / 2.0 );
-			ret *= dbCalcReviseValForDrGtBsAutoLanes();
 
 			return ret;
 		}
@@ -879,49 +853,7 @@ namespace TJAPlayer3
 			double y = ( ( nPerfect * 1.0 + nGreat * 0.8 + nGood * 0.5 + nPoor * 0.2 + nMiss * 0.0 + nAuto * 0.0 ) * 100.0 ) / ( (double) nTotal );
 			double ret = ( 100.0 * ( ( Math.Pow( 1.03, y ) - 1.0 ) / ( Math.Pow( 1.03, 100.0 ) - 1.0 ) ) );
 
-			ret *= dbCalcReviseValForDrGtBsAutoLanes();
 			return ret;
-		}
-		internal static double dbCalcReviseValForDrGtBsAutoLanes()
-		{
-			//削除
-			return 1.0;
-		}
-		internal static double t超精密型スキルを計算して返す( CDTX dtx, int nTotal, int nPerfect, int nGood, int nMiss, int Poor, int nMaxLagTime, int nMinLagTimen, int nMaxCombo )
-		{
-			//演奏成績 最大60点
-			//最大コンボ 最大5点
-			//空打ち 最大10点(減点あり)
-			//最大_最小ズレ時間 最大10点
-			//平均ズレ時間 最大5点
-			//ボーナスA 最大5点
-			//ボーナスB 最大5点
-
-			double db演奏点 = 0;
-			double db最大コンボ = 0;
-			double db空打ち = 0;
-			double db最大ズレ時間 = 0;
-			double db最小ズレ時間 = 0;
-			double db平均最大ズレ時間 = 0;
-			double db平均最小ズレ時間 = 0;
-			double dbボーナスA = 0;
-			double dbボーナスB = 0;
-
-			#region[ 演奏点 ]
-
-			#endregion
-			#region[ 空打ち ]
-			int[] n空打ちArray = new int[] { 1, 2, 3, 5, 10, 15, 20, 30, 40, 50 };
-			int n空打ちpt = 0;
-			for( n空打ちpt = 0; n空打ちpt < 10; n空打ちpt++ )
-			{
-				if( Poor == n空打ちArray[ n空打ちpt ] )
-					break;
-			}
-			db空打ち = ( Poor == 0 ? 10 : 10 - n空打ちpt );
-			#endregion
-
-			return 1.0;
 		}
 		internal static string t演奏セクションのMD5を求めて返す( C演奏記録 cc )
 		{

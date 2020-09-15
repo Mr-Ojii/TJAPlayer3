@@ -2176,7 +2176,7 @@ for (int i = 0; i < 3; i++) {
 				ini.stファイル.Title = DTX[0].TITLE;
 				ini.stファイル.Name = DTX[0].strファイル名;
 				ini.stファイル.Hash = CScoreIni.tファイルのMD5を求めて返す( DTX[0].strファイル名の絶対パス );
-				for( int i = 0; i < 3; i++ )
+				for( int i = 0; i < 2; i++ )
 				{
 					ini.stセクション[i].nPerfectになる範囲ms = nPerfect範囲ms;
 					ini.stセクション[i].nGreatになる範囲ms = nGreat範囲ms;
