@@ -1266,7 +1266,7 @@ namespace TJAPlayer3
 								break;
 						}
 
-						if (bAutoPlay)
+						if (bAutoPlay && !this.bPAUSE)
 						{
 							pChip.bHit = true;
 							if (pChip.nチャンネル番号 != 0x1F)

@@ -430,6 +430,7 @@ namespace TJAPlayer3
 
 		public EGame eGameMode;
 		public int TokkunSkipMeasures;
+		public int TokkunMashInterval;
 		public bool bSuperHard = false;
 		public bool bJust;
 
@@ -760,6 +761,7 @@ namespace TJAPlayer3
 			this.nDefaultSongSort = 2;
 			this.eGameMode = EGame.OFF;
 			this.TokkunSkipMeasures = 5;
+			this.TokkunMashInterval = 750;
 			this.bEndingAnime = false;
 			this.nPlayerCount = 1; //2017.08.18 kairera0467 マルチプレイ対応
 			ShinuchiMode[0] = false;
@@ -1228,6 +1230,10 @@ namespace TJAPlayer3
 			sw.WriteLine();
 			sw.WriteLine("; 特訓モード時にPgUp/PgDnで何小節飛ばすか");
 			sw.WriteLine("TokkunSkipMeasures={0}", this.TokkunSkipMeasures);
+			sw.WriteLine();
+			sw.WriteLine("; 特訓モード時にジャンプポイントに飛ばすための時間(ms)");
+			sw.WriteLine("; 指定ms以内に5回縁を叩きましょう");
+			sw.WriteLine("{1}={0}", this.TokkunMashInterval, nameof(this.TokkunMashInterval));
 			sw.WriteLine();
 			sw.WriteLine( "; JUST(0:OFF, 1:ON)" );
 			sw.WriteLine( "Just={0}", this.bJust ? 1 : 0 );
@@ -1964,6 +1970,10 @@ namespace TJAPlayer3
 											else if (str3.Equals("TokkunSkipMeasures"))
 											{
 												this.TokkunSkipMeasures = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 9999, this.TokkunSkipMeasures);
+											}
+											else if (str3.Equals(nameof(TokkunMashInterval)))
+											{
+												this.TokkunMashInterval = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 9999, this.TokkunMashInterval);
 											}
 											else if( str3.Equals( "JudgeCountDisplay" ) )
 											{

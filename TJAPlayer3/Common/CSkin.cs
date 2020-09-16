@@ -2335,6 +2335,10 @@ namespace TJAPlayer3
 							{
 								Game_Training_GoGoPoint_Y = int.Parse(strParam);
 							}
+							else if (strCommand == nameof(Game_Training_JumpPoint_Y))
+							{
+								Game_Training_JumpPoint_Y = int.Parse(strParam);
+							}
 							else if (strCommand == nameof(Game_Training_MaxMeasureCount_XY))
 							{
 								Game_Training_MaxMeasureCount_XY = strParam.Split(',').Select(int.Parse).ToArray();
@@ -2919,6 +2923,7 @@ namespace TJAPlayer3
 		public int Game_Training_ScrollTime = 350;
 		public int[] Game_Training_ProgressBar_XY = { 333, 378 };
 		public int Game_Training_GoGoPoint_Y = 396;
+		public int Game_Training_JumpPoint_Y = 375;
 		public int[] Game_Training_MaxMeasureCount_XY = { 284, 377 };
 		public int[] Game_Training_CurrentMeasureCount_XY = { 254, 370 };
 		public int[] Game_Training_SpeedDisplay_XY = { 115, 370 };

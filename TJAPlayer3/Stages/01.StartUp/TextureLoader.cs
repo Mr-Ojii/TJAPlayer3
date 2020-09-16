@@ -621,6 +621,7 @@ namespace TJAPlayer3
 			Tokkun_ProgressBar = TxC(GAME + TRAINING + @"ProgressBar_Red.png");
 			Tokkun_ProgressBarWhite = TxC(GAME + TRAINING + @"ProgressBar_White.png");
 			Tokkun_GoGoPoint = TxC(GAME + TRAINING + @"GoGoPoint.png");
+			Tokkun_JumpPoint = TxC(GAME + TRAINING + @"JumpPoint.png");
 			Tokkun_Background_Up = TxC(GAME + TRAINING + @"Background_Up.png");
 			Tokkun_BigNumber = TxC(GAME + TRAINING + @"BigNumber.png");
 			Tokkun_SmallNumber = TxC(GAME + TRAINING + @"SmallNumber.png");
@@ -914,6 +915,7 @@ namespace TJAPlayer3
 			TJAPlayer3.t安全にDisposeする(ref Tokkun_ProgressBar);
 			TJAPlayer3.t安全にDisposeする(ref Tokkun_ProgressBarWhite);
 			TJAPlayer3.t安全にDisposeする(ref Tokkun_GoGoPoint);
+			TJAPlayer3.t安全にDisposeする(ref Tokkun_JumpPoint);
 			TJAPlayer3.t安全にDisposeする(ref Tokkun_Background_Up);
 			TJAPlayer3.t安全にDisposeする(ref Tokkun_BigNumber);
 			TJAPlayer3.t安全にDisposeする(ref Tokkun_SmallNumber);
@@ -1247,6 +1249,7 @@ namespace TJAPlayer3
 			Tokkun_ProgressBar,
 			Tokkun_ProgressBarWhite,
 			Tokkun_GoGoPoint,
+			Tokkun_JumpPoint,
 			Tokkun_Background_Up,
 			Tokkun_BigNumber,
 			Tokkun_SmallNumber,
