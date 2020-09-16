@@ -76,7 +76,7 @@ namespace TJAPlayer3
 						Drums.nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = (int)this.actScore.Get(nPlayer);
 						Drums.strThirdScorerName[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = Drums.strSecondScorerName[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]];
 						Drums.strSecondScorerName[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = Drums.strHiScorerName[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]];
-						Drums.strThirdScorerName[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = TJAPlayer3.ConfigIni.strPlayerName[nPlayer];
+						Drums.strHiScorerName[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = TJAPlayer3.ConfigIni.strPlayerName[nPlayer];
 					}
 					else if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nSecondScore[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < (int)this.actScore.Get(nPlayer)) 
 					{
