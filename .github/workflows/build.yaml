@@ -25,7 +25,7 @@ jobs:
         name: TJAPlayer3-f-Release-Framework v4.8${{ github.sha }}
         path: Test
     - name: Change TargetFramework
-      run: MSBuild.exe $Env:GITHUB_WORKSPACE\TJAPlayer3-f.sln -t:BeforeBuild -p:"Configuration=Release;TargetFrameworkVersion=v4.5"
+      run: MSBuild.exe $Env:GITHUB_WORKSPACE\TJAPlayer3-f.sln -t:BeforeReBuild -p:"Configuration=Release;TargetFrameworkVersion=v4.5"
       timeout-minutes: 5
     - name: Reinstall NuGet Package
       run: NuGet.exe update $Env:GITHUB_WORKSPACE\TJAPlayer3-f.sln
