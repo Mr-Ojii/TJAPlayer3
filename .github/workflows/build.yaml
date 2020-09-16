@@ -25,7 +25,7 @@ jobs:
         name: TJAPlayer3-f-Release-Framework v4.8${{ github.sha }}
         path: Test
     - name: Build the Solution
-      run: MSBuild.exe $Env:GITHUB_WORKSPACE\TJAPlayer3-f.sln -p:Configuration=Release;TargetFrameworkVersion=4.5
+      run: MSBuild.exe $Env:GITHUB_WORKSPACE\TJAPlayer3-f.sln -p:Configuration=Release;TargetFrameworkVersion=v4.5
       timeout-minutes: 5
     - name: Upload artifacts
       uses: actions/upload-artifact@v1.0.0
