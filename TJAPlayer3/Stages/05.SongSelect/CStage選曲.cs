@@ -1183,8 +1183,8 @@ namespace TJAPlayer3
 		private bool 完全に選択済み = false;
 
 		public CActSortSongs actSortSongs;
-		private CActSelectPlayOption actPlayOption;
-		private CActSelectChangeSE actChangeSE;
+		internal CActSelectPlayOption actPlayOption;
+		internal CActSelectChangeSE actChangeSE;
 
 				private int nGenreBack;
 		private bool bBGM再生済み;
