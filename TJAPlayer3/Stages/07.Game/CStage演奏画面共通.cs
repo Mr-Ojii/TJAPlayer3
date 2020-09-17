@@ -2893,7 +2893,7 @@ namespace TJAPlayer3
 				pChip.nバーからの距離dot.Drums = (int) ( time );
 				pChip.nバーからの距離dot.Taiko = (int) ( time * pChip.dbBPM * pChip.dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0 );//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
 				if( pChip.nノーツ終了時刻ms != 0 )
-					pChip.nバーからのノーツ末端距離dot = (int) (  ( pChip.nノーツ終了時刻ms - n現在時刻ms) * pChip.dbBPM * pChip.dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+					pChip.nバーからのノーツ末端距離dot = (int) (  ( pChip.nノーツ終了時刻ms - n現在時刻ms) * pChip.db末端BPM * pChip.db末端SCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 
 				if ( configIni.eScrollMode == EScrollMode.BMSCROLL || configIni.eScrollMode == EScrollMode.HBSCROLL )
 				{
@@ -2910,7 +2910,7 @@ namespace TJAPlayer3
 					pChip.nバーからの距離dot.Taiko = (int)(3 * 0.8335 * ( ( pChip.fBMSCROLLTime * NOTE_GAP ) - ( play_bpm_time * NOTE_GAP ) ) * dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 ) / 2  / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 
 					if ( pChip.nノーツ終了時刻ms != 0 )
-						pChip.nバーからのノーツ末端距離dot = (int)( 3 * 0.8335 *( ( pChip.fBMSCROLLTime_end * NOTE_GAP) - ( play_bpm_time * NOTE_GAP ) ) * pChip.dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 ) / 2 /5.0);// 2020.04.20 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+						pChip.nバーからのノーツ末端距離dot = (int)( 3 * 0.8335 *( ( pChip.fBMSCROLLTime_end * NOTE_GAP) - ( play_bpm_time * NOTE_GAP ) ) * pChip.db末端SCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 ) / 2 /5.0);// 2020.04.20 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 				}
 
 				if (!pChip.IsMissed && !pChip.bHit)//2020.04.25 Mr-Ojii akasoko26さんのコードをもとに変更

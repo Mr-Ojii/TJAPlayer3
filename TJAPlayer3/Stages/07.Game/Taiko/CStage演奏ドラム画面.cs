@@ -1608,7 +1608,7 @@ namespace TJAPlayer3
 					if( pChip.nノーツ移動開始時刻ms != 0 && ((long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms ) )
 					{
 						nノート座標 = (int)( ( ( ( pChip.n発声時刻ms ) - ( pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms ) ) * pChip.dbBPM * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 ) ) / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
-						nノート末端座標 = (int)( ( ( pChip.nノーツ終了時刻ms - ( pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms ) ) * pChip.dbBPM * pChip.dbSCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 ) ) / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+						nノート末端座標 = (int)( ( ( pChip.nノーツ終了時刻ms - ( pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms ) ) * pChip.db末端BPM * pChip.db末端SCROLL * ( this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 ) ) / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 					}
 					else
 					{
