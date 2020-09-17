@@ -751,7 +751,6 @@ namespace TJAPlayer3
 			cスコア.譜面情報.演奏履歴.行5 = br.ReadString();
 			cスコア.譜面情報.演奏履歴.行6 = br.ReadString();
 			cスコア.譜面情報.演奏履歴.行7 = br.ReadString();
-			cスコア.譜面情報.レベルを非表示にする = br.ReadBoolean();
 			cスコア.譜面情報.Bpm = br.ReadDouble();
 			cスコア.譜面情報.Duration = br.ReadInt32();
 			cスコア.譜面情報.strBGMファイル名 = br.ReadString();
@@ -885,7 +884,6 @@ namespace TJAPlayer3
 									c曲リストノード.arスコア.譜面情報.コメント = cdtx.COMMENT;
 									c曲リストノード.arスコア.譜面情報.ジャンル = cdtx.GENRE;
 									c曲リストノード.arスコア.譜面情報.Backgound = ((cdtx.BACKGROUND != null) && (cdtx.BACKGROUND.Length > 0)) ? cdtx.BACKGROUND : cdtx.BACKGROUND_GR;
-									c曲リストノード.arスコア.譜面情報.レベルを非表示にする = cdtx.HIDDENLEVEL;
 									c曲リストノード.arスコア.譜面情報.Bpm = cdtx.BPM;
 									c曲リストノード.arスコア.譜面情報.Duration = 0;   //  (cdtx.listChip == null)? 0 : cdtx.listChip[ cdtx.listChip.Count - 1 ].n発声時刻ms;
 									c曲リストノード.arスコア.譜面情報.strBGMファイル名 = cdtx.strBGM_PATH == null ? "" : cdtx.strBGM_PATH;//ここのnullをどうにか--------
@@ -922,7 +920,6 @@ namespace TJAPlayer3
 										sb.Append(", comment=" + c曲リストノード.arスコア.譜面情報.コメント);
 										sb.Append(", genre=" + c曲リストノード.arスコア.譜面情報.ジャンル);
 										sb.Append(", background=" + c曲リストノード.arスコア.譜面情報.Backgound);
-										sb.Append(", lvHide=" + c曲リストノード.arスコア.譜面情報.レベルを非表示にする);
 										sb.Append(", bpm=" + c曲リストノード.arスコア.譜面情報.Bpm);
 										sb.Append(", lyrics=" + c曲リストノード.arスコア.譜面情報.b歌詞あり);
 										Trace.TraceInformation(sb.ToString());
@@ -1213,7 +1210,6 @@ namespace TJAPlayer3
 			bw.Write(node.arスコア.譜面情報.演奏履歴.行5);
 			bw.Write(node.arスコア.譜面情報.演奏履歴.行6);
 			bw.Write(node.arスコア.譜面情報.演奏履歴.行7);
-			bw.Write(node.arスコア.譜面情報.レベルを非表示にする);
 			bw.Write(node.arスコア.譜面情報.Bpm);
 			bw.Write(node.arスコア.譜面情報.Duration);
 			bw.Write(node.arスコア.譜面情報.strBGMファイル名);

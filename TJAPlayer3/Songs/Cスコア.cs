@@ -61,7 +61,6 @@ namespace TJAPlayer3
 			public bool フルコンボ;
 			public int 演奏回数;
 			public STHISTORY 演奏履歴;
-			public bool レベルを非表示にする;
 			public double Bpm;
 			public int Duration;
 			public string strBGMファイル名;
@@ -182,7 +181,6 @@ namespace TJAPlayer3
 			this.譜面情報.演奏履歴.行5 = "";
 			this.譜面情報.演奏履歴.行6 = "";
 			this.譜面情報.演奏履歴.行7 = "";
-			this.譜面情報.レベルを非表示にする = false;
 			this.譜面情報.最大スキル = new double();
 			this.譜面情報.Bpm = 120.0;
 			this.譜面情報.Duration = 0;

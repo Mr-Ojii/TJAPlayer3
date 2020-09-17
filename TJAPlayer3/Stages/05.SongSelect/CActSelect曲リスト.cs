@@ -79,54 +79,6 @@ namespace TJAPlayer3
 
 		public CActSelect曲リスト()
 		{
-			#region[ レベル数字 ]
-			STレベル数字[] stレベル数字Ar = new STレベル数字[10];
-			STレベル数字 st数字0 = new STレベル数字();
-			STレベル数字 st数字1 = new STレベル数字();
-			STレベル数字 st数字2 = new STレベル数字();
-			STレベル数字 st数字3 = new STレベル数字();
-			STレベル数字 st数字4 = new STレベル数字();
-			STレベル数字 st数字5 = new STレベル数字();
-			STレベル数字 st数字6 = new STレベル数字();
-			STレベル数字 st数字7 = new STレベル数字();
-			STレベル数字 st数字8 = new STレベル数字();
-			STレベル数字 st数字9 = new STレベル数字();
-
-			st数字0.ch = '0';
-			st数字1.ch = '1';
-			st数字2.ch = '2';
-			st数字3.ch = '3';
-			st数字4.ch = '4';
-			st数字5.ch = '5';
-			st数字6.ch = '6';
-			st数字7.ch = '7';
-			st数字8.ch = '8';
-			st数字9.ch = '9';
-			st数字0.ptX = 0;
-			st数字1.ptX = 22;
-			st数字2.ptX = 44;
-			st数字3.ptX = 66;
-			st数字4.ptX = 88;
-			st数字5.ptX = 110;
-			st数字6.ptX = 132;
-			st数字7.ptX = 154;
-			st数字8.ptX = 176;
-			st数字9.ptX = 198;
-
-			stレベル数字Ar[0] = st数字0;
-			stレベル数字Ar[1] = st数字1;
-			stレベル数字Ar[2] = st数字2;
-			stレベル数字Ar[3] = st数字3;
-			stレベル数字Ar[4] = st数字4;
-			stレベル数字Ar[5] = st数字5;
-			stレベル数字Ar[6] = st数字6;
-			stレベル数字Ar[7] = st数字7;
-			stレベル数字Ar[8] = st数字8;
-			stレベル数字Ar[9] = st数字9;
-			this.st小文字位置 = stレベル数字Ar;
-			#endregion
-
-
 			this.r現在選択中の曲 = null;
 			n現在のアンカ難易度レベル = new int[2];
 			for (int nPlayer = 0; nPlayer < 2; nPlayer++)
@@ -1510,13 +1462,6 @@ namespace TJAPlayer3
 							this.tジャンル別選択されていない曲バーの描画(this.ptバーの座標[nパネル番号].X, TJAPlayer3.Skin.SongSelect_Overall_Y, this.nStrジャンルtoNum(this.stバー情報[nパネル番号].song.strジャンル), this.stバー情報[nパネル番号].eバー種別,this.stバー情報[nパネル番号].eノード種別);
 							if (this.stバー情報[nパネル番号].b分岐[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0]] == true && i != 6)
 								TJAPlayer3.Tx.SongSelect_Branch.t2D描画(TJAPlayer3.app.Device, this.ptバーの座標[nパネル番号].X + 66, TJAPlayer3.Skin.SongSelect_Overall_Y - 5);
-							if (this.stバー情報[nパネル番号].ar難易度 != null)
-							{
-								int nX補正 = 0;
-								if (this.stバー情報[nパネル番号].ar難易度[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0]].ToString().Length == 2)
-									nX補正 = -6;
-								this.t小文字表示(this.ptバーの座標[nパネル番号].X + 65 + nX補正, 559, this.stバー情報[nパネル番号].ar難易度[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0]].ToString());
-							}
 							//-----------------
 							#endregion
 							#region [ タイトル名テクスチャを描画。]
@@ -1728,13 +1673,6 @@ namespace TJAPlayer3
 
 						#endregion
 
-						if (this.stバー情報[nパネル番号].ar難易度 != null)
-						{
-							int nX補正 = 0;
-							if (this.stバー情報[nパネル番号].ar難易度[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0]].ToString().Length == 2)
-								nX補正 = -6;
-							this.t小文字表示(xAnime + 65 + nX補正, 559, this.stバー情報[nパネル番号].ar難易度[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0]].ToString());
-						}
 						//-----------------	
 						bool DanJudge = false;
 						if (TJAPlayer3.Tx.Crown_t != null && TJAPlayer3.Tx.DanC_Crown_t != null && (n見た目の行番号 != 6 || !ctバー展開ディレイ用タイマー.b終了値に達した) && this.stバー情報[nパネル番号].eバー種別 == Eバー種別.Score)
@@ -2653,33 +2591,6 @@ namespace TJAPlayer3
 
 
 		//数字フォント
-		private CTexture txレベル数字フォント;
-		[StructLayout(LayoutKind.Sequential)]
-		private struct STレベル数字
-		{
-			public char ch;
-			public int ptX;
-		}
-		private STレベル数字[] st小文字位置 = new STレベル数字[10];
-		private void t小文字表示(int x, int y, string str)
-		{
-			foreach (char ch in str)
-			{
-				for (int i = 0; i < this.st小文字位置.Length; i++)
-				{
-					if (this.st小文字位置[i].ch == ch)
-					{
-						Rectangle rectangle = new Rectangle(this.st小文字位置[i].ptX, 0, 22, 28);
-						if (this.txレベル数字フォント != null)
-						{
-							this.txレベル数字フォント.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
-						}
-						break;
-					}
-				}
-				x += 16;
-			}
-		}
 		//-----------------
 		#endregion
 	}

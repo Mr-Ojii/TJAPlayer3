@@ -661,7 +661,6 @@ namespace TJAPlayer3
 		public double db再生速度;
 		public string GENRE;
 		public bool bLyrics;
-		public bool HIDDENLEVEL;
 		public int[] LEVELtaiko = new int[(int)Difficulty.Total] { -1, -1, -1, -1, -1, -1, -1 };
 		public Dictionary<int, CVideoDecoder> listVD;
 		public Dictionary<int, CBPM> listBPM;
