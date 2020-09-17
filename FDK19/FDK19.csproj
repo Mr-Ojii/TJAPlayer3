@@ -55,6 +55,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="コード\04.グラフィック\CAction.cs" />
     <Compile Include="コード\00.共通\COS.cs" />
     <Compile Include="コード\00.共通\CPowerManagement.cs" />
     <Compile Include="コード\00.共通\CTimerBase.cs" />

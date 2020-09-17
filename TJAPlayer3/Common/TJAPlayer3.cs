@@ -8,8 +8,6 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Threading;
-using System.Runtime.Serialization.Formatters.Binary;
-using SharpDX;
 using SharpDX.Direct3D9;
 using FDK;
 using System.Reflection;
@@ -424,25 +422,8 @@ namespace TJAPlayer3
 				Cursor.Hide();
 				this.bマウスカーソル表示中 = false;
 			}
-			this.Device.SetTransform(TransformState.View, Matrix.LookAtLH(new Vector3(0f, 0f, (float)(-GameWindowSize.Height / 2 * Math.Sqrt(3.0))), new Vector3(0f, 0f, 0f), new Vector3(0f, 1f, 0f)));
-			this.Device.SetTransform(TransformState.Projection, Matrix.PerspectiveFovLH(C変換.DegreeToRadian((float)60f), ((float)this.Device.Viewport.Width) / ((float)this.Device.Viewport.Height), -100f, 100f));
-			this.Device.SetRenderState(RenderState.Lighting, false);
-			this.Device.SetRenderState(RenderState.ZEnable, false);
-			this.Device.SetRenderState(RenderState.AntialiasedLineEnable, false);
-			this.Device.SetRenderState(RenderState.AlphaTestEnable, true);
-			this.Device.SetRenderState(RenderState.AlphaRef, 10);
 
-			this.Device.SetRenderState(RenderState.MultisampleAntialias, true);
-			this.Device.SetSamplerState(0, SamplerState.MinFilter, TextureFilter.Linear);
-			this.Device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.Linear);
-
-			this.Device.SetRenderState<Compare>(RenderState.AlphaFunc, Compare.Greater);
-			this.Device.SetRenderState(RenderState.AlphaBlendEnable, true);
-			this.Device.SetRenderState<Blend>(RenderState.SourceBlend, Blend.SourceAlpha);
-			this.Device.SetRenderState<Blend>(RenderState.DestinationBlend, Blend.InverseSourceAlpha);
-			this.Device.SetTextureStageState(0, TextureStage.AlphaOperation, TextureOperation.Modulate);
-			this.Device.SetTextureStageState(0, TextureStage.AlphaArg1, 2);
-			this.Device.SetTextureStageState(0, TextureStage.AlphaArg2, 1);
+			CAction.LoadContentAction(this.Device);
 
 			if (this.listトップレベルActivities != null)
 			{
@@ -489,8 +470,7 @@ namespace TJAPlayer3
 			}
 			#endregion
 
-			this.Device.BeginScene();
-			this.Device.Clear(ClearFlags.ZBuffer | ClearFlags.Target, SharpDX.Color.Black, 1f, 0);
+			CAction.BeginScene(this.Device);
 
 			if (r現在のステージ != null)
 			{
@@ -1119,7 +1099,7 @@ for (int i = 0; i < 3; i++) {
 					TJAPlayer3.Tx.Overlay.t2D描画(app.Device, 0, 0);
 				}
 			}
-			this.Device.EndScene();         // Present()は game.csのOnFrameEnd()に登録された、GraphicsDeviceManager.game_FrameEnd() 内で実行されるので不要
+			CAction.EndScene(this.Device);  // Present()は game.csのOnFrameEnd()に登録された、GraphicsDeviceManager.game_FrameEnd() 内で実行されるので不要
 											// (つまり、Present()は、Draw()完了後に実行される)
 #if !GPUFlushAfterPresent
 			actFlushGPU?.On進行描画();      // Flush GPU	// EndScene()～Present()間 (つまりVSync前) でFlush実行
