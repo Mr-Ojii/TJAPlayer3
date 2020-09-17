@@ -4,7 +4,6 @@ using System.Text;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using SharpDX;
 using System.Drawing.Text;
 using FDK;
 
@@ -541,7 +540,7 @@ namespace TJAPlayer3
 					txFilename.Dispose();
 				}
 				txFilename = new CTexture( TJAPlayer3.app.Device, bitmapFilename, TJAPlayer3.TextureFormat );
-				txFilename.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );
+				txFilename.vc拡大縮小倍率 = new OpenTK.Vector3( 0.5f, 0.5f, 1f );
 				txFilename.t2D描画( TJAPlayer3.app.Device, 0, 720 - 16 );
 			}
 		}

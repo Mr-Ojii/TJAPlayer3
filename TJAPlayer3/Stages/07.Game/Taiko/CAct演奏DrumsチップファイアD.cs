@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using SharpDX;
+using OpenTK;
 using FDK;
 
 using Rectangle = System.Drawing.Rectangle;
@@ -321,9 +321,9 @@ namespace TJAPlayer3
 										//this.txアタックエフェクトUpper_big.n透明度 = (int)(255 * f倍率);
 										//this.txアタックエフェクトUpper_big.t2D描画( CDTXMania.app.Device, fX, fY );
 
-										Matrix mat = Matrix.Identity;
-										mat *= Matrix.Scaling( f倍率, f倍率, f倍率 );
-										mat *= Matrix.Translation(TJAPlayer3.Skin.nScrollFieldX[this.st状態_大[i].nPlayer] - GameWindowSize.Width / 2.0f, -(TJAPlayer3.Skin.nJudgePointY[this.st状態[i].nPlayer] - GameWindowSize.Height / 2.0f), 0f);
+										Matrix4 mat = Matrix4.Identity;
+										mat *= Matrix4.CreateScale( f倍率, f倍率, f倍率 );
+										mat *= Matrix4.CreateTranslation(TJAPlayer3.Skin.nScrollFieldX[this.st状態_大[i].nPlayer] - GameWindowSize.Width / 2.0f, -(TJAPlayer3.Skin.nJudgePointY[this.st状態[i].nPlayer] - GameWindowSize.Height / 2.0f), 0f);
 										//mat *= Matrix.Billboard( new Vector3( 15, 15, 15 ), new Vector3(0, 0, 0), new Vector3( 0, 0, 0 ), new Vector3( 0, 0, 0 ) );
 										//mat *= Matrix.Translation( 0f, 0f, 0f );
 
@@ -358,9 +358,9 @@ namespace TJAPlayer3
 							this.st大音符花火[i].ct進行.t停止();
 							this.st大音符花火[i].b使用中 = false;
 						}
-						Matrix mat = Matrix.Identity;
+						Matrix4 mat = Matrix4.Identity;
 
-						mat *= Matrix.Translation(this.st大音符花火[i].fX - GameWindowSize.Width / 2, -(this.st大音符花火[i].fY - GameWindowSize.Height / 2), 0f);
+						mat *= Matrix4.CreateTranslation(this.st大音符花火[i].fX - GameWindowSize.Width / 2, -(this.st大音符花火[i].fY - GameWindowSize.Height / 2), 0f);
 						float fX = this.st大音符花火[i].fX - ( 192 / 2 );
 						float fY = this.st大音符花火[i].fY - ( 192 / 2 );
 
@@ -409,11 +409,11 @@ namespace TJAPlayer3
 							this.st紙吹雪[i].f加速度Y *= this.st紙吹雪[i].f加速度の加速度Y;
 							this.st紙吹雪[i].f加速度Y -= this.st紙吹雪[i].f重力加速度;
 						}
-						Matrix mat = Matrix.Identity;
+						Matrix4 mat = Matrix4.Identity;
 
 						float x = (float)(this.st紙吹雪[i].f半径 * Math.Cos((Math.PI / 2 * this.st紙吹雪[i].ct進行.n現在の値) / 100.0)) * 2.3f;
-						mat *= Matrix.Scaling(x, x, 1f);
-						mat *= Matrix.Translation(this.st紙吹雪[i].fX - GameWindowSize.Width / 2, -(this.st紙吹雪[i].fY - GameWindowSize.Height / 2), 0f);
+						mat *= Matrix4.CreateScale(x, x, 1f);
+						mat *= Matrix4.CreateTranslation(this.st紙吹雪[i].fX - GameWindowSize.Width / 2, -(this.st紙吹雪[i].fY - GameWindowSize.Height / 2), 0f);
 
 						/*if (this.tx紙吹雪 != null)
 						{

@@ -8,7 +8,8 @@ using System.Drawing.Imaging;
 using System.Diagnostics;
 using System.Drawing.Text;
 using FDK;
-using SharpDX;
+using OpenTK;
+using OpenTK.Graphics;
 using System.Reflection;
 
 using Rectangle = System.Drawing.Rectangle;

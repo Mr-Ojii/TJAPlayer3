@@ -4,7 +4,7 @@ using System.Text;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
-using SharpDX;
+using OpenTK;
 using FDK;
 using Rectangle = System.Drawing.Rectangle;
 using Point = System.Drawing.Point;
@@ -709,9 +709,9 @@ namespace TJAPlayer3
 
 						f倍率 = ar倍率[this.ctゴーゴー.n現在の値];
 
-						Matrix mat = Matrix.Identity;
-						mat *= Matrix.Scaling(f倍率, f倍率, 1.0f);
-						mat *= Matrix.Translation(TJAPlayer3.Skin.nScrollFieldX[i] - GameWindowSize.Width / 2.0f, -(TJAPlayer3.Skin.nJudgePointY[i] - GameWindowSize.Height / 2.0f), 0f);
+						Matrix4 mat = Matrix4.Identity;
+						mat *= Matrix4.CreateScale(f倍率, f倍率, 1.0f);
+						mat *= Matrix4.CreateTranslation(TJAPlayer3.Skin.nScrollFieldX[i] - GameWindowSize.Width / 2.0f, -(TJAPlayer3.Skin.nJudgePointY[i] - GameWindowSize.Height / 2.0f), 0f);
 
 						//this.txゴーゴー炎.b加算合成 = true;
 

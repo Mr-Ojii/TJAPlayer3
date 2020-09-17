@@ -84,7 +84,8 @@ namespace FDK
 			get;
 			protected set;
 		}
-		public Vector3 vc拡大縮小倍率;
+		public OpenTK.Vector3 vc拡大縮小倍率;
+		private Vector3 vc;
 
 		// 画面が変わるたび以下のプロパティを設定し治すこと。
 
@@ -98,7 +99,7 @@ namespace FDK
 		public static float f画面比率 = 1.0f;
 
 		// コンストラクタ
-
+		
 		public CTexture()
 		{
 			this.sz画像サイズ = new Size(0, 0);
@@ -108,7 +109,8 @@ namespace FDK
 			this.cvPositionColoredVertexies = null;
 			this.b加算合成 = false;
 			this.fZ軸中心回転 = 0f;
-			this.vc拡大縮小倍率 = new Vector3(1f, 1f, 1f);
+			this.vc拡大縮小倍率 = new OpenTK.Vector3(1f, 1f, 1f);
+			this.vc = new Vector3(1f, 1f, 1f);
 			//			this._txData = null;
 		}
 
@@ -426,8 +428,12 @@ namespace FDK
 				float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
 				float f上V値 = ((float)rc画像内の描画領域.Top) / ((float)this.szテクスチャサイズ.Height);
 				float f下V値 = ((float)rc画像内の描画領域.Bottom) / ((float)this.szテクスチャサイズ.Height);
-				this.color4.Alpha = ((float)this._opacity) / 255f;
-				int color = this.color4.ToRgba();
+
+				this.cl4.Red = this.color4.R;
+				this.cl4.Green = this.color4.G;
+				this.cl4.Blue = this.color4.B;
+				this.cl4.Alpha = ((float)this._opacity) / 255f;
+				int color = this.cl4.ToRgba();
 
 				if (this.cvTransformedColoredVertexies == null)
 					this.cvTransformedColoredVertexies = new TransformedColoredTexturedVertex[4];
@@ -484,8 +490,12 @@ namespace FDK
 				float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
 				float f上V値 = ((float)rc画像内の描画領域.Top) / ((float)this.szテクスチャサイズ.Height);
 				float f下V値 = ((float)rc画像内の描画領域.Bottom) / ((float)this.szテクスチャサイズ.Height);
-				this.color4.Alpha = ((float)this._opacity) / 255f;
-				int color = this.color4.ToRgba();
+
+				this.cl4.Red = this.color4.R;
+				this.cl4.Green = this.color4.G;
+				this.cl4.Blue = this.color4.B;
+				this.cl4.Alpha = ((float)this._opacity) / 255f;
+				int color = this.cl4.ToRgba();
 
 				if (this.cvPositionColoredVertexies == null)
 					this.cvPositionColoredVertexies = new PositionColoredTexturedVertex[4];
@@ -524,7 +534,11 @@ namespace FDK
 				float n描画領域内Y = y + (rc画像内の描画領域.Height / 2.0f);
 				var vc3移動量 = new Vector3(n描画領域内X - (((float)device.Viewport.Width) / 2f), -(n描画領域内Y - (((float)device.Viewport.Height) / 2f)), 0f);
 
-				var matrix = Matrix.Identity * Matrix.Scaling(this.vc拡大縮小倍率);
+				this.vc.X = this.vc拡大縮小倍率.X;
+				this.vc.Y = this.vc拡大縮小倍率.Y;
+				this.vc.Z = this.vc拡大縮小倍率.Z;
+
+				var matrix = Matrix.Identity * Matrix.Scaling(this.vc);
 				matrix *= Matrix.RotationZ(this.fZ軸中心回転);
 				matrix *= Matrix.Translation(vc3移動量);
 				device.SetTransform(TransformState.World, matrix);
@@ -555,8 +569,12 @@ namespace FDK
 				float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
 				float f上V値 = ((float)rc画像内の描画領域.Top) / ((float)this.szテクスチャサイズ.Height);
 				float f下V値 = ((float)rc画像内の描画領域.Bottom) / ((float)this.szテクスチャサイズ.Height);
-				this.color4.Alpha = ((float)this._opacity) / 255f;
-				int color = this.color4.ToRgba();
+
+				this.cl4.Red = this.color4.R;
+				this.cl4.Green = this.color4.G;
+				this.cl4.Blue = this.color4.B;
+				this.cl4.Alpha = ((float)this._opacity) / 255f;
+				int color = this.cl4.ToRgba();
 
 				if (this.cvTransformedColoredVertexies == null)
 					this.cvTransformedColoredVertexies = new TransformedColoredTexturedVertex[4];
@@ -613,8 +631,12 @@ namespace FDK
 				float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
 				float f上V値 = ((float)rc画像内の描画領域.Top) / ((float)this.szテクスチャサイズ.Height);
 				float f下V値 = ((float)rc画像内の描画領域.Bottom) / ((float)this.szテクスチャサイズ.Height);
-				this.color4.Alpha = ((float)this._opacity) / 255f;
-				int color = this.color4.ToRgba();
+
+				this.cl4.Red = this.color4.R;
+				this.cl4.Green = this.color4.G;
+				this.cl4.Blue = this.color4.B;
+				this.cl4.Alpha = ((float)this._opacity) / 255f;
+				int color = this.cl4.ToRgba();
 
 				if (this.cvPositionColoredVertexies == null)
 					this.cvPositionColoredVertexies = new PositionColoredTexturedVertex[4];
@@ -653,7 +675,11 @@ namespace FDK
 				int n描画領域内Y = y + (rc画像内の描画領域.Height / 2);
 				var vc3移動量 = new Vector3(n描画領域内X - (((float)device.Viewport.Width) / 2f), -(n描画領域内Y - (((float)device.Viewport.Height) / 2f)), 0f);
 
-				var matrix = Matrix.Identity * Matrix.Scaling(this.vc拡大縮小倍率);
+				this.vc.X = this.vc拡大縮小倍率.X;
+				this.vc.Y = this.vc拡大縮小倍率.Y;
+				this.vc.Z = this.vc拡大縮小倍率.Z;
+
+				var matrix = Matrix.Identity * Matrix.Scaling(this.vc);
 				matrix *= Matrix.RotationZ(this.fZ軸中心回転);
 				matrix *= Matrix.Translation(vc3移動量);
 				device.SetTransform(TransformState.World, matrix);
@@ -688,8 +714,12 @@ namespace FDK
 			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
 			float f上V値 = ((float)rc画像内の描画領域.Top) / ((float)this.szテクスチャサイズ.Height);
 			float f下V値 = ((float)rc画像内の描画領域.Bottom) / ((float)this.szテクスチャサイズ.Height);
-			this.color4.Alpha = ((float)this._opacity) / 255f;
-			int color = this.color4.ToRgba();
+
+			this.cl4.Red = this.color4.R;
+			this.cl4.Green = this.color4.G;
+			this.cl4.Blue = this.color4.B;
+			this.cl4.Alpha = ((float)this._opacity) / 255f;
+			int color = this.cl4.ToRgba();
 
 			if (this.cvTransformedColoredVertexies == null)
 				this.cvTransformedColoredVertexies = new TransformedColoredTexturedVertex[4];
@@ -772,14 +802,31 @@ namespace FDK
 		/// <summary>
 		/// テクスチャを 3D 画像と見なして描画する。
 		/// </summary>
-		public void t3D描画(Device device, Matrix mat)
+		public void t3D描画(Device device, OpenTK.Matrix4 mat)
 		{
 			this.t3D描画(device, mat, this.rc全画像);
 		}
-		public void t3D描画(Device device, Matrix mat, Rectangle rc画像内の描画領域)
+		public void t3D描画(Device device, OpenTK.Matrix4 mat, Rectangle rc画像内の描画領域)
 		{
 			if (this.texture == null)
 				return;
+
+			matrix.M11 = mat.M11;
+			matrix.M12 = mat.M12;
+			matrix.M13 = mat.M13;
+			matrix.M14 = mat.M14;
+			matrix.M21 = mat.M21;
+			matrix.M22 = mat.M22;
+			matrix.M23 = mat.M23;
+			matrix.M24 = mat.M24;
+			matrix.M31 = mat.M31;
+			matrix.M32 = mat.M32;
+			matrix.M33 = mat.M33;
+			matrix.M34 = mat.M34;
+			matrix.M41 = mat.M41;
+			matrix.M42 = mat.M42;
+			matrix.M43 = mat.M43;
+			matrix.M44 = mat.M44;
 
 			float x = ((float)rc画像内の描画領域.Width) / 2f;
 			float y = ((float)rc画像内の描画領域.Height) / 2f;
@@ -788,8 +835,12 @@ namespace FDK
 			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
 			float f上V値 = ((float)rc画像内の描画領域.Top) / ((float)this.szテクスチャサイズ.Height);
 			float f下V値 = ((float)rc画像内の描画領域.Bottom) / ((float)this.szテクスチャサイズ.Height);
-			this.color4.Alpha = ((float)this._opacity) / 255f;
-			int color = this.color4.ToRgba();
+
+			this.cl4.Red = this.color4.R;
+			this.cl4.Green = this.color4.G;
+			this.cl4.Blue = this.color4.B;
+			this.cl4.Alpha = ((float)this._opacity) / 255f;
+			int color = this.cl4.ToRgba();
 
 			if (this.cvPositionColoredVertexies == null)
 				this.cvPositionColoredVertexies = new PositionColoredTexturedVertex[4];
@@ -826,74 +877,7 @@ namespace FDK
 
 			this.tレンダリングステートの設定(device);
 
-			device.SetTransform(TransformState.World, mat);
-			device.SetTexture(0, this.texture);
-			device.VertexFormat = PositionColoredTexturedVertex.Format;
-			device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 2, this.cvPositionColoredVertexies);
-		}
-
-		public void t3D左上基準描画(Device device, Matrix mat)
-		{
-			this.t3D左上基準描画(device, mat, this.rc全画像);
-		}
-		/// <summary>
-		/// ○覚書
-		///   SlimDX.Matrix mat = SlimDX.Matrix.Identity;
-		///   mat *= SlimDX.Matrix.Translation( x, y, z );
-		/// 「mat =」ではなく「mat *=」であることを忘れないこと。
-		/// </summary>
-		public void t3D左上基準描画(Device device, Matrix mat, Rectangle rc画像内の描画領域)
-		{
-			//とりあえず補正値などは無し。にしても使う機会少なさそうだなー
-			if (this.texture == null)
-				return;
-
-			float x = 0.0f;
-			float y = 0.0f;
-			float z = 0.0f;
-			float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szテクスチャサイズ.Width);
-			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
-			float f上V値 = ((float)rc画像内の描画領域.Top) / ((float)this.szテクスチャサイズ.Height);
-			float f下V値 = ((float)rc画像内の描画領域.Bottom) / ((float)this.szテクスチャサイズ.Height);
-			this.color4.Alpha = ((float)this._opacity) / 255f;
-			int color = this.color4.ToRgba();
-
-			if (this.cvPositionColoredVertexies == null)
-				this.cvPositionColoredVertexies = new PositionColoredTexturedVertex[4];
-
-			// #27122 2012.1.13 from: 以下、マネージドオブジェクト（＝ガベージ）の量産を抑えるため、new は使わず、メンバに値を１つずつ直接上書きする。
-
-			this.cvPositionColoredVertexies[0].Position.X = -x;
-			this.cvPositionColoredVertexies[0].Position.Y = y;
-			this.cvPositionColoredVertexies[0].Position.Z = z;
-			this.cvPositionColoredVertexies[0].Color = color;
-			this.cvPositionColoredVertexies[0].TextureCoordinates.X = f左U値;
-			this.cvPositionColoredVertexies[0].TextureCoordinates.Y = f上V値;
-
-			this.cvPositionColoredVertexies[1].Position.X = x;
-			this.cvPositionColoredVertexies[1].Position.Y = y;
-			this.cvPositionColoredVertexies[1].Position.Z = z;
-			this.cvPositionColoredVertexies[1].Color = color;
-			this.cvPositionColoredVertexies[1].TextureCoordinates.X = f右U値;
-			this.cvPositionColoredVertexies[1].TextureCoordinates.Y = f上V値;
-
-			this.cvPositionColoredVertexies[2].Position.X = -x;
-			this.cvPositionColoredVertexies[2].Position.Y = -y;
-			this.cvPositionColoredVertexies[2].Position.Z = z;
-			this.cvPositionColoredVertexies[2].Color = color;
-			this.cvPositionColoredVertexies[2].TextureCoordinates.X = f左U値;
-			this.cvPositionColoredVertexies[2].TextureCoordinates.Y = f下V値;
-
-			this.cvPositionColoredVertexies[3].Position.X = x;
-			this.cvPositionColoredVertexies[3].Position.Y = -y;
-			this.cvPositionColoredVertexies[3].Position.Z = z;
-			this.cvPositionColoredVertexies[3].Color = color;
-			this.cvPositionColoredVertexies[3].TextureCoordinates.X = f右U値;
-			this.cvPositionColoredVertexies[3].TextureCoordinates.Y = f下V値;
-
-			this.tレンダリングステートの設定(device);
-
-			device.SetTransform(TransformState.World, mat);
+			device.SetTransform(TransformState.World, matrix);
 			device.SetTexture(0, this.texture);
 			device.VertexFormat = PositionColoredTexturedVertex.Format;
 			device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 2, this.cvPositionColoredVertexies);
@@ -1032,7 +1016,9 @@ namespace FDK
 		// 2012.3.21 さらなる new の省略作戦
 
 		protected Rectangle rc全画像;                              // テクスチャ作ったらあとは不変
-		public Color4 color4 = new Color4(1f, 1f, 1f, 1f);  // アルファ以外は不変
+		public OpenTK.Graphics.Color4 color4 = new OpenTK.Graphics.Color4(1f, 1f, 1f, 1f);  // アルファ以外は不変
+		private Color4 cl4 = new Color4(1f, 1f, 1f, 1f);
+		private Matrix matrix = Matrix.Identity;
 															//-----------------
 		#endregion
 	}

@@ -4,6 +4,7 @@ using System.Text;
 using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using OpenTK;
 using FDK;
 
 using Rectangle = System.Drawing.Rectangle;
@@ -137,11 +138,11 @@ namespace TJAPlayer3
 				for (int index = 0; index < (int)Difficulty.Total; index++)
 				{
 					this.First[index] = TJAPlayer3.tテクスチャの生成(Font.DrawPrivateFont(First[index], Color.Black));
-					this.First[index].vc拡大縮小倍率 = new SharpDX.Vector3(0.5f);
+					this.First[index].vc拡大縮小倍率 = new Vector3(0.5f);
 					this.Second[index] = TJAPlayer3.tテクスチャの生成(Font.DrawPrivateFont(Second[index], Color.Black));
-					this.Second[index].vc拡大縮小倍率 = new SharpDX.Vector3(0.5f);
+					this.Second[index].vc拡大縮小倍率 = new Vector3(0.5f);
 					this.Third[index] = TJAPlayer3.tテクスチャの生成(Font.DrawPrivateFont(Third[index], Color.Black));
-					this.Third[index].vc拡大縮小倍率 = new SharpDX.Vector3(0.5f);
+					this.Third[index].vc拡大縮小倍率 = new Vector3(0.5f);
 				}
 		}
 

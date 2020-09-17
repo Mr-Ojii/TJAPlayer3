@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 using FDK;
-using SharpDX;
+using OpenTK;
 using Rectangle = System.Drawing.Rectangle;
 using Point = System.Drawing.Point;
 using Color = System.Drawing.Color;
@@ -478,15 +478,15 @@ namespace TJAPlayer3
 					if( this.st叩ききりまショー.b加算アニメ中 == true )
 						fRotate = C変換.DegreeToRadian( 360.0f * ( this.st叩ききりまショー.ct針アニメ.n現在の値 / (float)this.st叩ききりまショー.n延長アニメ速度 ) );
 
-					Matrix mat = Matrix.Identity;
+					Matrix4 mat = Matrix4.Identity;
 					if( this.st叩ききりまショー.b最初のチップが叩かれた )
 					{
-						mat *= Matrix.RotationZ( fRotate );
-						mat *= Matrix.Translation( 280 - 640, -( 134 - 360 ), 0 );
+						mat *= Matrix4.CreateRotationZ( fRotate );
+						mat *= Matrix4.CreateTranslation( 280 - 640, -( 134 - 360 ), 0 );
 					}
 					else
 					{
-						mat *= Matrix.Translation( 280 - 640, -( 134 - 360 ), 0 );
+						mat *= Matrix4.CreateTranslation( 280 - 640, -( 134 - 360 ), 0 );
 					}
 
 					TJAPlayer3.Tx.GameMode_Timer_Tick.t3D描画( TJAPlayer3.app.Device, mat );
