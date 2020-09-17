@@ -327,16 +327,11 @@ namespace TJAPlayer3
 
 		public void t全画面_ウィンドウモード切り替え()
 		{
-#if WindowedFullscreen
-			if ( ConfigIni != null )
-#else
 			DeviceSettings settings = base.GraphicsDeviceManager.CurrentSettings.Clone();
 			if ((ConfigIni != null) && (ConfigIni.bウィンドウモード != settings.Windowed))
-#endif
 			{
-#if !WindowedFullscreen
 				settings.Windowed = ConfigIni.bウィンドウモード;
-#endif
+
 				if (ConfigIni.bウィンドウモード == false)   // #23510 2010.10.27 yyagi: backup current window size before going fullscreen mode
 				{
 					currentClientSize = this.Window.ClientSize;
@@ -344,45 +339,14 @@ namespace TJAPlayer3
 					ConfigIni.nウインドウheight = this.Window.ClientSize.Height;
 					//					FDK.CTaskBar.ShowTaskBar( false );
 				}
-#if !WindowedFullscreen
 				base.GraphicsDeviceManager.ChangeDevice(settings);
-#endif
 				if (ConfigIni.bウィンドウモード == true)    // #23510 2010.10.27 yyagi: to resume window size from backuped value
 				{
-#if WindowedFullscreen
-															// #30666 2013.2.2 yyagi Don't use Fullscreen mode becasue NVIDIA GeForce is
-															// tend to delay drawing on Fullscreen mode. So DTXMania uses Maximized window
-															// in spite of using fullscreen mode.
-					app.Window.WindowState = FormWindowState.Normal;
-					app.Window.FormBorderStyle = FormBorderStyle.Sizable;
-					app.Window.WindowState = FormWindowState.Normal;
-#endif
 					base.Window.ClientSize =
 						new Size(currentClientSize.Width, currentClientSize.Height);
 					base.Window.Icon = Properties.Resources.tjap3;
 					//					FDK.CTaskBar.ShowTaskBar( true );
 				}
-#if WindowedFullscreen
-				else 
-				{
-					app.Window.WindowState = FormWindowState.Normal;
-					app.Window.FormBorderStyle = FormBorderStyle.None;
-					app.Window.WindowState = FormWindowState.Maximized;
-				}
-				if ( ConfigIni.bウィンドウモード )
-				{
-					if ( !this.bマウスカーソル表示中 )
-					{
-						Cursor.Show();
-						this.bマウスカーソル表示中 = true;
-					}
-				}
-				else if ( this.bマウスカーソル表示中 )
-				{
-					Cursor.Hide();
-					this.bマウスカーソル表示中 = false;
-				}
-#endif
 			}
 		}
 
@@ -1510,14 +1474,12 @@ for (int i = 0; i < 3; i++) {
 			base.Window.Location = new Point(ConfigIni.n初期ウィンドウ開始位置X, ConfigIni.n初期ウィンドウ開始位置Y);   // #30675 2013.02.04 ikanick add
 
 			base.Window.ClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);   // #34510 yyagi 2010.10.31 to change window size got from Config.ini
-#if !WindowedFullscreen
+
 			if (!ConfigIni.bウィンドウモード)                       // #23510 2010.11.02 yyagi: add; to recover window size in case bootup with fullscreen mode
 			{                                                       // #30666 2013.02.02 yyagi: currentClientSize should be always made
-#endif
 				currentClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);
-#if !WindowedFullscreen
 			}
-#endif
+
 			base.Window.MaximizeBox = true;                         // #23510 2010.11.04 yyagi: to support maximizing window
 			base.Window.FormBorderStyle = FormBorderStyle.Sizable;  // #23510 2010.10.27 yyagi: changed from FixedDialog to Sizable, to support window resize
 																	// #30666 2013.02.02 yyagi: moved the code to t全画面_ウインドウモード切り替え()
@@ -1534,11 +1496,8 @@ for (int i = 0; i < 3; i++) {
 			#region [ Direct3D9 デバイスの生成 ]
 			//---------------------
 			DeviceSettings settings = new DeviceSettings();
-#if WindowedFullscreen
-			settings.Windowed = true;								// #30666 2013.2.2 yyagi: Fullscreenmode is "Maximized window" mode
-#else
 			settings.Windowed = ConfigIni.bウィンドウモード;
-#endif
+
 			settings.BackBufferWidth = GameWindowSize.Width;
 			settings.BackBufferHeight = GameWindowSize.Height;
 			//			settings.BackBufferCount = 3;
@@ -1565,9 +1524,7 @@ for (int i = 0; i < 3; i++) {
 			base.Window.ClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);   // #23510 2010.10.31 yyagi: to recover window size. width and height are able to get from Config.ini.
 			base.InactiveSleepTime = TimeSpan.FromMilliseconds((float)(ConfigIni.n非フォーカス時スリープms));  // #23568 2010.11.3 yyagi: to support valiable sleep value when !IsActive
 																									// #23568 2010.11.4 ikanick changed ( 1 -> ConfigIni )
-#if WindowedFullscreen
-			this.t全画面_ウィンドウモード切り替え();				// #30666 2013.2.2 yyagi: finalize settings for "Maximized window mode"
-#endif
+
 			actFlushGPU = new CActFlushGPU();
 			//---------------------
 			#endregion

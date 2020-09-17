@@ -38,10 +38,6 @@ namespace TJAPlayer3
 
 				if ( !bDLLnotfound )
 				{
-#if DEBUG && TEST_ENGLISH
-					Thread.CurrentThread.CurrentCulture = new CultureInfo( "en-US" );
-#endif
-
 					DWM.EnableComposition( false );	// Disable AeroGrass temporally
 
 					// BEGIN #23670 2010.11.13 from: キャッチされない例外は放出せずに、ログに詳細を出力する。

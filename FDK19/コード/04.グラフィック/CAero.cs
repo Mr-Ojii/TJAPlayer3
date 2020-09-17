@@ -52,26 +52,7 @@ namespace FDK
 		public static bool EnableComposition( bool bIsAeroEnabled )
 		{
 //			DwmEnableMMCSS( true );
-#if TEST_Direct3D9Ex
-			try
-			{
-				if ( bIsAeroEnabled )
-				{
-					DwmEnableComposition( DWM_EC_ENABLECOMPOSITION );
-				}
-				else
-				{
-					DwmEnableComposition( DWM_EC_DISABLECOMPOSITION );
-				}
-				return true;
-			}
-			catch ( DllNotFoundException )
-			{
-				return false;
-			}
-#else
 			return true;
-#endif
 		}	
 	}
 }
