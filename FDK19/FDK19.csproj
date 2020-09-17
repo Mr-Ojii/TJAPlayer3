@@ -39,8 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bass.Net">
-      <HintPath>..\Test\dll\Bass.Net.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\Test\net48\dll\Bass.Net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
