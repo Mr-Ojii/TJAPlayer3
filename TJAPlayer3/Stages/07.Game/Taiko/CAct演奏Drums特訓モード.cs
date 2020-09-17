@@ -28,7 +28,28 @@ namespace TJAPlayer3
 
 			var measureCount = 1;
 			var bIsInGoGo = false;
-			var length = (TJAPlayer3.DTX[0].listChip.Count > 0) ? TJAPlayer3.DTX[0].listChip[TJAPlayer3.DTX[0].listChip.Count - 1].n発声時刻ms : 0;
+
+			int endtime = 1;
+			int bgmlength = 1;
+
+			for (int index = 0; index < TJAPlayer3.DTX[0].listChip.Count; index++) 
+			{
+				if (TJAPlayer3.DTX[0].listChip[index].nチャンネル番号 == 0xff) 
+				{
+					endtime = TJAPlayer3.DTX[0].listChip[index].n発声時刻ms;
+					break;
+				}
+			}
+			for (int index = 0; index < TJAPlayer3.DTX[0].listChip.Count; index++)
+			{
+				if (TJAPlayer3.DTX[0].listChip[index].nチャンネル番号 == 0x01)
+				{
+					bgmlength = TJAPlayer3.DTX[0].listChip[index].GetDuration() + TJAPlayer3.DTX[0].listChip[index].n発声時刻ms;
+					break;
+				}
+			}
+
+			length = Math.Max(endtime, bgmlength);
 
 			gogoXList = new List<int>();
 			JumpPointList = new List<STJUMPP>();
@@ -60,6 +81,7 @@ namespace TJAPlayer3
 
 		public override void On非活性化()
 		{
+			length = 1;
 			gogoXList = null;
 			JumpPointList = null;
 			base.On非活性化();
@@ -269,8 +291,6 @@ namespace TJAPlayer3
 				}
 
 			}
-
-			var length = (TJAPlayer3.DTX[0].listChip.Count > 0) ? TJAPlayer3.DTX[0].listChip[TJAPlayer3.DTX[0].listChip.Count - 1].n発声時刻ms : 0;
 
 			var current = (double)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 			var percentage = current / length;
@@ -538,6 +558,7 @@ namespace TJAPlayer3
 
 		private CCounter ctスクロールカウンター;
 		private CCounter ct背景スクロールタイマー;
+		private long length = 1;
 
 		private List<int> gogoXList;
 		private List<STJUMPP> JumpPointList;

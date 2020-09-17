@@ -176,6 +176,15 @@ namespace TJAPlayer3
 				}
 			}
 
+			for (int index = TJAPlayer3.DTX[0].listChip.Count - 1; index >= 0; index--)
+			{
+				if (TJAPlayer3.DTX[0].listChip[index].nチャンネル番号 == 0x01)
+				{
+					this.bgmlength = TJAPlayer3.DTX[0].listChip[index].GetDuration() + TJAPlayer3.DTX[0].listChip[index].n発声時刻ms;
+					break;
+				}
+			}
+
 			ctChipAnime = new CCounter[2];
 			ctChipAnimeLag = new CCounter[2];
 			for (int i = 0; i < 2; i++)
@@ -302,6 +311,7 @@ namespace TJAPlayer3
 		}
 		public override void On非活性化()
 		{
+			this.bgmlength = 1;
 			this.L最後に再生したHHの実WAV番号.Clear();	// #23921 2011.1.4 yyagi
 			this.L最後に再生したHHの実WAV番号 = null;	//
 
@@ -475,6 +485,7 @@ namespace TJAPlayer3
 		protected bool b演奏にマウスを使った;
 		public CCounter[] ctChipAnime;
 		public CCounter[] ctChipAnimeLag;
+		private int bgmlength = 1;
 
 		protected E演奏画面の戻り値 eフェードアウト完了時の戻り値;
 		protected readonly int[] nチャンネル0Atoパッド08 = new int[] { 1, 2, 3, 4, 5, 7, 6, 1, 8, 0, 9, 9 };
@@ -3656,16 +3667,9 @@ namespace TJAPlayer3
 					case 0xFF:
 						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
 						{
-							foreach (CDTX.CWAV cwav in TJAPlayer3.DTX[0].listWAV.Values)
-							{
-								for (int i = 0; i < nPolyphonicSounds; i++)
-								{
-									if ((cwav.rSound[i] != null) && cwav.rSound[i].b再生中)
-									{
-										break;
-									}
-								}
-							}
+							if (this.bgmlength > CSound管理.rc演奏用タイマ.n現在時刻ms)
+								break;
+						
 							pChip.bHit = true;
 							return true;
 						}
