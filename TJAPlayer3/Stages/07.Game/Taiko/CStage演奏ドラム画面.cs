@@ -1388,8 +1388,6 @@ namespace TJAPlayer3
 
 							y += (int)(3 * 0.8335 * ((pChip.fBMSCROLLTime * NOTE_GAP) - (play_bpm_time * NOTE_GAP)) * dbSCROLL_Y * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0) / 2 / 5.0);
 						} 
-						else if (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.REGULSPEED)
-							y += (int)(((pChip.n発声時刻ms - ((CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))) * TJAPlayer3.ConfigIni.nRegSpeedBPM * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0); // 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 					}
 
 					if( pChip.nバーからの距離dot.Drums < 0 )

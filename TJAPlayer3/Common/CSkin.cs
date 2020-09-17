@@ -1414,6 +1414,23 @@ namespace TJAPlayer3
 							{
 								Game_MusicName_ReferencePoint = (ReferencePoint)int.Parse(strParam);
 							}
+							else if (strCommand == nameof(Game_SubTitleName_X))
+							{
+								Game_SubTitleName_X = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(Game_SubTitleName_Y))
+							{
+								Game_SubTitleName_Y = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(Game_SubTitleName_FontSize))
+							{
+								if (int.Parse(strParam) > 0)
+									Game_SubTitleName_FontSize = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(Game_MusicName_ReferencePoint))
+							{
+								Game_SubTitleName_ReferencePoint = (ReferencePoint)int.Parse(strParam);
+							}
 							else if (strCommand == nameof(Game_Genre_X))
 							{
 								Game_Genre_X = int.Parse(strParam);
@@ -2755,6 +2772,10 @@ namespace TJAPlayer3
 		public int Game_MusicName_Y = 14;
 		public int Game_MusicName_FontSize = 30;
 		public ReferencePoint Game_MusicName_ReferencePoint = ReferencePoint.Right;
+		public int Game_SubTitleName_X = 1114;
+		public int Game_SubTitleName_Y = 70;
+		public int Game_SubTitleName_FontSize = 15;
+		public ReferencePoint Game_SubTitleName_ReferencePoint = ReferencePoint.Right;
 		public int Game_Genre_X = 1114;
 		public int Game_Genre_Y = 74;
 		public int Game_Lyric_X = 640;

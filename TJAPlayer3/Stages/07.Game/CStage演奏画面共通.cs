@@ -2844,7 +2844,9 @@ namespace TJAPlayer3
 				? "Calibrating input..."
 				: string.IsNullOrEmpty( TJAPlayer3.DTX[0].PANEL ) ? TJAPlayer3.DTX[0].TITLE: TJAPlayer3.DTX[0].PANEL;
 
-			this.actPanel.SetPanelString( panelString, TJAPlayer3.stage選曲.str確定された曲のジャンル, TJAPlayer3.Skin.Game_StageText );
+			string subtitle = TJAPlayer3.DTX[0].SUBTITLEDisp ? TJAPlayer3.DTX[0].SUBTITLE : null;
+
+			this.actPanel.SetPanelString(panelString, subtitle, TJAPlayer3.stage選曲.str確定された曲のジャンル, TJAPlayer3.Skin.Game_StageText);
 		}
 
 

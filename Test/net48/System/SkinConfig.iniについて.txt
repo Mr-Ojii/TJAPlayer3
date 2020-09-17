@@ -122,6 +122,12 @@ Game_Chara_Motion_Normal_2P=0
 Game_Chara_Motion_Clear_2P=0
 Game_Chara_Motion_GoGo_2P=0
 
+//演奏画面中のサブタイトル表示に関するコンフィグ
+Game_SubTitleName_X=1114
+Game_SubTitleName_Y=70
+Game_SubTitleName_FontSize=15
+Game_SubTitleName_ReferencePoint=2
+
 //リザルト画面での王冠の座標(各パラメータ値は1P,2Pの順)
 Result_Crown_X=350,350
 Result_Crown_Y=200,560
