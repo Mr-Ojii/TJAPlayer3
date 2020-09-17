@@ -60,6 +60,7 @@ namespace TJAPlayer3
 				Drums.最終更新日時 = DateTime.Now.ToString();
 				Drums.Hash = CScoreIni.t演奏セクションのMD5を求めて返す( Drums );
 				Drums.fゲージ = (float)this.actGauge.db現在のゲージ値[ nPlayer ];
+				Drums.b途中でAutoを切り替えたか = this.b途中でAutoを切り替えたか[nPlayer];
 				if( !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] )
 				{
 					Drums.nハイスコア = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nハイスコア; //2015.06.16 kairera0467 他難易度の上書き防止。
@@ -308,6 +309,7 @@ namespace TJAPlayer3
 
 			this.ListDan_Number = 0;
 			this.IsDanFailed = false;
+			this.b途中でAutoを切り替えたか = new bool[] { false, false };
 		}
 		public override void On非活性化()
 		{
@@ -486,6 +488,7 @@ namespace TJAPlayer3
 		public CCounter[] ctChipAnime;
 		public CCounter[] ctChipAnimeLag;
 		private int bgmlength = 1;
+		private bool[] b途中でAutoを切り替えたか;
 
 		protected E演奏画面の戻り値 eフェードアウト完了時の戻り値;
 		protected readonly int[] nチャンネル0Atoパッド08 = new int[] { 1, 2, 3, 4, 5, 7, 6, 1, 8, 0, 9, 9 };
@@ -2751,10 +2754,12 @@ namespace TJAPlayer3
 				if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.F6 ) )
 				{
 					TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] = !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0];
+					this.b途中でAutoを切り替えたか[0] = true;
 				}
 				if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.F7 ) )
 				{
 					TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] = !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1];
+					this.b途中でAutoを切り替えたか[1] = true;
 				}
 			}
 			if( !this.actPauseMenu.bIsActivePopupMenu && this.bPAUSE && ( ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED ) ) && ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED_フェードアウト ) )
@@ -2915,13 +2920,16 @@ namespace TJAPlayer3
 
 					var dbSCROLL = configIni.eScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.dbSCROLL;
 
-
-
-
 					pChip.nバーからの距離dot.Taiko = (int)(3 * 0.8335 * ( ( pChip.fBMSCROLLTime * NOTE_GAP ) - ( play_bpm_time * NOTE_GAP ) ) * dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 ) / 2  / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 
 					if ( pChip.nノーツ終了時刻ms != 0 )
 						pChip.nバーからのノーツ末端距離dot = (int)( 3 * 0.8335 *( ( pChip.fBMSCROLLTime_end * NOTE_GAP) - ( play_bpm_time * NOTE_GAP ) ) * pChip.db末端SCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 ) / 2 /5.0);// 2020.04.20 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+				}
+				else if(configIni.eScrollMode == EScrollMode.REGULSPEED) 
+				{
+					pChip.nバーからの距離dot.Taiko = (int)(time * TJAPlayer3.ConfigIni.nRegSpeedBPM * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0) / 502.8594 / 5.0);//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
+					if (pChip.nノーツ終了時刻ms != 0)
+						pChip.nバーからのノーツ末端距離dot = (int)((pChip.nノーツ終了時刻ms - n現在時刻ms) * TJAPlayer3.ConfigIni.nRegSpeedBPM * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0) / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 				}
 
 				if (!pChip.IsMissed && !pChip.bHit)//2020.04.25 Mr-Ojii akasoko26さんのコードをもとに変更

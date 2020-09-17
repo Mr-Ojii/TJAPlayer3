@@ -116,7 +116,7 @@ namespace TJAPlayer3
 				this.n確定された曲の難易度 = new int[4];
 				this.eフェードアウト完了時の戻り値 = E戻り値.継続;
 				this.bBGM再生済み = false;
-				for (int i = 0; i < 2; i++)
+				for (int i = 0; i < 4; i++)
 					this.ctキー反復用[i] = new CCounter(0, 0, 0, TJAPlayer3.Timer);
 
 				//this.act難易度選択画面.bIsDifficltSelect = true;
@@ -142,7 +142,7 @@ namespace TJAPlayer3
 			Trace.Indent();
 			try
 			{
-				for( int i = 0; i < 2; i++ )
+				for( int i = 0; i < 4; i++ )
 				{
 					this.ctキー反復用[ i ] = null;
 				}
@@ -325,8 +325,7 @@ namespace TJAPlayer3
 
 					if (this.act曲リスト.ttk選択している曲のサブタイトル != null)
 					{
-						int nサブタイY = (int)(TJAPlayer3.Skin.SongSelect_Overall_Y + 440 - (this.act曲リスト.サブタイトルtmp.sz画像サイズ.Height * this.act曲リスト.サブタイトルtmp.vc拡大縮小倍率.Y));
-						this.act曲リスト.サブタイトルtmp.t2D描画(TJAPlayer3.app.Device, 707 + xAnime, nサブタイY - yAnime);
+						this.act曲リスト.サブタイトルtmp.t2D拡大率考慮下中心基準描画(TJAPlayer3.app.Device, 707 + (this.act曲リスト.サブタイトルtmp.szテクスチャサイズ.Width / 2) + xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y + 440 - yAnime);
 						if (this.act曲リスト.ttk選択している曲の曲名 != null)
 						{
 							this.act曲リスト.タイトルtmp.t2D描画(TJAPlayer3.app.Device, 750 + xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y + 23 - yAnime);
@@ -415,6 +414,8 @@ namespace TJAPlayer3
 					TJAPlayer3.act文字コンソール.tPrint(0, 32, C文字コンソール.Eフォント種別.赤, "BMSCROLL : ON");
 				else if (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.HBSCROLL)
 					TJAPlayer3.act文字コンソール.tPrint(0, 32, C文字コンソール.Eフォント種別.赤, "HBSCROLL : ON");
+				else if (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.REGULSPEED)
+					TJAPlayer3.act文字コンソール.tPrint(0, 32, C文字コンソール.Eフォント種別.赤, "Reg.Speed : " + TJAPlayer3.ConfigIni.nRegSpeedBPM.ToString());
 				#endregion
 
 				if (TJAPlayer3.Tx.SongSelect_Counter_Back[0] != null && TJAPlayer3.Tx.SongSelect_Counter_Back[1] != null && TJAPlayer3.Tx.SongSelect_Counter_Num[0] != null && TJAPlayer3.Tx.SongSelect_Counter_Num[1] != null)
@@ -595,11 +596,38 @@ namespace TJAPlayer3
 										TJAPlayer3.ConfigIni.eScrollMode = EScrollMode.HBSCROLL;
 										break;
 									case 2:
+										TJAPlayer3.ConfigIni.eScrollMode = EScrollMode.REGULSPEED;
+										break;
+									case 3:
 										TJAPlayer3.ConfigIni.eScrollMode = EScrollMode.Normal;
 										TJAPlayer3.ConfigIni.bスクロールモードを上書き = false;
 										break;
 								}
 							}
+							#endregion
+							#region[ F7 Reg.Speed DOWN ]
+							this.ctキー反復用.Left.tキー反復(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.F7) && (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.REGULSPEED),
+								new CCounter.DGキー処理(
+								() =>
+								{
+									TJAPlayer3.ConfigIni.nRegSpeedBPM -= 1;
+									if (TJAPlayer3.ConfigIni.nRegSpeedBPM < 1)
+									{
+										TJAPlayer3.ConfigIni.nRegSpeedBPM = 1;
+									}
+								}));
+							#endregion
+							#region[ F8 Reg.Speed UP ]
+							this.ctキー反復用.Right.tキー反復(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.F8) && (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.REGULSPEED),
+								new CCounter.DGキー処理(
+								() =>
+								{
+									TJAPlayer3.ConfigIni.nRegSpeedBPM += 1;
+									if (TJAPlayer3.ConfigIni.nRegSpeedBPM > 9999)
+									{
+										TJAPlayer3.ConfigIni.nRegSpeedBPM = 9999;
+									}
+								}));
 							#endregion
 							#region [ Decide ]
 							if (((TJAPlayer3.Pad.b押された(Eパッド.LRed) || TJAPlayer3.Pad.b押された(Eパッド.RRed)) ||
@@ -797,7 +825,7 @@ namespace TJAPlayer3
 					#region[通常状態のキー入力]
 					else if (現在の選曲画面状況 == E選曲画面.通常)
 					{
-						if (!this.actSortSongs.bIsActivePopupMenu )
+						if (!this.actSortSongs.bIsActivePopupMenu)
 						{
 							#region [ ESC ]
 							if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape) && (this.act曲リスト.r現在選択中の曲 != null))
@@ -865,11 +893,38 @@ namespace TJAPlayer3
 										TJAPlayer3.ConfigIni.eScrollMode = EScrollMode.HBSCROLL;
 										break;
 									case 2:
+										TJAPlayer3.ConfigIni.eScrollMode = EScrollMode.REGULSPEED;
+										break;
+									case 3:
 										TJAPlayer3.ConfigIni.eScrollMode = EScrollMode.Normal;
 										TJAPlayer3.ConfigIni.bスクロールモードを上書き = false;
 										break;
 								}
 							}
+							#endregion
+							#region[ F7 Reg.Speed DOWN ]
+							this.ctキー反復用.Left.tキー反復(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.F7) && (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.REGULSPEED),
+								new CCounter.DGキー処理(
+								() =>
+								{
+									TJAPlayer3.ConfigIni.nRegSpeedBPM -= 1;
+									if (TJAPlayer3.ConfigIni.nRegSpeedBPM < 1)
+									{
+										TJAPlayer3.ConfigIni.nRegSpeedBPM = 1;
+									}
+								}));
+							#endregion
+							#region[ F8 Reg.Speed UP ]
+							this.ctキー反復用.Right.tキー反復(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.F8) && (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.REGULSPEED),
+								new CCounter.DGキー処理(
+								() =>
+								{
+									TJAPlayer3.ConfigIni.nRegSpeedBPM += 1;
+									if (TJAPlayer3.ConfigIni.nRegSpeedBPM > 9999)
+									{
+										TJAPlayer3.ConfigIni.nRegSpeedBPM = 9999;
+									}
+								}));
 							#endregion
 							if (this.act曲リスト.r現在選択中の曲 != null)
 							{
@@ -1142,6 +1197,8 @@ namespace TJAPlayer3
 		{
 			public CCounter Up;
 			public CCounter Down;
+			public CCounter Left;
+			public CCounter Right;
 			public CCounter this[ int index ]
 			{
 				get
@@ -1153,6 +1210,12 @@ namespace TJAPlayer3
 
 						case 1:
 							return this.Down;
+
+						case 2:
+							return this.Left;
+
+						case 3:
+							return this.Right;
 					}
 					throw new IndexOutOfRangeException();
 				}
@@ -1166,6 +1229,14 @@ namespace TJAPlayer3
 
 						case 1:
 							this.Down = value;
+							return;
+
+						case 2:
+							this.Left = value;
+							return;
+
+						case 3:
+							this.Right = value;
 							return;
 					}
 					throw new IndexOutOfRangeException();

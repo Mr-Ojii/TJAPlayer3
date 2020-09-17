@@ -201,8 +201,7 @@ namespace TJAPlayer3
 
 			if (TJAPlayer3.stage選曲.act曲リスト.ttk選択している曲のサブタイトル != null)
 			{
-				int nサブタイY = (int)(TJAPlayer3.Skin.SongSelect_Overall_Y + 440 - (TJAPlayer3.stage選曲.act曲リスト.サブタイトルtmp.sz画像サイズ.Height * TJAPlayer3.stage選曲.act曲リスト.サブタイトルtmp.vc拡大縮小倍率.Y));
-				TJAPlayer3.stage選曲.act曲リスト.サブタイトルtmp.t2D描画(TJAPlayer3.app.Device, 707 + xAnime, nサブタイY - yAnime);
+				TJAPlayer3.stage選曲.act曲リスト.サブタイトルtmp.t2D拡大率考慮下中心基準描画(TJAPlayer3.app.Device, 707 + (TJAPlayer3.stage選曲.act曲リスト.サブタイトルtmp.szテクスチャサイズ.Width / 2) + xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y + 440 - yAnime);
 				if (TJAPlayer3.stage選曲.act曲リスト.ttk選択している曲の曲名 != null)
 				{
 					TJAPlayer3.stage選曲.act曲リスト.タイトルtmp.t2D描画(TJAPlayer3.app.Device, 750 + xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y + 23 - yAnime);

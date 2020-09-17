@@ -94,7 +94,7 @@ namespace TJAPlayer3
 						ini.stファイル.BestRank = this.nランク値;
 					}
 
-					
+					if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == false && this.st演奏記録[0].b途中でAutoを切り替えたか == false)
 					ini.stセクション.HiScore = this.st演奏記録[0];
 
 					// ラストプレイ #23595 2011.1.9 ikanick

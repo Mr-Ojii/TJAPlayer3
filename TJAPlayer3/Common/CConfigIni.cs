@@ -420,6 +420,7 @@ namespace TJAPlayer3
 		//
 
 		public EScrollMode eScrollMode = EScrollMode.Normal;
+		public int nRegSpeedBPM = 120;
 		public bool bスクロールモードを上書き = false;
 
 		public bool bHispeedRandom;

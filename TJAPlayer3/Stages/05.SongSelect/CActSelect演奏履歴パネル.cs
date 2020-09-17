@@ -130,20 +130,23 @@ namespace TJAPlayer3
 			TJAPlayer3.t安全にDisposeする(ref this.Second);
 			TJAPlayer3.t安全にDisposeする(ref this.Third);
 
-			string[] First = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.strHiScorerName;
-			string[] Second = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.strSecondScorerName;
-			string[] Third = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.strThirdScorerName;
+			if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア != null)
+			{
+				string[] First = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.strHiScorerName;
+				string[] Second = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.strSecondScorerName;
+				string[] Third = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.strThirdScorerName;
 
-			if (Font != null)
-				for (int index = 0; index < (int)Difficulty.Total; index++)
-				{
-					this.First[index] = TJAPlayer3.tテクスチャの生成(Font.DrawPrivateFont(First[index], Color.Black));
-					this.First[index].vc拡大縮小倍率 = new Vector3(0.5f);
-					this.Second[index] = TJAPlayer3.tテクスチャの生成(Font.DrawPrivateFont(Second[index], Color.Black));
-					this.Second[index].vc拡大縮小倍率 = new Vector3(0.5f);
-					this.Third[index] = TJAPlayer3.tテクスチャの生成(Font.DrawPrivateFont(Third[index], Color.Black));
-					this.Third[index].vc拡大縮小倍率 = new Vector3(0.5f);
-				}
+				if (Font != null)
+					for (int index = 0; index < (int)Difficulty.Total; index++)
+					{
+						this.First[index] = TJAPlayer3.tテクスチャの生成(Font.DrawPrivateFont(First[index], Color.Black));
+						this.First[index].vc拡大縮小倍率 = new Vector3(0.5f);
+						this.Second[index] = TJAPlayer3.tテクスチャの生成(Font.DrawPrivateFont(Second[index], Color.Black));
+						this.Second[index].vc拡大縮小倍率 = new Vector3(0.5f);
+						this.Third[index] = TJAPlayer3.tテクスチャの生成(Font.DrawPrivateFont(Third[index], Color.Black));
+						this.Third[index].vc拡大縮小倍率 = new Vector3(0.5f);
+					}
+			}
 		}
 
 

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.IO;
 using FDK;
-using Microsoft.VisualBasic.CompilerServices;
 
 namespace TJAPlayer3
 {

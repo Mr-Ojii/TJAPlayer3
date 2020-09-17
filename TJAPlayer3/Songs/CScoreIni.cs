@@ -131,6 +131,7 @@ namespace TJAPlayer3
 			public int nRisky;		// #23559 2011.6.20 yyagi 0=OFF, 1-10=Risky
 			public string 最終更新日時;
 			public float fゲージ;
+			public bool b途中でAutoを切り替えたか;
 			public int[] n良 = new int[(int)Difficulty.Total];
 			public int[] n可 = new int[(int)Difficulty.Total];
 			public int[] n不可 = new int[(int)Difficulty.Total];
@@ -163,6 +164,7 @@ namespace TJAPlayer3
 				this.レーン9モード = true;
 				this.nRisky = 0;									// #23559 2011.6.20 yyagi
 				this.fゲージ = 0.0f;
+				this.b途中でAutoを切り替えたか = false;
 				Dan_C = new Dan_C[3];
 			}
 

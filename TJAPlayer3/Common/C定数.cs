@@ -25,7 +25,8 @@ namespace TJAPlayer3
 	{
 		Normal,
 		BMSCROLL,
-		HBSCROLL
+		HBSCROLL,
+		REGULSPEED
 	}
 	public enum EGame
 	{
