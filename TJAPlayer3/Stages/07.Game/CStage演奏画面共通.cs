@@ -3677,7 +3677,7 @@ namespace TJAPlayer3
 					case 0xFF:
 						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
 						{
-							if (this.bgmlength > CSound管理.rc演奏用タイマ.n現在時刻ms)
+							if (this.bgmlength > CSound管理.rc演奏用タイマ.n現在時刻ms * ((double)TJAPlayer3.ConfigIni.n演奏速度 / 20.0))
 								break;
 						
 							pChip.bHit = true;

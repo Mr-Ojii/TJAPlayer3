@@ -577,9 +577,17 @@ namespace TJAPlayer3
 				End_Clear_L[i] = TxC(GAME + END + @"Clear_L_" + i.ToString() + ".png");
 				End_Clear_R[i] = TxC(GAME + END + @"Clear_R_" + i.ToString() + ".png");
 			}
+			End_Fan = new CTexture[4];
+			for (int i = 0; i < 4; i++)
+			{
+				End_Fan[i] = TxC(GAME + END + @"Fan_" + i.ToString() + ".png");
+			}
 			End_Clear_Text = TxC(GAME + END + @"Clear_Text.png");
 			End_Clear_Text_Effect = TxC(GAME + END + @"Clear_Text_Effect.png");
+			End_FullCombo_Text = TxC(GAME + END + @"FullCombo_Text.png");
+			End_FullCombo_Text_Effect = TxC(GAME + END + @"FullCombo_Text_Effect.png");
 			if (End_Clear_Text_Effect != null) End_Clear_Text_Effect.b加算合成 = true;
+			if (End_FullCombo_Text_Effect != null) End_FullCombo_Text_Effect.b加算合成 = true;
 			#endregion
 			#region ゲームモード
 			GameMode_Timer_Tick = TxC(GAME + GAMEMODE + @"Timer_Tick.png");
@@ -881,8 +889,11 @@ namespace TJAPlayer3
 			#region 終了演出
 			TJAPlayer3.t安全にDisposeする(ref End_Clear_L);
 			TJAPlayer3.t安全にDisposeする(ref End_Clear_R);
+			TJAPlayer3.t安全にDisposeする(ref End_Fan);
 			TJAPlayer3.t安全にDisposeする(ref End_Clear_Text);
 			TJAPlayer3.t安全にDisposeする(ref End_Clear_Text_Effect);
+			TJAPlayer3.t安全にDisposeする(ref End_FullCombo_Text);
+			TJAPlayer3.t安全にDisposeする(ref End_FullCombo_Text_Effect);
 			#endregion
 			#region ゲームモード
 			TJAPlayer3.t安全にDisposeする(ref GameMode_Timer_Tick);
@@ -1214,9 +1225,12 @@ namespace TJAPlayer3
 		#endregion
 		#region 終了演出
 		public CTexture[] End_Clear_L,
-			End_Clear_R;
+			End_Clear_R,
+			End_Fan;
 		public CTexture End_Clear_Text,
-			End_Clear_Text_Effect;
+			End_Clear_Text_Effect,
+			End_FullCombo_Text,
+			End_FullCombo_Text_Effect;
 		#endregion
 		#region ゲームモード
 		public CTexture GameMode_Timer_Frame,

@@ -171,7 +171,6 @@ namespace TJAPlayer3
 		public override void On活性化()
 		{
 			this.sdDTXで指定されたフルコンボ音 = null;
-			this.bフルコンボ音再生済み = false;
 			base.On活性化();
 		}
 		public override void On非活性化()
@@ -427,7 +426,6 @@ namespace TJAPlayer3
 			public Point pt;
 		}
 
-		private bool bフルコンボ音再生済み;
 		private CCounter ct表示用;
 		private readonly Point[] ptFullCombo位置;
 		private CSound sdDTXで指定されたフルコンボ音;

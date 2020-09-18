@@ -330,6 +330,10 @@ namespace FDK
 		{
 			this.t2D描画(device, (int)(x - (this.rc全画像.Width * this.vc拡大縮小倍率.X)), (int)y);
 		}
+		public void t2D拡大率考慮左下基準描画(Device device, float x, float y) 
+		{
+			this.t2D描画(device, x, y - (this.szテクスチャサイズ.Height * this.vc拡大縮小倍率.Y));
+		}
 
 		// 下を基準にして描画する(拡大率考慮)メソッドを追加。 (AioiLight)
 		public void t2D拡大率考慮下基準描画(Device device, int x, int y)

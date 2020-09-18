@@ -21,16 +21,12 @@ namespace TJAPlayer3
 		SOUNDカーソル移動音,
 		SOUNDゲーム開始音,
 		SOUNDゲーム終了音,
-		SOUNDステージクリア音,
 		SOUNDタイトル音,
-		SOUNDフルコンボ音,
 		SOUND歓声音,
 		SOUND曲読込開始音,
 		SOUND決定音,
 		SOUND取消音,
 		SOUND変更音,
-		//SOUND赤,
-		//SOUND青,
 		SOUND風船,
 		SOUND曲決定音,
 		SOUND成績発表,
@@ -316,9 +312,7 @@ namespace TJAPlayer3
 		public Cシステムサウンド soundカーソル移動音 = null;
 		public Cシステムサウンド soundゲーム開始音 = null;
 		public Cシステムサウンド soundゲーム終了音 = null;
-		public Cシステムサウンド soundステージクリア音 = null;
 		public Cシステムサウンド soundタイトル音 = null;
-		public Cシステムサウンド soundフルコンボ音 = null;
 		public Cシステムサウンド sound歓声音 = null;
 		public Cシステムサウンド sound曲読込開始音 = null;
 		public Cシステムサウンド sound決定音 = null;
@@ -374,12 +368,6 @@ namespace TJAPlayer3
 					case Eシステムサウンド.SOUNDゲーム終了音:
 						return this.soundゲーム終了音;
 
-					case Eシステムサウンド.SOUNDステージクリア音:
-						return this.soundステージクリア音;
-
-					case Eシステムサウンド.SOUNDフルコンボ音:
-						return this.soundフルコンボ音;
-
 					case Eシステムサウンド.SOUND曲読込開始音:
 						return this.sound曲読込開始音;
 
@@ -397,12 +385,6 @@ namespace TJAPlayer3
 
 					case Eシステムサウンド.BGM選曲画面:
 						return this.bgm選曲画面;
-
-					//case Eシステムサウンド.SOUND赤:
-					//    return this.soundRed;
-
-					//case Eシステムサウンド.SOUND青:
-					//    return this.soundBlue;
 
 					case Eシステムサウンド.SOUND風船:
 						return this.soundBalloon;
@@ -471,66 +453,54 @@ namespace TJAPlayer3
 						return this.soundゲーム終了音;
 
 					case 8:
-						return this.soundステージクリア音;
-
-					case 9:
-						return this.soundフルコンボ音;
-
-					case 10:
 						return this.sound曲読込開始音;
 
-					case 11:
+					case 9:
 						return this.soundタイトル音;
 
-					case 12:
+					case 10:
 						return this.bgm起動画面;
 
-					case 13:
+					case 11:
 						return this.bgmオプション画面;
 
-					case 14:
+					case 12:
 						return this.bgmコンフィグ画面;
 
-					case 15:
+					case 13:
 						return this.bgm選曲画面;
 
-					//case 16:
-					//    return this.soundRed;
-
-					//case 17:
-					//    return this.soundBlue;
-
-					case 16:
+					case 14:
 						return this.soundBalloon;
 
-					case 17:
+					case 15:
 						return this.sound曲決定音;
 
-					case 18:
+					case 16:
 						return this.sound成績発表;
 
-					case 19:
+					case 17:
 						return this.soundDanするカッ;
 
-					case 20:
+					case 18:
 						return this.sound特訓再生音;
 
-					case 21:
+					case 19:
 						return this.sound特訓停止音;
 
-					case 22:
+					case 20:
 						return this.sound特訓スクロール音;
 
-					case 23:
+					case 21:
 						return this.sound選曲スキップ音;
 
-					case 24:
+					case 22:
 						return this.sound音色選択音;
 
-					case 25:
+					case 23:
 						return this.sound難易度選択音;
 
-					case 26:
+					case 24:
 						return this.sound自己ベスト更新音;
 				}
 				throw new IndexOutOfRangeException();
@@ -723,8 +693,6 @@ namespace TJAPlayer3
 			this.soundSTAGEFAILED音 = new Cシステムサウンド(@"Sounds\Stage failed.ogg", false, true, ESoundGroup.Voice);
 			this.soundゲーム開始音 = new Cシステムサウンド(@"Sounds\Game start.ogg", false, false, ESoundGroup.Voice);
 			this.soundゲーム終了音 = new Cシステムサウンド(@"Sounds\Game end.ogg", false, true, ESoundGroup.Voice);
-			this.soundステージクリア音 = new Cシステムサウンド(@"Sounds\Stage clear.ogg", false, true, ESoundGroup.Voice);
-			this.soundフルコンボ音 = new Cシステムサウンド(@"Sounds\Full combo.ogg", false, false, ESoundGroup.Voice);
 			this.sound曲読込開始音 = new Cシステムサウンド(@"Sounds\Now loading.ogg", false, true, ESoundGroup.Unknown);
 			this.soundタイトル音 = new Cシステムサウンド(@"Sounds\Title.ogg", false, true, ESoundGroup.SongPlayback);
 			this.bgm起動画面 = new Cシステムサウンド(@"Sounds\Setup BGM.ogg", true, true, ESoundGroup.SongPlayback);
