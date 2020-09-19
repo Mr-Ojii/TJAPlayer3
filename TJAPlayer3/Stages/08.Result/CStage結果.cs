@@ -153,7 +153,7 @@ namespace TJAPlayer3
 				#endregion
 
 				// Discord Presenseの更新
-				Discord.UpdatePresence(TJAPlayer3.DTX[0].TITLE + TJAPlayer3.DTX[0].EXTENSION, Properties.Discord.Stage_Result + (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == true ? " (" + Properties.Discord.Info_IsAuto + ")" : ""), TJAPlayer3.StartupTime);
+				Discord.UpdatePresence(TJAPlayer3.DTX[0].TITLE + TJAPlayer3.DTX[0].EXTENSION, "Result" + (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == true ? " (Auto)" : ""), TJAPlayer3.StartupTime);
 
 				base.On活性化();
 			}

@@ -58,9 +58,7 @@
     <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <ApplicationManifest>TJAPlayer3-f.manifest</ApplicationManifest>
-  </PropertyGroup>
+  <PropertyGroup />
 
   <ItemGroup>
     <PackageReference Include="CSharpTest.Net.Collections" Version="14.906.1403.1082" />
@@ -92,6 +90,7 @@ move /y "$(TargetDir)Newtonsoft.Json*" "$(TargetDir)dll\"
 move /y "$(TargetDir)Hnx8.ReadJEnc*" "$(TargetDir)dll\"
 move /y "$(TargetDir)FFmpeg.AutoGen*" "$(TargetDir)dll\"
 move /y "$(TargetDir)OpenTK*" "$(TargetDir)dll\"</PostBuildEvent>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
 
 </Project>

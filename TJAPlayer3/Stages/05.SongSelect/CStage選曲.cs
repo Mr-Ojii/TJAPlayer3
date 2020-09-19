@@ -125,7 +125,7 @@ namespace TJAPlayer3
 				現在の選曲画面状況 = E選曲画面.通常;
 				完全に選択済み = false;
 												// Discord Presenceの更新
-				Discord.UpdatePresence("", Properties.Discord.Stage_SongSelect, TJAPlayer3.StartupTime);
+				Discord.UpdatePresence("", "SongSelect", TJAPlayer3.StartupTime);
 			}
 			finally
 			{
