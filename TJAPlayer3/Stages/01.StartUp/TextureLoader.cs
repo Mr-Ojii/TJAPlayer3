@@ -570,6 +570,13 @@ namespace TJAPlayer3
 
 			#endregion
 			#region 終了演出
+			End_Failed_L = new CTexture[2];
+			End_Failed_R = new CTexture[2];
+			for (int i = 0; i < 2; i++)
+			{
+				End_Failed_L[i] = TxC(GAME + END + @"Failed_L_" + i.ToString() + ".png");
+				End_Failed_R[i] = TxC(GAME + END + @"Failed_R_" + i.ToString() + ".png");
+			}
 			End_Clear_L = new CTexture[5];
 			End_Clear_R = new CTexture[5];
 			for (int i = 0; i < 5; i++)
@@ -582,6 +589,8 @@ namespace TJAPlayer3
 			{
 				End_Fan[i] = TxC(GAME + END + @"Fan_" + i.ToString() + ".png");
 			}
+			End_Failed_Impact = TxC(GAME + END + @"Failed_Impact.png");
+			End_Failed_Text = TxC(GAME + END + @"Failed_Text.png");
 			End_Clear_Text = TxC(GAME + END + @"Clear_Text.png");
 			End_Clear_Text_Effect = TxC(GAME + END + @"Clear_Text_Effect.png");
 			End_FullCombo_Text = TxC(GAME + END + @"FullCombo_Text.png");
@@ -889,7 +898,11 @@ namespace TJAPlayer3
 			#region 終了演出
 			TJAPlayer3.t安全にDisposeする(ref End_Clear_L);
 			TJAPlayer3.t安全にDisposeする(ref End_Clear_R);
+			TJAPlayer3.t安全にDisposeする(ref End_Failed_L);
+			TJAPlayer3.t安全にDisposeする(ref End_Failed_R);
 			TJAPlayer3.t安全にDisposeする(ref End_Fan);
+			TJAPlayer3.t安全にDisposeする(ref End_Failed_Text);
+			TJAPlayer3.t安全にDisposeする(ref End_Failed_Impact);
 			TJAPlayer3.t安全にDisposeする(ref End_Clear_Text);
 			TJAPlayer3.t安全にDisposeする(ref End_Clear_Text_Effect);
 			TJAPlayer3.t安全にDisposeする(ref End_FullCombo_Text);
@@ -1224,10 +1237,14 @@ namespace TJAPlayer3
 			Lane_Background_GoGo;
 		#endregion
 		#region 終了演出
-		public CTexture[] End_Clear_L,
-			End_Clear_R,
+		public CTexture[] End_Failed_L,
+			End_Failed_R, 
+			End_Clear_L,
+			End_Clear_R, 
 			End_Fan;
-		public CTexture End_Clear_Text,
+		public CTexture End_Failed_Text,
+			End_Failed_Impact,
+			End_Clear_Text,
 			End_Clear_Text_Effect,
 			End_FullCombo_Text,
 			End_FullCombo_Text_Effect;
