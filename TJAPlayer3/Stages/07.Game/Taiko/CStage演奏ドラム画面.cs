@@ -445,12 +445,13 @@ namespace TJAPlayer3
 
 				this.actDan.On進行描画();
 
+				bIsFinishedPlaying = true;
 				for ( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
 				{
-					bIsFinishedPlaying = this.t進行描画_チップ( i );
+					bool tmp = this.t進行描画_チップ(i);
+					bIsFinishedPlaying = bIsFinishedPlaying && tmp;
 					this.t進行描画_チップ_連打( i );
 				}
-
 
 				this.actMtaiko.On進行描画();
 				//if (this.txNamePlate != null)

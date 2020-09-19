@@ -10,5 +10,6 @@
     <FallbackCulture>ja-JP</FallbackCulture>
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
     <ProjectView>ProjectFiles</ProjectView>
+    <ActiveDebugFramework>net48</ActiveDebugFramework>
   </PropertyGroup>
 </Project>

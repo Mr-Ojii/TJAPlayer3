@@ -3675,13 +3675,20 @@ namespace TJAPlayer3
 #region[ ff: 譜面の強制終了 ]
 					//バグで譜面がとてつもないことになっているため、#ENDがきたらこれを差し込む。
 					case 0xFF:
-						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
+						if (pChip.nバーからの距離dot.Drums < 0)
 						{
-							if (this.bgmlength > CSound管理.rc演奏用タイマ.n現在時刻ms * ((double)TJAPlayer3.ConfigIni.n演奏速度 / 20.0))
-								break;
-						
-							pChip.bHit = true;
-							return true;
+							if (!pChip.bHit)
+							{
+								if (this.bgmlength > CSound管理.rc演奏用タイマ.n現在時刻ms * ((double)TJAPlayer3.ConfigIni.n演奏速度 / 20.0))
+									break;
+
+								pChip.bHit = true;
+								return true;
+							}
+							else
+							{
+								return true;
+							} 
 						}
 						break;
 #endregion

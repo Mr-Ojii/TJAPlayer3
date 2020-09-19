@@ -25,7 +25,8 @@ namespace TJAPlayer3
 
 		public void Start()
 		{
-			this.ct進行メイン = new CCounter(0, 300, 22, TJAPlayer3.Timer);
+			this.ct進行メイン = new CCounter(0, 500, 22, TJAPlayer3.Timer);
+			this.ct進行return用 = new CCounter(0, this.ct進行メイン.n終了値 - 100, 22, TJAPlayer3.Timer);
 			this.bリザルトボイス再生済み = false;
 			// モードの決定。クリア失敗・フルコンボも事前に作っとく。
 			if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] == (int)Difficulty.Dan)
@@ -109,9 +110,10 @@ namespace TJAPlayer3
 			{
 				base.b初めての進行描画 = false;
 			}
-			if (this.ct進行メイン != null && (TJAPlayer3.stage演奏ドラム画面.eフェーズID == CStage.Eフェーズ.演奏_演奏終了演出 || TJAPlayer3.stage演奏ドラム画面.eフェーズID == CStage.Eフェーズ.演奏_STAGE_CLEAR_フェードアウト))
+			if (this.ct進行メイン != null && this.ct進行return用 != null && (TJAPlayer3.stage演奏ドラム画面.eフェーズID == CStage.Eフェーズ.演奏_演奏終了演出 || TJAPlayer3.stage演奏ドラム画面.eフェーズID == CStage.Eフェーズ.演奏_STAGE_CLEAR_フェードアウト))
 			{
 				this.ct進行メイン.t進行();
+				this.ct進行return用.t進行();
 
 				//CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.灰, this.ct進行メイン.n現在の値.ToString() );
 				//仮置き
@@ -406,8 +408,16 @@ namespace TJAPlayer3
 										TJAPlayer3.Tx.End_FullCombo_Text_Effect.vc拡大縮小倍率.Y = 0.8f + (float)(ratio + 1.0) * 0.2f;
 									}
 								}
-								if (this.ct進行メイン.n現在の値 > 80)
+								if (this.ct進行メイン.n現在の値 >= 70)
 								{
+									if (this.ct進行メイン.n現在の値 < 80)
+									{
+										TJAPlayer3.Tx.End_FullCombo_Text.Opacity = (this.ct進行メイン.n現在の値 - 70) * (255 / 10);
+									}
+									else
+									{
+										TJAPlayer3.Tx.End_FullCombo_Text.Opacity = 255;
+									}
 									TJAPlayer3.Tx.End_FullCombo_Text.t2D拡大率考慮下中心基準描画(TJAPlayer3.app.Device, 810, y[i] - ydiff + TJAPlayer3.Tx.End_FullCombo_Text.szテクスチャサイズ.Height);
 								}
 								if (this.ct進行メイン.n現在の値 >= 70 && this.ct進行メイン.n現在の値 < 90)
@@ -415,13 +425,12 @@ namespace TJAPlayer3
 									if (this.ct進行メイン.n現在の値 < 80)
 									{
 										TJAPlayer3.Tx.End_FullCombo_Text_Effect.Opacity = (this.ct進行メイン.n現在の値 - 70) * (255 / 10);
-										TJAPlayer3.Tx.End_FullCombo_Text_Effect.t2D拡大率考慮下中心基準描画(TJAPlayer3.app.Device, 810, y[i] - ydiff + TJAPlayer3.Tx.End_FullCombo_Text_Effect.szテクスチャサイズ.Height);
 									}
 									else
 									{
 										TJAPlayer3.Tx.End_FullCombo_Text_Effect.Opacity = 255 - ((this.ct進行メイン.n現在の値 - 80) * (255 / 10));
-										TJAPlayer3.Tx.End_FullCombo_Text_Effect.t2D拡大率考慮下中心基準描画(TJAPlayer3.app.Device, 810, y[i] - ydiff + TJAPlayer3.Tx.End_FullCombo_Text_Effect.szテクスチャサイズ.Height);
 									}
+									TJAPlayer3.Tx.End_FullCombo_Text_Effect.t2D拡大率考慮下中心基準描画(TJAPlayer3.app.Device, 810, y[i] - ydiff + TJAPlayer3.Tx.End_FullCombo_Text_Effect.szテクスチャサイズ.Height);
 								}
 							}
 							#endregion
@@ -441,7 +450,7 @@ namespace TJAPlayer3
 								else
 								{
 									TJAPlayer3.Tx.End_Fan[3].vc拡大縮小倍率.Y = 0.99f;
-									x補正値 = 2;
+									x補正値 = 1;
 									y補正値 = 1;
 								}
 								TJAPlayer3.Tx.End_Fan[3].fZ軸中心回転 = -20f * (float)Math.PI / 180f;
@@ -581,9 +590,7 @@ namespace TJAPlayer3
 
 				}
 
-
-
-				if (this.ct進行メイン.b終了値に達した)
+				if (this.ct進行return用.b終了値に達した)
 				{
 					if (!this.bリザルトボイス再生済み)
 					{
@@ -602,6 +609,7 @@ namespace TJAPlayer3
 		bool b再生済み;
 		bool bリザルトボイス再生済み;
 		CCounter ct進行メイン;
+		CCounter ct進行return用;
 		//CTexture[] txバチお左_成功 = new CTexture[ 5 ];
 		//CTexture[] txバチお右_成功 = new CTexture[ 5 ];
 		//CTexture tx文字;
