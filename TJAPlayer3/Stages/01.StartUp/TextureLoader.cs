@@ -595,8 +595,14 @@ namespace TJAPlayer3
 			End_Clear_Text_Effect = TxC(GAME + END + @"Clear_Text_Effect.png");
 			End_FullCombo_Text = TxC(GAME + END + @"FullCombo_Text.png");
 			End_FullCombo_Text_Effect = TxC(GAME + END + @"FullCombo_Text_Effect.png");
+			End_DonderFullCombo_Lane = TxC(GAME + END + @"DonderFullCombo_Lane.png");
+			End_DonderFullCombo_L = TxC(GAME + END + @"DonderFullCombo_L.png");
+			End_DonderFullCombo_R = TxC(GAME + END + @"DonderFullCombo_R.png");
+			End_DonderFullCombo_Text = TxC(GAME + END + @"DonderFullCombo_Text.png");
+			End_DonderFullCombo_Text_Effect = TxC(GAME + END + @"DonderFullCombo_Text_Effect.png");
 			if (End_Clear_Text_Effect != null) End_Clear_Text_Effect.b加算合成 = true;
 			if (End_FullCombo_Text_Effect != null) End_FullCombo_Text_Effect.b加算合成 = true;
+			if (End_DonderFullCombo_Text_Effect != null) End_DonderFullCombo_Text_Effect.b加算合成 = true;
 			#endregion
 			#region ゲームモード
 			GameMode_Timer_Tick = TxC(GAME + GAMEMODE + @"Timer_Tick.png");
@@ -907,6 +913,11 @@ namespace TJAPlayer3
 			TJAPlayer3.t安全にDisposeする(ref End_Clear_Text_Effect);
 			TJAPlayer3.t安全にDisposeする(ref End_FullCombo_Text);
 			TJAPlayer3.t安全にDisposeする(ref End_FullCombo_Text_Effect);
+			TJAPlayer3.t安全にDisposeする(ref End_DonderFullCombo_Lane);
+			TJAPlayer3.t安全にDisposeする(ref End_DonderFullCombo_L);
+			TJAPlayer3.t安全にDisposeする(ref End_DonderFullCombo_R);
+			TJAPlayer3.t安全にDisposeする(ref End_DonderFullCombo_Text);
+			TJAPlayer3.t安全にDisposeする(ref End_DonderFullCombo_Text_Effect);
 			#endregion
 			#region ゲームモード
 			TJAPlayer3.t安全にDisposeする(ref GameMode_Timer_Tick);
@@ -1247,7 +1258,12 @@ namespace TJAPlayer3
 			End_Clear_Text,
 			End_Clear_Text_Effect,
 			End_FullCombo_Text,
-			End_FullCombo_Text_Effect;
+			End_FullCombo_Text_Effect,
+			End_DonderFullCombo_Lane,
+			End_DonderFullCombo_L,
+			End_DonderFullCombo_R,
+			End_DonderFullCombo_Text,
+			End_DonderFullCombo_Text_Effect;
 		#endregion
 		#region ゲームモード
 		public CTexture GameMode_Timer_Frame,
