@@ -50,23 +50,16 @@ namespace TJAPlayer3
 		[DllImport("discord-rpc", EntryPoint = "Discord_Shutdown", CallingConvention = CallingConvention.Cdecl)]
 		public static extern void Shutdown();
 
-		[DllImport("discord-rpc", EntryPoint = "Discord_RunCallbacks", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void RunCallbacks();
-
 		[DllImport("discord-rpc", EntryPoint = "Discord_UpdatePresence", CallingConvention = CallingConvention.Cdecl)]
 		public static extern void UpdatePresence(ref RichPresence presence);
-
-		[DllImport("discord-rpc", EntryPoint = "Discord_ClearPresence", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void ClearPresence();
-
-		[DllImport("discord-rpc", EntryPoint = "Discord_UpdateHandlers", CallingConvention = CallingConvention.Cdecl)]
-		public static extern void UpdateHandlers(ref EventHandlers handlers);
 	}
 
 	public static class Discord
 	{
 
 		private static readonly List<IntPtr> _buffers = new List<IntPtr>(10);
+
+		private static bool DiscordDLLException = false;
 
 		/// <summary>
 		/// Discord Rich Presenceの初期化をします。
@@ -79,8 +72,16 @@ namespace TJAPlayer3
 			handlers.disconnectedCallback += DisconnectedCallback;
 			handlers.errorCallback += ErrorCallback;
 
-			DiscordRpc.Initialize(clientId, ref handlers, true, null);
-
+			try
+			{
+				DiscordRpc.Initialize(clientId, ref handlers, true, null);
+			}
+			catch (Exception e)
+			{
+				Trace.TraceError(e.ToString());
+				Trace.TraceError("Discord DLL Initialize Failed.");
+				DiscordDLLException = true;
+			}
 		}
 
 		/// <summary>
@@ -94,6 +95,8 @@ namespace TJAPlayer3
 		/// <param name="smallImageText">小さなアイコンのツールチップに表示するテキスト。</param>
 		public static void UpdatePresence(string details, string state, long startTimeStamp = 0, long endTimeStamp = 0, string smallImageKey = null, string smallImageText = null)
 		{
+			if (DiscordDLLException)
+				return;
 			var presence = new DiscordRpc.RichPresence();
 			presence.details = StrToPtr(details);
 			presence.state = StrToPtr(state);
@@ -115,6 +118,8 @@ namespace TJAPlayer3
 		/// </summary>
 		public static void Shutdown()
 		{
+			if (DiscordDLLException)
+				return;
 			DiscordRpc.Shutdown();
 			Trace.TraceInformation("[Discord] Shutdowned.");
 		}
