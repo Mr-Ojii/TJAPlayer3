@@ -25,11 +25,10 @@
 /Test/*/dll/FFmpeg.AutoGen*
 /Test/*/System/*Style*/
 /Test/*/System/Honkehuu/Sounds/*Combo*/
-/Test/*/System/Honkehuu/Sounds/Config*
-/Test/*/System/Honkehuu/Sounds/Full*
+/Test/*/System/Honkehuu/Sounds/*Full*
 /Test/*/System/Honkehuu/Sounds/Game*
 /Test/*/System/Honkehuu/Sounds/Select*
 /Test/*/System/Honkehuu/Sounds/title*
-/Test/*/System/Honkehuu/Sounds/Failed*
+/Test/*/System/Honkehuu/Sounds/Clear*
 /Test/*/Songs/
 /Test/*/テスト譜面*/

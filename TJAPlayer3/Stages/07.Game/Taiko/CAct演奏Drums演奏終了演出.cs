@@ -155,14 +155,14 @@ namespace TJAPlayer3
 								#endregion
 								#region[ Rotate ]
 								int ytxtdiff = 0;
-                                if (this.ct進行メイン.n現在の値 < 81) 
+                                if (this.ct進行メイン.n現在の値 < 116) 
 								{
 									TJAPlayer3.Tx.End_Failed_Text.fZ軸中心回転 = 0f;
 								}
-								else if (this.ct進行メイン.n現在の値 <= 85)
+								else if (this.ct進行メイン.n現在の値 <= 118)
 								{
-									TJAPlayer3.Tx.End_Failed_Text.fZ軸中心回転 = (float)-(((this.ct進行メイン.n現在の値 - 81) / 5.0 * 5.0 / 180.0) * Math.PI);
-									ytxtdiff = (this.ct進行メイン.n現在の値 - 81) * 2;
+									TJAPlayer3.Tx.End_Failed_Text.fZ軸中心回転 = (float)-(((this.ct進行メイン.n現在の値 - 116) / 3.0 * 5.0 / 180.0) * Math.PI);
+									ytxtdiff = (this.ct進行メイン.n現在の値 - 116) * 2;
 								}
 								else
 								{
