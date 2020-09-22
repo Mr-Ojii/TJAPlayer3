@@ -1498,15 +1498,15 @@ namespace TJAPlayer3
 											{
 												this.b全画面モード = C変換.bONorOFF(str4[0]);
 											}
-											else if ( str3.Equals( "WindowX" ) )		// #30675 2013.02.04 ikanick add
+											else if ( str3.Equals( "WindowX" ) )        // #30675 2013.02.04 ikanick add
 											{
-												this.n初期ウィンドウ開始位置X = C変換.n値を文字列から取得して範囲内に丸めて返す(
-													str4, 0,  System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width - 1 , this.n初期ウィンドウ開始位置X );
+												if (int.TryParse(str4, out int num))
+													this.n初期ウィンドウ開始位置X = num;
 											}
-											else if ( str3.Equals( "WindowY" ) )		// #30675 2013.02.04 ikanick add
+											else if ( str3.Equals( "WindowY" ) )        // #30675 2013.02.04 ikanick add
 											{
-												this.n初期ウィンドウ開始位置Y = C変換.n値を文字列から取得して範囲内に丸めて返す(
-													str4, 0,  System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height - 1 , this.n初期ウィンドウ開始位置Y );
+												if (int.TryParse(str4, out int num))
+													this.n初期ウィンドウ開始位置Y = num;
 											}
 											else if ( str3.Equals( "WindowWidth" ) )		// #23510 2010.10.31 yyagi add
 											{

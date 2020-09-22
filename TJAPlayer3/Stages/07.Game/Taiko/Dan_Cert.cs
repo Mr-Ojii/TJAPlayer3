@@ -208,7 +208,7 @@ namespace TJAPlayer3
 
 		public override void OnManagedリソースの解放()
 		{
-			Dan_Plate?.Dispose();
+			TJAPlayer3.t安全にDisposeする(ref Dan_Plate);
 			Sound_Section?.t解放する();
 			Sound_Failed?.t解放する();
 			base.OnManagedリソースの解放();

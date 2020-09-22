@@ -608,7 +608,7 @@ namespace TJAPlayer3
 					graphics.DrawString(s3[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float)2f, (float)86f);
 					graphics.DrawString(s3[c], this.ft曲リスト用フォント, Brushes.White, (float)0f, (float)84f);
 
-					this.txSongNotFound = new CTexture(TJAPlayer3.app.Device, image, TJAPlayer3.TextureFormat);
+					this.txSongNotFound = new CTexture(TJAPlayer3.app.Device, image, TJAPlayer3.TextureFormat, true);
 
 					this.txSongNotFound.vc拡大縮小倍率 = new Vector3(0.5f, 0.5f, 1f); // 半分のサイズで表示する。
 				}
@@ -633,7 +633,7 @@ namespace TJAPlayer3
 					graphics.DrawString(s2[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float)2f, (float)44f);
 					graphics.DrawString(s2[c], this.ft曲リスト用フォント, Brushes.White, (float)0f, (float)42f);
 
-					this.txEnumeratingSongs = new CTexture(TJAPlayer3.app.Device, image, TJAPlayer3.TextureFormat);
+					this.txEnumeratingSongs = new CTexture(TJAPlayer3.app.Device, image, TJAPlayer3.TextureFormat, true);
 
 					this.txEnumeratingSongs.vc拡大縮小倍率 = new Vector3(0.5f, 0.5f, 1f); // 半分のサイズで表示する。
 				}

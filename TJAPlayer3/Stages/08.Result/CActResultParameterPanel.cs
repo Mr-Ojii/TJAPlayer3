@@ -198,7 +198,7 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				Dan_Plate?.Dispose();
+				TJAPlayer3.t安全にDisposeする(ref Dan_Plate);
 				base.OnManagedリソースの解放();
 			}
 		}

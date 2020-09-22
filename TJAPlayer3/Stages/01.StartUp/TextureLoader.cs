@@ -69,7 +69,6 @@ namespace TJAPlayer3
 
 		public void LoadTexture()
 		{
-			TitleTextureKey[] titleTextureKey = new TitleTextureKey[3];
 			#region 共通
 			Tile_Black = TJAPlayer3.ColorTexture(Brushes.Black);
 			Menu_Title = TxC(@"Menu_Title.png");
@@ -91,13 +90,6 @@ namespace TJAPlayer3
 			Title_Menu = TxC(TITLE + @"Menu.png");
 			Title_AcBar = TxC(TITLE + @"ActiveBar.png");
 			Title_InBar = TxC(TITLE + @"InactiveBar.png");
-			titleTextureKey[0] = this.ttk曲名テクスチャを生成する("演奏ゲーム", Color.White, Color.SaddleBrown);
-			titleTextureKey[1] = this.ttk曲名テクスチャを生成する("コンフィグ", Color.White, Color.SaddleBrown);
-			titleTextureKey[2] = this.ttk曲名テクスチャを生成する("やめる", Color.White, Color.SaddleBrown);
-			for (int i = 0; i < Title_Txt.Length; i++)
-			{
-				Title_Txt[i] = GenerateTitleTexture(titleTextureKey[i]);
-			}
 			#endregion
 
 			#region 2_コンフィグ画面
@@ -697,7 +689,6 @@ namespace TJAPlayer3
 			TJAPlayer3.t安全にDisposeする(ref Title_Menu);
 			TJAPlayer3.t安全にDisposeする(ref Title_AcBar);
 			TJAPlayer3.t安全にDisposeする(ref Title_InBar);
-			TJAPlayer3.t安全にDisposeする(ref Title_Txt);
 			#endregion
 
 			#region 2_コンフィグ画面
@@ -980,71 +971,6 @@ namespace TJAPlayer3
 
 		}
 
-		private static CTexture GenerateTitleTexture(TitleTextureKey titleTextureKey)
-		{
-			using (var bmp = new Bitmap(titleTextureKey.cPrivateFastFont.DrawPrivateFont(
-				titleTextureKey.str文字, titleTextureKey.forecolor, titleTextureKey.backcolor, true)))
-			{
-				CTexture tx文字テクスチャ = TJAPlayer3.tテクスチャの生成(bmp);
-				if (tx文字テクスチャ.szテクスチャサイズ.Height > titleTextureKey.maxHeight)
-				{
-					tx文字テクスチャ.vc拡大縮小倍率.Y = (float)(((double)titleTextureKey.maxHeight) / tx文字テクスチャ.szテクスチャサイズ.Height);
-				}
-
-				return tx文字テクスチャ;
-			}
-		}
-		private sealed class TitleTextureKey
-		{
-			public readonly string str文字;
-			public readonly CPrivateFastFont cPrivateFastFont;
-			public readonly Color forecolor;
-			public readonly Color backcolor;
-			public readonly int maxHeight;
-
-			public TitleTextureKey(string str文字, CPrivateFastFont cPrivateFastFont, Color forecolor, Color backcolor, int maxHeight)
-			{
-				this.str文字 = str文字;
-				this.cPrivateFastFont = cPrivateFastFont;
-				this.forecolor = forecolor;
-				this.backcolor = backcolor;
-				this.maxHeight = maxHeight;
-			}
-
-			private bool Equals(TitleTextureKey other)
-			{
-				return string.Equals(str文字, other.str文字) &&
-					   cPrivateFastFont.Equals(other.cPrivateFastFont) &&
-					   forecolor.Equals(other.forecolor) &&
-					   backcolor.Equals(other.backcolor) &&
-					   maxHeight == other.maxHeight;
-			}
-
-			public override bool Equals(object obj)
-			{
-				if (ReferenceEquals(null, obj)) return false;
-				if (ReferenceEquals(this, obj)) return true;
-				return obj is TitleTextureKey other && Equals(other);
-			}
-
-			public override int GetHashCode()
-			{
-				unchecked
-				{
-					var hashCode = str文字.GetHashCode();
-					hashCode = (hashCode * 397) ^ cPrivateFastFont.GetHashCode();
-					hashCode = (hashCode * 397) ^ forecolor.GetHashCode();
-					hashCode = (hashCode * 397) ^ backcolor.GetHashCode();
-					hashCode = (hashCode * 397) ^ maxHeight;
-					return hashCode;
-				}
-			}
-		}
-		private TitleTextureKey ttk曲名テクスチャを生成する(string str文字, Color forecolor, Color backcolor)
-		{
-			return new TitleTextureKey(str文字, new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 28), forecolor, backcolor, 410);
-		}
-
 		#region 共通
 		public CTexture Tile_Black,
 			Menu_Title,
@@ -1059,12 +985,12 @@ namespace TJAPlayer3
 			Difficulty_Icons;
 		public CTexture[] NamePlate;
 		#endregion
+
 		#region 1_タイトル画面
 		public CTexture Title_Background,
 			Title_Menu,
 			Title_AcBar,
 			Title_InBar;
-		public CTexture[] Title_Txt = new CTexture[3];
 		#endregion
 
 		#region 2_コンフィグ画面

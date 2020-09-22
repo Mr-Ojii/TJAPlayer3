@@ -539,7 +539,7 @@ namespace TJAPlayer3
 				{
 					txFilename.Dispose();
 				}
-				txFilename = new CTexture( TJAPlayer3.app.Device, bitmapFilename, TJAPlayer3.TextureFormat );
+				txFilename = new CTexture(TJAPlayer3.app.Device, bitmapFilename, TJAPlayer3.TextureFormat, true);
 				txFilename.vc拡大縮小倍率 = new OpenTK.Vector3( 0.5f, 0.5f, 1f );
 				txFilename.t2D描画( TJAPlayer3.app.Device, 0, 720 - 16 );
 			}

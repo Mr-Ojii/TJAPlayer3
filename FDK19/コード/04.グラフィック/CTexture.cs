@@ -86,6 +86,7 @@ namespace FDK
 		}
 		public OpenTK.Vector3 vc拡大縮小倍率;
 		private Vector3 vc;
+		public string filename;
 
 		// 画面が変わるたび以下のプロパティを設定し治すこと。
 
@@ -106,48 +107,14 @@ namespace FDK
 			this.szテクスチャサイズ = new Size(0, 0);
 			this._opacity = 0xff;
 			this.texture = null;
+			this.bSharpDXTextureDispose完了済み = true;
 			this.cvPositionColoredVertexies = null;
 			this.b加算合成 = false;
 			this.fZ軸中心回転 = 0f;
 			this.vc拡大縮小倍率 = new OpenTK.Vector3(1f, 1f, 1f);
 			this.vc = new Vector3(1f, 1f, 1f);
+			this.filename = "";
 			//			this._txData = null;
-		}
-
-		/// <summary>
-		/// <para>指定されたビットマップオブジェクトから Managed テクスチャを作成する。</para>
-		/// <para>テクスチャのサイズは、BITMAP画像のサイズ以上、かつ、D3D9デバイスで生成可能な最小のサイズに自動的に調節される。
-		/// その際、テクスチャの調節後のサイズにあわせた画像の拡大縮小は行わない。</para>
-		/// <para>その他、ミップマップ数は 1、Usage は None、Pool は Managed、イメージフィルタは Point、ミップマップフィルタは
-		/// None、カラーキーは 0xFFFFFFFF（完全なる黒を透過）になる。</para>
-		/// </summary>
-		/// <param name="device">Direct3D9 デバイス。</param>
-		/// <param name="bitmap">作成元のビットマップ。</param>
-		/// <param name="format">テクスチャのフォーマット。</param>
-		/// <exception cref="CTextureCreateFailedException">テクスチャの作成に失敗しました。</exception>
-		public CTexture(Device device, Bitmap bitmap, Format format)
-			: this()
-		{
-			//投げる
-			MakeTexture(device, bitmap, format, true, Pool.Managed);
-		}
-
-		/// <summary>
-		/// <para>空の Managed テクスチャを作成する。</para>
-		/// <para>テクスチャのサイズは、指定された希望サイズ以上、かつ、D3D9デバイスで生成可能な最小のサイズに自動的に調節される。
-		/// その際、テクスチャの調節後のサイズにあわせた画像の拡大縮小は行わない。</para>
-		/// <para>テクスチャのテクセルデータは未初期化。（おそらくゴミデータが入ったまま。）</para>
-		/// <para>その他、ミップマップ数は 1、Usage は None、イメージフィルタは Point、ミップマップフィルタは None、
-		/// カラーキーは 0x00000000（透過しない）になる。</para>
-		/// </summary>
-		/// <param name="device">Direct3D9 デバイス。</param>
-		/// <param name="n幅">テクスチャの幅（希望値）。</param>
-		/// <param name="n高さ">テクスチャの高さ（希望値）。</param>
-		/// <param name="format">テクスチャのフォーマット。</param>
-		/// <exception cref="CTextureCreateFailedException">テクスチャの作成に失敗しました。</exception>
-		public CTexture(Device device, int n幅, int n高さ, Format format)
-			: this(device, n幅, n高さ, format, Pool.Managed)
-		{
 		}
 
 		/// <summary>
@@ -160,99 +127,32 @@ namespace FDK
 		/// <param name="b黒を透過する">画像の黒（0xFFFFFFFF）を透過させるなら true。</param>
 		/// <exception cref="CTextureCreateFailedException">テクスチャの作成に失敗しました。</exception>
 		public CTexture(Device device, string strファイル名, Format format, bool b黒を透過する)
-			: this(device, strファイル名, format, b黒を透過する, Pool.Managed)
+			: this()
 		{
+			maketype = MakeType.filename;
+			MakeTexture(device, strファイル名, format, b黒を透過する, Pool.Managed);
 		}
 		public CTexture(Device device, byte[] txData, Format format, bool b黒を透過する)
-			: this(device, txData, format, b黒を透過する, Pool.Managed)
+			: this()
 		{
+			maketype = MakeType.bytearray;
+			MakeTexture(device, txData, format, b黒を透過する, Pool.Managed);
 		}
 		public CTexture(Device device, Bitmap bitmap, Format format, bool b黒を透過する)
-			: this(device, bitmap, format, b黒を透過する, Pool.Managed)
-		{
-		}
-
-		/// <summary>
-		/// <para>空のテクスチャを作成する。</para>
-		/// <para>テクスチャのサイズは、指定された希望サイズ以上、かつ、D3D9デバイスで生成可能な最小のサイズに自動的に調節される。
-		/// その際、テクスチャの調節後のサイズにあわせた画像の拡大縮小は行わない。</para>
-		/// <para>テクスチャのテクセルデータは未初期化。（おそらくゴミデータが入ったまま。）</para>
-		/// <para>その他、ミップマップ数は 1、Usage は None、イメージフィルタは Point、ミップマップフィルタは None、
-		/// カラーキーは 0x00000000（透過しない）になる。</para>
-		/// </summary>
-		/// <param name="device">Direct3D9 デバイス。</param>
-		/// <param name="n幅">テクスチャの幅（希望値）。</param>
-		/// <param name="n高さ">テクスチャの高さ（希望値）。</param>
-		/// <param name="format">テクスチャのフォーマット。</param>
-		/// <param name="pool">テクスチャの管理方法。</param>
-		/// <exception cref="CTextureCreateFailedException">テクスチャの作成に失敗しました。</exception>
-		public CTexture(Device device, int n幅, int n高さ, Format format, Pool pool)
-			: this(device, n幅, n高さ, format, pool, Usage.None)
-		{
-		}
-
-		public CTexture(Device device, int n幅, int n高さ, Format format, Pool pool, Usage usage)
 			: this()
 		{
-			try
-			{
-				this.Format = format;
-				this.sz画像サイズ = new Size(n幅, n高さ);
-				this.szテクスチャサイズ = this.t指定されたサイズを超えない最適なテクスチャサイズを返す(device, this.sz画像サイズ);
-				this.rc全画像 = new Rectangle(0, 0, this.sz画像サイズ.Width, this.sz画像サイズ.Height);
-
-				using (var bitmap = new Bitmap(1, 1))
-				{
-					using (var graphics = Graphics.FromImage(bitmap))
-					{
-						graphics.FillRectangle(Brushes.Black, 0, 0, 1, 1);
-					}
-					using (var stream = new MemoryStream())
-					{
-						bitmap.Save(stream, ImageFormat.Bmp);
-						stream.Seek(0L, SeekOrigin.Begin);
-						// 中で更にメモリ読み込みし直していて無駄なので、Streamを使うのは止めたいところ
-						this.texture = Texture.FromStream(device, stream, n幅, n高さ, 1, usage, format, pool, Filter.Point, Filter.None, 0);
-					}
-				}
-			}
-			catch
-			{
-				this.Dispose();
-				throw new CTextureCreateFailedException(string.Format("テクスチャの生成に失敗しました。\n({0}x{1}, {2})", n幅, n高さ, format));
-			}
+			maketype = MakeType.bitmap;
+			MakeTexture(device, bitmap, format, b黒を透過する, Pool.Managed);
 		}
 
-		/// <summary>
-		/// <para>画像ファイルからテクスチャを生成する。</para>
-		/// <para>利用可能な画像形式は、BMP, JPG, PNG, TGA, DDS, PPM, DIB, HDR, PFM のいずれか。</para>
-		/// <para>テクスチャのサイズは、画像のサイズ以上、かつ、D3D9デバイスで生成可能な最小のサイズに自動的に調節される。
-		/// その際、テクスチャの調節後のサイズにあわせた画像の拡大縮小は行わない。</para>
-		/// <para>その他、ミップマップ数は 1、Usage は None、イメージフィルタは Point、ミップマップフィルタは None になる。</para>
-		/// </summary>
-		/// <param name="device">Direct3D9 デバイス。</param>
-		/// <param name="strファイル名">画像ファイル名。</param>
-		/// <param name="format">テクスチャのフォーマット。</param>
-		/// <param name="b黒を透過する">画像の黒（0xFFFFFFFF）を透過させるなら true。</param>
-		/// <param name="pool">テクスチャの管理方法。</param>
-		/// <exception cref="CTextureCreateFailedException">テクスチャの作成に失敗しました。</exception>
-		public CTexture(Device device, string strファイル名, Format format, bool b黒を透過する, Pool pool)
-			: this()
-		{
-			MakeTexture(device, strファイル名, format, b黒を透過する, pool);
-		}
 		public void MakeTexture(Device device, string strファイル名, Format format, bool b黒を透過する, Pool pool)
 		{
 			if (!File.Exists(strファイル名))     // #27122 2012.1.13 from: ImageInformation では FileNotFound 例外は返ってこないので、ここで自分でチェックする。わかりやすいログのために。
 				throw new FileNotFoundException(string.Format("ファイルが存在しません。\n[{0}]", strファイル名));
 
+			this.filename = Path.GetFileName(strファイル名);
 			Byte[] _txData = File.ReadAllBytes(strファイル名);
 			MakeTexture(device, _txData, format, b黒を透過する, pool);
-		}
-		public CTexture(Device device, byte[] txData, Format format, bool b黒を透過する, Pool pool)
-			: this()
-		{
-			MakeTexture(device, txData, format, b黒を透過する, pool);
 		}
 		public void MakeTexture(Device device, byte[] txData, Format format, bool b黒を透過する, Pool pool)
 		{
@@ -270,6 +170,7 @@ namespace FDK
 				this.texture = Texture.FromMemory(device, txData, this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, format, pool, Filter.Point, Filter.None, colorKey);
 				//Trace.TraceInformation( "CTexture() end:   " );
 				//				}
+				this.bSharpDXTextureDispose完了済み = false;
 			}
 			catch
 			{
@@ -277,12 +178,6 @@ namespace FDK
 				// throw new CTextureCreateFailedException( string.Format( "テクスチャの生成に失敗しました。\n{0}", strファイル名 ) );
 				throw new CTextureCreateFailedException(string.Format("テクスチャの生成に失敗しました。\n"));
 			}
-		}
-
-		public CTexture(Device device, Bitmap bitmap, Format format, bool b黒を透過する, Pool pool)
-			: this()
-		{
-			MakeTexture(device, bitmap, format, b黒を透過する, pool);
 		}
 		public void MakeTexture(Device device, Bitmap bitmap, Format format, bool b黒を透過する, Pool pool)
 		{
@@ -298,6 +193,7 @@ namespace FDK
 					this.szテクスチャサイズ = this.t指定されたサイズを超えない最適なテクスチャサイズを返す(device, this.sz画像サイズ);
 
 					this.texture = Texture.FromMemory(device, ms.GetBuffer(), this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, format, pool, Filter.Point, Filter.None, colorKey);
+					this.bSharpDXTextureDispose完了済み = false;
 				}
 				catch
 				{
@@ -896,11 +792,22 @@ namespace FDK
 				// テクスチャの破棄
 				if (this.texture != null)
 				{
+					this.bSharpDXTextureDispose完了済み = true;
 					this.texture.Dispose();
 					this.texture = null;
 				}
 
 				this.bDispose完了済み = true;
+			}
+		}
+		~CTexture()
+		{
+			// ファイナライザの動作時にtextureのDisposeがされていない場合は、
+			// CTextureのDispose漏れと見做して警告をログ出力する
+			if (!this.bSharpDXTextureDispose完了済み)
+			{
+				Trace.TraceWarning("CTexture: Dispose漏れを検出しました。(Size=({0}, {1}), filename={2}, maketype={3})", sz画像サイズ.Width, sz画像サイズ.Height, filename, maketype.ToString());
+				Texture.ToFile(this.texture, @"D:\Test" + sz画像サイズ.ToString() + this.texture.GetHashCode().ToString() + @".bmp", ImageFileFormat.Bmp);
 			}
 		}
 		//-----------------
@@ -912,7 +819,7 @@ namespace FDK
 		#region [ private ]
 		//-----------------
 		private int _opacity;
-		private bool bDispose完了済み;
+		private bool bDispose完了済み, bSharpDXTextureDispose完了済み;
 		private PositionColoredTexturedVertex[] cvPositionColoredVertexies;
 		protected TransformedColoredTexturedVertex[] cvTransformedColoredVertexies = new TransformedColoredTexturedVertex[]
 		{
@@ -1015,7 +922,12 @@ namespace FDK
 
 			return szサイズ;
 		}
-
+		private enum MakeType
+		{
+			filename,
+			bytearray,
+			bitmap
+		}
 
 		// 2012.3.21 さらなる new の省略作戦
 
@@ -1023,7 +935,8 @@ namespace FDK
 		public OpenTK.Graphics.Color4 color4 = new OpenTK.Graphics.Color4(1f, 1f, 1f, 1f);  // アルファ以外は不変
 		private Color4 cl4 = new Color4(1f, 1f, 1f, 1f);
 		private Matrix matrix = Matrix.Identity;
-															//-----------------
+		private MakeType maketype = MakeType.bytearray;
+		//-----------------
 		#endregion
 	}
 }

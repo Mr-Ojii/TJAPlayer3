@@ -214,25 +214,12 @@ namespace TJAPlayer3
 						TJAPlayer3.Tx.Title_AcBar.t2D描画(TJAPlayer3.app.Device, MENU_XT[this.n現在のカーソル行] - TJAPlayer3.Tx.Title_AcBar.sz画像サイズ.Width / 2, MENU_YT);
 					}
 
-					TJAPlayer3.Tx.Title_Txt[this.n現在のカーソル行] = texttexture[this.n現在のカーソル行 + 3];
-					
-					if (this.n現在のカーソル行 != (int)E戻り値.GAMESTART - 1)
-					{
-						TJAPlayer3.Tx.Title_Txt[0] = texttexture[0];
-					}
-					if (this.n現在のカーソル行 != (int)E戻り値.CONFIG - 1)
-					{
-						TJAPlayer3.Tx.Title_Txt[1] = texttexture[1];
-					}
-					if (this.n現在のカーソル行 != (int)E戻り値.EXIT - 1)
-					{
-						TJAPlayer3.Tx.Title_Txt[2] = texttexture[2];
-					}
-
 					for (int i = 0; i < 3; i++)
 					{
-						TJAPlayer3.Tx.Title_Txt[i].t2D描画(TJAPlayer3.app.Device, MENU_XT[i] - TJAPlayer3.Tx.Title_Txt[i].szテクスチャサイズ.Width / 2, MENU_YT + 30);
-
+						if (i != this.n現在のカーソル行)
+							texttexture[i].t2D描画(TJAPlayer3.app.Device, MENU_XT[i] - texttexture[i].szテクスチャサイズ.Width / 2, MENU_YT + 30);
+						else
+							texttexture[i + 3].t2D描画(TJAPlayer3.app.Device, MENU_XT[i] - texttexture[i + 3].szテクスチャサイズ.Width / 2, MENU_YT + 30);
 					}
 				}
 				else
