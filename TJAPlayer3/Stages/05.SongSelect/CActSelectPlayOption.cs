@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using FDK;
 using System.Runtime.InteropServices;
+using System.Linq;
 
 namespace TJAPlayer3
 {
@@ -196,10 +197,11 @@ namespace TJAPlayer3
 		{
 			this.Font = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 20);
 			lci = new List<CItemBase>[2];
-			lci[0] = MakeListCItemBase(0);
-			lci[1] = MakeListCItemBase(1);
-			NameTexture[0] = MakeItemnameTexture(lci[0]);
-			NameTexture[1] = MakeItemnameTexture(lci[1]);
+			for (int nPlayer = 0; nPlayer < 2; nPlayer++)
+			{
+				lci[nPlayer] = MakeListCItemBase(nPlayer);
+				NameTexture[nPlayer] = MakeItemnameTexture(lci[nPlayer]);
+			}
 			base.On活性化();
 		}
 
@@ -207,6 +209,14 @@ namespace TJAPlayer3
 		{
 			if (this.Font != null)
 				this.Font.Dispose();
+
+			int count = NameTexture[0].Count;
+			for (int index = 0; index < count; index++) 
+				NameTexture[0][index].Dispose();
+			count = NameTexture[1].Count;
+			for (int index = 0; index < count; index++)
+				NameTexture[1][index].Dispose();
+
 			base.On非活性化();
 		}
 		public override void OnManagedリソースの作成()
@@ -392,7 +402,7 @@ namespace TJAPlayer3
 
 		#region [ private ]
 		//-----------------
-		private class ItemTextureList
+		private class ItemTextureList : IDisposable
 		{
 			public CTexture ItemNameTexture;
 			public CTexture[] ItemListTexture;
@@ -401,6 +411,18 @@ namespace TJAPlayer3
 			{
 				this.ItemNameTexture = NameTexture;
 				this.ItemListTexture = ListTexture;
+			}
+
+			public void Dispose() 
+			{
+				
+				this.ItemNameTexture?.Dispose();
+				if (this.ItemListTexture != null)
+				{
+					int count = this.ItemListTexture.Length;
+					for (int index = 0; index < count; index++)
+						ItemListTexture[index]?.Dispose();
+				}
 			}
 		}
 

@@ -1261,7 +1261,7 @@ for (int i = 0; i < 3; i++) {
 			obj.Dispose();
 			obj = null;
 		}
-
+		
 		public static void t安全にDisposeする<T>(ref T[] array) where T : class, IDisposable //2020.08.01 Mr-Ojii twopointzero氏のソースコードをもとに追加
 		{
 			if (array == null)
