@@ -562,9 +562,9 @@ namespace TJAPlayer3
 
 			#endregion
 			#region 終了演出
-			End_Failed_L = new CTexture[2];
-			End_Failed_R = new CTexture[2];
-			for (int i = 0; i < 2; i++)
+			End_Failed_L = new CTexture[4];
+			End_Failed_R = new CTexture[4];
+			for (int i = 0; i < 4; i++)
 			{
 				End_Failed_L[i] = TxC(GAME + END + @"Failed_L_" + i.ToString() + ".png");
 				End_Failed_R[i] = TxC(GAME + END + @"Failed_R_" + i.ToString() + ".png");

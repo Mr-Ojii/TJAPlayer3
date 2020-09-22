@@ -804,10 +804,9 @@ namespace FDK
 		{
 			// ファイナライザの動作時にtextureのDisposeがされていない場合は、
 			// CTextureのDispose漏れと見做して警告をログ出力する
-			if (!this.bSharpDXTextureDispose完了済み)
+			if (!this.bSharpDXTextureDispose完了済み)//DTXManiaより
 			{
 				Trace.TraceWarning("CTexture: Dispose漏れを検出しました。(Size=({0}, {1}), filename={2}, maketype={3})", sz画像サイズ.Width, sz画像サイズ.Height, filename, maketype.ToString());
-				Texture.ToFile(this.texture, @"D:\Test" + sz画像サイズ.ToString() + this.texture.GetHashCode().ToString() + @".bmp", ImageFileFormat.Bmp);
 			}
 		}
 		//-----------------

@@ -176,56 +176,56 @@ namespace TJAPlayer3
                                 #region[ バチお ]
                                 if (this.ct進行メイン.n現在の値 <= 11)
 								{
-									if (TJAPlayer3.Tx.End_Clear_L[1] != null)
+									if (TJAPlayer3.Tx.End_Failed_L[1] != null)
 									{
-										TJAPlayer3.Tx.End_Clear_L[1].t2D描画(TJAPlayer3.app.Device, 697, y[i] - 30);
-										TJAPlayer3.Tx.End_Clear_L[1].Opacity = (int)(11.0 / this.ct進行メイン.n現在の値) * 255;
+										TJAPlayer3.Tx.End_Failed_L[1].t2D描画(TJAPlayer3.app.Device, 697, y[i] - 30);
+										TJAPlayer3.Tx.End_Failed_L[1].Opacity = (int)(11.0 / this.ct進行メイン.n現在の値) * 255;
 									}
-									if (TJAPlayer3.Tx.End_Clear_R[1] != null)
+									if (TJAPlayer3.Tx.End_Failed_R[1] != null)
 									{
-										TJAPlayer3.Tx.End_Clear_R[1].t2D描画(TJAPlayer3.app.Device, 738, y[i] - 30);
-										TJAPlayer3.Tx.End_Clear_R[1].Opacity = (int)(11.0 / this.ct進行メイン.n現在の値) * 255;
+										TJAPlayer3.Tx.End_Failed_R[1].t2D描画(TJAPlayer3.app.Device, 738, y[i] - 30);
+										TJAPlayer3.Tx.End_Failed_R[1].Opacity = (int)(11.0 / this.ct進行メイン.n現在の値) * 255;
 									}
 								}
 								else if (this.ct進行メイン.n現在の値 <= 25)
 								{
-									if (TJAPlayer3.Tx.End_Clear_L[0] != null)
-										TJAPlayer3.Tx.End_Clear_L[0].t2D描画(TJAPlayer3.app.Device, 697 - (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
-									if (TJAPlayer3.Tx.End_Clear_R[0] != null)
-										TJAPlayer3.Tx.End_Clear_R[0].t2D描画(TJAPlayer3.app.Device, 738 + (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
+									if (TJAPlayer3.Tx.End_Failed_L[0] != null)
+										TJAPlayer3.Tx.End_Failed_L[0].t2D描画(TJAPlayer3.app.Device, 697 - (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
+									if (TJAPlayer3.Tx.End_Failed_R[0] != null)
+										TJAPlayer3.Tx.End_Failed_R[0].t2D描画(TJAPlayer3.app.Device, 738 + (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
 								}
 								else if (this.ct進行メイン.n現在の値 <= 35)
 								{
 									int ydiff = (int)(Math.Sin((this.ct進行メイン.n現在の値 - 25) / 20.0 * Math.PI) * 100.0);
-									if (TJAPlayer3.Tx.End_Failed_L[0] != null)
+									if (TJAPlayer3.Tx.End_Failed_L[2] != null)
 									{
-										TJAPlayer3.Tx.End_Failed_L[0].fZ軸中心回転 = (float)(((this.ct進行メイン.n現在の値 - 25) / 20.0 * Math.PI / 2.0));
-										TJAPlayer3.Tx.End_Failed_L[0].t2D描画(TJAPlayer3.app.Device, 697 - (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - ydiff - 30);
+										TJAPlayer3.Tx.End_Failed_L[2].fZ軸中心回転 = (float)(((this.ct進行メイン.n現在の値 - 25) / 20.0 * Math.PI / 2.0));
+										TJAPlayer3.Tx.End_Failed_L[2].t2D描画(TJAPlayer3.app.Device, 697 - (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - ydiff - 30);
 									}
 									if (TJAPlayer3.Tx.End_Failed_R[0] != null)
 									{
-										TJAPlayer3.Tx.End_Failed_R[0].fZ軸中心回転 = (float)-(((this.ct進行メイン.n現在の値 - 25) / 20.0 * Math.PI / 2.0));
-										TJAPlayer3.Tx.End_Failed_R[0].t2D描画(TJAPlayer3.app.Device, 738 + (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - ydiff - 30);
+										TJAPlayer3.Tx.End_Failed_R[2].fZ軸中心回転 = (float)-(((this.ct進行メイン.n現在の値 - 25) / 20.0 * Math.PI / 2.0));
+										TJAPlayer3.Tx.End_Failed_R[2].t2D描画(TJAPlayer3.app.Device, 738 + (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - ydiff - 30);
 									}
 								}
 								else if (this.ct進行メイン.n現在の値 <= 43)
 								{
 									int ydiff = (int)(Math.Sin((this.ct進行メイン.n現在の値 - 25) / 20.0 * Math.PI) * 100.0);
-									if (TJAPlayer3.Tx.End_Failed_L[0] != null)
+									if (TJAPlayer3.Tx.End_Failed_L[2] != null)
 									{
-										TJAPlayer3.Tx.End_Failed_L[0].fZ軸中心回転 = (float)(Math.PI / 2.0);
-										TJAPlayer3.Tx.End_Failed_L[0].t2D描画(TJAPlayer3.app.Device, 467, y[i] - ydiff - 30);
+										TJAPlayer3.Tx.End_Failed_L[2].fZ軸中心回転 = (float)(Math.PI / 2.0);
+										TJAPlayer3.Tx.End_Failed_L[2].t2D描画(TJAPlayer3.app.Device, 467, y[i] - ydiff - 30);
 									}
-									if (TJAPlayer3.Tx.End_Failed_R[0] != null)
+									if (TJAPlayer3.Tx.End_Failed_R[2] != null)
 									{
-										TJAPlayer3.Tx.End_Failed_R[0].fZ軸中心回転 = (float)-(Math.PI / 2.0);
-										TJAPlayer3.Tx.End_Failed_R[0].t2D描画(TJAPlayer3.app.Device, 968, y[i] - ydiff - 30);
+										TJAPlayer3.Tx.End_Failed_R[2].fZ軸中心回転 = (float)-(Math.PI / 2.0);
+										TJAPlayer3.Tx.End_Failed_R[2].t2D描画(TJAPlayer3.app.Device, 968, y[i] - ydiff - 30);
 									}
 								}
 								else 
 								{
-									TJAPlayer3.Tx.End_Failed_L[1].t2D描画(TJAPlayer3.app.Device, 467, y[i] - 30);
-									TJAPlayer3.Tx.End_Failed_R[1].t2D描画(TJAPlayer3.app.Device, 968, y[i] - 30);
+									TJAPlayer3.Tx.End_Failed_L[3].t2D描画(TJAPlayer3.app.Device, 467, y[i] - 30);
+									TJAPlayer3.Tx.End_Failed_R[3].t2D描画(TJAPlayer3.app.Device, 968, y[i] - 30);
 								}
 								#endregion
 								#region[ Impact ]
