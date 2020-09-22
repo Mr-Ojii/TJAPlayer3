@@ -34,12 +34,12 @@ namespace TJAPlayer3
 			// フェードアウトの開始タイミングは、総再生時間 - フェードアウト時間。
 			var balloonBrokePtn = TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Broke;
 			var balloonMissPtn = TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss;
-			CharaAction_Balloon_FadeOut = new Animations.FadeOut[2];
+			CharaAction_Balloon_FadeOut = new CCounter[2];
 			for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++)
 			{
 				var tick = TJAPlayer3.Skin.Game_Chara_Balloon_Timer[nPlayer];
 				CharaAction_Balloon_FadeOut_StartMs[nPlayer] = new int[2];
-				CharaAction_Balloon_FadeOut[nPlayer] = new Animations.FadeOut(TJAPlayer3.Skin.Game_Chara_Balloon_FadeOut[nPlayer]);
+				CharaAction_Balloon_FadeOut[nPlayer] = new CCounter();
 				CharaAction_Balloon_FadeOut_StartMs[nPlayer][0] = (balloonBrokePtn[nPlayer] * tick) - TJAPlayer3.Skin.Game_Chara_Balloon_FadeOut[nPlayer];
 				CharaAction_Balloon_FadeOut_StartMs[nPlayer][1] = (balloonMissPtn[nPlayer] * tick) - TJAPlayer3.Skin.Game_Chara_Balloon_FadeOut[nPlayer];
 				if (balloonBrokePtn[nPlayer] > 1) CharaAction_Balloon_FadeOut_StartMs[nPlayer][0] /= balloonBrokePtn[nPlayer] - 1;
@@ -53,7 +53,7 @@ namespace TJAPlayer3
 		public override void On非活性化()
 		{
 			CharaAction_Balloon_FadeOut = null;
-	   
+
 			base.On非活性化();
 		}
 
@@ -286,7 +286,7 @@ namespace TJAPlayer3
 				if (TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Broke[nPlayer] != 0) CharaAction_Balloon_Broke[nPlayer]?.t進行();
 				CharaAction_Balloon_Delay[nPlayer]?.t進行();
 				if (TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss[nPlayer] != 0) CharaAction_Balloon_Miss[nPlayer]?.t進行();
-				CharaAction_Balloon_FadeOut[nPlayer].Tick();
+				CharaAction_Balloon_FadeOut[nPlayer].t進行();
 
 				//CharaAction_Balloon_Delay?.t進行();
 				//CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, CharaAction_Balloon_Broke?.b進行中.ToString());
@@ -295,12 +295,17 @@ namespace TJAPlayer3
 
 				if (bマイどんアクション中[nPlayer])
 				{
-					var nowOpacity = CharaAction_Balloon_FadeOut[nPlayer].Counter.b進行中 ? (int)CharaAction_Balloon_FadeOut[nPlayer].GetAnimation() : 255;
+					int nowOpacity;
+					if (CharaAction_Balloon_FadeOut[nPlayer].b進行中)
+						nowOpacity = ((TJAPlayer3.Skin.Game_Chara_Balloon_FadeOut[nPlayer] - CharaAction_Balloon_FadeOut[nPlayer].n現在の値) * 255 / TJAPlayer3.Skin.Game_Chara_Balloon_FadeOut[nPlayer]);
+					else
+						nowOpacity = 255;
+
 					if (CharaAction_Balloon_Broke[nPlayer]?.b進行中 == true && TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Broke[nPlayer] != 0)
 					{
-						if (CharaAction_Balloon_FadeOut[nPlayer].Counter.b停止中 && CharaAction_Balloon_Broke[nPlayer].n現在の値 > CharaAction_Balloon_FadeOut_StartMs[nPlayer][0])
+						if (CharaAction_Balloon_FadeOut[nPlayer].b停止中 && CharaAction_Balloon_Broke[nPlayer].n現在の値 > CharaAction_Balloon_FadeOut_StartMs[nPlayer][0])
 						{
-							CharaAction_Balloon_FadeOut[nPlayer].Start();
+							CharaAction_Balloon_FadeOut[nPlayer].t開始(0, TJAPlayer3.Skin.Game_Chara_Balloon_FadeOut[nPlayer] - 1, 1, TJAPlayer3.Timer);
 						}
 						if (TJAPlayer3.Tx.Chara_Balloon_Broke[nPlayer][CharaAction_Balloon_Broke[nPlayer].n現在の値] != null)
 						{
@@ -317,9 +322,9 @@ namespace TJAPlayer3
 					}
 					else if (CharaAction_Balloon_Miss[nPlayer]?.b進行中 == true && TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss[nPlayer] != 0)
 					{
-						if (CharaAction_Balloon_FadeOut[nPlayer].Counter.b停止中 && CharaAction_Balloon_Miss[nPlayer].n現在の値 > CharaAction_Balloon_FadeOut_StartMs[nPlayer][1])
+						if (CharaAction_Balloon_FadeOut[nPlayer].b停止中 && CharaAction_Balloon_Miss[nPlayer].n現在の値 > CharaAction_Balloon_FadeOut_StartMs[nPlayer][1])
 						{
-							CharaAction_Balloon_FadeOut[nPlayer].Start();
+							CharaAction_Balloon_FadeOut[nPlayer].t開始(0, TJAPlayer3.Skin.Game_Chara_Balloon_FadeOut[nPlayer] - 1, 1, TJAPlayer3.Timer);
 						}
 						if (TJAPlayer3.Tx.Chara_Balloon_Miss[nPlayer][CharaAction_Balloon_Miss[nPlayer].n現在の値] != null)
 						{
@@ -386,7 +391,7 @@ namespace TJAPlayer3
 		public CCounter[] ctChara_GoGo;
 		public CCounter[] ctChara_Clear;
 
-		public Animations.FadeOut[] CharaAction_Balloon_FadeOut;
+		public CCounter[] CharaAction_Balloon_FadeOut;
 		private readonly int[][] CharaAction_Balloon_FadeOut_StartMs = new int[2][];
 
 		public bool[] bマイどんアクション中;

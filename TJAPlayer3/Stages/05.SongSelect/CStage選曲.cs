@@ -1273,13 +1273,6 @@ namespace TJAPlayer3
   //      private CTexture tx難易度名;
   //      private CTexture tx下部テキスト;
 
-		private struct STCommandTime		// #24063 2011.1.16 yyagi コマンド入力時刻の記録用
-		{
-			public E楽器パート eInst;		// 使用楽器
-			public EパッドFlag ePad;		// 押されたコマンド(同時押しはOR演算で列挙する)
-			public long time;				// コマンド入力時刻
-		}
-
 		private void tカーソルを下へ移動する()
 		{
 			TJAPlayer3.Skin.soundカーソル移動音.t再生する();

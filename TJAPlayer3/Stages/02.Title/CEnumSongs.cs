@@ -55,17 +55,6 @@ namespace TJAPlayer3
 			this.state = DTXEnumState.CompletelyDone;
 			this.Songs管理 = null;						// GCはOSに任せる
 		}
-		public bool IsSlowdown							// #PREMOVIE再生中は検索負荷を落とす
-		{
-			get
-			{
-				return this.Songs管理.bIsSlowdown;
-			}
-			set
-			{
-				this.Songs管理.bIsSlowdown = value;
-			}
-		}
 
 		public void ChangeEnumeratePriority( ThreadPriority tp )
 		{

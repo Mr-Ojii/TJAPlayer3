@@ -21,13 +21,12 @@ namespace TJAPlayer3
 		{
 			this.ct連打枠カウンター = new CCounter[ 4 ];
 			this.ct連打アニメ = new CCounter[4];
-			FadeOut = new Animations.FadeOut[4];
+			FadeOutCounter = new CCounter[4];
 			for ( int i = 0; i < 4; i++ )
 			{
 				this.ct連打枠カウンター[ i ] = new CCounter();
 				this.ct連打アニメ[i] = new CCounter();
-				// 後から変えれるようにする。大体10フレーム分。
-				FadeOut[i] = new Animations.FadeOut(167);
+				FadeOutCounter[i] = new CCounter();
 			}
 			this.b表示 = new bool[]{ false, false, false, false };
 			this.n連打数 = new int[ 4 ];
@@ -41,7 +40,7 @@ namespace TJAPlayer3
 			{
 				ct連打枠カウンター[i] = null;
 				ct連打アニメ[i] = null;
-				FadeOut[i] = null;
+				FadeOutCounter[i] = null;
 			}
 			base.On非活性化();
 		}
@@ -65,21 +64,23 @@ namespace TJAPlayer3
 		{
 			this.ct連打枠カウンター[ player ].t進行();
 			this.ct連打アニメ[player].t進行();
-			FadeOut[player].Tick();
+			FadeOutCounter[player].t進行();
 			//1PY:-3 2PY:514
 			//仮置き
 			int[] nRollBalloon = new int[] { -3, 514, 0, 0 };
 			int[] nRollNumber = new int[] { 48, 559, 0, 0 };
+			const int fadenum = 167;
 			for( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
 			{
 				//CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.ct連打枠カウンター[player].n現在の値.ToString());
 				if ( this.ct連打枠カウンター[ player ].b終了値に達してない)
 				{
-					if (ct連打枠カウンター[player].n現在の値 > 1333 && !FadeOut[player].Counter.b進行中)
+					if (ct連打枠カウンター[player].n現在の値 > 1333 && !FadeOutCounter[player].b進行中)
 					{
-						FadeOut[player].Start();
+						// 後から変えれるようにする。大体10フレーム分。
+						FadeOutCounter[player].t開始(0, fadenum - 1, 1, TJAPlayer3.Timer);
 					}
-					var opacity = (int)FadeOut[player].GetAnimation();
+					var opacity = (fadenum - FadeOutCounter[player].n現在の値) * 255 / fadenum;
 					TJAPlayer3.Tx.Balloon_Roll.Opacity = opacity;
 					TJAPlayer3.Tx.Balloon_Number_Roll.Opacity = opacity;
 
@@ -95,8 +96,8 @@ namespace TJAPlayer3
 		public void t枠表示時間延長( int player )
 		{
 			this.ct連打枠カウンター[ player ] = new CCounter( 0, 1500, 1, TJAPlayer3.Timer );
-			FadeOut[player].Counter.n現在の値 = 0;
-			FadeOut[player].Counter.t停止();
+			FadeOutCounter[player].n現在の値 = 0;
+			FadeOutCounter[player].t停止();
 		}
 
 
@@ -117,7 +118,7 @@ namespace TJAPlayer3
 			0.055f,
 			0.000f
 		};
-		private Animations.FadeOut[] FadeOut;
+		private CCounter[] FadeOutCounter;
 
 		private void t文字表示( int x, int y, int n連打, int nPlayer)
 		{

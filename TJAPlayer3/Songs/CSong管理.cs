@@ -53,11 +53,6 @@ namespace TJAPlayer3
 			get;
 			set;
 		}
-		public bool bIsSlowdown                             // #PREMOVIE再生時に曲検索を遅くする
-		{
-			get;
-			set;
-		}
 		[NonSerialized]
 		private AutoResetEvent autoReset;
 		public AutoResetEvent AutoReset
@@ -72,8 +67,6 @@ namespace TJAPlayer3
 			}
 		}
 
-		private int searchCount;                            // #PREMOVIE中は検索n回実行したら少しスリープする
-
 		// コンストラクタ
 
 		public CSongs管理()
@@ -84,7 +77,6 @@ namespace TJAPlayer3
 			this.n検索されたスコア数 = 0;
 			this.bIsSuspending = false;                     // #27060
 			this.autoReset = new AutoResetEvent(true);  // #27060
-			this.searchCount = 0;
 		}
 
 
@@ -1524,11 +1516,6 @@ Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
 			if (this.bIsSuspending)     // #27060 中断要求があったら、解除要求が来るまで待機
 			{
 				autoReset.WaitOne();
-			}
-			if (this.bIsSlowdown && ++this.searchCount > 10)            // #27060 #PREMOVIE再生中は検索負荷を下げる
-			{
-				Thread.Sleep(100);
-				this.searchCount = 0;
 			}
 		}
 
