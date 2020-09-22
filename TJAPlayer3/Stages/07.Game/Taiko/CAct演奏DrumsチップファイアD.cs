@@ -24,85 +24,6 @@ namespace TJAPlayer3
 		
 		// メソッド
 
-		/// <summary>
-		/// 大音符の花火エフェクト
-		/// </summary>
-		/// <param name="nLane"></param>
-		public virtual void Start( int nLane, int nPlayer )
-		{
-			nY座標P2 = new int[] { 548, 612, 670, 712, 730, 780, 725, 690, 640 };
-			if( TJAPlayer3.Tx.Effects_Hit_FireWorks != null && TJAPlayer3.Tx.Effects_Hit_FireWorks != null )
-			{
-				for (int i = 0; i < 9; i++)
-				{
-					for (int j = 0; j < 45; j++)
-					{
-						if (!this.st大音符花火[j].b使用中)
-						{
-							this.st大音符花火[j].b使用中 = true;
-							this.st大音符花火[j].ct進行 = new CCounter(0, 40, 18, TJAPlayer3.Timer); // カウンタ
-							this.st大音符花火[j].fX = this.nX座標[ i ]; //X座標
-							this.st大音符花火[j].fY = nPlayer == 0 ? this.nY座標[ i ] : this.nY座標P2[ i ];
-
-							switch(nLane)
-							{
-								case 0:
-									this.st大音符花火[j].nColor = 0;
-									break;
-								case 1:
-									this.st大音符花火[j].nColor = 1;
-									break;
-							}
-
-							switch( i )
-							{
-								case 0:
-									this.st大音符花火[ j ].n開始フレーム = 0;
-									this.st大音符花火[ j ].n終了フレーム = 16;
-									break;
-								case 1:
-									this.st大音符花火[ j ].n開始フレーム = 3;
-									this.st大音符花火[ j ].n終了フレーム = 19;
-									break;
-								case 2:
-									this.st大音符花火[ j ].n開始フレーム = 6;
-									this.st大音符花火[ j ].n終了フレーム = 22;
-									break;
-								case 3:
-									this.st大音符花火[ j ].n開始フレーム = 9;
-									this.st大音符花火[ j ].n終了フレーム = 25;
-									break;
-								case 4:
-									this.st大音符花火[ j ].n開始フレーム = 12;
-									this.st大音符花火[ j ].n終了フレーム = 28;
-									break;
-								case 5:
-									this.st大音符花火[ j ].n開始フレーム = 15;
-									this.st大音符花火[ j ].n終了フレーム = 31;
-									break;
-								case 6:
-									this.st大音符花火[ j ].n開始フレーム = 18;
-									this.st大音符花火[ j ].n終了フレーム = 34;
-									break;
-								case 7:
-									this.st大音符花火[ j ].n開始フレーム = 21;
-									this.st大音符花火[ j ].n終了フレーム = 37;
-									break;
-								case 8:
-									this.st大音符花火[ j ].n開始フレーム = 24;
-									this.st大音符花火[ j ].n終了フレーム = 40;
-									break;
-							}
-
-
-
-							break;
-						}
-					}
-				}
-			}
-		}
-
 		public virtual void Start( int nLane, E判定 judge, int player )
 		{
 			for (int j = 0; j < 3 * 4; j++)
@@ -135,49 +56,6 @@ namespace TJAPlayer3
 					break;
 				}
 			}
-		}
-		public void Start紙吹雪()
-		{
-			return;
-			/*
-			if (this.tx紙吹雪 != null)
-			{
-				for (int i = 0; i < 256; i++)
-				{
-					for (int j = 0; j < 16; j++)
-					{
-						if (!this.st紙吹雪[j].b使用中)
-						{
-							this.st紙吹雪[j].b使用中 = true;
-							int n回転初期値 = CDTXMania.Random.Next(360);
-							int nX拡散方向 = CDTXMania.Random.Next(10);
-							int n拡散の大きさ = CDTXMania.Random.Next( 50, 1400 );
-							int n重力加速 = CDTXMania.Random.Next( 6, 100 );
-							double num7 = ( n拡散の大きさ / 1000.0 ) + (1 / 100.0); // 拡散の大きさ
-							//double num7 = 0.9 + ( ( (double) CDTXMania.Random.Next( 40 ) ) / 100.0 );
-							this.st紙吹雪[ j ].nGraphic = CDTXMania.Random.Next(3);
-							this.st紙吹雪[ j ].nColor = CDTXMania.Random.Next(3);
-							this.st紙吹雪[j].ct進行 = new CCounter(0, 500, 5, CDTXMania.Timer); // カウンタ
-							this.st紙吹雪[j].fX = 1000; //X座標(仮)
-
-							this.st紙吹雪[j].fY = ((( 470 + (((float)Math.Sin((double)this.st紙吹雪[j].f半径)) * this.st紙吹雪[j].f半径)) )); //Y座標
-							//this.st紙吹雪[j].f加速度X = (float)(num7 * Math.Cos((Math.PI * 2 * n回転初期値) / 360.0));
-							//this.st紙吹雪[ j ].f加速度X = (float)( ( num7 * Math.Cos((Math.PI * 2 * n回転初期値) / 360.0)) > 0.005 ? Math.Abs( num7 * Math.Cos((Math.PI * 2 * n回転初期値) / 360.0)) : num7 * Math.Cos((Math.PI * 2 * n回転初期値) / 360.0) );
-							this.st紙吹雪[ j ].f加速度X = (float)Math.Abs(num7 * Math.Cos((Math.PI * 2 * n回転初期値) / 360.0)) - ( nX拡散方向 / 20.0f );
-							this.st紙吹雪[j].f加速度Y = (float)-Math.Abs( num7 * (Math.Sin((Math.PI * 2 * n回転初期値) / 360.0))) - 0.05f;
-							//this.st紙吹雪[j].f加速度Y = (float)( num7 * (Math.Sin((Math.PI * 2 * n回転初期値) / 360.0))) - 0.05f;
-							this.st紙吹雪[j].f加速度の加速度X = 1.009f + (float)(num7 / 1000);
-							this.st紙吹雪[j].f加速度の加速度Y = 0.989f + (float)(num7 / 1000);
-							//this.st紙吹雪[j].f重力加速度 = 0.0100f;
-							this.st紙吹雪[j].f重力加速度 = n重力加速 / 10000.0f;
-							this.st紙吹雪[j].f半径 = (float)(0.5 + (((double)CDTXMania.Random.Next(40)) / 100.0));
-
-							
-							break;
-						}
-					}
-				}
-			}  */
 		}
 
 		// CActivity 実装

@@ -14,16 +14,6 @@ namespace TJAPlayer3
 			base.b活性化してない = true;
 		}
 
-		public void tFadeIn(int player)
-		{
-			this.ct上背景クリアインタイマー[player] = new CCounter( 0, 100, 2, TJAPlayer3.Timer );
-		}
-
-		//public void tFadeOut(int player)
-		//{
-		//    this.ct上背景フェードタイマー[player] = new CCounter( 0, 100, 6, CDTXMania.Timer );
-		//}
-
 		public void ClearIn(int player)
 		{
 			this.ct上背景クリアインタイマー[player] = new CCounter(0, 100, 2, TJAPlayer3.Timer);
@@ -62,12 +52,6 @@ namespace TJAPlayer3
 
 		public override void OnManagedリソースの作成()
 		{
-			//this.tx上背景メイン = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Upper_BG\01\bg.png" ) );
-			//this.tx上背景クリアメイン = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Upper_BG\01\bg_clear.png" ) );
-			//this.tx下背景メイン = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer_BG\01\bg.png" ) );
-			//this.tx下背景クリアメイン = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer_BG\01\bg_clear.png" ) );
-			//this.tx下背景クリアサブ1 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Dancer_BG\01\bg_clear_01.png" ) );
-			//this.ct上背景スクロール用タイマー = new CCounter( 1, 328, 40, CDTXMania.Timer );
 			this.ct上背景スクロール用タイマー = new CCounter[2];
 			this.ct上背景上下用タイマー = new CCounter[2];
 			this.ct上背景桜用タイマー = new CCounter[2];
@@ -112,12 +96,6 @@ namespace TJAPlayer3
 
 		public override void OnManagedリソースの解放()
 		{
-			//CDTXMania.t安全にDisposeする( ref this.tx上背景メイン );
-			//CDTXMania.t安全にDisposeする( ref this.tx上背景クリアメイン );
-			//CDTXMania.t安全にDisposeする( ref this.tx下背景メイン );
-			//CDTXMania.t安全にDisposeする( ref this.tx下背景クリアメイン );
-			//CDTXMania.t安全にDisposeする( ref this.tx下背景クリアサブ1 );
-			//Trace.TraceInformation("CActDrums背景 リソースの開放");
 			base.OnManagedリソースの解放();
 		}
 

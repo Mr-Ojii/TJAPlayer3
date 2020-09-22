@@ -219,11 +219,6 @@ namespace TJAPlayer3
 		{
 			public char ch;
 			public Point pt;
-			public ST文字位置( char ch, Point pt )
-			{
-				this.ch = ch;
-				this.pt = pt;
-			}
 		}
 
 		private void t文字表示( int x, int y, string str )

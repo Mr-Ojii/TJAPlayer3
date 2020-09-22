@@ -495,30 +495,6 @@ namespace TJAPlayer3
 
 		// メソッド
 
-		public int n文字列長dot( string str )
-		{
-			return this.n文字列長dot( str, 1f );
-		}
-		public int n文字列長dot( string str, float fScale )
-		{
-			if( string.IsNullOrEmpty( str ) )
-			{
-				return 0;
-			}
-			int num = 0;
-			foreach( char ch in str )
-			{
-				foreach( ST文字領域 st文字領域 in this.st文字領域 )
-				{
-					if( st文字領域.ch == ch )
-					{
-						num += (int) ( ( st文字領域.rc.Width - 5 ) * fScale );
-						break;
-					}
-				}
-			}
-			return num;
-		}
 		public void t文字列描画( int x, int y, string str )
 		{
 			this.t文字列描画( x, y, str, false, 1f );
@@ -558,27 +534,13 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//this.tx通常文字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Screen font dfp.png" ), false );
-				//this.tx強調文字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Screen font dfp em.png" ), false );
 				base.OnManagedリソースの作成();
 			}
 		}
 		public override void OnManagedリソースの解放()
 		{
-			//if( !base.b活性化してない )
-			//{
-			//	if( this.tx強調文字 != null )
-			//	{
-			//		this.tx強調文字.Dispose();
-			//		this.tx強調文字 = null;
-			//	}
-			//	if( this.tx通常文字 != null )
-			//	{
-			//		this.tx通常文字.Dispose();
-			//		this.tx通常文字 = null;
-			//	}
-				base.OnManagedリソースの解放();
-			//}
+			base.OnManagedリソースの解放();
+		
 		}
 		
 

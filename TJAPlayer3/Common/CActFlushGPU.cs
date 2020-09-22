@@ -28,7 +28,6 @@ namespace TJAPlayer3
 				catch ( Exception e )
 				{
 					Trace.TraceError( e.ToString() );
-					Trace.TraceError( "例外が発生しましたが処理を継続します。 (e5c7cd0b-f7bb-4bf1-9ad9-db27b43ff63d)" );
 				}
 				base.OnManagedリソースの作成();
 			}
@@ -44,8 +43,7 @@ namespace TJAPlayer3
 			if ( !base.b活性化してない )
 			{
 				IDirect3DQuery9.Issue( Issue.End );
-				DWM.Flush();
-				IDirect3DQuery9.GetData<int>(out int _,true );	// flush GPU queue
+				IDirect3DQuery9.GetData<int>(out _,true );	// flush GPU queue
 			}
 			return 0;
 		}

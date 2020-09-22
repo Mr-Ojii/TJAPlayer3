@@ -297,10 +297,6 @@ namespace TJAPlayer3
 
 		// メソッド
 
-		protected virtual void tコンボ表示_ドラム( int nCombo値, int nジャンプインデックス )
-		{
-		}
-
 		protected virtual void tコンボ表示_太鼓( int nCombo値, int nジャンプインデックス, int nPlayer )
 		{
 			//テスト用コンボ数
@@ -526,14 +522,6 @@ namespace TJAPlayer3
 			#endregion
 		}
 
-		protected virtual void tコンボ表示_ギター( int nCombo値, int nジャンプインデックス )
-		{
-		}
-		protected virtual void tコンボ表示_ベース( int nCombo値, int nジャンプインデックス )
-		{
-		}
-
-
 		// CActivity 実装
 
 		public override void On活性化()
@@ -673,14 +661,6 @@ namespace TJAPlayer3
 							case 0:
 							case 1:
 								this.tコンボ表示_太鼓( this.status[ i ].nCOMBO値, this.status[ i ].nジャンプインデックス値, i );
-								break;
-
-							case 2:
-								this.tコンボ表示_ベース( this.status[ i ].nCOMBO値, this.status[ i ].nジャンプインデックス値 );
-								break;
-
-							case 3:
-								this.tコンボ表示_ドラム( this.status[ i ].nCOMBO値, this.status[ i ].nジャンプインデックス値 );
 								break;
 						}
 						break;

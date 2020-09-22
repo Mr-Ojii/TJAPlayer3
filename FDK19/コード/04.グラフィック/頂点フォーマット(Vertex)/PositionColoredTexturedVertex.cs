@@ -15,26 +15,12 @@ namespace FDK
 		public int		Color;
 		public Vector2	TextureCoordinates;
 
-		public static int SizeInBytes
-		{
-			get
-			{
-				return Marshal.SizeOf( typeof( PositionColoredTexturedVertex ) );
-			}
-		}
 		public static VertexFormat Format
 		{
 			get
 			{
 				return ( VertexFormat.Texture1 | VertexFormat.Diffuse | VertexFormat.Position );
 			}
-		}
-		public PositionColoredTexturedVertex( Vector3 position, int color, Vector2 textureCoordinates )
-		{
-			this = new PositionColoredTexturedVertex();
-			this.Position = position;
-			this.Color = color;
-			this.TextureCoordinates = textureCoordinates;
 		}
 
 		public static bool operator ==( PositionColoredTexturedVertex left, PositionColoredTexturedVertex right )

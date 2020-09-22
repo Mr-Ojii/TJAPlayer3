@@ -132,36 +132,9 @@ namespace FDK
 
 			CreateDevice(validSettings);
 		}
-		public void ChangeDevice(bool windowed, int desiredWidth, int desiredHeight)
-		{
-			DeviceSettings desiredSettings = new DeviceSettings();
-			desiredSettings.Windowed = windowed;
-			desiredSettings.BackBufferWidth = desiredWidth;
-			desiredSettings.BackBufferHeight = desiredHeight;
-
-			ChangeDevice(desiredSettings, null);
-		}
 		public void ChangeDevice(DeviceSettings settings)
 		{
 			ChangeDevice(settings, null);
-		}
-
-		public void ToggleFullScreen()
-		{
-			if (!EnsureDevice())
-				throw new InvalidOperationException("No valid device.");
-
-			DeviceSettings newSettings = CurrentSettings.Clone();
-
-			newSettings.Windowed = !newSettings.Windowed;
-
-			int width = newSettings.Windowed ? windowedWindowWidth : fullscreenWindowWidth;
-			int height = newSettings.Windowed ? windowedWindowHeight : fullscreenWindowHeight;
-
-			newSettings.BackBufferWidth = width;
-			newSettings.BackBufferHeight = height;
-
-			ChangeDevice(newSettings);
 		}
 		public bool EnsureDevice()
 		{

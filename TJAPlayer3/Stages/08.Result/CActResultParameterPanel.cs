@@ -61,53 +61,6 @@ namespace TJAPlayer3
 			st文字位置Array[ 10 ] = st文字位置11;
 			this.st小文字位置 = st文字位置Array;
 
-			ST文字位置[] st文字位置Array2 = new ST文字位置[ 11 ];
-			ST文字位置 st文字位置12 = new ST文字位置();
-			st文字位置12.ch = '0';
-			st文字位置12.pt = new Point( 0, 0 );
-			st文字位置Array2[ 0 ] = st文字位置12;
-			ST文字位置 st文字位置13 = new ST文字位置();
-			st文字位置13.ch = '1';
-			st文字位置13.pt = new Point( 32, 0 );
-			st文字位置Array2[ 1 ] = st文字位置13;
-			ST文字位置 st文字位置14 = new ST文字位置();
-			st文字位置14.ch = '2';
-			st文字位置14.pt = new Point( 64, 0 );
-			st文字位置Array2[ 2 ] = st文字位置14;
-			ST文字位置 st文字位置15 = new ST文字位置();
-			st文字位置15.ch = '3';
-			st文字位置15.pt = new Point( 96, 0 );
-			st文字位置Array2[ 3 ] = st文字位置15;
-			ST文字位置 st文字位置16 = new ST文字位置();
-			st文字位置16.ch = '4';
-			st文字位置16.pt = new Point( 128, 0 );
-			st文字位置Array2[ 4 ] = st文字位置16;
-			ST文字位置 st文字位置17 = new ST文字位置();
-			st文字位置17.ch = '5';
-			st文字位置17.pt = new Point( 160, 0 );
-			st文字位置Array2[ 5 ] = st文字位置17;
-			ST文字位置 st文字位置18 = new ST文字位置();
-			st文字位置18.ch = '6';
-			st文字位置18.pt = new Point( 192, 0 );
-			st文字位置Array2[ 6 ] = st文字位置18;
-			ST文字位置 st文字位置19 = new ST文字位置();
-			st文字位置19.ch = '7';
-			st文字位置19.pt = new Point( 224, 0 );
-			st文字位置Array2[ 7 ] = st文字位置19;
-			ST文字位置 st文字位置20 = new ST文字位置();
-			st文字位置20.ch = '8';
-			st文字位置20.pt = new Point( 256, 0 );
-			st文字位置Array2[ 8 ] = st文字位置20;
-			ST文字位置 st文字位置21 = new ST文字位置();
-			st文字位置21.ch = '9';
-			st文字位置21.pt = new Point( 288, 0 );
-			st文字位置Array2[ 9 ] = st文字位置21;
-			ST文字位置 st文字位置22 = new ST文字位置();
-			st文字位置22.ch = '%';
-			st文字位置22.pt = new Point( 0x37, 0 );
-			st文字位置Array2[ 10 ] = st文字位置22;
-			this.st大文字位置 = st文字位置Array2;
-
 			ST文字位置[] stScore文字位置Array = new ST文字位置[10];
 			ST文字位置 stScore文字位置 = new ST文字位置();
 			stScore文字位置.ch = '0';
@@ -427,10 +380,8 @@ namespace TJAPlayer3
 		}
 
 		private CCounter ct表示用;
-		private readonly Point[] ptFullCombo位置;
 		private CSound sdDTXで指定されたフルコンボ音;
 		private readonly ST文字位置[] st小文字位置;
-		private readonly ST文字位置[] st大文字位置;
 		private ST文字位置[] stScoreFont;
 
 		private CTexture Dan_Plate;
@@ -459,36 +410,8 @@ namespace TJAPlayer3
 				x += 22;
 			}
 		}
-		private void t大文字表示( int x, int y, string str )
-		{
-			this.t大文字表示( x, y, str, false );
-		}
-		private void t大文字表示( int x, int y, string str, bool b強調 )
-		{
-			foreach( char ch in str )
-			{
-				for( int i = 0; i < this.st大文字位置.Length; i++ )
-				{
-					if( this.st大文字位置[ i ].ch == ch )
-					{
-						Rectangle rectangle = new Rectangle( this.st大文字位置[ i ].pt.X, this.st大文字位置[ i ].pt.Y, 11, 0x10 );
-						if( ch == '.' )
-						{
-							rectangle.Width -= 2;
-							rectangle.Height -= 2;
-						}
-						if(TJAPlayer3.Tx.Result_Number != null )
-						{
-							TJAPlayer3.Tx.Result_Number.t2D描画( TJAPlayer3.app.Device, x, y, rectangle );
-						}
-						break;
-					}
-				}
-				x += 8;
-			}
-		}
 
-		protected void tスコア文字表示(int x, int y, string str)
+		private void tスコア文字表示(int x, int y, string str)
 		{
 			foreach (char ch in str)
 			{

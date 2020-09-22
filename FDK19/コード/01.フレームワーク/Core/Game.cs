@@ -393,16 +393,6 @@ namespace FDK
 		}
 
 		/// <summary>
-		/// Resets the elapsed time.
-		/// </summary>
-		public void ResetElapsedTime()
-		{
-			forceElapsedTimeToZero = true;
-			updatesSinceRunningSlowly1 = int.MaxValue;
-			updatesSinceRunningSlowly2 = int.MaxValue;
-		}
-
-		/// <summary>
 		/// Allows the game to perform logic processing.
 		/// </summary>
 		/// <param name="gameTime">The time passed since the last update.</param>

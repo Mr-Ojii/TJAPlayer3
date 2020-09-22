@@ -19,15 +19,7 @@ namespace FDK
 		public const uint MIM_LONGERROR = 0x3c6;
 		public const uint MIM_OPEN = 0x3c1;
 		#endregion
-
-		[FlagsAttribute]
-		internal enum ExecutionState : uint
-		{
-			Null = 0,					// 関数が失敗した時の戻り値
-			SystemRequired = 1,			// スタンバイを抑止
-			DisplayRequired = 2,		// 画面OFFを抑止
-			Continuous = 0x80000000,	// 効果を永続させる。ほかオプションと併用する。
-		}
+		
 		//-----------------
 		#endregion
 
@@ -49,8 +41,6 @@ namespace FDK
 		public static extern uint midiInStart(IntPtr hMidiIn);
 		[DllImport("winmm.dll")]
 		public static extern uint midiInStop(IntPtr hMidiIn);
-		[DllImport( "kernel32.dll" )]
-		internal static extern ExecutionState SetThreadExecutionState( ExecutionState esFlags );
 		//-----------------
 		#endregion
 

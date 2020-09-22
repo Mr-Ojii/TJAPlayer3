@@ -350,6 +350,7 @@ namespace FDK
 				device.SetTexture(0, this.texture);
 				device.VertexFormat = TransformedColoredTexturedVertex.Format;
 				device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 0, 2, this.cvTransformedColoredVertexies);
+				
 				//-----------------
 				#endregion
 			}

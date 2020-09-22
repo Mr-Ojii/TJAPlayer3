@@ -84,34 +84,12 @@ namespace TJAPlayer3
 
 		public override void OnManagedリソースの作成()
 		{
-			//this.tx連打枠 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_balloon.png"));
-			//this.tx連打数字 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_RollNumber.png"));
-
-			//this.txキャラクター = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Chara\balloon.png"));
-			//this.txキャラクター_風船終了 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Chara\balloon_break_0.png"));
-
-			//for (int i = 0; i < 6; i++)
-			//{
-			//    this.tx風船枠[i] = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\Chara\balloon_" + i.ToString() + ".png"));
-			//}
-
 			this.ct風船ふきだしアニメ = new CCounter(0, 1, 100, TJAPlayer3.Timer);
 			base.OnManagedリソースの作成();
 		}
 
 		public override void OnManagedリソースの解放()
 		{
-			//CDTXMania.t安全にDisposeする(ref this.tx連打枠);
-			//CDTXMania.t安全にDisposeする(ref this.tx連打数字);
-
-			//CDTXMania.t安全にDisposeする(ref this.txキャラクター);
-			//CDTXMania.t安全にDisposeする(ref this.txキャラクター_風船終了);
-
-			//for (int i = 0; i < 6; i++)
-			//{
-			//    CDTXMania.t安全にDisposeする(ref this.tx風船枠[i]);
-			//}
-
 			base.OnManagedリソースの解放();
 		}
 
@@ -228,11 +206,6 @@ namespace TJAPlayer3
 				}
 				x += (TJAPlayer3.Skin.Game_Balloon_Number_Padding - (n桁数 > 2 ? n桁数 * 2 : 0));
 			}
-		}
-
-		public void tEnd()
-		{
-			this.ct風船終了 = new CCounter(0, 80, 10, CSound管理.rc演奏用タイマ);
 		}
 	}
 }

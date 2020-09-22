@@ -122,11 +122,6 @@ namespace TJAPlayer3
 		}
 
 		/// <summary>
-		/// 
-		/// </summary>
-		public delegate void AsyncDelegate();
-
-		/// <summary>
 		/// 曲検索スレッドの開始
 		/// </summary>
 		public void StartEnumFromDisk()

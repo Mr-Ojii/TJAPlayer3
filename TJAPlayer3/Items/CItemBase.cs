@@ -24,7 +24,6 @@ namespace TJAPlayer3
 		{
 			基本形,
 			ONorOFFトグル,
-			ONorOFFor不定スリーステート,
 			整数,
 			リスト,
 			切替リスト

@@ -38,8 +38,6 @@ namespace TJAPlayer3
 
 				if ( !bDLLnotfound )
 				{
-					DWM.EnableComposition( false );	// Disable AeroGrass temporally
-
 					// BEGIN #23670 2010.11.13 from: キャッチされない例外は放出せずに、ログに詳細を出力する。
 					// BEGIM #24606 2011.03.08 from: DEBUG 時は例外発生箇所を直接デバッグできるようにするため、例外をキャッチしないようにする。
 					//2020.04.15 Mr-Ojii DEBUG 時も例外をキャッチするようにした。

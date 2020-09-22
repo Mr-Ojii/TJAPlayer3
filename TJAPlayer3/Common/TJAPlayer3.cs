@@ -395,18 +395,7 @@ namespace TJAPlayer3
 				foreach (CActivity activity in this.listトップレベルActivities)
 					activity.OnManagedリソースの作成();
 			}
-
-#if GPUFlushAfterPresent
-			FrameEnd += dtxmania_FrameEnd;
-#endif
 		}
-#if GPUFlushAfterPresent
-		void dtxmania_FrameEnd( object sender, EventArgs e )	// GraphicsDeviceManager.game_FrameEnd()後に実行される
-		{														// → Present()直後にGPUをFlushする
-																// → 画面のカクツキが頻発したため、ここでのFlushは行わない
-			actFlushGPU.On進行描画();		// Flush GPU
-		}
-#endif
 		protected override void LoadContent()
 		{
 			if (ConfigIni.bウィンドウモード)
@@ -441,7 +430,6 @@ namespace TJAPlayer3
 		}
 		protected override void OnExiting(EventArgs e)
 		{
-			CPowerManagement.tEnableMonitorSuspend();       // スリープ抑止状態を解除
 			this.t終了処理();
 			base.OnExiting(e);
 		}
@@ -450,7 +438,6 @@ namespace TJAPlayer3
 		}
 		protected override void Draw(GameTime gameTime)
 		{
-			Sound管理?.t再生中の処理をする();
 			Timer?.t更新();
 			CSound管理.rc演奏用タイマ?.t更新();
 			Input管理?.tポーリング(this.bApplicationActive);
@@ -458,9 +445,6 @@ namespace TJAPlayer3
 
 			if (this.Device == null)
 				return;
-
-			if (this.bApplicationActive)    // DTXMania本体起動中の本体/モニタの省電力モード移行を抑止
-				CPowerManagement.tDisableMonitorSuspend();
 
 			// #xxxxx 2013.4.8 yyagi; sleepの挿入位置を、EndScnene～Present間から、BeginScene前に移動。描画遅延を小さくするため。
 			#region [ スリープ ]
@@ -843,18 +827,6 @@ namespace TJAPlayer3
 
 							Trace.TraceInformation("----------------------");
 							Trace.TraceInformation("■ 演奏（ドラム画面）");
-#if false       // #23625 2011.1.11 Config.iniからダメージ/回復値の定数変更を行う場合はここを有効にする 087リリースに合わせ機能無効化
-for (int i = 0; i < 5; i++)
-{
-	for (int j = 0; j < 2; j++)
-	{
-		stage演奏ドラム画面.fDamageGaugeDelta[i, j] = ConfigIni.fGaugeFactor[i, j];
-	}
-}
-for (int i = 0; i < 3; i++) {
-	stage演奏ドラム画面.fDamageLevelFactor[i] = ConfigIni.fDamageLevelFactor[i];
-}		
-#endif
 							r直前のステージ = r現在のステージ;
 							r現在のステージ = stage演奏ドラム画面;
 
@@ -1101,14 +1073,8 @@ for (int i = 0; i < 3; i++) {
 			}
 			CAction.EndScene(this.Device);  // Present()は game.csのOnFrameEnd()に登録された、GraphicsDeviceManager.game_FrameEnd() 内で実行されるので不要
 											// (つまり、Present()は、Draw()完了後に実行される)
-#if !GPUFlushAfterPresent
-			actFlushGPU?.On進行描画();      // Flush GPU	// EndScene()～Present()間 (つまりVSync前) でFlush実行
-#endif
-			if (Sound管理?.GetCurrentSoundDeviceType() != "OpenAL")
-			{
-				Sound管理?.t再生中の処理をする();  // サウンドバッファの更新; 画面描画と同期させることで、スクロールをスムーズにする
-			}
 
+			actFlushGPU?.On進行描画();      // Flush GPU	// EndScene()～Present()間 (つまりVSync前) でFlush実行
 
 			#region [ 全画面_ウインドウ切り替え ]
 			if (this.b次のタイミングで全画面_ウィンドウ切り替えを行う)

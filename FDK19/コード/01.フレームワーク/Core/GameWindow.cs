@@ -36,8 +36,6 @@ namespace FDK
 	/// </summary>
 	public class GameWindow : Form
 	{
-		const int DefaultWidth = 800;
-		const int DefaultHeight = 600;
 		const string DefaultTitle = "Game";
 
 		Size cachedSize;

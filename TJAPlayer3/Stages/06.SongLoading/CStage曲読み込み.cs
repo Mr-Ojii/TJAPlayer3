@@ -331,12 +331,17 @@ namespace TJAPlayer3
 							// 段位認定モード用。
 							if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] == (int)Difficulty.Dan && TJAPlayer3.DTX[0].List_DanSongs != null)
 							{
-								var pfTitle = new CPrivateFont();
-								var pfSubTitle = new CPrivateFont();
+								CPrivateFont pfTitle;
+								CPrivateFont pfSubTitle;
 								if (!string.IsNullOrEmpty(TJAPlayer3.ConfigIni.FontName))
 								{
 									pfTitle = new CPrivateFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 32);
 									pfSubTitle = new CPrivateFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 19);
+								}
+								else 
+								{
+									pfTitle = new CPrivateFont(new FontFamily("MS UI Gothic"), 32);
+									pfSubTitle = new CPrivateFont(new FontFamily("MS UI Gothic"), 19);
 								}
 
 								var titleForeColor = TJAPlayer3.Skin.Game_DanC_Title_ForeColor;

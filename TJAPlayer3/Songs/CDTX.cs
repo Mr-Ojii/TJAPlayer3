@@ -202,40 +202,6 @@ namespace TJAPlayer3
 					Taiko = 0
 				};
 			}
-			public void t初期化()
-			{
-				this.bBranch = false;
-				this.nチャンネル番号 = 0;
-				this.n整数値 = 0; //整数値をList上の番号として用いる。
-				this.n整数値_内部番号 = 0;
-				this.db実数値 = 0.0;
-				this.n発声位置 = 0;
-				this.db発声位置 = 0.0D;
-				this.n発声時刻ms = 0;
-				this.db発声時刻ms = 0.0D;
-				this.fBMSCROLLTime = 0;
-				this.nノーツ終了位置 = 0;
-				this.nノーツ終了時刻ms = 0;
-				this.n描画優先度 = 0;
-				this.nLag = -999;
-				this.b演奏終了後も再生が続くチップである = false;
-				this.dbチップサイズ倍率 = 1.0;
-				this.bHit = false;
-				this.IsMissed = false; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
-				this.b可視 = true;
-				this.e楽器パート = E楽器パート.UNKNOWN;
-				this.nバーからの距離dot.Drums = 0;
-				this.nバーからの距離dot.Taiko = 0;
-				this.nバーからのノーツ末端距離dot = 0;
-				this.dbBPM = 120.0;
-				this.db末端BPM = 120.0;
-				this.fNow_Measure_m = 4.0f; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
-				this.fNow_Measure_s = 4.0f; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
-				this.nスクロール方向 = 0;
-				this.dbSCROLL = 1.0;
-				this.dbSCROLL_Y = 0.0f;
-				this.db末端SCROLL = 1.0;
-			}
 			public override string ToString()
 			{
 
@@ -579,36 +545,6 @@ namespace TJAPlayer3
 			public bool Drums;
 			
 			public bool Branch;
-
-			public bool this[int index]
-			{
-				get
-				{
-					switch (index)
-					{
-						case 0:
-							return this.Drums;
-
-						case 1:
-							return this.Branch;
-					}
-					throw new IndexOutOfRangeException();
-				}
-				set
-				{
-					switch (index)
-					{
-						case 0:
-							this.Drums = value;
-							return;
-
-						case 1:
-							this.Branch = value;
-							return;
-					}
-					throw new IndexOutOfRangeException();
-				}
-			}
 		}
 
 		public class CLine

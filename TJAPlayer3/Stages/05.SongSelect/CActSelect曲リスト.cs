@@ -289,10 +289,6 @@ namespace TJAPlayer3
 		public void t現在選択中の曲を元に曲バーを再構成する()
 		{
 			this.tバーの初期化();
-			for (int i = 0; i < 13; i++)
-			{
-				//this.t曲名バーの生成( i, this.stバー情報[ i ].strタイトル文字列, this.stバー情報[ i ].ForeColor, this.stバー情報[i].BackColor);
-			}
 		}
 		public void t次に移動()
 		{
@@ -2074,49 +2070,6 @@ namespace TJAPlayer3
 		#region [ private ]
 		//-----------------
 		private enum Eバー種別 { Score, Box, Other }
-
-		private struct STバー
-		{
-			public CTexture Score;
-			public CTexture Box;
-			public CTexture Other;
-			public CTexture this[int index]
-			{
-				get
-				{
-					switch (index)
-					{
-						case 0:
-							return this.Score;
-
-						case 1:
-							return this.Box;
-
-						case 2:
-							return this.Other;
-					}
-					throw new IndexOutOfRangeException();
-				}
-				set
-				{
-					switch (index)
-					{
-						case 0:
-							this.Score = value;
-							return;
-
-						case 1:
-							this.Box = value;
-							return;
-
-						case 2:
-							this.Other = value;
-							return;
-					}
-					throw new IndexOutOfRangeException();
-				}
-			}
-		}
 
 		private struct STバー情報
 		{

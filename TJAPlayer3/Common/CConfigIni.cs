@@ -277,12 +277,6 @@ namespace TJAPlayer3
 		}
 		// プロパティ
 
-#if false		// #23625 2011.1.11 Config.iniからダメージ/回復値の定数変更を行う場合はここを有効にする 087リリースに合わせ機能無効化
-		//----------------------------------------
-		public float[,] fGaugeFactor = new float[5,2];
-		public float[] fDamageLevelFactor = new float[3];
-		//----------------------------------------
-#endif
 		public int nBGAlpha;
 		public bool bAVI有効;
 		public bool bBGA有効;
@@ -612,24 +606,6 @@ namespace TJAPlayer3
 
 		public CConfigIni()
 		{
-#if false		// #23625 2011.1.11 Config.iniからダメージ/回復値の定数変更を行う場合はここを有効にする 087リリースに合わせ機能無効化
-			//----------------------------------------
-			this.fGaugeFactor[0,0] =  0.004f;
-			this.fGaugeFactor[0,1] =  0.006f;
-			this.fGaugeFactor[1,0] =  0.002f;
-			this.fGaugeFactor[1,1] =  0.003f;
-			this.fGaugeFactor[2,0] =  0.000f;
-			this.fGaugeFactor[2,1] =  0.000f;
-			this.fGaugeFactor[3,0] = -0.020f;
-			this.fGaugeFactor[3,1] = -0.030f;
-			this.fGaugeFactor[4,0] = -0.050f;
-			this.fGaugeFactor[4,1] = -0.050f;
-
-			this.fDamageLevelFactor[0] = 0.5f;
-			this.fDamageLevelFactor[1] = 1.0f;
-			this.fDamageLevelFactor[2] = 1.5f;
-			//----------------------------------------
-#endif
 			this.strDTXManiaのバージョン = "Unknown";
 			this.str曲データ検索パス = @".\";
 			this.b全画面モード = false;
@@ -1425,38 +1401,6 @@ namespace TJAPlayer3
 									//-----------------------------
 									case Eセクション種別.System:
 										{
-#if false		// #23625 2011.1.11 Config.iniからダメージ/回復値の定数変更を行う場合はここを有効にする 087リリースに合わせ機能無効化
-										//----------------------------------------
-												if (str3.Equals("GaugeFactorD"))
-												{
-													int p = 0;
-													string[] splittedFactor = str4.Split(',');
-													foreach (string s in splittedFactor) {
-														this.fGaugeFactor[p++, 0] = Convert.ToSingle(s);
-													}
-												} else
-												if (str3.Equals("GaugeFactorG"))
-												{
-													int p = 0;
-													string[] splittedFactor = str4.Split(',');
-													foreach (string s in splittedFactor)
-													{
-														this.fGaugeFactor[p++, 1] = Convert.ToSingle(s);
-													}
-												}
-												else
-												if (str3.Equals("DamageFactor"))
-												{
-													int p = 0;
-													string[] splittedFactor = str4.Split(',');
-													foreach (string s in splittedFactor)
-													{
-														this.fDamageLevelFactor[p++] = Convert.ToSingle(s);
-													}
-												}
-												else
-										//----------------------------------------
-#endif
 											#region [ Version ]
 											if ( str3.Equals( "Version" ) )
 											{

@@ -97,8 +97,7 @@ namespace TJAPlayer3
 				if ( this.n現在の選択行 != lciMenuItems.Length - 1 )
 				{
 					if ( lciMenuItems[ n現在の選択行 ].cItem.e種別 == CItemBase.E種別.リスト ||
-						 lciMenuItems[ n現在の選択行 ].cItem.e種別 == CItemBase.E種別.ONorOFFトグル ||
-						 lciMenuItems[ n現在の選択行 ].cItem.e種別 == CItemBase.E種別.ONorOFFor不定スリーステート	)
+						 lciMenuItems[ n現在の選択行 ].cItem.e種別 == CItemBase.E種別.ONorOFFトグル	)
 					{
 						lciMenuItems[ n現在の選択行 ].cItem.t項目値を次へ移動();
 					}

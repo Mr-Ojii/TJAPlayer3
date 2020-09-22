@@ -26,7 +26,6 @@ namespace TJAPlayer3
 			base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
 			base.b活性化してない = true;
 			base.list子Activities.Add( this.actCombo = new CAct演奏Combo共通() );
-			base.list子Activities.Add( this.actDANGER = new CAct演奏DrumsDanger() );
 			base.list子Activities.Add( this.actChipFireD = new CAct演奏DrumsチップファイアD() );
 			base.list子Activities.Add( this.Rainbow = new Rainbow() );
 			base.list子Activities.Add( this.actGauge = new CAct演奏Drumsゲージ() );
@@ -366,8 +365,6 @@ namespace TJAPlayer3
 					base.eフェーズID = CStage.Eフェーズ.共通_フェードイン;
 					this.actFI.tフェードイン開始();
 
-
-					TJAPlayer3.Sound管理.tDisableUpdateBufferAutomatically();
 					base.b初めての進行描画 = false;
 				}
 				#endregion
@@ -735,10 +732,6 @@ namespace TJAPlayer3
 		protected override void t進行描画_AVI()
 		{
 			base.t進行描画_AVI();
-		}
-		protected override void t進行描画_DANGER()
-		{
-			this.actDANGER.t進行描画( this.actGauge.IsDanger(0) );
 		}
 
 		private void t進行描画_チップファイアD()
@@ -1198,37 +1191,6 @@ namespace TJAPlayer3
 					//-----------------------------
 					#endregion
 				}
-			}
-		}
-
-		// t入力処理_ドラム()からメソッドを抽出したもの。
-		/// <summary>
-		/// chipArrayの中を, n発生位置の小さい順に並べる + nullを大きい方に退かす。セットでe判定Arrayも並べ直す。
-		/// </summary>
-		/// <param name="chipArray">ソート対象chip群</param>
-		/// <param name="e判定Array">ソート対象e判定群</param>
-		/// <param name="NumOfChips">チップ数</param>
-		private static void SortChipsByNTime( CDTX.CChip[] chipArray, E判定[] e判定Array, int NumOfChips )
-		{
-			for ( int i = 0; i < NumOfChips - 1; i++ )
-			{
-				//num9 = 2;
-				//while( num9 > num8 )
-				for ( int j = NumOfChips - 1; j > i; j-- )
-				{
-					if ( ( chipArray[ j - 1 ] == null ) || ( ( chipArray[ j ] != null ) && ( chipArray[ j - 1 ].n発声位置 > chipArray[ j ].n発声位置 ) ) )
-					{
-						// swap
-						CDTX.CChip chipTemp = chipArray[ j - 1 ];
-						chipArray[ j - 1 ] = chipArray[ j ];
-						chipArray[ j ] = chipTemp;
-						E判定 e判定Temp = e判定Array[ j - 1 ];
-						e判定Array[ j - 1 ] = e判定Array[ j ];
-						e判定Array[ j ] = e判定Temp;
-					}
-					//num9--;
-				}
-				//num8++;
 			}
 		}
 
@@ -1945,11 +1907,6 @@ namespace TJAPlayer3
 					}
 				}
 			}
-		}
-
-		protected void t進行描画_レーン()
-		{
-			this.actLane.On進行描画();
 		}
 
 		/// <summary>

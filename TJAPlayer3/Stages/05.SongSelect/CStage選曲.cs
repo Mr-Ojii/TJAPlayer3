@@ -1311,10 +1311,6 @@ namespace TJAPlayer3
 				stct.Add(_stct);
 //Debug.WriteLine( "CMDHIS: 楽器=" + _stct.eInst + ", CMD=" + _stct.ePad + ", time=" + _stct.time );
 			}
-			public void RemoveAt( int index )
-			{
-				stct.RemoveAt( index );
-			}
 		}
 		private CCommandHistory CommandHistory;
 

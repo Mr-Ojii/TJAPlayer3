@@ -1338,28 +1338,6 @@ namespace TJAPlayer3
 					//-----------------
 						#endregion
 
-					case CItemBase.E種別.ONorOFFor不定スリーステート:
-						#region [ *** ]
-						//-----------------
-						switch ( ( (CItemThreeState) this.list項目リスト[ nItem ] ).e現在の状態 )
-						{
-							case CItemThreeState.E状態.ON:
-								strParam = "ON";
-								break;
-
-							case CItemThreeState.E状態.不定:
-								strParam = "- -";
-								break;
-
-							default:
-								strParam = "OFF";
-								break;
-						}
-						//CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 210, y + 12, "ON" );
-						break;
-					//-----------------
-						#endregion
-
 					case CItemBase.E種別.整数:		// #24789 2011.4.8 yyagi: add PlaySpeed supports (copied them from OPTION)
 						#region [ *** ]
 						//-----------------
