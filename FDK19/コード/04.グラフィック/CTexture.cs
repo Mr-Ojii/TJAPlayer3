@@ -807,7 +807,6 @@ namespace FDK
 			if (!this.bSharpDXTextureDispose完了済み)
 			{
 				Trace.TraceWarning("CTexture: Dispose漏れを検出しました。(Size=({0}, {1}), filename={2}, maketype={3})", sz画像サイズ.Width, sz画像サイズ.Height, filename, maketype.ToString());
-				Texture.ToFile(this.texture, @"D:\Test" + sz画像サイズ.ToString() + this.texture.GetHashCode().ToString() + @".bmp", ImageFileFormat.Bmp);
 			}
 		}
 		//-----------------

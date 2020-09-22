@@ -570,8 +570,6 @@ namespace TJAPlayer3
 				return;
 
 
-
-
 			for (int i = 0; i < 11; i++)
 			{
 				if (i == 10)
@@ -1217,18 +1215,18 @@ namespace TJAPlayer3
 					{
 						if (r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.RANDOM)
 						{
-							kari = genretext[9];
+							genretextureindex = 9;
 						}
 						else if (r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.BACKBOX)
 						{
-							kari = genretext[10];
+							genretextureindex = 10;
 						}
 						else
 						{
-							kari = genretext[nStrジャンルtoNum(this.r現在選択中の曲.strジャンル)];
+							genretextureindex = nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
 						}
-						kari.Opacity = 全体Opacity;
-						kari.t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
+						genretext[genretextureindex].Opacity = 全体Opacity;
+						genretext[genretextureindex].t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
 					}
 					switch (r現在選択中の曲.eノード種別)
 					{
@@ -1726,19 +1724,19 @@ namespace TJAPlayer3
 					if (this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Box || this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Other)
 					{
 						if (r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.RANDOM)
-						{ 
-							kari = genretext[9];
+						{
+							genretextureindex = 9;
 						}
 						else if (r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.BACKBOX)
 						{
-							kari = genretext[10];
+							genretextureindex = 10;
 						}
 						else
 						{
-							kari = genretext[nStrジャンルtoNum(this.r現在選択中の曲.strジャンル)];
+							genretextureindex = nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
 						}
-						kari.Opacity = 全体Opacity;
-						kari.t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
+						genretext[genretextureindex].Opacity = 全体Opacity;
+						genretext[genretextureindex].t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
 					}
 					switch (r現在選択中の曲.eノード種別)
 					{
@@ -2062,9 +2060,9 @@ namespace TJAPlayer3
 
 			if (this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Score)
 			{
-				kari = genretext[nStrジャンルtoNum(this.r現在選択中の曲.strジャンル)];
-				kari.Opacity = 全体Opacity;
-				kari.t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64); ;
+				genretextureindex = nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
+				genretext[genretextureindex].Opacity = 全体Opacity;
+				genretext[genretextureindex].t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64); ;
 			}
 
 			return 0;
@@ -2146,7 +2144,7 @@ namespace TJAPlayer3
 		private CCounter ctバー展開ディレイ用タイマー;
 		private CPrivateFastFont pfMusicName;
 		private CPrivateFastFont pfSubtitle;
-		private CTexture kari;
+		private int genretextureindex;
 		internal CTexture タイトルtmp;
 		internal CTexture サブタイトルtmp;
 
@@ -2169,7 +2167,7 @@ namespace TJAPlayer3
 		  new Point( 840, 180 ), new Point( 940, 180 ), new Point( 1040, 180 ), new Point( 1140, 180 ), new Point( 1240, 180 ), new Point( 1340, 180 ) };//2020.06.16 Mr-Ojii 諸事情により座標変更
 
 		private STバー情報[] stバー情報 = new STバー情報[13];
-		private CTexture[] genretext = new CTexture[13];
+		private CTexture[] genretext = new CTexture[12];
 		private CTexture txSongNotFound, txEnumeratingSongs;
 		//private CTexture txスキル数字;
 		//private CTexture txアイテム数数字;

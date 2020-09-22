@@ -1916,22 +1916,22 @@ for (int i = 0; i < 3; i++) {
 				}
 				//---------------------
 				#endregion
-				#region [ OpenALの終了処理 ]
+				#region [ サウンドの終了処理 ]
 				//---------------------
 				if (Sound管理 != null)
 				{
-					Trace.TraceInformation( "OpenAL の終了処理を行います。" );
+					Trace.TraceInformation( "サウンド の終了処理を行います。" );
 					Trace.Indent();
 					try
 					{
 						Sound管理.Dispose();
 						Sound管理 = null;
-						Trace.TraceInformation( "OpenAL の終了処理を完了しました。" );
+						Trace.TraceInformation( "サウンド の終了処理を完了しました。" );
 					}
 					catch( Exception exception3 )
 					{
 						Trace.TraceError( exception3.ToString() );
-						Trace.TraceError( "OpenAL の終了処理に失敗しました。" );
+						Trace.TraceError( "サウンド の終了処理に失敗しました。" );
 					}
 					finally
 					{

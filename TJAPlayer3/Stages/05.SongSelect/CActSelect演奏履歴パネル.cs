@@ -139,12 +139,21 @@ namespace TJAPlayer3
 				if (Font != null)
 					for (int index = 0; index < (int)Difficulty.Total; index++)
 					{
-						this.First[index] = TJAPlayer3.tテクスチャの生成(Font.DrawPrivateFont(First[index], Color.Black));
-						this.First[index].vc拡大縮小倍率 = new Vector3(0.5f);
-						this.Second[index] = TJAPlayer3.tテクスチャの生成(Font.DrawPrivateFont(Second[index], Color.Black));
-						this.Second[index].vc拡大縮小倍率 = new Vector3(0.5f);
-						this.Third[index] = TJAPlayer3.tテクスチャの生成(Font.DrawPrivateFont(Third[index], Color.Black));
-						this.Third[index].vc拡大縮小倍率 = new Vector3(0.5f);
+						if (!string.IsNullOrEmpty(First[index]))
+						{
+							this.First[index] = TJAPlayer3.tテクスチャの生成(Font.DrawPrivateFont(First[index], Color.Black));
+							this.First[index].vc拡大縮小倍率 = new Vector3(0.5f);
+						}
+						if (!string.IsNullOrEmpty(Second[index]))
+						{
+							this.Second[index] = TJAPlayer3.tテクスチャの生成(Font.DrawPrivateFont(Second[index], Color.Black));
+							this.Second[index].vc拡大縮小倍率 = new Vector3(0.5f);
+						}
+						if (!string.IsNullOrEmpty(Third[index]))
+						{
+							this.Third[index] = TJAPlayer3.tテクスチャの生成(Font.DrawPrivateFont(Third[index], Color.Black));
+							this.Third[index].vc拡大縮小倍率 = new Vector3(0.5f);
+						}
 					}
 			}
 		}
