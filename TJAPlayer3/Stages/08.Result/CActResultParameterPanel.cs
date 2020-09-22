@@ -104,9 +104,6 @@ namespace TJAPlayer3
 			stScore文字位置Array[9] = stScore文字位置10;
 			this.stScoreFont = stScore文字位置Array;
 
-
-
-			this.ptFullCombo位置 = new Point[] { new Point( 0x80, 0xed ), new Point( 0xdf, 0xed ), new Point( 0x141, 0xed ) };
 			base.b活性化してない = true;
 		}
 
