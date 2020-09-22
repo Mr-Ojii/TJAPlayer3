@@ -276,15 +276,37 @@ namespace TJAPlayer3
 					if (NowRow[0] >= lci[0].Count)
 						tDeativatePopupMenu(0);
 				}
-				if (TJAPlayer3.Pad.b押された(Eパッド.LBlue))
+				if (TJAPlayer3.Pad.b押された(Eパッド.LBlue) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow))
 				{
 					TJAPlayer3.Skin.sound変更音?.t再生する();
 					lci[0][NowRow[0]].t項目値を前へ移動();
 				}
-				if (TJAPlayer3.Pad.b押された(Eパッド.RBlue))
+				if (TJAPlayer3.Pad.b押された(Eパッド.RBlue) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow))
 				{
 					TJAPlayer3.Skin.sound変更音?.t再生する();
 					lci[0][NowRow[0]].t項目値を次へ移動();
+				}
+				if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.UpArrow))
+				{
+					TJAPlayer3.Skin.sound変更音?.t再生する();
+					SaveValue(0);
+					NowRow[0]--;
+					if (NowRow[0] < 0)
+						NowRow[0] = lci[0].Count - 1;
+				}
+				if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.DownArrow))
+				{
+					TJAPlayer3.Skin.sound変更音?.t再生する();
+					SaveValue(0);
+					NowRow[0]++;
+					if (NowRow[0] >= lci[0].Count)
+						NowRow[0] = 0;
+				}
+				if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return)) 
+				{
+					TJAPlayer3.Skin.sound決定音?.t再生する();
+					SaveValue(0);
+					tDeativatePopupMenu(0);
 				}
 			}
 
@@ -298,15 +320,37 @@ namespace TJAPlayer3
 					if (NowRow[1] >= lci[1].Count)
 						tDeativatePopupMenu(1);
 				}
-				if (TJAPlayer3.Pad.b押された(Eパッド.LBlue2P))
+				if (TJAPlayer3.Pad.b押された(Eパッド.LBlue2P) || (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) && TJAPlayer3.stage選曲.act難易度選択画面.選択済み[0]))
 				{
 					TJAPlayer3.Skin.sound変更音?.t再生する();
 					lci[1][NowRow[1]].t項目値を前へ移動();
 				}
-				if (TJAPlayer3.Pad.b押された(Eパッド.RBlue2P))
+				if (TJAPlayer3.Pad.b押された(Eパッド.RBlue2P) || (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) && TJAPlayer3.stage選曲.act難易度選択画面.選択済み[0]))
 				{
 					TJAPlayer3.Skin.sound変更音?.t再生する();
 					lci[1][NowRow[1]].t項目値を次へ移動();
+				}
+				if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.UpArrow) && TJAPlayer3.stage選曲.act難易度選択画面.選択済み[0])
+				{
+					TJAPlayer3.Skin.sound変更音?.t再生する();
+					SaveValue(1);
+					NowRow[1]--;
+					if (NowRow[1] < 0)
+						NowRow[1] = lci[1].Count - 1;
+				}
+				if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.DownArrow) && TJAPlayer3.stage選曲.act難易度選択画面.選択済み[0])
+				{
+					TJAPlayer3.Skin.sound変更音?.t再生する();
+					SaveValue(1);
+					NowRow[1]++;
+					if (NowRow[1] >= lci[1].Count)
+						NowRow[1] = 0;
+				}
+				if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return) && TJAPlayer3.stage選曲.act難易度選択画面.選択済み[0])
+				{
+					TJAPlayer3.Skin.sound決定音?.t再生する();
+					SaveValue(1);
+					tDeativatePopupMenu(1);
 				}
 			}
 

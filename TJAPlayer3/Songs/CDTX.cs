@@ -148,13 +148,13 @@ namespace TJAPlayer3
 			public double dbチップサイズ倍率 = 1.0;
 			public double db実数値;
 			public double dbBPM;
-			public double db末端BPM;
+			public double db末端BPM = 120.0;
 			public float fNow_Measure_s = 4.0f; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加//強制分岐のために追加.2020.04.21.akasoko26
 			public float fNow_Measure_m = 4.0f; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加//強制分岐のために追加.2020.04.21.akasoko26
 			public bool IsEndedBranching = false; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加//分岐が終わった時の連打譜面が非可視化になってしまうためフラグを追加.2020.04.21.akasoko26
 			public double dbSCROLL;
 			public double dbSCROLL_Y;
-			public double db末端SCROLL;
+			public double db末端SCROLL = 1.0;
 			public int nコース;
 			public int nSenote;
 			public int nRollCount;

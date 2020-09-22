@@ -122,12 +122,12 @@ namespace TJAPlayer3
 			}
 
 			if (this.ePhase[0] == EChangeSEPhase.Active) {
-				if (TJAPlayer3.Pad.b押された(Eパッド.LRed) || TJAPlayer3.Pad.b押された(Eパッド.RRed))
+				if (TJAPlayer3.Pad.b押された(Eパッド.LRed) || TJAPlayer3.Pad.b押された(Eパッド.RRed) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return))
 				{
 					TJAPlayer3.Skin.sound決定音?.t再生する();
 					this.tDeativateChangeSE(0);
 				}
-				if (TJAPlayer3.Pad.b押された(Eパッド.LBlue) && TJAPlayer3.Skin.SECount != 0)
+				if ((TJAPlayer3.Pad.b押された(Eパッド.LBlue) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow)) && TJAPlayer3.Skin.SECount != 0)
 				{
 					TJAPlayer3.Skin.NowSENum[0]--;
 					if (TJAPlayer3.Skin.NowSENum[0] < 0)
@@ -136,7 +136,7 @@ namespace TJAPlayer3
 					this.MoveStart(EMoving.LeftMoving, 0);
 					this.SENameChanger(0);
 				}
-				if (TJAPlayer3.Pad.b押された(Eパッド.RBlue) && TJAPlayer3.Skin.SECount != 0)
+				if ((TJAPlayer3.Pad.b押された(Eパッド.RBlue) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow)) && TJAPlayer3.Skin.SECount != 0)
 				{
 					TJAPlayer3.Skin.NowSENum[0]++;
 					if (TJAPlayer3.Skin.NowSENum[0] > TJAPlayer3.Skin.SECount - 1)
@@ -148,12 +148,12 @@ namespace TJAPlayer3
 			}
 			if (this.ePhase[1] == EChangeSEPhase.Active)
 			{
-				if (TJAPlayer3.Pad.b押された(Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(Eパッド.RRed2P))
+				if (TJAPlayer3.Pad.b押された(Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(Eパッド.RRed2P) || (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return) && TJAPlayer3.stage選曲.act難易度選択画面.選択済み[0]))
 				{
 					TJAPlayer3.Skin.sound決定音?.t再生する();
 					this.tDeativateChangeSE(1);
 				}
-				if (TJAPlayer3.Pad.b押された(Eパッド.LBlue2P) && TJAPlayer3.Skin.SECount != 0)
+				if ((TJAPlayer3.Pad.b押された(Eパッド.LBlue2P) || (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) && TJAPlayer3.stage選曲.act難易度選択画面.選択済み[0])) && TJAPlayer3.Skin.SECount != 0)
 				{
 					TJAPlayer3.Skin.NowSENum[1]--;
 					if (TJAPlayer3.Skin.NowSENum[1] < 0)
@@ -162,7 +162,7 @@ namespace TJAPlayer3
 					this.MoveStart(EMoving.LeftMoving, 1);
 					this.SENameChanger(1);
 				}
-				if (TJAPlayer3.Pad.b押された(Eパッド.RBlue2P) && TJAPlayer3.Skin.SECount != 0)
+				if ((TJAPlayer3.Pad.b押された(Eパッド.RBlue2P) || (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) && TJAPlayer3.stage選曲.act難易度選択画面.選択済み[0])) && TJAPlayer3.Skin.SECount != 0)
 				{
 					TJAPlayer3.Skin.NowSENum[1]++;
 					if (TJAPlayer3.Skin.NowSENum[1] > TJAPlayer3.Skin.SECount - 1)

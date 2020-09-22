@@ -14,58 +14,11 @@ namespace TJAPlayer3
 
 		public CAct演奏Drums風船()
 		{
-			ST文字位置[] st文字位置Array = new ST文字位置[11];
-
-			ST文字位置 st文字位置 = new ST文字位置();
-			st文字位置.ch = '0';
-			st文字位置.pt = new Point(0, 0);
-			st文字位置Array[0] = st文字位置;
-			ST文字位置 st文字位置2 = new ST文字位置();
-			st文字位置2.ch = '1';
-			st文字位置2.pt = new Point(62, 0);
-			st文字位置Array[1] = st文字位置2;
-			ST文字位置 st文字位置3 = new ST文字位置();
-			st文字位置3.ch = '2';
-			st文字位置3.pt = new Point(124, 0);
-			st文字位置Array[2] = st文字位置3;
-			ST文字位置 st文字位置4 = new ST文字位置();
-			st文字位置4.ch = '3';
-			st文字位置4.pt = new Point(186, 0);
-			st文字位置Array[3] = st文字位置4;
-			ST文字位置 st文字位置5 = new ST文字位置();
-			st文字位置5.ch = '4';
-			st文字位置5.pt = new Point(248, 0);
-			st文字位置Array[4] = st文字位置5;
-			ST文字位置 st文字位置6 = new ST文字位置();
-			st文字位置6.ch = '5';
-			st文字位置6.pt = new Point(310, 0);
-			st文字位置Array[5] = st文字位置6;
-			ST文字位置 st文字位置7 = new ST文字位置();
-			st文字位置7.ch = '6';
-			st文字位置7.pt = new Point(372, 0);
-			st文字位置Array[6] = st文字位置7;
-			ST文字位置 st文字位置8 = new ST文字位置();
-			st文字位置8.ch = '7';
-			st文字位置8.pt = new Point(434, 0);
-			st文字位置Array[7] = st文字位置8;
-			ST文字位置 st文字位置9 = new ST文字位置();
-			st文字位置9.ch = '8';
-			st文字位置9.pt = new Point(496, 0);
-			st文字位置Array[8] = st文字位置9;
-			ST文字位置 st文字位置10 = new ST文字位置();
-			st文字位置10.ch = '9';
-			st文字位置10.pt = new Point(558, 0);
-			st文字位置Array[9] = st文字位置10;
-
-			this.st文字位置 = st文字位置Array;
-
 			base.b活性化してない = true;
-
 		}
 
 		public override void On活性化()
 		{
-			this.ct風船終了 = new CCounter();
 			this.ct風船ふきだしアニメ = new CCounter();
 			this.ct風船アニメ = new CCounter[4];
 			for (int i = 0; i < 4; i++)
@@ -77,7 +30,6 @@ namespace TJAPlayer3
 
 		public override void On非活性化()
 		{
-			this.ct風船終了 = null;
 			this.ct風船ふきだしアニメ = null;
 			base.On非活性化();
 		}
@@ -136,7 +88,7 @@ namespace TJAPlayer3
 				//1P:31 2P:329
 				if (TJAPlayer3.Tx.Balloon_Balloon != null)
 					TJAPlayer3.Tx.Balloon_Balloon.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Balloon_Balloon_Frame_X[nPlayer] + TJAPlayer3.Skin.nScrollFieldX[nPlayer] - 414, TJAPlayer3.Skin.Game_Balloon_Balloon_Frame_Y[nPlayer]);
-				this.t文字表示(TJAPlayer3.Skin.Game_Balloon_Balloon_Number_X[nPlayer] + TJAPlayer3.Skin.nScrollFieldX[nPlayer] - 414, TJAPlayer3.Skin.Game_Balloon_Balloon_Number_Y[nPlayer], n連打数.ToString(), n連打数, nPlayer);
+				this.t文字表示(TJAPlayer3.Skin.Game_Balloon_Balloon_Number_X[nPlayer] + TJAPlayer3.Skin.nScrollFieldX[nPlayer] - 414, TJAPlayer3.Skin.Game_Balloon_Balloon_Number_Y[nPlayer], n連打数, nPlayer);
 				//CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.Eフォント種別.白, n連打数.ToString() );
 			}
 			if (n連打数 == 0 && TJAPlayer3.stage演奏ドラム画面.actChara.b風船連打中[nPlayer])
@@ -151,14 +103,12 @@ namespace TJAPlayer3
 
 		//private CTexture tx連打枠;
 		//private CTexture tx連打数字;
-		private readonly ST文字位置[] st文字位置;
 
 		//private CTexture txキャラクター;
 		//private CTexture txキャラクター_風船終了;
 
 		//private CTexture[] tx風船枠 = new CTexture[6];
 
-		private CCounter ct風船終了;
 		private CCounter ct風船ふきだしアニメ;
 
 		public CCounter[] ct風船アニメ;
@@ -176,33 +126,21 @@ namespace TJAPlayer3
 			0.000f
 		};
 
-		[StructLayout(LayoutKind.Sequential)]
-		private struct ST文字位置
-		{
-			public char ch;
-			public Point pt;
-		}
-
-		private void t文字表示(int x, int y, string str, int n連打, int nPlayer)
+		private void t文字表示(int x, int y, int n連打, int nPlayer)
 		{
 			int n桁数 = n連打.ToString().Length;
-			foreach (char ch in str)
-			{
-				for (int i = 0; i < this.st文字位置.Length; i++)
-				{
-					if (this.st文字位置[i].ch == ch)
-					{
-						Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.Game_Balloon_Number_Size[0] * i, 0, TJAPlayer3.Skin.Game_Balloon_Number_Size[0], TJAPlayer3.Skin.Game_Balloon_Number_Size[1]);
 
-						if (TJAPlayer3.Tx.Balloon_Number_Roll != null)
-						{
-							TJAPlayer3.Tx.Balloon_Number_Roll.Opacity = 255;
-							TJAPlayer3.Tx.Balloon_Number_Roll.vc拡大縮小倍率.X = TJAPlayer3.Skin.Game_Balloon_Balloon_Number_Scale;
-							TJAPlayer3.Tx.Balloon_Number_Roll.vc拡大縮小倍率.Y = TJAPlayer3.Skin.Game_Balloon_Balloon_Number_Scale + RollScale[this.ct風船アニメ[nPlayer].n現在の値];
-							TJAPlayer3.Tx.Balloon_Number_Roll.t2D拡大率考慮下基準描画(TJAPlayer3.app.Device, x - (((TJAPlayer3.Skin.Game_Balloon_Number_Padding + 2) * n桁数) / 2), y, rectangle);
-						}
-						break;
-					}
+			for (int index = n連打.ToString().Length - 1; index >= 0; index--)
+			{
+				int i = (int)(n連打 / Math.Pow(10, index) % 10);
+				Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.Game_Balloon_Number_Size[0] * i, 0, TJAPlayer3.Skin.Game_Balloon_Number_Size[0], TJAPlayer3.Skin.Game_Balloon_Number_Size[1]);
+
+				if (TJAPlayer3.Tx.Balloon_Number_Roll != null)
+				{
+					TJAPlayer3.Tx.Balloon_Number_Roll.Opacity = 255;
+					TJAPlayer3.Tx.Balloon_Number_Roll.vc拡大縮小倍率.X = TJAPlayer3.Skin.Game_Balloon_Balloon_Number_Scale;
+					TJAPlayer3.Tx.Balloon_Number_Roll.vc拡大縮小倍率.Y = TJAPlayer3.Skin.Game_Balloon_Balloon_Number_Scale + RollScale[this.ct風船アニメ[nPlayer].n現在の値];
+					TJAPlayer3.Tx.Balloon_Number_Roll.t2D拡大率考慮下基準描画(TJAPlayer3.app.Device, x - (((TJAPlayer3.Skin.Game_Balloon_Number_Padding + 2) * n桁数) / 2), y, rectangle);
 				}
 				x += (TJAPlayer3.Skin.Game_Balloon_Number_Padding - (n桁数 > 2 ? n桁数 * 2 : 0));
 			}

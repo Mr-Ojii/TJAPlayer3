@@ -504,11 +504,11 @@ namespace TJAPlayer3
 		private static void DrawNumber(int value, int x, int y, int padding, float scaleX = 1.0f, float scaleY = 1.0f, float scaleJump = 0.0f)
 		{
 			var notesRemainDigit = 0;
-			for (int i = value.ToString().Length; i > 0; i--)
+			for (int i = 0; i < value.ToString().Length; i++)
 			{
 				if(TJAPlayer3.Tx.DanC_Number != null)
 				{
-					var number = (int)(value / Math.Pow(10, value.ToString().Length - i) % 10);
+					var number = (int)(value / Math.Pow(10, i) % 10);
 					Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.Game_DanC_Number_Size[0] * number - 1, 0, TJAPlayer3.Skin.Game_DanC_Number_Size[0], TJAPlayer3.Skin.Game_DanC_Number_Size[1]);
 					TJAPlayer3.Tx.DanC_Number.vc拡大縮小倍率.X = scaleX;
 					TJAPlayer3.Tx.DanC_Number.vc拡大縮小倍率.Y = scaleY + scaleJump;

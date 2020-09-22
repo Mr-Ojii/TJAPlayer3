@@ -1075,6 +1075,9 @@ namespace TJAPlayer3
 											// (つまり、Present()は、Draw()完了後に実行される)
 
 			actFlushGPU?.On進行描画();      // Flush GPU	// EndScene()～Present()間 (つまりVSync前) でFlush実行
+#if OpenGL
+			OpenTK.Graphics.OpenGL.GL.Flush();
+#endif
 
 			#region [ 全画面_ウインドウ切り替え ]
 			if (this.b次のタイミングで全画面_ウィンドウ切り替えを行う)
@@ -1083,8 +1086,8 @@ namespace TJAPlayer3
 				app.t全画面_ウィンドウモード切り替え();
 				this.b次のタイミングで全画面_ウィンドウ切り替えを行う = false;
 			}
-			#endregion
-			#region [ 垂直基線同期切り替え ]
+#endregion
+#region [ 垂直基線同期切り替え ]
 			if (this.b次のタイミングで垂直帰線同期切り替えを行う)
 			{
 				bool bIsMaximized = this.Window.IsMaximized;                                            // #23510 2010.11.3 yyagi: to backup current window mode before changing VSyncWait
@@ -1099,12 +1102,12 @@ namespace TJAPlayer3
 					this.Window.WindowState = FormWindowState.Maximized;                                // #23510 2010.11.3 yyagi: to resume window mode after changing VSyncWait
 				}
 			}
-			#endregion
+#endregion
 		}
 
 		// その他
 
-		#region [ 汎用ヘルパー ]
+#region [ 汎用ヘルパー ]
 		//-----------------
 		public static CTexture tテクスチャの生成(string fileName)
 		{
@@ -1312,9 +1315,9 @@ namespace TJAPlayer3
 		}
 
 		//-----------------
-		#endregion
+#endregion
 
-		#region [ private ]
+#region [ private ]
 		//-----------------
 		private bool bマウスカーソル表示中 = true;
 		private bool b終了処理完了済み;
@@ -1333,7 +1336,7 @@ namespace TJAPlayer3
 
 		private void t起動処理()
 		{
-			#region [ strEXEのあるフォルダを決定する ]
+#region [ strEXEのあるフォルダを決定する ]
 			//-----------------
 			// BEGIN #23629 2010.11.13 from: デバッグ時は Application.ExecutablePath が ($SolutionDir)/bin/x86/Debug/ などになり System/ の読み込みに失敗するので、カレントディレクトリを採用する。（プロジェクトのプロパティ→デバッグ→作業ディレクトリが有効になる）
 #if DEBUG
@@ -1343,12 +1346,12 @@ namespace TJAPlayer3
 #endif
 			// END #23629 2010.11.13 from
 			//-----------------
-			#endregion
+#endregion
 
-			#region[JudgeTextEncodingの初期化]
+#region[JudgeTextEncodingの初期化]
 			JudgeTextEncoding = new CJudgeTextEncoding();//2020.05.07 Mr-Ojii UTF-8に対応するために追加
-			#endregion
-			#region [ Config.ini の読込み ]
+#endregion
+#region [ Config.ini の読込み ]
 			//---------------------
 			ConfigIni = new CConfigIni();
 			string path = strEXEのあるフォルダ + "Config.ini";
@@ -1369,8 +1372,8 @@ namespace TJAPlayer3
 																						// 2012.8.22 Config.iniが無いときに初期値が適用されるよう、この設定行をifブロック外に移動
 
 			//---------------------
-			#endregion
-			#region [ ログ出力開始 ]
+#endregion
+#region [ ログ出力開始 ]
 			//---------------------
 			Trace.AutoFlush = true;
 			if (ConfigIni.bログ出力)
@@ -1405,10 +1408,10 @@ namespace TJAPlayer3
 			Trace.TraceInformation("ProcessorCount: " + Environment.ProcessorCount.ToString());
 			Trace.TraceInformation("CLR Version: " + Environment.Version.ToString());
 			//---------------------
-			#endregion
+#endregion
 
 
-			#region [ ウィンドウ初期化 ]
+#region [ ウィンドウ初期化 ]
 			//---------------------
 			base.Window.StartPosition = FormStartPosition.Manual;                                                       // #30675 2013.02.04 ikanick add
 			base.Window.Location = new Point(ConfigIni.n初期ウィンドウ開始位置X, ConfigIni.n初期ウィンドウ開始位置Y);   // #30675 2013.02.04 ikanick add
@@ -1435,8 +1438,8 @@ namespace TJAPlayer3
 			base.Window.ApplicationActivated += new EventHandler(this.Window_ApplicationActivated);
 			base.Window.ApplicationDeactivated += new EventHandler(this.Window_ApplicationDeactivated);
 			//---------------------
-			#endregion
-			#region [ Direct3D9 デバイスの生成 ]
+#endregion
+#region [ Direct3D9 デバイスの生成 ]
 			//---------------------
 			DeviceSettings settings = new DeviceSettings();
 			settings.Windowed = ConfigIni.bウィンドウモード;
@@ -1470,12 +1473,12 @@ namespace TJAPlayer3
 
 			actFlushGPU = new CActFlushGPU();
 			//---------------------
-			#endregion
+#endregion
 
 			DTX[0] = null;
 			DTX[1] = null;
 
-			#region [ Skin の初期化 ]
+#region [ Skin の初期化 ]
 			//---------------------
 			Trace.TraceInformation("スキンの初期化を行います。");
 			Trace.Indent();
@@ -1495,9 +1498,9 @@ namespace TJAPlayer3
 				Trace.Unindent();
 			}
 			//---------------------
-			#endregion
+#endregion
 			//-----------
-			#region [ Timer の初期化 ]
+#region [ Timer の初期化 ]
 			//---------------------
 			Trace.TraceInformation("タイマの初期化を行います。");
 			Trace.Indent();
@@ -1511,10 +1514,10 @@ namespace TJAPlayer3
 				Trace.Unindent();
 			}
 			//---------------------
-			#endregion
+#endregion
 			//-----------
 
-			#region [ FPS カウンタの初期化 ]
+#region [ FPS カウンタの初期化 ]
 			//---------------------
 			Trace.TraceInformation("FPSカウンタの初期化を行います。");
 			Trace.Indent();
@@ -1528,8 +1531,8 @@ namespace TJAPlayer3
 				Trace.Unindent();
 			}
 			//---------------------
-			#endregion
-			#region [ act文字コンソールの初期化 ]
+#endregion
+#region [ act文字コンソールの初期化 ]
 			//---------------------
 			Trace.TraceInformation("文字コンソールの初期化を行います。");
 			Trace.Indent();
@@ -1551,8 +1554,8 @@ namespace TJAPlayer3
 				Trace.Unindent();
 			}
 			//---------------------
-			#endregion
-			#region [ Input管理 の初期化 ]
+#endregion
+#region [ Input管理 の初期化 ]
 			//---------------------
 			Trace.TraceInformation("DirectInput, MIDI入力の初期化を行います。");
 			Trace.Indent();
@@ -1583,8 +1586,8 @@ namespace TJAPlayer3
 				Trace.Unindent();
 			}
 			//---------------------
-			#endregion
-			#region [ Pad の初期化 ]
+#endregion
+#region [ Pad の初期化 ]
 			//---------------------
 			Trace.TraceInformation("パッドの初期化を行います。");
 			Trace.Indent();
@@ -1603,8 +1606,8 @@ namespace TJAPlayer3
 				Trace.Unindent();
 			}
 			//---------------------
-			#endregion
-			#region [ Sound管理 の初期化 ]
+#endregion
+#region [ Sound管理 の初期化 ]
 			//---------------------
 			Trace.TraceInformation("サウンドデバイスの初期化を行います。");
 			Trace.Indent();
@@ -1678,8 +1681,8 @@ namespace TJAPlayer3
 				Trace.Unindent();
 			}
 			//---------------------
-			#endregion
-			#region [ Songs管理 の初期化 ]
+#endregion
+#region [ Songs管理 の初期化 ]
 			//---------------------
 			Trace.TraceInformation("曲リストの初期化を行います。");
 			Trace.Indent();
@@ -1701,13 +1704,13 @@ namespace TJAPlayer3
 				Trace.Unindent();
 			}
 			//---------------------
-			#endregion
-			#region [ Random の初期化 ]
+#endregion
+#region [ Random の初期化 ]
 			//---------------------
 			Random = new Random((int)Timer.nシステム時刻);
 			//---------------------
-			#endregion
-			#region [ ステージの初期化 ]
+#endregion
+#region [ ステージの初期化 ]
 			//---------------------
 			r現在のステージ = null;
 			r直前のステージ = null;
@@ -1738,18 +1741,18 @@ namespace TJAPlayer3
 			this.listトップレベルActivities.Add(stageメンテ);
 			this.listトップレベルActivities.Add(actFlushGPU);
 			//---------------------
-			#endregion
-			#region Discordの処理
+#endregion
+#region Discordの処理
 			Discord.Initialize("692578108997632051");
 			StartupTime = Discord.GetUnixTime();
 			Discord.UpdatePresence("", "Startup", StartupTime);
-			#endregion
+#endregion
 
 
 			Trace.TraceInformation("アプリケーションの初期化を完了しました。");
 
 
-			#region [ 最初のステージの起動 ]
+#region [ 最初のステージの起動 ]
 			//---------------------
 			Trace.TraceInformation("----------------------");
 			Trace.TraceInformation("■ 起動");
@@ -1759,7 +1762,7 @@ namespace TJAPlayer3
 			r現在のステージ.On活性化();
 
 			//---------------------
-			#endregion
+#endregion
 		}
 
 		public void ShowWindowTitleWithSoundType()
@@ -1787,7 +1790,7 @@ namespace TJAPlayer3
 			{
 				Trace.TraceInformation( "----------------------" );
 				Trace.TraceInformation( "■ アプリケーションの終了" );
-				#region [ 曲検索の終了処理 ]
+#region [ 曲検索の終了処理 ]
 				//---------------------
 				if ( actEnumSongs != null )
 				{
@@ -1810,8 +1813,8 @@ namespace TJAPlayer3
 					}
 				}
 				//---------------------
-				#endregion
-				#region [ 現在のステージの終了処理 ]
+#endregion
+#region [ 現在のステージの終了処理 ]
 				//---------------------
 				if( TJAPlayer3.r現在のステージ != null && TJAPlayer3.r現在のステージ.b活性化してる )		// #25398 2011.06.07 MODIFY FROM
 				{
@@ -1828,11 +1831,11 @@ namespace TJAPlayer3
 					}
 				}
 				//---------------------
-				#endregion
-				#region Discordの処理
+#endregion
+#region Discordの処理
 				Discord.Shutdown();
-				#endregion
-				#region [ 曲リストの終了処理 ]
+#endregion
+#region [ 曲リストの終了処理 ]
 				//---------------------
 				if (Songs管理 != null)
 				{
@@ -1854,11 +1857,11 @@ namespace TJAPlayer3
 					}
 				}
 				//---------------------
-				#endregion
-				#region TextureLoaderの処理
+#endregion
+#region TextureLoaderの処理
 				Tx.DisposeTexture();
-				#endregion
-				#region [ スキンの終了処理 ]
+#endregion
+#region [ スキンの終了処理 ]
 				//---------------------
 				if (Skin != null)
 				{
@@ -1881,8 +1884,8 @@ namespace TJAPlayer3
 					}
 				}
 				//---------------------
-				#endregion
-				#region [ サウンドの終了処理 ]
+#endregion
+#region [ サウンドの終了処理 ]
 				//---------------------
 				if (Sound管理 != null)
 				{
@@ -1905,8 +1908,8 @@ namespace TJAPlayer3
 					}
 				}
 				//---------------------
-				#endregion
-				#region [ パッドの終了処理 ]
+#endregion
+#region [ パッドの終了処理 ]
 				//---------------------
 				if (Pad != null)
 				{
@@ -1928,8 +1931,8 @@ namespace TJAPlayer3
 					}
 				}
 				//---------------------
-				#endregion
-				#region [ DirectInput, MIDI入力の終了処理 ]
+#endregion
+#region [ DirectInput, MIDI入力の終了処理 ]
 				//---------------------
 				if (Input管理 != null)
 				{
@@ -1952,8 +1955,8 @@ namespace TJAPlayer3
 					}
 				}
 				//---------------------
-				#endregion
-				#region [ 文字コンソールの終了処理 ]
+#endregion
+#region [ 文字コンソールの終了処理 ]
 				//---------------------
 				if (act文字コンソール != null)
 				{
@@ -1976,8 +1979,8 @@ namespace TJAPlayer3
 					}
 				}
 				//---------------------
-				#endregion
-				#region [ FPSカウンタの終了処理 ]
+#endregion
+#region [ FPSカウンタの終了処理 ]
 				//---------------------
 				Trace.TraceInformation("FPSカウンタの終了処理を行います。");
 				Trace.Indent();
@@ -1994,8 +1997,8 @@ namespace TJAPlayer3
 					Trace.Unindent();
 				}
 				//---------------------
-				#endregion
-				#region [ タイマの終了処理 ]
+#endregion
+#region [ タイマの終了処理 ]
 				//---------------------
 				Trace.TraceInformation("タイマの終了処理を行います。");
 				Trace.Indent();
@@ -2017,8 +2020,8 @@ namespace TJAPlayer3
 					Trace.Unindent();
 				}
 				//---------------------
-				#endregion
-				#region [ Config.iniの出力 ]
+#endregion
+#region [ Config.iniの出力 ]
 				//---------------------
 				Trace.TraceInformation("Config.ini を出力します。");
 				string str = strEXEのあるフォルダ + "Config.ini";
@@ -2057,10 +2060,10 @@ namespace TJAPlayer3
 				ConfigIni = null;
 
 				//---------------------
-				#endregion
-				#region [ DirectXの終了処理 ]
+#endregion
+#region [ DirectXの終了処理 ]
 				base.GraphicsDeviceManager.Dispose();
-				#endregion
+#endregion
 				Trace.TraceInformation( "アプリケーションの終了処理を完了しました。" );
 
 				this.b終了処理完了済み = true;
@@ -2130,7 +2133,7 @@ namespace TJAPlayer3
 
 			TJAPlayer3.act文字コンソール.On活性化();
 		}
-		#region [ Windowイベント処理 ]
+#region [ Windowイベント処理 ]
 		//-----------------
 		private void Window_ApplicationActivated( object sender, EventArgs e )
 		{
@@ -2197,7 +2200,7 @@ namespace TJAPlayer3
 			ConfigIni.nウインドウwidth = (ConfigIni.bウィンドウモード) ? base.Window.ClientSize.Width : currentClientSize.Width;	// #23510 2010.10.31 yyagi add
 			ConfigIni.nウインドウheight = (ConfigIni.bウィンドウモード) ? base.Window.ClientSize.Height : currentClientSize.Height;
 		}
-		#endregion
-		#endregion
+#endregion
+#endregion
 	}
 }

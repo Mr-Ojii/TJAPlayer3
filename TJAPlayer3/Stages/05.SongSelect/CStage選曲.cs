@@ -84,8 +84,6 @@ namespace TJAPlayer3
 			base.list子Activities.Add(this.actSortSongs = new CActSortSongs());
 			base.list子Activities.Add(this.actPlayOption = new CActSelectPlayOption());
 			base.list子Activities.Add(this.actChangeSE = new CActSelectChangeSE());
-
-			this.CommandHistory = new CCommandHistory();        // #24063 2011.1.16 yyagi
 		}
 
 
@@ -1247,14 +1245,14 @@ namespace TJAPlayer3
 		private CActFIFOBlack actFIfrom結果画面;
 		//private CActFIFOBlack actFOtoNowLoading;
 		private CActFIFOStart actFOtoNowLoading;
-		public CActSelectPresound actPresound;
+		private CActSelectPresound actPresound;
 		public CActSelect演奏履歴パネル act演奏履歴パネル;
 		public CActSelect曲リスト act曲リスト;
-		private CActSelect難易度選択画面 act難易度選択画面;
+		internal CActSelect難易度選択画面 act難易度選択画面;
 		private bool 完全に選択済み = false;
 
-		public CActSortSongs actSortSongs;
-		internal CActSelectPlayOption actPlayOption;
+		private CActSortSongs actSortSongs;
+		private CActSelectPlayOption actPlayOption;
 		internal CActSelectChangeSE actChangeSE;
 
 				private int nGenreBack;
@@ -1281,38 +1279,6 @@ namespace TJAPlayer3
 			public EパッドFlag ePad;		// 押されたコマンド(同時押しはOR演算で列挙する)
 			public long time;				// コマンド入力時刻
 		}
-		private class CCommandHistory		// #24063 2011.1.16 yyagi コマンド入力履歴を保持_確認するクラス
-		{
-			readonly int buffersize = 16;
-			private List<STCommandTime> stct;
-
-			public CCommandHistory()		// コンストラクタ
-			{
-				stct = new List<STCommandTime>( buffersize );
-			}
-
-			/// <summary>
-			/// コマンド入力履歴へのコマンド追加
-			/// </summary>
-			/// <param name="_eInst">楽器の種類</param>
-			/// <param name="_ePad">入力コマンド(同時押しはOR演算で列挙すること)</param>
-			public void Add( E楽器パート _eInst, EパッドFlag _ePad )
-			{
-				STCommandTime _stct = new STCommandTime {
-					eInst = _eInst,
-					ePad = _ePad,
-					time = TJAPlayer3.Timer.n現在時刻
-				};
-
-				if ( stct.Count >= buffersize )
-				{
-					stct.RemoveAt( 0 );
-				}
-				stct.Add(_stct);
-//Debug.WriteLine( "CMDHIS: 楽器=" + _stct.eInst + ", CMD=" + _stct.ePad + ", time=" + _stct.time );
-			}
-		}
-		private CCommandHistory CommandHistory;
 
 		private void tカーソルを下へ移動する()
 		{
