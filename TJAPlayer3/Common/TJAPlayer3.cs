@@ -76,12 +76,6 @@ namespace TJAPlayer3
 			private set;
 		}
 
-		public static CJudgeTextEncoding JudgeTextEncoding
-		{
-			get;
-			private set;
-		}
-
 		public static CInput管理 Input管理
 		{
 			get;
@@ -1336,10 +1330,6 @@ namespace TJAPlayer3
 #endif
 			// END #23629 2010.11.13 from
 			//-----------------
-#endregion
-
-#region[JudgeTextEncodingの初期化]
-			JudgeTextEncoding = new CJudgeTextEncoding();//2020.05.07 Mr-Ojii UTF-8に対応するために追加
 #endregion
 #region [ Config.ini の読込み ]
 			//---------------------

@@ -47,7 +47,6 @@ namespace TJAPlayer3
 				Drums.n演奏速度分子 = TJAPlayer3.ConfigIni.n演奏速度;
 				Drums.n演奏速度分母 = 20;
 				Drums.bSTAGEFAILED有効 = TJAPlayer3.ConfigIni.bSTAGEFAILED有効;
-				Drums.eダメージレベル = TJAPlayer3.ConfigIni.eダメージレベル;
 				Drums.b演奏にキーボードを使用した = this.b演奏にキーボードを使った;
 				Drums.b演奏にMIDI入力を使用した = this.b演奏にMIDI入力を使った;
 				Drums.b演奏にジョイパッドを使用した = this.b演奏にジョイパッドを使った;

@@ -41,12 +41,6 @@ namespace TJAPlayer3
 		n曲目に表示 = 1,
 		mtaikoに画像で表示 = 2,
 	}
-	public enum Eダメージレベル
-	{
-		少ない	= 0,
-		普通	= 1,
-		大きい	= 2
-	}
 	public enum Eパッド			// 演奏用のenum。ここを修正するときは、次に出てくる EKeyConfigPad と EパッドFlag もセットで修正すること。
 	{
 		LRed    = 0,
@@ -189,16 +183,6 @@ namespace TJAPlayer3
 	}
 
 	/// <summary>
-	/// 透明チップの種類
-	/// </summary>
-	public enum EInvisible
-	{
-		OFF,		// チップを透明化しない
-		SEMI,		// Poor/Miss時だけ、一時的に透明解除する
-		FULL		// チップを常に透明化する
-	}
-
-	/// <summary>
 	/// Drum/Taiko の値を扱う汎用の構造体。
 	/// </summary>
 	/// <typeparam name="T">値の型。</typeparam>
@@ -248,13 +232,6 @@ namespace TJAPlayer3
 	}
 
 	#region[Ver.K追加]
-	public enum Eレーンタイプ
-	{
-		TypeA,
-		TypeB,
-		TypeC,
-		TypeD
-	}
 	public enum EClipDispType
 	{
 		背景のみ           = 1,

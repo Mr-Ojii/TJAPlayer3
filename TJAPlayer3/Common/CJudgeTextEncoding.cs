@@ -12,7 +12,7 @@ namespace TJAPlayer3
 		/// <summary>
 		/// Hnc8様のReadJEncを使用して文字コードの判別をする。
 		/// </summary>
-		public Encoding JudgeFileEncoding(string path){//2020.05.08 Mr-Ojii Hnc8様のReadJEncを使用して文字コードの判別をする。
+		public static Encoding JudgeFileEncoding(string path){//2020.05.08 Mr-Ojii Hnc8様のReadJEncを使用して文字コードの判別をする。
 			if (!File.Exists(path)) return null;
 			Encoding enc;
 			FileInfo file = new FileInfo(path);

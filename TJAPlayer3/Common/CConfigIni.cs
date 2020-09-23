@@ -302,7 +302,6 @@ namespace TJAPlayer3
 		public int nウインドウheight;				// #23510 2010.10.31 yyagi add
 		public Dictionary<int, string> dicJoystick;
 		public ERandomMode[] eRandom;
-		public Eダメージレベル eダメージレベル;
 		public CKeyAssign KeyAssign;
 		public int n非フォーカス時スリープms;       // #23568 2010.11.04 ikanick add
 		public int nフレーム毎スリープms;			// #xxxxx 2011.11.27 yyagi add
@@ -593,11 +592,6 @@ namespace TJAPlayer3
 		public EClipDispType eClipDispType;
 		#endregion
 
-		#region[Position]
-		public Eレーンタイプ eLaneType;
-
-		#endregion
-
 		//--------------------------
 		#endregion
 
@@ -617,7 +611,6 @@ namespace TJAPlayer3
 			this.nフレーム毎スリープms = -1;			// #xxxxx 2011.11.27 yyagi add
 			this.n非フォーカス時スリープms = 1;			// #23568 2010.11.04 ikanick add
 			this.nBGAlpha = 100;
-			this.eダメージレベル = Eダメージレベル.普通;
 			this.bSTAGEFAILED有効 = true;
 			this.bAVI有効 = false;
 			this.bBGA有効 = true;
@@ -748,9 +741,6 @@ namespace TJAPlayer3
 			FastRender = true;
 			MusicPreTimeMs = 1000; // 一秒
 			SendDiscordPlayingInformation = true;
-			#region[ Ver.K追加 ]
-			this.eLaneType = Eレーンタイプ.TypeA;
-			#endregion
 		}
 		public CConfigIni( string iniファイル名 )
 			: this()
@@ -1311,7 +1301,7 @@ namespace TJAPlayer3
 			{
 				string str;
 				this.tキーアサインを全部クリアする();
-				Encoding inienc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(ConfigIniファイル名);
+				Encoding inienc = CJudgeTextEncoding.JudgeFileEncoding(ConfigIniファイル名);
 				using ( StreamReader reader = new StreamReader( this.ConfigIniファイル名, inienc ) )
 				{
 					str = reader.ReadToEnd();
@@ -1546,10 +1536,6 @@ namespace TJAPlayer3
 											else if( str3.Equals( "BGAlpha" ) )
 											{
 												this.n背景の透過度 = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0xff, this.n背景の透過度 );
-											}
-											else if( str3.Equals( "DamageLevel" ) )
-											{
-												this.eダメージレベル = (Eダメージレベル) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, (int) this.eダメージレベル );
 											}
 											else if ( str3.Equals( "StageFailed" ) )
 											{

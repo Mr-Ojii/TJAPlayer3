@@ -537,7 +537,7 @@ namespace TJAPlayer3
 			}
 			else
 			{
-				Encoding ファイルenc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(strファイル名);
+				Encoding ファイルenc = CJudgeTextEncoding.JudgeFileEncoding(strファイル名);
 				StreamReader reader = new StreamReader(strファイル名, ファイルenc);
 				string str = reader.ReadToEnd();
 				reader.Close();
@@ -833,7 +833,7 @@ namespace TJAPlayer3
 			void LoadSkinConfigFromFile(string path, ref string work)
 			{
 				if (!File.Exists(Path(path))) return;
-				Encoding enc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(Path(path));
+				Encoding enc = CJudgeTextEncoding.JudgeFileEncoding(Path(path));
 				using (var streamReader = new StreamReader(Path(path), enc))
 				{
 					while (streamReader.Peek() > -1) // 一行ずつ読み込む。

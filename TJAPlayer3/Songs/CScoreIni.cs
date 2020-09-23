@@ -103,7 +103,6 @@ namespace TJAPlayer3
 			public double dbゲーム型スキル値;
 			public double db演奏型スキル値;
 			public ERandomMode eRandom;
-			public Eダメージレベル eダメージレベル;
 			public float f譜面スクロール速度;
 			public string Hash;
 			public int nGoodになる範囲ms;
@@ -153,7 +152,6 @@ namespace TJAPlayer3
 				this.n演奏速度分母 = 20;
 				this.bDrums有効 = true;
 				this.bSTAGEFAILED有効 = true;
-				this.eダメージレベル = Eダメージレベル.普通;
 				this.nPerfectになる範囲ms = 34;
 				this.nGreatになる範囲ms = 67;
 				this.nGoodになる範囲ms = 84;
@@ -298,7 +296,7 @@ namespace TJAPlayer3
 			if( File.Exists( iniファイル名 ) )
 			{
 				string str;
-				Encoding inienc = TJAPlayer3.JudgeTextEncoding.JudgeFileEncoding(iniファイル名);
+				Encoding inienc = CJudgeTextEncoding.JudgeFileEncoding(iniファイル名);
 				StreamReader reader = new StreamReader( iniファイル名, inienc );
 				while( ( str = reader.ReadLine() ) != null )
 				{
@@ -614,30 +612,6 @@ namespace TJAPlayer3
 										#endregion
 										else
 										{
-											#region [ DamageLevel ]
-											if ( item.Equals( "DamageLevel" ) )
-											{
-												switch ( int.Parse( para ) )
-												{
-													case 0:
-														{
-															c演奏記録.eダメージレベル = Eダメージレベル.少ない;
-															continue;
-														}
-													case 1:
-														{
-															c演奏記録.eダメージレベル = Eダメージレベル.普通;
-															continue;
-														}
-													case 2:
-														{
-															c演奏記録.eダメージレベル = Eダメージレベル.大きい;
-															continue;
-														}
-												}
-												throw new Exception( "DamageLevel の値が無効です。" );
-											}
-											#endregion
 											if ( item.Equals( "UseKeyboard" ) )
 											{
 												c演奏記録.b演奏にキーボードを使用した = C変換.bONorOFF( para[ 0 ] );
@@ -952,7 +926,6 @@ namespace TJAPlayer3
 				writer.WriteLine("PlaySpeed={0}/{1}", this.stセクション[i].n演奏速度分子, this.stセクション[i].n演奏速度分母);
 				writer.WriteLine("Drums={0}", this.stセクション[i].bDrums有効 ? 1 : 0);
 				writer.WriteLine("StageFailed={0}", this.stセクション[i].bSTAGEFAILED有効 ? 1 : 0);
-				writer.WriteLine("DamageLevel={0}", (int)this.stセクション[i].eダメージレベル);
 				writer.WriteLine("UseKeyboard={0}", this.stセクション[i].b演奏にキーボードを使用した ? 1 : 0);
 				writer.WriteLine("UseMIDIIN={0}", this.stセクション[i].b演奏にMIDI入力を使用した ? 1 : 0);
 				writer.WriteLine("UseJoypad={0}", this.stセクション[i].b演奏にジョイパッドを使用した ? 1 : 0);
@@ -1112,7 +1085,6 @@ namespace TJAPlayer3
 			builder.Append( cc.n演奏速度分母 );
 			builder.Append( boolToChar( cc.bDrums有効 ) );
 			builder.Append( boolToChar( cc.bSTAGEFAILED有効 ) );
-			builder.Append( (int) cc.eダメージレベル );
 			builder.Append( boolToChar( cc.b演奏にキーボードを使用した ) );
 			builder.Append( boolToChar( cc.b演奏にMIDI入力を使用した ) );
 			builder.Append( boolToChar( cc.b演奏にジョイパッドを使用した ) );
