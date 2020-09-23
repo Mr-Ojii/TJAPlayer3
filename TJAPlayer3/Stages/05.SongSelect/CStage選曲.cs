@@ -997,7 +997,7 @@ namespace TJAPlayer3
 								{
 									this.tカーソルを上へ移動する();
 								}
-								if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.PageUp))
+								if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.PageDown))
 								{
 									this.tカーソルをかなり上へ移動する();
 								}
@@ -1008,7 +1008,7 @@ namespace TJAPlayer3
 								{
 									this.tカーソルを下へ移動する();
 								}
-								if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.PageDown))
+								if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.PageUp))
 								{
 									this.tカーソルをかなり下へ移動する();
 								}

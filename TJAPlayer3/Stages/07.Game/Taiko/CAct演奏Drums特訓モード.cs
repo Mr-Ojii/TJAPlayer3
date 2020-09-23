@@ -157,7 +157,7 @@ namespace TJAPlayer3
 						}
 					}
 				}
-				if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.PageUp))
+				if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.PageDown))
 				{
 					if (this.b特訓PAUSE)
 					{
@@ -199,7 +199,7 @@ namespace TJAPlayer3
 
 					}
 				}
-				if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.PageDown))
+				if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.PageUp))
 				{
 					if (this.b特訓PAUSE)
 					{
