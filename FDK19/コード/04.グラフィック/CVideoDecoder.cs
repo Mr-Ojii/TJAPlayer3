@@ -56,20 +56,23 @@ namespace FDK
 				if (ffmpeg.avcodec_open2(codec_context, codec, null) != 0)
 					Trace.WriteLine("avcodec_open2 failed\n");
 
-				FrameSize = new Size(codec_context->width, codec_context->height);
-				pixelFormat = codec_context->pix_fmt;
+				this.FrameSize = new Size(codec_context->width, codec_context->height);
+				this.Duration = (video_stream->avg_frame_rate.num / (double)video_stream->avg_frame_rate.den) * video_stream->nb_frames;
 				framecount = codec_context->frame_number;
 				Framerate = video_stream->avg_frame_rate;
 
 				frame = ffmpeg.av_frame_alloc();
 				packet = ffmpeg.av_packet_alloc();
-				if (pixelFormat != CVPxfmt)
+				if (codec_context->pix_fmt != CVPxfmt)
 				{
-					convert_context = ffmpeg.sws_getContext(FrameSize.Width, FrameSize.Height, pixelFormat,
-					FrameSize.Width,
-					FrameSize.Height,
-					CVPxfmt,
-					ffmpeg.SWS_FAST_BILINEAR, null, null, null);
+					convert_context = ffmpeg.sws_getContext(
+						FrameSize.Width,
+						FrameSize.Height,
+						codec_context->pix_fmt,
+						FrameSize.Width,
+						FrameSize.Height,
+						CVPxfmt,
+						ffmpeg.SWS_FAST_BILINEAR, null, null, null);
 					this.IsConvert = true;
 				}
 				if (convert_context == null) throw new ApplicationException("Could not initialize the conversion context.\n");
@@ -306,7 +309,16 @@ namespace FDK
 			return new CTexture(this.device, bitmap, fmt, false);
 		}
 
-		public Size FrameSize;
+		public Size FrameSize 
+		{
+			get;
+			private set;
+		}
+		public double Duration 
+		{
+			get;
+			private set;
+		}
 
 		public double dbPlaySpeed
 		{
@@ -357,7 +369,6 @@ namespace FDK
 
 		//for convert
 		private SwsContext* convert_context;
-		private AVPixelFormat pixelFormat;
 		private readonly byte_ptrArray4 _dstData;
 		private readonly int_array4 _dstLinesize;
 		private readonly IntPtr _convertedFrameBufferPtr;

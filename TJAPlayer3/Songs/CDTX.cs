@@ -298,6 +298,19 @@ namespace TJAPlayer3
 						nDuration = (wc.rSound[0] == null) ? 0 : wc.rSound[0].n総演奏時間ms;
 					}
 				}
+				else if (this.nチャンネル番号 == 0x54) 
+				{
+					CVideoDecoder wc;
+					TJAPlayer3.DTX[0].listVD.TryGetValue(this.n整数値_内部番号, out wc);
+					if (wc == null)
+					{
+						nDuration = 0;
+					}
+					else
+					{
+						nDuration = (int)(wc.Duration * 1000);
+					}
+				}
 
 				return (int)(nDuration / TJAPlayer3.DTX[0].db再生速度);
 			}
