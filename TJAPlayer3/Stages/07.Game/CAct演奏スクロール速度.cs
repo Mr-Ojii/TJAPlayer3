@@ -41,11 +41,11 @@ namespace TJAPlayer3
 				{
 					for (int nPlayer = 0; nPlayer < 2; nPlayer++)
 					{
-						this.n速度変更制御タイマ[nPlayer] = (long)(CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+						this.n速度変更制御タイマ[nPlayer] = (long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 					}
 					base.b初めての進行描画 = false;
 				}
-				long n現在時刻 = CSound管理.rc演奏用タイマ.n現在時刻;
+				long n現在時刻 = CSound管理.rc演奏用タイマ.n現在時刻ms;
 
 				for (int nPlayer = 0; nPlayer < 2; nPlayer++)
 				{

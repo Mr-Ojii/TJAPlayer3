@@ -24,37 +24,6 @@ namespace FDK
 		}
 		public abstract void Dispose();
 
-		#region [ DTXMania用に、語尾にmsのつかない宣言を追加 ]
-		public long nシステム時刻
-		{
-			get { return nシステム時刻ms; }
-		}
-		public long n現在時刻
-		{
-			get { return n現在時刻ms; }
-			set { n現在時刻ms = value; }
-		}
-		public long n前回リセットした時のシステム時刻
-		{
-			get { return n前回リセットした時のシステム時刻ms; }
-		}
-
-		//double
-		public double dbシステム時刻
-		{
-			get { return dbシステム時刻ms; }
-		}
-		public double db現在時刻
-		{
-			get { return db現在時刻ms; }
-			set { db現在時刻ms = value; }
-		}
-		public double db前回リセットした時のシステム時刻
-		{
-			get { return db前回リセットした時のシステム時刻ms; }
-		}
-		#endregion
-
 		public long n現在時刻ms
 		{
 			get

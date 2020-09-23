@@ -73,7 +73,7 @@ namespace FDK
 					long nRet = ctimer.nシステム時刻ms - this.n前に経過時間を測定したシステム時刻ms;
 					if ( nRet < 0 )	// カウンタがループしたときは
 					{
-						nRet = ( ctimer.nシステム時刻 - long.MinValue ) + ( long.MaxValue - this.n前に経過時間を測定したシステム時刻ms ) + 1;
+						nRet = ( ctimer.nシステム時刻ms - long.MinValue ) + ( long.MaxValue - this.n前に経過時間を測定したシステム時刻ms ) + 1;
 					}
 					this.n前に経過時間を測定したシステム時刻ms = ctimer.nシステム時刻ms;
 	

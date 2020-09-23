@@ -158,7 +158,7 @@ namespace TJAPlayer3
 					if(!IsEnded)
 					{
 						if (TJAPlayer3.DTX[0].listChip.Count <= 0) continue;
-						if (TJAPlayer3.DTX[0].listChip[TJAPlayer3.DTX[0].listChip.Count - 1].n発声時刻ms < TJAPlayer3.Timer.n現在時刻)
+						if (TJAPlayer3.DTX[0].listChip[TJAPlayer3.DTX[0].listChip.Count - 1].n発声時刻ms < TJAPlayer3.Timer.n現在時刻ms)
 						{
 							switch (Challenge[i].GetExamType())
 							{
@@ -199,19 +199,25 @@ namespace TJAPlayer3
 		}
 
 		public override void OnManagedリソースの作成()
-		{
-			Dan_Plate = TJAPlayer3.tテクスチャの生成(Path.GetDirectoryName(TJAPlayer3.DTX[0].strファイル名の絶対パス) + @"\Dan_Plate.png");
-			Sound_Section = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Dan\Section.ogg"), ESoundGroup.SoundEffect);
-			Sound_Failed = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Dan\Failed.ogg"), ESoundGroup.SoundEffect);
-			base.OnManagedリソースの作成();
+        {
+			if (!this.b活性化してない)
+			{
+				Dan_Plate = TJAPlayer3.tテクスチャの生成(Path.GetDirectoryName(TJAPlayer3.DTX[0].strファイル名の絶対パス) + @"\Dan_Plate.png");
+				Sound_Section = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Dan\Section.ogg"), ESoundGroup.SoundEffect);
+				Sound_Failed = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Dan\Failed.ogg"), ESoundGroup.SoundEffect);
+				base.OnManagedリソースの作成();
+			}
 		}
 
 		public override void OnManagedリソースの解放()
 		{
-			TJAPlayer3.t安全にDisposeする(ref Dan_Plate);
-			Sound_Section?.t解放する();
-			Sound_Failed?.t解放する();
-			base.OnManagedリソースの解放();
+			if (!this.b活性化してない)
+			{
+				TJAPlayer3.t安全にDisposeする(ref Dan_Plate);
+				Sound_Section?.t解放する();
+				Sound_Failed?.t解放する();
+				base.OnManagedリソースの解放();
+			}
 		}
 
 		public override int On進行描画()

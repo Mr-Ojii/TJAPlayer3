@@ -1697,7 +1697,7 @@ namespace TJAPlayer3
 #endregion
 #region [ Random の初期化 ]
 			//---------------------
-			Random = new Random((int)Timer.nシステム時刻);
+			Random = new Random((int)Timer.nシステム時刻ms);
 			//---------------------
 #endregion
 #region [ ステージの初期化 ]

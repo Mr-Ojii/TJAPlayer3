@@ -69,7 +69,7 @@ namespace FDK
 										nKey = (int)key,
 										b押された = true,
 										b離された = false,
-										nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+										nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 									};
 									this.list入力イベント.Add(ev);
 
@@ -91,7 +91,7 @@ namespace FDK
 									nKey = (int)key,
 									b押された = false,
 									b離された = true,
-									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 								};
 								this.list入力イベント.Add(ev);
 

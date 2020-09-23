@@ -78,7 +78,7 @@ namespace FDK
 							{
 								nKey = 0,
 								b押された = true,
-								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
 							this.list入力イベント.Add(ev);
 
@@ -94,7 +94,7 @@ namespace FDK
 							{
 								nKey = 0,
 								b押された = false,
-								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
 							this.list入力イベント.Add(ev);
 
@@ -114,7 +114,7 @@ namespace FDK
 							{
 								nKey = 1,
 								b押された = true,
-								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
 							this.list入力イベント.Add(ev);
 
@@ -130,7 +130,7 @@ namespace FDK
 							{
 								nKey = 1,
 								b押された = false,
-								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
 							this.list入力イベント.Add(event7);
 
@@ -150,7 +150,7 @@ namespace FDK
 							{
 								nKey = 2,
 								b押された = true,
-								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
 							this.list入力イベント.Add(ev);
 
@@ -166,7 +166,7 @@ namespace FDK
 							{
 								nKey = 2,
 								b押された = false,
-								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
 							this.list入力イベント.Add(ev);
 
@@ -186,7 +186,7 @@ namespace FDK
 							{
 								nKey = 3,
 								b押された = true,
-								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
 							this.list入力イベント.Add(ev);
 
@@ -202,7 +202,7 @@ namespace FDK
 							{
 								nKey = 3,
 								b押された = false,
-								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
 							this.list入力イベント.Add(ev);
 
@@ -222,7 +222,7 @@ namespace FDK
 							{
 								nKey = 4,
 								b押された = true,
-								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
 							this.list入力イベント.Add(ev);
 
@@ -238,7 +238,7 @@ namespace FDK
 							{
 								nKey = 4,
 								b押された = false,
-								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
 							this.list入力イベント.Add(ev);
 
@@ -258,7 +258,7 @@ namespace FDK
 							{
 								nKey = 5,
 								b押された = true,
-								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
 							this.list入力イベント.Add(ev);
 
@@ -274,7 +274,7 @@ namespace FDK
 							{
 								nKey = 5,
 								b押された = false,
-								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
 							this.list入力イベント.Add(event15);
 
@@ -294,7 +294,7 @@ namespace FDK
 							{
 								nKey = 6,
 								b押された = true,
-								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
 							this.list入力イベント.Add(ev);
 
@@ -310,7 +310,7 @@ namespace FDK
 							{
 								nKey = 6,
 								b押された = false,
-								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
 							this.list入力イベント.Add(ev);
 
@@ -330,7 +330,7 @@ namespace FDK
 							{
 								nKey = 7,
 								b押された = true,
-								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
 							this.list入力イベント.Add(ev);
 
@@ -346,7 +346,7 @@ namespace FDK
 							{
 								nKey = 7,
 								b押された = false,
-								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
 							this.list入力イベント.Add(event15);
 
@@ -367,7 +367,7 @@ namespace FDK
 							{
 								nKey = 8 + j,
 								b押された = true,
-								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
 							this.list入力イベント.Add(item);
 
@@ -381,7 +381,7 @@ namespace FDK
 							{
 								nKey = 8 + j,
 								b押された = false,
-								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
 							this.list入力イベント.Add(item);
 
@@ -406,7 +406,7 @@ namespace FDK
 								{
 									nKey = 8 + 128 + nWay,
 									b押された = true,
-									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+									nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 								};
 								this.list入力イベント.Add(stevent);
 
@@ -433,7 +433,7 @@ namespace FDK
 							{
 								nKey = nWay,
 								b押された = false,
-								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+								nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
 							this.list入力イベント.Add(stevent);
 

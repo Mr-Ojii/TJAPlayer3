@@ -62,15 +62,6 @@ namespace FDK
 			// 出展: http://msdn.microsoft.com/ja-jp/library/ms998547.aspx#scalenetchapt05_topic10
 		}
 
-
-		// ログ
-		public static void t例外の詳細をログに出力する( Exception e )
-		{
-			Trace.WriteLine( "---例外ここから----" );
-			Trace.WriteLine( e.ToString() );
-			Trace.WriteLine( "---例外ここまで----" );
-		}
-
 		// 数学
 
 		public static bool bToggleBoolian( ref bool bFlag )

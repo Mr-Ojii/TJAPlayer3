@@ -26,7 +26,7 @@ namespace FDK
 		{
 			this.n現在のFPS = 0;
 			this.timer = new CTimer( CTimer.E種別.MultiMedia );
-			this.基点時刻ms = this.timer.n現在時刻;
+			this.基点時刻ms = this.timer.n現在時刻ms;
 			this.内部FPS = 0;
 			this.bFPSの値が変化した = false;
 		}
@@ -40,7 +40,7 @@ namespace FDK
 			this.bFPSの値が変化した = false;
 
 			const long INTERVAL = 1000;
-			while( ( this.timer.n現在時刻 - this.基点時刻ms ) >= INTERVAL )
+			while( ( this.timer.n現在時刻ms - this.基点時刻ms ) >= INTERVAL )
 			{
 				this.n現在のFPS = this.内部FPS;
 				this.内部FPS = 0;

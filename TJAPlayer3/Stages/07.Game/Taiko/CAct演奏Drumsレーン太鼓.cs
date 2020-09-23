@@ -78,7 +78,7 @@ namespace TJAPlayer3
 			if (base.b初めての進行描画)
 			{
 				for (int i = 0; i < 4; i++)
-					this.stBranch[i].nフラッシュ制御タイマ = (long)(CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+					this.stBranch[i].nフラッシュ制御タイマ = (long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 				base.b初めての進行描画 = false;
 			}
 
@@ -96,7 +96,7 @@ namespace TJAPlayer3
 			for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
 			{
 				#region[ 分岐アニメ制御タイマー ]
-				long num = FDK.CSound管理.rc演奏用タイマ.n現在時刻;
+				long num = CSound管理.rc演奏用タイマ.n現在時刻ms;
 				if (num < this.stBranch[i].nフラッシュ制御タイマ)
 				{
 					this.stBranch[i].nフラッシュ制御タイマ = num;
@@ -583,7 +583,7 @@ namespace TJAPlayer3
 					}
 				}
 			}
-			var nTime = (long)(CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+			var nTime = (long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 
 
 			for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++)
@@ -831,7 +831,7 @@ namespace TJAPlayer3
 
 		public void t判定枠移動(int n移動開始時間, double db移動時間, int n移動px, int nPlayer)
 		{
-			if ((CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= n移動開始時間 + (db移動時間 * 1000))
+			if ((CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= n移動開始時間 + (db移動時間 * 1000))
 			{
 				int position = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + n移動px;
 				TJAPlayer3.Skin.nScrollFieldX[nPlayer] = position;

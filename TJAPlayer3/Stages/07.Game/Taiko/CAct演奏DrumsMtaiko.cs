@@ -125,11 +125,11 @@ namespace TJAPlayer3
 		{
 			if( base.b初めての進行描画 )
 			{
-				this.nフラッシュ制御タイマ = (long)(CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+				this.nフラッシュ制御タイマ = (long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 				base.b初めての進行描画 = false;
 			}
 			
-			long num = (long)(CSound管理.rc演奏用タイマ.n現在時刻 * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+			long num = (long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 			if( num < this.nフラッシュ制御タイマ )
 			{
 				this.nフラッシュ制御タイマ = num;

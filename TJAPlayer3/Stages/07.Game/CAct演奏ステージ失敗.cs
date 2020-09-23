@@ -69,7 +69,7 @@ namespace TJAPlayer3
 
 		public void Start()
 		{
-			this.dbFailedTime = TJAPlayer3.Timer.n現在時刻;
+			this.dbFailedTime = TJAPlayer3.Timer.n現在時刻ms;
 			this.ct進行 = new CCounter( 0, 1000, 2, TJAPlayer3.Timer );
 			if( TJAPlayer3.ConfigIni.eGameMode != EGame.OFF )
 			{

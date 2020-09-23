@@ -643,6 +643,7 @@ namespace FDK
 			{
 				Trace.TraceWarning("CTexture: Dispose漏れを検出しました。(Size=({0}, {1}), filename={2}, maketype={3})", sz画像サイズ.Width, sz画像サイズ.Height, filename, maketype.ToString());
 			}
+			//マネージド リソースらしいので、解放はしない
 		}
 		//-----------------
 		#endregion

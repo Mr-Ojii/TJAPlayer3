@@ -8,12 +8,7 @@ namespace TJAPlayer3
 {
 	class FastRender
 	{
-		public FastRender()
-		{
-			
-		}
-
-		public void Render()
+		public static void Render()
 		{
 			for (int nPlayer = 0; nPlayer < 2; nPlayer++)
 			{
@@ -82,10 +77,9 @@ namespace TJAPlayer3
 			{
 				NullCheckAndRender(ref TJAPlayer3.Tx.PuchiChara[i]);
 			}
-			
 		}
 
-		private void NullCheckAndRender(ref CTexture tx)
+		private static void NullCheckAndRender(ref CTexture tx)
 		{
 			if (tx == null) return;
 			tx.Opacity = 0;

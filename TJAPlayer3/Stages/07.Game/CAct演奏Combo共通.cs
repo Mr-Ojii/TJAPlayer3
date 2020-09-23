@@ -598,11 +598,11 @@ namespace TJAPlayer3
 				//-----------------
 				if( this.status[ i ].nジャンプインデックス値 < 360 )
 				{
-					if( ( this.status[ i ].n前回の時刻_ジャンプ用 == -1 ) || ( TJAPlayer3.Timer.n現在時刻 < this.status[ i ].n前回の時刻_ジャンプ用 ) )
-						this.status[ i ].n前回の時刻_ジャンプ用 = TJAPlayer3.Timer.n現在時刻;
+					if( ( this.status[ i ].n前回の時刻_ジャンプ用 == -1 ) || ( TJAPlayer3.Timer.n現在時刻ms < this.status[ i ].n前回の時刻_ジャンプ用 ) )
+						this.status[ i ].n前回の時刻_ジャンプ用 = TJAPlayer3.Timer.n現在時刻ms;
 
 					const long INTERVAL = 2;
-					while( ( TJAPlayer3.Timer.n現在時刻 - this.status[ i ].n前回の時刻_ジャンプ用 ) >= INTERVAL )
+					while( ( TJAPlayer3.Timer.n現在時刻ms - this.status[ i ].n前回の時刻_ジャンプ用 ) >= INTERVAL )
 					{
 						if( this.status[ i ].nジャンプインデックス値 < 2000 )
 							this.status[ i ].nジャンプインデックス値 += 3;
@@ -627,7 +627,7 @@ namespace TJAPlayer3
 							// モード変更
 							this.status[ i ].e現在のモード = EMode.進行表示中;
 							this.status[ i ].nジャンプインデックス値 = 0;
-							this.status[ i ].n前回の時刻_ジャンプ用 = TJAPlayer3.Timer.n現在時刻;
+							this.status[ i ].n前回の時刻_ジャンプ用 = TJAPlayer3.Timer.n現在時刻ms;
 							goto Retry;
 						}
 
@@ -645,14 +645,14 @@ namespace TJAPlayer3
 							// モード変更
 							this.status[ i ].e現在のモード = EMode.残像表示中;
 							this.status[ i ].n残像表示中のCOMBO値 = this.status[ i ].n現在表示中のCOMBO値;
-							this.status[ i ].nコンボが切れた時刻 = TJAPlayer3.Timer.n現在時刻;
+							this.status[ i ].nコンボが切れた時刻 = TJAPlayer3.Timer.n現在時刻ms;
 							goto Retry;
 						}
 
 						if( e今回の状態遷移イベント == EEvent.数値更新 )
 						{
 							this.status[ i ].nジャンプインデックス値 = 0;
-							this.status[ i ].n前回の時刻_ジャンプ用 = TJAPlayer3.Timer.n現在時刻;
+							this.status[ i ].n前回の時刻_ジャンプ用 = TJAPlayer3.Timer.n現在時刻ms;
 						}
 
 						this.status[ i ].n現在表示中のCOMBO値 = this.status[ i ].nCOMBO値;
@@ -676,7 +676,7 @@ namespace TJAPlayer3
 							this.status[ i ].e現在のモード = EMode.進行表示中;
 							goto Retry;
 						}
-						if( ( TJAPlayer3.Timer.n現在時刻 - this.status[ i ].nコンボが切れた時刻 ) > 1000 )
+						if( ( TJAPlayer3.Timer.n現在時刻ms - this.status[ i ].nコンボが切れた時刻 ) > 1000 )
 						{
 							// モード変更２
 							this.status[ i ].e現在のモード = EMode.非表示中;

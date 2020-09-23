@@ -188,13 +188,13 @@ namespace TJAPlayer3
 							CSkin.Cシステムサウンド.r最後に再生した排他システムサウンド.t停止する();
 						}
 						this.sd読み込み音.t再生を開始する();
-						this.nBGM再生開始時刻 = CSound管理.rc演奏用タイマ.n現在時刻;
+						this.nBGM再生開始時刻 = CSound管理.rc演奏用タイマ.n現在時刻ms;
 						this.nBGMの総再生時間ms = this.sd読み込み音.n総演奏時間ms;
 					}
 					else
 					{
 						TJAPlayer3.Skin.sound曲読込開始音.t再生する();
-						this.nBGM再生開始時刻 = CSound管理.rc演奏用タイマ.n現在時刻;
+						this.nBGM再生開始時刻 = CSound管理.rc演奏用タイマ.n現在時刻ms;
 						this.nBGMの総再生時間ms = TJAPlayer3.Skin.sound曲読込開始音.n長さ_現在のサウンド;
 					}
 				}
@@ -461,11 +461,8 @@ namespace TJAPlayer3
 
 						if(TJAPlayer3.ConfigIni.FastRender)
 						{
-							var fastRender = new FastRender();
-							fastRender.Render();
-							fastRender = null;
+							FastRender.Render();//staticに変更 インスタンス作成不要
 						}
-
 
 						if ( bitmapFilename != null )
 						{
@@ -490,7 +487,7 @@ namespace TJAPlayer3
 
 				case CStage.Eフェーズ.NOWLOADING_システムサウンドBGMの完了を待つ:
 					{
-						long nCurrentTime = TJAPlayer3.Timer.n現在時刻;
+						long nCurrentTime = TJAPlayer3.Timer.n現在時刻ms;
 						if( nCurrentTime < this.nBGM再生開始時刻 )
 							this.nBGM再生開始時刻 = nCurrentTime;
 
