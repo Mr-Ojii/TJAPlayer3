@@ -2700,7 +2700,7 @@ namespace TJAPlayer3
 
 			if( this.n分岐した回数[ nPlayer ] == 0 )
 			{
-				this.bUseBranch[ nPlayer ] = dTX.bHIDDENBRANCH ? false : dTX.bチップがある.Branch;
+				this.bUseBranch[ nPlayer ] = dTX.bHIDDENBRANCH ? false : dTX.bHasBranchChip;
 			}
 
 

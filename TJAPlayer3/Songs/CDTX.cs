@@ -553,12 +553,6 @@ namespace TJAPlayer3
 				}
 			}
 		}
-		public struct STチップがある
-		{
-			public bool Drums;
-			
-			public bool Branch;
-		}
 
 		public class CLine
 		{
@@ -605,7 +599,7 @@ namespace TJAPlayer3
 		public string BACKGROUND_GR;
 		public double BASEBPM;
 		public double BPM;
-		public STチップがある bチップがある;
+		public bool bHasBranchChip;
 		public string COMMENT;
 		public double db再生速度;
 		public string GENRE;
@@ -640,7 +634,7 @@ namespace TJAPlayer3
 		public string TITLE;
 		public bool SUBTITLEDisp;
 		public double dbScrollSpeed;
-		public int nデモBGMオフセット;
+		public int nデモBGMオフセット = 0;
 
 		private int n現在の小節数 = 1;
 
@@ -761,9 +755,7 @@ namespace TJAPlayer3
 			this.BPM = 120.0;
 			this.bHIDDENBRANCH = false;
 			this.db再生速度 = 1.0;
-			this.bチップがある = new STチップがある();
-			this.bチップがある.Drums = false;
-			this.bチップがある.Branch = false;
+			this.bHasBranchChip = false;
 			this.strファイル名 = "";
 			this.strフォルダ名 = "";
 			this.strファイル名の絶対パス = "";
@@ -2161,10 +2153,6 @@ namespace TJAPlayer3
 				this.listChip.Add(chip);
 				#endregion
 
-				#region[DEMOSTART]
-				this.nデモBGMオフセット = 0;
-				#endregion
-
 				#region[LEVEL]
 				var level = (int)Convert.ToDouble(5);
 				this.LEVELtaiko[(int)Difficulty.Dan] = level;
@@ -2631,12 +2619,25 @@ namespace TJAPlayer3
 			#endregion
 
 			#region[DEMOSTART]
-			this.nデモBGMオフセット = 0;
+			if (obj.PreviewOffset != null)
+			{
+				int nOFFSETms;
+				try
+				{
+					nOFFSETms = (int)(obj.PreviewOffset * 1000.0);
+				}
+				catch
+				{
+					nOFFSETms = 0;
+				}
+				this.nデモBGMオフセット = nOFFSETms;
+			}
 			#endregion
 
 			#region[BGIMAGE or BGMOVIE]
-			Regex IMAGEEX = new Regex(@"\.png|\.jpg|\.jpeg", RegexOptions.Multiline | RegexOptions.Compiled);
-			Regex MOVIEEX = new Regex(@"\.avi|\.mp4", RegexOptions.Multiline | RegexOptions.Compiled);
+			Regex IMAGEEX = new Regex(@"\.png|\.jpg|\.jpeg|\.gif|\.bmp|\.", RegexOptions.Multiline | RegexOptions.Compiled);
+			//現在、画像か動画かを拡張子で判別しているが、
+			//Image/Bitmapオブジェクト生成が失敗した場合に動画に切り替える方法のほうが良いのだろうか？
 			Match im =IMAGEEX.Match(Path.GetExtension(this.strフォルダ名 + obj.BGFile));
 			if (im.Success)
 			{
@@ -2645,27 +2646,36 @@ namespace TJAPlayer3
 					this.strBGIMAGE_PATH = obj.BGFile;
 				}
 			}
-			else { 
-				Match mo = MOVIEEX.Match(Path.GetExtension(this.strフォルダ名 + obj.BGFile));
-				if (mo.Success) {
-					if (!string.IsNullOrEmpty(obj.BGFile))
-					{
-						this.strBGVIDEO_PATH =
-							CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, obj.BGFile);
-					}
+			else
+			{
+				if (!string.IsNullOrEmpty(obj.BGFile))
+				{
+					this.strBGVIDEO_PATH =
+						CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, obj.BGFile);
+				}
 
-					string strVideoFilename;
-					if (!string.IsNullOrEmpty(this.PATH_WAV))
-						strVideoFilename = this.PATH_WAV + this.strBGVIDEO_PATH;
-					else
-						strVideoFilename = this.strフォルダ名 + this.strBGVIDEO_PATH;
+				string strVideoFilename;
+				if (!string.IsNullOrEmpty(this.PATH_WAV))
+					strVideoFilename = this.PATH_WAV + this.strBGVIDEO_PATH;
+				else
+					strVideoFilename = this.strフォルダ名 + this.strBGVIDEO_PATH;
 
+				try
+				{
 					CVideoDecoder vd = new CVideoDecoder(TJAPlayer3.app.Device, strVideoFilename);
 
 					if (this.listVD.ContainsKey(1))
 						this.listVD.Remove(1);
 
 					this.listVD.Add(1, vd);
+				}
+				catch (Exception e)
+				{
+					Trace.TraceWarning(e.ToString() + "\n" +
+						"動画のデコーダー生成で例外が発生しましたが、処理を継続します。");
+					if (this.listVD.ContainsKey(1))
+						this.listVD.Remove(1);
+
 				}
 			}
 
@@ -4280,7 +4290,7 @@ namespace TJAPlayer3
 			else if (command == "#BRANCHSTART")
 			{
 				#region [ 譜面分岐のパース方法を作り直し ]   //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに結構な修正
-				this.bチップがある.Branch = true;
+				this.bHasBranchChip = true;
 				this.b最初の分岐である = false;
 				this.b分岐を一回でも開始した = true;
 
@@ -5630,12 +5640,22 @@ namespace TJAPlayer3
 				else
 					strVideoFilename = this.strフォルダ名 + this.strBGVIDEO_PATH;
 
-				CVideoDecoder vd = new CVideoDecoder(TJAPlayer3.app.Device, strVideoFilename);
+				try
+				{
+					CVideoDecoder vd = new CVideoDecoder(TJAPlayer3.app.Device, strVideoFilename);
 
-				if (this.listVD.ContainsKey(1))
-					this.listVD.Remove(1);
+					if (this.listVD.ContainsKey(1))
+						this.listVD.Remove(1);
 
-				this.listVD.Add(1, vd);
+					this.listVD.Add(1, vd);
+				}
+				catch (Exception e)
+				{
+					Trace.TraceWarning(e.ToString()+"\n"+
+						"動画のデコーダー生成で例外が発生しましたが、処理を継続します。");
+					if (this.listVD.ContainsKey(1))
+						this.listVD.Remove(1);
+				}
 			}
 			else if (strCommandName.Equals("BGIMAGE"))
 			{
@@ -6909,6 +6929,8 @@ namespace TJAPlayer3
 			public string[] Creator { get; set; }
 			[JsonProperty("audio")]
 			public string WAVFile { get; set; }
+			[JsonProperty("songpreview")]
+			public double? PreviewOffset { get; set; }
 			[JsonProperty("background")]
 			public string BGFile { get; set; }
 			[JsonProperty("movieoffset")]

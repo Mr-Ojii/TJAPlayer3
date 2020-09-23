@@ -57,7 +57,7 @@ namespace TJAPlayer3
 				{
 					this.nランク値 = -1;
 					this.fPerfect率 = this.fGreat率 = this.fGood率 = this.fPoor率 = this.fMiss率 = 0.0f;	// #28500 2011.5.24 yyagi
-					if ( ( ( ( i != 0 ) || ( TJAPlayer3.DTX[0].bチップがある.Drums  ) ) ) )
+					if ( ( i != 0 ) )
 					{
 						CScoreIni.C演奏記録 part = this.st演奏記録[0];
 

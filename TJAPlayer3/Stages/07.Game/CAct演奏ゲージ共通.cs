@@ -149,7 +149,7 @@ namespace TJAPlayer3
 					case 6:
 					case 7:
 						{
-							if (TJAPlayer3.DTX[nPlayer].bチップがある.Branch)
+							if (TJAPlayer3.DTX[nPlayer].bHasBranchChip)
 							{
 								dbGaugeMaxComboValue[nPlayer] = TJAPlayer3.DTX[nPlayer].nノーツ数[3] * (this.fGaugeMaxRate[0] / 100.0f);
 								for (int i = 0; i < 3; i++)
@@ -169,7 +169,7 @@ namespace TJAPlayer3
 
 					case 8:
 						{
-							if (TJAPlayer3.DTX[nPlayer].bチップがある.Branch)
+							if (TJAPlayer3.DTX[nPlayer].bHasBranchChip)
 							{
 								dbGaugeMaxComboValue[nPlayer] = TJAPlayer3.DTX[nPlayer].nノーツ数[3] * (this.fGaugeMaxRate[1] / 100.0f);
 								for (int i = 0; i < 3; i++)
@@ -187,7 +187,7 @@ namespace TJAPlayer3
 					case 9:
 					case 10:
 						{
-							if (TJAPlayer3.DTX[nPlayer].bチップがある.Branch)
+							if (TJAPlayer3.DTX[nPlayer].bHasBranchChip)
 							{
 								dbGaugeMaxComboValue[nPlayer] = TJAPlayer3.DTX[nPlayer].nノーツ数[3] * (this.fGaugeMaxRate[2] / 100.0f);
 								for (int i = 0; i < 3; i++)
@@ -204,7 +204,7 @@ namespace TJAPlayer3
 
 					default:
 						{
-							if (TJAPlayer3.DTX[nPlayer].bチップがある.Branch)
+							if (TJAPlayer3.DTX[nPlayer].bHasBranchChip)
 							{
 								dbGaugeMaxComboValue[nPlayer] = TJAPlayer3.DTX[nPlayer].nノーツ数[3] * (this.fGaugeMaxRate[2] / 100.0f);
 								for (int i = 0; i < 3; i++)
@@ -394,7 +394,7 @@ namespace TJAPlayer3
 				case E判定.Perfect:
 				case E判定.Great:
 					{
-						if( TJAPlayer3.DTX[nPlayer].bチップがある.Branch )
+						if( TJAPlayer3.DTX[nPlayer].bHasBranchChip )
 						{
 							fDamage = this.dbゲージ増加量_Branch[nPlayer, nコース, 0 ];
 						}
@@ -404,7 +404,7 @@ namespace TJAPlayer3
 					break;
 				case E判定.Good:
 					{
-						if( TJAPlayer3.DTX[nPlayer].bチップがある.Branch )
+						if( TJAPlayer3.DTX[nPlayer].bHasBranchChip )
 						{
 							fDamage = this.dbゲージ増加量_Branch[nPlayer, nコース, 1 ];
 						}
@@ -415,7 +415,7 @@ namespace TJAPlayer3
 				case E判定.Poor:
 				case E判定.Miss:
 					{
-						if( TJAPlayer3.DTX[nPlayer].bチップがある.Branch )
+						if( TJAPlayer3.DTX[nPlayer].bHasBranchChip )
 						{
 							fDamage = this.dbゲージ増加量_Branch[nPlayer, nコース, 2 ];
 						}
@@ -440,7 +440,7 @@ namespace TJAPlayer3
 					{
 						if( nPlayer == 0 ? TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] : TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] )
 						{
-							if( TJAPlayer3.DTX[nPlayer].bチップがある.Branch )
+							if( TJAPlayer3.DTX[nPlayer].bHasBranchChip )
 							{
 								fDamage = this.dbゲージ増加量_Branch[nPlayer, nコース, 0 ];
 							}
