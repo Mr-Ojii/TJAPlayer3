@@ -162,12 +162,13 @@ namespace FDK
 				this.Format = format;
 				this.sz画像サイズ = new Size(information.Width, information.Height);
 				this.rc全画像 = new Rectangle(0, 0, this.sz画像サイズ.Width, this.sz画像サイズ.Height);
-				int colorKey = (b黒を透過する) ? unchecked((int)0xFF000000) : 0;
+				this.colorKey = (b黒を透過する) ? unchecked((int)0xFF000000) : 0;
 				this.szテクスチャサイズ = this.t指定されたサイズを超えない最適なテクスチャサイズを返す(device, this.sz画像サイズ);
+				this.Pl = pool;
 				//				lock ( lockobj )
 				//				{
 				//Trace.TraceInformation( "CTexture() start: " );
-				this.texture = Texture.FromMemory(device, txData, this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, format, pool, Filter.Point, Filter.None, colorKey);
+				this.texture = Texture.FromMemory(device, txData, this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, format, pool, Filter.Point, Filter.None, this.colorKey);
 				//Trace.TraceInformation( "CTexture() end:   " );
 				//				}
 				this.bSharpDXTextureDispose完了済み = false;
@@ -189,10 +190,10 @@ namespace FDK
 					this.Format = format;
 					this.sz画像サイズ = new Size(bitmap.Width, bitmap.Height);
 					this.rc全画像 = new Rectangle(0, 0, this.sz画像サイズ.Width, this.sz画像サイズ.Height);
-					int colorKey = (b黒を透過する) ? unchecked((int)0xFF000000) : 0;
+					this.colorKey = (b黒を透過する) ? unchecked((int)0xFF000000) : 0;
 					this.szテクスチャサイズ = this.t指定されたサイズを超えない最適なテクスチャサイズを返す(device, this.sz画像サイズ);
-
-					this.texture = Texture.FromMemory(device, ms.GetBuffer(), this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, format, pool, Filter.Point, Filter.None, colorKey);
+					this.Pl = pool;
+					this.texture = Texture.FromMemory(device, ms.GetBuffer(), this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, format, pool, Filter.Point, Filter.None, this.colorKey);
 					this.bSharpDXTextureDispose完了済み = false;
 				}
 				catch
@@ -288,6 +289,9 @@ namespace FDK
 		{
 			if (this.texture == null)
 				return;
+
+			if (this.texture.Device.NativePointer != device.NativePointer)
+				ReuseTexture(device);
 
 			this.tレンダリングステートの設定(device);
 
@@ -439,6 +443,9 @@ namespace FDK
 			if (this.texture == null)
 				throw new InvalidOperationException("テクスチャは生成されていません。");
 
+			if (this.texture.Device.NativePointer != device.NativePointer)
+				ReuseTexture(device);
+
 			this.tレンダリングステートの設定(device);
 
 			float fx = x * CTexture.f画面比率 + CTexture.rc物理画面描画領域.X - 0.5f;   // -0.5 は座標とピクセルの誤差を吸収するための座標補正値。(MSDN参照)
@@ -545,6 +552,9 @@ namespace FDK
 		{
 			if (this.texture == null)
 				return;
+
+			if (this.texture.Device.NativePointer != device.NativePointer)
+				ReuseTexture(device);
 
 			matrix.M11 = mat.M11;
 			matrix.M12 = mat.M12;
@@ -666,6 +676,18 @@ namespace FDK
 		//		byte[] _txData;
 		static object lockobj = new object();
 
+		private void ReuseTexture(Device device)
+		{
+			if (this.texture != null)
+			{
+				using (DataStream stream = Texture.ToStream(this.texture, ImageFileFormat.Bmp))
+				{
+					this.texture.Dispose();
+					this.texture = Texture.FromStream(device, stream, this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, this.Format, this.Pl, Filter.Point, Filter.None, colorKey);
+				}
+			}
+		}
+
 		/// <summary>
 		/// どれか一つが有効になります。
 		/// </summary>
@@ -767,6 +789,8 @@ namespace FDK
 		// 2012.3.21 さらなる new の省略作戦
 
 		protected Rectangle rc全画像;                              // テクスチャ作ったらあとは不変
+		private int colorKey;
+		private Pool Pl;
 		public OpenTK.Graphics.Color4 color4 = new OpenTK.Graphics.Color4(1f, 1f, 1f, 1f);  // アルファ以外は不変
 		private Color4 cl4 = new Color4(1f, 1f, 1f, 1f);
 		private Matrix matrix = Matrix.Identity;
