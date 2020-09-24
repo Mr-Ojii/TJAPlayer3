@@ -5,9 +5,9 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.IO;
 using System.Threading;
+using System.Net.NetworkInformation;
 using SharpDX.Direct3D9;
 using FDK;
 using System.Reflection;
@@ -15,13 +15,12 @@ using System.Reflection;
 using Rectangle = System.Drawing.Rectangle;
 using Point = System.Drawing.Point;
 using Color = System.Drawing.Color;
+using System.Threading.Tasks;
 
 namespace TJAPlayer3
 {
 	internal class TJAPlayer3 : Game
 	{
-		[System.Runtime.InteropServices.DllImport("wininet.dll")]
-		extern static bool InternetGetConnectedState(out int lpdwFlags, int dwReserved);
 		// プロパティ
 		#region [ properties ]
 		public static readonly string VERSION = Assembly.GetExecutingAssembly().GetName().Version.ToString().Substring(0, Assembly.GetExecutingAssembly().GetName().Version.ToString().Length - 2);
@@ -1044,7 +1043,17 @@ namespace TJAPlayer3
 
 				if (r現在のステージ != null && r現在のステージ.eステージID != CStage.Eステージ.起動 && TJAPlayer3.Tx.Overlay_Online != null && TJAPlayer3.Tx.Overlay_Offline != null)
 				{
-					if (InternetGetConnectedState(out _, 0))
+					if (Math.Abs(CSound管理.rc演奏用タイマ.nシステム時刻ms - this.前回のシステム時刻ms) > 10000)
+					{
+						this.前回のシステム時刻ms = CSound管理.rc演奏用タイマ.nシステム時刻ms;
+						Task.Factory.StartNew(() =>
+						{
+							//IPv4 8.8.8.8にPingを送信する(timeout 5000ms)
+							PingReply reply = new Ping().Send("8.8.8.8", 5000);
+							this.bネットワークに接続中 = reply.Status == IPStatus.Success;
+						});
+					}
+					if (this.bネットワークに接続中)
 						TJAPlayer3.Tx.Overlay_Online.t2D描画(app.Device, 0, 0);
 					else
 						TJAPlayer3.Tx.Overlay_Offline.t2D描画(app.Device, 0, 0);
@@ -1305,6 +1314,8 @@ namespace TJAPlayer3
 		//-----------------
 		private bool bマウスカーソル表示中 = true;
 		private bool b終了処理完了済み;
+		private bool bネットワークに接続中 = false;
+		private long 前回のシステム時刻ms = long.MinValue;
 		private static CDTX[] dtx = new CDTX[4];
 
 		public static TextureLoader Tx = new TextureLoader();
