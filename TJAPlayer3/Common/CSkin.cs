@@ -2817,7 +2817,7 @@ namespace TJAPlayer3
 		public int Game_Training_JumpPoint_Y = 375;
 		public int[] Game_Training_MaxMeasureCount_XY = { 284, 377 };
 		public int[] Game_Training_CurrentMeasureCount_XY = { 254, 370 };
-		public int[] Game_Training_SpeedDisplay_XY = { 115, 370 };
+		public int[] Game_Training_SpeedDisplay_XY = { 110, 370 };
 		public int Game_Training_SmallNumber_Width = 17;
 		public int Game_Training_BigNumber_Width = 20;
 		#endregion

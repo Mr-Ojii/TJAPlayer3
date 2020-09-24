@@ -466,7 +466,7 @@ namespace TJAPlayer3
 
 				if ( !TJAPlayer3.ConfigIni.bNoInfo )
 					this.t進行描画_コンボ();
-				if( !TJAPlayer3.ConfigIni.bNoInfo )
+				if( !TJAPlayer3.ConfigIni.bNoInfo && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
 					this.t進行描画_スコア();
 
 				if (TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
