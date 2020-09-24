@@ -41,14 +41,14 @@
     <Reference Include="Bass.Net">
       <HintPath>..\Test\net48\dll\Bass.Net.dll</HintPath>
     </Reference>
-    <Reference Include="System.Management" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FFmpeg.AutoGen" Version="4.3.0.1" />
+    <PackageReference Include="FFmpeg.AutoGen" Version="4.3.0.2" />
     <PackageReference Include="OpenTK" Version="3.2" />
     <PackageReference Include="SharpDX" Version="4.2.0" />
     <PackageReference Include="SharpDX.Direct3D9" Version="4.2.0" />
     <PackageReference Include="SharpDX.Mathematics" Version="4.2.0" />
+    <PackageReference Include="System.Management" Version="4.7.0" />
   </ItemGroup>
 </Project>
