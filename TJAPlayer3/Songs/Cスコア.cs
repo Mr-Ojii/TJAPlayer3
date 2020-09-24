@@ -70,6 +70,7 @@ namespace TJAPlayer3
 			public int nデモBGMオフセット;
 			public bool[] b譜面が存在する;
 			public bool[] b譜面分岐;
+			public bool[] bPapaMamaSupport;
 			public int[] nハイスコア;
 			public int[] nSecondScore;
 			public int[] nThirdScore;
@@ -190,6 +191,7 @@ namespace TJAPlayer3
 			this.譜面情報.nデモBGMオフセット = 0;
 			this.譜面情報.b譜面が存在する = new bool[(int)Difficulty.Total];
 			this.譜面情報.b譜面分岐 = new bool[(int)Difficulty.Total];
+			this.譜面情報.bPapaMamaSupport = new bool[(int)Difficulty.Total];
 			this.譜面情報.b歌詞あり = false;
 			this.譜面情報.nハイスコア = new int[(int)Difficulty.Total];
 			this.譜面情報.nSecondScore = new int[(int)Difficulty.Total];

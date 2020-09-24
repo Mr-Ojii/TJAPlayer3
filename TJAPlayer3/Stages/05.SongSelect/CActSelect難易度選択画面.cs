@@ -288,6 +288,25 @@ namespace TJAPlayer3
 				}
 			}
 			#endregion
+			#region[パパママサポート]
+			if (TJAPlayer3.Tx.Difficulty_PapaMama != null)//Difficulty_PapaMamaがないなら、通す必要なし！
+			{
+				TJAPlayer3.Tx.Difficulty_PapaMama.Opacity = (int)((ct分岐表示用タイマー.n現在の値 % 2) * 255.0);
+				for (int i = 0; i < 4; i++)
+				{
+					if (裏表示 && i == 3)
+					{
+						if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.bPapaMamaSupport[4])
+							TJAPlayer3.Tx.Difficulty_PapaMama.t2D描画(TJAPlayer3.app.Device, i * 100 + 470, 310, new Rectangle(TJAPlayer3.Tx.Difficulty_PapaMama.szテクスチャサイズ.Width / 2, 0, TJAPlayer3.Tx.Difficulty_PapaMama.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.Difficulty_PapaMama.szテクスチャサイズ.Height));
+					}
+					else
+					{
+						if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.bPapaMamaSupport[i])
+							TJAPlayer3.Tx.Difficulty_PapaMama.t2D描画(TJAPlayer3.app.Device, i * 100 + 470, 310, new Rectangle(0, 0, TJAPlayer3.Tx.Difficulty_PapaMama.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.Difficulty_PapaMama.szテクスチャサイズ.Height));
+					}
+				}
+			}
+			#endregion
 			#region[王冠]
 			if (TJAPlayer3.Tx.Crown_t != null)//王冠テクスチャがないなら、通す必要なし！
 			{

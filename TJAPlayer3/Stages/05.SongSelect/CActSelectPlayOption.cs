@@ -52,18 +52,18 @@ namespace TJAPlayer3
 					" \n" +
 					" \n" +
 					" ",
-					new string[] { "OFF", "完走!", "完走!激辛", "特訓" }));
+					new string[] { "なし", "完走!", "完走!激辛", "特訓" }));
 
 			}
 			l.Add(new CItemList("ランダム", (int)TJAPlayer3.ConfigIni.eRandom[nPlayer],
 				"いわゆるランダム。\n  RANDOM: ちょっと変わる\n  MIRROR: あべこべ \n  SUPER: そこそこヤバい\n  HYPER: 結構ヤバい\nなお、実装は適当な模様",
 				"Drums chips come randomly.\n\n Part: swapping lanes randomly for each\n  measures.\n Super: swapping chip randomly\n Hyper: swapping randomly\n  (number of lanes also changes)",
-				new string[] { "OFF", "RANDOM", "あべこべ", "SUPER", "HYPER" }));
+				new string[] { "しない", "ちょこっと", "あべこべ", "きまぐれ", "でたらめ" }));
 			l.Add(new CItemList("ドロン", (int)TJAPlayer3.ConfigIni.eSTEALTH[nPlayer],
 				"",
-				new string[] { "OFF", "ドロン", "ステルス" }));
+				new string[] { "しない", "ドロン", "ステルス" }));
 
-			l.Add(new CItemList("真打", TJAPlayer3.ConfigIni.ShinuchiMode[nPlayer] ? 1 : 0, "", "", new string[] { "OFF", "ON" }));
+			l.Add(new CItemList("真打", TJAPlayer3.ConfigIni.ShinuchiMode[nPlayer] ? 1 : 0, "", "", new string[] { "しない", "する" }));
 			if (nPlayer == 0)
 			{
 				l.Add(new CItemInteger("プレイ人数", 1, 2, TJAPlayer3.ConfigIni.nPlayerCount,

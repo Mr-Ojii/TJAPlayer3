@@ -623,6 +623,7 @@ namespace TJAPlayer3
 		public bool SUBTITLEDisp;
 		public double dbScrollSpeed;
 		public int nデモBGMオフセット = 0;
+		public bool[] bPapaMamaSupport = new bool[(int)Difficulty.Total] { false, false, false, false, false, false, false };
 
 		private int n現在の小節数 = 1;
 
@@ -998,7 +999,7 @@ namespace TJAPlayer3
 					}
 					break;
 				case ERandomMode.RANDOM:
-					foreach (var chip in this.listChip)
+					foreach (var chip in this.listChip)//10%
 					{
 						int n = rnd.Next(50);
 
@@ -1025,7 +1026,7 @@ namespace TJAPlayer3
 					}
 					break;
 				case ERandomMode.SUPERRANDOM:
-					foreach (var chip in this.listChip)
+					foreach (var chip in this.listChip)//50%
 					{
 						int n = rnd.Next(80);
 
@@ -1052,7 +1053,7 @@ namespace TJAPlayer3
 					}
 					break;
 				case ERandomMode.HYPERRANDOM:
-					foreach (var chip in this.listChip)
+					foreach (var chip in this.listChip)//60%
 					{
 						int n = rnd.Next(100);
 
@@ -2624,7 +2625,7 @@ namespace TJAPlayer3
 
 			this.n参照中の難易度 = strConvertCourse(obj.Courses[coursesindex[n読み込むコース]].Diffculty);
 
-			//2020.06.09 tcmにtccのコードを再利用するには、ここにつけるしかなかったんだ～許して～
+			//2020.06.09 tcmにtccのコードを再利用するには、ここにつけるしかなかったんだ～許してよ～
 			#region[ 最初の処理 ]
 			//1小節の時間を挿入して開始時間を調節。
 			this.dbNowTime += ((15000.0 / 120.0 * (4.0 / 4.0)) * 16.0);
@@ -3508,7 +3509,7 @@ namespace TJAPlayer3
 
 		private static readonly Regex regexForPrefixingCommaStartingLinesWithZero = new Regex(@"^,", RegexOptions.Multiline | RegexOptions.Compiled);
 		private static readonly Regex regexForStrippingHeadingLines = new Regex(
-			@"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|EXAM1|EXAM2|EXAM3|BALLOONNOR|BALLOONEXP|BALLOONMAS|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE|GENRE|MOVIEOFFSET|BGIMAGE|BGMOVIE|HIDDENBRANCH|GAUGEINCR|#HBSCROLL|#BMSCROLL|LYRICFILE)).+\n",
+			@"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|EXAM1|EXAM2|EXAM3|BALLOONNOR|BALLOONEXP|BALLOONMAS|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE|GENRE|MOVIEOFFSET|BGIMAGE|BGMOVIE|HIDDENBRANCH|GAUGEINCR|LYRICFILE|#HBSCROLL|#BMSCROLL|#PAPAMAMA)).+\n",
 			RegexOptions.Multiline | RegexOptions.Compiled);
 
 		/// <summary>
@@ -5124,6 +5125,12 @@ namespace TJAPlayer3
 				//本来はヘッダ命令ではありませんが、難易度ごとに違う項目なのでここで読み込ませます。
 				//Lengthのチェックをされる前ににif文を入れています。
 				this.bHasBranch[this.n参照中の難易度] = true;
+			}
+			else if (InputText.StartsWith("#PAPAMAMA")) 
+			{
+				//2020.09.24 Mr-Ojii
+				//こちらもヘッダ命令ではないが、ここで読み込ませます。
+				this.bPapaMamaSupport[this.n参照中の難易度] = true;
 			}
 
 			//まずは「:」でSplitして割り当てる。

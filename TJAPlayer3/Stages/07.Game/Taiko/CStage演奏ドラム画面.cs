@@ -765,20 +765,25 @@ namespace TJAPlayer3
 					continue;
 
 				this.t入力メソッド記憶();
-
-				foreach( STInputEvent inputEvent in listInputEvent )
+				int nPadtmp = nPad;//2020.09.24 Mr-Ojii パパママサポートに対応するため、tmpをかませることにする。
+				foreach (STInputEvent inputEvent in listInputEvent)
 				{
-					if( !inputEvent.b押された )
+					if (!inputEvent.b押された)
 						continue;
 
 					long nTime = (long)(((inputEvent.nTimeStamp + nInputAdjustTimeMs - CSound管理.rc演奏用タイマ.n前回リセットした時のシステム時刻ms) * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)));
-					//int nPad09 = ( nPad == (int) Eパッド.HP ) ? (int) Eパッド.BD : nPad;		// #27029 2012.1.5 yyagi
 
 					bool bHitted = false;
 
 					int nLane = 0;
 					int nHand = 0;
 					int nChannel = 0;
+
+					if (TJAPlayer3.ConfigIni.nPlayerCount == 1 && TJAPlayer3.DTX[0].bPapaMamaSupport[TJAPlayer3.stage選曲.n確定された曲の難易度[0]])//1P状態でパパママサポートがOnの譜面の場合
+					{
+						if (nPadtmp >= (int)Eパッド.LRed2P && nPadtmp <= (int)Eパッド.RBlue2P)
+							nPadtmp -= 4;
+					}
 
 					//連打チップを検索してから通常音符検索
 					//連打チップの検索は、
@@ -787,20 +792,20 @@ namespace TJAPlayer3
 
 					//2015.03.19 kairera0467 Chipを1つにまとめて1つのレーン扱いにする。
 					int nUsePlayer = 0;
-					if(nPad >= (int)Eパッド.LRed && nPad <= (int)Eパッド.RBlue) {
+					if(nPadtmp >= (int)Eパッド.LRed && nPadtmp <= (int)Eパッド.RBlue) {
 						nUsePlayer = 0;
-					} else if(nPad >= (int)Eパッド.LRed2P && nPad <= (int)Eパッド.RBlue2P) {
+					} else if(nPadtmp >= (int)Eパッド.LRed2P && nPadtmp <= (int)Eパッド.RBlue2P) {
 						nUsePlayer = 1;
 						if( TJAPlayer3.ConfigIni.nPlayerCount < 2 ) //プレイ人数が2人以上でなければ入力をキャンセル
 							break;
 					}
 
-					if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] && (nPad >= (int)Eパッド.LRed && nPad <= (int)Eパッド.RBlue))//2020.05.18 Mr-Ojii オート時の入力キャンセル
+					if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] && (nPadtmp >= (int)Eパッド.LRed && nPadtmp <= (int)Eパッド.RBlue))//2020.05.18 Mr-Ojii オート時の入力キャンセル
 						break;
-					else if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] && (nPad >= (int)Eパッド.LRed2P && nPad <= (int)Eパッド.RBlue2P))
+					else if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] && (nPadtmp >= (int)Eパッド.LRed2P && nPadtmp <= (int)Eパッド.RBlue2P))
 						break;
 
-					var padTo = nPad - (nUsePlayer * 4);
+					var padTo = nPadtmp - (nUsePlayer * 4);
 					var isDon = padTo < 2 ? true : false;
 
 					CDTX.CChip chipNoHit = chip現在処理中の連打チップ[nUsePlayer] == null ? GetChipOfNearest( nTime, nUsePlayer, isDon) : GetChipOfNearest(nTime, nUsePlayer);
@@ -816,7 +821,7 @@ namespace TJAPlayer3
 							this.soundAdlib[chipNoHit.nPlayerSide]?.t再生を開始する();
 					}
 
-					switch (nPad)
+					switch (nPadtmp)
 					{
 						case (int)Eパッド.LRed:
 							nLane = 0;
@@ -906,7 +911,7 @@ namespace TJAPlayer3
 
 					#region [ (A) ヒットしていればヒット処理して次の inputEvent へ ]
 					//-----------------------------
-					switch( ( (Eパッド) nPad ) )
+					switch( ( (Eパッド) nPadtmp ) )
 					{
 						case Eパッド.LRed:
 						case Eパッド.LRed2P:
@@ -1176,7 +1181,7 @@ namespace TJAPlayer3
 					//2016.07.14 kairera0467 Adlibの場合、一括して処理を行う。
 					if( e判定 != E判定.Miss && chipNoHit.nチャンネル番号 == 0x1F )
 					{
-						this.tドラムヒット処理( nTime, (Eパッド)nPad, chipNoHit, false, nUsePlayer );
+						this.tドラムヒット処理( nTime, (Eパッド)nPadtmp, chipNoHit, false, nUsePlayer );
 						bHitted = true;
 					}
 
@@ -1184,7 +1189,7 @@ namespace TJAPlayer3
 					#endregion
 					#region [ (B) ヒットしてなかった場合は、レーンフラッシュ、パッドアニメ、空打ち音再生を実行 ]
 					//-----------------------------
-					int pad = nPad;	// 以下、nPad の代わりに pad を用いる。（成りすまし用）
+					int pad = nPadtmp;	// 以下、nPadtmp の代わりに pad を用いる。（成りすまし用）
 					// BAD or TIGHT 時の処理。
 					if( TJAPlayer3.ConfigIni.bTight && !b連打中[nUsePlayer]) // 18/8/13 - 連打時にこれが発動すると困る!!! (AioiLight)
 						this.tチップのヒット処理_BadならびにTight時のMiss(chipNoHit.nコース );

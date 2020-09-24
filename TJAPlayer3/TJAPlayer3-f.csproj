@@ -63,6 +63,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Songs\CDTX.cs~RF4b84c09.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CSharpTest.Net.Collections" Version="14.906.1403.1082" />
     <PackageReference Include="LargeAddressAware" Version="1.0.5" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
