@@ -370,10 +370,11 @@ namespace TJAPlayer3
 					}
 				}
 			}
-            #endregion
+			#endregion
 
-            //裏鬼表示用
-            if ((裏カウント[0] >= 10 || 裏カウント[1] >= 10) && TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[4]) {
+			//裏鬼表示用
+			if (((裏カウント[0] >= 10 || 裏カウント[1] >= 10) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Tab)) && TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[4])
+			{
 				裏表示 = !裏表示;
 				裏カウント[0] = 0;
 				裏カウント[1] = 0;

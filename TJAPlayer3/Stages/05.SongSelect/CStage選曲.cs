@@ -956,8 +956,19 @@ namespace TJAPlayer3
 													}
 													else
 													{
-														TJAPlayer3.Skin.sound決定音.t再生する();
-														現在の選曲画面状況 = E選曲画面.難易度選択In;
+														if (TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.Tab) && !(TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード))
+														{
+															if (TJAPlayer3.Skin.sound曲決定音.b読み込み成功)
+																TJAPlayer3.Skin.sound曲決定音.t再生する();
+															else
+																TJAPlayer3.Skin.sound決定音.t再生する();
+															this.t曲を選択する();
+														}
+														else
+														{
+															TJAPlayer3.Skin.sound決定音.t再生する();
+															現在の選曲画面状況 = E選曲画面.難易度選択In;
+														}
 													}
 												}
 												break;
@@ -1344,7 +1355,7 @@ namespace TJAPlayer3
 			this.r確定された曲 = this.act曲リスト.r現在選択中の曲;
 			this.r確定されたスコア = this.act曲リスト.r現在選択中のスコア;
 			this.n確定された曲の難易度[0] = this.act曲リスト.n現在選択中の曲の難易度レベル[0];
-			this.n確定された曲の難易度[1] = this.act曲リスト.n現在選択中の曲の難易度レベル[0];
+			this.n確定された曲の難易度[1] = this.act曲リスト.n現在選択中の曲の難易度レベル[1];
 			this.str確定された曲のジャンル = this.r確定された曲.strジャンル;
 			if ( ( this.r確定された曲 != null ) && ( this.r確定されたスコア != null ) )
 			{
