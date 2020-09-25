@@ -103,7 +103,7 @@ namespace TJAPlayer3
 					graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
 					graphics.DrawString( strMessage[ ci ], ftMessage, Brushes.White, (float) 0f, (float) 0f );
 					graphics.Dispose();
-					this.txMessage = new CTexture(TJAPlayer3.app.Device, image, TJAPlayer3.TextureFormat, true);
+					this.txMessage = TJAPlayer3.tテクスチャの生成(image, true);
 					this.txMessage.vc拡大縮小倍率 = new OpenTK.Vector3( 0.5f, 0.5f, 1f );
 					image.Dispose();
 					TJAPlayer3.t安全にDisposeする( ref ftMessage );

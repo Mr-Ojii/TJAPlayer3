@@ -130,15 +130,14 @@ namespace TJAPlayer3
 						using (var bmpSongTitle = this.pfTITLE.DrawPrivateFont( タイトル, TJAPlayer3.Skin.SongLoading_Title_ForeColor, TJAPlayer3.Skin.SongLoading_Title_BackColor ))
 
 						{
-							this.txタイトル = new CTexture( TJAPlayer3.app.Device, bmpSongTitle, TJAPlayer3.TextureFormat, false );
+							this.txタイトル = TJAPlayer3.tテクスチャの生成(bmpSongTitle);
 							txタイトル.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref txタイトル, 710);
 						}
 
 						using (var bmpSongSubTitle = this.pfSUBTITLE.DrawPrivateFont( サブタイトル, TJAPlayer3.Skin.SongLoading_SubTitle_ForeColor, TJAPlayer3.Skin.SongLoading_SubTitle_BackColor ))
 
-
 						{
-							this.txサブタイトル = new CTexture( TJAPlayer3.app.Device, bmpSongSubTitle, TJAPlayer3.TextureFormat, false );
+							this.txサブタイトル = TJAPlayer3.tテクスチャの生成(bmpSongSubTitle);
 						}
 					}
 					else
@@ -541,7 +540,7 @@ namespace TJAPlayer3
 				{
 					txFilename.Dispose();
 				}
-				txFilename = new CTexture(TJAPlayer3.app.Device, bitmapFilename, TJAPlayer3.TextureFormat, true);
+				txFilename = TJAPlayer3.tテクスチャの生成(bitmapFilename, true);
 				txFilename.vc拡大縮小倍率 = new OpenTK.Vector3( 0.5f, 0.5f, 1f );
 				txFilename.t2D描画( TJAPlayer3.app.Device, 0, 720 - 16 );
 			}

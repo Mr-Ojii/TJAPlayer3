@@ -211,11 +211,6 @@ namespace TJAPlayer3
 			get;
 			private set;
 		}
-		//		public static CStageオプション stageオプション
-		//		{ 
-		//			get;
-		//			private set;
-		//		}
 		public static CStageコンフィグ stageコンフィグ
 		{
 			get;
@@ -1083,23 +1078,6 @@ namespace TJAPlayer3
 			catch (FileNotFoundException)
 			{
 				Trace.TraceWarning("テクスチャファイルが見つかりませんでした。({0})", fileName);
-				return null;
-			}
-		}
-		public static CTexture tテクスチャの生成(byte[] txData)
-		{
-			if (app == null)
-			{
-				return null;
-			}
-			try
-			{
-				return new CTexture(app.Device, txData, TextureFormat, false);
-			}
-			catch (CTextureCreateFailedException e)
-			{
-				Trace.TraceError(e.ToString());
-				Trace.TraceError("テクスチャの生成に失敗しました。(txData)");
 				return null;
 			}
 		}
