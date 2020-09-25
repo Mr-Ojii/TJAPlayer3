@@ -1067,6 +1067,7 @@ namespace TJAPlayer3
 									{
 										if( this.nHand[ nPlayer ] == 0 )
 											this.nHand[ nPlayer ]++;
+										else
 											this.nHand[ nPlayer ] = 0;
 
 										TJAPlayer3.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Red);
