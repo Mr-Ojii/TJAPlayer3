@@ -1497,7 +1497,7 @@ namespace TJAPlayer3
 			Trace.Indent();
 			try
 			{
-				Timer = new CTimer(CTimer.E種別.MultiMedia);
+				Timer = new CTimer();
 				Trace.TraceInformation("タイマの初期化を完了しました。");
 			}
 			finally

@@ -113,7 +113,7 @@ namespace FDK
 
 			this.e出力デバイス = ESoundDeviceType.Unknown;
 			this.n実バッファサイズms = this.n実出力遅延ms = n遅延時間ms;
-			this.tmシステムタイマ = new CTimer( CTimer.E種別.MultiMedia );
+			this.tmシステムタイマ = new CTimer();
 
 			#region[ OpenAL サウンドデバイスの作成]
 
@@ -179,7 +179,7 @@ namespace FDK
 			}
 			else
 			{
-				ctimer = new CTimer( CTimer.E種別.MultiMedia );
+				ctimer = new CTimer();
 			}
 			Trace.TraceInformation( "OpenAL を初期化しました。({0})", bUseOSTimer? "OStimer" : "FDKtimer" );
 		}

@@ -78,7 +78,7 @@ namespace FDK
 				if (convert_context == null) throw new ApplicationException("Could not initialize the conversion context.\n");
 				decodedframes = new Queue<CDecodedFrame>();
 
-				CTimer = new CTimer(CTimer.E種別.MultiMedia);
+				CTimer = new CTimer();
 
 				_convertedFrameBufferPtr = Marshal.AllocHGlobal(ffmpeg.av_image_get_buffer_size(CVPxfmt, codec_context->width, codec_context->height, 1));
 

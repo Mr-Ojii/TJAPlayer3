@@ -124,7 +124,7 @@ namespace FDK
 			this.n実出力遅延ms = 0;
 			this.n経過時間ms = 0;
 			this.n経過時間を更新したシステム時刻ms = CTimer.n未使用;
-			this.tmシステムタイマ = new CTimer( CTimer.E種別.MultiMedia );
+			this.tmシステムタイマ = new CTimer();
 			this.b最初の実出力遅延算出 = true;
 
 			#region [ BASS registration ]
