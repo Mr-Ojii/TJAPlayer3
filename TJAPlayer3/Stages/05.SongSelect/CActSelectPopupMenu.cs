@@ -116,8 +116,6 @@ namespace TJAPlayer3
 					nItemSelecting = n現在の選択行;
 				}
 				tEnter押下Main( (int) lciMenuItems[ n現在の選択行 ].cItem.GetIndex() );
-
-				this.bキー入力待ち = true;
 			}
 		}
 
@@ -367,7 +365,7 @@ namespace TJAPlayer3
 
 		#region [ private ]
 		//-----------------
-		private bool bキー入力待ち;
+		protected bool bキー入力待ち;
 		protected bool bEsc有効;
 
 		internal int n現在の選択行;

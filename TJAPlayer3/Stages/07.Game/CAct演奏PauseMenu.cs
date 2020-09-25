@@ -50,7 +50,8 @@ namespace TJAPlayer3
 		public override void tActivatePopupMenu(int nPlayer)
 		{
 			this.CAct演奏PauseMenuMain();
-			this.bやり直しを選択した = false;
+			this.選択完了 = false;
+			base.bキー入力待ち = true;
 			base.tActivatePopupMenu(0);
 		}
 		//public void tDeativatePopupMenu()
@@ -60,42 +61,50 @@ namespace TJAPlayer3
 
 		public override void t進行描画sub()
 		{
-			if( this.bやり直しを選択した )
+			if (this.選択完了)
 			{
-				TJAPlayer3.stage演奏ドラム画面.bPAUSE = false;
-				TJAPlayer3.stage演奏ドラム画面.t演奏やりなおし();
+				if (!sw.IsRunning)
+					this.sw = Stopwatch.StartNew();
+				if (sw.ElapsedMilliseconds > 1500)
+				{
+					switch (選択した行)
+					{
+						case (int)EOrder.Continue:
+							TJAPlayer3.stage演奏ドラム画面.bPAUSE = false;
 
-				this.tDeativatePopupMenu();
+							CSound管理.rc演奏用タイマ.t再開();
+							TJAPlayer3.Timer.t再開();
+							TJAPlayer3.DTX[0].t全チップの再生再開();
+							TJAPlayer3.stage演奏ドラム画面.actAVI.tPauseControl();
+							break;
+
+						case (int)EOrder.Redoing:
+							TJAPlayer3.stage演奏ドラム画面.bPAUSE = false;
+							TJAPlayer3.stage演奏ドラム画面.t演奏やりなおし();
+							break;
+
+						case (int)EOrder.Return:
+							CSound管理.rc演奏用タイマ.t再開();
+							TJAPlayer3.Timer.t再開();
+							TJAPlayer3.stage演奏ドラム画面.t演奏中止();
+							break;
+						default:
+							break;
+					}
+					this.tDeativatePopupMenu();
+					sw.Stop();
+					sw.Reset();
+				}
 			}
 		}
 
 		public override void tEnter押下Main( int nSortOrder )
 		{
-			switch ( n現在の選択行 )
+			if (!this.選択完了)
 			{
-				case (int) EOrder.Continue:
-					TJAPlayer3.stage演奏ドラム画面.bPAUSE = false;
-
-					CSound管理.rc演奏用タイマ.t再開();
-					TJAPlayer3.Timer.t再開();
-					TJAPlayer3.DTX[0].t全チップの再生再開();
-					TJAPlayer3.stage演奏ドラム画面.actAVI.tPauseControl();
-
-					this.tDeativatePopupMenu();
-					break;
-
-				case (int) EOrder.Redoing:
-					this.bやり直しを選択した = true;
-					break;
-
-				case (int) EOrder.Return:
-					CSound管理.rc演奏用タイマ.t再開();
-					TJAPlayer3.Timer.t再開();
-					TJAPlayer3.stage演奏ドラム画面.t演奏中止();
-					this.tDeativatePopupMenu();
-					break;
-				default:
-					break;
+				this.選択した行 = n現在の選択行;
+				this.選択完了 = true;
+				base.bキー入力待ち = false;
 			}
 		}
 
@@ -108,7 +117,9 @@ namespace TJAPlayer3
 		public override void On活性化()
 		{
 			base.On活性化();
+			this.sw = new Stopwatch();
 			this.bGotoDetailConfig = false;
+			base.bキー入力待ち = true;
 		}
 		public override void On非活性化()
 		{
@@ -151,7 +162,9 @@ namespace TJAPlayer3
 
 		private CTexture txパネル本体;
 		private CTexture tx文字列パネル;
-		private bool bやり直しを選択した;
+		private bool 選択完了;
+		private int 選択した行;
+		private Stopwatch sw;
 		//-----------------
 		#endregion
 	}
