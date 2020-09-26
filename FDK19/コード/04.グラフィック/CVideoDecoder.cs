@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -76,7 +77,7 @@ namespace FDK
 					this.IsConvert = true;
 				}
 				if (convert_context == null) throw new ApplicationException("Could not initialize the conversion context.\n");
-				decodedframes = new Queue<CDecodedFrame>();
+				decodedframes = new ConcurrentQueue<CDecodedFrame>();
 
 				CTimer = new CTimer();
 
@@ -111,7 +112,7 @@ namespace FDK
 			}
 			if (lastTexture != null)
 				lastTexture.Dispose();
-			decodedframes.Clear();
+			while (decodedframes.TryDequeue(out CDecodedFrame frame)) ;
 		}
 
 		public void Start()
@@ -161,7 +162,7 @@ namespace FDK
 				Trace.TraceError("av_seek_frame failed\n");
 			ffmpeg.avcodec_flush_buffers(codec_context);
 			CTimer.n現在時刻ms = timestampms;
-			decodedframes.Clear();
+			while (decodedframes.TryDequeue(out CDecodedFrame frame)) ;
 			this.EnqueueFrames();
 			if (lastTexture != null)
 				lastTexture.Dispose();
@@ -172,19 +173,23 @@ namespace FDK
 			if (this.bPlaying && decodedframes.Count != 0)
 			{
 				CTimer.t更新();
-				while (decodedframes.Peek().Time <= (CTimer.n現在時刻ms * _dbPlaySpeed))
+				if (decodedframes.TryPeek(out CDecodedFrame frame))
 				{
-					CDecodedFrame cdecodedframe = decodedframes.Dequeue();
+					while (frame.Time <= (CTimer.n現在時刻ms * _dbPlaySpeed))
+					{
+						if (decodedframes.TryDequeue(out CDecodedFrame cdecodedframe)) {
 
-					if (decodedframes.Count != 0)
-						if (decodedframes.Peek().Time <= (CTimer.n現在時刻ms * _dbPlaySpeed))
-							continue;
+							if (decodedframes.Count != 0)
+								if (decodedframes.TryPeek(out frame))
+									if (frame.Time <= (CTimer.n現在時刻ms * _dbPlaySpeed))
+										continue;
 
-					if (lastTexture != null)
-						lastTexture.Dispose();
-					lastTexture = GeneFrmTx(cdecodedframe.Bitmap);
-
-					break;
+							if (lastTexture != null)
+								lastTexture.Dispose();
+							lastTexture = GeneFrmTx(cdecodedframe.Bitmap);
+						}
+						break;
+					}
 				}
 
 				if (DS == DecodingState.Stopped)
@@ -349,7 +354,7 @@ namespace FDK
 		private AVCodecContext* codec_context;
 		private AVFrame* frame;
 		private AVPacket* packet;
-		private Queue<CDecodedFrame> decodedframes;
+		private ConcurrentQueue<CDecodedFrame> decodedframes;
 		private int framecount;
 		private Device device;
 		private CancellationTokenSource cts;

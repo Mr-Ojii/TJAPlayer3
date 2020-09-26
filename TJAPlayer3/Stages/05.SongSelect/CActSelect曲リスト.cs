@@ -1,6 +1,5 @@
 using FDK;
 using OpenTK;
-using OpenTK.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -1227,7 +1226,7 @@ namespace TJAPlayer3
 										{
 											if (r現在選択中のスコア.譜面情報.b譜面が存在する[i])
 											{
-												TJAPlayer3.Tx.SongSelect_Frame_Score.color4 = new Color4(1f, 1f, 1f,1f);
+												TJAPlayer3.Tx.SongSelect_Frame_Score.color = Color.FromArgb(255, 255, 255, 255);
 												if (i == 4 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0] == 4)
 												{
 													// エディット
@@ -1240,7 +1239,7 @@ namespace TJAPlayer3
 											}
 											else
 											{
-												TJAPlayer3.Tx.SongSelect_Frame_Score.color4 = new Color4(0.5f, 0.5f, 0.5f,1f);
+												TJAPlayer3.Tx.SongSelect_Frame_Score.color = Color.FromArgb(255, 127, 127, 127);
 												if (i == 4 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0] == 4)
 												{
 													// エディット
@@ -1258,13 +1257,13 @@ namespace TJAPlayer3
 										if (r現在選択中のスコア.譜面情報.b譜面が存在する[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0]])
 										{
 											// 譜面がありますね
-											TJAPlayer3.Tx.SongSelect_Frame_Score.color4 = new Color4(1f, 1f, 1f, 1f);
+											TJAPlayer3.Tx.SongSelect_Frame_Score.color = Color.FromArgb(255, 255, 255, 255);
 											TJAPlayer3.Tx.SongSelect_Frame_Score.t2D下中央基準描画(TJAPlayer3.app.Device, 494 + 120, TJAPlayer3.Skin.SongSelect_Overall_Y + 463, new Rectangle(0, 360 + (360 * (TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0] - (int)Difficulty.Tower)), TJAPlayer3.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Width, 360));
 										}
 										else
 										{
 											// ないですね
-											TJAPlayer3.Tx.SongSelect_Frame_Score.color4 = new Color4(0.5f, 0.5f, 0.5f, 1f);
+											TJAPlayer3.Tx.SongSelect_Frame_Score.color = Color.FromArgb(255, 127, 127, 127);
 											TJAPlayer3.Tx.SongSelect_Frame_Score.t2D下中央基準描画(TJAPlayer3.app.Device, 494 + 120, TJAPlayer3.Skin.SongSelect_Overall_Y + 463, new Rectangle(0, 360 + (360 * (TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0] - (int)Difficulty.Tower)), TJAPlayer3.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Width, 360));
 										}
 									}
@@ -1736,7 +1735,7 @@ namespace TJAPlayer3
 											if (r現在選択中のスコア.譜面情報.b譜面が存在する[i])
 											{
 												// レベルが0以上
-												TJAPlayer3.Tx.SongSelect_Frame_Score.color4 = new Color4(1f, 1f, 1f, 1f);
+												TJAPlayer3.Tx.SongSelect_Frame_Score.color = Color.FromArgb(255, 255, 255, 255);
 												if (i == 4 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0] == 4)
 												{
 													// エディット
@@ -1750,7 +1749,7 @@ namespace TJAPlayer3
 											else
 											{
 												// レベルが0未満 = 譜面がないとみなす
-												TJAPlayer3.Tx.SongSelect_Frame_Score.color4 = new Color4(0.5f, 0.5f, 0.5f, 1f);
+												TJAPlayer3.Tx.SongSelect_Frame_Score.color = Color.FromArgb(255, 127, 127, 127);
 												if (i == 4 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0] == 4)
 												{
 													// エディット
@@ -1768,13 +1767,13 @@ namespace TJAPlayer3
 										if (r現在選択中のスコア.譜面情報.b譜面が存在する[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0]])
 										{
 											// 譜面がありますね
-											TJAPlayer3.Tx.SongSelect_Frame_Score.color4 = new Color4(1f, 1f, 1f, 1f);
+											TJAPlayer3.Tx.SongSelect_Frame_Score.color = Color.FromArgb(255, 255, 255, 255);
 											TJAPlayer3.Tx.SongSelect_Frame_Score.t2D下中央基準描画(TJAPlayer3.app.Device, 494 + 120, TJAPlayer3.Skin.SongSelect_Overall_Y + 463, new Rectangle(0, 360 + (360 * (TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0] - (int)Difficulty.Tower)), TJAPlayer3.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Width, 360));
 										}
 										else
 										{
 											// ないですね
-											TJAPlayer3.Tx.SongSelect_Frame_Score.color4 = new Color4(0.5f, 0.5f, 0.5f, 1f);
+											TJAPlayer3.Tx.SongSelect_Frame_Score.color = Color.FromArgb(255, 127, 127, 127);
 											TJAPlayer3.Tx.SongSelect_Frame_Score.t2D下中央基準描画(TJAPlayer3.app.Device, 494 + 120, TJAPlayer3.Skin.SongSelect_Overall_Y + 463, new Rectangle(0, 360 + (360 * (TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0] - (int)Difficulty.Tower)), TJAPlayer3.Tx.SongSelect_Frame_Score.szテクスチャサイズ.Width, 360));
 										}
 									}

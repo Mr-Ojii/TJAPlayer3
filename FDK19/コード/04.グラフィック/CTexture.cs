@@ -308,11 +308,8 @@ namespace FDK
 				float f上V値 = ((float)rc画像内の描画領域.Top) / ((float)this.szテクスチャサイズ.Height);
 				float f下V値 = ((float)rc画像内の描画領域.Bottom) / ((float)this.szテクスチャサイズ.Height);
 
-				this.cl4.Red = this.color4.R;
-				this.cl4.Green = this.color4.G;
-				this.cl4.Blue = this.color4.B;
-				this.cl4.Alpha = ((float)this._opacity) / 255f;
-				int color = this.cl4.ToRgba();
+				this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
+				int color = this.color.ToArgb();
 
 				if (this.cvTransformedColoredVertexies == null)
 					this.cvTransformedColoredVertexies = new TransformedColoredTexturedVertex[4];
@@ -371,11 +368,8 @@ namespace FDK
 				float f上V値 = ((float)rc画像内の描画領域.Top) / ((float)this.szテクスチャサイズ.Height);
 				float f下V値 = ((float)rc画像内の描画領域.Bottom) / ((float)this.szテクスチャサイズ.Height);
 
-				this.cl4.Red = this.color4.R;
-				this.cl4.Green = this.color4.G;
-				this.cl4.Blue = this.color4.B;
-				this.cl4.Alpha = ((float)this._opacity) / 255f;
-				int color = this.cl4.ToRgba();
+				this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
+				int color = this.color.ToArgb();
 
 				if (this.cvPositionColoredVertexies == null)
 					this.cvPositionColoredVertexies = new PositionColoredTexturedVertex[4];
@@ -457,11 +451,8 @@ namespace FDK
 			float f上V値 = ((float)rc画像内の描画領域.Top) / ((float)this.szテクスチャサイズ.Height);
 			float f下V値 = ((float)rc画像内の描画領域.Bottom) / ((float)this.szテクスチャサイズ.Height);
 
-			this.cl4.Red = this.color4.R;
-			this.cl4.Green = this.color4.G;
-			this.cl4.Blue = this.color4.B;
-			this.cl4.Alpha = ((float)this._opacity) / 255f;
-			int color = this.cl4.ToRgba();
+			this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
+			int color = this.color.ToArgb();
 
 			if (this.cvTransformedColoredVertexies == null)
 				this.cvTransformedColoredVertexies = new TransformedColoredTexturedVertex[4];
@@ -581,11 +572,8 @@ namespace FDK
 			float f上V値 = ((float)rc画像内の描画領域.Top) / ((float)this.szテクスチャサイズ.Height);
 			float f下V値 = ((float)rc画像内の描画領域.Bottom) / ((float)this.szテクスチャサイズ.Height);
 
-			this.cl4.Red = this.color4.R;
-			this.cl4.Green = this.color4.G;
-			this.cl4.Blue = this.color4.B;
-			this.cl4.Alpha = ((float)this._opacity) / 255f;
-			int color = this.cl4.ToRgba();
+			this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
+			int color = this.color.ToArgb();
 
 			if (this.cvPositionColoredVertexies == null)
 				this.cvPositionColoredVertexies = new PositionColoredTexturedVertex[4];
@@ -791,7 +779,7 @@ namespace FDK
 		protected Rectangle rc全画像;                              // テクスチャ作ったらあとは不変
 		private int colorKey;
 		private Pool Pl;
-		public OpenTK.Graphics.Color4 color4 = new OpenTK.Graphics.Color4(1f, 1f, 1f, 1f);  // アルファ以外は不変
+		public Color color = Color.FromArgb(255, 255, 255, 255);
 		private Color4 cl4 = new Color4(1f, 1f, 1f, 1f);
 		private Matrix matrix = Matrix.Identity;
 		private MakeType maketype = MakeType.bytearray;

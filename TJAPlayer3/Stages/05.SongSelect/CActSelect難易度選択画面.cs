@@ -9,7 +9,6 @@ using System.Diagnostics;
 using System.Drawing.Text;
 using FDK;
 using OpenTK;
-using OpenTK.Graphics;
 using System.Reflection;
 
 using Rectangle = System.Drawing.Rectangle;
@@ -226,9 +225,9 @@ namespace TJAPlayer3
 					if (TJAPlayer3.Tx.Difficulty_Bar[4] != null)
 					{
 						if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[4])
-							TJAPlayer3.Tx.Difficulty_Bar[4].color4 = new Color4(1f, 1f, 1f, 1f);
+							TJAPlayer3.Tx.Difficulty_Bar[4].color = Color.FromArgb(255, 255, 255, 255);
 						else
-							TJAPlayer3.Tx.Difficulty_Bar[4].color4 = new Color4(0.5f, 0.5f, 0.5f, 1f);
+							TJAPlayer3.Tx.Difficulty_Bar[4].color = Color.FromArgb(255, 127, 127, 127);
 						if (TJAPlayer3.Tx.Difficulty_Bar[4] != null)
 							TJAPlayer3.Tx.Difficulty_Bar[4].t2D描画(TJAPlayer3.app.Device, i * TJAPlayer3.Skin.Difficulty_Bar_Padding + TJAPlayer3.Skin.Difficulty_Bar_XY[0], TJAPlayer3.Skin.Difficulty_Bar_XY[1]);
 					}
@@ -238,9 +237,9 @@ namespace TJAPlayer3
 					if (TJAPlayer3.Tx.Difficulty_Bar[i] != null)
 					{
 						if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[i])
-							TJAPlayer3.Tx.Difficulty_Bar[i].color4 = new Color4(1f, 1f, 1f, 1f);
+							TJAPlayer3.Tx.Difficulty_Bar[i].color = Color.FromArgb(255, 255, 255, 255);
 						else
-							TJAPlayer3.Tx.Difficulty_Bar[i].color4 = new Color4(0.5f, 0.5f, 0.5f, 1f);
+							TJAPlayer3.Tx.Difficulty_Bar[i].color = Color.FromArgb(255, 127, 127, 127);
 						if (TJAPlayer3.Tx.Difficulty_Bar[i] != null)
 							TJAPlayer3.Tx.Difficulty_Bar[i].t2D描画(TJAPlayer3.app.Device, i * TJAPlayer3.Skin.Difficulty_Bar_Padding + TJAPlayer3.Skin.Difficulty_Bar_XY[0], TJAPlayer3.Skin.Difficulty_Bar_XY[1]);
 					}

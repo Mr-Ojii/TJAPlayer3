@@ -8,7 +8,6 @@ using System.IO;
 using System.Diagnostics;
 using System.Threading;
 using OpenTK;
-using OpenTK.Graphics;
 using FDK;
 using Rectangle = System.Drawing.Rectangle;
 using Point = System.Drawing.Point;
@@ -1738,9 +1737,11 @@ namespace TJAPlayer3
 							pChip.RollDelay.n現在の値 = 0;
 						}
 
-						float f減少するカラー = 1.0f - ((0.95f / 100) * pChip.RollEffectLevel);
-						var effectedColor = new Color4( f減少するカラー, f減少するカラー, 1.0f , 1f);
-						var normalColor = new Color4(1.0f, 1.0f, 1.0f, 1.0f);
+						int f減少するカラー = (int)(255 - ((242.0 / 100.0) * pChip.RollEffectLevel));
+						Color effectedColor = Color.FromArgb(255, 255, f減少するカラー, f減少するカラー);
+						if (effectedColor.G < 255)
+							Debug.WriteLine("");
+						Color normalColor = Color.FromArgb(255, 255, 255, 255);
 						float f末端ノーツのテクスチャ位置調整 = 65f;
 
 						if ( pChip.nチャンネル番号 == 0x15 && pChip.bShow) //連打(小)
@@ -1751,20 +1752,20 @@ namespace TJAPlayer3
 								#region[末端をテクスチャ側でつなげる場合の方式]
 
 								if (TJAPlayer3.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
-									TJAPlayer3.Tx.Notes.color4 = effectedColor;
+									TJAPlayer3.Tx.Notes.color = effectedColor;
 								else
-									TJAPlayer3.Tx.Notes.color4 = normalColor;
+									TJAPlayer3.Tx.Notes.color = normalColor;
 								TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整 + 1) / 128.0f;
 								TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x + 64, y, new Rectangle(781, 0, 128, 130));
 								TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
 								TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(910, num9, 130, 130));
 								if (TJAPlayer3.Skin.Game_RollColorMode == CSkin.RollColorMode.All)
-									TJAPlayer3.Tx.Notes.color4 = effectedColor;
+									TJAPlayer3.Tx.Notes.color = effectedColor;
 								else
-									TJAPlayer3.Tx.Notes.color4 = normalColor;
+									TJAPlayer3.Tx.Notes.color = normalColor;
 								
 								TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x, y, 0, new Rectangle(650, num9, 130, 130));
-								TJAPlayer3.Tx.Notes.color4 = normalColor;
+								TJAPlayer3.Tx.Notes.color = normalColor;
 								#endregion
 							}
 							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
@@ -1785,9 +1786,9 @@ namespace TJAPlayer3
 								#region[末端をテクスチャ側でつなげる場合の方式]
 
 								if (TJAPlayer3.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
-									TJAPlayer3.Tx.Notes.color4 = effectedColor;
+									TJAPlayer3.Tx.Notes.color = effectedColor;
 								else
-									TJAPlayer3.Tx.Notes.color4 = normalColor;
+									TJAPlayer3.Tx.Notes.color = normalColor;
 
 								TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = (index - 65 + f末端ノーツのテクスチャ位置調整 + 1) / 128f;
 								TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x + 64, y, new Rectangle(1171, 0, 128, 130));
@@ -1795,12 +1796,12 @@ namespace TJAPlayer3
 								TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
 								TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(1300, num9, 130, 130));
 								if (TJAPlayer3.Skin.Game_RollColorMode == CSkin.RollColorMode.All)
-									TJAPlayer3.Tx.Notes.color4 = effectedColor;
+									TJAPlayer3.Tx.Notes.color = effectedColor;
 								else
-									TJAPlayer3.Tx.Notes.color4 = normalColor;
+									TJAPlayer3.Tx.Notes.color = normalColor;
 
 								TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x, y, new Rectangle(1040, num9, 130, 130));
-								TJAPlayer3.Tx.Notes.color4 = normalColor;
+								TJAPlayer3.Tx.Notes.color = normalColor;
 								#endregion
 							}
 							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
