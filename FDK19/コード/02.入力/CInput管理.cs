@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using OpenTK.Input;
 
 namespace FDK
 {
@@ -162,7 +164,7 @@ namespace FDK
 			}
 			return null;
 		}
-		public void tポーリング(bool bWindowがアクティブ中)
+		public void tポーリング(bool bWindowがアクティブ中, bool bバッファ入力有効)
 		{
 			lock (this.objMidiIn排他用)
 			{
@@ -172,7 +174,7 @@ namespace FDK
 					IInputDevice device = this.list入力デバイス[i];
 					try
 					{
-						device.tポーリング(bWindowがアクティブ中);
+						device.tポーリング(bWindowがアクティブ中, bバッファ入力有効);
 					}
 					catch (Exception e)                                      // #24016 2011.1.6 yyagi: catch exception for unplugging USB joystick, and remove the device object from the polling items.
 					{
@@ -180,6 +182,44 @@ namespace FDK
 						device.Dispose();
 						Trace.TraceError("tポーリング時に例外発生。該当deviceをポーリング対象からRemoveしました。");
 						Trace.TraceError(e.ToString());
+					}
+				}
+			}
+		}
+
+		public void KeyDownEvent(object sender, KeyEventArgs e)
+		{
+			lock (this.objMidiIn排他用)
+			{
+				if ((this.list入力デバイス != null) && (this.list入力デバイス.Count != 0))
+				{
+					foreach (IInputDevice device in this.list入力デバイス)
+					{
+						CInputKeyboard tkey = device as CInputKeyboard;
+						if ((tkey != null))
+						{
+							tkey.Key押された受信(e);
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		public void KeyUpEvent(object sender, KeyEventArgs e)
+		{
+			lock (this.objMidiIn排他用)
+			{
+				if ((this.list入力デバイス != null) && (this.list入力デバイス.Count != 0))
+				{
+					foreach (IInputDevice device in this.list入力デバイス)
+					{
+						CInputKeyboard tkey = device as CInputKeyboard;
+						if ((tkey != null))
+						{
+							tkey.Key離された受信(e);
+							break;
+						}
 					}
 				}
 			}

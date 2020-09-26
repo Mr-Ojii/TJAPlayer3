@@ -528,6 +528,8 @@ namespace TJAPlayer3
 		/// </summary>
 		public bool SendDiscordPlayingInformation;
 
+		public bool bバッファ入力;
+
 		#region [ STRANGE ]
 		public STRANGE nヒット範囲ms;
 		[StructLayout( LayoutKind.Sequential )]
@@ -741,6 +743,8 @@ namespace TJAPlayer3
 			FastRender = true;
 			MusicPreTimeMs = 1000; // 一秒
 			SendDiscordPlayingInformation = true;
+
+			this.bバッファ入力 = true;
 		}
 		public CConfigIni( string iniファイル名 )
 			: this()
@@ -1013,6 +1017,10 @@ namespace TJAPlayer3
 			sw.WriteLine( "; ストイックモード(0:OFF, 1:ON)" );
 			sw.WriteLine( "; Stoic mode. (0:OFF, 1:ON)" );
 			sw.WriteLine( "StoicMode={0}", this.bストイックモード ? 1 : 0 );
+			sw.WriteLine();
+			sw.WriteLine("; バッファ入力もどきモード(キーボードのみ)(0:OFF, 1:ON)");
+			sw.WriteLine("; Using Buffered input-like mode (0:OFF, 1:ON)");
+			sw.WriteLine("BufferedInput={0}", this.bバッファ入力 ? 1 : 0);
 			sw.WriteLine();
 			sw.WriteLine( "; リザルト画像自動保存機能(0:OFF, 1:ON)" );						// #25399 2011.6.9 yyagi
 			sw.WriteLine( "; Set \"1\" if you'd like to save result screen image automatically");	//

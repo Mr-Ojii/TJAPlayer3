@@ -481,6 +481,21 @@ namespace FDK
 			}
 		}
 
+		/// <returns>
+		///		対応する値がなければ SlimDX.DirectInput.Unknown を返す。
+		/// </returns>
+		public static SlimDXKey KeysToKey(WindowsKey key)
+		{
+			if (_KeysToKey.ContainsKey(key))
+			{
+				return _KeysToKey[key];
+			}
+			else
+			{
+				return SlimDXKey.Unknown;
+			}
+		}
+
 		/// <summary>
 		///		TKK (OpenTK.Input.Key) から SlimDX.DirectInput.Key への変換表。
 		/// </summary>
@@ -746,6 +761,139 @@ namespace FDK
 			{ SlimDXKey.WebSearch, WindowsKey.BrowserSearch },
 			{ SlimDXKey.WebStop, WindowsKey.BrowserStop },
 			{ SlimDXKey.Yen, WindowsKey.OemBackslash },
+			#endregion
+		};
+		/// <summary>
+		///		System.Windows.Form.Keys から SlimDX.DirectInput.Key への変換表。
+		/// </summary>
+		private static readonly Dictionary<WindowsKey, SlimDXKey> _KeysToKey = new Dictionary<WindowsKey, SlimDXKey>() {
+			#region [ *** ]
+			{ WindowsKey.D0,SlimDXKey.D0 },
+			{ WindowsKey.D1,SlimDXKey.D1 },
+			{ WindowsKey.D2,SlimDXKey.D2 },
+			{ WindowsKey.D3,SlimDXKey.D3 },
+			{ WindowsKey.D4,SlimDXKey.D4 },
+			{ WindowsKey.D5,SlimDXKey.D5 },
+			{ WindowsKey.D6,SlimDXKey.D6 },
+			{ WindowsKey.D7,SlimDXKey.D7 },
+			{ WindowsKey.D8,SlimDXKey.D8 },
+			{ WindowsKey.D9,SlimDXKey.D9 },
+			{ WindowsKey.A, SlimDXKey.A },
+			{ WindowsKey.B, SlimDXKey.B },
+			{ WindowsKey.C, SlimDXKey.C },
+			{ WindowsKey.D, SlimDXKey.D },
+			{ WindowsKey.E, SlimDXKey.E },
+			{ WindowsKey.F, SlimDXKey.F },
+			{ WindowsKey.G, SlimDXKey.G },
+			{ WindowsKey.H, SlimDXKey.H },
+			{ WindowsKey.I, SlimDXKey.I },
+			{ WindowsKey.J, SlimDXKey.J },
+			{ WindowsKey.K, SlimDXKey.K },
+			{ WindowsKey.L, SlimDXKey.L },
+			{ WindowsKey.M, SlimDXKey.M },
+			{ WindowsKey.N, SlimDXKey.N },
+			{ WindowsKey.O, SlimDXKey.O },
+			{ WindowsKey.P, SlimDXKey.P },
+			{ WindowsKey.Q, SlimDXKey.Q },
+			{ WindowsKey.R, SlimDXKey.R },
+			{ WindowsKey.S, SlimDXKey.S },
+			{ WindowsKey.T, SlimDXKey.T },
+			{ WindowsKey.U, SlimDXKey.U },
+			{ WindowsKey.V, SlimDXKey.V },
+			{ WindowsKey.W, SlimDXKey.W },
+			{ WindowsKey.X, SlimDXKey.X },
+			{ WindowsKey.Y, SlimDXKey.Y },
+			{ WindowsKey.Z, SlimDXKey.Z },
+			{ WindowsKey.F1, SlimDXKey.F1 },
+			{ WindowsKey.F2, SlimDXKey.F2 },
+			{ WindowsKey.F3, SlimDXKey.F3 },
+			{ WindowsKey.F4, SlimDXKey.F4 },
+			{ WindowsKey.F5, SlimDXKey.F5 },
+			{ WindowsKey.F6, SlimDXKey.F6 },
+			{ WindowsKey.F7, SlimDXKey.F7 },
+			{ WindowsKey.F8, SlimDXKey.F8 },
+			{ WindowsKey.F9, SlimDXKey.F9 },
+			{ WindowsKey.F10, SlimDXKey.F10 },
+			{ WindowsKey.F11, SlimDXKey.F11 },
+			{ WindowsKey.F12, SlimDXKey.F12 },
+			{ WindowsKey.F13, SlimDXKey.F13 },
+			{ WindowsKey.F14, SlimDXKey.F14 },
+			{ WindowsKey.F15, SlimDXKey.F15 },
+			{ WindowsKey.NumLock, SlimDXKey.NumberLock },
+			{ WindowsKey.NumPad0, SlimDXKey.NumberPad0 },
+			{ WindowsKey.NumPad1, SlimDXKey.NumberPad1 },
+			{ WindowsKey.NumPad2, SlimDXKey.NumberPad2 },
+			{ WindowsKey.NumPad3, SlimDXKey.NumberPad3 },
+			{ WindowsKey.NumPad4, SlimDXKey.NumberPad4 },
+			{ WindowsKey.NumPad5, SlimDXKey.NumberPad5 },
+			{ WindowsKey.NumPad6, SlimDXKey.NumberPad6 },
+			{ WindowsKey.NumPad7, SlimDXKey.NumberPad7 },
+			{ WindowsKey.NumPad8, SlimDXKey.NumberPad8 },
+			{ WindowsKey.NumPad9, SlimDXKey.NumberPad9 },
+			{ WindowsKey.OemQuotes,SlimDXKey.Apostrophe },
+			{ WindowsKey.Apps,SlimDXKey.Applications },
+			{ WindowsKey.Oem3,SlimDXKey.AT },
+			{ WindowsKey.Back,SlimDXKey.Backspace },
+			{ WindowsKey.OemBackslash, SlimDXKey.Backslash },
+			{ WindowsKey.CapsLock,SlimDXKey.CapsLock },
+			{ WindowsKey.Oem1,SlimDXKey.Colon },
+			{ WindowsKey.Oemcomma,SlimDXKey.Comma },
+			{ WindowsKey.IMEConvert,SlimDXKey.Convert },
+			{ WindowsKey.Delete,SlimDXKey.Delete },
+			{ WindowsKey.Down,SlimDXKey.DownArrow },
+			{ WindowsKey.End,SlimDXKey.End },
+			{ WindowsKey.Escape,SlimDXKey.Escape },
+			{ WindowsKey.Home, SlimDXKey.Home },
+			{ WindowsKey.Insert, SlimDXKey.Insert },
+			{ WindowsKey.KanaMode, SlimDXKey.Kana },
+			{ WindowsKey.KanjiMode, SlimDXKey.Kanji },
+			{ WindowsKey.Oem4, SlimDXKey.LeftBracket },
+			{ WindowsKey.LControlKey, SlimDXKey.LeftControl },
+			{ WindowsKey.Left, SlimDXKey.LeftArrow },
+			{ WindowsKey.LMenu,SlimDXKey.LeftAlt },
+			{ WindowsKey.LShiftKey,SlimDXKey.LeftShift },
+			{ WindowsKey.LWin, SlimDXKey.LeftWindowsKey },
+			{ WindowsKey.LaunchMail, SlimDXKey.Mail },
+			{ WindowsKey.SelectMedia,SlimDXKey.MediaSelect },
+			{ WindowsKey.MediaStop, SlimDXKey.MediaStop },
+			{ WindowsKey.OemMinus, SlimDXKey.Minus },
+			{ WindowsKey.VolumeMute, SlimDXKey.Mute },
+			{ WindowsKey.MediaNextTrack, SlimDXKey.NextTrack },
+			{ WindowsKey.IMENonconvert, SlimDXKey.NoConvert },
+			{ WindowsKey.Separator, SlimDXKey.NumberPadComma },
+			{ WindowsKey.Subtract, SlimDXKey.NumberPadMinus },
+			{ WindowsKey.Decimal, SlimDXKey.NumberPadPeriod },
+			{ WindowsKey.Add,SlimDXKey.NumberPadPlus },
+			{ WindowsKey.Divide, SlimDXKey.NumberPadSlash },
+			{ WindowsKey.Multiply, SlimDXKey.NumberPadStar },
+			{ WindowsKey.PageDown, SlimDXKey.PageDown },
+			{ WindowsKey.PageUp, SlimDXKey.PageUp },
+			{ WindowsKey.Pause, SlimDXKey.Pause },
+			{ WindowsKey.OemPeriod, SlimDXKey.Period },
+			{ WindowsKey.MediaPlayPause, SlimDXKey.PlayPause },
+			{ WindowsKey.MediaPreviousTrack, SlimDXKey.PreviousTrack },
+			{ WindowsKey.Oem6, SlimDXKey.RightBracket },
+			{ WindowsKey.RControlKey, SlimDXKey.RightControl },
+			{ WindowsKey.Return, SlimDXKey.Return },
+			{ WindowsKey.Right, SlimDXKey.RightArrow },
+			{ WindowsKey.RMenu, SlimDXKey.RightAlt },
+			{ WindowsKey.RWin, SlimDXKey.RightWindowsKey },
+			{ WindowsKey.Scroll, SlimDXKey.ScrollLock },
+			{ WindowsKey.Oem2, SlimDXKey.Slash },
+			{ WindowsKey.Sleep, SlimDXKey.Sleep },
+			{ WindowsKey.Space, SlimDXKey.Space },
+			{ WindowsKey.PrintScreen, SlimDXKey.PrintScreen },
+			{ WindowsKey.Tab, SlimDXKey.Tab },
+			{ WindowsKey.Up, SlimDXKey.UpArrow },
+			{ WindowsKey.VolumeDown, SlimDXKey.VolumeDown },
+			{ WindowsKey.VolumeUp, SlimDXKey.VolumeUp },
+			{ WindowsKey.BrowserBack, SlimDXKey.WebBack },
+			{ WindowsKey.BrowserFavorites, SlimDXKey.WebFavorites },
+			{ WindowsKey.BrowserForward, SlimDXKey.WebForward },
+			{ WindowsKey.BrowserHome, SlimDXKey.WebHome },
+			{ WindowsKey.BrowserRefresh, SlimDXKey.WebRefresh },
+			{ WindowsKey.BrowserSearch, SlimDXKey.WebSearch },
+			{ WindowsKey.BrowserStop, SlimDXKey.WebStop },
 			#endregion
 		};
 	}

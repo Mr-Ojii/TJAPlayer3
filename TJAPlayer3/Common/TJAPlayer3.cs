@@ -428,7 +428,7 @@ namespace TJAPlayer3
 		{
 			Timer?.t更新();
 			CSound管理.rc演奏用タイマ?.t更新();
-			Input管理?.tポーリング(this.bApplicationActive);
+			Input管理?.tポーリング(this.bApplicationActive, TJAPlayer3.ConfigIni.bバッファ入力);
 			FPS?.tカウンタ更新();
 
 			if (this.Device == null)
@@ -1501,6 +1501,8 @@ namespace TJAPlayer3
 						ConfigIni.dicJoystick.Add(key, device.GUID);
 					}
 				}
+				base.Window.KeyDown += new KeyEventHandler(Input管理.KeyDownEvent);
+				base.Window.KeyUp += new KeyEventHandler(Input管理.KeyUpEvent);
 				Trace.TraceInformation("DirectInput の初期化を完了しました。");
 			}
 			catch

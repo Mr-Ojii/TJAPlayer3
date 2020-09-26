@@ -48,7 +48,7 @@ namespace FDK
 			private set;
 		}
 
-		public void tポーリング(bool bWindowがアクティブ中)
+		public void tポーリング(bool bWindowがアクティブ中, bool bバッファ入力有効)
 		{
 			#region [ bButtonフラグ初期化 ]
 			for (int i = 0; i < 256; i++)

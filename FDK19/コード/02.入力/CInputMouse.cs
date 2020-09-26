@@ -32,7 +32,7 @@ namespace FDK
 		public int ID { get; private set; }
 		public List<STInputEvent> list入力イベント { get; private set; }
 
-		public void tポーリング(bool bWindowがアクティブ中)
+		public void tポーリング(bool bWindowがアクティブ中, bool bバッファ入力有効)
 		{
 			for (int i = 0; i < Enum.GetNames(typeof(MouseButton)).Length; i++)
 			{
