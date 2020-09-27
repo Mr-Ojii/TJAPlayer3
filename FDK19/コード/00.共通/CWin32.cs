@@ -60,7 +60,7 @@ namespace FDK
 		[StructLayout(LayoutKind.Sequential)]
 		public struct WAVEFORMATEX
 		{
-			public ushort wFormatTag;
+			public short wFormatTag;
 			public ushort nChannels;
 			public uint nSamplesPerSec;
 			public uint nAvgBytesPerSec;
@@ -68,7 +68,7 @@ namespace FDK
 			public ushort wBitsPerSample;
 
 			public WAVEFORMATEX(
-				ushort _wFormatTag,
+				short _wFormatTag,
 				ushort _nChannels,
 				uint _nSamplesPerSec,
 				uint _nAvgBytesPerSec,

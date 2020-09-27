@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Net.NetworkInformation;
+using System.Threading.Tasks;
 using SharpDX.Direct3D9;
 using FDK;
 using System.Reflection;
@@ -15,7 +16,6 @@ using System.Reflection;
 using Rectangle = System.Drawing.Rectangle;
 using Point = System.Drawing.Point;
 using Color = System.Drawing.Color;
-using System.Threading.Tasks;
 
 namespace TJAPlayer3
 {
@@ -267,8 +267,10 @@ namespace TJAPlayer3
 
 		public bool bApplicationActive
 		{
-			get;
-			private set;
+			get 
+			{
+				return this.Window.Focused;
+			}
 		}
 		public bool b次のタイミングで垂直帰線同期切り替えを行う
 		{
@@ -1362,8 +1364,6 @@ namespace TJAPlayer3
 			base.Window.MouseUp += new MouseEventHandler(this.Window_MouseUp);
 			base.Window.MouseDoubleClick += new MouseEventHandler(this.Window_MouseDoubleClick);    // #23510 2010.11.13 yyagi: to go fullscreen mode
 			base.Window.ResizeEnd += new EventHandler(this.Window_ResizeEnd);                       // #23510 2010.11.20 yyagi: to set resized window size in Config.ini
-			base.Window.ApplicationActivated += new EventHandler(this.Window_ApplicationActivated);
-			base.Window.ApplicationDeactivated += new EventHandler(this.Window_ApplicationDeactivated);
 			//---------------------
 #endregion
 #region [ Direct3D9 デバイスの生成 ]
@@ -2064,14 +2064,6 @@ namespace TJAPlayer3
 		}
 #region [ Windowイベント処理 ]
 		//-----------------
-		private void Window_ApplicationActivated( object sender, EventArgs e )
-		{
-			this.bApplicationActive = true;
-		}
-		private void Window_ApplicationDeactivated( object sender, EventArgs e )
-		{
-			this.bApplicationActive = false;
-		}
 		private void Window_KeyDown( object sender, KeyEventArgs e )
 		{
 			if ( e.KeyCode == Keys.Menu )

@@ -780,7 +780,6 @@ namespace FDK
 		private int colorKey;
 		private Pool Pl;
 		public Color color = Color.FromArgb(255, 255, 255, 255);
-		private Color4 cl4 = new Color4(1f, 1f, 1f, 1f);
 		private Matrix matrix = Matrix.Identity;
 		private MakeType maketype = MakeType.bytearray;
 		//-----------------

@@ -745,10 +745,9 @@ namespace FDK
 			{
 				#region [ ファイルがWAVかつPCMフォーマットか否か調べる。]
 				//-----------------
-				SoundStream ws = null;
 				try
 				{
-					using (ws = new SoundStream(new FileStream(strファイル名, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)))
+					using (var ws = new SoundStream(new FileStream(strファイル名, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)))
 					{
 						if (ws.Format.Encoding != WaveFormatEncoding.Pcm)
 							bファイルがWAVかつPCMフォーマットである = false;
@@ -757,14 +756,6 @@ namespace FDK
 				catch
 				{
 					bファイルがWAVかつPCMフォーマットである = false;
-				}
-				finally
-				{
-					if (ws != null)
-					{
-						ws.Close();
-						ws.Dispose();
-					}
 				}
 				//-----------------
 				#endregion
@@ -854,7 +845,7 @@ namespace FDK
 					{
 						long chunkSize = (long) br.ReadUInt32();
 
-						var tag = (WaveFormatEncoding) br.ReadUInt16();
+						var tag = br.ReadInt16();
 						int Channels = br.ReadInt16();
 						int SamplesPerSecond = br.ReadInt32();
 						int AverageBytesPerSecond = br.ReadInt32();
@@ -862,15 +853,15 @@ namespace FDK
 						int BitsPerSample = br.ReadInt16();
 
 
-						if (tag == WaveFormatEncoding.Pcm || tag == WaveFormatEncoding.Extensible) EnableData = true;
+						if (tag == (short)WaveFormatEncoding.Pcm || tag == (short)WaveFormatEncoding.Extensible) EnableData = true;
 						else
 							throw new InvalidDataException(string.Format("未対応のWAVEフォーマットタグです。(Tag:{0})", tag.ToString()));
 
-						c32wfx = new CWin32.WAVEFORMATEX((ushort)tag, (ushort)Channels, (uint)SamplesPerSecond, (uint)AverageBytesPerSecond, (ushort)BlockAlignment, (ushort)BitsPerSample);
+						c32wfx = new CWin32.WAVEFORMATEX((short)tag, (ushort)Channels, (uint)SamplesPerSecond, (uint)AverageBytesPerSecond, (ushort)BlockAlignment, (ushort)BitsPerSample);
 						
 						long nフォーマットサイズbyte = 16;
 
-						if( tag == WaveFormatEncoding.Extensible )
+						if( tag == (short)WaveFormatEncoding.Extensible )
 						{
 							br.ReadUInt16();    // 拡張領域サイズbyte
 							br.ReadInt16();//ValidBitsPerSample	読み捨て
@@ -1613,8 +1604,8 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 				Stream str = File.Open(strファイル名, FileMode.Open, FileAccess.Read);
 				using ( var ws = new SoundStream( str ) )
 				{
-					if ( ws.Format.Encoding == (WaveFormatEncoding) 0x6770 ||	// Ogg Vorbis Mode 2+
-						 ws.Format.Encoding == (WaveFormatEncoding) 0x6771 )	// Ogg Vorbis Mode 3+
+					if ( ws.Format.Encoding == WaveFormatEncoding.OggVorbisMode2Plus ||	// Ogg Vorbis Mode 2+
+						 ws.Format.Encoding == WaveFormatEncoding.OggVorbisMode3Plus)	// Ogg Vorbis Mode 3+
 					{
 						Trace.TraceInformation( Path.GetFileName( strファイル名 ) + ": RIFF chunked Vorbis. Decode to raw Wave first, to avoid BASS.DLL troubles" );
 						try
