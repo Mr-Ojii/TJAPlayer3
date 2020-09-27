@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace TJAPlayer3
 {
-    internal class CJudgeTextEncoding
+    public class CJudgeTextEncoding
     {
 		/// <summary>
 		/// Hnc8様のReadJEncを使用して文字コードの判別をする。
