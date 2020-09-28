@@ -263,7 +263,6 @@ namespace TJAPlayer3
 			get;
 			private set;
 		}
-		public static Format TextureFormat = Format.A8R8G8B8;
 
 		public bool bApplicationActive
 		{
@@ -337,37 +336,6 @@ namespace TJAPlayer3
 				}
 			}
 		}
-
-		#region [ #24609 リザルト画像をpngで保存する ]		// #24609 2011.3.14 yyagi; to save result screen in case BestRank or HiSkill.
-		/// <summary>
-		/// リザルト画像のキャプチャと保存。
-		/// </summary>
-		/// <param name="strFilename">保存するファイル名(フルパス)</param>
-		public bool SaveResultScreen(string strFullPath)
-		{
-			string strSavePath = Path.GetDirectoryName(strFullPath);
-			if (!Directory.Exists(strSavePath))
-			{
-				try
-				{
-					Directory.CreateDirectory(strSavePath);
-				}
-				catch (Exception e)
-				{
-					Trace.TraceError(e.ToString());
-					Trace.TraceError("例外が発生しましたが処理を継続します。 (0bfe6bff-2a56-4df4-9333-2df26d9b765b)");
-					return false;
-				}
-			}
-
-			// http://www.gamedev.net/topic/594369-dx9slimdxati-incorrect-saving-surface-to-file/
-			using (Surface pSurface = TJAPlayer3.app.Device.GetRenderTarget(0))
-			{
-				Surface.ToFile(pSurface, strFullPath, ImageFileFormat.Png);
-			}
-			return true;
-		}
-		#endregion
 
 		// Game 実装
 
@@ -1069,7 +1037,7 @@ namespace TJAPlayer3
 			}
 			try
 			{
-				return new CTexture(app.Device, fileName, TextureFormat, b黒を透過する);
+				return new CTexture(app.Device, fileName, b黒を透過する);
 			}
 			catch (CTextureCreateFailedException e)
 			{
@@ -1100,7 +1068,7 @@ namespace TJAPlayer3
 			}
 			try
 			{
-				return new CTexture(app.Device, bitmap, TextureFormat, b黒を透過する);
+				return new CTexture(app.Device, bitmap, b黒を透過する);
 			}
 			catch (CTextureCreateFailedException e)
 			{
@@ -2092,7 +2060,7 @@ namespace TJAPlayer3
 						string strFullPath =
 						   Path.Combine( TJAPlayer3.strEXEのあるフォルダ, "Capture_img" );
 						strFullPath = Path.Combine( strFullPath, DateTime.Now.ToString( "yyyyMMddHHmmss" ) + ".png" );
-						SaveResultScreen( strFullPath );
+						CSaveScreen.CSaveFromDevice(TJAPlayer3.app.Device, strFullPath);
 					}
 				}
 			}

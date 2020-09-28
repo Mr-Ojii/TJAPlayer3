@@ -126,33 +126,33 @@ namespace FDK
 		/// <param name="format">テクスチャのフォーマット。</param>
 		/// <param name="b黒を透過する">画像の黒（0xFFFFFFFF）を透過させるなら true。</param>
 		/// <exception cref="CTextureCreateFailedException">テクスチャの作成に失敗しました。</exception>
-		public CTexture(Device device, string strファイル名, Format format, bool b黒を透過する)
+		public CTexture(Device device, string strファイル名, bool b黒を透過する)
 			: this()
 		{
 			maketype = MakeType.filename;
-			MakeTexture(device, strファイル名, format, b黒を透過する, Pool.Managed);
+			MakeTexture(device, strファイル名, b黒を透過する, Pool.Managed);
 		}
-		public CTexture(Device device, byte[] txData, Format format, bool b黒を透過する)
+		public CTexture(Device device, byte[] txData, bool b黒を透過する)
 			: this()
 		{
 			maketype = MakeType.bytearray;
-			MakeTexture(device, txData, format, b黒を透過する, Pool.Managed);
+			MakeTexture(device, txData, Format.A8R8G8B8, b黒を透過する, Pool.Managed);
 		}
-		public CTexture(Device device, Bitmap bitmap, Format format, bool b黒を透過する)
+		public CTexture(Device device, Bitmap bitmap, bool b黒を透過する)
 			: this()
 		{
 			maketype = MakeType.bitmap;
-			MakeTexture(device, bitmap, format, b黒を透過する, Pool.Managed);
+			MakeTexture(device, bitmap, Format.A8R8G8B8, b黒を透過する, Pool.Managed);
 		}
 
-		public void MakeTexture(Device device, string strファイル名, Format format, bool b黒を透過する, Pool pool)
+		public void MakeTexture(Device device, string strファイル名, bool b黒を透過する, Pool pool)
 		{
 			if (!File.Exists(strファイル名))     // #27122 2012.1.13 from: ImageInformation では FileNotFound 例外は返ってこないので、ここで自分でチェックする。わかりやすいログのために。
 				throw new FileNotFoundException(string.Format("ファイルが存在しません。\n[{0}]", strファイル名));
 
 			this.filename = Path.GetFileName(strファイル名);
 			Byte[] _txData = File.ReadAllBytes(strファイル名);
-			MakeTexture(device, _txData, format, b黒を透過する, pool);
+			MakeTexture(device, _txData, Format.A8R8G8B8, b黒を透過する, pool);
 		}
 		public void MakeTexture(Device device, byte[] txData, Format format, bool b黒を透過する, Pool pool)
 		{

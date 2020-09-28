@@ -307,11 +307,11 @@ namespace FDK
 
 		private CTexture GeneFrmTx(Bitmap bitmap) 
 		{
-			return new CTexture(this.device, bitmap, fmt, false);
+			return new CTexture(this.device, bitmap, false);
 		}
 		private CTexture GeneFrmTx(byte[] bitmap)
 		{
-			return new CTexture(this.device, bitmap, fmt, false);
+			return new CTexture(this.device, bitmap, false);
 		}
 
 		public Size FrameSize 
@@ -378,7 +378,6 @@ namespace FDK
 		private readonly int_array4 _dstLinesize;
 		private readonly IntPtr _convertedFrameBufferPtr;
 		private const AVPixelFormat CVPxfmt = AVPixelFormat.AV_PIX_FMT_BGRA;
-		private const Format fmt = Format.A8R8G8B8;
 		private bool IsConvert = false;
 		#endregion
 	}
