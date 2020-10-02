@@ -5064,10 +5064,6 @@ namespace TJAPlayer3
 			{
 				this.nScoreModeTmp = TJAPlayer3.ConfigIni.nScoreMode;
 			}
-			if (TJAPlayer3.ConfigIni.nScoreMode == 3 && !this.b配点が指定されている[2, this.n参照中の難易度])
-			{ //2017.06.04 kairera0467
-				this.nScoreModeTmp = 3;
-			}
 		}
 
 		private void ParseOptionalInt16(string name, string unparsedValue, Action<short> setValue)

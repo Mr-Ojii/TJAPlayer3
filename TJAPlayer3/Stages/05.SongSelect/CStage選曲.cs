@@ -959,7 +959,10 @@ namespace TJAPlayer3
 														if (TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.Tab) && !(TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード))
 														{
 															if (TJAPlayer3.Skin.sound曲決定音.b読み込み成功)
+															{
+																TJAPlayer3.Skin.sound決定音.t再生する();
 																TJAPlayer3.Skin.sound曲決定音.t再生する();
+															}
 															else
 																TJAPlayer3.Skin.sound決定音.t再生する();
 															this.t曲を選択する();
