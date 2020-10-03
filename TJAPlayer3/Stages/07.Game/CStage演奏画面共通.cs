@@ -843,49 +843,37 @@ namespace TJAPlayer3
 				this.n合計連打数[ nPlayer ]++;
 				if(TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan) this.actRollChara.Start(nPlayer);
 
+				float mag;
 				//2017.01.28 DD CDTXから直接呼び出す
 				if (pChip.bGOGOTIME && !TJAPlayer3.ConfigIni.ShinuchiMode[nPlayer]) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
+					mag = 1.2f;
+				else
+					mag = 1.0f;
+
+				// 旧配点・旧筐体配点
+				if (TJAPlayer3.DTX[nPlayer].nScoreModeTmp == 0 || TJAPlayer3.DTX[nPlayer].nScoreModeTmp == 1)
 				{
-					// 旧配点・旧筐体配点
-					if( TJAPlayer3.DTX[nPlayer].nScoreModeTmp == 0 || TJAPlayer3.DTX[nPlayer].nScoreModeTmp == 1 )
-					{
-						if( pChip.nチャンネル番号 == 0x15 )
-							this.actScore.Add( (long)( 300 * 1.2f ), nPlayer );
-						else
-							this.actScore.Add( (long)( 360 * 1.2f ), nPlayer );
-					}
-					// 新配点
+					if (pChip.nチャンネル番号 == 0x15)
+						this.actScore.Add((long)(300 * mag) / 10 * 10, nPlayer);//2020.10.04 "/10*10"は一の位を切り捨てるためなので消さないで。
 					else
-					{
-						if( pChip.nチャンネル番号 == 0x15 )
-							this.actScore.Add( (long)( 100 * 1.2f ), nPlayer );
-						else
-							this.actScore.Add( (long)( 200 * 1.2f ), nPlayer );
-					}
+						this.actScore.Add((long)(360 * mag) / 10 * 10, nPlayer);
 				}
+				// AC15配点
+				else if (TJAPlayer3.DTX[nPlayer].nScoreModeTmp == 2)
+				{
+					if (pChip.nチャンネル番号 == 0x15)
+						this.actScore.Add((long)(100 * mag) / 10 * 10, nPlayer);
+					else
+						this.actScore.Add((long)(200 * mag) / 10 * 10, nPlayer);
+				}
+				// AC16配点
 				else
 				{
-					// 旧配点・旧筐体配点
-					if( TJAPlayer3.DTX[nPlayer].nScoreModeTmp == 0 || TJAPlayer3.DTX[nPlayer].nScoreModeTmp == 1 )
-					{
-						if( pChip.nチャンネル番号 == 0x15 )
-							this.actScore.Add( 300L, nPlayer );
-						else
-							this.actScore.Add( 360L, nPlayer );
-					}
-					// 新配点
-					else
-					{
-						if( pChip.nチャンネル番号 == 0x15 )
-							this.actScore.Add( 100L, nPlayer );
-						else
-							this.actScore.Add( 200L, nPlayer );
-					}
+					this.actScore.Add(100L, nPlayer);
 				}
 
-
 				//赤か青かの分岐
-				if( sort == 0 )
+				if ( sort == 0 )
 				{
 					this.soundRed[pChip.nPlayerSide]?.t再生を開始する();
 
@@ -972,12 +960,21 @@ namespace TJAPlayer3
 					TJAPlayer3.stage演奏ドラム画面.FlyingNotes.Start(3, nPlayer);
 					TJAPlayer3.stage演奏ドラム画面.Rainbow.Start( nPlayer );
 					//CDTXMania.stage演奏ドラム画面.actChipFireD.Start( 0, nPlayer );
-					if(pChip.bGOGOTIME && !TJAPlayer3.ConfigIni.ShinuchiMode[nPlayer])
+
+					if (TJAPlayer3.DTX[nPlayer].nScoreModeTmp != 3)
 					{
-						this.actScore.Add( 6000L, nPlayer);
-					} else
+						if (pChip.bGOGOTIME && !TJAPlayer3.ConfigIni.ShinuchiMode[nPlayer])
+						{
+							this.actScore.Add(6000L, nPlayer);
+						}
+						else
+						{
+							this.actScore.Add(5000L, nPlayer);
+						}
+					}
+					else
 					{
-						this.actScore.Add( 5000L, nPlayer);
+						this.actScore.Add(100L, nPlayer);
 					}
 					pChip.bHit = true;
 					pChip.IsHitted = true;
@@ -997,12 +994,20 @@ namespace TJAPlayer3
 				}
 				else
 				{
-					if(pChip.bGOGOTIME && !TJAPlayer3.ConfigIni.ShinuchiMode[nPlayer])
+					if (TJAPlayer3.DTX[nPlayer].nScoreModeTmp != 3)
 					{
-						this.actScore.Add( 360L, nPlayer);
-					} else
+						if (pChip.bGOGOTIME && !TJAPlayer3.ConfigIni.ShinuchiMode[nPlayer])
+						{
+							this.actScore.Add(360L, nPlayer);
+						}
+						else
+						{
+							this.actScore.Add(300L, nPlayer);
+						}
+					}
+					else
 					{
-						this.actScore.Add( 300L, nPlayer);
+						this.actScore.Add(100L, nPlayer);
 					}
 
 					this.soundRed[pChip.nPlayerSide]?.t再生を開始する();
@@ -1486,31 +1491,43 @@ namespace TJAPlayer3
 
 				if( TJAPlayer3.ConfigIni.ShinuchiMode[nPlayer] )  //2016.07.04 kairera0467 真打モード。
 				{
-					nAddScore = TJAPlayer3.DTX[nPlayer].nScoreInit[ 1, TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]];
-					if( nAddScore == 0 )
+					if (TJAPlayer3.DTX[nPlayer].nScoreModeTmp != 3)
 					{
-						//可の時に0除算をするとエラーが発生するため、それらしい数値を自動算出する。
-						//メモ
-						//風船1回
-						nAddScore = 100;
-						//( 100万 - ( ( 風船の打数 - 風船音符の数 * 300 ) + ( 風船音符の数 * 5000 ) ) ) / ノーツ数
-						//(最大コンボ数＋大音符数)×初項＋(風船の総打数－風船数)×300＋風船数×5000
-						//int nBallonCount = 0;
-						//int nBallonNoteCount = CDTXMania.DTX.n風船数[ 2 ] + CDTXMania.DTX.n風船数[ 3 ];
-						//int test = ( 1000000 - ( ( nBallonCount - nBallonNoteCount * 300 ) + ( nBallonNoteCount * 5000 ) ) ) / ( CDTXMania.DTX.nノーツ数[ 2 ] + CDTXMania.DTX.nノーツ数[ 3 ] );
-					}
+						nAddScore = TJAPlayer3.DTX[nPlayer].nScoreInit[1, TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]];
+						if (nAddScore == 0)
+						{
+							//可の時に0除算をするとエラーが発生するため、それらしい数値を自動算出する。
+							//メモ
+							//風船1回
+							nAddScore = 100;
+							//( 100万 - ( ( 風船の打数 - 風船音符の数 * 300 ) + ( 風船音符の数 * 5000 ) ) ) / ノーツ数
+							//(最大コンボ数＋大音符数)×初項＋(風船の総打数－風船数)×300＋風船数×5000
+							//int nBallonCount = 0;
+							//int nBallonNoteCount = CDTXMania.DTX.n風船数[ 2 ] + CDTXMania.DTX.n風船数[ 3 ];
+							//int test = ( 1000000 - ( ( nBallonCount - nBallonNoteCount * 300 ) + ( nBallonNoteCount * 5000 ) ) ) / ( CDTXMania.DTX.nノーツ数[ 2 ] + CDTXMania.DTX.nノーツ数[ 3 ] );
+						}
 
+						if (eJudgeResult == E判定.Great || eJudgeResult == E判定.Good)
+						{
+							nAddScore = nAddScore / 2;
+						}
+
+						if (pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B)
+						{
+							nAddScore = nAddScore * 2;
+						}
+
+						this.actScore.Add(nAddScore, nPlayer);
+					}
+				}
+				else if ( TJAPlayer3.DTX[nPlayer].nScoreModeTmp == 3 )
+				{
+					nAddScore = this.nScore[nPlayer, 0];
 					if (eJudgeResult == E判定.Great || eJudgeResult == E判定.Good)
 					{
 						nAddScore = nAddScore / 2;
 					}
-
-					if( pChip.nチャンネル番号 == 0x13 || pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B )
-					{
-						nAddScore = nAddScore * 2;
-					}
-
-					this.actScore.Add( nAddScore, nPlayer );
+					this.actScore.Add(nAddScore, nPlayer);
 				}
 				else if( TJAPlayer3.DTX[nPlayer].nScoreModeTmp == 2 )
 				{
@@ -1648,30 +1665,19 @@ namespace TJAPlayer3
 
 					this.actScore.Add( nAddScore, nPlayer );
 				}
-				else
+				else if (TJAPlayer3.DTX[nPlayer].nScoreModeTmp == 0)
 				{
-					if( eJudgeResult == E判定.Perfect )
+					if (nCombos < 200)
 					{
-						if( nCombos < 200 )
-						{
-							nAddScore = 1000;
-						}
-						else
-						{
-							nAddScore = 2000;
-						}
+						nAddScore = 1000;
 					}
-					else if (eJudgeResult == E判定.Great || eJudgeResult == E判定.Good)
+					else
 					{
-						if( nCombos < 200 )
-						{
-							nAddScore = 500;
-						}
-						else
-						{
-							nAddScore = 1000;
-						}
+						nAddScore = 2000;
 					}
+					
+					if (eJudgeResult == E判定.Great || eJudgeResult == E判定.Good)
+						nAddScore = nAddScore / 2;
 
 					if (pChip.bGOGOTIME) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
 						nAddScore = (int)(nAddScore * 1.2f);
@@ -4167,30 +4173,26 @@ namespace TJAPlayer3
 			int nAddScore = 0;
 			int[] n倍率 = { 0, 1, 2, 4, 8 };
 
-			if( TJAPlayer3.DTX[nPlayer].nScoreModeTmp == 1 )
+			if (TJAPlayer3.DTX[nPlayer].nScoreModeTmp == 1)
 			{
-				for( int i = 0; i < 11; i++ )
+				for (int i = 0; i < 11; i++)
 				{
-					this.nScore[nPlayer, i ] = (int)( nInit + ( nDiff * ( i ) ) );
+					this.nScore[nPlayer, i] = (int)(nInit + (nDiff * (i)));
 				}
 			}
-			else if( TJAPlayer3.DTX[nPlayer].nScoreModeTmp == 2 )
+			else if (TJAPlayer3.DTX[nPlayer].nScoreModeTmp == 2)
 			{
-				for( int i = 0; i < 5; i++ )
+				for (int i = 0; i < 5; i++)
 				{
-					this.nScore[nPlayer, i ] = (int)( nInit + ( nDiff * n倍率[ i ] ) );
+					this.nScore[nPlayer, i] = (int)(nInit + (nDiff * n倍率[i]));
 
-					this.nScore[nPlayer, i ] = (int)( this.nScore[nPlayer, i ] / 10.0 );
-					this.nScore[nPlayer, i ] = this.nScore[nPlayer, i ] * 10;
+					this.nScore[nPlayer, i] = (int)(this.nScore[nPlayer, i] / 10.0);
+					this.nScore[nPlayer, i] = this.nScore[nPlayer, i] * 10;
 
 				}
-
-				//this.nScore[ 0 ] = (int)nInit;
-				//this.nScore[ 1 ] = (int)( nInit + nDiff );
-				//this.nScore[ 2 ] = (int)( nInit + ( nDiff * 2 ) );
-				//this.nScore[ 3 ] = (int)( nInit + ( nDiff * 4 ) );
-				//this.nScore[ 4 ] = (int)( nInit + ( nDiff * 8 ) );
 			}
+			else if (TJAPlayer3.DTX[nPlayer].nScoreModeTmp == 3)
+				this.nScore[nPlayer, 0] = nInit;
 		}
 #endregion
 	}

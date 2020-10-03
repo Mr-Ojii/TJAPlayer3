@@ -22,6 +22,7 @@
 /Test/*/dll/Newtonsoft.Json*
 /Test/*/dll/OpenTK*
 /Test/*/dll/FFmpeg.AutoGen*
+/Test/*/dll/FDK*
 /Test/*/System/*Style*/
 /Test/*/System/Honkehuu/Sounds/*Combo*/
 /Test/*/System/Honkehuu/Sounds/Game*

@@ -387,7 +387,6 @@ namespace TJAPlayer3
 		}
 		public class CWAV : IDisposable
 		{
-			public bool bBGMとして使う;
 			public List<int> listこのWAVを使用するチャンネル番号の集合 = new List<int>(16);
 			public int nチップサイズ = 100;
 			public int n位置;
@@ -420,7 +419,7 @@ namespace TJAPlayer3
 					sb.Append(string.Format("CWAV{0}(内部{1}): ", CDTX.tZZ(this.n表記上の番号), this.n内部番号));
 				}
 				sb.Append(
-					$"{nameof(SongVol)}:{this.SongVol}, {nameof(LoudnessMetadata.Integrated)}:{this.SongLoudnessMetadata?.Integrated}, {nameof(LoudnessMetadata.TruePeak)}:{this.SongLoudnessMetadata?.TruePeak}, 位置:{this.n位置}, サイズ:{this.nチップサイズ}, BGM:{(this.bBGMとして使う ? 'Y' : 'N')}, File:{this.strファイル名}, Comment:{this.strコメント文}");
+					$"{nameof(SongVol)}:{this.SongVol}, {nameof(LoudnessMetadata.Integrated)}:{this.SongLoudnessMetadata?.Integrated}, {nameof(LoudnessMetadata.TruePeak)}:{this.SongLoudnessMetadata?.TruePeak}, 位置:{this.n位置}, サイズ:{this.nチップサイズ}, File:{this.strファイル名}, Comment:{this.strコメント文}");
 
 				return sb.ToString();
 			}

@@ -1171,7 +1171,7 @@ namespace TJAPlayer3
 			sw.WriteLine("; デフォルトで選択される難易度");
 			sw.WriteLine("DefaultCourse={0}", this.nDefaultCourse);
 			sw.WriteLine();
-			sw.WriteLine( "; スコア計算方法(0:旧配点, 1:旧筐体配点, 2:新配点)" );
+			sw.WriteLine( "; スコア計算方法(0:ドンだフルモード, 1:~AC14, 2:AC15, 3:AC16)");
 			sw.WriteLine( "ScoreMode={0}", this.nScoreMode );
 			sw.WriteLine();
 			sw.WriteLine("; 真打モード (0:OFF, 1:ON)");
@@ -1640,6 +1640,10 @@ namespace TJAPlayer3
 											else if( str3.Equals( "StoicMode" ) )
 											{
 												this.bストイックモード = C変換.bONorOFF( str4[ 0 ] );
+											}
+											else if (str3.Equals( "BufferedInput" ) )
+											{
+												this.bバッファ入力 = C変換.bONorOFF(str4[0]);
 											}
 											else if ( str3.Equals( "JudgeDispPriority" ) )
 											{
