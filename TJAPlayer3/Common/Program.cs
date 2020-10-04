@@ -14,11 +14,14 @@ namespace TJAPlayer3
 {
 	internal class Program
 	{
-		#region [ 二重起動チェック]
+#if NETCOREAPP30
+		Encoding.RegisterProvider();//CP932用
+#endif
+#region [ 二重起動チェック]
 		//-----------------------------
 		private static Mutex mutex二重起動防止用;
 		//-----------------------------
-		#endregion
+#endregion
 
 		[STAThread] 
 		private static void Main()

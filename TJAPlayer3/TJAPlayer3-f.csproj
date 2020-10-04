@@ -82,17 +82,20 @@
   <ItemGroup>
     <Reference Include="System.Web" />
   </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <PackageReference Include="System.Text.Encoding.CodePages">
+      <Version>4.7.1</Version>
+    </PackageReference>
+  </ItemGroup>
 
   <PropertyGroup>
-    <PostBuildEvent>move /y "$(TargetDir)FDK.dll" "$(TargetDir)dll\"
-move /y "$(TargetDir)FDK.pdb" "$(TargetDir)dll\"
+    <PostBuildEvent>move /y "$(TargetDir)FDK*" "$(TargetDir)dll\"
 move /y "$(TargetDir)Bass.Net.dll" "$(TargetDir)dll\"
-move /y "$(TargetDir)DirectShowLib-2005.dll" "$(TargetDir)dll\"
-move /y "$(TargetDir)CSharpTest.Net.Collections.*" "$(TargetDir)dll\"
 move /y "$(TargetDir)SharpDX*" "$(TargetDir)dll\"
 move /y "$(TargetDir)Newtonsoft.Json*" "$(TargetDir)dll\"
 move /y "$(TargetDir)Hnx8.ReadJEnc*" "$(TargetDir)dll\"
 move /y "$(TargetDir)FFmpeg.AutoGen*" "$(TargetDir)dll\"
+move /y "$(TargetDir)System*.dll" "$(TargetDir)dll\"
 move /y "$(TargetDir)OpenTK*" "$(TargetDir)dll\"</PostBuildEvent>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
