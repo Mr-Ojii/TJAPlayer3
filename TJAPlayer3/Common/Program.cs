@@ -24,7 +24,7 @@ namespace TJAPlayer3
 		private static void Main()
 		{
 #if NETCOREAPP
-			Encoding.RegisterProvider();//CP932用
+			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);//CP932用
 #endif
 			mutex二重起動防止用 = new Mutex( false, "TJAPlayer3-f" );
 			bool mutexbool = mutex二重起動防止用.WaitOne(0, false);
