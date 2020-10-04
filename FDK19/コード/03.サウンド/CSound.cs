@@ -239,7 +239,7 @@ namespace FDK
 					}
 				}
 			}
-			if ( soundDeviceType == ESoundDeviceType.ExclusiveWASAPI || soundDeviceType == ESoundDeviceType.SharedWASAPI || soundDeviceType == ESoundDeviceType.ASIO )
+			if ( SoundDeviceType == ESoundDeviceType.ExclusiveWASAPI || SoundDeviceType == ESoundDeviceType.SharedWASAPI || SoundDeviceType == ESoundDeviceType.ASIO )
 			{
 				//Bass.BASS_SetConfig( BASSConfig.BASS_CONFIG_UPDATETHREADS, 4 );
 				//Bass.BASS_SetConfig( BASSConfig.BASS_CONFIG_UPDATEPERIOD, 0 );
