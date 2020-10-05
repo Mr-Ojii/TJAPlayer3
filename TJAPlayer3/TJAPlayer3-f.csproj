@@ -95,8 +95,8 @@ move /y "$(TargetDir)SharpDX*" "$(TargetDir)dll\"
 move /y "$(TargetDir)Newtonsoft.Json*" "$(TargetDir)dll\"
 move /y "$(TargetDir)Hnx8.ReadJEnc*" "$(TargetDir)dll\"
 move /y "$(TargetDir)FFmpeg.AutoGen*" "$(TargetDir)dll\"
-move /y "$(TargetDir)System*.dll" "$(TargetDir)dll\"
-move /y "$(TargetDir)OpenTK*" "$(TargetDir)dll\"</PostBuildEvent>
+move /y "$(TargetDir)OpenTK*" "$(TargetDir)dll\"
+if exist "$(TargetDir)System.Text.Encoding.CodePages.dll" move /y "$(TargetDir)System*" "$(TargetDir)dll\"</PostBuildEvent>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
 
