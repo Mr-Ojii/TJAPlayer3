@@ -37,11 +37,6 @@
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Bass.Net">
-      <HintPath>..\Test\net48\dll\Bass.Net.dll</HintPath>
-    </Reference>
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FFmpeg.AutoGen" Version="4.3.0.3" />
@@ -57,5 +52,11 @@
     <PackageReference Include="System.Text.Encoding.CodePages">
       <Version>4.7.1</Version>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Bass.Net">
+      <HintPath>..\lib\Bass.Net.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

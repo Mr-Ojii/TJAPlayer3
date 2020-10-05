@@ -17,6 +17,7 @@
 /Test/*/Capture_img
 /Test/*/Config.ini
 /Test/*/bs1770gain**
+/Test/*/dll/Bass.Net*
 /Test/*/dll/Hnx8.ReadJEnc*
 /Test/*/dll/SharpDX*
 /Test/*/dll/Newtonsoft.Json*
@@ -24,11 +25,4 @@
 /Test/*/dll/FFmpeg.AutoGen*
 /Test/*/dll/FDK*
 /Test/*/dll/System*
-/Test/*/System/*Style*/
-/Test/*/System/Honkehuu/Sounds/*Combo*/
-/Test/*/System/Honkehuu/Sounds/Game*
-/Test/*/System/Honkehuu/Sounds/Select*
-/Test/*/System/Honkehuu/Sounds/title*
 /Test/*/Songs/
-/Test/netcoreapp3.1/
-/Test/*/テスト譜面*/
