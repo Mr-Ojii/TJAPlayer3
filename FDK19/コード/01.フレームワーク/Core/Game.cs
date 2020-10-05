@@ -214,9 +214,9 @@ namespace FDK
 
 			GraphicsDeviceManager = new GraphicsDeviceManager(this);
 #if DEBUG
-			FFmpeg.AutoGen.ffmpeg.RootPath = Environment.CurrentDirectory + @"\dll\ffmpeg\";
+			FFmpeg.AutoGen.ffmpeg.RootPath = Environment.CurrentDirectory + @"\ffmpeg\";
 #else
-			FFmpeg.AutoGen.ffmpeg.RootPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\dll\ffmpeg\";
+			FFmpeg.AutoGen.ffmpeg.RootPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\ffmpeg\";
 #endif
 			if (!Directory.Exists(FFmpeg.AutoGen.ffmpeg.RootPath))
 				throw new DirectoryNotFoundException("FFmpeg RootPath Not Found.");

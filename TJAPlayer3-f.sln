@@ -13,9 +13,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8559AC0D-9443-4CF6-A376-B72664B2DC0B}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
-		Test\net48\Readme.txt = Test\net48\Readme.txt
+		Test\net48\Readme\Readme.txt = Test\net48\Readme\Readme.txt
 		Test\net48\System\SkinConfig.iniについて.txt = Test\net48\System\SkinConfig.iniについて.txt
-		Test\net48\追加機能について.md = Test\net48\追加機能について.md
+		Test\net48\Readme\追加機能について.md = Test\net48\Readme\追加機能について.md
 	EndProjectSection
 EndProject
 Global
