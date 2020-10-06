@@ -7,7 +7,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Diagnostics;
 using System.Threading;
-using OpenTK;
+using System.Numerics;
 using FDK;
 using Rectangle = System.Drawing.Rectangle;
 using Point = System.Drawing.Point;
@@ -1896,9 +1896,9 @@ namespace TJAPlayer3
 			{
 				if( x >= 0 )
 				{
-					Matrix4 mat = Matrix4.Identity;
-					mat *= Matrix4.CreateRotationZ(C変換.DegreeToRadian(-(90.0f * (float)pChip.dbSCROLL_Y)));
-					mat *= Matrix4.CreateTranslation((float)(x - 640.0f) - 1.5f, -(y - 360.0f + 65.0f), 0f);
+					Matrix4x4 mat = Matrix4x4.Identity;
+					mat *= Matrix4x4.CreateRotationZ(C変換.DegreeToRadian(-(90.0f * (float)pChip.dbSCROLL_Y)));
+					mat *= Matrix4x4.CreateTranslation((float)(x - 640.0f) - 1.5f, -(y - 360.0f + 65.0f), 0f);
 
 					if( pChip.bBranch )
 					{

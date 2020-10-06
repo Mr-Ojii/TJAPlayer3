@@ -84,7 +84,7 @@ namespace FDK
 			get;
 			protected set;
 		}
-		public OpenTK.Vector3 vc拡大縮小倍率;
+		public System.Numerics.Vector3 vc拡大縮小倍率;
 		private Vector3 vc;
 		public string filename;
 
@@ -111,7 +111,7 @@ namespace FDK
 			this.cvPositionColoredVertexies = null;
 			this.b加算合成 = false;
 			this.fZ軸中心回転 = 0f;
-			this.vc拡大縮小倍率 = new OpenTK.Vector3(1f, 1f, 1f);
+			this.vc拡大縮小倍率 = new System.Numerics.Vector3(1f, 1f, 1f);
 			this.vc = new Vector3(1f, 1f, 1f);
 			this.filename = "";
 			//			this._txData = null;
@@ -535,11 +535,11 @@ namespace FDK
 		/// <summary>
 		/// テクスチャを 3D 画像と見なして描画する。
 		/// </summary>
-		public void t3D描画(Device device, OpenTK.Matrix4 mat)
+		public void t3D描画(Device device, System.Numerics.Matrix4x4 mat)
 		{
 			this.t3D描画(device, mat, this.rc全画像);
 		}
-		public void t3D描画(Device device, OpenTK.Matrix4 mat, Rectangle rc画像内の描画領域)
+		public void t3D描画(Device device, System.Numerics.Matrix4x4 mat, Rectangle rc画像内の描画領域)
 		{
 			if (this.texture == null)
 				return;

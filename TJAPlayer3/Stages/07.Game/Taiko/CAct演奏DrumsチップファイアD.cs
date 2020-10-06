@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using OpenTK;
+using System.Numerics;
 using FDK;
 
 using Rectangle = System.Drawing.Rectangle;
@@ -68,12 +68,6 @@ namespace TJAPlayer3
 				this.st状態[ i ].b使用中 = false;
 				this.st状態_大[ i ].ct進行 = new CCounter();
 			}
-			for( int i = 0; i < 256; i++ )
-			{
-				this.st紙吹雪[ i ] = new ST紙吹雪();
-				this.st紙吹雪[ i ].b使用中 = false;
-				this.st紙吹雪[ i ].ct進行 = new CCounter();
-			}
 			base.On活性化();
 		}
 		public override void On非活性化()
@@ -82,10 +76,6 @@ namespace TJAPlayer3
 			{
 				this.st状態[ i ].ct進行 = null;
 				this.st状態_大[ i ].ct進行 = null;
-			}
-			for( int i = 0; i < 256; i++ )
-			{
-				this.st紙吹雪[ i ].ct進行 = null;
 			}
 			base.On非活性化();
 		}
@@ -199,9 +189,9 @@ namespace TJAPlayer3
 										//this.txアタックエフェクトUpper_big.n透明度 = (int)(255 * f倍率);
 										//this.txアタックエフェクトUpper_big.t2D描画( CDTXMania.app.Device, fX, fY );
 
-										Matrix4 mat = Matrix4.Identity;
-										mat *= Matrix4.CreateScale( f倍率, f倍率, f倍率 );
-										mat *= Matrix4.CreateTranslation(TJAPlayer3.Skin.nScrollFieldX[this.st状態_大[i].nPlayer] - GameWindowSize.Width / 2.0f, -(TJAPlayer3.Skin.nJudgePointY[this.st状態[i].nPlayer] - GameWindowSize.Height / 2.0f), 0f);
+										Matrix4x4 mat = Matrix4x4.Identity;
+										mat *= Matrix4x4.CreateScale( f倍率, f倍率, f倍率 );
+										mat *= Matrix4x4.CreateTranslation(TJAPlayer3.Skin.nScrollFieldX[this.st状態_大[i].nPlayer] - GameWindowSize.Width / 2.0f, -(TJAPlayer3.Skin.nJudgePointY[this.st状態[i].nPlayer] - GameWindowSize.Height / 2.0f), 0f);
 										//mat *= Matrix.Billboard( new Vector3( 15, 15, 15 ), new Vector3(0, 0, 0), new Vector3( 0, 0, 0 ), new Vector3( 0, 0, 0 ) );
 										//mat *= Matrix.Translation( 0f, 0f, 0f );
 
@@ -221,86 +211,6 @@ namespace TJAPlayer3
 						}
 					}
 				}
-
-				for (int i = 0; i < 45; i++)
-				{
-					if( TJAPlayer3.Skin.nScrollFieldX[0] != 414 )
-						break;
-
-					if (this.st大音符花火[i].b使用中)
-					{
-						this.st大音符花火[i].n前回のValue = this.st大音符花火[i].ct進行.n現在の値;
-						this.st大音符花火[i].ct進行.t進行();
-						if (this.st大音符花火[i].ct進行.b終了値に達した)
-						{
-							this.st大音符花火[i].ct進行.t停止();
-							this.st大音符花火[i].b使用中 = false;
-						}
-						Matrix4 mat = Matrix4.Identity;
-
-						mat *= Matrix4.CreateTranslation(this.st大音符花火[i].fX - GameWindowSize.Width / 2, -(this.st大音符花火[i].fY - GameWindowSize.Height / 2), 0f);
-						float fX = this.st大音符花火[i].fX - ( 192 / 2 );
-						float fY = this.st大音符花火[i].fY - ( 192 / 2 );
-
-						//if(CDTXMania.Tx.Effects_Hit_FireWorks[ 0 ] != null && this.st大音符花火[ i ].nColor == 0 )
-						//{
-						//    if( this.st大音符花火[ i ].n開始フレーム <= this.st大音符花火[ i ].ct進行.n現在の値 && this.st大音符花火[ i ].n終了フレーム > this.st大音符花火[ i ].ct進行.n現在の値 )
-						//    {
-						//        //this.tx大音符花火[ 0 ].t3D描画(CDTXMania.app.Device, mat, new Rectangle( ( this.st大音符花火[i].ct進行.n現在の値 - this.st大音符花火[ i ].n開始フレーム ) * 192, 0, 192, 192 ));
-						//        //this.tx大音符花火[ 0 ].t3D描画( CDTXMania.app.Device, mat, fX, fY, new Rectangle( ( this.st大音符花火[i].ct進行.n現在の値 - this.st大音符花火[ i ].n開始フレーム ) * 192, 0, 192, 192 ) );
-						//        CDTXMania.Tx.Effects_Hit_FireWorks[ 0 ].t2D描画( CDTXMania.app.Device, (int)fX, (int)fY, new Rectangle( ( this.st大音符花火[i].ct進行.n現在の値 - this.st大音符花火[ i ].n開始フレーム ) * 192, 0, 192, 192 ) );
-						//    }
-						//}
-						////if(CDTXMania.Tx.Effects_Hit_FireWorks[ 1 ] != null && this.st大音符花火[ i ].nColor == 1 )
-						//{
-						//    if( this.st大音符花火[ i ].n開始フレーム <= this.st大音符花火[ i ].ct進行.n現在の値 && this.st大音符花火[ i ].n終了フレーム > this.st大音符花火[ i ].ct進行.n現在の値 )
-						//    {
-						//        //this.tx大音符花火[ 1 ].t3D描画( CDTXMania.app.Device, mat, fX, fY, );
-						//        //CDTXMania.Tx.Effects_Hit_FireWorks[ 1 ].t2D描画( CDTXMania.app.Device, (int)fX, (int)fY, new Rectangle( ( this.st大音符花火[i].ct進行.n現在の値 - this.st大音符花火[ i ].n開始フレーム ) * 192, 0, 192, 192 ) );
-						//    }
-						//}
-					}
-
-				}
-
-				for (int i = 0; i < 256; i++)
-				{
-					if (this.st紙吹雪[i].b使用中)
-					{
-						this.st紙吹雪[i].n前回のValue = this.st紙吹雪[i].ct進行.n現在の値;
-						this.st紙吹雪[i].ct進行.t進行();
-						if (this.st紙吹雪[i].ct進行.b終了値に達した)
-						{
-							this.st紙吹雪[i].ct進行.t停止();
-							this.st紙吹雪[i].b使用中 = false;
-						}
-						else if( this.st紙吹雪[ i ].fX > 1300 || this.st紙吹雪[ i ].fX < -20 )
-						{
-							this.st紙吹雪[i].ct進行.t停止();
-							this.st紙吹雪[i].b使用中 = false;
-						}
-						for (int n = this.st紙吹雪[i].n前回のValue; n < this.st紙吹雪[i].ct進行.n現在の値; n++)
-						{
-							this.st紙吹雪[i].fX -= this.st紙吹雪[i].f加速度X;
-							this.st紙吹雪[i].fY -= this.st紙吹雪[i].f加速度Y;
-							this.st紙吹雪[i].f加速度X *= this.st紙吹雪[i].f加速度の加速度X;
-							this.st紙吹雪[i].f加速度Y *= this.st紙吹雪[i].f加速度の加速度Y;
-							this.st紙吹雪[i].f加速度Y -= this.st紙吹雪[i].f重力加速度;
-						}
-						Matrix4 mat = Matrix4.Identity;
-
-						float x = (float)(this.st紙吹雪[i].f半径 * Math.Cos((Math.PI / 2 * this.st紙吹雪[i].ct進行.n現在の値) / 100.0)) * 2.3f;
-						mat *= Matrix4.CreateScale(x, x, 1f);
-						mat *= Matrix4.CreateTranslation(this.st紙吹雪[i].fX - GameWindowSize.Width / 2, -(this.st紙吹雪[i].fY - GameWindowSize.Height / 2), 0f);
-
-						/*if (this.tx紙吹雪 != null)
-						{
-							this.tx紙吹雪.t3D描画(CDTXMania.app.Device, mat, new Rectangle( 32 * this.st紙吹雪[ i ].nGraphic, 32 * this.st紙吹雪[ i ].nColor, 32, 32 ));
-
-						} */
-					}
-
-				}
 			}
 			return 0;
 		}
@@ -317,7 +227,6 @@ namespace TJAPlayer3
 
 		protected STSTATUS[] st状態 = new STSTATUS[ 3 * 4 ];
 		protected STSTATUS_B[] st状態_大 = new STSTATUS_B[ 3 * 4 ];
-		private ST大音符花火[] st大音符花火 = new ST大音符花火[45];
 
 		protected int[] nX座標 = new int[] { 450, 521, 596, 686, 778, 863, 970, 1070, 1150 };
 		protected int[] nY座標 = new int[] { 172, 108,  50,   8, -10, -60,  -5,   30,   90 };
@@ -341,39 +250,6 @@ namespace TJAPlayer3
 			public int nIsBig;
 			public int n透明度;
 			public int nPlayer;
-		}
-
-		[StructLayout(LayoutKind.Sequential)]
-		private struct ST大音符花火
-		{
-			public int nColor;
-			public bool b使用中;
-			public CCounter ct進行;
-			public int n前回のValue;
-			public float fX;
-			public float fY;
-			public int n開始フレーム;
-			public int n終了フレーム;
-		}
-
-		private ST紙吹雪[] st紙吹雪 = new ST紙吹雪[ 256 ];
-		[StructLayout( LayoutKind.Sequential )]
-		private struct ST紙吹雪
-		{
-			public int nGraphic;
-			public int nColor;
-			public bool b使用中;
-			public CCounter ct進行;
-			public int n前回のValue;
-			public float fX;
-			public float fY;
-			public float f加速度X;
-			public float f加速度Y;
-			public float f加速度の加速度X;
-			public float f加速度の加速度Y;
-			public float f重力加速度;
-			public float f半径;
-			public float f角度;
 		}
 		//-----------------
 		#endregion

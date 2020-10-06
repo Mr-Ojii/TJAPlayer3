@@ -4,7 +4,7 @@ using System.Text;
 using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using OpenTK;
+using System.Numerics;
 using FDK;
 
 using Rectangle = System.Drawing.Rectangle;

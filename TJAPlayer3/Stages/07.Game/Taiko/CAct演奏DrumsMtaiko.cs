@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.Diagnostics;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using FDK;
-using OpenTK;
 
 using Rectangle = System.Drawing.Rectangle;
 
@@ -248,9 +248,9 @@ namespace TJAPlayer3
 						fScale = 1.0f;
 					}
 
-					Matrix4 mat = Matrix4.Identity;
-					mat *= Matrix4.CreateScale( fScale, fScale, 1.0f );
-					mat *= Matrix4.CreateTranslation( -329, fY[ i ], 0 );
+					Matrix4x4 mat = Matrix4x4.Identity;
+					mat *= Matrix4x4.CreateScale( fScale, fScale, 1.0f );
+					mat *= Matrix4x4.CreateTranslation( -329, fY[ i ], 0 );
 					if( this.After[ i ] - this.Before[ i ] >= 0 )
 					{
 						//レベルアップ
