@@ -26,4 +26,6 @@
 /Test/*/FFmpeg.AutoGen*
 /Test/*/FDK*
 /Test/*/System*.dll
+/Test/*/TJAPlayer3*
+/Test/*/runtimes/
 /Test/*/Songs/

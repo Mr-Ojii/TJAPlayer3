@@ -2,7 +2,7 @@
 TJAPlayer3-f Readme.txt
 ############
 公開日:2020/3/16
-更新日:2020/09/13(Mr-Ojii)
+更新日:2020/10/06(Mr-Ojii)
 
 このTJAPlayer3はMr-Ojiiによる改造版です。
 
@@ -10,7 +10,7 @@ TJAPlayer3-f Readme.txt
 ～AC15に近い挙動にしたつもりですが...
 
 ==動作環境==
-.NET Framework 4.8以上
+.NET Framework 4.8以上(現状、依存パッケージがnet48を使用しているため)
 DirectX 9c
 がインストールされている環境
 
