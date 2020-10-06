@@ -34,7 +34,7 @@ namespace FDK
 
 		public void tポーリング(bool bWindowがアクティブ中, bool bバッファ入力有効)
 		{
-			for (int i = 0; i < Enum.GetNames(typeof(MouseButton)).Length; i++)
+			for (int i = 0; i < Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length; i++)
 			{
 				this.bMousePushDown[i] = false;
 				this.bMousePullUp[i] = false;
@@ -50,7 +50,7 @@ namespace FDK
 
 				if (currentState.IsConnected)
 				{
-					for (int j = 0; j < Enum.GetNames(typeof(MouseButton)).Length; j++)
+					for (int j = 0; j < Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length; j++)
 					{
 						if (this.bMouseState[j] == false && currentState[(MouseButton)j] == true)
 						{
@@ -88,19 +88,19 @@ namespace FDK
 		}
 		public bool bキーが押された(int nButton)
 		{
-			return (((0 <= nButton) && (nButton < Enum.GetNames(typeof(MouseButton)).Length)) && this.bMousePushDown[nButton]);
+			return (((0 <= nButton) && (nButton < Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length)) && this.bMousePushDown[nButton]);
 		}
 		public bool bキーが押されている(int nButton)
 		{
-			return (((0 <= nButton) && (nButton < Enum.GetNames(typeof(MouseButton)).Length)) && this.bMouseState[nButton]);
+			return (((0 <= nButton) && (nButton < Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length)) && this.bMouseState[nButton]);
 		}
 		public bool bキーが離された(int nButton)
 		{
-			return (((0 <= nButton) && (nButton < Enum.GetNames(typeof(MouseButton)).Length)) && this.bMousePullUp[nButton]);
+			return (((0 <= nButton) && (nButton < Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length)) && this.bMousePullUp[nButton]);
 		}
 		public bool bキーが離されている(int nButton)
 		{
-			return (((0 <= nButton) && (nButton < Enum.GetNames(typeof(MouseButton)).Length)) && !this.bMouseState[nButton]);
+			return (((0 <= nButton) && (nButton < Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length)) && !this.bMouseState[nButton]);
 		}
 		//-----------------
 		#endregion
@@ -127,9 +127,9 @@ namespace FDK
 		#region [ private ]
 		//-----------------
 		private bool bDispose完了済み;
-		private bool[] bMousePullUp = new bool[Enum.GetNames(typeof(MouseButton)).Length];
-		private bool[] bMousePushDown = new bool[Enum.GetNames(typeof(MouseButton)).Length];
-		private bool[] bMouseState = new bool[Enum.GetNames(typeof(MouseButton)).Length];
+		private bool[] bMousePullUp = new bool[Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length];
+		private bool[] bMousePushDown = new bool[Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length];
+		private bool[] bMouseState = new bool[Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length];
 		//-----------------
 		#endregion
 	}

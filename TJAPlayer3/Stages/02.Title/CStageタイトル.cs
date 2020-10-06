@@ -256,7 +256,7 @@ namespace TJAPlayer3
 				var point = TJAPlayer3.app.Window.PointToClient(System.Windows.Forms.Cursor.Position);
 				// クライアント領域の横幅を取得して、1280で割る。もちろんdouble型。
 				var scaling = 1.000 * TJAPlayer3.app.Window.ClientSize.Width / 1280;
-				if (TJAPlayer3.Input管理.Mouse.bキーが押された((int)OpenTK.Input.MouseButton.Left))
+				if (TJAPlayer3.Input管理.Mouse.bキーが押された((int)SlimDXKeys.Mouse.Left))
 				{
 					if (point.X >= 180 * scaling && point.X <= 490 * scaling && point.Y >= 0 && point.Y <= 20 * scaling)
 						System.Diagnostics.Process.Start(strCreator);
