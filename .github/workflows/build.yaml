@@ -10,15 +10,16 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v1
-    - name: Set up NuGet
-      uses: warrenbuckley/Setup-Nuget@v1
-    - name: Restore NuGet Packages
-      run: nuget restore $Env:GITHUB_WORKSPACE\TJAPlayer3-f.sln
-    - name: Set up MSBuild
-      uses: warrenbuckley/Setup-MSBuild@v1
-    - name: Build the Solution
-      run: MSBuild.exe $Env:GITHUB_WORKSPACE\TJAPlayer3-f.sln -p:Configuration=Release
-      timeout-minutes: 5
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet publish -o Test/netcoreapp3.1 -r win7-x86 --configuration Release --self-contained true
+    - name: Remove Directory
+      run: rmdir /S /Q Test/netcoreapp3.1/win7-x86
     - name: Upload artifacts
       uses: actions/upload-artifact@v1.0.0
       with:
