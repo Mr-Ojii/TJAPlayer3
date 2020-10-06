@@ -18,8 +18,6 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet publish -o Test/netcoreapp3.1 -r win7-x86 --configuration Release --self-contained true
-    - name: Remove Directory
-      run: rmdir /Q "Test\netcoreapp3.1\win7-x86"
     - name: Upload artifacts
       uses: actions/upload-artifact@v1.0.0
       with:
