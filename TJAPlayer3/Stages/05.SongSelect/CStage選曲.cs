@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Diagnostics;
 using System.IO;
 using FDK;
+using DiscordRPC;
 
 using Rectangle = System.Drawing.Rectangle;
 
@@ -122,8 +123,19 @@ namespace TJAPlayer3
 
 				現在の選曲画面状況 = E選曲画面.通常;
 				完全に選択済み = false;
-												// Discord Presenceの更新
-				Discord.UpdatePresence("", "SongSelect", TJAPlayer3.StartupTime);
+				// Discord Presenceの更新
+
+				TJAPlayer3.DiscordClient?.SetPresence(new RichPresence()
+				{
+					Details = "",
+					State = "SongSelect",
+					Timestamps = new Timestamps(TJAPlayer3.StartupTime),
+					Assets = new Assets()
+					{
+						LargeImageKey = "tjaplayer3-f",
+						LargeImageText = "Ver." + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+					}
+				});
 			}
 			finally
 			{

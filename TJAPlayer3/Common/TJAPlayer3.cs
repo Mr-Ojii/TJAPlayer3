@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using SharpDX.Direct3D9;
 using FDK;
 using System.Reflection;
+using DiscordRPC;
 
 using Rectangle = System.Drawing.Rectangle;
 using Point = System.Drawing.Point;
@@ -1222,6 +1223,7 @@ namespace TJAPlayer3
 		private bool b終了処理完了済み;
 		private bool bネットワークに接続中 = false;
 		private long 前回のシステム時刻ms = long.MinValue;
+		public static DiscordRpcClient DiscordClient;
 		private static CDTX[] dtx = new CDTX[4];
 
 		public static TextureLoader Tx = new TextureLoader();
@@ -1229,7 +1231,7 @@ namespace TJAPlayer3
 		private List<CActivity> listトップレベルActivities;
 		private int n進行描画の戻り値;
 		private MouseButtons mb = System.Windows.Forms.MouseButtons.Left;
-		public static long StartupTime
+		public static DateTime StartupTime
 		{
 			get;
 			private set;
@@ -1638,11 +1640,22 @@ namespace TJAPlayer3
 			this.listトップレベルActivities.Add(stageメンテ);
 			this.listトップレベルActivities.Add(actFlushGPU);
 			//---------------------
-#endregion
+			#endregion
 #region Discordの処理
-			Discord.Initialize("692578108997632051");
-			StartupTime = Discord.GetUnixTime();
-			Discord.UpdatePresence("", "Startup", StartupTime);
+			DiscordClient = new DiscordRpcClient("692578108997632051");
+			DiscordClient?.Initialize();
+			StartupTime = DateTime.UtcNow;
+			DiscordClient?.SetPresence(new RichPresence()
+			{
+				Details = "",
+				State = "Startup",
+				Timestamps = new Timestamps(TJAPlayer3.StartupTime),
+				Assets = new Assets()
+				{
+					LargeImageKey = "tjaplayer3-f",
+					LargeImageText = "Ver." + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+				}
+			});
 #endregion
 
 
@@ -1728,9 +1741,9 @@ namespace TJAPlayer3
 					}
 				}
 				//---------------------
-#endregion
+				#endregion
 #region Discordの処理
-				Discord.Shutdown();
+				DiscordClient?.Dispose();
 #endregion
 #region [ 曲リストの終了処理 ]
 				//---------------------

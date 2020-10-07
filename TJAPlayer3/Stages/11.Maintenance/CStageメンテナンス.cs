@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Drawing;
 using FDK;
+using DiscordRPC;
 
 namespace TJAPlayer3
 {
@@ -26,7 +27,17 @@ namespace TJAPlayer3
 			Trace.Indent();
 			try
 			{
-				Discord.UpdatePresence("", "Maintenance", TJAPlayer3.StartupTime);
+				TJAPlayer3.DiscordClient?.SetPresence(new RichPresence()
+				{
+					Details = "",
+					State = "Meintenance",
+					Timestamps = new Timestamps(TJAPlayer3.StartupTime),
+					Assets = new Assets()
+					{
+						LargeImageKey = "tjaplayer3-f",
+						LargeImageText = "Ver." + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+					}
+				});
 				base.On活性化();
 			}
 			finally

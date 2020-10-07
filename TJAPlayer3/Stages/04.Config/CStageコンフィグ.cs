@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Drawing;
 using System.Diagnostics;
 using FDK;
+using DiscordRPC;
 
 namespace TJAPlayer3
 {
@@ -69,7 +70,17 @@ namespace TJAPlayer3
 				}																				//
 				this.bメニューにフォーカス中 = true;											// ここまでOPTIONと共通
 				this.eItemPanelモード = EItemPanelモード.パッド一覧;
-				Discord.UpdatePresence("", "Config", TJAPlayer3.StartupTime);
+				TJAPlayer3.DiscordClient?.SetPresence(new RichPresence()
+				{
+					Details = "",
+					State = "Config",
+					Timestamps = new Timestamps(TJAPlayer3.StartupTime),
+					Assets = new Assets()
+					{
+						LargeImageKey = "tjaplayer3-f",
+						LargeImageText = "Ver." + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+					}
+				});
 			}
 			finally
 			{

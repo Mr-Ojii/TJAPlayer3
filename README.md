@@ -65,13 +65,14 @@ Testフォルダ内の「追加機能について.md」で説明いたします�
 
 ## ライセンス関係
 以下のライブラリを追加いたしました。
-* ReadJEnc
-* SharpDX
-* Newtonsoft.Json
-* FFmpeg.AutoGen
-* FFmpeg
-* OpenTK
-* OpenAL Soft
+* [ReadJEnc](https://github.com/hnx8/ReadJEnc)
+* [SharpDX](http://sharpdx.org/)
+* [Json.Net](https://www.newtonsoft.com/json)
+* [FFmpeg.AutoGen](https://github.com/Ruslan-B/FFmpeg.AutoGen)
+* [FFmpeg](https://ffmpeg.org/)
+* [OpenTK](https://opentk.net/)
+* [OpenAL Soft](https://openal-soft.org/)
+* [discord-rpc-csharp](https://github.com/Lachee/discord-rpc-csharp)
 
 ライセンスは「Test/Licenses」に追加いたしました。
 

@@ -3,6 +3,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Threading;
 using FDK;
+using DiscordRPC;
 
 namespace TJAPlayer3
 {
@@ -153,7 +154,17 @@ namespace TJAPlayer3
 				#endregion
 
 				// Discord Presenseの更新
-				Discord.UpdatePresence(TJAPlayer3.DTX[0].TITLE + TJAPlayer3.DTX[0].EXTENSION, "Result" + (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == true ? " (Auto)" : ""), TJAPlayer3.StartupTime);
+				TJAPlayer3.DiscordClient?.SetPresence(new RichPresence()
+				{
+					Details = TJAPlayer3.DTX[0].TITLE + TJAPlayer3.DTX[0].EXTENSION,
+					State = "Result" + (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == true ? " (Auto)" : ""),
+					Timestamps = new Timestamps(TJAPlayer3.StartupTime),
+					Assets = new Assets()
+					{
+						LargeImageKey = "tjaplayer3-f",
+						LargeImageText = "Ver." + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+					}
+				});
 
 				base.On活性化();
 			}
