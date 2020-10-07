@@ -7,7 +7,6 @@ using System.Threading;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.IO;
-using FDK;
 using System.Reflection;
 
 namespace TJAPlayer3
@@ -23,9 +22,6 @@ namespace TJAPlayer3
 		[STAThread] 
 		private static void Main()
 		{
-#if NETCOREAPP
-			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);//CP932用
-#endif
 			mutex二重起動防止用 = new Mutex( false, "TJAPlayer3-f" );
 			bool mutexbool = mutex二重起動防止用.WaitOne(0, false);
 		kidou:

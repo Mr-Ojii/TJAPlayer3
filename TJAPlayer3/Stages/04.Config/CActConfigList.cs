@@ -1102,7 +1102,7 @@ namespace TJAPlayer3
 			}
 			#endregion
 			#region [ サウンドのタイムストレッチモード変更 ]
-			FDK.CSound管理.bIsTimeStretch = this.iSystemTimeStretch.bON;
+			CSound管理.bIsTimeStretch = this.iSystemTimeStretch.bON;
 			#endregion
 		}
 		public override void OnManagedリソースの作成()

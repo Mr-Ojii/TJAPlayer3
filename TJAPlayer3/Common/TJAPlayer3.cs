@@ -1566,7 +1566,7 @@ namespace TJAPlayer3
 				}
 
 				ShowWindowTitleWithSoundType();
-				FDK.CSound管理.bIsTimeStretch = TJAPlayer3.ConfigIni.bTimeStretch;
+				CSound管理.bIsTimeStretch = TJAPlayer3.ConfigIni.bTimeStretch;
 				Sound管理.nMasterVolume = TJAPlayer3.ConfigIni.nMasterVolume;
 				//FDK.CSound管理.bIsMP3DecodeByWindowsCodec = CDTXMania.ConfigIni.bNoMP3Streaming;
 				Trace.TraceInformation("サウンドデバイスの初期化を完了しました。");

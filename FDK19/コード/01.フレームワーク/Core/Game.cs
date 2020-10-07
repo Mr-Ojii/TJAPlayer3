@@ -24,6 +24,7 @@ using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
 using System.IO;
+using System.Text;
 using SharpDX;
 
 namespace FDK
@@ -220,6 +221,7 @@ namespace FDK
 #endif
 			if (!Directory.Exists(FFmpeg.AutoGen.ffmpeg.RootPath))
 				throw new DirectoryNotFoundException("FFmpeg RootPath Not Found.");
+			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);//CP932用
 		}
 
 		/// <summary>
