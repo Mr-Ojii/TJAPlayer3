@@ -35,15 +35,19 @@ namespace FDK
 				var key = DeviceConstantConverter.KeysToKey(e.KeyCode);
 				if (SlimDXKey.Unknown == key)
 					return;   // 未対応キーは無視。
-
-				STInputEvent item = new STInputEvent()
+				if (this.bKeyStateForBuff[(int)key] == false)
 				{
-					nKey = (int)key,
-					b押された = true,
-					b離された = false,
-					nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms,
-				};
-				this.listEventBuffer.Add(item);
+					STInputEvent item = new STInputEvent()
+					{
+						nKey = (int)key,
+						b押された = true,
+						b離された = false,
+						nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms,
+					};
+					this.listEventBuffer.Add(item);
+
+					this.bKeyStateForBuff[(int)key] = true; 
+				}
 			}
 		}
 		public void Key離された受信(KeyEventArgs e)
@@ -53,16 +57,19 @@ namespace FDK
 				var key = DeviceConstantConverter.KeysToKey(e.KeyCode);
 				if (SlimDXKey.Unknown == key)
 					return;   // 未対応キーは無視。
-
-				STInputEvent item = new STInputEvent()
+				if (this.bKeyStateForBuff[(int)key] == true) 
 				{
-					nKey = (int)key,
-					b押された = false,
-					b離された = true,
-					nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms,
-				};
+					STInputEvent item = new STInputEvent()
+					{
+						nKey = (int)key,
+						b押された = false,
+						b離された = true,
+						nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms,
+					};
 
-				this.listEventBuffer.Add(item);
+					this.listEventBuffer.Add(item);
+					this.bKeyStateForBuff[(int)key] = false; 
+				}
 			}
 		}
 
@@ -229,6 +236,7 @@ namespace FDK
 		private bool[] bKeyPullUp = new bool[256];
 		private bool[] bKeyPushDown = new bool[256];
 		private bool[] bKeyState = new bool[256];
+		private bool[] bKeyStateForBuff = new bool[256];
 		//-----------------
 		#endregion
 	}
