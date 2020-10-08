@@ -2066,7 +2066,7 @@ namespace TJAPlayer3
 				for ( int i = 0; i < 0x10; i++ )
 				{
 					if ( ConfigIni.KeyAssign.System.Capture[ i ].コード > 0 &&
-						 e.KeyCode == DeviceConstantConverter.KeyToKeyCode( (SlimDXKeys.Key) ConfigIni.KeyAssign.System.Capture[ i ].コード ) )
+						 e.KeyCode == DeviceConstantConverter.KeyToKeys( (SlimDXKeys.Key) ConfigIni.KeyAssign.System.Capture[ i ].コード ) )
 					{
 						// Debug.WriteLine( "capture: " + string.Format( "{0:2x}", (int) e.KeyCode ) + " " + (int) e.KeyCode );
 						string strFullPath =
