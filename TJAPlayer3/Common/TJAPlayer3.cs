@@ -746,18 +746,6 @@ namespace TJAPlayer3
 					case CStage.Eステージ.演奏:
 						#region [ *** ]
 						//-----------------------------
-						//long n1 = FDK.CSound管理.rc演奏用タイマ.nシステム時刻ms;
-						//long n2 = FDK.CSound管理.SoundDevice.n経過時間ms;
-						//long n3 = FDK.CSound管理.SoundDevice.tmシステムタイマ.nシステム時刻ms;
-						//long n4 = FDK.CSound管理.rc演奏用タイマ.n現在時刻;
-						//long n5 = FDK.CSound管理.SoundDevice.n経過時間を更新したシステム時刻ms;
-
-						//swlist1.Add( Convert.ToInt32(n1) );
-						//swlist2.Add( Convert.ToInt32(n2) );
-						//swlist3.Add( Convert.ToInt32( n3 ) );
-						//swlist4.Add( Convert.ToInt32( n4 ) );
-						//swlist5.Add( Convert.ToInt32( n5 ) );
-
 						switch (this.n進行描画の戻り値)
 						{
 							case (int)E演奏画面の戻り値.再読込_再演奏:
@@ -1980,7 +1968,6 @@ namespace TJAPlayer3
 		}
 		private CScoreIni tScoreIniへBGMAdjustとHistoryとPlayCountを更新(string str新ヒストリ行)
 		{
-			bool bIsUpdatedDrums;
 			string strFilename = DTX[0].strファイル名の絶対パス + ".score.ini";
 			CScoreIni ini = new CScoreIni( strFilename );
 			if( !File.Exists( strFilename ) )
@@ -1997,9 +1984,8 @@ namespace TJAPlayer3
 				}
 			}
 			ini.stファイル.BGMAdjust = DTX[0].nBGMAdjust;
-			CScoreIni.t更新条件を取得する(out bIsUpdatedDrums);
 			
-			if( bIsUpdatedDrums )
+			if(TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == false)
 			{
 				ini.stファイル.PlayCountDrums++;
 			}

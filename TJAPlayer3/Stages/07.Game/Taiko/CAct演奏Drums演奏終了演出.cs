@@ -36,11 +36,13 @@ namespace TJAPlayer3
 				{
 					// 段位認定モード、クリア成功
 					this.Mode[0] = EndMode.StageCleared;
+					this.soundClear?.t再生を開始する();
 				}
 				else
 				{
 					// 段位認定モード、クリア失敗
 					this.Mode[0] = EndMode.StageFailed;
+					this.soundFailed?.t再生を開始する();
 				}
 			}
 			else
@@ -53,18 +55,26 @@ namespace TJAPlayer3
 					if (TJAPlayer3.stage演奏ドラム画面.actGauge.db現在のゲージ値[i] < 80)
 					{
 						this.Mode[i] = EndMode.StageFailed;
+						if (i == 0)
+							this.soundFailed?.t再生を開始する();
 					}
 					else if (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[i].Miss != 0)
 					{
 						this.Mode[i] = EndMode.StageCleared;
+						if (i == 0)
+							this.soundClear?.t再生を開始する();
 					}
 					else if (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[i].Great != 0)
 					{
 						this.Mode[i] = EndMode.StageFullCombo;
+						if (i == 0)
+							this.soundFullCombo?.t再生を開始する();
 					}
 					else
 					{
 						this.Mode[i] = EndMode.StageDonderFullCombo;
+						if (i == 0)
+							this.soundDonderFullCombo?.t再生を開始する();
 					}
 				}
 			}
@@ -89,7 +99,6 @@ namespace TJAPlayer3
 
 		public override void OnManagedリソースの作成()
 		{
-			this.b再生済み = false;
 			this.soundFailed = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Failed.ogg"), ESoundGroup.SoundEffect);
 			this.soundClear = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Clear.ogg"), ESoundGroup.SoundEffect);
 			this.soundFullCombo = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Full Combo.ogg"), ESoundGroup.SoundEffect);
@@ -131,11 +140,6 @@ namespace TJAPlayer3
 					switch (this.Mode[i])
 					{
 						case EndMode.StageFailed:
-							if (this.soundFailed != null && !this.b再生済み)
-							{
-								this.soundFailed.t再生を開始する();
-								this.b再生済み = true;
-							}
 							if (TJAPlayer3.Tx.End_Failed_Text != null) 
 							{
                                 #region[ 文字 ]
@@ -239,12 +243,6 @@ namespace TJAPlayer3
 							}
 							break;
 						case EndMode.StageCleared:
-							//this.ct進行メイン.n現在の値 = 18;
-							if (this.soundClear != null && !this.b再生済み)
-							{
-								this.soundClear.t再生を開始する();
-								this.b再生済み = true;
-							}
 							if (TJAPlayer3.Tx.End_Clear_Text != null && TJAPlayer3.Tx.End_Clear_Text_Effect != null)
 							{
 								#region[ 文字 ]
@@ -404,11 +402,6 @@ namespace TJAPlayer3
 							}
 							break;
 						case EndMode.StageFullCombo:
-							if (this.soundFullCombo != null && !this.b再生済み)
-							{
-								this.soundFullCombo.t再生を開始する();
-								this.b再生済み = true;
-							}
 							if (TJAPlayer3.Tx.End_Clear_Text != null && TJAPlayer3.Tx.End_Clear_Text_Effect != null && TJAPlayer3.Tx.End_FullCombo_Text != null && TJAPlayer3.Tx.End_FullCombo_Text_Effect != null)
 							{
 								#region[ 文字 ]
@@ -690,11 +683,6 @@ namespace TJAPlayer3
 							}
 							break;
 						case EndMode.StageDonderFullCombo:
-							if (this.soundDonderFullCombo != null && !this.b再生済み)
-							{
-								this.soundDonderFullCombo.t再生を開始する();
-								this.b再生済み = true;
-							}
 							if (TJAPlayer3.Tx.End_Clear_Text != null && TJAPlayer3.Tx.End_Clear_Text_Effect != null && TJAPlayer3.Tx.End_FullCombo_Text != null && TJAPlayer3.Tx.End_FullCombo_Text_Effect != null)
 							{
 								#region[ BG ]
@@ -1023,14 +1011,9 @@ namespace TJAPlayer3
 
 		#region[ private ]
 		//-----------------
-		bool b再生済み;
 		bool bリザルトボイス再生済み;
 		CCounter ct進行メイン;
 		CCounter ct進行return用;
-		//CTexture[] txバチお左_成功 = new CTexture[ 5 ];
-		//CTexture[] txバチお右_成功 = new CTexture[ 5 ];
-		//CTexture tx文字;
-		//CTexture tx文字マスク;
 		CSound soundFailed;
 		CSound soundClear;
 		CSound soundFullCombo;

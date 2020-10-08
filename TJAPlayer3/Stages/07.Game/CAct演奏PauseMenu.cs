@@ -58,8 +58,7 @@ namespace TJAPlayer3
 		//{
 		//	base.tDeativatePopupMenu();
 		//}
-
-		public override void t進行描画sub()
+		public void t選択後() 
 		{
 			if (this.選択完了)
 			{
@@ -94,8 +93,12 @@ namespace TJAPlayer3
 					this.tDeativatePopupMenu();
 					sw.Stop();
 					sw.Reset();
+					this.選択完了 = false;
 				}
 			}
+		}
+		public override void t進行描画sub()
+		{
 		}
 
 		public override void tEnter押下Main( int nSortOrder )

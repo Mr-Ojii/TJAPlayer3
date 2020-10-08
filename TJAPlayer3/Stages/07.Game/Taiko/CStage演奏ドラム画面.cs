@@ -377,6 +377,7 @@ namespace TJAPlayer3
 					base.b初めての進行描画 = false;
 				}
 				#endregion
+				this.actPauseMenu.t選択後();
 				if ( ( ( TJAPlayer3.ConfigIni.nRisky != 0 && this.actGauge.IsFailed( 0 ) ) || this.actGame.st叩ききりまショー.ct残り時間.b終了値に達した ) && ( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 ) )
 				{
 					this.actStageFailed.Start();
@@ -480,8 +481,6 @@ namespace TJAPlayer3
 				if (TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
 					actTokkun.On進行描画();
 				
-
-
 				this.Rainbow.On進行描画();
 				this.FireWorks.On進行描画();
 				this.actChipEffects.On進行描画();
@@ -525,7 +524,6 @@ namespace TJAPlayer3
 				{
 					if (TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
 					{
-						bIsFinishedPlaying = false;
 						TJAPlayer3.Skin.sound特訓停止音.t再生する();
 						actTokkun.t演奏を停止する();
 

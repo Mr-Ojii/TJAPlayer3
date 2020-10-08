@@ -1106,10 +1106,6 @@ namespace TJAPlayer3
 			}
 			return builder2.ToString();
 		}
-		internal static void t更新条件を取得する( out bool bDrumsを更新する )
-		{
-			bDrumsを更新する = !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0];
-		}
 		internal static int t総合ランク値を計算して返す( C演奏記録 Drums )
 		{
 			int nTotal   = Drums.n全チップ数;

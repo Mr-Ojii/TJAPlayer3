@@ -106,9 +106,7 @@ namespace TJAPlayer3
 
 					// #23596 10.11.16 add ikanick オートじゃないならクリア回数を1増やす
 					//        11.02.05 bオート to t更新条件を取得する use      ikanick
-					CScoreIni.t更新条件を取得する(out bool b更新が必要か否か);
-
-					if (b更新が必要か否か)
+					if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == false)
 					{	
 						ini.stファイル.ClearCountDrums++;
 					}
@@ -127,9 +125,7 @@ namespace TJAPlayer3
 				{ 
 					Cスコア cスコア = TJAPlayer3.stage選曲.r確定されたスコア;
 
-					CScoreIni.t更新条件を取得する(out bool b更新が必要か否か);
-
-					if (b更新が必要か否か)
+					if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == false && this.st演奏記録[0].b途中でAutoを切り替えたか == false)
 					{
 						// FullCombo した記録を FullCombo なしで超えた場合、FullCombo マークが消えてしまう。
 						// → FullCombo は、最新記録と関係なく、一度達成したらずっとつくようにする。(2010.9.11)
