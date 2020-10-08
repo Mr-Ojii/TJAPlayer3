@@ -30,7 +30,7 @@ namespace TJAPlayer3
 				TJAPlayer3.DiscordClient?.SetPresence(new RichPresence()
 				{
 					Details = "",
-					State = "Meintenance",
+					State = "Maintenance",
 					Timestamps = new Timestamps(TJAPlayer3.StartupTime),
 					Assets = new Assets()
 					{

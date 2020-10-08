@@ -30,8 +30,8 @@ namespace TJAPlayer3
 				string newLine = Environment.NewLine;
 				bool bDLLnotfound = false;
 
-				Trace.WriteLine( "Current Directory: " + Environment.CurrentDirectory );
-				Trace.WriteLine( "EXEのあるフォルダ: " + Path.GetDirectoryName( Application.ExecutablePath ) );
+				Trace.WriteLine("Current Directory: " + Environment.CurrentDirectory);
+				Trace.WriteLine("EXEのあるフォルダ: " + Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
 
 				Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 

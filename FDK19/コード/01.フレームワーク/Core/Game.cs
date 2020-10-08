@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
+using System.Reflection;
 using System.IO;
 using System.Text;
 using SharpDX;
@@ -214,11 +215,8 @@ namespace FDK
 			Window.Paint += Window_Paint;
 
 			GraphicsDeviceManager = new GraphicsDeviceManager(this);
-#if DEBUG
-			FFmpeg.AutoGen.ffmpeg.RootPath = Environment.CurrentDirectory + @"\ffmpeg\";
-#else
-			FFmpeg.AutoGen.ffmpeg.RootPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\ffmpeg\";
-#endif
+			FFmpeg.AutoGen.ffmpeg.RootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"\ffmpeg\";
+
 			if (!Directory.Exists(FFmpeg.AutoGen.ffmpeg.RootPath))
 				throw new DirectoryNotFoundException("FFmpeg RootPath Not Found.");
 			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);//CP932用

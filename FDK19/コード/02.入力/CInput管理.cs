@@ -4,7 +4,6 @@ using System.Text;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using OpenTK.Input;
 
 namespace FDK
 {

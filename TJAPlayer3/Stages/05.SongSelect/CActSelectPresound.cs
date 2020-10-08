@@ -5,7 +5,6 @@ using System.Diagnostics;
 using FDK;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms.VisualStyles;
 
 namespace TJAPlayer3
 {

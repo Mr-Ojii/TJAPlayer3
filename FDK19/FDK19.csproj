@@ -47,13 +47,6 @@
     <PackageReference Include="SharpDX.Mathematics" Version="4.2.0" />
     <PackageReference Include="System.Management" Version="4.7.0" />
   </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
-    <PackageReference Include="System.Text.Encoding.CodePages">
-      <Version>4.7.1</Version>
-    </PackageReference>
-  </ItemGroup>
-
   <ItemGroup>
     <Reference Include="Bass.Net">
       <HintPath>..\lib\Bass.Net.dll</HintPath>
