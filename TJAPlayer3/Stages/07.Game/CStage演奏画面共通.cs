@@ -4162,7 +4162,6 @@ namespace TJAPlayer3
 			// -1だった場合、その前を引き継ぐ。
 			int nInit = scoreInit != -1 ? scoreInit : this.nScore[nPlayer, 0];
 			int nDiff = scoreDiff != -1 ? scoreDiff : this.nScore[nPlayer, 1] - this.nScore[nPlayer, 0];
-			int nAddScore = 0;
 			int[] n倍率 = { 0, 1, 2, 4, 8 };
 
 			if (TJAPlayer3.DTX[nPlayer].nScoreModeTmp == 1)

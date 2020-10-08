@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Diagnostics;
 using System.Linq;
+using FDK;
 
 namespace TJAPlayer3
 {
@@ -255,7 +256,7 @@ namespace TJAPlayer3
 					})
 					{
 						//float to int
-						SizeF fstringSize = gtmp.MeasureString(drawstr, this._font, 1000, sf);
+						SizeF fstringSize = gtmp.MeasureString(drawstr, this._font, new PointF(0, 0), sf);
 						stringSize = new Size((int)fstringSize.Width, (int)fstringSize.Height);
 						stringSize.Width += 10; //2015.04.01 kairera0467 ROTTERDAM NATIONの描画サイズがうまくいかんので。
 					}
@@ -389,7 +390,7 @@ namespace TJAPlayer3
 						})
 						{
 							//float to int
-							SizeF fstringSize = gtmp.MeasureString(strName[i], this._font, 1000, sf);
+							SizeF fstringSize = gtmp.MeasureString(strName[i], this._font, new PointF(0, 0), sf);
 							strSize = new Size((int)fstringSize.Width, (int)fstringSize.Height);
 						}
 					}
@@ -457,7 +458,7 @@ namespace TJAPlayer3
 							})
 							{
 								//float to int
-								SizeF fstringSize = gtmp.MeasureString(strName[i], this._font, 1000, sf);
+								SizeF fstringSize = gtmp.MeasureString(strName[i], this._font, new PointF(0, 0), sf);
 								strSize = new Size((int)fstringSize.Width, (int)fstringSize.Height);
 							}
 						}
