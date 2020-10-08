@@ -851,6 +851,7 @@ namespace FDK
 			{ WindowsKey.Control, SlimDXKey.LeftControl },
 			{ WindowsKey.Alt, SlimDXKey.LeftAlt },
 			{ WindowsKey.ShiftKey,SlimDXKey.LeftShift },
+			{ WindowsKey.ControlKey,SlimDXKey.LeftControl },
 			{ WindowsKey.LControlKey, SlimDXKey.LeftControl },
 			{ WindowsKey.Left, SlimDXKey.LeftArrow },
 			{ WindowsKey.LMenu,SlimDXKey.LeftAlt },
