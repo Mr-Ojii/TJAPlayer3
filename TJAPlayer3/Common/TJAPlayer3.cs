@@ -991,9 +991,10 @@ namespace TJAPlayer3
 			CAction.EndScene(this.Device);  // Present()は game.csのOnFrameEnd()に登録された、GraphicsDeviceManager.game_FrameEnd() 内で実行されるので不要
 											// (つまり、Present()は、Draw()完了後に実行される)
 
-			actFlushGPU?.On進行描画();      // Flush GPU	// EndScene()～Present()間 (つまりVSync前) でFlush実行
 #if OpenGL
 			OpenTK.Graphics.OpenGL.GL.Flush();
+#else
+			actFlushGPU?.On進行描画();      // Flush GPU	// EndScene()～Present()間 (つまりVSync前) でFlush実行	
 #endif
 
 			#region [ 全画面_ウインドウ切り替え ]

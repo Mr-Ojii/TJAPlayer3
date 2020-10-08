@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Diagnostics;
 
 namespace TJAPlayer3
@@ -14,27 +11,6 @@ namespace TJAPlayer3
 	/// </summary>
 	public class CPrivateFastFont : CPrivateFont
 	{
-		/// <summary>
-		/// キャッシュ容量
-		/// </summary>
-		private const int MAXCACHESIZE = 256;
-
-		private struct FontCache
-		{
-			// public Font font;
-			public string drawstr;
-			public DrawMode drawmode;
-			public Color fontColor;
-			public Color edgeColor;
-			public Color gradationTopColor;
-			public Color gradationBottomColor;
-			public Bitmap bmp;
-			public Rectangle rectStrings;
-			public Point ptOrigin;
-		}
-		private List<FontCache> listFontCache;
-
-
 		#region [ コンストラクタ ]
 		public CPrivateFastFont( FontFamily fontfamily, int pt, FontStyle style )
 		{
@@ -128,7 +104,14 @@ namespace TJAPlayer3
 		/// <returns>描画済テクスチャ</returns>
 		public Bitmap DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, bool bVertical )
 		{
-			return DrawPrivateFont_V( drawstr, fontColor, edgeColor, bVertical );
+			if (bVertical)
+			{
+				return DrawPrivateFont_V(drawstr, fontColor, edgeColor, bVertical);
+			}
+			else 
+			{
+				return DrawPrivateFont(drawstr, fontColor, edgeColor);
+			}
 		}
 
 		#endregion
@@ -263,7 +246,6 @@ namespace TJAPlayer3
 					//Debug.WriteLine( "Disposing CPrivateFastFont()" );
 					#region [ キャッシュしている画像を破棄する ]
 					foreach (FontCache bc in listFontCache)
-
 					{
 						if (bc.bmp != null)
 						{
@@ -280,9 +262,29 @@ namespace TJAPlayer3
 		}
 		//-----------------
 		#endregion
-		
+
 		#region [ private ]
 		//-----------------
+		/// <summary>
+		/// キャッシュ容量
+		/// </summary>
+		private const int MAXCACHESIZE = 256;
+
+		private struct FontCache
+		{
+			// public Font font;
+			public string drawstr;
+			public DrawMode drawmode;
+			public Color fontColor;
+			public Color edgeColor;
+			public Color gradationTopColor;
+			public Color gradationBottomColor;
+			public Bitmap bmp;
+			public Rectangle rectStrings;
+			public Point ptOrigin;
+		}
+		private List<FontCache> listFontCache;
+
 		protected bool bDispose完了済み_CPrivateFastFont;
 		//-----------------
 		#endregion

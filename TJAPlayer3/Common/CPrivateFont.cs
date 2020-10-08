@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Diagnostics;
-using FDK;
 using System.Linq;
 
 namespace TJAPlayer3
@@ -103,21 +99,6 @@ namespace TJAPlayer3
 					//return;
 					_fontfamily = null;
 				}
-
-				//foreach ( FontFamily ff in _pfc.Families )
-				//{
-				//	Debug.WriteLine( "fontname=" + ff.Name );
-				//	if ( ff.Name == Path.GetFileNameWithoutExtension( fontpath ) )
-				//	{
-				//		_fontfamily = ff;
-				//		break;
-				//	}
-				//}
-				//if ( _fontfamily == null )
-				//{
-				//	Trace.TraceError( "プライベートフォントの追加後、検索に失敗しました。({0})", fontpath );
-				//	return;
-				//}
 			}
 
 			// 指定されたフォントスタイルが適用できない場合は、フォント内で定義されているスタイルから候補を選んで使用する
@@ -148,10 +129,10 @@ namespace TJAPlayer3
 				//HighDPI対応のため、pxサイズで指定
 			}
 			else
-			// フォントファイルが見つからなかった場合 (MS PGothicを代わりに指定する)
+			// フォントファイルが見つからなかった場合 (MS UI Gothicを代わりに指定する)
 			{
 				float emSize = pt * 96.0f / 72.0f;
-				this._font = new Font("MS UI Gothic", emSize, style, GraphicsUnit.Pixel);	//MS PGothicのFontオブジェクトを作成する
+				this._font = new Font("MS UI Gothic", emSize, style, GraphicsUnit.Pixel);	//MS UI GothicのFontオブジェクトを作成する
 				FontFamily[] ffs = new System.Drawing.Text.InstalledFontCollection().Families;
 				int lcid = System.Globalization.CultureInfo.GetCultureInfo("en-us").LCID;
 				foreach (FontFamily ff in ffs)
@@ -242,93 +223,110 @@ namespace TJAPlayer3
 		/// <param name="gradationTopColor">グラデーション 上側の色</param>
 		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
 		/// <returns>描画済テクスチャ</returns>
-		protected Bitmap DrawPrivateFont( string drawstr, DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor )
+		protected Bitmap DrawPrivateFont(string drawstr, DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor)
 		{
 			if (this._fontfamily == null || drawstr == null || drawstr == "" || drawstr == " " || drawstr == "　")
 			{
 				// nullを返すと、その後bmp→texture処理や、textureのサイズを見て__の処理で全部例外が発生することになる。
 				// それは非常に面倒なので、最小限のbitmapを返してしまう。
 				// まずはこの仕様で進めますが、問題有れば(上位側からエラー検出が必要であれば)例外を出したりエラー状態であるプロパティを定義するなり検討します。
-				if ( drawstr != "" )
+				if (drawstr != "")
 				{
-					Trace.TraceWarning( "DrawPrivateFont()の入力不正。最小値のbitmapを返します。" );
+					Trace.TraceWarning("DrawPrivateFont()の入力不正。最小値のbitmapを返します。");
 				}
-				_rectStrings = new Rectangle( 0, 0, 0, 0 );
-				_ptOrigin = new Point( 0, 0 );
+				_rectStrings = new Rectangle(0, 0, 0, 0);
+				_ptOrigin = new Point(0, 0);
 				return new Bitmap(1, 1);
 			}
-			bool bEdge =      ( ( drawmode & DrawMode.Edge      ) == DrawMode.Edge );
-			bool bGradation = ( ( drawmode & DrawMode.Gradation ) == DrawMode.Gradation );
-
-			// 縁取りの縁のサイズは、とりあえずフォントの大きさの1/4とする
-			//int nEdgePt = (bEdge)? _pt / 4 : 0;
-			//int nEdgePt = (bEdge) ? (_pt / 3) : 0; // 縁取りが少なすぎるという意見が多かったため変更。 (AioiLight)
-			int nEdgePt = (bEdge) ? (10 * _pt / TJAPlayer3.Skin.Font_Edge_Ratio) : 0; //SkinConfigにて設定可能に(rhimm)
 
 			// 描画サイズを測定する
-			Size stringSize = System.Windows.Forms.TextRenderer.MeasureText( drawstr, this._font, new Size( int.MaxValue, int.MaxValue ),
-				System.Windows.Forms.TextFormatFlags.NoPrefix |
-				System.Windows.Forms.TextFormatFlags.NoPadding
-			);
-			stringSize.Width += 10; //2015.04.01 kairera0467 ROTTERDAM NATIONの描画サイズがうまくいかんので。
+			Size stringSize;
+			using (Bitmap bmptmp = new Bitmap(1, 1))
+			{
+				using (Graphics gtmp = Graphics.FromImage(bmptmp))
+				{
+					using (
+					StringFormat sf = new StringFormat()
+					{
+						LineAlignment = StringAlignment.Far, // 画面下部（垂直方向位置）
+						Alignment = StringAlignment.Center,  // 画面中央（水平方向位置）     
+						FormatFlags = StringFormatFlags.NoWrap, // どんなに長くて単語の区切りが良くても改行しない (AioiLight)
+						Trimming = StringTrimming.None, // どんなに長くてもトリミングしない (AioiLight)
+					})
+					{
+						//float to int
+						SizeF fstringSize = gtmp.MeasureString(drawstr, this._font, 1000, sf);
+						stringSize = new Size((int)fstringSize.Width, (int)fstringSize.Height);
+						stringSize.Width += 10; //2015.04.01 kairera0467 ROTTERDAM NATIONの描画サイズがうまくいかんので。
+					}
+				}
+			}
+
+			bool bEdge = ((drawmode & DrawMode.Edge) == DrawMode.Edge);
+			bool bGradation = ((drawmode & DrawMode.Gradation) == DrawMode.Gradation);
+
+			// 縁取りの縁のサイズは、とりあえずフォントの大きさの(1/SkinConfig)とする
+			int nEdgePt = (bEdge) ? (10 * _pt / TJAPlayer3.Skin.Font_Edge_Ratio) : 0; //SkinConfigにて設定可能に(rhimm)
 
 			//取得した描画サイズを基に、描画先のbitmapを作成する
-			Bitmap bmp = new Bitmap( stringSize.Width + nEdgePt * 2, stringSize.Height + nEdgePt * 2 );
+			Bitmap bmp = new Bitmap(stringSize.Width + nEdgePt * 2, stringSize.Height + nEdgePt * 2);
 			bmp.MakeTransparent();
-			Graphics g = Graphics.FromImage( bmp );
-			g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
-			StringFormat sf = new StringFormat();
-			sf.LineAlignment = StringAlignment.Far;	// 画面下部（垂直方向位置）
-			sf.Alignment = StringAlignment.Center;	// 画面中央（水平方向位置）     
-			sf.FormatFlags = StringFormatFlags.NoWrap; // どんなに長くて単語の区切りが良くても改行しない (AioiLight)
-			sf.Trimming = StringTrimming.None; // どんなに長くてもトリミングしない (AioiLight)
-			// レイアウト枠
-			Rectangle r = new Rectangle( 0, 0, stringSize.Width + nEdgePt * 2 + (TJAPlayer3.Skin.Text_Correction_X * stringSize.Width / 100), stringSize.Height + nEdgePt * 2 + (TJAPlayer3.Skin.Text_Correction_Y * stringSize.Height / 100));
-
-			if ( bEdge )	// 縁取り有りの描画
+			using (Graphics g = Graphics.FromImage(bmp))
 			{
-				// DrawPathで、ポイントサイズを使って描画するために、DPIを使って単位変換する
-				// (これをしないと、単位が違うために、小さめに描画されてしまう)
-				float sizeInPixels = _font.SizeInPoints * g.DpiY / 72;  // 1 inch = 72 points
+				g.SmoothingMode = SmoothingMode.HighQuality;
 
-				System.Drawing.Drawing2D.GraphicsPath gp = new System.Drawing.Drawing2D.GraphicsPath();
-				gp.AddString( drawstr, this._fontfamily, (int) this._font.Style, sizeInPixels, r, sf );
+				// レイアウト枠
+				Rectangle r = new Rectangle(0, 0, stringSize.Width + nEdgePt * 2 + (TJAPlayer3.Skin.Text_Correction_X * stringSize.Width / 100), stringSize.Height + nEdgePt * 2 + (TJAPlayer3.Skin.Text_Correction_Y * stringSize.Height / 100));
 
-				// 縁取りを描画する
-				Pen p = new Pen( edgeColor, nEdgePt );
-				p.LineJoin = System.Drawing.Drawing2D.LineJoin.Round;
-				g.DrawPath( p, gp );
-
-				// 塗りつぶす
-				Brush br;
-				if ( bGradation )
+				if (bEdge)    // 縁取り有りの描画
 				{
-					br = new LinearGradientBrush( r, gradationTopColor, gradationBottomColor, LinearGradientMode.Vertical );
+					using (StringFormat sf = new StringFormat()
+					{
+						LineAlignment = StringAlignment.Far, // 画面下部（垂直方向位置）
+						Alignment = StringAlignment.Center,  // 画面中央（水平方向位置）     
+						FormatFlags = StringFormatFlags.NoWrap, // どんなに長くて単語の区切りが良くても改行しない (AioiLight)
+						Trimming = StringTrimming.None, // どんなに長くてもトリミングしない (AioiLight)
+					})
+					{
+						// DrawPathで、ポイントサイズを使って描画するために、DPIを使って単位変換する
+						// (これをしないと、単位が違うために、小さめに描画されてしまう)
+						float sizeInPixels = _font.SizeInPoints * g.DpiY / 72;  // 1 inch = 72 points
+
+						GraphicsPath gp = new GraphicsPath();
+						gp.AddString(drawstr, this._fontfamily, (int)this._font.Style, sizeInPixels, r, sf);
+
+						// 縁取りを描画する
+						Pen p = new Pen(edgeColor, nEdgePt);
+						p.LineJoin = LineJoin.Round;
+						g.DrawPath(p, gp);
+
+						// 塗りつぶす
+						Brush br;
+						if (bGradation)
+						{
+							br = new LinearGradientBrush(r, gradationTopColor, gradationBottomColor, LinearGradientMode.Vertical);
+						}
+						else
+						{
+							br = new SolidBrush(fontColor);
+						}
+						g.FillPath(br, gp);
+
+						if (br != null) br.Dispose(); br = null;
+						if (p != null) p.Dispose(); p = null;
+						if (gp != null) gp.Dispose(); gp = null;
+					}
+
 				}
 				else
 				{
-					br = new SolidBrush( fontColor );
+					// 縁取りなしの描画
+					g.DrawString(drawstr, _font, new SolidBrush(fontColor), new PointF(0, 0));
 				}
-				g.FillPath( br, gp );
-
-				if ( br != null ) br.Dispose(); br = null;
-				if ( p != null ) p.Dispose(); p = null;
-				if ( gp != null ) gp.Dispose(); gp = null;
+				_rectStrings = new Rectangle(0, 0, stringSize.Width, stringSize.Height);
+				_ptOrigin = new Point(nEdgePt * 2, nEdgePt * 2);
 			}
-			else
-			{
-				// 縁取りなしの描画
-				System.Windows.Forms.TextRenderer.DrawText( g, drawstr, _font, new Point( 0, 0 ), fontColor );
-			}
-			_rectStrings = new Rectangle( 0, 0, stringSize.Width, stringSize.Height );
-			_ptOrigin = new Point( nEdgePt * 2, nEdgePt * 2 );
-			
-
-			#region [ リソースを解放する ]
-			if ( sf != null )	sf.Dispose();	sf = null;
-			if ( g != null )	g.Dispose();	g = null;
-			#endregion
 
 			return bmp;
 		}
@@ -347,7 +345,7 @@ namespace TJAPlayer3
 		/// <returns>描画済テクスチャ</returns>
 		protected Bitmap DrawPrivateFont_V( string drawstr, Color fontColor, Color edgeColor, bool bVertical )
 		{
-			if ( this._fontfamily == null || drawstr == null || drawstr == "" )
+			if ( this._fontfamily == null || drawstr == null || drawstr == "" || drawstr == " " || drawstr == "　")
 			{
 				// nullを返すと、その後bmp→texture処理や、textureのサイズを見て__の処理で全部例外が発生することになる。
 				// それは非常に面倒なので、最小限のbitmapを返してしまう。
@@ -367,264 +365,266 @@ namespace TJAPlayer3
 			}
 
 			drawstr = drawstr.Replace("・", "．");
-			//StreamWriter stream = stream = new StreamWriter("Test.txt", false);
-
-			//try
-			//{
-			//    stream = new StreamWriter("Test.txt", false);
-			//}
-			//catch (Exception ex)
-			//{
-			//    stream.Close();
-			//    stream = new StreamWriter("Test.txt", false);
-			//}
 
 			string[] strName =  new string[ drawstr.Length ];
 			for( int i = 0; i < drawstr.Length; i++ ) strName[i] = drawstr.Substring(i, 1);
-
+			
 			#region[ キャンバスの大きさ予測 ]
 			//大きさを計算していく。
 			int nHeight = 0;
-			for( int i = 0; i < strName.Length; i++ )
+			for (int i = 0; i < strName.Length; i++)
 			{
-				Size strSize = System.Windows.Forms.TextRenderer.MeasureText( strName[ i ], this._font, new Size( int.MaxValue, int.MaxValue ),
-				System.Windows.Forms.TextFormatFlags.NoPrefix |
-				System.Windows.Forms.TextFormatFlags.NoPadding );
+				Size strSize;
+				using (Bitmap bmptmp = new Bitmap(1, 1))
+				{
+					using (Graphics gtmp = Graphics.FromImage(bmptmp))
+					{
+						using (
+						StringFormat sf = new StringFormat()
+						{
+							LineAlignment = StringAlignment.Far, // 画面下部（垂直方向位置）
+							Alignment = StringAlignment.Center,  // 画面中央（水平方向位置）     
+							FormatFlags = StringFormatFlags.NoWrap, // どんなに長くて単語の区切りが良くても改行しない (AioiLight)
+							Trimming = StringTrimming.None, // どんなに長くてもトリミングしない (AioiLight)
+						})
+						{
+							//float to int
+							SizeF fstringSize = gtmp.MeasureString(strName[i], this._font, 1000, sf);
+							strSize = new Size((int)fstringSize.Width, (int)fstringSize.Height);
+						}
+					}
+				}
 
 				//stringformatは最初にやっていてもいいだろう。
-				StringFormat sFormat = new StringFormat();
-				sFormat.LineAlignment = StringAlignment.Center;	// 画面下部（垂直方向位置）
-				sFormat.Alignment = StringAlignment.Center;	// 画面中央（水平方向位置）
-
-
-				//できるだけ正確な値を計算しておきたい...!
-				Bitmap bmpDummy = new Bitmap( 150, 150 ); //とりあえず150
-				Graphics gCal = Graphics.FromImage( bmpDummy );
-
-				Rectangle rect正確なサイズ = this.MeasureStringPrecisely( gCal, strName[ i ], this._font, strSize, sFormat );
-				int n余白サイズ = strSize.Height - rect正確なサイズ.Height;
-
-				//Rectangle rect = new Rectangle( 0, -n余白サイズ + 2, 46, ( strSize.Height + 16 )); 2020.05.04 Mr-Ojii 使ってないから、コメント化。
-
-				if( strName[ i ] == "ー" || strName[ i ] == "-" || strName[ i ] == "～" || strName[ i ] == "<" || strName[ i ] == ">" || strName[ i ] == "(" || strName[ i ] == ")" || strName[ i ] == "「" || strName[ i ] == "」" || strName[ i ] == "[" || strName[ i ] == "]")
+				using (StringFormat sFormat = new StringFormat()
 				{
-					nHeight += ( rect正確なサイズ.Width ) + 4;
-				}
-				else if( strName[ i ] == "_" )
-				{ nHeight += ( rect正確なサイズ.Height ) + 6;  }
-				else if( strName[ i ] == " " )
-				{ nHeight += ( 12 ); }
-				else { nHeight += ( rect正確なサイズ.Height ) + 10; }
+					LineAlignment = StringAlignment.Center, // 画面下部（垂直方向位置）
+					Alignment = StringAlignment.Center, // 画面中央（水平方向位置）
+				})
+				{
 
-				//念のため解放
-				bmpDummy.Dispose();
-				gCal.Dispose();
+					//できるだけ正確な値を計算しておきたい...!
+					using (Bitmap bmpDummy = new Bitmap(150, 150))//とりあえず150
+					{
+						using (Graphics gCal = Graphics.FromImage(bmpDummy))
+						{
 
-				//stream.WriteLine( "文字の大きさ{0},大きさ合計{1}", ( rect正確なサイズ.Height ) + 6, nHeight );
-				
+							Rectangle rect正確なサイズ = this.MeasureStringPrecisely(gCal, strName[i], this._font, strSize, sFormat);
+							int n余白サイズ = strSize.Height - rect正確なサイズ.Height;
+
+							//Rectangle rect = new Rectangle( 0, -n余白サイズ + 2, 46, ( strSize.Height + 16 )); 2020.05.04 Mr-Ojii 使ってないから、コメント化。
+
+							if (strName[i] == "ー" || strName[i] == "-" || strName[i] == "～" || strName[i] == "<" || strName[i] == ">" || strName[i] == "(" || strName[i] == ")" || strName[i] == "「" || strName[i] == "」" || strName[i] == "[" || strName[i] == "]")
+							{
+								nHeight += (rect正確なサイズ.Width) + 4;
+							}
+							else if (strName[i] == "_")
+							{ nHeight += (rect正確なサイズ.Height) + 6; }
+							else if (strName[i] == " ")
+							{ nHeight += (12); }
+							else { nHeight += (rect正確なサイズ.Height) + 10; }
+						}
+					}
+				}				
 			}
 			#endregion
 
 			Bitmap bmpCambus = new Bitmap( 46, nHeight );
-			Graphics Gcambus = Graphics.FromImage( bmpCambus );
-
-			//キャンバス作成→1文字ずつ作成してキャンバスに描画という形がよさそうかな?
-			int nNowPos = 0;
-			int nAdded = 0;
-			int nEdge補正X = 0;
-			int nEdge補正Y = 0;
-			if (this._pt < 18)
-				nAdded -= 2;
-
-			for (int i = 0; i < strName.Length; i++)
+			using (Graphics Gcambus = Graphics.FromImage(bmpCambus))
 			{
-				Size strSize = System.Windows.Forms.TextRenderer.MeasureText(strName[i], this._font, new Size(int.MaxValue, int.MaxValue),
-				System.Windows.Forms.TextFormatFlags.NoPrefix |
-				System.Windows.Forms.TextFormatFlags.NoPadding);
+				//キャンバス作成→1文字ずつ作成してキャンバスに描画という形がよさそうかな?
+				int nNowPos = 0;
+				int nAdded = 0;
+				int nEdge補正X = 0;
+				int nEdge補正Y = 0;
+				if (this._pt < 18)
+					nAdded -= 2;
 
-				//stringformatは最初にやっていてもいいだろう。
-				StringFormat sFormat = new StringFormat();
-				sFormat.LineAlignment = StringAlignment.Center; // 画面下部（垂直方向位置）
-				sFormat.Alignment = StringAlignment.Near;	// 画面中央（水平方向位置）
-
-				//できるだけ正確な値を計算しておきたい...!
-				Graphics gCal = Graphics.FromImage(new Bitmap(150, 150));//とりあえず150 2020.05.04　Mr-Ojii 一回変数に格納する必要がないと判断したため、まとめた。
-				Rectangle rect正確なサイズ = this.MeasureStringPrecisely(gCal, strName[i], this._font, strSize, sFormat);
-				int n余白サイズ = strSize.Height - rect正確なサイズ.Height;
-
-				//Bitmap bmpV = new Bitmap( 36, ( strSize.Height + 12 ) - 6 );
-
-				Bitmap bmpV = new Bitmap((rect正確なサイズ.Width + 12) + nAdded, (rect正確なサイズ.Height) + 12);
-
-				bmpV.MakeTransparent();
-				Graphics gV = Graphics.FromImage(bmpV);
-				gV.SmoothingMode = SmoothingMode.HighQuality;
-
-				if (TJAPlayer3.Skin.SongSelect_CorrectionX_Chara != null && TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value != null)
+				for (int i = 0; i < strName.Length; i++)
 				{
-					int Xindex = Array.IndexOf(TJAPlayer3.Skin.SongSelect_CorrectionX_Chara, strName[i]);
-					if (-1 < Xindex && Xindex < TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value.Length && strName[i].In(TJAPlayer3.Skin.SongSelect_CorrectionX_Chara))
+					Size strSize;
+					using (Bitmap bmptmp = new Bitmap(1, 1))
 					{
-						nEdge補正X = TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value[Xindex];
-					}
-					else
-					{
-						if (-1 < Xindex && TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value.Length <= Xindex && strName[i].In(TJAPlayer3.Skin.SongSelect_CorrectionX_Chara))
+						using (Graphics gtmp = Graphics.FromImage(bmptmp))
 						{
-							nEdge補正X = TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value[0];
+							using (
+							StringFormat sf = new StringFormat()
+							{
+								LineAlignment = StringAlignment.Far, // 画面下部（垂直方向位置）
+								Alignment = StringAlignment.Center,  // 画面中央（水平方向位置）     
+								FormatFlags = StringFormatFlags.NoWrap, // どんなに長くて単語の区切りが良くても改行しない (AioiLight)
+								Trimming = StringTrimming.None, // どんなに長くてもトリミングしない (AioiLight)
+							})
+							{
+								//float to int
+								SizeF fstringSize = gtmp.MeasureString(strName[i], this._font, 1000, sf);
+								strSize = new Size((int)fstringSize.Width, (int)fstringSize.Height);
+							}
+						}
+					}
+
+					//stringformatは最初にやっていてもいいだろう。
+					StringFormat sFormat = new StringFormat()
+					{
+						LineAlignment = StringAlignment.Center, // 画面下部（垂直方向位置）
+						Alignment = StringAlignment.Near,   // 画面中央（水平方向位置）
+					};
+
+					//できるだけ正確な値を計算しておきたい...!
+					Graphics gCal = Graphics.FromImage(new Bitmap(150, 150));//とりあえず150 2020.05.04　Mr-Ojii 一回変数に格納する必要がないと判断したため、まとめた。
+					Rectangle rect正確なサイズ = this.MeasureStringPrecisely(gCal, strName[i], this._font, strSize, sFormat);
+					int n余白サイズ = strSize.Height - rect正確なサイズ.Height;
+
+					Bitmap bmpV = new Bitmap((rect正確なサイズ.Width + 12) + nAdded, (rect正確なサイズ.Height) + 12);
+					bmpV.MakeTransparent();
+
+					Graphics gV = Graphics.FromImage(bmpV);
+					gV.SmoothingMode = SmoothingMode.HighQuality;
+
+					if (TJAPlayer3.Skin.SongSelect_CorrectionX_Chara != null && TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value != null)
+					{
+						int Xindex = Array.IndexOf(TJAPlayer3.Skin.SongSelect_CorrectionX_Chara, strName[i]);
+						if (-1 < Xindex && Xindex < TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value.Length && strName[i].In(TJAPlayer3.Skin.SongSelect_CorrectionX_Chara))
+						{
+							nEdge補正X = TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value[Xindex];
 						}
 						else
 						{
-							nEdge補正X = 0;
+							if (-1 < Xindex && TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value.Length <= Xindex && strName[i].In(TJAPlayer3.Skin.SongSelect_CorrectionX_Chara))
+							{
+								nEdge補正X = TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value[0];
+							}
+							else
+							{
+								nEdge補正X = 0;
+							}
 						}
-					} 
-				}
-
-				if (TJAPlayer3.Skin.SongSelect_CorrectionY_Chara != null && TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value != null)
-				{
-					int Yindex = Array.IndexOf(TJAPlayer3.Skin.SongSelect_CorrectionY_Chara, strName[i]);
-					if (-1 < Yindex && Yindex < TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value.Length && strName[i].In(TJAPlayer3.Skin.SongSelect_CorrectionY_Chara))
-					{
-						nEdge補正Y = TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value[Yindex];
 					}
-					else
+
+					if (TJAPlayer3.Skin.SongSelect_CorrectionY_Chara != null && TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value != null)
 					{
-						if (-1 < Yindex && TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value.Length <= Yindex && strName[i].In(TJAPlayer3.Skin.SongSelect_CorrectionY_Chara))
+						int Yindex = Array.IndexOf(TJAPlayer3.Skin.SongSelect_CorrectionY_Chara, strName[i]);
+						if (-1 < Yindex && Yindex < TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value.Length && strName[i].In(TJAPlayer3.Skin.SongSelect_CorrectionY_Chara))
 						{
-							nEdge補正Y = TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value[0];
+							nEdge補正Y = TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value[Yindex];
 						}
 						else
 						{
-							nEdge補正Y = 0;
+							if (-1 < Yindex && TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value.Length <= Yindex && strName[i].In(TJAPlayer3.Skin.SongSelect_CorrectionY_Chara))
+							{
+								nEdge補正Y = TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value[0];
+							}
+							else
+							{
+								nEdge補正Y = 0;
+							}
 						}
 					}
-				}
 
-				//X座標、Y座標それぞれについて、SkinConfig内でズレを直したい文字を , で区切って列挙して、
-				//補正値を記入することで、特定のそれらの文字について一括で座標をずらす。
-				//現時点では補正値をX,Y各座標について1個ずつしか取れない（複数対1）ので、
-				//文字を列挙して、同じ数だけそれぞれの文字の補正値を記入できるような枠組をつくりたい。（20181205 rhimm）←実装済み //2020.05.04 Mr-Ojii 文字ごとに補正をかけられるように。「,」区切りで書けるように。
+					//X座標、Y座標それぞれについて、SkinConfig内でズレを直したい文字を , で区切って列挙して、
+					//補正値を記入することで、特定のそれらの文字について一括で座標をずらす。
+					//現時点では補正値をX,Y各座標について1個ずつしか取れない（複数対1）ので、
+					//文字を列挙して、同じ数だけそれぞれの文字の補正値を記入できるような枠組をつくりたい。（20181205 rhimm）←実装済み //2020.05.04 Mr-Ojii 文字ごとに補正をかけられるように。「,」区切りで書けるように。
 
-				Rectangle rect = new Rectangle(-3 - nAdded + (nEdge補正X * _pt / 100), -rect正確なサイズ.Y - 2 + (nEdge補正Y * _pt / 100), (strSize.Width + 12), (strSize.Height + 11));
-				//Rectangle rect = new Rectangle( 0, -rect正確なサイズ.Y - 2, 36, rect正確なサイズ.Height + 10);
+					Rectangle rect = new Rectangle(-3 - nAdded + (nEdge補正X * _pt / 100), -rect正確なサイズ.Y - 2 + (nEdge補正Y * _pt / 100), (strSize.Width + 12), (strSize.Height + 11));
+					//Rectangle rect = new Rectangle( 0, -rect正確なサイズ.Y - 2, 36, rect正確なサイズ.Height + 10);
 
-				// DrawPathで、ポイントサイズを使って描画するために、DPIを使って単位変換する
-				// (これをしないと、単位が違うために、小さめに描画されてしまう)
-				float sizeInPixels = _font.SizeInPoints * gV.DpiY / 72f;  // 1 inch = 72 points
+					// DrawPathで、ポイントサイズを使って描画するために、DPIを使って単位変換する
+					// (これをしないと、単位が違うために、小さめに描画されてしまう)
+					float sizeInPixels = _font.SizeInPoints * gV.DpiY / 72f;  // 1 inch = 72 points
 
-				GraphicsPath gpV = new GraphicsPath();
-				gpV.AddString(strName[i], this._fontfamily, (int)this._font.Style, sizeInPixels, rect, sFormat);
+					GraphicsPath gpV = new GraphicsPath();
+					gpV.AddString(strName[i], this._fontfamily, (int)this._font.Style, sizeInPixels, rect, sFormat);
 
-				// 縁取りを描画する
-				//int nEdgePt = (_pt / 3); // 縁取りをフォントサイズ基準に変更
-				float nEdgePt = (10f * _pt / TJAPlayer3.Skin.Font_Edge_Ratio_Vertical); // SkinConfigにて設定可能に(rhimm)
-				Pen pV = new Pen(edgeColor, nEdgePt);
-				pV.LineJoin = LineJoin.Round;
-				gV.DrawPath(pV, gpV);
+					// 縁取りを描画する
+					//int nEdgePt = (_pt / 3); // 縁取りをフォントサイズ基準に変更
+					float nEdgePt = (10f * _pt / TJAPlayer3.Skin.Font_Edge_Ratio_Vertical); // SkinConfigにて設定可能に(rhimm)
+					Pen pV = new Pen(edgeColor, nEdgePt);
+					pV.LineJoin = LineJoin.Round;
+					gV.DrawPath(pV, gpV);
 
-				// 塗りつぶす
-				Brush brV;
-				{
-					brV = new SolidBrush(fontColor);
-				}
-				gV.FillPath(brV, gpV);
+					// 塗りつぶす
+					Brush brV = new SolidBrush(fontColor);
 
-				if (brV != null) brV.Dispose();
-				if (pV != null) pV.Dispose();
-				if (gpV != null) gpV.Dispose();
-				if (gV != null) gV.Dispose();
+					gV.FillPath(brV, gpV);
 
-				int n補正 = 0;
-				int nY補正 = 0;
+					if (brV != null) brV.Dispose();
+					if (pV != null) pV.Dispose();
+					if (gpV != null) gpV.Dispose();
+					if (gV != null) gV.Dispose();
 
-				if (strName[i] == "ー" || strName[i] == "-" || strName[i] == "～")
-				{
-					bmpV.RotateFlip(RotateFlipType.Rotate90FlipNone);
-					n補正 = 2;
-					if (this._pt < 20)
-						n補正 = 0;
-					//nNowPos = nNowPos - 2;
-				}
-				else if (strName[i] == "<" || strName[i] == ">" || strName[i] == "(" || strName[i] == ")" || strName[i] == "[" || strName[i] == "]" || strName[i] == "」" || strName[i] == "）" || strName[i] == "』")
-				{
-					bmpV.RotateFlip(RotateFlipType.Rotate90FlipNone);
-					n補正 = 2;
-					if (this._pt < 20)
+					int n補正 = 0;
+					int nY補正 = 0;
+
+					if (strName[i] == "ー" || strName[i] == "-" || strName[i] == "～")
 					{
-						n補正 = 0;
-						//nNowPos = nNowPos - 4;
-					}
-				}
-				else if (strName[i] == "「" || strName[i] == "（" || strName[i] == "『")
-				{
-					bmpV.RotateFlip(RotateFlipType.Rotate90FlipNone);
-					n補正 = 2;
-					if (this._pt < 20)
-					{
+						bmpV.RotateFlip(RotateFlipType.Rotate90FlipNone);
 						n補正 = 2;
-						//nNowPos = nNowPos;
+						if (this._pt < 20)
+							n補正 = 0;
+						//nNowPos = nNowPos - 2;
 					}
-				}
-				else if (strName[i] == "・")
-				{
-					n補正 = -8;
-					if (this._pt < 20)
+					else if (strName[i] == "<" || strName[i] == ">" || strName[i] == "(" || strName[i] == ")" || strName[i] == "[" || strName[i] == "]" || strName[i] == "」" || strName[i] == "）" || strName[i] == "』")
+					{
+						bmpV.RotateFlip(RotateFlipType.Rotate90FlipNone);
+						n補正 = 2;
+						if (this._pt < 20)
+						{
+							n補正 = 0;
+							//nNowPos = nNowPos - 4;
+						}
+					}
+					else if (strName[i] == "「" || strName[i] == "（" || strName[i] == "『")
+					{
+						bmpV.RotateFlip(RotateFlipType.Rotate90FlipNone);
+						n補正 = 2;
+						if (this._pt < 20)
+						{
+							n補正 = 2;
+							//nNowPos = nNowPos;
+						}
+					}
+					else if (strName[i] == "・")
 					{
 						n補正 = -8;
-						//nNowPos = nNowPos;
+						if (this._pt < 20)
+						{
+							n補正 = -8;
+							//nNowPos = nNowPos;
+						}
 					}
-				}
-				else if (strName[i] == ".")
-				{
-					n補正 = 8;
-					if (this._pt < 20)
+					else if (strName[i] == ".")
 					{
 						n補正 = 8;
-						//nNowPos = nNowPos;
+						if (this._pt < 20)
+						{
+							n補正 = 8;
+							//nNowPos = nNowPos;
+						}
 					}
+					else if (strName[i].In(TJAPlayer3.Skin.SongSelect_Rotate_Chara))
+					{
+						bmpV.RotateFlip(RotateFlipType.Rotate90FlipNone);
+					}
+					//個別の文字に関して、カンマで区切ってSkinConfigに記入したものを回転させる(20181205 rhimm)
+					else if (strName[i] == " ")
+						nNowPos += 10;
+
+					if (i == 0)
+					{
+						nNowPos = 4;
+					}
+					Gcambus.DrawImage(bmpV, (bmpCambus.Width / 2) - (bmpV.Width / 2) + n補正, nNowPos + nY補正);
+					nNowPos += bmpV.Size.Height - 6;
+
+					if (bmpV != null) bmpV.Dispose();
+					if (gCal != null) gCal.Dispose();
+
+					_rectStrings = new Rectangle(0, 0, strSize.Width, strSize.Height);
+					_ptOrigin = new Point(6 * 2, 6 * 2);
 				}
-				else if (strName[i].In(TJAPlayer3.Skin.SongSelect_Rotate_Chara))
-				{
-					bmpV.RotateFlip(RotateFlipType.Rotate90FlipNone);
-				}
-				//個別の文字に関して、カンマで区切ってSkinConfigに記入したものを回転させる(20181205 rhimm)
-
-
-				//else if( strName[ i ] == "_" )
-				//    nNowPos = nNowPos + 20;
-				else if( strName[ i ] == " " )
-					nNowPos += 10;
-
-
-				//bmpV.Save( "String" + i.ToString() + ".png" );
-
-
-				if( i == 0 )
-				{
-					nNowPos = 4;
-				}
-				Gcambus.DrawImage( bmpV, (bmpCambus.Width / 2) - (bmpV.Width / 2) + n補正, nNowPos + nY補正 );
-				nNowPos += bmpV.Size.Height - 6;
-
-				if( bmpV != null ) bmpV.Dispose();
-				if( gCal != null ) gCal.Dispose();
-
-				//bmpCambus.Save( "test.png" );
-				//if( this._pt < 20 )
-				//    bmpCambus.Save( "test_S.png" );
-
-				_rectStrings = new Rectangle( 0, 0, strSize.Width, strSize.Height );
-				_ptOrigin = new Point( 6 * 2, 6 * 2 );
-
-
-				//stream.WriteLine( "黒無しサイズ{0},余白{1},黒あり予測サイズ{2},ポ↑ジ↓{3}",rect正確なサイズ.Height, n余白サイズ, rect正確なサイズ.Height + 8, nNowPos );
-				
 			}
-			//stream.Close();
 
-			if( Gcambus != null ) Gcambus.Dispose();
-
-			//return bmp;
 			return bmpCambus;
 		}
 
@@ -771,10 +771,6 @@ namespace TJAPlayer3
 				rightPosition - leftPosition, bottomPosition - topPosition);
 		}
 
-		private Rectangle MeasureForegroundArea(Bitmap bmp)
-		{
-			return MeasureForegroundArea(bmp, bmp.GetPixel(0, 0));
-		}
 
 		//------------------------------------------------
 
