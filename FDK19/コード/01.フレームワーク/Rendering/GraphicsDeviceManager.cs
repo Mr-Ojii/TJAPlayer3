@@ -24,7 +24,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Text;
 using System.Threading;
-using System.Windows.Forms;
 using SharpDX;
 using SharpDX.Direct3D9;
 using System.Diagnostics;

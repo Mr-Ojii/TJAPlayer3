@@ -28,48 +28,44 @@ namespace FDK
 			this.listEventBuffer = new List<STInputEvent>(32);
 		}
 
-		public void Key押された受信(KeyEventArgs e)
+		public void Key押された受信(Keys Code)
 		{
-			if (e != null)
-			{
-				var key = DeviceConstantConverter.KeysToKey(e.KeyCode);
-				if (SlimDXKey.Unknown == key)
-					return;   // 未対応キーは無視。
-				if (this.bKeyStateForBuff[(int)key] == false)
-				{
-					STInputEvent item = new STInputEvent()
-					{
-						nKey = (int)key,
-						b押された = true,
-						b離された = false,
-						nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms,
-					};
-					this.listEventBuffer.Add(item);
+			var key = DeviceConstantConverter.KeysToKey(Code);
+			if (SlimDXKey.Unknown == key)
+				return;   // 未対応キーは無視。
 
-					this.bKeyStateForBuff[(int)key] = true; 
-				}
+			if (this.bKeyStateForBuff[(int)key] == false)
+			{
+				STInputEvent item = new STInputEvent()
+				{
+					nKey = (int)key,
+					b押された = true,
+					b離された = false,
+					nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms,
+				};
+				this.listEventBuffer.Add(item);
+
+				this.bKeyStateForBuff[(int)key] = true;
 			}
 		}
-		public void Key離された受信(KeyEventArgs e)
+		public void Key離された受信(Keys Code)
 		{
-			if (e != null)
-			{
-				var key = DeviceConstantConverter.KeysToKey(e.KeyCode);
-				if (SlimDXKey.Unknown == key)
-					return;   // 未対応キーは無視。
-				if (this.bKeyStateForBuff[(int)key] == true) 
-				{
-					STInputEvent item = new STInputEvent()
-					{
-						nKey = (int)key,
-						b押された = false,
-						b離された = true,
-						nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms,
-					};
+			var key = DeviceConstantConverter.KeysToKey(Code);
+			if (SlimDXKey.Unknown == key)
+				return;   // 未対応キーは無視。
 
-					this.listEventBuffer.Add(item);
-					this.bKeyStateForBuff[(int)key] = false; 
-				}
+			if (this.bKeyStateForBuff[(int)key] == true)
+			{
+				STInputEvent item = new STInputEvent()
+				{
+					nKey = (int)key,
+					b押された = false,
+					b離された = true,
+					nTimeStamp = CSound管理.rc演奏用タイマ.nシステム時刻ms,
+				};
+
+				this.listEventBuffer.Add(item);
+				this.bKeyStateForBuff[(int)key] = false;
 			}
 		}
 

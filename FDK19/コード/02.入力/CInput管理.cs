@@ -197,7 +197,7 @@ namespace FDK
 						CInputKeyboard tkey = device as CInputKeyboard;
 						if ((tkey != null))
 						{
-							tkey.Key押された受信(e);
+							tkey.Key押された受信(e.KeyCode);
 							break;
 						}
 					}
@@ -216,7 +216,7 @@ namespace FDK
 						CInputKeyboard tkey = device as CInputKeyboard;
 						if ((tkey != null))
 						{
-							tkey.Key離された受信(e);
+							tkey.Key離された受信(e.KeyCode);
 							break;
 						}
 					}
