@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Management;
 
 namespace FDK
 {
@@ -51,10 +50,9 @@ namespace FDK
 				return false;
 			}
 
-			int _major, _minor, _build;
-			tpGetOSVersion(out _major, out _minor, out _build);
+			int _major, _minor;
+			tpGetOSVersion(out _major, out _minor);
 
-			//if (os.Version.Major >= major && os.Version.Minor >= minor)
 			if (_major > major)
 			{
 				return true;
@@ -69,34 +67,11 @@ namespace FDK
 			}
 		}
 
-
-		//public static (int major, int minor, int build) tpGetOSVersion()
-		public static void tpGetOSVersion(out int major, out int minor, out int build)
+		public static void tpGetOSVersion(out int major, out int minor)
 		{
-			
-			major = 0;
-			minor = 0;
-			build = 0;
-
-			ManagementClass mc =
-				new ManagementClass("Win32_OperatingSystem");
-			ManagementObjectCollection moc = mc.GetInstances();
-
-			foreach (ManagementObject mo in moc)
-			{
-				string ver = mo["Version"].ToString();
-				string[] majorminor = ver.Split(new char[] { '.' }, StringSplitOptions.None);
-
-				major = Convert.ToInt32(majorminor[0]);
-				minor = Convert.ToInt32(majorminor[1]);
-				build = Convert.ToInt32(mo["BuildNumber"]);
-
-				break;  // 1回ループで終了(でいいよね)
-			}
-			moc.Dispose();
-			mc.Dispose();
-
-			//return result;
+			var os = Environment.OSVersion;
+			major = os.Version.Major;
+			minor = os.Version.Minor;
 		}
 	}
 }

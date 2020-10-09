@@ -84,7 +84,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <NoWin32Manifest>true</NoWin32Manifest>
+    <ApplicationManifest>TJAPlayer3-f.manifest</ApplicationManifest>
   </PropertyGroup>
 
 </Project>

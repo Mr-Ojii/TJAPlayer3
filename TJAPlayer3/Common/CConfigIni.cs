@@ -693,14 +693,14 @@ namespace TJAPlayer3
 			this.strSystemSkinSubfolderFullName = "";	// #28195 2012.5.2 yyagi 使用中のSkinサブフォルダ名
 			this.bTight = false;                        // #29500 2012.9.11 kairera0467 TIGHTモード
 			#region [ WASAPI/ASIO ]
-			this.nSoundDeviceType = (int) (COS.bIsVistaOrLater() ?
-					(COS.bIsWin10OrLater() ? ESoundDeviceTypeForConfig.WASAPI_Shared: ESoundDeviceTypeForConfig.WASAPI_Exclusive)
-					: ESoundDeviceTypeForConfig.ACM);  // #24820 2012.12.23 yyagi 初期値はACM | #31927 2013.8.25 yyagi OSにより初期値変更
+			// #31927 2013.8.25 yyagi OSにより初期値変更
+			this.nSoundDeviceType = (int)(COS.bIsWin10OrLater() ? ESoundDeviceTypeForConfig.WASAPI_Shared : ESoundDeviceTypeForConfig.WASAPI_Exclusive);
+
 			this.nWASAPIBufferSizeMs = 2;				// #24820 2013.1.15 yyagi 初期値は50(0で自動設定)
 			this.nASIODevice = 0;						// #24820 2013.1.17 yyagi
 //			this.nASIOBufferSizeMs = 0;					// #24820 2012.12.25 yyagi 初期値は0(自動設定)
 			#endregion
-			this.bUseOSTimer = false;;					// #33689 2014.6.6 yyagi 初期値はfalse (FDKのタイマー。ＦＲＯＭ氏考案の独自タイマー)
+			this.bUseOSTimer = false;					// #33689 2014.6.6 yyagi 初期値はfalse (FDKのタイマー。ＦＲＯＭ氏考案の独自タイマー)
 			this.bDynamicBassMixerManagement = true;	//
 			this.bTimeStretch = false;					// #23664 2013.2.24 yyagi 初期値はfalse (再生速度変更を、ピッチ変更にて行う)
 			
