@@ -33,13 +33,6 @@ namespace TJAPlayer3
 				return false;
 			}
 		}
-		public bool bスクロール中
-		{
-			get
-			{
-				return this.act曲リスト.bスクロール中;
-			}
-		}
 		public int[] n確定された曲の難易度
 		{
 			get;
@@ -228,15 +221,11 @@ namespace TJAPlayer3
 					{
 						for (int i = 0; i < (1280 / TJAPlayer3.Tx.SongSelect_Background.szテクスチャサイズ.Width) + 2; i++)
 						{
-
-
 							if ( TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack] != null)
 							{
 								TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack].t2D描画(TJAPlayer3.app.Device, -ct背景スクロール用タイマー.n現在の値 + TJAPlayer3.Tx.SongSelect_Background.szテクスチャサイズ.Width * i, 0);
 							}
-
 						}
-
 					}
 				}
 
@@ -374,16 +363,6 @@ namespace TJAPlayer3
                     this.act難易度選択画面.On進行描画();
 				}
 
-
-
-
-				int y = 0;
-				if( this.ct登場時アニメ用共通.b進行中 )
-				{
-					double db登場割合 = ( (double) this.ct登場時アニメ用共通.n現在の値 ) / 100.0;	// 100が最終値
-					double dbY表示割合 = Math.Sin( Math.PI / 2 * db登場割合 );
-					y = ( (int) (TJAPlayer3.Tx.SongSelect_Header.sz画像サイズ.Height * dbY表示割合 ) ) - TJAPlayer3.Tx.SongSelect_Header.sz画像サイズ.Height;
-				}
 				if( TJAPlayer3.Tx.SongSelect_Header != null )
 					TJAPlayer3.Tx.SongSelect_Header.t2D描画( TJAPlayer3.app.Device, 0, 0 );
 
@@ -439,13 +418,10 @@ namespace TJAPlayer3
 						TJAPlayer3.Tx.SongSelect_Counter_Num[dotinum].t2D描画(TJAPlayer3.app.Device, (int)(((countdig + (This_counter.ToString().Length - 1) / 2.0) - (This_counter.ToString().Length - 1)) * 48.0) + TJAPlayer3.Skin.SongSelect_Counter_XY[0], TJAPlayer3.Skin.SongSelect_Counter_XY[1], new Rectangle((TJAPlayer3.Tx.SongSelect_Counter_Num[dotinum].szテクスチャサイズ.Width / 10) * (This_counter / (int)Math.Pow(10, This_counter.ToString().Length - countdig - 1) % 10 ), 0, TJAPlayer3.Tx.SongSelect_Counter_Num[dotinum].szテクスチャサイズ.Width / 10, TJAPlayer3.Tx.SongSelect_Counter_Num[dotinum].szテクスチャサイズ.Height));
 				}
 
-
 				if (this.act曲リスト.n現在選択中の曲の難易度レベル[0] != (int)Difficulty.Dan)
 					this.actPresound.On進行描画();
 
-
 				this.act演奏履歴パネル.On進行描画();
-
 
 				if (act曲リスト.r現在選択中の曲 != null)
 				{
@@ -533,8 +509,7 @@ namespace TJAPlayer3
 						}
 						#endregion
 					}
-					#endregion
-					
+					#endregion			
 					#region[難易度選択画面のキー入力]
 					else if (現在の選曲画面状況 == E選曲画面.難易度選択)
 					{//2020.06.02 Mr-Ojii 難易度選択画面の追加
@@ -1090,19 +1065,6 @@ namespace TJAPlayer3
 
 					this.actSortSongs.t進行描画();
 				}
-
-				//------------------------------
-				//if (this.act難易度選択画面.bIsDifficltSelect)
-				//{
-
-				//    if (this.ctDiffSelect移動待ち.n現在の値 == this.ctDiffSelect移動待ち.n終了値)
-				//    {
-				//        this.act難易度選択画面.On進行描画();
-				//        CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.赤, "NowStage:DifficltSelect");
-				//    }
-				//    CDTXMania.act文字コンソール.tPrint(0, 16, C文字コンソール.Eフォント種別.赤, "Count:" + this.ctDiffSelect移動待ち.n現在の値);
-				//}
-				//------------------------------
 				switch ( base.eフェーズID )
 				{
 					case CStage.Eフェーズ.共通_フェードイン:
@@ -1291,13 +1253,6 @@ namespace TJAPlayer3
 		internal CCounter ct難易度選択画面INバー拡大用タイマー;
 		internal CCounter ct難易度選択画面OUT用タイマー;
 		internal E戻り値 eフェードアウト完了時の戻り値;
-		//private CTexture tx下部パネル;
-		//private CTexture tx上部パネル;
-		//private CTexture tx背景;
-  //      private CTexture[] txジャンル別背景 = new CTexture[9];
-  //      private CTexture[] tx難易度別背景 = new CTexture[5];
-  //      private CTexture tx難易度名;
-  //      private CTexture tx下部テキスト;
 
 		private void tカーソルを下へ移動する()
 		{

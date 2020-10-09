@@ -36,16 +36,7 @@ namespace TJAPlayer3
 			{
 				this.str曲タイトル = "";
 				this.strSTAGEFILE = "";
-				if( !string.IsNullOrEmpty( TJAPlayer3.ConfigIni.FontName ) )
-				{
-					this.pfTITLE = new CPrivateFastFont( new FontFamily( TJAPlayer3.ConfigIni.FontName ), TJAPlayer3.Skin.SongLoading_Title_FontSize );
-					this.pfSUBTITLE = new CPrivateFastFont( new FontFamily( TJAPlayer3.ConfigIni.FontName ), TJAPlayer3.Skin.SongLoading_SubTitle_FontSize);
-				}
-				else
-				{
-					this.pfTITLE = new CPrivateFastFont( new FontFamily("MS UI Gothic"), TJAPlayer3.Skin.SongLoading_Title_FontSize);
-					this.pfSUBTITLE = new CPrivateFastFont( new FontFamily("MS UI Gothic" ), TJAPlayer3.Skin.SongLoading_SubTitle_FontSize);
-				}
+				
 				this.nBGM再生開始時刻 = -1;
 				this.nBGMの総再生時間ms = 0;
 				if( this.sd読み込み音 != null )
@@ -89,8 +80,6 @@ namespace TJAPlayer3
 			Trace.Indent();
 			try
 			{
-				TJAPlayer3.t安全にDisposeする(ref this.pfTITLE);
-				TJAPlayer3.t安全にDisposeする(ref this.pfSUBTITLE);
 				base.On非活性化();
 			}
 			finally
@@ -126,18 +115,21 @@ namespace TJAPlayer3
 						//this.txタイトル = new CTexture( CDTXMania.app.Device, image, CDTXMania.TextureFormat );
 						//this.txタイトル.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );
 
-
-						using (var bmpSongTitle = this.pfTITLE.DrawPrivateFont( タイトル, TJAPlayer3.Skin.SongLoading_Title_ForeColor, TJAPlayer3.Skin.SongLoading_Title_BackColor ))
-
+						using (CPrivateFastFont pfTITLE = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), TJAPlayer3.Skin.SongLoading_Title_FontSize))
 						{
-							this.txタイトル = TJAPlayer3.tテクスチャの生成(bmpSongTitle);
-							txタイトル.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref txタイトル, 710);
+							using (var bmpSongTitle = pfTITLE.DrawPrivateFont(タイトル, TJAPlayer3.Skin.SongLoading_Title_ForeColor, TJAPlayer3.Skin.SongLoading_Title_BackColor))
+							{
+								this.txタイトル = TJAPlayer3.tテクスチャの生成(bmpSongTitle);
+								txタイトル.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref txタイトル, 710);
+							}
 						}
 
-						using (var bmpSongSubTitle = this.pfSUBTITLE.DrawPrivateFont( サブタイトル, TJAPlayer3.Skin.SongLoading_SubTitle_ForeColor, TJAPlayer3.Skin.SongLoading_SubTitle_BackColor ))
-
+						using (CPrivateFastFont pfSUBTITLE = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), TJAPlayer3.Skin.SongLoading_SubTitle_FontSize))
 						{
-							this.txサブタイトル = TJAPlayer3.tテクスチャの生成(bmpSongSubTitle);
+							using (var bmpSongSubTitle = pfSUBTITLE.DrawPrivateFont(サブタイトル, TJAPlayer3.Skin.SongLoading_SubTitle_ForeColor, TJAPlayer3.Skin.SongLoading_SubTitle_BackColor))
+							{
+								this.txサブタイトル = TJAPlayer3.tテクスチャの生成(bmpSongSubTitle);
+							}
 						}
 					}
 					else
@@ -330,48 +322,33 @@ namespace TJAPlayer3
 							// 段位認定モード用。
 							if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] == (int)Difficulty.Dan && TJAPlayer3.DTX[0].List_DanSongs != null)
 							{
-								CPrivateFont pfTitle;
-								CPrivateFont pfSubTitle;
-								if (!string.IsNullOrEmpty(TJAPlayer3.ConfigIni.FontName))
-								{
-									pfTitle = new CPrivateFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 32);
-									pfSubTitle = new CPrivateFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 19);
-								}
-								else 
-								{
-									pfTitle = new CPrivateFont(new FontFamily("MS UI Gothic"), 32);
-									pfSubTitle = new CPrivateFont(new FontFamily("MS UI Gothic"), 19);
-								}
-
-								var titleForeColor = TJAPlayer3.Skin.Game_DanC_Title_ForeColor;
-								var titleBackColor = TJAPlayer3.Skin.Game_DanC_Title_BackColor;
-								var subtitleForeColor = TJAPlayer3.Skin.Game_DanC_SubTitle_ForeColor;
-								var subtitleBackColor = TJAPlayer3.Skin.Game_DanC_SubTitle_BackColor;
-
 								for (int i = 0; i < TJAPlayer3.DTX[0].List_DanSongs.Count; i++)
 								{
 									if (!string.IsNullOrEmpty(TJAPlayer3.DTX[0].List_DanSongs[i].Title))
 									{
-										using (var bmpSongTitle = pfTitle.DrawPrivateFont(TJAPlayer3.DTX[0].List_DanSongs[i].Title, titleForeColor, titleBackColor))
+										using (CPrivateFastFont pfTitle = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 32))
 										{
-											TJAPlayer3.DTX[0].List_DanSongs[i].TitleTex = TJAPlayer3.tテクスチャの生成(bmpSongTitle);
-											TJAPlayer3.DTX[0].List_DanSongs[i].TitleTex.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX[0].List_DanSongs[i].TitleTex, 710);
+											using (var bmpSongTitle = pfTitle.DrawPrivateFont(TJAPlayer3.DTX[0].List_DanSongs[i].Title, TJAPlayer3.Skin.Game_DanC_Title_ForeColor, TJAPlayer3.Skin.Game_DanC_Title_BackColor))
+											{
+												TJAPlayer3.DTX[0].List_DanSongs[i].TitleTex = TJAPlayer3.tテクスチャの生成(bmpSongTitle);
+												TJAPlayer3.DTX[0].List_DanSongs[i].TitleTex.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX[0].List_DanSongs[i].TitleTex, 710);
+											}
 										}
 									}
 
 									if (!string.IsNullOrEmpty(TJAPlayer3.DTX[0].List_DanSongs[i].SubTitle))
 									{
-										using (var bmpSongSubTitle = pfSubTitle.DrawPrivateFont(TJAPlayer3.DTX[0].List_DanSongs[i].SubTitle, subtitleForeColor, subtitleBackColor))
+										using (CPrivateFastFont pfSubTitle = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 19))
 										{
-											TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex = TJAPlayer3.tテクスチャの生成(bmpSongSubTitle);
-											TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex, 710);
+											using (var bmpSongSubTitle = pfSubTitle.DrawPrivateFont(TJAPlayer3.DTX[0].List_DanSongs[i].SubTitle, TJAPlayer3.Skin.Game_DanC_SubTitle_ForeColor, TJAPlayer3.Skin.Game_DanC_SubTitle_BackColor))
+											{
+												TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex = TJAPlayer3.tテクスチャの生成(bmpSongSubTitle);
+												TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex, 710);
+											}
 										}
 									}
 
 								}
-
-								pfTitle?.Dispose();
-								pfSubTitle?.Dispose();
 							}
 						}
 
@@ -550,8 +527,6 @@ namespace TJAPlayer3
 
 		#region [ private ]
 		//-----------------
-		//private CActFIFOBlack actFI;
-		//private CActFIFOBlack actFO;
 		private long nBGMの総再生時間ms;
 		private long nBGM再生開始時刻;
 		private CSound sd読み込み音;
@@ -561,7 +536,6 @@ namespace TJAPlayer3
 		private CTexture txタイトル;
 		private CTexture txサブタイトル;
 		private CTexture tx背景;
-		//private CTexture txSongnamePlate;
 		private DateTime timeBeginLoad;
 		private DateTime timeBeginLoadWAV;
 		private int nWAVcount;
@@ -571,9 +545,6 @@ namespace TJAPlayer3
 		private Font ftFilename;
 		private CCounter ct待機;
 		private CCounter ct曲名表示;
-
-		private CPrivateFastFont pfTITLE;
-		private CPrivateFastFont pfSUBTITLE;
 		//-----------------
 		#endregion
 	}

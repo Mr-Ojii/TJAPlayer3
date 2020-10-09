@@ -97,12 +97,6 @@ namespace TJAPlayer3
 					base.b初めての進行描画 = false;
 					return 0;
 				}
-
-				// CSongs管理 s管理 = CDTXMania.Songs管理;
-
-				//if( this.tx背景 != null )
-				//	this.tx背景.t2D描画( CDTXMania.app.Device, 0, 0 );
-
 				#region [ this.str現在進行中 の決定 ]
 				//-----------------
 				switch( base.eフェーズID )

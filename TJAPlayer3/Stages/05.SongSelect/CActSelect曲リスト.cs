@@ -475,11 +475,8 @@ namespace TJAPlayer3
 			// enter or return to the song select screen.
 			TJAPlayer3.IsPerformingCalibration = false;
 
-			if (!string.IsNullOrEmpty(TJAPlayer3.ConfigIni.FontName))
-			{
-				this.pfMusicName = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 30);
-				this.pfSubtitle = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 23);
-			}
+			this.pfMusicName = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 30);
+			this.pfSubtitle = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 23);
 
 			this.b登場アニメ全部完了 = false;
 			this.n目標のスクロールカウンタ = 0;
@@ -497,8 +494,6 @@ namespace TJAPlayer3
 
 			if ((this.r現在選択中の曲 == null) && (TJAPlayer3.Songs管理.list曲ルート.Count > 0))
 				this.r現在選択中の曲 = TJAPlayer3.Songs管理.list曲ルート[0];
-
-
 
 
 			// バー情報を初期化する。

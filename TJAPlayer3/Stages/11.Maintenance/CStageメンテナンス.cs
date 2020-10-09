@@ -70,10 +70,11 @@ namespace TJAPlayer3
 				//表示用テクスチャの生成
 				don = TJAPlayer3.ColorTexture("#ff4000", Width, Height);
 				ka = TJAPlayer3.ColorTexture("#00c8ff", Width, Height);
-				moji[0] = TJAPlayer3.tテクスチャの生成(new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), fontsize).DrawPrivateFont("左ふち", Color.White, Color.Black));
-				moji[1] = TJAPlayer3.tテクスチャの生成(new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), fontsize).DrawPrivateFont("左面", Color.White, Color.Black));
-				moji[2] = TJAPlayer3.tテクスチャの生成(new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), fontsize).DrawPrivateFont("右面", Color.White, Color.Black));
-				moji[3] = TJAPlayer3.tテクスチャの生成(new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), fontsize).DrawPrivateFont("右ふち", Color.White, Color.Black));
+				string[] txt = new string[4] { "左ふち", "左面", "右面", "右ふち" };
+				for (int ind = 0; ind < 4; ind++)
+				{
+					moji[ind] = TJAPlayer3.tテクスチャの生成(new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), fontsize).DrawPrivateFont(txt[ind], Color.White, Color.Black));
+				}
 				base.OnManagedリソースの作成();
 			}
 

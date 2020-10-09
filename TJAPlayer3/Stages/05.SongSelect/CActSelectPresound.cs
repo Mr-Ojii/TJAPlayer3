@@ -201,7 +201,7 @@ namespace TJAPlayer3
 				if (this.ct再生待ちウェイト.b終了値に達した)
 				{
 					this.ct再生待ちウェイト.t停止();
-					if (!TJAPlayer3.stage選曲.bスクロール中)
+					if (!TJAPlayer3.stage選曲.act曲リスト.bスクロール中)
 					{
 						this.tプレビューサウンドの作成();
 					}
