@@ -27,6 +27,7 @@ using System.Reflection;
 using System.IO;
 using System.Text;
 using SharpDX;
+using SharpDX.Direct3D9;
 
 namespace FDK
 {
@@ -175,6 +176,19 @@ namespace FDK
 		{
 			get;
 			private set;
+		}
+
+
+		/// <summary>
+		/// 2020/10/09 Mr-Ojii 勝手に追加
+		/// TJAPlayer3.app.DeviceをGame側で実装してしまえ！という試み
+		/// </summary>
+		public Device Device
+		{
+			get
+			{
+				return this.GraphicsDeviceManager.Direct3D9.Device;
+			}
 		}
 
 		/// <summary>

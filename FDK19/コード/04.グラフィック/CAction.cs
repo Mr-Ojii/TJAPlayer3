@@ -43,5 +43,12 @@ namespace FDK
 		{
 			Device.EndScene();
 		}
-    }
+
+		public static void Flush() 
+		{
+#if OpenGL
+			OpenTK.Graphics.OpenGL.GL.Flush();
+#endif
+		}
+	}
 }

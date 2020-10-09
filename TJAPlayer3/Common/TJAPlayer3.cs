@@ -9,7 +9,6 @@ using System.IO;
 using System.Threading;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
-using SharpDX.Direct3D9;
 using FDK;
 using System.Reflection;
 using DiscordRPC;
@@ -178,11 +177,6 @@ namespace TJAPlayer3
 			get;
 			private set;
 		}
-		public static CActFlushGPU actFlushGPU
-		{
-			get;
-			private set;
-		}
 
 		public static CSound管理 Sound管理
 		{
@@ -282,13 +276,6 @@ namespace TJAPlayer3
 			get;
 			set;
 		}
-		public Device Device
-		{
-			get
-			{
-				return base.GraphicsDeviceManager.Direct3D9.Device;
-			}
-		}
 		private static Size currentClientSize       // #23510 2010.10.27 add yyagi to keep current window size
 		{
 			get;
@@ -309,7 +296,6 @@ namespace TJAPlayer3
 			TJAPlayer3.app = this;
 			this.t起動処理();
 		}
-
 
 		// メソッド
 
@@ -340,21 +326,6 @@ namespace TJAPlayer3
 
 		// Game 実装
 
-		protected override void Initialize()
-		{
-			//			new GCBeep();
-			//sw.Start();
-			//swlist1 = new List<int>( 8192 );
-			//swlist2 = new List<int>( 8192 );
-			//swlist3 = new List<int>( 8192 );
-			//swlist4 = new List<int>( 8192 );
-			//swlist5 = new List<int>( 8192 );
-			if (this.listトップレベルActivities != null)
-			{
-				foreach (CActivity activity in this.listトップレベルActivities)
-					activity.OnManagedリソースの作成();
-			}
-		}
 		protected override void LoadContent()
 		{
 			if (ConfigIni.bウィンドウモード)
@@ -978,21 +949,9 @@ namespace TJAPlayer3
 			}
 			CAction.EndScene(this.Device);  // Present()は game.csのOnFrameEnd()に登録された、GraphicsDeviceManager.game_FrameEnd() 内で実行されるので不要
 											// (つまり、Present()は、Draw()完了後に実行される)
+			
+			CAction.Flush();// Flush GPU	// EndScene()～Present()間 (つまりVSync前) でFlush実行	
 
-#if OpenGL
-			OpenTK.Graphics.OpenGL.GL.Flush();
-#else
-			actFlushGPU?.On進行描画();      // Flush GPU	// EndScene()～Present()間 (つまりVSync前) でFlush実行	
-#endif
-
-			#region [ 全画面_ウインドウ切り替え ]
-			if (this.b次のタイミングで全画面_ウィンドウ切り替えを行う)
-			{
-				ConfigIni.b全画面モード = !ConfigIni.b全画面モード;
-				app.t全画面_ウィンドウモード切り替え();
-				this.b次のタイミングで全画面_ウィンドウ切り替えを行う = false;
-			}
-#endregion
 #region [ 垂直基線同期切り替え ]
 			if (this.b次のタイミングで垂直帰線同期切り替えを行う)
 			{
@@ -1355,7 +1314,6 @@ namespace TJAPlayer3
 			base.InactiveSleepTime = TimeSpan.FromMilliseconds((float)(ConfigIni.n非フォーカス時スリープms));  // #23568 2010.11.3 yyagi: to support valiable sleep value when !IsActive
 																									// #23568 2010.11.4 ikanick changed ( 1 -> ConfigIni )
 
-			actFlushGPU = new CActFlushGPU();
 			//---------------------
 #endregion
 
@@ -1625,7 +1583,6 @@ namespace TJAPlayer3
 			this.listトップレベルActivities.Add(stageChangeSkin);
 			this.listトップレベルActivities.Add(stage終了);
 			this.listトップレベルActivities.Add(stageメンテ);
-			this.listトップレベルActivities.Add(actFlushGPU);
 			//---------------------
 			#endregion
 #region Discordの処理
