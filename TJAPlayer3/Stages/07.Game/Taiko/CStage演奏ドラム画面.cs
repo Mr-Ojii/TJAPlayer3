@@ -67,7 +67,7 @@ namespace TJAPlayer3
 			base.list子Activities.Add(this.actDan = new Dan_Cert());
 			base.list子Activities.Add(this.actTokkun = new CAct演奏Drums特訓モード());
 			#region[ 文字初期化 ]
-			ST文字位置[] st文字位置Array = new ST文字位置[ 12 ];
+			ST文字位置[] st文字位置Array = new ST文字位置[ 11 ];
 			ST文字位置 st文字位置 = new ST文字位置();
 			st文字位置.ch = '0';
 			st文字位置.pt = new Point( 0, 0 );
@@ -112,61 +112,6 @@ namespace TJAPlayer3
 			st文字位置11.ch = '%';
 			st文字位置11.pt = new Point( 320, 0 );
 			st文字位置Array[ 10 ] = st文字位置11;
-			ST文字位置 st文字位置12 = new ST文字位置();
-			st文字位置12.ch = ' ';
-			st文字位置12.pt = new Point( 0, 0 );
-			st文字位置Array[ 11 ] = st文字位置12;
-			this.st小文字位置 = st文字位置Array;
-
-			st文字位置Array = new ST文字位置[ 12 ];
-			st文字位置 = new ST文字位置();
-			st文字位置.ch = '0';
-			st文字位置.pt = new Point( 0, 0 );
-			st文字位置Array[ 0 ] = st文字位置;
-			st文字位置2 = new ST文字位置();
-			st文字位置2.ch = '1';
-			st文字位置2.pt = new Point( 32, 0 );
-			st文字位置Array[ 1 ] = st文字位置2;
-			st文字位置3 = new ST文字位置();
-			st文字位置3.ch = '2';
-			st文字位置3.pt = new Point( 64, 0 );
-			st文字位置Array[ 2 ] = st文字位置3;
-			st文字位置4 = new ST文字位置();
-			st文字位置4.ch = '3';
-			st文字位置4.pt = new Point( 96, 0 );
-			st文字位置Array[ 3 ] = st文字位置4;
-			st文字位置5 = new ST文字位置();
-			st文字位置5.ch = '4';
-			st文字位置5.pt = new Point( 128, 0 );
-			st文字位置Array[ 4 ] = st文字位置5;
-			st文字位置6 = new ST文字位置();
-			st文字位置6.ch = '5';
-			st文字位置6.pt = new Point( 160, 0 );
-			st文字位置Array[ 5 ] = st文字位置6;
-			st文字位置7 = new ST文字位置();
-			st文字位置7.ch = '6';
-			st文字位置7.pt = new Point( 192, 0 );
-			st文字位置Array[ 6 ] = st文字位置7;
-			st文字位置8 = new ST文字位置();
-			st文字位置8.ch = '7';
-			st文字位置8.pt = new Point( 224, 0 );
-			st文字位置Array[ 7 ] = st文字位置8;
-			st文字位置9 = new ST文字位置();
-			st文字位置9.ch = '8';
-			st文字位置9.pt = new Point( 256, 0 );
-			st文字位置Array[ 8 ] = st文字位置9;
-			st文字位置10 = new ST文字位置();
-			st文字位置10.ch = '9';
-			st文字位置10.pt = new Point( 288, 0 );
-			st文字位置Array[ 9 ] = st文字位置10;
-			st文字位置11 = new ST文字位置();
-			st文字位置11.ch = '%';
-			st文字位置11.pt = new Point( 320, 0 );
-			st文字位置Array[ 10 ] = st文字位置11;
-			st文字位置12 = new ST文字位置();
-			st文字位置12.ch = ' ';
-			st文字位置12.pt = new Point( 0, 0 );
-			st文字位置Array[ 11 ] = st文字位置12;
 			this.st小文字位置 = st文字位置Array;
 			#endregion
 		}
@@ -186,11 +131,10 @@ namespace TJAPlayer3
 		{
 			LoudnessMetadataScanner.StopBackgroundScanning(joinImmediately: false);
 
-			this.n待機中の大音符の座標 = 0;
 			this.actGame.t叩ききりまショー_初期化();
 			for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++)
 				base.ReSetScore(TJAPlayer3.DTX[nPlayer].nScoreInit[0, TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]], TJAPlayer3.DTX[nPlayer].nScoreDiff[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]], nPlayer);
-			base.eフェーズID = CStage.Eフェーズ.共通_通常状態;//初期化すれば、リザルト変遷は止まる。
+			base.eフェーズID = CStage.Eフェーズ.共通_通常状態;//初期化する。
 			
 			base.On活性化();
 
@@ -615,7 +559,6 @@ namespace TJAPlayer3
 
 		private int ShownLyric2 = 0 ;
 
-		private int n待機中の大音符の座標;
 		private readonly ST文字位置[] st小文字位置;
 		//-----------------
 
@@ -1015,7 +958,6 @@ namespace TJAPlayer3
 										if( time <= 110 )
 										{
 											chipNoHit.nProcessTime = (int)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
-											this.n待機中の大音符の座標 = chipNoHit.nバーからの距離dot.Taiko;
 											chipNoHit.eNoteState = ENoteState.wait;
 											this.nWaitButton = 1;
 										}
@@ -1148,7 +1090,6 @@ namespace TJAPlayer3
 										if( time <= 110 )
 										{
 											chipNoHit.nProcessTime = (int)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
-											this.n待機中の大音符の座標 = chipNoHit.nバーからの距離dot.Taiko;
 											chipNoHit.eNoteState = ENoteState.wait;
 											this.nWaitButton = 1;
 										}
@@ -2040,10 +1981,10 @@ namespace TJAPlayer3
 				if( TJAPlayer3.Tx.Judge_Meter != null )
 					TJAPlayer3.Tx.Judge_Meter.t2D描画( TJAPlayer3.app.Device, 0, 360 );
 
-				this.t小文字表示( 102, 494, string.Format( "{0,4:###0}", this.nヒット数_Auto含まない[0].Perfect.ToString() ), false );
-				this.t小文字表示( 102, 532, string.Format( "{0,4:###0}", this.nヒット数_Auto含まない[0].Great.ToString() ), false );
-				this.t小文字表示( 102, 570, string.Format( "{0,4:###0}", this.nヒット数_Auto含まない[0].Miss.ToString() ), false );
-				this.t小文字表示(102, 634, string.Format("{0,4:###0}", GetRoll(0)), false);
+				this.t小文字表示( 102, 494, string.Format( "{0,4:###0}", this.nヒット数_Auto含まない[0].Perfect.ToString() ) );
+				this.t小文字表示( 102, 532, string.Format( "{0,4:###0}", this.nヒット数_Auto含まない[0].Great.ToString() ) );
+				this.t小文字表示( 102, 570, string.Format( "{0,4:###0}", this.nヒット数_Auto含まない[0].Miss.ToString() ) );
+				this.t小文字表示(102, 634, string.Format("{0,4:###0}", GetRoll(0)) );
 
 				int nNowTotal = this.nヒット数_Auto含まない[0].Perfect + this.nヒット数_Auto含まない[0].Great + this.nヒット数_Auto含まない[0].Miss;
 				double dbたたけた率 = Math.Round((100.0 * ( TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Perfect + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Great)) / (double)nNowTotal);
@@ -2061,23 +2002,18 @@ namespace TJAPlayer3
 					dbMISS率 = 0;
 
 				this.t大文字表示( 202, 436, string.Format( "{0,3:##0}%", dbたたけた率 ) );
-				this.t小文字表示( 206, 494, string.Format( "{0,3:##0}%", dbPERFECT率 ), false );
-				this.t小文字表示( 206, 532, string.Format( "{0,3:##0}%", dbGREAT率 ), false );
-				this.t小文字表示( 206, 570, string.Format( "{0,3:##0}%", dbMISS率 ), false );
+				this.t小文字表示( 206, 494, string.Format( "{0,3:##0}%", dbPERFECT率 ) );
+				this.t小文字表示( 206, 532, string.Format( "{0,3:##0}%", dbGREAT率 ) );
+				this.t小文字表示( 206, 570, string.Format( "{0,3:##0}%", dbMISS率 ) );
 			}
 		}
 
-		private void t小文字表示( int x, int y, string str, bool bOrange )
+		private void t小文字表示( int x, int y, string str )
 		{
 			foreach( char ch in str )
 			{
 				for( int i = 0; i < this.st小文字位置.Length; i++ )
 				{
-					if( ch == ' ' )
-					{
-						break;
-					}
-
 					if( this.st小文字位置[ i ].ch == ch )
 					{
 						Rectangle rectangle = new Rectangle( this.st小文字位置[ i ].pt.X, this.st小文字位置[ i ].pt.Y, 32, 38 );
@@ -2098,11 +2034,6 @@ namespace TJAPlayer3
 			{
 				for( int i = 0; i < this.st小文字位置.Length; i++ )
 				{
-					if( ch == ' ' )
-					{
-						break;
-					}
-
 					if( this.st小文字位置[ i ].ch == ch )
 					{
 						Rectangle rectangle = new Rectangle( this.st小文字位置[ i ].pt.X, 38, 32, 42 );
