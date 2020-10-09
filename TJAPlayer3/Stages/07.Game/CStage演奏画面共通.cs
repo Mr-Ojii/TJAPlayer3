@@ -3056,14 +3056,9 @@ namespace TJAPlayer3
 						if (!pChip.bHit && (pChip.nバーからの距離dot.Drums < 0) && pChip.nPlayerSide == 0)
 						{
 							pChip.bHit = true;
-							if ( configIni.bAVI有効 )
+							if ( configIni.bAVI有効 && pChip.rVD != null )
 							{
-								switch ( pChip.eAVI種別 )
-								{
-									case EAVI種別.AVI:
-										this.actAVI.Start( pChip.nチャンネル番号, pChip.rVD );
-										break;
-								}
+								this.actAVI.Start( pChip.nチャンネル番号, pChip.rVD );		
 							}
 						}
 						break;

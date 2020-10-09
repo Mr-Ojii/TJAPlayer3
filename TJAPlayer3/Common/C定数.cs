@@ -131,11 +131,6 @@ namespace TJAPlayer3
 		Chipより下,
 		Chipより上
 	}
-	internal enum EAVI種別
-	{
-		Unknown,
-		AVI,
-	}
 	internal enum EFIFOモード
 	{
 		フェードイン,

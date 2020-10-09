@@ -163,7 +163,6 @@ namespace TJAPlayer3
 			public int nスクロール方向;
 			public int n描画優先度 = 0; //(特殊)現状連打との判断目的で使用
 			public ENoteState eNoteState;
-			public EAVI種別 eAVI種別;
 			public E楽器パート e楽器パート = E楽器パート.UNKNOWN;
 			public int nチャンネル番号;
 			public STDGBVALUE<int> nバーからの距離dot;
@@ -816,13 +815,11 @@ namespace TJAPlayer3
 				{
 					if (chip.nチャンネル番号 == 0x54 || chip.nチャンネル番号 == 0x5A)
 					{
-						chip.eAVI種別 = EAVI種別.Unknown;
 						chip.rVD = null;
 
 						CVideoDecoder vd;
 						if ((this.listVD.TryGetValue(chip.n整数値, out vd)))
 						{
-							chip.eAVI種別 = EAVI種別.AVI;
 							chip.rVD = vd;
 						}
 					}
@@ -2007,7 +2004,6 @@ namespace TJAPlayer3
 				chip1.n整数値 = 0x01;
 				chip1.n整数値_内部番号 = 1;
 				chip1.nPlayerSide = this.nPlayerSide;
-				chip1.eAVI種別 = EAVI種別.AVI;
 
 				// チップを配置。
 
@@ -2662,7 +2658,6 @@ namespace TJAPlayer3
 			chip1.n整数値 = 0x01;
 			chip1.n整数値_内部番号 = 1;
 			chip1.nPlayerSide = this.nPlayerSide;
-			chip1.eAVI種別 = EAVI種別.AVI;
 
 			// チップを配置。
 
@@ -3834,7 +3829,6 @@ namespace TJAPlayer3
 				chip1.n整数値 = 0x01;
 				chip1.n整数値_内部番号 = 1;
 				chip1.nPlayerSide = this.nPlayerSide;
-				chip1.eAVI種別 = EAVI種別.AVI;
 
 				// チップを配置。
 
