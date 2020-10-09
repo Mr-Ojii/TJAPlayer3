@@ -2324,8 +2324,6 @@ namespace TJAPlayer3
 
 		private CTexture GenerateGenreTexture(string str文字, Color forecolor, Color backcolor)
 		{
-			str文字 = str文字.Replace("・", "．");
-
 			CTexture tx文字テクスチャ;
 			using (var bmp = cpff.DrawPrivateFont(str文字, forecolor, backcolor))
 			{
