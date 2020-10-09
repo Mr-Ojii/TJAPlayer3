@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using Rectangle = System.Drawing.Rectangle;
 using Point = System.Drawing.Point;
 using Color = System.Drawing.Color;
+using System.Runtime.CompilerServices;
 
 namespace TJAPlayer3
 {
@@ -549,7 +550,7 @@ namespace TJAPlayer3
 			if (this.b活性化してない)
 				return;
 
-
+			this.cpff = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 30);
 			for (int i = 0; i < 11; i++)
 			{
 				if (i == 10)
@@ -567,7 +568,6 @@ namespace TJAPlayer3
 					this.genretext[i] = GenerateGenreTexture(this.NumtonStrジャンル(i), Color.White, Color.Black);
 				}
 			}
-
 
 			int c = (CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
 			#region [ Songs not found画像 ]
@@ -642,6 +642,7 @@ namespace TJAPlayer3
 				this.stバー情報[i].ttkタイトル = null;
 			}
 
+			TJAPlayer3.t安全にDisposeする(ref this.cpff);
 			//CDTXMania.t安全にDisposeする( ref this.txスキル数字 );
 			TJAPlayer3.t安全にDisposeする(ref this.txEnumeratingSongs);
 			TJAPlayer3.t安全にDisposeする(ref this.txSongNotFound);
@@ -1209,14 +1210,12 @@ namespace TJAPlayer3
 							genretextureindex = nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
 						}
 						genretext[genretextureindex].Opacity = 全体Opacity;
-						genretext[genretextureindex].t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
+						genretext[genretextureindex].t2D拡大率考慮下拡大率考慮中心基準描画(TJAPlayer3.app.Device, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y);
 					}
 					switch (r現在選択中の曲.eノード種別)
 					{
 						case C曲リストノード.Eノード種別.SCORE:
 							{
-
-
 								if (TJAPlayer3.Tx.SongSelect_Frame_Score != null)
 								{
 									// 難易度がTower、Danではない
@@ -1436,9 +1435,7 @@ namespace TJAPlayer3
 
 							#region [ バーテクスチャの描画。]
 							//-----------------
-							int width = (int)(((double)((640 - this.ptバーの基本座標[i].X) + 1)) / Math.Sin(Math.PI * 3 / 5));
 							int x = i選曲バーX座標 + 500 - ((int)(db割合0to1 * 500));
-							int y = this.ptバーの基本座標[i].Y;
 							this.tジャンル別選択されていない曲バーの描画(this.ptバーの座標[nパネル番号].X, TJAPlayer3.Skin.SongSelect_Overall_Y, this.nStrジャンルtoNum(this.stバー情報[nパネル番号].song.strジャンル), this.stバー情報[nパネル番号].eバー種別,this.stバー情報[nパネル番号].eノード種別);
 							if (this.stバー情報[nパネル番号].b分岐[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0]] == true && i != 6)
 								TJAPlayer3.Tx.SongSelect_Branch.t2D描画(TJAPlayer3.app.Device, this.ptバーの座標[nパネル番号].X + 66, TJAPlayer3.Skin.SongSelect_Overall_Y - 5);
@@ -1618,8 +1615,6 @@ namespace TJAPlayer3
 					}
 					//-------
 
-					int y = this.ptバーの基本座標[n見た目の行番号].Y + ((int)((this.ptバーの基本座標[n次のパネル番号].Y - this.ptバーの基本座標[n見た目の行番号].Y) * (((double)Math.Abs(this.n現在のスクロールカウンタ)) / 100.0)));
-
 					{
 						// (B) スクロール中の選択曲バー、またはその他のバーの描画。
 
@@ -1719,7 +1714,7 @@ namespace TJAPlayer3
 							genretextureindex = nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
 						}
 						genretext[genretextureindex].Opacity = 全体Opacity;
-						genretext[genretextureindex].t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64);
+						genretext[genretextureindex].t2D拡大率考慮下拡大率考慮中心基準描画(TJAPlayer3.app.Device, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y);
 					}
 					switch (r現在選択中の曲.eノード種別)
 					{
@@ -1950,12 +1945,6 @@ namespace TJAPlayer3
 						continue;
 
 					int nパネル番号 = (((this.n現在の選択行 - 6) + i) + 13) % 13;
-					int n見た目の行番号 = i;
-					int n次のパネル番号 = (this.n現在のスクロールカウンタ <= 0) ? ((i + 1) % 13) : (((i - 1) + 13) % 13);
-					//int x = this.ptバーの基本座標[ n見た目の行番号 ].X + ( (int) ( ( this.ptバーの基本座標[ n次のパネル番号 ].X - this.ptバーの基本座標[ n見た目の行番号 ].X ) * ( ( (double) Math.Abs( this.n現在のスクロールカウンタ ) ) / 100.0 ) ) );
-					int x = i選曲バーX座標;
-					int xAnime = this.ptバーの座標[n見た目の行番号].X + ((int)((this.ptバーの座標[n次のパネル番号].X - this.ptバーの座標[n見た目の行番号].X) * (((double)Math.Abs(this.n現在のスクロールカウンタ)) / 100.0)));
-					int y = this.ptバーの基本座標[n見た目の行番号].Y + ((int)((this.ptバーの基本座標[n次のパネル番号].Y - this.ptバーの基本座標[n見た目の行番号].Y) * (((double)Math.Abs(this.n現在のスクロールカウンタ)) / 100.0)));
 
 					if ((i == 6) && (this.n現在のスクロールカウンタ == 0) && (ctバー展開ディレイ用タイマー.b終了値に達した))
 					{
@@ -2051,7 +2040,7 @@ namespace TJAPlayer3
 			{
 				genretextureindex = nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
 				genretext[genretextureindex].Opacity = 全体Opacity;
-				genretext[genretextureindex].t2D描画(TJAPlayer3.app.Device, 500, TJAPlayer3.Skin.SongSelect_Overall_Y - 64); ;
+				genretext[genretextureindex].t2D拡大率考慮下拡大率考慮中心基準描画(TJAPlayer3.app.Device, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y); ;
 			}
 
 			return 0;
@@ -2102,7 +2091,7 @@ namespace TJAPlayer3
 		private int n現在のスクロールカウンタ;
 		private int n現在の選択行;
 		private int n目標のスクロールカウンタ;
-		private readonly Point[] ptバーの基本座標 = new Point[] { new Point(0x2c4, 5), new Point(0x272, 56), new Point(0x242, 107), new Point(0x222, 158), new Point(0x210, 209), new Point(0x1d0, 270), new Point(0x224, 362), new Point(0x242, 413), new Point(0x270, 464), new Point(0x2ae, 515), new Point(0x314, 566), new Point(0x3e4, 617), new Point(0x500, 668) };
+
 		private Point[] ptバーの座標 = new Point[]
 		{ new Point( -160, 180 ), new Point( -60, 180 ), new Point( 40, 180 ), new Point( 140, 180 ), new Point( 240, 180 ), new Point( 340, 180 ),
 		  new Point( 590, 180 ),
@@ -2118,6 +2107,7 @@ namespace TJAPlayer3
 		//      private CTexture txバー中央;
 		internal TitleTextureKey ttk選択している曲の曲名;
 		internal TitleTextureKey ttk選択している曲のサブタイトル;
+		private CPrivateFastFont cpff;
 
 		private int nCurrentPosition = 0;
 		private int nNumOfItems = 0;
@@ -2332,62 +2322,22 @@ namespace TJAPlayer3
 			return new TitleTextureKey(str文字, pfSubtitle, Color.White, Color.Black, 390);
 		}
 
-		private static CTexture GenerateGenreTexture(string str文字, Color forecolor, Color backcolor)
+		private CTexture GenerateGenreTexture(string str文字, Color forecolor, Color backcolor)
 		{
-			string drawstr = str文字;
+			str文字 = str文字.Replace("・", "．");
 
-			drawstr = drawstr.Replace("・", "．");
-
-			//描画先とするImageオブジェクトを作成する
-			var bmp = new Bitmap(800, 200);
-			//ImageオブジェクトのGraphicsオブジェクトを作成する
-			Graphics g = Graphics.FromImage(bmp);
-			StringFormat sf = new StringFormat();
-			//フォントオブジェクトの作成
-			int fontsize = 60;
-			Font fnt = new Font(TJAPlayer3.ConfigIni.FontName, fontsize);
-			SizeF stringSize = g.MeasureString(drawstr, fnt, 1000, sf);
-			for (; stringSize.Width > 540; fontsize--)
+			CTexture tx文字テクスチャ;
+			using (var bmp = cpff.DrawPrivateFont(str文字, forecolor, backcolor))
 			{
-				fnt = new Font(TJAPlayer3.ConfigIni.FontName, fontsize);
-				stringSize = g.MeasureString(drawstr, fnt, 1000, sf);
+				tx文字テクスチャ = TJAPlayer3.tテクスチャの生成(bmp);
 			}
-			//文字列を位置(0,0)、黒色で表示
-			//	g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-			//	g.DrawString(titleTextureKey.str文字, fnt, Brushes.Black, 300 - ((int)stringSize.Width) / 2, 80 - (int)stringSize.Height / 2);
-			/////////////////////////////
-			float emSize = (float)fnt.Height * fnt.FontFamily.GetEmHeight(fnt.Style) / fnt.FontFamily.GetLineSpacing(fnt.Style);
-			//GraphicsPathオブジェクトの作成
-			System.Drawing.Drawing2D.GraphicsPath gp = new System.Drawing.Drawing2D.GraphicsPath();
-			//GraphicsPathに文字列を追加する
-			gp.AddString(drawstr, fnt.FontFamily, (int)fnt.Style, emSize,
-				new Point(290 - ((int)stringSize.Width) / 2, 80 - (int)stringSize.Height / 2), StringFormat.GenericDefault);
-
-			//文字列の中を塗りつぶす
-			SolidBrush nakamib = new SolidBrush(forecolor/*, 300 / TJAPlayer3.Skin.Font_Edge_Ratio_Vertical*/);
-			//文字列の縁を描画する
-			Pen nakamip = new Pen(backcolor, 500 / TJAPlayer3.Skin.Font_Edge_Ratio_Vertical);
-			nakamip.LineJoin = System.Drawing.Drawing2D.LineJoin.Round;
-			g.DrawPath(nakamip, gp);
-			g.FillPath(nakamib, gp);
-
-			/////////////////////////////
-			//リソースを解放する
-			fnt.Dispose();
-			g.Dispose();
-			sf.Dispose();
-
-			/*using (var bmp = new Bitmap(titleTextureKey.cPrivateFastFont.DrawPrivateFont(
-				titleTextureKey.str文字, titleTextureKey.forecolor, titleTextureKey.backcolor, true)))
-			{*/
-			CTexture tx文字テクスチャ = TJAPlayer3.tテクスチャの生成(bmp);
-			bmp.Dispose();
-
-			tx文字テクスチャ.vc拡大縮小倍率.Y = 0.5f;
-			tx文字テクスチャ.vc拡大縮小倍率.X = 0.5f;
+			const float sikiiti = 300;
+			if (tx文字テクスチャ.szテクスチャサイズ.Width > sikiiti) 
+			{
+				tx文字テクスチャ.vc拡大縮小倍率 = new Vector3(sikiiti / (float)tx文字テクスチャ.szテクスチャサイズ.Width);
+			}
 
 			return tx文字テクスチャ;
-			//	}
 		}
 
 		private CTexture ResolveTitleTexture(TitleTextureKey titleTextureKey)
