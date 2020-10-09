@@ -120,17 +120,6 @@ namespace TJAPlayer3
 		AutoGreat   = 7,
 		AutoGood    = 8,
 	}
-	internal enum E判定位置
-	{
-		標準	= 0,
-		Lower,
-		MAX
-	}
-	internal enum E判定表示優先度
-	{
-		Chipより下,
-		Chipより上
-	}
 	internal enum EFIFOモード
 	{
 		フェードイン,
@@ -159,15 +148,6 @@ namespace TJAPlayer3
 		perfect,
 		grade,
 		bad
-	}
-
-	public enum E連打State
-	{
-		none,
-		roll,
-		rollB,
-		balloon,
-		potato
 	}
 
 	public enum EStealthMode

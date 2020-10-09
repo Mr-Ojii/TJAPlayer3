@@ -168,7 +168,7 @@ namespace TJAPlayer3
 
 							if (chip.db発声時刻ms < r指定時刻に一番近い未ヒットChipを過去方向優先で検索する(0, i).db発声時刻ms)
 							{
-								chip.n描画優先度 = 1;
+								chip.b描画優先度 = true;
 							}
 						}
 						n整数値管理++;
@@ -258,7 +258,6 @@ namespace TJAPlayer3
 //			this.nRisky = CDTXMania.ConfigIni.nRisky;											// #23559 2011.7.28 yyagi
 			actGauge.Init( TJAPlayer3.ConfigIni.nRisky );									// #23559 2011.7.28 yyagi
 			this.nPolyphonicSounds = TJAPlayer3.ConfigIni.nPoliphonicSounds;
-			e判定表示優先度 = TJAPlayer3.ConfigIni.e判定表示優先度;
 
 			TJAPlayer3.Skin.tRemoveMixerAll();	// 効果音のストリームをミキサーから解除しておく
 
@@ -515,7 +514,6 @@ namespace TJAPlayer3
 		protected List<CDTX.CChip>[] listChip = new List<CDTX.CChip>[4];
 		protected Dictionary<int, CDTX.CWAV> listWAV;
 		protected bool bUseOSTimer;
-		protected E判定表示優先度 e判定表示優先度;
 
 		public CBRANCHSCORE[] CBranchScore = new CBRANCHSCORE[6];
 		public bool[] bIsGOGOTIME = new bool[ 4 ];
@@ -535,7 +533,6 @@ namespace TJAPlayer3
 		private int[] n合計連打数 = new int[ 4 ];
 		protected int[] n風船残り = new int[ 4 ];
 		protected int[] n現在の連打数 = new int[ 4 ];
-		protected E連打State eRollState;
 
 		protected int nWaitButton;
 		
@@ -831,11 +828,6 @@ namespace TJAPlayer3
 					pChip.RollDelay?.t停止(); 
 				}
 
-				if ( pChip.nチャンネル番号 == 0x15 )
-					this.eRollState = E連打State.roll;
-				else
-					this.eRollState = E連打State.rollB;
-
 				pChip.nRollCount++;
 				
 				this.n現在の連打数[ nPlayer ]++;
@@ -944,7 +936,6 @@ namespace TJAPlayer3
 				{
 					this.actBalloon.ct風船アニメ[nPlayer] = new CCounter(0, 9, 14, TJAPlayer3.Timer);
 				}
-				this.eRollState = E連打State.balloon;
 				pChip.nRollCount++;
 				this.n風船残り[ nPlayer ]--;
 
@@ -990,7 +981,6 @@ namespace TJAPlayer3
 						actChara.CharaAction_Balloon_Broke[nPlayer] = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Broke[nPlayer] - 1, TJAPlayer3.Skin.Game_Chara_Balloon_Timer[nPlayer], TJAPlayer3.Timer);
 						if(actChara.CharaAction_Balloon_Delay[nPlayer] != null )actChara.CharaAction_Balloon_Delay[nPlayer] = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Balloon_Delay[nPlayer] - 1, 1, TJAPlayer3.Timer);
 					}
-					this.eRollState = E連打State.none;
 				}
 				else
 				{
@@ -1086,7 +1076,6 @@ namespace TJAPlayer3
 							}
 							else
 							{
-								this.eRollState = E連打State.roll;
 								this.tRollProcess( pChip, (CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), 1, nNowInput, 0, nPlayer );
 							}
 							if (TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM < 0 && (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.HBSCROLL))
@@ -1469,9 +1458,6 @@ namespace TJAPlayer3
 						{
 
 						}
-
-
-							this.t紙吹雪_開始();
 					}
 					#endregion
 
@@ -2879,7 +2865,7 @@ namespace TJAPlayer3
 										this.chip現在処理中の連打チップ[ nPlayer ] = pChip;
 								}
 							}
-							if (pChip.n描画優先度 <= 0)
+							if (!pChip.b描画優先度)
 								this.t進行描画_チップ_Taiko連打(configIni, ref dTX, ref pChip, nPlayer);
 						}
 
@@ -2909,9 +2895,8 @@ namespace TJAPlayer3
 									chip現在処理中の連打チップ[nPlayer] = null;
 
 								}
-								this.eRollState = E連打State.none;
 							}
-							if( pChip.n描画優先度 <= 0 )
+							if( !pChip.b描画優先度 )
 								this.t進行描画_チップ_Taiko連打(configIni, ref dTX, ref pChip, nPlayer);
 						}
 
@@ -3560,7 +3545,7 @@ namespace TJAPlayer3
 					case 0x18: //連打終了
 					case 0x19:
 						{
-							if( pChip.n描画優先度 >= 1 )
+							if( pChip.b描画優先度 )
 								this.t進行描画_チップ_Taiko連打( configIni, ref dTX, ref pChip, nPlayer );
 						}
 						break;
@@ -4132,7 +4117,6 @@ namespace TJAPlayer3
 			}
 		}
 		
-		protected abstract void t紙吹雪_開始();
 		protected abstract void t背景テクスチャの生成();
 		protected void t背景テクスチャの生成( string DefaultBgFilename, Rectangle bgrect, string bgfilename )
 		{

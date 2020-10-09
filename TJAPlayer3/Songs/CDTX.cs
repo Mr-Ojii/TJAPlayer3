@@ -161,7 +161,7 @@ namespace TJAPlayer3
 			public int nBalloon;
 			public int nProcessTime;
 			public int nスクロール方向;
-			public int n描画優先度 = 0; //(特殊)現状連打との判断目的で使用
+			public bool b描画優先度 = false; //(特殊)現状連打との判断目的で使用
 			public ENoteState eNoteState;
 			public E楽器パート e楽器パート = E楽器パート.UNKNOWN;
 			public int nチャンネル番号;

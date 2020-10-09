@@ -285,7 +285,6 @@ namespace TJAPlayer3
 		public bool bLog曲検索ログ出力;
 		public bool bLog作成解放ログ出力;
 
-		public E判定表示優先度 e判定表示優先度;
 		public bool bScoreIniを出力する;
 		public bool bSTAGEFAILED有効;
 		public bool bTight;
@@ -659,7 +658,6 @@ namespace TJAPlayer3
 			this.eRandom = new ERandomMode[2];
 			this.n譜面スクロール速度 = new int[2];
 			this.nInputAdjustTimeMs = 0;
-			this.e判定表示優先度 = E判定表示優先度.Chipより下;
 			this.eRandom[0] = ERandomMode.OFF;
 			this.eRandom[1] = ERandomMode.OFF;
 			this.n譜面スクロール速度[0] = 9;
@@ -1644,10 +1642,6 @@ namespace TJAPlayer3
 											else if (str3.Equals( "BufferedInput" ) )
 											{
 												this.bバッファ入力 = C変換.bONorOFF(str4[0]);
-											}
-											else if ( str3.Equals( "JudgeDispPriority" ) )
-											{
-												this.e判定表示優先度 = (E判定表示優先度) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 1, (int) this.e判定表示優先度 );
 											}
 											else if ( str3.Equals( "AutoResultCapture" ) )			// #25399 2011.6.9 yyagi
 											{
