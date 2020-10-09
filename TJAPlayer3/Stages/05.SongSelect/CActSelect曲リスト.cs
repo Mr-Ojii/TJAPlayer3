@@ -5,12 +5,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
-using System.Runtime.InteropServices;
 
 using Rectangle = System.Drawing.Rectangle;
 using Point = System.Drawing.Point;
 using Color = System.Drawing.Color;
-using System.Runtime.CompilerServices;
 
 namespace TJAPlayer3
 {
@@ -59,12 +57,6 @@ namespace TJAPlayer3
 		}
 
 		public C曲リストノード r現在選択中の曲
-		{
-			get;
-			private set;
-		}
-
-		public int nスクロールバー相対y座標
 		{
 			get;
 			private set;
@@ -633,8 +625,6 @@ namespace TJAPlayer3
 			if (this.b活性化してない)
 				return;
 
-			//CDTXMania.t安全にDisposeする( ref this.txアイテム数数字 );
-
 			ClearTitleTextureCache();
 
 			for (int i = 0; i < 13; i++)
@@ -643,42 +633,9 @@ namespace TJAPlayer3
 			}
 
 			TJAPlayer3.t安全にDisposeする(ref this.cpff);
-			//CDTXMania.t安全にDisposeする( ref this.txスキル数字 );
 			TJAPlayer3.t安全にDisposeする(ref this.txEnumeratingSongs);
 			TJAPlayer3.t安全にDisposeする(ref this.txSongNotFound);
 			TJAPlayer3.t安全にDisposeする(ref this.genretext);
-			//CDTXMania.t安全にDisposeする( ref this.tx曲名バー.Score );
-			//CDTXMania.t安全にDisposeする( ref this.tx曲名バー.Box );
-			//CDTXMania.t安全にDisposeする( ref this.tx曲名バー.Other );
-			//CDTXMania.t安全にDisposeする( ref this.tx選曲バー.Score );
-			//CDTXMania.t安全にDisposeする( ref this.tx選曲バー.Box );
-			//CDTXMania.t安全にDisposeする( ref this.tx選曲バー.Other );
-
-			//CDTXMania.t安全にDisposeする( ref this.tx曲バー_JPOP );
-			//CDTXMania.t安全にDisposeする( ref this.tx曲バー_アニメ );
-			//CDTXMania.t安全にDisposeする( ref this.tx曲バー_ゲーム );
-			//CDTXMania.t安全にDisposeする( ref this.tx曲バー_ナムコ );
-			//CDTXMania.t安全にDisposeする( ref this.tx曲バー_クラシック );
-			//CDTXMania.t安全にDisposeする( ref this.tx曲バー_どうよう );
-			//CDTXMania.t安全にDisposeする( ref this.tx曲バー_バラエティ );
-			//CDTXMania.t安全にDisposeする( ref this.tx曲バー_ボカロ );
-			//CDTXMania.t安全にDisposeする( ref this.tx曲バー );
-			//CDTXMania.t安全にDisposeする( ref this.tx譜面分岐曲バー用 );
-
-			//for( int i = 0; i < 5; i++ )
-			//   {
-			//       CDTXMania.t安全にDisposeする( ref this.tx曲バー_難易度[ i ] );
-			//   }
-
-			//   CDTXMania.t安全にDisposeする( ref this.tx難易度パネル );
-			//   CDTXMania.t安全にDisposeする( ref this.txバー中央 );
-			//   CDTXMania.t安全にDisposeする( ref this.tx難易度星 );
-			//   CDTXMania.t安全にDisposeする( ref this.tx譜面分岐中央パネル用 );
-			//   CDTXMania.t安全にDisposeする( ref this.tx上部ジャンル名 );
-			//   CDTXMania.t安全にDisposeする( ref this.txレベル数字フォント );
-
-			//   CDTXMania.t安全にDisposeする( ref this.txカーソル左 );
-			//   CDTXMania.t安全にDisposeする( ref this.txカーソル右 );
 
 			base.OnManagedリソースの解放();
 		}
@@ -1101,8 +1058,6 @@ namespace TJAPlayer3
 				return 0;
 			}
 
-			int i選曲バーX座標 = 673; //選曲バーの座標用
-			int i選択曲バーX座標 = 665; //選択曲バーの座標用
 			int nnGenreBack = this.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
 
 			if (this.r現在選択中の曲.r親ノード != null)
@@ -1371,8 +1326,6 @@ namespace TJAPlayer3
 				{
 					if (this.ct登場アニメ用[i].n現在の値 >= 0)
 					{
-						double db割合0to1 = ((double)this.ct登場アニメ用[i].n現在の値) / 100.0;
-						double db回転率 = Math.Sin(Math.PI * 3 / 5 * db割合0to1);
 						int nパネル番号 = (((this.n現在の選択行 - 6) + i) + 13) % 13;
 
 						if (i == 6)
@@ -1435,7 +1388,6 @@ namespace TJAPlayer3
 
 							#region [ バーテクスチャの描画。]
 							//-----------------
-							int x = i選曲バーX座標 + 500 - ((int)(db割合0to1 * 500));
 							this.tジャンル別選択されていない曲バーの描画(this.ptバーの座標[nパネル番号].X, TJAPlayer3.Skin.SongSelect_Overall_Y, this.nStrジャンルtoNum(this.stバー情報[nパネル番号].song.strジャンル), this.stバー情報[nパネル番号].eバー種別,this.stバー情報[nパネル番号].eノード種別);
 							if (this.stバー情報[nパネル番号].b分岐[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0]] == true && i != 6)
 								TJAPlayer3.Tx.SongSelect_Branch.t2D描画(TJAPlayer3.app.Device, this.ptバーの座標[nパネル番号].X + 66, TJAPlayer3.Skin.SongSelect_Overall_Y - 5);
@@ -1586,7 +1538,6 @@ namespace TJAPlayer3
 					int nパネル番号 = (((this.n現在の選択行 - 6) + i) + 13) % 13;
 					int n見た目の行番号 = i;
 					int n次のパネル番号 = (this.n現在のスクロールカウンタ <= 0) ? ((i + 1) % 13) : (((i - 1) + 13) % 13);
-					int x = i選曲バーX座標;
 					int xAnime = this.ptバーの座標[n見た目の行番号].X + ((int)((this.ptバーの座標[n次のパネル番号].X - this.ptバーの座標[n見た目の行番号].X) * (((double)Math.Abs(this.n現在のスクロールカウンタ)) / 100.0)));
 
 
@@ -2012,25 +1963,6 @@ namespace TJAPlayer3
 				}
 				//-----------------
 			}
-			#region [ スクロール地点の計算(描画はCActSelectShowCurrentPositionにて行う) #27648 ]
-			int py;
-			double d = 0;
-			if (nNumOfItems > 1)
-			{
-				d = (336 - 6 - 8) / (double)(nNumOfItems - 1);
-				py = (int)(d * (nCurrentPosition - 1));
-			}
-			else
-			{
-				d = 0;
-				py = 0;
-			}
-			int delta = (int)(d * this.n現在のスクロールカウンタ / 100);
-			if (py + delta <= 336 - 6 - 8)
-			{
-				this.nスクロールバー相対y座標 = py + delta;
-			}
-			#endregion
 
 			#region [ アイテム数の描画 #27648 ]
 			tアイテム数の描画();
@@ -2213,7 +2145,6 @@ namespace TJAPlayer3
 				return;
 			const int boxsabun = 10;
 
-			var rc = new Rectangle(0, 48, 128, 48);
 			if (Eバー == Eバー種別.Box)
 			{
 				if (Eノード == C曲リストノード.Eノード種別.BACKBOX && TJAPlayer3.Tx.SongSelect_Bar_BackBox != null)
@@ -2459,7 +2390,7 @@ namespace TJAPlayer3
 			}
 			//if ( this.txアイテム数数字 != null )
 			//{
-			//	this.txアイテム数数字.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( dx, dy, 8, 12 ) );
+			//	this.txアイテム数数字.t2D描画( TJAPlayer3.app.Device, x, y, new Rectangle( dx, dy, 8, 12 ) );
 			//}
 		}
 
