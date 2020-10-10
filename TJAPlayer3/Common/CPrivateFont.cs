@@ -413,8 +413,6 @@ namespace TJAPlayer3
 							Rectangle rect正確なサイズ = this.MeasureStringPrecisely(gCal, strName[i], this._font, strSize, sFormat);
 							int n余白サイズ = strSize.Height - rect正確なサイズ.Height;
 
-							//Rectangle rect = new Rectangle( 0, -n余白サイズ + 2, 46, ( strSize.Height + 16 )); 2020.05.04 Mr-Ojii 使ってないから、コメント化。
-
 							if (strName[i] == "ー" || strName[i] == "-" || strName[i] == "～" || strName[i] == "<" || strName[i] == ">" || strName[i] == "(" || strName[i] == ")" || strName[i] == "「" || strName[i] == "」" || strName[i] == "[" || strName[i] == "]")
 							{
 								nHeight += (rect正確なサイズ.Width) + 4;

@@ -14,13 +14,15 @@ namespace TJAPlayer3
 		{
 			this.mode = EFIFOモード.フェードアウト;
 			this.counter = new CCounter( 0, 500, 2, TJAPlayer3.Timer );
-			TJAPlayer3.Tx.Result_FadeIn.Opacity = 255;
+			if (TJAPlayer3.Tx.Result_FadeIn != null)
+				TJAPlayer3.Tx.Result_FadeIn.Opacity = 255;
 		}
 		public void tフェードイン開始()
 		{
 			this.mode = EFIFOモード.フェードイン;
 			this.counter = new CCounter( 0, 100, 5, TJAPlayer3.Timer );
-			TJAPlayer3.Tx.Result_FadeIn.Opacity = 255;
+			if (TJAPlayer3.Tx.Result_FadeIn != null)
+				TJAPlayer3.Tx.Result_FadeIn.Opacity = 255;
 		}
 		public void tフェードイン完了()		// #25406 2011.6.9 yyagi
 		{

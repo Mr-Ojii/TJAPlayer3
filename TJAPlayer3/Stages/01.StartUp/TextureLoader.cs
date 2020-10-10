@@ -124,6 +124,8 @@ namespace TJAPlayer3
 			SongSelect_Cursor_Right = TxC(SONGSELECT + @"Cursor_Right.png");
 			SongSelect_Bar_BackBox = TxC(SONGSELECT + @"Bar_BackBox.png");
 			SongSelect_PapaMama = TxC(SONGSELECT + @"PapaMama.png");
+			SongSelect_ItemNumber = TxC(SONGSELECT + @"ItemNumber.png");
+			SongSelect_ItemNumber_BG = TxC(SONGSELECT + @"ItemNumber_BG.png");
 
 			for (int i = 0; i < SongSelect_Lyric_Text.Length; i++)
 			{
@@ -180,6 +182,8 @@ namespace TJAPlayer3
 			Difficulty_Branch = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_Branch.png");
 			Difficulty_Center_Bar = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_Center_Bar.png");
 			Difficulty_PapaMama = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_PapaMama.png");
+			Difficulty_BPMNumber = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_BPMNumber.png");
+			Difficulty_BPMBox = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_BPMBox.png");
 			Difficulty_Bar_Etc[0] = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_Bar_Back.png");
 			Difficulty_Bar_Etc[1] = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_Bar_Option.png");
 			Difficulty_Bar_Etc[2] = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_Bar_Sound.png");
@@ -736,6 +740,8 @@ namespace TJAPlayer3
 			TJAPlayer3.t安全にDisposeする(ref SongSelect_Counter_Num);
 			TJAPlayer3.t安全にDisposeする(ref SongSelect_ScoreWindow_Text);
 			TJAPlayer3.t安全にDisposeする(ref SongSelect_PapaMama);
+			TJAPlayer3.t安全にDisposeする(ref SongSelect_ItemNumber);
+			TJAPlayer3.t安全にDisposeする(ref SongSelect_ItemNumber_BG);
 
 			#region[3.5難易度選択]
 			TJAPlayer3.t安全にDisposeする(ref Difficulty_Dan_Box);
@@ -744,6 +750,8 @@ namespace TJAPlayer3
 			TJAPlayer3.t安全にDisposeする(ref Difficulty_Branch);
 			TJAPlayer3.t安全にDisposeする(ref Difficulty_Center_Bar);
 			TJAPlayer3.t安全にDisposeする(ref Difficulty_PapaMama);
+			TJAPlayer3.t安全にDisposeする(ref Difficulty_BPMNumber);
+			TJAPlayer3.t安全にDisposeする(ref Difficulty_BPMBox);
 			TJAPlayer3.t安全にDisposeする(ref ChangeSE_Box);
 			TJAPlayer3.t安全にDisposeする(ref ChangeSE_Note);
 			TJAPlayer3.t安全にDisposeする(ref ChangeSE_Num);
@@ -799,13 +807,14 @@ namespace TJAPlayer3
 				TJAPlayer3.t安全にDisposeする(ref Chara_Balloon_Broke[nPlayer]);
 				TJAPlayer3.t安全にDisposeする(ref Chara_Balloon_Miss[nPlayer]);
 			}
-			
+
 			#endregion
 			#region 踊り子
-			for (int i = 0; i < Dancer.Length; i++)
-			{
-				TJAPlayer3.t安全にDisposeする(ref Dancer[i]);
-			}
+			if (Dancer != null)
+				for (int i = 0; i < Dancer.Length; i++)
+				{
+					TJAPlayer3.t安全にDisposeする(ref Dancer[i]);
+				}
 			#endregion
 			#region モブ
 			TJAPlayer3.t安全にDisposeする(ref Mob);
@@ -1027,7 +1036,9 @@ namespace TJAPlayer3
 			SongSelect_Cursor_Right,
 			SongSelect_ScoreWindow_Text,
 			SongSelect_Bar_BackBox,
-			SongSelect_PapaMama;
+			SongSelect_PapaMama,
+			SongSelect_ItemNumber,
+			SongSelect_ItemNumber_BG;
 		public CTexture[] SongSelect_GenreBack = new CTexture[9],
 			SongSelect_ScoreWindow = new CTexture[(int)Difficulty.Total],
 			SongSelect_Lyric_Text = new CTexture[9],
@@ -1047,6 +1058,8 @@ namespace TJAPlayer3
 			Difficulty_Branch,
 			Difficulty_Center_Bar,
 			Difficulty_PapaMama,
+			Difficulty_BPMNumber,
+			Difficulty_BPMBox,
 			ChangeSE_Box,
 			ChangeSE_Note,
 			ChangeSE_Num,

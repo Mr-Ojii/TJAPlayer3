@@ -98,17 +98,14 @@ namespace TJAPlayer3
 				}
 				for( int j = 0; j < 12; j++ )
 				{
-					if( !base.st状態[ j ].ct進行.b停止中 )
+					if (!base.st状態[j].ct進行.b停止中 && TJAPlayer3.Tx.Judge != null)
 					{
 						int baseX = 370;
 						//int baseY = 135;
 						int baseY = TJAPlayer3.Skin.nScrollFieldY[base.st状態[j].nPlayer] - 53;
 						int x = TJAPlayer3.Skin.nScrollFieldX[base.st状態[j].nPlayer] - TJAPlayer3.Tx.Judge.szテクスチャサイズ.Width / 2;
 						int y = ( baseY + base.st状態[ j ].n相対Y座標 );
-						if( TJAPlayer3.Tx.Judge != null )
-						{
-							TJAPlayer3.Tx.Judge.t2D描画( TJAPlayer3.app.Device, x, y, base.st判定文字列[ (int) base.st状態[ j ].judge ].rc );
-						}
+						TJAPlayer3.Tx.Judge.t2D描画( TJAPlayer3.app.Device, x, y, base.st判定文字列[ (int) base.st状態[ j ].judge ].rc );
 					}
 				}
 			}

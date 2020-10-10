@@ -402,6 +402,7 @@ namespace TJAPlayer3
 		public bool OpenOneSide;
 		public int SongSelectSkipCount;
 		public bool bEnableCountdownTimer;
+		public bool bTCClikeStyle;
 
 		// 各画像の表示・非表示設定
 		public bool ShowChara;
@@ -629,6 +630,7 @@ namespace TJAPlayer3
 			this.OpenOneSide = false;
 			this.SongSelectSkipCount = 7;
 			this.bEnableCountdownTimer = true;
+			this.bTCClikeStyle = false;
 			this.ApplyLoudnessMetadata = true;
 
 			// 2018-08-28 twopointzero:
@@ -1107,6 +1109,10 @@ namespace TJAPlayer3
 			sw.WriteLine("; 選曲画面でのタイマーを有効にするかどうか(0:無効,1:有効)");   // 2020.03.24 Mr-Ojii
 			sw.WriteLine("; Enable countdown in songselect.(0:No, 1:Yes)");
 			sw.WriteLine("EnableCountDownTimer={0}", this.bEnableCountdownTimer ? 1 : 0);
+			sw.WriteLine();
+			sw.WriteLine("; TCC風(0:無効,1:有効)");   // 2020.10.10 Mr-Ojii
+			sw.WriteLine("; Enable TCC-like style.(0:No, 1:Yes)");
+			sw.WriteLine("TCClikeStyle={0}", this.bTCClikeStyle ? 1 : 0);
 			sw.WriteLine();
 			sw.WriteLine("; 選曲画面でPgUp/PgDnを押下した際のスキップ曲数");   // 2020.03.24 Mr-Ojii
 			sw.WriteLine("; Number of songs to be skipped when PgUp/PgDn is pressed on the song selection screen.");     //
@@ -1767,6 +1773,10 @@ namespace TJAPlayer3
 											else if (str3.Equals("EnableCountDownTimer"))
 											{
 												this.bEnableCountdownTimer = C変換.bONorOFF(str4[0]);
+											}
+											else if (str3.Equals("TCClikeStyle"))
+											{
+												this.bTCClikeStyle = C変換.bONorOFF(str4[0]);
 											}
 											else if (str3.Equals("SongSelectSkipCount"))
 											{

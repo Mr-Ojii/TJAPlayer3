@@ -161,7 +161,8 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				this.ct背景スクロール用タイマー = new CCounter(0, TJAPlayer3.Tx.SongSelect_Background.szテクスチャサイズ.Width, 30, TJAPlayer3.Timer);
+				if (TJAPlayer3.Tx.SongSelect_Background != null)
+					this.ct背景スクロール用タイマー = new CCounter(0, TJAPlayer3.Tx.SongSelect_Background.szテクスチャサイズ.Width, 30, TJAPlayer3.Timer);
 				this.ctカウントダウン用タイマー = new CCounter(0, 100, 1000, TJAPlayer3.Timer);
 				this.ct難易度選択画面IN用タイマー = new CCounter(0, 750, 1, TJAPlayer3.Timer);
 				this.ct難易度選択画面INバー拡大用タイマー = new CCounter(0, 750, 1, TJAPlayer3.Timer);
@@ -180,7 +181,7 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-			this.ct背景スクロール用タイマー.t進行Loop();
+			this.ct背景スクロール用タイマー?.t進行Loop();
 			this.ctカウントダウン用タイマー.t進行Loop();
 				#region [ 初めての進行描画 ]
 				//---------------------
@@ -221,7 +222,7 @@ namespace TJAPlayer3
 					{
 						for (int i = 0; i < (1280 / TJAPlayer3.Tx.SongSelect_Background.szテクスチャサイズ.Width) + 2; i++)
 						{
-							if ( TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack] != null)
+							if ( TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack] != null&& ct背景スクロール用タイマー != null)
 							{
 								TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack].t2D描画(TJAPlayer3.app.Device, -ct背景スクロール用タイマー.n現在の値 + TJAPlayer3.Tx.SongSelect_Background.szテクスチャサイズ.Width * i, 0);
 							}
@@ -229,15 +230,12 @@ namespace TJAPlayer3
 					}
 				}
 
-
-
 				if (現在の選曲画面状況 != E選曲画面.難易度選択)
 				{
 					this.act曲リスト.On進行描画();
 					this.act難易度選択画面.裏表示 = false;
 					this.act難易度選択画面.裏カウント[0] = 0;
 				}
-
 
 				if (現在の選曲画面状況 == E選曲画面.難易度選択In)
 				{
@@ -320,7 +318,7 @@ namespace TJAPlayer3
 					}
 
 					int xAnime = Math.Min((int)(200 * Math.Max((((double)ct難易度選択画面INバー拡大用タイマー.n現在の値 * 3) / ct難易度選択画面INバー拡大用タイマー.n終了値),0)),200);
-					int yAnime = Math.Min((int)(30 * Math.Max((((double)ct難易度選択画面INバー拡大用タイマー.n現在の値 * 2 - ct難易度選択画面INバー拡大用タイマー.n終了値 / 2) / ct難易度選択画面INバー拡大用タイマー.n終了値),0)),30);
+					int yAnime = Math.Min((int)(60 * Math.Max((((double)ct難易度選択画面INバー拡大用タイマー.n現在の値 * 2 - ct難易度選択画面INバー拡大用タイマー.n終了値 / 2) / ct難易度選択画面INバー拡大用タイマー.n終了値),0)),60);
 
 					if (this.act曲リスト.ttk選択している曲のサブタイトル != null)
 					{
@@ -423,10 +421,8 @@ namespace TJAPlayer3
 
 				this.act演奏履歴パネル.On進行描画();
 
-				if (act曲リスト.r現在選択中の曲 != null)
-				{
+				if (act曲リスト.r現在選択中の曲 != null && TJAPlayer3.Tx.SongSelect_Difficulty != null)
 					TJAPlayer3.Tx.SongSelect_Difficulty.t2D描画(TJAPlayer3.app.Device, 830, 40, new Rectangle(0, 70 * this.n現在選択中の曲の難易度[0], 260, 70));
-				}
 
 				if( !this.bBGM再生済み && ( base.eフェーズID == CStage.Eフェーズ.共通_通常状態 ) )
 				{
@@ -440,8 +436,10 @@ namespace TJAPlayer3
 						TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szテクスチャサイズ.Width / 2 * DanSelectingRow, 0,new Rectangle(TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szテクスチャサイズ.Width / 2 * DanSelectingRow, TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szテクスチャサイズ.Height, TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szテクスチャサイズ.Height));
 					}
 				}
-				
-				
+
+				if ((act曲リスト.r現在選択中の曲 != null) && TJAPlayer3.ConfigIni.bTCClikeStyle && act曲リスト.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.SCORE)
+					this.act曲リスト.tアイテム数の描画();
+
 				this.actChangeSE.On進行描画();
 				this.actPlayOption.On進行描画();
 

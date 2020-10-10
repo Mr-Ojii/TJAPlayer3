@@ -36,7 +36,8 @@ namespace TJAPlayer3
 				this.nAfter[ i ] = 0;
 				this.bState[ i ] = false;
 			}
-			TJAPlayer3.Tx.Lane_Base[0].Opacity = 255;
+			if (TJAPlayer3.Tx.Lane_Base[0] != null)
+				TJAPlayer3.Tx.Lane_Base[0].Opacity = 255;
 
 			base.OnManagedリソースの作成();
 		}

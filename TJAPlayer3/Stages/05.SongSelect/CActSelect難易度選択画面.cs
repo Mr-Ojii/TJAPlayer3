@@ -196,7 +196,7 @@ namespace TJAPlayer3
 			#endregion
 			#region[タイトル文字列]
 			int xAnime = 200;
-			int yAnime = 30;
+			int yAnime = 60;
 
 			if (TJAPlayer3.stage選曲.act曲リスト.ttk選択している曲のサブタイトル != null)
 			{
@@ -370,9 +370,18 @@ namespace TJAPlayer3
 				}
 			}
 			#endregion
+			#region[BPM]
+			if (TJAPlayer3.ConfigIni.bTCClikeStyle && TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア != null && TJAPlayer3.Tx.Difficulty_BPMBox != null && TJAPlayer3.Tx.Difficulty_BPMNumber != null)
+			{
+				const int cx = 1000, cy = 500;
 
-			//裏鬼表示用
-			if (((裏カウント[0] >= 10 || 裏カウント[1] >= 10) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Tab)) && TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[4])
+				TJAPlayer3.Tx.Difficulty_BPMBox.t2D拡大率考慮右上基準描画(TJAPlayer3.app.Device, cx + (TJAPlayer3.Tx.Difficulty_BPMNumber.szテクスチャサイズ.Width / 10) + 10, cy - (TJAPlayer3.Tx.Difficulty_BPMBox.szテクスチャサイズ.Height - TJAPlayer3.Tx.Difficulty_BPMNumber.szテクスチャサイズ.Height) / 2);
+				this.tBPM小文字表示(cx, cy, (long)TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.Bpm);
+			}
+			#endregion
+
+            //裏鬼表示用
+            if (((裏カウント[0] >= 10 || 裏カウント[1] >= 10) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Tab)) && TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[4])
 			{
 				裏表示 = !裏表示;
 				裏カウント[0] = 0;
@@ -400,6 +409,21 @@ namespace TJAPlayer3
 		internal bool b開いた直後 = true;
 		private CCounter ct分岐表示用タイマー;
 		internal CCounter[] ct難易度拡大用 = { new CCounter(0, 180, 1, TJAPlayer3.Timer), new CCounter(0, 180, 1, TJAPlayer3.Timer) };
+
+		private void tBPM小文字表示(int x, int y, long n)
+		{
+			if (TJAPlayer3.Tx.Difficulty_BPMNumber != null)
+			{
+				for (int index = 0; index < n.ToString().Length; index++)
+				{
+					int Num = (int)(n / Math.Pow(10, index) % 10);
+					Rectangle rectangle = new Rectangle((TJAPlayer3.Tx.Difficulty_BPMNumber.szテクスチャサイズ.Width / 10) * Num, 0, TJAPlayer3.Tx.Difficulty_BPMNumber.szテクスチャサイズ.Width / 10, TJAPlayer3.Tx.Difficulty_BPMNumber.szテクスチャサイズ.Height);
+
+					TJAPlayer3.Tx.Difficulty_BPMNumber.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
+					x -= TJAPlayer3.Tx.Difficulty_BPMNumber.szテクスチャサイズ.Width / 10;
+				}
+			}
+		}
 		//-----------------
 		#endregion
 	}

@@ -403,9 +403,10 @@ namespace TJAPlayer3
 
 			for ( int i = 0; i < n桁数; i++ )
 			{
-
-				TJAPlayer3.Tx.Taiko_Combo[0].Opacity = 255;
-				TJAPlayer3.Tx.Taiko_Combo[1].Opacity = 255;
+				if (TJAPlayer3.Tx.Taiko_Combo[0] != null)
+					TJAPlayer3.Tx.Taiko_Combo[0].Opacity = 255;
+				if (TJAPlayer3.Tx.Taiko_Combo[1] != null)
+					TJAPlayer3.Tx.Taiko_Combo[1].Opacity = 255;
 
 				if ( n桁数 <= 1 )
 				{

@@ -73,7 +73,7 @@ namespace TJAPlayer3
 			for( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
 			{
 				//CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.ct連打枠カウンター[player].n現在の値.ToString());
-				if ( this.ct連打枠カウンター[ player ].b終了値に達してない)
+				if (this.ct連打枠カウンター[player].b終了値に達してない)
 				{
 					if (ct連打枠カウンター[player].n現在の値 > 1333 && !FadeOutCounter[player].b進行中)
 					{
@@ -81,11 +81,14 @@ namespace TJAPlayer3
 						FadeOutCounter[player].t開始(0, fadenum - 1, 1, TJAPlayer3.Timer);
 					}
 					var opacity = (fadenum - FadeOutCounter[player].n現在の値) * 255 / fadenum;
-					TJAPlayer3.Tx.Balloon_Roll.Opacity = opacity;
-					TJAPlayer3.Tx.Balloon_Number_Roll.Opacity = opacity;
+					if (TJAPlayer3.Tx.Balloon_Roll != null)
+						TJAPlayer3.Tx.Balloon_Roll.Opacity = opacity;
+					if (TJAPlayer3.Tx.Balloon_Number_Roll != null)
+						TJAPlayer3.Tx.Balloon_Number_Roll.Opacity = opacity;
 
 
-					TJAPlayer3.Tx.Balloon_Roll.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Balloon_Roll_Frame_X[player], TJAPlayer3.Skin.Game_Balloon_Roll_Frame_Y[player]);
+					if (TJAPlayer3.Tx.Balloon_Roll != null)
+						TJAPlayer3.Tx.Balloon_Roll.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Balloon_Roll_Frame_X[player], TJAPlayer3.Skin.Game_Balloon_Roll_Frame_Y[player]);
 					this.t文字表示(TJAPlayer3.Skin.Game_Balloon_Roll_Number_X[player], TJAPlayer3.Skin.Game_Balloon_Roll_Number_Y[player], n連打数, player);
 				}
 			}
