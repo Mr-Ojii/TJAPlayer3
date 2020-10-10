@@ -36,6 +36,7 @@ namespace TJAPlayer3
 		SOUND音色選択,
 		SOUND難易度選択,
 		SOUND自己ベスト更新,
+		SOUND回転音,
 		Count				// システムサウンド総数の計算用
 	}
 
@@ -327,6 +328,7 @@ namespace TJAPlayer3
 		public Cシステムサウンド sound音色選択音 = null;
 		public Cシステムサウンド sound難易度選択音 = null;
 		public Cシステムサウンド sound自己ベスト更新音 = null;
+		public Cシステムサウンド sound回転音 = null;
 
 		//public Cシステムサウンド soundRed = null;
 		//public Cシステムサウンド soundBlue = null;
@@ -408,6 +410,9 @@ namespace TJAPlayer3
 
 					case (int)Eシステムサウンド.SOUND自己ベスト更新:
 						return this.sound自己ベスト更新音;
+
+					case (int)Eシステムサウンド.SOUND回転音:
+						return this.sound回転音;
 				}
 				throw new IndexOutOfRangeException();
 			}
@@ -616,6 +621,7 @@ namespace TJAPlayer3
 			this.sound音色選択音 = new Cシステムサウンド(@"Sounds\Timbre.ogg", false, false, ESoundGroup.SoundEffect);
 			this.sound難易度選択音 = new Cシステムサウンド(@"Sounds\DifficultySelect.ogg", false, false, ESoundGroup.SoundEffect);
 			this.sound自己ベスト更新音 = new Cシステムサウンド(@"Sounds\NewRecord.ogg", false, false, ESoundGroup.Voice);
+			this.sound回転音 = new Cシステムサウンド(@"Sounds\Rotate.ogg", false, false, ESoundGroup.SoundEffect);
 
 			ReloadSkin();
 			tReadSkinConfig();

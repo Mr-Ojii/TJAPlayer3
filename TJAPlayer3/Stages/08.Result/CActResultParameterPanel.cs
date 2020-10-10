@@ -31,7 +31,7 @@ namespace TJAPlayer3
 		public override void On活性化()
 		{
 			base.On活性化();
-			this.ct文字アニメ用 = new CCounter(0, 15, 70, TJAPlayer3.Timer);
+			this.ct文字アニメ用 = new CCounter(0, 15, 60, TJAPlayer3.Timer);
 			this.ephase = EPhase.Start;
 			this.ToNextPhase = false;
 			this.n表示された桁数 = 0;
@@ -315,6 +315,9 @@ namespace TJAPlayer3
 
 				if (ephase == phase && index == this.n表示された桁数)
 				{
+					if (TJAPlayer3.Skin.sound回転音 != null)
+						if (!TJAPlayer3.Skin.sound回転音.b再生中)
+							TJAPlayer3.Skin.sound回転音.t再生する();
 					Num = this.ct文字アニメ用.n現在の値 % 10;
 					IsDigit = true;
 				}
@@ -351,6 +354,7 @@ namespace TJAPlayer3
 						this.n表示された桁数++;
 						if (this.n表示された桁数 == n.ToString().Length)
 						{
+							TJAPlayer3.Skin.sound決定音?.t再生する();
 							this.ToNextPhase = true;
 							this.n表示された桁数 = 0;
 						}
