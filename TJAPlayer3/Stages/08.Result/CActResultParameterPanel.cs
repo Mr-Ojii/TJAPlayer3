@@ -120,7 +120,6 @@ namespace TJAPlayer3
 
 		public override void On活性化()
 		{
-			this.sdDTXで指定されたフルコンボ音 = null;
 			base.On活性化();
 		}
 		public override void On非活性化()
@@ -128,11 +127,6 @@ namespace TJAPlayer3
 			if( this.ct表示用 != null )
 			{
 				this.ct表示用 = null;
-			}
-			if( this.sdDTXで指定されたフルコンボ音 != null )
-			{
-				TJAPlayer3.Sound管理.tサウンドを破棄する( this.sdDTXで指定されたフルコンボ音 );
-				this.sdDTXで指定されたフルコンボ音 = null;
 			}
 			base.On非活性化();
 		}
@@ -299,13 +293,13 @@ namespace TJAPlayer3
 					TJAPlayer3.Tx.Gauge_Soul.t2D描画(TJAPlayer3.app.Device, 1174, y_Soul[i], new Rectangle(0, 0, 80, 80));
 				}
 				//演奏中のやつ使いまわせなかった。ファック。
-				this.tスコア文字表示(TJAPlayer3.Skin.nResultScoreX[i], TJAPlayer3.Skin.nResultScoreY[i], string.Format("{0,7:######0}", TJAPlayer3.stage結果.st演奏記録[i].nスコア));
-				this.t小文字表示(TJAPlayer3.Skin.nResultGreatX[i], TJAPlayer3.Skin.nResultGreatY[i], string.Format("{0,4:###0}", TJAPlayer3.stage結果.st演奏記録[i].nPerfect数.ToString()));
-				this.t小文字表示(TJAPlayer3.Skin.nResultGoodX[i], TJAPlayer3.Skin.nResultGoodY[i], string.Format("{0,4:###0}", TJAPlayer3.stage結果.st演奏記録[i].nGreat数.ToString()));
-				this.t小文字表示(TJAPlayer3.Skin.nResultBadX[i], TJAPlayer3.Skin.nResultBadY[i], string.Format("{0,4:###0}", TJAPlayer3.stage結果.st演奏記録[i].nMiss数.ToString()));
+				this.t小文字表示(TJAPlayer3.Skin.nResultScoreX[i], TJAPlayer3.Skin.nResultScoreY[i], string.Format("{0,7:######0}", TJAPlayer3.stage結果.st演奏記録[i].nスコア), true);
+				this.t小文字表示(TJAPlayer3.Skin.nResultGreatX[i], TJAPlayer3.Skin.nResultGreatY[i], string.Format("{0,4:###0}", TJAPlayer3.stage結果.st演奏記録[i].nPerfect数.ToString()), false);
+				this.t小文字表示(TJAPlayer3.Skin.nResultGoodX[i], TJAPlayer3.Skin.nResultGoodY[i], string.Format("{0,4:###0}", TJAPlayer3.stage結果.st演奏記録[i].nGreat数.ToString()), false);
+				this.t小文字表示(TJAPlayer3.Skin.nResultBadX[i], TJAPlayer3.Skin.nResultBadY[i], string.Format("{0,4:###0}", TJAPlayer3.stage結果.st演奏記録[i].nMiss数.ToString()), false);
 
-				this.t小文字表示(TJAPlayer3.Skin.nResultComboX[i], TJAPlayer3.Skin.nResultComboY[i], string.Format("{0,4:###0}", TJAPlayer3.stage結果.st演奏記録[i].n最大コンボ数.ToString()));
-				this.t小文字表示(TJAPlayer3.Skin.nResultRollX[i], TJAPlayer3.Skin.nResultRollY[i], string.Format("{0,4:###0}", TJAPlayer3.stage結果.st演奏記録[i].n連打数.ToString()));
+				this.t小文字表示(TJAPlayer3.Skin.nResultComboX[i], TJAPlayer3.Skin.nResultComboY[i], string.Format("{0,4:###0}", TJAPlayer3.stage結果.st演奏記録[i].n最大コンボ数.ToString()), false);
+				this.t小文字表示(TJAPlayer3.Skin.nResultRollX[i], TJAPlayer3.Skin.nResultRollY[i], string.Format("{0,4:###0}", TJAPlayer3.stage結果.st演奏記録[i].n連打数.ToString()), false);
 
 				#region 段位認定モード用+王冠
 				if (TJAPlayer3.stage選曲.n確定された曲の難易度[i] == (int)Difficulty.Dan)
@@ -377,54 +371,55 @@ namespace TJAPlayer3
 		}
 
 		private CCounter ct表示用;
-		private CSound sdDTXで指定されたフルコンボ音;
 		private readonly ST文字位置[] st小文字位置;
 		private ST文字位置[] stScoreFont;
 
 		private CTexture Dan_Plate;
 
-		private void t小文字表示( int x, int y, string str )
+		private void t小文字表示(int x, int y, string str, bool score)
 		{
-			foreach( char ch in str )
+			if (score)
 			{
-				for( int i = 0; i < this.st小文字位置.Length; i++ )
+				foreach (char ch in str)
 				{
-					if( ch == ' ' )
+					for (int i = 0; i < this.stScoreFont.Length; i++)
 					{
-						break;
-					}
-
-					if( this.st小文字位置[ i ].ch == ch )
-					{
-						Rectangle rectangle = new Rectangle( this.st小文字位置[ i ].pt.X, this.st小文字位置[ i ].pt.Y, 32, 38 );
-						if(TJAPlayer3.Tx.Result_Number != null )
+						if (this.stScoreFont[i].ch == ch)
 						{
-							TJAPlayer3.Tx.Result_Number.t2D描画( TJAPlayer3.app.Device, x, y, rectangle );
+							Rectangle rectangle = new Rectangle(this.stScoreFont[i].pt.X, 0, 24, 40);
+							if (TJAPlayer3.Tx.Result_Score_Number != null)
+							{
+								TJAPlayer3.Tx.Result_Score_Number.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
+							}
+							break;
 						}
-						break;
 					}
+					x += 24;
 				}
-				x += 22;
 			}
-		}
-
-		private void tスコア文字表示(int x, int y, string str)
-		{
-			foreach (char ch in str)
+			else
 			{
-				for (int i = 0; i < this.stScoreFont.Length; i++)
+				foreach (char ch in str)
 				{
-					if (this.stScoreFont[i].ch == ch)
+					for (int i = 0; i < this.st小文字位置.Length; i++)
 					{
-						Rectangle rectangle = new Rectangle(this.stScoreFont[ i ].pt.X, 0, 24, 40);
-						if (TJAPlayer3.Tx.Result_Score_Number != null)
+						if (ch == ' ')
 						{
-							TJAPlayer3.Tx.Result_Score_Number.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
+							break;
 						}
-						break;
+
+						if (this.st小文字位置[i].ch == ch)
+						{
+							Rectangle rectangle = new Rectangle(this.st小文字位置[i].pt.X, this.st小文字位置[i].pt.Y, 32, 38);
+							if (TJAPlayer3.Tx.Result_Number != null)
+							{
+								TJAPlayer3.Tx.Result_Number.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
+							}
+							break;
+						}
 					}
+					x += 22;
 				}
-				x += 24;
 			}
 		}
 		//-----------------
