@@ -21,10 +21,6 @@ namespace TJAPlayer3
 			this.mode = EFIFOモード.フェードイン;
 			this.counter = new CCounter( 0, 1500, 1, TJAPlayer3.Timer );
 		}
-		public void tフェードイン完了()		// #25406 2011.6.9 yyagi
-		{
-			this.counter.n現在の値 = this.counter.n終了値;
-		}
 
 		// CActivity 実装
 
@@ -32,7 +28,6 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//CDTXMania.t安全にDisposeする( ref this.tx幕 );
 				base.On非活性化();
 			}
 		}
@@ -40,8 +35,6 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//this.tx幕 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\6_FO.png" ) );
-			//	this.tx幕2 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\6_FI.png" ) );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -53,36 +46,57 @@ namespace TJAPlayer3
 			}
 			this.counter.t進行();
 
-			// Size clientSize = CDTXMania.app.Window.ClientSize;	// #23510 2010.10.31 yyagi: delete as of no one use this any longer.
-
-			if( this.mode == EFIFOモード.フェードアウト )
+			if (TJAPlayer3.ConfigIni.bEnableSkinV2)
 			{
-				if( TJAPlayer3.Tx.SongLoading_FadeOut != null )
+				if (TJAPlayer3.Tx.SongLoading_v2_BG != null)
 				{
-					int y = this.counter.n現在の値 >= 840 ? 840 : this.counter.n現在の値;
-					TJAPlayer3.Tx.SongLoading_FadeOut.t2D描画( TJAPlayer3.app.Device, 0, 720 - y );
+					if (this.mode == EFIFOモード.フェードアウト)
+					{
+						int x = this.counter.n終了値 - this.counter.n現在の値;
+						int num = Math.Min(100, x);
+						TJAPlayer3.Tx.SongLoading_v2_BG.t2D幕用描画(TJAPlayer3.app.Device, -x, 0, new Rectangle(0, 0, TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Height), true, num);
+						TJAPlayer3.Tx.SongLoading_v2_BG.t2D幕用描画(TJAPlayer3.app.Device, (TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Width / 2) + x, 0, new Rectangle(TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Width / 2, 0, TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Height), false, num);
+					}
+					else
+					{
+						int x = Math.Max(this.counter.n現在の値 - 100, 0);
+						int num = Math.Min(100, x);
+						TJAPlayer3.Tx.SongLoading_v2_BG.t2D幕用描画(TJAPlayer3.app.Device, -x, 0, new Rectangle(0, 0, TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Height), true, num);
+						TJAPlayer3.Tx.SongLoading_v2_BG.t2D幕用描画(TJAPlayer3.app.Device, (TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Width / 2) + x, 0, new Rectangle(TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Width / 2, 0, TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Height), false, num);
+					}
 				}
-
 			}
 			else
 			{
-				if(TJAPlayer3.Tx.SongLoading_FadeIn != null )
+				if (this.mode == EFIFOモード.フェードアウト)
 				{
-					int y = this.counter.n現在の値 >= 840 ? 840 : this.counter.n現在の値;
-					TJAPlayer3.Tx.SongLoading_FadeIn.t2D描画( TJAPlayer3.app.Device, 0, 0 - y );
+					if (TJAPlayer3.Tx.SongLoading_FadeOut != null)
+					{
+						int y = this.counter.n現在の値 >= 840 ? 840 : this.counter.n現在の値;
+						TJAPlayer3.Tx.SongLoading_FadeOut.t2D描画(TJAPlayer3.app.Device, 0, GameWindowSize.Height - y);
+					}
+				}
+				else
+				{
+					if (TJAPlayer3.Tx.SongLoading_FadeIn != null)
+					{
+
+						int y = this.counter.n現在の値 >= 840 ? 840 : this.counter.n現在の値;
+						TJAPlayer3.Tx.SongLoading_FadeIn.t2D描画(TJAPlayer3.app.Device, 0, 0 - y);
+					}
 				}
 			}
 
 			if( this.mode == EFIFOモード.フェードアウト )
 			{
-				if( this.counter.n現在の値 != 1500 )
+				if( this.counter.b終了値に達してない )
 				{
 					return 0;
 				}
 			}
 			else if( this.mode == EFIFOモード.フェードイン )
 			{
-				if( this.counter.n現在の値 != 1500 )
+				if( this.counter.b終了値に達してない )
 				{
 					return 0;
 				}
@@ -97,8 +111,6 @@ namespace TJAPlayer3
 		//-----------------
 		private CCounter counter;
 		private EFIFOモード mode;
-		//private CTexture tx幕;
-		//private CTexture tx幕2;
 		//-----------------
 		#endregion
 	}

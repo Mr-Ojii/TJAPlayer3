@@ -16,6 +16,7 @@ namespace TJAPlayer3
 		const string CONFIG = @"2_Config\";
 		const string SONGSELECT = @"3_SongSelect\";
 		const string SONGLOADING = @"4_SongLoading\";
+		const string SONGLOADINGV2 = @"4.1_SongLoading_v2\";
 		const string GAME = @"5_Game\";
 		const string RESULT = @"6_Result\";
 		const string EXIT = @"7_Exit\";
@@ -222,9 +223,12 @@ namespace TJAPlayer3
 			#endregion
 
 			#region 4_読み込み画面
+			SongLoading_BG = TxC(SONGLOADING + @"Background.png");
 			SongLoading_Plate = TxC(SONGLOADING + @"Plate.png");
 			SongLoading_FadeIn = TxC(SONGLOADING + @"FadeIn.png");
 			SongLoading_FadeOut = TxC(SONGLOADING + @"FadeOut.png");
+			SongLoading_v2_BG = TxC(SONGLOADINGV2 + @"Background.png");
+			SongLoading_v2_Plate = TxC(SONGLOADINGV2 + @"Plate.png");
 			#endregion
 
 			#region 5_演奏画面
@@ -764,15 +768,18 @@ namespace TJAPlayer3
 			TJAPlayer3.t安全にDisposeする(ref Difficulty_Bar);
 			TJAPlayer3.t安全にDisposeする(ref Difficulty_Bar_Etc);
 			TJAPlayer3.t安全にDisposeする(ref Difficulty_Mark);
-			
+
 			#endregion
 
 			#endregion
 
 			#region 4_読み込み画面
+			TJAPlayer3.t安全にDisposeする(ref SongLoading_BG);
 			TJAPlayer3.t安全にDisposeする(ref SongLoading_Plate);
 			TJAPlayer3.t安全にDisposeする(ref SongLoading_FadeIn);
 			TJAPlayer3.t安全にDisposeする(ref SongLoading_FadeOut);
+			TJAPlayer3.t安全にDisposeする(ref SongLoading_v2_BG);
+			TJAPlayer3.t安全にDisposeする(ref SongLoading_v2_Plate);
 			#endregion
 
 			#region 5_演奏画面
@@ -1077,9 +1084,12 @@ namespace TJAPlayer3
 		#endregion
 
 		#region 4_読み込み画面
-		public CTexture SongLoading_Plate,
+		public CTexture SongLoading_BG,
+			SongLoading_Plate,
 			SongLoading_FadeIn,
-			SongLoading_FadeOut;
+			SongLoading_FadeOut,
+			SongLoading_v2_BG,
+			SongLoading_v2_Plate;
 		#endregion
 
 		#region 5_演奏画面

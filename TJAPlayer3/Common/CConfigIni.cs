@@ -403,6 +403,7 @@ namespace TJAPlayer3
 		public int SongSelectSkipCount;
 		public bool bEnableCountdownTimer;
 		public bool bTCClikeStyle;
+		public bool bEnableSkinV2;
 
 		// 各画像の表示・非表示設定
 		public bool ShowChara;
@@ -631,6 +632,7 @@ namespace TJAPlayer3
 			this.SongSelectSkipCount = 7;
 			this.bEnableCountdownTimer = true;
 			this.bTCClikeStyle = false;
+			this.bEnableSkinV2 = false;
 			this.ApplyLoudnessMetadata = true;
 
 			// 2018-08-28 twopointzero:

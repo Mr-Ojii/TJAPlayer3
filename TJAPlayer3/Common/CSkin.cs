@@ -1216,7 +1216,6 @@ namespace TJAPlayer3
 							{
 								SongLoading_SubTitle_ReferencePoint = (ReferencePoint)int.Parse(strParam);
 							}
-
 							else if (strCommand == nameof(SongLoading_Title_ForeColor))
 							{
 								SongLoading_Title_ForeColor = ColorTranslator.FromHtml(strParam);
@@ -1236,6 +1235,42 @@ namespace TJAPlayer3
 							else if (strCommand == nameof(SongLoading_Plate_ScreenBlend))
 							{
 								SongLoading_Plate_ScreenBlend = C変換.bONorOFF(strParam[0]);
+							}
+							else if (strCommand == nameof(SongLoading_v2_Plate_X))
+							{
+								SongLoading_v2_Plate_X = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(SongLoading_v2_Plate_Y))
+							{
+								SongLoading_v2_Plate_Y = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(SongLoading_v2_Title_X))
+							{
+								SongLoading_v2_Title_X = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(SongLoading_v2_Title_Y))
+							{
+								SongLoading_v2_Title_Y = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(SongLoading_v2_SubTitle_X))
+							{
+								SongLoading_v2_SubTitle_X = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(SongLoading_v2_SubTitle_Y))
+							{
+								SongLoading_v2_SubTitle_Y = int.Parse(strParam);
+							}
+							else if (strCommand == nameof(SongLoading_v2_Plate_ReferencePoint))
+							{
+								SongLoading_v2_Plate_ReferencePoint = (ReferencePoint)int.Parse(strParam);
+							}
+							else if (strCommand == nameof(SongLoading_v2_Title_ReferencePoint))
+							{
+								SongLoading_v2_Title_ReferencePoint = (ReferencePoint)int.Parse(strParam);
+							}
+							else if (strCommand == nameof(SongLoading_v2_SubTitle_ReferencePoint))
+							{
+								SongLoading_v2_SubTitle_ReferencePoint = (ReferencePoint)int.Parse(strParam);
 							}
 							#endregion
 							#region Game
@@ -2585,6 +2620,15 @@ namespace TJAPlayer3
 		public Color SongLoading_Title_BackColor = ColorTranslator.FromHtml("#000000");
 		public Color SongLoading_SubTitle_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
 		public Color SongLoading_SubTitle_BackColor = ColorTranslator.FromHtml("#000000");
+		public int SongLoading_v2_Plate_X = 640;
+		public int SongLoading_v2_Plate_Y = 200;
+		public int SongLoading_v2_Title_X = 640;
+		public int SongLoading_v2_Title_Y = 180;
+		public int SongLoading_v2_SubTitle_X = 640;
+		public int SongLoading_v2_SubTitle_Y = 230;
+		public ReferencePoint SongLoading_v2_Plate_ReferencePoint = ReferencePoint.Center;
+		public ReferencePoint SongLoading_v2_Title_ReferencePoint = ReferencePoint.Center;
+		public ReferencePoint SongLoading_v2_SubTitle_ReferencePoint = ReferencePoint.Center;
 		public bool SongLoading_Plate_ScreenBlend = true;
 
 		#endregion
