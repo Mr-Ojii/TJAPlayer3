@@ -336,7 +336,6 @@ namespace TJAPlayer3
 				}
 				else
 				{
-
 					if (TJAPlayer3.Tx.Result_Number != null)
 					{
 						Rectangle rectangle = new Rectangle(32 * Num, 0, 32, TJAPlayer3.Tx.Result_Number.szテクスチャサイズ.Height / 2);

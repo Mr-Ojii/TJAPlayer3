@@ -3344,6 +3344,10 @@ namespace TJAPlayer3
 
 			for (int n = 0; n < input.Length; n++)
 			{
+				if (input[n].Contains("\n"))
+				{
+					Debug.Print("");
+				}
 				if (!string.IsNullOrEmpty(input[n]))
 				{
 					sb.Append(input[n] + "\n");
@@ -5162,29 +5166,23 @@ namespace TJAPlayer3
 			//パラメータを分別、そこから割り当てていきます。
 			if (strCommandName.Equals("TITLE"))
 			{
-				//this.TITLE = strCommandParam;
-				this.TITLE = InputText.Substring(InputText.IndexOf(":") + 1);
-				//tbTitle.Text = strCommandParam;
-				if (InputText.Contains("\n"))
-				{
-					Debug.Print("");
-				}
+				this.TITLE = strCommandParam;
 			}
 			if (strCommandName.Equals("SUBTITLE"))
 			{
 				if (strCommandParam.StartsWith("--"))
 				{
-					this.SUBTITLE = InputText.Substring(InputText.IndexOf(":") + 3);
+					this.SUBTITLE = strCommandParam.Substring(2);
 				}
 				else if (strCommandParam.StartsWith("++"))
 				{
 					this.SUBTITLEDisp = true;
-					this.SUBTITLE = InputText.Substring(InputText.IndexOf(":") + 3);
+					this.SUBTITLE = strCommandParam.Substring(2);
 				}
 				else
 				{
 					this.SUBTITLEDisp = true;
-					this.SUBTITLE = InputText.Substring(InputText.IndexOf(":") + 1);
+					this.SUBTITLE = strCommandParam;
 				}
 			}
 			else if (strCommandName.Equals("LEVEL"))
