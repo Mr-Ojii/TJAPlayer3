@@ -2416,15 +2416,6 @@ namespace TJAPlayer3
 			}
 		}
 
-		private void t座標の追従設定()
-		{
-			//
-			if (bFieldBgPointOverride == true)
-			{
-
-			}
-		}
-
 		#region [ IDisposable 実装 ]
 		//-----------------
 		public void Dispose()
@@ -2471,7 +2462,6 @@ namespace TJAPlayer3
 		//ScrollField座標への追従設定が可能。
 		//分岐背景、ゴーゴー背景が連動する。(全て同じ大きさ、位置で作成すること。)
 		//左上基準描画
-		public bool bFieldBgPointOverride = false;
 		public int[] nScrollFieldBGX = new int[] { 333, 333, 333, 333 };
 		public int[] nScrollFieldBGY = new int[] { 192, 368, 0, 0 };
 

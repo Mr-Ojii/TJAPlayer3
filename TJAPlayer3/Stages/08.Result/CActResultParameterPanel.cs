@@ -22,7 +22,7 @@ namespace TJAPlayer3
 
 		public void tアニメを完了させる()
 		{
-			this.ct表示用.n現在の値 = this.ct表示用.n終了値;
+			this.ephase = EPhase.Loop;
 		}
 
 
@@ -31,12 +31,16 @@ namespace TJAPlayer3
 		public override void On活性化()
 		{
 			base.On活性化();
+			this.ct文字アニメ用 = new CCounter(0, 15, 70, TJAPlayer3.Timer);
+			this.ephase = EPhase.Start;
+			this.ToNextPhase = false;
+			this.n表示された桁数 = 0;
 		}
 		public override void On非活性化()
 		{
-			if( this.ct表示用 != null )
+			if (this.ct文字アニメ用 != null)
 			{
-				this.ct表示用 = null;
+				this.ct文字アニメ用 = null;
 			}
 			base.On非活性化();
 		}
@@ -64,11 +68,26 @@ namespace TJAPlayer3
 			}
 			if( base.b初めての進行描画 )
 			{
-				this.ct表示用 = new CCounter( 0, 999, 2, TJAPlayer3.Timer );
 				base.b初めての進行描画 = false;
 			}
-			this.ct表示用.t進行();
-			for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
+			this.ct文字アニメ用.t進行();
+
+			#region[phaseの進行]
+			if (ephase == EPhase.Start||ephase == EPhase.Crown || ephase == EPhase.HighScore)
+			{
+				ephase += 1;
+			}
+			else if (ephase != EPhase.Loop) 
+			{
+				if (this.ToNextPhase)
+				{
+					ephase += 1;
+					this.ToNextPhase = false;
+				}
+			}
+            #endregion
+
+            for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
 			{
 				if (TJAPlayer3.Tx.Result_Panel != null)
 				{
@@ -203,13 +222,13 @@ namespace TJAPlayer3
 					TJAPlayer3.Tx.Gauge_Soul.t2D描画(TJAPlayer3.app.Device, 1174, y_Soul[i], new Rectangle(0, 0, 80, 80));
 				}
 				//演奏中のやつ使いまわせなかった。ファック。
-				this.t小文字表示(TJAPlayer3.Skin.nResultScoreX[i], TJAPlayer3.Skin.nResultScoreY[i], TJAPlayer3.stage結果.st演奏記録[i].nスコア, true);
-				this.t小文字表示(TJAPlayer3.Skin.nResultGreatX[i], TJAPlayer3.Skin.nResultGreatY[i], TJAPlayer3.stage結果.st演奏記録[i].nPerfect数, false);
-				this.t小文字表示(TJAPlayer3.Skin.nResultGoodX[i], TJAPlayer3.Skin.nResultGoodY[i], TJAPlayer3.stage結果.st演奏記録[i].nGreat数, false);
-				this.t小文字表示(TJAPlayer3.Skin.nResultBadX[i], TJAPlayer3.Skin.nResultBadY[i], TJAPlayer3.stage結果.st演奏記録[i].nMiss数, false);
+				this.t小文字表示(TJAPlayer3.Skin.nResultScoreX[i], TJAPlayer3.Skin.nResultScoreY[i], TJAPlayer3.stage結果.st演奏記録[i].nスコア, true, EPhase.Score);
+				this.t小文字表示(TJAPlayer3.Skin.nResultGreatX[i], TJAPlayer3.Skin.nResultGreatY[i], TJAPlayer3.stage結果.st演奏記録[i].nPerfect数, false, EPhase.Perfect);
+				this.t小文字表示(TJAPlayer3.Skin.nResultGoodX[i], TJAPlayer3.Skin.nResultGoodY[i], TJAPlayer3.stage結果.st演奏記録[i].nGreat数, false, EPhase.Good);
+				this.t小文字表示(TJAPlayer3.Skin.nResultBadX[i], TJAPlayer3.Skin.nResultBadY[i], TJAPlayer3.stage結果.st演奏記録[i].nMiss数, false, EPhase.Poor);
 
-				this.t小文字表示(TJAPlayer3.Skin.nResultComboX[i], TJAPlayer3.Skin.nResultComboY[i], TJAPlayer3.stage結果.st演奏記録[i].n最大コンボ数, false);
-				this.t小文字表示(TJAPlayer3.Skin.nResultRollX[i], TJAPlayer3.Skin.nResultRollY[i], TJAPlayer3.stage結果.st演奏記録[i].n連打数, false);
+				this.t小文字表示(TJAPlayer3.Skin.nResultComboX[i], TJAPlayer3.Skin.nResultComboY[i], TJAPlayer3.stage結果.st演奏記録[i].n最大コンボ数, false, EPhase.Combo);
+				this.t小文字表示(TJAPlayer3.Skin.nResultRollX[i], TJAPlayer3.Skin.nResultRollY[i], TJAPlayer3.stage結果.st演奏記録[i].n連打数, false, EPhase.Roll);
 
 				#region 段位認定モード用+王冠
 				if (TJAPlayer3.stage選曲.n確定された曲の難易度[i] == (int)Difficulty.Dan)
@@ -261,11 +280,7 @@ namespace TJAPlayer3
 				#endregion
 			}
 
-			if ( !this.ct表示用.b終了値に達した )
-			{
-				return 0;
-			}
-			return 1;
+			return (this.ephase == EPhase.Loop) ? 1 : 0;
 		}
 		
 
@@ -280,19 +295,34 @@ namespace TJAPlayer3
 			public Point pt;
 		}
 
-		private CCounter ct表示用;
+		private CCounter ct文字アニメ用;
+		private int n表示された桁数;
 
 		private CTexture Dan_Plate;
 
-		private void t小文字表示(int x, int y, long n, bool score)
+		private EPhase ephase;
+		private bool ToNextPhase;
+
+		private void t小文字表示(int x, int y, long n, bool score, EPhase phase)
 		{
-			if (score)
+			if (phase > ephase)
+				return;
+
+			for (int index = 0; index < n.ToString().Length; index++)
 			{
-				if (TJAPlayer3.Tx.Result_Score_Number != null)
+				int Num = (int)(n / Math.Pow(10, index) % 10);
+				bool IsDigit = false;
+
+				if (ephase == phase && index == this.n表示された桁数)
 				{
-					for (int index = 0; index < n.ToString().Length; index++)
+					Num = this.ct文字アニメ用.n現在の値 % 10;
+					IsDigit = true;
+				}
+
+				if (score)
+				{
+					if (TJAPlayer3.Tx.Result_Score_Number != null)
 					{
-						int Num = (int)(n / Math.Pow(10, index) % 10);
 						Rectangle rectangle = new Rectangle(24 * Num, 0, 24, TJAPlayer3.Tx.Result_Score_Number.szテクスチャサイズ.Height);
 						if (TJAPlayer3.Tx.Result_Score_Number != null)
 						{
@@ -301,14 +331,11 @@ namespace TJAPlayer3
 						x -= 24;
 					}
 				}
-			}
-			else
-			{
-				if (TJAPlayer3.Tx.Result_Number != null)
+				else
 				{
-					for (int index = 0; index < n.ToString().Length; index++)
+
+					if (TJAPlayer3.Tx.Result_Number != null)
 					{
-						int Num = (int)(n / Math.Pow(10, index) % 10);
 						Rectangle rectangle = new Rectangle(32 * Num, 0, 32, TJAPlayer3.Tx.Result_Number.szテクスチャサイズ.Height / 2);
 						if (TJAPlayer3.Tx.Result_Number != null)
 						{
@@ -317,8 +344,36 @@ namespace TJAPlayer3
 						x -= 22;
 					}
 				}
+				if (IsDigit)
+				{
+					if (this.ct文字アニメ用.b終了値に達した)
+					{
+						this.n表示された桁数++;
+						if (this.n表示された桁数 == n.ToString().Length)
+						{
+							this.ToNextPhase = true;
+							this.n表示された桁数 = 0;
+						}
+						this.ct文字アニメ用.n現在の値 = 0;
+					}
+					break;
+				}
 			}
 		}
+		private enum EPhase : int
+		{
+			Start,
+			Crown,
+			Score,
+			HighScore,
+			Perfect,
+			Good,
+			Poor,
+			Combo,
+			Roll,
+			Loop
+		} 
+
 		//-----------------
 		#endregion
 	}
