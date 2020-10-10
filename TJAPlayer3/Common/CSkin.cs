@@ -2502,19 +2502,19 @@ namespace TJAPlayer3
 		//現在のデフォルト値はダミーです。
 		public int[] nResultPanelX = { 515, 515 };
 		public int[] nResultPanelY = { 75, 435 };
-		public int[] nResultScoreX = { 582, 582 };
+		public int[] nResultScoreX = { 730, 730 };
 		public int[] nResultScoreY = { 252, 612 };
 		public int[] nResultJudge_X = { 815, 815 };
 		public int[] nResultJudge_Y = { 182, 542 };
-		public int[] nResultGreatX = { 875, 875 };
+		public int[] nResultGreatX = { 960, 960 };
 		public int[] nResultGreatY = { 188, 548 };
-		public int[] nResultGoodX = { 875, 875 };
+		public int[] nResultGoodX = { 960, 960 };
 		public int[] nResultGoodY = { 226, 586 };
-		public int[] nResultBadX = { 875, 875 };
+		public int[] nResultBadX = { 960, 960 };
 		public int[] nResultBadY = { 266, 626 };
-		public int[] nResultComboX = { 1144, 1144 };
+		public int[] nResultComboX = { 1225, 1225 };
 		public int[] nResultComboY = { 188, 548 };
-		public int[] nResultRollX = { 1144, 1144 };
+		public int[] nResultRollX = { 1225, 1225 };
 		public int[] nResultRollY = { 226, 586 };
 		public int[] nResultGaugeBaseX = { 555, 555 };
 		public int[] nResultGaugeBaseY = { 122, 482 };
