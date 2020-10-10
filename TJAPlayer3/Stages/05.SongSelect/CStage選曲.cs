@@ -1000,7 +1000,11 @@ namespace TJAPlayer3
 								}
 								if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.PageDown))
 								{
-									this.tカーソルをかなり上へ移動する();
+									this.tカーソルを上へスキップする();
+								}
+								if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Home))
+								{
+									this.tカーソルをフォルダのはじめへスキップする();
 								}
 								#endregion
 								#region [ Down ]
@@ -1011,7 +1015,11 @@ namespace TJAPlayer3
 								}
 								if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.PageUp))
 								{
-									this.tカーソルをかなり下へ移動する();
+									this.tカーソルを下へスキップする();
+								}
+								if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.End))
+								{
+									this.tカーソルをフォルダの最後へスキップする();
 								}
 								#endregion
 								#region [ Sort ]
@@ -1024,33 +1032,23 @@ namespace TJAPlayer3
 								#region [ 上: 難易度変更(上) ]
 								if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.UpArrow))
 								{
-									//CommandHistory.Add( E楽器パート.DRUMS, EパッドFlag.HH );
-									//EパッドFlag[] comChangeDifficulty = new EパッドFlag[] { EパッドFlag.HH, EパッドFlag.HH };
-									//if ( CommandHistory.CheckCommand( comChangeDifficulty, E楽器パート.DRUMS ) )
-									{
-										Debug.WriteLine("ドラムス難易度変更");
-										if (TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftControl) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightControl))
-											this.act曲リスト.t難易度レベルをひとつ進める(1);
-										else
-											this.act曲リスト.t難易度レベルをひとつ進める(0);
-										TJAPlayer3.Skin.sound変更音.t再生する();
-									}
+									Debug.WriteLine("ドラムス難易度変更");
+									if (TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftControl) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightControl))
+										this.act曲リスト.t難易度レベルをひとつ進める(1);
+									else
+										this.act曲リスト.t難易度レベルをひとつ進める(0);
+									TJAPlayer3.Skin.sound変更音.t再生する();
 								}
 								#endregion
 								#region [ 下: 難易度変更(下) ]
 								if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.DownArrow))
 								{
-									//CommandHistory.Add( E楽器パート.DRUMS, EパッドFlag.HH );
-									//EパッドFlag[] comChangeDifficulty = new EパッドFlag[] { EパッドFlag.HH, EパッドFlag.HH };
-									//if ( CommandHistory.CheckCommand( comChangeDifficulty, E楽器パート.DRUMS ) )
-									{
-										Debug.WriteLine("ドラムス難易度変更");
-										if (TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftControl) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightControl))
-											this.act曲リスト.t難易度レベルをひとつ戻す(1);
-										else
-											this.act曲リスト.t難易度レベルをひとつ戻す(0);
-										TJAPlayer3.Skin.sound変更音.t再生する();
-									}
+									Debug.WriteLine("ドラムス難易度変更");
+									if (TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftControl) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightControl))
+										this.act曲リスト.t難易度レベルをひとつ戻す(1);
+									else
+										this.act曲リスト.t難易度レベルをひとつ戻す(0);
+									TJAPlayer3.Skin.sound変更音.t再生する();
 								}
 								#endregion
 							}
@@ -1265,15 +1263,25 @@ namespace TJAPlayer3
 			this.act曲リスト.t前に移動();
 
 		}
-		private void tカーソルをかなり下へ移動する()
+		private void tカーソルを下へスキップする()
 		{
 			TJAPlayer3.Skin.sound選曲スキップ音.t再生する();
 			this.act曲リスト.tかなり次に移動();
 		}
-		private void tカーソルをかなり上へ移動する()
+		private void tカーソルを上へスキップする()
 		{
 			TJAPlayer3.Skin.sound選曲スキップ音.t再生する();
 			this.act曲リスト.tかなり前に移動();
+		}
+		private void tカーソルをフォルダのはじめへスキップする()
+		{
+			TJAPlayer3.Skin.sound選曲スキップ音.t再生する();
+			this.act曲リスト.tフォルダのはじめに移動();
+		}
+		private void tカーソルをフォルダの最後へスキップする()
+		{
+			TJAPlayer3.Skin.sound選曲スキップ音.t再生する();
+			this.act曲リスト.tフォルダの最後に移動();
 		}
 		private void t曲をランダム選択する()
 		{
