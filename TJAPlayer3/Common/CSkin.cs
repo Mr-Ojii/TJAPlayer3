@@ -908,13 +908,9 @@ namespace TJAPlayer3
 							#endregion
 
 							#region 背景(スクロール)
-							else if (strCommand == "Background_Scroll_Y")
+							else if (strCommand == nameof(Background_Scroll_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									this.Background_Scroll_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Background_Scroll_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
 							#endregion
 
@@ -956,8 +952,6 @@ namespace TJAPlayer3
 
 							//-----------------------------
 							#endregion
-							#region[ その他 ]
-							#endregion
 
 							#region 新・SkinConfig
 							#region Config
@@ -971,54 +965,51 @@ namespace TJAPlayer3
 							}
 							#endregion
 							#region SongSelect
-							else if (strCommand == "SongSelect_Overall_Y")
+							else if (strCommand == nameof(SongSelect_Overall_Y))
 							{
-								if (int.Parse(strParam) != 0)
-								{
-									SongSelect_Overall_Y = int.Parse(strParam);
-								}
+								SongSelect_Overall_Y = int.Parse(strParam);
 							}
-							else if (strCommand == "SongSelect_NamePlate_X")
+							else if (strCommand == nameof(SongSelect_NamePlate_X))
 							{
 								SongSelect_NamePlate_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "SongSelect_NamePlate_Y")
+							else if (strCommand == nameof(SongSelect_NamePlate_Y))
 							{
 								SongSelect_NamePlate_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "SongSelect_Auto_X")
+							else if (strCommand == nameof(SongSelect_Auto_X))
 							{
 								SongSelect_Auto_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "SongSelect_Auto_Y")
+							else if (strCommand == nameof(SongSelect_Auto_Y))
 							{
 								SongSelect_Auto_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "SongSelect_ForeColor_JPOP")
+							else if (strCommand == nameof(SongSelect_ForeColor_JPOP))
 							{
 								SongSelect_ForeColor_JPOP = ColorTranslator.FromHtml(strParam);
 							}
-							else if (strCommand == "SongSelect_ForeColor_Anime")
+							else if (strCommand == nameof(SongSelect_ForeColor_Anime))
 							{
 								SongSelect_ForeColor_Anime = ColorTranslator.FromHtml(strParam);
 							}
-							else if (strCommand == "SongSelect_ForeColor_VOCALOID")
+							else if (strCommand == nameof(SongSelect_ForeColor_VOCALOID))
 							{
 								SongSelect_ForeColor_VOCALOID = ColorTranslator.FromHtml(strParam);
 							}
-							else if (strCommand == "SongSelect_ForeColor_Children")
+							else if (strCommand == nameof(SongSelect_ForeColor_Children))
 							{
 								SongSelect_ForeColor_Children = ColorTranslator.FromHtml(strParam);
 							}
-							else if (strCommand == "SongSelect_ForeColor_Variety")
+							else if (strCommand == nameof(SongSelect_ForeColor_Variety))
 							{
 								SongSelect_ForeColor_Variety = ColorTranslator.FromHtml(strParam);
 							}
-							else if (strCommand == "SongSelect_ForeColor_Classic")
+							else if (strCommand == nameof(SongSelect_ForeColor_Classic))
 							{
 								SongSelect_ForeColor_Classic = ColorTranslator.FromHtml(strParam);
 							}
-							else if (strCommand == "SongSelect_ForeColor_GameMusic")
+							else if (strCommand == nameof(SongSelect_ForeColor_GameMusic))
 							{
 								SongSelect_ForeColor_GameMusic = ColorTranslator.FromHtml(strParam);
 							}
@@ -1026,31 +1017,31 @@ namespace TJAPlayer3
 							{
 								SongSelect_ForeColor_Namco = ColorTranslator.FromHtml(strParam);
 							}
-							else if (strCommand == "SongSelect_BackColor_JPOP")
+							else if (strCommand == nameof(SongSelect_BackColor_JPOP))
 							{
 								SongSelect_BackColor_JPOP = ColorTranslator.FromHtml(strParam);
 							}
-							else if (strCommand == "SongSelect_BackColor_Anime")
+							else if (strCommand == nameof(SongSelect_BackColor_Anime))
 							{
 								SongSelect_BackColor_Anime = ColorTranslator.FromHtml(strParam);
 							}
-							else if (strCommand == "SongSelect_BackColor_VOCALOID")
+							else if (strCommand == nameof(SongSelect_BackColor_VOCALOID))
 							{
 								SongSelect_BackColor_VOCALOID = ColorTranslator.FromHtml(strParam);
 							}
-							else if (strCommand == "SongSelect_BackColor_Children")
+							else if (strCommand == nameof(SongSelect_BackColor_Children))
 							{
 								SongSelect_BackColor_Children = ColorTranslator.FromHtml(strParam);
 							}
-							else if (strCommand == "SongSelect_BackColor_Variety")
+							else if (strCommand == nameof(SongSelect_BackColor_Variety))
 							{
 								SongSelect_BackColor_Variety = ColorTranslator.FromHtml(strParam);
 							}
-							else if (strCommand == "SongSelect_BackColor_Classic")
+							else if (strCommand == nameof(SongSelect_BackColor_Classic))
 							{
 								SongSelect_BackColor_Classic = ColorTranslator.FromHtml(strParam);
 							}
-							else if (strCommand == "SongSelect_BackColor_GameMusic")
+							else if (strCommand == nameof(SongSelect_BackColor_GameMusic))
 							{
 								SongSelect_BackColor_GameMusic = ColorTranslator.FromHtml(strParam);
 							}
@@ -1280,11 +1271,11 @@ namespace TJAPlayer3
 							}
 							#endregion
 							#region Game
-							else if (strCommand == "Game_Notes_Anime")
+							else if (strCommand == nameof(Game_Notes_Anime))
 							{
 								Game_Notes_Anime = C変換.bONorOFF(strParam[0]);
 							}
-							else if (strCommand == "Game_StageText")
+							else if (strCommand == nameof(Game_StageText))
 							{
 								Game_StageText = strParam;
 							}
@@ -1298,11 +1289,11 @@ namespace TJAPlayer3
 							}
 
 							#region CourseSymbol
-							else if (strCommand == "Game_CourseSymbol_X")
+							else if (strCommand == nameof(Game_CourseSymbol_X))
 							{
 								Game_CourseSymbol_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_CourseSymbol_Y")
+							else if (strCommand == nameof(Game_CourseSymbol_Y))
 							{
 								Game_CourseSymbol_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
@@ -1398,19 +1389,19 @@ namespace TJAPlayer3
 							}
 							#endregion
 							#region Chara
-							else if (strCommand == "Game_Chara_X")
+							else if (strCommand == nameof(Game_Chara_X))
 							{
 								Game_Chara_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Chara_Y")
+							else if (strCommand == nameof(Game_Chara_Y))
 							{
 								Game_Chara_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Chara_Balloon_X")
+							else if (strCommand == nameof(Game_Chara_Balloon_X))
 							{
 								Game_Chara_Balloon_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Chara_Balloon_Y")
+							else if (strCommand == nameof(Game_Chara_Balloon_Y))
 							{
 								Game_Chara_Balloon_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
@@ -1427,15 +1418,15 @@ namespace TJAPlayer3
 								Game_Chara_Balloon_FadeOut = strParam.Split(',').Select(int.Parse).ToArray();
 							}
 							// パターン数の設定はTextureLoader.csで反映されます。
-							else if (strCommand == "Game_Chara_Motion_Normal")
+							else if (strCommand == nameof(Game_Chara_Motion_Normal))
 							{
 								Game_Chara_Motion_Normal[0] = strParam;
 							}
-							else if (strCommand == "Game_Chara_Motion_Clear")
+							else if (strCommand == nameof(Game_Chara_Motion_Clear))
 							{
 								Game_Chara_Motion_Clear[0] = strParam;
 							}
-							else if (strCommand == "Game_Chara_Motion_GoGo")
+							else if (strCommand == nameof(Game_Chara_Motion_GoGo))
 							{
 								Game_Chara_Motion_GoGo[0] = strParam;
 							}
@@ -1451,282 +1442,162 @@ namespace TJAPlayer3
 							{
 								Game_Chara_Motion_GoGo[1] = strParam;
 							}
-							else if (strCommand == "Game_Chara_Beat_Normal")
+							else if (strCommand == nameof(Game_Chara_Beat_Normal))
 							{
 								Game_Chara_Beat_Normal = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Chara_Beat_Clear")
+							else if (strCommand == nameof(Game_Chara_Beat_Clear))
 							{
 								Game_Chara_Beat_Clear = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Chara_Beat_GoGo")
+							else if (strCommand == nameof(Game_Chara_Beat_GoGo))
 							{
 								Game_Chara_Beat_GoGo = strParam.Split(',').Select(int.Parse).ToArray();
 							}
 							#endregion
 							#region Dancer
-							else if (strCommand == "Game_Dancer_X")
+							else if (strCommand == nameof(Game_Dancer_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 5; i++)
-								{
-									Game_Dancer_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Dancer_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Dancer_Y")
+							else if (strCommand == nameof(Game_Dancer_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 5; i++)
-								{
-									Game_Dancer_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Dancer_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Dancer_Motion")
+							else if (strCommand == nameof(Game_Dancer_Motion))
 							{
 								Game_Dancer_Motion = strParam;
 							}
 							// Game_Dancer_PtnはTextrueLoader.csで反映されます。
-							else if (strCommand == "Game_Dancer_Beat")
+							else if (strCommand == nameof(Game_Dancer_Beat))
 							{
 								ParseInt32(value => Game_Dancer_Beat = value);
 							}
-							else if (strCommand == "Game_Dancer_Gauge")
+							else if (strCommand == nameof(Game_Dancer_Gauge))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 5; i++)
-								{
-									Game_Dancer_Gauge[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Dancer_Gauge = strParam.Split(',').Select(int.Parse).ToArray();
 							}
 							#endregion
 							#region Mob
-							else if (strCommand == "Game_Mob_Beat")
+							else if (strCommand == nameof(Game_Mob_Beat))
 							{
 								ParseInt32(value => Game_Mob_Beat = value);
 							}
-							else if (strCommand == "Game_Mob_Ptn_Beat")
+							else if (strCommand == nameof(Game_Mob_Ptn_Beat))
 							{
 								ParseInt32(value => Game_Mob_Ptn_Beat = value);
 							}
 							#endregion
 							#region Score
-							else if (strCommand == "Game_Score_X")
+							else if (strCommand == nameof(Game_Score_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									this.Game_Score_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Score_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Score_Y")
+							else if (strCommand == nameof(Game_Score_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									this.Game_Score_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Score_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Score_Add_X")
+							else if (strCommand == nameof(Game_Score_Add_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									this.Game_Score_Add_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Score_Add_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Score_Add_Y")
+							else if (strCommand == nameof(Game_Score_Add_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									this.Game_Score_Add_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Score_Add_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Score_AddBonus_X")
+							else if (strCommand == nameof(Game_Score_AddBonus_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									this.Game_Score_AddBonus_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Score_AddBonus_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Score_AddBonus_Y")
+							else if (strCommand == nameof(Game_Score_AddBonus_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									this.Game_Score_AddBonus_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Score_AddBonus_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-
-							else if (strCommand == "Game_Score_Padding")
+							else if (strCommand == nameof(Game_Score_Padding))
 							{
 								ParseInt32(value => Game_Score_Padding = value);
 							}
-							else if (strCommand == "Game_Score_Size")
+							else if (strCommand == nameof(Game_Score_Size))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Score_Size[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Score_Size = strParam.Split(',').Select(int.Parse).ToArray();
 							}
 							#endregion
 							#region Taiko
-							else if (strCommand == "Game_Taiko_NamePlate_X")
+							else if (strCommand == nameof(Game_Taiko_NamePlate_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Taiko_NamePlate_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Taiko_NamePlate_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Taiko_NamePlate_Y")
+							else if (strCommand == nameof(Game_Taiko_NamePlate_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Taiko_NamePlate_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Taiko_NamePlate_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-
-							else if (strCommand == "Game_Taiko_PlayerNumber_X")
+							else if (strCommand == nameof(Game_Taiko_PlayerNumber_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Taiko_PlayerNumber_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Taiko_PlayerNumber_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-
-							else if (strCommand == "Game_Taiko_PlayerNumber_Y")
+							else if (strCommand == nameof(Game_Taiko_PlayerNumber_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Taiko_PlayerNumber_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Taiko_PlayerNumber_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-
-							else if (strCommand == "Game_Taiko_X")
+							else if (strCommand == nameof(Game_Taiko_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Taiko_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Taiko_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Taiko_Y")
+							else if (strCommand == nameof(Game_Taiko_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Taiko_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Taiko_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Taiko_Combo_X")
+							else if (strCommand == nameof(Game_Taiko_Combo_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Taiko_Combo_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Taiko_Combo_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Taiko_Combo_Y")
+							else if (strCommand == nameof(Game_Taiko_Combo_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Taiko_Combo_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Taiko_Combo_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Taiko_Combo_Ex_X")
+							else if (strCommand == nameof(Game_Taiko_Combo_Ex_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Taiko_Combo_Ex_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Taiko_Combo_Ex_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Taiko_Combo_Ex_Y")
+							else if (strCommand == nameof(Game_Taiko_Combo_Ex_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Taiko_Combo_Ex_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Taiko_Combo_Ex_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Taiko_Combo_Ex4_X")
+							else if (strCommand == nameof(Game_Taiko_Combo_Ex4_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Taiko_Combo_Ex4_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Taiko_Combo_Ex4_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Taiko_Combo_Ex4_Y")
+							else if (strCommand == nameof(Game_Taiko_Combo_Ex4_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Taiko_Combo_Ex4_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Taiko_Combo_Ex4_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Taiko_Combo_Padding")
+							else if (strCommand == nameof(Game_Taiko_Combo_Padding))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 3; i++)
-								{
-									Game_Taiko_Combo_Padding[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Taiko_Combo_Padding = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Taiko_Combo_Size")
+							else if (strCommand == nameof(Game_Taiko_Combo_Size))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Taiko_Combo_Size[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Taiko_Combo_Size = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Taiko_Combo_Size_Ex")
+							else if (strCommand == nameof(Game_Taiko_Combo_Size_Ex))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Taiko_Combo_Size_Ex[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Taiko_Combo_Size_Ex = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Taiko_Combo_Scale")
+							else if (strCommand == nameof(Game_Taiko_Combo_Scale))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 3; i++)
-								{
-									Game_Taiko_Combo_Scale[i] = float.Parse(strSplit[i]);
-								}
+								this.Game_Taiko_Combo_Scale = strParam.Split(',').Select(float.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Taiko_Combo_Text_X")
+							else if (strCommand == nameof(Game_Taiko_Combo_Text_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Taiko_Combo_Text_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Taiko_Combo_Text_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Taiko_Combo_Text_Y")
+							else if (strCommand == nameof(Game_Taiko_Combo_Text_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Taiko_Combo_Text_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Taiko_Combo_Text_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Taiko_Combo_Text_Size")
+							else if (strCommand == nameof(Game_Taiko_Combo_Text_Size))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Taiko_Combo_Text_Size[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Taiko_Combo_Text_Size = strParam.Split(',').Select(int.Parse).ToArray();
 							}
 							else if (strCommand == nameof(Game_Taiko_Combo_Ex_IsJumping))
 							{
@@ -1734,195 +1605,108 @@ namespace TJAPlayer3
 							}
 							#endregion
 							#region Gauge
-							else if (strCommand == "Game_Gauge_Rainbow_Timer")
+							else if (strCommand == nameof(Game_Gauge_Rainbow_Timer))
 							{
 								if (int.Parse(strParam) != 0)
-								{
 									Game_Gauge_Rainbow_Timer = int.Parse(strParam);
-								}
 							}
 							#endregion
 							#region Balloon
-							else if (strCommand == "Game_Balloon_Combo_X")
+							else if (strCommand == nameof(Game_Balloon_Combo_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Balloon_Combo_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Balloon_Combo_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Balloon_Combo_Y")
+							else if (strCommand == nameof(Game_Balloon_Combo_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Balloon_Combo_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Balloon_Combo_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Balloon_Combo_Number_X")
+							else if (strCommand == nameof(Game_Balloon_Combo_Number_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Balloon_Combo_Number_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Balloon_Combo_Number_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Balloon_Combo_Number_Y")
+							else if (strCommand == nameof(Game_Balloon_Combo_Number_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Balloon_Combo_Number_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Balloon_Combo_Number_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Balloon_Combo_Number_Ex_X")
+							else if (strCommand == nameof(Game_Balloon_Combo_Number_Ex_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Balloon_Combo_Number_Ex_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Balloon_Combo_Number_Ex_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Balloon_Combo_Number_Ex_Y")
+							else if (strCommand == nameof(Game_Balloon_Combo_Number_Ex_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Balloon_Combo_Number_Ex_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Balloon_Combo_Number_Ex_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Balloon_Combo_Text_X")
+							else if (strCommand == nameof(Game_Balloon_Combo_Text_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Balloon_Combo_Text_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Balloon_Combo_Text_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Balloon_Combo_Text_Y")
+							else if (strCommand == nameof(Game_Balloon_Combo_Text_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Balloon_Combo_Text_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Balloon_Combo_Text_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Balloon_Combo_Text_Ex_X")
+							else if (strCommand == nameof(Game_Balloon_Combo_Text_Ex_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Balloon_Combo_Text_Ex_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Balloon_Combo_Text_Ex_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Balloon_Combo_Text_Ex_Y")
+							else if (strCommand == nameof(Game_Balloon_Combo_Text_Ex_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Balloon_Combo_Text_Ex_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Balloon_Combo_Text_Ex_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
 
-
-							else if (strCommand == "Game_Balloon_Balloon_X")
+							else if (strCommand == nameof(Game_Balloon_Balloon_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									this.Game_Balloon_Balloon_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Balloon_Balloon_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Balloon_Balloon_Y")
+							else if (strCommand == nameof(Game_Balloon_Balloon_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									this.Game_Balloon_Balloon_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Balloon_Balloon_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Balloon_Balloon_Frame_X")
+							else if (strCommand == nameof(Game_Balloon_Balloon_Frame_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									this.Game_Balloon_Balloon_Frame_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Balloon_Balloon_Frame_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Balloon_Balloon_Frame_Y")
+							else if (strCommand == nameof(Game_Balloon_Balloon_Frame_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									this.Game_Balloon_Balloon_Frame_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Balloon_Balloon_Frame_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Balloon_Balloon_Number_X")
+							else if (strCommand == nameof(Game_Balloon_Balloon_Number_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									this.Game_Balloon_Balloon_Number_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Balloon_Balloon_Number_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Balloon_Balloon_Number_Y")
+							else if (strCommand == nameof(Game_Balloon_Balloon_Number_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									this.Game_Balloon_Balloon_Number_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Balloon_Balloon_Number_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
 
-							else if (strCommand == "Game_Balloon_Roll_Frame_X")
+							else if (strCommand == nameof(Game_Balloon_Roll_Frame_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Balloon_Roll_Frame_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Balloon_Roll_Frame_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Balloon_Roll_Frame_Y")
+							else if (strCommand == nameof(Game_Balloon_Roll_Frame_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Balloon_Roll_Frame_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Balloon_Roll_Frame_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Balloon_Roll_Number_X")
+							else if (strCommand == nameof(Game_Balloon_Roll_Number_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Balloon_Roll_Number_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Balloon_Roll_Number_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Balloon_Roll_Number_Y")
+							else if (strCommand == nameof(Game_Balloon_Roll_Number_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Balloon_Roll_Number_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Balloon_Roll_Number_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Balloon_Number_Size")
+							else if (strCommand == nameof(Game_Balloon_Number_Size))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Balloon_Number_Size[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Balloon_Number_Size = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Balloon_Number_Padding")
+							else if (strCommand == nameof(Game_Balloon_Number_Padding))
 							{
 								ParseInt32(value => Game_Balloon_Number_Padding = value);
 							}
-							else if (strCommand == "Game_Balloon_Roll_Number_Scale")
+							else if (strCommand == nameof(Game_Balloon_Roll_Number_Scale))
 							{
 								ParseInt32(value => Game_Balloon_Roll_Number_Scale = value);
 							}
-							else if (strCommand == "Game_Balloon_Balloon_Number_Scale")
+							else if (strCommand == nameof(Game_Balloon_Balloon_Number_Scale))
 							{
 								ParseInt32(value => Game_Balloon_Balloon_Number_Scale = value);
 							}
@@ -2071,44 +1855,30 @@ namespace TJAPlayer3
 							}
 							#endregion
 							#region Runner
-							else if (strCommand == "Game_Runner_Size")
+							else if (strCommand == nameof(this.Game_Runner_Size))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Runner_Size[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Runner_Size = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Runner_Ptn")
+							else if (strCommand == nameof(Game_Runner_Ptn))
 							{
 								ParseInt32(value => Game_Runner_Ptn = value);
 							}
-							else if (strCommand == "Game_Runner_Type")
+							else if (strCommand == nameof(Game_Runner_Type))
 							{
 								ParseInt32(value => Game_Runner_Type = value);
 							}
-							else if (strCommand == "Game_Runner_StartPoint_X")
+							else if (strCommand == nameof(Game_Runner_StartPoint_X))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Runner_StartPoint_X[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Runner_StartPoint_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Runner_StartPoint_Y")
+							else if (strCommand == nameof(Game_Runner_StartPoint_Y))
 							{
-								string[] strSplit = strParam.Split(',');
-								for (int i = 0; i < 2; i++)
-								{
-									Game_Runner_StartPoint_Y[i] = int.Parse(strSplit[i]);
-								}
+								this.Game_Runner_StartPoint_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Game_Runner_Timer")
+							else if (strCommand == nameof(Game_Runner_Timer))
 							{
 								if (int.Parse(strParam) != 0)
-								{
 									Game_Runner_Timer = int.Parse(strParam);
-								}
 							}
 							#endregion
 							#region Dan_C
@@ -2388,7 +2158,8 @@ namespace TJAPlayer3
 							}
 							else if (strCommand == nameof(Result_RotateInterval))
 							{
-								Result_RotateInterval = int.Parse(strParam);
+								if (int.Parse(strParam) != 0)
+									Result_RotateInterval = int.Parse(strParam);
 							}
 
 							#endregion
