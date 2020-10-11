@@ -976,17 +976,13 @@ namespace TJAPlayer3
 		//-----------------
 		public static CTexture tテクスチャの生成(string fileName)
 		{
-			return tテクスチャの生成(fileName, false);
-		}
-		public static CTexture tテクスチャの生成(string fileName, bool b黒を透過する)
-		{
 			if (app == null)
 			{
 				return null;
 			}
 			try
 			{
-				return new CTexture(app.Device, fileName, b黒を透過する);
+				return new CTexture(app.Device, fileName);
 			}
 			catch (CTextureCreateFailedException e)
 			{
@@ -1027,6 +1023,10 @@ namespace TJAPlayer3
 			}
 		}
 
+		public static CTexture ColorTexture(string htmlcolor)
+		{
+			return ColorTexture(htmlcolor, 64, 64);
+		}
 		public static CTexture ColorTexture(string htmlcolor, int width, int height)//2020.05.31 Mr-Ojii 単色塗りつぶしテクスチャの生成。必要かって？Tile_Black・Tile_Whiteがいらなくなるじゃん。あと、メンテモードの画像生成に便利かなって。
 		{
 			if (htmlcolor.Length == 7 && htmlcolor.StartsWith("#"))
@@ -1036,18 +1036,7 @@ namespace TJAPlayer3
 				return ColorTexture(brush, width, height);
 			}
 			else
-				return ColorTexture(Brushes.Black);
-		}
-		public static CTexture ColorTexture(string htmlcolor)
-		{
-			if (htmlcolor.Length == 7 && htmlcolor.StartsWith("#"))
-			{
-				Color color = ColorTranslator.FromHtml(htmlcolor);
-				Brush brush = new SolidBrush(color);
-				return ColorTexture(brush);
-			}
-			else
-				return ColorTexture(Brushes.Black);
+				return ColorTexture(Brushes.Black, width, height);
 		}
 		public static CTexture ColorTexture(Brush brush)
 		{

@@ -132,12 +132,6 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				string pathパネル本体 = CSkin.Path( @"Graphics\ScreenSelect popup auto settings.png" );
-				if ( File.Exists( pathパネル本体 ) )
-				{
-					this.txパネル本体 = TJAPlayer3.tテクスチャの生成( pathパネル本体, true );
-				}
-
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -145,7 +139,6 @@ namespace TJAPlayer3
 		{
 			if ( !base.b活性化してない )
 			{
-				TJAPlayer3.t安全にDisposeする( ref this.txパネル本体 );
 				TJAPlayer3.t安全にDisposeする( ref this.tx文字列パネル );
 				base.OnManagedリソースの解放();
 			}
@@ -163,7 +156,6 @@ namespace TJAPlayer3
 			Default = 99
 		};
 
-		private CTexture txパネル本体;
 		private CTexture tx文字列パネル;
 		private bool 選択完了;
 		private int 選択した行;

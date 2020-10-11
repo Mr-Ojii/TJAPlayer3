@@ -79,11 +79,6 @@ namespace FDK
 			get;
 			private set;
 		}
-		public Format Format
-		{
-			get;
-			protected set;
-		}
 		public System.Numerics.Vector3 vc拡大縮小倍率;
 		private Vector3 vc;
 		public string filename;
@@ -126,48 +121,47 @@ namespace FDK
 		/// <param name="format">テクスチャのフォーマット。</param>
 		/// <param name="b黒を透過する">画像の黒（0xFFFFFFFF）を透過させるなら true。</param>
 		/// <exception cref="CTextureCreateFailedException">テクスチャの作成に失敗しました。</exception>
-		public CTexture(Device device, string strファイル名, bool b黒を透過する)
+		public CTexture(Device device, string strファイル名)
 			: this()
 		{
 			maketype = MakeType.filename;
-			MakeTexture(device, strファイル名, b黒を透過する);
+			MakeTexture(device, strファイル名);
 		}
-		public CTexture(Device device, byte[] txData, bool b黒を透過する)
+		public CTexture(Device device, byte[] txData)
 			: this()
 		{
 			maketype = MakeType.bytearray;
-			MakeTexture(device, txData, Format.A8R8G8B8, b黒を透過する);
+			MakeTexture(device, txData);
 		}
 		public CTexture(Device device, Bitmap bitmap, bool b黒を透過する)
 			: this()
 		{
 			maketype = MakeType.bitmap;
-			MakeTexture(device, bitmap, Format.A8R8G8B8, b黒を透過する);
+			MakeTexture(device, bitmap, b黒を透過する);
 		}
 
-		public void MakeTexture(Device device, string strファイル名, bool b黒を透過する)
+		public void MakeTexture(Device device, string strファイル名)
 		{
 			if (!File.Exists(strファイル名))     // #27122 2012.1.13 from: ImageInformation では FileNotFound 例外は返ってこないので、ここで自分でチェックする。わかりやすいログのために。
 				throw new FileNotFoundException(string.Format("ファイルが存在しません。\n[{0}]", strファイル名));
 
 			this.filename = Path.GetFileName(strファイル名);
 			Byte[] _txData = File.ReadAllBytes(strファイル名);
-			MakeTexture(device, _txData, Format.A8R8G8B8, b黒を透過する);
+			MakeTexture(device, _txData);
 		}
-		public void MakeTexture(Device device, byte[] txData, Format format, bool b黒を透過する)
+		public void MakeTexture(Device device, byte[] txData)
 		{
 			try
 			{
 				var information = ImageInformation.FromMemory(txData);
-				this.Format = format;
 				this.sz画像サイズ = new Size(information.Width, information.Height);
 				this.rc全画像 = new Rectangle(0, 0, this.sz画像サイズ.Width, this.sz画像サイズ.Height);
-				this.colorKey = (b黒を透過する) ? unchecked((int)0xFF000000) : 0;
+				this.colorKey = 0;
 				this.szテクスチャサイズ = this.t指定されたサイズを超えない最適なテクスチャサイズを返す(device, this.sz画像サイズ);
 				//				lock ( lockobj )
 				//				{
 				//Trace.TraceInformation( "CTexture() start: " );
-				this.texture = Texture.FromMemory(device, txData, this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, format, Pool.Managed, Filter.Point, Filter.None, this.colorKey);
+				this.texture = Texture.FromMemory(device, txData, this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, Format.A8R8G8B8, Pool.Managed, Filter.Point, Filter.None, this.colorKey);
 				//Trace.TraceInformation( "CTexture() end:   " );
 				//				}
 				this.bSharpDXTextureDispose完了済み = false;
@@ -179,19 +173,18 @@ namespace FDK
 				throw new CTextureCreateFailedException(string.Format("テクスチャの生成に失敗しました。\n"));
 			}
 		}
-		public void MakeTexture(Device device, Bitmap bitmap, Format format, bool b黒を透過する)
+		public void MakeTexture(Device device, Bitmap bitmap, bool b黒を透過する)
 		{
 			using (MemoryStream ms = new MemoryStream())
 			{
 				bitmap.Save(ms, ImageFormat.Bmp);
 				try
 				{
-					this.Format = format;
 					this.sz画像サイズ = new Size(bitmap.Width, bitmap.Height);
 					this.rc全画像 = new Rectangle(0, 0, this.sz画像サイズ.Width, this.sz画像サイズ.Height);
 					this.colorKey = (b黒を透過する) ? unchecked((int)0xFF000000) : 0;
 					this.szテクスチャサイズ = this.t指定されたサイズを超えない最適なテクスチャサイズを返す(device, this.sz画像サイズ);
-					this.texture = Texture.FromMemory(device, ms.GetBuffer(), this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, format, Pool.Managed, Filter.Point, Filter.None, this.colorKey);
+					this.texture = Texture.FromMemory(device, ms.GetBuffer(), this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, Format.A8R8G8B8, Pool.Managed, Filter.Point, Filter.None, this.colorKey);
 					this.bSharpDXTextureDispose完了済み = false;
 				}
 				catch
@@ -730,8 +723,6 @@ namespace FDK
 			new TransformedColoredTexturedVertex(),
 			new TransformedColoredTexturedVertex(),
 		};
-		//		byte[] _txData;
-		static object lockobj = new object();
 
 		private void ReuseTexture(Device device)
 		{
@@ -740,7 +731,7 @@ namespace FDK
 				using (DataStream stream = Texture.ToStream(this.texture, ImageFileFormat.Bmp))
 				{
 					this.texture.Dispose();
-					this.texture = Texture.FromStream(device, stream, this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, this.Format, Pool.Managed, Filter.Point, Filter.None, colorKey);
+					this.texture = Texture.FromStream(device, stream, this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, Format.A8R8G8B8, Pool.Managed, Filter.Point, Filter.None, colorKey);
 				}
 			}
 		}

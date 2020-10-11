@@ -309,9 +309,9 @@ namespace FDK
 		{
 			return new CTexture(this.device, bitmap, false);
 		}
-		private CTexture GeneFrmTx(byte[] bitmap)
+		private CTexture GeneFrmTx(byte[] bytearray)
 		{
-			return new CTexture(this.device, bitmap, false);
+			return new CTexture(this.device, bytearray);
 		}
 
 		public Size FrameSize 
