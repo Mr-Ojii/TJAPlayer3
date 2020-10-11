@@ -132,6 +132,9 @@ Game_SubTitleName_ReferencePoint=2
 Result_Crown_X=350,350
 Result_Crown_Y=200,560
 
+//リザルト画面での数値回転の間隔
+Result_RotateInterval=50
+
 //以下のパラメータはもともと存在していましたが、変更を加えました。
 //何拍でキャラのモーションが1周するかの指定(各パラメータ値は1P,2Pの順)
 Game_Chara_Beat_Normal=1,1

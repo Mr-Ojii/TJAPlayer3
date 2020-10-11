@@ -1204,7 +1204,7 @@ namespace TJAPlayer3
 			sw.WriteLine( "0:Path, 1:GenreName(AC8～AC14), 2GenreName(AC15～)" );
 			sw.WriteLine( "DefaultSongSort={0}", this.nDefaultSongSort );
 			sw.WriteLine();
-			sw.WriteLine( "; RANDOMモード(0:OFF, 1:Random, 2:Mirorr 3:SuperRandom, 4:HyperRandom)" );
+			sw.WriteLine( "; RANDOMモード(0:OFF, 1:Random, 2:Mirror 3:SuperRandom, 4:HyperRandom)" );
 			sw.WriteLine( "1PTaikoRandom={0}", (int) this.eRandom[0]);
 			sw.WriteLine( "2PTaikoRandom={0}", (int) this.eRandom[1]);
 			sw.WriteLine();

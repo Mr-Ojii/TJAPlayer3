@@ -31,7 +31,7 @@ namespace TJAPlayer3
 		public override void On活性化()
 		{
 			base.On活性化();
-			this.ct文字アニメ用 = new CCounter(0, 15, 60, TJAPlayer3.Timer);
+			this.ct文字アニメ用 = new CCounter(0, 15, 50, TJAPlayer3.Timer);
 			this.ephase = EPhase.Start;
 			this.ToNextPhase = false;
 			this.n表示された桁数 = 0;

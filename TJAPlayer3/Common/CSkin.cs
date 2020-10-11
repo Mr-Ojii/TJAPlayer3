@@ -2357,11 +2357,11 @@ namespace TJAPlayer3
 							//    Result_StageText_BackColor_Red = ColorTranslator.FromHtml(strParam);
 							//}
 
-							else if (strCommand == "Result_NamePlate_X")
+							else if (strCommand == nameof(Result_NamePlate_X))
 							{
 								Result_NamePlate_X = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == "Result_NamePlate_Y")
+							else if (strCommand == nameof(Result_NamePlate_Y))
 							{
 								Result_NamePlate_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
@@ -2385,6 +2385,10 @@ namespace TJAPlayer3
 							else if (strCommand == nameof(Result_Crown_Y))
 							{
 								Result_Crown_Y = strParam.Split(',').Select(int.Parse).ToArray();
+							}
+							else if (strCommand == nameof(Result_RotateInterval))
+							{
+								Result_RotateInterval = int.Parse(strParam);
 							}
 
 							#endregion
@@ -2891,6 +2895,7 @@ namespace TJAPlayer3
 
 		public int[] Result_Crown_X = new int[] { 350, 350 };
 		public int[] Result_Crown_Y = new int[] { 200, 560 };
+		public int Result_RotateInterval = 50;
 		#endregion
 		#region Font
 		public int Font_Edge_Ratio = 30;
