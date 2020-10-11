@@ -130,31 +130,31 @@ namespace FDK
 			: this()
 		{
 			maketype = MakeType.filename;
-			MakeTexture(device, strファイル名, b黒を透過する, Pool.Managed);
+			MakeTexture(device, strファイル名, b黒を透過する);
 		}
 		public CTexture(Device device, byte[] txData, bool b黒を透過する)
 			: this()
 		{
 			maketype = MakeType.bytearray;
-			MakeTexture(device, txData, Format.A8R8G8B8, b黒を透過する, Pool.Managed);
+			MakeTexture(device, txData, Format.A8R8G8B8, b黒を透過する);
 		}
 		public CTexture(Device device, Bitmap bitmap, bool b黒を透過する)
 			: this()
 		{
 			maketype = MakeType.bitmap;
-			MakeTexture(device, bitmap, Format.A8R8G8B8, b黒を透過する, Pool.Managed);
+			MakeTexture(device, bitmap, Format.A8R8G8B8, b黒を透過する);
 		}
 
-		public void MakeTexture(Device device, string strファイル名, bool b黒を透過する, Pool pool)
+		public void MakeTexture(Device device, string strファイル名, bool b黒を透過する)
 		{
 			if (!File.Exists(strファイル名))     // #27122 2012.1.13 from: ImageInformation では FileNotFound 例外は返ってこないので、ここで自分でチェックする。わかりやすいログのために。
 				throw new FileNotFoundException(string.Format("ファイルが存在しません。\n[{0}]", strファイル名));
 
 			this.filename = Path.GetFileName(strファイル名);
 			Byte[] _txData = File.ReadAllBytes(strファイル名);
-			MakeTexture(device, _txData, Format.A8R8G8B8, b黒を透過する, pool);
+			MakeTexture(device, _txData, Format.A8R8G8B8, b黒を透過する);
 		}
-		public void MakeTexture(Device device, byte[] txData, Format format, bool b黒を透過する, Pool pool)
+		public void MakeTexture(Device device, byte[] txData, Format format, bool b黒を透過する)
 		{
 			try
 			{
@@ -164,11 +164,10 @@ namespace FDK
 				this.rc全画像 = new Rectangle(0, 0, this.sz画像サイズ.Width, this.sz画像サイズ.Height);
 				this.colorKey = (b黒を透過する) ? unchecked((int)0xFF000000) : 0;
 				this.szテクスチャサイズ = this.t指定されたサイズを超えない最適なテクスチャサイズを返す(device, this.sz画像サイズ);
-				this.Pl = pool;
 				//				lock ( lockobj )
 				//				{
 				//Trace.TraceInformation( "CTexture() start: " );
-				this.texture = Texture.FromMemory(device, txData, this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, format, pool, Filter.Point, Filter.None, this.colorKey);
+				this.texture = Texture.FromMemory(device, txData, this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, format, Pool.Managed, Filter.Point, Filter.None, this.colorKey);
 				//Trace.TraceInformation( "CTexture() end:   " );
 				//				}
 				this.bSharpDXTextureDispose完了済み = false;
@@ -180,7 +179,7 @@ namespace FDK
 				throw new CTextureCreateFailedException(string.Format("テクスチャの生成に失敗しました。\n"));
 			}
 		}
-		public void MakeTexture(Device device, Bitmap bitmap, Format format, bool b黒を透過する, Pool pool)
+		public void MakeTexture(Device device, Bitmap bitmap, Format format, bool b黒を透過する)
 		{
 			using (MemoryStream ms = new MemoryStream())
 			{
@@ -192,8 +191,7 @@ namespace FDK
 					this.rc全画像 = new Rectangle(0, 0, this.sz画像サイズ.Width, this.sz画像サイズ.Height);
 					this.colorKey = (b黒を透過する) ? unchecked((int)0xFF000000) : 0;
 					this.szテクスチャサイズ = this.t指定されたサイズを超えない最適なテクスチャサイズを返す(device, this.sz画像サイズ);
-					this.Pl = pool;
-					this.texture = Texture.FromMemory(device, ms.GetBuffer(), this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, format, pool, Filter.Point, Filter.None, this.colorKey);
+					this.texture = Texture.FromMemory(device, ms.GetBuffer(), this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, format, Pool.Managed, Filter.Point, Filter.None, this.colorKey);
 					this.bSharpDXTextureDispose完了済み = false;
 				}
 				catch
@@ -742,7 +740,7 @@ namespace FDK
 				using (DataStream stream = Texture.ToStream(this.texture, ImageFileFormat.Bmp))
 				{
 					this.texture.Dispose();
-					this.texture = Texture.FromStream(device, stream, this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, this.Format, this.Pl, Filter.Point, Filter.None, colorKey);
+					this.texture = Texture.FromStream(device, stream, this.sz画像サイズ.Width, this.sz画像サイズ.Height, 1, Usage.None, this.Format, Pool.Managed, Filter.Point, Filter.None, colorKey);
 				}
 			}
 		}
@@ -849,7 +847,6 @@ namespace FDK
 
 		protected Rectangle rc全画像;                              // テクスチャ作ったらあとは不変
 		private int colorKey;
-		private Pool Pl;
 		public Color color = Color.FromArgb(255, 255, 255, 255);
 		private Matrix matrix = Matrix.Identity;
 		private MakeType maketype = MakeType.bytearray;
