@@ -254,9 +254,9 @@ namespace TJAPlayer3
 				if( this.txGENRE != null )
 					this.txGENRE.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Genre_X, TJAPlayer3.Skin.Game_Genre_Y );
 
-				if( TJAPlayer3.Skin.b現在のステージ数を表示しない )
+				if (TJAPlayer3.Skin.b現在のステージ数を表示しない)
 				{
-					if( this.txMusicName != null )
+					if (this.txMusicName != null)
 					{
 						float fRate = 660.0f / this.txMusicName.szテクスチャサイズ.Width;
 						if (this.txMusicName.szテクスチャサイズ.Width <= 660.0f)
@@ -274,7 +274,7 @@ namespace TJAPlayer3
 						{
 							this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_MusicName_X - (this.txMusicName.szテクスチャサイズ.Width * fRate), TJAPlayer3.Skin.Game_MusicName_Y);
 						}
-						if (this.txSubTitleName != null) 
+						if (this.txSubTitleName != null)
 						{
 							fRate = 600.0f / this.txSubTitleName.szテクスチャサイズ.Width;
 							if (this.txSubTitleName.szテクスチャサイズ.Width <= 600.0f)
@@ -299,47 +299,47 @@ namespace TJAPlayer3
 				{
 					#region[ 透明度制御 ]
 
-					if( this.ct進行用.n現在の値 < 745 )
+					if (this.txMusicName != null)
 					{
-						this.bFirst = false;
-						this.txMusicName.Opacity = 255;
-						if (this.txSubTitleName != null)
-							this.txSubTitleName.Opacity = 255;
-						if( this.txGENRE != null )
-							this.txGENRE.Opacity = 255;
-						this.tx難易度とステージ数.Opacity = 0;
-					}
-					else if( this.ct進行用.n現在の値 >= 745 && this.ct進行用.n現在の値 < 1000 )
-					{
-						this.txMusicName.Opacity = 255 - ( this.ct進行用.n現在の値 - 745 );
-						if (this.txSubTitleName != null)
-							this.txSubTitleName.Opacity = 255 - (this.ct進行用.n現在の値 - 745);
-						if ( this.txGENRE != null )
-							this.txGENRE.Opacity = 255 - ( this.ct進行用.n現在の値 - 745 );
-						this.tx難易度とステージ数.Opacity = this.ct進行用.n現在の値 - 745;
-					}
-					else if( this.ct進行用.n現在の値 >= 1000 && this.ct進行用.n現在の値 <= 1745 )
-					{
-						this.txMusicName.Opacity = 0;
-						if (this.txSubTitleName != null)
-							this.txSubTitleName.Opacity = 0;
-						if ( this.txGENRE != null )
-							this.txGENRE.Opacity = 0;
-						this.tx難易度とステージ数.Opacity = 255;
-					}
-					else if( this.ct進行用.n現在の値 >= 1745 )
-					{
-						this.txMusicName.Opacity = this.ct進行用.n現在の値 - 1745;
-						if (this.txSubTitleName != null)
-							this.txSubTitleName.Opacity = this.ct進行用.n現在の値 - 1745;
-						if ( this.txGENRE != null )
-							this.txGENRE.Opacity = this.ct進行用.n現在の値 - 1745;
-						this.tx難易度とステージ数.Opacity = 255 - ( this.ct進行用.n現在の値 - 1745 );
-					}
-					#endregion
-					if( this.txMusicName != null )
-					{
-						if(this.b初めての進行描画)
+						if (this.ct進行用.n現在の値 < 745)
+						{
+							this.bFirst = false;
+							this.txMusicName.Opacity = 255;
+							if (this.txSubTitleName != null)
+								this.txSubTitleName.Opacity = 255;
+							if (this.txGENRE != null)
+								this.txGENRE.Opacity = 255;
+							this.tx難易度とステージ数.Opacity = 0;
+						}
+						else if (this.ct進行用.n現在の値 >= 745 && this.ct進行用.n現在の値 < 1000)
+						{
+							this.txMusicName.Opacity = 255 - (this.ct進行用.n現在の値 - 745);
+							if (this.txSubTitleName != null)
+								this.txSubTitleName.Opacity = 255 - (this.ct進行用.n現在の値 - 745);
+							if (this.txGENRE != null)
+								this.txGENRE.Opacity = 255 - (this.ct進行用.n現在の値 - 745);
+							this.tx難易度とステージ数.Opacity = this.ct進行用.n現在の値 - 745;
+						}
+						else if (this.ct進行用.n現在の値 >= 1000 && this.ct進行用.n現在の値 <= 1745)
+						{
+							this.txMusicName.Opacity = 0;
+							if (this.txSubTitleName != null)
+								this.txSubTitleName.Opacity = 0;
+							if (this.txGENRE != null)
+								this.txGENRE.Opacity = 0;
+							this.tx難易度とステージ数.Opacity = 255;
+						}
+						else if (this.ct進行用.n現在の値 >= 1745)
+						{
+							this.txMusicName.Opacity = this.ct進行用.n現在の値 - 1745;
+							if (this.txSubTitleName != null)
+								this.txSubTitleName.Opacity = this.ct進行用.n現在の値 - 1745;
+							if (this.txGENRE != null)
+								this.txGENRE.Opacity = this.ct進行用.n現在の値 - 1745;
+							this.tx難易度とステージ数.Opacity = 255 - (this.ct進行用.n現在の値 - 1745);
+						}
+						#endregion
+						if (this.b初めての進行描画)
 						{
 							b初めての進行描画 = false;
 						}

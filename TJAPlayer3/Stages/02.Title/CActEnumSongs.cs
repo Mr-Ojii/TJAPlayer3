@@ -65,7 +65,6 @@ namespace TJAPlayer3
 
 			try
 			{
-				Font ftMessage = new Font("MS UI Gothic", 40f, FontStyle.Bold, GraphicsUnit.Pixel );
 				string[] strMessage = 
 				{
 					"     曲データの一覧を\n       取得しています。\n   しばらくお待ちください。",
@@ -74,21 +73,28 @@ namespace TJAPlayer3
 				int ci = ( CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja" ) ? 0 : 1;
 				if ( ( strMessage != null ) && ( strMessage.Length > 0 ) )
 				{
-					Bitmap image = new Bitmap( 1, 1 );
-					Graphics graphics = Graphics.FromImage( image );
-					SizeF ef = graphics.MeasureString( strMessage[ ci ], ftMessage );
-					Size size = new Size( (int) Math.Ceiling( (double) ef.Width ), (int) Math.Ceiling( (double) ef.Height ) );
-					graphics.Dispose();
-					image.Dispose();
-					image = new Bitmap( size.Width, size.Height );
-					graphics = Graphics.FromImage( image );
-					graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-					graphics.DrawString( strMessage[ ci ], ftMessage, Brushes.White, (float) 0f, (float) 0f );
-					graphics.Dispose();
-					this.txMessage = TJAPlayer3.tテクスチャの生成(image, true);
-					this.txMessage.vc拡大縮小倍率 = new System.Numerics.Vector3(0.5f, 0.5f, 1f);
-					image.Dispose();
-					TJAPlayer3.t安全にDisposeする( ref ftMessage );
+					using (Font ftMessage = new Font("MS UI Gothic", 40f, FontStyle.Bold, GraphicsUnit.Pixel))
+					{
+						Size size;
+						using (Bitmap image = new Bitmap(1, 1))
+						{
+							using (Graphics graphics = Graphics.FromImage(image))
+							{
+								SizeF ef = graphics.MeasureString(strMessage[ci], ftMessage);
+								size = new Size((int)Math.Ceiling((double)ef.Width), (int)Math.Ceiling((double)ef.Height));
+							}
+						}
+						using (Bitmap image = new Bitmap(size.Width, size.Height))
+						{
+							using (Graphics graphics = Graphics.FromImage(image))
+							{
+								graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+								graphics.DrawString(strMessage[ci], ftMessage, Brushes.White, (float)0f, (float)0f);
+								this.txMessage = TJAPlayer3.tテクスチャの生成(image, true);
+								this.txMessage.vc拡大縮小倍率 = new System.Numerics.Vector3(0.5f, 0.5f, 1f);
+							}
+						}
+					}
 				}
 				else
 				{

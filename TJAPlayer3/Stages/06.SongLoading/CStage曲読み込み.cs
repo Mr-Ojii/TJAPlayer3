@@ -111,7 +111,7 @@ namespace TJAPlayer3
 						//this.txタイトル = new CTexture( CDTXMania.app.Device, image, CDTXMania.TextureFormat );
 						//this.txタイトル.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );
 
-						using (CPrivateFastFont pfTITLE = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), TJAPlayer3.Skin.SongLoading_Title_FontSize))
+						using (CPrivateFont pfTITLE = new CPrivateFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), TJAPlayer3.Skin.SongLoading_Title_FontSize))
 						{
 							using (var bmpSongTitle = pfTITLE.DrawPrivateFont(タイトル, TJAPlayer3.Skin.SongLoading_Title_ForeColor, TJAPlayer3.Skin.SongLoading_Title_BackColor))
 							{
@@ -120,7 +120,7 @@ namespace TJAPlayer3
 							}
 						}
 
-						using (CPrivateFastFont pfSUBTITLE = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), TJAPlayer3.Skin.SongLoading_SubTitle_FontSize))
+						using (CPrivateFont pfSUBTITLE = new CPrivateFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), TJAPlayer3.Skin.SongLoading_SubTitle_FontSize))
 						{
 							using (var bmpSongSubTitle = pfSUBTITLE.DrawPrivateFont(サブタイトル, TJAPlayer3.Skin.SongLoading_SubTitle_ForeColor, TJAPlayer3.Skin.SongLoading_SubTitle_BackColor))
 							{

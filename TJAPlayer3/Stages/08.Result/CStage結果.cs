@@ -149,10 +149,12 @@ namespace TJAPlayer3
 				//---------------------
 				#endregion
 
+				string Details = TJAPlayer3.DTX[0].TITLE + TJAPlayer3.DTX[0].EXTENSION;
+
 				// Discord Presenseの更新
 				TJAPlayer3.DiscordClient?.SetPresence(new RichPresence()
 				{
-					Details = TJAPlayer3.DTX[0].TITLE + TJAPlayer3.DTX[0].EXTENSION,
+					Details = Details.Substring(0, Math.Min(127, Details.Length)),
 					State = "Result" + (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == true ? " (Auto)" : ""),
 					Timestamps = new Timestamps(TJAPlayer3.StartupTime),
 					Assets = new Assets()

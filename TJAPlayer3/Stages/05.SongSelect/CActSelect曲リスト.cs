@@ -600,21 +600,23 @@ namespace TJAPlayer3
 			try
 			{
 				using (Bitmap image = new Bitmap(640, 128))
-				using (Graphics graphics = Graphics.FromImage(image))
 				{
-					string[] s1 = { "曲データが見つかりません。", "Songs not found." };
-					string[] s2 = { "曲データをDTXManiaGR.exe以下の", "You need to install songs." };
-					string[] s3 = { "フォルダにインストールして下さい。", "" };
-					graphics.DrawString(s1[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float)2f, (float)2f);
-					graphics.DrawString(s1[c], this.ft曲リスト用フォント, Brushes.White, (float)0f, (float)0f);
-					graphics.DrawString(s2[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float)2f, (float)44f);
-					graphics.DrawString(s2[c], this.ft曲リスト用フォント, Brushes.White, (float)0f, (float)42f);
-					graphics.DrawString(s3[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float)2f, (float)86f);
-					graphics.DrawString(s3[c], this.ft曲リスト用フォント, Brushes.White, (float)0f, (float)84f);
+					using (Graphics graphics = Graphics.FromImage(image))
+					{
+						string[] s1 = { "曲データが見つかりません。", "Songs not found." };
+						string[] s2 = { "曲データをDTXManiaGR.exe以下の", "You need to install songs." };
+						string[] s3 = { "フォルダにインストールして下さい。", "" };
+						graphics.DrawString(s1[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float)2f, (float)2f);
+						graphics.DrawString(s1[c], this.ft曲リスト用フォント, Brushes.White, (float)0f, (float)0f);
+						graphics.DrawString(s2[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float)2f, (float)44f);
+						graphics.DrawString(s2[c], this.ft曲リスト用フォント, Brushes.White, (float)0f, (float)42f);
+						graphics.DrawString(s3[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float)2f, (float)86f);
+						graphics.DrawString(s3[c], this.ft曲リスト用フォント, Brushes.White, (float)0f, (float)84f);
 
-					this.txSongNotFound = TJAPlayer3.tテクスチャの生成(image, true);
+						this.txSongNotFound = TJAPlayer3.tテクスチャの生成(image, true);
 
-					this.txSongNotFound.vc拡大縮小倍率 = new Vector3(0.5f, 0.5f, 1f); // 半分のサイズで表示する。
+						this.txSongNotFound.vc拡大縮小倍率 = new Vector3(0.5f, 0.5f, 1f); // 半分のサイズで表示する。
+					}
 				}
 			}
 			catch (CTextureCreateFailedException e)
@@ -628,18 +630,20 @@ namespace TJAPlayer3
 			try
 			{
 				using (Bitmap image = new Bitmap(640, 96))
-				using (Graphics graphics = Graphics.FromImage(image))
 				{
-					string[] s1 = { "曲データを検索しています。", "Now enumerating songs." };
-					string[] s2 = { "そのまましばらくお待ち下さい。", "Please wait..." };
-					graphics.DrawString(s1[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float)2f, (float)2f);
-					graphics.DrawString(s1[c], this.ft曲リスト用フォント, Brushes.White, (float)0f, (float)0f);
-					graphics.DrawString(s2[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float)2f, (float)44f);
-					graphics.DrawString(s2[c], this.ft曲リスト用フォント, Brushes.White, (float)0f, (float)42f);
+					using (Graphics graphics = Graphics.FromImage(image))
+					{
+						string[] s1 = { "曲データを検索しています。", "Now enumerating songs." };
+						string[] s2 = { "そのまましばらくお待ち下さい。", "Please wait..." };
+						graphics.DrawString(s1[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float)2f, (float)2f);
+						graphics.DrawString(s1[c], this.ft曲リスト用フォント, Brushes.White, (float)0f, (float)0f);
+						graphics.DrawString(s2[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float)2f, (float)44f);
+						graphics.DrawString(s2[c], this.ft曲リスト用フォント, Brushes.White, (float)0f, (float)42f);
 
-					this.txEnumeratingSongs = TJAPlayer3.tテクスチャの生成(image, true);
+						this.txEnumeratingSongs = TJAPlayer3.tテクスチャの生成(image, true);
 
-					this.txEnumeratingSongs.vc拡大縮小倍率 = new Vector3(0.5f, 0.5f, 1f); // 半分のサイズで表示する。
+						this.txEnumeratingSongs.vc拡大縮小倍率 = new Vector3(0.5f, 0.5f, 1f); // 半分のサイズで表示する。
+					}
 				}
 			}
 			catch (CTextureCreateFailedException e)
