@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
+using FDK;
 
 namespace TJAPlayer3
 {
@@ -66,7 +67,7 @@ namespace TJAPlayer3
 
 						if (result2 == DialogResult.Yes)
 						{
-							Process.Start("https://github.com/Mr-Ojii/TJAPlayer3-f/issues/new?body=エラー文(TJAPlayer3-fから開いた場合は自動入力されます)%0D%0A" +
+							CWebOpen.Open("https://github.com/Mr-Ojii/TJAPlayer3-f/issues/new?body=エラー文(TJAPlayer3-fから開いた場合は自動入力されます)%0D%0A" +
 								System.Web.HttpUtility.UrlEncode(e.ToString()) +
 								"%0D%0A" +
 								"%0D%0A" +
@@ -89,7 +90,7 @@ namespace TJAPlayer3
 						}
 						else
 						{
-							Process.Start("https://docs.google.com/forms/d/e/1FAIpQLSffkhp-3kDJIZH23xMoweik5sAgy2UyaIkEQd1khn9DuR_RWg/viewform?entry.1025217940=" +
+							CWebOpen.Open("https://docs.google.com/forms/d/e/1FAIpQLSffkhp-3kDJIZH23xMoweik5sAgy2UyaIkEQd1khn9DuR_RWg/viewform?entry.1025217940=" +
 								System.Web.HttpUtility.UrlEncode(e.ToString()));
 						}
 					}

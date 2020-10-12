@@ -271,7 +271,7 @@ namespace TJAPlayer3
 				if (TJAPlayer3.Input管理.Mouse.bキーが押された((int)SlimDXKeys.Mouse.Left))
 				{
 					if (point.X >= 180 * scaling && point.X <= 490 * scaling && point.Y >= 0 && point.Y <= 20 * scaling)
-						System.Diagnostics.Process.Start(strCreator);
+						CWebOpen.Open(strCreator);
 				}
 
 				//CDTXMania.act文字コンソール.tPrint(0, 80, C文字コンソール.Eフォント種別.白, point.X.ToString());
