@@ -174,11 +174,6 @@ namespace TJAPlayer3
 		}
 		public override void On非活性化()
 		{
-			if( this.rResultSound != null )
-			{
-				TJAPlayer3.Sound管理.tサウンドを破棄する( this.rResultSound );
-				this.rResultSound = null;
-			}
 			base.On非活性化();
 		}
 		public override void OnManagedリソースの作成()
@@ -209,10 +204,6 @@ namespace TJAPlayer3
 					this.ct登場用 = new CCounter( 0, 100, 5, TJAPlayer3.Timer );
 					this.actFI.tフェードイン開始();
 					base.eフェーズID = CStage.Eフェーズ.共通_フェードイン;
-					if( this.rResultSound != null )
-					{
-						this.rResultSound.t再生を開始する();
-					}
 					base.b初めての進行描画 = false;
 				}
 				this.bアニメが完了 = true;
@@ -340,8 +331,6 @@ namespace TJAPlayer3
 		private CActResultSongBar actSongBar;
 		private bool bアニメが完了;
 		private bool bIsCheckedWhetherResultScreenShouldSaveOrNot;				// #24509 2011.3.14 yyagi
-
-		private CSound rResultSound;
 
 		#region [ #24609 リザルト画像をpngで保存する ]		// #24609 2011.3.14 yyagi; to save result screen in case BestRank or HiSkill.
 		/// <summary>

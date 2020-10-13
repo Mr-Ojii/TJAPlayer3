@@ -93,10 +93,9 @@ namespace TJAPlayer3
 				this.ctAnimation.t進行();
 
                 #region[幕のアニメーションの計算]
-                double t = this.ctAnimation.n現在の値, c = -1300, b = 1300, d = 3000;
-				int x;
+                double t = this.ctAnimation.n現在の値, c = -1300, b = 1300, d = this.ctAnimation.n終了値;
 				t = t / d - 1;
-				x =(int)( -c * (Math.Pow(t, 4) - 1) + b);
+				int x =(int)( -c * (Math.Pow(t, 4) - 1) + b);
                 #endregion
 
                 if (TJAPlayer3.Tx.Exit_Curtain != null && TJAPlayer3.Tx.Exit_Text != null)

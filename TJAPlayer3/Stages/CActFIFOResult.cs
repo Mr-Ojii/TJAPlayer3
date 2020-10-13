@@ -55,23 +55,37 @@ namespace TJAPlayer3
 			}
 			this.counter.t進行();
 
-			// Size clientSize = CDTXMania.app.Window.ClientSize;	// #23510 2010.10.31 yyagi: delete as of no one use this any longer.
-			if (TJAPlayer3.Tx.Result_FadeIn != null)
+			if (TJAPlayer3.ConfigIni.bEnableSkinV2)
 			{
-				if( this.mode == EFIFOモード.フェードアウト )
+				if (TJAPlayer3.Tx.Tile_Black != null)
 				{
-					int y =  this.counter.n現在の値 >= 360 ? 360 : this.counter.n現在の値;
-					TJAPlayer3.Tx.Result_FadeIn.t2D描画( TJAPlayer3.app.Device, 0, this.counter.n現在の値 >= 360 ? 0 : -360 + y, new Rectangle( 0, 0, 1280, 380 ) );
-					TJAPlayer3.Tx.Result_FadeIn.t2D描画( TJAPlayer3.app.Device, 0, 720 - y, new Rectangle( 0, 380, 1280, 360 ) );
+					TJAPlayer3.Tx.Tile_Black.Opacity = (this.mode == EFIFOモード.フェードイン) ? (((100 - this.counter.n現在の値) * 0xff) / 100) : ((this.counter.n現在の値 * 0xff) / 500);
+					for (int i = 0; i <= (GameWindowSize.Width / 64); i++)      // #23510 2010.10.31 yyagi: change "clientSize.Width" to "640" to fix FIFO drawing size
+					{
+						for (int j = 0; j <= (GameWindowSize.Height / 64); j++) // #23510 2010.10.31 yyagi: change "clientSize.Height" to "480" to fix FIFO drawing size
+						{
+							TJAPlayer3.Tx.Tile_Black.t2D描画(TJAPlayer3.app.Device, i * 64, j * 64);
+						}
+					}
 				}
-				else
+			}
+			else
+			{
+				if (TJAPlayer3.Tx.Result_FadeIn != null)
 				{
-					TJAPlayer3.Tx.Result_FadeIn.Opacity = (((100 - this.counter.n現在の値) * 0xff) / 100);
-					TJAPlayer3.Tx.Result_FadeIn.t2D描画( TJAPlayer3.app.Device, 0, 0, new Rectangle( 0, 0, 1280, 360 ) );
-					TJAPlayer3.Tx.Result_FadeIn.t2D描画( TJAPlayer3.app.Device, 0, 360, new Rectangle( 0, 380, 1280, 360 ) );
+					if (this.mode == EFIFOモード.フェードアウト)
+					{
+						int y = Math.Min(360, this.counter.n現在の値);
+						TJAPlayer3.Tx.Result_FadeIn.t2D描画(TJAPlayer3.app.Device, 0, -360 + y, new Rectangle(0, 0, 1280, 380));
+						TJAPlayer3.Tx.Result_FadeIn.t2D描画(TJAPlayer3.app.Device, 0, 720 - y, new Rectangle(0, 380, 1280, 360));
+					}
+					else
+					{
+						TJAPlayer3.Tx.Result_FadeIn.Opacity = (((100 - this.counter.n現在の値) * 0xff) / 100);
+						TJAPlayer3.Tx.Result_FadeIn.t2D描画(TJAPlayer3.app.Device, 0, 0, new Rectangle(0, 0, 1280, 360));
+						TJAPlayer3.Tx.Result_FadeIn.t2D描画(TJAPlayer3.app.Device, 0, 360, new Rectangle(0, 380, 1280, 360));
+					}
 				}
-
-
 			}
 			if( this.mode == EFIFOモード.フェードアウト )
 			{
