@@ -5,6 +5,8 @@ using System.Threading;
 using FDK;
 using DiscordRPC;
 
+using Rectangle = System.Drawing.Rectangle;
+
 namespace TJAPlayer3
 {
 	internal class CStage結果 : CStage
@@ -220,14 +222,41 @@ namespace TJAPlayer3
 				}
 
 				// 描画
-
-				if(TJAPlayer3.Tx.Result_Background != null )
+				if (TJAPlayer3.ConfigIni.bEnableSkinV2)
 				{
-					TJAPlayer3.Tx.Result_Background.t2D描画( TJAPlayer3.app.Device, 0, 0 );
+					if (TJAPlayer3.Tx.Result_v2_Background != null)
+					{
+						if (TJAPlayer3.Tx.Result_v2_Background[0] != null)
+							TJAPlayer3.Tx.Result_v2_Background[0].t2D描画(TJAPlayer3.app.Device, 0, 0);
+						for (int ind = 0; ind < TJAPlayer3.ConfigIni.nPlayerCount; ind++)
+						{
+							if (this.st演奏記録[ind].fゲージ >= 80.0 && TJAPlayer3.Tx.Result_v2_Background[1] != null)
+								TJAPlayer3.Tx.Result_v2_Background[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Tx.Result_v2_Background[1].szテクスチャサイズ.Width / TJAPlayer3.ConfigIni.nPlayerCount * ind, 0, new Rectangle(TJAPlayer3.Tx.Result_v2_Background[1].szテクスチャサイズ.Width / TJAPlayer3.ConfigIni.nPlayerCount * ind, 0, TJAPlayer3.Tx.Result_v2_Background[1].szテクスチャサイズ.Width / TJAPlayer3.ConfigIni.nPlayerCount, TJAPlayer3.Tx.Result_v2_Background[1].szテクスチャサイズ.Height));
+						}
+						
+					}
+					if (TJAPlayer3.Tx.Result_v2_Mountain != null && TJAPlayer3.ConfigIni.nPlayerCount == 1)
+					{
+						if (TJAPlayer3.Tx.Result_v2_Mountain[0] != null)
+							TJAPlayer3.Tx.Result_v2_Mountain[0].t2D描画(TJAPlayer3.app.Device, 0, 0);
+						if (this.st演奏記録[0].fゲージ >= 80.0 && TJAPlayer3.Tx.Result_v2_Mountain[1] != null)
+							TJAPlayer3.Tx.Result_v2_Mountain[1].t2D描画(TJAPlayer3.app.Device, 0, 0);
+					}
+					if (TJAPlayer3.Tx.Result_v2_Header != null)
+					{
+						TJAPlayer3.Tx.Result_v2_Header.t2D描画(TJAPlayer3.app.Device, 0, 0);
+					}
 				}
-				if(TJAPlayer3.Tx.Result_Header != null )
+				else
 				{
-					TJAPlayer3.Tx.Result_Header.t2D描画( TJAPlayer3.app.Device, 0, 0 );
+					if (TJAPlayer3.Tx.Result_Background != null)
+					{
+						TJAPlayer3.Tx.Result_Background.t2D描画(TJAPlayer3.app.Device, 0, 0);
+					}
+					if (TJAPlayer3.Tx.Result_Header != null)
+					{
+						TJAPlayer3.Tx.Result_Header.t2D描画(TJAPlayer3.app.Device, 0, 0);
+					}
 				}
 				if ( this.actParameterPanel.On進行描画() == 0 )
 				{
@@ -244,7 +273,7 @@ namespace TJAPlayer3
 				{
 					if (TJAPlayer3.Tx.NamePlate[i] != null)
 					{
-						TJAPlayer3.Tx.NamePlate[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_NamePlate_X[i], TJAPlayer3.Skin.Result_NamePlate_Y[i]);
+						TJAPlayer3.Tx.NamePlate[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.ConfigIni.bEnableSkinV2 ? TJAPlayer3.Skin.Result_v2_NamePlate_X[i] : TJAPlayer3.Skin.Result_NamePlate_X[i], TJAPlayer3.ConfigIni.bEnableSkinV2 ? TJAPlayer3.Skin.Result_v2_NamePlate_Y[i] : TJAPlayer3.Skin.Result_NamePlate_Y[i]);
 					}
 				}
 				#endregion

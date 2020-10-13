@@ -632,7 +632,7 @@ namespace TJAPlayer3
 			this.SongSelectSkipCount = 7;
 			this.bEnableCountdownTimer = true;
 			this.bTCClikeStyle = false;
-			this.bEnableSkinV2 = false;
+			this.bEnableSkinV2 = true;
 			this.ApplyLoudnessMetadata = true;
 
 			// 2018-08-28 twopointzero:

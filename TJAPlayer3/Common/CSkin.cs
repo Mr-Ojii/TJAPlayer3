@@ -2291,6 +2291,25 @@ namespace TJAPlayer3
 		public int[] nResultGaugeBaseY = { 122, 416 };
 		public int[] nResultGaugeBodyX = { 559, 559 };
 		public int[] nResultGaugeBodyY = { 125, 419 };
+
+		public int[] nResultV2PanelX = { 0, 640 };
+		public int[] nResultV2PanelY = { 0, 0 };
+		public int[] nResultV2ScoreX = { 300, 940 };
+		public int[] nResultV2ScoreY = { 240, 240 };
+		public int[] nResultV2GreatX = { 560, 1200 };
+		public int[] nResultV2GreatY = { 206, 206 };
+		public int[] nResultV2GoodX = { 560, 1200 };
+		public int[] nResultV2GoodY = { 248, 248 };
+		public int[] nResultV2BadX = { 560, 1200 };
+		public int[] nResultV2BadY = { 290, 290 };
+		public int[] nResultV2RollX = { 560, 1200 };
+		public int[] nResultV2RollY = { 332, 332 };
+		public int[] nResultV2ComboX = { 560, 1200 };
+		public int[] nResultV2ComboY = { 374, 374 };
+		public int[] nResultV2GaugeBackX = { 3, 643 };
+		public int[] nResultV2GaugeBackY = { 122, 122 };
+		public int[] nResultV2GaugeBodyX = { 60, 700 };
+		public int[] nResultV2GaugeBodyY = { 130, 130 };
 		#endregion
 
 		public enum RollColorMode
@@ -2649,6 +2668,9 @@ namespace TJAPlayer3
 		public int Result_StageText_Y = 6;
 		public int Result_StageText_FontSize = 30;
 		public ReferencePoint Result_StageText_ReferencePoint = ReferencePoint.Left;
+		public int Result_v2_MusicName_X = 640;
+		public int Result_v2_MusicName_Y = 6;
+		public ReferencePoint Result_v2_MusicName_ReferencePoint = ReferencePoint.Center;
 
 		public Color Result_MusicName_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
 		public Color Result_StageText_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
@@ -2667,6 +2689,12 @@ namespace TJAPlayer3
 		public int[] Result_Crown_X = new int[] { 400, 400 };
 		public int[] Result_Crown_Y = new int[] { 250, 544 };
 		public int Result_RotateInterval = 50;
+
+		public int[] Result_v2_NamePlate_X = new int[] { 20, 1000 };
+		public int[] Result_v2_NamePlate_Y = new int[] { 610, 610 };
+
+		public int[] Result_v2_Crown_X = new int[] { 270, 910 };
+		public int[] Result_v2_Crown_Y = new int[] { 340, 340 };
 		#endregion
 		#region Font
 		public int Font_Edge_Ratio = 30;

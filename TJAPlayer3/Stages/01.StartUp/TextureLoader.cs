@@ -19,6 +19,7 @@ namespace TJAPlayer3
 		const string SONGLOADINGV2 = @"4.1_SongLoading_v2\";
 		const string GAME = @"5_Game\";
 		const string RESULT = @"6_Result\";
+		const string RESULTV2 = @"6.1_Result_v2\";
 		const string EXIT = @"7_Exit\";
 
 		// InSongSelect
@@ -666,6 +667,24 @@ namespace TJAPlayer3
 			Result_Score_Text = TxC(RESULT + @"Score_Text.png");
 			Result_Score_Number = TxC(RESULT + @"Score_Number.png");
 			Result_Dan = TxC(RESULT + @"Dan.png");
+			Result_v2_Header = TxC(RESULTV2 + @"Header.png");
+			Result_v2_Number = TxC(RESULTV2 + @"Number.png");
+			Result_v2_GaugeBack = TxC(RESULTV2 + @"GaugeBack.png");
+			Result_v2_GaugeBase = TxC(RESULTV2 + @"GaugeBase.png");
+			Result_v2_Gauge = TxC(RESULTV2 + @"Gauge.png");
+
+			for (int i = 0; i < Result_v2_Background.Length; i++)
+			{
+				Result_v2_Background[i] = TxC(RESULTV2 + @"Background_" + i.ToString() + ".png");
+			}
+			for (int i = 0; i < Result_v2_Mountain.Length; i++)
+			{
+				Result_v2_Mountain[i] = TxC(RESULTV2 + @"Mountain_" + i.ToString() + ".png");
+			}
+			for (int i = 0; i < Result_v2_Panel.Length; i++)
+			{
+				Result_v2_Panel[i] = TxC(RESULTV2 + @"Panel_" + i.ToString() + ".png");
+			}
 			#endregion
 
 			#region 7_終了画面
@@ -981,6 +1000,14 @@ namespace TJAPlayer3
 			TJAPlayer3.t安全にDisposeする(ref Result_Score_Text);
 			TJAPlayer3.t安全にDisposeする(ref Result_Score_Number);
 			TJAPlayer3.t安全にDisposeする(ref Result_Dan);
+			TJAPlayer3.t安全にDisposeする(ref Result_v2_GaugeBack);
+			TJAPlayer3.t安全にDisposeする(ref Result_v2_GaugeBase);
+			TJAPlayer3.t安全にDisposeする(ref Result_v2_Gauge);
+			TJAPlayer3.t安全にDisposeする(ref Result_v2_Header);
+			TJAPlayer3.t安全にDisposeする(ref Result_v2_Number);
+			TJAPlayer3.t安全にDisposeする(ref Result_v2_Background);
+			TJAPlayer3.t安全にDisposeする(ref Result_v2_Mountain);
+			TJAPlayer3.t安全にDisposeする(ref Result_v2_Panel);
 			#endregion
 
 			#region 7_終了画面
@@ -1270,7 +1297,15 @@ namespace TJAPlayer3
 			Result_Panel,
 			Result_Score_Text,
 			Result_Score_Number,
-			Result_Dan;
+			Result_Dan,
+			Result_v2_Header,
+			Result_v2_Number,
+			Result_v2_GaugeBack,
+			Result_v2_GaugeBase,
+			Result_v2_Gauge;
+		public CTexture[] Result_v2_Background = new CTexture[2],
+			Result_v2_Mountain = new CTexture[2],
+			Result_v2_Panel = new CTexture[2];
 		#endregion
 
 		#region 7_終了画面
