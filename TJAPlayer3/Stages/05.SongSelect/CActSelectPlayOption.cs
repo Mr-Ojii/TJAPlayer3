@@ -241,7 +241,7 @@ namespace TJAPlayer3
 				base.b初めての進行描画 = false;
 			}
 
-			for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++)
+			for (int nPlayer = 0; nPlayer < 2; nPlayer++)
 			{
 				this.ct登場退場アニメ用[nPlayer].t進行();
 				if (this.ePhase[nPlayer] == EChangeSEPhase.Active)
