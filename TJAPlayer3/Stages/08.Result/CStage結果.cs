@@ -166,6 +166,8 @@ namespace TJAPlayer3
 					}
 				});
 
+				this.ctMountainAndClear = new CCounter(0, 1655, 1, TJAPlayer3.Timer);
+
 				base.On活性化();
 			}
 			finally
@@ -231,16 +233,39 @@ namespace TJAPlayer3
 						for (int ind = 0; ind < TJAPlayer3.ConfigIni.nPlayerCount; ind++)
 						{
 							if (this.st演奏記録[ind].fゲージ >= 80.0 && TJAPlayer3.Tx.Result_v2_Background[1] != null)
+							{
+								TJAPlayer3.Tx.Result_v2_Background[1].Opacity = Math.Min(this.ctMountainAndClear.n現在の値, 255);
 								TJAPlayer3.Tx.Result_v2_Background[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Tx.Result_v2_Background[1].szテクスチャサイズ.Width / TJAPlayer3.ConfigIni.nPlayerCount * ind, 0, new Rectangle(TJAPlayer3.Tx.Result_v2_Background[1].szテクスチャサイズ.Width / TJAPlayer3.ConfigIni.nPlayerCount * ind, 0, TJAPlayer3.Tx.Result_v2_Background[1].szテクスチャサイズ.Width / TJAPlayer3.ConfigIni.nPlayerCount, TJAPlayer3.Tx.Result_v2_Background[1].szテクスチャサイズ.Height));
+							}
 						}
-						
 					}
 					if (TJAPlayer3.Tx.Result_v2_Mountain != null && TJAPlayer3.ConfigIni.nPlayerCount == 1)
 					{
 						if (TJAPlayer3.Tx.Result_v2_Mountain[0] != null)
-							TJAPlayer3.Tx.Result_v2_Mountain[0].t2D描画(TJAPlayer3.app.Device, 0, 0);
+							if (this.ctMountainAndClear.n現在の値 <= 255 || this.st演奏記録[0].fゲージ < 80.0)
+								TJAPlayer3.Tx.Result_v2_Mountain[0].t2D描画(TJAPlayer3.app.Device, 0, 0);
 						if (this.st演奏記録[0].fゲージ >= 80.0 && TJAPlayer3.Tx.Result_v2_Mountain[1] != null)
-							TJAPlayer3.Tx.Result_v2_Mountain[1].t2D描画(TJAPlayer3.app.Device, 0, 0);
+						{
+							TJAPlayer3.Tx.Result_v2_Mountain[1].Opacity = Math.Min(this.ctMountainAndClear.n現在の値, 255);
+							if (this.ctMountainAndClear.n現在の値 <= 255 || this.ctMountainAndClear.n現在の値 == this.ctMountainAndClear.n終了値)
+							{
+								TJAPlayer3.Tx.Result_v2_Mountain[1].vc拡大縮小倍率.Y = 1f;
+							}
+							else if (this.ctMountainAndClear.n現在の値 <= 555)
+							{
+								TJAPlayer3.Tx.Result_v2_Mountain[1].vc拡大縮小倍率.Y = 1.0f - (this.ctMountainAndClear.n現在の値 - 255) / 300f * 0.4f;
+							}
+							else if (this.ctMountainAndClear.n現在の値 <= 1155)
+							{
+								//600msで150degなので4で割る
+								TJAPlayer3.Tx.Result_v2_Mountain[1].vc拡大縮小倍率.Y = (float)((Math.Sin((this.ctMountainAndClear.n現在の値 - 555) / 4.0 / 180.0 * Math.PI) * 0.8f) + 0.6f);
+							}
+							else 
+							{
+								TJAPlayer3.Tx.Result_v2_Mountain[1].vc拡大縮小倍率.Y = (float)Math.Sin((this.ctMountainAndClear.n現在の値 - 1155) / 500f * Math.PI) * 0.3f + 1f;
+							}
+							TJAPlayer3.Tx.Result_v2_Mountain[1].t2D拡大率考慮下中心基準描画(TJAPlayer3.app.Device, 640, 720);
+						}
 					}
 					if (TJAPlayer3.Tx.Result_v2_Header != null)
 					{
@@ -258,9 +283,17 @@ namespace TJAPlayer3
 						TJAPlayer3.Tx.Result_Header.t2D描画(TJAPlayer3.app.Device, 0, 0);
 					}
 				}
-				if ( this.actParameterPanel.On進行描画() == 0 )
+				if (this.actParameterPanel.On進行描画() == 0)
 				{
 					this.bアニメが完了 = false;
+					this.ctMountainAndClear.n現在の値 = 0;
+					this.ctMountainAndClear.t時間Reset();
+				}
+				else 
+				{
+					this.ctMountainAndClear.t進行();
+					if (!this.ctMountainAndClear.b終了値に達した)
+						this.bアニメが完了 = false;
 				}
 
 				if ( this.actSongBar.On進行描画() == 0 )
@@ -342,6 +375,7 @@ namespace TJAPlayer3
 		#region [ private ]
 		//-----------------
 		private CCounter ct登場用;
+		private CCounter ctMountainAndClear;
 		private E戻り値 eフェードアウト完了時の戻り値;
 		private CActFIFOResult actFI;
 		private CActFIFOBlack actFO;

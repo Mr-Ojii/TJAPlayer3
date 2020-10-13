@@ -25,6 +25,8 @@ namespace TJAPlayer3
 		{
 			this.ephase = EPhase.Loop;
 			this.ephase_v2 = EPhaseV2.Loop;
+			this.ctGauge.n現在の値 = this.ctGauge.n終了値;
+			this.ctCrown用.n現在の値 = this.ctCrown用.n終了値;
 		}
 
 
