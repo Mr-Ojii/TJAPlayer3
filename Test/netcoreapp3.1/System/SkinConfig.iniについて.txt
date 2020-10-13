@@ -129,8 +129,8 @@ Game_SubTitleName_FontSize=15
 Game_SubTitleName_ReferencePoint=2
 
 //リザルト画面での王冠の座標(各パラメータ値は1P,2Pの順)
-Result_Crown_X=350,350
-Result_Crown_Y=200,560
+Result_Crown_X=400,400
+Result_Crown_Y=250,610
 
 //リザルト画面での数値回転の間隔
 Result_RotateInterval=50

@@ -2272,25 +2272,25 @@ namespace TJAPlayer3
 		//リザルト画面
 		//現在のデフォルト値はダミーです。
 		public int[] nResultPanelX = { 515, 515 };
-		public int[] nResultPanelY = { 75, 435 };
+		public int[] nResultPanelY = { 75, 369 };
 		public int[] nResultScoreX = { 730, 730 };
-		public int[] nResultScoreY = { 252, 612 };
+		public int[] nResultScoreY = { 252, 546 };
 		public int[] nResultJudge_X = { 815, 815 };
-		public int[] nResultJudge_Y = { 182, 542 };
+		public int[] nResultJudge_Y = { 182, 476 };
 		public int[] nResultGreatX = { 960, 960 };
-		public int[] nResultGreatY = { 188, 548 };
+		public int[] nResultGreatY = { 188, 482 };
 		public int[] nResultGoodX = { 960, 960 };
-		public int[] nResultGoodY = { 226, 586 };
+		public int[] nResultGoodY = { 226, 520 };
 		public int[] nResultBadX = { 960, 960 };
-		public int[] nResultBadY = { 266, 626 };
+		public int[] nResultBadY = { 266, 560 };
 		public int[] nResultComboX = { 1225, 1225 };
-		public int[] nResultComboY = { 188, 548 };
+		public int[] nResultComboY = { 188, 482 };
 		public int[] nResultRollX = { 1225, 1225 };
-		public int[] nResultRollY = { 226, 586 };
+		public int[] nResultRollY = { 226, 520 };
 		public int[] nResultGaugeBaseX = { 555, 555 };
-		public int[] nResultGaugeBaseY = { 122, 482 };
+		public int[] nResultGaugeBaseY = { 122, 416 };
 		public int[] nResultGaugeBodyX = { 559, 559 };
-		public int[] nResultGaugeBodyY = { 125, 485 };
+		public int[] nResultGaugeBodyY = { 125, 419 };
 		#endregion
 
 		public enum RollColorMode
@@ -2664,8 +2664,8 @@ namespace TJAPlayer3
 		public int[] Result_Dan_XY = new int[] { 100, 0 };
 		public int[] Result_Dan_Plate_XY = new int[] { 149, 416 };
 
-		public int[] Result_Crown_X = new int[] { 350, 350 };
-		public int[] Result_Crown_Y = new int[] { 200, 560 };
+		public int[] Result_Crown_X = new int[] { 400, 400 };
+		public int[] Result_Crown_Y = new int[] { 250, 544 };
 		public int Result_RotateInterval = 50;
 		#endregion
 		#region Font
