@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 using System.Drawing;
 using System.IO;
 using FDK;
-using OpenTK.Graphics.OpenGL;
 
 namespace TJAPlayer3
 {
@@ -588,7 +587,7 @@ namespace TJAPlayer3
 					if(score)
 						x -= TJAPlayer3.Tx.Result_v2_Number.szテクスチャサイズ.Width / 10;
 					else
-						x -= TJAPlayer3.Tx.Result_v2_Number.szテクスチャサイズ.Width / 20;
+						x -= TJAPlayer3.Tx.Result_v2_Number.szテクスチャサイズ.Width / 16;
 				}
 			}
 		}
