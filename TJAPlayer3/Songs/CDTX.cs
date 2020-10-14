@@ -775,7 +775,11 @@ namespace TJAPlayer3
 			GaugeIncreaseMode = GaugeIncreaseMode.Normal;
 
 			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture; // Change default culture to invariant, fixes (Purota)
-			Dan_C = new Dan_C[3];
+											
+			//最後の一つはニジイロのゲージ用
+			//最初の3つはグリーン/ニジイロの様々な条件用
+			Dan_C = new Dan_C[4];
+			
 		}
 		public CDTX(string strファイル名, bool bヘッダのみ)
 			: this()
@@ -5036,13 +5040,18 @@ namespace TJAPlayer3
 					}
 					try
 					{
-						examValue = new int[] { int.Parse(splitExam[1]), int.Parse(splitExam[2]) };
+						List<int> examvaluelist = new List<int>();
+						for (int index = 1; index < splitExam.Length - 1; index++)
+						{
+							examvaluelist.Add(int.Parse(splitExam[index]));
+						}
+						examValue = examvaluelist.ToArray();
 					}
 					catch (Exception)
 					{
 						examValue = new int[] { 100, 100 };
 					}
-					switch (splitExam[3])
+					switch (splitExam[splitExam.Length - 1])
 					{
 						case "m":
 							examRange = Exam.Range.More;
@@ -5055,6 +5064,37 @@ namespace TJAPlayer3
 							break;
 					}
 					Dan_C[int.Parse(strCommandName.Substring(4)) - 1] = new Dan_C(examType, examValue, examRange);
+				}
+			}
+			else if (strCommandName.Equals("EXAMGAUGE"))
+			{
+				if (!string.IsNullOrEmpty(strCommandParam))
+				{
+					Exam.Type examType = Exam.Type.Gauge;
+					int[] examValue;
+					Exam.Range examRange;
+					var splitExam = strCommandParam.Split(',');
+					try
+					{
+						examValue = new int[] { int.Parse(splitExam[0]), int.Parse(splitExam[1]) };
+					}
+					catch (Exception)
+					{
+						examValue = new int[] { 100, 100 };
+					}
+					switch (splitExam[splitExam.Length - 1])
+					{
+						case "m":
+							examRange = Exam.Range.More;
+							break;
+						case "l":
+							examRange = Exam.Range.Less;
+							break;
+						default:
+							examRange = Exam.Range.More;
+							break;
+					}
+					Dan_C[3] = new Dan_C(examType, examValue, examRange);
 				}
 			}
 			if (this.nScoreModeTmp == 99) //2017.01.28 DD SCOREMODEを入力していない場合のみConfigで設定したモードにする

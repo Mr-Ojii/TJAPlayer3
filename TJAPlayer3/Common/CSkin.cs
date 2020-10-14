@@ -2639,10 +2639,11 @@ namespace TJAPlayer3
 		public int[] Game_DanC_ExamType_Size = new int[] { 100, 36 };
 		public int[] Game_DanC_ExamRange_Size = new int[] { 60, 36 };
 		public int Game_DanC_ExamRange_Padding = 46;
-		public int[] Game_DanC_Percent_Hit_Score_Padding = new int[] { 20, 20, 20 };
-		public int[] Game_DanC_ExamUnit_Size = new int[] { 30, 36 };
+		public int[] Game_DanC_Percent_Hit_Score_Padding = new int[] { 20, 20, 20, 20 };
+		public int[] Game_DanC_ExamUnit_Size = new int[] { 60, 36 };
 		public int[] Game_DanC_Exam_Offset = new int[] { 932, 17 };
 		public int[] Game_DanC_Dan_Plate = new int[] { 149, 416 };
+		public int Game_DanC_Unit_CharWidth = 20;//Unit内の1文字のWidth
 		#endregion
 		#region Training
 		public int Game_Training_ScrollTime = 350;

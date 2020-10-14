@@ -37,7 +37,7 @@ namespace TJAPlayer3
 			this.ephase = EPhase.Start;
 			this.ctCrown用 = new CCounter(0, 255, 2, TJAPlayer3.Timer);
 			this.ct文字V2用 = new CCounter(0, 180, 3, TJAPlayer3.Timer);
-			this.ctGauge = new CCounter(0, 100, 40, TJAPlayer3.Timer);
+			this.ctGauge = new CCounter(0, 100, 35, TJAPlayer3.Timer);
 			for (int index = 0; index < 4; index++)
 			{
 				this.ct文字アニメ用[index] = new CCounter(0, 15, 50, TJAPlayer3.Timer);
@@ -548,13 +548,13 @@ namespace TJAPlayer3
 			{
 				if (score)
 				{
-					float ratio = (float)Math.Sin(this.ct文字V2用.n現在の値 / 180f * Math.PI) + 1f;
+					float ratio = (float)Math.Sin(this.ct文字V2用.n現在の値 / 180f * Math.PI) * 0.4f + 1f;
 					TJAPlayer3.Tx.Result_v2_Number.vc拡大縮小倍率.X = ratio;
 					TJAPlayer3.Tx.Result_v2_Number.vc拡大縮小倍率.Y = ratio;
 				}
 				else
 				{
-					float ratio = Math.Max(1f, (float)Math.Cos(this.ct文字V2用.n現在の値 / 180f * Math.PI) + 1f);
+					float ratio = Math.Max(1f, (float)Math.Cos(this.ct文字V2用.n現在の値 / 180f * Math.PI) * 0.4f + 1f);
 					TJAPlayer3.Tx.Result_v2_Number.vc拡大縮小倍率.X = ratio / 1.6f;
 					TJAPlayer3.Tx.Result_v2_Number.vc拡大縮小倍率.Y = ratio / 1.6f;
 				}

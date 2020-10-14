@@ -166,6 +166,10 @@ namespace TJAPlayer3
 			return IsCleared;
 		}
 
+		public void SetNowSongNum(int Num) 
+		{
+		
+		}
 
 		/// <summary>
 		/// 条件と現在の値をチェックして、合格もしくは金合格をしてるか否かを更新する。
@@ -319,6 +323,10 @@ namespace TJAPlayer3
 		/// 条件をクリアしているか否か。
 		/// </summary>
 		public readonly bool[] IsCleared = new[] { false, false };
+		/// <summary>
+		/// 現在の曲の番号
+		/// </summary>
+		private int NowSongNum;
 
 		/// <summary>
 		/// 条件の達成見込みがなくなったら、真になる。
@@ -326,6 +334,11 @@ namespace TJAPlayer3
 		/// (スコア加算については、この限りではない。)
 		/// </summary>
 		private bool NotReached = false;
+
+		/// <summary>
+		/// 段位条件が
+		/// </summary>
+		public bool IsDanCV2;
 	}
 
 	public static class Exam
