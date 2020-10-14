@@ -247,12 +247,14 @@ namespace TJAPlayer3
 				using (Graphics gtmp = Graphics.FromImage(bmptmp))
 				{
 					gtmp.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-					using (StringFormat sf = StringFormat.GenericTypographic )
+					using (StringFormat sf = new StringFormat()
 					{
-						sf.LineAlignment = StringAlignment.Far; // 画面下部（垂直方向位置）
-						sf.Alignment = StringAlignment.Center;  // 画面中央（水平方向位置）     
-						sf.FormatFlags = StringFormatFlags.NoWrap; // どんなに長くて単語の区切りが良くても改行しない (AioiLight)
-						sf.Trimming = StringTrimming.None; // どんなに長くてもトリミングしない (AioiLight)	
+						LineAlignment = StringAlignment.Far, // 画面下部（垂直方向位置）
+						Alignment = StringAlignment.Center,  // 画面中央（水平方向位置）     
+						FormatFlags = StringFormatFlags.NoWrap, // どんなに長くて単語の区切りが良くても改行しない (AioiLight)
+						Trimming = StringTrimming.None, // どんなに長くてもトリミングしない (AioiLight)	
+					})
+					{
 						//float to int
 						SizeF fstringSize = gtmp.MeasureString(drawstr, this._font, new PointF(0, 0), sf);
 						stringSize = new Size((int)fstringSize.Width, (int)fstringSize.Height);
@@ -281,13 +283,14 @@ namespace TJAPlayer3
 
 				if (bEdge)    // 縁取り有りの描画
 				{
-					using (StringFormat sf = StringFormat.GenericTypographic )
+					using (StringFormat sf = new StringFormat()
 					{
-						sf.LineAlignment = StringAlignment.Far; // 画面下部（垂直方向位置）
-						sf.Alignment = StringAlignment.Center;  // 画面中央（水平方向位置）     
-						sf.FormatFlags = StringFormatFlags.NoWrap; // どんなに長くて単語の区切りが良くても改行しない (AioiLight)
-						sf.Trimming = StringTrimming.None; // どんなに長くてもトリミングしない (AioiLight)	
-
+						LineAlignment = StringAlignment.Far, // 画面下部（垂直方向位置）
+						Alignment = StringAlignment.Center,  // 画面中央（水平方向位置）     
+						FormatFlags = StringFormatFlags.NoWrap, // どんなに長くて単語の区切りが良くても改行しない (AioiLight)
+						Trimming = StringTrimming.None, // どんなに長くてもトリミングしない (AioiLight)	
+                    }) 
+					{
 						// DrawPathで、ポイントサイズを使って描画するために、DPIを使って単位変換する
 						// (これをしないと、単位が違うために、小さめに描画されてしまう)
 						float sizeInPixels = _font.SizeInPoints * g.DpiY / 72;  // 1 inch = 72 points

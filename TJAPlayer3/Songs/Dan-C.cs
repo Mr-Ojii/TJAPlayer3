@@ -336,7 +336,7 @@ namespace TJAPlayer3
 		private bool NotReached = false;
 
 		/// <summary>
-		/// 段位条件が
+		/// 段位条件がニジイロ段位用か。
 		/// </summary>
 		public bool IsDanCV2;
 	}

@@ -46,6 +46,7 @@ namespace TJAPlayer3
 		const string PUCHICHARA = @"18_PuchiChara\";
 		const string TRAINING = @"19_Training\";
 		const string DANC = @"17_DanC\";
+		const string DANCV2 = @"17.1_DanC_V2\";
 
 		// InGame_Effects
 		const string FIRE = @"Fire\";
@@ -620,7 +621,6 @@ namespace TJAPlayer3
 			#endregion
 			#region DanC
 			DanC_Background = TxC(GAME + DANC + @"Background.png");
-			DanC_Gauge = new CTexture[4];
 			var type = new string[] { "Normal", "Reach", "Clear", "Flush" };
 			for (int i = 0; i < 4; i++)
 			{
@@ -633,6 +633,18 @@ namespace TJAPlayer3
 			DanC_ExamRange = TxC(GAME + DANC + @"ExamRange.png");
 			DanC_ExamUnit = TxC(GAME + DANC + @"ExamUnit.png");
 			DanC_Screen = TxC(GAME + DANC + @"Screen.png");
+			DanC_V2_Background = TxC(GAME + DANCV2 + @"Background.png");
+			for (int i = 0; i < 4; i++)
+			{
+				DanC_V2_Gauge[i] = TxC(GAME + DANCV2 + @"Gauge_" + type[i] + ".png");
+			}
+			DanC_V2_Base = TxC(GAME + DANCV2 + @"Base.png");
+			DanC_V2_Failed = TxC(GAME + DANCV2 + @"Failed.png");
+			DanC_V2_Number = TxC(GAME + DANCV2 + @"Number.png");
+			DanC_V2_ExamType = TxC(GAME + DANCV2 + @"ExamType.png");
+			DanC_V2_ExamRange = TxC(GAME + DANCV2 + @"ExamRange.png");
+			DanC_V2_ExamType_Box = TxC(GAME + DANCV2 + @"ExamType_Box.png");
+			DanC_V2_Panel = TxC(GAME + DANCV2 + @"Panel.png");
 			#endregion
 			#region PuichiChara
 			PuchiChara = new CTexture[2];
@@ -970,6 +982,15 @@ namespace TJAPlayer3
 			TJAPlayer3.t安全にDisposeする(ref DanC_ExamUnit);
 			TJAPlayer3.t安全にDisposeする(ref DanC_ExamType);
 			TJAPlayer3.t安全にDisposeする(ref DanC_Screen);
+			TJAPlayer3.t安全にDisposeする(ref DanC_V2_Background);
+			TJAPlayer3.t安全にDisposeする(ref DanC_V2_Base);
+			TJAPlayer3.t安全にDisposeする(ref DanC_V2_Failed);
+			TJAPlayer3.t安全にDisposeする(ref DanC_V2_Number);
+			TJAPlayer3.t安全にDisposeする(ref DanC_V2_ExamRange);
+			TJAPlayer3.t安全にDisposeする(ref DanC_V2_ExamType_Box);
+			TJAPlayer3.t安全にDisposeする(ref DanC_V2_ExamType);
+			TJAPlayer3.t安全にDisposeする(ref DanC_V2_Panel);
+			TJAPlayer3.t安全にDisposeする(ref DanC_V2_Gauge);
 			#endregion
 			#region PuchiChara
 			TJAPlayer3.t安全にDisposeする(ref PuchiChara);
@@ -1260,7 +1281,7 @@ namespace TJAPlayer3
 		#endregion
 		#region DanC
 		public CTexture DanC_Background;
-		public CTexture[] DanC_Gauge;
+		public CTexture[] DanC_Gauge = new CTexture[4];
 		public CTexture DanC_Base;
 		public CTexture DanC_Failed;
 		public CTexture DanC_Number,
@@ -1268,6 +1289,15 @@ namespace TJAPlayer3
 			DanC_ExamRange,
 			DanC_ExamUnit;
 		public CTexture DanC_Screen;
+		public CTexture DanC_V2_Background,
+			DanC_V2_Base,
+			DanC_V2_Failed,
+			DanC_V2_Number,
+			DanC_V2_ExamType,
+			DanC_V2_ExamRange,
+			DanC_V2_ExamType_Box,
+			DanC_V2_Panel;
+		public CTexture[] DanC_V2_Gauge = new CTexture[4];
 		#endregion
 		#region PuchiChara
 		public CTexture[] PuchiChara;
