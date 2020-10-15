@@ -551,7 +551,7 @@ namespace TJAPlayer3
 						TJAPlayer3.Tx.DanC_V2_ExamType?.t2D拡大率考慮中央基準描画(TJAPlayer3.app.Device, soulgaugeboxx + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamType_Offset[0], TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_Y + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamType_Offset[1], new Rectangle(0, TJAPlayer3.Skin.Game_DanC_v2_ExamType_Size[1] * (int)Gauge.GetExamType(), TJAPlayer3.Skin.Game_DanC_v2_ExamType_Size[0], TJAPlayer3.Skin.Game_DanC_v2_ExamType_Size[1]));
 					}
 
-					DrawNumberV2(DanCGauge.GetValue(false), soulgaugeboxx + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamRange_Offset[0] + TJAPlayer3.Skin.Game_DanC_v2_ExamRangeNum_Offset[0], TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_Y + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamRange_Offset[1] + TJAPlayer3.Skin.Game_DanC_v2_ExamRangeNum_Offset[1], true, TJAPlayer3.Skin.Game_DanC_v2_Number_Small_Scale, TJAPlayer3.Skin.Game_DanC_v2_Number_Small_Scale);
+					DrawNumberV2(DanCGauge.GetValue(false), soulgaugeboxx + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamRange_Offset[0] + TJAPlayer3.Skin.Game_DanC_v2_ExamRangeNum_Offset[0] - TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_Persent_Width, TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_Y + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamRange_Offset[1] + TJAPlayer3.Skin.Game_DanC_v2_ExamRangeNum_Offset[1], true, TJAPlayer3.Skin.Game_DanC_v2_Number_Small_Scale, TJAPlayer3.Skin.Game_DanC_v2_Number_Small_Scale);
 				}
 
 			var count = 0;
