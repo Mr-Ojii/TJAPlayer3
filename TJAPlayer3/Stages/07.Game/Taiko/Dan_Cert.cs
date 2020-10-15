@@ -54,14 +54,14 @@ namespace TJAPlayer3
 			{
 				if (Challenge[i] != null)
 				{
-					if (Challenge[i].GetEnable() == true)
+					if (Challenge[i].IsEnable == true)
 						this.ExamCount++;
 					if (Challenge[i].IsForEachSongs)
 						this.IsVer2 = true;
 				}
 			}
 
-			if (Gauge.GetEnable() == true)
+			if (Gauge.IsEnable == true)
 			{
 				this.IsVer2 = true;
 			}
@@ -82,7 +82,7 @@ namespace TJAPlayer3
 		public void Update()
 		{
 			if (Gauge != null)
-				if (Gauge.GetEnable())
+				if (Gauge.IsEnable)
 				{
 					Gauge.Update((int)TJAPlayer3.stage演奏ドラム画面.actGauge.db現在のゲージ値[0]);
 					var notesRemain = TJAPlayer3.DTX[0].nノーツ数[3] - (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む[0].Perfect + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Perfect) - (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む[0].Great + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Great) - (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む[0].Miss + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Miss);
@@ -95,7 +95,7 @@ namespace TJAPlayer3
 
 			for (int i = 0; i < 3; i++)
 			{
-				if (Challenge[i] == null || !Challenge[i].GetEnable()) return;
+				if (Challenge[i] == null || !Challenge[i].IsEnable) return;
 				var oldReached = Challenge[i].GetReached();
 				var isChangedAmount = false;
 				switch (Challenge[i].GetExamType())
@@ -401,7 +401,7 @@ namespace TJAPlayer3
 			var count = 0;
 			for (int i = 0; i < 3; i++)
 			{
-				if (dan_C[i] != null && dan_C[i].GetEnable() == true)
+				if (dan_C[i] != null && dan_C[i].IsEnable() == true)
 					count++;
 			}
 			for (int i = 0; i < count; i++)
@@ -542,7 +542,7 @@ namespace TJAPlayer3
 		public void DrawExamV2(Dan_C[] dan_C,Dan_C DanCGauge)
 		{
 			if (Gauge != null)
-				if (Gauge.GetEnable())
+				if (Gauge.IsEnable)
 				{
 					int soulgaugeboxx = (int)((TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_X[1] - TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_X[0]) * DanCGauge.GetValue(false) / 100.0) + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_X[0];
 					TJAPlayer3.Tx.DanC_V2_SoulGauge_Box.t2D描画(TJAPlayer3.app.Device, soulgaugeboxx, TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_Y);
@@ -567,7 +567,7 @@ namespace TJAPlayer3
 			var count = 0;
 			for (int i = 0; i < 3; i++)
 			{
-				if (dan_C[i] != null && dan_C[i].GetEnable() == true)
+				if (dan_C[i] != null && dan_C[i].IsEnable == true)
 					count++;
 			}
 			for (int i = 0; i < count; i++)
@@ -756,9 +756,9 @@ namespace TJAPlayer3
 			var isFailed = false;
 			for (int i = 0; i < this.ExamCount; i++)
 			{
-				if (Challenge[i].GetEnable() && Challenge[i].GetReached()) isFailed = true;
+				if (Challenge[i].IsEnable && Challenge[i].GetReached()) isFailed = true;
 			}
-			if (Gauge.GetEnable() && Gauge.GetReached()) isFailed = true;
+			if (Gauge.IsEnable && Gauge.GetReached()) isFailed = true;
 			return isFailed;
 		}
 
@@ -773,21 +773,21 @@ namespace TJAPlayer3
 			var count = 0;
 			for (int i = 0; i < 3; i++)
 			{
-				if (dan_C[i] != null && dan_C[i].GetEnable() == true)
+				if (dan_C[i] != null && dan_C[i].IsEnable == true)
 					count++;
 			}
 			for (int i = 0; i < count; i++)
 			{
 				if (!dan_C[i].GetCleared()[1]) status = Exam.Status.Success;
 			}
-			if (Gauge.GetEnable())
+			if (Gauge.IsEnable)
 				if (!Gauge.GetCleared()[1]) 
 					status = Exam.Status.Success;
 			for (int i = 0; i < count; i++)
 			{
 				if (!dan_C[i].GetCleared()[0]) status = Exam.Status.Failure;
 			}
-			if(Gauge.GetEnable())
+			if(Gauge.IsEnable)
 				if (!Gauge.GetCleared()[0]) 
 					status = Exam.Status.Failure;
 			return status;

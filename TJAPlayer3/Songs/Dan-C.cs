@@ -65,7 +65,7 @@ namespace TJAPlayer3
 		public bool Update(int nowValue)
 		{
 			var isChangedAmount = false;
-			if (!GetEnable()) return isChangedAmount;
+			if (!this.IsEnable) return isChangedAmount;
 			if (GetAmount() < nowValue) isChangedAmount = true;
 			if (GetExamRange() == Exam.Range.Less && nowValue > GetValue(false)) isChangedAmount = false; // n未満でその数を超えたらfalseを返す。
 			SetAmount(nowValue);
@@ -99,15 +99,6 @@ namespace TJAPlayer3
 					break;
 			}
 			return isChangedAmount;
-		}
-
-		/// <summary>
-		/// 段位認定の条件が有効であるかどうかを返します。
-		/// </summary>
-		/// <returns>段位認定の条件が有効であるかどうか。</returns>
-		public bool GetEnable()
-		{
-			return this.IsEnable;
 		}
 
 		/// <summary>
@@ -302,7 +293,7 @@ namespace TJAPlayer3
 		/// <summary>
 		/// その条件が有効であるかどうか。
 		/// </summary>
-		private bool IsEnable;
+		public readonly bool IsEnable;
 		/// <summary>
 		/// 条件の種別。
 		/// </summary>
@@ -338,7 +329,7 @@ namespace TJAPlayer3
 		/// <summary>
 		/// 段位条件がそれぞれの曲に対してか。
 		/// </summary>
-		public bool IsForEachSongs;
+		public readonly bool IsForEachSongs;
 	}
 
 	public static class Exam
