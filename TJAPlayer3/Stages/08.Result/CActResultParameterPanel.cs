@@ -50,7 +50,7 @@ namespace TJAPlayer3
 			{
 				if (TJAPlayer3.stage選曲.n確定された曲の難易度[index] == (int)Difficulty.Dan)
 				{
-					switch (TJAPlayer3.stage演奏ドラム画面.actDan.GetExamStatus(TJAPlayer3.stage結果.st演奏記録[index].Dan_C))
+					switch (TJAPlayer3.stage演奏ドラム画面.actDan.GetExamStatus(TJAPlayer3.stage結果.st演奏記録[index].Dan_C, TJAPlayer3.stage結果.st演奏記録[index].Dan_C_Gauge))
 					{
 						case Exam.Status.Failure:
 							this.CrownState[index] = 0;

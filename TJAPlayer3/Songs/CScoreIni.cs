@@ -142,6 +142,7 @@ namespace TJAPlayer3
 			public string[] strThirdScorerName = new string[(int)Difficulty.Total];
 			public int[] n王冠 = new int[(int)Difficulty.Total];
 			public Dan_C[] Dan_C;
+			public Dan_C Dan_C_Gauge;
 
 			public C演奏記録()
 			{
@@ -164,6 +165,7 @@ namespace TJAPlayer3
 				this.fゲージ = 0.0f;
 				this.b途中でAutoを切り替えたか = false;
 				Dan_C = new Dan_C[3];
+				Dan_C_Gauge = new Dan_C();
 			}
 
 			public bool bフルコンボじゃない

@@ -96,6 +96,7 @@ namespace TJAPlayer3
 					{
 						Drums.Dan_C[i] = danC[i];
 					}
+					Drums.Dan_C_Gauge = TJAPlayer3.stage演奏ドラム画面.actDan.GetGaugeExam();
 
 					Drums.n王冠 = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠;
 
@@ -123,7 +124,7 @@ namespace TJAPlayer3
 						}
 					}
 					else {
-						switch (TJAPlayer3.stage演奏ドラム画面.actDan.GetExamStatus(Drums.Dan_C))
+						switch (TJAPlayer3.stage演奏ドラム画面.actDan.GetExamStatus(Drums.Dan_C, Drums.Dan_C_Gauge))
 						{
 							case Exam.Status.Failure:
 								if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 0)

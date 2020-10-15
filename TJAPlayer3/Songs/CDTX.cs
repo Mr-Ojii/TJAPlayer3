@@ -717,6 +717,7 @@ namespace TJAPlayer3
 		public bool[] IsBranchBarDraw = new bool[4]; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加 // 仕様変更により、黄色lineの表示法を変更.2020.04.21.akasoko26
 		public bool IsEndedBranching; // BRANCHENDが呼び出されたかどうか
 		public Dan_C[] Dan_C;
+		public Dan_C Dan_C_Gauge;
 
 		public bool IsEnabledFixSENote;
 		public int FixSENote;
@@ -775,11 +776,8 @@ namespace TJAPlayer3
 			GaugeIncreaseMode = GaugeIncreaseMode.Normal;
 
 			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture; // Change default culture to invariant, fixes (Purota)
-											
-			//最後の一つはニジイロのゲージ用
-			//最初の3つはグリーン/ニジイロの様々な条件用
-			Dan_C = new Dan_C[4];
-			
+
+			Dan_C = new Dan_C[3];
 		}
 		public CDTX(string strファイル名, bool bヘッダのみ)
 			: this()
@@ -3511,7 +3509,7 @@ namespace TJAPlayer3
 
 		private static readonly Regex regexForPrefixingCommaStartingLinesWithZero = new Regex(@"^,", RegexOptions.Multiline | RegexOptions.Compiled);
 		private static readonly Regex regexForStrippingHeadingLines = new Regex(
-			@"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|EXAM1|EXAM2|EXAM3|BALLOONNOR|BALLOONEXP|BALLOONMAS|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE|GENRE|MOVIEOFFSET|BGIMAGE|BGMOVIE|HIDDENBRANCH|GAUGEINCR|LYRICFILE|#HBSCROLL|#BMSCROLL|#PAPAMAMA)).+\n",
+			@"^(?!(TITLE|LEVEL|BPM|WAVE|OFFSET|BALLOON|EXAM1|EXAM2|EXAM3|EXAMGAUGE|BALLOONNOR|BALLOONEXP|BALLOONMAS|SONGVOL|SEVOL|SCOREINIT|SCOREDIFF|COURSE|STYLE|GAME|LIFE|DEMOSTART|SIDE|SUBTITLE|SCOREMODE|GENRE|MOVIEOFFSET|BGIMAGE|BGMOVIE|HIDDENBRANCH|GAUGEINCR|LYRICFILE|#HBSCROLL|#BMSCROLL|#PAPAMAMA)).+\n",
 			RegexOptions.Multiline | RegexOptions.Compiled);
 
 		/// <summary>
@@ -5094,7 +5092,7 @@ namespace TJAPlayer3
 							examRange = Exam.Range.More;
 							break;
 					}
-					Dan_C[3] = new Dan_C(examType, examValue, examRange);
+					Dan_C_Gauge = new Dan_C(examType, examValue, examRange, true);
 				}
 			}
 			if (this.nScoreModeTmp == 99) //2017.01.28 DD SCOREMODEを入力していない場合のみConfigで設定したモードにする

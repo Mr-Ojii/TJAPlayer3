@@ -645,6 +645,7 @@ namespace TJAPlayer3
 			DanC_V2_ExamRange = TxC(GAME + DANCV2 + @"ExamRange.png");
 			DanC_V2_ExamType_Box = TxC(GAME + DANCV2 + @"ExamType_Box.png");
 			DanC_V2_Panel = TxC(GAME + DANCV2 + @"Panel.png");
+			DanC_V2_SoulGauge_Box = TxC(GAME + DANCV2 + @"SoulGauge_Box.png");
 			#endregion
 			#region PuichiChara
 			PuchiChara = new CTexture[2];
@@ -990,6 +991,7 @@ namespace TJAPlayer3
 			TJAPlayer3.t安全にDisposeする(ref DanC_V2_ExamType_Box);
 			TJAPlayer3.t安全にDisposeする(ref DanC_V2_ExamType);
 			TJAPlayer3.t安全にDisposeする(ref DanC_V2_Panel);
+			TJAPlayer3.t安全にDisposeする(ref DanC_V2_SoulGauge_Box);
 			TJAPlayer3.t安全にDisposeする(ref DanC_V2_Gauge);
 			#endregion
 			#region PuchiChara
@@ -1296,7 +1298,8 @@ namespace TJAPlayer3
 			DanC_V2_ExamType,
 			DanC_V2_ExamRange,
 			DanC_V2_ExamType_Box,
-			DanC_V2_Panel;
+			DanC_V2_Panel,
+			DanC_V2_SoulGauge_Box;
 		public CTexture[] DanC_V2_Gauge = new CTexture[4];
 		#endregion
 		#region PuchiChara

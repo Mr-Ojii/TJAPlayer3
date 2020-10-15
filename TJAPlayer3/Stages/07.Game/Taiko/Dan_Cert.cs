@@ -21,7 +21,8 @@ namespace TJAPlayer3
 		}
 
 		//
-		Dan_C[] Challenge = new Dan_C[3];
+		Dan_C[] Challenge;
+		Dan_C Gauge;
 		bool IsVer2 = false;
 		//
 
@@ -38,10 +39,13 @@ namespace TJAPlayer3
 
 		public override void On活性化()
 		{
+			Challenge = new Dan_C[3];
+			Gauge = new Dan_C();
 			for (int i = 0; i < 3; i++)
 			{
 				if(TJAPlayer3.DTX[0].Dan_C[i] != null) Challenge[i] = new Dan_C(TJAPlayer3.DTX[0].Dan_C[i]);
 			}
+			if (TJAPlayer3.DTX[0].Dan_C_Gauge != null) Gauge = new Dan_C(TJAPlayer3.DTX[0].Dan_C_Gauge);
 			// 始点を決定する。
 			ExamCount = 0;
 			this.IsVer2 = false;
@@ -54,6 +58,11 @@ namespace TJAPlayer3
 					if (Challenge[i].IsDanCV2)
 						this.IsVer2 = true;
 				}
+			}
+
+			if (Gauge.GetEnable() == true)
+			{
+				this.IsVer2 = true;
 			}
 
 			for (int i = 0; i < 3; i++)
@@ -71,6 +80,18 @@ namespace TJAPlayer3
 
 		public void Update()
 		{
+			if (Gauge != null)
+				if (Gauge.GetEnable())
+				{
+					Gauge.Update((int)TJAPlayer3.stage演奏ドラム画面.actGauge.db現在のゲージ値[0]);
+					var notesRemain = TJAPlayer3.DTX[0].nノーツ数[3] - (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む[0].Perfect + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Perfect) - (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む[0].Great + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Great) - (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含む[0].Miss + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Miss);
+					// 残り音符数が0になったときに判断されるやつ
+					if (notesRemain <= 0)
+					{
+						if (Gauge.Amount < Gauge.Value[0]) Gauge.SetReached(true);						
+					}
+				}
+
 			for (int i = 0; i < 3; i++)
 			{
 				if (Challenge[i] == null || !Challenge[i].GetEnable()) return;
@@ -281,7 +302,7 @@ namespace TJAPlayer3
 				// 段プレートを描画する。
 				Dan_Plate?.t2D中心基準描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_DanC_v2_Dan_Plate[0], TJAPlayer3.Skin.Game_DanC_v2_Dan_Plate[1]);
 
-				DrawExamV2(Challenge);
+				DrawExamV2(Challenge, Gauge);
 			}
 			else
 			{
@@ -508,8 +529,31 @@ namespace TJAPlayer3
 			}
 		}
 
-		public void DrawExamV2(Dan_C[] dan_C)
+		public void DrawExamV2(Dan_C[] dan_C,Dan_C DanCGauge)
 		{
+			if (Gauge != null)
+				if (Gauge.GetEnable())
+				{
+					int soulgaugeboxx = (int)((TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_X[1] - TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_X[0]) * DanCGauge.GetValue(false) / 100.0) + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_X[0];
+					TJAPlayer3.Tx.DanC_V2_SoulGauge_Box.t2D描画(TJAPlayer3.app.Device, soulgaugeboxx, TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_Y);
+					
+					if (TJAPlayer3.Tx.DanC_V2_ExamRange != null)
+						TJAPlayer3.Tx.DanC_V2_ExamRange?.t2D描画(TJAPlayer3.app.Device, soulgaugeboxx + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamRange_Offset[0], TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_Y + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamRange_Offset[1], new Rectangle(0, TJAPlayer3.Tx.DanC_V2_ExamRange.szテクスチャサイズ.Height / 2 * (int)Gauge.GetExamRange(), TJAPlayer3.Tx.DanC_V2_ExamRange.szテクスチャサイズ.Width, TJAPlayer3.Tx.DanC_V2_ExamRange.szテクスチャサイズ.Height / 2));
+					
+					// 条件の種類
+					if (TJAPlayer3.Tx.DanC_V2_ExamType != null)
+					{
+						if (TJAPlayer3.Tx.DanC_V2_ExamType_Box != null)
+						{
+							TJAPlayer3.Tx.DanC_V2_ExamType_Box.vc拡大縮小倍率.X = 0.5f;
+							TJAPlayer3.Tx.DanC_V2_ExamType_Box?.t2D拡大率考慮中央基準描画(TJAPlayer3.app.Device, soulgaugeboxx + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamType_Offset[0], TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_Y + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamType_Offset[1]);
+						}
+						TJAPlayer3.Tx.DanC_V2_ExamType?.t2D拡大率考慮中央基準描画(TJAPlayer3.app.Device, soulgaugeboxx + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamType_Offset[0], TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_Y + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamType_Offset[1], new Rectangle(0, TJAPlayer3.Skin.Game_DanC_v2_ExamType_Size[1] * (int)Gauge.GetExamType(), TJAPlayer3.Skin.Game_DanC_v2_ExamType_Size[0], TJAPlayer3.Skin.Game_DanC_v2_ExamType_Size[1]));
+					}
+
+					DrawNumberV2(DanCGauge.GetValue(false), soulgaugeboxx + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamRange_Offset[0] + TJAPlayer3.Skin.Game_DanC_v2_ExamRangeNum_Offset[0], TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_Y + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamRange_Offset[1] + TJAPlayer3.Skin.Game_DanC_v2_ExamRangeNum_Offset[1], true, TJAPlayer3.Skin.Game_DanC_v2_Number_Small_Scale, TJAPlayer3.Skin.Game_DanC_v2_Number_Small_Scale);
+				}
+
 			var count = 0;
 			for (int i = 0; i < 3; i++)
 			{
@@ -583,8 +627,11 @@ namespace TJAPlayer3
 				// 条件の種類
 				if (TJAPlayer3.Tx.DanC_V2_ExamType != null)
 				{
-					if (TJAPlayer3.Tx.DanC_V2_ExamType_Box != null) 
+					if (TJAPlayer3.Tx.DanC_V2_ExamType_Box != null)
+					{
+						TJAPlayer3.Tx.DanC_V2_ExamType_Box.vc拡大縮小倍率.X = 1f;
 						TJAPlayer3.Tx.DanC_V2_ExamType_Box?.t2D拡大率考慮中央基準描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_DanC_v2_Panel_X + TJAPlayer3.Skin.Game_DanC_v2_ExamType_Offset[0], PanelY + TJAPlayer3.Skin.Game_DanC_v2_ExamType_Offset[1]);
+					}
 					TJAPlayer3.Tx.DanC_V2_ExamType?.t2D拡大率考慮中央基準描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_DanC_v2_Panel_X + TJAPlayer3.Skin.Game_DanC_v2_ExamType_Offset[0], PanelY + TJAPlayer3.Skin.Game_DanC_v2_ExamType_Offset[1], new Rectangle(0, TJAPlayer3.Skin.Game_DanC_v2_ExamType_Size[1] * (int)dan_C[i].GetExamType(), TJAPlayer3.Skin.Game_DanC_v2_ExamType_Size[0], TJAPlayer3.Skin.Game_DanC_v2_ExamType_Size[1]));
 				}
 				#endregion
@@ -680,6 +727,7 @@ namespace TJAPlayer3
 			{
 				if (Challenge[i].GetReached()) isFailed = true;
 			}
+			if (Gauge.GetReached()) isFailed = true;
 			return isFailed;
 		}
 
@@ -688,7 +736,7 @@ namespace TJAPlayer3
 		/// </summary>
 		/// <param name="dan_C">条件。</param>
 		/// <returns>ExamStatus。</returns>
-		public Exam.Status GetExamStatus(Dan_C[] dan_C)
+		public Exam.Status GetExamStatus(Dan_C[] dan_C,Dan_C Gauge)
 		{
 			var status = Exam.Status.Better_Success;
 			var count = 0;
@@ -701,10 +749,12 @@ namespace TJAPlayer3
 			{
 				if (!dan_C[i].GetCleared()[1]) status = Exam.Status.Success;
 			}
+			if(!Gauge.GetCleared()[1]) status = Exam.Status.Success;
 			for (int i = 0; i < count; i++)
 			{
 				if (!dan_C[i].GetCleared()[0]) status = Exam.Status.Failure;
 			}
+			if (!Gauge.GetCleared()[0]) status = Exam.Status.Failure;
 			return status;
 		}
 
@@ -713,6 +763,10 @@ namespace TJAPlayer3
 			return Challenge;
 		}
 
+		public Dan_C GetGaugeExam()
+		{
+			return Gauge;
+		}
 
 		private readonly float[] ScoreScale = new float[]
 		{

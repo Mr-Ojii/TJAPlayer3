@@ -16,15 +16,24 @@ namespace TJAPlayer3
 		}
 
 		/// <summary>
+		/// ぬるぽ抑制用
+		/// </summary>
+		public Dan_C() 
+		{
+			IsEnable = false;
+		}
+
+		/// <summary>
 		/// 段位認定の条件を初期化し、生成します。
 		/// </summary>
 		/// <param name="examType">条件の種別。</param>
 		/// <param name="value">条件の合格量。</param>
 		/// <param name="examRange">条件の合格の範囲。</param>
-		public Dan_C(Exam.Type examType, int[] value, Exam.Range examRange)
+		public Dan_C(Exam.Type examType, int[] value, Exam.Range examRange, bool IsV2 = false)
 		{
 			IsEnable = true;
 			NotReached = false;
+			IsDanCV2 = IsV2;
 			SetExamType(examType);
 			SetValue(value[0], value[1]);
 			SetExamRange(examRange);

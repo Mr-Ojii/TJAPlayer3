@@ -2648,7 +2648,7 @@ namespace TJAPlayer3
 		public int Game_DanC_v2_Panel_X = 90;
 		public int Game_DanC_v2_Panel_Y = 550;
 		public int Game_DanC_v2_Panel_Y_Padding = 110;
-		public int[] Game_DanC_v2_Base_Offset = new int[] { 240, 17 };
+		public int[] Game_DanC_v2_Base_Offset = new int[] { 260, 17 };
 		public int[] Game_DanC_v2_Gauge_Offset = new int[] { 5, 5 };
 		public int[] Game_DanC_v2_Amount_Offset = new int[] { 20, 0 };
 		public float Game_DanC_v2_Amount_Scale = 1f;
@@ -2657,6 +2657,12 @@ namespace TJAPlayer3
 		public int[] Game_DanC_v2_ExamRange_Offset = new int[] { 180, 30 };
 		public int[] Game_DanC_v2_ExamRangeNum_Offset = new int[] { 0, 5 };
 		public int[] Game_DanC_v2_Dan_Plate = new int[] { 1000, 416 };
+
+		public int[] Game_DanC_v2_SoulGauge_Box_X = new int[] { 110, 800 };//0%,100%のX座標
+		public int Game_DanC_v2_SoulGauge_Box_Y = 70;
+		public int[] Game_DanC_v2_SoulGauge_Box_ExamType_Offset = new int[] { 65, 55 };
+		public float Game_DanC_v2_SoulGauge_Box_ExamType_Box_XRatio = 0.7f;
+		public int[] Game_DanC_v2_SoulGauge_Box_ExamRange_Offset = new int[] { 300, 50 };
 		public float Game_DanC_v2_Number_Small_Scale = 0.5f;
 		#endregion
 		#region Training
