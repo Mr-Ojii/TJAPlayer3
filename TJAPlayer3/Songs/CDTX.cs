@@ -5092,7 +5092,7 @@ namespace TJAPlayer3
 							examRange = Exam.Range.More;
 							break;
 					}
-					Dan_C_Gauge = new Dan_C(examType, examValue, examRange, true);
+					Dan_C_Gauge = new Dan_C(examType, examValue, examRange);
 				}
 			}
 			if (this.nScoreModeTmp == 99) //2017.01.28 DD SCOREMODEを入力していない場合のみConfigで設定したモードにする

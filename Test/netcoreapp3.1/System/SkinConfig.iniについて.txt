@@ -63,7 +63,7 @@ SongSelect_ForeColor_Namco=#980E00
 
 
 
-//ここから下はMr-Ojiiが追加したパラメータ(TJAPlayer3-fでしか使えない)
+//ここから下はMr-Ojiiが追加・変更したパラメータ(TJAPlayer3-fでしか使えない)
 
 //「とじる」の文字のY座標を相対的に変更する
 SongSelect_BackBoxText_Y_Diff=0
@@ -128,6 +128,36 @@ Game_SubTitleName_Y=70
 Game_SubTitleName_FontSize=15
 Game_SubTitleName_ReferencePoint=2
 
+//段位道場系のコンフィグ
+//Base画像のX
+Game_DanC_X=302,302,302
+//Base画像のY間隔
+Game_DanC_Y_Padding=100
+//Base画像の中心Y
+Game_DanC_Y=520
+//Base画像とGauge画像の座標の差分
+Game_DanC_Offset=15,10
+//残り音符数の数字の間隔
+Game_DanC_Number_Padding=50
+//残り音符数の座標
+Game_DanC_Number_XY=235,550
+//小さい数字の拡大率
+Game_DanC_Number_Small_Scale=0.5
+//小さい数字の間隔
+Game_DanC_Number_Small_Padding=26
+//段プレートの座標
+Game_DanC_Dan_Plate=149,416
+//ExamType画像の1項目の幅・高さ
+Game_DanC_ExamType_Size=100,36
+//ExamUnit画像の1項目の幅・高さ
+Game_DanC_ExamUnit_Size=60,36
+//その項目に対する現在の値を描画するためのBase座標からのOffset
+Game_DanC_Number_Small_Number_Offset=178,-15
+//ExamUnit画像の1文字当たりの幅
+Game_DanC_Percent_Hit_Score_Padding=20,20,20,20
+//その項目に対する判定閾値を描画するためのBase座標からのOffset
+Game_DanC_Exam_Offset=932,17
+
 //リザルト画面での王冠の座標(各パラメータ値は1P,2Pの順)
 Result_Crown_X=400,400
 Result_Crown_Y=250,610
@@ -135,7 +165,6 @@ Result_Crown_Y=250,610
 //リザルト画面での数値回転の間隔
 Result_RotateInterval=50
 
-//以下のパラメータはもともと存在していましたが、変更を加えました。
 //何拍でキャラのモーションが1周するかの指定(各パラメータ値は1P,2Pの順)
 Game_Chara_Beat_Normal=1,1
 Game_Chara_Beat_Clear=2,2

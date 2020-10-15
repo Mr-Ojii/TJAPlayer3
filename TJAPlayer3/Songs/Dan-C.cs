@@ -10,7 +10,7 @@ namespace TJAPlayer3
 	/// </summary>
 	public class Dan_C
 	{
-		public Dan_C(Dan_C dan_C) : this(dan_C.GetExamType(), new int[] { dan_C.GetValue(false), dan_C.GetValue(true) }, dan_C.GetExamRange())
+		public Dan_C(Dan_C dan_C) : this(dan_C.GetExamType(), dan_C.Value, dan_C.GetExamRange())
 		{
 			
 		}
@@ -29,14 +29,33 @@ namespace TJAPlayer3
 		/// <param name="examType">条件の種別。</param>
 		/// <param name="value">条件の合格量。</param>
 		/// <param name="examRange">条件の合格の範囲。</param>
-		public Dan_C(Exam.Type examType, int[] value, Exam.Range examRange, bool IsV2 = false)
+		public Dan_C(Exam.Type examType, int[] value, Exam.Range examRange)
 		{
 			IsEnable = true;
 			NotReached = false;
-			IsDanCV2 = IsV2;
-			SetExamType(examType);
-			SetValue(value[0], value[1]);
-			SetExamRange(examRange);
+			Type = examType;
+			Range = examRange;
+
+			if (value.Length > 2)
+			{
+				IsForEachSongs = true;
+				this.Value = new int[value.Length];
+				for (int i = 0; i < value.Length; i++)
+				{
+					if (value[i] != -1)
+						this.Value[i] = value[i];
+				}
+			}
+			else
+			{
+				IsForEachSongs = false;
+				this.Value = new int[value.Length];
+				for (int i = 0; i < value.Length; i++)
+				{
+					if (value[i] != -1) 
+						this.Value[i] = value[i];
+				}
+			}
 		}
 
 		/// <summary>
@@ -92,17 +111,6 @@ namespace TJAPlayer3
 		}
 
 		/// <summary>
-		/// 各合格条件のボーダーを設定します。
-		/// </summary>
-		/// <param name="redValue">赤合格条件</param>
-		/// <param name="goldValue">金合格条件</param>
-		public void SetValue(int redValue, int goldValue)
-		{
-			if (redValue != -1) this.Value[0] = redValue;
-			if (goldValue != -1) this.Value[1] = goldValue;
-		}
-
-		/// <summary>
 		/// 各合格条件のボーダーを返します。
 		/// </summary>
 		/// <param name="isGoldValue">trueを指定すると、金合格条件を返します。</param>
@@ -140,30 +148,12 @@ namespace TJAPlayer3
 		}
 
 		/// <summary>
-		/// 条件の種別を設定します。
-		/// </summary>
-		/// <param name="type">条件の種別。</param>
-		private void SetExamType(Exam.Type type)
-		{
-			this.Type = type;
-		}
-
-		/// <summary>
 		/// 条件の範囲を返します。
 		/// </summary>
 		/// <returns>条件の範囲</returns>
 		public Exam.Range GetExamRange()
 		{
 			return this.Range;
-		}
-
-		/// <summary>
-		/// 条件の範囲を設定します。
-		/// </summary>
-		/// <param name="range"></param>
-		private void SetExamRange(Exam.Range range)
-		{
-			this.Range = range;
 		}
 
 		/// <summary>
@@ -177,7 +167,8 @@ namespace TJAPlayer3
 
 		public void SetNowSongNum(int Num) 
 		{
-		
+			if (this.IsForEachSongs)
+				this.NowSongNum = Num;
 		}
 
 		/// <summary>
@@ -345,9 +336,9 @@ namespace TJAPlayer3
 		private bool NotReached = false;
 
 		/// <summary>
-		/// 段位条件がニジイロ段位用か。
+		/// 段位条件がそれぞれの曲に対してか。
 		/// </summary>
-		public bool IsDanCV2;
+		public bool IsForEachSongs;
 	}
 
 	public static class Exam

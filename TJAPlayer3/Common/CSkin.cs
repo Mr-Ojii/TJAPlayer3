@@ -1904,29 +1904,16 @@ namespace TJAPlayer3
 							}
 							else if (strCommand == nameof(Game_DanC_Y))
 							{
-								Game_DanC_Y = strParam.Split(',').Select(int.Parse).ToArray();
+								Game_DanC_Y = int.Parse(strParam);
 							}
-
-							else if (strCommand == nameof(Game_DanC_Size))
+							else if (strCommand == nameof(Game_DanC_Y_Padding))
 							{
-								Game_DanC_Size = strParam.Split(',').Select(int.Parse).ToArray();
+								ParseInt32(value => Game_DanC_Y_Padding = value);
 							}
-
-							else if (strCommand == nameof(Game_DanC_Padding))
-							{
-								ParseInt32(value => Game_DanC_Padding = value);
-							}
-
 							else if (strCommand == nameof(Game_DanC_Offset))
 							{
 								Game_DanC_Offset = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-
-							else if (strCommand == nameof(Game_DanC_Number_Size))
-							{
-								Game_DanC_Number_Size = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-
 							else if (strCommand == nameof(Game_DanC_Number_Padding))
 							{
 								ParseInt32(value => Game_DanC_Number_Padding = value);
@@ -1954,16 +1941,6 @@ namespace TJAPlayer3
 							{
 								Game_DanC_ExamType_Size = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == nameof(Game_DanC_ExamRange_Size))
-							{
-								Game_DanC_ExamRange_Size = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-
-							else if (strCommand == nameof(Game_DanC_ExamRange_Padding))
-							{
-								ParseInt32(value => Game_DanC_ExamRange_Padding = value);
-							}
-
 							else if (strCommand == nameof(Game_DanC_Percent_Hit_Score_Padding))
 							{
 								Game_DanC_Percent_Hit_Score_Padding = strParam.Split(',').Select(int.Parse).ToArray();
@@ -2625,25 +2602,22 @@ namespace TJAPlayer3
 		public Color Game_DanC_Title_BackColor = ColorTranslator.FromHtml("#000000");
 		public Color Game_DanC_SubTitle_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
 		public Color Game_DanC_SubTitle_BackColor = ColorTranslator.FromHtml("#000000");
+
+
 		public int[] Game_DanC_X = new int[] { 302, 302, 302 };
-		public int[] Game_DanC_Y = new int[] { 473, 419, 365 };
-		public int[] Game_DanC_Size = new int[] { 956, 92 };
-		public int Game_DanC_Padding = 5;
-		public int[] Game_DanC_Offset = new int[] { 15, 17 };
-		public int[] Game_DanC_Number_Size = new int[] { 50, 62 };
+		public int Game_DanC_Y = 520;//変更
+		public int Game_DanC_Y_Padding = 100;
+		public int[] Game_DanC_Offset = new int[] { 15, 10 };
 		public int Game_DanC_Number_Padding = 50;
+		public int[] Game_DanC_Number_XY = new int[] { 235, 550 };
 		public float Game_DanC_Number_Small_Scale = 0.5f;
 		public int Game_DanC_Number_Small_Padding = 26;
-		public int[] Game_DanC_Number_XY = new int[] { 218, 610 };
-		public int[] Game_DanC_Number_Small_Number_Offset = new int[] { 178, 43 };
-		public int[] Game_DanC_ExamType_Size = new int[] { 100, 36 };
-		public int[] Game_DanC_ExamRange_Size = new int[] { 60, 36 };
-		public int Game_DanC_ExamRange_Padding = 46;
-		public int[] Game_DanC_Percent_Hit_Score_Padding = new int[] { 20, 20, 20, 20 };
-		public int[] Game_DanC_ExamUnit_Size = new int[] { 60, 36 };
-		public int[] Game_DanC_Exam_Offset = new int[] { 932, 17 };
 		public int[] Game_DanC_Dan_Plate = new int[] { 149, 416 };
-		public int Game_DanC_Unit_CharWidth = 20;//Unit内の1文字のWidth
+		public int[] Game_DanC_ExamType_Size = new int[] { 100, 36 };
+		public int[] Game_DanC_ExamUnit_Size = new int[] { 60, 36 };
+		public int[] Game_DanC_Number_Small_Number_Offset = new int[] { 178, -15 };
+		public int[] Game_DanC_Percent_Hit_Score_Padding = new int[] { 20, 20, 20, 20 };
+		public int[] Game_DanC_Exam_Offset = new int[] { 932, -40 };
 
 		public int Game_DanC_v2_Panel_X = 90;
 		public int Game_DanC_v2_Panel_Y = 550;

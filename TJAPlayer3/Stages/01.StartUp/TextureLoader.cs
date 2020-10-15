@@ -639,7 +639,8 @@ namespace TJAPlayer3
 				DanC_V2_Gauge[i] = TxC(GAME + DANCV2 + @"Gauge_" + type[i] + ".png");
 			}
 			DanC_V2_Base = TxC(GAME + DANCV2 + @"Base.png");
-			DanC_V2_Failed = TxC(GAME + DANCV2 + @"Failed.png");
+			DanC_V2_Failed_Text = TxC(GAME + DANCV2 + @"Failed_Text.png");
+			DanC_V2_Failed_Cover = TxC(GAME + DANCV2 + @"Failed_Cover.png");
 			DanC_V2_Number = TxC(GAME + DANCV2 + @"Number.png");
 			DanC_V2_ExamType = TxC(GAME + DANCV2 + @"ExamType.png");
 			DanC_V2_ExamRange = TxC(GAME + DANCV2 + @"ExamRange.png");
@@ -985,7 +986,8 @@ namespace TJAPlayer3
 			TJAPlayer3.t安全にDisposeする(ref DanC_Screen);
 			TJAPlayer3.t安全にDisposeする(ref DanC_V2_Background);
 			TJAPlayer3.t安全にDisposeする(ref DanC_V2_Base);
-			TJAPlayer3.t安全にDisposeする(ref DanC_V2_Failed);
+			TJAPlayer3.t安全にDisposeする(ref DanC_V2_Failed_Text);
+			TJAPlayer3.t安全にDisposeする(ref DanC_V2_Failed_Cover);
 			TJAPlayer3.t安全にDisposeする(ref DanC_V2_Number);
 			TJAPlayer3.t安全にDisposeする(ref DanC_V2_ExamRange);
 			TJAPlayer3.t安全にDisposeする(ref DanC_V2_ExamType_Box);
@@ -1293,7 +1295,8 @@ namespace TJAPlayer3
 		public CTexture DanC_Screen;
 		public CTexture DanC_V2_Background,
 			DanC_V2_Base,
-			DanC_V2_Failed,
+			DanC_V2_Failed_Text,
+			DanC_V2_Failed_Cover,
 			DanC_V2_Number,
 			DanC_V2_ExamType,
 			DanC_V2_ExamRange,
