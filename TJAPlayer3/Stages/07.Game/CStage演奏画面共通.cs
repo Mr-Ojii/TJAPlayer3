@@ -1369,7 +1369,6 @@ namespace TJAPlayer3
 								break;
 						}
 					}
-					actDan.Update();
 				
 					#region[ コンボ音声 ]
 					if( pChip.nチャンネル番号 < 0x15 || ( pChip.nチャンネル番号 >= 0x1A ) )
@@ -1469,6 +1468,7 @@ namespace TJAPlayer3
 				default:
 					break;
 			}
+			actDan.Update();
 			if ( ( ( pChip.e楽器パート != E楽器パート.UNKNOWN ) ) && ( eJudgeResult != E判定.Miss ) && ( eJudgeResult != E判定.Bad ) && ( eJudgeResult != E判定.Poor ) && ( pChip.nチャンネル番号 <= 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B ) )
 			{
 				int nCombos = this.actCombo.n現在のコンボ数[ nPlayer ];

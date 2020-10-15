@@ -36,7 +36,15 @@ namespace TJAPlayer3
 			NotReached = false;
 			Type = examType;
 			Range = examRange;
-			IsForEachSongs = (value.Length > 2) ? true : false;
+
+			if (value.Length > 2&& examType!=Exam.Type.Gauge && examType != Exam.Type.Combo && examType != Exam.Type.Score) 
+			{
+				IsForEachSongs = true;
+			}
+			else
+			{
+				IsForEachSongs = false;
+			}
 
 			#region[Valueの代入]
 			List<int> valuetmp = new List<int>();
@@ -52,14 +60,22 @@ namespace TJAPlayer3
 			#endregion
 
 			#region[IsClearedの代入]
-			this.IsCleared = new bool[value.Length];
-			for (int i = 0; i < value.Length; i++)
+			this.IsCleared = new bool[Value.Length];
+			for (int i = 0; i < Value.Length; i++)
 			{
 				IsCleared[i] = false;
 			}
-            #endregion
+			#endregion
 
-            this.NowSongNum = 1;
+			#region[Amountの初期化]
+			Amount = new int[Value.Length / 2];
+			for (int i = 0; i < Value.Length / 2; i++)
+			{
+				Amount[i] = 0;
+			}
+			#endregion
+
+			this.NowSongNum = 0;
 		}
 
 		/// <summary>
@@ -68,40 +84,18 @@ namespace TJAPlayer3
 		/// <param name="nowValue">その条件の現在の値。</param>
 		public bool Update(int nowValue)
 		{
+			for (int i = 0; i < this.NowSongNum; i++)
+			{
+				nowValue -= this.Amount[i];
+			}
+
 			var isChangedAmount = false;
 			if (!this.IsEnable) return isChangedAmount;
 			if (GetAmount() < nowValue) isChangedAmount = true;
 			if (this.Range == Exam.Range.Less && nowValue > GetValue(false)) isChangedAmount = false; // n未満でその数を超えたらfalseを返す。
 			SetAmount(nowValue);
-			switch (this.Type)
-			{
-				case Exam.Type.Gauge:
-					SetCleared();
-					break;
-				case Exam.Type.JudgePerfect:
-						SetCleared();
-					break;
-				case Exam.Type.JudgeGood:
-						SetCleared();
-					break;
-				case Exam.Type.JudgeBad:
-						SetCleared();
-					break;
-				case Exam.Type.Score:
-						SetCleared();
-					break;
-				case Exam.Type.Roll:
-						SetCleared();
-					break;
-				case Exam.Type.Hit:
-						SetCleared();
-					break;
-				case Exam.Type.Combo:
-						SetCleared();
-					break;
-				default:
-					break;
-			}
+			SetCleared();
+
 			return isChangedAmount;
 		}
 
@@ -112,7 +106,7 @@ namespace TJAPlayer3
 		/// <returns>合格条件の値。</returns>
 		public int GetValue(bool isGoldValue)
 		{
-			return isGoldValue == true ? this.Value[1] : this.Value[0];
+			return isGoldValue == true ? this.Value[this.NowSongNum * 2 + 1] : this.Value[this.NowSongNum * 2];
 		}
 
 		/// <summary>
@@ -121,7 +115,7 @@ namespace TJAPlayer3
 		/// <param name="amount">現在の値。</param>
 		public void SetAmount(int amount)
 		{
-			this.Amount = amount;
+			this.Amount[this.NowSongNum] = amount;
 		}
 
 		/// <summary>
@@ -130,7 +124,7 @@ namespace TJAPlayer3
 		/// <returns>現在の値。</returns>
 		public int GetAmount()
 		{
-			return this.Amount;
+			return this.Amount[this.NowSongNum];
 		}
 
 		/// <summary>
@@ -163,24 +157,13 @@ namespace TJAPlayer3
 		{
 			if (this.Range == Exam.Range.More)
 			{
-				if (GetAmount() >= GetValue(false))
-				{
-					IsCleared[0] = true;
-					if (GetAmount() >= GetValue(true))
-					{
-						IsCleared[1] = true;
-					}
-				}
-				else
-				{
-					IsCleared[0] = false;
-					IsCleared[1] = false;
-				}
+				IsCleared[this.NowSongNum * 2] = (this.GetAmount() >= GetValue(false)) ? true : false;
+				IsCleared[this.NowSongNum * 2 + 1] = (this.GetAmount() >= GetValue(true)) ? true : false;
 			}
 			else
 			{
-				IsCleared[0] = (GetAmount() < GetValue(false)) ? true : false;
-				IsCleared[1] = (GetAmount() < GetValue(true)) ? true : false;
+				IsCleared[this.NowSongNum * 2] = (this.GetAmount() < GetValue(false)) ? true : false;
+				IsCleared[this.NowSongNum * 2 + 1] = (this.GetAmount() < GetValue(true)) ? true : false;
 			}        
 		}
 		
@@ -289,13 +272,15 @@ namespace TJAPlayer3
 		/// <summary>
 		/// 量。
 		/// </summary>
-		public int Amount;
+		public int[] Amount;
 		/// <summary>
 		/// 条件をクリアしているか否か。
 		/// </summary>
 		public readonly bool[] IsCleared;
+
 		/// <summary>
-		/// 現在の曲の番号
+		/// IsForEachSongs=trueの場合、現在の曲の番号-1
+		/// IsForEachSongs=falseの場合、0
 		/// </summary>
 		private int NowSongNum;
 
