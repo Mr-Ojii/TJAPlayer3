@@ -11,7 +11,7 @@ namespace TJAPlayer3
 	/// </summary>
 	public class Dan_C
 	{
-		public Dan_C(Dan_C dan_C) : this(dan_C.GetExamType(), dan_C.Value, dan_C.GetExamRange())
+		public Dan_C(Dan_C dan_C) : this(dan_C.Type, dan_C.Value, dan_C.Range)
 		{
 			
 		}
@@ -71,9 +71,9 @@ namespace TJAPlayer3
 			var isChangedAmount = false;
 			if (!this.IsEnable) return isChangedAmount;
 			if (GetAmount() < nowValue) isChangedAmount = true;
-			if (GetExamRange() == Exam.Range.Less && nowValue > GetValue(false)) isChangedAmount = false; // n未満でその数を超えたらfalseを返す。
+			if (this.Range == Exam.Range.Less && nowValue > GetValue(false)) isChangedAmount = false; // n未満でその数を超えたらfalseを返す。
 			SetAmount(nowValue);
-			switch (GetExamType())
+			switch (this.Type)
 			{
 				case Exam.Type.Gauge:
 					SetCleared();
@@ -134,24 +134,6 @@ namespace TJAPlayer3
 		}
 
 		/// <summary>
-		/// 条件の種別を返します。
-		/// </summary>
-		/// <returns>条件の種別</returns>
-		public Exam.Type GetExamType()
-		{
-			return this.Type;
-		}
-
-		/// <summary>
-		/// 条件の範囲を返します。
-		/// </summary>
-		/// <returns>条件の範囲</returns>
-		public Exam.Range GetExamRange()
-		{
-			return this.Range;
-		}
-
-		/// <summary>
 		/// 条件にクリアしているかどうか返します。
 		/// </summary>
 		/// <returns>条件にクリアしているかどうか。</returns>
@@ -179,7 +161,7 @@ namespace TJAPlayer3
 		/// </summary>
 		private void SetCleared()
 		{
-			if (GetExamRange() == Exam.Range.More)
+			if (this.Range == Exam.Range.More)
 			{
 				if (GetAmount() >= GetValue(false))
 				{
@@ -213,9 +195,9 @@ namespace TJAPlayer3
 			{
 				return 0;
 			}
-			if(GetExamRange() == Exam.Range.More)
+			if(this.Range == Exam.Range.More)
 			{
-				switch (GetExamType())
+				switch (this.Type)
 				{
 					case Exam.Type.Gauge:
 					case Exam.Type.JudgePerfect:
@@ -233,7 +215,7 @@ namespace TJAPlayer3
 			}
 			else
 			{
-				switch (GetExamType())
+				switch (this.Type)
 				{
 					case Exam.Type.Gauge:
 					case Exam.Type.JudgePerfect:
@@ -283,7 +265,7 @@ namespace TJAPlayer3
 		/// <returns>段位認定モードの各条件の現在状況。</returns>
 		public override string ToString()
 		{
-			return String.Format("Type: {0} / Value: {1}/{2} / Range: {3} / Amount: {4} / Clear: {5}/{6} / Percent: {7} / NotReached: {8}", GetExamType(), GetValue(false), GetValue(true), GetExamRange(), GetAmount(), GetCleared(false), GetCleared(true), GetAmountToPercent(), GetReached());
+			return String.Format("Type: {0} / Value: {1}/{2} / Range: {3} / Amount: {4} / Clear: {5}/{6} / Percent: {7} / NotReached: {8}", this.Type, GetValue(false), GetValue(true), this.Range, GetAmount(), GetCleared(false), GetCleared(true), GetAmountToPercent(), GetReached());
 		}
 
 
@@ -295,15 +277,15 @@ namespace TJAPlayer3
 		/// <summary>
 		/// 条件の種別。
 		/// </summary>
-		private Exam.Type Type;
+		public readonly Exam.Type Type;
 		/// <summary>
 		/// 条件の範囲。
 		/// </summary>
-		private Exam.Range Range;
+		public readonly Exam.Range Range;
 		/// <summary>
 		/// 条件の値。
 		/// </summary>
-		public int[] Value = new int[] { 0, 0 };
+		public int[] Value;
 		/// <summary>
 		/// 量。
 		/// </summary>
@@ -311,7 +293,7 @@ namespace TJAPlayer3
 		/// <summary>
 		/// 条件をクリアしているか否か。
 		/// </summary>
-		public readonly bool[] IsCleared = new[] { false, false };
+		public readonly bool[] IsCleared;
 		/// <summary>
 		/// 現在の曲の番号
 		/// </summary>
