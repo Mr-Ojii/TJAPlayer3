@@ -401,7 +401,7 @@ namespace TJAPlayer3
 			var count = 0;
 			for (int i = 0; i < 3; i++)
 			{
-				if (dan_C[i] != null && dan_C[i].IsEnable() == true)
+				if (dan_C[i] != null && dan_C[i].IsEnable == true)
 					count++;
 			}
 			for (int i = 0; i < count; i++)
