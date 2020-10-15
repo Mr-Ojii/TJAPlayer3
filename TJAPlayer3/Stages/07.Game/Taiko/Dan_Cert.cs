@@ -778,17 +778,17 @@ namespace TJAPlayer3
 			}
 			for (int i = 0; i < count; i++)
 			{
-				if (!dan_C[i].GetCleared()[1]) status = Exam.Status.Success;
+				if (!dan_C[i].GetCleared(true)) status = Exam.Status.Success;
 			}
 			if (Gauge.IsEnable)
-				if (!Gauge.GetCleared()[1]) 
+				if (!Gauge.GetCleared(true)) 
 					status = Exam.Status.Success;
 			for (int i = 0; i < count; i++)
 			{
-				if (!dan_C[i].GetCleared()[0]) status = Exam.Status.Failure;
+				if (!dan_C[i].GetCleared(false)) status = Exam.Status.Failure;
 			}
 			if(Gauge.IsEnable)
-				if (!Gauge.GetCleared()[0]) 
+				if (!Gauge.GetCleared(false)) 
 					status = Exam.Status.Failure;
 			return status;
 		}

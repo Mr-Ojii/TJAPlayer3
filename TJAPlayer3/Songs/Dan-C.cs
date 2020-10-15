@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FFmpeg.AutoGen;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,27 +36,30 @@ namespace TJAPlayer3
 			NotReached = false;
 			Type = examType;
 			Range = examRange;
+			IsForEachSongs = (value.Length > 2) ? true : false;
 
-			if (value.Length > 2)
+			#region[Valueの代入]
+			List<int> valuetmp = new List<int>();
+			this.Value = new int[value.Length];
+			for (int i = 0; i < value.Length; i++)
 			{
-				IsForEachSongs = true;
-				this.Value = new int[value.Length];
-				for (int i = 0; i < value.Length; i++)
-				{
-					if (value[i] != -1)
-						this.Value[i] = value[i];
-				}
+				if (value[i] != -1)
+					valuetmp.Add(value[i]);
 			}
-			else
+			if (valuetmp.Count % 2 != 0)
+				valuetmp.Add(valuetmp[valuetmp.Count - 1]);
+			this.Value = valuetmp.ToArray();
+			#endregion
+
+			#region[IsClearedの代入]
+			this.IsCleared = new bool[value.Length];
+			for (int i = 0; i < value.Length; i++)
 			{
-				IsForEachSongs = false;
-				this.Value = new int[value.Length];
-				for (int i = 0; i < value.Length; i++)
-				{
-					if (value[i] != -1) 
-						this.Value[i] = value[i];
-				}
+				IsCleared[i] = false;
 			}
+            #endregion
+
+            this.NowSongNum = 1;
 		}
 
 		/// <summary>
@@ -151,9 +155,17 @@ namespace TJAPlayer3
 		/// 条件にクリアしているかどうか返します。
 		/// </summary>
 		/// <returns>条件にクリアしているかどうか。</returns>
-		public bool[] GetCleared()
+		public bool GetCleared(bool isGoldValue)//済
 		{
-			return IsCleared;
+			int mod = isGoldValue ? 1 : 0;
+			bool clear = true;
+			for (int i = 0; i < IsCleared.Length / 2; i++) 
+			{
+				if (!IsCleared[i * 2 + mod])
+					clear = false;
+			}
+
+			return clear;
 		}
 
 		public void SetNowSongNum(int Num) 
@@ -185,22 +197,8 @@ namespace TJAPlayer3
 			}
 			else
 			{
-				if (GetAmount() < GetValue(true))
-				{
-					IsCleared[1] = true;
-				}
-				else
-				{
-					IsCleared[1] = false;
-				}
-				if (GetAmount() < GetValue(false))
-				{
-					IsCleared[0] = true;
-				}
-				else
-				{
-					IsCleared[0] = false;
-				}
+				IsCleared[0] = (GetAmount() < GetValue(false)) ? true : false;
+				IsCleared[1] = (GetAmount() < GetValue(true)) ? true : false;
 			}        
 		}
 		
@@ -285,7 +283,7 @@ namespace TJAPlayer3
 		/// <returns>段位認定モードの各条件の現在状況。</returns>
 		public override string ToString()
 		{
-			return String.Format("Type: {0} / Value: {1}/{2} / Range: {3} / Amount: {4} / Clear: {5}/{6} / Percent: {7} / NotReached: {8}", GetExamType(), GetValue(false), GetValue(true), GetExamRange(), GetAmount(), GetCleared()[0], GetCleared()[1], GetAmountToPercent(), GetReached());
+			return String.Format("Type: {0} / Value: {1}/{2} / Range: {3} / Amount: {4} / Clear: {5}/{6} / Percent: {7} / NotReached: {8}", GetExamType(), GetValue(false), GetValue(true), GetExamRange(), GetAmount(), GetCleared(false), GetCleared(true), GetAmountToPercent(), GetReached());
 		}
 
 
