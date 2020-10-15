@@ -756,9 +756,9 @@ namespace TJAPlayer3
 			var isFailed = false;
 			for (int i = 0; i < this.ExamCount; i++)
 			{
-				if (Challenge[i].GetReached()) isFailed = true;
+				if (Challenge[i].GetEnable() && Challenge[i].GetReached()) isFailed = true;
 			}
-			if (Gauge.GetReached()) isFailed = true;
+			if (Gauge.GetEnable() && Gauge.GetReached()) isFailed = true;
 			return isFailed;
 		}
 
@@ -780,12 +780,16 @@ namespace TJAPlayer3
 			{
 				if (!dan_C[i].GetCleared()[1]) status = Exam.Status.Success;
 			}
-			if(!Gauge.GetCleared()[1]) status = Exam.Status.Success;
+			if (Gauge.GetEnable())
+				if (!Gauge.GetCleared()[1]) 
+					status = Exam.Status.Success;
 			for (int i = 0; i < count; i++)
 			{
 				if (!dan_C[i].GetCleared()[0]) status = Exam.Status.Failure;
 			}
-			if (!Gauge.GetCleared()[0]) status = Exam.Status.Failure;
+			if(Gauge.GetEnable())
+				if (!Gauge.GetCleared()[0]) 
+					status = Exam.Status.Failure;
 			return status;
 		}
 
