@@ -206,11 +206,30 @@ namespace TJAPlayer3
 							break;
 					}
 
+
 					// 音源が終了したやつの分岐。
-					if(!IsEnded)
+					if (!IsEnded)
 					{
 						if (TJAPlayer3.DTX[0].listChip.Count <= 0) continue;
-						if (TJAPlayer3.DTX[0].listChip[TJAPlayer3.DTX[0].listChip.Count - 1].n発声時刻ms < TJAPlayer3.Timer.n現在時刻ms)
+
+						//次の音符が段位幕かENDだったらtrue
+						//次の音符がドン・カッ・連打・風船だったら、false
+						bool bNotesFin = true;
+						for (int index = 0; index < TJAPlayer3.DTX[0].listChip.Count; index++)
+						{
+							if (TJAPlayer3.DTX[0].listChip[index].n発声時刻ms > (long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
+							{
+								if (TJAPlayer3.DTX[0].listChip[index].nチャンネル番号 == 0xff || TJAPlayer3.DTX[0].listChip[index].nチャンネル番号 == 0x9B)
+									break;
+								else if (TJAPlayer3.DTX[0].listChip[index].nチャンネル番号 >= 0x10 && TJAPlayer3.DTX[0].listChip[index].nチャンネル番号 <= 0x1f)
+								{
+									bNotesFin = false;
+									break;
+								}
+							}
+						}
+
+						if (bNotesFin) 
 						{
 							switch (Challenge[i].Type)
 							{
