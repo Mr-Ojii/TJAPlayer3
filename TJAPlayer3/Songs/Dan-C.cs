@@ -13,13 +13,13 @@ namespace TJAPlayer3
 	{
 		public Dan_C(Dan_C dan_C) : this(dan_C.Type, dan_C.Value, dan_C.Range)
 		{
-			
+
 		}
 
 		/// <summary>
 		/// ぬるぽ抑制用
 		/// </summary>
-		public Dan_C() 
+		public Dan_C()
 		{
 			IsEnable = false;
 		}
@@ -37,7 +37,7 @@ namespace TJAPlayer3
 			Type = examType;
 			Range = examRange;
 
-			if (value.Length > 2&& examType!=Exam.Type.Gauge && examType != Exam.Type.Combo && examType != Exam.Type.Score) 
+			if (value.Length > 2 && examType != Exam.Type.Gauge && examType != Exam.Type.Combo && examType != Exam.Type.Score)
 			{
 				IsForEachSongs = true;
 			}
@@ -110,6 +110,16 @@ namespace TJAPlayer3
 		}
 
 		/// <summary>
+		/// 各合格条件のボーダーを返します。
+		/// </summary>
+		/// <param name="isGoldValue">trueを指定すると、金合格条件を返します。</param>
+		/// <returns>合格条件の値。</returns>
+		public int GetValue(bool isGoldValue, int index)
+		{
+			return isGoldValue == true ? this.Value[index * 2 + 1] : this.Value[index * 2];
+		}
+
+		/// <summary>
 		/// 現在の値を設定します。
 		/// </summary>
 		/// <param name="amount">現在の値。</param>
@@ -128,6 +138,15 @@ namespace TJAPlayer3
 		}
 
 		/// <summary>
+		/// indexで指定された曲数の値を返します。
+		/// </summary>
+		/// <returns>現在の値。</returns>
+		public int GetAmount(int index)
+		{
+			return this.Amount[index];
+		}
+
+		/// <summary>
 		/// 条件にクリアしているかどうか返します。
 		/// </summary>
 		/// <returns>条件にクリアしているかどうか。</returns>
@@ -135,7 +154,7 @@ namespace TJAPlayer3
 		{
 			int mod = isGoldValue ? 1 : 0;
 			bool clear = true;
-			for (int i = 0; i < IsCleared.Length / 2; i++) 
+			for (int i = 0; i < IsCleared.Length / 2; i++)
 			{
 				if (!IsCleared[i * 2 + mod])
 					clear = false;
@@ -144,7 +163,18 @@ namespace TJAPlayer3
 			return clear;
 		}
 
-		public void SetNowSongNum(int Num) 
+
+		/// <summary>
+		/// 現在の曲の条件にクリアしているかどうか返します。
+		/// </summary>
+		/// <returns>条件にクリアしているかどうか。</returns>
+		public bool GetNowCleared(bool isGoldValue)//済
+		{
+			int mod = isGoldValue ? 1 : 0;
+			return this.IsCleared[this.NowSongNum * 2 + mod];
+		}
+
+		public void SetNowSongNum(int Num)
 		{
 			if (this.IsForEachSongs)
 				this.NowSongNum = Num;
@@ -164,9 +194,9 @@ namespace TJAPlayer3
 			{
 				IsCleared[this.NowSongNum * 2] = (this.GetAmount() < GetValue(false)) ? true : false;
 				IsCleared[this.NowSongNum * 2 + 1] = (this.GetAmount() < GetValue(true)) ? true : false;
-			}        
+			}
 		}
-		
+
 		/// <summary>
 		/// ゲージの描画のための百分率を返す。
 		/// </summary>
@@ -174,11 +204,11 @@ namespace TJAPlayer3
 		public int GetAmountToPercent()
 		{
 			var percent = 0.0D;
-			if(GetValue(false) == 0)
+			if (GetValue(false) == 0)
 			{
 				return 0;
 			}
-			if(this.Range == Exam.Range.More)
+			if (this.Range == Exam.Range.More)
 			{
 				switch (this.Type)
 				{
@@ -209,6 +239,61 @@ namespace TJAPlayer3
 					case Exam.Type.Hit:
 					case Exam.Type.Combo:
 						percent = (1.0 * (GetValue(false) - GetAmount())) / GetValue(false);
+						break;
+					default:
+						break;
+				}
+			}
+			percent = percent * 100.0;
+			if (percent < 0.0)
+				percent = 0.0D;
+			if (percent > 100.0)
+				percent = 100.0D;
+			return (int)percent;
+		}
+
+		/// <summary>
+		/// ゲージの描画のための百分率を返す。
+		/// </summary>
+		/// <returns>Amountの百分率。</returns>
+		public int GetAmountToPercent(int index)
+		{
+			var percent = 0.0D;
+			if (GetValue(false, index) == 0)
+			{
+				return 0;
+			}
+			if (this.Range == Exam.Range.More)
+			{
+				switch (this.Type)
+				{
+					case Exam.Type.Gauge:
+					case Exam.Type.JudgePerfect:
+					case Exam.Type.JudgeGood:
+					case Exam.Type.JudgeBad:
+					case Exam.Type.Score:
+					case Exam.Type.Roll:
+					case Exam.Type.Hit:
+					case Exam.Type.Combo:
+						percent = 1.0 * GetAmount(index) / GetValue(false, index);
+						break;
+					default:
+						break;
+				}
+			}
+			else
+			{
+				switch (this.Type)
+				{
+					case Exam.Type.Gauge:
+					case Exam.Type.JudgePerfect:
+					case Exam.Type.JudgeGood:
+					case Exam.Type.JudgeBad:
+					case Exam.Type.Score:
+					case Exam.Type.Roll:
+					case Exam.Type.Hit:
+					case Exam.Type.Combo:
+						percent = (1.0 * (GetValue(false, index) - GetAmount(index))) / GetValue(false, index);
 						break;
 					default:
 						break;
