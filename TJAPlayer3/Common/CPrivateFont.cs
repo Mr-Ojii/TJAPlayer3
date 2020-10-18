@@ -257,7 +257,7 @@ namespace TJAPlayer3
 					{
 						//float to int
 						SizeF fstringSize = gtmp.MeasureString(drawstr, this._font, new PointF(0, 0), sf);
-						stringSize = new Size((int)fstringSize.Width, (int)fstringSize.Height);
+						stringSize = new Size((int)fstringSize.Width, this._font.Height);
 						stringSize.Width += 10; //2015.04.01 kairera0467 ROTTERDAM NATIONの描画サイズがうまくいかんので。
 					}
 				}

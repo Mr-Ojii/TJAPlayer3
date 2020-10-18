@@ -216,4 +216,11 @@ namespace TJAPlayer3
 	}
 	#endregion
 
+	public enum ESubtitleDispMode : int
+	{
+		Off,
+		Compliant,
+		On,
+	}
+
 }

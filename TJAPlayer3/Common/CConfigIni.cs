@@ -412,7 +412,9 @@ namespace TJAPlayer3
 		public bool ShowFooter;
 		public bool ShowMob;
 		public bool ShowPuchiChara; // リザーブ
-		//
+									//
+
+		public ESubtitleDispMode eSubtitleDispMode = ESubtitleDispMode.Compliant;
 
 		public EScrollMode eScrollMode = EScrollMode.Normal;
 		public int nRegSpeedBPM = 120;
@@ -1129,6 +1131,10 @@ namespace TJAPlayer3
 			sw.WriteLine("1PPlayerName={0}", this.strPlayerName[0]);
 			sw.WriteLine("2PPlayerName={0}", this.strPlayerName[1]);
 			sw.WriteLine();
+			sw.WriteLine("; サブタイトルの表示モード(0:表示しない,1:譜面準拠,2:表示する)");   // 2020.10.18 Mr-Ojii
+			sw.WriteLine("; SubtitleDisplayMode(0:Off,1:Compliant,2:On)");
+			sw.WriteLine("SubtitleDispMode={0}", (int)this.eSubtitleDispMode);
+			sw.WriteLine();
 			sw.WriteLine("; 各画像の表示設定");
 			sw.WriteLine("; キャラクター画像を表示する (0:OFF, 1:ON)");
 			sw.WriteLine("ShowChara={0}", ShowChara ? 1 : 0);
@@ -1820,6 +1826,10 @@ namespace TJAPlayer3
 											{
 												ShowPuchiChara = C変換.bONorOFF(str4[0]);
 											}
+											else if (str3.Equals("SubtitleDispMode"))
+											{
+												this.eSubtitleDispMode = (ESubtitleDispMode)C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 2, (int)this.eSubtitleDispMode);
+											}
 											else if( str3.Equals( "ScrollMode" ) )
 											{
 												this.eScrollMode = ( EScrollMode )C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, 0 );
@@ -1946,10 +1956,6 @@ namespace TJAPlayer3
 											{
 												this.nPlayerCount = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 2, this.nPlayerCount );
 											}
-											//else if (str3.Equals("Taikojiromode"))
-											//{
-											//	this.bTaikojiromode = C変換.bONorOFF(str4[0]);
-											//}
 											else if(str3.Equals("1PShinuchiMode"))
 											{
 												ShinuchiMode[0] = C変換.bONorOFF(str4[0]);
