@@ -129,6 +129,7 @@ namespace TJAPlayer3
 			SongSelect_PapaMama = TxC(SONGSELECT + @"PapaMama.png");
 			SongSelect_ItemNumber = TxC(SONGSELECT + @"ItemNumber.png");
 			SongSelect_ItemNumber_BG = TxC(SONGSELECT + @"ItemNumber_BG.png");
+			SongSelect_GenreText = TxC(SONGSELECT + @"GenreText.png");
 
 			for (int i = 0; i < SongSelect_Lyric_Text.Length; i++)
 			{
@@ -779,6 +780,7 @@ namespace TJAPlayer3
 			TJAPlayer3.t安全にDisposeする(ref SongSelect_PapaMama);
 			TJAPlayer3.t安全にDisposeする(ref SongSelect_ItemNumber);
 			TJAPlayer3.t安全にDisposeする(ref SongSelect_ItemNumber_BG);
+			TJAPlayer3.t安全にDisposeする(ref SongSelect_GenreText);
 
 			#region[3.5難易度選択]
 			TJAPlayer3.t安全にDisposeする(ref Difficulty_Dan_Box);
@@ -1097,7 +1099,8 @@ namespace TJAPlayer3
 			SongSelect_Bar_BackBox,
 			SongSelect_PapaMama,
 			SongSelect_ItemNumber,
-			SongSelect_ItemNumber_BG;
+			SongSelect_ItemNumber_BG,
+			SongSelect_GenreText;
 		public CTexture[] SongSelect_GenreBack = new CTexture[9],
 			SongSelect_ScoreWindow = new CTexture[(int)Difficulty.Total],
 			SongSelect_Lyric_Text = new CTexture[9],

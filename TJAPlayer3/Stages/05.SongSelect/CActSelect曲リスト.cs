@@ -577,23 +577,6 @@ namespace TJAPlayer3
 				return;
 
 			this.cpff = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 30);
-			for (int i = 0; i < 11; i++)
-			{
-				if (i == 10)
-				{
-					this.genretext[i] = GenerateGenreTexture("とじる", Color.White, Color.Black);
-
-				}
-				else if (i == 9)
-				{
-					this.genretext[i] = GenerateGenreTexture("ランダム", Color.White, Color.Black);
-
-				}
-				else
-				{
-					this.genretext[i] = GenerateGenreTexture(this.NumtonStrジャンル(i), Color.White, Color.Black);
-				}
-			}
 
 			int c = (CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
 			#region [ Songs not found画像 ]
@@ -673,7 +656,6 @@ namespace TJAPlayer3
 			TJAPlayer3.t安全にDisposeする(ref this.cpff);
 			TJAPlayer3.t安全にDisposeする(ref this.txEnumeratingSongs);
 			TJAPlayer3.t安全にDisposeする(ref this.txSongNotFound);
-			TJAPlayer3.t安全にDisposeする(ref this.genretext);
 
 			base.OnManagedリソースの解放();
 		}
@@ -799,6 +781,9 @@ namespace TJAPlayer3
 
 			if (TJAPlayer3.Tx.Difficulty_Icons != null)
 				TJAPlayer3.Tx.Difficulty_Icons.Opacity = 全体Opacity;
+
+			if (TJAPlayer3.Tx.SongSelect_GenreText != null)
+				TJAPlayer3.Tx.SongSelect_GenreText.Opacity = 全体Opacity;
 
 			if (TJAPlayer3.Tx.SongSelect_Bar_BackBox != null)
 				TJAPlayer3.Tx.SongSelect_Bar_BackBox.Opacity = 全体Opacity;
@@ -1189,22 +1174,13 @@ namespace TJAPlayer3
 					else if (TJAPlayer3.Tx.SongSelect_Bar_Center != null)
 						TJAPlayer3.Tx.SongSelect_Bar_Center.t2D描画(TJAPlayer3.app.Device, BoxCenterx - (int)(TJAPlayer3.Tx.SongSelect_Bar_Center.szテクスチャサイズ.Width / 2 * ctバー展開用タイマー.n現在の値 / 100.0), TJAPlayer3.Skin.SongSelect_Overall_Y);
 
-					if (this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Box || this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Other)
+					if (this.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.BOX)
 					{
-						if (r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.RANDOM)
+						int genretextureindex = nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
+						if (TJAPlayer3.Tx.SongSelect_GenreText != null)
 						{
-							genretextureindex = 9;
+							TJAPlayer3.Tx.SongSelect_GenreText.t2D中心基準描画(TJAPlayer3.app.Device, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y - 25, new Rectangle(0, genretextureindex * (TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Height / 9), TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Width, (TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Height / 9)));
 						}
-						else if (r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.BACKBOX)
-						{
-							genretextureindex = 10;
-						}
-						else
-						{
-							genretextureindex = nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
-						}
-						genretext[genretextureindex].Opacity = 全体Opacity;
-						genretext[genretextureindex].t2D拡大率考慮下拡大率考慮中心基準描画(TJAPlayer3.app.Device, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y);
 					}
 					switch (r現在選択中の曲.eノード種別)
 					{
@@ -1689,22 +1665,13 @@ namespace TJAPlayer3
 					else if (TJAPlayer3.Tx.SongSelect_Bar_Center != null)
 						TJAPlayer3.Tx.SongSelect_Bar_Center.t2D描画(TJAPlayer3.app.Device, BoxCenterx - (int)(TJAPlayer3.Tx.SongSelect_Bar_Center.szテクスチャサイズ.Width / 2 * ctバー展開用タイマー.n現在の値 / 100.0), TJAPlayer3.Skin.SongSelect_Overall_Y);
 
-					if (this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Box || this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Other)
+					if (this.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.BOX)
 					{
-						if (r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.RANDOM)
+						int genretextureindex = nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
+						if (TJAPlayer3.Tx.SongSelect_GenreText != null)
 						{
-							genretextureindex = 9;
+							TJAPlayer3.Tx.SongSelect_GenreText.t2D中心基準描画(TJAPlayer3.app.Device, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y - 25, new Rectangle(0, genretextureindex * (TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Height / 9), TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Width, (TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Height / 9)));
 						}
-						else if (r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.BACKBOX)
-						{
-							genretextureindex = 10;
-						}
-						else
-						{
-							genretextureindex = nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
-						}
-						genretext[genretextureindex].Opacity = 全体Opacity;
-						genretext[genretextureindex].t2D拡大率考慮下拡大率考慮中心基準描画(TJAPlayer3.app.Device, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y);
 					}
 					switch (r現在選択中の曲.eノード種別)
 					{
@@ -2003,11 +1970,13 @@ namespace TJAPlayer3
 				//-----------------
 			}
 
-			if (this.e曲のバー種別を返す(this.r現在選択中の曲) == Eバー種別.Score)
+			if (this.r現在選択中の曲.eノード種別 != C曲リストノード.Eノード種別.BOX)
 			{
-				genretextureindex = nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
-				genretext[genretextureindex].Opacity = 全体Opacity;
-				genretext[genretextureindex].t2D拡大率考慮下拡大率考慮中心基準描画(TJAPlayer3.app.Device, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y); ;
+				int genretextureindex = (this.r現在選択中の曲.r親ノード != null) ? nStrジャンルtoNum(this.r現在選択中の曲.r親ノード.strジャンル): nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
+				if (TJAPlayer3.Tx.SongSelect_GenreText != null)
+				{
+					TJAPlayer3.Tx.SongSelect_GenreText.t2D中心基準描画(TJAPlayer3.app.Device, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y - 25, new Rectangle(0, genretextureindex * (TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Height / 9), TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Width, (TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Height / 9)));
+				}
 			}
 			return 0;
 		}
@@ -2045,7 +2014,6 @@ namespace TJAPlayer3
 		private CCounter ctバー展開ディレイ用タイマー;
 		private CPrivateFastFont pfMusicName;
 		private CPrivateFastFont pfSubtitle;
-		private int genretextureindex;
 		internal CTexture タイトルtmp;
 		internal CTexture サブタイトルtmp;
 
@@ -2064,7 +2032,6 @@ namespace TJAPlayer3
 		  new Point( 840, 180 ), new Point( 940, 180 ), new Point( 1040, 180 ), new Point( 1140, 180 ), new Point( 1240, 180 ), new Point( 1340, 180 ) };//2020.06.16 Mr-Ojii 諸事情により座標変更
 
 		private STバー情報[] stバー情報 = new STバー情報[13];
-		private CTexture[] genretext = new CTexture[12];
 		private CTexture txSongNotFound, txEnumeratingSongs;
 		//private CTexture txスキル数字;
 		//private CTexture txアイテム数数字;
@@ -2237,44 +2204,6 @@ namespace TJAPlayer3
 			}
 
 			return nGenre;
-		}
-
-		private string NumtonStrジャンル(int intジャンル)
-		{
-			string Genre = "";
-			switch (intジャンル)
-			{
-				case 1:
-					Genre = "J-POP";
-					break;
-				case 2:
-					Genre = "アニメ";
-					break;
-				case 3:
-					Genre = "ゲームミュージック";
-					break;
-				case 4:
-					Genre = "ナムコオリジナル";
-					break;
-				case 5:
-					Genre = "クラシック";
-					break;
-				case 6:
-					Genre = "バラエティ";
-					break;
-				case 7:
-					Genre = "どうよう";
-					break;
-				case 8:
-					Genre = "ボーカロイド™曲";
-					break;
-				default:
-					Genre = "その他";
-					break;
-
-			}
-
-			return Genre;
 		}
 
 		private TitleTextureKey ttk曲名テクスチャを生成する(string str文字, Color forecolor, Color backcolor)
