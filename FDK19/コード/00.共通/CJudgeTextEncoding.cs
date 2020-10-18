@@ -34,5 +34,19 @@ namespace TJAPlayer3
 			}
 			return enc;
         }
+
+		public static string ReadTextFile(string path)//2020.10.18 Mr-Ojii Hnc8様のReadJEncを使用してテキストファイルを読み込む。
+		{
+			if (!File.Exists(path)) return null;
+			string str = null;
+			FileInfo file = new FileInfo(path);
+
+			using (Hnx8.ReadJEnc.FileReader reader = new Hnx8.ReadJEnc.FileReader(file))
+			{
+				reader.Read(file);
+				str = reader.Text;
+			}
+			return str;
+		}
     }
 }

@@ -542,10 +542,7 @@ namespace TJAPlayer3
 			}
 			else
 			{
-				Encoding ファイルenc = CJudgeTextEncoding.JudgeFileEncoding(strファイル名);
-				StreamReader reader = new StreamReader(strファイル名, ファイルenc);
-				string str = reader.ReadToEnd();
-				reader.Close();
+				string str = CJudgeTextEncoding.ReadTextFile(strファイル名);
 				str = str.Replace(',', '\n');
 				string[] splitstr = str.Split('\n');
 

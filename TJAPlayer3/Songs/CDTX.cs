@@ -1234,32 +1234,22 @@ namespace TJAPlayer3
 				this.bSession譜面を読み込む = bSession;
 				if (Path.GetExtension(strファイル名).Equals(".tci"))
 				{
-					Encoding ファイルenc = CJudgeTextEncoding.JudgeFileEncoding(strファイル名);
-					StreamReader reader = new StreamReader(strファイル名, ファイルenc);
-					string tcistr = reader.ReadToEnd();
-					reader.Close();
+					string tcistr = CJudgeTextEncoding.ReadTextFile(strファイル名);
 
 					this.t入力tci(tcistr, db再生速度, nBGMAdjust);
 
 				}
 				else if (Path.GetExtension(strファイル名).Equals(".tcm"))
 				{
-					Encoding ファイルenc = CJudgeTextEncoding.JudgeFileEncoding(strファイル名);
-					StreamReader reader = new StreamReader(strファイル名, ファイルenc);
-					string tcistr = reader.ReadToEnd();
-					reader.Close();
+					string tcmstr = CJudgeTextEncoding.ReadTextFile(strファイル名);
 
-					this.t入力tcm(tcistr, db再生速度, nBGMAdjust);
+					this.t入力tcm(tcmstr, db再生速度, nBGMAdjust);
 
 				}
 				else
 				{
 					//次郎方式
-					Encoding ファイルenc = CJudgeTextEncoding.JudgeFileEncoding(strファイル名);
-
-					StreamReader reader = new StreamReader(strファイル名, ファイルenc);
-					string str2 = reader.ReadToEnd();
-					reader.Close();
+					string str2 = CJudgeTextEncoding.ReadTextFile(strファイル名);
 
 					this.t入力_全入力文字列から(str2, db再生速度, nBGMAdjust);
 				}
@@ -2047,10 +2037,7 @@ namespace TJAPlayer3
 						string 読み込みtci名 = this.strフォルダ名 + obj.Humen[humenindex].File;
 						int diff = strConvertCourse(obj.Humen[humenindex].Diff);
 
-						Encoding ファイルenc = CJudgeTextEncoding.JudgeFileEncoding(読み込みtci名);
-						StreamReader reader = new StreamReader(読み込みtci名, ファイルenc);
-						string tcistr = reader.ReadToEnd();
-						reader.Close();
+						string tcistr = CJudgeTextEncoding.ReadTextFile(読み込みtci名);
 
 						#region[段位道場の幕]
 						var delayTime = 6200.0; // 6.2秒ディレイ
@@ -2088,10 +2075,7 @@ namespace TJAPlayer3
 
 						string 読み込むtccファイル = this.strフォルダ名 + objtci.Courses[coursesindex[diff]].Single;
 
-						Encoding ファイルenctcc = CJudgeTextEncoding.JudgeFileEncoding(読み込むtccファイル);
-						StreamReader readertcc = new StreamReader(読み込むtccファイル, ファイルenctcc);
-						string tccstr = readertcc.ReadToEnd();
-						readertcc.Close();
+						string tccstr = CJudgeTextEncoding.ReadTextFile(読み込むtccファイル);
 
 						OTCCource objtcc = JsonConvert.DeserializeObject<OTCCource>(tccstr);
 
@@ -2698,10 +2682,7 @@ namespace TJAPlayer3
 		{
 			string 読み込むtccファイル = this.strフォルダ名 + strファイル相対パス;
 
-			Encoding ファイルenc = CJudgeTextEncoding.JudgeFileEncoding(読み込むtccファイル);
-			StreamReader reader = new StreamReader(読み込むtccファイル, ファイルenc);
-			string tccstr = reader.ReadToEnd();
-			reader.Close();
+			string tccstr = CJudgeTextEncoding.ReadTextFile(読み込むtccファイル);
 
 			OTCCource obj = JsonConvert.DeserializeObject<OTCCource>(tccstr);
 
@@ -5636,10 +5617,7 @@ namespace TJAPlayer3
 		/// <param name="strFilePath">lrcファイルのパス</param>
 		private void LyricFileParser(string strFilePath ,int ordnumber)//2020.06.04 Mr-Ojii lrcファイルのパース用
 		{
-			Encoding lrcファイルenc = CJudgeTextEncoding.JudgeFileEncoding(strFilePath);
-			StreamReader reader = new StreamReader(strFilePath, lrcファイルenc);
-			string str = reader.ReadToEnd();
-			reader.Close();
+			string str = CJudgeTextEncoding.ReadTextFile(strFilePath);
 			var strSplit後 = str.Split(this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries);
 			Regex timeRegex = new Regex(@"^(\[)(\d{2})(:)(\d{2})([:.])(\d{2})(\])", RegexOptions.Multiline | RegexOptions.Compiled);
 			Regex timeRegexO = new Regex(@"^(\[)(\d{2})(:)(\d{2})(\])", RegexOptions.Multiline | RegexOptions.Compiled);

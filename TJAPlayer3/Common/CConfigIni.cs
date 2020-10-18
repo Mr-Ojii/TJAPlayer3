@@ -1319,13 +1319,8 @@ namespace TJAPlayer3
 			this.bConfigIniが存在している = File.Exists( this.ConfigIniファイル名 );
 			if( this.bConfigIniが存在している )
 			{
-				string str;
+				string str = CJudgeTextEncoding.ReadTextFile(ConfigIniファイル名);
 				this.tキーアサインを全部クリアする();
-				Encoding inienc = CJudgeTextEncoding.JudgeFileEncoding(ConfigIniファイル名);
-				using ( StreamReader reader = new StreamReader( this.ConfigIniファイル名, inienc ) )
-				{
-					str = reader.ReadToEnd();
-				}
 				t文字列から読み込み( str );
 			}
 		}
