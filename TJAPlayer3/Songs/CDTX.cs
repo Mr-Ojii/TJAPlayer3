@@ -5648,7 +5648,6 @@ namespace TJAPlayer3
 							list.Add(time);
 							timestring = timeRegex.Match(strSplit後[i]);
 							timestringO = timeRegexO.Match(strSplit後[i]);
-
 						}
 						strSplit後[i] = strSplit後[i].Replace("\r", "").Replace("\n", "");
 

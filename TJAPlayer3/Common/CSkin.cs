@@ -507,7 +507,8 @@ namespace TJAPlayer3
 			InitializeSkinPathRoot();
 			ReloadSkinPaths();
 			PrepareReloadSkin();
-			SEloader(out this.SENames);
+			SEloader();
+			GenreLoader();
 		}
 		public CSkin()
 		{
@@ -516,7 +517,8 @@ namespace TJAPlayer3
 			bUseBoxDefSkin = true;
 			ReloadSkinPaths();
 			PrepareReloadSkin();
-			SEloader(out this.SENames);
+			SEloader();
+			GenreLoader();
 		}
 		private string InitializeSkinPathRoot()
 		{
@@ -528,7 +530,7 @@ namespace TJAPlayer3
 		/// <summary>
 		/// 音色用文字列の読み込み用
 		/// </summary>
-		public void SEloader(out string[] Name)
+		public void SEloader()
 		{
 			this.SECount = TJAPlayer3.t連番フォルダの個数を数える(CSkin.Path(@"Sounds\Taiko\"));
 			string strファイル名 = CSkin.Path(@"Sounds\Taiko\SElist.csv");
@@ -538,13 +540,14 @@ namespace TJAPlayer3
 				string[] splitstr = new string[this.SECount];
 				for (int i = 0; i < this.SECount; i++)
 					splitstr[i] = "無名";
-				Name = splitstr;
+				this.SENames = splitstr;
 			}
 			else
 			{
 				string str = CJudgeTextEncoding.ReadTextFile(strファイル名);
+				str = str.Replace(CJudgeTextEncoding.JudgeNewLine(str), "\n");
 				str = str.Replace(',', '\n');
-				string[] splitstr = str.Split('\n');
+				string[] splitstr = str.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
 				if (splitstr.Length < this.SECount)//SEの数より配列数が少なかったとき
 				{
@@ -563,10 +566,41 @@ namespace TJAPlayer3
 					}
 					splitstr = splitstrtmp;
 				}
-				Name = splitstr;
+				this.SENames = splitstr;
+			}
+		}
+
+		/// <summary>
+		/// ジャンルファイルの読み込み
+		/// </summary>
+		public void GenreLoader() 
+		{
+			string strFileName = Path(@"GenreConfig.csv");
+			if (File.Exists(strFileName))
+			{
+				Dictionary<string, int> tmp = new Dictionary<string, int>();
+				string str = CJudgeTextEncoding.ReadTextFile(strFileName);
+				string[] splitstr = str.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+				for (int i = 0; i < splitstr.Length; i++) 
+				{
+					string[] genres = splitstr[i].Split(',');
+					for (int j = 0; j < genres.Length; j++) 
+					{
+						tmp.Add(genres[j], i);
+					}
+				}
+
+				if (tmp.Count != 0)
+					this.GenreKeyPairs = tmp;
 			}
 
-			return;
+			int max = -1;
+			foreach (KeyValuePair<string, int> i in GenreKeyPairs)
+			{
+				max = Math.Max(i.Value, max);
+			}
+			this.MaxKeyNum = max;
 		}
 
 
@@ -818,15 +852,6 @@ namespace TJAPlayer3
 
 		}
 
-		/// <summary>
-		/// 変数の初期化
-		/// </summary>
-		public void tSkinConfigInit()
-		{
-			this.eDiffDispMode = E難易度表示タイプ.mtaikoに画像で表示;
-			this.b現在のステージ数を表示しない = false;
-		}
-
 		public void tReadSkinConfig()
 		{
 			var str = "";
@@ -850,7 +875,7 @@ namespace TJAPlayer3
 						}
 						else
 						{
-							work += nowLine + Environment.NewLine;
+							work += nowLine + "\n";
 						}
 					}
 				}
@@ -2240,8 +2265,8 @@ namespace TJAPlayer3
 		public float fComboNumberSpacing = 0;
 		public float fComboNumberSpacing_l = 0;
 
-		public E難易度表示タイプ eDiffDispMode;
-		public bool b現在のステージ数を表示しない;
+		public E難易度表示タイプ eDiffDispMode = E難易度表示タイプ.mtaikoに画像で表示;
+		public bool b現在のステージ数を表示しない = false;
 
 		//リザルト画面
 		//現在のデフォルト値はダミーです。
@@ -2704,5 +2729,20 @@ namespace TJAPlayer3
 		public int[] NowSENum = { 0, 0 };
 		public string[] SENames;
 		#endregion
+
+		public Dictionary<string, int> GenreKeyPairs = new Dictionary<string, int>
+		{
+			{ "J-POP", 0 },
+			{ "アニメ", 1 },
+			{ "ゲームミュージック", 2 },
+			{ "ナムコオリジナル", 3 },
+			{ "クラシック", 4 },
+			{ "バラエティ", 5 },
+			{ "どうよう", 6 },
+			{ "ボーカロイド", 7 },
+			{ "VOCALOID", 7 },
+		};
+
+		public int MaxKeyNum = 7;
 	}
 }

@@ -131,42 +131,49 @@ namespace TJAPlayer3
 			SongSelect_ItemNumber_BG = TxC(SONGSELECT + @"ItemNumber_BG.png");
 			SongSelect_GenreText = TxC(SONGSELECT + @"GenreText.png");
 
+			this.SongSelect_Lyric_Text = new CTexture[TJAPlayer3.Skin.MaxKeyNum + 2];
 			for (int i = 0; i < SongSelect_Lyric_Text.Length; i++)
 			{
 				SongSelect_Lyric_Text[i] = TxC(SONGSELECT + @"Lyric_Text_" + i.ToString() + ".png");
 			}
+			this.SongSelect_Bar_Genre = new CTexture[TJAPlayer3.Skin.MaxKeyNum + 2];
 			for (int i = 0; i < SongSelect_Bar_Genre.Length; i++)
 			{
 				SongSelect_Bar_Genre[i] = TxC(SONGSELECT + @"Bar_Genre_" + i.ToString() + ".png");
 			}
+			this.SongSelect_Bar_Box_Genre = new CTexture[TJAPlayer3.Skin.MaxKeyNum + 2];
 			for (int i = 0; i < SongSelect_Bar_Box_Genre.Length; i++)
 			{
 				SongSelect_Bar_Box_Genre[i] = TxC(SONGSELECT + @"Bar_Box_Genre_" + i.ToString() + ".png");
 			}
+			this.SongSelect_Box_Center_Genre = new CTexture[TJAPlayer3.Skin.MaxKeyNum + 2];
 			for (int i = 0; i <  SongSelect_Box_Center_Genre.Length; i++)
 			{
 				SongSelect_Box_Center_Genre[i] = TxC(SONGSELECT + BOX_CENTER + @"Box_Center_Genre_" + i.ToString() + ".png");
 			}
+			this.SongSelect_Box_Center_Header_Genre = new CTexture[TJAPlayer3.Skin.MaxKeyNum + 2];
 			for (int i = 0; i < SongSelect_Box_Center_Header_Genre.Length; i++)
 			{
 				SongSelect_Box_Center_Header_Genre[i] = TxC(SONGSELECT + BOX_CENTER + @"Box_Center_Header_Genre_" + i.ToString() + ".png");
 			}
+			this.SongSelect_Box_Center_Text_Genre = new CTexture[TJAPlayer3.Skin.MaxKeyNum + 2];
 			for (int i = 0; i < SongSelect_Box_Center_Text_Genre.Length; i++)
 			{
 				SongSelect_Box_Center_Text_Genre[i] = TxC(SONGSELECT +BOX_CENTER+ @"Box_Center_Text_Genre_" + i.ToString() + ".png");
 			}
+			this.SongSelect_Bar_Center_Back_Genre = new CTexture[TJAPlayer3.Skin.MaxKeyNum + 2];
 			for (int i = 0; i < SongSelect_Bar_Center_Back_Genre.Length; i++)
 			{
 				SongSelect_Bar_Center_Back_Genre[i] = TxC(SONGSELECT + @"Bar_Center_Background_Genre_" + i.ToString() + ".png");
 			}
-			for (int i = 0; i < (int)Difficulty.Total; i++)
-			{
-				SongSelect_ScoreWindow[i] = TxC(SONGSELECT + @"ScoreWindow_" + i.ToString() + ".png");
-			}
-
+			this.SongSelect_GenreBack = new CTexture[TJAPlayer3.Skin.MaxKeyNum + 2];
 			for (int i = 0; i < SongSelect_GenreBack.Length; i++)
 			{
 				SongSelect_GenreBack[i] = TxC(SONGSELECT + @"GenreBackground_" + i.ToString() + ".png");
+			}
+			for (int i = 0; i < (int)Difficulty.Total; i++)
+			{
+				SongSelect_ScoreWindow[i] = TxC(SONGSELECT + @"ScoreWindow_" + i.ToString() + ".png");
 			}
 			for (int i = 0; i < SongSelect_Counter_Back.Length; i++)
 			{
@@ -1101,15 +1108,15 @@ namespace TJAPlayer3
 			SongSelect_ItemNumber,
 			SongSelect_ItemNumber_BG,
 			SongSelect_GenreText;
-		public CTexture[] SongSelect_GenreBack = new CTexture[9],
+		public CTexture[] SongSelect_GenreBack,
+			SongSelect_Lyric_Text,
+			SongSelect_Box_Center_Genre,
+			SongSelect_Box_Center_Header_Genre,
+			SongSelect_Box_Center_Text_Genre,
+			SongSelect_Bar_Center_Back_Genre,
+			SongSelect_Bar_Genre,
+			SongSelect_Bar_Box_Genre,
 			SongSelect_ScoreWindow = new CTexture[(int)Difficulty.Total],
-			SongSelect_Lyric_Text = new CTexture[9],
-			SongSelect_Box_Center_Genre = new CTexture[9],
-			SongSelect_Box_Center_Header_Genre = new CTexture[9],
-			SongSelect_Box_Center_Text_Genre = new CTexture[9],
-			SongSelect_Bar_Center_Back_Genre = new CTexture[9],
-			SongSelect_Bar_Genre = new CTexture[9],
-			SongSelect_Bar_Box_Genre = new CTexture[9],
 			SongSelect_NamePlate = new CTexture[1],
 			SongSelect_Counter_Back = new CTexture[2],
 			SongSelect_Counter_Num = new CTexture[2];

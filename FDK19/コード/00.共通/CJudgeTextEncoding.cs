@@ -12,7 +12,8 @@ namespace TJAPlayer3
 		/// <summary>
 		/// Hnc8様のReadJEncを使用して文字コードの判別をする。
 		/// </summary>
-		public static Encoding JudgeFileEncoding(string path){//2020.05.08 Mr-Ojii Hnc8様のReadJEncを使用して文字コードの判別をする。
+		public static Encoding JudgeFileEncoding(string path)
+		{
 			if (!File.Exists(path)) return null;
 			Encoding enc;
 			FileInfo file = new FileInfo(path);
@@ -34,8 +35,13 @@ namespace TJAPlayer3
 			}
 			return enc;
         }
-
-		public static string ReadTextFile(string path)//2020.10.18 Mr-Ojii Hnc8様のReadJEncを使用してテキストファイルを読み込む。
+		/// <summary>
+		/// Hnc8様のReadJEncを使用してテキストファイルを読み込む。
+		/// 改行文字は、勝手に\nに統一する
+		/// </summary>
+		/// <param name="path"></param>
+		/// <returns></returns>
+		public static string ReadTextFile(string path)
 		{
 			if (!File.Exists(path)) return null;
 			string str = null;
@@ -46,7 +52,29 @@ namespace TJAPlayer3
 				reader.Read(file);
 				str = reader.Text;
 			}
+
+			str = str.Replace(JudgeNewLine(str), "\n");
+
 			return str;
 		}
+
+		/// <summary>
+		/// Environment.NewLineはプラットフォーム依存である。
+		/// だが、ファイルごとに改行コードは違うので、使用すべきではない。
+		/// なので、勝手に改行文字を判断する。
+		/// </summary>
+		/// <param name="str"></param>
+		/// <returns></returns>
+		public static string JudgeNewLine(string str)
+		{
+			if (str.Contains("\r\n"))
+				return ("\r\n");
+
+			if (str.Contains("\r"))
+				return ("\r");
+
+			return ("\n");
+		}
+
     }
 }

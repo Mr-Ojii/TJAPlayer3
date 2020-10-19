@@ -2140,7 +2140,7 @@ namespace TJAPlayer3
 
 			this.n現在の選択行 = 6;
 		}
-		private void tジャンル別選択されていない曲バーの描画(int x, int y, int nジャンル,Eバー種別 Eバー,C曲リストノード.Eノード種別 Eノード)
+		private void tジャンル別選択されていない曲バーの描画(int x, int y, int nジャンル, Eバー種別 Eバー, C曲リストノード.Eノード種別 Eノード)
 		{
 			if (x >= GameWindowSize.Width || y >= GameWindowSize.Height)
 				return;
@@ -2169,41 +2169,14 @@ namespace TJAPlayer3
 
 		public int nStrジャンルtoNum(string strジャンル)
 		{
-			int nGenre = 0;
-			switch (strジャンル)
+			if (TJAPlayer3.Skin.GenreKeyPairs.ContainsKey(strジャンル))
 			{
-				case "J-POP":
-					nGenre = 1;
-					break;
-				case "アニメ":
-					nGenre = 2;
-					break;
-				case "ゲームミュージック":
-					nGenre = 3;
-					break;
-				case "ナムコオリジナル":
-					nGenre = 4;
-					break;
-				case "クラシック":
-					nGenre = 5;
-					break;
-				case "バラエティ":
-					nGenre = 6;
-					break;
-				case "どうよう":
-					nGenre = 7;
-					break;
-				case "ボーカロイド":
-				case "VOCALOID":
-					nGenre = 8;
-					break;
-				default:
-					nGenre = 0;
-					break;
-
+				return (TJAPlayer3.Skin.GenreKeyPairs[strジャンル] + 1);
 			}
-
-			return nGenre;
+			else
+			{
+				return 0;
+			}
 		}
 
 		private TitleTextureKey ttk曲名テクスチャを生成する(string str文字, Color forecolor, Color backcolor)

@@ -1,47 +1,47 @@
-//############
-//Skinconfig.iniについて.txt(更新途中)
-//############
+;############
+;Skinconfig.iniについて.txt(更新途中)
+;############
 
-//ここから下にSkinConfig.iniで使えるパラメータ名とデフォルト値・説明を書き連ねていきます。
-//行頭に記号が書いてある欄はコメントとして、処理から無視されます。(ホントはパラメータ名検索の処理に引っかからないだけだけど...)
-//このファイルをコピーして、「SkinConfig.ini」にリネームしたらそのまま使えます。
-//↑を実現するためにテキストファイルに書いています。見ずらいと思いますが、ご容赦ください。
+;ここから下にSkinConfig.iniで使えるパラメータ名とデフォルト値・説明を書き連ねていきます。
+;行頭に記号が書いてある欄はコメントとして、処理から無視されます。(ホントはパラメータ名検索の処理に引っかからないだけだけど...)
+;このファイルをコピーして、「SkinConfig.ini」にリネームしたらそのまま使えます。
+;↑を実現するためにテキストファイルに書いています。見ずらいと思いますが、ご容赦ください。
 
-//コメント欄の[]内に書いてあることは、Mr-Ojiiの個人的なコメントです。口語で書きます。
+;コメント欄の[]内に書いてあることは、Mr-Ojiiの個人的なコメントです。口語で書きます。
 
-//値には半角英数字と半角記号しか使えません(全角文字を使うと、その値は無視されるみたい)。
+;値には半角英数字と半角記号しか使えません(全角文字を使うと、その値は無視されるみたい)。
 
 
-//共通
-//スキンの名前
+;共通
+;スキンの名前
 Name=Unknown
 
-//バージョンの名前
+;バージョンの名前
 Version=Unknown
 
-//スキンの作者
+;スキンの作者
 Creator=Unknown
 
 
-//コンフィグ
-//コンフィグ画面の文字列の全体的な座標[操作非推奨]
+;コンフィグ
+;コンフィグ画面の文字列の全体的な座標[操作非推奨]
 Config_ItemText_Correction_X=0
 Config_ItemText_Correction_Y=0
 
 
-//選曲画面
-//選曲画面の曲リスト関係の基準Y座標(値が0だと、無視される)
+;選曲画面
+;選曲画面の曲リスト関係の基準Y座標(値が0だと、無視される)
 SongSelect_Overall_Y=123
 
-//選曲画面でのネームプレートの座標(各パラメータ値は1P,2Pの順)
+;選曲画面でのネームプレートの座標(各パラメータ値は1P,2Pの順)
 SongSelect_NamePlate_X=60,950
 SongSelect_NamePlate_Y=650,650
 
-//選曲画面でのオートプレイ画像の座標(各パラメータ値は1P,2Pの順)
+;選曲画面でのオートプレイ画像の座標(各パラメータ値は1P,2Pの順)
 SongSelect_Auto_X=60,950
 SongSelect_Auto_Y=650,650
 
-//それぞれのジャンルの文字の前景色(文字の色)
+;それぞれのジャンルの文字の前景色(文字の色)
 SongSelect_ForeColor_JPOP=#FFFFFF
 SongSelect_ForeColor_Anime=#FFFFFF
 SongSelect_ForeColor_VOCALOID=#FFFFFF
@@ -51,7 +51,7 @@ SongSelect_ForeColor_Classic=#FFFFFF
 SongSelect_ForeColor_GameMusic=#FFFFFF
 SongSelect_ForeColor_Namco=#FFFFFF
 
-//それぞれのジャンルの文字の背景色(縁取りの色)
+;それぞれのジャンルの文字の背景色(縁取りの色)
 SongSelect_ForeColor_JPOP=#01455B
 SongSelect_ForeColor_Anime=#9D3800
 SongSelect_ForeColor_VOCALOID=#5B6278
@@ -63,109 +63,109 @@ SongSelect_ForeColor_Namco=#980E00
 
 
 
-//ここから下はMr-Ojiiが追加・変更したパラメータ(TJAPlayer3-fでしか使えない)
+;ここから下はMr-Ojiiが追加・変更したパラメータ(TJAPlayer3-fでしか使えない)
 
-//「とじる」の文字のY座標を相対的に変更する
+;「とじる」の文字のY座標を相対的に変更する
 SongSelect_BackBoxText_Y_Diff=0
 
-//Box_Center_HeaderのY座標を相対的に変更する
+;Box_Center_HeaderのY座標を相対的に変更する
 SongSelect_Box_Center_Header_Y_Diff=0
 
-//難易度選択のBarの基準XY,間隔
+;難易度選択のBarの基準XY,間隔
 Difficulty_Bar_XY=440,90
 Difficulty_Bar_Padding=100
 
-//難易度選択のオプション関係のBarの基準XY,間隔
+;難易度選択のオプション関係のBarの基準XY,間隔
 Difficulty_BarEtc_XY=225,150
 Difficulty_BarEtc_Padding=75
 
-//難易度選択のアンカーの基準XY,間隔
+;難易度選択のアンカーの基準XY,間隔
 Difficulty_Anc_XY=441,-10
 Difficulty_Anc_Padding=100
 Difficulty_AncBox_XY=441,138
 Difficulty_AncBox_Padding=100
 
-//難易度選択のオプション関係のアンカーの基準XY,間隔
+;難易度選択のオプション関係のアンカーの基準XY,間隔
 Difficulty_AncEtc_XY=210,0
 Difficulty_AncEtc_Padding=75
 Difficulty_AncBoxEtc_XY=210,105
 Difficulty_AncBoxEtc_Padding=75
 
-//後ろのDifficulty_Center_Barに関するいろいろなパラメーター(幅や座標)
-//(中心X,拡大前のWidth,拡大前のHeight,拡大後のWidth,拡大後のHeight,拡大前のY座標,拡大後のY座標)
+;後ろのDifficulty_Center_Barに関するいろいろなパラメーター(幅や座標)
+;(中心X,拡大前のWidth,拡大前のHeight,拡大後のWidth,拡大後のHeight,拡大前のY座標,拡大後のY座標)
 Difficulty_Bar_Center_X_WH_WH_Y_Y=643,387,439,880,540,125,25
 
-//後ろの難易度マークのY座標
+;後ろの難易度マークのY座標
 Difficulty_Mark_Y=600
 
-//SEの変更時のダイアログの座標(下中央基準)
+;SEの変更時のダイアログの座標(下中央基準)
 ChangeSE_Box_X=220,1050
 ChangeSE_Box_Y=740,740
 
-//演奏オプションのダイアログの座標(下中央基準)
+;演奏オプションのダイアログの座標(下中央基準)
 PlayOption_Box_X=220,1050
 PlayOption_Box_Y=750,750
 
-//演奏オプションのBoxの画像のセクション(単位はpx)(上から順にHeader,List,Footerである)
+;演奏オプションのBoxの画像のセクション(単位はpx)(上から順にHeader,List,Footerである)
 PlayOption_Box_Section_Y=0,72,118
 
-//演奏オプションの文字列の座標調整用(PlayOption_Box_X,PlayOption_Box_Yからの相対座標を指定)
-//(Nameは左上基準、Listは中央上基準である)
+;演奏オプションの文字列の座標調整用(PlayOption_Box_X,PlayOption_Box_Yからの相対座標を指定)
+;(Nameは左上基準、Listは中央上基準である)
 PlayOption_Name_XY_Diff=-150,-2
 PlayOption_List_XY_Diff=90,-2
 
-//ゲームのBGAの上背景の上下に動くとこの動きパターン(各パラメータ値は1P,2Pの順)(0:ただ上下に動く 1:め組っぽく 2:祭りっぽく 3:ニジイロのめ組っぽく)
+;ゲームのBGAの上背景の上下に動くとこの動きパターン(各パラメータ値は1P,2Pの順)(0:ただ上下に動く 1:め組っぽく 2:祭りっぽく 3:ニジイロのめ組っぽく)
 Background_Scroll_PatternY=0,0
 
-//2P側のキャラのモーションを指定するコンフィグ
+;2P側のキャラのモーションを指定するコンフィグ
 Game_Chara_Motion_Normal_2P=0
 Game_Chara_Motion_Clear_2P=0
 Game_Chara_Motion_GoGo_2P=0
 
-//演奏画面中のサブタイトル表示に関するコンフィグ
+;演奏画面中のサブタイトル表示に関するコンフィグ
 Game_SubTitleName_X=1114
 Game_SubTitleName_Y=70
 Game_SubTitleName_FontSize=15
 Game_SubTitleName_ReferencePoint=2
 
-//段位道場系のコンフィグ
-//Base画像のX
+;段位道場系のコンフィグ
+;Base画像のX
 Game_DanC_X=302,302,302
-//Base画像のY間隔
+;Base画像のY間隔
 Game_DanC_Y_Padding=100
-//Base画像の中心Y
+;Base画像の中心Y
 Game_DanC_Y=520
-//Base画像とGauge画像の座標の差分
+;Base画像とGauge画像の座標の差分
 Game_DanC_Offset=15,10
-//残り音符数の数字の間隔
+;残り音符数の数字の間隔
 Game_DanC_Number_Padding=50
-//残り音符数の座標
+;残り音符数の座標
 Game_DanC_Number_XY=235,550
-//小さい数字の拡大率
+;小さい数字の拡大率
 Game_DanC_Number_Small_Scale=0.5
-//小さい数字の間隔
+;小さい数字の間隔
 Game_DanC_Number_Small_Padding=26
-//段プレートの座標
+;段プレートの座標
 Game_DanC_Dan_Plate=149,416
-//ExamType画像の1項目の幅・高さ
+;ExamType画像の1項目の幅・高さ
 Game_DanC_ExamType_Size=100,36
-//ExamUnit画像の1項目の幅・高さ
+;ExamUnit画像の1項目の幅・高さ
 Game_DanC_ExamUnit_Size=60,36
-//その項目に対する現在の値を描画するためのBase座標からのOffset
+;その項目に対する現在の値を描画するためのBase座標からのOffset
 Game_DanC_Number_Small_Number_Offset=178,-15
-//ExamUnit画像の1文字当たりの幅
+;ExamUnit画像の1文字当たりの幅
 Game_DanC_Percent_Hit_Score_Padding=20,20,20,20
-//その項目に対する判定閾値を描画するためのBase座標からのOffset
+;その項目に対する判定閾値を描画するためのBase座標からのOffset
 Game_DanC_Exam_Offset=932,17
 
-//リザルト画面での王冠の座標(各パラメータ値は1P,2Pの順)
+;リザルト画面での王冠の座標(各パラメータ値は1P,2Pの順)
 Result_Crown_X=400,400
 Result_Crown_Y=250,610
 
-//リザルト画面での数値回転の間隔
+;リザルト画面での数値回転の間隔
 Result_RotateInterval=50
 
-//何拍でキャラのモーションが1周するかの指定(各パラメータ値は1P,2Pの順)
+;何拍でキャラのモーションが1周するかの指定(各パラメータ値は1P,2Pの順)
 Game_Chara_Beat_Normal=1,1
 Game_Chara_Beat_Clear=2,2
 Game_Chara_Beat_GoGo=2,2
