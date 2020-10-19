@@ -14,15 +14,7 @@ namespace TJAPlayer3.C曲リストノードComparers
 
 		public int Compare(C曲リストノード n1, C曲リストノード n2)
 		{
-			switch (this.order) 
-			{
-				case 1:
-					//AC8_14
-					return CStrジャンルtoNum.ForAC8_14(n1.strジャンル).CompareTo(CStrジャンルtoNum.ForAC8_14(n2.strジャンル));
-				default:
-					//AC15
-					return CStrジャンルtoNum.ForAC15(n1.strジャンル).CompareTo(CStrジャンルtoNum.ForAC15(n2.strジャンル));
-			}
+			return CStrジャンルtoNum.Genre(n1.strジャンル, order).CompareTo(CStrジャンルtoNum.Genre(n2.strジャンル, order));
 		}
 
 		private readonly int order;

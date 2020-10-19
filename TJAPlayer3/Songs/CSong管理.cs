@@ -186,45 +186,8 @@ namespace TJAPlayer3
 						}
 					}
 
-
-					switch (CStrジャンルtoNum.ForAC15(c曲リストノード.strジャンル))
-					{
-						case 0:
-							c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_JPOP;
-							c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_JPOP;
-							break;
-						case 1:
-							c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_Anime;
-							c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_Anime;
-							break;
-						case 2:
-							c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_VOCALOID;
-							c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_VOCALOID;
-							break;
-						case 3:
-							c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_Children;
-							c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_Children;
-							break;
-						case 4:
-							c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_Variety;
-							c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_Variety;
-							break;
-						case 5:
-							c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_Classic;
-							c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_Classic;
-							break;
-						case 6:
-							c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_GameMusic;
-							c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_GameMusic;
-							break;
-						case 7:
-							c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_Namco;
-							c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_Namco;
-							break;
-						default:
-							break;
-					}
-
+					c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor[TJAPlayer3.Skin.nStrジャンルtoNum(c曲リストノード.strジャンル)];
+					c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor[TJAPlayer3.Skin.nStrジャンルtoNum(c曲リストノード.strジャンル)];
 
 					c曲リストノード.nLevel = dtx.LEVELtaiko;
 
@@ -352,45 +315,8 @@ namespace TJAPlayer3
 						c曲リストノード.IsChangedBackColor = true;
 					}
 
-					switch (CStrジャンルtoNum.ForAC15(c曲リストノード.strジャンル))
-					{
-						case 0:
-							c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_JPOP;
-							c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_JPOP;
-							break;
-						case 1:
-							c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_Anime;
-							c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_Anime;
-							break;
-						case 2:
-							c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_VOCALOID;
-							c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_VOCALOID;
-							break;
-						case 3:
-							c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_Children;
-							c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_Children;
-							break;
-						case 4:
-							c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_Variety;
-							c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_Variety;
-							break;
-						case 5:
-							c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_Classic;
-							c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_Classic;
-							break;
-						case 6:
-							c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_GameMusic;
-							c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_GameMusic;
-							break;
-						case 7:
-							c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor_Namco;
-							c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor_Namco;
-							break;
-						default:
-							break;
-					}
-
-
+					c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor[TJAPlayer3.Skin.nStrジャンルtoNum(c曲リストノード.strジャンル)];
+					c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor[TJAPlayer3.Skin.nStrジャンルtoNum(c曲リストノード.strジャンル)];
 
 					c曲リストノード.nスコア数 = 1;
 					c曲リストノード.arスコア = new Cスコア();

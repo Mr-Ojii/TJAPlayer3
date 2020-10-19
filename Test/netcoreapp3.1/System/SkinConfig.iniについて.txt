@@ -28,7 +28,6 @@ Creator=Unknown
 Config_ItemText_Correction_X=0
 Config_ItemText_Correction_Y=0
 
-
 ;選曲画面
 ;選曲画面の曲リスト関係の基準Y座標(値が0だと、無視される)
 SongSelect_Overall_Y=123
@@ -41,29 +40,15 @@ SongSelect_NamePlate_Y=650,650
 SongSelect_Auto_X=60,950
 SongSelect_Auto_Y=650,650
 
-;それぞれのジャンルの文字の前景色(文字の色)
-SongSelect_ForeColor_JPOP=#FFFFFF
-SongSelect_ForeColor_Anime=#FFFFFF
-SongSelect_ForeColor_VOCALOID=#FFFFFF
-SongSelect_ForeColor_Children=#FFFFFF
-SongSelect_ForeColor_Variety=#FFFFFF
-SongSelect_ForeColor_Classic=#FFFFFF
-SongSelect_ForeColor_GameMusic=#FFFFFF
-SongSelect_ForeColor_Namco=#FFFFFF
-
-;それぞれのジャンルの文字の背景色(縁取りの色)
-SongSelect_ForeColor_JPOP=#01455B
-SongSelect_ForeColor_Anime=#9D3800
-SongSelect_ForeColor_VOCALOID=#5B6278
-SongSelect_ForeColor_Children=#99001F
-SongSelect_ForeColor_Variety=#366600
-SongSelect_ForeColor_Classic=#875600
-SongSelect_ForeColor_GameMusic=#412080
-SongSelect_ForeColor_Namco=#980E00
-
-
-
 ;ここから下はMr-Ojiiが追加・変更したパラメータ(TJAPlayer3-fでしか使えない)
+
+;それぞれのジャンルの文字の前景色(文字の色,ジャンルなしも含む指定)
+;旧指定方法(SongSelect_ForeColor_JPOPなど)は使用不可
+SongSelect_ForeColor=#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF,#FFFFFF
+
+;それぞれのジャンルの文字の背景色(縁取りの色,ジャンルなしも含む指定)
+;旧指定方法(SongSelect_BackColor_JPOPなど)は使用不可
+SongSelect_BackColor=#000000,#01455B,#9D3800,#412080,#980E00,#875600,#366600,#99001F,#5B6278
 
 ;「とじる」の文字のY座標を相対的に変更する
 SongSelect_BackBoxText_Y_Diff=0

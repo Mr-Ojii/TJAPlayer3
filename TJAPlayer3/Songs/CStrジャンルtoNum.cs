@@ -4,27 +4,35 @@ namespace TJAPlayer3
 {
 	internal static class CStrジャンルtoNum
 	{
-		internal static int ForAC8_14(string strジャンル)
+		/// <summary>
+		/// orderが1の時AC14
+		/// </summary>
+		/// <param name="strジャンル"></param>
+		/// <param name="order"></param>
+		/// <returns></returns>
+		internal static int Genre(string strジャンル, int order)
 		{
-			if (ForAC8_14D.ContainsKey(strジャンル))
+			switch (order)
 			{
-				return ForAC8_14D[strジャンル];
-			}
-			else 
-			{
-				return 8;
-			}
-		}
+				case 1:
+					if (ForAC8_14D.ContainsKey(strジャンル))
+					{
+						return ForAC8_14D[strジャンル];
+					}
+					else
+					{
+						return 8;
+					}
 
-		internal static int ForAC15(string strジャンル)
-		{
-			if (ForAC15D.ContainsKey(strジャンル))
-			{
-				return ForAC15D[strジャンル];
-			}
-			else
-			{
-				return 8;
+				default:
+					if (ForAC15D.ContainsKey(strジャンル))
+					{
+						return ForAC15D[strジャンル];
+					}
+					else
+					{
+						return 8;
+					}
 			}
 		}
 

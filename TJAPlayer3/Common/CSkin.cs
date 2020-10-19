@@ -552,14 +552,14 @@ namespace TJAPlayer3
 				if (splitstr.Length < this.SECount)//SEの数より配列数が少なかったとき
 				{
 					string[] splitstrtmp = new string[this.SECount];
-					
-					for (int i = 0; i < splitstrtmp.Length; i++) 
+
+					for (int i = 0; i < splitstrtmp.Length; i++)
 					{
 						if (i < splitstr.Length)
 						{
 							splitstrtmp[i] = splitstr[i];
 						}
-						else 
+						else
 						{
 							splitstrtmp[i] = "無名";
 						}
@@ -573,7 +573,7 @@ namespace TJAPlayer3
 		/// <summary>
 		/// ジャンルファイルの読み込み
 		/// </summary>
-		public void GenreLoader() 
+		public void GenreLoader()
 		{
 			string strFileName = Path(@"GenreConfig.csv");
 			if (File.Exists(strFileName))
@@ -582,10 +582,10 @@ namespace TJAPlayer3
 				string str = CJudgeTextEncoding.ReadTextFile(strFileName);
 				string[] splitstr = str.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-				for (int i = 0; i < splitstr.Length; i++) 
+				for (int i = 0; i < splitstr.Length; i++)
 				{
 					string[] genres = splitstr[i].Split(',');
-					for (int j = 0; j < genres.Length; j++) 
+					for (int j = 0; j < genres.Length; j++)
 					{
 						tmp.Add(genres[j], i);
 					}
@@ -1019,69 +1019,13 @@ namespace TJAPlayer3
 							{
 								SongSelect_Auto_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == nameof(SongSelect_ForeColor_JPOP))
+							else if (strCommand == nameof(SongSelect_ForeColor))
 							{
-								SongSelect_ForeColor_JPOP = ColorTranslator.FromHtml(strParam);
+								SongSelect_ForeColor = strParam.Split(',').Select(ColorTranslator.FromHtml).ToArray();
 							}
-							else if (strCommand == nameof(SongSelect_ForeColor_Anime))
+							else if (strCommand == nameof(SongSelect_BackColor))
 							{
-								SongSelect_ForeColor_Anime = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(SongSelect_ForeColor_VOCALOID))
-							{
-								SongSelect_ForeColor_VOCALOID = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(SongSelect_ForeColor_Children))
-							{
-								SongSelect_ForeColor_Children = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(SongSelect_ForeColor_Variety))
-							{
-								SongSelect_ForeColor_Variety = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(SongSelect_ForeColor_Classic))
-							{
-								SongSelect_ForeColor_Classic = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(SongSelect_ForeColor_GameMusic))
-							{
-								SongSelect_ForeColor_GameMusic = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(SongSelect_ForeColor_Namco))
-							{
-								SongSelect_ForeColor_Namco = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(SongSelect_BackColor_JPOP))
-							{
-								SongSelect_BackColor_JPOP = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(SongSelect_BackColor_Anime))
-							{
-								SongSelect_BackColor_Anime = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(SongSelect_BackColor_VOCALOID))
-							{
-								SongSelect_BackColor_VOCALOID = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(SongSelect_BackColor_Children))
-							{
-								SongSelect_BackColor_Children = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(SongSelect_BackColor_Variety))
-							{
-								SongSelect_BackColor_Variety = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(SongSelect_BackColor_Classic))
-							{
-								SongSelect_BackColor_Classic = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(SongSelect_BackColor_GameMusic))
-							{
-								SongSelect_BackColor_GameMusic = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(SongSelect_BackColor_Namco))
-							{
-								SongSelect_BackColor_Namco = ColorTranslator.FromHtml(strParam);
+								SongSelect_BackColor = strParam.Split(',').Select(ColorTranslator.FromHtml).ToArray();
 							}
 							else if (strCommand == nameof(SongSelect_CorrectionX_Chara))
 							{
@@ -2352,22 +2296,8 @@ namespace TJAPlayer3
 		public int[] SongSelect_NamePlate_Y = new int[] { 650, 650 };
 		public int[] SongSelect_Auto_X = new int[] { 60, 950 };
 		public int[] SongSelect_Auto_Y = new int[] { 650, 650 };
-		public Color SongSelect_ForeColor_JPOP = ColorTranslator.FromHtml("#FFFFFF");
-		public Color SongSelect_ForeColor_Anime = ColorTranslator.FromHtml("#FFFFFF");
-		public Color SongSelect_ForeColor_VOCALOID = ColorTranslator.FromHtml("#FFFFFF");
-		public Color SongSelect_ForeColor_Children = ColorTranslator.FromHtml("#FFFFFF");
-		public Color SongSelect_ForeColor_Variety = ColorTranslator.FromHtml("#FFFFFF");
-		public Color SongSelect_ForeColor_Classic = ColorTranslator.FromHtml("#FFFFFF");
-		public Color SongSelect_ForeColor_GameMusic = ColorTranslator.FromHtml("#FFFFFF");
-		public Color SongSelect_ForeColor_Namco = ColorTranslator.FromHtml("#FFFFFF");
-		public Color SongSelect_BackColor_JPOP = ColorTranslator.FromHtml("#01455B");
-		public Color SongSelect_BackColor_Anime = ColorTranslator.FromHtml("#9D3800");
-		public Color SongSelect_BackColor_VOCALOID = ColorTranslator.FromHtml("#5B6278");
-		public Color SongSelect_BackColor_Children = ColorTranslator.FromHtml("#99001F");
-		public Color SongSelect_BackColor_Variety = ColorTranslator.FromHtml("#366600");
-		public Color SongSelect_BackColor_Classic = ColorTranslator.FromHtml("#875600");
-		public Color SongSelect_BackColor_GameMusic = ColorTranslator.FromHtml("#412080");
-		public Color SongSelect_BackColor_Namco = ColorTranslator.FromHtml("#980E00");
+		public Color[] SongSelect_ForeColor = new Color[] { Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White };
+		public Color[] SongSelect_BackColor = new Color[] { Color.Black, ColorTranslator.FromHtml("#01455B"), ColorTranslator.FromHtml("#9D3800"), ColorTranslator.FromHtml("#412080"), ColorTranslator.FromHtml("#980E00"), ColorTranslator.FromHtml("#875600"), ColorTranslator.FromHtml("#366600"), ColorTranslator.FromHtml("#99001F"), ColorTranslator.FromHtml("#5B6278") };
 		public string[] SongSelect_CorrectionX_Chara = { "ここにX座標を補正したい文字をカンマで区切って記入" };
 		public string[] SongSelect_CorrectionY_Chara = { "ここにY座標を補正したい文字をカンマで区切って記入" };
 		public int[] SongSelect_CorrectionX_Chara_Value;
