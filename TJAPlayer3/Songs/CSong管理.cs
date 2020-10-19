@@ -1134,13 +1134,9 @@ namespace TJAPlayer3
 		{
 			try
 			{
-				var acGenreComparer = order == 1
-					? (IComparer<C曲リストノード>)new C曲リストノードComparerAC8_14()
-					: new C曲リストノードComparerAC15();
-
 				var comparer = new ComparerChain<C曲リストノード>(
 					new C曲リストノードComparerノード種別(),
-					acGenreComparer,
+					new C曲リストノードComparerGenre(order),
 					new C曲リストノードComparer絶対パス(1),
 					new C曲リストノードComparerタイトル(1));
 
