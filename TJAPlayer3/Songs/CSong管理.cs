@@ -850,11 +850,7 @@ namespace TJAPlayer3
 			}
 			else if (TJAPlayer3.ConfigIni.nDefaultSongSort == 1)
 			{
-				t曲リストのソート9_ジャンル順(ノードリスト, 1, 0);
-			}
-			else if (TJAPlayer3.ConfigIni.nDefaultSongSort == 2)
-			{
-				t曲リストのソート9_ジャンル順(ノードリスト, 2, 0);
+				t曲リストのソート9_ジャンル順(ノードリスト, 0, 0);
 			}
 			//-----------------------------
 			#endregion

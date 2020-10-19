@@ -509,6 +509,7 @@ namespace TJAPlayer3
 			PrepareReloadSkin();
 			SEloader();
 			GenreLoader();
+			SortLoader();
 		}
 		public CSkin()
 		{
@@ -519,6 +520,7 @@ namespace TJAPlayer3
 			PrepareReloadSkin();
 			SEloader();
 			GenreLoader();
+			SortLoader();
 		}
 		private string InitializeSkinPathRoot()
 		{
@@ -603,6 +605,55 @@ namespace TJAPlayer3
 			this.MaxKeyNum = max;
 		}
 
+		/// <summary>
+		/// ソート指定ファイルの読み込み
+		/// </summary>
+		public void SortLoader()
+		{
+			string strFileName = Path(@"SortConfig.ini");
+			if (File.Exists(strFileName))
+			{
+				List<string> strlist = new List<string>();
+				List<Dictionary<string, int>> Diclist = new List<Dictionary<string, int>>();
+
+				string str = CJudgeTextEncoding.ReadTextFile(strFileName);
+				string[] splitstr = str.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+				Dictionary<string, int> Dictmp = null;
+
+				foreach (string sstr in splitstr)
+				{
+					if ((sstr.Length != 0) && (sstr[0] != ';'))
+					{
+						if (sstr[0] == '[')//セクション
+						{
+							if (Dictmp != null && Dictmp.Count != 0)
+								Diclist.Add(Dictmp);
+							Dictmp = new Dictionary<string, int>();
+							strlist.Add(sstr.Substring(1, sstr.Length - 2));//最初と最後の2文字を消す。
+						}
+						else 
+						{
+							if (Dictmp != null && sstr.IndexOf('=') != -1)
+							{
+								string key = sstr.Substring(0, sstr.IndexOf('='));
+								string value = sstr.Substring(sstr.IndexOf('=') + 1, sstr.Length - sstr.IndexOf('=') - 1);
+								Dictmp.Add(key, int.Parse(value));
+							}
+						
+						}
+					}
+				}
+				if (Dictmp != null && Dictmp.Count != 0)
+					Diclist.Add(Dictmp);
+
+				if (strlist.Count != 0 && strlist.Count == Diclist.Count)
+				{
+					this.GenreDicTitle = strlist.ToArray();
+					this.DictionaryList = Diclist.ToArray();
+				}
+			}
+		}
 
 		public int nStrジャンルtoNum(string strジャンル)
 		{
@@ -2164,15 +2215,65 @@ namespace TJAPlayer3
 				this.bDisposed済み = true;
 			}
 		}
-		//-----------------
-		#endregion
+        //-----------------
+        #endregion
 
 
-		// その他
+        // その他
 
-		#region [ private ]
-		//-----------------
-		private bool bDisposed済み;
+        #region[ Genre ]
+        public Dictionary<string, int> GenreKeyPairs = new Dictionary<string, int>
+		{
+			{ "J-POP", 0 },
+			{ "アニメ", 1 },
+			{ "ゲームミュージック", 2 },
+			{ "ナムコオリジナル", 3 },
+			{ "クラシック", 4 },
+			{ "バラエティ", 5 },
+			{ "どうよう", 6 },
+			{ "ボーカロイド", 7 },
+			{ "VOCALOID", 7 },
+		};
+
+		public int MaxKeyNum = 7;
+
+
+		public Dictionary<string, int>[] DictionaryList = new Dictionary<string, int>[]
+		{
+			//AC15
+			new Dictionary<string, int>
+			{
+				{ "J-POP",0 },
+				{ "アニメ",1 },
+				{ "ボーカロイド",2 },
+				{ "VOCALOID",2 },
+				{ "どうよう",3 },
+				{ "バラエティ",4 },
+				{ "クラシック",5 },
+				{ "ゲームミュージック",6 },
+				{ "ナムコオリジナル",7 },
+			},
+			//AC8_14
+			new Dictionary<string, int>
+			{
+				{ "アニメ",0 },
+				{ "J-POP",1 },
+				{ "ゲームミュージック",2 },
+				{ "ナムコオリジナル",3 },
+				{ "クラシック",4 },
+				{ "どうよう",5 },
+				{ "バラエティ",6 },
+				{ "ボーカロイド",7 },
+				{ "VOCALOID",7 },
+			},
+		};
+
+		public string[] GenreDicTitle = new string[] { "AC15", "AC8-14" };
+        #endregion
+
+        #region [ private ]
+        //-----------------
+        private bool bDisposed済み;
 		//-----------------
 		#endregion
 
@@ -2672,19 +2773,5 @@ namespace TJAPlayer3
 		public string[] SENames;
 		#endregion
 
-		public Dictionary<string, int> GenreKeyPairs = new Dictionary<string, int>
-		{
-			{ "J-POP", 0 },
-			{ "アニメ", 1 },
-			{ "ゲームミュージック", 2 },
-			{ "ナムコオリジナル", 3 },
-			{ "クラシック", 4 },
-			{ "バラエティ", 5 },
-			{ "どうよう", 6 },
-			{ "ボーカロイド", 7 },
-			{ "VOCALOID", 7 },
-		};
-
-		public int MaxKeyNum = 7;
 	}
 }

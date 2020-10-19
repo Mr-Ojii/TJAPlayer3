@@ -736,7 +736,7 @@ namespace TJAPlayer3
 			this.b2P演奏時のSEの左右 = true;
 
 			this.bHispeedRandom = false;
-			this.nDefaultSongSort = 2;
+			this.nDefaultSongSort = 1;
 			this.eGameMode = EGame.OFF;
 			this.TokkunSkipMeasures = 5;
 			this.TokkunMashInterval = 750;
@@ -1206,8 +1206,8 @@ namespace TJAPlayer3
 			sw.WriteLine( "; 譜面分岐のアニメーション(0:7～14, 1:15)" );
 			sw.WriteLine( "BranchAnime={0}", this.nBranchAnime );
 			sw.WriteLine();
-			sw.WriteLine( "; デフォルトの曲ソート(0:絶対パス順, 1:ジャンル名ソートOLD, 2:ジャンル名ソートNEW )" );
-			sw.WriteLine( "0:Path, 1:GenreName(AC8～AC14), 2GenreName(AC15～)" );
+			sw.WriteLine( "; デフォルトの曲ソート(0:絶対パス順, 1:ジャンル名ソートRENEWED )" );
+			sw.WriteLine( "0:Path, 1:GenreName" );
 			sw.WriteLine( "DefaultSongSort={0}", this.nDefaultSongSort );
 			sw.WriteLine();
 			sw.WriteLine( "; RANDOMモード(0:OFF, 1:Random, 2:Mirror 3:SuperRandom, 4:HyperRandom)" );
@@ -1909,7 +1909,7 @@ namespace TJAPlayer3
 											}
 											else if ( str3.Equals( "DefaultSongSort" ) )
 											{
-												this.nDefaultSongSort = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, this.nDefaultSongSort );
+												this.nDefaultSongSort = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 1, this.nDefaultSongSort );
 											}
 											else if( str3.Equals( "1PTaikoRandom" ) )
 											{
