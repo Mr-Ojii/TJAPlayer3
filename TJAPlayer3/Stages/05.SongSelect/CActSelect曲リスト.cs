@@ -1179,7 +1179,7 @@ namespace TJAPlayer3
 						int genretextureindex = TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
 						if (TJAPlayer3.Tx.SongSelect_GenreText != null)
 						{
-							TJAPlayer3.Tx.SongSelect_GenreText.t2D中心基準描画(TJAPlayer3.app.Device, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y - 25, new Rectangle(0, genretextureindex * (TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Height / 9), TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Width, (TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Height / 9)));
+							TJAPlayer3.Tx.SongSelect_GenreText.t2D中心基準描画(TJAPlayer3.app.Device, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y - 25, new Rectangle(0, genretextureindex * (TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Height / (TJAPlayer3.Skin.MaxKeyNum + 2)), TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Width, (TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Height / (TJAPlayer3.Skin.MaxKeyNum + 2))));
 						}
 					}
 					switch (r現在選択中の曲.eノード種別)
@@ -1670,7 +1670,7 @@ namespace TJAPlayer3
 						int genretextureindex = TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
 						if (TJAPlayer3.Tx.SongSelect_GenreText != null)
 						{
-							TJAPlayer3.Tx.SongSelect_GenreText.t2D中心基準描画(TJAPlayer3.app.Device, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y - 25, new Rectangle(0, genretextureindex * (TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Height / 9), TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Width, (TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Height / 9)));
+							TJAPlayer3.Tx.SongSelect_GenreText.t2D中心基準描画(TJAPlayer3.app.Device, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y - 25, new Rectangle(0, genretextureindex * (TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Height / (TJAPlayer3.Skin.MaxKeyNum + 2)), TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Width, (TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Height / (TJAPlayer3.Skin.MaxKeyNum + 2))));
 						}
 					}
 					switch (r現在選択中の曲.eノード種別)
@@ -1975,7 +1975,7 @@ namespace TJAPlayer3
 				int genretextureindex = (this.r現在選択中の曲.r親ノード != null) ? TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.r親ノード.strジャンル): TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
 				if (TJAPlayer3.Tx.SongSelect_GenreText != null)
 				{
-					TJAPlayer3.Tx.SongSelect_GenreText.t2D中心基準描画(TJAPlayer3.app.Device, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y - 25, new Rectangle(0, genretextureindex * (TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Height / 9), TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Width, (TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Height / 9)));
+					TJAPlayer3.Tx.SongSelect_GenreText.t2D中心基準描画(TJAPlayer3.app.Device, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y - 25, new Rectangle(0, genretextureindex * (TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Height / (TJAPlayer3.Skin.MaxKeyNum + 2)), TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Width, (TJAPlayer3.Tx.SongSelect_GenreText.szテクスチャサイズ.Height / (TJAPlayer3.Skin.MaxKeyNum + 2))));
 				}
 			}
 			return 0;
