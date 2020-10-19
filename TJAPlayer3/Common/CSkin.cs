@@ -604,6 +604,18 @@ namespace TJAPlayer3
 		}
 
 
+		public int nStrジャンルtoNum(string strジャンル)
+		{
+			if (this.GenreKeyPairs.ContainsKey(strジャンル))
+			{
+				return (this.GenreKeyPairs[strジャンル] + 1);
+			}
+			else
+			{
+				return 0;
+			}
+		}
+
 		/// <summary>
 		/// Skin(Sounds)を再読込する準備をする(再生停止,Dispose,ファイル名再設定)。
 		/// あらかじめstrSkinSubfolderを適切に設定しておくこと。

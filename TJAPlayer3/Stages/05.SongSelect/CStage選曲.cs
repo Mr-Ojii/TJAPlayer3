@@ -211,12 +211,12 @@ namespace TJAPlayer3
 
 				if( act曲リスト.r現在選択中の曲 != null )
 				{
-					if (TJAPlayer3.stage選曲.act曲リスト.nStrジャンルtoNum(act曲リスト.r現在選択中の曲.strジャンル) != 0 || act曲リスト.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.BOX || act曲リスト.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.SCORE)
+					if (TJAPlayer3.Skin.nStrジャンルtoNum(act曲リスト.r現在選択中の曲.strジャンル) != 0 || act曲リスト.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.BOX || act曲リスト.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.SCORE)
 					{
-						nGenreBack = TJAPlayer3.stage選曲.act曲リスト.nStrジャンルtoNum(act曲リスト.r現在選択中の曲.strジャンル);
+						nGenreBack = TJAPlayer3.Skin.nStrジャンルtoNum(act曲リスト.r現在選択中の曲.strジャンル);
 					}
 					else if (act曲リスト.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.BACKBOX) {
-						nGenreBack = TJAPlayer3.stage選曲.act曲リスト.nStrジャンルtoNum(act曲リスト.r現在選択中の曲.r親ノード.strジャンル);
+						nGenreBack = TJAPlayer3.Skin.nStrジャンルtoNum(act曲リスト.r現在選択中の曲.r親ノード.strジャンル);
 					}
 					if (TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack] != null )
 					{
