@@ -222,7 +222,7 @@ namespace TJAPlayer3
 						{
 							if (TJAPlayer3.DTX[0].listChip[index].n発声時刻ms > (long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
 							{
-								if (TJAPlayer3.DTX[0].listChip[index].nチャンネル番号 == 0xff || TJAPlayer3.DTX[0].listChip[index].nチャンネル番号 == 0x9B)
+								if (TJAPlayer3.DTX[0].listChip[index].nチャンネル番号 == 0xff || (Challenge[i].IsForEachSongs && TJAPlayer3.DTX[0].listChip[index].nチャンネル番号 == 0x9B))
 									break;
 								else if (TJAPlayer3.DTX[0].listChip[index].nチャンネル番号 >= 0x10 && TJAPlayer3.DTX[0].listChip[index].nチャンネル番号 <= 0x1f)
 								{
