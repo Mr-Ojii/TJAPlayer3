@@ -1761,20 +1761,15 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 		{
 			nPCMデータの先頭インデックス = 0;
 
-			CAudioDecoder sounddecoder = new CAudioDecoder();
-
 			if ( !File.Exists( strファイル名 ) )
 				throw new FileNotFoundException( string.Format( "File Not Found...({0})", strファイル名 ) );
 
 			//丸投げ
-			int rtn = sounddecoder.AudioDecode(strファイル名, out buffer, out nPCMデータの先頭インデックス, out totalPCMSize, out wfx, enablechunk);
+			int rtn = CAudioDecoder.AudioDecode(strファイル名, out buffer, out nPCMデータの先頭インデックス, out totalPCMSize, out wfx, enablechunk);
 
 			//正常にDecodeできなかった場合、例外
 			if ( rtn < 0 )
-				throw new Exception( string.Format( "Decoded Failed...({0})({1})", rtn, strファイル名 ) );
-			
-			sounddecoder = null;
-			
+				throw new Exception( string.Format( "Decoded Failed...({0})({1})", rtn, strファイル名 ) );			
 		}
 		#endregion
 		#endregion

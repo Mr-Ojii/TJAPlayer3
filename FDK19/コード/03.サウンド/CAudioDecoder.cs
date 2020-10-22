@@ -8,13 +8,9 @@ using FFmpeg.AutoGen;
 
 namespace FDK
 {
-	unsafe class CAudioDecoder
+	public unsafe class CAudioDecoder
 	{
-		public CAudioDecoder() 
-		{
-		}
-
-		public int AudioDecode(string filename, out byte[] buffer,
+		public static int AudioDecode(string filename, out byte[] buffer,
 			out int nPCMデータの先頭インデックス, out int totalPCMSize, out CWin32.WAVEFORMATEX wfx, bool enablechunk)
 		{
 			if (!File.Exists(filename))
