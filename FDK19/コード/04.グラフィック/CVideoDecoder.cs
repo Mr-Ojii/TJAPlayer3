@@ -62,7 +62,6 @@ namespace FDK
 				this.Framerate = video_stream->avg_frame_rate;
 
 				frame = ffmpeg.av_frame_alloc();
-				packet = ffmpeg.av_packet_alloc();
 				if (codec_context->pix_fmt != CVPxfmt)
 				{
 					convert_context = ffmpeg.sws_getContext(
@@ -98,8 +97,6 @@ namespace FDK
 			ffmpeg.av_frame_unref(frame);
 			ffmpeg.av_free(frame);
 
-			ffmpeg.av_packet_unref(packet);
-			ffmpeg.av_free(packet);
 
 			ffmpeg.avcodec_flush_buffers(codec_context);
 			if (ffmpeg.avcodec_close(codec_context) < 0)
@@ -216,102 +213,103 @@ namespace FDK
 			if (DS != DecodingState.Running && !close)
 			{
 				cts = new CancellationTokenSource();
-				Task.Factory.StartNew(() =>
-				{
-					DS = DecodingState.Running;
-					do
-					{
-						if (decodedframes.Count >= ((int)(Framerate.num / Framerate.den)) * 2)
-							break;
-					}
-					while (EnqueueOneFrame());
-					DS = DecodingState.Stopped;
-				});
+				Task.Factory.StartNew(() => EnqueueOneFrame());
 			}
 		}
 
-		private bool EnqueueOneFrame()
+		private void EnqueueOneFrame()
 		{
+			DS = DecodingState.Running;
+			AVPacket* packet = ffmpeg.av_packet_alloc();
 			AVFrame outframe;
 			try
 			{
-				int error;
-				do
+				while (decodedframes.Count < ((int)(Framerate.num / Framerate.den)) * 2)
 				{
-					try
+
+					int error;
+					do
 					{
-						do
+						try
 						{
-							error = ffmpeg.av_read_frame(format_context, packet);
-							if (error == ffmpeg.AVERROR_EOF)
+							do
 							{
-								DS = DecodingState.Stopped;
-								return false;
-							}
+								error = ffmpeg.av_read_frame(format_context, packet);
 
-							if (error != 0)
-								Trace.TraceError("av_read_frame eof or error.\n");
+								if (error == ffmpeg.AVERROR_EOF)
+								{
+									DS = DecodingState.Stopped;
+									return;
+								}
+								else if (error != 0)
+									Trace.TraceError("av_read_frame eof or error.\n");
 
-						} while (packet->stream_index != video_stream->index);
+							} while (packet->stream_index != video_stream->index);
 
-						if (ffmpeg.avcodec_send_packet(codec_context, packet) < 0)
-							Trace.TraceError("avcodec_send_packet error\n");
-					}
-					finally
+							if (ffmpeg.avcodec_send_packet(codec_context, packet) < 0)
+								Trace.TraceError("avcodec_send_packet error\n");
+						}
+						finally
+						{
+							ffmpeg.av_packet_unref(packet);
+						}
+
+						error = ffmpeg.avcodec_receive_frame(codec_context, frame);
+
+					} while (error == ffmpeg.AVERROR(ffmpeg.EAGAIN));
+
+					if (error != 0)
+						Trace.TraceError("error.\n");
+
+					if (IsConvert)
 					{
-						ffmpeg.av_packet_unref(packet);
+						ffmpeg.sws_scale(convert_context, frame->data, frame->linesize, 0, frame->height, _dstData, _dstLinesize);
+
+						var data = new byte_ptrArray8();
+						data.UpdateFrom(_dstData);
+						var linesize = new int_array8();
+						linesize.UpdateFrom(_dstLinesize);
+
+						outframe = new AVFrame
+						{
+							data = data,
+							linesize = linesize,
+							width = FrameSize.Width,
+							height = FrameSize.Height
+						};
+					}
+					else
+					{
+						outframe = *frame;
 					}
 
-					error = ffmpeg.avcodec_receive_frame(codec_context, frame);
-				} while (error == ffmpeg.AVERROR(ffmpeg.EAGAIN));
-				if (error != 0)
-					Trace.TraceError("error.\n");
-
-				if (IsConvert)
-				{
-					ffmpeg.sws_scale(convert_context, frame->data, frame->linesize, 0, frame->height, _dstData, _dstLinesize);
-
-					var data = new byte_ptrArray8();
-					data.UpdateFrom(_dstData);
-					var linesize = new int_array8();
-					linesize.UpdateFrom(_dstLinesize);
-
-					outframe = new AVFrame
+					using (Bitmap bitmaptmp = new Bitmap(outframe.width, outframe.height, outframe.linesize[0], PixelFormat.Format32bppArgb, (IntPtr)outframe.data[0]))
 					{
-						data = data,
-						linesize = linesize,
-						width = FrameSize.Width,
-						height = FrameSize.Height
-					};
-				}
-				else 
-				{
-					outframe = *frame;
-				}
-
-				using (Bitmap bitmaptmp = new Bitmap(outframe.width, outframe.height, outframe.linesize[0], PixelFormat.Format32bppArgb, (IntPtr)outframe.data[0]))
-				{
-					using (MemoryStream ms = new MemoryStream())
-					{
-						bitmaptmp.Save(ms, ImageFormat.Bmp);
-						decodedframes.Enqueue(new CDecodedFrame() { Time = (frame->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Bitmap = ms.GetBuffer() });
+						using (MemoryStream ms = new MemoryStream())
+						{
+							bitmaptmp.Save(ms, ImageFormat.Bmp);
+							decodedframes.Enqueue(new CDecodedFrame() { Time = (frame->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Bitmap = ms.GetBuffer() });
+						}
 					}
-				}
 
-				cts.Token.ThrowIfCancellationRequested();
-				return true;
+					ffmpeg.av_frame_unref(frame);
+					ffmpeg.av_frame_unref(&outframe);
+
+					if (cts.IsCancellationRequested)
+						return;
+				}
 			}
 			catch (Exception e)
 			{
 				Trace.TraceError(e.ToString());
 				DS = DecodingState.Stopped;
-				return false;
+				return;
 			}
 			finally
 			{
-				ffmpeg.av_frame_unref(frame);
-				ffmpeg.av_frame_unref(&outframe);
 				ffmpeg.av_free(&outframe);
+				ffmpeg.av_packet_free(&packet);
+				DS = DecodingState.Stopped;
 			}
 		}
 
@@ -362,7 +360,6 @@ namespace FDK
 		private AVStream* video_stream;
 		private AVCodecContext* codec_context;
 		private AVFrame* frame;
-		private AVPacket* packet;
 		private ConcurrentQueue<CDecodedFrame> decodedframes;
 		private Device device;
 		private CancellationTokenSource cts;
