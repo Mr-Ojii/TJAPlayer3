@@ -221,7 +221,7 @@ namespace FDK
 		{
 			DS = DecodingState.Running;
 			AVPacket* packet = ffmpeg.av_packet_alloc();
-			AVFrame outframe;
+			AVFrame* outframe = null;
 			try
 			{
 				while (decodedframes.Count < ((int)(Framerate.num / Framerate.den)) * 2)
@@ -265,25 +265,20 @@ namespace FDK
 					{
 						ffmpeg.sws_scale(convert_context, frame->data, frame->linesize, 0, frame->height, _dstData, _dstLinesize);
 
-						var data = new byte_ptrArray8();
-						data.UpdateFrom(_dstData);
-						var linesize = new int_array8();
-						linesize.UpdateFrom(_dstLinesize);
-
-						outframe = new AVFrame
-						{
-							data = data,
-							linesize = linesize,
-							width = FrameSize.Width,
-							height = FrameSize.Height
-						};
+						outframe = ffmpeg.av_frame_alloc();
+						outframe->width = FrameSize.Width;
+						outframe->height = FrameSize.Height;
+						outframe->data = new byte_ptrArray8();
+						outframe->data.UpdateFrom(_dstData);
+						outframe->linesize = new int_array8();
+						outframe->linesize.UpdateFrom(_dstLinesize);
 					}
 					else
 					{
-						outframe = *frame;
+						outframe = frame;
 					}
 
-					using (Bitmap bitmaptmp = new Bitmap(outframe.width, outframe.height, outframe.linesize[0], PixelFormat.Format32bppArgb, (IntPtr)outframe.data[0]))
+					using (Bitmap bitmaptmp = new Bitmap(outframe->width, outframe->height, outframe->linesize[0], PixelFormat.Format32bppArgb, (IntPtr)outframe->data[0]))
 					{
 						using (MemoryStream ms = new MemoryStream())
 						{
@@ -293,7 +288,7 @@ namespace FDK
 					}
 
 					ffmpeg.av_frame_unref(frame);
-					ffmpeg.av_frame_unref(&outframe);
+					ffmpeg.av_frame_unref(outframe);
 
 					if (cts.IsCancellationRequested)
 						return;

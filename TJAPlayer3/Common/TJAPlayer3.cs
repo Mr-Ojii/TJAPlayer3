@@ -326,6 +326,14 @@ namespace TJAPlayer3
 
 		// Game 実装
 
+		protected override void Initialize()
+		{
+			if (this.listトップレベルActivities != null)
+			{
+				foreach (CActivity activity in this.listトップレベルActivities)
+					activity.OnManagedリソースの作成();
+			}
+		}
 		protected override void LoadContent()
 		{
 			if (ConfigIni.bウィンドウモード)
