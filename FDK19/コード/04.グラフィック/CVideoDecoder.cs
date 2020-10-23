@@ -45,7 +45,7 @@ namespace FDK
 					throw new FileLoadException("No video stream ...\n");
 
 				// find decoder
-				codec = ffmpeg.avcodec_find_decoder(video_stream->codecpar->codec_id);
+				AVCodec* codec = ffmpeg.avcodec_find_decoder(video_stream->codecpar->codec_id);
 				if (codec == null)
 					throw new NotSupportedException("No supported decoder ...\n");
 
@@ -59,8 +59,7 @@ namespace FDK
 
 				this.FrameSize = new Size(codec_context->width, codec_context->height);
 				this.Duration = (video_stream->avg_frame_rate.num / (double)video_stream->avg_frame_rate.den) * video_stream->nb_frames;
-				framecount = codec_context->frame_number;
-				Framerate = video_stream->avg_frame_rate;
+				this.Framerate = video_stream->avg_frame_rate;
 
 				frame = ffmpeg.av_frame_alloc();
 				packet = ffmpeg.av_packet_alloc();
@@ -75,8 +74,8 @@ namespace FDK
 						CVPxfmt,
 						ffmpeg.SWS_FAST_BILINEAR, null, null, null);
 					this.IsConvert = true;
+					if (convert_context == null) throw new ApplicationException("Could not initialize the conversion context.\n");
 				}
-				if (convert_context == null) throw new ApplicationException("Could not initialize the conversion context.\n");
 				decodedframes = new ConcurrentQueue<CDecodedFrame>();
 
 				CTimer = new CTimer();
@@ -112,7 +111,8 @@ namespace FDK
 			}
 			if (lastTexture != null)
 				lastTexture.Dispose();
-			while (decodedframes.TryDequeue(out CDecodedFrame frame)) ;
+			while (decodedframes.TryDequeue(out CDecodedFrame frame))
+				frame.Dispose();
 		}
 
 		public void Start()
@@ -162,7 +162,8 @@ namespace FDK
 				Trace.TraceError("av_seek_frame failed\n");
 			ffmpeg.avcodec_flush_buffers(codec_context);
 			CTimer.n現在時刻ms = timestampms;
-			while (decodedframes.TryDequeue(out CDecodedFrame frame)) ;
+			while (decodedframes.TryDequeue(out CDecodedFrame frame))
+				frame.Dispose();
 			this.EnqueueFrames();
 			if (lastTexture != null)
 				lastTexture.Dispose();
@@ -182,11 +183,15 @@ namespace FDK
 							if (decodedframes.Count != 0)
 								if (decodedframes.TryPeek(out frame))
 									if (frame.Time <= (CTimer.n現在時刻ms * _dbPlaySpeed))
+									{
+										cdecodedframe.Dispose();
 										continue;
+									}
 
 							if (lastTexture != null)
 								lastTexture.Dispose();
 							lastTexture = GeneFrmTx(cdecodedframe.Bitmap);
+							cdecodedframe.Dispose();
 						}
 						break;
 					}
@@ -283,11 +288,15 @@ namespace FDK
 				{
 					outframe = *frame;
 				}
-					
-				Bitmap bitmaptmp = new Bitmap(outframe.width, outframe.height, outframe.linesize[0], PixelFormat.Format32bppArgb, (IntPtr)outframe.data[0]);
-				MemoryStream ms = new MemoryStream();
-				bitmaptmp.Save(ms, ImageFormat.Bmp);
-				decodedframes.Enqueue(new CDecodedFrame() { Time = (frame->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Bitmap = ms.GetBuffer() });
+
+				using (Bitmap bitmaptmp = new Bitmap(outframe.width, outframe.height, outframe.linesize[0], PixelFormat.Format32bppArgb, (IntPtr)outframe.data[0]))
+				{
+					using (MemoryStream ms = new MemoryStream())
+					{
+						bitmaptmp.Save(ms, ImageFormat.Bmp);
+						decodedframes.Enqueue(new CDecodedFrame() { Time = (frame->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Bitmap = ms.GetBuffer() });
+					}
+				}
 
 				cts.Token.ThrowIfCancellationRequested();
 				return true;
@@ -300,6 +309,7 @@ namespace FDK
 			}
 			finally
 			{
+				ffmpeg.av_frame_unref(frame);
 				ffmpeg.av_frame_unref(&outframe);
 				ffmpeg.av_free(&outframe);
 			}
@@ -350,12 +360,10 @@ namespace FDK
 		private double _dbPlaySpeed = 1.0f;
 		private static AVFormatContext* format_context;
 		private AVStream* video_stream;
-		private AVCodec* codec;
 		private AVCodecContext* codec_context;
 		private AVFrame* frame;
 		private AVPacket* packet;
 		private ConcurrentQueue<CDecodedFrame> decodedframes;
-		private int framecount;
 		private Device device;
 		private CancellationTokenSource cts;
 		private DecodingState DS = DecodingState.Stopped;
