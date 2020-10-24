@@ -89,7 +89,6 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//this.txSongnamePlate = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\6_SongnamePlate.png" ) );
 				this.ct待機 = new CCounter( 0, 600, 5, TJAPlayer3.Timer );
 				this.ct曲名表示 = new CCounter( 1, 30, 30, TJAPlayer3.Timer );
 				try
@@ -108,9 +107,6 @@ namespace TJAPlayer3
 
 					if( !string.IsNullOrEmpty(タイトル) )
 					{
-						//this.txタイトル = new CTexture( CDTXMania.app.Device, image, CDTXMania.TextureFormat );
-						//this.txタイトル.vc拡大縮小倍率 = new Vector3( 0.5f, 0.5f, 1f );
-
 						using (CPrivateFont pfTITLE = new CPrivateFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), TJAPlayer3.Skin.SongLoading_Title_FontSize))
 						{
 							using (var bmpSongTitle = pfTITLE.DrawPrivateFont(タイトル, TJAPlayer3.Skin.SongLoading_Title_ForeColor, TJAPlayer3.Skin.SongLoading_Title_BackColor))
