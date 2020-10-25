@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FFmpeg.AutoGen;
+using SharpDX;
 using SharpDX.Direct3D9;
 using System.Threading;
 
@@ -185,9 +186,8 @@ namespace FDK
 										continue;
 									}
 
-							if (lastTexture != null)
-								lastTexture.Dispose();
-							lastTexture = GeneFrmTx(cdecodedframe.Bitmap);
+							GeneFrmTx(ref lastTexture, cdecodedframe.Bitmap);
+
 							cdecodedframe.Dispose();
 						}
 						break;
@@ -199,7 +199,7 @@ namespace FDK
 			}
 
 			if (lastTexture == null)
-				lastTexture = GeneFrmTx(new Bitmap(1, 1));
+				GeneFrmTx(ref lastTexture, new Bitmap(FrameSize.Width, FrameSize.Height));
 
 			if (Texture == lastTexture)
 				return;
@@ -278,14 +278,7 @@ namespace FDK
 						outframe = frame;
 					}
 
-					using (Bitmap bitmaptmp = new Bitmap(outframe->width, outframe->height, outframe->linesize[0], PixelFormat.Format32bppArgb, (IntPtr)outframe->data[0]))
-					{
-						using (MemoryStream ms = new MemoryStream())
-						{
-							bitmaptmp.Save(ms, ImageFormat.Bmp);
-							decodedframes.Enqueue(new CDecodedFrame() { Time = (frame->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Bitmap = ms.GetBuffer() });
-						}
-					}
+					decodedframes.Enqueue(new CDecodedFrame() { Time = (frame->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Bitmap = getframebuf(outframe) });
 
 					ffmpeg.av_frame_unref(frame);
 					ffmpeg.av_frame_unref(outframe);
@@ -308,13 +301,32 @@ namespace FDK
 			}
 		}
 
-		private CTexture GeneFrmTx(Bitmap bitmap) 
+		private void GeneFrmTx(ref CTexture tex, Bitmap bitmap)
 		{
-			return new CTexture(this.device, bitmap, false);
+			tex = new CTexture(this.device, bitmap, false);
 		}
-		private CTexture GeneFrmTx(byte[] bytearray)
+		private void GeneFrmTx(ref CTexture tex, byte[] bytearray)
 		{
-			return new CTexture(this.device, bytearray);
+			if (tex == null)
+				GeneFrmTx(ref tex, new Bitmap(FrameSize.Width, FrameSize.Height));
+
+			DataRectangle data = tex.texture.LockRectangle(0, LockFlags.Discard);
+
+			if (tex.szテクスチャサイズ.Width == FrameSize.Width)
+			{
+				Marshal.Copy(bytearray, 0, data.DataPointer, FrameSize.Width * FrameSize.Height * 4);
+			}
+
+			tex.texture.UnlockRectangle(0);
+		}
+
+		private byte[] getframebuf(AVFrame* frame) 
+		{
+			byte[] buf = new byte[FrameSize.Width * FrameSize.Height * 4];
+
+			Marshal.Copy((IntPtr)(frame->data[0]), buf, 0, FrameSize.Width * FrameSize.Height * 4);
+
+			return buf;
 		}
 
 		public Size FrameSize 
