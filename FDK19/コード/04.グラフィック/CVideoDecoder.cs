@@ -16,6 +16,11 @@ using System.Threading;
 
 namespace FDK
 {
+	/// <summary>
+	/// ビデオのデコードをするクラス
+	/// ファイル名・nullのCTextureをもらえれば、勝手に、CTextureに映像を格納して返す。
+	/// 演奏とは別のタイマーを使用しているので、ずれる可能性がある。
+	/// </summary>
 	public unsafe class CVideoDecoder : IDisposable
 	{
 		public CVideoDecoder(Device device, string filename)
@@ -62,29 +67,12 @@ namespace FDK
 				this.Duration = (video_stream->avg_frame_rate.num / (double)video_stream->avg_frame_rate.den) * video_stream->nb_frames;
 				this.Framerate = video_stream->avg_frame_rate;
 
+				frameconv = new CFrameConverter(FrameSize, codec_context->pix_fmt);
+
 				frame = ffmpeg.av_frame_alloc();
-				if (codec_context->pix_fmt != CVPxfmt)
-				{
-					convert_context = ffmpeg.sws_getContext(
-						FrameSize.Width,
-						FrameSize.Height,
-						codec_context->pix_fmt,
-						FrameSize.Width,
-						FrameSize.Height,
-						CVPxfmt,
-						ffmpeg.SWS_FAST_BILINEAR, null, null, null);
-					this.IsConvert = true;
-					if (convert_context == null) throw new ApplicationException("Could not initialize the conversion context.\n");
-				}
 				decodedframes = new ConcurrentQueue<CDecodedFrame>();
 
 				CTimer = new CTimer();
-
-				_convertedFrameBufferPtr = Marshal.AllocHGlobal(ffmpeg.av_image_get_buffer_size(CVPxfmt, codec_context->width, codec_context->height, 1));
-
-				_dstData = new byte_ptrArray4();
-				_dstLinesize = new int_array4();
-				ffmpeg.av_image_fill_arrays(ref _dstData, ref _dstLinesize, (byte*)_convertedFrameBufferPtr, CVPxfmt, codec_context->width, codec_context->height, 1);
 			}
 		}
 
@@ -93,8 +81,7 @@ namespace FDK
 			close = true;
 			cts?.Cancel();
 			while (DS != DecodingState.Stopped) ;
-			Marshal.FreeHGlobal(_convertedFrameBufferPtr);
-			ffmpeg.sws_freeContext(convert_context);
+			frameconv.Dispose();
 			ffmpeg.av_frame_unref(frame);
 			ffmpeg.av_free(frame);
 
@@ -225,7 +212,10 @@ namespace FDK
 				while (true)
 				{
 					if (cts.IsCancellationRequested || close)
+					{
+						DS = DecodingState.Stopped;
 						return;
+					}
 
 					//2020/10/27 Mr-Ojii 閾値フレームごとにパケット生成するのは無駄だと感じたので、ループに入ったら、パケット生成し、シークによるキャンセルまたは、EOFまで無限ループ
 					if (decodedframes.Count < 5)//現在は適当に5
@@ -238,37 +228,18 @@ namespace FDK
 							{
 								if (ffmpeg.avcodec_send_packet(codec_context, packet) >= 0) 
 								{
-									do
+									if (ffmpeg.avcodec_receive_frame(codec_context, frame) == 0)
 									{
-										error = ffmpeg.avcodec_receive_frame(codec_context, frame);
-									} while (error == ffmpeg.AVERROR(ffmpeg.EAGAIN));
+										AVFrame* outframe = null;
 
-									if (error != 0)
-										Trace.TraceError("error.\n");//エラー時はどうしましょ。
+										outframe = frameconv.Convert(frame);
 
-									AVFrame* outframe = null;
+										decodedframes.Enqueue(new CDecodedFrame() { Time = (frame->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Bitmap = getframebuf(outframe) });
 
-									if (IsConvert)
-									{
-										ffmpeg.sws_scale(convert_context, frame->data, frame->linesize, 0, frame->height, _dstData, _dstLinesize);
-
-										outframe = ffmpeg.av_frame_alloc();
-										outframe->width = FrameSize.Width;
-										outframe->height = FrameSize.Height;
-										outframe->data = new byte_ptrArray8();
-										outframe->data.UpdateFrom(_dstData);
-										outframe->linesize = new int_array8();
-										outframe->linesize.UpdateFrom(_dstLinesize);
+										ffmpeg.av_frame_unref(frame);
+										ffmpeg.av_frame_unref(outframe);
+										ffmpeg.av_frame_free(&outframe);
 									}
-									else
-									{
-										outframe = frame;
-									}
-
-									decodedframes.Enqueue(new CDecodedFrame() { Time = (frame->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Bitmap = getframebuf(outframe) });
-
-									ffmpeg.av_frame_unref(frame);
-									ffmpeg.av_frame_free(&outframe);
 								}
 							}
 
@@ -293,7 +264,6 @@ namespace FDK
 			{
 				Trace.TraceError(e.ToString());
 				DS = DecodingState.Stopped;
-				return;
 			}
 			finally
 			{
@@ -387,12 +357,7 @@ namespace FDK
 		private bool bqueueinitialized = false;
 
 		//for convert
-		private SwsContext* convert_context;
-		private readonly byte_ptrArray4 _dstData;
-		private readonly int_array4 _dstLinesize;
-		private readonly IntPtr _convertedFrameBufferPtr;
-		private const AVPixelFormat CVPxfmt = AVPixelFormat.AV_PIX_FMT_BGRA;
-		private bool IsConvert = false;
+		private CFrameConverter frameconv;
 		#endregion
 	}
 }
