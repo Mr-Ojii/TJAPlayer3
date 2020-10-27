@@ -41,12 +41,15 @@ namespace FDK
 
                 AVFrame* tmp = ffmpeg.av_frame_alloc();
                 tmp = ffmpeg.av_frame_alloc();
+                tmp->best_effort_timestamp = framep->best_effort_timestamp;
                 tmp->width = FrameSize.Width;
                 tmp->height = FrameSize.Height;
                 tmp->data = new byte_ptrArray8();
                 tmp->data.UpdateFrom(_dstData);
                 tmp->linesize = new int_array8();
                 tmp->linesize.UpdateFrom(_dstLinesize);
+
+                ffmpeg.av_frame_unref(framep);
                 return tmp;
             }
             else 

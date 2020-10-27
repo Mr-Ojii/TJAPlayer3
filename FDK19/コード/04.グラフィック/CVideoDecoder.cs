@@ -234,7 +234,7 @@ namespace FDK
 
 										outframe = frameconv.Convert(frame);
 
-										decodedframes.Enqueue(new CDecodedFrame() { Time = (frame->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Bitmap = getframebuf(outframe) });
+										decodedframes.Enqueue(new CDecodedFrame() { Time = (outframe->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Bitmap = getframebuf(outframe) });
 
 										ffmpeg.av_frame_unref(frame);
 										ffmpeg.av_frame_unref(outframe);
