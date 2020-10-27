@@ -288,6 +288,12 @@ namespace FDK
 			{
 				Marshal.Copy(bytearray, 0, data.DataPointer, FrameSize.Width * FrameSize.Height * 4);
 			}
+			else 
+			{
+				tex.Dispose();
+				GeneFrmTx(ref tex, new Bitmap(FrameSize.Width, FrameSize.Height));
+				Marshal.Copy(bytearray, 0, data.DataPointer, FrameSize.Width * FrameSize.Height * 4);
+			}
 
 			tex.texture.UnlockRectangle(0);
 		}
