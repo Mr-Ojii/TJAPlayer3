@@ -90,14 +90,13 @@ namespace FDK
 
 		public void Dispose()
 		{
-			cts?.Cancel();
 			close = true;
+			cts?.Cancel();
 			while (DS != DecodingState.Stopped) ;
 			Marshal.FreeHGlobal(_convertedFrameBufferPtr);
 			ffmpeg.sws_freeContext(convert_context);
 			ffmpeg.av_frame_unref(frame);
 			ffmpeg.av_free(frame);
-
 
 			ffmpeg.avcodec_flush_buffers(codec_context);
 			if (ffmpeg.avcodec_close(codec_context) < 0)
@@ -221,70 +220,73 @@ namespace FDK
 		{
 			DS = DecodingState.Running;
 			AVPacket* packet = ffmpeg.av_packet_alloc();
-			AVFrame* outframe = null;
 			try
 			{
-				while (decodedframes.Count < ((int)(Framerate.num / Framerate.den)) * 2)
+				while (true)
 				{
+					if (cts.IsCancellationRequested || close)
+						return;
 
-					int error;
-					do
+					//2020/10/27 Mr-Ojii 閾値フレームごとにパケット生成するのは無駄だと感じたので、ループに入ったら、パケット生成し、シークによるキャンセルまたは、EOFまで無限ループ
+					if (decodedframes.Count < 5)//現在は適当に5
 					{
-						try
+						int error = ffmpeg.av_read_frame(format_context, packet);
+
+						if (error >= 0)
 						{
-							do
+							if (packet->stream_index == video_stream->index)
 							{
-								error = ffmpeg.av_read_frame(format_context, packet);
-
-								if (error == ffmpeg.AVERROR_EOF)
+								if (ffmpeg.avcodec_send_packet(codec_context, packet) >= 0) 
 								{
-									DS = DecodingState.Stopped;
-									return;
+									do
+									{
+										error = ffmpeg.avcodec_receive_frame(codec_context, frame);
+									} while (error == ffmpeg.AVERROR(ffmpeg.EAGAIN));
+
+									if (error != 0)
+										Trace.TraceError("error.\n");//エラー時はどうしましょ。
+
+									AVFrame* outframe = null;
+
+									if (IsConvert)
+									{
+										ffmpeg.sws_scale(convert_context, frame->data, frame->linesize, 0, frame->height, _dstData, _dstLinesize);
+
+										outframe = ffmpeg.av_frame_alloc();
+										outframe->width = FrameSize.Width;
+										outframe->height = FrameSize.Height;
+										outframe->data = new byte_ptrArray8();
+										outframe->data.UpdateFrom(_dstData);
+										outframe->linesize = new int_array8();
+										outframe->linesize.UpdateFrom(_dstLinesize);
+									}
+									else
+									{
+										outframe = frame;
+									}
+
+									decodedframes.Enqueue(new CDecodedFrame() { Time = (frame->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Bitmap = getframebuf(outframe) });
+
+									ffmpeg.av_frame_unref(frame);
+									ffmpeg.av_frame_free(&outframe);
 								}
-								else if (error != 0)
-									Trace.TraceError("av_read_frame eof or error.\n");
+							}
 
-							} while (packet->stream_index != video_stream->index);
-
-							if (ffmpeg.avcodec_send_packet(codec_context, packet) < 0)
-								Trace.TraceError("avcodec_send_packet error\n");
-						}
-						finally
-						{
+							//2020/10/27 Mr-Ojii packetが解放されない周回があった問題を修正。
 							ffmpeg.av_packet_unref(packet);
 						}
-
-						error = ffmpeg.avcodec_receive_frame(codec_context, frame);
-
-					} while (error == ffmpeg.AVERROR(ffmpeg.EAGAIN));
-
-					if (error != 0)
-						Trace.TraceError("error.\n");
-
-					if (IsConvert)
-					{
-						ffmpeg.sws_scale(convert_context, frame->data, frame->linesize, 0, frame->height, _dstData, _dstLinesize);
-
-						outframe = ffmpeg.av_frame_alloc();
-						outframe->width = FrameSize.Width;
-						outframe->height = FrameSize.Height;
-						outframe->data = new byte_ptrArray8();
-						outframe->data.UpdateFrom(_dstData);
-						outframe->linesize = new int_array8();
-						outframe->linesize.UpdateFrom(_dstLinesize);
+						else if (error == ffmpeg.AVERROR_EOF)
+						{
+							DS = DecodingState.Stopped;
+							return;
+						}
 					}
-					else
+					else 
 					{
-						outframe = frame;
+						//ポーズ中に無限ループに入り、CPU使用率が異常に高くなってしまうため、1ms待つ。
+						//ネットを調べると、await Task.Delay()を使えというお話が出てくるが、unsafeなので、使えない
+						Thread.Sleep(1);
 					}
-
-					decodedframes.Enqueue(new CDecodedFrame() { Time = (frame->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Bitmap = getframebuf(outframe) });
-
-					ffmpeg.av_frame_unref(frame);
-					ffmpeg.av_frame_unref(outframe);
-
-					if (cts.IsCancellationRequested)
-						return;
 				}
 			}
 			catch (Exception e)
@@ -295,7 +297,6 @@ namespace FDK
 			}
 			finally
 			{
-				ffmpeg.av_free(&outframe);
 				ffmpeg.av_packet_free(&packet);
 				DS = DecodingState.Stopped;
 			}
@@ -307,6 +308,7 @@ namespace FDK
 		}
 		private void GeneFrmTx(ref CTexture tex, byte[] bytearray)
 		{
+			//ポインタを使用し、データを直接バッファにコピーする
 			if (tex == null)
 				GeneFrmTx(ref tex, new Bitmap(FrameSize.Width, FrameSize.Height));
 

@@ -739,11 +739,6 @@ namespace TJAPlayer3
 								break;
 							#endregion
 
-							//case (int) E演奏画面の戻り値.再演奏:
-							#region [ 再読み込み無しで、再演奏 ]
-							#endregion
-							//	break;
-
 							case (int)E演奏画面の戻り値.継続:
 								break;
 
