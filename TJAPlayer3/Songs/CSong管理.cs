@@ -1088,58 +1088,6 @@ namespace TJAPlayer3
 			}
 		}
 
-#if TEST_SORTBGM
-		public static void t曲リストのソート9_BPM順( List<C曲リストノード> ノードリスト, E楽器パート part, int order, params object[] p )
-		{
-			order = -order;
-			int nL12345 = (int) p[ 0 ];
-			if ( part != E楽器パート.UNKNOWN )
-			{
-				ノードリスト.Sort( delegate( C曲リストノード n1, C曲リストノード n2 )
-				{
-		#region [ 共通処理 ]
-					if ( n1 == n2 )
-					{
-						return 0;
-					}
-					int num = this.t比較0_共通( n1, n2 );
-					if ( num != 0 )
-					{
-						return num;
-					}
-					if ( ( n1.eノード種別 == C曲リストノード.Eノード種別.BOX ) && ( n2.eノード種別 == C曲リストノード.Eノード種別.BOX ) )
-					{
-						return order * n1.arスコア[ 0 ].ファイル情報.フォルダの絶対パス.CompareTo( n2.arスコア[ 0 ].ファイル情報.フォルダの絶対パス );
-					}
-		#endregion
-					double dBPMn1 = 0.0, dBPMn2 = 0.0;
-					if ( n1.arスコア[ nL12345 ] != null )
-					{
-						dBPMn1 = n1.arスコア[ nL12345 ].譜面情報.bpm;
-					}
-					if ( n2.arスコア[ nL12345 ] != null )
-					{
-						dBPMn2 = n2.arスコア[ nL12345 ].譜面情報.bpm;
-					}
-					double d = dBPMn1- dBPMn2;
-					if ( d != 0 )
-					{
-						return order * System.Math.Sign( d );
-					}
-					return order * n1.strタイトル.CompareTo( n2.strタイトル );
-				} );
-				foreach ( C曲リストノード c曲リストノード in ノードリスト )
-				{
-					double dBPM = 0;
-					if ( c曲リストノード.arスコア[ nL12345 ] != null )
-					{
-						dBPM = c曲リストノード.arスコア[ nL12345 ].譜面情報.bpm;
-					}
-Debug.WriteLine( dBPM + ":" + c曲リストノード.strタイトル );
-				}
-			}
-		}
-#endif
 		//-----------------
 		#endregion
 		#region [ .score.ini を読み込んで Cスコア.譜面情報に設定する ]

@@ -3922,7 +3922,6 @@ namespace TJAPlayer3
 				dTX.listChip[i].eNoteState = ENoteState.none;
 				dTX.listChip[i].nProcessTime = 0;
 				dTX.listChip[i].nRollCount = 0;
-				dTX.listChip[i].nRollCount = 0;
 			}
 			#endregion
 

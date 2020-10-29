@@ -95,7 +95,6 @@ namespace TJAPlayer3
 			}
 			return 0;
 		}
-		
 
 		// その他
 

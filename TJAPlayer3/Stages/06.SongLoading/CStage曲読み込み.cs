@@ -352,7 +352,6 @@ namespace TJAPlayer3
 
 
 						CScoreIni ini = new CScoreIni( str + ".score.ini" );
-						ini.t全演奏記録セクションの整合性をチェックし不整合があればリセットする();
 
 						if( ( TJAPlayer3.DTX[0] != null ) && TJAPlayer3.DTX[0].b活性化してる )
 							TJAPlayer3.DTX[0].On非活性化();

@@ -246,23 +246,11 @@ namespace TJAPlayer3
 			: this()
 		{
 			this.t読み込み( str読み込むiniファイル );
-			this.t全演奏記録セクションの整合性をチェックし不整合があればリセットする();
 		}
 
 
 		// メソッド
-
-		/// <summary>
-		/// <para>現在の this.Record[] オブジェクトの、指定されたセクションの情報が正当であるか否かを判定する。
-		/// 真偽どちらでも、その内容は書き換えない。</para>
-		/// </summary>
-		/// <param name="eセクション">判定するセクション。</param>
-		/// <returns>正当である（整合性がある）場合は true。</returns>
-		public bool b整合性がある( Eセクション種別 eセクション )
-		{
-			return true;	// オープンソース化に伴い、整合性チェックを無効化。（2010.10.21）
-		}
-		
+				
 		/// <summary>
 		/// 指定されたファイルの内容から MD5 値を求め、それを16進数に変換した文字列を返す。
 		/// </summary>
@@ -992,14 +980,6 @@ namespace TJAPlayer3
 			}
 
 			writer.Close();
-		}
-		internal void t全演奏記録セクションの整合性をチェックし不整合があればリセットする()
-		{
-			for( int i = 0; i < 2; i++ )
-			{ 
-				if (!this.b整合性がある((Eセクション種別)i))
-					this.stセクション[i] = new C演奏記録();
-			}
 		}
 		internal static int tランク値を計算して返す( C演奏記録 part )
 		{
