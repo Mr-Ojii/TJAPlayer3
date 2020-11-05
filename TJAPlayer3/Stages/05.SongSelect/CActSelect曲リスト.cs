@@ -2109,14 +2109,14 @@ namespace TJAPlayer3
 
 			if (song == null)
 			{
-				if(TJAPlayer3.Songs管理.list曲ルート[0] != null)
+				if (TJAPlayer3.Songs管理.list曲ルート[0] != null)
+				{
 					this.r現在選択中の曲 = TJAPlayer3.Songs管理.list曲ルート[0];
-				else
-					return;
-				this.t現在選択中の曲を元に曲バーを再構成する();
-				this.t選択曲が変更された(false);
-				this.b選択曲が変更された = true;
-				TJAPlayer3.stage選曲.t選択曲変更通知();
+					this.t現在選択中の曲を元に曲バーを再構成する();
+					this.t選択曲が変更された(false);
+					this.b選択曲が変更された = true;
+					TJAPlayer3.stage選曲.t選択曲変更通知();
+				}
 				return;
 			}
 

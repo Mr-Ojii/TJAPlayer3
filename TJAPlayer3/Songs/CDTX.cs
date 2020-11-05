@@ -3035,7 +3035,7 @@ namespace TJAPlayer3
 									this.nノーツ数_Branch[i]++;
 								else this.nノーツ数_Branch[chip.nコース]++;
 							}
-							if (!this.b分岐を一回でも開始した)
+							else
 							{
 								//IsEndedBranching==false = forloopが行われていないときのみ
 								for (int l = 0; l < 3; l++)

@@ -150,7 +150,7 @@ namespace FDK
 				frame.Dispose();
 			this.EnqueueFrames();
 			if (lastTexture != null)
-				lastTexture.Dispose();
+				GeneFrmTx(ref lastTexture, new byte[FrameSize.Width * FrameSize.Height * 4]);
 		}
 
 		public void GetNowFrame(ref CTexture Texture)
@@ -213,7 +213,6 @@ namespace FDK
 				{
 					if (cts.IsCancellationRequested || close)
 					{
-						DS = DecodingState.Stopped;
 						return;
 					}
 
@@ -248,7 +247,6 @@ namespace FDK
 						}
 						else if (error == ffmpeg.AVERROR_EOF)
 						{
-							DS = DecodingState.Stopped;
 							return;
 						}
 					}
@@ -263,7 +261,6 @@ namespace FDK
 			catch (Exception e)
 			{
 				Trace.TraceError(e.ToString());
-				DS = DecodingState.Stopped;
 			}
 			finally
 			{
@@ -279,7 +276,7 @@ namespace FDK
 		private void GeneFrmTx(ref CTexture tex, byte[] bytearray)
 		{
 			//ポインタを使用し、データを直接バッファにコピーする
-			if (tex == null)
+			if (tex == null || tex.texture == null)
 				GeneFrmTx(ref tex, new Bitmap(FrameSize.Width, FrameSize.Height));
 
 			DataRectangle data = tex.texture.LockRectangle(0, LockFlags.Discard);

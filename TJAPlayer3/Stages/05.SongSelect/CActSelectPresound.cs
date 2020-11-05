@@ -147,11 +147,10 @@ namespace TJAPlayer3
 				{
 					// 2020.06.15 Mr-Ojii TJAP2fPCより拝借-----------
 					// 2019.03.22 kairera0467 簡易マルチスレッド化
-					Task<CSound> task = Task.Run<CSound>(() => {
+					CSound tmps = await Task.Run<CSound>(() => {
 						token = new CancellationTokenSource();
 						return this.tプレビューサウンドの作成MT(strPreviewFilename);
 					});
-					CSound tmps = await task;
 
 					token.Token.ThrowIfCancellationRequested();
 					this.tサウンドの停止MT();
