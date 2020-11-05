@@ -1985,10 +1985,8 @@ namespace TJAPlayer3
 				chip1.nチャンネル番号 = 0x54;
 				//chip1.n発声位置 = 384;
 				//chip1.n発声時刻ms = (int)this.dbNowTime;
-				if (this.nMOVIEOFFSET == 0)
-					chip1.n発声時刻ms = (int)this.dbNowTime;
-				else
-					chip1.n発声時刻ms = (int)this.nMOVIEOFFSET;
+				
+				chip1.n発声時刻ms = (int)this.dbNowTime;
 				chip1.dbBPM = this.dbNowBPM;
 				chip1.dbSCROLL = this.dbNowScroll;
 				chip1.fNow_Measure_m = this.fNow_Measure_m;
@@ -2633,10 +2631,7 @@ namespace TJAPlayer3
 			chip1.nチャンネル番号 = 0x54;
 			//chip1.n発声位置 = 384;
 			//chip1.n発声時刻ms = (int)this.dbNowTime;
-			if (this.nMOVIEOFFSET == 0)
-				chip1.n発声時刻ms = (int)this.dbNowTime;
-			else
-				chip1.n発声時刻ms = (int)this.nMOVIEOFFSET;
+			chip1.n発声時刻ms = (int)this.dbNowTime;
 			chip1.dbBPM = this.dbNowBPM;
 			chip1.dbSCROLL = this.dbNowScroll;
 			chip1.fNow_Measure_m = this.fNow_Measure_m;
@@ -3805,10 +3800,7 @@ namespace TJAPlayer3
 				chip1.nチャンネル番号 = 0x54;
 				//chip1.n発声位置 = 384;
 				//chip1.n発声時刻ms = (int)this.dbNowTime;
-				if (this.nMOVIEOFFSET == 0)
-					chip1.n発声時刻ms = (int)this.dbNowTime;
-				else
-					chip1.n発声時刻ms = (int)this.nMOVIEOFFSET;
+				chip1.n発声時刻ms = (int)this.dbNowTime;
 				chip1.dbBPM = this.dbNowBPM;
 				chip1.dbSCROLL = this.dbNowScroll;
 				chip1.fNow_Measure_m = this.fNow_Measure_m;
