@@ -50,7 +50,7 @@ VisualStudio Community 2019
 [https://discord.gg/AkfUrMW](https://discord.gg/AkfUrMW)
 
 ## 追加命令について
-Testフォルダ内の「追加機能について.md」で説明いたします。
+Testフォルダ内の「追加・変更機能について.md」で説明いたします。
 
 ## 謝辞
 このTJAPlayer3-fのもととなるソフトウェアを作成・メンテナンスしてきた中でも  
