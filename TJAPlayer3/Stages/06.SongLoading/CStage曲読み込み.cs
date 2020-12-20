@@ -217,7 +217,9 @@ namespace TJAPlayer3
 			else
 			{
 				if (TJAPlayer3.Tx.SongLoading_BG != null)
-					TJAPlayer3.Tx.SongLoading_BG.t2D描画(TJAPlayer3.app.Device, 0, 0);
+				{
+					TJAPlayer3.Tx.SongLoading_BG.t2D中心基準描画(TJAPlayer3.app.Device, GameWindowSize.Width / 2, GameWindowSize.Height / 2);
+				}
 			}
 
 			if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan)

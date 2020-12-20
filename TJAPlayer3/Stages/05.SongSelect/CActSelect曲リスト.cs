@@ -767,12 +767,6 @@ namespace TJAPlayer3
 			if (TJAPlayer3.Tx.SongSelect_Level != null)
 				TJAPlayer3.Tx.SongSelect_Level.Opacity = 全体Opacity;
 
-			if (TJAPlayer3.Tx.SongSelect_Branch_Text != null)
-				TJAPlayer3.Tx.SongSelect_Branch_Text.Opacity = 全体Opacity;
-
-			if (TJAPlayer3.Tx.SongSelect_Branch != null)
-				TJAPlayer3.Tx.SongSelect_Branch.Opacity = 全体Opacity;
-
 			if (TJAPlayer3.Tx.Crown_t != null)
 				TJAPlayer3.Tx.Crown_t.Opacity = 全体Opacity;
 
@@ -1295,9 +1289,6 @@ namespace TJAPlayer3
 							//    break;
 					}
 
-					if (TJAPlayer3.Tx.SongSelect_Branch_Text_NEW == null && TJAPlayer3.Tx.SongSelect_Branch_Text != null && this.r現在選択中のスコア.譜面情報.b譜面分岐[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0]])
-						TJAPlayer3.Tx.SongSelect_Branch_Text.t2D描画(TJAPlayer3.app.Device, 483, TJAPlayer3.Skin.SongSelect_Overall_Y + 21);
-
 					if (TJAPlayer3.Tx.SongSelect_Lyric_Text[TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル)] != null && this.r現在選択中のスコア.譜面情報.b歌詞あり)
 						TJAPlayer3.Tx.SongSelect_Lyric_Text[TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル)].t2D描画(TJAPlayer3.app.Device, 483, TJAPlayer3.Skin.SongSelect_Overall_Y + 21);
 				}
@@ -1404,8 +1395,6 @@ namespace TJAPlayer3
 							#region [ バーテクスチャの描画。]
 							//-----------------
 							this.tジャンル別選択されていない曲バーの描画(this.ptバーの座標[nパネル番号].X, TJAPlayer3.Skin.SongSelect_Overall_Y, TJAPlayer3.Skin.nStrジャンルtoNum(this.stバー情報[nパネル番号].song.strジャンル), this.stバー情報[nパネル番号].eバー種別,this.stバー情報[nパネル番号].eノード種別);
-							if (this.stバー情報[nパネル番号].b分岐[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0]] == true && i != 6)
-								TJAPlayer3.Tx.SongSelect_Branch.t2D描画(TJAPlayer3.app.Device, this.ptバーの座標[nパネル番号].X + 66, TJAPlayer3.Skin.SongSelect_Overall_Y - 5);
 							//-----------------
 							#endregion
 							#region [ タイトル名テクスチャを描画。]
@@ -1590,8 +1579,6 @@ namespace TJAPlayer3
 							this.tジャンル別選択されていない曲バーの描画(xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y, TJAPlayer3.Skin.nStrジャンルtoNum(this.stバー情報[nパネル番号].song.strジャンル), this.stバー情報[nパネル番号].eバー種別,this.stバー情報[nパネル番号].eノード種別);
 						else if (n見た目の行番号 != 6 || !(ctバー展開ディレイ用タイマー.b終了値に達した))
 							this.tジャンル別選択されていない曲バーの描画(xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y, TJAPlayer3.Skin.nStrジャンルtoNum(this.stバー情報[nパネル番号].song.strジャンル), this.stバー情報[nパネル番号].eバー種別,this.stバー情報[nパネル番号].eノード種別);
-						if (this.stバー情報[nパネル番号].b分岐[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0]] == true && n見た目の行番号 != 6 && TJAPlayer3.Tx.SongSelect_Branch != null)
-							TJAPlayer3.Tx.SongSelect_Branch.t2D描画(TJAPlayer3.app.Device, xAnime + 66, TJAPlayer3.Skin.SongSelect_Overall_Y - 5);
 						//-----------------
 						#endregion
 
@@ -1766,9 +1753,6 @@ namespace TJAPlayer3
 								}
 								#endregion
 								#region[譜面分岐や歌詞やパパママ]
-								if (TJAPlayer3.Tx.SongSelect_Branch_Text_NEW == null && TJAPlayer3.Tx.SongSelect_Branch_Text != null && this.r現在選択中のスコア.譜面情報.b譜面分岐[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0]])
-									TJAPlayer3.Tx.SongSelect_Branch_Text.t2D描画(TJAPlayer3.app.Device, 483, TJAPlayer3.Skin.SongSelect_Overall_Y + 21);
-
 								if (TJAPlayer3.Tx.SongSelect_Lyric_Text[TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル)] != null && this.r現在選択中のスコア.譜面情報.b歌詞あり)
 									TJAPlayer3.Tx.SongSelect_Lyric_Text[TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル)].t2D描画(TJAPlayer3.app.Device, 483, TJAPlayer3.Skin.SongSelect_Overall_Y + 21);
 

@@ -15,6 +15,7 @@ namespace TJAPlayer3
 		const string TITLE = @"1_Title\";
 		const string CONFIG = @"2_Config\";
 		const string SONGSELECT = @"3_SongSelect\";
+		const string SONGSELECTV2 = @"3.1_SongSelect_v2\";
 		const string SONGLOADING = @"4_SongLoading\";
 		const string SONGLOADINGV2 = @"4.1_SongLoading_v2\";
 		const string GAME = @"5_Game\";
@@ -47,13 +48,6 @@ namespace TJAPlayer3
 		const string TRAINING = @"19_Training\";
 		const string DANC = @"17_DanC\";
 		const string DANCV2 = @"17.1_DanC_V2\";
-
-		// InGame_Effects
-		const string FIRE = @"Fire\";
-		const string HIT = @"Hit\";
-		const string ROLL = @"Roll\";
-		const string SPLASH = @"Splash\";
-
 
 		public TextureLoader()
 		{
@@ -90,7 +84,6 @@ namespace TJAPlayer3
 			#endregion
 			#region 1_タイトル画面
 			Title_Background = TxC(TITLE + @"Background.png");
-			Title_Menu = TxC(TITLE + @"Menu.png");
 			Title_AcBar = TxC(TITLE + @"ActiveBar.png");
 			Title_InBar = TxC(TITLE + @"InactiveBar.png");
 			#endregion
@@ -113,8 +106,6 @@ namespace TJAPlayer3
 			SongSelect_Difficulty = TxC(SONGSELECT + @"Difficulty.png");
 			SongSelect_Auto = TxC(SONGSELECT + @"Auto.png");
 			SongSelect_Level = TxC(SONGSELECT + @"Level.png");
-			SongSelect_Branch = TxC(SONGSELECT + @"Branch.png");
-			SongSelect_Branch_Text = TxC(SONGSELECT + @"Branch_Text.png");
 			SongSelect_Branch_Text_NEW = TxC(SONGSELECT + @"Branch_Text_NEW.png");
 			SongSelect_Bar_Center = TxC(SONGSELECT + @"Bar_Center.png");
 			SongSelect_Frame_Score = TxC(SONGSELECT + @"Frame_Score.png");
@@ -235,8 +226,6 @@ namespace TJAPlayer3
 			#region 4_読み込み画面
 			SongLoading_BG = TxC(SONGLOADING + @"Background.png");
 			SongLoading_Plate = TxC(SONGLOADING + @"Plate.png");
-			SongLoading_FadeIn = TxC(SONGLOADING + @"FadeIn.png");
-			SongLoading_FadeOut = TxC(SONGLOADING + @"FadeOut.png");
 			SongLoading_v2_BG = TxC(SONGLOADINGV2 + @"Background.png");
 			SongLoading_v2_Plate = TxC(SONGLOADINGV2 + @"Plate.png");
 			#endregion
@@ -710,7 +699,6 @@ namespace TJAPlayer3
 			#endregion
 
 			#region 7_終了画面
-			Exit_Background = TxC(EXIT + @"Background.png");
 			Exit_Curtain = TxC(EXIT + @"Curtain.png");
 			Exit_Text = TxC(EXIT + @"Text.png");
 			#endregion
@@ -737,7 +725,6 @@ namespace TJAPlayer3
 
 			#region 1_タイトル画面
 			TJAPlayer3.t安全にDisposeする(ref Title_Background);
-			TJAPlayer3.t安全にDisposeする(ref Title_Menu);
 			TJAPlayer3.t安全にDisposeする(ref Title_AcBar);
 			TJAPlayer3.t安全にDisposeする(ref Title_InBar);
 			#endregion
@@ -760,8 +747,6 @@ namespace TJAPlayer3
 			TJAPlayer3.t安全にDisposeする(ref SongSelect_Difficulty);
 			TJAPlayer3.t安全にDisposeする(ref SongSelect_Auto);
 			TJAPlayer3.t安全にDisposeする(ref SongSelect_Level);
-			TJAPlayer3.t安全にDisposeする(ref SongSelect_Branch);
-			TJAPlayer3.t安全にDisposeする(ref SongSelect_Branch_Text);
 			TJAPlayer3.t安全にDisposeする(ref SongSelect_Branch_Text_NEW);
 			TJAPlayer3.t安全にDisposeする(ref SongSelect_Bar_Center);
 			TJAPlayer3.t安全にDisposeする(ref SongSelect_Frame_Score);
@@ -818,8 +803,6 @@ namespace TJAPlayer3
 			#region 4_読み込み画面
 			TJAPlayer3.t安全にDisposeする(ref SongLoading_BG);
 			TJAPlayer3.t安全にDisposeする(ref SongLoading_Plate);
-			TJAPlayer3.t安全にDisposeする(ref SongLoading_FadeIn);
-			TJAPlayer3.t安全にDisposeする(ref SongLoading_FadeOut);
 			TJAPlayer3.t安全にDisposeする(ref SongLoading_v2_BG);
 			TJAPlayer3.t安全にDisposeする(ref SongLoading_v2_Plate);
 			#endregion
@@ -1045,7 +1028,6 @@ namespace TJAPlayer3
 			#endregion
 
 			#region 7_終了画面
-			TJAPlayer3.t安全にDisposeする(ref Exit_Background);
 			TJAPlayer3.t安全にDisposeする(ref Exit_Curtain);
 			TJAPlayer3.t安全にDisposeする(ref Exit_Text);
 			#endregion
@@ -1069,7 +1051,6 @@ namespace TJAPlayer3
 
 		#region 1_タイトル画面
 		public CTexture Title_Background,
-			Title_Menu,
 			Title_AcBar,
 			Title_InBar;
 		#endregion
@@ -1092,8 +1073,6 @@ namespace TJAPlayer3
 			SongSelect_Difficulty,
 			SongSelect_Auto,
 			SongSelect_Level,
-			SongSelect_Branch,
-			SongSelect_Branch_Text,
 			SongSelect_Branch_Text_NEW,
 			SongSelect_Frame_Score,
 			SongSelect_Frame_Box,
@@ -1148,8 +1127,6 @@ namespace TJAPlayer3
 		#region 4_読み込み画面
 		public CTexture SongLoading_BG,
 			SongLoading_Plate,
-			SongLoading_FadeIn,
-			SongLoading_FadeOut,
 			SongLoading_v2_BG,
 			SongLoading_v2_Plate;
 		#endregion
@@ -1355,8 +1332,7 @@ namespace TJAPlayer3
 		#endregion
 
 		#region 7_終了画面
-		public CTexture Exit_Background,
-						Exit_Curtain,
+		public CTexture Exit_Curtain,
 						Exit_Text;
 		#endregion
 

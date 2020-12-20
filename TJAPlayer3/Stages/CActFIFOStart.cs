@@ -70,19 +70,19 @@ namespace TJAPlayer3
 			{
 				if (this.mode == EFIFOモード.フェードアウト)
 				{
-					if (TJAPlayer3.Tx.SongLoading_FadeOut != null)
+					if (TJAPlayer3.Tx.SongLoading_BG != null)
 					{
 						int y = this.counter.n現在の値 >= 840 ? 840 : this.counter.n現在の値;
-						TJAPlayer3.Tx.SongLoading_FadeOut.t2D描画(TJAPlayer3.app.Device, 0, GameWindowSize.Height - y);
+						TJAPlayer3.Tx.SongLoading_BG.t2D描画(TJAPlayer3.app.Device, 0, GameWindowSize.Height - y);
 					}
 				}
 				else
 				{
-					if (TJAPlayer3.Tx.SongLoading_FadeIn != null)
+					if (TJAPlayer3.Tx.SongLoading_BG != null)
 					{
-
-						int y = this.counter.n現在の値 >= 840 ? 840 : this.counter.n現在の値;
-						TJAPlayer3.Tx.SongLoading_FadeIn.t2D描画(TJAPlayer3.app.Device, 0, 0 - y);
+						int y = this.counter.n現在の値;
+						int sa = (TJAPlayer3.Tx.SongLoading_BG.szテクスチャサイズ.Height - GameWindowSize.Height) / 2;
+						TJAPlayer3.Tx.SongLoading_BG.t2D描画(TJAPlayer3.app.Device, 0, -sa - y);
 					}
 				}
 			}

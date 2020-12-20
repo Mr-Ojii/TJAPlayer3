@@ -234,33 +234,6 @@ namespace TJAPlayer3
 							texttexture[i + 3].t2D描画(TJAPlayer3.app.Device, MENU_XT[i] - texttexture[i + 3].szテクスチャサイズ.Width / 2, MENU_YT + 30);
 					}
 				}
-				else
-				{
-					if (TJAPlayer3.Tx.Title_Menu != null)
-					{
-						int x = MENU_X;
-						int y = MENU_Y + (this.n現在のカーソル行 * MENU_H);
-						if (this.ct上移動用.b進行中)
-						{
-							y += (int)((double)MENU_H / 2 * (Math.Cos(Math.PI * (((double)this.ct上移動用.n現在の値) / 100.0)) + 1.0));
-						}
-						else if (this.ct下移動用.b進行中)
-						{
-							y -= (int)((double)MENU_H / 2 * (Math.Cos(Math.PI * (((double)this.ct下移動用.n現在の値) / 100.0)) + 1.0));
-						}
-						TJAPlayer3.Tx.Title_Menu.vc拡大縮小倍率.X = 1f;
-						TJAPlayer3.Tx.Title_Menu.vc拡大縮小倍率.Y = 1f;
-						TJAPlayer3.Tx.Title_Menu.Opacity = 0xff;
-						TJAPlayer3.Tx.Title_Menu.t2D描画(TJAPlayer3.app.Device, x, y, new Rectangle(0, MENU_H * 4, MENU_W, MENU_H));
-					}
-					if (TJAPlayer3.Tx.Title_Menu != null)
-					{
-						//this.txメニュー.t2D描画( CDTXMania.app.Device, 0xce, 0xcb, new Rectangle( 0, 0, MENU_W, MWNU_H ) );
-						// #24525 2011.3.16 yyagi: "OPTION"を省いて描画。従来スキンとの互換性確保のため。
-						TJAPlayer3.Tx.Title_Menu.t2D描画(TJAPlayer3.app.Device, MENU_X, MENU_Y, new Rectangle(0, 0, MENU_W, MENU_H));
-						TJAPlayer3.Tx.Title_Menu.t2D描画(TJAPlayer3.app.Device, MENU_X, MENU_Y + MENU_H, new Rectangle(0, MENU_H * 2, MENU_W, MENU_H * 2));
-					}
-				}
 
 				// URLの座標が押されたらブラウザで開いてやる 兼 マウスクリックのテスト
 				// クライアント領域内のカーソル座標を取得する。
