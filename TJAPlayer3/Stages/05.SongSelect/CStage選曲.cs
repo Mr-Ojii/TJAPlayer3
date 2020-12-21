@@ -1250,6 +1250,16 @@ namespace TJAPlayer3
 		internal CCounter ct難易度選択画面OUT用タイマー;
 		internal E戻り値 eフェードアウト完了時の戻り値;
 
+		public void MouseWheel(int i)
+		{
+			if (this.現在の選曲画面状況 == E選曲画面.通常) 			
+			{
+				if (i < 0) 
+					this.tカーソルを下へ移動する();
+				else
+					this.tカーソルを上へ移動する();
+			}
+		}
 		private void tカーソルを下へ移動する()
 		{
 			TJAPlayer3.Skin.soundカーソル移動音.t再生する();

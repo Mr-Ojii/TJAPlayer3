@@ -1270,8 +1270,10 @@ namespace TJAPlayer3
 			base.Window.Icon = global::TJAPlayer3.Properties.Resources.tjap3;
 			base.Window.KeyDown += new KeyEventHandler(this.Window_KeyDown);
 			base.Window.MouseUp += new MouseEventHandler(this.Window_MouseUp);
+			base.Window.MouseWheel += new MouseEventHandler(this.Window_MouseWheel);
 			base.Window.MouseDoubleClick += new MouseEventHandler(this.Window_MouseDoubleClick);    // #23510 2010.11.13 yyagi: to go fullscreen mode
 			base.Window.ResizeEnd += new EventHandler(this.Window_ResizeEnd);                       // #23510 2010.11.20 yyagi: to set resized window size in Config.ini
+			base.Window.FormClosing += new FormClosingEventHandler(this.Window_Closing);
 			//---------------------
 #endregion
 #region [ Direct3D9 デバイスの生成 ]
@@ -2016,6 +2018,11 @@ namespace TJAPlayer3
 		{
 			mb = e.Button;
 		}
+		private void Window_MouseWheel(object sender, MouseEventArgs e)
+		{
+			if (TJAPlayer3.r現在のステージ.eステージID == CStage.Eステージ.選曲 && ConfigIni.bEnableMouseWheel) 
+				TJAPlayer3.stage選曲.MouseWheel(e.Delta);
+		}
 
 		private void Window_MouseDoubleClick( object sender, MouseEventArgs e)	// #23510 2010.11.13 yyagi: to go full screen mode
 		{
@@ -2035,6 +2042,20 @@ namespace TJAPlayer3
 
 			ConfigIni.nウインドウwidth = (ConfigIni.bウィンドウモード) ? base.Window.ClientSize.Width : currentClientSize.Width;	// #23510 2010.10.31 yyagi add
 			ConfigIni.nウインドウheight = (ConfigIni.bウィンドウモード) ? base.Window.ClientSize.Height : currentClientSize.Height;
+		}
+		private void Window_Closing(object sender, FormClosingEventArgs e) 
+		{
+			if (ConfigIni.bForceEndingAnime && ConfigIni.bEndingAnime && (r現在のステージ.eステージID != CStage.Eステージ.終了)) 
+			{
+				e.Cancel = true;
+				r現在のステージ.On非活性化();
+				Trace.TraceInformation("----------------------");
+				Trace.TraceInformation("■ 終了");
+				stage終了.On活性化();
+				r直前のステージ = r現在のステージ;
+				r現在のステージ = stage終了;
+				this.tガベージコレクションを実行する();
+			}
 		}
 #endregion
 #endregion
