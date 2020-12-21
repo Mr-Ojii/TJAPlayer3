@@ -56,6 +56,10 @@ SongSelect_BackBoxText_Y_Diff=0
 ;Box_Center_HeaderのY座標を相対的に変更する
 SongSelect_Box_Center_Header_Y_Diff=0
 
+;ハイスコアの表示座標
+SongSelect_ScoreWindow_X=0,1030
+SongSelect_ScoreWindow_Y=160,160
+
 ;難易度選択のBarの基準XY,間隔
 Difficulty_Bar_XY=440,90
 Difficulty_Bar_Padding=100

@@ -1106,6 +1106,14 @@ namespace TJAPlayer3
 							{
 								SongSelect_Box_Center_Header_Y_Diff = int.Parse(strParam);
 							}
+							else if (strCommand == nameof(SongSelect_ScoreWindow_X))
+							{
+								SongSelect_ScoreWindow_X = strParam.Split(',').Select(int.Parse).ToArray();
+							}
+							else if (strCommand == nameof(SongSelect_ScoreWindow_Y))
+							{
+								SongSelect_ScoreWindow_Y = strParam.Split(',').Select(int.Parse).ToArray();
+							}
 
 							#region Difficulty
 							else if (strCommand == nameof(Difficulty_Bar_Center_X_WH_WH_Y_Y))
@@ -2407,6 +2415,8 @@ namespace TJAPlayer3
 		public int SongSelect_BackBoxText_Y_Diff = 0;
 		public int SongSelect_Box_Center_Header_Y_Diff = 0;
 		public int[] SongSelect_Counter_XY = { 1145, 55 };
+		public int[] SongSelect_ScoreWindow_X = { 0, 1030 };
+		public int[] SongSelect_ScoreWindow_Y = { 160, 160 };
 
 		#region[Difficulty]
 		public int[] Difficulty_Bar_Center_X_WH_WH_Y_Y = new int[7] { 643, 387, 439, 880, 540, 125, 25 };
