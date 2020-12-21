@@ -186,7 +186,7 @@ namespace TJAPlayer3
 			this.ShownLyric2 = 0;
 
 			// Discord Presence の更新
-			var difficultyName = TJAPlayer3.DifficultyNumberToEnum(TJAPlayer3.stage選曲.n確定された曲の難易度[0]).ToString();
+			var difficultyName = ((Difficulty)TJAPlayer3.stage選曲.n確定された曲の難易度[0]).ToString();
 
 			string Details = TJAPlayer3.ConfigIni.SendDiscordPlayingInformation ? TJAPlayer3.DTX[0].TITLE + TJAPlayer3.DTX[0].EXTENSION : "";
 

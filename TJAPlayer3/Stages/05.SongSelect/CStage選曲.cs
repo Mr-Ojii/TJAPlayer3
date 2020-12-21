@@ -15,24 +15,6 @@ namespace TJAPlayer3
 	internal class CStage選曲 : CStage
 	{
 		// プロパティ
-		public bool bIsEnumeratingSongs
-		{
-			get
-			{
-				return act曲リスト.bIsEnumeratingSongs;
-			}
-			set
-			{
-				act曲リスト.bIsEnumeratingSongs = value;
-			}
-		}
-		public bool bIsPlayingPremovie
-		{
-			get
-			{
-				return false;
-			}
-		}
 		public int[] n確定された曲の難易度
 		{
 			get;

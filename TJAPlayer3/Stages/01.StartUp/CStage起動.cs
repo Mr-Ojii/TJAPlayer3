@@ -160,7 +160,7 @@ namespace TJAPlayer3
 
 				if( es != null && es.IsSongListEnumCompletelyDone )							// 曲リスト作成が終わったら
 				{
-					TJAPlayer3.Songs管理 = ( es != null ) ? es.Songs管理 : null;		// 最後に、曲リストを拾い上げる
+					TJAPlayer3.Songs管理 = es.Songs管理;		// 最後に、曲リストを拾い上げる
 					return 1;
 				}
 			}

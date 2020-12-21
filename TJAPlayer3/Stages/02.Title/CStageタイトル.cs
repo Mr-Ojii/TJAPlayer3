@@ -18,11 +18,9 @@ namespace TJAPlayer3
 		{
 			base.eステージID = CStage.Eステージ.タイトル;
 			base.b活性化してない = true;
-			base.list子Activities.Add(this.actFIfromSetup = new CActFIFOBlack());
 			base.list子Activities.Add(this.actFI = new CActFIFOBlack());
 			base.list子Activities.Add(this.actFO = new CActFIFOBlack());
 		}
-
 
 		// CStage 実装
 
@@ -32,10 +30,6 @@ namespace TJAPlayer3
 			Trace.Indent();
 			try
 			{
-				for (int i = 0; i < 4; i++)
-				{
-					this.ctキー反復用[i] = new CCounter(0, 0, 0, TJAPlayer3.Timer);
-				}
 				this.ct上移動用 = new CCounter();
 				this.ct下移動用 = new CCounter();
 
@@ -65,10 +59,6 @@ namespace TJAPlayer3
 			Trace.Indent();
 			try
 			{
-				for (int i = 0; i < 4; i++)
-				{
-					this.ctキー反復用[i] = null;
-				}
 				this.ct上移動用 = null;
 				this.ct下移動用 = null;
 			}
@@ -109,7 +99,7 @@ namespace TJAPlayer3
 				{
 					if (TJAPlayer3.r直前のステージ == TJAPlayer3.stage起動)
 					{
-						this.actFIfromSetup.tフェードイン開始();
+						this.actFI.tフェードイン開始();
 						base.eフェーズID = CStage.Eフェーズ.タイトル_起動画面からのフェードイン;
 					}
 					else
@@ -156,10 +146,11 @@ namespace TJAPlayer3
 					if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape))
 						return (int)E戻り値.EXIT;
 
-					this.ctキー反復用.Up.tキー反復(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.UpArrow) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.b押されている(Eパッド.LBlue) || TJAPlayer3.Pad.b押されている(Eパッド.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2, new CCounter.DGキー処理(this.tカーソルを上へ移動する));
+					if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.UpArrow) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.b押された(Eパッド.LBlue) || TJAPlayer3.Pad.b押された(Eパッド.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+						this.tカーソルを上へ移動する();
 
-					this.ctキー反復用.Down.tキー反復(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.DownArrow) || TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.b押されている(Eパッド.RBlue) || TJAPlayer3.Pad.b押されている(Eパッド.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2, new CCounter.DGキー処理(this.tカーソルを下へ移動する));
-
+					if(TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.DownArrow) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.b押された(Eパッド.RBlue) || TJAPlayer3.Pad.b押された(Eパッド.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+						this.tカーソルを下へ移動する();
 
 					if (((TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return)) || TJAPlayer3.Pad.b押された(Eパッド.LRed) || TJAPlayer3.Pad.b押された(Eパッド.RRed) || (TJAPlayer3.Pad.b押された(Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2))
 					{
@@ -247,10 +238,6 @@ namespace TJAPlayer3
 						CWebOpen.Open(strCreator);
 				}
 
-				//CDTXMania.act文字コンソール.tPrint(0, 80, C文字コンソール.Eフォント種別.白, point.X.ToString());
-				//CDTXMania.act文字コンソール.tPrint(0, 100, C文字コンソール.Eフォント種別.白, point.Y.ToString());
-				//CDTXMania.act文字コンソール.tPrint(0, 120, C文字コンソール.Eフォント種別.白, scaling.ToString());
-
 
 				CStage.Eフェーズ eフェーズid = base.eフェーズID;
 				switch (eフェーズid)
@@ -287,7 +274,7 @@ namespace TJAPlayer3
 						break;
 
 					case CStage.Eフェーズ.タイトル_起動画面からのフェードイン:
-						if (this.actFIfromSetup.On進行描画() != 0)
+						if (this.actFI.On進行描画() != 0)
 						{
 							TJAPlayer3.Skin.soundタイトル音.t再生する();
 							base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
@@ -312,58 +299,6 @@ namespace TJAPlayer3
 
 		#region [ private ]
 		//-----------------
-		[StructLayout(LayoutKind.Sequential)]
-		private struct STキー反復用カウンタ
-		{
-			public CCounter Up;
-			public CCounter Down;
-			public CCounter R;
-			public CCounter B;
-			public CCounter this[int index]
-			{
-				get
-				{
-					switch (index)
-					{
-						case 0:
-							return this.Up;
-
-						case 1:
-							return this.Down;
-
-						case 2:
-							return this.R;
-
-						case 3:
-							return this.B;
-					}
-					throw new IndexOutOfRangeException();
-				}
-				set
-				{
-					switch (index)
-					{
-						case 0:
-							this.Up = value;
-							return;
-
-						case 1:
-							this.Down = value;
-							return;
-
-						case 2:
-							this.R = value;
-							return;
-
-						case 3:
-							this.B = value;
-							return;
-					}
-					throw new IndexOutOfRangeException();
-				}
-			}
-		}
-
 		private CTexture 文字テクスチャを生成する(string str文字, Color forecolor, Color backcolor) {
 			using (var bmp = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 28).DrawPrivateFont(str文字, forecolor, backcolor, true)) {
 				return TJAPlayer3.tテクスチャの生成(bmp);
@@ -372,15 +307,9 @@ namespace TJAPlayer3
 
 		CTexture[] texttexture = new CTexture[6];
 		private CActFIFOBlack actFI;
-		private CActFIFOBlack actFIfromSetup;
 		private CActFIFOBlack actFO;
-		private STキー反復用カウンタ ctキー反復用;
 		private CCounter ct下移動用;
 		private CCounter ct上移動用;
-		private const int MENU_H = 39;
-		private const int MENU_W = 227;
-		private const int MENU_X = 506;
-		private const int MENU_Y = 513;
 		//縦スタイル用
 		private readonly int[] MENU_XT = {300,640,980 };
 		private const int MENU_YT = 100;

@@ -404,7 +404,7 @@ namespace TJAPlayer3
 				{                                                       // → songs.db等の書き込み時だと音切れするっぽい
 					actEnumSongs.On非活性化();
 					EnumSongs.SongListEnumCompletelyDone();
-					TJAPlayer3.stage選曲.bIsEnumeratingSongs = false;
+					TJAPlayer3.stage選曲.act曲リスト.bIsEnumeratingSongs = false;
 				}
 				#region [ 曲検索スレッドの起動/終了 ]					// ここに"Enumerating Songs..."表示を集約
 				actEnumSongs.On進行描画();                          // "Enumerating Songs..."アイコンの描画
@@ -423,7 +423,7 @@ namespace TJAPlayer3
 								 !EnumSongs.IsSongListEnumStarted)
 							{
 								actEnumSongs.On活性化();
-								TJAPlayer3.stage選曲.bIsEnumeratingSongs = true;
+								TJAPlayer3.stage選曲.act曲リスト.bIsEnumeratingSongs = true;
 								EnumSongs.Init(TJAPlayer3.Songs管理.listSongsDB, TJAPlayer3.Songs管理.nSongsDBから取得できたスコア数); // songs.db情報と、取得した曲数を、新インスタンスにも与える
 								EnumSongs.StartEnumFromDisk();      // 曲検索スレッドの起動_開始
 								if (TJAPlayer3.Songs管理.nSongsDBから取得できたスコア数 == 0)    // もし初回起動なら、検索スレッドのプライオリティをLowestでなくNormalにする
@@ -464,7 +464,7 @@ namespace TJAPlayer3
 							if (EnumSongs.IsSongListEnumerated)
 							{
 								actEnumSongs.On非活性化();
-								TJAPlayer3.stage選曲.bIsEnumeratingSongs = false;
+								TJAPlayer3.stage選曲.act曲リスト.bIsEnumeratingSongs = false;
 
 								bool bRemakeSongTitleBar = (r現在のステージ.eステージID == CStage.Eステージ.選曲) ? true : false;
 								TJAPlayer3.stage選曲.Refresh(EnumSongs.Songs管理, bRemakeSongTitleBar);
@@ -1124,34 +1124,6 @@ namespace TJAPlayer3
 			if (cTexture.szテクスチャサイズ.Width <= samePixel)
 				scalingRate = 1.0f;
 			return scalingRate;
-		}
-
-		/// <summary>
-		/// 難易度を表す数字を列挙体に変換します。
-		/// </summary>
-		/// <param name="number">難易度を表す数字。</param>
-		/// <returns>Difficulty 列挙体</returns>
-		public static Difficulty DifficultyNumberToEnum(int number)
-		{
-			switch (number)
-			{
-				case 0:
-					return Difficulty.Easy;
-				case 1:
-					return Difficulty.Normal;
-				case 2:
-					return Difficulty.Hard;
-				case 3:
-					return Difficulty.Oni;
-				case 4:
-					return Difficulty.Edit;
-				case 5:
-					return Difficulty.Tower;
-				case 6:
-					return Difficulty.Dan;
-				default:
-					throw new IndexOutOfRangeException();
-			}
 		}
 
 		//-----------------
