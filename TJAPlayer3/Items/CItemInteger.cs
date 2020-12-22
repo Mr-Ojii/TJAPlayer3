@@ -68,7 +68,7 @@ namespace TJAPlayer3
 			this.t初期化(str項目名, n最小値, n最大値, n初期値, str説明文jp, str説明文jp);
 		}
 		public void t初期化(string str項目名, int n最小値, int n最大値, int n初期値, string str説明文jp, string str説明文en) {
-			base.t初期化(str項目名, eパネル種別, str説明文jp, str説明文en);
+			base.t初期化(str項目名, str説明文jp, str説明文en);
 			this.n最小値 = n最小値;
 			this.n最大値 = n最大値;
 			this.n現在の値 = n初期値;
