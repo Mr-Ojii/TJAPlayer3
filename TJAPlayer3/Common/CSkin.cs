@@ -1025,11 +1025,6 @@ namespace TJAPlayer3
 							{
 								this.nJudgePointY[1] = C変換.n値を文字列から取得して返す(strParam, this.nJudgePointY[1]);
 							}
-
-							else if (strCommand == "DiffDispMode")
-							{
-								this.eDiffDispMode = (E難易度表示タイプ)C変換.n値を文字列から取得して範囲内に丸めて返す(strParam, 0, 2, (int)this.eDiffDispMode);
-							}
 							else if (strCommand == "NowStageDisp")
 							{
 								this.b現在のステージ数を表示しない = C変換.bONorOFF(strParam[0]);
@@ -2330,7 +2325,6 @@ namespace TJAPlayer3
 		public float fComboNumberSpacing = 0;
 		public float fComboNumberSpacing_l = 0;
 
-		public E難易度表示タイプ eDiffDispMode = E難易度表示タイプ.mtaikoに画像で表示;
 		public bool b現在のステージ数を表示しない = false;
 
 		//リザルト画面

@@ -1142,7 +1142,7 @@ namespace TJAPlayer3
 
 		private List<CActivity> listトップレベルActivities;
 		private int n進行描画の戻り値;
-		private MouseButtons mb = System.Windows.Forms.MouseButtons.Left;
+		private MouseButtons mb = MouseButtons.Left;
 		public static DateTime StartupTime
 		{
 			get;

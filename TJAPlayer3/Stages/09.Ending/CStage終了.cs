@@ -28,7 +28,7 @@ namespace TJAPlayer3
 			Trace.Indent();
 			try
 			{
-				this.ctAnimation = new CCounter();
+				this.ctAnimation = new CCounter(0, 3000, 1, TJAPlayer3.Timer);
 				TJAPlayer3.DiscordClient?.SetPresence(new RichPresence()
 				{
 					Details = "",
@@ -87,19 +87,16 @@ namespace TJAPlayer3
 				if( base.b初めての進行描画 )
 				{
 					TJAPlayer3.Skin.soundゲーム終了音.t再生する();
-					this.ctAnimation.t開始( 0, 3000, 1, TJAPlayer3.Timer );
 					base.b初めての進行描画 = false;
 				}
 				this.ctAnimation.t進行();
 
-                #region[幕のアニメーションの計算]
-                double t = this.ctAnimation.n現在の値, c = -1300, b = 1300, d = this.ctAnimation.n終了値;
-				t = t / d - 1;
-				int x =(int)( -c * (Math.Pow(t, 4) - 1) + b);
-                #endregion
-
                 if (TJAPlayer3.Tx.Exit_Curtain != null && TJAPlayer3.Tx.Exit_Text != null)
 				{
+					double t = this.ctAnimation.n現在の値, c = -1300, b = 1300, d = this.ctAnimation.n終了値;
+					t = t / d - 1;
+					int x = (int)(-c * (Math.Pow(t, 4) - 1) + b);
+
 					const double n = 1500.0;
 					double t2 = Math.Min(Math.Max(this.ctAnimation.n現在の値 - 1000, 0), n), c2 = 1000, b2 = -1000, d2 = n;
 					int y;

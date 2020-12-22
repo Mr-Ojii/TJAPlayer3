@@ -57,40 +57,8 @@ namespace TJAPlayer3
 								this.txSubTitleName.vc拡大縮小倍率.X = TJAPlayer3.GetSongNameXScaling(ref txSubTitleName, 520);
 							}
 						}
-					
-						Bitmap bmpDiff;
-						string strDiff = "";
-						if (TJAPlayer3.Skin.eDiffDispMode == E難易度表示タイプ.n曲目に表示)
-						{
-							switch (TJAPlayer3.stage選曲.n確定された曲の難易度[0])
-							{
-								case 0:
-									strDiff = "かんたん ";
-									break;
-								case 1:
-									strDiff = "ふつう ";
-									break;
-								case 2:
-									strDiff = "むずかしい ";
-									break;
-								case 3:
-									strDiff = "おに ";
-									break;
-								case 4:
-									strDiff = "えでぃと ";
-									break;
-								default:
-									strDiff = "おに ";
-									break;
-							}
-							bmpDiff = pfMusicName.DrawPrivateFont(strDiff + stageText, TJAPlayer3.Skin.Game_StageText_ForeColor, TJAPlayer3.Skin.Game_StageText_BackColor );
-						}
-						else
-						{
-							bmpDiff = pfMusicName.DrawPrivateFont(stageText, TJAPlayer3.Skin.Game_StageText_ForeColor, TJAPlayer3.Skin.Game_StageText_BackColor );
-						}
 
-						using (bmpDiff)
+						using (Bitmap bmpDiff = pfMusicName.DrawPrivateFont(stageText, TJAPlayer3.Skin.Game_StageText_ForeColor, TJAPlayer3.Skin.Game_StageText_BackColor))
 						{
 							this.tx難易度とステージ数 = TJAPlayer3.tテクスチャの生成( bmpDiff );
 						}

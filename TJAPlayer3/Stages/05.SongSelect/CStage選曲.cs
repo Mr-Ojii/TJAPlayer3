@@ -193,7 +193,8 @@ namespace TJAPlayer3
 
 				if( act曲リスト.r現在選択中の曲 != null )
 				{
-					if (TJAPlayer3.Skin.nStrジャンルtoNum(act曲リスト.r現在選択中の曲.strジャンル) != 0 || act曲リスト.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.BOX || act曲リスト.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.SCORE)
+					int nGenreBack = 0;
+					if (act曲リスト.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.BOX || act曲リスト.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.SCORE)
 					{
 						nGenreBack = TJAPlayer3.Skin.nStrジャンルtoNum(act曲リスト.r現在選択中の曲.strジャンル);
 					}
@@ -1221,7 +1222,6 @@ namespace TJAPlayer3
 		private CActSelectPlayOption actPlayOption;
 		internal CActSelectChangeSE actChangeSE;
 
-				private int nGenreBack;
 		private bool bBGM再生済み;
 		private STキー反復用カウンタ ctキー反復用;
 		public CCounter ct登場時アニメ用共通;

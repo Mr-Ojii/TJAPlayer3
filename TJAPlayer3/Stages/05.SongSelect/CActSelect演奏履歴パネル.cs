@@ -71,7 +71,7 @@ namespace TJAPlayer3
 				int[] y = TJAPlayer3.Skin.SongSelect_ScoreWindow_Y;
 				int xdiff = 170;
 				for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++) {
-					if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア != null && this.ct登場アニメ用.n現在の値 >= 2000 && TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.SCORE)
+					if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア != null && this.ct登場アニメ用.b終了値に達した && TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.SCORE)
 					{
 						//CDTXMania.Tx.SongSelect_ScoreWindow_Text.n透明度 = ct登場アニメ用.n現在の値 - 1745;
 						if (TJAPlayer3.Tx.SongSelect_ScoreWindow[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]] != null)
@@ -122,7 +122,7 @@ namespace TJAPlayer3
 
 		public void tSongChange()
 		{
-			this.ct登場アニメ用 = new CCounter( 0, 3000, 1, TJAPlayer3.Timer );
+			this.ct登場アニメ用 = new CCounter( 0, 2000, 1, TJAPlayer3.Timer );
 
 			//Dispose
 			TJAPlayer3.t安全にDisposeする(ref this.First);

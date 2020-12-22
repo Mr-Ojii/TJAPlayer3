@@ -82,9 +82,10 @@ namespace TJAPlayer3
 		private static void NullCheckAndRender(ref CTexture tx)
 		{
 			if (tx == null) return;
+			int opacity = tx.Opacity;
 			tx.Opacity = 0;
 			tx.t2D描画(TJAPlayer3.app.Device, 0, 0);
-			tx.Opacity = 255;
+			tx.Opacity = opacity;
 		}
 	}
 }

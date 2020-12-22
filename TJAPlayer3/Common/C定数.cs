@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 
 namespace TJAPlayer3
 {
-
 	/// <summary>
 	/// 難易度。
 	/// </summary>
@@ -34,12 +33,6 @@ namespace TJAPlayer3
 		完走叩ききりまショー = 1,
 		完走叩ききりまショー激辛 = 2,
 		特訓モード = 3
-	}
-	public enum E難易度表示タイプ
-	{
-		OFF = 0,
-		n曲目に表示 = 1,
-		mtaikoに画像で表示 = 2,
 	}
 	public enum Eパッド			// 演奏用のenum。ここを修正するときは、次に出てくる EKeyConfigPad と EパッドFlag もセットで修正すること。
 	{
