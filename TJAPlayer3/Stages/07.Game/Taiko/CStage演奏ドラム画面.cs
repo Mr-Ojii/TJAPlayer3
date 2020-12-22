@@ -30,7 +30,7 @@ namespace TJAPlayer3
 			base.list子Activities.Add( this.actChipFireD = new CAct演奏DrumsチップファイアD() );
 			base.list子Activities.Add( this.Rainbow = new Rainbow() );
 			base.list子Activities.Add( this.actGauge = new CAct演奏Drumsゲージ() );
-			base.list子Activities.Add( this.actJudgeString = new CAct演奏Drums判定文字列() );
+			base.list子Activities.Add( this.actJudgeString = new CAct演奏判定文字列共通() );
 			base.list子Activities.Add( this.actTaikoLaneFlash = new TaikoLaneFlash() );
 			base.list子Activities.Add( this.actScore = new CAct演奏Drumsスコア() );
 			base.list子Activities.Add( this.act譜面スクロール速度 = new CAct演奏スクロール速度() );

@@ -642,8 +642,6 @@ namespace TJAPlayer3
 					return null;
 				}
 
-				//	byte[] buf = File.ReadAllBytes( SongListDBファイル名 );			// 一旦メモリにまとめ読みしてからdeserializeした方が高速かと思ったら全く変わらなかったので削除
-				//	using ( MemoryStream input = new MemoryStream(buf, false) )
 				using ( Stream input = File.OpenRead( strPathSongList ) )
 				{
 					try
