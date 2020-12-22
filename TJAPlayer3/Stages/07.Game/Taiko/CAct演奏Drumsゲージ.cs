@@ -45,62 +45,6 @@ namespace TJAPlayer3
 
 		public override void Start(int nLane, E判定 judge, int player)
 		{
-			for (int j = 0; j < 32; j++)
-			{
-				if( player == 0 )
-				{
-					if( !this.st花火状態[ j ].b使用中 )
-					{
-						this.st花火状態[j].ct進行 = new CCounter(0, 10, 20, TJAPlayer3.Timer);
-						this.st花火状態[j].nPlayer = player;
-
-						switch (nLane)
-						{
-							case 0x11:
-							case 0x12:
-							case 0x15:
-								this.st花火状態[j].isBig = false;
-								break;
-							case 0x13:
-							case 0x14:
-							case 0x16:
-							case 0x17:
-								this.st花火状態[j].isBig = true;
-								break;
-						}
-						this.st花火状態[j].nLane = nLane;
-
-						this.st花火状態[j].b使用中 = true;
-						break;
-					}
-				}
-				if( player == 1 )
-				{
-					if( !this.st花火状態2P[ j ].b使用中 )
-					{
-						this.st花火状態2P[ j ].ct進行 = new CCounter(0, 10, 20, TJAPlayer3.Timer);
-						this.st花火状態2P[ j ].nPlayer = player;
-
-						switch (nLane)
-						{
-							case 0x11:
-							case 0x12:
-							case 0x15:
-								this.st花火状態2P[ j ].isBig = false;
-								break;
-							case 0x13:
-							case 0x14:
-							case 0x16:
-							case 0x17:
-								this.st花火状態2P[ j ].isBig = true;
-								break;
-						}
-						this.st花火状態2P[j].nLane = nLane;
-						this.st花火状態2P[ j ].b使用中 = true;
-						break;
-					}
-				}
-			}
 		}
 
 		// CActivity 実装
@@ -109,20 +53,10 @@ namespace TJAPlayer3
 		{
 			this.ct炎 = new CCounter( 0, 6, 50, TJAPlayer3.Timer );
 
-			for (int i = 0; i < 32; i++ )
-			{
-				this.st花火状態[i].ct進行 = new CCounter();
-				this.st花火状態2P[i].ct進行 = new CCounter();
-			}
 			base.On活性化();
 		}
 		public override void On非活性化()
 		{
-			for (int i = 0; i < 32; i++ )
-			{
-				this.st花火状態[i].ct進行 = null;
-				this.st花火状態2P[i].ct進行 = null;
-			}
 			this.ct炎 = null;
 		}
 		public override void OnManagedリソースの作成()
@@ -357,81 +291,8 @@ namespace TJAPlayer3
 					}
 				}
 
-				//仮置き
-				int[] nSoulExplosion = new int[] { 73, 468, 0, 0 };
-				for( int d = 0; d < 32; d++ )
-				{
-					if( this.st花火状態[d].b使用中 )
-					{
-						this.st花火状態[d].ct進行.t進行();
-						if (this.st花火状態[d].ct進行.b終了値に達した)
-						{
-							this.st花火状態[d].ct進行.t停止();
-							this.st花火状態[d].b使用中 = false;
-						}
-							
-							
-						//if(CDTXMania.Tx.Gauge_Soul_Explosion != null )
-						//{
-						//    CDTXMania.Tx.Gauge_Soul_Explosion.t2D描画( CDTXMania.app.Device, 1140, 73, new Rectangle( this.st花火状態[d].ct進行.n現在の値 * 140, 0, 140, 180 ) );
-						//}
-						//if (CDTXMania.Tx.Notes != null)
-						//{
-							//CDTXMania.Tx.Notes.t2D中心基準描画(CDTXMania.app.Device, 1224, 162, new Rectangle(this.st花火状態[d].nLane * 130, 0, 130, 130));
-							//this.tx音符.color4 = new Color4( 1.0f, 1.0f, 1.0f - (this.st花火状態[d].ct進行.n現在の値 / 10f) );
-							//CDTXMania.act文字コンソール.tPrint(60, 140, C文字コンソール.Eフォント種別.白, this.st花火状態[d].ct進行.n現在の値.ToString());
-							//CDTXMania.act文字コンソール.tPrint(60, 160, C文字コンソール.Eフォント種別.白, (this.st花火状態[d].ct進行.n現在の値 / 10f).ToString());
-						//}
-						break;
-					}
-				}
-				for( int d = 0; d < 32; d++ )
-				{
-					if (this.st花火状態2P[d].b使用中)
-					{
-						this.st花火状態2P[d].ct進行.t進行();
-						if (this.st花火状態2P[d].ct進行.b終了値に達した)
-						{
-							this.st花火状態2P[d].ct進行.t停止();
-							this.st花火状態2P[d].b使用中 = false;
-						}
-							
-							
-						//if(CDTXMania.Tx.Gauge_Soul_Explosion != null )
-						//{
-						//    CDTXMania.Tx.Gauge_Soul_Explosion.t2D描画( CDTXMania.app.Device, 1140, 468, new Rectangle( this.st花火状態2P[d].ct進行.n現在の値 * 140, 0, 140, 180 ) );
-						//}
-						//if (CDTXMania.Tx.Notes != null)
-						//{
-						//    CDTXMania.Tx.Notes.t2D中心基準描画(CDTXMania.app.Device, 1224, 162, new Rectangle(this.st花火状態[d].nLane * 130, 0, 130, 130));
-						//    //this.tx音符.color4 = new Color4( 1.0f, 1.0f, 1.0f - (this.st花火状態[d].ct進行.n現在の値 / 10f) );
-						//    //CDTXMania.act文字コンソール.tPrint(60, 140, C文字コンソール.Eフォント種別.白, this.st花火状態[d].ct進行.n現在の値.ToString());
-						//    //CDTXMania.act文字コンソール.tPrint(60, 160, C文字コンソール.Eフォント種別.白, (this.st花火状態[d].ct進行.n現在の値 / 10f).ToString());
-						//}
-						break;
-					}
-				}
 			}
 			return 0;
 		}
-
-
-		// その他
-
-		#region [ private ]
-		//-----------------
-		protected STSTATUS[] st花火状態 = new STSTATUS[ 32 ];
-		protected STSTATUS[] st花火状態2P = new STSTATUS[ 32 ];
-		[StructLayout(LayoutKind.Sequential)]
-		protected struct STSTATUS
-		{
-			public CCounter ct進行;
-			public bool isBig;
-			public bool b使用中;
-			public int nPlayer;
-			public int nLane;
-		}
-		//-----------------
-		#endregion
 	}
 }

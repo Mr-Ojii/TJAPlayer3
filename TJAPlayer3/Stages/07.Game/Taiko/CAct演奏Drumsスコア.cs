@@ -11,7 +11,7 @@ namespace TJAPlayer3
 	{
 		// CActivity 実装（共通クラスからの差分のみ）
 
-		public unsafe override int On進行描画()
+		public override int On進行描画()
 		{
 			if (!base.b活性化してない)
 			{
