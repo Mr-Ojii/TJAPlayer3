@@ -221,7 +221,7 @@ namespace TJAPlayer3
 			get;
 			private set;
 		}
-		public static CStage演奏ドラム画面 stage演奏ドラム画面
+		public static CStage演奏画面共通 stage演奏ドラム画面
 		{
 			get;
 			private set;
@@ -1527,7 +1527,7 @@ namespace TJAPlayer3
 			stageコンフィグ = new CStageコンフィグ();
 			stage選曲 = new CStage選曲();
 			stage曲読み込み = new CStage曲読み込み();
-			stage演奏ドラム画面 = new CStage演奏ドラム画面();
+			stage演奏ドラム画面 = new CStage演奏画面共通();
 			stage結果 = new CStage結果();
 			stageChangeSkin = new CStageChangeSkin();
 			stage終了 = new CStage終了();
