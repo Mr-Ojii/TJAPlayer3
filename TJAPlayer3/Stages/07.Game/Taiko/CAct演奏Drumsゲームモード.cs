@@ -865,7 +865,7 @@ namespace TJAPlayer3
 								TJAPlayer3.Tx.Taiko_Combo[0].Opacity = 0;
 							TJAPlayer3.Tx.Taiko_Combo[0].vc拡大縮小倍率.Y = 1f;
 							TJAPlayer3.Tx.Taiko_Combo[0].vc拡大縮小倍率.X = 1f;
-							TJAPlayer3.Tx.Taiko_Combo[0].t2D中心基準描画( TJAPlayer3.app.Device, x, y, rectangle );
+							TJAPlayer3.Tx.Taiko_Combo[0].t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x, y, rectangle);
 						}
 						break;
 					}

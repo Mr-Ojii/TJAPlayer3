@@ -186,7 +186,7 @@ namespace TJAPlayer3
 		private void boxたちの描画(int x, int y, int nPlayer)
 		{
 			if (TJAPlayer3.Tx.ChangeSE_Box != null)
-				TJAPlayer3.Tx.ChangeSE_Box.t2D下中央基準描画(TJAPlayer3.app.Device, x, y);
+				TJAPlayer3.Tx.ChangeSE_Box.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y);
 
 			if (TJAPlayer3.Tx.ChangeSE_Num != null)
 			{
@@ -194,13 +194,13 @@ namespace TJAPlayer3
 				{
 					var number = (int)(TJAPlayer3.Skin.SECount / Math.Pow(10, TJAPlayer3.Skin.SECount.ToString().Length - i - 1) % 10);
 					Rectangle rectangle = new Rectangle(TJAPlayer3.Tx.ChangeSE_Num.szテクスチャサイズ.Width / 10 * number, 0, TJAPlayer3.Tx.ChangeSE_Num.szテクスチャサイズ.Width / 10, TJAPlayer3.Tx.ChangeSE_Num.szテクスチャサイズ.Height);
-					TJAPlayer3.Tx.ChangeSE_Num.t2D下中央基準描画(TJAPlayer3.app.Device, x + (i * TJAPlayer3.Tx.ChangeSE_Num.szテクスチャサイズ.Width / 10) + 20, y - 260, rectangle);
+					TJAPlayer3.Tx.ChangeSE_Num.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (i * TJAPlayer3.Tx.ChangeSE_Num.szテクスチャサイズ.Width / 10) + 20, y - 260, rectangle);
 				}
 				for (int i = 0; i < (TJAPlayer3.Skin.NowSENum[nPlayer] + 1).ToString().Length; i++)
 				{
 					var number = (int)((TJAPlayer3.Skin.NowSENum[nPlayer] + 1) / Math.Pow(10, i) % 10);
 					Rectangle rectangle = new Rectangle(TJAPlayer3.Tx.ChangeSE_Num.szテクスチャサイズ.Width / 10 * number, 0, TJAPlayer3.Tx.ChangeSE_Num.szテクスチャサイズ.Width / 10, TJAPlayer3.Tx.ChangeSE_Num.szテクスチャサイズ.Height);
-					TJAPlayer3.Tx.ChangeSE_Num.t2D下中央基準描画(TJAPlayer3.app.Device, x - (i * TJAPlayer3.Tx.ChangeSE_Num.szテクスチャサイズ.Width / 10) - 20, y - 260, rectangle);
+					TJAPlayer3.Tx.ChangeSE_Num.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x - (i * TJAPlayer3.Tx.ChangeSE_Num.szテクスチャサイズ.Width / 10) - 20, y - 260, rectangle);
 				}
 			}
 			if (eMoving[nPlayer] == EMoving.None)
@@ -208,10 +208,10 @@ namespace TJAPlayer3
 				if (TJAPlayer3.Tx.ChangeSE_Note != null)
 				{
 					TJAPlayer3.Tx.ChangeSE_Note.Opacity = 0xff;
-					TJAPlayer3.Tx.ChangeSE_Note.t2D下中央基準描画(TJAPlayer3.app.Device, x, y);
+					TJAPlayer3.Tx.ChangeSE_Note.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y);
 				}
 				this.SEName[nPlayer].Opacity = 0xff;
-				this.SEName[nPlayer]?.t2D下中央基準描画(TJAPlayer3.app.Device, x, y - 50);
+				this.SEName[nPlayer]?.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y - 50);
 			}
 			else if (eMoving[nPlayer] == EMoving.LeftMoving)
 			{
@@ -219,14 +219,14 @@ namespace TJAPlayer3
 				if (TJAPlayer3.Tx.ChangeSE_Note != null)
 				{
 					TJAPlayer3.Tx.ChangeSE_Note.Opacity = ct変更アニメ用[nPlayer].n現在の値;
-					TJAPlayer3.Tx.ChangeSE_Note.t2D下中央基準描画(TJAPlayer3.app.Device, x + (int)((ct変更アニメ用[nPlayer].n現在の値 - ct変更アニメ用[nPlayer].n終了値) * 0.5f), y);
+					TJAPlayer3.Tx.ChangeSE_Note.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (int)((ct変更アニメ用[nPlayer].n現在の値 - ct変更アニメ用[nPlayer].n終了値) * 0.5f), y);
 					TJAPlayer3.Tx.ChangeSE_Note.Opacity = ct変更アニメ用[nPlayer].n終了値 - ct変更アニメ用[nPlayer].n現在の値;
-					TJAPlayer3.Tx.ChangeSE_Note.t2D下中央基準描画(TJAPlayer3.app.Device, x + (int)((ct変更アニメ用[nPlayer].n現在の値) * 0.5f), y);
+					TJAPlayer3.Tx.ChangeSE_Note.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (int)((ct変更アニメ用[nPlayer].n現在の値) * 0.5f), y);
 				}
 				this.NameMoving[nPlayer].Opacity = ct変更アニメ用[nPlayer].n終了値 - ct変更アニメ用[nPlayer].n現在の値;
-				this.NameMoving[nPlayer]?.t2D下中央基準描画(TJAPlayer3.app.Device, x + (int)((ct変更アニメ用[nPlayer].n現在の値) * 0.5f), y - 50);
+				this.NameMoving[nPlayer]?.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (int)((ct変更アニメ用[nPlayer].n現在の値) * 0.5f), y - 50);
 				this.SEName[nPlayer].Opacity = ct変更アニメ用[nPlayer].n現在の値;
-				this.SEName[nPlayer]?.t2D下中央基準描画(TJAPlayer3.app.Device, x + (int)((ct変更アニメ用[nPlayer].n現在の値 - ct変更アニメ用[nPlayer].n終了値) * 0.5f), y - 50);
+				this.SEName[nPlayer]?.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (int)((ct変更アニメ用[nPlayer].n現在の値 - ct変更アニメ用[nPlayer].n終了値) * 0.5f), y - 50);
 				if (this.ct変更アニメ用[nPlayer].b終了値に達した)
 					this.eMoving[nPlayer] = EMoving.None;
 			}
@@ -236,15 +236,15 @@ namespace TJAPlayer3
 				if (TJAPlayer3.Tx.ChangeSE_Note != null)
 				{
 					TJAPlayer3.Tx.ChangeSE_Note.Opacity = ct変更アニメ用[nPlayer].n現在の値;
-					TJAPlayer3.Tx.ChangeSE_Note.t2D下中央基準描画(TJAPlayer3.app.Device, x - (int)((ct変更アニメ用[nPlayer].n現在の値 - ct変更アニメ用[nPlayer].n終了値) * 0.5f), y);
+					TJAPlayer3.Tx.ChangeSE_Note.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x - (int)((ct変更アニメ用[nPlayer].n現在の値 - ct変更アニメ用[nPlayer].n終了値) * 0.5f), y);
 					TJAPlayer3.Tx.ChangeSE_Note.Opacity = ct変更アニメ用[nPlayer].n終了値 - ct変更アニメ用[nPlayer].n現在の値;
-					TJAPlayer3.Tx.ChangeSE_Note.t2D下中央基準描画(TJAPlayer3.app.Device, x - (int)((ct変更アニメ用[nPlayer].n現在の値) * 0.5f), y);
+					TJAPlayer3.Tx.ChangeSE_Note.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x - (int)((ct変更アニメ用[nPlayer].n現在の値) * 0.5f), y);
 				}
 
 				this.NameMoving[nPlayer].Opacity = ct変更アニメ用[nPlayer].n終了値 - ct変更アニメ用[nPlayer].n現在の値;
-				this.NameMoving[nPlayer]?.t2D下中央基準描画(TJAPlayer3.app.Device, x - (int)((ct変更アニメ用[nPlayer].n現在の値) * 0.5f), y - 50);
+				this.NameMoving[nPlayer]?.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x - (int)((ct変更アニメ用[nPlayer].n現在の値) * 0.5f), y - 50);
 				this.SEName[nPlayer].Opacity = ct変更アニメ用[nPlayer].n現在の値;
-				this.SEName[nPlayer]?.t2D下中央基準描画(TJAPlayer3.app.Device, x - (int)((ct変更アニメ用[nPlayer].n現在の値 - ct変更アニメ用[nPlayer].n終了値) * 0.5f), y - 50);
+				this.SEName[nPlayer]?.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x - (int)((ct変更アニメ用[nPlayer].n現在の値 - ct変更アニメ用[nPlayer].n終了値) * 0.5f), y - 50);
 				if (this.ct変更アニメ用[nPlayer].b終了値に達した)
 					this.eMoving[nPlayer] = EMoving.None;
 			}

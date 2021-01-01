@@ -100,29 +100,29 @@ namespace TJAPlayer3
 
 			//入力信号に合わせて色を描画
 			if (TJAPlayer3.Pad.b押された(Eパッド.LBlue))
-				ka.t2D下中央基準描画(TJAPlayer3.app.Device, 640 - (Sabunn + Width) * 4, y);
+				ka.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Sabunn + Width) * 4, y);
 			if (TJAPlayer3.Pad.b押された(Eパッド.LRed))
-				don.t2D下中央基準描画(TJAPlayer3.app.Device, 640 - (Sabunn + Width) * 3, y);
+				don.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Sabunn + Width) * 3, y);
 			if (TJAPlayer3.Pad.b押された(Eパッド.RRed))
-				don.t2D下中央基準描画(TJAPlayer3.app.Device, 640 - (Sabunn + Width) * 2, y);
+				don.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Sabunn + Width) * 2, y);
 			if (TJAPlayer3.Pad.b押された(Eパッド.RBlue))
-				ka.t2D下中央基準描画(TJAPlayer3.app.Device, 640 - (Sabunn + Width) * 1, y);
+				ka.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Sabunn + Width) * 1, y);
 			if (TJAPlayer3.Pad.b押された(Eパッド.LBlue2P))
-				ka.t2D下中央基準描画(TJAPlayer3.app.Device, 640 + (Sabunn + Width) * 1, y);
+				ka.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Sabunn + Width) * 1, y);
 			if (TJAPlayer3.Pad.b押された(Eパッド.LRed2P))
-				don.t2D下中央基準描画(TJAPlayer3.app.Device, 640 + (Sabunn + Width) * 2, y);
+				don.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Sabunn + Width) * 2, y);
 			if (TJAPlayer3.Pad.b押された(Eパッド.RRed2P))
-				don.t2D下中央基準描画(TJAPlayer3.app.Device, 640 + (Sabunn + Width) * 3, y);
+				don.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Sabunn + Width) * 3, y);
 			if (TJAPlayer3.Pad.b押された(Eパッド.RBlue2P))
-				ka.t2D下中央基準描画(TJAPlayer3.app.Device, 640 + (Sabunn + Width) * 4, y);
+				ka.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Sabunn + Width) * 4, y);
 
 
 
 			for (int index = 0; index < 4; index++)
 			{
 				//文字の描画
-				moji[index].t2D下中央基準描画(TJAPlayer3.app.Device, 640 - (Sabunn + Width) * (4 - index), mojiy);
-				moji[index].t2D下中央基準描画(TJAPlayer3.app.Device, 640 + (Sabunn + Width) * (index + 1), mojiy);
+				moji[index].t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Sabunn + Width) * (4 - index), mojiy);
+				moji[index].t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Sabunn + Width) * (index + 1), mojiy);
 			}
 
 			if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape))

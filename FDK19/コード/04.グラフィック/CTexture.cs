@@ -196,20 +196,50 @@ namespace FDK
 		}
 		// メソッド
 
-		// 2016.11.10 kairera0467 拡張
-		// Rectangleを使う場合、座標調整のためにテクスチャサイズの値をそのまま使うとまずいことになるため、Rectragleから幅を取得して調整をする。
-		public void t2D中心基準描画(Device device, float x, float y)
+		public void t2D描画(Device device, RefPnt refpnt, float x, float y) 
 		{
-			this.t2D描画(device, x - (this.szテクスチャサイズ.Width / 2), y - (this.szテクスチャサイズ.Height / 2), 1f, this.rc全画像);
+			this.t2D描画(device, refpnt, x, y, rc全画像);
 		}
-		public void t2D中心基準描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
+		public void t2D描画(Device device, RefPnt refpnt, float x, float y, Rectangle rect)
 		{
-			this.t2D描画(device, x - (rc画像内の描画領域.Width / 2), y - (rc画像内の描画領域.Height / 2), 1f, rc画像内の描画領域);
+			this.t2D描画(device, refpnt, x, y, 1f, rect);
 		}
-		public void t2D中心基準描画(Device device, float x, float y, float depth, Rectangle rc画像内の描画領域)
+		public void t2D描画(Device device, RefPnt refpnt, float x, float y, float depth, Rectangle rect)
 		{
-			this.t2D描画(device, (int)x - (rc画像内の描画領域.Width / 2), (int)y - (rc画像内の描画領域.Height / 2), depth, rc画像内の描画領域);
+			switch (refpnt)
+			{
+				case RefPnt.UpLeft:
+					this.t2D描画(device, x, y, depth, rect);
+					break;
+				case RefPnt.Up:
+					this.t2D描画(device, x - (rect.Width / 2), y, depth, rect);
+					break;
+				case RefPnt.UpRight:
+					this.t2D描画(device, x - rect.Width, y, depth, rect);
+					break;
+				case RefPnt.Left:
+					this.t2D描画(device, x, y - (rect.Height / 2), depth, rect);
+					break;
+				case RefPnt.Center:
+					this.t2D描画(device, x - (rect.Width / 2), y - (rect.Height / 2), depth, rect);
+					break;
+				case RefPnt.Right:
+					this.t2D描画(device, x - rect.Width, y - (rect.Height / 2), depth, rect);
+					break;
+				case RefPnt.DownLeft:
+					this.t2D描画(device, x, y - rect.Height, depth, rect);
+					break;
+				case RefPnt.Down:
+					this.t2D描画(device, x - (rect.Width / 2), y - rect.Height, depth, rect);
+					break;
+				case RefPnt.DownRight:
+					this.t2D描画(device, x - rect.Width, y - rect.Height, depth, rect);
+					break;
+				default:
+					break;
+			}
 		}
+
 		public void t2D拡大率考慮右上基準描画(Device device, float x, float y)
 		{
 			this.t2D描画(device, (x - (this.rc全画像.Width * this.vc拡大縮小倍率.X)), y);
@@ -227,14 +257,6 @@ namespace FDK
 		public void t2D拡大率考慮下基準描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
 		{
 			this.t2D描画(device, x, y - (rc画像内の描画領域.Height * this.vc拡大縮小倍率.Y), 1f, rc画像内の描画領域);
-		}
-		public void t2D下中心基準描画(Device device, float x, float y)
-		{
-			this.t2D描画(device, x, y, this.rc全画像);
-		}
-		public void t2D下中心基準描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
-		{
-			this.t2D描画(device, x - (this.szテクスチャサイズ.Width / 2), y - szテクスチャサイズ.Height, 1f, rc画像内の描画領域);
 		}
 		public void t2D拡大率考慮下中心基準描画(Device device, float x, float y)
 		{
@@ -258,14 +280,6 @@ namespace FDK
 		public void t2D中央基準描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
 		{
 			this.t2D描画(device, x - (this.szテクスチャサイズ.Width / 2), y - (this.szテクスチャサイズ.Height / 2), rc画像内の描画領域);
-		}
-		public void t2D下中央基準描画(Device device, float x, float y)
-		{
-			this.t2D下中央基準描画(device, x, y, this.rc全画像);
-		}
-		public void t2D下中央基準描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
-		{
-			this.t2D描画(device, x - (rc画像内の描画領域.Width / 2), y - (rc画像内の描画領域.Height), rc画像内の描画領域);
 		}
 
 		public void t2D拡大率考慮中央基準描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
@@ -723,8 +737,20 @@ namespace FDK
 		//-----------------
 		#endregion
 
-
 		// その他
+
+		public enum RefPnt
+		{
+			UpLeft,
+			Up,
+			UpRight,
+			Left,
+			Center,
+			Right,
+			DownLeft,
+			Down,
+			DownRight,
+		}
 
 		#region [ private ]
 		//-----------------

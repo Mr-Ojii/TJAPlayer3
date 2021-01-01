@@ -347,7 +347,7 @@ namespace TJAPlayer3
 				TJAPlayer3.Tx.DanC_V2_Background?.t2D描画(TJAPlayer3.app.Device, 0, 0);
 
 				// 段プレートを描画する。
-				Dan_Plate?.t2D中心基準描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_DanC_v2_Dan_Plate[0], TJAPlayer3.Skin.Game_DanC_v2_Dan_Plate[1]);
+				Dan_Plate?.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Game_DanC_v2_Dan_Plate[0], TJAPlayer3.Skin.Game_DanC_v2_Dan_Plate[1]);
 
 				DrawExamV2(Challenge, Gauge);
 			}
@@ -362,7 +362,7 @@ namespace TJAPlayer3
 				DrawNumber(notesRemain, TJAPlayer3.Skin.Game_DanC_Number_XY[0], TJAPlayer3.Skin.Game_DanC_Number_XY[1], TJAPlayer3.Skin.Game_DanC_Number_Padding);
 
 				// 段プレートを描画する。
-				Dan_Plate?.t2D中心基準描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_DanC_Dan_Plate[0], TJAPlayer3.Skin.Game_DanC_Dan_Plate[1]);
+				Dan_Plate?.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Game_DanC_Dan_Plate[0], TJAPlayer3.Skin.Game_DanC_Dan_Plate[1]);
 				DrawExam(Challenge);
 			}
 

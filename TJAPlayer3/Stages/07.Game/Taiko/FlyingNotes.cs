@@ -138,7 +138,7 @@ namespace TJAPlayer3
 
 						}
 
-						TJAPlayer3.Tx.Notes?.t2D中心基準描画(TJAPlayer3.app.Device, (int)Flying[i].X, (int)Flying[i].Y, new Rectangle(Flying[i].Lane * 130, 0, 130, 130));
+						TJAPlayer3.Tx.Notes?.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, (int)Flying[i].X, (int)Flying[i].Y, new Rectangle(Flying[i].Lane * 130, 0, 130, 130));
 						
 					}
 				}
