@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using Rectangle = System.Drawing.Rectangle;
-using System.Diagnostics;
 
 namespace TJAPlayer3
 {

@@ -341,12 +341,7 @@ namespace TJAPlayer3
 				if (!(TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listVD.Count > 0) && !bDoublePlay && TJAPlayer3.ConfigIni.ShowFooter && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード && TJAPlayer3.Tx.Mob_Footer != null)
 					TJAPlayer3.Tx.Mob_Footer.t2D描画(TJAPlayer3.app.Device, 0, 720 - TJAPlayer3.Tx.Mob_Footer.szテクスチャサイズ.Height);
 
-				//this.t進行描画_グラフ();   // #24074 2011.01.23 add ikanick
-
-
 				//this.t進行描画_判定ライン();
-				if ( !TJAPlayer3.ConfigIni.bNoInfo )
-					this.t進行描画_ネームプレート();
 				if(!(TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listVD.Count > 0) && TJAPlayer3.ConfigIni.ShowChara )
 					this.actChara.On進行描画();
 
@@ -1789,8 +1784,6 @@ namespace TJAPlayer3
 			if( pChip.nコース != this.n現在のコース[ nPlayer ] )
 				return;
 
-			//int n小節番号plus1 = pChip.n発声位置 / 384;
-			int n小節番号plus1 = this.actPlayInfo.NowMeasure[nPlayer];
 			int x = TJAPlayer3.Skin.nScrollFieldX[ nPlayer ] + pChip.nバーからの距離dot.Taiko;
 			int y = TJAPlayer3.Skin.nScrollFieldY[ nPlayer ];
 
@@ -1929,29 +1922,10 @@ namespace TJAPlayer3
 			}
 		}
 		private bool bStartFlag;
-		private void t進行描画_ネームプレート()
-		{
-			//if( this.txNamePlate != null )
-				//this.txNamePlate.t2D描画( CDTXMania.app.Device, 0, 100 );
-			
-			//if(CDTXMania.Tx.Taiko_NamePlate[0] != null) CDTXMania.Tx.Taiko_NamePlate[0].t2D描画(CDTXMania.app.Device, 0, 100);
-			//if(CDTXMania.stage演奏ドラム画面.bDoublePlay && CDTXMania.Tx.Taiko_NamePlate[1] != null) CDTXMania.Tx.Taiko_NamePlate[0].t2D描画(CDTXMania.app.Device, 0, 600);
-
-			//if ( CDTXMania.stage演奏ドラム画面.bDoublePlay )
-			//{
-			//    if( this.txNamePlate2P != null )
-			//        this.txNamePlate2P.t2D描画( CDTXMania.app.Device, 314, 636 );
-			//}
-		}
 
 		private void t進行描画_リアルタイム判定数表示()
 		{
-			bool ShowJudgeInfo = false;
-
-			if (TJAPlayer3.ConfigIni.nPlayerCount == 1 ? (TJAPlayer3.ConfigIni.bJudgeCountDisplay && !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0]) : false) ShowJudgeInfo = true;
-			if (TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード) ShowJudgeInfo = true;
-
-			if (ShowJudgeInfo)
+			if (TJAPlayer3.ConfigIni.nPlayerCount == 1 && TJAPlayer3.ConfigIni.bJudgeCountDisplay && !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] || TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
 			{
 				//ボードの横幅は333px
 				//数字フォントの小さいほうはリザルトのものと同じ。
