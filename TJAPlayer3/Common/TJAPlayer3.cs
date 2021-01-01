@@ -927,7 +927,7 @@ namespace TJAPlayer3
 
 				actScanningLoudness.On進行描画();
 
-				if (r現在のステージ != null && r現在のステージ.eステージID != CStage.Eステージ.起動 && TJAPlayer3.Tx.Overlay_Online != null && TJAPlayer3.Tx.Overlay_Offline != null)
+				if (r現在のステージ != null && r現在のステージ.eステージID != CStage.Eステージ.起動 && TJAPlayer3.Tx.Network_Connection != null)
 				{
 					if (Math.Abs(CSound管理.rc演奏用タイマ.nシステム時刻ms - this.前回のシステム時刻ms) > 10000)
 					{
@@ -939,10 +939,7 @@ namespace TJAPlayer3
 							this.bネットワークに接続中 = reply.Status == IPStatus.Success;
 						});
 					}
-					if (this.bネットワークに接続中)
-						TJAPlayer3.Tx.Overlay_Online.t2D描画(app.Device, 0, 0);
-					else
-						TJAPlayer3.Tx.Overlay_Offline.t2D描画(app.Device, 0, 0);
+					TJAPlayer3.Tx.Network_Connection.t2D描画(app.Device, GameWindowSize.Width - (TJAPlayer3.Tx.Network_Connection.szテクスチャサイズ.Width / 2), GameWindowSize.Height - TJAPlayer3.Tx.Network_Connection.szテクスチャサイズ.Height, new Rectangle((TJAPlayer3.Tx.Network_Connection.szテクスチャサイズ.Width / 2) * (this.bネットワークに接続中 ? 0 : 1), 0, TJAPlayer3.Tx.Network_Connection.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.Network_Connection.szテクスチャサイズ.Height));
 				}
 				// オーバレイを描画する(テクスチャの生成されていない起動ステージは例外
 				if (r現在のステージ != null && r現在のステージ.eステージID != CStage.Eステージ.起動 && TJAPlayer3.Tx.Overlay != null)

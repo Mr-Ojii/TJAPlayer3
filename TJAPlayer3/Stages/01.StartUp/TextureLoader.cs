@@ -73,8 +73,7 @@ namespace TJAPlayer3
 			Enum_Song = TxC(@"Enum_Song.png");
 			Scanning_Loudness = TxC(@"Scanning_Loudness.png");
 			Overlay = TxC(@"Overlay.png");
-			Overlay_Offline = TxC(@"Overlay_Offline.png");
-			Overlay_Online = TxC(@"Overlay_Online.png");
+			Network_Connection = TxC(@"Network_Connection.png");
 			Crown_t = TxC(@"Crown.png");
 			DanC_Crown_t = TxC(@"DanC_Crown.png");
 			NamePlate = new CTexture[2];
@@ -714,8 +713,7 @@ namespace TJAPlayer3
 			TJAPlayer3.t安全にDisposeする(ref Enum_Song);
 			TJAPlayer3.t安全にDisposeする(ref Scanning_Loudness);
 			TJAPlayer3.t安全にDisposeする(ref Overlay);
-			TJAPlayer3.t安全にDisposeする(ref Overlay_Offline);
-			TJAPlayer3.t安全にDisposeする(ref Overlay_Online);
+			TJAPlayer3.t安全にDisposeする(ref Network_Connection);
 			TJAPlayer3.t安全にDisposeする(ref Crown_t);
 			TJAPlayer3.t安全にDisposeする(ref DanC_Crown_t);
 			TJAPlayer3.t安全にDisposeする(ref Difficulty_Icons);
@@ -1041,8 +1039,7 @@ namespace TJAPlayer3
 			Enum_Song,
 			Scanning_Loudness,
 			Overlay,
-			Overlay_Offline,
-			Overlay_Online,
+			Network_Connection,
 			Crown_t,
 			DanC_Crown_t,
 			Difficulty_Icons;
