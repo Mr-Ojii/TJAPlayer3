@@ -137,7 +137,7 @@ namespace FDK
 			}
 
 			var trackNavigator = xPathDocument.CreateNavigator()
-				.SelectSingleNode(@"//bs1770gain/album/track[@total=""1"" and @number=""1""]");
+				.SelectSingleNode(@"//bs1770gain/track[@total=""1"" and @number=""1""]");
 
 			var integratedLufsNode = trackNavigator?.SelectSingleNode(@"integrated/@lufs");
 			var truePeakTpfsNode = trackNavigator?.SelectSingleNode(@"true-peak/@tpfs");
