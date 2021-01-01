@@ -10,6 +10,12 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+    - name: SetUp NuGet
+      uses:  nuget/setup-nuget@v1
+      with:
+        nuget-version: '5.x'
+    - name: NuGet Restore
+      run: nuget restore TJAPlayer3-f.sln
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
