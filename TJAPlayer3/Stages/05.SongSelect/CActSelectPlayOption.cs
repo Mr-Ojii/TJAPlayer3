@@ -360,7 +360,7 @@ namespace TJAPlayer3
 		{
 			if (TJAPlayer3.Tx.PlayOption_List != null && TJAPlayer3.Tx.PlayOption_Active != null)
 			{
-				TJAPlayer3.Tx.PlayOption_List.t2D拡大率考慮下中心基準描画(TJAPlayer3.app.Device, x, y, new Rectangle(0, TJAPlayer3.Skin.PlayOption_Box_Section_Y[2], TJAPlayer3.Tx.PlayOption_List.szテクスチャサイズ.Width, TJAPlayer3.Tx.PlayOption_List.szテクスチャサイズ.Height - TJAPlayer3.Skin.PlayOption_Box_Section_Y[2]));//下部
+				TJAPlayer3.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.Skin.PlayOption_Box_Section_Y[2], TJAPlayer3.Tx.PlayOption_List.szテクスチャサイズ.Width, TJAPlayer3.Tx.PlayOption_List.szテクスチャサイズ.Height - TJAPlayer3.Skin.PlayOption_Box_Section_Y[2]));//下部
 				y -= TJAPlayer3.Tx.PlayOption_List.szテクスチャサイズ.Height - TJAPlayer3.Skin.PlayOption_Box_Section_Y[2];
 			}
 			else
@@ -372,9 +372,9 @@ namespace TJAPlayer3
 			{
 				if (TJAPlayer3.Tx.PlayOption_List != null && TJAPlayer3.Tx.PlayOption_Active != null)
 				{
-					TJAPlayer3.Tx.PlayOption_List.t2D拡大率考慮下中心基準描画(TJAPlayer3.app.Device, x, y, new Rectangle(0, TJAPlayer3.Skin.PlayOption_Box_Section_Y[1], TJAPlayer3.Tx.PlayOption_List.szテクスチャサイズ.Width, TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]));//リスト本体
+					TJAPlayer3.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.Skin.PlayOption_Box_Section_Y[1], TJAPlayer3.Tx.PlayOption_List.szテクスチャサイズ.Width, TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]));//リスト本体
 					if (lci[nPlayer].Count - i == NowRow[nPlayer] + 1)
-						TJAPlayer3.Tx.PlayOption_Active.t2D拡大率考慮下中心基準描画(TJAPlayer3.app.Device, x, y);
+						TJAPlayer3.Tx.PlayOption_Active.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y);
 				}
 
 				this.NameTexture[nPlayer][lci[nPlayer].Count - i - 1].ItemNameTexture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.PlayOption_Name_XY_Diff[0], y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_Name_XY_Diff[1]);
@@ -410,7 +410,7 @@ namespace TJAPlayer3
 
 			if (TJAPlayer3.Tx.PlayOption_List != null && TJAPlayer3.Tx.PlayOption_Active != null)
 			{
-				TJAPlayer3.Tx.PlayOption_List.t2D拡大率考慮下中心基準描画(TJAPlayer3.app.Device, x, y, new Rectangle(0, TJAPlayer3.Skin.PlayOption_Box_Section_Y[0], TJAPlayer3.Tx.PlayOption_List.szテクスチャサイズ.Width, TJAPlayer3.Skin.PlayOption_Box_Section_Y[1] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[0]));//上部
+				TJAPlayer3.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.Skin.PlayOption_Box_Section_Y[0], TJAPlayer3.Tx.PlayOption_List.szテクスチャサイズ.Width, TJAPlayer3.Skin.PlayOption_Box_Section_Y[1] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[0]));//上部
 			}
 
 		}

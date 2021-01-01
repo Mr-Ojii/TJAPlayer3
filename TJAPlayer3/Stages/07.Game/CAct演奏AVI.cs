@@ -64,7 +64,7 @@ namespace TJAPlayer3
 
 					if (TJAPlayer3.ConfigIni.eClipDispType == EClipDispType.背景のみ || TJAPlayer3.ConfigIni.eClipDispType == EClipDispType.両方)
 					{
-						this.tx描画用.t2D拡大率考慮下拡大率考慮中心基準描画(TJAPlayer3.app.Device, GameWindowSize.Width / 2, GameWindowSize.Height);
+						this.tx描画用.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, GameWindowSize.Width / 2, GameWindowSize.Height / 2);
 					}
 					#endregion
 				}
@@ -87,7 +87,7 @@ namespace TJAPlayer3
 					this.tx描画用.vc拡大縮小倍率.X = ratio;
 					this.tx描画用.vc拡大縮小倍率.Y = ratio;
 
-					this.tx描画用.t2D拡大率考慮下拡大率考慮中心基準描画(TJAPlayer3.app.Device, GameWindowSize.Width / 2, GameWindowSize.Height);
+					this.tx描画用.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, GameWindowSize.Width / 2, GameWindowSize.Height);
 				}
 
 				#endregion

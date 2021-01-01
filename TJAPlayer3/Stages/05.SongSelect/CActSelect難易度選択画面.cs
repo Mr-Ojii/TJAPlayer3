@@ -111,7 +111,7 @@ namespace TJAPlayer3
 					{
 						TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].Opacity = 100;
 						TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].vc拡大縮小倍率 = new Vector3(0.75f);
-						TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].t2D拡大率考慮下基準描画(TJAPlayer3.app.Device, i * 1075 - 30, TJAPlayer3.Skin.Difficulty_Mark_Y);
+						TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, i * 1075 - 30, TJAPlayer3.Skin.Difficulty_Mark_Y);
 					}
 				}else if (現在の選択行[i] >= 3)
                 {
@@ -122,7 +122,7 @@ namespace TJAPlayer3
 							TJAPlayer3.Tx.Difficulty_Mark[4].Opacity = 100;
 							TJAPlayer3.Tx.Difficulty_Mark[4].vc拡大縮小倍率 = new Vector3(0.75f);
 							TJAPlayer3.Tx.Difficulty_Mark[4].vc拡大縮小倍率.Y = 0.75f * (float)(1 + Math.Sin(ct難易度拡大用[i].n現在の値 * Math.PI / 180) * 0.25);
-							TJAPlayer3.Tx.Difficulty_Mark[4].t2D拡大率考慮下基準描画(TJAPlayer3.app.Device, i * 1075 - 30, TJAPlayer3.Skin.Difficulty_Mark_Y);
+							TJAPlayer3.Tx.Difficulty_Mark[4].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, i * 1075 - 30, TJAPlayer3.Skin.Difficulty_Mark_Y);
 						}
 					}
 					else
@@ -132,7 +132,7 @@ namespace TJAPlayer3
 							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].Opacity = 100;
 							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].vc拡大縮小倍率 = new Vector3(0.75f);
 							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].vc拡大縮小倍率.Y = 0.75f * (float)(1 + Math.Sin(ct難易度拡大用[i].n現在の値 * Math.PI / 180) * 0.25);
-							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].t2D拡大率考慮下基準描画(TJAPlayer3.app.Device, i * 1075 - 30, TJAPlayer3.Skin.Difficulty_Mark_Y);
+							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, i * 1075 - 30, TJAPlayer3.Skin.Difficulty_Mark_Y);
 						}
 					}
 				}
@@ -200,7 +200,7 @@ namespace TJAPlayer3
 
 			if (TJAPlayer3.stage選曲.act曲リスト.ttk選択している曲のサブタイトル != null)
 			{
-				TJAPlayer3.stage選曲.act曲リスト.サブタイトルtmp.t2D拡大率考慮下中心基準描画(TJAPlayer3.app.Device, 707 + (TJAPlayer3.stage選曲.act曲リスト.サブタイトルtmp.szテクスチャサイズ.Width / 2) + xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y + 440 - yAnime);
+				TJAPlayer3.stage選曲.act曲リスト.サブタイトルtmp.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 707 + (TJAPlayer3.stage選曲.act曲リスト.サブタイトルtmp.szテクスチャサイズ.Width / 2) + xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y + 440 - yAnime);
 				if (TJAPlayer3.stage選曲.act曲リスト.ttk選択している曲の曲名 != null)
 				{
 					TJAPlayer3.stage選曲.act曲リスト.タイトルtmp.t2D描画(TJAPlayer3.app.Device, 750 + xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y + 23 - yAnime);
@@ -375,7 +375,7 @@ namespace TJAPlayer3
 			{
 				const int cx = 1000, cy = 500;
 
-				TJAPlayer3.Tx.Difficulty_BPMBox.t2D拡大率考慮右上基準描画(TJAPlayer3.app.Device, cx + (TJAPlayer3.Tx.Difficulty_BPMNumber.szテクスチャサイズ.Width / 10) + 10, cy - (TJAPlayer3.Tx.Difficulty_BPMBox.szテクスチャサイズ.Height - TJAPlayer3.Tx.Difficulty_BPMNumber.szテクスチャサイズ.Height) / 2);
+				TJAPlayer3.Tx.Difficulty_BPMBox.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.UpRight, cx + (TJAPlayer3.Tx.Difficulty_BPMNumber.szテクスチャサイズ.Width / 10) + 10, cy - (TJAPlayer3.Tx.Difficulty_BPMBox.szテクスチャサイズ.Height - TJAPlayer3.Tx.Difficulty_BPMNumber.szテクスチャサイズ.Height) / 2);
 				this.tBPM小文字表示(cx, cy, (long)TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.Bpm);
 			}
 			#endregion

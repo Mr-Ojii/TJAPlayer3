@@ -1036,7 +1036,7 @@ namespace TJAPlayer3
 					for (int i = 0; i < ForLoop; i++)
 						TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[GenreBack].t2D描画(TJAPlayer3.app.Device, i * 100, TJAPlayer3.Skin.SongSelect_Overall_Y - 69, new Rectangle(100, 0, 100, TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[GenreBack].szテクスチャサイズ.Height));
 					TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[GenreBack].vc拡大縮小倍率 = new Vector3(1f);
-					TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[GenreBack].t2D中央基準描画(TJAPlayer3.app.Device, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y + TJAPlayer3.Skin.SongSelect_Box_Center_Header_Y_Diff - 19, new Rectangle(0, 0, TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[GenreBack].szテクスチャサイズ.Width, 62));
+					TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[GenreBack].t2D元サイズ基準描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y + TJAPlayer3.Skin.SongSelect_Box_Center_Header_Y_Diff - 19, new Rectangle(0, 0, TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[GenreBack].szテクスチャサイズ.Width, 62));
 				}
 			}
 
@@ -1130,7 +1130,7 @@ namespace TJAPlayer3
 					if (TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[genreheader] != null)
 					{
 						TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[genreheader].vc拡大縮小倍率 = new Vector3(1f);
-						TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[genreheader].t2D中央基準描画(TJAPlayer3.app.Device, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y + TJAPlayer3.Skin.SongSelect_Box_Center_Header_Y_Diff - 19, new Rectangle(0, 0, TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[nnGenreBack].szテクスチャサイズ.Width, 62));
+						TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[genreheader].t2D元サイズ基準描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y + TJAPlayer3.Skin.SongSelect_Box_Center_Header_Y_Diff - 19, new Rectangle(0, 0, TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[nnGenreBack].szテクスチャサイズ.Width, 62));
 					}
 				}
 			}
@@ -1471,7 +1471,7 @@ namespace TJAPlayer3
 					if (this.ttk選択している曲のサブタイトル != null)
 					{
 						サブタイトルtmp = ResolveTitleTexture(ttk選択している曲のサブタイトル);
-						サブタイトルtmp.t2D拡大率考慮下中心基準描画(TJAPlayer3.app.Device, 707 + (サブタイトルtmp.szテクスチャサイズ.Width / 2), TJAPlayer3.Skin.SongSelect_Overall_Y + 440);
+						サブタイトルtmp.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 707 + (サブタイトルtmp.szテクスチャサイズ.Width / 2), TJAPlayer3.Skin.SongSelect_Overall_Y + 440);
 					}
 
 					if (TJAPlayer3.Tx.SongSelect_Box_Center_Genre[nnGenreBack] != null && TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[nnGenreBack] != null)

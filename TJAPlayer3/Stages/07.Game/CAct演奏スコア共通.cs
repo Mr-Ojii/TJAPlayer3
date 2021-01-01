@@ -449,7 +449,7 @@ namespace TJAPlayer3
 								{
 									TJAPlayer3.Tx.Taiko_Score[0].Opacity = alpha;
 									TJAPlayer3.Tx.Taiko_Score[0].vc拡大縮小倍率.Y = ScoreScale[this.ct点数アニメタイマ[player].n現在の値];
-									TJAPlayer3.Tx.Taiko_Score[0].t2D拡大率考慮下基準描画( TJAPlayer3.app.Device, x , y, rectangle );
+									TJAPlayer3.Tx.Taiko_Score[0].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
 									
 								}
 								break;
@@ -458,7 +458,7 @@ namespace TJAPlayer3
 								{
 									TJAPlayer3.Tx.Taiko_Score[1].Opacity = alpha;
 									TJAPlayer3.Tx.Taiko_Score[1].vc拡大縮小倍率.Y = 1;
-									TJAPlayer3.Tx.Taiko_Score[1].t2D拡大率考慮下基準描画( TJAPlayer3.app.Device, x, y, rectangle );
+									TJAPlayer3.Tx.Taiko_Score[1].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
 								}
 								break;
 							case 2:
@@ -466,7 +466,7 @@ namespace TJAPlayer3
 								{
 									TJAPlayer3.Tx.Taiko_Score[2].Opacity = alpha;
 									TJAPlayer3.Tx.Taiko_Score[2].vc拡大縮小倍率.Y = 1;
-									TJAPlayer3.Tx.Taiko_Score[2].t2D拡大率考慮下基準描画( TJAPlayer3.app.Device, x, y, rectangle );
+									TJAPlayer3.Tx.Taiko_Score[2].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
 								}
 								break;
 						}

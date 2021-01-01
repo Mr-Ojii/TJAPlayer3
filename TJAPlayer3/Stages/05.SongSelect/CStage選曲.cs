@@ -305,7 +305,7 @@ namespace TJAPlayer3
 
 					if (this.act曲リスト.ttk選択している曲のサブタイトル != null)
 					{
-						this.act曲リスト.サブタイトルtmp.t2D拡大率考慮下中心基準描画(TJAPlayer3.app.Device, 707 + (this.act曲リスト.サブタイトルtmp.szテクスチャサイズ.Width / 2) + xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y + 440 - yAnime);
+						this.act曲リスト.サブタイトルtmp.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 707 + (this.act曲リスト.サブタイトルtmp.szテクスチャサイズ.Width / 2) + xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y + 440 - yAnime);
 						if (this.act曲リスト.ttk選択している曲の曲名 != null)
 						{
 							this.act曲リスト.タイトルtmp.t2D描画(TJAPlayer3.app.Device, 750 + xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y + 23 - yAnime);

@@ -203,7 +203,7 @@ namespace TJAPlayer3
 							TJAPlayer3.Tx.Crown_t.Opacity = this.ctCrown用.n現在の値;
 							TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.X = ((this.ctCrown用.n終了値 - this.ctCrown用.n現在の値) / 255f) * 2f + 1.0f;
 							TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.Y = ((this.ctCrown用.n終了値 - this.ctCrown用.n現在の値) / 255f) * 2f + 1.0f;
-							TJAPlayer3.Tx.Crown_t.t2D拡大率考慮中央基準描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_v2_Crown_X[i], TJAPlayer3.Skin.Result_v2_Crown_Y[i], new Rectangle(CrownState[i] * 100, 0, 100, 100));
+							TJAPlayer3.Tx.Crown_t.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Result_v2_Crown_X[i], TJAPlayer3.Skin.Result_v2_Crown_Y[i], new Rectangle(CrownState[i] * 100, 0, 100, 100));
 						}
 					}
 					#endregion
@@ -411,7 +411,7 @@ namespace TJAPlayer3
 							TJAPlayer3.Tx.Crown_t.Opacity = this.ctCrown用.n現在の値;
 							TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.X = ((this.ctCrown用.n終了値 - this.ctCrown用.n現在の値) / 255f) * 2f + 1.0f;
 							TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.Y = ((this.ctCrown用.n終了値 - this.ctCrown用.n現在の値) / 255f) * 2f + 1.0f;
-							TJAPlayer3.Tx.Crown_t.t2D拡大率考慮中央基準描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_Crown_X[i], TJAPlayer3.Skin.Result_Crown_Y[i], new Rectangle(CrownState[i] * 100, 0, 100, 100));
+							TJAPlayer3.Tx.Crown_t.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Result_Crown_X[i], TJAPlayer3.Skin.Result_Crown_Y[i], new Rectangle(CrownState[i] * 100, 0, 100, 100));
 						}
 					}
 					#endregion
@@ -582,7 +582,7 @@ namespace TJAPlayer3
 					Rectangle rectangle = new Rectangle(TJAPlayer3.Tx.Result_v2_Number.szテクスチャサイズ.Width / 10 * Num, 0, TJAPlayer3.Tx.Result_v2_Number.szテクスチャサイズ.Width / 10, TJAPlayer3.Tx.Result_v2_Number.szテクスチャサイズ.Height);
 					if (TJAPlayer3.Tx.Result_v2_Number != null)
 					{
-						TJAPlayer3.Tx.Result_v2_Number.t2D拡大率考慮中央基準描画(TJAPlayer3.app.Device, x, y, rectangle);
+						TJAPlayer3.Tx.Result_v2_Number.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x, y, rectangle);
 					}
 					if(score)
 						x -= TJAPlayer3.Tx.Result_v2_Number.szテクスチャサイズ.Width / 10;

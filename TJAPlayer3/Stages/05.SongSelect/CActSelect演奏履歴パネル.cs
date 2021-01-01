@@ -78,15 +78,15 @@ namespace TJAPlayer3
 						{
 							//CDTXMania.Tx.SongSelect_ScoreWindow[CDTXMania.stage選曲.n現在選択中の曲の難易度].n透明度 = ct登場アニメ用.n現在の値 - 1745;
 							TJAPlayer3.Tx.SongSelect_ScoreWindow[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]].t2D描画(TJAPlayer3.app.Device, x[i], y[i]);
-							this.First[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]]?.t2D拡大率考慮右上基準描画(TJAPlayer3.app.Device, x[i] + xdiff + 50, y[i] + 90 - 25);
+							this.First[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]]?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.UpRight, x[i] + xdiff + 50, y[i] + 90 - 25);
 							this.t小文字表示(x[i] + xdiff, y[i] + 90, TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.nハイスコア[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]]);
 							TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.t2D描画(TJAPlayer3.app.Device, x[i] + xdiff + 15, y[i] + 95, new Rectangle(0, 36, 32, 30));
 
-							this.Second[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]]?.t2D拡大率考慮右上基準描画(TJAPlayer3.app.Device, x[i] + xdiff + 50, y[i] + 90 + 45);
+							this.Second[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]]?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.UpRight, x[i] + xdiff + 50, y[i] + 90 + 45);
 							this.t小文字表示(x[i] + xdiff, y[i] + 90 + 70, TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.nSecondScore[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]]);
 							TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.t2D描画(TJAPlayer3.app.Device, x[i] + xdiff + 15, y[i] + 95 + 70, new Rectangle(0, 36, 32, 30));
 
-							this.Third[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]]?.t2D拡大率考慮右上基準描画(TJAPlayer3.app.Device, x[i] + xdiff + 50, y[i] + 90 + 115);
+							this.Third[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]]?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.UpRight, x[i] + xdiff + 50, y[i] + 90 + 115);
 							this.t小文字表示(x[i] + xdiff, y[i] + 90 + 140, TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.nThirdScore[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]]);
 							TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.t2D描画(TJAPlayer3.app.Device, x[i] + xdiff + 15, y[i] + 95 + 140, new Rectangle(0, 36, 32, 30));
 						}
