@@ -637,7 +637,7 @@ namespace TJAPlayer3
 					else actBackground.On進行描画();
 				}
 
-				if (!!(TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listVD.Count > 0) && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
+				if (!(TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listVD.Count > 0) && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
 				{
 					actRollChara.On進行描画();
 				}
