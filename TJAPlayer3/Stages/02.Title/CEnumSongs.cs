@@ -562,7 +562,7 @@ namespace TJAPlayer3
 				#endregion
 
 				//				if ( !bSucceededFastBoot )	// songs2.db読み込みに成功したなら、songs2.dbを新たに作らない
-				#region [ 7) songs2.db への保存 ]		// #27060 2012.1.26 yyagi
+				#region [ 7) songlist.db への保存 ]		// #27060 2012.1.26 yyagi
 				Trace.TraceInformation( "enum7) 曲データの情報を songlist.db へ出力します。" );
 				Trace.Indent();
 

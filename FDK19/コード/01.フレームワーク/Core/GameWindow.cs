@@ -306,7 +306,6 @@ namespace FDK
 		/// Handles raw window messages.
 		/// </summary>
 		/// <param name="m">The raw message.</param>
-		[SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
 		protected override void WndProc(ref Message m)
 		{
 			if (m.Msg == WindowConstants.WM_SIZE)

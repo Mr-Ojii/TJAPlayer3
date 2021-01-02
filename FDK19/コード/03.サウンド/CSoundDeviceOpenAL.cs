@@ -229,16 +229,6 @@ namespace FDK
 				}
 				//-----------------
 				#endregion
-				#region [ 単位繰り上げ用スレッド停止。]
-				//-----------------
-				if( this.th経過時間測定用スレッド != null )
-				{
-					this.th経過時間測定用スレッド.Abort();
-					this.th経過時間測定用スレッド = null;
-				
-				}
-				//-----------------
-				#endregion
 
 				C共通.tDisposeする( this.tmシステムタイマ );
 			}
@@ -259,7 +249,6 @@ namespace FDK
 		#endregion
 
 		protected CSound sd経過時間計測用サウンドバッファ = null;
-		protected Thread th経過時間測定用スレッド = null;
 //		protected AutoResetEvent autoResetEvent = new AutoResetEvent( false );
 		protected const uint n単位繰り上げ間隔sec = 1;	// [秒]
 		protected const uint n単位繰り上げ間隔ms = n単位繰り上げ間隔sec * 1000;	// [ミリ秒]

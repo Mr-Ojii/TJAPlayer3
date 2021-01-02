@@ -201,20 +201,22 @@ namespace TJAPlayer3
 				//                    }
 
 				////				}
-
-				for (int i = 0; i < 2; i++)     // 一旦Cloneを止めてASIO対応に専念
+				if (TJAPlayer3.Sound管理 != null)
 				{
-					try
+					for (int i = 0; i < 2; i++)     // 一旦Cloneを止めてASIO対応に専念
 					{
-						this.rSound[i] = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(this.strファイル名), _soundGroup);
+						try
+						{
+							this.rSound[i] = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(this.strファイル名), _soundGroup);
+						}
+						catch
+						{
+							this.rSound[i] = null;
+							throw;
+						}
 					}
-					catch
-					{
-						this.rSound[i] = null;
-						throw;
-					}
+					this.b読み込み成功 = true;
 				}
-				this.b読み込み成功 = true;
 			}
 			public void t再生する()
 			{

@@ -1426,7 +1426,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 				if( this.e作成方法 == E作成方法.WAVファイルイメージから &&
 					this.eデバイス種別 != ESoundDeviceType.OpenAL )	// OpenAL は hGC 未使用。
 				{
-					if ( this.hGC != null && this.hGC.IsAllocated )
+					if ( this.hGC.IsAllocated )
 					{
 						this.hGC.Free();
 						this.hGC = default( GCHandle );
