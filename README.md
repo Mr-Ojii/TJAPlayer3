@@ -17,7 +17,7 @@ Windows 7以降
 まぁ、Windows 10で動作確認をしているので、Windows 10が一番安定してるかと...
 
 ## 開発環境
-Windows 10(Ver.1909)  
+Windows 10(Ver.20H2)  
 VisualStudio Community 2019
 
 ## バグ報告のお願い
@@ -43,6 +43,7 @@ VisualStudio Community 2019
 + Ver.1.6.0.5 : FFmpeg APIを使用しての音声デコード機能を追加
 + Ver.1.6.1.0 : FFmpeg APIを使用しての動画デコード機能を追加
 + Ver.1.6.2.0 : .NET Core 3.1にフレームワークをアップデート
++ Ver.1.6.3.0 : .NET 5にフレームワークをアップデート
 
 ## Discord鯖
 作っていいものかと思いながら、公開鯖を作ってみたかったので作ってしまいました。  
