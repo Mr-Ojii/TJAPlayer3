@@ -154,15 +154,11 @@ namespace TJAPlayer3
 			}
 		}
 
-		public bool bSongDBにキャッシュがあった;
-
-
 		// コンストラクタ
 
 		public Cスコア()
 		{
 			this.ScoreIni情報 = new STScoreIni情報( DateTime.MinValue, 0L );
-			this.bSongDBにキャッシュがあった = false;
 			this.ファイル情報 = new STファイル情報( "", "", DateTime.MinValue, 0L );
 			this.譜面情報 = new ST譜面情報();
 			this.譜面情報.タイトル = "";

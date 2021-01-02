@@ -85,14 +85,6 @@ namespace TJAPlayer3
 		{
 			get
 			{
-				if (stage選曲.r確定された曲 != null)
-				{
-					C曲リストノード c曲リストノード = stage選曲.r確定された曲.r親ノード;
-					if (((c曲リストノード != null) && (c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.BOX)) && (c曲リストノード.nPerfect範囲ms >= 0))
-					{
-						return c曲リストノード.nPerfect範囲ms;
-					}
-				}
 				return ConfigIni.nヒット範囲ms.Perfect;
 			}
 		}
@@ -100,14 +92,6 @@ namespace TJAPlayer3
 		{
 			get
 			{
-				if (stage選曲.r確定された曲 != null)
-				{
-					C曲リストノード c曲リストノード = stage選曲.r確定された曲.r親ノード;
-					if (((c曲リストノード != null) && (c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.BOX)) && (c曲リストノード.nGreat範囲ms >= 0))
-					{
-						return c曲リストノード.nGreat範囲ms;
-					}
-				}
 				return ConfigIni.nヒット範囲ms.Great;
 			}
 		}
@@ -115,14 +99,6 @@ namespace TJAPlayer3
 		{
 			get
 			{
-				if (stage選曲.r確定された曲 != null)
-				{
-					C曲リストノード c曲リストノード = stage選曲.r確定された曲.r親ノード;
-					if (((c曲リストノード != null) && (c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.BOX)) && (c曲リストノード.nGood範囲ms >= 0))
-					{
-						return c曲リストノード.nGood範囲ms;
-					}
-				}
 				return ConfigIni.nヒット範囲ms.Good;
 			}
 		}
@@ -130,14 +106,6 @@ namespace TJAPlayer3
 		{
 			get
 			{
-				if (stage選曲.r確定された曲 != null)
-				{
-					C曲リストノード c曲リストノード = stage選曲.r確定された曲.r親ノード;
-					if (((c曲リストノード != null) && (c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.BOX)) && (c曲リストノード.nPoor範囲ms >= 0))
-					{
-						return c曲リストノード.nPoor範囲ms;
-					}
-				}
 				return ConfigIni.nヒット範囲ms.Poor;
 			}
 		}

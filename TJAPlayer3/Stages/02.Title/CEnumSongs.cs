@@ -63,7 +63,6 @@ namespace TJAPlayer3
 				this.thDTXFileEnumerate.Priority = tp;
 			}
 		}
-		private readonly string strPathSongsDB = TJAPlayer3.strEXEのあるフォルダ + "songs.db";
 		private readonly string strPathSongList = TJAPlayer3.strEXEのあるフォルダ + "songlist.db";
 
 		public Thread thDTXFileEnumerate

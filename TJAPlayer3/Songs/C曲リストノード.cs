@@ -20,19 +20,6 @@ namespace TJAPlayer3
 		}
 		public int nID { get; private set; }
 		public Cスコア arスコア = new Cスコア();
-		public string[] ar難易度ラベル = new string[(int)Difficulty.Total];
-		public bool bDTXFilesで始まるフォルダ名のBOXである;
-		public bool bBoxDefで作成されたBOXである
-		{
-			get
-			{
-				return !this.bDTXFilesで始まるフォルダ名のBOXである;
-			}
-			set
-			{
-				this.bDTXFilesで始まるフォルダ名のBOXである = !value;
-			}
-		}
 		public Color col文字色 = Color.White;
 		public Color ForeColor = Color.White;
 		public Color BackColor = Color.Black;
@@ -40,10 +27,6 @@ namespace TJAPlayer3
 		public bool IsChangedBackColor;
 		public List<C曲リストノード> listランダム用ノードリスト;
 		public List<C曲リストノード> list子リスト;
-		public int nGood範囲ms = -1;
-		public int nGreat範囲ms = -1;
-		public int nPerfect範囲ms = -1;
-		public int nPoor範囲ms = -1;
 		public int nスコア数;
 		public C曲リストノード r親ノード;
 		public int Openindex;
