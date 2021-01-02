@@ -25,38 +25,23 @@ namespace FDK
 			this.strDeviceName = "";    // CInput管理で初期化する
 		}
 
-
 		// メソッド
 
-		public void tメッセージからMIDI信号のみ受信(uint wMsg, IntPtr dwInstance, IntPtr dwParam1, IntPtr dwParam2, long n受信システム時刻)
+		public unsafe void tメッセージからMIDI信号のみ受信(int dev, long time, IntPtr buffer, int length, IntPtr user)
 		{
-			if (wMsg == CWin32.MIM_DATA)
+			Debug.Print(length.ToString());
+			byte* buf = (byte*)buffer;
+			int nMIDIevent = buf[0];
+			int nPara1 = buf[1];
+			int nPara2 = buf[2];
+
+			if ((nMIDIevent == 0x90) && (nPara2 != 0))      // Note ON
 			{
-				int nMIDIevent = (int)dwParam1 & 0xF0;
-				int nPara1 = ((int)dwParam1 >> 8) & 0xFF;
-				int nPara2 = ((int)dwParam1 >> 16) & 0xFF;
-				int nPara3 = ((int)dwParam2 >> 8) & 0xFF;
-				int nPara4 = ((int)dwParam2 >> 16) & 0xFF;
-
-				// Trace.TraceInformation( "MIDIevent={0:X2} para1={1:X2} para2={2:X2}", nMIDIevent, nPara1, nPara2 ,nPara3,nPara4);
-
-				if ((nMIDIevent == 0x90) && (nPara2 != 0))      // Note ON
-				{
-					STInputEvent item = new STInputEvent();
-					item.nKey = nPara1;
-					item.b押された = true;
-					item.nTimeStamp = n受信システム時刻;
-					this.listEventBuffer.Add(item);
-				}
-				//else if ( ( nMIDIevent == 0xB0 ) && ( nPara1 == 4 ) )	// Ctrl Chg #04: Foot Controller
-				//{
-				//	STInputEvent item = new STInputEvent();
-				//	item.nKey = nPara1;
-				//	item.b押された = true;
-				//	item.nTimeStamp = n受信システム時刻;
-				//	item.nVelocity = nPara2;
-				//	this.listEventBuffer.Add( item );
-				//}
+				STInputEvent item = new STInputEvent();
+				item.nKey = nPara1;
+				item.b押された = true;
+				item.nTimeStamp = time;
+				this.listEventBuffer.Add(item);
 			}
 		}
 
