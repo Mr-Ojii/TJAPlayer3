@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using Newtonsoft.Json;
 
 namespace TJAPlayer3
 {
@@ -20,7 +21,6 @@ namespace TJAPlayer3
 		}
 		public int nID { get; private set; }
 		public Cスコア arスコア = new Cスコア();
-		public Color col文字色 = Color.White;
 		public Color ForeColor = Color.White;
 		public Color BackColor = Color.Black;
 		public bool IsChangedForeColor;
@@ -28,6 +28,7 @@ namespace TJAPlayer3
 		public List<C曲リストノード> listランダム用ノードリスト;
 		public List<C曲リストノード> list子リスト;
 		public int nスコア数;
+		[JsonIgnore]
 		public C曲リストノード r親ノード;
 		public int Openindex;
 		public Stack<int> stackランダム演奏番号 = new Stack<int>();

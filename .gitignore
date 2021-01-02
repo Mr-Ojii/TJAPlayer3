@@ -16,6 +16,7 @@
 *.DotSettings.user
 *.bs1770gain.xml
 /packages
+/Test/*/songlist.json
 /Test/*/Capture_img
 /Test/*/Config.ini
 /Test/*/bs1770gain**

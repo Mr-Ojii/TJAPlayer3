@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.IO;
 using System.Threading;
-using System.Runtime.Serialization.Formatters.Binary;
+using Newtonsoft.Json;
 
 namespace TJAPlayer3
 {
@@ -63,7 +62,7 @@ namespace TJAPlayer3
 				this.thDTXFileEnumerate.Priority = tp;
 			}
 		}
-		private readonly string strPathSongList = TJAPlayer3.strEXEのあるフォルダ + "songlist.db";
+		private readonly string strPathSongList = TJAPlayer3.strEXEのあるフォルダ + "songlist.json";
 
 		public Thread thDTXFileEnumerate
 		{
@@ -87,10 +86,6 @@ namespace TJAPlayer3
 		public CEnumSongs()
 		{
 			this.Songs管理 = new CSongs管理();
-		}
-
-		public void Init()
-		{
 		}
 
 		/// <summary>
@@ -302,29 +297,6 @@ namespace TJAPlayer3
 				}
 
 				#endregion
-
-				#region [ 1) songs.db の読み込み ]
-				//-----------------------------
-				TJAPlayer3.stage起動.eフェーズID = CStage.Eフェーズ.起動1_SongsDBからスコアキャッシュを構築;
-
-				Trace.TraceInformation( "2) songs.db を読み込みます。" );
-				Trace.Indent();
-
-				try
-				{
-					Trace.TraceInformation( "初回の起動であるかまたはDTXManiaのバージョンが上がったため、songs.db の読み込みをスキップします。" );
-					lock ( TJAPlayer3.stage起動.list進行文字列 )
-					{
-						TJAPlayer3.stage起動.list進行文字列.Add( "SONG DATABASE...SKIPPED" );
-					}
-				}
-				finally
-				{
-					Trace.Unindent();
-				}
-				//-----------------------------
-				#endregion
-
 			}
 			finally
 			{
@@ -508,12 +480,13 @@ namespace TJAPlayer3
 		private static void SerializeSongList( CSongs管理 cs, string strPathSongList )
 		{
 			bool bSucceededSerialize = true;
-			Stream output = null;
 			try
 			{
-				output = File.Create( strPathSongList );
-				BinaryFormatter formatter = new BinaryFormatter();
-				formatter.Serialize( output, cs );
+				using (StreamWriter f = new StreamWriter(strPathSongList, false, Encoding.UTF8))
+				{
+					string a = JsonConvert.SerializeObject(cs, Formatting.None);
+					f.Write(a);
+				}
 			}
 			catch ( Exception e )
 			{
@@ -523,7 +496,6 @@ namespace TJAPlayer3
 			}
 			finally
 			{
-				output.Close();
 				if ( !bSucceededSerialize )
 				{
 					try
@@ -559,8 +531,13 @@ namespace TJAPlayer3
 				{
 					try
 					{
-						BinaryFormatter formatter = new BinaryFormatter();
-						return (CSongs管理) formatter.Deserialize( input );
+						using (StreamReader file = new StreamReader(strPathSongList, Encoding.UTF8))
+						{
+							JsonSerializer serializer = new JsonSerializer();
+							CSongs管理 tmp = (CSongs管理)serializer.Deserialize(file, typeof(CSongs管理));
+							親ノードを設定する(ref tmp.list曲ルート, null);//親ノードはシリアライズしないため、読み込み後設定する。
+							return tmp;
+						}
 					}
 					catch ( Exception e )
 					{
@@ -579,6 +556,21 @@ namespace TJAPlayer3
 				Trace.TraceError( "例外が発生しましたが処理を継続します。 (5a907ed2-f849-4bc4-acd0-d2a6aa3c9c87)" );
 			}
 			return null;
+		}
+
+		private static void 親ノードを設定する(ref List<C曲リストノード> cs, C曲リストノード parent)
+		{
+			foreach (C曲リストノード c in cs)
+			{
+				if (c.eノード種別 == C曲リストノード.Eノード種別.BOX && c.list子リスト != null)
+				{
+					親ノードを設定する(ref c.list子リスト, c);//再帰
+				}
+				else 
+				{
+					c.r親ノード = parent;
+				}
+			}
 		}
 	}
 }
