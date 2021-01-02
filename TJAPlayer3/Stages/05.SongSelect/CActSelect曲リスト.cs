@@ -1471,7 +1471,7 @@ namespace TJAPlayer3
 					if (this.ttk選択している曲のサブタイトル != null)
 					{
 						サブタイトルtmp = ResolveTitleTexture(ttk選択している曲のサブタイトル);
-						サブタイトルtmp.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 707 + (サブタイトルtmp.szテクスチャサイズ.Width / 2), TJAPlayer3.Skin.SongSelect_Overall_Y + 440);
+						サブタイトルtmp.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 707 + (サブタイトルtmp.szテクスチャサイズ.Width / 2), TJAPlayer3.Skin.SongSelect_Overall_Y + 430);
 					}
 
 					if (TJAPlayer3.Tx.SongSelect_Box_Center_Genre[nnGenreBack] != null && TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[nnGenreBack] != null)

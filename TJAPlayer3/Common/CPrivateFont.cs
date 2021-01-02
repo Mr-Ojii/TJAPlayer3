@@ -406,26 +406,20 @@ namespace TJAPlayer3
 				{
 
 					//できるだけ正確な値を計算しておきたい...!
-					using (Bitmap bmpDummy = new Bitmap(150, 150))//とりあえず150
+					Rectangle rect正確なサイズ = this.MeasureStringPrecisely(strName[i], this._font, strSize, sFormat);
+					int n余白サイズ = strSize.Height - rect正確なサイズ.Height;
+
+					if (strName[i] == "ー" || strName[i] == "-" || strName[i] == "～" || strName[i] == "<" || strName[i] == ">" || strName[i] == "(" || strName[i] == ")" || strName[i] == "「" || strName[i] == "」" || strName[i] == "[" || strName[i] == "]")
 					{
-						using (Graphics gCal = Graphics.FromImage(bmpDummy))
-						{
-
-							Rectangle rect正確なサイズ = this.MeasureStringPrecisely(gCal, strName[i], this._font, strSize, sFormat);
-							int n余白サイズ = strSize.Height - rect正確なサイズ.Height;
-
-							if (strName[i] == "ー" || strName[i] == "-" || strName[i] == "～" || strName[i] == "<" || strName[i] == ">" || strName[i] == "(" || strName[i] == ")" || strName[i] == "「" || strName[i] == "」" || strName[i] == "[" || strName[i] == "]")
-							{
-								nHeight += (rect正確なサイズ.Width) + 4;
-							}
-							else if (strName[i] == "_")
-							{ nHeight += (rect正確なサイズ.Height) + 6; }
-							else if (strName[i] == " ")
-							{ nHeight += (12); }
-							else { nHeight += (rect正確なサイズ.Height) + 10; }
-						}
+						nHeight += (rect正確なサイズ.Width) + 2;
 					}
-				}				
+					else if (strName[i] == "_")
+					{ nHeight += (rect正確なサイズ.Height) + 2; }
+					else if (strName[i] == " ")
+					{ nHeight += (6); }
+					else { nHeight += (rect正確なサイズ.Height) + 2; }
+
+				}			
 			}
 			#endregion
 
@@ -471,11 +465,10 @@ namespace TJAPlayer3
 					};
 
 					//できるだけ正確な値を計算しておきたい...!
-					Graphics gCal = Graphics.FromImage(new Bitmap(150, 150));//とりあえず150 2020.05.04　Mr-Ojii 一回変数に格納する必要がないと判断したため、まとめた。
-					Rectangle rect正確なサイズ = this.MeasureStringPrecisely(gCal, strName[i], this._font, strSize, sFormat);
+					Rectangle rect正確なサイズ = this.MeasureStringPrecisely(strName[i], this._font, strSize, sFormat);
 					int n余白サイズ = strSize.Height - rect正確なサイズ.Height;
 
-					Bitmap bmpV = new Bitmap((rect正確なサイズ.Width + 12) + nAdded, (rect正確なサイズ.Height) + 12);
+					Bitmap bmpV = new Bitmap((rect正確なサイズ.Width + 6) + nAdded, (rect正確なサイズ.Height) + 6);
 					bmpV.MakeTransparent();
 
 					Graphics gV = Graphics.FromImage(bmpV);
@@ -618,7 +611,6 @@ namespace TJAPlayer3
 					nNowPos += bmpV.Size.Height - 6;
 
 					if (bmpV != null) bmpV.Dispose();
-					if (gCal != null) gCal.Dispose();
 
 					_rectStrings = new Rectangle(0, 0, strSize.Width, strSize.Height);
 					_ptOrigin = new Point(6 * 2, 6 * 2);
@@ -631,7 +623,6 @@ namespace TJAPlayer3
 		/// <summary>
 		/// Graphics.DrawStringで文字列を描画した時の大きさと位置を正確に計測する
 		/// </summary>
-		/// <param name="g">文字列を描画するGraphics</param>
 		/// <param name="text">描画する文字列</param>
 		/// <param name="font">描画に使用するフォント</param>
 		/// <param name="proposedSize">これ以上大きいことはないというサイズ。
@@ -639,25 +630,46 @@ namespace TJAPlayer3
 		/// <param name="stringFormat">描画に使用するStringFormat</param>
 		/// <returns>文字列が描画される範囲。
 		/// 見つからなかった時は、Rectangle.Empty。</returns>
-		public Rectangle MeasureStringPrecisely(Graphics g,
+		public Rectangle MeasureStringPrecisely(
 			string text, Font font, Size proposedSize, StringFormat stringFormat)
 		{
 			//解像度を引き継いで、Bitmapを作成する
-			Bitmap bmp = new Bitmap(proposedSize.Width, proposedSize.Height, g);
+			Bitmap bmp = new Bitmap(proposedSize.Width, proposedSize.Height);
 			//BitmapのGraphicsを作成する
 			Graphics bmpGraphics = Graphics.FromImage(bmp);
-			//Graphicsのプロパティを引き継ぐ
-			bmpGraphics.TextRenderingHint = g.TextRenderingHint;
-			bmpGraphics.TextContrast = g.TextContrast;
-			bmpGraphics.PixelOffsetMode = g.PixelOffsetMode;
+			bmpGraphics.SmoothingMode = SmoothingMode.HighQuality;
 			//文字列の描かれていない部分の色を取得する
 			Color backColor = bmp.GetPixel(0, 0);
 			//実際にBitmapに文字列を描画する
 
-			//  Debug.Print("Font=" + font.ToString());
-			bmpGraphics.DrawString(text, font, Brushes.Black,
-				new RectangleF(0f, 0f, proposedSize.Width, proposedSize.Height),
-				stringFormat);
+			StringFormat sFormat = new StringFormat()
+			{
+				LineAlignment = StringAlignment.Center, // 画面下部（垂直方向位置）
+				Alignment = StringAlignment.Near,   // 画面中央（水平方向位置）
+			};
+
+			// DrawPathで、ポイントサイズを使って描画するために、DPIを使って単位変換する
+			// (これをしないと、単位が違うために、小さめに描画されてしまう)
+			float sizeInPixels = _font.SizeInPoints * bmpGraphics.DpiY / 72f;  // 1 inch = 72 points
+
+			GraphicsPath gpV = new GraphicsPath();
+			gpV.AddString(text, this._fontfamily, (int)this._font.Style, sizeInPixels, new Rectangle(0, 0, proposedSize.Width, proposedSize.Height), sFormat);
+
+			// 縁取りを描画する
+			//int nEdgePt = (_pt / 3); // 縁取りをフォントサイズ基準に変更
+			float nEdgePt = (10f * _pt / TJAPlayer3.Skin.Font_Edge_Ratio_Vertical); // SkinConfigにて設定可能に(rhimm)
+			Pen pV = new Pen(Color.Black, nEdgePt);
+			pV.LineJoin = LineJoin.Round;
+			bmpGraphics.DrawPath(pV, gpV);
+
+			// 塗りつぶす
+			Brush brV = new SolidBrush(Color.Black);
+
+			bmpGraphics.FillPath(brV, gpV);
+
+			if (brV != null) brV.Dispose();
+			if (pV != null) pV.Dispose();
+			if (gpV != null) gpV.Dispose();
 
 			bmpGraphics.Dispose();
 			//文字列が描画されている範囲を計測する
