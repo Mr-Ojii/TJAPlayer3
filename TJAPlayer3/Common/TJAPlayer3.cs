@@ -387,7 +387,6 @@ namespace TJAPlayer3
 								actEnumSongs.On活性化();
 								TJAPlayer3.stage選曲.act曲リスト.bIsEnumeratingSongs = true;
 								EnumSongs.StartEnumFromDisk();      // 曲検索スレッドの起動_開始
-								EnumSongs.ChangeEnumeratePriority(ThreadPriority.Normal);
 							}
 							#endregion
 

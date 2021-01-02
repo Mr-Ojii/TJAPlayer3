@@ -4,6 +4,7 @@ using System.Text;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace TJAPlayer3
@@ -55,13 +56,6 @@ namespace TJAPlayer3
 			this.Songs管理 = null;						// GCはOSに任せる
 		}
 
-		public void ChangeEnumeratePriority( ThreadPriority tp )
-		{
-			if ( this.thDTXFileEnumerate != null && this.thDTXFileEnumerate.IsAlive == true )
-			{
-				this.thDTXFileEnumerate.Priority = tp;
-			}
-		}
 		private readonly string strPathSongList = TJAPlayer3.strEXEのあるフォルダ + "songlist.json";
 
 		public Thread thDTXFileEnumerate
@@ -120,7 +114,7 @@ namespace TJAPlayer3
 				this.thDTXFileEnumerate = new Thread( new ThreadStart( this.t曲リストの構築2 ) );
 				this.thDTXFileEnumerate.Name = "曲リストの構築";
 				this.thDTXFileEnumerate.IsBackground = true;
-				this.thDTXFileEnumerate.Priority = System.Threading.ThreadPriority.Lowest;
+				this.thDTXFileEnumerate.Priority = ThreadPriority.Normal;
 				this.thDTXFileEnumerate.Start();
 			}
 		}
@@ -178,24 +172,6 @@ namespace TJAPlayer3
 			}
 
 		}
-
-		/// <summary>
-		/// 曲探索スレッドを強制終了する
-		/// </summary>
-		public void Abort()
-		{
-			if ( thDTXFileEnumerate != null )
-			{
-				thDTXFileEnumerate.Abort();
-				thDTXFileEnumerate = null;
-				this.state = DTXEnumState.None;
-
-				this.Songs管理 = null;					// Songs管理を再初期化する (途中まで作った曲リストの最後に、一から重複して追記することにならないようにする。)
-				this.Songs管理 = new CSongs管理();
-			}
-		}
-
-
 
 		/// <summary>
 		/// songlist.dbからの曲リスト構築

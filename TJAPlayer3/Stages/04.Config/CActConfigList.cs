@@ -839,17 +839,12 @@ namespace TJAPlayer3
 				#region [ 曲データ一覧の再読み込み ]
 				else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iSystemReloadDTX )				// #32081 2013.10.21 yyagi
 				{
-					if ( TJAPlayer3.EnumSongs.IsEnumerating )
+					if (!TJAPlayer3.EnumSongs.IsEnumerating)//現在の実行中のリスト生成が終わってから
 					{
-						// Debug.WriteLine( "バックグラウンドでEnumeratingSongs中だったので、一旦中断します。" );
-						TJAPlayer3.EnumSongs.Abort();
-						TJAPlayer3.actEnumSongs.On非活性化();
+						TJAPlayer3.EnumSongs.StartEnumFromDisk();
+						TJAPlayer3.actEnumSongs.bコマンドでの曲データ取得 = true;
+						TJAPlayer3.actEnumSongs.On活性化();
 					}
-
-					TJAPlayer3.EnumSongs.StartEnumFromDisk();
-					TJAPlayer3.EnumSongs.ChangeEnumeratePriority( ThreadPriority.Normal );
-					TJAPlayer3.actEnumSongs.bコマンドでの曲データ取得 = true;
-					TJAPlayer3.actEnumSongs.On活性化();
 				}
 				#endregion
 			}
