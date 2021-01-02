@@ -46,15 +46,7 @@ namespace TJAPlayer3
 			try
 			{
 				this.list進行文字列 = null;
-				if ( es != null )
-				{
-					if ( ( es.thDTXFileEnumerate != null ) && es.thDTXFileEnumerate.IsAlive )
-					{
-						Trace.TraceWarning( "リスト構築スレッドを強制停止します。" );
-						es.thDTXFileEnumerate.Abort();
-						es.thDTXFileEnumerate.Join();
-					}
-				}
+				//2021.01.03 曲リストが生成されてからここに突入するので、esのAbortを削除
 				base.On非活性化();
 				Trace.TraceInformation( "起動ステージの非活性化を完了しました。" );
 			}
