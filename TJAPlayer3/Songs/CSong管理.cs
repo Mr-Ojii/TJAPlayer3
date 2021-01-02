@@ -15,16 +15,6 @@ namespace TJAPlayer3
 	{
 		// プロパティ
 
-		public int nSongsDBから取得できたスコア数
-		{
-			get;
-			set;
-		}
-		public int nSongsDBへ出力できたスコア数
-		{
-			get;
-			set;
-		}
 		public int nスコアキャッシュから反映できたスコア数
 		{
 			get;
@@ -45,8 +35,6 @@ namespace TJAPlayer3
 			get;
 			set;
 		}
-		[NonSerialized]
-		public List<Cスコア> listSongsDB;                  // songs.dbから構築されるlist
 		public List<C曲リストノード> list曲ルート;         // 起動時にフォルダ検索して構築されるlist
 		public bool bIsSuspending                           // 外部スレッドから、内部スレッドのsuspendを指示する時にtrueにする
 		{                                                   // 再開時は、これをfalseにしてから、次のautoReset.Set()を実行する
@@ -54,24 +42,12 @@ namespace TJAPlayer3
 			set;
 		}
 		[NonSerialized]
-		private AutoResetEvent autoReset;
-		public AutoResetEvent AutoReset
-		{
-			get
-			{
-				return autoReset;
-			}
-			private set
-			{
-				autoReset = value;
-			}
-		}
+		public AutoResetEvent autoReset;
 
 		// コンストラクタ
 
 		public CSongs管理()
 		{
-			this.listSongsDB = new List<Cスコア>();
 			this.list曲ルート = new List<C曲リストノード>();
 			this.n検索された曲ノード数 = 0;
 			this.n検索されたスコア数 = 0;
@@ -81,47 +57,6 @@ namespace TJAPlayer3
 
 
 		// メソッド
-
-		#region [ SongsDB(songs.db) を読み込む ]
-		//-----------------
-		public void tSongsDBを読み込む(string SongsDBファイル名)
-		{
-			this.nSongsDBから取得できたスコア数 = 0;
-			if (File.Exists(SongsDBファイル名))
-			{
-				BinaryReader br = null;
-				try
-				{
-					br = new BinaryReader(File.OpenRead(SongsDBファイル名));
-					if (!br.ReadString().Equals(SONGSDB_VERSION))
-					{
-						throw new InvalidDataException("ヘッダが異なります。");
-					}
-					this.listSongsDB = new List<Cスコア>();
-
-					while (true)
-					{
-						try
-						{
-							Cスコア item = this.tSongsDBからスコアを１つ読み込む(br);
-							this.listSongsDB.Add(item);
-							this.nSongsDBから取得できたスコア数++;
-						}
-						catch (EndOfStreamException)
-						{
-							break;
-						}
-					}
-				}
-				finally
-				{
-					if (br != null)
-						br.Close();
-				}
-			}
-		}
-		//-----------------
-		#endregion
 
 		#region [ 曲を検索してリストを作成する ]
 		//-----------------
@@ -353,191 +288,6 @@ namespace TJAPlayer3
 		//-----------------
 		#endregion
 
-		#region [ スコアキャッシュを曲リストに反映する ]
-		//-----------------
-		public void tスコアキャッシュを曲リストに反映する()
-		{
-			this.nスコアキャッシュから反映できたスコア数 = 0;
-			this.tスコアキャッシュを曲リストに反映する(this.list曲ルート);
-		}
-		private void tスコアキャッシュを曲リストに反映する(List<C曲リストノード> ノードリスト)
-		{
-			using (List<C曲リストノード>.Enumerator enumerator = ノードリスト.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
-				{
-					SlowOrSuspendSearchTask();      // #27060 中断要求があったら、解除要求が来るまで待機, #PREMOVIE再生中は検索負荷を落とす
-
-					C曲リストノード node = enumerator.Current;
-					if (node.eノード種別 == C曲リストノード.Eノード種別.BOX)
-					{
-						this.tスコアキャッシュを曲リストに反映する(node.list子リスト);
-					}
-					else if ((node.eノード種別 == C曲リストノード.Eノード種別.SCORE))
-					{
-						Predicate<Cスコア> match = null;
-						if (match == null)
-						{
-							match = delegate (Cスコア sc)
-							{
-								return
-									(
-								(sc.ファイル情報.ファイルの絶対パス.Equals(node.arスコア.ファイル情報.ファイルの絶対パス)
-									&& sc.ファイル情報.ファイルサイズ.Equals(node.arスコア.ファイル情報.ファイルサイズ))
-									&& (sc.ファイル情報.最終更新日時.Equals(node.arスコア.ファイル情報.最終更新日時)
-									&& sc.ScoreIni情報.ファイルサイズ.Equals(node.arスコア.ScoreIni情報.ファイルサイズ)))
-									&& sc.ScoreIni情報.最終更新日時.Equals(node.arスコア.ScoreIni情報.最終更新日時);
-							};
-						}
-						int nMatched = this.listSongsDB.FindIndex(match);
-						if (nMatched == -1)
-						{
-							//Trace.TraceInformation( "songs.db に存在しません。({0})", node.arスコア[ lv ].ファイル情報.ファイルの絶対パス );
-							if (TJAPlayer3.ConfigIni.bLog曲検索ログ出力)
-							{
-								Trace.TraceInformation("songs.db に存在しません。({0})", node.arスコア.ファイル情報.ファイルの絶対パス);
-							}
-						}
-						else
-						{
-							node.arスコア.譜面情報 = this.listSongsDB[nMatched].譜面情報;
-							node.arスコア.bSongDBにキャッシュがあった = true;
-							if (TJAPlayer3.ConfigIni.bLog曲検索ログ出力)
-							{
-								Trace.TraceInformation("songs.db から転記しました。({0})", node.arスコア.ファイル情報.ファイルの絶対パス);
-							}
-							this.nスコアキャッシュから反映できたスコア数++;
-						}
-					}
-				}
-			}
-		}
-		private Cスコア tSongsDBからスコアを１つ読み込む(BinaryReader br)
-		{
-			Cスコア cスコア = new Cスコア();
-			cスコア.ファイル情報.ファイルの絶対パス = br.ReadString();
-			cスコア.ファイル情報.フォルダの絶対パス = br.ReadString();
-			cスコア.ファイル情報.最終更新日時 = new DateTime(br.ReadInt64());
-			cスコア.ファイル情報.ファイルサイズ = br.ReadInt64();
-			cスコア.ScoreIni情報.最終更新日時 = new DateTime(br.ReadInt64());
-			cスコア.ScoreIni情報.ファイルサイズ = br.ReadInt64();
-			cスコア.譜面情報.タイトル = br.ReadString();
-			cスコア.譜面情報.アーティスト名 = br.ReadString();
-			cスコア.譜面情報.コメント = br.ReadString();
-			cスコア.譜面情報.ジャンル = br.ReadString();
-			cスコア.譜面情報.Backgound = br.ReadString();
-			cスコア.譜面情報.最大ランク = br.ReadInt32();
-			cスコア.譜面情報.最大スキル = br.ReadDouble();
-			cスコア.譜面情報.フルコンボ = br.ReadBoolean();
-			cスコア.譜面情報.演奏回数 = br.ReadInt32();
-			cスコア.譜面情報.演奏履歴.行1 = br.ReadString();
-			cスコア.譜面情報.演奏履歴.行2 = br.ReadString();
-			cスコア.譜面情報.演奏履歴.行3 = br.ReadString();
-			cスコア.譜面情報.演奏履歴.行4 = br.ReadString();
-			cスコア.譜面情報.演奏履歴.行5 = br.ReadString();
-			cスコア.譜面情報.演奏履歴.行6 = br.ReadString();
-			cスコア.譜面情報.演奏履歴.行7 = br.ReadString();
-			cスコア.譜面情報.Bpm = br.ReadDouble();
-			cスコア.譜面情報.Duration = br.ReadInt32();
-			cスコア.譜面情報.strBGMファイル名 = br.ReadString();
-			cスコア.譜面情報.SongVol = br.ReadInt32();
-			var hasSongIntegratedLoudness = br.ReadBoolean();
-			var songIntegratedLoudness = br.ReadDouble();
-			var integratedLoudness = hasSongIntegratedLoudness ? new Lufs(songIntegratedLoudness) : default(Lufs?);
-			var hasSongPeakLoudness = br.ReadBoolean();
-			var songPeakLoudness = br.ReadDouble();
-			var peakLoudness = hasSongPeakLoudness ? new Lufs(songPeakLoudness) : default(Lufs?);
-			var songLoudnessMetadata = hasSongIntegratedLoudness
-				? new LoudnessMetadata(integratedLoudness.Value, peakLoudness)
-				: default(LoudnessMetadata?);
-			cスコア.譜面情報.SongLoudnessMetadata = songLoudnessMetadata;
-			cスコア.譜面情報.nデモBGMオフセット = br.ReadInt32();
-			cスコア.譜面情報.b譜面分岐[0] = br.ReadBoolean();//2020.04.19 Mr-Ojii
-			cスコア.譜面情報.b譜面分岐[1] = br.ReadBoolean();//ここら辺の配列になってるやつscore.iniに出力する方とdbに出力する方で
-			cスコア.譜面情報.b譜面分岐[2] = br.ReadBoolean();//配列の数が違うから、[0]~[6]で統一。
-			cスコア.譜面情報.b譜面分岐[3] = br.ReadBoolean();
-			cスコア.譜面情報.b譜面分岐[4] = br.ReadBoolean();
-			cスコア.譜面情報.b譜面分岐[5] = br.ReadBoolean();
-			cスコア.譜面情報.b譜面分岐[6] = br.ReadBoolean();
-			cスコア.譜面情報.bPapaMamaSupport[0] = br.ReadBoolean();
-			cスコア.譜面情報.bPapaMamaSupport[1] = br.ReadBoolean();
-			cスコア.譜面情報.bPapaMamaSupport[2] = br.ReadBoolean();
-			cスコア.譜面情報.bPapaMamaSupport[3] = br.ReadBoolean();
-			cスコア.譜面情報.bPapaMamaSupport[4] = br.ReadBoolean();
-			cスコア.譜面情報.bPapaMamaSupport[5] = br.ReadBoolean();
-			cスコア.譜面情報.bPapaMamaSupport[6] = br.ReadBoolean();
-			cスコア.譜面情報.nハイスコア[0] = br.ReadInt32();
-			cスコア.譜面情報.nハイスコア[1] = br.ReadInt32();
-			cスコア.譜面情報.nハイスコア[2] = br.ReadInt32();
-			cスコア.譜面情報.nハイスコア[3] = br.ReadInt32();
-			cスコア.譜面情報.nハイスコア[4] = br.ReadInt32();
-			cスコア.譜面情報.nハイスコア[5] = br.ReadInt32();
-			cスコア.譜面情報.nハイスコア[6] = br.ReadInt32();
-			cスコア.譜面情報.nSecondScore[0] = br.ReadInt32();
-			cスコア.譜面情報.nSecondScore[1] = br.ReadInt32();
-			cスコア.譜面情報.nSecondScore[2] = br.ReadInt32();
-			cスコア.譜面情報.nSecondScore[3] = br.ReadInt32();
-			cスコア.譜面情報.nSecondScore[4] = br.ReadInt32();
-			cスコア.譜面情報.nSecondScore[5] = br.ReadInt32();
-			cスコア.譜面情報.nSecondScore[6] = br.ReadInt32();
-			cスコア.譜面情報.nThirdScore[0] = br.ReadInt32();
-			cスコア.譜面情報.nThirdScore[1] = br.ReadInt32();
-			cスコア.譜面情報.nThirdScore[2] = br.ReadInt32();
-			cスコア.譜面情報.nThirdScore[3] = br.ReadInt32();
-			cスコア.譜面情報.nThirdScore[4] = br.ReadInt32();
-			cスコア.譜面情報.nThirdScore[5] = br.ReadInt32();
-			cスコア.譜面情報.nThirdScore[6] = br.ReadInt32();
-			cスコア.譜面情報.strHiScorerName[0] = br.ReadString();
-			cスコア.譜面情報.strHiScorerName[1] = br.ReadString();
-			cスコア.譜面情報.strHiScorerName[2] = br.ReadString();
-			cスコア.譜面情報.strHiScorerName[3] = br.ReadString();
-			cスコア.譜面情報.strHiScorerName[4] = br.ReadString();
-			cスコア.譜面情報.strHiScorerName[5] = br.ReadString();
-			cスコア.譜面情報.strHiScorerName[6] = br.ReadString();
-			cスコア.譜面情報.strSecondScorerName[0] = br.ReadString();
-			cスコア.譜面情報.strSecondScorerName[1] = br.ReadString();
-			cスコア.譜面情報.strSecondScorerName[2] = br.ReadString();
-			cスコア.譜面情報.strSecondScorerName[3] = br.ReadString();
-			cスコア.譜面情報.strSecondScorerName[4] = br.ReadString();
-			cスコア.譜面情報.strSecondScorerName[5] = br.ReadString();
-			cスコア.譜面情報.strSecondScorerName[6] = br.ReadString();
-			cスコア.譜面情報.strThirdScorerName[0] = br.ReadString();
-			cスコア.譜面情報.strThirdScorerName[1] = br.ReadString();
-			cスコア.譜面情報.strThirdScorerName[2] = br.ReadString();
-			cスコア.譜面情報.strThirdScorerName[3] = br.ReadString();
-			cスコア.譜面情報.strThirdScorerName[4] = br.ReadString();
-			cスコア.譜面情報.strThirdScorerName[5] = br.ReadString();
-			cスコア.譜面情報.strThirdScorerName[6] = br.ReadString();
-			cスコア.譜面情報.strサブタイトル = br.ReadString();
-			cスコア.譜面情報.nレベル[0] = br.ReadInt32();
-			cスコア.譜面情報.nレベル[1] = br.ReadInt32();
-			cスコア.譜面情報.nレベル[2] = br.ReadInt32();
-			cスコア.譜面情報.nレベル[3] = br.ReadInt32();
-			cスコア.譜面情報.nレベル[4] = br.ReadInt32();
-			cスコア.譜面情報.nレベル[5] = br.ReadInt32();
-			cスコア.譜面情報.nレベル[6] = br.ReadInt32();
-			cスコア.譜面情報.n王冠[0] = br.ReadInt32();
-			cスコア.譜面情報.n王冠[1] = br.ReadInt32();
-			cスコア.譜面情報.n王冠[2] = br.ReadInt32();
-			cスコア.譜面情報.n王冠[3] = br.ReadInt32();
-			cスコア.譜面情報.n王冠[4] = br.ReadInt32();
-			cスコア.譜面情報.n王冠[5] = br.ReadInt32();
-			cスコア.譜面情報.n王冠[6] = br.ReadInt32();
-			cスコア.譜面情報.b譜面が存在する[0] = br.ReadBoolean();
-			cスコア.譜面情報.b譜面が存在する[1] = br.ReadBoolean();
-			cスコア.譜面情報.b譜面が存在する[2] = br.ReadBoolean();
-			cスコア.譜面情報.b譜面が存在する[3] = br.ReadBoolean();
-			cスコア.譜面情報.b譜面が存在する[4] = br.ReadBoolean();
-			cスコア.譜面情報.b譜面が存在する[5] = br.ReadBoolean();
-			cスコア.譜面情報.b譜面が存在する[6] = br.ReadBoolean();
-			cスコア.譜面情報.b歌詞あり = br.ReadBoolean();
-
-
-			//Debug.WriteLine( "songs.db: " + cスコア.ファイル情報.ファイルの絶対パス );
-			return cスコア;
-		}
-		//-----------------
-		#endregion
 		#region [ SongsDBになかった曲をファイルから読み込んで反映する ]
 		//-----------------
 		public void tSongsDBになかった曲をファイルから読み込んで反映する()
@@ -857,162 +607,6 @@ namespace TJAPlayer3
 		}
 		//-----------------
 		#endregion
-		#region [ スコアキャッシュをSongsDBに出力する ]
-		//-----------------
-		public void tスコアキャッシュをSongsDBに出力する(string SongsDBファイル名)
-		{
-			this.nSongsDBへ出力できたスコア数 = 0;
-			try
-			{
-				BinaryWriter bw = new BinaryWriter(new FileStream(SongsDBファイル名, FileMode.Create, FileAccess.Write));
-				bw.Write(SONGSDB_VERSION);
-				this.tSongsDBにリストを１つ出力する(bw, this.list曲ルート);
-				bw.Close();
-			}
-			catch (Exception e)
-			{
-				Trace.TraceError("songs.dbの出力に失敗しました。");
-				Trace.TraceError(e.ToString());
-				Trace.TraceError("例外が発生しましたが処理を継続します。 (ca70d133-f092-4351-8ebd-0906d8f1cffa)");
-			}
-		}
-		private void tSongsDBにノードを１つ出力する(BinaryWriter bw, C曲リストノード node)
-		{
-			// ここではsuspendに応じないようにしておく(深い意味はない。ファイルの書き込みオープン状態を長時間維持したくないだけ)
-			//if ( this.bIsSuspending )		// #27060 中断要求があったら、解除要求が来るまで待機
-			//{
-			//	autoReset.WaitOne();
-			//}
-
-			bw.Write(node.arスコア.ファイル情報.ファイルの絶対パス);
-			bw.Write(node.arスコア.ファイル情報.フォルダの絶対パス);
-			bw.Write(node.arスコア.ファイル情報.最終更新日時.Ticks);
-			bw.Write(node.arスコア.ファイル情報.ファイルサイズ);
-			bw.Write(node.arスコア.ScoreIni情報.最終更新日時.Ticks);
-			bw.Write(node.arスコア.ScoreIni情報.ファイルサイズ);
-			bw.Write(node.arスコア.譜面情報.タイトル);
-			bw.Write(node.arスコア.譜面情報.アーティスト名);
-			bw.Write(node.arスコア.譜面情報.コメント);
-			bw.Write(node.arスコア.譜面情報.ジャンル);
-			bw.Write(node.arスコア.譜面情報.Backgound);
-			bw.Write(node.arスコア.譜面情報.最大ランク);
-			bw.Write(node.arスコア.譜面情報.最大スキル);
-			bw.Write(node.arスコア.譜面情報.フルコンボ);
-			bw.Write(node.arスコア.譜面情報.演奏回数);
-			bw.Write(node.arスコア.譜面情報.演奏履歴.行1);
-			bw.Write(node.arスコア.譜面情報.演奏履歴.行2);
-			bw.Write(node.arスコア.譜面情報.演奏履歴.行3);
-			bw.Write(node.arスコア.譜面情報.演奏履歴.行4);
-			bw.Write(node.arスコア.譜面情報.演奏履歴.行5);
-			bw.Write(node.arスコア.譜面情報.演奏履歴.行6);
-			bw.Write(node.arスコア.譜面情報.演奏履歴.行7);
-			bw.Write(node.arスコア.譜面情報.Bpm);
-			bw.Write(node.arスコア.譜面情報.Duration);
-			bw.Write(node.arスコア.譜面情報.strBGMファイル名);
-			bw.Write(node.arスコア.譜面情報.SongVol);
-			var songLoudnessMetadata = node.arスコア.譜面情報.SongLoudnessMetadata;
-			bw.Write(songLoudnessMetadata.HasValue);
-			bw.Write(songLoudnessMetadata?.Integrated.ToDouble() ?? 0.0);
-			bw.Write(songLoudnessMetadata?.TruePeak.HasValue ?? false);
-			bw.Write(songLoudnessMetadata?.TruePeak?.ToDouble() ?? 0.0);
-			bw.Write(node.arスコア.譜面情報.nデモBGMオフセット);
-			bw.Write(node.arスコア.譜面情報.b譜面分岐[0]);
-			bw.Write(node.arスコア.譜面情報.b譜面分岐[1]);
-			bw.Write(node.arスコア.譜面情報.b譜面分岐[2]);
-			bw.Write(node.arスコア.譜面情報.b譜面分岐[3]);
-			bw.Write(node.arスコア.譜面情報.b譜面分岐[4]);
-			bw.Write(node.arスコア.譜面情報.b譜面分岐[5]);
-			bw.Write(node.arスコア.譜面情報.b譜面分岐[6]);
-			bw.Write(node.arスコア.譜面情報.bPapaMamaSupport[0]);
-			bw.Write(node.arスコア.譜面情報.bPapaMamaSupport[1]);
-			bw.Write(node.arスコア.譜面情報.bPapaMamaSupport[2]);
-			bw.Write(node.arスコア.譜面情報.bPapaMamaSupport[3]);
-			bw.Write(node.arスコア.譜面情報.bPapaMamaSupport[4]);
-			bw.Write(node.arスコア.譜面情報.bPapaMamaSupport[5]);
-			bw.Write(node.arスコア.譜面情報.bPapaMamaSupport[6]);
-			bw.Write(node.arスコア.譜面情報.nハイスコア[0]);
-			bw.Write(node.arスコア.譜面情報.nハイスコア[1]);
-			bw.Write(node.arスコア.譜面情報.nハイスコア[2]);
-			bw.Write(node.arスコア.譜面情報.nハイスコア[3]);
-			bw.Write(node.arスコア.譜面情報.nハイスコア[4]);
-			bw.Write(node.arスコア.譜面情報.nハイスコア[5]);
-			bw.Write(node.arスコア.譜面情報.nハイスコア[6]);
-			bw.Write(node.arスコア.譜面情報.nSecondScore[0]);
-			bw.Write(node.arスコア.譜面情報.nSecondScore[1]);
-			bw.Write(node.arスコア.譜面情報.nSecondScore[2]);
-			bw.Write(node.arスコア.譜面情報.nSecondScore[3]);
-			bw.Write(node.arスコア.譜面情報.nSecondScore[4]);
-			bw.Write(node.arスコア.譜面情報.nSecondScore[5]);
-			bw.Write(node.arスコア.譜面情報.nSecondScore[6]);
-			bw.Write(node.arスコア.譜面情報.nThirdScore[0]);
-			bw.Write(node.arスコア.譜面情報.nThirdScore[1]);
-			bw.Write(node.arスコア.譜面情報.nThirdScore[2]);
-			bw.Write(node.arスコア.譜面情報.nThirdScore[3]);
-			bw.Write(node.arスコア.譜面情報.nThirdScore[4]);
-			bw.Write(node.arスコア.譜面情報.nThirdScore[5]);
-			bw.Write(node.arスコア.譜面情報.nThirdScore[6]);
-			bw.Write(node.arスコア.譜面情報.strHiScorerName[0]);
-			bw.Write(node.arスコア.譜面情報.strHiScorerName[1]);
-			bw.Write(node.arスコア.譜面情報.strHiScorerName[2]);
-			bw.Write(node.arスコア.譜面情報.strHiScorerName[3]);
-			bw.Write(node.arスコア.譜面情報.strHiScorerName[4]);
-			bw.Write(node.arスコア.譜面情報.strHiScorerName[5]);
-			bw.Write(node.arスコア.譜面情報.strHiScorerName[6]);
-			bw.Write(node.arスコア.譜面情報.strSecondScorerName[0]);
-			bw.Write(node.arスコア.譜面情報.strSecondScorerName[1]);
-			bw.Write(node.arスコア.譜面情報.strSecondScorerName[2]);
-			bw.Write(node.arスコア.譜面情報.strSecondScorerName[3]);
-			bw.Write(node.arスコア.譜面情報.strSecondScorerName[4]);
-			bw.Write(node.arスコア.譜面情報.strSecondScorerName[5]);
-			bw.Write(node.arスコア.譜面情報.strSecondScorerName[6]);
-			bw.Write(node.arスコア.譜面情報.strThirdScorerName[0]);
-			bw.Write(node.arスコア.譜面情報.strThirdScorerName[1]);
-			bw.Write(node.arスコア.譜面情報.strThirdScorerName[2]);
-			bw.Write(node.arスコア.譜面情報.strThirdScorerName[3]);
-			bw.Write(node.arスコア.譜面情報.strThirdScorerName[4]);
-			bw.Write(node.arスコア.譜面情報.strThirdScorerName[5]);
-			bw.Write(node.arスコア.譜面情報.strThirdScorerName[6]);
-			bw.Write(node.arスコア.譜面情報.strサブタイトル);
-			bw.Write(node.arスコア.譜面情報.nレベル[0]);
-			bw.Write(node.arスコア.譜面情報.nレベル[1]);
-			bw.Write(node.arスコア.譜面情報.nレベル[2]);
-			bw.Write(node.arスコア.譜面情報.nレベル[3]);
-			bw.Write(node.arスコア.譜面情報.nレベル[4]);
-			bw.Write(node.arスコア.譜面情報.nレベル[5]);
-			bw.Write(node.arスコア.譜面情報.nレベル[6]);
-			bw.Write(node.arスコア.譜面情報.n王冠[0]);
-			bw.Write(node.arスコア.譜面情報.n王冠[1]);
-			bw.Write(node.arスコア.譜面情報.n王冠[2]);
-			bw.Write(node.arスコア.譜面情報.n王冠[3]);
-			bw.Write(node.arスコア.譜面情報.n王冠[4]);
-			bw.Write(node.arスコア.譜面情報.n王冠[5]);
-			bw.Write(node.arスコア.譜面情報.n王冠[6]);
-			bw.Write(node.arスコア.譜面情報.b譜面が存在する[0]);
-			bw.Write(node.arスコア.譜面情報.b譜面が存在する[1]);
-			bw.Write(node.arスコア.譜面情報.b譜面が存在する[2]);
-			bw.Write(node.arスコア.譜面情報.b譜面が存在する[3]);
-			bw.Write(node.arスコア.譜面情報.b譜面が存在する[4]);
-			bw.Write(node.arスコア.譜面情報.b譜面が存在する[5]);
-			bw.Write(node.arスコア.譜面情報.b譜面が存在する[6]);
-			bw.Write(node.arスコア.譜面情報.b歌詞あり);
-			this.nSongsDBへ出力できたスコア数++;
-		}
-		private void tSongsDBにリストを１つ出力する(BinaryWriter bw, List<C曲リストノード> list)
-		{
-			foreach (C曲リストノード c曲リストノード in list)
-			{
-				if ((c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.SCORE))
-				{
-					this.tSongsDBにノードを１つ出力する(bw, c曲リストノード);
-				}
-				if (c曲リストノード.list子リスト != null)
-				{
-					this.tSongsDBにリストを１つ出力する(bw, c曲リストノード.list子リスト);
-				}
-			}
-		}
-		//-----------------
-		#endregion
 
 		#region [ 曲リストソート ]
 		//-----------------
@@ -1160,7 +754,6 @@ namespace TJAPlayer3
 
 		#region [ private ]
 		//-----------------
-		private const string SONGSDB_VERSION = "SongsDB5-f";
 		private List<string> listStrBoxDefSkinSubfolderFullName;
 
 		/// <summary>

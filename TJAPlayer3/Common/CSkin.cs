@@ -179,28 +179,7 @@ namespace TJAPlayer3
 					Trace.TraceWarning($"ファイルが存在しません。: {this.strファイル名}");
 					return;
 				}
-				////				for( int i = 0; i < 2; i++ )		// #27790 2012.3.10 yyagi 2回読み出しを、1回読みだし＋1回メモリコピーに変更
-				////				{
-				//                    try
-				//                    {
-				//                        this.rSound[ 0 ] = CDTXMania.Sound管理.tサウンドを生成する( CSkin.Path( this.strファイル名 ) );
-				//                    }
-				//                    catch
-				//                    {
-				//                        this.rSound[ 0 ] = null;
-				//                        throw;
-				//                    }
-				//                    if ( this.rSound[ 0 ] == null )	// #28243 2012.5.3 yyagi "this.rSound[ 0 ].bストリーム再生する"時もCloneするようにし、rSound[1]がnullにならないよう修正→rSound[1]の再生正常化
-				//                    {
-				//                        this.rSound[ 1 ] = null;
-				//                    }
-				//                    else
-				//                    {
-				//                        this.rSound[ 1 ] = ( CSound ) this.rSound[ 0 ].Clone();	// #27790 2012.3.10 yyagi add: to accelerate loading chip sounds
-				//                        CDTXMania.Sound管理.tサウンドを登録する( this.rSound[ 1 ] );	// #28243 2012.5.3 yyagi add (登録漏れによりストリーム再生処理が発生していなかった)
-				//                    }
 
-				////				}
 				if (TJAPlayer3.Sound管理 != null)
 				{
 					for (int i = 0; i < 2; i++)     // 一旦Cloneを止めてASIO対応に専念

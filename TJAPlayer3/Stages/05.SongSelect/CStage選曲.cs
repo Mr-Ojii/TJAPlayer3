@@ -528,7 +528,7 @@ namespace TJAPlayer3
 							if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.F3))
 							{
 								TJAPlayer3.Skin.sound変更音.t再生する();
-								C共通.bToggleBoolian(ref TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0]);
+								TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] = !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0];
 							}
 							#endregion
 							#region [ F4 2PオートON/OFF ]
@@ -537,7 +537,7 @@ namespace TJAPlayer3
 								if (TJAPlayer3.ConfigIni.nPlayerCount > 1)
 								{
 									TJAPlayer3.Skin.sound変更音.t再生する();
-									C共通.bToggleBoolian(ref TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1]);
+									TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] = !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1];
 								}
 							}
 							#endregion
@@ -545,7 +545,7 @@ namespace TJAPlayer3
 							if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.F5))
 							{
 								TJAPlayer3.Skin.sound変更音.t再生する();
-								C共通.bToggleBoolian(ref TJAPlayer3.ConfigIni.bSuperHard);
+								TJAPlayer3.ConfigIni.bSuperHard = !TJAPlayer3.ConfigIni.bSuperHard;
 							}
 							#endregion
 							#region [ F6 SCROLL ]
@@ -825,7 +825,7 @@ namespace TJAPlayer3
 							if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.F3))
 							{
 								TJAPlayer3.Skin.sound変更音.t再生する();
-								C共通.bToggleBoolian(ref TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0]);
+								TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] = !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0];
 							}
 							#endregion
 							#region [ F4 2PオートON/OFF ]
@@ -834,7 +834,7 @@ namespace TJAPlayer3
 								if (TJAPlayer3.ConfigIni.nPlayerCount > 1)
 								{
 									TJAPlayer3.Skin.sound変更音.t再生する();
-									C共通.bToggleBoolian(ref TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1]);
+									TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] = !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1];
 								}
 							}
 							#endregion
@@ -842,7 +842,7 @@ namespace TJAPlayer3
 							if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.F5))
 							{
 								TJAPlayer3.Skin.sound変更音.t再生する();
-								C共通.bToggleBoolian(ref TJAPlayer3.ConfigIni.bSuperHard);
+								TJAPlayer3.ConfigIni.bSuperHard = !TJAPlayer3.ConfigIni.bSuperHard;
 							}
 							#endregion
 							#region [ F6 SCROLL ]

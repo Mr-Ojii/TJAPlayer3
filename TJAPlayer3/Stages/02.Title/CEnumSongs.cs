@@ -90,13 +90,8 @@ namespace TJAPlayer3
 			this.Songs管理 = new CSongs管理();
 		}
 
-		public void Init( List<Cスコア> ls, int n )
+		public void Init()
 		{
-			if ( state == DTXEnumState.None )
-			{
-				this.Songs管理.listSongsDB = ls;
-				this.Songs管理.nSongsDBから取得できたスコア数 = n;
-			}
 		}
 
 		/// <summary>
@@ -163,7 +158,7 @@ namespace TJAPlayer3
 				{
 					// this.thDTXFileEnumerate.Resume();	// obsoleteにつき使用中止
 					this.Songs管理.bIsSuspending = false;
-					this.Songs管理.AutoReset.Set();
+					this.Songs管理.autoReset.Set();
 					this.state = DTXEnumState.Ongoing;
 					Trace.TraceInformation( "★曲データ検索スレッドを再開しました。" );
 				}
@@ -318,33 +313,10 @@ namespace TJAPlayer3
 
 				try
 				{
-					if ( !TJAPlayer3.ConfigIni.bConfigIniがないかDTXManiaのバージョンが異なる )
+					Trace.TraceInformation( "初回の起動であるかまたはDTXManiaのバージョンが上がったため、songs.db の読み込みをスキップします。" );
+					lock ( TJAPlayer3.stage起動.list進行文字列 )
 					{
-						try
-						{
-							this.Songs管理.tSongsDBを読み込む( strPathSongsDB );
-						}
-						catch (Exception e)
-						{
-							Trace.TraceError( "songs.db の読み込みに失敗しました。" );
-							Trace.TraceError( e.ToString() );
-							Trace.TraceError( "例外が発生しましたが処理を継続します。 (358800ac-6c52-4381-aa78-740b7383d197)" );
-						}
-
-						int scores = ( this.Songs管理 == null ) ? 0 : this.Songs管理.nSongsDBから取得できたスコア数;	// 読み込み途中でアプリ終了した場合など、CDTXMania.Songs管理 がnullの場合があるので注意
-						Trace.TraceInformation( "songs.db の読み込みを完了しました。[{0}スコア]", scores );
-						lock ( TJAPlayer3.stage起動.list進行文字列 )
-						{
-							TJAPlayer3.stage起動.list進行文字列.Add( "SONG DATABASE...OK" );
-						}
-					}
-					else
-					{
-						Trace.TraceInformation( "初回の起動であるかまたはDTXManiaのバージョンが上がったため、songs.db の読み込みをスキップします。" );
-						lock ( TJAPlayer3.stage起動.list進行文字列 )
-						{
-							TJAPlayer3.stage起動.list進行文字列.Add( "SONG DATABASE...SKIPPED" );
-						}
+						TJAPlayer3.stage起動.list進行文字列.Add( "SONG DATABASE...SKIPPED" );
 					}
 				}
 				finally
@@ -380,9 +352,6 @@ namespace TJAPlayer3
 			// 構築が完了したら、DTXEnumerateState state を DTXEnumerateState.Done にすること。(2012.2.9)
 
 			DateTime now = DateTime.Now;
-			bool bIsAvailableSongList = false;
-			bool bIsAvailableSongsDB = false;
-			bool bSucceededFastBoot = false;
 
 			try
 			{
@@ -448,35 +417,6 @@ namespace TJAPlayer3
 				//	}
 				//-----------------------------
 				#endregion
-				#region [ 3) songs.db 情報の曲リストへの反映 ]
-				//-----------------------------
-				//					base.eフェーズID = CStage.Eフェーズ.起動3_スコアキャッシュをリストに反映する;
-				Trace.TraceInformation( "enum3) songs.db の情報を曲リストへ反映します。" );
-				Trace.Indent();
-
-				try
-				{
-					if ( this.Songs管理.listSongsDB != null )
-					{
-						this.Songs管理.tスコアキャッシュを曲リストに反映する();
-					}
-				}
-				catch ( Exception e )
-				{
-					Trace.TraceError( e.ToString() );
-					Trace.TraceError( "例外が発生しましたが処理を継続します。 (76ae87e7-f737-4dfa-b8ab-5f37a06f74e8)" );
-				}
-				finally
-				{
-					Trace.TraceInformation( "曲リストへの反映を完了しました。[{0}/{1}スコア]", this.Songs管理.nスコアキャッシュから反映できたスコア数, this.Songs管理.n検索されたスコア数 );
-					Trace.Unindent();
-				}
-				//	lock ( this.list進行文字列 )
-				//	{
-				//		this.list進行文字列.Add( string.Format( "{0} ... {1}/{2}", "Loading score properties from songs.db", CDTXMania.Songs管理_裏読.nスコアキャッシュから反映できたスコア数, cs.n検索されたスコア数 ) );
-				//	}
-				//-----------------------------
-				#endregion
 				#region [ 4) songs.db になかった曲データをファイルから読み込んで反映 ]
 				//-----------------------------
 				//					base.eフェーズID = CStage.Eフェーズ.起動4_スコアキャッシュになかった曲をファイルから読み込んで反映する;
@@ -534,32 +474,6 @@ namespace TJAPlayer3
 				//					}
 				//-----------------------------
 				#endregion
-				#region [ 6) songs.db への保存 ]
-				//-----------------------------
-				//					base.eフェーズID = CStage.Eフェーズ.起動6_スコアキャッシュをSongsDBに出力する;
-
-				Trace.TraceInformation( "enum6) 曲データの情報を songs.db へ出力します。" );
-				Trace.Indent();
-
-				try
-				{
-					this.Songs管理.tスコアキャッシュをSongsDBに出力する( strPathSongsDB );
-				}
-				catch ( Exception e )
-				{
-					Trace.TraceError( e.ToString() );
-					Trace.TraceError( "例外が発生しましたが処理を継続します。 (a9606e11-33e6-46bc-8c79-738b3524a713)" );
-				}
-				finally
-				{
-					Trace.TraceInformation( "songs.db への出力を完了しました。[{0}スコア]", this.Songs管理.nSongsDBへ出力できたスコア数 );
-					Trace.Unindent();
-				}
-				//					lock ( this.list進行文字列 )
-				//					{
-				//						this.list進行文字列.Add( string.Format( "{0} ... OK", "Saving songs.db" ) );
-				//					}
-				#endregion
 
 				//				if ( !bSucceededFastBoot )	// songs2.db読み込みに成功したなら、songs2.dbを新たに作らない
 				#region [ 7) songlist.db への保存 ]		// #27060 2012.1.26 yyagi
@@ -567,7 +481,7 @@ namespace TJAPlayer3
 				Trace.Indent();
 
 				SerializeSongList( this.Songs管理, strPathSongList );
-				Trace.TraceInformation( "songlist.db への出力を完了しました。[{0}スコア]", this.Songs管理.nSongsDBへ出力できたスコア数 );
+				Trace.TraceInformation( "songlist.db への出力を完了しました。" );
 				Trace.Unindent();
 				//-----------------------------
 				#endregion
