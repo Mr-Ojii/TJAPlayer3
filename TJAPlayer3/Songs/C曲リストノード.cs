@@ -25,6 +25,7 @@ namespace TJAPlayer3
 		public Color BackColor = Color.Black;
 		public bool IsChangedForeColor;
 		public bool IsChangedBackColor;
+		[JsonIgnore]
 		public List<C曲リストノード> listランダム用ノードリスト;
 		public List<C曲リストノード> list子リスト;
 		public int nスコア数;

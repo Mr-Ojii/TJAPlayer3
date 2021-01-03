@@ -137,52 +137,9 @@ namespace TJAPlayer3
 
 		protected enum EEvent { 非表示, 数値更新, 同一数値, ミス通知 }
 		protected enum EMode { 非表示中, 進行表示中, 残像表示中 }
-		protected const int nドラムコンボのCOMBO文字の高さ = 32;
-		protected const int nドラムコンボのCOMBO文字の幅 = 90;
-		protected const int nドラムコンボの高さ = 115;
-		protected const int nドラムコンボの幅 = 90;
-		protected const int nドラムコンボの文字間隔 = -6;
-		protected int[] nジャンプ差分値 = new int[ 180 ];
 		protected CSTATUS status;
-		//protected CTexture txCOMBO太鼓;
-		//protected CTexture txCOMBO太鼓_でかいやつ;
-		//protected CTexture txコンボラメ;
 		public CCounter[] ctコンボ加算;
 		public CCounter ctコンボラメ;
-
-		protected float[,] nコンボ拡大率_座標 = new float[,]{
-						{1.11f,-7},
-						{1.22f,-14},
-						{1.2f,-12},
-						{1.15f,-9},
-						{1.13f,-8},
-						{1.11f,-7},
-						{1.06f,-3},
-						{1.04f,-2},
-						{1.0f,0},
-					};
-		protected float[,] nコンボ拡大率_座標_100combo = new float[,]{
-						{0.81f,-7},
-						{0.92f,-14},
-						{0.9f,-12},
-						{0.85f,-9},
-						{0.83f,-8},
-						{0.81f,-7},
-						{0.78f,-3},
-						{0.74f,-2},
-						{0.7f,0},
-				};
-	protected float[,] nコンボ拡大率_座標_1000combo = new float[,]{
-						{1.11f,-7},
-						{1.22f,-14},
-						{1.2f,-12},
-						{1.15f,-9},
-						{1.13f,-8},
-						{1.11f,-7},
-						{1.06f,-3},
-						{1.04f,-2},
-						{1.0f,0},
-					};
 
 
 		private float[] ComboScale = new float[]
@@ -288,10 +245,6 @@ namespace TJAPlayer3
 		public CAct演奏Combo共通()
 		{
 			this.b活性化してない = true;
-
-			// 180度分のジャンプY座標差分を取得。(0度: 0 → 90度:-15 → 180度: 0)
-			for( int i = 0; i < 180; i++ )
-				this.nジャンプ差分値[ i ] = (int) ( -15.0 * Math.Sin( ( Math.PI * i ) / 180.0 ) );
 		}
 
 

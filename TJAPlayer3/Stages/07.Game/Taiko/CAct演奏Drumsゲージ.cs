@@ -43,10 +43,6 @@ namespace TJAPlayer3
 			base.b活性化してない = true;
 		}
 
-		public override void Start(int nLane, E判定 judge, int player)
-		{
-		}
-
 		// CActivity 実装
 
 		public override void On活性化()

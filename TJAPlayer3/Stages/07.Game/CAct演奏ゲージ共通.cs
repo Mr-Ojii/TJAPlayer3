@@ -463,10 +463,6 @@ namespace TJAPlayer3
 
 		}
 
-		public virtual void Start(int nLane, E判定 judge, int player)
-		{
-		}
-
 		//-----------------
 		#endregion
 
