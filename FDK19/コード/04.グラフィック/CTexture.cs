@@ -551,15 +551,15 @@ namespace FDK
 			#endregion
 		}
 
-		public void t2D上下反転描画(Device device, int x, int y)
+		public void t2D上下反転描画(Device device, float x, float y)
 		{
 			this.t2D上下反転描画(device, x, y, 1f, this.rc全画像);
 		}
-		public void t2D上下反転描画(Device device, int x, int y, Rectangle rc画像内の描画領域)
+		public void t2D上下反転描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
 		{
 			this.t2D上下反転描画(device, x, y, 1f, rc画像内の描画領域);
 		}
-		public void t2D上下反転描画(Device device, int x, int y, float depth, Rectangle rc画像内の描画領域)
+		public void t2D上下反転描画(Device device, float x, float y, float depth, Rectangle rc画像内の描画領域)
 		{
 			if (this.texture == null)
 				throw new InvalidOperationException("テクスチャは生成されていません。");
@@ -622,17 +622,77 @@ namespace FDK
 			device.VertexFormat = TransformedColoredTexturedVertex.Format;
 			device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 2, this.cvTransformedColoredVertexies);
 		}
-		public void t2D上下反転描画(Device device, Point pt)
+
+		public void t2D左右反転描画(Device device, float x, float y)
 		{
-			this.t2D上下反転描画(device, pt.X, pt.Y, 1f, this.rc全画像);
+			this.t2D左右反転描画(device, x, y, 1f, this.rc全画像);
 		}
-		public void t2D上下反転描画(Device device, Point pt, Rectangle rc画像内の描画領域)
+		public void t2D左右反転描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
 		{
-			this.t2D上下反転描画(device, pt.X, pt.Y, 1f, rc画像内の描画領域);
+			this.t2D左右反転描画(device, x, y, 1f, rc画像内の描画領域);
 		}
-		public void t2D上下反転描画(Device device, Point pt, float depth, Rectangle rc画像内の描画領域)
+		public void t2D左右反転描画(Device device, float x, float y, float depth, Rectangle rc画像内の描画領域)
 		{
-			this.t2D上下反転描画(device, pt.X, pt.Y, depth, rc画像内の描画領域);
+			if (this.texture == null)
+				throw new InvalidOperationException("テクスチャは生成されていません。");
+
+			if (this.texture.Device.NativePointer != device.NativePointer)
+				ReuseTexture(device);
+
+			this.tレンダリングステートの設定(device);
+
+			float fx = x * CTexture.f画面比率 + CTexture.rc物理画面描画領域.X - 0.5f;   // -0.5 は座標とピクセルの誤差を吸収するための座標補正値。(MSDN参照)
+			float fy = y * CTexture.f画面比率 + CTexture.rc物理画面描画領域.Y - 0.5f;   //
+			float w = rc画像内の描画領域.Width * this.vc拡大縮小倍率.X * CTexture.f画面比率;
+			float h = rc画像内の描画領域.Height * this.vc拡大縮小倍率.Y * CTexture.f画面比率;
+			float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szテクスチャサイズ.Width);
+			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
+			float f上V値 = ((float)rc画像内の描画領域.Top) / ((float)this.szテクスチャサイズ.Height);
+			float f下V値 = ((float)rc画像内の描画領域.Bottom) / ((float)this.szテクスチャサイズ.Height);
+
+			this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
+			int color = this.color.ToArgb();
+
+			if (this.cvTransformedColoredVertexies == null)
+				this.cvTransformedColoredVertexies = new TransformedColoredTexturedVertex[4];
+
+			// 以下、マネージドオブジェクトの量産を抑えるため new は使わない。
+
+			this.cvTransformedColoredVertexies[0].TextureCoordinates.X = f右U値;  // 左上	→ 右上
+			this.cvTransformedColoredVertexies[0].TextureCoordinates.Y = f上V値;
+			this.cvTransformedColoredVertexies[0].Position.X = fx;
+			this.cvTransformedColoredVertexies[0].Position.Y = fy;
+			this.cvTransformedColoredVertexies[0].Position.Z = depth;
+			this.cvTransformedColoredVertexies[0].Position.W = 1.0f;
+			this.cvTransformedColoredVertexies[0].Color = color;
+
+			this.cvTransformedColoredVertexies[1].TextureCoordinates.X = f左U値;  // 右上 → 左上
+			this.cvTransformedColoredVertexies[1].TextureCoordinates.Y = f上V値;
+			this.cvTransformedColoredVertexies[1].Position.X = fx + w;
+			this.cvTransformedColoredVertexies[1].Position.Y = fy;
+			this.cvTransformedColoredVertexies[1].Position.Z = depth;
+			this.cvTransformedColoredVertexies[1].Position.W = 1.0f;
+			this.cvTransformedColoredVertexies[1].Color = color;
+
+			this.cvTransformedColoredVertexies[2].TextureCoordinates.X = f右U値;  // 左下 → 右下
+			this.cvTransformedColoredVertexies[2].TextureCoordinates.Y = f下V値;
+			this.cvTransformedColoredVertexies[2].Position.X = fx;
+			this.cvTransformedColoredVertexies[2].Position.Y = fy + h;
+			this.cvTransformedColoredVertexies[2].Position.Z = depth;
+			this.cvTransformedColoredVertexies[2].Position.W = 1.0f;
+			this.cvTransformedColoredVertexies[2].Color = color;
+
+			this.cvTransformedColoredVertexies[3].TextureCoordinates.X = f左U値;  // 右下 → 左下
+			this.cvTransformedColoredVertexies[3].TextureCoordinates.Y = f下V値;
+			this.cvTransformedColoredVertexies[3].Position.X = fx + w;
+			this.cvTransformedColoredVertexies[3].Position.Y = fy + h;
+			this.cvTransformedColoredVertexies[3].Position.Z = depth;
+			this.cvTransformedColoredVertexies[3].Position.W = 1.0f;
+			this.cvTransformedColoredVertexies[3].Color = color;
+
+			device.SetTexture(0, this.texture);
+			device.VertexFormat = TransformedColoredTexturedVertex.Format;
+			device.DrawUserPrimitives(PrimitiveType.TriangleStrip, 2, this.cvTransformedColoredVertexies);
 		}
 
 		public static Vector3 t論理画面座標をワールド座標へ変換する(int x, int y)
