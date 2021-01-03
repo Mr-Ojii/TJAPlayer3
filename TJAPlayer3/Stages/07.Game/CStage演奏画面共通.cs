@@ -5357,88 +5357,149 @@ namespace TJAPlayer3
 						if (pChip.nチャンネル番号 == 0x15 && pChip.bShow) //連打(小)
 						{
 							int index = Math.Abs(x末端 - x); //連打の距離
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
+							if (x末端 > x)
 							{
-								#region[末端をテクスチャ側でつなげる場合の方式]
+								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
+								{
+									#region[末端をテクスチャ側でつなげる場合の方式]
+									if (TJAPlayer3.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
+										TJAPlayer3.Tx.Notes.color = effectedColor;
+									else
+										TJAPlayer3.Tx.Notes.color = normalColor;
+									TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整 + 1) / 128.0f;
 
-								if (TJAPlayer3.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
-									TJAPlayer3.Tx.Notes.color = effectedColor;
-								else
-									TJAPlayer3.Tx.Notes.color = normalColor;
-								TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整 + 1) / 128.0f;
-
-								if (x末端 > x)
 									TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x + 64, y, new Rectangle(781, 0, 128, 130));
-								else//マイナス
+
+									TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
+
+									TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(910, num9, 130, 130));
+
+									if (TJAPlayer3.Skin.Game_RollColorMode == CSkin.RollColorMode.All)
+										TJAPlayer3.Tx.Notes.color = effectedColor;
+									else
+										TJAPlayer3.Tx.Notes.color = normalColor;
+
+									TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x, y, 0, new Rectangle(650, num9, 130, 130));
+									TJAPlayer3.Tx.Notes.color = normalColor;
+									#endregion
+								}
+								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
+								{
+									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = index - 44;
+									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
+									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = 1.0f;
+									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
+									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+								}
+							}
+							else //マイナス
+							{
+								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
+								{
+									#region[末端をテクスチャ側でつなげる場合の方式]
+									if (TJAPlayer3.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
+										TJAPlayer3.Tx.Notes.color = effectedColor;
+									else
+										TJAPlayer3.Tx.Notes.color = normalColor;
+									TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整 + 1) / 128.0f;
+
 									TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 64, y, new Rectangle(781, 0, 128, 130));
 
-								TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
+									TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
 
-								if(x末端 > x)
-									TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(910, num9, 130, 130));
-								else//マイナス
 									TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 - 130 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(910, num9, 130, 130));
 
-								if (TJAPlayer3.Skin.Game_RollColorMode == CSkin.RollColorMode.All)
-									TJAPlayer3.Tx.Notes.color = effectedColor;
-								else
-									TJAPlayer3.Tx.Notes.color = normalColor;
+									if (TJAPlayer3.Skin.Game_RollColorMode == CSkin.RollColorMode.All)
+										TJAPlayer3.Tx.Notes.color = effectedColor;
+									else
+										TJAPlayer3.Tx.Notes.color = normalColor;
 
-								TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x, y, 0, new Rectangle(650, num9, 130, 130));
-								TJAPlayer3.Tx.Notes.color = normalColor;
-								#endregion
-							}
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
-							{
-								TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = index - 44;
-								TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
-								TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = 1.0f;
-								TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
-								TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+									TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x, y, 0, new Rectangle(650, num9, 130, 130));
+									TJAPlayer3.Tx.Notes.color = normalColor;
+									#endregion
+								}
+								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
+								{
+									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = index - 44;
+									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
+									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = 1.0f;
+									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
+									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+								}
 							}
 						}
 						if (pChip.nチャンネル番号 == 0x16 && pChip.bShow)
 						{
 							int index = Math.Abs(x末端 - x); //連打の距離
-
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
+							if (x末端 > x)
 							{
-								#region[末端をテクスチャ側でつなげる場合の方式]
+								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
+								{
+									#region[末端をテクスチャ側でつなげる場合の方式]
+									if (TJAPlayer3.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
+										TJAPlayer3.Tx.Notes.color = effectedColor;
+									else
+										TJAPlayer3.Tx.Notes.color = normalColor;
 
-								if (TJAPlayer3.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
-									TJAPlayer3.Tx.Notes.color = effectedColor;
-								else
-									TJAPlayer3.Tx.Notes.color = normalColor;
+									TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = (index - 65 + f末端ノーツのテクスチャ位置調整 + 1) / 128f;
 
-								TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = (index - 65 + f末端ノーツのテクスチャ位置調整 + 1) / 128f;
-
-								if(x末端 > x)
 									TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x + 64, y, new Rectangle(1171, 0, 128, 130));
-								else//マイナス
+
+									TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
+									TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(1300, num9, 130, 130));
+
+									if (TJAPlayer3.Skin.Game_RollColorMode == CSkin.RollColorMode.All)
+										TJAPlayer3.Tx.Notes.color = effectedColor;
+									else
+										TJAPlayer3.Tx.Notes.color = normalColor;
+
+									TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x, y, new Rectangle(1040, num9, 130, 130));
+									TJAPlayer3.Tx.Notes.color = normalColor;
+									#endregion
+								}
+								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
+								{
+									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = index - 70;
+									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 116, y + nSenotesY, new Rectangle(60, 240, 1, 30));
+									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = 1.0f;
+									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 56, y + nSenotesY, new Rectangle(0, 240, 60, 30));
+									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+								}
+							}
+							else //マイナス
+							{
+								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
+								{
+									#region[末端をテクスチャ側でつなげる場合の方式]
+									if (TJAPlayer3.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
+										TJAPlayer3.Tx.Notes.color = effectedColor;
+									else
+										TJAPlayer3.Tx.Notes.color = normalColor;
+
+									TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = (index - 65 + f末端ノーツのテクスチャ位置調整 + 1) / 128f;
+
 									TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 64, y, new Rectangle(1171, 0, 128, 130));
 
-								TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
-								if (x末端 > x)
-									TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(1300, num9, 130, 130));
-								else//マイナス
+									TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
 									TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 - 130 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(1300, num9, 130, 130));
 
-								if (TJAPlayer3.Skin.Game_RollColorMode == CSkin.RollColorMode.All)
-									TJAPlayer3.Tx.Notes.color = effectedColor;
-								else
-									TJAPlayer3.Tx.Notes.color = normalColor;
+									if (TJAPlayer3.Skin.Game_RollColorMode == CSkin.RollColorMode.All)
+										TJAPlayer3.Tx.Notes.color = effectedColor;
+									else
+										TJAPlayer3.Tx.Notes.color = normalColor;
 
-								TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x, y, new Rectangle(1040, num9, 130, 130));
-								TJAPlayer3.Tx.Notes.color = normalColor;
-								#endregion
-							}
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
-							{
-								TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = index - 70;
-								TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 116, y + nSenotesY, new Rectangle(60, 240, 1, 30));
-								TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = 1.0f;
-								TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 56, y + nSenotesY, new Rectangle(0, 240, 60, 30));
-								TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+									TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x, y, new Rectangle(1040, num9, 130, 130));
+									TJAPlayer3.Tx.Notes.color = normalColor;
+									#endregion
+								}
+								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
+								{
+									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = index - 70;
+									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 116, y + nSenotesY, new Rectangle(60, 240, 1, 30));
+									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = 1.0f;
+									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x + 56, y + nSenotesY, new Rectangle(0, 240, 60, 30));
+									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+								}
 							}
 						}
 						if (pChip.nチャンネル番号 == 0x17 && pChip.bShow)
