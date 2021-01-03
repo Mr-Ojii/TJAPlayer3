@@ -2966,15 +2966,15 @@ namespace TJAPlayer3
 							chip.nノーツ終了時刻ms = (int)this.dbNowTime;
 							chip.fBMSCROLLTime_end = (float)this.dbNowBMScollTime;
 
-							chip.nノーツ出現時刻ms = listChip[nNowRollCount].nノーツ出現時刻ms;
-							chip.nノーツ移動開始時刻ms = listChip[nNowRollCount].nノーツ移動開始時刻ms;
+							chip.nノーツ出現時刻ms = listChip[nNowRollCount + i].nノーツ出現時刻ms;
+							chip.nノーツ移動開始時刻ms = listChip[nNowRollCount + i].nノーツ移動開始時刻ms;
 
 							chip.n連打音符State = nNowRoll;
-							listChip[nNowRollCount].nノーツ終了位置 = (this.n現在の小節数 * 384) + ((384 * n) / n文字数);
-							listChip[nNowRollCount].nノーツ終了時刻ms = (int)this.dbNowTime;
-							listChip[nNowRollCount].fBMSCROLLTime_end = (int)this.dbNowBMScollTime;
-							//listChip[ nNowRollCount ].dbBPM = this.dbNowBPM;
-							//listChip[ nNowRollCount ].dbSCROLL = this.dbNowSCROLL;
+							listChip[nNowRollCount + i].nノーツ終了位置 = (this.n現在の小節数 * 384) + ((384 * n) / n文字数);
+							listChip[nNowRollCount + i].nノーツ終了時刻ms = (int)this.dbNowTime;
+							listChip[nNowRollCount + i].fBMSCROLLTime_end = (int)this.dbNowBMScollTime;
+							listChip[nNowRollCount + i].db末端BPM = dbNowBPM;
+							listChip[nNowRollCount + i].db末端SCROLL = this.dbNowScroll;
 							nNowRoll = 0;
 							//continue;
 						}
@@ -4758,15 +4758,15 @@ namespace TJAPlayer3
 									chip.nノーツ終了時刻ms = (int)this.dbNowTime;
 									chip.fBMSCROLLTime_end = (float)this.dbNowBMScollTime;
 
-									chip.nノーツ出現時刻ms = listChip[nNowRollCount].nノーツ出現時刻ms;
-									chip.nノーツ移動開始時刻ms = listChip[nNowRollCount].nノーツ移動開始時刻ms;
+									chip.nノーツ出現時刻ms = listChip[nNowRollCount + i].nノーツ出現時刻ms;
+									chip.nノーツ移動開始時刻ms = listChip[nNowRollCount + i].nノーツ移動開始時刻ms;
 
 									chip.n連打音符State = nNowRoll;
-									listChip[nNowRollCount].nノーツ終了位置 = (this.n現在の小節数 * 384) + ((384 * n) / n文字数);
-									listChip[nNowRollCount].nノーツ終了時刻ms = (int)this.dbNowTime;
-									listChip[nNowRollCount].fBMSCROLLTime_end = (int)this.dbNowBMScollTime;
-									listChip[nNowRollCount].db末端BPM = dbNowBPM;
-									listChip[nNowRollCount].db末端SCROLL = this.dbNowScroll;
+									listChip[nNowRollCount + i].nノーツ終了位置 = (this.n現在の小節数 * 384) + ((384 * n) / n文字数);
+									listChip[nNowRollCount + i].nノーツ終了時刻ms = (int)this.dbNowTime;
+									listChip[nNowRollCount + i].fBMSCROLLTime_end = (int)this.dbNowBMScollTime;
+									listChip[nNowRollCount + i].db末端BPM = dbNowBPM;
+									listChip[nNowRollCount + i].db末端SCROLL = this.dbNowScroll;
 									nNowRoll = 0;
 									//continue;
 								}
