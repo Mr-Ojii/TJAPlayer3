@@ -5296,8 +5296,8 @@ namespace TJAPlayer3
 									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
 									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = 1.0f;
 									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
-									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30)); 
-									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 46, y + nSenotesY, new Rectangle(58, 270, 78, 30));
+									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 46 - 30, y + nSenotesY, new Rectangle(58, 270, 78, 30));
 								}
 							}
 						}
@@ -5332,11 +5332,11 @@ namespace TJAPlayer3
 								}
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
 								{
-									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = index - 70;
-									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 116, y + nSenotesY, new Rectangle(60, 240, 1, 30));
+									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = index - 44;
+									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
 									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = 1.0f;
-									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 56, y + nSenotesY, new Rectangle(0, 240, 60, 30));
-									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
+									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
 									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x末端 + 46, y + nSenotesY, new Rectangle(58, 270, 78, 30));
 								}
 							}
@@ -5368,12 +5368,12 @@ namespace TJAPlayer3
 								}
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
 								{
-									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = index - 70;
-									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 116, y + nSenotesY, new Rectangle(60, 240, 1, 30));
+									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = index - 44;
+									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
 									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = 1.0f;
-									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x + 56, y + nSenotesY, new Rectangle(0, 240, 60, 30));
-									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
-									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 46, y + nSenotesY, new Rectangle(58, 270, 78, 30));
+									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
+									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 46 - 30, y + nSenotesY, new Rectangle(58, 270, 78, 30));
 								}
 							}
 						}
