@@ -178,7 +178,6 @@ namespace TJAPlayer3
 			public int nノーツ終了時刻ms;
 			public int nノーツ出現時刻ms;
 			public int nノーツ移動開始時刻ms;
-			public int n連打音符State;
 			public int nLag;                // 2011.2.1 yyagi
 			public CVideoDecoder rVD;
 			public int nPlayerSide;
@@ -2968,7 +2967,6 @@ namespace TJAPlayer3
 							chip.nノーツ出現時刻ms = listChip[nNowRollCount + i].nノーツ出現時刻ms;
 							chip.nノーツ移動開始時刻ms = listChip[nNowRollCount + i].nノーツ移動開始時刻ms;
 
-							chip.n連打音符State = nNowRoll;
 							listChip[nNowRollCount + i].nノーツ終了位置 = (this.n現在の小節数 * 384) + ((384 * n) / n文字数);
 							listChip[nNowRollCount + i].nノーツ終了時刻ms = (int)this.dbNowTime;
 							listChip[nNowRollCount + i].fBMSCROLLTime_end = (int)this.dbNowBMScollTime;
@@ -4760,7 +4758,6 @@ namespace TJAPlayer3
 									chip.nノーツ出現時刻ms = listChip[nNowRollCount + i].nノーツ出現時刻ms;
 									chip.nノーツ移動開始時刻ms = listChip[nNowRollCount + i].nノーツ移動開始時刻ms;
 
-									chip.n連打音符State = nNowRoll;
 									listChip[nNowRollCount + i].nノーツ終了位置 = (this.n現在の小節数 * 384) + ((384 * n) / n文字数);
 									listChip[nNowRollCount + i].nノーツ終了時刻ms = (int)this.dbNowTime;
 									listChip[nNowRollCount + i].fBMSCROLLTime_end = (int)this.dbNowBMScollTime;

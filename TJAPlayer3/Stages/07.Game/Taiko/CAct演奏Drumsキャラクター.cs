@@ -28,7 +28,6 @@ namespace TJAPlayer3
 		public override void On活性化()
 		{
 			this.b風船連打中 = new bool[2] { false, false };
-			this.b演奏中 = false;
 
 			// ふうせん系アニメーションの総再生時間は画像枚数 x Tick間隔なので、
 			// フェードアウトの開始タイミングは、総再生時間 - フェードアウト時間。
@@ -397,6 +396,5 @@ namespace TJAPlayer3
 		public bool[] bマイどんアクション中;
 
 		public bool[] b風船連打中;
-		public bool b演奏中;
 	}
 }
