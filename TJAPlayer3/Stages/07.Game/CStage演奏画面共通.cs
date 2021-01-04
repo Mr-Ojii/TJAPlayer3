@@ -261,23 +261,6 @@ namespace TJAPlayer3
 			for( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
 			{
 				listChip[i] = TJAPlayer3.DTX[i].listChip;
-
-				int n整数値管理 = 0;
-				if (r指定時刻に一番近い未ヒットChipを過去方向優先で検索する(0, i) != null)//2020.07.08 Mr-Ojii 未ヒットチップがないときの例外の発生回避
-				{
-					foreach (CDTX.CChip chip in listChip[i])
-					{
-						if ((chip.nチャンネル番号 == 0x15 || chip.nチャンネル番号 == 0x16) && (n整数値管理 < this.listChip[i].Count - 1))
-						{
-
-							if (chip.db発声時刻ms < r指定時刻に一番近い未ヒットChipを過去方向優先で検索する(0, i).db発声時刻ms)
-							{
-								chip.b描画優先度 = true;
-							}
-						}
-						n整数値管理++;
-					}
-				}
 			}
 
 			for (int index = TJAPlayer3.DTX[0].listChip.Count - 1; index >= 0; index--)
@@ -3695,8 +3678,7 @@ namespace TJAPlayer3
 										this.chip現在処理中の連打チップ[ nPlayer ] = pChip;
 								}
 							}
-							if (!pChip.b描画優先度)
-								this.t進行描画_チップ_Taiko連打(configIni, ref dTX, ref pChip, nPlayer);
+							this.t進行描画_チップ_Taiko連打(configIni, ref dTX, ref pChip, nPlayer);
 						}
 
 						break;
@@ -3726,8 +3708,7 @@ namespace TJAPlayer3
 
 								}
 							}
-							if( !pChip.b描画優先度 )
-								this.t進行描画_チップ_Taiko連打(configIni, ref dTX, ref pChip, nPlayer);
+							this.t進行描画_チップ_Taiko連打(configIni, ref dTX, ref pChip, nPlayer);
 						}
 
 						break;
@@ -4363,23 +4344,6 @@ namespace TJAPlayer3
 						}
 					}
 				}
-
-				switch ( pChip.nチャンネル番号 )
-				{
-#region[ 15-19: 連打 ]
-					case 0x15: //連打
-					case 0x16: //連打(大)
-					case 0x17: //風船
-					case 0x18: //連打終了
-					case 0x19:
-						{
-							if (pChip.b描画優先度)
-								this.t進行描画_チップ_Taiko連打(TJAPlayer3.ConfigIni, ref dTX, ref pChip, nPlayer);
-						}
-						break;
-#endregion
-				}
-
 			}
 			return false;
 		}
