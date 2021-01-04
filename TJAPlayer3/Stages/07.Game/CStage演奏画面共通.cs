@@ -4936,7 +4936,7 @@ namespace TJAPlayer3
 				if (x >= 0)
 				{
 					Matrix4x4 mat = Matrix4x4.Identity;
-					mat *= Matrix4x4.CreateRotationZ(C変換.DegreeToRadian(-(90.0f * (float)pChip.dbSCROLL_Y)));
+					mat *= Matrix4x4.CreateRotationZ(pChip.dbSCROLL != 0 ? (float)-Math.Atan((pChip.dbSCROLL_Y / pChip.dbSCROLL)) : (float)(Math.PI / 2.0));
 					mat *= Matrix4x4.CreateTranslation((float)(x - 640.0f) - 1.5f, -(y - 360.0f + 65.0f), 0f);
 
 					if (pChip.bBranch)
