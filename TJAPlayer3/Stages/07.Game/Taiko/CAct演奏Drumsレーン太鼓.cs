@@ -137,7 +137,7 @@ namespace TJAPlayer3
 				if (TJAPlayer3.stage演奏ドラム画面.bUseBranch[i] == true)
 				{
 					#region[ 動いていない ]
-					switch (TJAPlayer3.stage演奏ドラム画面.nレーン用表示コース[i])
+					switch (TJAPlayer3.stage演奏ドラム画面.n次回のコース[i])
 					{
 						case 0:
 							if (TJAPlayer3.Tx.Lane_Base[0] != null)
@@ -292,7 +292,7 @@ namespace TJAPlayer3
 					{
 						if (!this.stBranch[i].ct分岐アニメ進行.b進行中)
 						{
-							switch (TJAPlayer3.stage演奏ドラム画面.nレーン用表示コース[i])
+							switch (TJAPlayer3.stage演奏ドラム画面.n次回のコース[i])
 							{
 								case 0:
 									TJAPlayer3.Tx.Lane_Text[0].Opacity = 255;
@@ -482,7 +482,7 @@ namespace TJAPlayer3
 
 						if (this.stBranch[i].nY座標 == 0)
 						{
-							switch (TJAPlayer3.stage演奏ドラム画面.nレーン用表示コース[i])
+							switch (TJAPlayer3.stage演奏ドラム画面.n次回のコース[i])
 							{
 								case 0:
 									TJAPlayer3.Tx.Lane_Text[0].Opacity = 255;

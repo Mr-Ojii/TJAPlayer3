@@ -303,7 +303,6 @@ namespace TJAPlayer3
 			this.bUseBranch = new bool[]{ false, false, false, false };
 			this.n現在のコース = new int[ 4 ];
 			this.n次回のコース = new int[ 4 ];
-			this.nレーン用表示コース = new int[4];
 			for (int i = 0; i < 2; i++)
 			{
 				this.b強制的に分岐させた[i] = false;
@@ -947,7 +946,6 @@ namespace TJAPlayer3
 		public bool[] bUseBranch = new bool[ 4 ];
 		public int[] n現在のコース = new int[ 4 ]; //0:普通譜面 1:玄人譜面 2:達人譜面
 		public int[] n次回のコース = new int[ 4 ];
-		public int[] nレーン用表示コース = new int[4];
 		protected bool[] b譜面分岐中 = new bool[] { false, false, false, false };
 		protected int[] n分岐した回数 = new int[ 4 ];
 		protected int[] nJPOSSCROLL = new int[ 4 ];
@@ -983,7 +981,6 @@ namespace TJAPlayer3
 									//		protected GCLatencyMode gclatencymode;
 
 
-		private bool[] b強制分岐譜面 = new bool[4];
 		public double nBranch条件数値A;
 		public double nBranch条件数値B;
 		private int ListDan_Number;
@@ -2908,7 +2905,6 @@ namespace TJAPlayer3
 						TJAPlayer3.stage演奏ドラム画面.actMtaiko.tBranchEvent(TJAPlayer3.stage演奏ドラム画面.actMtaiko.After[0], course, 0);
 						this.n現在のコース[0] = course;
 						this.n次回のコース[0] = course;
-						this.nレーン用表示コース[0] = course;
 
 						this.b強制的に分岐させた[0] = true;
 					}
@@ -2939,7 +2935,6 @@ namespace TJAPlayer3
 						TJAPlayer3.stage演奏ドラム画面.actMtaiko.tBranchEvent(TJAPlayer3.stage演奏ドラム画面.actMtaiko.After[0], course, 1);
 						this.n現在のコース[1] = course;
 						this.n次回のコース[1] = course;
-						this.nレーン用表示コース[1] = course;
 
 						this.b強制的に分岐させた[1] = true;
 					}
@@ -3757,8 +3752,6 @@ namespace TJAPlayer3
 					case 0xDE: //Judgeに応じたCourseを取得//2020.04.25 Mr-Ojii akasoko26さんのコードをもとに変更
 						if (!pChip.bHit && (pChip.nバーからの距離dot.Drums < 0))
 						{
-							this.b強制分岐譜面[nPlayer] = false;
-
 							if (dTX.listBRANCH.TryGetValue(pChip.n整数値_内部番号, out CDTX.CBRANCH cBranch))
 							{
 
@@ -3768,14 +3761,8 @@ namespace TJAPlayer3
 
 								if (!this.bLEVELHOLD[nPlayer])
 								{
-									//成仏2000にある-2,-1だったら達人に強制分岐みたいな。
-									this.t強制用条件かを判断する(cBranch, nPlayer);
-
 									TJAPlayer3.stage演奏ドラム画面.bUseBranch[nPlayer] = true;
 									this.tBranchJudge(cBranch, this.CBranchScore[nPlayer].cBigNotes, this.CBranchScore[nPlayer].nScore, this.CBranchScore[nPlayer].nRoll, this.CBranchScore[nPlayer].nGreat, this.CBranchScore[nPlayer].nGood, this.CBranchScore[nPlayer].nMiss, nPlayer);
-
-									if (this.b強制分岐譜面[nPlayer])//強制分岐譜面だったら次回コースをそのコースにセット
-										this.n次回のコース[nPlayer] = this.N強制コース[nPlayer];
 
 									this.t分岐処理(this.n次回のコース[nPlayer], nPlayer, cBranch.db分岐時刻ms, cBranch.n分岐の種類);
 
@@ -3971,17 +3958,14 @@ namespace TJAPlayer3
 				if (dbRate < cBranch.db条件数値A)
 				{
 					this.n次回のコース[nPlayer] = 0;
-					this.nレーン用表示コース[nPlayer] = 0;
 				}
 				else if (dbRate >= cBranch.db条件数値A && dbRate < cBranch.db条件数値B)
 				{
 					this.n次回のコース[nPlayer] = 1;
-					this.nレーン用表示コース[nPlayer] = 1;
 				}
 				else if (dbRate >= cBranch.db条件数値B)
 				{
 					this.n次回のコース[nPlayer] = 2;
-					this.nレーン用表示コース[nPlayer] = 2;
 				}
 			}
 			else if (n種類 == 2)
@@ -3990,17 +3974,14 @@ namespace TJAPlayer3
 				{
 					if (dbRate < cBranch.db条件数値A)
 					{
-						this.nレーン用表示コース[nPlayer] = 0;
 						this.n次回のコース[nPlayer] = 0;
 					}
 					else if (dbRate >= cBranch.db条件数値A && dbRate < cBranch.db条件数値B)
 					{
-						this.nレーン用表示コース[nPlayer] = 1;
 						this.n次回のコース[nPlayer] = 1;
 					}
 					else if (dbRate >= cBranch.db条件数値B)
 					{
-						this.nレーン用表示コース[nPlayer] = 2;
 						this.n次回のコース[nPlayer] = 2;
 					}
 				}
@@ -4010,47 +3991,16 @@ namespace TJAPlayer3
 				{
 					if (dbRate < cBranch.db条件数値A)
 					{
-						this.nレーン用表示コース[nPlayer] = 0;
 						this.n次回のコース[nPlayer] = 0;
 					}
 					else if (dbRate >= cBranch.db条件数値A && dbRate < cBranch.db条件数値B)
 					{
-						this.nレーン用表示コース[nPlayer] = 1;
 						this.n次回のコース[nPlayer] = 1;
 					}
 					else if (dbRate >= cBranch.db条件数値B)
 					{
-						this.nレーン用表示コース[nPlayer] = 2;
 						this.n次回のコース[nPlayer] = 2;
 					}
-				}
-			}
-		}
-
-		//2020.04.23 Mr-Ojii akasokoさんの分岐方法を参考にして、追加
-		private int[] N強制コース = new int[4];
-		private void t強制用条件かを判断する(CDTX.CBRANCH cBranch, int nPlayer)
-		{
-			double db条件A = cBranch.db条件数値A;
-			double db条件B = cBranch.db条件数値B;
-			int n種類 = cBranch.n分岐の種類;
-
-			if (n種類 == 0)//精度分岐だったら
-			{
-				if (db条件A >= 100 && db条件B >= 100) //強制普通譜面
-				{
-					N強制コース[nPlayer] = 0;
-					this.b強制分岐譜面[nPlayer] = true;
-				}
-				else if (db条件A <= 0 && db条件B >= 100)  //強制玄人譜面
-				{
-					N強制コース[nPlayer] = 1;
-					this.b強制分岐譜面[nPlayer] = true;
-				}
-				else if (db条件A <= 0 && db条件B <= 0)   //強制達人譜面
-				{
-					N強制コース[nPlayer] = 2;
-					this.b強制分岐譜面[nPlayer] = true;
 				}
 			}
 		}
@@ -4608,7 +4558,6 @@ namespace TJAPlayer3
 										TJAPlayer3.Tx.Notes_Arm.t2D描画(device, x + 60, (y - 14) - nHand);
 									}
 									TJAPlayer3.Tx.Notes.t2D描画(device, x, y, new Rectangle(1690, num9, 130, 130));
-									//CDTXMania.Tx.Notes.t3D描画( device, mat, new Rectangle( 390, num9, 130, 130 ) );
 								}
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
 									TJAPlayer3.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 390, 136, 30));
