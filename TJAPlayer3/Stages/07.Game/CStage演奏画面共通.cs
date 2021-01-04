@@ -1120,97 +1120,6 @@ namespace TJAPlayer3
 			return E判定.Miss;
 		}
 
-		protected CDTX.CChip r指定時刻に一番近い連打Chip_ヒット未済問わず不可視考慮( long nTime, int nChannel, int nInputAdjustTime, int nPlayer )
-		{
-			//sw2.Start();
-//Trace.TraceInformation( "NTime={0}, nChannel={1:x2}", nTime, nChannel );
-			nTime += nInputAdjustTime;						// #24239 2011.1.23 yyagi InputAdjust
-
-			int nIndex_InitialPositionSearchingToPast;
-			if ( this.n現在のトップChip == -1 )				// 演奏データとして1個もチップがない場合は
-			{
-				//sw2.Stop();
-				return null;
-			}
-
-			List<CDTX.CChip> playerListChip = listChip[ nPlayer ];
-			int count = playerListChip.Count;
-			int nIndex_NearestChip_Future = nIndex_InitialPositionSearchingToPast = this.n現在のトップChip;
-			if ( this.n現在のトップChip >= count )			// その時点で演奏すべきチップが既に全部無くなっていたら
-			{
-				nIndex_NearestChip_Future = nIndex_InitialPositionSearchingToPast = count - 1;
-			}
-			//int nIndex_NearestChip_Future;	// = nIndex_InitialPositionSearchingToFuture;
-			//while ( nIndex_NearestChip_Future < count )		// 未来方向への検索
-			for ( ; nIndex_NearestChip_Future < count; nIndex_NearestChip_Future++)
-			{
-				if ( ( ( 0x11 <= nChannel ) && ( nChannel <= 0x17 ) ) )
-				{
-					CDTX.CChip chip = playerListChip[ nIndex_NearestChip_Future ];
-
-					if ( chip.nチャンネル番号 == nChannel )
-					{
-						if ( chip.n発声時刻ms > nTime )
-						{
-							break;
-						}
-						if( chip.nコース != this.n次回のコース[ nPlayer ] )
-						{
-							break;
-						}
-						nIndex_InitialPositionSearchingToPast = nIndex_NearestChip_Future;
-					}
-					continue;	// ほんの僅かながら高速化
-				}
-
-				// nIndex_NearestChip_Future++;
-			}
-			int nIndex_NearestChip_Past = nIndex_InitialPositionSearchingToPast;
-			//while ( nIndex_NearestChip_Past >= 0 )			// 過去方向への検索
-			for ( ; nIndex_NearestChip_Past >= 0; nIndex_NearestChip_Past-- )
-			{
-				if ( ( 0x15 <= nChannel ) && ( nChannel <= 0x17 ) )
-				{
-					CDTX.CChip chip = playerListChip[ nIndex_NearestChip_Past ];
-
-					if ( ( ( chip.nチャンネル番号 == nChannel ) )  )
-					{
-						break;
-					}
-				}
-				// nIndex_NearestChip_Past--;
-			}
-
-			if ( nIndex_NearestChip_Future >= count )
-			{
-				if ( nIndex_NearestChip_Past < 0 )	// 検索対象が過去未来どちらにも見つからなかった場合
-				{
-					return null;
-				}
-				else 								// 検索対象が未来方向には見つからなかった(しかし過去方向には見つかった)場合
-				{
-					//sw2.Stop();
-					return playerListChip[ nIndex_NearestChip_Past ];
-				}
-			}
-			else if ( nIndex_NearestChip_Past < 0 )	// 検索対象が過去方向には見つからなかった(しかし未来方向には見つかった)場合
-			{
-				//sw2.Stop();
-				return playerListChip[ nIndex_NearestChip_Future ];
-			}
-													// 検索対象が過去未来の双方に見つかったなら、より近い方を採用する
-			CDTX.CChip nearestChip_Future = playerListChip[ nIndex_NearestChip_Future ];
-			CDTX.CChip nearestChip_Past   = playerListChip[ nIndex_NearestChip_Past ];
-			int nDiffTime_Future = Math.Abs( (int) ( nTime - nearestChip_Future.n発声時刻ms ) );
-			int nDiffTime_Past   = Math.Abs( (int) ( nTime - nearestChip_Past.n発声時刻ms ) );
-			if ( nDiffTime_Future >= nDiffTime_Past )
-			{
-				//sw2.Stop();
-				return nearestChip_Past;
-			}
-			//sw2.Stop();
-			return nearestChip_Future;
-		}
 		protected void tサウンド再生( CDTX.CChip pChip, int nPlayer )
 		{
 			int index = pChip.nチャンネル番号;
@@ -5247,7 +5156,7 @@ namespace TJAPlayer3
 			#region[ 作り直したもの ]
 			if (pChip.b可視)
 			{
-				if (pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x18)
+				if (pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x17)
 				{
 					if (pChip.nノーツ出現時刻ms != 0 && ((long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.n発声時刻ms - pChip.nノーツ出現時刻ms))
 						pChip.bShow = false;
@@ -5263,33 +5172,6 @@ namespace TJAPlayer3
 					{
 						nノート座標 = 0;
 						nノート末端座標 = 0;
-					}
-				}
-				if (pChip.nチャンネル番号 == 0x18)
-				{
-					if (pChip.nノーツ出現時刻ms != 0 && ((long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < n先頭発声位置 - pChip.nノーツ出現時刻ms))
-						pChip.bShow = false;
-					else
-						pChip.bShow = true;
-
-					if (pChip.nノーツ移動開始時刻ms != 0) // n先頭発声位置 value is only used when this condition is met
-					{
-						CDTX.CChip cChip = TJAPlayer3.stage演奏ドラム画面.r指定時刻に一番近い連打Chip_ヒット未済問わず不可視考慮(pChip.n発声時刻ms, 0x10 + pChip.n連打音符State, 0, nPlayer);
-						if (cChip != null)
-						{
-							n先頭発声位置 = cChip.n発声時刻ms;
-						}
-					}
-
-					//連打音符先頭の開始時刻を取得しなければならない。
-					//そうしなければ連打先頭と連打末端の移動開始時刻にズレが出てしまう。
-					if (pChip.nノーツ移動開始時刻ms != 0 && ((long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < n先頭発声位置 - pChip.nノーツ移動開始時刻ms))
-					{
-						nノート座標 = (int)(((pChip.n発声時刻ms - (n先頭発声位置 - pChip.nノーツ移動開始時刻ms)) * pChip.dbBPM * pChip.dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
-					}
-					else
-					{
-						nノート座標 = 0;
 					}
 				}
 				//2020.05.06 Mr-Ojii ここらへんから349って書いてあったところを　TJAPlayer3.Skin.nScrollFieldX[nPlayer] - 55に置き換えた。
@@ -5310,20 +5192,9 @@ namespace TJAPlayer3
 						x末端 = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot - 55;
 					}
 				}
-				else if (pChip.nチャンネル番号 == 0x18)
-				{
-					if (pChip.nノーツ移動開始時刻ms != 0 && ((long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < n先頭発声位置 - pChip.nノーツ移動開始時刻ms))
-					{
-						x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + nノート座標;
-					}
-					else
-					{
-						x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからの距離dot.Taiko - 55;
-					}
-				}
 
-				//if( CDTXMania.ConfigIni.eScrollMode != EScrollMode.Normal )
 				x -= 10;
+				x末端 -= 10;
 
 				if (1400 > Math.Min(x, x末端))
 				{
@@ -5390,6 +5261,7 @@ namespace TJAPlayer3
 									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = 1.0f;
 									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
 									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x末端 + 46, y + nSenotesY, new Rectangle(58, 270, 78, 30));
 								}
 							}
 							else //マイナス
@@ -5424,7 +5296,8 @@ namespace TJAPlayer3
 									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
 									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = 1.0f;
 									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
-									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30)); 
+									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 46, y + nSenotesY, new Rectangle(58, 270, 78, 30));
 								}
 							}
 						}
@@ -5464,6 +5337,7 @@ namespace TJAPlayer3
 									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = 1.0f;
 									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 56, y + nSenotesY, new Rectangle(0, 240, 60, 30));
 									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x末端 + 46, y + nSenotesY, new Rectangle(58, 270, 78, 30));
 								}
 							}
 							else //マイナス
@@ -5499,6 +5373,7 @@ namespace TJAPlayer3
 									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = 1.0f;
 									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x + 56, y + nSenotesY, new Rectangle(0, 240, 60, 30));
 									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 46, y + nSenotesY, new Rectangle(58, 270, 78, 30));
 								}
 							}
 						}
@@ -5514,19 +5389,6 @@ namespace TJAPlayer3
 
 							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
 								TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
-						}
-						if (pChip.nチャンネル番号 == 0x18)
-						{
-							//大きい連打か小さい連打かの区別方法を考えてなかったよちくしょう
-							TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
-
-							if (pChip.n連打音符State != 7)
-							{
-								//if( CDTXMania.ConfigIni.eSTEALTH != EStealthMode.DORON )
-								//    CDTXMania.Tx.Notes.t2D描画( CDTXMania.app.Device, x, y, new Rectangle( n, num9, 130, 130 ) );//大音符:1170
-								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
-									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 56, y + nSenotesY, new Rectangle(58, 270, 78, 30));
-							}
 						}
 					}
 				}
