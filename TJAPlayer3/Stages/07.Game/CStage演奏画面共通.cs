@@ -4494,7 +4494,7 @@ namespace TJAPlayer3
 					int nHand = this.ct手つなぎ.n現在の値 < 30 ? this.ct手つなぎ.n現在の値 : 60 - this.ct手つなぎ.n現在の値;
 
 
-					x = (x) - ((int)((130.0 * pChip.dbチップサイズ倍率) / 2.0));
+					x = (x) - ((int)((130.0 * 1.0) / 2.0));
 					TJAPlayer3.Tx.Notes.b加算合成 = false;
 					TJAPlayer3.Tx.SENotes.b加算合成 = false;
 					var device = TJAPlayer3.app.Device;

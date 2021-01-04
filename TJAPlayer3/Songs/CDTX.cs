@@ -263,13 +263,12 @@ namespace TJAPlayer3
 					"0xF0", "歌詞", "??", "SUDDEN", "??", "??", "??", "??",
 					"??", "??", "??", "??", "??", "??", "??", "??", "譜面終了"
 				};
-				return string.Format("CChip: Position:{0:D4}.{1:D3}, Time{2:D6}, Ch:{3:X2}({4}), Pn:{5}({11})(Internal{6}), Pd:{7}, Sz:{8}, BMScroll:{9}, Cource:{10}",
+				return string.Format("CChip: Position:{0:D4}.{1:D3}, Time{2:D6}, Ch:{3:X2}({4}), Pn:{5}({10})(Internal{6}), Pd:{7}, BMScroll:{8}, Cource:{9}",
 					this.n発声位置 / 384, this.n発声位置 % 384,
 					this.n発声時刻ms,
 					this.nチャンネル番号, chToStr[this.nチャンネル番号],
 					this.n整数値, this.n整数値_内部番号,
 					this.db実数値,
-					this.dbチップサイズ倍率,
 					this.fBMSCROLLTime,
 					this.nコース,
 					CDTX.tZZ(this.n整数値));
@@ -385,8 +384,6 @@ namespace TJAPlayer3
 		public class CWAV : IDisposable
 		{
 			public List<int> listこのWAVを使用するチャンネル番号の集合 = new List<int>(16);
-			public int nチップサイズ = 100;
-			public int n位置;
 			public long[] n一時停止時刻 = new long[TJAPlayer3.ConfigIni.nPoliphonicSounds];    // 4
 			public int SongVol = CSound.DefaultSongVol;
 			public LoudnessMetadata? SongLoudnessMetadata = null;
@@ -416,7 +413,7 @@ namespace TJAPlayer3
 					sb.Append(string.Format("CWAV{0}(内部{1}): ", CDTX.tZZ(this.n表記上の番号), this.n内部番号));
 				}
 				sb.Append(
-					$"{nameof(SongVol)}:{this.SongVol}, {nameof(LoudnessMetadata.Integrated)}:{this.SongLoudnessMetadata?.Integrated}, {nameof(LoudnessMetadata.TruePeak)}:{this.SongLoudnessMetadata?.TruePeak}, 位置:{this.n位置}, サイズ:{this.nチップサイズ}, File:{this.strファイル名}, Comment:{this.strコメント文}");
+					$"{nameof(SongVol)}:{this.SongVol}, {nameof(LoudnessMetadata.Integrated)}:{this.SongLoudnessMetadata?.Integrated}, {nameof(LoudnessMetadata.TruePeak)}:{this.SongLoudnessMetadata?.TruePeak}, File:{this.strファイル名}, Comment:{this.strコメント文}");
 
 				return sb.ToString();
 			}
@@ -744,7 +741,6 @@ namespace TJAPlayer3
 			this.strファイル名 = "";
 			this.strフォルダ名 = "";
 			this.strファイル名の絶対パス = "";
-			this.n無限管理SIZE = new int[36 * 36];
 			this.listBalloon_Normal_数値管理 = 0;
 			this.listBalloon_Expert_数値管理 = 0;
 			this.listBalloon_Master_数値管理 = 0;
@@ -1131,7 +1127,7 @@ namespace TJAPlayer3
 						//                           will have just made such an attempt.
 						TJAPlayer3.SongGainController.Set(wc.SongVol, wc.SongLoudnessMetadata, sound);
 
-						sound.n位置 = wc.n位置;
+						sound.n位置 = 0;
 						sound.t再生を開始する();
 					}
 					wc.n再生開始時刻[wc.n現在再生中のサウンド番号] = n再生開始システム時刻ms;
@@ -1267,10 +1263,6 @@ namespace TJAPlayer3
 				#region [ 入力/行解析 ]
 				#region[初期化]
 				this.db再生速度 = db再生速度;
-				for (int j = 0; j < 36 * 36; j++)
-				{
-					this.n無限管理SIZE[j] = -j;
-				}
 				this.n内部番号WAV1to = 1;
 				this.n内部番号BPM1to = 1;
 				this.dbNowScroll = 1.0;
@@ -1301,7 +1293,6 @@ namespace TJAPlayer3
 		private void チップについての共通部分(int nBGMAdjust)
 		{
 			#region[コピペ]
-			this.n無限管理SIZE = null;
 			if (!this.bヘッダのみ)
 			{
 				#region [ BPM/BMP初期化 ]
@@ -1337,28 +1328,6 @@ namespace TJAPlayer3
 					chip.n整数値 = 0;
 					chip.n整数値_内部番号 = cbpm.n内部番号;
 					this.listChip.Insert(0, chip);
-				}
-				#endregion
-				#region [ CWAV初期化 ]
-				foreach (CWAV cwav in this.listWAV.Values)
-				{
-					if (cwav.nチップサイズ < 0)
-					{
-						cwav.nチップサイズ = 100;
-					}
-					if (cwav.n位置 <= -10000)
-					{
-						cwav.n位置 = 0;
-					}
-				}
-				#endregion
-				#region [ チップ倍率設定 ]						// #28145 2012.4.22 yyagi 二重ループを1重ループに変更して高速化)
-				foreach (CChip chip in this.listChip)
-				{
-					if (this.listWAV.TryGetValue(chip.n整数値_内部番号, out CWAV cwav))
-					{
-						chip.dbチップサイズ倍率 = ((double)cwav.nチップサイズ) / 100.0;
-					}
 				}
 				#endregion
 
@@ -1856,10 +1825,6 @@ namespace TJAPlayer3
 			{
 				#region [ 初期化 ]
 				this.db再生速度 = 再生速度;
-				for (int j = 0; j < 36 * 36; j++)
-				{
-					this.n無限管理SIZE[j] = -j;
-				}
 				this.n内部番号WAV1to = 1;
 				this.n内部番号BPM1to = 1;
 				this.dbNowScroll = 1.0;
@@ -2096,8 +2061,6 @@ namespace TJAPlayer3
 						{
 							n内部番号 = this.n内部番号WAV1to,
 							n表記上の番号 = this.n内部番号WAV1to,
-							nチップサイズ = this.n無限管理SIZE[this.n内部番号WAV1to],
-							n位置 = 0,
 							SongVol = this.SongVol,
 							SongLoudnessMetadata = this.SongLoudnessMetadata,
 							strファイル名 = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, dansongs.FileName),
@@ -2176,8 +2139,6 @@ namespace TJAPlayer3
 					{
 						n内部番号 = this.n内部番号WAV1to,
 						n表記上の番号 = 1,
-						nチップサイズ = this.n無限管理SIZE[this.n内部番号WAV1to],
-						n位置 = 0,
 						SongVol = this.SongVol,
 						SongLoudnessMetadata = this.SongLoudnessMetadata,
 						strファイル名 = this.strBGM_PATH,
@@ -2340,10 +2301,6 @@ namespace TJAPlayer3
 			{
 				#region [ 初期化 ]
 				this.db再生速度 = 再生速度;
-				for (int j = 0; j < 36 * 36; j++)
-				{
-					this.n無限管理SIZE[j] = -j;
-				}
 				this.n内部番号WAV1to = 1;
 				this.n内部番号BPM1to = 1;
 				this.dbNowScroll = 1.0;
@@ -2414,8 +2371,6 @@ namespace TJAPlayer3
 					{
 						n内部番号 = this.n内部番号WAV1to,
 						n表記上の番号 = 1,
-						nチップサイズ = this.n無限管理SIZE[this.n内部番号WAV1to],
-						n位置 = 0,
 						SongVol = this.SongVol,
 						SongLoudnessMetadata = this.SongLoudnessMetadata,
 						strファイル名 = this.strBGM_PATH,
@@ -4377,8 +4332,6 @@ namespace TJAPlayer3
 				{
 					n内部番号 = this.n内部番号WAV1to,
 					n表記上の番号 = this.n内部番号WAV1to,
-					nチップサイズ = this.n無限管理SIZE[this.n内部番号WAV1to],
-					n位置 = 0,
 					SongVol = this.SongVol,
 					SongLoudnessMetadata = this.SongLoudnessMetadata,
 					strファイル名 = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, dansongs.FileName),
@@ -5245,8 +5198,6 @@ namespace TJAPlayer3
 						{
 							n内部番号 = this.n内部番号WAV1to,
 							n表記上の番号 = 1,
-							nチップサイズ = this.n無限管理SIZE[this.n内部番号WAV1to],
-							n位置 = 0,
 							SongVol = this.SongVol,
 							SongLoudnessMetadata = this.SongLoudnessMetadata,
 							strファイル名 = this.strBGM_PATH,
@@ -6311,7 +6262,6 @@ namespace TJAPlayer3
 		private int n内部番号JSCROLL1to;
 		private int n内部番号DELAY1to;
 		private int n内部番号WAV1to;
-		private int[] n無限管理SIZE;
 
 		[JsonObject("infomation")]
 		private class OTCInfomation
