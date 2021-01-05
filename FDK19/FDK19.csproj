@@ -6,7 +6,7 @@
     <ProjectGuid>{BCD40908-F3E2-4707-BFAA-1DD99DF6357D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
-    <UseWindowsForms>true</UseWindowsForms>
+    <UseWindowsForms>false</UseWindowsForms>
 
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>FDK</AssemblyName>
@@ -42,6 +42,7 @@
     <PackageReference Include="FFmpeg.AutoGen" Version="4.3.1" />
     <PackageReference Include="OpenTK" Version="3.2" />
     <PackageReference Include="ReadJEnc" Version="1.3.1.2" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Bass.Net">
