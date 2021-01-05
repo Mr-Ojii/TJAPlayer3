@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using FDK.ExtensionMethods;
-using SharpDX.Multimedia;
 using Un4seen.Bass;
 using Un4seen.BassAsio;
 using Un4seen.BassWasapi;
@@ -387,6 +386,7 @@ namespace FDK
 
 	public class CSound : IDisposable
 	{
+		public const ushort PCM = 1;
 		public const int MinimumSongVol = 0;
 		public const int MaximumSongVol = 200; // support an approximate doubling in volume.
 		public const int DefaultSongVol = 100;
@@ -733,74 +733,36 @@ namespace FDK
 			this.eデバイス種別 = eデバイス種別;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
 			this.tBASSサウンドを作成する( byArrWAVファイルイメージ, hMixer, BASSFlag.BASS_STREAM_DECODE | BASSFlag.BASS_SAMPLE_FLOAT );
 		}
-		public void tOpenALサウンドを作成する( string strファイル名 )
+		public void tOpenALサウンドを作成する(string strファイル名)
 		{
 			this.e作成方法 = E作成方法.ファイルから;
 			this.strファイル名 = strファイル名;
 			// すべてのファイルを FFmpeg でデコードすると時間がかかるので、ファイルが WAV かつ PCM フォーマットでない場合のみ FFmpeg でデコードする。
 
 			byte[] byArrWAVファイルイメージ = null;
-			bool bファイルがWAVかつPCMフォーマットである = true;
 
+			try
 			{
-				#region [ ファイルがWAVかつPCMフォーマットか否か調べる。]
-				//-----------------
-				try
-				{
-					using (var ws = new SoundStream(new FileStream(strファイル名, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)))
-					{
-						if (ws.Format.Encoding != WaveFormatEncoding.Pcm)
-							bファイルがWAVかつPCMフォーマットである = false;
-					}
-				}
-				catch
-				{
-					bファイルがWAVかつPCMフォーマットである = false;
-				}
-				//-----------------
-				#endregion
+				this.e作成方法 = E作成方法.ファイルから;
+				this.strファイル名 = strファイル名;
 
-				if (bファイルがWAVかつPCMフォーマットである)
-				{
-					#region [ ファイルを読み込んで byArrWAVファイルイメージへ格納。]
-					//-----------------
-					var fs = File.Open(strファイル名, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-					var br = new BinaryReader(fs);
+				int nPCMデータの先頭インデックス = 0;
+				//			int nPCMサイズbyte = (int) ( xa.xaheader.nSamples * xa.xaheader.nChannels * 2 );	// nBytes = Bass.BASS_ChannelGetLength( this.hBassStream );
 
-					byArrWAVファイルイメージ = new byte[fs.Length];
-					br.Read(byArrWAVファイルイメージ, 0, (int)fs.Length);
+				int nPCMサイズbyte;
+				CWin32.WAVEFORMATEX cw32wfx;
+				tオンメモリ方式でデコードする(strファイル名, out this.byArrWAVファイルイメージ,
+				out nPCMデータの先頭インデックス, out nPCMサイズbyte, out cw32wfx, false);
 
-					br.Close();
-					fs.Close();
-					//-----------------
-					#endregion
-				}
-				else
-				{
-					try
-					{
-						this.e作成方法 = E作成方法.ファイルから;
-						this.strファイル名 = strファイル名;
-
-						int nPCMデータの先頭インデックス = 0;
-						//			int nPCMサイズbyte = (int) ( xa.xaheader.nSamples * xa.xaheader.nChannels * 2 );	// nBytes = Bass.BASS_ChannelGetLength( this.hBassStream );
-
-						int nPCMサイズbyte;
-						CWin32.WAVEFORMATEX cw32wfx;
-						tオンメモリ方式でデコードする(strファイル名, out this.byArrWAVファイルイメージ,
-						out nPCMデータの先頭インデックス, out nPCMサイズbyte, out cw32wfx, false);
-
-						// セカンダリバッファを作成し、PCMデータを書き込む。
-						tOpenALサウンドを作成する_セカンダリバッファの作成とWAVデータ書き込み
-							(ref this.byArrWAVファイルイメージ, cw32wfx, nPCMサイズbyte, nPCMデータの先頭インデックス);
-						return;
-					}
-					catch (Exception e)
-					{
-						string s = Path.GetFileName(strファイル名);
-						Trace.TraceWarning($"Failed to create OpenAL buffer by using libav({s}: {e.Message})");
-					}
-				}
+				// セカンダリバッファを作成し、PCMデータを書き込む。
+				tOpenALサウンドを作成する_セカンダリバッファの作成とWAVデータ書き込み
+					(ref this.byArrWAVファイルイメージ, cw32wfx, nPCMサイズbyte, nPCMデータの先頭インデックス);
+				return;
+			}
+			catch (Exception e)
+			{
+				string s = Path.GetFileName(strファイル名);
+				Trace.TraceWarning($"Failed to create OpenAL buffer by using libav({s}: {e.Message})");
 			}
 
 			// あとはあちらで。
@@ -845,7 +807,7 @@ namespace FDK
 					{
 						long chunkSize = (long) br.ReadUInt32();
 
-						var tag = br.ReadInt16();
+						var tag = br.ReadUInt16();
 						int Channels = br.ReadInt16();
 						int SamplesPerSecond = br.ReadInt32();
 						int AverageBytesPerSecond = br.ReadInt32();
@@ -853,23 +815,13 @@ namespace FDK
 						int BitsPerSample = br.ReadInt16();
 
 
-						if (tag == (short)WaveFormatEncoding.Pcm || tag == (short)WaveFormatEncoding.Extensible) EnableData = true;
+						if (tag == PCM) EnableData = true;
 						else
 							throw new InvalidDataException(string.Format("未対応のWAVEフォーマットタグです。(Tag:{0})", tag.ToString()));
 
 						c32wfx = new CWin32.WAVEFORMATEX((short)tag, (ushort)Channels, (uint)SamplesPerSecond, (uint)AverageBytesPerSecond, (ushort)BlockAlignment, (ushort)BitsPerSample);
 						
 						long nフォーマットサイズbyte = 16;
-
-						if( tag == (short)WaveFormatEncoding.Extensible )
-						{
-							br.ReadUInt16();    // 拡張領域サイズbyte
-							br.ReadInt16();//ValidBitsPerSample	読み捨て
-							br.ReadInt32();//ChannelMask	読み捨て
-							new Guid(br.ReadBytes(16)); // GUID は 16byte (128bit)	GuidSubFormat	読み捨て
-
-							nフォーマットサイズbyte += 24;
-						}
 
 						ms.Seek( chunkSize - nフォーマットサイズbyte, SeekOrigin.Current );
 						continue;
@@ -1532,25 +1484,8 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 
 		private void tBASSサウンドを作成する( string strファイル名, int hMixer, BASSFlag flags )
 		{
-			#region [ wav(RIFF chunked vorbis)に対しては専用の処理をする ]
-			switch ( Path.GetExtension( strファイル名 ).ToLower() )
-			{
-				case ".wav":
-					if ( tRIFFchunkedVorbisならFFmpegでDecodeする( strファイル名, ref byArrWAVファイルイメージ ) )
-					{
-						tBASSサウンドを作成する( byArrWAVファイルイメージ, hMixer, flags );
-						return;
-					}
-					break;
-
-				default:
-					break;
-			}
-			#endregion
-
 			this.e作成方法 = E作成方法.ファイルから;
 			this.strファイル名 = strファイル名;
-
 
 			// BASSファイルストリームを作成。
 
@@ -1583,56 +1518,6 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 			nBytes = Bass.BASS_ChannelGetLength( this._hBassStream );
 	
 			tBASSサウンドを作成する_ストリーム生成後の共通処理( hMixer );
-		}
-
-		/// <summary>
-		/// Decode "RIFF chunked Vorbis" to "raw wave"
-		/// because BASE.DLL has two problems for RIFF chunked Vorbis;
-		/// 1. time seek is not fine  2. delay occurs (about 10ms)
-		/// </summary>
-		/// <param name="strファイル名">wave filename</param>
-		/// <param name="byArrWAVファイルイメージ">wav file image</param>
-		/// <returns></returns>
-		private bool tRIFFchunkedVorbisならFFmpegでDecodeする( string strファイル名, ref byte[] byArrWAVファイルイメージ )
-		{
-			bool bファイルにVorbisコンテナが含まれている = false;
-
-			#region [ ファイルがWAVかつ、Vorbisコンテナが含まれているかを調べ、それに該当するなら、FFmpegでデコードする。]
-			//-----------------
-			try
-			{
-				Stream str = File.Open(strファイル名, FileMode.Open, FileAccess.Read);
-				using ( var ws = new SoundStream( str ) )
-				{
-					if ( ws.Format.Encoding == WaveFormatEncoding.OggVorbisMode2Plus ||	// Ogg Vorbis Mode 2+
-						 ws.Format.Encoding == WaveFormatEncoding.OggVorbisMode3Plus)	// Ogg Vorbis Mode 3+
-					{
-						Trace.TraceInformation( Path.GetFileName( strファイル名 ) + ": RIFF chunked Vorbis. Decode to raw Wave first, to avoid BASS.DLL troubles" );
-						try
-						{
-							tオンメモリ方式でデコードする(strファイル名, out byArrWAVファイルイメージ, out _, out _, out _, true);
-							bファイルにVorbisコンテナが含まれている = true;
-						}
-						catch
-						{
-							Trace.TraceWarning( "Warning: " + Path.GetFileName( strファイル名 ) + " : RIFF chunked Vorbisのデコードに失敗しました。" );
-						}
-					}
-				}
-			}
-			catch ( InvalidDataException )
-			{
-				// DirectShowのデコードに失敗したら、次はACMでのデコードを試すことになるため、ここではエラーログを出さない。
-				// Trace.TraceWarning( "Warning: " + Path.GetFileName( strファイル名 ) + " : デコードに失敗しました。" );
-			}
-			catch ( Exception e )
-			{
-				Trace.TraceWarning( e.ToString() );
-				Trace.TraceWarning( "Warning: " + Path.GetFileName( strファイル名 ) + " : 読み込みに失敗しました。" );
-			}
-			#endregion
-
-			return bファイルにVorbisコンテナが含まれている;
 		}
 
 		private void tBASSサウンドを作成する_ストリーム生成後の共通処理( int hMixer )
