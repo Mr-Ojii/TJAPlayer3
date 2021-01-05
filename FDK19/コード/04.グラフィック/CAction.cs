@@ -3,52 +3,54 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SharpDX;
-using SharpDX.Direct3D9;
+using System.Drawing;
+using OpenTK;
+using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL;
 
 namespace FDK
 {
 	public class CAction
-    {
-        public static void LoadContentAction(Device Device) 
-        {
-			Device.SetTransform(TransformState.View, Matrix.LookAtLH(new Vector3(0f, 0f, (float)(-GameWindowSize.Height / 2 * Math.Sqrt(3.0))), new Vector3(0f, 0f, 0f), new Vector3(0f, 1f, 0f)));
-			Device.SetTransform(TransformState.Projection, Matrix.PerspectiveFovLH(C変換.DegreeToRadian((float)60f), ((float)Device.Viewport.Width) / ((float)Device.Viewport.Height), -100f, 100f));
-			Device.SetRenderState(RenderState.Lighting, false);
-			Device.SetRenderState(RenderState.ZEnable, false);
-			Device.SetRenderState(RenderState.AntialiasedLineEnable, false);
-			Device.SetRenderState(RenderState.AlphaTestEnable, true);
-			Device.SetRenderState(RenderState.AlphaRef, 10);
+	{
+		public static Matrix4 ModelView
+		{
+			get
+			{
+				return Matrix4.LookAt(new Vector3(0f, 0f, (float)(-GameWindowSize.Height / 2 * Math.Sqrt(3.0))), new Vector3(0f, 0f, 0f), new Vector3(0f, 1f, 0f));
+			}
+		}
+		public static Matrix4 Projection
+		{
+			get
+			{
+				return Matrix4.CreatePerspectiveFieldOfView(C変換.DegreeToRadian((float)59.9f), ((float)GameWindowSize.Width) / ((float)GameWindowSize.Height), 0.0000001f, 100f);
+			}
+		}
+		public static void LoadContentAction()
+		{
+			Matrix4 tmpmat = ModelView;
+			GL.MatrixMode(MatrixMode.Modelview);
+			GL.LoadMatrix(ref tmpmat);
 
-			Device.SetRenderState(RenderState.MultisampleAntialias, true);
-			Device.SetSamplerState(0, SamplerState.MinFilter, TextureFilter.Linear);
-			Device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.Linear);
-			
-			Device.SetRenderState<Compare>(RenderState.AlphaFunc, Compare.Greater);
-			Device.SetRenderState(RenderState.AlphaBlendEnable, true);
-			Device.SetRenderState<Blend>(RenderState.SourceBlend, Blend.SourceAlpha);
-			Device.SetRenderState<Blend>(RenderState.DestinationBlend, Blend.InverseSourceAlpha);
-			Device.SetTextureStageState(0, TextureStage.AlphaOperation, TextureOperation.Modulate);
-			Device.SetTextureStageState(0, TextureStage.AlphaArg1, 2);
-			Device.SetTextureStageState(0, TextureStage.AlphaArg2, 1);
+			tmpmat = Projection;
+			GL.MatrixMode(MatrixMode.Projection);
+			GL.LoadMatrix(ref tmpmat);
+
+			GL.ClearColor(Color4.Black);
+			GL.Disable(EnableCap.DepthTest);
+			GL.Enable(EnableCap.Blend);
+			GL.Enable(EnableCap.Texture2D);
 		}
 
-		public static void BeginScene(Device Device) 
+		public static void BeginScene(Rectangle rect)
 		{
-			Device.BeginScene();
-			Device.Clear(ClearFlags.ZBuffer | ClearFlags.Target, Color.Black, 1f, 0);
+			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+			GL.Viewport(rect);
 		}
 
-		public static void EndScene(Device Device) 
+		public static void Flush()
 		{
-			Device.EndScene();
-		}
-
-		public static void Flush() 
-		{
-#if OpenGL
-			OpenTK.Graphics.OpenGL.GL.Flush();
-#endif
+			GL.Flush();
 		}
 	}
 }

@@ -4,9 +4,4 @@
     <ReferencePath>
     </ReferencePath>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Update="コード\01.フレームワーク\Core\GameWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-  </ItemGroup>
 </Project>

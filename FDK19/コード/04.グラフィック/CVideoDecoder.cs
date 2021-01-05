@@ -10,8 +10,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FFmpeg.AutoGen;
-using SharpDX;
-using SharpDX.Direct3D9;
 using System.Threading;
 
 namespace FDK
@@ -25,7 +23,6 @@ namespace FDK
 	{
 		public CVideoDecoder(Device device, string filename)
 		{
-			this.device = device;
 			if (!File.Exists(filename))
 				throw new FileNotFoundException(filename + " not found...");
 
@@ -150,7 +147,8 @@ namespace FDK
 				frame.Dispose();
 			this.EnqueueFrames();
 			if (lastTexture != null)
-				GeneFrmTx(ref lastTexture, new byte[FrameSize.Width * FrameSize.Height * 4]);
+				lastTexture.Dispose();
+			lastTexture = new CTexture(new Device(), new Bitmap(FrameSize.Width, FrameSize.Height), false);
 		}
 
 		public void GetNowFrame(ref CTexture Texture)
@@ -172,9 +170,20 @@ namespace FDK
 										continue;
 									}
 
-							GeneFrmTx(ref lastTexture, cdecodedframe.Bitmap);
+							if (lastTexture != null)
+								lastTexture.Dispose();
 
-							cdecodedframe.Dispose();
+							//参考:https://dobon.net/vb/bbs/log3-24/15246.html
+							using (Bitmap bitmap_tmp = new Bitmap(cdecodedframe.Tex.Width, cdecodedframe.Tex.Height))
+							{
+								using (Graphics g = Graphics.FromImage(bitmap_tmp))
+								{
+									g.DrawImage(cdecodedframe.Tex, 0, 0);
+								}
+
+								lastTexture = new CTexture(new Device(), bitmap_tmp, false);
+								cdecodedframe.Dispose();
+							}
 						}
 						break;
 					}
@@ -185,7 +194,7 @@ namespace FDK
 			}
 
 			if (lastTexture == null)
-				GeneFrmTx(ref lastTexture, new Bitmap(FrameSize.Width, FrameSize.Height));
+				lastTexture = new CTexture(new Device(), new Bitmap(FrameSize.Width, FrameSize.Height), false);
 
 			if (Texture == lastTexture)
 				return;
@@ -233,7 +242,7 @@ namespace FDK
 
 										outframe = frameconv.Convert(frame);
 
-										decodedframes.Enqueue(new CDecodedFrame() { Time = (outframe->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Bitmap = getframebuf(outframe) });
+										decodedframes.Enqueue(new CDecodedFrame() { Time = (outframe->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Tex = getframe(outframe) });
 
 										ffmpeg.av_frame_unref(frame);
 										ffmpeg.av_frame_unref(outframe);
@@ -269,39 +278,9 @@ namespace FDK
 			}
 		}
 
-		private void GeneFrmTx(ref CTexture tex, Bitmap bitmap)
+		private Bitmap getframe(AVFrame* frame)
 		{
-			tex = new CTexture(this.device, bitmap, false);
-		}
-		private void GeneFrmTx(ref CTexture tex, byte[] bytearray)
-		{
-			//ポインタを使用し、データを直接バッファにコピーする
-			if (tex == null || tex.texture == null)
-				GeneFrmTx(ref tex, new Bitmap(FrameSize.Width, FrameSize.Height));
-
-			DataRectangle data = tex.texture.LockRectangle(0, LockFlags.Discard);
-
-			if (tex.szテクスチャサイズ.Width == FrameSize.Width)
-			{
-				Marshal.Copy(bytearray, 0, data.DataPointer, FrameSize.Width * FrameSize.Height * 4);
-			}
-			else 
-			{
-				tex.Dispose();
-				GeneFrmTx(ref tex, new Bitmap(FrameSize.Width, FrameSize.Height));
-				Marshal.Copy(bytearray, 0, data.DataPointer, FrameSize.Width * FrameSize.Height * 4);
-			}
-
-			tex.texture.UnlockRectangle(0);
-		}
-
-		private byte[] getframebuf(AVFrame* frame) 
-		{
-			byte[] buf = new byte[FrameSize.Width * FrameSize.Height * 4];
-
-			Marshal.Copy((IntPtr)(frame->data[0]), buf, 0, FrameSize.Width * FrameSize.Height * 4);
-
-			return buf;
+			return new Bitmap(frame->width, frame->height, frame->linesize[0], PixelFormat.Format32bppArgb, (IntPtr)frame->data[0]);
 		}
 
 		public Size FrameSize 
@@ -343,7 +322,6 @@ namespace FDK
 		private AVCodecContext* codec_context;
 		private AVFrame* frame;
 		private ConcurrentQueue<CDecodedFrame> decodedframes;
-		private Device device;
 		private CancellationTokenSource cts;
 		private DecodingState DS = DecodingState.Stopped;
 		private enum DecodingState

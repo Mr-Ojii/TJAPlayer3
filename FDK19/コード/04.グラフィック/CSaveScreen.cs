@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SharpDX.Direct3D9;
 using System.IO;
 using System.Diagnostics;
+using OpenTK;
+using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL;
+using System.Drawing;
+using System.Drawing.Imaging;
+using OpenTK.Platform;
 
 namespace FDK
 {
@@ -37,11 +42,18 @@ namespace FDK
 				}
 			}
 
-			// http://www.gamedev.net/topic/594369-dx9slimdxati-incorrect-saving-surface-to-file/
-			using (Surface pSurface = device.GetRenderTarget(0))
-			{
-				Surface.ToFile(pSurface, strFullPath, ImageFileFormat.Png);
-			}
+			//https://stackoverflow.com/questions/8606253/saving-a-bitmap-of-opentk-screen-but-the-quickfont-text-doesnt-show-up
+			if (GraphicsContext.CurrentContext == null)
+				throw new GraphicsContextException();
+
+			Bitmap bmp = new Bitmap(GameWindowSize.Width, GameWindowSize.Height);
+			BitmapData data = bmp.LockBits(new Rectangle(0, 0, GameWindowSize.Width, GameWindowSize.Height), System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+			GL.ReadPixels(0, 0, GameWindowSize.Width, GameWindowSize.Height, OpenTK.Graphics.OpenGL.PixelFormat.Bgr, PixelType.UnsignedByte, data.Scan0);
+			bmp.UnlockBits(data);
+
+			bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
+			bmp.Save(strFullPath, ImageFormat.Png);
+			bmp.Dispose();
 			return true;
 		}
     }
