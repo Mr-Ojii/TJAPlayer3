@@ -7,8 +7,8 @@ using System.Diagnostics;
 
 namespace TJAPlayer3
 {
-    public class CJudgeTextEncoding
-    {
+	public class CJudgeTextEncoding
+	{
 		/// <summary>
 		/// Hnc8様のReadJEncを使用して文字コードの判別をする。
 		/// </summary>
@@ -34,7 +34,7 @@ namespace TJAPlayer3
 				enc = Encoding.GetEncoding(932);
 			}
 			return enc;
-        }
+		}
 		/// <summary>
 		/// Hnc8様のReadJEncを使用してテキストファイルを読み込む。
 		/// 改行文字は、勝手に\nに統一する
@@ -52,8 +52,8 @@ namespace TJAPlayer3
 				reader.Read(file);
 				str = reader.Text;
 			}
-
-			str = str.Replace(JudgeNewLine(str), "\n");
+			if(!string.IsNullOrEmpty(str))
+				str = str.Replace(JudgeNewLine(str), "\n");
 
 			return str;
 		}
@@ -67,14 +67,17 @@ namespace TJAPlayer3
 		/// <returns></returns>
 		public static string JudgeNewLine(string str)
 		{
-			if (str.Contains("\r\n"))
-				return ("\r\n");
+			if (!string.IsNullOrEmpty(str))
+			{
+				if (str.Contains("\r\n"))
+					return ("\r\n");
 
-			if (str.Contains("\r"))
-				return ("\r");
+				if (str.Contains("\r"))
+					return ("\r");
+			}
 
 			return ("\n");
 		}
 
-    }
+	}
 }

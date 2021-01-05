@@ -179,7 +179,8 @@ namespace TJAPlayer3
 					Trace.TraceWarning($"ファイルが存在しません。: {this.strファイル名}");
 					return;
 				}
-
+				if (TJAPlayer3.Sound管理 == null)
+					throw new Exception("Sound管理がnullのため、サウンド生成ができません。");
 				for (int i = 0; i < 2; i++)     // 一旦Cloneを止めてASIO対応に専念
 				{
 					try

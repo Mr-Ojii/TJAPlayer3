@@ -74,7 +74,7 @@ Fork元より使用しているライブラリ
 以下のライブラリを追加いたしました。
 * [ReadJEnc](https://github.com/hnx8/ReadJEnc)
 * [SharpDX](http://sharpdx.org/)
-* [Json.Net](https://www.newtonsoft.com/json)
+* [Json.NET](https://www.newtonsoft.com/json)
 * [FFmpeg.AutoGen](https://github.com/Ruslan-B/FFmpeg.AutoGen)
 * [FFmpeg](https://ffmpeg.org/)
 * [OpenTK](https://opentk.net/)
