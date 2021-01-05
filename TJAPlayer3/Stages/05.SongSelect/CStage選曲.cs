@@ -416,7 +416,7 @@ namespace TJAPlayer3
 				if (現在の選曲画面状況 == E選曲画面.Dan選択) {
 					if (TJAPlayer3.Tx.Difficulty_Dan_Box != null && TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting != null) {
 						TJAPlayer3.Tx.Difficulty_Dan_Box.t2D描画(TJAPlayer3.app.Device, 0, 0);
-						TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szテクスチャサイズ.Width / 2 * DanSelectingRow, 0,new Rectangle(TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szテクスチャサイズ.Width / 2 * DanSelectingRow, TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szテクスチャサイズ.Height, TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szテクスチャサイズ.Height));
+						TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szテクスチャサイズ.Width / 2 * DanSelectingRow, 0,new Rectangle(TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szテクスチャサイズ.Width / 2 * DanSelectingRow, 0, TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szテクスチャサイズ.Height));
 					}
 				}
 

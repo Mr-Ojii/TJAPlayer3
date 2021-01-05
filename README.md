@@ -1,5 +1,4 @@
 # TJAPlayer3-f
-
 TJAPlayer3をForkして、趣味程度に改造してます。  
 スパゲッティコードと化してますね。うん。たまに整理しましょうかね。
 
@@ -13,7 +12,7 @@ masterブランチでほぼすべての開発を行います。
 このプログラムを使用し発生した、いかなる不具合・損失に対しても、一切の責任を負いません。
 
 ## 推奨環境
-Windows 7以降  
+Windows 7以降のWindows環境  
 まぁ、Windows 10で動作確認をしているので、Windows 10が一番安定してるかと...
 
 ## 開発環境
@@ -44,6 +43,7 @@ VisualStudio Community 2019
 + Ver.1.6.1.0 : FFmpeg APIを使用しての動画デコード機能を追加
 + Ver.1.6.2.0 : .NET Core 3.1にフレームワークをアップデート
 + Ver.1.6.3.0 : .NET 5にフレームワークをアップデート
++ Ver.1.6.4.0 : OpenGL描画に対応
 
 ## Discord鯖
 作っていいものかと思いながら、公開鯖を作ってみたかったので作ってしまいました。  
@@ -73,7 +73,6 @@ Fork元より使用しているライブラリ
 
 以下のライブラリを追加いたしました。
 * [ReadJEnc](https://github.com/hnx8/ReadJEnc)
-* [SharpDX](http://sharpdx.org/)
 * [Json.NET](https://www.newtonsoft.com/json)
 * [FFmpeg.AutoGen](https://github.com/Ruslan-B/FFmpeg.AutoGen)
 * [FFmpeg](https://ffmpeg.org/)
@@ -90,7 +89,6 @@ DLL群のみでもよいのですが、デバッグ用に残しておきたい�
 バージョンは4.3.1です。(2020/09/16現在)
 
 DLL群のバージョンアップをしたい方は自己責任で差し替えをしてください。  
-LGPLやGPLに気を付けてくださいね。
 
 ## OpenAL Softについて
 このリポジトリにはあらかじめOpenAL Softライブラリが同梱されています。  

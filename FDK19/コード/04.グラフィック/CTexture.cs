@@ -158,8 +158,8 @@ namespace FDK
 				GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
 
 				//テクスチャの設定
-				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
-				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
+				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
+				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.LinearSharpenSgis);
 				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
 				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
 
@@ -397,7 +397,7 @@ namespace FDK
 				matrix *= Matrix4.CreateRotationZ(this.fZ軸中心回転);
 				matrix *= Matrix4.CreateTranslation(vc3移動量);
 
-				ResetWorldMatrix();
+				LoadWorldMatrix(matrix);
 
 				GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
 
@@ -405,16 +405,16 @@ namespace FDK
 
 				GL.Color4(this.color);
 
-				GL.TexCoord2(f右U値, f下V値);
+				GL.TexCoord2(f左U値, f下V値);
 				GL.Vertex3(-f中央X, -f中央Y, depth);
 
-				GL.TexCoord2(f左U値, f下V値);
+				GL.TexCoord2(f右U値, f下V値);
 				GL.Vertex3(f中央X, -f中央Y, depth);
 
-				GL.TexCoord2(f左U値, f上V値);
+				GL.TexCoord2(f右U値, f上V値);
 				GL.Vertex3(f中央X, f中央Y, depth);
 
-				GL.TexCoord2(f右U値, f上V値);
+				GL.TexCoord2(f左U値, f上V値);
 				GL.Vertex3(-f中央X, f中央Y, depth);
 
 				GL.End();
