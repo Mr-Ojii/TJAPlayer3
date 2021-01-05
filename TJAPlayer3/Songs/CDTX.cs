@@ -4574,12 +4574,6 @@ namespace TJAPlayer3
 							return;
 						}
 
-						if (InputText.Substring(0, 1) == "F")
-						{
-							bool bTest = true;
-						}
-
-
 						int nObjectNum = this.CharConvertNote(InputText.Substring(n, 1));
 
 						if (nObjectNum != 0)

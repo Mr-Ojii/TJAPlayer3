@@ -4354,8 +4354,6 @@ namespace TJAPlayer3
 
 		protected void t進行描画_チップ_Taiko(ref CDTX dTX, ref CDTX.CChip pChip, int nPlayer)
 		{
-			int nLane = 0;
-
 			#region[ 作り直したもの ]
 			if (pChip.b可視 && !pChip.bHit)
 			{
@@ -4383,7 +4381,7 @@ namespace TJAPlayer3
 						if (pChip.nチャンネル番号 != 0x1F)
 							this.FlyingNotes.Start(pChip.nチャンネル番号 < 0x1A ? (pChip.nチャンネル番号 - 0x10) : (pChip.nチャンネル番号 - 0x17), nPlayer);
 						//this.actChipFireTaiko.Start(pChip.nチャンネル番号 < 0x1A ? (pChip.nチャンネル番号 - 0x10) : (pChip.nチャンネル番号 - 0x17), nPlayer);
-						if (pChip.nチャンネル番号 == 0x12 || pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1B) nLane = 1;
+						int nLane = (pChip.nチャンネル番号 == 0x12 || pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1B) ? 1 : 0;
 						TJAPlayer3.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start((nLane == 0 ? PlayerLane.FlashType.Red : PlayerLane.FlashType.Blue));
 						TJAPlayer3.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Hit);
 						this.actMtaiko.tMtaikoEvent(pChip.nチャンネル番号, this.nHand[nPlayer], nPlayer);
@@ -4518,7 +4516,6 @@ namespace TJAPlayer3
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
 									TJAPlayer3.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
 							}
-							nLane = 1;
 							break;
 
 						case 0x13:
@@ -4539,7 +4536,6 @@ namespace TJAPlayer3
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
 									TJAPlayer3.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
 							}
-							nLane = 1;
 							break;
 
 						case 0x1A:
@@ -4584,7 +4580,6 @@ namespace TJAPlayer3
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
 									TJAPlayer3.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 420, 136, 30));
 							}
-							nLane = 1;
 							break;
 
 						case 0x1F:
@@ -4866,7 +4861,7 @@ namespace TJAPlayer3
 				y += (int)(((pChip.n発声時刻ms - (CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))) * pChip.dbBPM * pChip.dbSCROLL_Y * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0);
 			}
 
-			if (!pChip.bHit && pChip.n発声時刻ms > CSound管理.rc演奏用タイマ.n現在時刻ms)
+			if (!pChip.bHit && pChip.n発声時刻ms > CSound管理.rc演奏用タイマ.n現在時刻ms * ((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)
 			{
 				if (TJAPlayer3.ConfigIni.bWave再生位置自動調整機能有効 && (TJAPlayer3.Sound管理.GetCurrentSoundDeviceType() == "OpenAL" || TJAPlayer3.ConfigIni.bUseOSTimer))
 				{
