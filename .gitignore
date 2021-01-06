@@ -28,6 +28,8 @@
 /Test/*/FFmpeg.AutoGen*
 /Test/*/FDK*
 /Test/*/System*.dll
+/Test/*/Microsoft*.dll
+/Test/*/*.html
 /Test/*/DiscordRPC*
 /Test/*/TJAPlayer3*
 /Test/*/runtimes/

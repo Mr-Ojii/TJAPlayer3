@@ -960,14 +960,17 @@ namespace TJAPlayer3
 							if (strCommand == "Name")
 							{
 								this.Skin_Name = strParam;
+								Program.SkinName = strParam;
 							}
 							else if (strCommand == "Version")
 							{
 								this.Skin_Version = strParam;
+								Program.SkinVersion = strParam;
 							}
 							else if (strCommand == "Creator")
 							{
 								this.Skin_Creator = strParam;
+								Program.SkinCreator = strParam;
 							}
 							#endregion
 
