@@ -79,11 +79,6 @@ namespace FDK
 		private Vector3 vc;
 		public string filename;
 
-		// 画面が変わるたび以下のプロパティを設定し治すこと。
-
-		public static Size sz論理画面 = Size.Empty;
-		public static Size sz物理画面 = Size.Empty;
-		public static Rectangle rc物理画面描画領域 = Rectangle.Empty;
 		/// <summary>
 		/// <para>論理画面を1とする場合の物理画面の倍率。</para>
 		/// <para>論理値×画面比率＝物理値。</para>
@@ -560,30 +555,6 @@ namespace FDK
 			GL.Vertex3(-(x + (w * this.vc拡大縮小倍率.X) + f補正値X), -(y + f補正値Y), depth);
 
 			GL.End();
-		}
-
-		public static Vector3 t論理画面座標をワールド座標へ変換する(int x, int y)
-		{
-			return CTexture.t論理画面座標をワールド座標へ変換する(new Vector3((float)x, (float)y, 0f));
-		}
-		public static Vector3 t論理画面座標をワールド座標へ変換する(float x, float y)
-		{
-			return CTexture.t論理画面座標をワールド座標へ変換する(new Vector3(x, y, 0f));
-		}
-		public static Vector3 t論理画面座標をワールド座標へ変換する(Point pt論理画面座標)
-		{
-			return CTexture.t論理画面座標をワールド座標へ変換する(new Vector3(pt論理画面座標.X, pt論理画面座標.Y, 0.0f));
-		}
-		public static Vector3 t論理画面座標をワールド座標へ変換する(Vector2 v2論理画面座標)
-		{
-			return CTexture.t論理画面座標をワールド座標へ変換する(new Vector3(v2論理画面座標.X, v2論理画面座標.Y, 0f));
-		}
-		public static Vector3 t論理画面座標をワールド座標へ変換する(Vector3 v3論理画面座標)
-		{
-			return new Vector3(
-				(v3論理画面座標.X - (CTexture.sz論理画面.Width / 2.0f)) * CTexture.f画面比率,
-				(-(v3論理画面座標.Y - (CTexture.sz論理画面.Height / 2.0f)) * CTexture.f画面比率),
-				v3論理画面座標.Z);
 		}
 
 		/// <summary>
