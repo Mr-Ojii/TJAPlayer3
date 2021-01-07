@@ -32,7 +32,7 @@ namespace FDK
 			FFmpeg.AutoGen.ffmpeg.RootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"/ffmpeg/";
 
 			if (!Directory.Exists(FFmpeg.AutoGen.ffmpeg.RootPath))
-				throw new DirectoryNotFoundException("FFmpeg RootPath Not Found.");
+				throw new DirectoryNotFoundException("FFmpeg RootPath Not Found.\nPath=" + FFmpeg.AutoGen.ffmpeg.RootPath);
 			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);//CP932用
 		}
 	}
