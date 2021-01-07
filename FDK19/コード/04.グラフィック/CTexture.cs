@@ -70,11 +70,6 @@ namespace FDK
 			get;
 			private set;
 		}
-		public Size sz画像サイズ
-		{
-			get;
-			protected set;
-		}
 		public int? texture
 		{
 			get;
@@ -99,7 +94,7 @@ namespace FDK
 
 		public CTexture()
 		{
-			this.sz画像サイズ = new Size(0, 0);
+			this.szテクスチャサイズ = new Size(0, 0);
 			this.szテクスチャサイズ = new Size(0, 0);
 			this._opacity = 0xff;
 			this.texture = null;
@@ -148,9 +143,8 @@ namespace FDK
 			bitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
 			try
 			{
-				this.sz画像サイズ = new Size(bitmap.Width, bitmap.Height);
-				this.rc全画像 = new Rectangle(0, 0, this.sz画像サイズ.Width, this.sz画像サイズ.Height);
-				this.szテクスチャサイズ = this.sz画像サイズ;
+				this.szテクスチャサイズ = new Size(bitmap.Width, bitmap.Height);
+				this.rc全画像 = new Rectangle(0, 0, this.szテクスチャサイズ.Width, this.szテクスチャサイズ.Height);
 
 				this.texture = GL.GenTexture();
 
@@ -679,7 +673,7 @@ namespace FDK
 			// CTextureのDispose漏れと見做して警告をログ出力する
 			if (!this.bSharpDXTextureDispose完了済み)//DTXManiaより
 			{
-				Trace.TraceWarning("CTexture: Dispose漏れを検出しました。(Size=({0}, {1}), filename={2}, maketype={3})", sz画像サイズ.Width, sz画像サイズ.Height, filename, maketype.ToString());
+				Trace.TraceWarning("CTexture: Dispose漏れを検出しました。(Size=({0}, {1}), filename={2}, maketype={3})", szテクスチャサイズ.Width, szテクスチャサイズ.Height, filename, maketype.ToString());
 			}
 			//マネージド リソースらしいので、解放はしない
 		}
