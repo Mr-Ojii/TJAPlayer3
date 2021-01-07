@@ -61,7 +61,7 @@ namespace TJAPlayer3
 				// 1P、2P コンボボイス
 				for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
 				{
-					var currentDir = CSkin.Path(string.Format(@"Sounds\Combo_{0}P\", i + 1));
+					var currentDir = CSkin.Path(string.Format(@"Sounds/Combo_{0}P/", i + 1));
 					if (Directory.Exists(currentDir))
 					{
 						foreach (var item in Directory.GetFiles(currentDir))

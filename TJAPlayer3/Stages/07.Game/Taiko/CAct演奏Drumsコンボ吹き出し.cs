@@ -52,10 +52,10 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//this.tx吹き出し本体[ 0 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_combo balloon.png" ) );
+				//this.tx吹き出し本体[ 0 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_combo balloon.png" ) );
 				//if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-				//    this.tx吹き出し本体[ 1 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_combo balloon_2P.png" ) );
-				//this.tx数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_combo balloon_number.png" ) );
+				//    this.tx吹き出し本体[ 1 ] = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_combo balloon_2P.png" ) );
+				//this.tx数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_combo balloon_number.png" ) );
 				base.OnManagedリソースの作成();
 			}
 		}

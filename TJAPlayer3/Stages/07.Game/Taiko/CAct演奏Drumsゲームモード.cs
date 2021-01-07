@@ -373,11 +373,11 @@ namespace TJAPlayer3
 
 		public override void OnManagedリソースの作成()
 		{
-			//this.tx残り時間数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_combo taiko.png" ) );
-			//this.tx加算時間数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Score_number_1P.png" ) );
-			//this.txタイマー枠 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_TimerPanel.png" ) );
-			//this.txタイマー針 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_TimerTick.png" ) );
-			//this.tx背景黒 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Tile black 64x64.png" ) );
+			//this.tx残り時間数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_combo taiko.png" ) );
+			//this.tx加算時間数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_Score_number_1P.png" ) );
+			//this.txタイマー枠 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_TimerPanel.png" ) );
+			//this.txタイマー針 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_TimerTick.png" ) );
+			//this.tx背景黒 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/Tile black 64x64.png" ) );
 			base.OnManagedリソースの作成();
 		}
 

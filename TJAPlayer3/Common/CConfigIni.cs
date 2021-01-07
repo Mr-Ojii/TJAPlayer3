@@ -608,7 +608,7 @@ namespace TJAPlayer3
 		public CConfigIni()
 		{
 			this.strDTXManiaのバージョン = "Unknown";
-			this.str曲データ検索パス = @".\";
+			this.str曲データ検索パス = @"./";
 			this.b全画面モード = false;
 			this.b垂直帰線待ちを行う = true;
 			this.n初期ウィンドウ開始位置X = 0; // #30675 2013.02.04 ikanick add
@@ -802,9 +802,9 @@ namespace TJAPlayer3
 			#endregion
 			#region [ TJAPath ]
 			sw.WriteLine( "; 譜面ファイルが格納されているフォルダへのパス。" );
-			sw.WriteLine( @"; セミコロン(;)で区切ることにより複数のパスを指定できます。（例: d:\tja\;e:\tja2\）" );
+			sw.WriteLine( @"; セミコロン(;)で区切ることにより複数のパスを指定できます。（例: d:/tja/;e:/tja2/）" );
 			sw.WriteLine( "; Pathes for TJA data." );
-			sw.WriteLine( @"; You can specify many pathes separated with semicolon(;). (e.g. d:\tja\;e:\tja2\)" );
+			sw.WriteLine( @"; You can specify many pathes separated with semicolon(;). (e.g. d:/tja/;e:/tja2/)" );
 			sw.WriteLine( "TJAPath={0}", this.str曲データ検索パス );
 			sw.WriteLine();
 			#endregion
@@ -820,12 +820,11 @@ namespace TJAPlayer3
 			Uri uriPath = new Uri( System.IO.Path.Combine( this.strSystemSkinSubfolderFullName, "." + System.IO.Path.DirectorySeparatorChar ) );
 			string relPath = uriRoot.MakeRelativeUri( uriPath ).ToString();				// 相対パスを取得
 			relPath = System.Web.HttpUtility.UrlDecode( relPath );						// デコードする
-			relPath = relPath.Replace( '/', System.IO.Path.DirectorySeparatorChar );	// 区切り文字が\ではなく/なので置換する
 			#endregion
 			sw.WriteLine( "; 使用するSkinのフォルダ名。" );
-			sw.WriteLine( "; 例えば System\\Default\\Graphics\\... などの場合は、SkinPath=.\\Default\\ を指定します。" );
+			sw.WriteLine( "; 例えば System/Default/Graphics/... などの場合は、SkinPath=./Default/ を指定します。" );
 			sw.WriteLine( "; Skin folder path." );
-			sw.WriteLine( "; e.g. System\\Default\\Graphics\\... -> Set SkinPath=.\\Default\\" );
+			sw.WriteLine( "; e.g. System/Default/Graphics/... -> Set SkinPath=./Default/" );
 			sw.WriteLine( "SkinPath={0}", relPath );
 			sw.WriteLine();
 			sw.WriteLine("; 事前画像描画機能を使うかどうか。(0: OFF, 1: ON)");
@@ -1439,11 +1438,10 @@ namespace TJAPlayer3
 													Uri u = new Uri( absSkinPath );
 													absSkinPath = u.AbsolutePath.ToString();	// str4内に相対パスがある場合に備える
 													absSkinPath = System.Web.HttpUtility.UrlDecode( absSkinPath );						// デコードする
-													absSkinPath = absSkinPath.Replace( '/', System.IO.Path.DirectorySeparatorChar );	// 区切り文字が\ではなく/なので置換する
 												}
-												if ( absSkinPath[ absSkinPath.Length - 1 ] != System.IO.Path.DirectorySeparatorChar )	// フォルダ名末尾に\を必ずつけて、CSkin側と表記を統一する
+												if ( absSkinPath[ absSkinPath.Length - 1 ] != '/' )	// フォルダ名末尾に\を必ずつけて、CSkin側と表記を統一する
 												{
-													absSkinPath += System.IO.Path.DirectorySeparatorChar;
+													absSkinPath += '/';
 												}
 												this.strSystemSkinSubfolderFullName = absSkinPath;
 											}

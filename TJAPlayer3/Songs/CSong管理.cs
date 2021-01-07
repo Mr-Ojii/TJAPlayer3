@@ -66,8 +66,8 @@ namespace TJAPlayer3
 		}
 		private void t曲を検索してリストを作成する(string str基点フォルダ, bool b子BOXへ再帰する, List<C曲リストノード> listノードリスト, C曲リストノード node親)
 		{
-			if (!str基点フォルダ.EndsWith(@"\"))
-				str基点フォルダ = str基点フォルダ + @"\";
+			if (!str基点フォルダ.EndsWith(@"/"))
+				str基点フォルダ = str基点フォルダ + @"/";
 
 			DirectoryInfo info = new DirectoryInfo(str基点フォルダ);
 
@@ -170,9 +170,9 @@ namespace TJAPlayer3
 
 				#region [ b.box.def を含むフォルダの場合  ]
 				//-----------------------------
-				if (File.Exists(infoDir.FullName + @"\box.def"))
+				if (File.Exists(infoDir.FullName + @"/box.def"))
 				{
-					CBoxDef boxdef = new CBoxDef(infoDir.FullName + @"\box.def");
+					CBoxDef boxdef = new CBoxDef(infoDir.FullName + @"/box.def");
 					C曲リストノード c曲リストノード = new C曲リストノード();
 					c曲リストノード.eノード種別 = C曲リストノード.Eノード種別.BOX;
 					c曲リストノード.strタイトル = boxdef.Title;
@@ -194,7 +194,7 @@ namespace TJAPlayer3
 
 					c曲リストノード.nスコア数 = 1;
 					c曲リストノード.arスコア = new Cスコア();
-					c曲リストノード.arスコア.ファイル情報.フォルダの絶対パス = infoDir.FullName + @"\";
+					c曲リストノード.arスコア.ファイル情報.フォルダの絶対パス = infoDir.FullName + @"/";
 					c曲リストノード.arスコア.譜面情報.タイトル = boxdef.Title;
 					c曲リストノード.arスコア.譜面情報.ジャンル = boxdef.Genre;
 					c曲リストノード.r親ノード = node親;
@@ -208,7 +208,7 @@ namespace TJAPlayer3
 					listノードリスト.Add(c曲リストノード);
 					if (b子BOXへ再帰する)
 					{
-						this.t曲を検索してリストを作成する(infoDir.FullName + @"\", b子BOXへ再帰する, c曲リストノード.list子リスト, c曲リストノード);
+						this.t曲を検索してリストを作成する(infoDir.FullName + @"/", b子BOXへ再帰する, c曲リストノード.list子リスト, c曲リストノード);
 					}
 				}
 				//-----------------------------
@@ -218,7 +218,7 @@ namespace TJAPlayer3
 				//-----------------------------
 				else
 				{
-					this.t曲を検索してリストを作成する(infoDir.FullName + @"\", b子BOXへ再帰する, listノードリスト, node親);
+					this.t曲を検索してリストを作成する(infoDir.FullName + @"/", b子BOXへ再帰する, listノードリスト, node親);
 				}
 				//-----------------------------
 				#endregion

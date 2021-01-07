@@ -126,10 +126,10 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_background.jpg" ), false );
-				//this.tx上部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_header panel.png" ) );
-				//this.tx下部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_footer panel.png" ) );
-				//this.txMenuカーソル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenConfig menu cursor.png" ) );
+				//this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/4_background.jpg" ), false );
+				//this.tx上部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/4_header panel.png" ) );
+				//this.tx下部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/4_footer panel.png" ) );
+				//this.txMenuカーソル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/ScreenConfig menu cursor.png" ) );
 				string[] strMenuItem = {"System", "Drums", "Exit"};
 				txMenuItemLeft = new CTexture[strMenuItem.Length, 2];
 				using (var prvFont = new CPrivateFastFont(CSkin.Path(@"mplus-1p-heavy.ttf"), 20))

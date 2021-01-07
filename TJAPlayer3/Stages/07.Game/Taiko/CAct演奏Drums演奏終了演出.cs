@@ -99,10 +99,10 @@ namespace TJAPlayer3
 
 		public override void OnManagedリソースの作成()
 		{
-			this.soundFailed = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Failed.ogg"), ESoundGroup.SoundEffect);
-			this.soundClear = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Clear.ogg"), ESoundGroup.SoundEffect);
-			this.soundFullCombo = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Full Combo.ogg"), ESoundGroup.SoundEffect);
-			this.soundDonderFullCombo = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Donder Full Combo.ogg"), ESoundGroup.SoundEffect);
+			this.soundFailed = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds/Failed.ogg"), ESoundGroup.SoundEffect);
+			this.soundClear = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds/Clear.ogg"), ESoundGroup.SoundEffect);
+			this.soundFullCombo = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds/Full Combo.ogg"), ESoundGroup.SoundEffect);
+			this.soundDonderFullCombo = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds/Donder Full Combo.ogg"), ESoundGroup.SoundEffect);
 			base.OnManagedリソースの作成();
 		}
 

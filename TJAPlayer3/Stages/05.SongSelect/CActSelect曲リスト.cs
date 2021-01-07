@@ -616,7 +616,7 @@ namespace TJAPlayer3
 			}
 			#endregion
 			#region [ 曲数表示 ]
-			//this.txアイテム数数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\ScreenSelect skill number on gauge etc.png" ), false );
+			//this.txアイテム数数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/ScreenSelect skill number on gauge etc.png" ), false );
 			#endregion
 			base.OnManagedリソースの作成();
 		}

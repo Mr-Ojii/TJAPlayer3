@@ -503,20 +503,20 @@ namespace TJAPlayer3
 				{
 					for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
 					{
-						if (File.Exists(CSkin.Path(@"Sounds\Taiko\" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"\dong.ogg")))
-							this.soundRed[i] = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Taiko\" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"\dong.ogg"), ESoundGroup.SoundEffect);
+						if (File.Exists(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/dong.ogg")))
+							this.soundRed[i] = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/dong.ogg"), ESoundGroup.SoundEffect);
 						else
-							this.soundRed[i] = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Taiko\dong.ogg"), ESoundGroup.SoundEffect);
+							this.soundRed[i] = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds/Taiko\dong.ogg"), ESoundGroup.SoundEffect);
 
-						if (File.Exists(CSkin.Path(@"Sounds\Taiko\" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"\ka.ogg")))
-							this.soundBlue[i] = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Taiko\" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"\ka.ogg"), ESoundGroup.SoundEffect);
+						if (File.Exists(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/ka.ogg")))
+							this.soundBlue[i] = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/ka.ogg"), ESoundGroup.SoundEffect);
 						else
-							this.soundBlue[i] = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Taiko\ka.ogg"), ESoundGroup.SoundEffect);
+							this.soundBlue[i] = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds/Taiko/ka.ogg"), ESoundGroup.SoundEffect);
 
-						if (File.Exists(CSkin.Path(@"Sounds\Taiko\" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"\Adlib.ogg")))
-							this.soundAdlib[i] = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Taiko\" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"\Adlib.ogg"), ESoundGroup.SoundEffect);
+						if (File.Exists(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/Adlib.ogg")))
+							this.soundAdlib[i] = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/Adlib.ogg"), ESoundGroup.SoundEffect);
 						else
-							this.soundAdlib[i] = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds\Taiko\Adlib.ogg"), ESoundGroup.SoundEffect);
+							this.soundAdlib[i] = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds/Taiko/Adlib.ogg"), ESoundGroup.SoundEffect);
 					}
 
 					if (TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.ConfigIni.b2P演奏時のSEの左右)//2020.05.06 Mr-Ojii 左右に出したかったから、追加。
@@ -5034,7 +5034,7 @@ namespace TJAPlayer3
 				if (!String.IsNullOrEmpty(TJAPlayer3.DTX[0].strBGIMAGE_PATH))
 					this.tx背景 = TJAPlayer3.tテクスチャの生成(TJAPlayer3.stage選曲.r確定されたスコア.ファイル情報.フォルダの絶対パス + TJAPlayer3.DTX[0].strBGIMAGE_PATH);
 				else
-					this.tx背景 = TJAPlayer3.tテクスチャの生成(CSkin.Path(@"Graphics\5_Game\5_Background\0\Background.png"));
+					this.tx背景 = TJAPlayer3.tテクスチャの生成(CSkin.Path(@"Graphics/5_Game/5_Background/0/Background.png"));
 			}
 			catch (Exception e)
 			{

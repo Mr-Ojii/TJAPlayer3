@@ -15,7 +15,7 @@ namespace TJAPlayer3
 	/// <exception cref="ArgumentException">スタイル指定不正時に例外発生</exception>
 	/// <remarks>
 	/// 簡単な使い方
-	/// CPrivateFont prvFont = new CPrivateFont( CSkin.Path( @"Graphics\fonts\mplus-1p-bold.ttf" ), 36 );	// プライベートフォント
+	/// CPrivateFont prvFont = new CPrivateFont( CSkin.Path( @"Graphics/fonts/mplus-1p-bold.ttf" ), 36 );	// プライベートフォント
 	/// とか
 	/// CPrivateFont prvFont = new CPrivateFont( new FontFamily("MS UI Gothic"), 36, FontStyle.Bold );		// システムフォント
 	/// とかした上で、

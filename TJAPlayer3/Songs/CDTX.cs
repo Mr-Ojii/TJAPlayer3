@@ -1219,7 +1219,7 @@ namespace TJAPlayer3
 			this.bヘッダのみ = bヘッダのみ;
 			this.strファイル名の絶対パス = Path.GetFullPath(strファイル名);
 			this.strファイル名 = Path.GetFileName(this.strファイル名の絶対パス);
-			this.strフォルダ名 = Path.GetDirectoryName(this.strファイル名の絶対パス) + @"\";
+			this.strフォルダ名 = Path.GetDirectoryName(this.strファイル名の絶対パス) + @"/";
 
 			try
 			{

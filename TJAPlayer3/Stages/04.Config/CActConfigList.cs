@@ -856,7 +856,7 @@ namespace TJAPlayer3
 			if ( nSkinSampleIndex != nSkinIndex )
 			{
 				string path = skinSubFolders[ nSkinIndex ];
-				path = System.IO.Path.Combine( path, @"Graphics\1_Title\Background.png" );
+				path = System.IO.Path.Combine( path, @"Graphics/1_Title/Background.png" );
 				Bitmap bmSrc = new Bitmap( path );
 				Bitmap bmDest = new Bitmap( bmSrc.Width / 4, bmSrc.Height / 4 );
 				Graphics g = Graphics.FromImage( bmDest );
@@ -1104,9 +1104,9 @@ namespace TJAPlayer3
 			if( this.b活性化してない )
 				return;
 
-			//this.tx通常項目行パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_itembox.png" ), false );
-			//this.txその他項目行パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_itembox other.png" ), false );
-			//this.tx三角矢印 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\4_triangle arrow.png" ), false );
+			//this.tx通常項目行パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/4_itembox.png" ), false );
+			//this.txその他項目行パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/4_itembox other.png" ), false );
+			//this.tx三角矢印 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/4_triangle arrow.png" ), false );
 			this.txSkinSample1 = null;		// スキン選択時に動的に設定するため、ここでは初期化しない
 			base.OnManagedリソースの作成();
 		}

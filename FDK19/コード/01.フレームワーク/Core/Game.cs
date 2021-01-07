@@ -29,7 +29,7 @@ namespace FDK
 		public Game()
 			: base(GameWindowSize.Width, GameWindowSize.Height, GraphicsMode.Default, "TJAP3-f(OpenGL)Alpha")
 		{
-			FFmpeg.AutoGen.ffmpeg.RootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"\ffmpeg\";
+			FFmpeg.AutoGen.ffmpeg.RootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"/ffmpeg/";
 
 			if (!Directory.Exists(FFmpeg.AutoGen.ffmpeg.RootPath))
 				throw new DirectoryNotFoundException("FFmpeg RootPath Not Found.");

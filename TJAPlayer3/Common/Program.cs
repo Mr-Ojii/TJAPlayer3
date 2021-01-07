@@ -48,7 +48,7 @@ namespace TJAPlayer3
 				AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
 
 				//エラーが発生したことをユーザーに知らせるため、HTMLを作成する。
-				using (StreamWriter writer = new StreamWriter(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\Error.html", false, Encoding.UTF8)) 
+				using (StreamWriter writer = new StreamWriter(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Error.html", false, Encoding.UTF8)) 
 				{
 					writer.WriteLine("<html>");
 					writer.WriteLine("<head>");
@@ -75,7 +75,7 @@ namespace TJAPlayer3
 					writer.WriteLine("</body>");
 					writer.WriteLine("</html>");
 				}
-				CWebOpen.Open(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\Error.html");
+				CWebOpen.Open(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Error.html");
 
 #if !DEBUG
 				//エラーの送信

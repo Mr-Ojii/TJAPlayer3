@@ -101,10 +101,10 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-	//            this.txBlack = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\Tile black 64x64.png" ) );
-				//this.txStageFailed = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_stage_failed.jpg" ) );
-				//this.txGameFailed = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_GameFailed.png" ) );
-	//            this.tx数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_RollNumber.png" ) );
+	//            this.txBlack = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/Tile black 64x64.png" ) );
+				//this.txStageFailed = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_stage_failed.jpg" ) );
+				//this.txGameFailed = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_GameFailed.png" ) );
+	//            this.tx数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_RollNumber.png" ) );
 				base.OnManagedリソースの作成();
 			}
 		}

@@ -513,8 +513,8 @@ namespace TJAPlayer3
 		/// </summary>
 		public void SEloader()
 		{
-			this.SECount = TJAPlayer3.t連番フォルダの個数を数える(CSkin.Path(@"Sounds\Taiko\"));
-			string strファイル名 = CSkin.Path(@"Sounds\Taiko\SElist.csv");
+			this.SECount = TJAPlayer3.t連番フォルダの個数を数える(CSkin.Path(@"Sounds/Taiko/"));
+			string strファイル名 = CSkin.Path(@"Sounds/Taiko/SElist.csv");
 
 			if (!File.Exists(strファイル名))
 			{
@@ -669,32 +669,32 @@ namespace TJAPlayer3
 					this[i].Dispose();
 				}
 			}
-			this.soundカーソル移動音 = new Cシステムサウンド(@"Sounds\Move.ogg", false, false, ESoundGroup.SoundEffect);
-			this.sound決定音 = new Cシステムサウンド(@"Sounds\Decide.ogg", false, false, ESoundGroup.SoundEffect);
-			this.sound変更音 = new Cシステムサウンド(@"Sounds\Change.ogg", false, false, ESoundGroup.SoundEffect);
-			this.sound取消音 = new Cシステムサウンド(@"Sounds\Cancel.ogg", false, false, ESoundGroup.SoundEffect);
-			this.soundSTAGEFAILED音 = new Cシステムサウンド(@"Sounds\Stage failed.ogg", false, true, ESoundGroup.Voice);
-			this.soundゲーム開始音 = new Cシステムサウンド(@"Sounds\Game start.ogg", false, false, ESoundGroup.Voice);
-			this.soundゲーム終了音 = new Cシステムサウンド(@"Sounds\Game end.ogg", false, true, ESoundGroup.Voice);
-			this.sound曲読込開始音 = new Cシステムサウンド(@"Sounds\Now loading.ogg", false, true, ESoundGroup.Unknown);
-			this.soundタイトル音 = new Cシステムサウンド(@"Sounds\Title.ogg", false, true, ESoundGroup.SongPlayback);
-			this.bgm起動画面 = new Cシステムサウンド(@"Sounds\Setup BGM.ogg", true, true, ESoundGroup.SongPlayback);
-			this.bgmコンフィグ画面 = new Cシステムサウンド(@"Sounds\Config BGM.ogg", true, true, ESoundGroup.SongPlayback);
-			this.bgm選曲画面 = new Cシステムサウンド(@"Sounds\Select BGM.ogg", true, true, ESoundGroup.SongPreview);
+			this.soundカーソル移動音 = new Cシステムサウンド(@"Sounds/Move.ogg", false, false, ESoundGroup.SoundEffect);
+			this.sound決定音 = new Cシステムサウンド(@"Sounds/Decide.ogg", false, false, ESoundGroup.SoundEffect);
+			this.sound変更音 = new Cシステムサウンド(@"Sounds/Change.ogg", false, false, ESoundGroup.SoundEffect);
+			this.sound取消音 = new Cシステムサウンド(@"Sounds/Cancel.ogg", false, false, ESoundGroup.SoundEffect);
+			this.soundSTAGEFAILED音 = new Cシステムサウンド(@"Sounds/Stage failed.ogg", false, true, ESoundGroup.Voice);
+			this.soundゲーム開始音 = new Cシステムサウンド(@"Sounds/Game start.ogg", false, false, ESoundGroup.Voice);
+			this.soundゲーム終了音 = new Cシステムサウンド(@"Sounds/Game end.ogg", false, true, ESoundGroup.Voice);
+			this.sound曲読込開始音 = new Cシステムサウンド(@"Sounds/Now loading.ogg", false, true, ESoundGroup.Unknown);
+			this.soundタイトル音 = new Cシステムサウンド(@"Sounds/Title.ogg", false, true, ESoundGroup.SongPlayback);
+			this.bgm起動画面 = new Cシステムサウンド(@"Sounds/Setup BGM.ogg", true, true, ESoundGroup.SongPlayback);
+			this.bgmコンフィグ画面 = new Cシステムサウンド(@"Sounds/Config BGM.ogg", true, true, ESoundGroup.SongPlayback);
+			this.bgm選曲画面 = new Cシステムサウンド(@"Sounds/Select BGM.ogg", true, true, ESoundGroup.SongPreview);
 
-			this.soundBalloon = new Cシステムサウンド(@"Sounds\balloon.ogg", false, false, ESoundGroup.SoundEffect);
-			this.sound曲決定音 = new Cシステムサウンド(@"Sounds\SongDecide.ogg", false, false, ESoundGroup.Voice);
-			this.sound成績発表 = new Cシステムサウンド(@"Sounds\ResultIn.ogg", false, false, ESoundGroup.Voice);
-			this.soundDanするカッ = new Cシステムサウンド(@"Sounds\Dan_Select.ogg", false, false, ESoundGroup.SoundEffect);
+			this.soundBalloon = new Cシステムサウンド(@"Sounds/balloon.ogg", false, false, ESoundGroup.SoundEffect);
+			this.sound曲決定音 = new Cシステムサウンド(@"Sounds/SongDecide.ogg", false, false, ESoundGroup.Voice);
+			this.sound成績発表 = new Cシステムサウンド(@"Sounds/ResultIn.ogg", false, false, ESoundGroup.Voice);
+			this.soundDanするカッ = new Cシステムサウンド(@"Sounds/Dan_Select.ogg", false, false, ESoundGroup.SoundEffect);
 
-			this.sound特訓再生音 = new Cシステムサウンド(@"Sounds\Resume.ogg", false, false, ESoundGroup.SoundEffect);
-			this.sound特訓停止音 = new Cシステムサウンド(@"Sounds\Pause.ogg", false, false, ESoundGroup.SoundEffect);
-			this.sound特訓スクロール音 = new Cシステムサウンド(@"Sounds\Scroll.ogg", false, false, ESoundGroup.SoundEffect);
-			this.sound選曲スキップ音 = new Cシステムサウンド(@"Sounds\Skip.ogg", false, false, ESoundGroup.SoundEffect);
-			this.sound音色選択音 = new Cシステムサウンド(@"Sounds\Timbre.ogg", false, false, ESoundGroup.SoundEffect);
-			this.sound難易度選択音 = new Cシステムサウンド(@"Sounds\DifficultySelect.ogg", false, false, ESoundGroup.SoundEffect);
-			this.sound自己ベスト更新音 = new Cシステムサウンド(@"Sounds\NewRecord.ogg", false, false, ESoundGroup.Voice);
-			this.sound回転音 = new Cシステムサウンド(@"Sounds\Rotate.ogg", false, false, ESoundGroup.SoundEffect);
+			this.sound特訓再生音 = new Cシステムサウンド(@"Sounds/Resume.ogg", false, false, ESoundGroup.SoundEffect);
+			this.sound特訓停止音 = new Cシステムサウンド(@"Sounds/Pause.ogg", false, false, ESoundGroup.SoundEffect);
+			this.sound特訓スクロール音 = new Cシステムサウンド(@"Sounds/Scroll.ogg", false, false, ESoundGroup.SoundEffect);
+			this.sound選曲スキップ音 = new Cシステムサウンド(@"Sounds/Skip.ogg", false, false, ESoundGroup.SoundEffect);
+			this.sound音色選択音 = new Cシステムサウンド(@"Sounds/Timbre.ogg", false, false, ESoundGroup.SoundEffect);
+			this.sound難易度選択音 = new Cシステムサウンド(@"Sounds/DifficultySelect.ogg", false, false, ESoundGroup.SoundEffect);
+			this.sound自己ベスト更新音 = new Cシステムサウンド(@"Sounds/NewRecord.ogg", false, false, ESoundGroup.Voice);
+			this.sound回転音 = new Cシステムサウンド(@"Sounds/Rotate.ogg", false, false, ESoundGroup.SoundEffect);
 
 			ReloadSkin();
 			tReadSkinConfig();
@@ -826,7 +826,7 @@ namespace TJAPlayer3
 
 		/// <summary>
 		/// フルパス名を与えると、スキン名として、ディレクトリ名末尾の要素を返す
-		/// 例: C:\foo\bar\ なら、barを返す
+		/// 例: C:/foo/bar/ なら、barを返す
 		/// </summary>
 		/// <param name="skinpath">スキンが格納されたパス名(フルパス)</param>
 		/// <returns>スキン名</returns>
@@ -837,7 +837,7 @@ namespace TJAPlayer3
 				if (skinPathFullName == "")     // 「box.defで未定義」用
 					skinPathFullName = strSystemSkinSubfolderFullName;
 				string[] tmp = skinPathFullName.Split(System.IO.Path.DirectorySeparatorChar);
-				return tmp[tmp.Length - 2];     // ディレクトリ名の最後から2番目の要素がスキン名(最後の要素はnull。元stringの末尾が\なので。)
+				return tmp[tmp.Length - 2];     // ディレクトリ名の最後から2番目の要素がスキン名(最後の要素はnull。元stringの末尾が/なので。)
 			}
 			return null;
 		}
@@ -876,7 +876,7 @@ namespace TJAPlayer3
 		public bool bIsValid(string skinPathFullName)
 		{
 			string filePathTitle;
-			filePathTitle = System.IO.Path.Combine(skinPathFullName, @"Graphics\1_Title\Background.png");
+			filePathTitle = System.IO.Path.Combine(skinPathFullName, @"Graphics/1_Title/Background.png");
 			return (File.Exists(filePathTitle));
 		}
 

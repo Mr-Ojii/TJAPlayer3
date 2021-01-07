@@ -43,7 +43,7 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//this.tx幕 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\8_background_mask.png" ) );
+				//this.tx幕 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/8_background_mask.png" ) );
 				base.OnManagedリソースの作成();
 			}
 		}

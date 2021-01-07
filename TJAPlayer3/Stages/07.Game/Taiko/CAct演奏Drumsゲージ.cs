@@ -59,23 +59,23 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//this.txゲージ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge.png" ) );
-				//this.txゲージ背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_base.png" ) );
+				//this.txゲージ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_Gauge.png" ) );
+				//this.txゲージ背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_Gauge_base.png" ) );
 	//            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-	//                this.txゲージ2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_2P.png" ) );
+	//                this.txゲージ2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_Gauge_2P.png" ) );
 	//            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-	//                this.txゲージ背景2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_base_2P.png" ) );
-	//            this.txゲージ線 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_line.png" ) );
+	//                this.txゲージ背景2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_Gauge_base_2P.png" ) );
+	//            this.txゲージ線 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_Gauge_line.png" ) );
 	//            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-	//                this.txゲージ線2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Gauge_line_2P.png" ) );
+	//                this.txゲージ線2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_Gauge_line_2P.png" ) );
 
-	//            this.tx魂 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Soul.png" ) );
-	//            this.tx炎 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_Soul_fire.png" ) );
+	//            this.tx魂 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_Soul.png" ) );
+	//            this.tx炎 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_Soul_fire.png" ) );
 
-	//            this.tx魂花火 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics\7_explosion_soul.png" ) );
+	//            this.tx魂花火 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_explosion_soul.png" ) );
 				//for( int i = 0; i < 12; i++ )
 				//{
-				//    this.txゲージ虹[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics\Gauge\Gauge_rainbow_" + i.ToString() + ".png") );
+				//    this.txゲージ虹[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics/Gauge/Gauge_rainbow_" + i.ToString() + ".png") );
 				//}
 				if(TJAPlayer3.Skin.Game_Gauge_Rainbow_Timer <= 1)
 				{
@@ -83,7 +83,7 @@ namespace TJAPlayer3
 				}
 				this.ct虹アニメ = new CCounter( 0, TJAPlayer3.Skin.Game_Gauge_Rainbow_Ptn -1, TJAPlayer3.Skin.Game_Gauge_Rainbow_Timer, TJAPlayer3.Timer );
 				this.ct虹透明度 = new CCounter(0, TJAPlayer3.Skin.Game_Gauge_Rainbow_Timer-1, 1, TJAPlayer3.Timer);
-				//this.tx音符 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics\7_taiko_notes.png"));
+				//this.tx音符 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics/7_taiko_notes.png"));
 				base.OnManagedリソースの作成();
 			}
 		}

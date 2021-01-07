@@ -84,7 +84,7 @@ namespace TJAPlayer3
 		{
 			if (prvFont == null)
 			{
-				prvFont = new CPrivateFastFont(CSkin.Path(@"Graphics\ipag.ttf"), 18);
+				prvFont = new CPrivateFastFont(CSkin.Path(@"Graphics/ipag.ttf"), 18);
 			}
 		}
 

@@ -12,4 +12,9 @@
     <ProjectView>ProjectFiles</ProjectView>
     <ActiveDebugFramework>net48</ActiveDebugFramework>
   </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>
