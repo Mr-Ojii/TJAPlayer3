@@ -503,7 +503,7 @@ namespace TJAPlayer3
 		}
 		private string InitializeSkinPathRoot()
 		{
-			strSystemSkinRoot = System.IO.Path.Combine(TJAPlayer3.strEXEのあるフォルダ, "System" + System.IO.Path.DirectorySeparatorChar);
+			strSystemSkinRoot = System.IO.Path.Combine(TJAPlayer3.strEXEのあるフォルダ, "System/");
 			return strSystemSkinRoot;
 		}
 
@@ -753,9 +753,9 @@ namespace TJAPlayer3
 				#endregion
 				#region [ スキンフォルダと確認できたものを、strSkinSubfoldersに入れる ]
 				// フォルダ名末尾に必ず\をつけておくこと。さもないとConfig読み出し側(必ず\をつける)とマッチできない
-				if (tempSkinSubfolders[i][tempSkinSubfolders[i].Length - 1] != System.IO.Path.DirectorySeparatorChar)
+				if (tempSkinSubfolders[i][tempSkinSubfolders[i].Length - 1] != '/')
 				{
-					tempSkinSubfolders[i] += System.IO.Path.DirectorySeparatorChar;
+					tempSkinSubfolders[i] += '/';
 				}
 				strSystemSkinSubfolders[size] = tempSkinSubfolders[i];
 				Trace.TraceInformation("SkinPath検出: {0}", strSystemSkinSubfolders[size]);
@@ -788,7 +788,7 @@ namespace TJAPlayer3
 			/// 2. System/*****/ で最初にenumerateされたもの
 			/// 3. System/ (従来互換)
 			#region [ System/Default/ があるなら、そこにカレントSkinパスを設定する]
-			string tempSkinPath_default = System.IO.Path.Combine(strSystemSkinRoot, "Default" + System.IO.Path.DirectorySeparatorChar);
+			string tempSkinPath_default = System.IO.Path.Combine(strSystemSkinRoot, "Default/");
 			if (Array.BinarySearch(strSystemSkinSubfolders, tempSkinPath_default,
 				StringComparer.InvariantCultureIgnoreCase) >= 0)
 			{
@@ -836,7 +836,7 @@ namespace TJAPlayer3
 			{
 				if (skinPathFullName == "")     // 「box.defで未定義」用
 					skinPathFullName = strSystemSkinSubfolderFullName;
-				string[] tmp = skinPathFullName.Split(System.IO.Path.DirectorySeparatorChar);
+				string[] tmp = skinPathFullName.Split('/');
 				return tmp[tmp.Length - 2];     // ディレクトリ名の最後から2番目の要素がスキン名(最後の要素はnull。元stringの末尾が/なので。)
 			}
 			return null;
