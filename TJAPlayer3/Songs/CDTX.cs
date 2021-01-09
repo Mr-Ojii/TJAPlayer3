@@ -149,8 +149,6 @@ namespace TJAPlayer3
 			public double db実数値;
 			public double dbBPM;
 			public double db末端BPM = 120.0;
-			public float fNow_Measure_s = 4.0f; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加//強制分岐のために追加.2020.04.21.akasoko26
-			public float fNow_Measure_m = 4.0f; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加//強制分岐のために追加.2020.04.21.akasoko26
 			public bool IsEndedBranching = false; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加//分岐が終わった時の連打譜面が非可視化になってしまうためフラグを追加.2020.04.21.akasoko26
 			public double dbSCROLL;
 			public double dbSCROLL_Y;
@@ -180,7 +178,6 @@ namespace TJAPlayer3
 			public int nノーツ出現時刻ms;
 			public int nノーツ移動開始時刻ms;
 			public int nLag;                // 2011.2.1 yyagi
-			public CVideoDecoder rVD;
 			public int nPlayerSide;
 			public bool bGOGOTIME = false; //2018.03.11 k1airera0467 ゴーゴータイム内のチップであるか
 			public bool IsFixedSENote;
@@ -803,22 +800,6 @@ namespace TJAPlayer3
 				{
 					cvd.InitRead();
 					cvd.dbPlaySpeed = ((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0;
-				}
-			}
-			if (!this.bヘッダのみ)//&& this.b動画読み込み )
-			{
-				foreach (CChip chip in this.listChip)
-				{
-					if (chip.nチャンネル番号 == 0x54 || chip.nチャンネル番号 == 0x5A)
-					{
-						chip.rVD = null;
-
-						CVideoDecoder vd;
-						if ((this.listVD.TryGetValue(chip.n整数値, out vd)))
-						{
-							chip.rVD = vd;
-						}
-					}
 				}
 			}
 		}
@@ -1935,8 +1916,6 @@ namespace TJAPlayer3
 				chip.nチャンネル番号 = 0x01;
 				chip.n発声位置 = 384;
 				chip.n発声時刻ms = (int)this.dbNowTime;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.fBMSCROLLTime = this.dbNowBMScollTime;
 				chip.n整数値 = 0x01;
 				chip.n整数値_内部番号 = 1;
@@ -1952,8 +1931,6 @@ namespace TJAPlayer3
 				chip1.n発声時刻ms = (int)this.dbNowTime;
 				chip1.dbBPM = this.dbNowBPM;
 				chip1.dbSCROLL = this.dbNowScroll;
-				chip1.fNow_Measure_m = this.fNow_Measure_m;
-				chip1.fNow_Measure_s = this.fNow_Measure_s;
 				chip1.n整数値 = 0x01;
 				chip1.n整数値_内部番号 = 1;
 				chip1.nPlayerSide = this.nPlayerSide;
@@ -2008,8 +1985,6 @@ namespace TJAPlayer3
 						chip.nチャンネル番号 = 0x9B;
 						chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
 						chip.n発声時刻ms = (int)this.dbNowTime;
-						chip.fNow_Measure_m = this.fNow_Measure_m;
-						chip.fNow_Measure_s = this.fNow_Measure_s;
 						this.dbNowTime += delayTime;
 						this.dbNowBMScollTime += delayTime * this.dbNowBPM / 15000;
 						chip.n整数値_内部番号 = 0;
@@ -2076,8 +2051,6 @@ namespace TJAPlayer3
 						nextSongnextSongChip.nチャンネル番号 = 0x01;
 						nextSongnextSongChip.n発声位置 = 384;
 						nextSongnextSongChip.n発声時刻ms = (int)this.dbNowTime;
-						nextSongnextSongChip.fNow_Measure_m = this.fNow_Measure_m;
-						nextSongnextSongChip.fNow_Measure_s = this.fNow_Measure_s;
 						nextSongnextSongChip.n整数値 = 0x01;
 						nextSongnextSongChip.n整数値_内部番号 = 1 + List_DanSongs.Count;
 
@@ -2099,8 +2072,6 @@ namespace TJAPlayer3
 				chip.n発声位置 = ((this.n現在の小節数 + 2) * 384);
 				//chip.n発声時刻ms = (int)( this.dbNowTime + ((15000.0 / this.dbNowBPM * ( 4.0 / 4.0 )) * 16.0) * 2  );
 				chip.n発声時刻ms = (int)(this.dbNowTime + 1000); //2016.07.16 kairera0467 終了時から1秒後に設置するよう変更。
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.n整数値 = 0xFF;
 				chip.n整数値_内部番号 = 1;
 				// チップを配置。
@@ -2165,8 +2136,6 @@ namespace TJAPlayer3
 				chip.nチャンネル番号 = 0x08;
 				chip.n発声位置 = ((this.n現在の小節数) * 384);
 				chip.n発声時刻ms = (int)this.dbNowTime;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.fBMSCROLLTime = (float)this.dbNowBMScollTime;
 				chip.dbBPM = dbBPM;
 				chip.n整数値_内部番号 = this.n内部番号BPM1to - 1;
@@ -2179,8 +2148,6 @@ namespace TJAPlayer3
 				chip1.nチャンネル番号 = 0x9C;
 				chip1.n発声位置 = ((this.n現在の小節数) * 384);
 				chip1.n発声時刻ms = (int)this.dbNowTime;
-				chip1.fNow_Measure_m = this.fNow_Measure_m;
-				chip1.fNow_Measure_s = this.fNow_Measure_s;
 				chip1.fBMSCROLLTime = (float)this.dbNowBMScollTime;
 				chip1.dbBPM = dbBPM;
 				chip1.dbSCROLL = this.dbNowScroll;
@@ -2207,8 +2174,6 @@ namespace TJAPlayer3
 				chip.nチャンネル番号 = 0xDC;
 				chip.n発声位置 = ((this.n現在の小節数) * 384);
 				chip.db発声時刻ms = this.dbNowTime;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.nコース = this.n現在のコース;
 				chip.n整数値_内部番号 = this.n内部番号DELAY1to;
 				chip.fBMSCROLLTime = this.dbNowBMScollTime;
@@ -2239,8 +2204,6 @@ namespace TJAPlayer3
 			chipme.nチャンネル番号 = 0x02;
 			chipme.n発声位置 = ((this.n現在の小節数) * 384);
 			chipme.n発声時刻ms = (int)this.dbNowTime;
-			chipme.fNow_Measure_m = this.fNow_Measure_m;
-			chipme.fNow_Measure_s = this.fNow_Measure_s;
 			chipme.dbSCROLL = this.dbNowScroll;
 			chipme.db実数値 = db小節長倍率;
 			chipme.n整数値_内部番号 = 1;
@@ -2277,8 +2240,6 @@ namespace TJAPlayer3
 			chipsc.nチャンネル番号 = 0x9D;
 			chipsc.n発声位置 = ((this.n現在の小節数) * 384) - 1;
 			chipsc.n発声時刻ms = (int)this.dbNowTime;
-			chipsc.fNow_Measure_m = this.fNow_Measure_m;
-			chipsc.fNow_Measure_s = this.fNow_Measure_s;
 			chipsc.n整数値_内部番号 = this.n内部番号SCROLL1to;
 			chipsc.dbSCROLL = dbSCROLL;
 			chipsc.dbSCROLL_Y = 0.0;
@@ -2571,8 +2532,6 @@ namespace TJAPlayer3
 			chip.nチャンネル番号 = 0x01;
 			chip.n発声位置 = 384;
 			chip.n発声時刻ms = (int)this.dbNowTime;
-			chip.fNow_Measure_m = this.fNow_Measure_m;
-			chip.fNow_Measure_s = this.fNow_Measure_s;
 			chip.fBMSCROLLTime = this.dbNowBMScollTime;
 			chip.n整数値 = 0x01;
 			chip.n整数値_内部番号 = 1;
@@ -2587,8 +2546,6 @@ namespace TJAPlayer3
 			chip1.n発声時刻ms = (int)this.dbNowTime;
 			chip1.dbBPM = this.dbNowBPM;
 			chip1.dbSCROLL = this.dbNowScroll;
-			chip1.fNow_Measure_m = this.fNow_Measure_m;
-			chip1.fNow_Measure_s = this.fNow_Measure_s;
 			chip1.n整数値 = 0x01;
 			chip1.n整数値_内部番号 = 1;
 			chip1.nPlayerSide = this.nPlayerSide;
@@ -2615,8 +2572,6 @@ namespace TJAPlayer3
 			chip.n発声位置 = ((this.n現在の小節数 + 2) * 384);
 			//chip.n発声時刻ms = (int)( this.dbNowTime + ((15000.0 / this.dbNowBPM * ( 4.0 / 4.0 )) * 16.0) * 2  );
 			chip.n発声時刻ms = (int)(this.dbNowTime + 1000); //2016.07.16 kairera0467 終了時から1秒後に設置するよう変更。
-			chip.fNow_Measure_m = this.fNow_Measure_m;
-			chip.fNow_Measure_s = this.fNow_Measure_s;
 			chip.n整数値 = 0xFF;
 			chip.n整数値_内部番号 = 1;
 			// チップを配置。
@@ -2699,8 +2654,6 @@ namespace TJAPlayer3
 					chip.n整数値 = this.n現在の小節数;
 					chip.n整数値_内部番号 = this.n現在の小節数;
 					chip.dbBPM = this.dbNowBPM;
-					chip.fNow_Measure_m = this.fNow_Measure_m;
-					chip.fNow_Measure_s = this.fNow_Measure_s;
 					chip.IsEndedBranching = IsEndedBranching;
 					chip.dbSCROLL = this.dbNowScroll;
 					chip.dbSCROLL_Y = this.dbNowScrollY;
@@ -2755,8 +2708,6 @@ namespace TJAPlayer3
 					hakusen.n整数値 = 0;
 					hakusen.dbBPM = this.dbNowBPM;
 					hakusen.dbSCROLL = this.dbNowScroll;
-					hakusen.fNow_Measure_m = this.fNow_Measure_m;
-					hakusen.fNow_Measure_s = this.fNow_Measure_s;
 					hakusen.dbSCROLL_Y = this.dbNowScrollY;
 					hakusen.nコース = this.n現在のコース;
 
@@ -2830,8 +2781,6 @@ namespace TJAPlayer3
 						chip.n整数値 = nObjectNum;
 						chip.n整数値_内部番号 = 1;
 						chip.IsEndedBranching = IsEndedBranching;
-						chip.fNow_Measure_m = this.fNow_Measure_m;
-						chip.fNow_Measure_s = this.fNow_Measure_s;
 						chip.dbBPM = this.dbNowBPM;
 						chip.dbSCROLL = this.dbNowScroll;
 						chip.dbSCROLL_Y = this.dbNowScrollY;
@@ -3033,8 +2982,6 @@ namespace TJAPlayer3
 				chip.nチャンネル番号 = 0x08;
 				chip.n発声位置 = ((this.n現在の小節数) * 384);
 				chip.n発声時刻ms = (int)this.dbNowTime;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.fBMSCROLLTime = (float)this.dbNowBMScollTime;
 				chip.dbBPM = dbBPM;
 				chip.n整数値_内部番号 = this.n内部番号BPM1to - 1;
@@ -3047,8 +2994,6 @@ namespace TJAPlayer3
 				chip1.nチャンネル番号 = 0x9C;
 				chip1.n発声位置 = ((this.n現在の小節数) * 384);
 				chip1.n発声時刻ms = (int)this.dbNowTime;
-				chip1.fNow_Measure_m = this.fNow_Measure_m;
-				chip1.fNow_Measure_s = this.fNow_Measure_s;
 				chip1.fBMSCROLLTime = (float)this.dbNowBMScollTime;
 				chip1.dbBPM = dbBPM;
 				chip1.dbSCROLL = this.dbNowScroll;
@@ -3087,8 +3032,6 @@ namespace TJAPlayer3
 				chip.nチャンネル番号 = 0x9D;
 				chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
 				chip.n発声時刻ms = (int)this.dbNowTime;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.n整数値_内部番号 = this.n内部番号SCROLL1to;
 				chip.dbSCROLL = dbSCROLL;
 				chip.dbSCROLL_Y = 0.0;
@@ -3119,8 +3062,6 @@ namespace TJAPlayer3
 				chip.nチャンネル番号 = 0x02;
 				chip.n発声位置 = ((this.n現在の小節数) * 384);
 				chip.n発声時刻ms = (int)this.dbNowTime;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.dbSCROLL = this.dbNowScroll;
 				chip.db実数値 = db小節長倍率;
 				chip.n整数値_内部番号 = 1;
@@ -3144,8 +3085,6 @@ namespace TJAPlayer3
 				chip.nチャンネル番号 = 0xDC;
 				chip.n発声位置 = ((this.n現在の小節数) * 384);
 				chip.db発声時刻ms = this.dbNowTime;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.nコース = this.n現在のコース;
 				chip.n整数値_内部番号 = this.n内部番号DELAY1to;
 				chip.fBMSCROLLTime = this.dbNowBMScollTime;
@@ -3166,8 +3105,6 @@ namespace TJAPlayer3
 				chip.n発声位置 = ((this.n現在の小節数) * 384);
 				chip.dbBPM = this.dbNowBPM;
 				chip.n発声時刻ms = (int)this.dbNowTime;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.n整数値_内部番号 = 1;
 				this.bGOGOTIME = true;
 
@@ -3182,8 +3119,6 @@ namespace TJAPlayer3
 				chip.n発声位置 = ((this.n現在の小節数) * 384);
 				chip.n発声時刻ms = (int)this.dbNowTime;
 				chip.dbBPM = this.dbNowBPM;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.n整数値_内部番号 = 1;
 				this.bGOGOTIME = false;
 
@@ -3739,8 +3674,6 @@ namespace TJAPlayer3
 				chip.nチャンネル番号 = 0x01;
 				chip.n発声位置 = 384;
 				chip.n発声時刻ms = (int)this.dbNowTime;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.fBMSCROLLTime = this.dbNowBMScollTime;
 				chip.n整数値 = 0x01;
 				chip.n整数値_内部番号 = 1;
@@ -3755,8 +3688,6 @@ namespace TJAPlayer3
 				chip1.n発声時刻ms = (int)this.dbNowTime;
 				chip1.dbBPM = this.dbNowBPM;
 				chip1.dbSCROLL = this.dbNowScroll;
-				chip1.fNow_Measure_m = this.fNow_Measure_m;
-				chip1.fNow_Measure_s = this.fNow_Measure_s;
 				chip1.n整数値 = 0x01;
 				chip1.n整数値_内部番号 = 1;
 				chip1.nPlayerSide = this.nPlayerSide;
@@ -3774,8 +3705,6 @@ namespace TJAPlayer3
 				chip.n発声位置 = ((this.n現在の小節数 + 2) * 384);
 				//chip.n発声時刻ms = (int)( this.dbNowTime + ((15000.0 / this.dbNowBPM * ( 4.0 / 4.0 )) * 16.0) * 2  );
 				chip.n発声時刻ms = (int)(this.dbNowTime + 1000); //2016.07.16 kairera0467 終了時から1秒後に設置するよう変更。
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.n整数値 = 0xFF;
 				chip.n整数値_内部番号 = 1;
 				// チップを配置。
@@ -3797,8 +3726,6 @@ namespace TJAPlayer3
 				chip.nチャンネル番号 = 0x08;
 				chip.n発声位置 = ((this.n現在の小節数) * 384);
 				chip.n発声時刻ms = (int)this.dbNowTime;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.fBMSCROLLTime = (float)this.dbNowBMScollTime;
 				chip.dbBPM = dbBPM;
 				chip.n整数値_内部番号 = this.n内部番号BPM1to - 1;
@@ -3811,8 +3738,6 @@ namespace TJAPlayer3
 				chip1.nチャンネル番号 = 0x9C;
 				chip1.n発声位置 = ((this.n現在の小節数) * 384);
 				chip1.n発声時刻ms = (int)this.dbNowTime;
-				chip1.fNow_Measure_m = this.fNow_Measure_m;
-				chip1.fNow_Measure_s = this.fNow_Measure_s;
 				chip1.fBMSCROLLTime = (float)this.dbNowBMScollTime;
 				chip1.dbBPM = dbBPM;
 				chip1.dbSCROLL = this.dbNowScroll;
@@ -3865,8 +3790,6 @@ namespace TJAPlayer3
 					chip.nチャンネル番号 = 0x9D;
 					chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
 					chip.n発声時刻ms = (int)this.dbNowTime;
-					chip.fNow_Measure_m = this.fNow_Measure_m;
-					chip.fNow_Measure_s = this.fNow_Measure_s;
 					chip.n整数値_内部番号 = this.n内部番号SCROLL1to;
 					chip.dbSCROLL = dbComplexNum[0];
 					chip.dbSCROLL_Y = dbComplexNum[1];
@@ -3903,8 +3826,6 @@ namespace TJAPlayer3
 					chip.nチャンネル番号 = 0x9D;
 					chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
 					chip.n発声時刻ms = (int)this.dbNowTime;
-					chip.fNow_Measure_m = this.fNow_Measure_m;
-					chip.fNow_Measure_s = this.fNow_Measure_s;
 					chip.n整数値_内部番号 = this.n内部番号SCROLL1to;
 					chip.dbSCROLL = dbSCROLL;
 					chip.dbSCROLL_Y = 0.0;
@@ -3939,8 +3860,6 @@ namespace TJAPlayer3
 				chip.nチャンネル番号 = 0x02;
 				chip.n発声位置 = ((this.n現在の小節数) * 384);
 				chip.n発声時刻ms = (int)this.dbNowTime;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.dbSCROLL = this.dbNowScroll;
 				chip.db実数値 = db小節長倍率;
 				chip.n整数値_内部番号 = 1;
@@ -3964,8 +3883,6 @@ namespace TJAPlayer3
 				chip.nチャンネル番号 = 0xDC;
 				chip.n発声位置 = ((this.n現在の小節数) * 384);
 				chip.db発声時刻ms = this.dbNowTime;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.nコース = this.n現在のコース;
 				chip.n整数値_内部番号 = this.n内部番号DELAY1to;
 				chip.fBMSCROLLTime = this.dbNowBMScollTime;
@@ -3986,8 +3903,6 @@ namespace TJAPlayer3
 				chip.n発声位置 = ((this.n現在の小節数) * 384);
 				chip.dbBPM = this.dbNowBPM;
 				chip.n発声時刻ms = (int)this.dbNowTime;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.n整数値_内部番号 = 1;
 				this.bGOGOTIME = true;
 
@@ -4002,8 +3917,6 @@ namespace TJAPlayer3
 				chip.n発声位置 = ((this.n現在の小節数) * 384);
 				chip.n発声時刻ms = (int)this.dbNowTime;
 				chip.dbBPM = this.dbNowBPM;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.n整数値_内部番号 = 1;
 				this.bGOGOTIME = false;
 
@@ -4018,8 +3931,6 @@ namespace TJAPlayer3
 				chip.nチャンネル番号 = 0xDD;
 				chip.n発声位置 = ((this.n現在の小節数 - 1) * 384);
 				chip.n発声時刻ms = (int)this.dbNowTime;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.n整数値_内部番号 = 1;
 				chip.db発声時刻ms = this.dbNowTime;
 				// チップを配置。
@@ -4098,8 +4009,6 @@ namespace TJAPlayer3
 				else chip.n発声時刻ms = c小節前の小節線情報.n発声時刻ms;
 
 				chip.nチャンネル番号 = 0xDE;
-				chip.fNow_Measure_m = c小節前の小節線情報.fNow_Measure_m;
-				chip.fNow_Measure_s = c小節前の小節線情報.fNow_Measure_s;
 
 				chip.dbSCROLL = c小節前の小節線情報.dbSCROLL;
 				chip.dbBPM = c小節前の小節線情報.dbBPM;
@@ -4141,8 +4050,6 @@ namespace TJAPlayer3
 				chip.nチャンネル番号 = 0xE1;
 				chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
 				chip.n発声時刻ms = (int)this.dbNowTime;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.n整数値_内部番号 = 1;
 
 				this.listChip.Add(chip);
@@ -4155,8 +4062,6 @@ namespace TJAPlayer3
 				GoBranch.nチャンネル番号 = 0x52;
 				GoBranch.n発声位置 = ((this.n現在の小節数) * 384) - 1;
 				GoBranch.n発声時刻ms = (int)this.dbNowTime;
-				GoBranch.fNow_Measure_m = this.fNow_Measure_m;
-				GoBranch.fNow_Measure_s = this.fNow_Measure_s;
 				GoBranch.dbSCROLL = this.dbNowScroll;
 				GoBranch.dbBPM = this.dbNowBPM;
 				GoBranch.n整数値_内部番号 = 1;
@@ -4175,8 +4080,6 @@ namespace TJAPlayer3
 				chip.nチャンネル番号 = 0xE0;
 				chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
 				chip.n発声時刻ms = (int)this.dbNowTime + 1;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.n整数値_内部番号 = 1;
 				chip.nコース = this.n現在のコース;
 				this.bBARLINECUE[0] = 1;
@@ -4190,8 +4093,6 @@ namespace TJAPlayer3
 				chip.nチャンネル番号 = 0xE0;
 				chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
 				chip.n発声時刻ms = (int)this.dbNowTime + 1;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.n整数値_内部番号 = 2;
 				chip.nコース = this.n現在のコース;
 				this.bBARLINECUE[0] = 0;
@@ -4208,8 +4109,6 @@ namespace TJAPlayer3
 
 				chip.nチャンネル番号 = 0xF1;
 				chip.n発声時刻ms = (int)this.dbNowTime;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.n整数値_内部番号 = 0;
 				chip.nコース = this.n現在のコース;
 
@@ -4229,8 +4128,6 @@ namespace TJAPlayer3
 				chip.nチャンネル番号 = 0xF2;
 				chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
 				chip.n発声時刻ms = (int)this.dbNowTime;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.n整数値_内部番号 = 0;
 				chip.nスクロール方向 = (int)dbSCROLL;
 				chip.nコース = this.n現在のコース;
@@ -4254,8 +4151,6 @@ namespace TJAPlayer3
 				chip.nチャンネル番号 = 0xF3;
 				chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
 				chip.n発声時刻ms = (int)this.dbNowTime;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.n整数値_内部番号 = 0;
 				chip.nノーツ出現時刻ms = (int)this.db出現時刻;
 				chip.nノーツ移動開始時刻ms = (int)this.db移動待機時刻;
@@ -4281,8 +4176,6 @@ namespace TJAPlayer3
 				chip.nチャンネル番号 = 0xE2;
 				chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
 				chip.n発声時刻ms = (int)this.dbNowTime;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				chip.n整数値_内部番号 = 0;
 				chip.nコース = this.n現在のコース;
 
@@ -4306,8 +4199,6 @@ namespace TJAPlayer3
 				chip.nチャンネル番号 = 0x9B;
 				chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
 				chip.n発声時刻ms = (int)this.dbNowTime;
-				chip.fNow_Measure_m = this.fNow_Measure_m;
-				chip.fNow_Measure_s = this.fNow_Measure_s;
 				this.dbNowTime += delayTime;
 				this.dbNowBMScollTime += delayTime * this.dbNowBPM / 15000;
 				chip.n整数値_内部番号 = 0;
@@ -4347,8 +4238,6 @@ namespace TJAPlayer3
 				nextSongnextSongChip.nチャンネル番号 = 0x01;
 				nextSongnextSongChip.n発声位置 = 384;
 				nextSongnextSongChip.n発声時刻ms = (int)this.dbNowTime;
-				nextSongnextSongChip.fNow_Measure_m = this.fNow_Measure_m;
-				nextSongnextSongChip.fNow_Measure_s = this.fNow_Measure_s;
 				nextSongnextSongChip.n整数値 = 0x01;
 				nextSongnextSongChip.n整数値_内部番号 = 1 + List_DanSongs.Count;
 
@@ -4494,8 +4383,6 @@ namespace TJAPlayer3
 							chip.n整数値 = this.n現在の小節数;
 							chip.n整数値_内部番号 = this.n現在の小節数;
 							chip.dbBPM = this.dbNowBPM;
-							chip.fNow_Measure_m = this.fNow_Measure_m;
-							chip.fNow_Measure_s = this.fNow_Measure_s;
 							chip.IsEndedBranching = IsEndedBranching;
 							chip.dbSCROLL = this.dbNowScroll;
 							chip.dbSCROLL_Y = this.dbNowScrollY;
@@ -4551,8 +4438,6 @@ namespace TJAPlayer3
 							hakusen.n整数値 = 0;
 							hakusen.dbBPM = this.dbNowBPM;
 							hakusen.dbSCROLL = this.dbNowScroll;
-							hakusen.fNow_Measure_m = this.fNow_Measure_m;
-							hakusen.fNow_Measure_s = this.fNow_Measure_s;
 							hakusen.dbSCROLL_Y = this.dbNowScrollY;
 							hakusen.nコース = this.n現在のコース;
 
@@ -4613,8 +4498,6 @@ namespace TJAPlayer3
 								chip.n整数値 = nObjectNum;
 								chip.n整数値_内部番号 = 1;
 								chip.IsEndedBranching = IsEndedBranching;
-								chip.fNow_Measure_m = this.fNow_Measure_m;
-								chip.fNow_Measure_s = this.fNow_Measure_s;
 								chip.dbBPM = this.dbNowBPM;
 								chip.dbSCROLL = this.dbNowScroll;
 								chip.dbSCROLL_Y = this.dbNowScrollY;

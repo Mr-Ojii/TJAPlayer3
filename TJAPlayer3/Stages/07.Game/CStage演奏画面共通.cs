@@ -3324,11 +3324,14 @@ namespace TJAPlayer3
 					case 0x54:  // 動画再生
 						if (!pChip.bHit && (pChip.TimeSpan < 0) && pChip.nPlayerSide == 0)
 						{
-							pChip.bHit = true;
-							if ( configIni.bAVI有効 && pChip.rVD != null )
+							if ((dTX.listVD.TryGetValue(pChip.n整数値, out CVideoDecoder vd)))
 							{
-								this.actAVI.Start( pChip.nチャンネル番号, pChip.rVD );		
+								if (configIni.bAVI有効 && vd != null)
+								{
+									this.actAVI.Start(pChip.nチャンネル番号, vd);
+								}
 							}
+							pChip.bHit = true;
 						}
 						break;
 #endregion
