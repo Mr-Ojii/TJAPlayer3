@@ -70,11 +70,11 @@ namespace FDK
 			get;
 			private set;
 		}
-		public int? texture
-		{
-			get;
-			private set;
-		}
+		private int? texture;
+		private int? vrtVBO;
+		private int? texVBO;
+		private Vector3[] vertices = new Vector3[4]{ new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(1, 1, 0), new Vector3(1, 0, 0) };
+		private Vector2[] texcoord = new Vector2[4] { new Vector2(0, 0), new Vector2(0, 1), new Vector2(1, 1), new Vector2(1, 0) };
 		public System.Numerics.Vector3 vc拡大縮小倍率;
 		private Vector3 vc;
 		public string filename;
@@ -93,6 +93,8 @@ namespace FDK
 			this.szテクスチャサイズ = new Size(0, 0);
 			this._opacity = 0xff;
 			this.texture = null;
+			this.vrtVBO = null;
+			this.texVBO = null;
 			this.bSharpDXTextureDispose完了済み = true;
 			this.b加算合成 = false;
 			this.fZ軸中心回転 = 0f;
@@ -140,6 +142,15 @@ namespace FDK
 			{
 				this.szテクスチャサイズ = new Size(bitmap.Width, bitmap.Height);
 				this.rc全画像 = new Rectangle(0, 0, this.szテクスチャサイズ.Width, this.szテクスチャサイズ.Height);
+
+				//VBOをここで生成する
+				this.vrtVBO = GL.GenBuffer();
+				GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.vrtVBO);
+				GL.BufferData(BufferTarget.ArrayBuffer, this.vertices.Length * Vector3.SizeInBytes, vertices, BufferUsageHint.DynamicDraw);
+				this.texVBO = GL.GenBuffer();
+				GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
+				GL.BufferData(BufferTarget.ArrayBuffer, this.texcoord.Length * Vector2.SizeInBytes, texcoord, BufferUsageHint.DynamicDraw);
+				GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 
 				this.texture = GL.GenTexture();
 
@@ -339,25 +350,34 @@ namespace FDK
 				ResetWorldMatrix();
 
 				GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
-
-				GL.Begin(PrimitiveType.Quads);
-
 				GL.Color4(this.color);
 
-				GL.TexCoord2(f右U値, f上V値);
-				GL.Vertex3(-(x + (w * this.vc拡大縮小倍率.X) + f補正値X), -(y + f補正値Y), depth);
+				vertices[0].X = -(x + (w * this.vc拡大縮小倍率.X) + f補正値X);
+				vertices[0].Y = -(y + f補正値Y);
+				vertices[1].X = -(x + f補正値X);
+				vertices[1].Y = -(y + f補正値Y);
+				vertices[2].X = -(x + f補正値X);
+				vertices[2].Y = -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y);
+				vertices[3].X = -(x + (w * this.vc拡大縮小倍率.X) + f補正値X);
+				vertices[3].Y = -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y);
 
-				GL.TexCoord2(f左U値, f上V値);
-				GL.Vertex3(-(x + f補正値X), -(y + f補正値Y), depth);
+				texcoord[0].X = f右U値;
+				texcoord[0].Y = f上V値;
+				texcoord[1].X = f左U値;
+				texcoord[1].Y = f上V値;
+				texcoord[2].X = f左U値;
+				texcoord[2].Y = f下V値;
+				texcoord[3].X = f右U値;
+				texcoord[3].Y = f下V値;
 
-				GL.TexCoord2(f左U値, f下V値);
-				GL.Vertex3(-(x + f補正値X), -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y), depth);
+				GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.vrtVBO);
+				GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.vertices.Length * Vector3.SizeInBytes, this.vertices);
+				GL.VertexPointer(3, VertexPointerType.Float, 0, 0);
+				GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
+				GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.texcoord.Length * Vector2.SizeInBytes, this.texcoord);
+				GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
 
-				GL.TexCoord2(f右U値, f下V値);
-				GL.Vertex3(-(x + (w * this.vc拡大縮小倍率.X) + f補正値X), -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y), depth);
-
-				GL.End();
-
+				GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
 				//-----------------
 				#endregion
 			}
@@ -389,24 +409,34 @@ namespace FDK
 				LoadWorldMatrix(matrix);
 
 				GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
-
-				GL.Begin(PrimitiveType.Quads);
-
 				GL.Color4(this.color);
 
-				GL.TexCoord2(f左U値, f下V値);
-				GL.Vertex3(-f中央X, -f中央Y, depth);
+				vertices[0].X = -f中央X;
+				vertices[0].Y = -f中央Y;
+				vertices[1].X = f中央X;
+				vertices[1].Y = -f中央Y;
+				vertices[2].X = f中央X;
+				vertices[2].Y = f中央Y;
+				vertices[3].X = -f中央X;
+				vertices[3].Y = f中央Y;
 
-				GL.TexCoord2(f右U値, f下V値);
-				GL.Vertex3(f中央X, -f中央Y, depth);
+				texcoord[0].X = f左U値;
+				texcoord[0].Y = f下V値;
+				texcoord[1].X = f右U値;
+				texcoord[1].Y = f下V値;
+				texcoord[2].X = f右U値;
+				texcoord[2].Y = f上V値;
+				texcoord[3].X = f左U値;
+				texcoord[3].Y = f上V値;
 
-				GL.TexCoord2(f右U値, f上V値);
-				GL.Vertex3(f中央X, f中央Y, depth);
+				GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.vrtVBO);
+				GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.vertices.Length * Vector3.SizeInBytes, this.vertices);
+				GL.VertexPointer(3, VertexPointerType.Float, 0, 0);
+				GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
+				GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.texcoord.Length * Vector2.SizeInBytes, this.texcoord);
+				GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
 
-				GL.TexCoord2(f左U値, f上V値);
-				GL.Vertex3(-f中央X, f中央Y, depth);
-
-				GL.End();
+				GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
 				//-----------------
 				#endregion
 			}
@@ -436,25 +466,34 @@ namespace FDK
 			ResetWorldMatrix();
 
 			GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
-
-			GL.Begin(PrimitiveType.Quads);
-
 			GL.Color4(this.color);
 
-			GL.TexCoord2(f右U値, f上V値);
-			GL.Vertex3(-(x + (w * this.vc拡大縮小倍率.X) + f補正値X), -(y + f補正値Y), 1f);
+			vertices[0].X = -(x + (w * this.vc拡大縮小倍率.X) + f補正値X);
+			vertices[0].Y = -(y + f補正値Y);
+			vertices[1].X = -(x + f補正値X);
+			vertices[1].Y = -(y + f補正値Y);
+			vertices[2].X = -(x + f補正値X) - ((!left) ? num : 0);
+			vertices[2].Y = -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y);
+			vertices[3].X = -(x + (w * this.vc拡大縮小倍率.X) + f補正値X) + ((left) ? num : 0);
+			vertices[3].Y = -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y);
 
-			GL.TexCoord2(f左U値, f上V値);
-			GL.Vertex3(-(x + f補正値X), -(y + f補正値Y), 1f);
+			texcoord[0].X = f右U値;
+			texcoord[0].Y = f上V値;
+			texcoord[1].X = f左U値;
+			texcoord[1].Y = f上V値;
+			texcoord[2].X = f左U値;
+			texcoord[2].Y = f下V値;
+			texcoord[3].X = f右U値;
+			texcoord[3].Y = f下V値;
 
-			GL.TexCoord2(f左U値, f下V値);
-			GL.Vertex3(-(x + f補正値X) - ((!left) ? num : 0), -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y), 1f);
+			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.vrtVBO);
+			GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.vertices.Length * Vector3.SizeInBytes, this.vertices);
+			GL.VertexPointer(3, VertexPointerType.Float, 0, 0);
+			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
+			GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.texcoord.Length * Vector2.SizeInBytes, this.texcoord);
+			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
 
-			GL.TexCoord2(f右U値, f下V値);
-			GL.Vertex3(-(x + (w * this.vc拡大縮小倍率.X) + f補正値X) + ((left) ? num : 0), -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y), 1f);
-
-			GL.End();
-
+			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
 			//-----------------
 			#endregion
 		}
@@ -488,24 +527,34 @@ namespace FDK
 			ResetWorldMatrix();
 
 			GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
-
-			GL.Begin(PrimitiveType.Quads);
-
 			GL.Color4(this.color);
 
-			GL.TexCoord2(f右U値, f上V値);
-			GL.Vertex3(-(x + (w * this.vc拡大縮小倍率.X) + f補正値X), -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y), depth);
+			vertices[0].X = -(x + (w * this.vc拡大縮小倍率.X) + f補正値X);
+			vertices[0].Y = -(y + f補正値Y);
+			vertices[1].X = -(x + f補正値X);
+			vertices[1].Y = -(y + f補正値Y);
+			vertices[2].X = -(x + f補正値X);
+			vertices[2].Y = -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y);
+			vertices[3].X = -(x + (w * this.vc拡大縮小倍率.X) + f補正値X);
+			vertices[3].Y = -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y);
 
-			GL.TexCoord2(f左U値, f上V値);
-			GL.Vertex3(-(x + f補正値X), -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y), depth);
+			texcoord[0].X = f右U値;
+			texcoord[0].Y = f下V値;
+			texcoord[1].X = f左U値;
+			texcoord[1].Y = f下V値;
+			texcoord[2].X = f左U値;
+			texcoord[2].Y = f上V値;
+			texcoord[3].X = f右U値;
+			texcoord[3].Y = f上V値;
 
-			GL.TexCoord2(f左U値, f下V値);
-			GL.Vertex3(-(x + f補正値X), -(y + f補正値Y), depth);
+			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.vrtVBO);
+			GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.vertices.Length * Vector3.SizeInBytes, this.vertices);
+			GL.VertexPointer(3, VertexPointerType.Float, 0, 0);
+			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
+			GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.texcoord.Length * Vector2.SizeInBytes, this.texcoord);
+			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
 
-			GL.TexCoord2(f右U値, f下V値);
-			GL.Vertex3(-(x + (w * this.vc拡大縮小倍率.X) + f補正値X), -(y + f補正値Y), depth);
-
-			GL.End();
+			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
 		}
 
 		public void t2D左右反転描画(Device device, float x, float y)
@@ -537,24 +586,34 @@ namespace FDK
 			ResetWorldMatrix();
 
 			GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
-
-			GL.Begin(PrimitiveType.Quads);
-
 			GL.Color4(this.color);
 
-			GL.TexCoord2(f左U値, f下V値);
-			GL.Vertex3(-(x + (w * this.vc拡大縮小倍率.X) + f補正値X), -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y), depth);
+			vertices[0].X = -(x + (w * this.vc拡大縮小倍率.X) + f補正値X);
+			vertices[0].Y = -(y + f補正値Y);
+			vertices[1].X = -(x + f補正値X);
+			vertices[1].Y = -(y + f補正値Y);
+			vertices[2].X = -(x + f補正値X);
+			vertices[2].Y = -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y);
+			vertices[3].X = -(x + (w * this.vc拡大縮小倍率.X) + f補正値X);
+			vertices[3].Y = -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y);
 
-			GL.TexCoord2(f右U値, f下V値);
-			GL.Vertex3(-(x + f補正値X), -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y), depth);
+			texcoord[0].X = f左U値;
+			texcoord[0].Y = f上V値;
+			texcoord[1].X = f右U値;
+			texcoord[1].Y = f上V値;
+			texcoord[2].X = f右U値;
+			texcoord[2].Y = f下V値;
+			texcoord[3].X = f左U値;
+			texcoord[3].Y = f下V値;
 
-			GL.TexCoord2(f右U値, f上V値);
-			GL.Vertex3(-(x + f補正値X), -(y + f補正値Y), depth);
+			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.vrtVBO);
+			GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.vertices.Length * Vector3.SizeInBytes, this.vertices);
+			GL.VertexPointer(3, VertexPointerType.Float, 0, 0);
+			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
+			GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.texcoord.Length * Vector2.SizeInBytes, this.texcoord);
+			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
 
-			GL.TexCoord2(f左U値, f上V値);
-			GL.Vertex3(-(x + (w * this.vc拡大縮小倍率.X) + f補正値X), -(y + f補正値Y), depth);
-
-			GL.End();
+			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
 		}
 
 		/// <summary>
@@ -588,7 +647,6 @@ namespace FDK
 
 			float x = ((float)rc画像内の描画領域.Width) / 2f;
 			float y = ((float)rc画像内の描画領域.Height) / 2f;
-			float z = 0.0f;
 			float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szテクスチャサイズ.Width);
 			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width); 
 			float f上V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Top)) / ((float)this.szテクスチャサイズ.Height);
@@ -601,24 +659,34 @@ namespace FDK
 			LoadWorldMatrix(matrix);
 
 			GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
-
-			GL.Begin(PrimitiveType.Quads);
-
 			GL.Color4(this.color);
 
-			GL.TexCoord2(f右U値, f上V値);
-			GL.Vertex3(x, y, z);
+			vertices[0].X = x;
+			vertices[0].Y = y;
+			vertices[1].X = -x;
+			vertices[1].Y = y;
+			vertices[2].X = -x;
+			vertices[2].Y = -y;
+			vertices[3].X = x;
+			vertices[3].Y = -y;
 
-			GL.TexCoord2(f左U値, f上V値);
-			GL.Vertex3(-x, y, z);
+			texcoord[0].X = f右U値;
+			texcoord[0].Y = f上V値;
+			texcoord[1].X = f左U値;
+			texcoord[1].Y = f上V値;
+			texcoord[2].X = f左U値;
+			texcoord[2].Y = f下V値;
+			texcoord[3].X = f右U値;
+			texcoord[3].Y = f下V値;
 
-			GL.TexCoord2(f左U値, f下V値);
-			GL.Vertex3(-x, -y, z);
+			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.vrtVBO);
+			GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.vertices.Length * Vector3.SizeInBytes, this.vertices);
+			GL.VertexPointer(3, VertexPointerType.Float, 0, 0);
+			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
+			GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.texcoord.Length * Vector2.SizeInBytes, this.texcoord);
+			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
 
-			GL.TexCoord2(f右U値, f下V値);
-			GL.Vertex3(x, -y, z);
-
-			GL.End();
+			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
 		}
 
 		#region [ IDisposable 実装 ]
@@ -628,11 +696,21 @@ namespace FDK
 			if (!this.bDispose完了済み)
 			{
 				// テクスチャの破棄
-				if (this.texture != null)
+				if (this.texture.HasValue)
 				{
 					this.bSharpDXTextureDispose完了済み = true;
 					GL.DeleteTexture((int)this.texture);
 					this.texture = null;
+				}
+				if (this.vrtVBO.HasValue) 
+				{
+					GL.DeleteBuffer((int)this.vrtVBO);
+					this.vrtVBO = null;
+				}
+				if (this.texVBO.HasValue)
+				{
+					GL.DeleteBuffer((int)this.texVBO);
+					this.texVBO = null;
 				}
 
 				this.bDispose完了済み = true;

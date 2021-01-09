@@ -40,6 +40,10 @@ namespace FDK
 			GL.Disable(EnableCap.DepthTest);
 			GL.Enable(EnableCap.Blend);
 			GL.Enable(EnableCap.Texture2D);
+			GL.Enable(EnableCap.VertexArray);
+			GL.Enable(EnableCap.TextureCoordArray);
+			GL.EnableClientState(ArrayCap.VertexArray);
+			GL.EnableClientState(ArrayCap.TextureCoordArray);
 		}
 
 		public static void BeginScene(Rectangle rect)
