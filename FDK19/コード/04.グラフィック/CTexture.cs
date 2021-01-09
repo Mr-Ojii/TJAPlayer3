@@ -370,12 +370,8 @@ namespace FDK
 				texcoord[3].X = f右U値;
 				texcoord[3].Y = f下V値;
 
-				GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.vrtVBO);
-				GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.vertices.Length * Vector3.SizeInBytes, this.vertices);
-				GL.VertexPointer(3, VertexPointerType.Float, 0, 0);
-				GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
-				GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.texcoord.Length * Vector2.SizeInBytes, this.texcoord);
-				GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
+				GL.VertexPointer(3, VertexPointerType.Float, 0, this.vertices);
+				GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, this.texcoord);
 
 				GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
 				//-----------------
@@ -429,12 +425,8 @@ namespace FDK
 				texcoord[3].X = f左U値;
 				texcoord[3].Y = f上V値;
 
-				GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.vrtVBO);
-				GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.vertices.Length * Vector3.SizeInBytes, this.vertices);
-				GL.VertexPointer(3, VertexPointerType.Float, 0, 0);
-				GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
-				GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.texcoord.Length * Vector2.SizeInBytes, this.texcoord);
-				GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
+				GL.VertexPointer(3, VertexPointerType.Float, 0, this.vertices);
+				GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, this.texcoord);
 
 				GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
 				//-----------------
@@ -486,12 +478,8 @@ namespace FDK
 			texcoord[3].X = f右U値;
 			texcoord[3].Y = f下V値;
 
-			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.vrtVBO);
-			GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.vertices.Length * Vector3.SizeInBytes, this.vertices);
-			GL.VertexPointer(3, VertexPointerType.Float, 0, 0);
-			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
-			GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.texcoord.Length * Vector2.SizeInBytes, this.texcoord);
-			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
+			GL.VertexPointer(3, VertexPointerType.Float, 0, this.vertices);
+			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, this.texcoord);
 
 			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
 			//-----------------
@@ -547,12 +535,8 @@ namespace FDK
 			texcoord[3].X = f右U値;
 			texcoord[3].Y = f上V値;
 
-			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.vrtVBO);
-			GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.vertices.Length * Vector3.SizeInBytes, this.vertices);
-			GL.VertexPointer(3, VertexPointerType.Float, 0, 0);
-			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
-			GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.texcoord.Length * Vector2.SizeInBytes, this.texcoord);
-			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
+			GL.VertexPointer(3, VertexPointerType.Float, 0, this.vertices);
+			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, this.texcoord);
 
 			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
 		}
@@ -606,12 +590,8 @@ namespace FDK
 			texcoord[3].X = f左U値;
 			texcoord[3].Y = f下V値;
 
-			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.vrtVBO);
-			GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.vertices.Length * Vector3.SizeInBytes, this.vertices);
-			GL.VertexPointer(3, VertexPointerType.Float, 0, 0);
-			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
-			GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.texcoord.Length * Vector2.SizeInBytes, this.texcoord);
-			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
+			GL.VertexPointer(3, VertexPointerType.Float, 0, this.vertices);
+			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, this.texcoord);
 
 			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
 		}
@@ -679,12 +659,8 @@ namespace FDK
 			texcoord[3].X = f右U値;
 			texcoord[3].Y = f下V値;
 
-			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.vrtVBO);
-			GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.vertices.Length * Vector3.SizeInBytes, this.vertices);
-			GL.VertexPointer(3, VertexPointerType.Float, 0, 0);
-			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
-			GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.texcoord.Length * Vector2.SizeInBytes, this.texcoord);
-			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
+			GL.VertexPointer(3, VertexPointerType.Float, 0, this.vertices);
+			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, this.texcoord);
 
 			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
 		}
