@@ -236,7 +236,7 @@ namespace TJAPlayer3
 
 		public void tMtaikoEvent( int nChannel, int nHand, int nPlayer )
 		{
-			if( !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] )
+			if( !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] )
 			{
 				switch( nChannel )
 				{

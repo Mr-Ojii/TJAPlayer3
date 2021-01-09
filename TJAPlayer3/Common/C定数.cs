@@ -137,10 +137,8 @@ namespace TJAPlayer3
 	public enum ENoteState
 	{
 		none,
-		wait,
-		perfect,
-		grade,
-		bad
+		waitleft,
+		waitright,
 	}
 
 	public enum EStealthMode
