@@ -160,10 +160,9 @@ namespace TJAPlayer3
 			public int nProcessTime;
 			public int nスクロール方向;
 			public ENoteState eNoteState;
-			public E楽器パート e楽器パート = E楽器パート.UNKNOWN;
 			public int nチャンネル番号;
 			public int TimeSpan;
-			public STDGBVALUE<int> nバーからの距離dot;
+			public int nバーからの距離dot;
 			public int nバーからのノーツ末端距離dot;
 			public int n整数値;
 			public int n整数値_内部番号;
@@ -191,10 +190,6 @@ namespace TJAPlayer3
 
 			public CChip()
 			{
-				this.nバーからの距離dot = new STDGBVALUE<int>()
-				{
-					Taiko = 0
-				};
 			}
 			public override string ToString()
 			{
@@ -2789,7 +2784,6 @@ namespace TJAPlayer3
 							chip.nコース = i;
 						else
 							chip.nコース = n現在のコース;
-						chip.e楽器パート = E楽器パート.TAIKO;
 						chip.nノーツ出現時刻ms = (int)(this.db出現時刻 * 1000.0);
 						chip.nノーツ移動開始時刻ms = (int)(this.db移動待機時刻 * 1000.0);
 						chip.nPlayerSide = this.nPlayerSide;
@@ -4506,7 +4500,6 @@ namespace TJAPlayer3
 									chip.nコース = i;
 								else
 									chip.nコース = n現在のコース;
-								chip.e楽器パート = E楽器パート.TAIKO;
 								chip.nノーツ出現時刻ms = (int)(this.db出現時刻 * 1000.0);
 								chip.nノーツ移動開始時刻ms = (int)(this.db移動待機時刻 * 1000.0);
 								chip.nPlayerSide = this.nPlayerSide;

@@ -1338,126 +1338,113 @@ namespace TJAPlayer3
 			}
 
 			E判定 eJudgeResult = E判定.AutoPerfect;
-			switch ( pChip.e楽器パート )
+			
+			//連打が短すぎると発声されない
+			eJudgeResult = (bCorrectLane) ? this.e指定時刻からChipのJUDGEを返す(nHitTime, pChip) : E判定.Miss;
+
+			if (!bAutoPlay && eJudgeResult != E判定.Miss)
 			{
-				case E楽器パート.TAIKO:
+				CLagLogger.Add(nPlayer, pChip);
+			}
+
+			if (pChip.nチャンネル番号 == 0x15 || pChip.nチャンネル番号 == 0x16)
+			{
+				#region[ 連打 ]
+				//---------------------------
+				this.b連打中[nPlayer] = true;
+				if (bAutoPlay)
+				{
+					if (TJAPlayer3.ConfigIni.bAuto先生の連打)
 					{
-						//連打が短すぎると発声されない
-						eJudgeResult = (bCorrectLane)? this.e指定時刻からChipのJUDGEを返す( nHitTime, pChip ) : E判定.Miss;
+						if (((CSound管理.rc演奏用タイマ.n現在時刻ms * ((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) > (pChip.n発声時刻ms + (TJAPlayer3.ConfigIni.nAuto先生の連打速度) * pChip.nRollCount))
+						{
+							this.nHand[nPlayer] = (this.nHand[nPlayer] + 1) % 2;
 
-						if (!bAutoPlay && eJudgeResult != E判定.Miss)
-						{
-							CLagLogger.Add(nPlayer, pChip);
-						}
+							TJAPlayer3.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Red);
+							TJAPlayer3.stage演奏ドラム画面.FlyingNotes.Start(pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer, true);
+							TJAPlayer3.stage演奏ドラム画面.actMtaiko.tMtaikoEvent(pChip.nチャンネル番号, this.nHand[nPlayer], nPlayer);
 
-						if ( pChip.nチャンネル番号 == 0x15 || pChip.nチャンネル番号 == 0x16 )
-						{
-							#region[ 連打 ]
-							//---------------------------
-							this.b連打中[ nPlayer ] = true;
-							if( bAutoPlay )
-							{
-								if( TJAPlayer3.ConfigIni.bAuto先生の連打 )
-								{
-									if(((CSound管理.rc演奏用タイマ.n現在時刻ms * ((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) > ( pChip.n発声時刻ms + ( TJAPlayer3.ConfigIni.nAuto先生の連打速度 ) * pChip.nRollCount ) )
-									{
-										this.nHand[nPlayer] = (this.nHand[nPlayer] + 1) % 2;
-
-										TJAPlayer3.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Red);
-										TJAPlayer3.stage演奏ドラム画面.FlyingNotes.Start(pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer, true);
-										TJAPlayer3.stage演奏ドラム画面.actMtaiko.tMtaikoEvent( pChip.nチャンネル番号, this.nHand[ nPlayer ], nPlayer );
-								
-										this.tRollProcess( pChip, (CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), 1, 0, 0, nPlayer );
-									}
-								}
-							}
-							else
-							{
-								this.tRollProcess( pChip, (CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), 1, nNowInput, 0, nPlayer );
-							}
-							if (TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM < 0 && (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.HBSCROLL))
-								pChip.fBMSCROLLTime -= TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * -0.05;
-							break;
-							//---------------------------
-							#endregion
-						}
-						else if( pChip.nチャンネル番号 == 0x17 )
-						{
-							#region[ 風船 ]
-							this.b連打中[ nPlayer ] = true;
-							this.actChara.b風船連打中[nPlayer] = true;
-							
-							if( bAutoPlay )
-							{
-								if( pChip.nBalloon != 0 )
-								{
-									if((CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) > ( pChip.n発声時刻ms + ( ( pChip.nノーツ終了時刻ms - pChip.n発声時刻ms ) / pChip.nBalloon ) * pChip.nRollCount ) )
-									{
-										this.nHand[nPlayer] = (this.nHand[nPlayer] + 1) % 2;
-
-										TJAPlayer3.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Red);
-										TJAPlayer3.stage演奏ドラム画面.actMtaiko.tMtaikoEvent( pChip.nチャンネル番号, this.nHand[ nPlayer ], nPlayer );
-								
-										this.tBalloonProcess( pChip, nPlayer );
-									}
-								}
-							}
-							else
-							{
-								this.tBalloonProcess( pChip, nPlayer );
-							}
-							break;
-							#endregion
-						}
-						else if( pChip.nチャンネル番号 == 0x18 )
-						{
-							if( pChip.nノーツ終了時刻ms <= (CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
-							{
-								this.b連打中[ nPlayer ] = false;
-								//this.actChara.b風船連打中 = false;
-								pChip.bHit = true;
-								pChip.IsHitted = true;
-								break;
-							}
-						}
-						else if( pChip.nチャンネル番号 == 0x1F )
-						{
-							if( eJudgeResult != E判定.AutoPerfect && eJudgeResult != E判定.Miss )
-							{
-								this.actJudgeString.Start( E判定.Bad, pChip.nLag, pChip, nPlayer );
-								TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.Start( 0x11, eJudgeResult, true, nPlayer );
-								TJAPlayer3.stage演奏ドラム画面.actChipFireD.Start( 0x11, eJudgeResult, nPlayer );
-							}
-							break;
-						}
-						else
-						{
-							if( eJudgeResult != E判定.Miss )
-							{
-								pChip.bShow = false;
-							}
-						}
-
-						if( eJudgeResult != E判定.AutoPerfect && eJudgeResult != E判定.Miss )
-						{
-							this.actJudgeString.Start( bAutoPlay ? E判定.AutoPerfect : eJudgeResult, pChip.nLag, pChip, nPlayer );
-							TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.Start( pChip.nチャンネル番号, eJudgeResult, true, nPlayer );
-							TJAPlayer3.stage演奏ドラム画面.actChipFireD.Start( pChip.nチャンネル番号, eJudgeResult, nPlayer );
-						}
-						else if( eJudgeResult != E判定.Poor && eJudgeResult != E判定.Bad )
-						{
-							//this.actJudgeString.Start( 0,bAutoPlay ? E判定.Auto : eJudgeResult, pChip.nLag, pChip, nPlayer );
+							this.tRollProcess(pChip, (CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), 1, 0, 0, nPlayer);
 						}
 					}
-					break;
-			}
-			if ((pChip.e楽器パート != E楽器パート.UNKNOWN))
-			{
-				if (pChip.nチャンネル番号 != 0x15 && pChip.nチャンネル番号 != 0x16 && pChip.nチャンネル番号 != 0x17 && pChip.nチャンネル番号 != 0x18 && pChip.nチャンネル番号 != 0x1F)
+				}
+				else
 				{
-						actGauge.Damage(pChip.nコース, eJudgeResult, nPlayer);
+					this.tRollProcess(pChip, (CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), 1, nNowInput, 0, nPlayer);
+				}
+				if (TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM < 0 && (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.HBSCROLL))
+					pChip.fBMSCROLLTime -= TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * -0.05;
+				//---------------------------
+				#endregion
+			}
+			else if (pChip.nチャンネル番号 == 0x17)
+			{
+				#region[ 風船 ]
+				this.b連打中[nPlayer] = true;
+				this.actChara.b風船連打中[nPlayer] = true;
+
+				if (bAutoPlay)
+				{
+					if (pChip.nBalloon != 0)
+					{
+						if ((CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) > (pChip.n発声時刻ms + ((pChip.nノーツ終了時刻ms - pChip.n発声時刻ms) / pChip.nBalloon) * pChip.nRollCount))
+						{
+							this.nHand[nPlayer] = (this.nHand[nPlayer] + 1) % 2;
+
+							TJAPlayer3.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Red);
+							TJAPlayer3.stage演奏ドラム画面.actMtaiko.tMtaikoEvent(pChip.nチャンネル番号, this.nHand[nPlayer], nPlayer);
+
+							this.tBalloonProcess(pChip, nPlayer);
+						}
+					}
+				}
+				else
+				{
+					this.tBalloonProcess(pChip, nPlayer);
+				}
+				#endregion
+			}
+			else if (pChip.nチャンネル番号 == 0x18)
+			{
+				if (pChip.nノーツ終了時刻ms <= (CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
+				{
+					this.b連打中[nPlayer] = false;
+					//this.actChara.b風船連打中 = false;
+					pChip.bHit = true;
+					pChip.IsHitted = true;
+				}
+			}
+			else if (pChip.nチャンネル番号 == 0x1F)
+			{
+				if (eJudgeResult != E判定.AutoPerfect && eJudgeResult != E判定.Miss)
+				{
+					this.actJudgeString.Start(E判定.Bad, pChip.nLag, pChip, nPlayer);
+					TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.Start(0x11, eJudgeResult, true, nPlayer);
+					TJAPlayer3.stage演奏ドラム画面.actChipFireD.Start(0x11, eJudgeResult, nPlayer);
+				}
+			}
+			else
+			{
+				if (eJudgeResult != E判定.Miss)
+				{
+					pChip.bShow = false;
 				}
 
+				if (eJudgeResult != E判定.AutoPerfect && eJudgeResult != E判定.Miss)
+				{
+					this.actJudgeString.Start(bAutoPlay ? E判定.AutoPerfect : eJudgeResult, pChip.nLag, pChip, nPlayer);
+					TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.Start(pChip.nチャンネル番号, eJudgeResult, true, nPlayer);
+					TJAPlayer3.stage演奏ドラム画面.actChipFireD.Start(pChip.nチャンネル番号, eJudgeResult, nPlayer);
+				}
+				else if (eJudgeResult != E判定.Poor && eJudgeResult != E判定.Bad)
+				{
+					//this.actJudgeString.Start( 0,bAutoPlay ? E判定.Auto : eJudgeResult, pChip.nLag, pChip, nPlayer );
+				}
+			}
+			
+			if (pChip.nチャンネル番号 != 0x15 && pChip.nチャンネル番号 != 0x16 && pChip.nチャンネル番号 != 0x17 && pChip.nチャンネル番号 != 0x18 && pChip.nチャンネル番号 != 0x1F)
+			{
+				actGauge.Damage(pChip.nコース, eJudgeResult, nPlayer);
 			}
 
 			if ( eJudgeResult != E判定.Poor && eJudgeResult != E判定.Miss )
@@ -1507,182 +1494,174 @@ namespace TJAPlayer3
 					this.bIsAlreadyCleared[nPlayer] = false;
 				}
 			}
-			switch ( pChip.e楽器パート )
+
+
+
+			if (pChip.nチャンネル番号 != 0x15 && pChip.nチャンネル番号 != 0x16 && pChip.nチャンネル番号 != 0x17 && pChip.nチャンネル番号 != 0x18)
 			{
-				case E楽器パート.TAIKO:
-					if( !bAutoPlay )
+				if (!bAutoPlay)
+				{
+					switch (eJudgeResult)
 					{
-						if( pChip.nチャンネル番号 == 0x15 || pChip.nチャンネル番号 == 0x16 || pChip.nチャンネル番号 == 0x17 || pChip.nチャンネル番号 == 0x18 )
+						case E判定.Perfect:
+							{
+								this.CBranchScore[nPlayer].nGreat++;
+								this.nヒット数_Auto含まない[nPlayer].Perfect++;
+								this.actCombo.n現在のコンボ数[nPlayer]++;
+								if (this.actCombo.ctコンボ加算[nPlayer].b終了値に達してない)
+								{
+									this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 1;
+								}
+								else
+								{
+									this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 0;
+								}
+							}
+							break;
+						case E判定.Great:
+						case E判定.Good:
+							{
+								this.CBranchScore[nPlayer].nGood++;
+								this.nヒット数_Auto含まない[nPlayer].Great++;
+								this.actCombo.n現在のコンボ数[nPlayer]++;
+								if (this.actCombo.ctコンボ加算[nPlayer].b終了値に達してない)
+								{
+									this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 1;
+								}
+								else
+								{
+									this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 0;
+								}
+
+							}
+							break;
+						case E判定.Poor:
+						case E判定.Miss:
+						case E判定.Bad:
+							{
+								if (pChip.nチャンネル番号 == 0x1F)
+									break;
+								this.CBranchScore[nPlayer].nMiss++;
+								this.nヒット数_Auto含まない[nPlayer].Miss++;
+								this.actCombo.n現在のコンボ数[nPlayer] = 0;
+								this.actComboVoice.tReset(nPlayer);
+							}
+							break;
+						default:
+							this.nヒット数_Auto含む[nPlayer][(int)eJudgeResult]++;
+							break;
+					}
+				}
+				else
+				{
+
+
+					switch (eJudgeResult)
+					{
+						case E判定.Perfect:
+							{
+								this.CBranchScore[nPlayer].nGreat++;
+								this.nヒット数_Auto含む[nPlayer].Perfect++;
+								this.actCombo.n現在のコンボ数[nPlayer]++;
+								if (this.actCombo.ctコンボ加算[nPlayer].b終了値に達してない)
+								{
+									this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 1;
+								}
+								else
+								{
+									this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 0;
+								}
+							}
 							break;
 
-						switch ( eJudgeResult )
-						{
-							case E判定.Perfect:
+						case E判定.Great:
+						case E判定.Good:
+							{
+								this.CBranchScore[nPlayer].nGood++;
+								this.nヒット数_Auto含む[nPlayer].Great++;
+								this.actCombo.n現在のコンボ数[nPlayer]++;
+								if (this.actCombo.ctコンボ加算[nPlayer].b終了値に達してない)
 								{
-									this.CBranchScore[nPlayer].nGreat++;
-									this.nヒット数_Auto含まない[nPlayer].Perfect++;
-									this.actCombo.n現在のコンボ数[ nPlayer ]++;
-									if (this.actCombo.ctコンボ加算[nPlayer].b終了値に達してない)
-									{
-										this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 1;
-									}
-									else
-									{
-										this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 0;
-									}
+									this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 1;
 								}
-								break;
-							case E判定.Great:
-							case E判定.Good:
+								else
 								{
-									this.CBranchScore[nPlayer].nGood++;
-									this.nヒット数_Auto含まない[nPlayer].Great++;
-									this.actCombo.n現在のコンボ数[ nPlayer ]++;
-									if (this.actCombo.ctコンボ加算[nPlayer].b終了値に達してない)
-									{
-										this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 1;
-									}
-									else
-									{
-										this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 0;
-									}
-
+									this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 0;
 								}
-								break;
-							case E判定.Poor:
-							case E判定.Miss:
-							case E判定.Bad:
+							}
+							break;
+						default:
+							{
+								if (pChip.nチャンネル番号 != 0x1F)
 								{
-									if( pChip.nチャンネル番号 == 0x1F )
-										break;
+									this.nヒット数_Auto含む[nPlayer].Miss++;
 									this.CBranchScore[nPlayer].nMiss++;
-									this.nヒット数_Auto含まない[nPlayer].Miss++;
-									this.actCombo.n現在のコンボ数[ nPlayer ] = 0;
+									this.actCombo.n現在のコンボ数[nPlayer] = 0;
 									this.actComboVoice.tReset(nPlayer);
 								}
-								break;
-							default:
-								this.nヒット数_Auto含む[nPlayer][ (int) eJudgeResult ]++;
-								break;
-						}
-					}
-					else
-					{
-						if (pChip.nチャンネル番号 == 0x15 || pChip.nチャンネル番号 == 0x16 || pChip.nチャンネル番号 == 0x17 || pChip.nチャンネル番号 == 0x18)
+							}
 							break;
-
-						switch ( eJudgeResult )
-						{
-							case E判定.Perfect:
-								{
-									this.CBranchScore[nPlayer].nGreat++;
-									this.nヒット数_Auto含む[nPlayer].Perfect++;
-									this.actCombo.n現在のコンボ数[nPlayer]++;
-									if (this.actCombo.ctコンボ加算[nPlayer].b終了値に達してない)
-									{
-										this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 1;
-									}
-									else
-									{
-										this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 0;
-									}
-								}
-								break;
-
-							case E判定.Great:
-							case E判定.Good:
-								{
-									this.CBranchScore[nPlayer].nGood++;
-									this.nヒット数_Auto含む[nPlayer].Great++;
-									this.actCombo.n現在のコンボ数[nPlayer]++;
-									if (this.actCombo.ctコンボ加算[nPlayer].b終了値に達してない)
-									{
-										this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 1;
-									}
-									else
-									{
-										this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 0;
-									}
-								}
-								break;
-							default:
-								{
-									if(pChip.nチャンネル番号 != 0x1F )
-									{
-										this.nヒット数_Auto含む[nPlayer].Miss++;
-										this.CBranchScore[nPlayer].nMiss++;
-										this.actCombo.n現在のコンボ数[ nPlayer ] = 0;
-										this.actComboVoice.tReset(nPlayer);
-									}
-								}
-								break;
-						}
 					}
-				
-					#region[ コンボ音声 ]
-					if( pChip.nチャンネル番号 < 0x15 || ( pChip.nチャンネル番号 >= 0x1A ) )
-					{
-						if( this.actCombo.n現在のコンボ数[ nPlayer ] % 100 == 0 && this.actCombo.n現在のコンボ数[ nPlayer ] > 0 )
-						{
-							this.actComboBalloon.Start( this.actCombo.n現在のコンボ数[ nPlayer ], nPlayer );
-						}
-						this.actComboVoice.t再生( this.actCombo.n現在のコンボ数[ nPlayer ], nPlayer );
-
-						double dbUnit = (((60.0 / pChip.dbBPM)));
-
-						for (int i = 0; i < 2; i++)
-						{
-							if (this.actCombo.n現在のコンボ数[i] == 50 || this.actCombo.n現在のコンボ数[i] == 300)
-							{
-								ctChipAnimeLag[i] = new CCounter(0, 664, 1, TJAPlayer3.Timer);
-							}
-						}
-
-						if (this.actCombo.n現在のコンボ数[nPlayer] % 10 == 0 && this.actCombo.n現在のコンボ数[nPlayer] > 0)
-						{
-							if (!pChip.bGOGOTIME) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
-							{
-								if (TJAPlayer3.Skin.Game_Chara_Ptn_10combo[nPlayer] != 0 && !this.actChara.ctキャラクターアクション_ノルマ[nPlayer].b進行中db && actChara.CharaAction_Balloon_Delay[nPlayer].b終了値に達した)
-								{
-									if (TJAPlayer3.stage演奏ドラム画面.actGauge.db現在のゲージ値[nPlayer] < 100)
-									{
-										// 魂ゲージMAXではない
-										// ジャンプ_ノーマル
-										this.actChara.アクションタイマーリセット(nPlayer);
-										this.actChara.ctキャラクターアクション_10コンボ[nPlayer] = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_10combo[nPlayer] - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_10combo[nPlayer]) * 2, CSound管理.rc演奏用タイマ);
-										this.actChara.ctキャラクターアクション_10コンボ[nPlayer].t進行db();
-										this.actChara.ctキャラクターアクション_10コンボ[nPlayer].db現在の値 = 0D;
-										this.actChara.bマイどんアクション中[nPlayer] = true;
-										//this.actChara.マイどん_アクション_10コンボ();
-									}
-								}
-								if (TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max[nPlayer] != 0 && !this.actChara.ctキャラクターアクション_魂MAX[nPlayer].b進行中db && actChara.CharaAction_Balloon_Delay[nPlayer].b終了値に達した)
-								{
-									if (TJAPlayer3.stage演奏ドラム画面.actGauge.db現在のゲージ値[nPlayer] >= 100)
-									{
-										// 魂ゲージMAX
-										// ジャンプ_MAX
-										this.actChara.アクションタイマーリセット(nPlayer);
-										this.actChara.ctキャラクターアクション_10コンボMAX[nPlayer] = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max[nPlayer] - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max[nPlayer]) * 2, CSound管理.rc演奏用タイマ);
-										this.actChara.ctキャラクターアクション_10コンボMAX[nPlayer].t進行db();
-										this.actChara.ctキャラクターアクション_10コンボMAX[nPlayer].db現在の値 = 0D;
-										this.actChara.bマイどんアクション中[nPlayer] = true;
-									}
-								}
-							}
-						}
-					}
-					#endregion
-
-
-					break;
-
-
-				default:
-					break;
+				}
 			}
+
+			#region[ コンボ音声 ]
+			if (pChip.nチャンネル番号 < 0x15 || (pChip.nチャンネル番号 >= 0x1A))
+			{
+				if (this.actCombo.n現在のコンボ数[nPlayer] % 100 == 0 && this.actCombo.n現在のコンボ数[nPlayer] > 0)
+				{
+					this.actComboBalloon.Start(this.actCombo.n現在のコンボ数[nPlayer], nPlayer);
+				}
+				this.actComboVoice.t再生(this.actCombo.n現在のコンボ数[nPlayer], nPlayer);
+
+				double dbUnit = (((60.0 / pChip.dbBPM)));
+
+				for (int i = 0; i < 2; i++)
+				{
+					if (this.actCombo.n現在のコンボ数[i] == 50 || this.actCombo.n現在のコンボ数[i] == 300)
+					{
+						ctChipAnimeLag[i] = new CCounter(0, 664, 1, TJAPlayer3.Timer);
+					}
+				}
+
+				if (this.actCombo.n現在のコンボ数[nPlayer] % 10 == 0 && this.actCombo.n現在のコンボ数[nPlayer] > 0)
+				{
+					if (!pChip.bGOGOTIME) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
+					{
+						if (TJAPlayer3.Skin.Game_Chara_Ptn_10combo[nPlayer] != 0 && !this.actChara.ctキャラクターアクション_ノルマ[nPlayer].b進行中db && actChara.CharaAction_Balloon_Delay[nPlayer].b終了値に達した)
+						{
+							if (TJAPlayer3.stage演奏ドラム画面.actGauge.db現在のゲージ値[nPlayer] < 100)
+							{
+								// 魂ゲージMAXではない
+								// ジャンプ_ノーマル
+								this.actChara.アクションタイマーリセット(nPlayer);
+								this.actChara.ctキャラクターアクション_10コンボ[nPlayer] = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_10combo[nPlayer] - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_10combo[nPlayer]) * 2, CSound管理.rc演奏用タイマ);
+								this.actChara.ctキャラクターアクション_10コンボ[nPlayer].t進行db();
+								this.actChara.ctキャラクターアクション_10コンボ[nPlayer].db現在の値 = 0D;
+								this.actChara.bマイどんアクション中[nPlayer] = true;
+								//this.actChara.マイどん_アクション_10コンボ();
+							}
+						}
+						if (TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max[nPlayer] != 0 && !this.actChara.ctキャラクターアクション_魂MAX[nPlayer].b進行中db && actChara.CharaAction_Balloon_Delay[nPlayer].b終了値に達した)
+						{
+							if (TJAPlayer3.stage演奏ドラム画面.actGauge.db現在のゲージ値[nPlayer] >= 100)
+							{
+								// 魂ゲージMAX
+								// ジャンプ_MAX
+								this.actChara.アクションタイマーリセット(nPlayer);
+								this.actChara.ctキャラクターアクション_10コンボMAX[nPlayer] = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max[nPlayer] - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max[nPlayer]) * 2, CSound管理.rc演奏用タイマ);
+								this.actChara.ctキャラクターアクション_10コンボMAX[nPlayer].t進行db();
+								this.actChara.ctキャラクターアクション_10コンボMAX[nPlayer].db現在の値 = 0D;
+								this.actChara.bマイどんアクション中[nPlayer] = true;
+							}
+						}
+					}
+				}
+			}
+			#endregion
+			
 			actDan.Update();
-			if ( ( ( pChip.e楽器パート != E楽器パート.UNKNOWN ) ) && ( eJudgeResult != E判定.Miss ) && ( eJudgeResult != E判定.Bad ) && ( eJudgeResult != E判定.Poor ) && ( pChip.nチャンネル番号 <= 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B ) )
+			if ( ( eJudgeResult != E判定.Miss ) && ( eJudgeResult != E判定.Bad ) && ( eJudgeResult != E判定.Poor ) && ( pChip.nチャンネル番号 <= 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B ) )
 			{
 				int nCombos = this.actCombo.n現在のコンボ数[ nPlayer ];
 				long nAddScore = 0;
@@ -3013,7 +2992,7 @@ namespace TJAPlayer3
 //Debug.WriteLine( "nCurrentTopChip=" + nCurrentTopChip + ", ch=" + pChip.nチャンネル番号.ToString("x2") + ", 発音位置=" + pChip.n発声位置 + ", 発声時刻ms=" + pChip.n発声時刻ms );
 				var time = pChip.n発声時刻ms - n現在時刻ms;
 				pChip.TimeSpan = (int) ( time );
-				pChip.nバーからの距離dot.Taiko = (int) ( time * pChip.dbBPM * pChip.dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0 );//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
+				pChip.nバーからの距離dot = (int) ( time * pChip.dbBPM * pChip.dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0 );//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
 				if( pChip.nノーツ終了時刻ms != 0 )
 					pChip.nバーからのノーツ末端距離dot = (int) (  ( pChip.nノーツ終了時刻ms - n現在時刻ms) * pChip.db末端BPM * pChip.db末端SCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 
@@ -3024,14 +3003,14 @@ namespace TJAPlayer3
 					var dbSCROLL = configIni.eScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.dbSCROLL;
 					var db末端SCROLL = configIni.eScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.db末端SCROLL;
 
-					pChip.nバーからの距離dot.Taiko = (int)(3 * 0.8335 * ( ( pChip.fBMSCROLLTime * NOTE_GAP ) - ( play_bpm_time * NOTE_GAP ) ) * dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 ) / 2  / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+					pChip.nバーからの距離dot = (int)(3 * 0.8335 * ( ( pChip.fBMSCROLLTime * NOTE_GAP ) - ( play_bpm_time * NOTE_GAP ) ) * dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 ) / 2  / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 
 					if ( pChip.nノーツ終了時刻ms != 0 )
 						pChip.nバーからのノーツ末端距離dot = (int)( 3 * 0.8335 *( ( pChip.fBMSCROLLTime_end * NOTE_GAP) - ( play_bpm_time * NOTE_GAP ) ) * db末端SCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 ) / 2 /5.0);// 2020.04.20 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 				}
 				else if(configIni.eScrollMode == EScrollMode.REGULSPEED) 
 				{
-					pChip.nバーからの距離dot.Taiko = (int)(time * TJAPlayer3.ConfigIni.nRegSpeedBPM * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0) / 502.8594 / 5.0);//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
+					pChip.nバーからの距離dot = (int)(time * TJAPlayer3.ConfigIni.nRegSpeedBPM * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0) / 502.8594 / 5.0);//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
 					if (pChip.nノーツ終了時刻ms != 0)
 						pChip.nバーからのノーツ末端距離dot = (int)((pChip.nノーツ終了時刻ms - n現在時刻ms) * TJAPlayer3.ConfigIni.nRegSpeedBPM * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0) / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 				}
@@ -3052,7 +3031,7 @@ namespace TJAPlayer3
 					}
 				}
 
-				if ( pChip.nバーからの距離dot[(int)pChip.e楽器パート] < -150 )
+				if ( pChip.nバーからの距離dot < -150 )
 				{
 					if( !( pChip.nチャンネル番号 >= 0x11 && pChip.nチャンネル番号 <= 0x14 ) || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B )
 					{
@@ -3068,7 +3047,7 @@ namespace TJAPlayer3
 				{
 					if( cChipCurrentlyInProcess.nチャンネル番号 >= 0x13 && cChipCurrentlyInProcess.nチャンネル番号 <= 0x15 )//|| pChip.nチャンネル番号 == 0x9A )
 					{
-						if ( ( ( cChipCurrentlyInProcess.nバーからの距離dot.Taiko < -500 ) && ( cChipCurrentlyInProcess.n発声時刻ms <= n現在時刻ms && cChipCurrentlyInProcess.nノーツ終了時刻ms >= n現在時刻ms ) ) )
+						if ( ( ( cChipCurrentlyInProcess.nバーからの距離dot < -500 ) && ( cChipCurrentlyInProcess.n発声時刻ms <= n現在時刻ms && cChipCurrentlyInProcess.nノーツ終了時刻ms >= n現在時刻ms ) ) )
 						   //( ( chip現在処理中の連打チップ.nバーからのノーツ末端距離dot.Taiko < -500 ) && ( chip現在処理中の連打チップ.n発声時刻ms <= CSound管理.rc演奏用タイマ.n現在時刻ms && chip現在処理中の連打チップ.nノーツ終了時刻ms >= CSound管理.rc演奏用タイマ.n現在時刻ms ) ) )
 						   //( ( pChip.n発声時刻ms <= CSound管理.rc演奏用タイマ.n現在時刻ms && pChip.nノーツ終了時刻ms >= CSound管理.rc演奏用タイマ.n現在時刻ms ) ) )
 						{
@@ -3787,9 +3766,9 @@ namespace TJAPlayer3
 			{
 				CDTX.CChip pChip = dTX.listChip[nCurrentTopChip];
 
-				if (!pChip.bHit && pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x19 && ((pChip.e楽器パート != E楽器パート.UNKNOWN)))
+				if (!pChip.bHit && pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x19 )
 				{
-					if (pChip.nバーからの距離dot[(int)pChip.e楽器パート] < -40)
+					if (pChip.nバーからの距離dot < -40)
 					{
 						if (this.e指定時刻からChipのJUDGEを返す(n現在時刻ms, pChip) == E判定.Miss)
 						{
@@ -4306,7 +4285,7 @@ namespace TJAPlayer3
 				}
 				else
 				{
-					x = pChip.nバーからの距離dot.Taiko;
+					x = pChip.nバーからの距離dot;
 				}
 
 				int xTemp = 0;
@@ -4518,7 +4497,7 @@ namespace TJAPlayer3
 					}
 				}
 				//2020.05.06 Mr-Ojii ここらへんから349って書いてあったところを　TJAPlayer3.Skin.nScrollFieldX[nPlayer] - 55に置き換えた。
-				int x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからの距離dot.Taiko - 55;
+				int x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからの距離dot - 55;
 				int x末端 = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot - 55;
 				int y = TJAPlayer3.Skin.nScrollFieldY[nPlayer];
 
@@ -4531,7 +4510,7 @@ namespace TJAPlayer3
 					}
 					else
 					{
-						x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからの距離dot.Taiko - 55;
+						x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからの距離dot - 55;
 						x末端 = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot - 55;
 					}
 				}
@@ -4750,7 +4729,7 @@ namespace TJAPlayer3
 			if (pChip.nコース != this.n現在のコース[nPlayer])
 				return;
 
-			int x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからの距離dot.Taiko;
+			int x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからの距離dot;
 			int y = TJAPlayer3.Skin.nScrollFieldY[nPlayer];
 
 			if (pChip.dbSCROLL_Y != 0.0)

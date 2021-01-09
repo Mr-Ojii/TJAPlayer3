@@ -81,11 +81,6 @@ namespace TJAPlayer3
 		SUPERRANDOM,
 		HYPERRANDOM
 	}
-	public enum E楽器パート
-	{
-		TAIKO   = 0,
-		UNKNOWN	= 99
-	}
 	internal enum E入力デバイス
 	{
 		キーボード		= 0,
@@ -139,47 +134,6 @@ namespace TJAPlayer3
 		OFF = 0,
 		DORON = 1,
 		STEALTH = 2
-	}
-
-	/// <summary>
-	/// Drum/Taiko の値を扱う汎用の構造体。
-	/// </summary>
-	/// <typeparam name="T">値の型。</typeparam>
-	[Serializable]
-	[StructLayout( LayoutKind.Sequential )]
-	public struct STDGBVALUE<T>			// indexはE楽器パートと一致させること
-	{
-		public T Taiko;
-		public T Unknown;
-		public T this[ int index ]
-		{
-			get
-			{
-				switch( index )
-				{
-					case (int) E楽器パート.TAIKO:
-						return this.Taiko;
-
-					case (int) E楽器パート.UNKNOWN:
-						return this.Unknown;
-				}
-				throw new IndexOutOfRangeException();
-			}
-			set
-			{
-				switch( index )
-				{
-					case (int) E楽器パート.TAIKO:
-						this.Taiko = value;
-						return;
-
-					case (int) E楽器パート.UNKNOWN:
-						this.Unknown = value;
-						return;
-				}
-				throw new IndexOutOfRangeException();
-			}
-		}
 	}
 
 	#region[Ver.K追加]
