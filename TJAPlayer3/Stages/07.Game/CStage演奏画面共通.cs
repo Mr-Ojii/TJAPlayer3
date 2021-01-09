@@ -2872,10 +2872,7 @@ namespace TJAPlayer3
 				}
 				if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.F4 ) )
 				{
-					if( TJAPlayer3.ConfigIni.bJudgeCountDisplay == false )
-						TJAPlayer3.ConfigIni.bJudgeCountDisplay = true;
-					else
-						TJAPlayer3.ConfigIni.bJudgeCountDisplay = false;
+					TJAPlayer3.ConfigIni.bJudgeCountDisplay = !TJAPlayer3.ConfigIni.bJudgeCountDisplay;
 				}
 				else if ( keyboard.bキーが押された( (int)SlimDXKeys.Key.F5 ) )
 				{
@@ -4031,11 +4028,14 @@ namespace TJAPlayer3
 			{
 				this.t演奏位置の変更(0, i);
 				this.actPlayInfo.NowMeasure[i] = 0;
+				actChara.bマイどんアクション中[i] = false;
+				this.actChara.b風船連打中[i] = false;
+				this.chip現在処理中の連打チップ[i] = null;
 			}
 			TJAPlayer3.stage演奏ドラム画面.On活性化();
-			for( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
+			for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++) 
 			{
-				this.chip現在処理中の連打チップ[ i ] = null;
+				this.actChara.アクションタイマーリセット(nPlayer);
 			}
 			this.bPAUSE = false;
 		}
@@ -4808,12 +4808,6 @@ namespace TJAPlayer3
 						else
 						{
 							this.n現在の連打数[i] = 0;
-						}
-					}
-					else
-					{
-						if (actChara.CharaAction_Balloon_Breaking[i].b進行中 && chip現在処理中の連打チップ[i].nPlayerSide == 0)
-						{
 						}
 					}
 				}
