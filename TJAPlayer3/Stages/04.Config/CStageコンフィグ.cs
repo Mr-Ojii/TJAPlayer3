@@ -39,9 +39,9 @@ namespace TJAPlayer3
 		{																						//
 			this.eItemPanelモード = EItemPanelモード.パッド一覧;								//
 		}																						//
-		public void tパッド選択通知( EKeyConfigPart part, EKeyConfigPad pad )					//
+		public void tパッド選択通知( EKeyConfigPad pad )					//
 		{																						//
-			this.actKeyAssign.t開始( part, pad, this.actList.ib現在の選択項目.str項目名 );		//
+			this.actKeyAssign.t開始( pad, this.actList.ib現在の選択項目.str項目名 );		//
 			this.eItemPanelモード = EItemPanelモード.キーコード一覧;							//
 		}																						//
 		public void t項目変更通知()																// OPTIONと共通

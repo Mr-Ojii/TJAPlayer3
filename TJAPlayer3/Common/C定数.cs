@@ -81,16 +81,10 @@ namespace TJAPlayer3
 		SUPERRANDOM,
 		HYPERRANDOM
 	}
-	public enum E楽器パート		// ここを修正するときは、セットで次の EKeyConfigPart も修正すること。
+	public enum E楽器パート
 	{
 		TAIKO   = 0,
 		UNKNOWN	= 99
-	}
-	public enum EKeyConfigPart	// : E楽器パート
-	{
-		DRUMS	= E楽器パート.TAIKO,
-		SYSTEM,
-		UNKNOWN	= E楽器パート.UNKNOWN
 	}
 	internal enum E入力デバイス
 	{

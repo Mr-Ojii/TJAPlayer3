@@ -22,140 +22,105 @@ namespace TJAPlayer3
 		#region [ CKeyAssign ]
 		public class CKeyAssign
 		{
-			public class CKeyAssignPad
-			{
-				public CConfigIni.CKeyAssign.STKEYASSIGN[] Capture;
-				public CConfigIni.CKeyAssign.STKEYASSIGN[] LeftRed;
-				public CConfigIni.CKeyAssign.STKEYASSIGN[] RightRed;
-				public CConfigIni.CKeyAssign.STKEYASSIGN[] LeftBlue;
-				public CConfigIni.CKeyAssign.STKEYASSIGN[] RightBlue;
-				public CConfigIni.CKeyAssign.STKEYASSIGN[] LeftRed2P;
-				public CConfigIni.CKeyAssign.STKEYASSIGN[] RightRed2P;
-				public CConfigIni.CKeyAssign.STKEYASSIGN[] LeftBlue2P;
-				public CConfigIni.CKeyAssign.STKEYASSIGN[] RightBlue2P;
-				public CConfigIni.CKeyAssign.STKEYASSIGN[] this[ int index ]
-				{
-					get
-					{
-						switch ( index )
-						{
-							case (int) EKeyConfigPad.LRed:
-								return this.LeftRed;
-
-							case (int) EKeyConfigPad.RRed:
-								return this.RightRed;
-
-							case (int) EKeyConfigPad.LBlue:
-								return this.LeftBlue;
-
-							case (int) EKeyConfigPad.RBlue:
-								return this.RightBlue;
-
-							case (int) EKeyConfigPad.LRed2P:
-								return this.LeftRed2P;
-
-							case (int) EKeyConfigPad.RRed2P:
-								return this.RightRed2P;
-
-							case (int) EKeyConfigPad.LBlue2P:
-								return this.LeftBlue2P;
-
-							case (int) EKeyConfigPad.RBlue2P:
-								return this.RightBlue2P;
-
-							case (int) EKeyConfigPad.Capture:
-								return this.Capture;
-						}
-						throw new IndexOutOfRangeException();
-					}
-					set
-					{
-						switch ( index )
-						{
-							case (int) EKeyConfigPad.LRed:
-								this.LeftRed = value;
-								return;
-
-							case (int) EKeyConfigPad.RRed:
-								this.RightRed = value;
-								return;
-								
-							case (int) EKeyConfigPad.LBlue:
-								this.LeftBlue = value;
-								return;
-
-							case (int) EKeyConfigPad.RBlue:
-								this.RightBlue = value;
-								return;
-
-							case (int) EKeyConfigPad.LRed2P:
-								this.LeftRed2P = value;
-								return;
-
-							case (int) EKeyConfigPad.RRed2P:
-								this.RightRed2P = value;
-								return;
-								
-							case (int) EKeyConfigPad.LBlue2P:
-								this.LeftBlue2P = value;
-								return;
-
-							case (int) EKeyConfigPad.RBlue2P:
-								this.RightBlue2P = value;
-								return;
-
-							case (int) EKeyConfigPad.Capture:
-								this.Capture = value;
-								return;
-						}
-						throw new IndexOutOfRangeException();
-					}
-				}
-			}
-
-			[StructLayout( LayoutKind.Sequential )]
-			public struct STKEYASSIGN
-			{
-				public E入力デバイス 入力デバイス;
-				public int ID;
-				public int コード;
-				public STKEYASSIGN( E入力デバイス DeviceType, int nID, int nCode )
-				{
-					this.入力デバイス = DeviceType;
-					this.ID = nID;
-					this.コード = nCode;
-				}
-			}
-
-			public CKeyAssignPad Drums = new CKeyAssignPad();
-			public CKeyAssignPad System = new CKeyAssignPad();
-			public CKeyAssignPad this[ int index ]
+			public CConfigIni.CKeyAssign.STKEYASSIGN[] Capture;
+			public CConfigIni.CKeyAssign.STKEYASSIGN[] LeftRed;
+			public CConfigIni.CKeyAssign.STKEYASSIGN[] RightRed;
+			public CConfigIni.CKeyAssign.STKEYASSIGN[] LeftBlue;
+			public CConfigIni.CKeyAssign.STKEYASSIGN[] RightBlue;
+			public CConfigIni.CKeyAssign.STKEYASSIGN[] LeftRed2P;
+			public CConfigIni.CKeyAssign.STKEYASSIGN[] RightRed2P;
+			public CConfigIni.CKeyAssign.STKEYASSIGN[] LeftBlue2P;
+			public CConfigIni.CKeyAssign.STKEYASSIGN[] RightBlue2P;
+			public CConfigIni.CKeyAssign.STKEYASSIGN[] this[int index]
 			{
 				get
 				{
-					switch( index )
+					switch (index)
 					{
-						case (int) EKeyConfigPart.DRUMS:
-							return this.Drums;
+						case (int)EKeyConfigPad.LRed:
+							return this.LeftRed;
 
-						case (int) EKeyConfigPart.SYSTEM:
-							return this.System;
+						case (int)EKeyConfigPad.RRed:
+							return this.RightRed;
+
+						case (int)EKeyConfigPad.LBlue:
+							return this.LeftBlue;
+
+						case (int)EKeyConfigPad.RBlue:
+							return this.RightBlue;
+
+						case (int)EKeyConfigPad.LRed2P:
+							return this.LeftRed2P;
+
+						case (int)EKeyConfigPad.RRed2P:
+							return this.RightRed2P;
+
+						case (int)EKeyConfigPad.LBlue2P:
+							return this.LeftBlue2P;
+
+						case (int)EKeyConfigPad.RBlue2P:
+							return this.RightBlue2P;
+
+						case (int)EKeyConfigPad.Capture:
+							return this.Capture;
 					}
 					throw new IndexOutOfRangeException();
 				}
 				set
 				{
-					switch( index )
+					switch (index)
 					{
-						case (int) EKeyConfigPart.DRUMS:
-							this.Drums = value;
+						case (int)EKeyConfigPad.LRed:
+							this.LeftRed = value;
 							return;
 
-						case (int) EKeyConfigPart.SYSTEM:
-							this.System = value;
+						case (int)EKeyConfigPad.RRed:
+							this.RightRed = value;
+							return;
+
+						case (int)EKeyConfigPad.LBlue:
+							this.LeftBlue = value;
+							return;
+
+						case (int)EKeyConfigPad.RBlue:
+							this.RightBlue = value;
+							return;
+
+						case (int)EKeyConfigPad.LRed2P:
+							this.LeftRed2P = value;
+							return;
+
+						case (int)EKeyConfigPad.RRed2P:
+							this.RightRed2P = value;
+							return;
+
+						case (int)EKeyConfigPad.LBlue2P:
+							this.LeftBlue2P = value;
+							return;
+
+						case (int)EKeyConfigPad.RBlue2P:
+							this.RightBlue2P = value;
+							return;
+
+						case (int)EKeyConfigPad.Capture:
+							this.Capture = value;
 							return;
 					}
 					throw new IndexOutOfRangeException();
+				}
+			}
+
+			[StructLayout(LayoutKind.Sequential)]
+			public struct STKEYASSIGN
+			{
+				public E入力デバイス 入力デバイス;
+				public int ID;
+				public int コード;
+				public STKEYASSIGN(E入力デバイス DeviceType, int nID, int nCode)
+				{
+					this.入力デバイス = DeviceType;
+					this.ID = nID;
+					this.コード = nCode;
 				}
 			}
 		}
@@ -347,19 +312,17 @@ namespace TJAPlayer3
 		{
 			get
 			{
-				for( int i = 0; i <= (int)EKeyConfigPart.SYSTEM; i++ )
+				for (int j = 0; j <= (int)EKeyConfigPad.Capture; j++)
 				{
-					for( int j = 0; j <= (int)EKeyConfigPad.Capture; j++ )
+					for (int k = 0; k < 0x10; k++)
 					{
-						for( int k = 0; k < 0x10; k++ )
+						if ((this.KeyAssign[j][k].入力デバイス == E入力デバイス.キーボード) && (this.KeyAssign[j][k].コード == (int)SlimDXKeys.Key.Return))
 						{
-							if( ( this.KeyAssign[ i ][ j ][ k ].入力デバイス == E入力デバイス.キーボード ) && ( this.KeyAssign[ i ][ j ][ k ].コード == (int)SlimDXKeys.Key.Return ) )
-							{
-								return false;
-							}
+							return false;
 						}
 					}
 				}
+
 				return true;
 			}
 		}
@@ -657,25 +620,22 @@ namespace TJAPlayer3
 
 		// メソッド
 
-		public void t指定した入力が既にアサイン済みである場合はそれを全削除する( E入力デバイス DeviceType, int nID, int nCode )
+		public void t指定した入力が既にアサイン済みである場合はそれを全削除する(E入力デバイス DeviceType, int nID, int nCode)
 		{
-			for( int i = 0; i <= (int)EKeyConfigPart.SYSTEM; i++ )
+			for (int j = 0; j <= (int)EKeyConfigPad.Capture; j++)
 			{
-				for( int j = 0; j <= (int)EKeyConfigPad.Capture; j++ )
+				for (int k = 0; k < 0x10; k++)
 				{
-					for( int k = 0; k < 0x10; k++ )
+					if (((this.KeyAssign[j][k].入力デバイス == DeviceType) && (this.KeyAssign[j][k].ID == nID)) && (this.KeyAssign[j][k].コード == nCode))
 					{
-						if( ( ( this.KeyAssign[ i ][ j ][ k ].入力デバイス == DeviceType ) && ( this.KeyAssign[ i ][ j ][ k ].ID == nID ) ) && ( this.KeyAssign[ i ][ j ][ k ].コード == nCode ) )
+						for (int m = k; m < 15; m++)
 						{
-							for( int m = k; m < 15; m++ )
-							{
-								this.KeyAssign[ i ][ j ][ m ] = this.KeyAssign[ i ][ j ][ m + 1 ];
-							}
-							this.KeyAssign[ i ][ j ][ 15 ].入力デバイス = E入力デバイス.不明;
-							this.KeyAssign[ i ][ j ][ 15 ].ID = 0;
-							this.KeyAssign[ i ][ j ][ 15 ].コード = 0;
-							k--;
+							this.KeyAssign[j][m] = this.KeyAssign[j][m + 1];
 						}
+						this.KeyAssign[j][15].入力デバイス = E入力デバイス.不明;
+						this.KeyAssign[j][15].ID = 0;
+						this.KeyAssign[j][15].コード = 0;
+						k--;
 					}
 				}
 			}
@@ -1180,28 +1140,28 @@ namespace TJAPlayer3
 			sw.WriteLine( "[DrumsKeyAssign]" );
 			sw.WriteLine();
 			sw.Write( "LeftRed=" );
-			this.tキーの書き出し( sw, this.KeyAssign.Drums.LeftRed );
+			this.tキーの書き出し( sw, this.KeyAssign.LeftRed );
 			sw.WriteLine();
 			sw.Write( "RightRed=" );
-			this.tキーの書き出し( sw, this.KeyAssign.Drums.RightRed );
+			this.tキーの書き出し( sw, this.KeyAssign.RightRed );
 			sw.WriteLine();
 			sw.Write( "LeftBlue=" );										// #27029 2012.1.4 from
-			this.tキーの書き出し( sw, this.KeyAssign.Drums.LeftBlue );	//
+			this.tキーの書き出し( sw, this.KeyAssign.LeftBlue );	//
 			sw.WriteLine();											//
 			sw.Write( "RightBlue=" );										// #27029 2012.1.4 from
-			this.tキーの書き出し( sw, this.KeyAssign.Drums.RightBlue );	//
+			this.tキーの書き出し( sw, this.KeyAssign.RightBlue );	//
 			sw.WriteLine();
 			sw.Write( "LeftRed2P=" );
-			this.tキーの書き出し( sw, this.KeyAssign.Drums.LeftRed2P );
+			this.tキーの書き出し( sw, this.KeyAssign.LeftRed2P );
 			sw.WriteLine();
 			sw.Write( "RightRed2P=" );
-			this.tキーの書き出し( sw, this.KeyAssign.Drums.RightRed2P );
+			this.tキーの書き出し( sw, this.KeyAssign.RightRed2P );
 			sw.WriteLine();
 			sw.Write( "LeftBlue2P=" );										// #27029 2012.1.4 from
-			this.tキーの書き出し( sw, this.KeyAssign.Drums.LeftBlue2P );	//
+			this.tキーの書き出し( sw, this.KeyAssign.LeftBlue2P );	//
 			sw.WriteLine();											        //
 			sw.Write( "RightBlue2P=" );										// #27029 2012.1.4 from
-			this.tキーの書き出し( sw, this.KeyAssign.Drums.RightBlue2P );	//
+			this.tキーの書き出し( sw, this.KeyAssign.RightBlue2P );	//
 			sw.WriteLine();
 			sw.WriteLine();
 			#endregion
@@ -1209,7 +1169,7 @@ namespace TJAPlayer3
 			sw.WriteLine( "[SystemKeyAssign]" );
 			sw.WriteLine();
 			sw.Write( "Capture=" );
-			this.tキーの書き出し( sw, this.KeyAssign.System.Capture );
+			this.tキーの書き出し( sw, this.KeyAssign.Capture );
 			sw.WriteLine();
 			sw.WriteLine();
 			#endregion
@@ -1892,36 +1852,36 @@ namespace TJAPlayer3
 										{
 											if( str3.Equals( "LeftRed" ) )
 											{
-												this.tキーの読み出しと設定( str4, this.KeyAssign.Drums.LeftRed );
+												this.tキーの読み出しと設定( str4, this.KeyAssign.LeftRed );
 											}
 											else if( str3.Equals( "RightRed" ) )
 											{
-												this.tキーの読み出しと設定( str4, this.KeyAssign.Drums.RightRed );
+												this.tキーの読み出しと設定( str4, this.KeyAssign.RightRed );
 											}
 											else if( str3.Equals( "LeftBlue" ) )										// #27029 2012.1.4 from
 											{																	//
-												this.tキーの読み出しと設定( str4, this.KeyAssign.Drums.LeftBlue );	//
+												this.tキーの読み出しと設定( str4, this.KeyAssign.LeftBlue );	//
 											}																	//
 											else if( str3.Equals( "RightBlue" ) )										// #27029 2012.1.4 from
 											{																	//
-												this.tキーの読み出しと設定( str4, this.KeyAssign.Drums.RightBlue );	//
+												this.tキーの読み出しと設定( str4, this.KeyAssign.RightBlue );	//
 											}
 
 											else if( str3.Equals( "LeftRed2P" ) )
 											{
-												this.tキーの読み出しと設定( str4, this.KeyAssign.Drums.LeftRed2P );
+												this.tキーの読み出しと設定( str4, this.KeyAssign.LeftRed2P );
 											}
 											else if( str3.Equals( "RightRed2P" ) )
 											{
-												this.tキーの読み出しと設定( str4, this.KeyAssign.Drums.RightRed2P );
+												this.tキーの読み出しと設定( str4, this.KeyAssign.RightRed2P );
 											}
 											else if( str3.Equals( "LeftBlue2P" ) )										// #27029 2012.1.4 from
 											{																	//
-												this.tキーの読み出しと設定( str4, this.KeyAssign.Drums.LeftBlue2P );	//
+												this.tキーの読み出しと設定( str4, this.KeyAssign.LeftBlue2P );	//
 											}																	//
 											else if( str3.Equals( "RightBlue2P" ) )										// #27029 2012.1.4 from
 											{																	//
-												this.tキーの読み出しと設定( str4, this.KeyAssign.Drums.RightBlue2P );	//
+												this.tキーの読み出しと設定( str4, this.KeyAssign.RightBlue2P );	//
 											}
 
 											continue;
@@ -1934,7 +1894,7 @@ namespace TJAPlayer3
 									case Eセクション種別.SystemKeyAssign:
 										if( str3.Equals( "Capture" ) )
 										{
-											this.tキーの読み出しと設定( str4, this.KeyAssign.System.Capture );
+											this.tキーの読み出しと設定( str4, this.KeyAssign.Capture );
 										}
 										continue;
 									//-----------------------------
@@ -1994,15 +1954,12 @@ namespace TJAPlayer3
 		private void tキーアサインを全部クリアする()
 		{
 			this.KeyAssign = new CKeyAssign();
-			for( int i = 0; i <= (int)EKeyConfigPart.SYSTEM; i++ )
+			for (int j = 0; j <= (int)EKeyConfigPad.Capture; j++)
 			{
-				for( int j = 0; j <= (int)EKeyConfigPad.Capture; j++ )
+				this.KeyAssign[j] = new CKeyAssign.STKEYASSIGN[16];
+				for (int k = 0; k < 16; k++)
 				{
-					this.KeyAssign[ i ][ j ] = new CKeyAssign.STKEYASSIGN[ 16 ];
-					for( int k = 0; k < 16; k++ )
-					{
-						this.KeyAssign[ i ][ j ][ k ] = new CKeyAssign.STKEYASSIGN( E入力デバイス.不明, 0, 0 );
-					}
+					this.KeyAssign[j][k] = new CKeyAssign.STKEYASSIGN(E入力デバイス.不明, 0, 0);
 				}
 			}
 		}

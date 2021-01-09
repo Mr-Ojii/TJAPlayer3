@@ -22,19 +22,15 @@ namespace TJAPlayer3
 
 		// メソッド
 
-		public void t開始( EKeyConfigPart part, EKeyConfigPad pad, string strパッド名 )
+		public void t開始( EKeyConfigPad pad, string strパッド名)
 		{
-			if( part != EKeyConfigPart.UNKNOWN )
+			this.pad = pad;
+			this.strパッド名 = strパッド名;
+			for (int i = 0; i < 0x10; i++)
 			{
-				this.part = part;
-				this.pad = pad;
-				this.strパッド名 = strパッド名;
-				for( int i = 0; i < 0x10; i++ )
-				{
-					this.structReset用KeyAssign[ i ].入力デバイス = TJAPlayer3.ConfigIni.KeyAssign[ (int) part ][ (int) pad ][ i ].入力デバイス;
-					this.structReset用KeyAssign[ i ].ID = TJAPlayer3.ConfigIni.KeyAssign[ (int) part ][ (int) pad ][ i ].ID;
-					this.structReset用KeyAssign[ i ].コード = TJAPlayer3.ConfigIni.KeyAssign[ (int) part ][ (int) pad ][ i ].コード;
-				}
+				this.structReset用KeyAssign[i].入力デバイス = TJAPlayer3.ConfigIni.KeyAssign[(int)pad][i].入力デバイス;
+				this.structReset用KeyAssign[i].ID = TJAPlayer3.ConfigIni.KeyAssign[(int)pad][i].ID;
+				this.structReset用KeyAssign[i].コード = TJAPlayer3.ConfigIni.KeyAssign[(int)pad][i].コード;
 			}
 		}
 		
@@ -48,9 +44,9 @@ namespace TJAPlayer3
 					case 0x10:
 						for( int i = 0; i < 0x10; i++ )
 						{
-							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ i ].入力デバイス = this.structReset用KeyAssign[ i ].入力デバイス;
-							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ i ].ID = this.structReset用KeyAssign[ i ].ID;
-							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ i ].コード = this.structReset用KeyAssign[ i ].コード;
+							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ i ].入力デバイス = this.structReset用KeyAssign[ i ].入力デバイス;
+							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ i ].ID = this.structReset用KeyAssign[ i ].ID;
+							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ i ].コード = this.structReset用KeyAssign[ i ].コード;
 						}
 						return;
 
@@ -83,7 +79,6 @@ namespace TJAPlayer3
 
 		public override void On活性化()
 		{
-			this.part = EKeyConfigPart.UNKNOWN;
 			this.pad = EKeyConfigPad.UNKNOWN;
 			this.strパッド名 = "";
 			this.n現在の選択行 = 0;
@@ -130,9 +125,9 @@ namespace TJAPlayer3
 				else if( ( TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDXKeys.Key.Delete ) && ( this.n現在の選択行 >= 0 ) ) && ( this.n現在の選択行 <= 15 ) )
 				{
 					TJAPlayer3.Skin.sound決定音.t再生する();
-					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = E入力デバイス.不明;
-					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].ID = 0;
-					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].コード = 0;
+					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = E入力デバイス.不明;
+					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].ID = 0;
+					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].コード = 0;
 				}
 				if(TJAPlayer3.Tx.Menu_Highlight != null )
 				{
@@ -154,7 +149,7 @@ namespace TJAPlayer3
 				int y = 0x40;
 				TJAPlayer3.stageコンフィグ.actFont.t文字列描画( x, y, this.strパッド名, false, 0.75f );
 				y += num5;
-				CConfigIni.CKeyAssign.STKEYASSIGN[] stkeyassignArray = TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ];
+				CConfigIni.CKeyAssign.STKEYASSIGN[] stkeyassignArray = TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ];
 				for( int i = 0; i < 0x10; i++ )
 				{
 					switch( stkeyassignArray[ i ].入力デバイス )
@@ -224,7 +219,6 @@ namespace TJAPlayer3
 		};
 		private int n現在の選択行;
 		private EKeyConfigPad pad;
-		private EKeyConfigPart part;
 		private CConfigIni.CKeyAssign.STKEYASSIGN[] structReset用KeyAssign;
 		private string strパッド名;
 		//private CTexture txHitKeyダイアログ;
@@ -321,9 +315,9 @@ namespace TJAPlayer3
 						{
 							TJAPlayer3.Skin.sound決定音.t再生する();
 							TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( E入力デバイス.ジョイパッド, device.ID, i );
-							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = E入力デバイス.ジョイパッド;
-							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].ID = device.ID;
-							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].コード = i;
+							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = E入力デバイス.ジョイパッド;
+							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].ID = device.ID;
+							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].コード = i;
 							return true;
 						}
 					}
@@ -346,9 +340,9 @@ namespace TJAPlayer3
 				{
 					TJAPlayer3.Skin.sound決定音.t再生する();
 					TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( E入力デバイス.キーボード, 0, i );
-					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = E入力デバイス.キーボード;
-					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].ID = 0;
-					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].コード = i;
+					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = E入力デバイス.キーボード;
+					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].ID = 0;
+					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].コード = i;
 					return true;
 				}
 			}
@@ -366,9 +360,9 @@ namespace TJAPlayer3
 						{
 							TJAPlayer3.Skin.sound決定音.t再生する();
 							TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( E入力デバイス.MIDI入力, device.ID, i );
-							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = E入力デバイス.MIDI入力;
-							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].ID = device.ID;
-							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].コード = i;
+							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = E入力デバイス.MIDI入力;
+							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].ID = device.ID;
+							TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].コード = i;
 							return true;
 						}
 					}
@@ -383,9 +377,9 @@ namespace TJAPlayer3
 				if( TJAPlayer3.Input管理.Mouse.bキーが押された( i ) )
 				{
 					TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( E入力デバイス.マウス, 0, i );
-					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = E入力デバイス.マウス;
-					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].ID = 0;
-					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.part ][ (int) this.pad ][ this.n現在の選択行 ].コード = i;
+					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = E入力デバイス.マウス;
+					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].ID = 0;
+					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].コード = i;
 				}
 			}
 			return false;

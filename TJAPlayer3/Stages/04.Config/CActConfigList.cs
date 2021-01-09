@@ -748,42 +748,42 @@ namespace TJAPlayer3
 			//太鼓のキー設定。
 			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoLRed )
 			{
-				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.LRed );
+				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPad.LRed );
 			}
 			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoRRed )
 			{
-				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.RRed );
+				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPad.RRed );
 			}
 			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoLBlue )
 			{
-				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.LBlue );
+				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPad.LBlue );
 			}
 			else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoRBlue )
 			{
-				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.RBlue );
+				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPad.RBlue );
 			}
 
 			//太鼓のキー設定。2P
 			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoLRed2P )
 			{
-				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.LRed2P );
+				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPad.LRed2P );
 			}
 			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoRRed2P )
 			{
-				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.RRed2P );
+				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPad.RRed2P );
 			}
 			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoLBlue2P )
 			{
-				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.LBlue2P );
+				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPad.LBlue2P );
 			}
 			else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoRBlue2P )
 			{
-				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPart.DRUMS, EKeyConfigPad.RBlue2P );
+				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPad.RBlue2P );
 			}
 
 			else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignSystemCapture )
 			{
-				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPart.SYSTEM, EKeyConfigPad.Capture);
+				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPad.Capture);
 			}
 			#endregion
 			else
