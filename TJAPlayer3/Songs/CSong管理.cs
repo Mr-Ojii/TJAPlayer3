@@ -246,114 +246,108 @@ namespace TJAPlayer3
 				}
 				else if ((c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.SCORE))
 				{
-					for (int i = 0; i < (int)Difficulty.Total; i++)
+					#region [ DTX ファイルのヘッダだけ読み込み、Cスコア.譜面情報 を設定する ]
+					//-----------------
+					string path = c曲リストノード.arスコア.ファイル情報.ファイルの絶対パス;
+					if (File.Exists(path))
 					{
-						if ((c曲リストノード.arスコア.譜面情報.b譜面が存在する[i] != false))
+						try
 						{
-							#region [ DTX ファイルのヘッダだけ読み込み、Cスコア.譜面情報 を設定する ]
+							CDTX cdtx = new CDTX(c曲リストノード.arスコア.ファイル情報.ファイルの絶対パス, true, 0, 0);
+
+							c曲リストノード.arスコア.譜面情報.タイトル = cdtx.TITLE;
+
+
+							c曲リストノード.arスコア.譜面情報.アーティスト名 = cdtx.ARTIST;
+							c曲リストノード.arスコア.譜面情報.コメント = cdtx.COMMENT;
+							c曲リストノード.arスコア.譜面情報.ジャンル = cdtx.GENRE;
+							c曲リストノード.arスコア.譜面情報.Backgound = ((cdtx.BACKGROUND != null) && (cdtx.BACKGROUND.Length > 0)) ? cdtx.BACKGROUND : "";
+							c曲リストノード.arスコア.譜面情報.Bpm = cdtx.BPM;
+							c曲リストノード.arスコア.譜面情報.Duration = 0;   //  (cdtx.listChip == null)? 0 : cdtx.listChip[ cdtx.listChip.Count - 1 ].n発声時刻ms;
+							c曲リストノード.arスコア.譜面情報.strBGMファイル名 = cdtx.strBGM_PATH == null ? "" : cdtx.strBGM_PATH;//ここのnullをどうにか--------
+							c曲リストノード.arスコア.譜面情報.SongVol = cdtx.SongVol;
+							c曲リストノード.arスコア.譜面情報.SongLoudnessMetadata = cdtx.SongLoudnessMetadata;
+							c曲リストノード.arスコア.譜面情報.nデモBGMオフセット = cdtx.nデモBGMオフセット;
+							c曲リストノード.arスコア.譜面情報.b譜面分岐[0] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[0];
+							c曲リストノード.arスコア.譜面情報.b譜面分岐[1] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[1];
+							c曲リストノード.arスコア.譜面情報.b譜面分岐[2] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[2];
+							c曲リストノード.arスコア.譜面情報.b譜面分岐[3] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[3];
+							c曲リストノード.arスコア.譜面情報.b譜面分岐[4] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[4];
+							c曲リストノード.arスコア.譜面情報.b譜面分岐[5] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[5];
+							c曲リストノード.arスコア.譜面情報.b譜面分岐[6] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[6];
+							c曲リストノード.arスコア.譜面情報.bPapaMamaSupport[0] = cdtx.bPapaMamaSupport[0];
+							c曲リストノード.arスコア.譜面情報.bPapaMamaSupport[1] = cdtx.bPapaMamaSupport[1];
+							c曲リストノード.arスコア.譜面情報.bPapaMamaSupport[2] = cdtx.bPapaMamaSupport[2];
+							c曲リストノード.arスコア.譜面情報.bPapaMamaSupport[3] = cdtx.bPapaMamaSupport[3];
+							c曲リストノード.arスコア.譜面情報.bPapaMamaSupport[4] = cdtx.bPapaMamaSupport[4];
+							c曲リストノード.arスコア.譜面情報.bPapaMamaSupport[5] = cdtx.bPapaMamaSupport[5];
+							c曲リストノード.arスコア.譜面情報.bPapaMamaSupport[6] = cdtx.bPapaMamaSupport[6];
+							c曲リストノード.arスコア.譜面情報.strサブタイトル = cdtx.SUBTITLE;
+							c曲リストノード.arスコア.譜面情報.nレベル[0] = cdtx.LEVELtaiko[0];
+							c曲リストノード.arスコア.譜面情報.nレベル[1] = cdtx.LEVELtaiko[1];
+							c曲リストノード.arスコア.譜面情報.nレベル[2] = cdtx.LEVELtaiko[2];
+							c曲リストノード.arスコア.譜面情報.nレベル[3] = cdtx.LEVELtaiko[3];
+							c曲リストノード.arスコア.譜面情報.nレベル[4] = cdtx.LEVELtaiko[4];
+							c曲リストノード.arスコア.譜面情報.nレベル[5] = cdtx.LEVELtaiko[5];
+							c曲リストノード.arスコア.譜面情報.nレベル[6] = cdtx.LEVELtaiko[6];
+							c曲リストノード.arスコア.譜面情報.b歌詞あり = cdtx.bLyrics;
+							this.nファイルから反映できたスコア数++;
+							cdtx.On非活性化();
+							//Debug.WriteLine( "★" + this.nファイルから反映できたスコア数 + " " + c曲リストノード.arスコア[ i ].譜面情報.タイトル );
+							#region [ 曲検索ログ出力 ]
 							//-----------------
-							string path = c曲リストノード.arスコア.ファイル情報.ファイルの絶対パス;
-							if (File.Exists(path))
+							if (TJAPlayer3.ConfigIni.bLog曲検索ログ出力)
 							{
-								try
-								{
-									CDTX cdtx = new CDTX(c曲リストノード.arスコア.ファイル情報.ファイルの絶対パス, true, 0, 0);
-
-									c曲リストノード.arスコア.譜面情報.タイトル = cdtx.TITLE;
-
-
-									c曲リストノード.arスコア.譜面情報.アーティスト名 = cdtx.ARTIST;
-									c曲リストノード.arスコア.譜面情報.コメント = cdtx.COMMENT;
-									c曲リストノード.arスコア.譜面情報.ジャンル = cdtx.GENRE;
-									c曲リストノード.arスコア.譜面情報.Backgound = ((cdtx.BACKGROUND != null) && (cdtx.BACKGROUND.Length > 0)) ? cdtx.BACKGROUND : "";
-									c曲リストノード.arスコア.譜面情報.Bpm = cdtx.BPM;
-									c曲リストノード.arスコア.譜面情報.Duration = 0;   //  (cdtx.listChip == null)? 0 : cdtx.listChip[ cdtx.listChip.Count - 1 ].n発声時刻ms;
-									c曲リストノード.arスコア.譜面情報.strBGMファイル名 = cdtx.strBGM_PATH == null ? "" : cdtx.strBGM_PATH;//ここのnullをどうにか--------
-									c曲リストノード.arスコア.譜面情報.SongVol = cdtx.SongVol;
-									c曲リストノード.arスコア.譜面情報.SongLoudnessMetadata = cdtx.SongLoudnessMetadata;
-									c曲リストノード.arスコア.譜面情報.nデモBGMオフセット = cdtx.nデモBGMオフセット;
-									c曲リストノード.arスコア.譜面情報.b譜面分岐[0] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[0];
-									c曲リストノード.arスコア.譜面情報.b譜面分岐[1] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[1];
-									c曲リストノード.arスコア.譜面情報.b譜面分岐[2] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[2];
-									c曲リストノード.arスコア.譜面情報.b譜面分岐[3] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[3];
-									c曲リストノード.arスコア.譜面情報.b譜面分岐[4] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[4];
-									c曲リストノード.arスコア.譜面情報.b譜面分岐[5] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[5];
-									c曲リストノード.arスコア.譜面情報.b譜面分岐[6] = cdtx.bHIDDENBRANCH ? false : cdtx.bHasBranch[6];
-									c曲リストノード.arスコア.譜面情報.bPapaMamaSupport[0] = cdtx.bPapaMamaSupport[0];
-									c曲リストノード.arスコア.譜面情報.bPapaMamaSupport[1] = cdtx.bPapaMamaSupport[1];
-									c曲リストノード.arスコア.譜面情報.bPapaMamaSupport[2] = cdtx.bPapaMamaSupport[2];
-									c曲リストノード.arスコア.譜面情報.bPapaMamaSupport[3] = cdtx.bPapaMamaSupport[3];
-									c曲リストノード.arスコア.譜面情報.bPapaMamaSupport[4] = cdtx.bPapaMamaSupport[4];
-									c曲リストノード.arスコア.譜面情報.bPapaMamaSupport[5] = cdtx.bPapaMamaSupport[5];
-									c曲リストノード.arスコア.譜面情報.bPapaMamaSupport[6] = cdtx.bPapaMamaSupport[6];
-									c曲リストノード.arスコア.譜面情報.strサブタイトル = cdtx.SUBTITLE;
-									c曲リストノード.arスコア.譜面情報.nレベル[0] = cdtx.LEVELtaiko[0];
-									c曲リストノード.arスコア.譜面情報.nレベル[1] = cdtx.LEVELtaiko[1];
-									c曲リストノード.arスコア.譜面情報.nレベル[2] = cdtx.LEVELtaiko[2];
-									c曲リストノード.arスコア.譜面情報.nレベル[3] = cdtx.LEVELtaiko[3];
-									c曲リストノード.arスコア.譜面情報.nレベル[4] = cdtx.LEVELtaiko[4];
-									c曲リストノード.arスコア.譜面情報.nレベル[5] = cdtx.LEVELtaiko[5];
-									c曲リストノード.arスコア.譜面情報.nレベル[6] = cdtx.LEVELtaiko[6];
-									c曲リストノード.arスコア.譜面情報.b歌詞あり = cdtx.bLyrics;
-									this.nファイルから反映できたスコア数++;
-									cdtx.On非活性化();
-									//Debug.WriteLine( "★" + this.nファイルから反映できたスコア数 + " " + c曲リストノード.arスコア[ i ].譜面情報.タイトル );
-									#region [ 曲検索ログ出力 ]
-									//-----------------
-									if (TJAPlayer3.ConfigIni.bLog曲検索ログ出力)
-									{
-										StringBuilder sb = new StringBuilder(0x400);
-										sb.Append(string.Format("曲データファイルから譜面情報を転記しました。({0})", path));
-										sb.Append("(title=" + c曲リストノード.arスコア.譜面情報.タイトル);
-										sb.Append(", artist=" + c曲リストノード.arスコア.譜面情報.アーティスト名);
-										sb.Append(", comment=" + c曲リストノード.arスコア.譜面情報.コメント);
-										sb.Append(", genre=" + c曲リストノード.arスコア.譜面情報.ジャンル);
-										sb.Append(", background=" + c曲リストノード.arスコア.譜面情報.Backgound);
-										sb.Append(", bpm=" + c曲リストノード.arスコア.譜面情報.Bpm);
-										sb.Append(", lyrics=" + c曲リストノード.arスコア.譜面情報.b歌詞あり);
-										Trace.TraceInformation(sb.ToString());
-									}
-									//-----------------
-									#endregion
-								}
-								catch (Exception exception)
-								{
-									Trace.TraceError(exception.ToString());
-									c曲リストノード.arスコア = null;
-									c曲リストノード.nスコア数--;
-									this.n検索されたスコア数--;
-									Trace.TraceError("曲データファイルの読み込みに失敗しました。({0})", path);
-								}
+								StringBuilder sb = new StringBuilder(0x400);
+								sb.Append(string.Format("曲データファイルから譜面情報を転記しました。({0})", path));
+								sb.Append("(title=" + c曲リストノード.arスコア.譜面情報.タイトル);
+								sb.Append(", artist=" + c曲リストノード.arスコア.譜面情報.アーティスト名);
+								sb.Append(", comment=" + c曲リストノード.arスコア.譜面情報.コメント);
+								sb.Append(", genre=" + c曲リストノード.arスコア.譜面情報.ジャンル);
+								sb.Append(", background=" + c曲リストノード.arスコア.譜面情報.Backgound);
+								sb.Append(", bpm=" + c曲リストノード.arスコア.譜面情報.Bpm);
+								sb.Append(", lyrics=" + c曲リストノード.arスコア.譜面情報.b歌詞あり);
+								Trace.TraceInformation(sb.ToString());
 							}
-							//-----------------
-							#endregion
-
-							#region [ 対応する .score.ini が存在していれば読み込み、Cスコア.譜面情報 に追加設定する ]
-							//-----------------
-							try
-							{
-								var scoreIniPath = c曲リストノード.arスコア.ファイル情報.ファイルの絶対パス + ".score.ini";
-								if (File.Exists(scoreIniPath))
-									this.tScoreIniを読み込んで譜面情報を設定する(scoreIniPath, c曲リストノード.arスコア);
-								else
-								{
-									string[] dtxscoreini = Directory.GetFiles(c曲リストノード.arスコア.ファイル情報.フォルダの絶対パス, "*.dtx.score.ini");
-									if (dtxscoreini.Length != 0 && File.Exists(dtxscoreini[0]))
-									{
-										this.tScoreIniを読み込んで譜面情報を設定する(dtxscoreini[0], c曲リストノード.arスコア);
-									}
-								}
-							}
-							catch (Exception e)
-							{
-								Trace.TraceError(e.ToString());
-								Trace.TraceError("例外が発生しましたが処理を継続します。 (c8b6538c-46a1-403e-8cc3-fc7e7ff914fb)");
-							}
-
 							//-----------------
 							#endregion
 						}
+						catch (Exception exception)
+						{
+							Trace.TraceError(exception.ToString());
+							c曲リストノード.arスコア = null;
+							c曲リストノード.nスコア数--;
+							this.n検索されたスコア数--;
+							Trace.TraceError("曲データファイルの読み込みに失敗しました。({0})", path);
+						}
 					}
+					//-----------------
+					#endregion
+
+					#region [ 対応する .score.ini が存在していれば読み込み、Cスコア.譜面情報 に追加設定する ]
+					//-----------------
+					try
+					{
+						var scoreIniPath = c曲リストノード.arスコア.ファイル情報.ファイルの絶対パス + ".score.ini";
+						if (File.Exists(scoreIniPath))
+							this.tScoreIniを読み込んで譜面情報を設定する(scoreIniPath, c曲リストノード.arスコア);
+						else
+						{
+							string[] dtxscoreini = Directory.GetFiles(c曲リストノード.arスコア.ファイル情報.フォルダの絶対パス, "*.dtx.score.ini");
+							if (dtxscoreini.Length != 0 && File.Exists(dtxscoreini[0]))
+							{
+								this.tScoreIniを読み込んで譜面情報を設定する(dtxscoreini[0], c曲リストノード.arスコア);
+							}
+						}
+					}
+					catch (Exception e)
+					{
+						Trace.TraceError(e.ToString());
+						Trace.TraceError("例外が発生しましたが処理を継続します。 (c8b6538c-46a1-403e-8cc3-fc7e7ff914fb)");
+					}
+
+					//-----------------
+					#endregion
 				}
 			}
 		}
