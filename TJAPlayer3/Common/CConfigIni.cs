@@ -24,105 +24,15 @@ namespace TJAPlayer3
 		{
 			public class CKeyAssignPad
 			{
-				public CConfigIni.CKeyAssign.STKEYASSIGN[] Capture
-				{
-					get
-					{
-						return this.padCapture;
-					}
-					set
-					{
-						this.padCapture = value;
-					}
-				}
-				public CConfigIni.CKeyAssign.STKEYASSIGN[] LeftRed
-				{
-					get
-					{
-						return this.padLRed;
-					}
-					set
-					{
-						this.padLRed = value;
-					}
-				}
-				public CConfigIni.CKeyAssign.STKEYASSIGN[] RightRed
-				{
-					get
-					{
-						return this.padRRed;
-					}
-					set
-					{
-						this.padRRed = value;
-					}
-				}
-				public CConfigIni.CKeyAssign.STKEYASSIGN[] LeftBlue
-				{
-					get
-					{
-						return this.padLBlue;
-					}
-					set
-					{
-						this.padLBlue = value;
-					}
-				}
-				public CConfigIni.CKeyAssign.STKEYASSIGN[] RightBlue
-				{
-					get
-					{
-						return this.padRBlue;
-					}
-					set
-					{
-						this.padRBlue = value;
-					}
-				}
-				public CConfigIni.CKeyAssign.STKEYASSIGN[] LeftRed2P
-				{
-					get
-					{
-						return this.padLRed2P;
-					}
-					set
-					{
-						this.padLRed2P = value;
-					}
-				}
-				public CConfigIni.CKeyAssign.STKEYASSIGN[] RightRed2P
-				{
-					get
-					{
-						return this.padRRed2P;
-					}
-					set
-					{
-						this.padRRed2P = value;
-					}
-				}
-				public CConfigIni.CKeyAssign.STKEYASSIGN[] LeftBlue2P
-				{
-					get
-					{
-						return this.padLBlue2P;
-					}
-					set
-					{
-						this.padLBlue2P = value;
-					}
-				}
-				public CConfigIni.CKeyAssign.STKEYASSIGN[] RightBlue2P
-				{
-					get
-					{
-						return this.padRBlue2P;
-					}
-					set
-					{
-						this.padRBlue2P = value;
-					}
-				}
+				public CConfigIni.CKeyAssign.STKEYASSIGN[] Capture;
+				public CConfigIni.CKeyAssign.STKEYASSIGN[] LeftRed;
+				public CConfigIni.CKeyAssign.STKEYASSIGN[] RightRed;
+				public CConfigIni.CKeyAssign.STKEYASSIGN[] LeftBlue;
+				public CConfigIni.CKeyAssign.STKEYASSIGN[] RightBlue;
+				public CConfigIni.CKeyAssign.STKEYASSIGN[] LeftRed2P;
+				public CConfigIni.CKeyAssign.STKEYASSIGN[] RightRed2P;
+				public CConfigIni.CKeyAssign.STKEYASSIGN[] LeftBlue2P;
+				public CConfigIni.CKeyAssign.STKEYASSIGN[] RightBlue2P;
 				public CConfigIni.CKeyAssign.STKEYASSIGN[] this[ int index ]
 				{
 					get
@@ -130,31 +40,31 @@ namespace TJAPlayer3
 						switch ( index )
 						{
 							case (int) EKeyConfigPad.LRed:
-								return this.padLRed;
+								return this.LeftRed;
 
 							case (int) EKeyConfigPad.RRed:
-								return this.padRRed;
+								return this.RightRed;
 
 							case (int) EKeyConfigPad.LBlue:
-								return this.padLBlue;
+								return this.LeftBlue;
 
 							case (int) EKeyConfigPad.RBlue:
-								return this.padRBlue;
+								return this.RightBlue;
 
 							case (int) EKeyConfigPad.LRed2P:
-								return this.padLRed2P;
+								return this.LeftRed2P;
 
 							case (int) EKeyConfigPad.RRed2P:
-								return this.padRRed2P;
+								return this.RightRed2P;
 
 							case (int) EKeyConfigPad.LBlue2P:
-								return this.padLBlue2P;
+								return this.LeftBlue2P;
 
 							case (int) EKeyConfigPad.RBlue2P:
-								return this.padRBlue2P;
+								return this.RightBlue2P;
 
 							case (int) EKeyConfigPad.Capture:
-								return this.padCapture;
+								return this.Capture;
 						}
 						throw new IndexOutOfRangeException();
 					}
@@ -163,59 +73,44 @@ namespace TJAPlayer3
 						switch ( index )
 						{
 							case (int) EKeyConfigPad.LRed:
-								this.padLRed = value;
+								this.LeftRed = value;
 								return;
 
 							case (int) EKeyConfigPad.RRed:
-								this.padRRed = value;
+								this.RightRed = value;
 								return;
 								
 							case (int) EKeyConfigPad.LBlue:
-								this.padLBlue = value;
+								this.LeftBlue = value;
 								return;
 
 							case (int) EKeyConfigPad.RBlue:
-								this.padRBlue = value;
+								this.RightBlue = value;
 								return;
 
 							case (int) EKeyConfigPad.LRed2P:
-								this.padLRed2P = value;
+								this.LeftRed2P = value;
 								return;
 
 							case (int) EKeyConfigPad.RRed2P:
-								this.padRRed2P = value;
+								this.RightRed2P = value;
 								return;
 								
 							case (int) EKeyConfigPad.LBlue2P:
-								this.padLBlue2P = value;
+								this.LeftBlue2P = value;
 								return;
 
 							case (int) EKeyConfigPad.RBlue2P:
-								this.padRBlue2P = value;
+								this.RightBlue2P = value;
 								return;
 
 							case (int) EKeyConfigPad.Capture:
-								this.padCapture = value;
+								this.Capture = value;
 								return;
 						}
 						throw new IndexOutOfRangeException();
 					}
 				}
-
-				#region [ private ]
-				//-----------------
-				private CConfigIni.CKeyAssign.STKEYASSIGN[] padLRed;
-				private CConfigIni.CKeyAssign.STKEYASSIGN[] padLBlue;
-				private CConfigIni.CKeyAssign.STKEYASSIGN[] padRRed;
-				private CConfigIni.CKeyAssign.STKEYASSIGN[] padRBlue;
-				private CConfigIni.CKeyAssign.STKEYASSIGN[] padLRed2P;
-				private CConfigIni.CKeyAssign.STKEYASSIGN[] padLBlue2P;
-				private CConfigIni.CKeyAssign.STKEYASSIGN[] padRRed2P;
-				private CConfigIni.CKeyAssign.STKEYASSIGN[] padRBlue2P;
-
-				private CConfigIni.CKeyAssign.STKEYASSIGN[] padCapture;
-				//-----------------
-				#endregion
 			}
 
 			[StructLayout( LayoutKind.Sequential )]

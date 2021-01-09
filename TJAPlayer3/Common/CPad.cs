@@ -42,7 +42,7 @@ namespace TJAPlayer3
 
 		public List<STInputEvent> GetEvents( Eパッド pad )
 		{
-			CConfigIni.CKeyAssign.STKEYASSIGN[] stkeyassignArray = this.rConfigIni.KeyAssign[(int)E楽器パート.DRUMS][(int)pad];
+			CConfigIni.CKeyAssign.STKEYASSIGN[] stkeyassignArray = this.rConfigIni.KeyAssign[(int)EKeyConfigPart.DRUMS][(int)pad];
 			List<STInputEvent> list = new List<STInputEvent>();
 
 			// すべての入力デバイスについて…
@@ -97,7 +97,7 @@ namespace TJAPlayer3
 		}
 		public bool b押された( Eパッド pad )
 		{
-			CConfigIni.CKeyAssign.STKEYASSIGN[] stkeyassignArray = this.rConfigIni.KeyAssign[(int)E楽器パート.DRUMS][(int)pad];
+			CConfigIni.CKeyAssign.STKEYASSIGN[] stkeyassignArray = this.rConfigIni.KeyAssign[(int)EKeyConfigPart.DRUMS][(int)pad];
 			for (int i = 0; i < stkeyassignArray.Length; i++)
 			{
 				switch (stkeyassignArray[i].入力デバイス)
@@ -143,7 +143,7 @@ namespace TJAPlayer3
 		}
 		public bool b押されている( Eパッド pad )
 		{
-			CConfigIni.CKeyAssign.STKEYASSIGN[] stkeyassignArray = this.rConfigIni.KeyAssign[(int)E楽器パート.DRUMS][(int)pad];
+			CConfigIni.CKeyAssign.STKEYASSIGN[] stkeyassignArray = this.rConfigIni.KeyAssign[(int)EKeyConfigPart.DRUMS][(int)pad];
 			for (int i = 0; i < stkeyassignArray.Length; i++)
 			{
 				switch (stkeyassignArray[i].入力デバイス)

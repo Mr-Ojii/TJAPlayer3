@@ -2241,6 +2241,9 @@ namespace TJAPlayer3
 
 		protected bool tドラムヒット処理(long nHitTime, Eパッド type, CDTX.CChip pChip, bool b両手入力, int nPlayer)
 		{
+			if (pChip == null)
+				return false;
+
 			int nInput = 0;
 
 			switch (type)
@@ -2263,33 +2266,12 @@ namespace TJAPlayer3
 					break;
 			}
 
-			if (pChip == null)
-			{
-				return false;
-			}
-			int index = pChip.nチャンネル番号;
-			if ((index >= 0x11) && (index <= 0x12))
-			{
-				index -= 0x11;
-			}
-			else if ((index >= 0x13) && (index <= 0x14))
-			{
-				index -= 0x13;
-			}
-			else if ((index >= 0x1A) && (index <= 0x1B))
-			{
-				index -= 0x1A;
-			}
-			else if (index == 0x1F)
-			{
-				index = 0x11 - 0x11;
-			}
-			else if (pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x17)
+			if (pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x17)
 			{
 				this.tチップのヒット処理(nHitTime, pChip, true, nInput, nPlayer);
 				return true;
 			}
-			else
+			else if (!((pChip.nチャンネル番号 >= 0x11) && (pChip.nチャンネル番号 <= 0x14) || (pChip.nチャンネル番号 >= 0x1A) && (pChip.nチャンネル番号 <= 0x1B) || pChip.nチャンネル番号 == 0x1F)) 
 			{
 				return false;
 			}
@@ -3033,7 +3015,7 @@ namespace TJAPlayer3
 				CDTX.CChip pChip = dTX.listChip[ nCurrentTopChip ];
 //Debug.WriteLine( "nCurrentTopChip=" + nCurrentTopChip + ", ch=" + pChip.nチャンネル番号.ToString("x2") + ", 発音位置=" + pChip.n発声位置 + ", 発声時刻ms=" + pChip.n発声時刻ms );
 				var time = pChip.n発声時刻ms - n現在時刻ms;
-				pChip.nバーからの距離dot.Drums = (int) ( time );
+				pChip.TimeSpan = (int) ( time );
 				pChip.nバーからの距離dot.Taiko = (int) ( time * pChip.dbBPM * pChip.dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0 );//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
 				if( pChip.nノーツ終了時刻ms != 0 )
 					pChip.nバーからのノーツ末端距離dot = (int) (  ( pChip.nノーツ終了時刻ms - n現在時刻ms) * pChip.db末端BPM * pChip.db末端SCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
@@ -3113,7 +3095,7 @@ namespace TJAPlayer3
 				{
 #region [ 01: BGM ]
 					case 0x01:	// BGM
-						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
+						if ( !pChip.bHit && ( pChip.TimeSpan < 0 ) )
 						{
 							pChip.bHit = true;
 							if ( configIni.bBGM音を発声する )
@@ -3125,7 +3107,7 @@ namespace TJAPlayer3
 #endregion
 #region [ 03: BPM変更 ]
 					case 0x03:	// BPM変更
-						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
+						if ( !pChip.bHit && ( pChip.TimeSpan < 0 ) )
 						{
 							pChip.bHit = true;
 							this.actPlayInfo.dbBPM = dTX.BASEBPM; //2016.07.10 kairera0467 太鼓の仕様にあわせて修正。(そもそもの仕様が不明&コードミス疑惑)
@@ -3139,23 +3121,9 @@ namespace TJAPlayer3
 #endregion
 #region [ 08: BPM変更(拡張) ]
 					case 0x08:	// BPM変更(拡張)
-						//CDTXMania.act文字コンソール.tPrint( 414 + pChip.nバーからの距離dot.Drums + 4, 192, C文字コンソール.Eフォント種別.白, "BRANCH START" + "  " + pChip.n整数値.ToString() );
-						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
+						if ( !pChip.bHit && ( pChip.TimeSpan < 0 ) )
 						{
 							pChip.bHit = true;
-							//if( pChip.nコース == this.n現在のコース[ nPlayer ] )
-							//{
-								//if ( dTX.listBPM.ContainsKey( pChip.n整数値_内部番号 ) )
-								//{
-									//this.actPlayInfo.dbBPM = ( dTX.listBPM[ pChip.n整数値_内部番号 ].dbBPM値 * ( ( (double) configIni.n演奏速度 ) / 20.0 ) );// + dTX.BASEBPM;
-								//}
-								//double bpm = ( dTX.listBPM[ pChip.n整数値_内部番号 ].dbBPM値 * ( ( (double) configIni.n演奏速度 ) / 20.0 ) );
-								//int nUnit = (int)((60.0 / ( bpm ) / this.actChara.nキャラクター通常モーション枚数 ) * 1000 );
-								//int nUnit_gogo = (int)((60.0 / ( bpm ) / this.actChara.nキャラクターゴーゴーモーション枚数 ) * 1000 );
-								//this.actChara.ct通常モーション = new CCounter( 0, this.actChara.nキャラクター通常モーション枚数 - 1, nUnit, CDTXMania.Timer );
-								//this.actChara.ctゴーゴーモーション = new CCounter(0, this.actChara.nキャラクターゴーゴーモーション枚数 - 1, nUnit_gogo * 2, CDTXMania.Timer);
-
-							//}
 						}
 						break;
 #endregion
@@ -3193,7 +3161,7 @@ namespace TJAPlayer3
 						break;
 					case 0x18:
 						{
-							if( ( !pChip.bHit && (pChip.nバーからの距離dot.Drums < 0 ) ) )
+							if( ( !pChip.bHit && (pChip.TimeSpan < 0 ) ) )
 							{
 								this.b連打中[ nPlayer ] = false;
 								this.actRoll.b表示[ nPlayer ] = false;
@@ -3276,7 +3244,7 @@ namespace TJAPlayer3
 #region [ 50: 小節線 ]
 					case 0x50:	// 小節線
 						{
-							if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
+							if ( !pChip.bHit && ( pChip.TimeSpan < 0 ) )
 							{
 								if( this.actPlayInfo.NowMeasure[nPlayer] == 0 )
 								{
@@ -3345,7 +3313,7 @@ namespace TJAPlayer3
 #endregion
 #region [ 51: 拍線 ]
 					case 0x51:	// 拍線
-						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
+						if ( !pChip.bHit && ( pChip.TimeSpan < 0 ) )
 						{
 							pChip.bHit = true;
 						}
@@ -3357,7 +3325,7 @@ namespace TJAPlayer3
 #endregion
 #region [ 54: 動画再生 ]
 					case 0x54:  // 動画再生
-						if (!pChip.bHit && (pChip.nバーからの距離dot.Drums < 0) && pChip.nPlayerSide == 0)
+						if (!pChip.bHit && (pChip.TimeSpan < 0) && pChip.nPlayerSide == 0)
 						{
 							pChip.bHit = true;
 							if ( configIni.bAVI有効 && pChip.rVD != null )
@@ -3427,7 +3395,7 @@ namespace TJAPlayer3
 #region[ 9B-9F: 太鼓 ]
 					case 0x9B:
 						// 段位認定モードの幕アニメーション
-						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0) && pChip.nPlayerSide == 0 )
+						if ( !pChip.bHit && ( pChip.TimeSpan < 0) && pChip.nPlayerSide == 0 )
 						{
 							pChip.bHit = true;
 							this.actPanel.t歌詞テクスチャを削除する();
@@ -3446,7 +3414,7 @@ namespace TJAPlayer3
 						break;
 					//0x9C BPM変化(アニメーション用)
 					case 0x9C:
-						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
+						if ( !pChip.bHit && ( pChip.TimeSpan < 0 ) )
 						{
 							pChip.bHit = true;
 							if( pChip.nコース == this.n現在のコース[ nPlayer ] )
@@ -3536,7 +3504,7 @@ namespace TJAPlayer3
 						break;
 
 					case 0x9D: //SCROLL
-						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
+						if ( !pChip.bHit && ( pChip.TimeSpan < 0 ) )
 						{
 							pChip.bHit = true;
 							//if ( dTX.listSCROLL.ContainsKey( pChip.n整数値_内部番号 ) )
@@ -3547,7 +3515,7 @@ namespace TJAPlayer3
 						break;
 
 					case 0x9E: //ゴーゴータイム
-						if( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
+						if( !pChip.bHit && ( pChip.TimeSpan < 0 ) )
 						{
 							pChip.bHit = true;
 							this.bIsGOGOTIME[ nPlayer ] = true;
@@ -3584,7 +3552,7 @@ namespace TJAPlayer3
 						}
 						break;
 					case 0x9F: //ゴーゴータイム
-						if( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
+						if( !pChip.bHit && ( pChip.TimeSpan < 0 ) )
 						{
 							pChip.bHit = true;
 							this.bIsGOGOTIME[ nPlayer ] = false;
@@ -3628,7 +3596,7 @@ namespace TJAPlayer3
 					case 0xd8:
 					case 0xd9:
 					//case 0xe0:
-						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
+						if ( !pChip.bHit && ( pChip.TimeSpan < 0 ) )
 						{
 							pChip.bHit = true;
 						}
@@ -3637,7 +3605,7 @@ namespace TJAPlayer3
 
 #region [ da: ミキサーへチップ音追加 ]
 					case 0xDA:
-						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
+						if ( !pChip.bHit && ( pChip.TimeSpan < 0 ) )
 						{
 //Debug.WriteLine( "[DA(AddMixer)] BAR=" + pChip.n発声位置 / 384 + " ch=" + pChip.nチャンネル番号.ToString( "x2" ) + ", wav=" + pChip.n整数値.ToString( "x2" ) + ", time=" + pChip.n発声時刻ms );
 							pChip.bHit = true;
@@ -3657,7 +3625,7 @@ namespace TJAPlayer3
 #endregion
 #region [ db: ミキサーからチップ音削除 ]
 					case 0xDB:
-						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
+						if ( !pChip.bHit && ( pChip.TimeSpan < 0 ) )
 						{
 //Debug.WriteLine( "[DB(RemoveMixer)] BAR=" + pChip.n発声位置 / 384 + " ch=" + pChip.nチャンネル番号.ToString( "x2" ) + ", wav=" + pChip.n整数値.ToString( "x2" ) + ", time=" + pChip.n発声時刻ms );
 							pChip.bHit = true;
@@ -3681,17 +3649,13 @@ namespace TJAPlayer3
 
 #region[ dc-df:太鼓(特殊命令) ]
 					case 0xDC: //DELAY
-						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
+						if ( !pChip.bHit && ( pChip.TimeSpan < 0 ) )
 						{
 							pChip.bHit = true;
-							//if ( dTX.listDELAY.ContainsKey( pChip.n整数値_内部番号 ) )
-							//{
-								//this.actPlayInfo.dbBPM = ( dTX.listBPM[ pChip.n整数値_内部番号 ].dbBPM値 * ( ( (double) configIni.n演奏速度 ) / 20.0 ) );// + dTX.BASEBPM;
-							//}
 						}
 						break;
 					case 0xDD: //SECTION //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに変更
-						if (!pChip.bHit && (pChip.nバーからの距離dot.Drums < 0))
+						if (!pChip.bHit && (pChip.TimeSpan < 0))
 						{
 							// 分岐毎にリセットしていたのでSECTIONの命令が来たらリセットする。
 							this.tBranchReset(nPlayer);
@@ -3699,7 +3663,7 @@ namespace TJAPlayer3
 						}
 						break;
 					case 0xDE: //Judgeに応じたCourseを取得//2020.04.25 Mr-Ojii akasoko26さんのコードをもとに変更
-						if (!pChip.bHit && (pChip.nバーからの距離dot.Drums < 0))
+						if (!pChip.bHit && (pChip.TimeSpan < 0))
 						{
 							if (dTX.listBRANCH.TryGetValue(pChip.n整数値_内部番号, out CDTX.CBRANCH cBranch))
 							{
@@ -3721,9 +3685,8 @@ namespace TJAPlayer3
 						break;
 
 					case 0x52://End処理
-						if (!pChip.bHit && (pChip.nバーからの距離dot.Drums < 0))
+						if (!pChip.bHit && (pChip.TimeSpan < 0))
 						{
-
 							pChip.bHit = true;
 						}
 
@@ -3736,20 +3699,20 @@ namespace TJAPlayer3
 						//}
 						break;
 					case 0xE1:
-						if( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ))
+						if( !pChip.bHit && ( pChip.TimeSpan < 0 ))
 						{
 							//LEVELHOLD
 							this.bLEVELHOLD[nPlayer] = true;
 						}
 						break;
 					case 0xE2:
-						if (!pChip.bHit && (pChip.nバーからの距離dot.Drums < 0))
+						if (!pChip.bHit && (pChip.TimeSpan < 0))
 						{
 							TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t判定枠移動(pChip.n発声時刻ms, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].db移動時間, dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動距離px, nPlayer);
 							this.nJPOSSCROLL[nPlayer]++;
 							pChip.bHit = true;
 						}
-						else if (pChip.bHit && (pChip.nバーからの距離dot.Drums > 0))
+						else if (pChip.bHit && (pChip.TimeSpan > 0))
 						{
 							this.nJPOSSCROLL[nPlayer]--;
 							TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.t判定枠戻し(dTX.listJPOSSCROLL[nJPOSSCROLL[nPlayer]].n移動距離px, nPlayer);
@@ -3759,7 +3722,7 @@ namespace TJAPlayer3
 #endregion
 #region[ f1: 歌詞 ]
 					case 0xF1:
-						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
+						if ( !pChip.bHit && ( pChip.TimeSpan < 0 ) )
 						{
 							if( dTX.listLyric.Count > ShownLyric[nPlayer] && dTX.nPlayerSide == nPlayer )
 							{
@@ -3773,7 +3736,7 @@ namespace TJAPlayer3
 #region[ ff: 譜面の強制終了 ]
 					//バグで譜面がとてつもないことになっているため、#ENDがきたらこれを差し込む。
 					case 0xFF:
-						if (pChip.nバーからの距離dot.Drums < 0)
+						if (pChip.TimeSpan < 0)
 						{
 							if (!pChip.bHit)
 							{
@@ -3793,7 +3756,7 @@ namespace TJAPlayer3
 
 #region [ その他(未定義) ]
 					default:
-						if ( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
+						if ( !pChip.bHit && ( pChip.TimeSpan < 0 ) )
 						{
 							pChip.bHit = true;
 						}
@@ -4409,7 +4372,7 @@ namespace TJAPlayer3
 					}
 				}
 
-				if (pChip.nバーからの距離dot.Drums < 0)
+				if (pChip.TimeSpan < 0)
 				{
 					this.actGame.st叩ききりまショー.b最初のチップが叩かれた = true;
 				}

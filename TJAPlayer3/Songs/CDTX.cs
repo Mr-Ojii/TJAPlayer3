@@ -164,6 +164,7 @@ namespace TJAPlayer3
 			public ENoteState eNoteState;
 			public E楽器パート e楽器パート = E楽器パート.UNKNOWN;
 			public int nチャンネル番号;
+			public int TimeSpan;
 			public STDGBVALUE<int> nバーからの距離dot;
 			public int nバーからのノーツ末端距離dot;
 			public int n整数値;
@@ -195,7 +196,6 @@ namespace TJAPlayer3
 			{
 				this.nバーからの距離dot = new STDGBVALUE<int>()
 				{
-					Drums = 0,
 					Taiko = 0
 				};
 			}
