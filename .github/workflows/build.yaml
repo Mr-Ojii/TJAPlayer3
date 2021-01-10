@@ -31,27 +31,54 @@ jobs:
       uses: JesseTG/rm@v1.0.0
       with:
         path: Test/net5.0-windows/win7-x86
-    - name: Create Archive(MinGW)
+    - name: Create Archive
       run: |
         cd $Env:GITHUB_WORKSPACE
-        tar -a -cvf TJAPlayer3-f-PreRelease.zip -C Test *
-    - name: Create a Release
+        tar -a -cvf TJAPlayer3-f-Release.zip -C Test *
+    
+    #Push
+    - name: Create a Release(Pre)
+      if: (startsWith(github.ref, 'refs/tags/Ver')) != true
       id: create_release
       uses: actions/create-release@v1
       env: 
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: prerelease-${{ github.sha }}
         release_name: TJAPlayer3-f-prerelease-${{ github.sha }}
         draft: false
         prerelease: true
-    - name: Upload Release Asset
+    - name: Upload Release Asset(Pre)
+      if: (startsWith(github.ref, 'refs/tags/Ver')) != true
       id: upload-release-asset 
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./TJAPlayer3-f-PreRelease.zip
+        asset_path: ./TJAPlayer3-f-Release.zip
         asset_name: TJAPlayer3-f-PreRelease-${{ github.sha }}.zip
+        asset_content_type: application/zip
+
+    #Release
+    - name: Create a Release
+      if: (startsWith(github.ref, 'refs/tags/Ver'))
+      id: create_release2
+      uses: actions/create-release@v1
+      env: 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: ${{ github.ref }}
+        draft: false
+        prerelease: false
+    - name: Upload Release Asset
+      if: (startsWith(github.ref, 'refs/tags/Ver'))
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release2.outputs.upload_url }}
+        asset_path: ./TJAPlayer3-f-Release.zip
+        asset_name: TJAPlayer3-f-${{ github.ref }}.zip
         asset_content_type: application/zip
