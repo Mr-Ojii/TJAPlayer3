@@ -1,6 +1,9 @@
 name: build
 
-on: [push]
+on: 
+  push:
+    branches: 
+      - master
 
 jobs:
   build:
@@ -28,8 +31,27 @@ jobs:
       uses: JesseTG/rm@v1.0.0
       with:
         path: Test/net5.0-windows/win7-x86
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v1.0.0
+    - name: Create Archive(MinGW)
+      run: |
+        cd $Env:GITHUB_WORKSPACE
+        tar -a -cvf TJAPlayer3-f-PreRelease.zip -C Test *
+    - name: Create a Release
+      id: create_release
+      uses: actions/create-release@v1
+      env: 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
-        name: TJAPlayer3-f-Release ${{ github.sha }}
-        path: Test
+        tag_name: prerelease-${{ github.sha }}
+        release_name: TJAPlayer3-f-prerelease-${{ github.sha }}
+        draft: false
+        prerelease: true
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./TJAPlayer3-f-PreRelease.zip
+        asset_name: TJAPlayer3-f-PreRelease-${{ github.sha }}.zip
+        asset_content_type: application/zip
