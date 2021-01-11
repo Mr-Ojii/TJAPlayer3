@@ -4981,11 +4981,16 @@ namespace TJAPlayer3
 
 				strArray = strArray[0].Split(new char[] { ':' });
 
+				if (InputText.IndexOf(':') != -1)
+				{
+					strArray[0] = InputText.Substring(0, InputText.IndexOf(':'));//タイトル・サブタイトルに「:」が含まれている場合の対応
+					strArray[1] = InputText.Substring(InputText.IndexOf(':') + 1, InputText.Length - InputText.IndexOf(':') - 1);
+				}
+
 				strCommandName = strArray[0].Trim();
 				strCommandParam = strArray[1].Trim();
 
 				#endregion
-				//lblMessage.Text = "おや?strArrayのLengthが2じゃないようですね。お兄様。";
 			}
 
 			void ParseOptionalInt16(Action<short> setValue)
