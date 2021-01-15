@@ -99,13 +99,20 @@ namespace FDK
 			}
 			#endregion
 
-			this.proc = new MIDIINPROC(this.MidiInCallback);
-			for (int i = 0; i < BassMidi.BASS_MIDI_InGetDeviceInfos(); i++)
+			try
 			{
-				BassMidi.BASS_MIDI_InInit(i, this.proc, IntPtr.Zero);
-				BassMidi.BASS_MIDI_InStart(i);
-				CInputMIDI item = new CInputMIDI((uint)i);
-				this.list入力デバイス.Add(item);
+				this.proc = new MIDIINPROC(this.MidiInCallback);
+				for (int i = 0; i < BassMidi.BASS_MIDI_InGetDeviceInfos(); i++)
+				{
+					BassMidi.BASS_MIDI_InInit(i, this.proc, IntPtr.Zero);
+					BassMidi.BASS_MIDI_InStart(i);
+					CInputMIDI item = new CInputMIDI((uint)i);
+					this.list入力デバイス.Add(item);
+				}
+			}
+			catch (Exception e) 
+			{
+				Trace.TraceError(e.ToString());
 			}
 		}
 
