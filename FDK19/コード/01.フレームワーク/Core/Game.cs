@@ -38,7 +38,7 @@ namespace FDK
 
 			DirectoryInfo info = new DirectoryInfo(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"/dll/" + platform + "/");
 
-			//exeの階層にぶちまける
+			//exeの階層にdllをコピー
 			foreach (FileInfo fileinfo in info.GetFiles())
 			{
 				fileinfo.CopyTo(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/" + fileinfo.Name, true);
