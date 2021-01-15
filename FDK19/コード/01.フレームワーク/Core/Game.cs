@@ -29,17 +29,21 @@ namespace FDK
 		public Game()
 			: base(GameWindowSize.Width, GameWindowSize.Height, GraphicsMode.Default, "TJAP3-f(OpenGL)Alpha")
 		{
-			if (Environment.Is64BitProcess)
-			{
-				FFmpeg.AutoGen.ffmpeg.RootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"/ffmpeg/x64/";
-			}
-			else
-			{
-				FFmpeg.AutoGen.ffmpeg.RootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"/ffmpeg/x86/";
-			}
+			string platform = Environment.Is64BitProcess ? "x64" : "x86";			
+
+			FFmpeg.AutoGen.ffmpeg.RootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"/ffmpeg/" + platform + "/";
 
 			if (!Directory.Exists(FFmpeg.AutoGen.ffmpeg.RootPath))
 				throw new DirectoryNotFoundException("FFmpeg RootPath Not Found.\nPath=" + FFmpeg.AutoGen.ffmpeg.RootPath);
+
+			DirectoryInfo info = new DirectoryInfo(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"/dll/" + platform + "/");
+
+			//exeの階層にぶちまける
+			foreach (FileInfo fileinfo in info.GetFiles())
+			{
+				fileinfo.CopyTo(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/" + fileinfo.Name, true);
+			}
+
 			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);//CP932用
 		}
 	}
