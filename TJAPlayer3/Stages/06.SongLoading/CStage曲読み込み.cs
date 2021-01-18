@@ -447,19 +447,6 @@ namespace TJAPlayer3
 							for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++)
 							{
 								TJAPlayer3.DTX[nPlayer].t太鼓チップのランダム化(TJAPlayer3.ConfigIni.eRandom[nPlayer]);
-								//太鼓チップをランダム化する際、1P後2Pの処理をすぐに行うと、
-								//1Pと酷似した、もしくは全く同じチップが流れてしまうので、
-								//1Pのランダム化後、ある程度時間を空ける。
-								Stopwatch sw = new Stopwatch();
-								sw.Start();
-								for (int i = 0; i < 1;)
-								{
-									if (sw.ElapsedMilliseconds >= 500)
-									{
-										sw.Reset();
-										i++;
-									}
-								}
 							}
 
 							TJAPlayer3.stage演奏ドラム画面.On活性化();

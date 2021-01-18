@@ -901,7 +901,7 @@ namespace TJAPlayer3
 						if (TJAPlayer3.ConfigIni.bLog作成解放ログ出力)
 						{
 							Trace.TraceInformation("サウンドを作成しました。({3})({0})({1})({2}bytes)", cwav.strコメント文, str,
-								cwav.rSound[0].nサウンドバッファサイズ, cwav.rSound[0].bストリーム再生する ? "Stream" : "OnMemory");
+								cwav.rSound[0].nサウンドバッファサイズ, "OnMemory");
 						}
 					}
 					catch (Exception e)
@@ -940,7 +940,8 @@ namespace TJAPlayer3
 		{
 			//2016.02.11 kairera0467
 			//なんだよこのクソ実装は(怒)
-			Random rnd = new System.Random();
+			
+			Random rnd = TJAPlayer3.Random;
 
 			switch (eRandom)
 			{
@@ -1088,7 +1089,7 @@ namespace TJAPlayer3
 				{
 					int index = wc.n現在再生中のサウンド番号 = (wc.n現在再生中のサウンド番号 + 1) % nPolyphonicSounds;
 					if ((wc.rSound[0] != null) &&
-						(wc.rSound[0].bストリーム再生する || wc.rSound[index] == null))
+						(wc.rSound[index] == null))
 					{
 						index = wc.n現在再生中のサウンド番号 = 0;
 					}

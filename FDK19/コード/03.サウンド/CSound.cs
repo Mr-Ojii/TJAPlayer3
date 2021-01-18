@@ -423,11 +423,6 @@ namespace FDK
 		{
 			get { return 0; }
 		}
-		public bool bストリーム再生する			// 取りあえずfalse固定★★★★★★★★★★★★★★★★★★★★
-												// trueにすると同一チップ音の多重再生で問題が出る(4POLY音源として動かない)
-		{
-			get { return false; }
-		}
 		public double db再生速度
 		{
 			get
@@ -440,9 +435,9 @@ namespace FDK
 				{
 					_db再生速度 = value;
 					bIs1倍速再生 = ( _db再生速度 == 1.000f );
-					if ( bBASSサウンドである )
+					if (bBASSサウンドである)
 					{
-						if ( _hTempoStream != 0 && !this.bIs1倍速再生 )	// 再生速度がx1.000のときは、TempoStreamを用いないようにして高速化する
+						if (_hTempoStream != 0 && !this.bIs1倍速再生)   // 再生速度がx1.000のときは、TempoStreamを用いないようにして高速化する
 						{
 							this.hBassStream = _hTempoStream;
 						}
@@ -451,38 +446,28 @@ namespace FDK
 							this.hBassStream = _hBassStream;
 						}
 
-						if ( CSound管理.bIsTimeStretch )
+						if (CSound管理.bIsTimeStretch)
 						{
-							Bass.BASS_ChannelSetAttribute( this.hBassStream, BASSAttribute.BASS_ATTRIB_TEMPO, (float) ( _db再生速度 * 100 - 100 ) );
+							Bass.BASS_ChannelSetAttribute(this.hBassStream, BASSAttribute.BASS_ATTRIB_TEMPO, (float)(_db再生速度 * 100 - 100));
 							//double seconds = Bass.BASS_ChannelBytes2Seconds( this.hTempoStream, nBytes );
 							//this.n総演奏時間ms = (int) ( seconds * 1000 );
 						}
 						else
 						{
-							Bass.BASS_ChannelSetAttribute( this.hBassStream, BASSAttribute.BASS_ATTRIB_FREQ, ( float ) ( _db再生速度 * nオリジナルの周波数 ) );
+							Bass.BASS_ChannelSetAttribute(this.hBassStream, BASSAttribute.BASS_ATTRIB_FREQ, (float)(_db再生速度 * nオリジナルの周波数));
 						}
 					}
 					else
 					{
-						try
+						for (int i = 0; i < this.SourceOpen.Length; i++)
 						{
-							for (int i = 0; i < this.SourceOpen.Length; i++)
-							{
-								AL.Source(this.SourceOpen[i], ALSourcef.Pitch, (float)db再生速度);
-							}
-						}
-						catch
-						{
-							//例外処理は出さない
-							this.b速度上げすぎ問題 = true;
+							AL.Source(this.SourceOpen[i], ALSourcef.Pitch, (float)db再生速度);
 						}
 					}
 				}
 			}
 		}
 		#endregion
-
-		public bool b速度上げすぎ問題 = false;
 		public bool b演奏終了後も再生が続くチップである = false;	// これがtrueなら、本サウンドの再生終了のコールバック時に自動でミキサーから削除する
 
 		//private STREAMPROC _cbStreamXA;		// make it global, so that the GC can not remove it
@@ -1097,8 +1082,7 @@ namespace FDK
 		}
 		public void tサウンドを再生する()
 		{
-			if (!b速度上げすぎ問題)
-				tサウンドを再生する(false);
+			tサウンドを再生する(false);
 		}
 		private void tサウンドを再生する( bool bループする)
 		{
@@ -1608,7 +1592,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 		{
 			return tBASSサウンドをミキサーから削除する( this.hBassStream );
 		}
-		public bool tBASSサウンドをミキサーから削除する( int channel )
+		public static bool tBASSサウンドをミキサーから削除する( int channel )
 		{
 			bool b = BassMix.BASS_Mixer_ChannelRemove( channel );
 			if ( b )
