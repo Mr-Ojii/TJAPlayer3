@@ -49,10 +49,12 @@ namespace TJAPlayer3
 		const string DANC = @"17_DanC/";
 		const string DANCV2 = @"17.1_DanC_V2/";
 
+		public bool IsLoaded = false;
+
 		public TextureLoader()
 		{
 			// コンストラクタ
-
+			this.IsLoaded = false;
 		}
 
 		internal CTexture TxC(string FileName)
@@ -701,7 +703,7 @@ namespace TJAPlayer3
 			Exit_Curtain = TxC(EXIT + @"Curtain.png");
 			Exit_Text = TxC(EXIT + @"Text.png");
 			#endregion
-
+			this.IsLoaded = true;
 		}
 
 		public void DisposeTexture()
@@ -1029,6 +1031,7 @@ namespace TJAPlayer3
 			TJAPlayer3.t安全にDisposeする(ref Exit_Curtain);
 			TJAPlayer3.t安全にDisposeする(ref Exit_Text);
 			#endregion
+			this.IsLoaded = false;
 
 		}
 

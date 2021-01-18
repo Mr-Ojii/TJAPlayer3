@@ -150,7 +150,7 @@ namespace TJAPlayer3
 				//-----------------
 				#endregion
 
-				if( es != null && es.IsSongListEnumCompletelyDone )							// 曲リスト作成が終わったら
+				if( es != null && es.IsSongListEnumCompletelyDone && TJAPlayer3.Tx.IsLoaded )							// 曲リスト作成が終わったら
 				{
 					TJAPlayer3.Songs管理 = es.Songs管理;		// 最後に、曲リストを拾い上げる
 					return 1;
