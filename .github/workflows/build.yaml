@@ -6,10 +6,42 @@ on:
       - master
 
 jobs:
-  build:
-
+  create_release:
+    name: Create release
     runs-on: windows-latest
-
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+    - name: Create a Release(Pre)
+      if: (startsWith(github.ref, 'refs/tags/Ver')) != true
+      id: create_release
+      uses: actions/create-release@v1
+      env: 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: prerelease-${{ github.sha }}
+        release_name: TJAPlayer3-f-prerelease-${{ github.sha }}
+        draft: false
+        prerelease: true
+    - name: Create a Release
+      if: (startsWith(github.ref, 'refs/tags/Ver'))
+      id: create_release2
+      uses: actions/create-release@v1
+      env: 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: ${{ github.ref }}
+        draft: false
+        prerelease: false
+     
+  build:
+    name: Build
+    runs-on: windows-latest
+    needs: create_release
+    strategy:
+      matrix:
+        platform: [win-x86, win-x64]
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -26,28 +58,17 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet publish -o Test/net5.0 -r win-x86 --configuration Release --self-contained true
+      run: dotnet publish -o Test/net5.0 -r ${{matrix.platform}} --configuration Release --self-contained true
     - name: Remove File
       uses: JesseTG/rm@v1.0.0
       with:
-        path: Test/net5.0/win-x86
+        path: Test/net5.0/${{matrix.platform}}
     - name: Create Archive
       run: |
         cd $Env:GITHUB_WORKSPACE
         tar -a -cvf TJAPlayer3-f-Release.zip -C Test *
     
     #Push
-    - name: Create a Release(Pre)
-      if: (startsWith(github.ref, 'refs/tags/Ver')) != true
-      id: create_release
-      uses: actions/create-release@v1
-      env: 
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: prerelease-${{ github.sha }}
-        release_name: TJAPlayer3-f-prerelease-${{ github.sha }}
-        draft: false
-        prerelease: true
     - name: Upload Release Asset(Pre)
       if: (startsWith(github.ref, 'refs/tags/Ver')) != true
       id: upload-release-asset 
@@ -55,30 +76,19 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        upload_url: ${{ needs.create_release.outputs.upload_url }}
         asset_path: ./TJAPlayer3-f-Release.zip
-        asset_name: TJAPlayer3-f-PreRelease-${{ github.sha }}.zip
+        asset_name: TJAPlayer3-f-PreRelease-${{matrix.platform}}-${{ github.sha }}.zip
         asset_content_type: application/zip
 
     #Release
-    - name: Create a Release
-      if: (startsWith(github.ref, 'refs/tags/Ver'))
-      id: create_release2
-      uses: actions/create-release@v1
-      env: 
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: ${{ github.ref }}
-        draft: false
-        prerelease: false
     - name: Upload Release Asset
       if: (startsWith(github.ref, 'refs/tags/Ver'))
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release2.outputs.upload_url }}
+        upload_url: ${{ needs.create_release2.outputs.upload_url }}
         asset_path: ./TJAPlayer3-f-Release.zip
-        asset_name: TJAPlayer3-f-${{ github.ref }}.zip
+        asset_name: TJAPlayer3-f-${{matrix.platform}}-${{ github.ref }}.zip
         asset_content_type: application/zip
