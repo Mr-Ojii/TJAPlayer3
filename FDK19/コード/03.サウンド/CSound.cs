@@ -45,50 +45,6 @@ namespace FDK
 			{
 				return _nMasterVolume;
 			}
-			//get
-			//{
-			//    if ( SoundDeviceType == ESoundDeviceType.ExclusiveWASAPI || SoundDeviceType == ESoundDeviceType.ASIO )
-			//    {
-			//        return Bass.BASS_GetConfig(BASSConfig.BASS_CONFIG_GVOL_STREAM ) / 100;
-			//    }
-			//    else
-			//    {
-			//        return 100;
-			//    }
-			//}
-			//set
-			//{
-			//    if ( SoundDeviceType == ESoundDeviceType.ExclusiveWASAPI )
-			//    {
-			//			// LINEARでなくWINDOWS(2)を使う必要があるが、exclusive時は使用不可、またデバイス側が対応してないと使用不可
-			//        bool b = BassWasapi.BASS_WASAPI_SetVolume( BASSWASAPIVolume.BASS_WASAPI_CURVE_LINEAR, value / 100.0f );
-			//        if ( !b )
-			//        {
-			//            BASSError be = Bass.BASS_ErrorGetCode();
-			//            Trace.TraceInformation( "WASAPI Master Volume Set Error: " + be.ToString() );
-			//        }
-			//    }
-			//}
-			//set
-			//{
-			//    if ( SoundDeviceType == ESoundDeviceType.ExclusiveWASAPI || SoundDeviceType == ESoundDeviceType.ASIO )
-			//    {
-			//        bool b = Bass.BASS_SetConfig(BASSConfig.BASS_CONFIG_GVOL_STREAM, value * 100 );
-			//        if ( !b )
-			//        {
-			//            BASSError be = Bass.BASS_ErrorGetCode();
-			//            Trace.TraceInformation( "Master Volume Set Error: " + be.ToString() );
-			//        }
-			//    }
-			//}
-			//set
-			//{
-			//    if ( SoundDeviceType == ESoundDeviceType.ExclusiveWASAPI || SoundDeviceType == ESoundDeviceType.ASIO )
-			//    {
-			//        var nodes = new BASS_MIXER_NODE[ 1 ] { new BASS_MIXER_NODE( 0, (float) value ) };
-			//        BassMix.BASS_Mixer_ChannelSetEnvelope( SoundDevice.hMixer, BASSMIXEnvelope.BASS_MIXER_ENV_VOL, nodes );
-			//    }
-			//}
 			set
 			{
 				SoundDevice.nMasterVolume = value;
@@ -240,9 +196,6 @@ namespace FDK
 			}
 			if ( SoundDeviceType == ESoundDeviceType.ExclusiveWASAPI || SoundDeviceType == ESoundDeviceType.SharedWASAPI || SoundDeviceType == ESoundDeviceType.ASIO )
 			{
-				//Bass.BASS_SetConfig( BASSConfig.BASS_CONFIG_UPDATETHREADS, 4 );
-				//Bass.BASS_SetConfig( BASSConfig.BASS_CONFIG_UPDATEPERIOD, 0 );
-
 				Trace.TraceInformation( "BASS_CONFIG_UpdatePeriod=" + Bass.BASS_GetConfig( BASSConfig.BASS_CONFIG_UPDATEPERIOD ) );
 				Trace.TraceInformation( "BASS_CONFIG_UpdateThreads=" + Bass.BASS_GetConfig( BASSConfig.BASS_CONFIG_UPDATETHREADS ) );
 			}
@@ -640,7 +593,6 @@ namespace FDK
 				{
 					float f位置 = 0.0f;
 					if ( !Bass.BASS_ChannelGetAttribute( this.hBassStream, BASSAttribute.BASS_ATTRIB_PAN, ref f位置 ) )
-						//if( BassMix.BASS_Mixer_ChannelGetEnvelopePos( this.hBassStream, BASSMIXEnvelope.BASS_MIXER_ENV_PAN, ref f位置 ) == -1 )
 						return 0;
 					return (int) ( f位置 * 100 );
 				}
@@ -655,8 +607,6 @@ namespace FDK
 				if( this.bBASSサウンドである )
 				{
 					float f位置 = Math.Min( Math.Max( value, -100 ), 100 ) / 100.0f;	// -100～100 → -1.0～1.0
-					//var nodes = new BASS_MIXER_NODE[ 1 ] { new BASS_MIXER_NODE( 0, f位置 ) };
-					//BassMix.BASS_Mixer_ChannelSetEnvelope( this.hBassStream, BASSMIXEnvelope.BASS_MIXER_ENV_PAN, nodes );
 					Bass.BASS_ChannelSetAttribute( this.hBassStream, BASSAttribute.BASS_ATTRIB_PAN, f位置 );
 				}
 				else if( this.bOpenALである )
@@ -678,15 +628,6 @@ namespace FDK
 		/// <para>～を作成する() で追加され、t解放する() or Dispose() で解放される。</para>
 		/// </summary>
 		public static readonly ObservableCollection<CSound> listインスタンス = new ObservableCollection<CSound>();
-
-		public static void ShowAllCSoundFiles()
-		{
-			int i = 0;
-			foreach ( CSound cs in listインスタンス )
-			{
-				Debug.WriteLine( i++.ToString( "d3" ) + ": " + Path.GetFileName( cs.strファイル名 ) );
-			}
-		}
 
 		public CSound(ESoundGroup soundGroup)
 		{
@@ -1053,11 +994,6 @@ namespace FDK
 				}
 			}
 		}
-		//public lint t時刻から位置を返す( long t )
-		//{
-		//    double num = ( n時刻 * this.db再生速度 ) * this.db周波数倍率;
-		//    return (int) ( ( num * 0.01 ) * this.nSamplesPerSecond );
-		//}
 		#endregion
 
 
@@ -1072,13 +1008,11 @@ namespace FDK
 			{
 				tBASSサウンドをミキサーから削除する();
 				_cbEndofStream = null;
-				//_cbStreamXA = null;
 				CSound管理.nStreams--;
 			}
 			bool bManagedも解放する = true;
 			bool bインスタンス削除 = _bインスタンス削除;	// CSoundの再初期化時は、インスタンスは存続する。
 			this.Dispose( bManagedも解放する, bインスタンス削除 );
-//Debug.WriteLine( "Disposed: " + _bインスタンス削除 + " : " + Path.GetFileName( this.strファイル名 ) );
 		}
 		public void tサウンドを再生する()
 		{
@@ -1145,12 +1079,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 		{
 			if( this.bBASSサウンドである )
 			{
-//Debug.WriteLine( "停止: " + System.IO.Path.GetFileName( this.strファイル名 ) + " status=" + BassMix.BASS_Mixer_ChannelIsActive( this.hBassStream ) + " current=" + BassMix.BASS_Mixer_ChannelGetPosition( this.hBassStream ) + " nBytes=" + nBytes );
 				BassMix.BASS_Mixer_ChannelPause( this.hBassStream );
-				if ( !pause )
-				{
-			//		tBASSサウンドをミキサーから削除する();		// PAUSEと再生停止を区別できるようにすること!!
-				}
 			}
 			else if( this.bOpenALである )
 			{
@@ -1199,10 +1128,6 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 						Trace.TraceInformation( Path.GetFileName( this.strファイル名 ) + ": Seek error: " + be.ToString() + ": " + n位置ms + "MS" );
 					}
 				}
-				//if ( this.n総演奏時間ms > 5000 )
-				//{
-				//    Trace.TraceInformation( Path.GetFileName( this.strファイル名 ) + ": Seeked to " + n位置ms + "ms = " + Bass.BASS_ChannelSeconds2Bytes( this.hBassStream, n位置ms * this.db周波数倍率 * this.db再生速度 / 1000.0 ) );
-				//}
 			}
 			else if( this.bOpenALである )
 			{
@@ -1554,22 +1479,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 
 			CSound.listインスタンス.Add( this );
 		}
-		//-----------------
 
-		//private int pos = 0;
-		//private int CallbackPlayingXA( int handle, IntPtr buffer, int length, IntPtr user )
-		//{
-		//    int bytesread = ( pos + length > Convert.ToInt32( nBytes ) ) ? Convert.ToInt32( nBytes ) - pos : length;
-
-		//    Marshal.Copy( byArrWAVファイルイメージ, pos, buffer, bytesread );
-		//    pos += bytesread;
-		//    if ( pos >= nBytes )
-		//    {
-		//        // set indicator flag
-		//        bytesread |= (int) BASSStreamProc.BASS_STREAMPROC_END;
-		//    }
-		//    return bytesread;
-		//}
 		/// <summary>
 		/// ストリームの終端まで再生したときに呼び出されるコールバック
 		/// </summary>
@@ -1579,7 +1489,6 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 		/// <param name="user"></param>
 		private void CallbackEndofStream( int handle, int channel, int data, IntPtr user )	// #32248 2013.10.14 yyagi
 		{
-// Trace.TraceInformation( "Callback!(remove): " + Path.GetFileName( this.strファイル名 ) );
 			if ( b演奏終了後も再生が続くチップである )			// 演奏終了後に再生終了するチップ音のミキサー削除は、再生終了のコールバックに引っ掛けて、自前で行う。
 			{													// そうでないものは、ミキサー削除予定時刻に削除する。
 				tBASSサウンドをミキサーから削除する( channel );
@@ -1590,7 +1499,10 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 
 		public bool tBASSサウンドをミキサーから削除する()
 		{
-			return tBASSサウンドをミキサーから削除する( this.hBassStream );
+			if (this.bBASSサウンドである)
+				return tBASSサウンドをミキサーから削除する(this.hBassStream);
+			else
+				return false;
 		}
 		public static bool tBASSサウンドをミキサーから削除する( int channel )
 		{
@@ -1598,7 +1510,6 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 			if ( b )
 			{
 				Interlocked.Decrement( ref CSound管理.nMixing );
-//				Debug.WriteLine( "Removed: " + Path.GetFileName( this.strファイル名 ) + " (" + channel + ")" + " MixedStreams=" + CSound管理.nMixing );
 			}
 			return b;
 		}
@@ -1615,9 +1526,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 				// preloadされることを期待して、敢えてflagからはBASS_MIXER_PAUSEを外してAddChannelした上で、すぐにPAUSEする
 				// -> ChannelUpdateでprebufferできることが分かったため、BASS_MIXER_PAUSEを使用することにした
 				bool b1 = BassMix.BASS_Mixer_StreamAddChannel( this.hMixer, this.hBassStream, bf );
-				//bool b2 = BassMix.BASS_Mixer_ChannelPause( this.hBassStream );
 				t再生位置を先頭に戻す();	// StreamAddChannelの後で再生位置を戻さないとダメ。逆だと再生位置が変わらない。
-//Trace.TraceInformation( "Add Mixer: " + Path.GetFileName( this.strファイル名 ) + " (" + hBassStream + ")" + " MixedStreams=" + CSound管理.nMixing );
 				Bass.BASS_ChannelUpdate( this.hBassStream, 0 );	// pre-buffer
 				return b1;	// &b2;
 			}

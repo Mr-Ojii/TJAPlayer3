@@ -759,10 +759,17 @@ namespace TJAPlayer3
 			sw.WriteLine( "; 存在しないデバイスを指定すると、DTXManiaが起動しないことがあります。" );
 			sw.WriteLine( "; Sound device used by ASIO." );
 			sw.WriteLine( "; Don't specify unconnected device, as the DTXMania may not bootup." );
-			string[] asiodev = CEnumerateAllAsioDevices.GetAllASIODevices();
-			for ( int i = 0; i < asiodev.Length; i++ )
+			try
 			{
-				sw.WriteLine( "; {0}: {1}", i, asiodev[ i ] );
+				string[] asiodev = CEnumerateAllAsioDevices.GetAllASIODevices();
+				for (int i = 0; i < asiodev.Length; i++)
+				{
+					sw.WriteLine("; {0}: {1}", i, asiodev[i]);
+				}
+			}
+			catch (Exception e) 
+			{
+				Trace.TraceWarning(e.ToString());
 			}
 			sw.WriteLine( "ASIODevice={0}", (int) this.nASIODevice );
 			sw.WriteLine();

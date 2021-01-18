@@ -321,10 +321,19 @@ namespace TJAPlayer3
 				"Note: Exit CONFIGURATION to make\n" +
 				"     the setting take effect." );
 			this.list項目リスト.Add( this.iSystemWASAPIBufferSizeMs );
+			string[] asiodevs;
+			try
+			{
+				// #24820 2013.1.17 yyagi
+				asiodevs = CEnumerateAllAsioDevices.GetAllASIODevices();
+			}
+			catch (Exception e) 
+			{
+				Trace.TraceWarning(e.ToString());
+				asiodevs = new string[] { "No Devices Detected." };
+			}
 
-			// #24820 2013.1.17 yyagi
-			string[] asiodevs = CEnumerateAllAsioDevices.GetAllASIODevices();
-			this.iSystemASIODevice = new CItemList( "ASIO device", TJAPlayer3.ConfigIni.nASIODevice,
+			this.iSystemASIODevice = new CItemList("ASIO device", TJAPlayer3.ConfigIni.nASIODevice,
 				"ASIOデバイス:\n" +
 				"ASIO使用時のサウンドデバイスを\n" +
 				"選択します。\n" +
@@ -337,8 +346,8 @@ namespace TJAPlayer3
 				"\n" +
 				"Note: Exit CONFIGURATION to make\n" +
 				"     the setting take effect.",
-				asiodevs );
-			this.list項目リスト.Add( this.iSystemASIODevice );
+				asiodevs);
+			this.list項目リスト.Add(this.iSystemASIODevice);
 
 			// #24820 2013.1.3 yyagi
 			//this.iSystemASIOBufferSizeMs = new CItemInteger("ASIOBuffSize", 0, 99999, CDTXMania.ConfigIni.nASIOBufferSizeMs,
