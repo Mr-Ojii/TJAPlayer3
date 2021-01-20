@@ -448,8 +448,8 @@ namespace TJAPlayer3
 				{
 					SmallImageKey = TJAPlayer3.ConfigIni.SendDiscordPlayingInformation ? difficultyName.ToLower() : "",
 					SmallImageText = TJAPlayer3.ConfigIni.SendDiscordPlayingInformation ? String.Format("COURSE:{0} ({1})", difficultyName, TJAPlayer3.stage選曲.n確定された曲の難易度[0]) : "",
-					LargeImageKey = "tjaplayer3-f",
-					LargeImageText = "Ver." + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+					LargeImageKey = TJAPlayer3.LargeImageKey,
+					LargeImageText = TJAPlayer3.LargeImageText,
 				}
 			});
 		}

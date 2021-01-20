@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using FDK;
 using System.Reflection;
 using DiscordRPC;
+using System.Runtime.InteropServices;
 using OpenTK;
 using OpenTK.Graphics;
 
@@ -1115,6 +1116,31 @@ namespace TJAPlayer3
 			get;
 			private set;
 		}
+		public static string LargeImageKey 
+		{
+			get 
+			{
+				return "tjaplayer3-f";
+			}
+		}
+		public static string LargeImageText
+		{
+			get
+			{
+				string Platform; 
+
+				if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+					Platform = "win";
+				else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+					Platform = "linux";
+				else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+					Platform = "osx";
+				else
+					Platform = Environment.OSVersion.Platform.ToString();
+
+				return "Ver." + Assembly.GetExecutingAssembly().GetName().Version.ToString() + "(" + Platform + "-" + (Environment.Is64BitProcess ? "x64" : "x86") + ")";
+			}
+		}
 
 		private void t起動処理()
 		{
@@ -1492,8 +1518,8 @@ namespace TJAPlayer3
 				Timestamps = new Timestamps(TJAPlayer3.StartupTime),
 				Assets = new Assets()
 				{
-					LargeImageKey = "tjaplayer3-f",
-					LargeImageText = "Ver." + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+					LargeImageKey = TJAPlayer3.LargeImageKey,
+					LargeImageText = TJAPlayer3.LargeImageText,
 				}
 			});
 #endregion

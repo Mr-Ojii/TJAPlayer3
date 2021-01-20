@@ -34,8 +34,8 @@ namespace TJAPlayer3
 					Timestamps = new Timestamps(TJAPlayer3.StartupTime),
 					Assets = new Assets()
 					{
-						LargeImageKey = "tjaplayer3-f",
-						LargeImageText = "Ver." + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+						LargeImageKey = TJAPlayer3.LargeImageKey,
+						LargeImageText = TJAPlayer3.LargeImageText,
 					}
 				});
 				base.On活性化();
