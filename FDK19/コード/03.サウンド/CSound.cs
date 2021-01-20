@@ -698,6 +698,9 @@ namespace FDK
 
 		public void tOpenALサウンドを作成する( byte[] byArrWAVファイルイメージ )
 		{
+			if (byArrWAVファイルイメージ == null)
+				return;
+
 			if( this.e作成方法 == E作成方法.Unknown )
 				this.e作成方法 = E作成方法.WAVファイルイメージから;
 
