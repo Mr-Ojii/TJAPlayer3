@@ -170,20 +170,9 @@ namespace FDK
 										continue;
 									}
 
-							if (lastTexture != null)
-								lastTexture.Dispose();
+							lastTexture.UpdateTexture(cdecodedframe.Tex, false);
 
-							//参考:https://dobon.net/vb/bbs/log3-24/15246.html
-							using (Bitmap bitmap_tmp = new Bitmap(cdecodedframe.Tex.Width, cdecodedframe.Tex.Height))
-							{
-								using (Graphics g = Graphics.FromImage(bitmap_tmp))
-								{
-									g.DrawImage(cdecodedframe.Tex, 0, 0);
-								}
-
-								lastTexture = new CTexture(new Device(), bitmap_tmp, false);
-								cdecodedframe.Dispose();
-							}
+							cdecodedframe.Dispose();
 						}
 						break;
 					}

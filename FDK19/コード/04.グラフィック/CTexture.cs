@@ -179,6 +179,20 @@ namespace FDK
 			}
 		}
 		// メソッド
+		public void UpdateTexture(Bitmap bitmap, bool b黒を透過する) 
+		{
+			if (b黒を透過する)
+				bitmap.MakeTransparent(Color.Black);
+			bitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
+			if (this.szテクスチャサイズ == bitmap.Size) 
+			{
+				BitmapData data = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+				GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
+				GL.TexSubImage2D(TextureTarget.Texture2D, 0, 0, 0, bitmap.Width, bitmap.Height, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, (IntPtr)data.Scan0);
+				bitmap.UnlockBits(data);
+			}
+		}
+
 
 		public void t2D描画(Device device, RefPnt refpnt, float x, float y) 
 		{
