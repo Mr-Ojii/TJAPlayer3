@@ -83,6 +83,7 @@ Fork元より使用しているライブラリ
 * [OpenTK](https://opentk.net/)
 * [OpenAL Soft](https://openal-soft.org/)
 * [discord-rpc-csharp](https://github.com/Lachee/discord-rpc-csharp)
+* [SixLabors.ImageSharp](https://github.com/SixLabors/ImageSharp)
 
 ライセンスは「Test/Licenses」に追加いたしました。
 

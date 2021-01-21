@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
+using System.Buffers;
 using System.IO;
 using System.Diagnostics;
-using OpenTK;
-using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
-using System.Drawing;
-using System.Drawing.Imaging;
-using OpenTK.Platform;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 
 namespace FDK
 {
@@ -42,18 +42,16 @@ namespace FDK
 				}
 			}
 
-			//https://stackoverflow.com/questions/8606253/saving-a-bitmap-of-opentk-screen-but-the-quickfont-text-doesnt-show-up
-			if (GraphicsContext.CurrentContext == null)
-				throw new GraphicsContextException();
+			using (IMemoryOwner<Rgb24> pixels = Configuration.Default.MemoryAllocator.Allocate<Rgb24>(GameWindowSize.Width * GameWindowSize.Height))
+			{
+				GL.ReadPixels(0, 0, GameWindowSize.Width, GameWindowSize.Height, PixelFormat.Rgb, PixelType.UnsignedByte, ref MemoryMarshal.GetReference(pixels.Memory.Span));
+				using (Image<Rgb24> image = Image.LoadPixelData<Rgb24>(pixels.Memory.Span, GameWindowSize.Width, GameWindowSize.Height))
+				{
+					image.Mutate(con => con.Flip(FlipMode.Vertical));
+					image.SaveAsPng(strFullPath);
+				}
+			}
 
-			Bitmap bmp = new Bitmap(GameWindowSize.Width, GameWindowSize.Height);
-			BitmapData data = bmp.LockBits(new Rectangle(0, 0, GameWindowSize.Width, GameWindowSize.Height), System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
-			GL.ReadPixels(0, 0, GameWindowSize.Width, GameWindowSize.Height, OpenTK.Graphics.OpenGL.PixelFormat.Bgr, PixelType.UnsignedByte, data.Scan0);
-			bmp.UnlockBits(data);
-
-			bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
-			bmp.Save(strFullPath, ImageFormat.Png);
-			bmp.Dispose();
 			return true;
 		}
     }
