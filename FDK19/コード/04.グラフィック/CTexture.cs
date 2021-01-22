@@ -158,7 +158,14 @@ namespace FDK
 				GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
 
 				//テクスチャの設定
-				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
+
+				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureBaseLevel, 0);
+				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMaxLevel, 3);
+
+				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinLod, 0);
+				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMaxLod, 3);
+
+				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.LinearMipmapLinear);
 				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.LinearSharpenSgis);
 				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
 				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
@@ -169,6 +176,9 @@ namespace FDK
 				GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, data.Width, data.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
 
 				bitmap.UnlockBits(data);
+
+				GL.Hint(HintTarget.GenerateMipmapHint, HintMode.Nicest);
+				GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
 
 				this.bSharpDXTextureDispose完了済み = false;
 			}
@@ -190,6 +200,9 @@ namespace FDK
 				GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
 				GL.TexSubImage2D(TextureTarget.Texture2D, 0, 0, 0, bitmap.Width, bitmap.Height, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, (IntPtr)data.Scan0);
 				bitmap.UnlockBits(data);
+
+				GL.Hint(HintTarget.GenerateMipmapHint, HintMode.Nicest);
+				GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
 			}
 		}
 
