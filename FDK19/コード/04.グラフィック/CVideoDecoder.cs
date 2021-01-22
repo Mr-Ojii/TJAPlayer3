@@ -66,7 +66,6 @@ namespace FDK
 
 				frameconv = new CFrameConverter(FrameSize, codec_context->pix_fmt);
 
-				frame = ffmpeg.av_frame_alloc();
 				decodedframes = new ConcurrentQueue<CDecodedFrame>();
 
 				CTimer = new CTimer();
@@ -79,8 +78,6 @@ namespace FDK
 			cts?.Cancel();
 			while (DS != DecodingState.Stopped) ;
 			frameconv.Dispose();
-			ffmpeg.av_frame_unref(frame);
-			ffmpeg.av_free(frame);
 
 			ffmpeg.avcodec_flush_buffers(codec_context);
 			if (ffmpeg.avcodec_close(codec_context) < 0)
@@ -204,6 +201,7 @@ namespace FDK
 		private void EnqueueOneFrame()
 		{
 			DS = DecodingState.Running;
+			AVFrame* frame = ffmpeg.av_frame_alloc();
 			AVPacket* packet = ffmpeg.av_packet_alloc();
 			try
 			{
@@ -263,6 +261,8 @@ namespace FDK
 			finally
 			{
 				ffmpeg.av_packet_free(&packet);
+				ffmpeg.av_frame_unref(frame);
+				ffmpeg.av_free(frame);
 				DS = DecodingState.Stopped;
 			}
 		}
@@ -309,7 +309,6 @@ namespace FDK
 		private static AVFormatContext* format_context;
 		private AVStream* video_stream;
 		private AVCodecContext* codec_context;
-		private AVFrame* frame;
 		private ConcurrentQueue<CDecodedFrame> decodedframes;
 		private CancellationTokenSource cts;
 		private DecodingState DS = DecodingState.Stopped;
