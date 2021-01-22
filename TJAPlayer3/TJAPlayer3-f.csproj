@@ -12,7 +12,7 @@
     <AssemblyName>TJAPlayer3-f</AssemblyName>
     <RootNamespace>TJAPlayer3</RootNamespace>
     <FileAlignment>512</FileAlignment>
-    <ApplicationIcon>Resources\TJAPlayer3-f.ico</ApplicationIcon>
+    <ApplicationIcon>TJAPlayer3-f.ico</ApplicationIcon>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <SignAssembly>false</SignAssembly>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
