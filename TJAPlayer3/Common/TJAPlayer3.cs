@@ -286,7 +286,7 @@ namespace TJAPlayer3
 				{
 					base.ClientSize =
 						new Size(currentClientSize.Width, currentClientSize.Height);
-					base.Icon = Properties.Resources.tjap3;
+					base.Icon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("TJAPlayer3.TJAPlayer3-f.ico"));
 					//					FDK.CTaskBar.ShowTaskBar( true );
 				}
 			}
@@ -1224,7 +1224,7 @@ namespace TJAPlayer3
 				currentClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);
 			}
 
-			base.Icon = global::TJAPlayer3.Properties.Resources.tjap3;
+			base.Icon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("TJAPlayer3.TJAPlayer3-f.ico"));
 			base.KeyDown += this.Window_KeyDown;
 			base.MouseDown += this.Window_MouseDown;
 			base.MouseWheel += this.Window_MouseWheel;
