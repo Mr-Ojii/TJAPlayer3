@@ -69,11 +69,6 @@
   <ItemGroup>
     <ProjectReference Include="..\FDK19\FDK19.csproj" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
-    <PackageReference Include="System.Text.Encoding.CodePages">
-      <Version>4.7.1</Version>
-    </PackageReference>
-  </ItemGroup>
 
   <PropertyGroup>
     <ApplicationManifest>TJAPlayer3-f.manifest</ApplicationManifest>
