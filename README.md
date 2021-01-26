@@ -85,6 +85,8 @@ Fork元より使用しているライブラリ
 * [discord-rpc-csharp](https://github.com/Lachee/discord-rpc-csharp)
 * [SixLabors.ImageSharp](https://github.com/SixLabors/ImageSharp)
 
+また、フレームワークに[.NET](https://dotnet.microsoft.com/)を使用しています。
+
 ライセンスは「Test/Licenses」に追加いたしました。
 
 ## FFmpegについて
