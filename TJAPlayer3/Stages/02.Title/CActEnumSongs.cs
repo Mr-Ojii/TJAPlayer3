@@ -73,27 +73,10 @@ namespace TJAPlayer3
 				int ci = ( CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja" ) ? 0 : 1;
 				if ( ( strMessage != null ) && ( strMessage.Length > 0 ) )
 				{
-					using (Font ftMessage = new Font("MS UI Gothic", 40f, FontStyle.Bold, GraphicsUnit.Pixel))
+					using (CPrivateFont pffont = new CPrivateFont(new FontFamily("MS UI Gothic"), 32, FontStyle.Bold))
 					{
-						Size size;
-						using (Bitmap image = new Bitmap(1, 1))
-						{
-							using (Graphics graphics = Graphics.FromImage(image))
-							{
-								SizeF ef = graphics.MeasureString(strMessage[ci], ftMessage);
-								size = new Size((int)Math.Ceiling((double)ef.Width), (int)Math.Ceiling((double)ef.Height));
-							}
-						}
-						using (Bitmap image = new Bitmap(size.Width, size.Height))
-						{
-							using (Graphics graphics = Graphics.FromImage(image))
-							{
-								graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-								graphics.DrawString(strMessage[ci], ftMessage, Brushes.White, (float)0f, (float)0f);
-								this.txMessage = TJAPlayer3.tテクスチャの生成(image, true);
-								this.txMessage.vc拡大縮小倍率 = new System.Numerics.Vector3(0.5f, 0.5f, 1f);
-							}
-						}
+						this.txMessage = TJAPlayer3.tテクスチャの生成(pffont.DrawPrivateFont(strMessage[ci], Color.White), true);
+						this.txMessage.vc拡大縮小倍率 = new System.Numerics.Vector3(0.5f, 0.5f, 1f);
 					}
 				}
 				else

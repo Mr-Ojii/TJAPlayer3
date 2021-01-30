@@ -11,6 +11,10 @@ using System.Text;
 using System.Threading.Tasks;
 using FFmpeg.AutoGen;
 using System.Threading;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+
+using Size = System.Drawing.Size;
 
 namespace FDK
 {
@@ -145,7 +149,7 @@ namespace FDK
 			this.EnqueueFrames();
 			if (lastTexture != null)
 				lastTexture.Dispose();
-			lastTexture = new CTexture(new Device(), new Bitmap(FrameSize.Width, FrameSize.Height), false);
+			lastTexture = new CTexture(new Device(), new Image<Argb32>(FrameSize.Width, FrameSize.Height), false);
 		}
 
 		public void GetNowFrame(ref CTexture Texture)
@@ -180,7 +184,7 @@ namespace FDK
 			}
 
 			if (lastTexture == null)
-				lastTexture = new CTexture(new Device(), new Bitmap(FrameSize.Width, FrameSize.Height), false);
+				lastTexture = new CTexture(new Device(), new Image<Argb32>(FrameSize.Width, FrameSize.Height), false);
 
 			if (Texture == lastTexture)
 				return;

@@ -180,10 +180,6 @@ namespace TJAPlayer3
 				base.b初めての進行描画 = false;
 
 				nWAVcount = 1;
-				bitmapFilename = new Bitmap( 640, 24 );
-				graphicsFilename = Graphics.FromImage( bitmapFilename );
-				graphicsFilename.TextRenderingHint = TextRenderingHint.AntiAlias;
-				ftFilename = new Font("MS UI Gothic", 24f, FontStyle.Bold, GraphicsUnit.Pixel );
 			}
 			//-----------------------------
 			#endregion
@@ -416,10 +412,6 @@ namespace TJAPlayer3
 
 				case CStage.Eフェーズ.NOWLOADING_WAVファイルを読み込む:
 					{
-						if ( nWAVcount == 1 && TJAPlayer3.DTX[0].listWAV.Count > 0 )			// #28934 2012.7.7 yyagi (added checking Count)
-						{
-							ShowProgressByFilename( TJAPlayer3.DTX[0].listWAV[ nWAVcount ].strファイル名 );
-						}
 						int looptime = (TJAPlayer3.ConfigIni.b垂直帰線待ちを行う)? 3 : 1;	// VSyncWait=ON時は1frame(1/60s)あたり3つ読むようにする
 						for ( int i = 0; i < looptime && nWAVcount <= TJAPlayer3.DTX[0].listWAV.Count; i++ )
 						{
@@ -428,10 +420,6 @@ namespace TJAPlayer3
 								TJAPlayer3.DTX[0].tWAVの読み込み( TJAPlayer3.DTX[0].listWAV[ nWAVcount ] );
 							}
 							nWAVcount++;
-						}
-						if ( nWAVcount <= TJAPlayer3.DTX[0].listWAV.Count )
-						{
-							ShowProgressByFilename( TJAPlayer3.DTX[0].listWAV[ nWAVcount ].strファイル名 );
 						}
 						if ( nWAVcount > TJAPlayer3.DTX[0].listWAV.Count )
 						{
@@ -475,21 +463,6 @@ namespace TJAPlayer3
 							FastRender.Render();//staticに変更 インスタンス作成不要
 						}
 
-						if ( bitmapFilename != null )
-						{
-							bitmapFilename.Dispose();
-							bitmapFilename = null;
-						}
-						if ( graphicsFilename != null )
-						{
-							graphicsFilename.Dispose();
-							graphicsFilename = null;
-						}
-						if ( ftFilename != null )
-						{
-							ftFilename.Dispose();
-							ftFilename = null;
-						}
 						TJAPlayer3.Timer.t更新();
 						//CSound管理.rc演奏用タイマ.t更新();
 						base.eフェーズID = CStage.Eフェーズ.NOWLOADING_システムサウンドBGMの完了を待つ;
@@ -514,10 +487,6 @@ namespace TJAPlayer3
 					if ( this.ct待機.b終了値に達してない )
 						return (int)E曲読込画面の戻り値.継続;
 
-					if ( txFilename != null )
-					{
-						txFilename.Dispose();
-					}
 					if ( this.sd読み込み音 != null )
 					{
 						this.sd読み込み音.t解放する();
@@ -541,23 +510,6 @@ namespace TJAPlayer3
 			return false;
 		}
 
-
-		private void ShowProgressByFilename(string strファイル名 )
-		{
-			if ( graphicsFilename != null && ftFilename != null )
-			{
-				graphicsFilename.Clear( Color.Transparent );
-				graphicsFilename.DrawString( strファイル名, ftFilename, Brushes.White, new RectangleF( 0, 0, 640, 24 ) );
-				if ( txFilename != null )
-				{
-					txFilename.Dispose();
-				}
-				txFilename = TJAPlayer3.tテクスチャの生成(bitmapFilename, true);
-				txFilename.vc拡大縮小倍率 = new System.Numerics.Vector3( 0.5f, 0.5f, 1f );
-				txFilename.t2D描画( TJAPlayer3.app.Device, 0, 720 - 16 );
-			}
-		}
-
 		// その他
 
 		#region [ private ]
@@ -572,10 +524,6 @@ namespace TJAPlayer3
 		private DateTime timeBeginLoad;
 		private DateTime timeBeginLoadWAV;
 		private int nWAVcount;
-		private CTexture txFilename;
-		private Bitmap bitmapFilename;
-		private Graphics graphicsFilename;
-		private Font ftFilename;
 		private CCounter ct待機;
 		private CCounter ct曲名表示;
 		//-----------------

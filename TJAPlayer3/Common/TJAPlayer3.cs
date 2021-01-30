@@ -14,10 +14,13 @@ using DiscordRPC;
 using System.Runtime.InteropServices;
 using OpenTK;
 using OpenTK.Graphics;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 
 using Rectangle = System.Drawing.Rectangle;
 using Point = System.Drawing.Point;
 using Color = System.Drawing.Color;
+using Size = System.Drawing.Size;
 using System.ComponentModel;
 
 namespace TJAPlayer3
@@ -993,6 +996,23 @@ namespace TJAPlayer3
 				return null;
 			}
 		}
+		public static CTexture tテクスチャの生成(SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> image)
+		{
+			if (app == null)
+			{
+				return null;
+			}
+			try
+			{
+				return new CTexture(app.Device, image, false);
+			}
+			catch (CTextureCreateFailedException e)
+			{
+				Trace.TraceError(e.ToString());
+				Trace.TraceError("テクスチャの生成に失敗しました。(txData)");
+				return null;
+			}
+		}
 
 		public static CTexture ColorTexture(string htmlcolor)
 		{
@@ -1002,16 +1022,14 @@ namespace TJAPlayer3
 		{
 			if (htmlcolor.Length == 7 && htmlcolor.StartsWith("#"))
 			{
-				Color color = ColorTranslator.FromHtml(htmlcolor);
-				Brush brush = new SolidBrush(color);
-				return ColorTexture(brush, width, height);
+				return ColorTexture(SixLabors.ImageSharp.Color.ParseHex(htmlcolor.Remove(0, 1)), width, height);
 			}
 			else
-				return ColorTexture(Brushes.Black, width, height);
+				return ColorTexture(SixLabors.ImageSharp.Color.Black, width, height);
 		}
-		public static CTexture ColorTexture(Brush brush)
+		public static CTexture ColorTexture(SixLabors.ImageSharp.Color color)
 		{
-			return ColorTexture(brush, 64, 64);
+			return ColorTexture(color, 64, 64);
 		}
 		/// <summary>
 		/// 単色塗りつぶしテクスチャの生成
@@ -1020,13 +1038,9 @@ namespace TJAPlayer3
 		/// <param name="width">幅</param>
 		/// <param name="height">高さ</param>
 		/// <returns></returns>
-		public static CTexture ColorTexture(Brush brush, int width, int height)
+		public static CTexture ColorTexture(SixLabors.ImageSharp.Color color, int width, int height)
 		{
-			Bitmap bmp = new Bitmap(width, height);
-			Graphics gra = Graphics.FromImage(bmp);
-			gra.FillRectangle(brush, 0, 0, width, height);
-			gra.Dispose();
-			return TJAPlayer3.tテクスチャの生成(bmp);
+			return TJAPlayer3.tテクスチャの生成(new Image<Argb32>(width, height, color));
 		}
 
 		/// <summary>プロパティ、インデクサには ref は使用できないので注意。</summary>

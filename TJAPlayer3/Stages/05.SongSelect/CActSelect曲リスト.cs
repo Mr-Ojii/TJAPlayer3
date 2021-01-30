@@ -506,8 +506,6 @@ namespace TJAPlayer3
 			// 曲リスト文字は２倍（面積４倍）でテクスチャに描画してから縮小表示するので、フォントサイズは２倍とする。
 
 			FontStyle regular = FontStyle.Regular;
-			this.ft曲リスト用フォント = new Font(TJAPlayer3.ConfigIni.FontName, 40f, regular, GraphicsUnit.Pixel);
-
 
 			// 現在選択中の曲がない（＝はじめての活性化）なら、現在選択中の曲をルートの先頭ノードに設定する。
 
@@ -540,8 +538,6 @@ namespace TJAPlayer3
 			TJAPlayer3.t安全にDisposeする(ref pfMusicName);
 			TJAPlayer3.t安全にDisposeする(ref pfSubtitle);
 
-			TJAPlayer3.t安全にDisposeする(ref this.ft曲リスト用フォント);
-
 			this.ct登場アニメ用 = null;
 
 			this.ct三角矢印アニメ = null;
@@ -555,30 +551,16 @@ namespace TJAPlayer3
 			if (this.b活性化してない)
 				return;
 
-			this.cpff = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 30);
-
 			int c = (CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
 			#region [ Songs not found画像 ]
 			try
 			{
-				using (Bitmap image = new Bitmap(640, 128))
+				string[] s1 = { "曲データが見つかりません。\n曲データをDTXManiaGR.exe以下の\nフォルダにインストールして下さい。", "Songs not found.\nYou need to install songs." };
+
+				using (CPrivateFont pffont = new CPrivateFont(TJAPlayer3.ConfigIni.FontName, 32, FontStyle.Regular))
 				{
-					using (Graphics graphics = Graphics.FromImage(image))
-					{
-						string[] s1 = { "曲データが見つかりません。", "Songs not found." };
-						string[] s2 = { "曲データをDTXManiaGR.exe以下の", "You need to install songs." };
-						string[] s3 = { "フォルダにインストールして下さい。", "" };
-						graphics.DrawString(s1[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float)2f, (float)2f);
-						graphics.DrawString(s1[c], this.ft曲リスト用フォント, Brushes.White, (float)0f, (float)0f);
-						graphics.DrawString(s2[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float)2f, (float)44f);
-						graphics.DrawString(s2[c], this.ft曲リスト用フォント, Brushes.White, (float)0f, (float)42f);
-						graphics.DrawString(s3[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float)2f, (float)86f);
-						graphics.DrawString(s3[c], this.ft曲リスト用フォント, Brushes.White, (float)0f, (float)84f);
-
-						this.txSongNotFound = TJAPlayer3.tテクスチャの生成(image, true);
-
-						this.txSongNotFound.vc拡大縮小倍率 = new Vector3(0.5f, 0.5f, 1f); // 半分のサイズで表示する。
-					}
+					this.txSongNotFound = TJAPlayer3.tテクスチャの生成(pffont.DrawPrivateFont(s1[c], Color.White), true);
+					this.txSongNotFound.vc拡大縮小倍率 = new System.Numerics.Vector3(0.5f, 0.5f, 1f);
 				}
 			}
 			catch (CTextureCreateFailedException e)
@@ -591,21 +573,12 @@ namespace TJAPlayer3
 			#region [ "曲データを検索しています"画像 ]
 			try
 			{
-				using (Bitmap image = new Bitmap(640, 96))
+				string[] s1 = { "曲データを検索しています。\nそのまましばらくお待ち下さい。", "Now enumerating songs.\nPlease wait..." };
+
+				using (CPrivateFont pffont = new CPrivateFont(TJAPlayer3.ConfigIni.FontName, 32, FontStyle.Regular))
 				{
-					using (Graphics graphics = Graphics.FromImage(image))
-					{
-						string[] s1 = { "曲データを検索しています。", "Now enumerating songs." };
-						string[] s2 = { "そのまましばらくお待ち下さい。", "Please wait..." };
-						graphics.DrawString(s1[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float)2f, (float)2f);
-						graphics.DrawString(s1[c], this.ft曲リスト用フォント, Brushes.White, (float)0f, (float)0f);
-						graphics.DrawString(s2[c], this.ft曲リスト用フォント, Brushes.DarkGray, (float)2f, (float)44f);
-						graphics.DrawString(s2[c], this.ft曲リスト用フォント, Brushes.White, (float)0f, (float)42f);
-
-						this.txEnumeratingSongs = TJAPlayer3.tテクスチャの生成(image, true);
-
-						this.txEnumeratingSongs.vc拡大縮小倍率 = new Vector3(0.5f, 0.5f, 1f); // 半分のサイズで表示する。
-					}
+					this.txEnumeratingSongs = TJAPlayer3.tテクスチャの生成(pffont.DrawPrivateFont(s1[c], Color.White), true);
+					this.txEnumeratingSongs.vc拡大縮小倍率 = new System.Numerics.Vector3(0.5f, 0.5f, 1f);
 				}
 			}
 			catch (CTextureCreateFailedException e)
@@ -632,7 +605,6 @@ namespace TJAPlayer3
 				this.stバー情報[i].ttkタイトル = null;
 			}
 
-			TJAPlayer3.t安全にDisposeする(ref this.cpff);
 			TJAPlayer3.t安全にDisposeする(ref this.txEnumeratingSongs);
 			TJAPlayer3.t安全にDisposeする(ref this.txSongNotFound);
 
@@ -1545,7 +1517,6 @@ namespace TJAPlayer3
 		private readonly Dictionary<TitleTextureKey, CTexture> _titledictionary 
 			= new Dictionary<TitleTextureKey, CTexture>();
 
-		private Font ft曲リスト用フォント;
 		private long nスクロールタイマ;
 		private int n現在のスクロールカウンタ;
 		private int n現在の選択行;
@@ -1560,7 +1531,6 @@ namespace TJAPlayer3
 		private CTexture txSongNotFound, txEnumeratingSongs;
 		internal TitleTextureKey ttk選択している曲の曲名;
 		internal TitleTextureKey ttk選択している曲のサブタイトル;
-		private CPrivateFastFont cpff;
 
 		private int nCurrentPosition = 0;
 		private int nNumOfItems = 0;
@@ -1691,8 +1661,8 @@ namespace TJAPlayer3
 
 		private static CTexture GenerateTitleTexture(TitleTextureKey titleTextureKey)
 		{
-			using (var bmp = new Bitmap(titleTextureKey.cPrivateFastFont.DrawPrivateFont(
-				titleTextureKey.str文字, titleTextureKey.forecolor, titleTextureKey.backcolor, true)))
+			using (var bmp = titleTextureKey.cPrivateFastFont.DrawPrivateFont(
+				titleTextureKey.str文字, titleTextureKey.forecolor, titleTextureKey.backcolor, true))
 			{
 				CTexture tx文字テクスチャ = TJAPlayer3.tテクスチャの生成(bmp);
 				if (tx文字テクスチャ.szテクスチャサイズ.Height > titleTextureKey.maxHeight)

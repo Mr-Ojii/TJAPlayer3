@@ -69,7 +69,7 @@ namespace TJAPlayer3
 		public void LoadTexture()
 		{
 			#region 共通
-			Tile_Black = TJAPlayer3.ColorTexture(Brushes.Black);
+			Tile_Black = TJAPlayer3.ColorTexture(SixLabors.ImageSharp.Color.Black);
 			Menu_Title = TxC(@"Menu_Title.png");
 			Menu_Highlight = TxC(@"Menu_Highlight.png");
 			Enum_Song = TxC(@"Enum_Song.png");

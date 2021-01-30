@@ -4,7 +4,13 @@ using System.Diagnostics;
 using System.Text;
 using System.Drawing;
 using System.Threading;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp;
 using FDK;
+
+using Color = System.Drawing.Color;
+using Rectangle = System.Drawing.Rectangle;
+using Point = System.Drawing.Point;
 
 namespace TJAPlayer3
 {
@@ -866,20 +872,15 @@ namespace TJAPlayer3
 			{
 				string path = skinSubFolders[ nSkinIndex ];
 				path = System.IO.Path.Combine( path, @"Graphics/1_Title/Background.png" );
-				Bitmap bmSrc = new Bitmap( path );
-				Bitmap bmDest = new Bitmap( bmSrc.Width / 4, bmSrc.Height / 4 );
-				Graphics g = Graphics.FromImage( bmDest );
-				g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-				g.DrawImage( bmSrc, new Rectangle( 0, 0, bmSrc.Width / 4, bmSrc.Height / 4 ),
-					0, 0, bmSrc.Width, bmSrc.Height, GraphicsUnit.Pixel );
-				if ( txSkinSample1 != null )
+				using (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> image = SixLabors.ImageSharp.Image.Load<SixLabors.ImageSharp.PixelFormats.Argb32>(path))
 				{
-					TJAPlayer3.t安全にDisposeする( ref txSkinSample1 );
+					image.Mutate(c => c.Resize(image.Width / 4, image.Height / 4));
+					if (txSkinSample1 != null)
+					{
+						TJAPlayer3.t安全にDisposeする(ref txSkinSample1);
+					}
+					txSkinSample1 = TJAPlayer3.tテクスチャの生成(image);
 				}
-				txSkinSample1 = TJAPlayer3.tテクスチャの生成( bmDest );
-				g.Dispose();
-				bmDest.Dispose();
-				bmSrc.Dispose();
 				nSkinSampleIndex = nSkinIndex;
 			}
 		}

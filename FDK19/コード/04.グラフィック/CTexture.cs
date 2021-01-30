@@ -8,10 +8,14 @@ using System.Diagnostics;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 
 using Rectangle = System.Drawing.Rectangle;
 using Point = System.Drawing.Point;
 using Color = System.Drawing.Color;
+using Size = System.Drawing.Size;
 
 namespace FDK
 {
@@ -123,7 +127,13 @@ namespace FDK
 			: this()
 		{
 			maketype = MakeType.bitmap;
-			MakeTexture(device, bitmap, b黒を透過する);
+			MakeTexture(device, ToImageSharpImage(bitmap), b黒を透過する);
+		}
+		public CTexture(Device device, Image<Argb32> image, bool b黒を透過する)
+			: this()
+		{
+			maketype = MakeType.bitmap;
+			MakeTexture(device, image, b黒を透過する);
 		}
 
 		public void MakeTexture(Device device, string strファイル名)
@@ -131,13 +141,13 @@ namespace FDK
 			if (!File.Exists(strファイル名))     // #27122 2012.1.13 from: ImageInformation では FileNotFound 例外は返ってこないので、ここで自分でチェックする。わかりやすいログのために。
 				throw new FileNotFoundException(string.Format("ファイルが存在しません。\n[{0}]", strファイル名));
 
-			MakeTexture(device, new Bitmap(strファイル名), false);
+			MakeTexture(device, SixLabors.ImageSharp.Image.Load<Argb32>(strファイル名), false);
 		}
-		public void MakeTexture(Device device, Bitmap bitmap, bool b黒を透過する)
+		public void MakeTexture(Device device, SixLabors.ImageSharp.Image<Argb32> bitmap, bool b黒を透過する)
 		{
+			bitmap.Mutate(c => c.Flip(FlipMode.Vertical));
 			if (b黒を透過する)
-				bitmap.MakeTransparent(Color.Black);
-			bitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
+				bitmap.Mutate(c => c.BackgroundColor(SixLabors.ImageSharp.Color.Transparent));
 			try
 			{
 				this.szテクスチャサイズ = new Size(bitmap.Width, bitmap.Height);
@@ -158,7 +168,6 @@ namespace FDK
 				GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
 
 				//テクスチャの設定
-
 				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureBaseLevel, 0);
 				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMaxLevel, 3);
 
@@ -170,12 +179,21 @@ namespace FDK
 				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
 				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
 
-				BitmapData data = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-
-				//テクスチャ用バッファに色情報を流し込む
-				GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, data.Width, data.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
-
-				bitmap.UnlockBits(data);
+                unsafe
+				{
+					var data = new byte[bitmap.Width * bitmap.Height * 4];
+					for (var x = 0; x < bitmap.Width; x++)
+					{
+						for (var y = 0; y < bitmap.Height; y++)
+						{
+							data[((y * bitmap.Width) + x) * 4 + 0] = bitmap[x, y].R;
+							data[((y * bitmap.Width) + x) * 4 + 1] = bitmap[x, y].G;
+							data[((y * bitmap.Width) + x) * 4 + 2] = bitmap[x, y].B;
+							data[((y * bitmap.Width) + x) * 4 + 3] = bitmap[x, y].A;
+						}
+					}
+					GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bitmap.Width, bitmap.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Rgba, PixelType.UnsignedByte, data);
+				}
 
 				GL.Hint(HintTarget.GenerateMipmapHint, HintMode.Nicest);
 				GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
@@ -206,6 +224,18 @@ namespace FDK
 			}
 		}
 
+		//参考:https://gist.github.com/vurdalakov/00d9471356da94454b372843067af24e
+		public static Image<Argb32> ToImageSharpImage(System.Drawing.Bitmap bitmap)
+		{
+			using (var memoryStream = new MemoryStream())
+			{
+				bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+
+				memoryStream.Seek(0, SeekOrigin.Begin);
+
+				return SixLabors.ImageSharp.Image.Load<Argb32>(memoryStream);
+			}
+		}
 
 		public void t2D描画(Device device, RefPnt refpnt, float x, float y) 
 		{

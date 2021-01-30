@@ -617,7 +617,7 @@ namespace TJAPlayer3
 		{
 			try
 			{
-				using (var image = new Bitmap(440, 288))        // 説明文領域サイズの縦横 2 倍。（描画時に 0.5 倍で表示する___のは中止。処理速度向上のため。）
+				using (Bitmap image = new Bitmap(440, 288))        // 説明文領域サイズの縦横 2 倍。（描画時に 0.5 倍で表示する___のは中止。処理速度向上のため。）
 				{
 					using (var graphics = Graphics.FromImage(image))
 					{
