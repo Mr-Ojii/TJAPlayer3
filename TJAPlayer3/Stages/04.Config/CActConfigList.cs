@@ -800,6 +800,10 @@ namespace TJAPlayer3
 			{
 				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPad.Capture);
 			}
+			else if (this.list項目リスト[this.n現在の選択項目] == this.iKeyAssignSystemFullScreen)
+			{
+				TJAPlayer3.stageコンフィグ.tパッド選択通知(EKeyConfigPad.FullScreen);
+			}
 			#endregion
 			else
 			{
@@ -906,6 +910,9 @@ namespace TJAPlayer3
 				"キャプチャキー設定：\n画面キャプチャのキーの割り当てを設\n定します。",
 				"Capture key assign:\nTo assign key for screen capture.\n (You can use keyboard only. You can't\nuse pads to capture screenshot." );
 			this.list項目リスト.Add( this.iKeyAssignSystemCapture );
+			this.iKeyAssignSystemFullScreen = new CItemBase("FullScreen",
+				"フルスクリーンキー設定：\nフルスクリーン切り替えのキーの\n割り当てを設定します。");
+			this.list項目リスト.Add(this.iKeyAssignSystemFullScreen);
 
 			OnListMenuの初期化();
 			this.n現在の選択項目 = 0;
@@ -1483,6 +1490,7 @@ namespace TJAPlayer3
 		private CCounter ct三角矢印アニメ;
 		private Eメニュー種別 eメニュー種別;
 		#region [ キーコンフィグ ]
+		private CItemBase iKeyAssignSystemFullScreen;          // #24609
 		private CItemBase iKeyAssignSystemCapture;			// #24609
 		private CItemBase iKeyAssignSystemReturnToMenu;		// #24609
 		private CItemBase iKeyAssignDrumsReturnToMenu;

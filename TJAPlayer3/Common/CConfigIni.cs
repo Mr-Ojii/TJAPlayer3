@@ -22,6 +22,7 @@ namespace TJAPlayer3
 		#region [ CKeyAssign ]
 		public class CKeyAssign
 		{
+			public CConfigIni.CKeyAssign.STKEYASSIGN[] FullScreen;
 			public CConfigIni.CKeyAssign.STKEYASSIGN[] Capture;
 			public CConfigIni.CKeyAssign.STKEYASSIGN[] LeftRed;
 			public CConfigIni.CKeyAssign.STKEYASSIGN[] RightRed;
@@ -63,6 +64,9 @@ namespace TJAPlayer3
 
 						case (int)EKeyConfigPad.Capture:
 							return this.Capture;
+
+						case (int)EKeyConfigPad.FullScreen:
+							return this.FullScreen;
 					}
 					throw new IndexOutOfRangeException();
 				}
@@ -104,6 +108,10 @@ namespace TJAPlayer3
 
 						case (int)EKeyConfigPad.Capture:
 							this.Capture = value;
+							return;
+
+						case (int)EKeyConfigPad.FullScreen:
+							this.FullScreen = value;
 							return;
 					}
 					throw new IndexOutOfRangeException();
@@ -312,7 +320,7 @@ namespace TJAPlayer3
 		{
 			get
 			{
-				for (int j = 0; j <= (int)EKeyConfigPad.Capture; j++)
+				for (int j = 0; j < (int)EKeyConfigPad.MAX; j++)
 				{
 					for (int k = 0; k < 0x10; k++)
 					{
@@ -622,7 +630,7 @@ namespace TJAPlayer3
 
 		public void t指定した入力が既にアサイン済みである場合はそれを全削除する(E入力デバイス DeviceType, int nID, int nCode)
 		{
-			for (int j = 0; j <= (int)EKeyConfigPad.Capture; j++)
+			for (int j = 0; j < (int)EKeyConfigPad.MAX; j++)
 			{
 				for (int k = 0; k < 0x10; k++)
 				{
@@ -1177,6 +1185,9 @@ namespace TJAPlayer3
 			sw.WriteLine();
 			sw.Write( "Capture=" );
 			this.tキーの書き出し( sw, this.KeyAssign.Capture );
+			sw.WriteLine();
+			sw.Write("FullScreen=");
+			this.tキーの書き出し(sw, this.KeyAssign.FullScreen);
 			sw.WriteLine();
 			sw.WriteLine();
 			#endregion
@@ -1903,6 +1914,10 @@ namespace TJAPlayer3
 										{
 											this.tキーの読み出しと設定( str4, this.KeyAssign.Capture );
 										}
+										else if (str3.Equals("FullScreen"))
+										{
+											this.tキーの読み出しと設定(str4, this.KeyAssign.FullScreen);
+										}
 										continue;
 									//-----------------------------
 									#endregion
@@ -1961,7 +1976,7 @@ namespace TJAPlayer3
 		private void tキーアサインを全部クリアする()
 		{
 			this.KeyAssign = new CKeyAssign();
-			for (int j = 0; j <= (int)EKeyConfigPad.Capture; j++)
+			for (int j = 0; j < (int)EKeyConfigPad.MAX; j++)
 			{
 				this.KeyAssign[j] = new CKeyAssign.STKEYASSIGN[16];
 				for (int k = 0; k < 16; k++)
@@ -2070,6 +2085,7 @@ RightBlue2P=K047
 
 [SystemKeyAssign]
 Capture=K065
+FullScreen=K064
 ";
 			t文字列から読み込み( strDefaultKeyAssign );
 		}

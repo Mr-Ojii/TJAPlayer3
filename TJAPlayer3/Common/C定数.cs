@@ -58,6 +58,8 @@ namespace TJAPlayer3
 		LBlue2P = Eパッド.LBlue2P,
 		RBlue2P = Eパッド.RBlue2P,
 		Capture,
+		FullScreen,
+		MAX,
 		UNKNOWN = Eパッド.UNKNOWN
 	}
 	[Flags]

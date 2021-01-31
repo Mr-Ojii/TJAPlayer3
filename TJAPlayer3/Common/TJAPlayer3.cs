@@ -1949,6 +1949,15 @@ namespace TJAPlayer3
 						   Path.Combine( TJAPlayer3.strEXEのあるフォルダ, "Capture_img" );
 						strFullPath = Path.Combine( strFullPath, DateTime.Now.ToString( "yyyyMMddHHmmss" ) + ".png" );
 						CSaveScreen.CSaveFromDevice(TJAPlayer3.app.Device, strFullPath);
+					}else if(ConfigIni.KeyAssign.FullScreen[i].コード > 0 &&
+							DeviceConstantConverter.TKKtoKey(e.Key) == (SlimDXKeys.Key)ConfigIni.KeyAssign.FullScreen[i].コード) 
+					{
+
+						if (ConfigIni != null)
+						{
+							ConfigIni.bウィンドウモード = !ConfigIni.bウィンドウモード;
+							this.t全画面_ウィンドウモード切り替え();
+						}
 					}
 				}
 			}
