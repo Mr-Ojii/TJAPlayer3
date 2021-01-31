@@ -95,7 +95,7 @@ namespace TJAPlayer3
 				}
 				catch (System.IO.FileNotFoundException)
 				{
-					Trace.TraceWarning("プライベートフォントの追加に失敗しました({0})。代わりにMS UI Gothicの使用を試みます。", fontpath);
+					Trace.TraceWarning($"プライベートフォントの追加に失敗しました({fontpath})。代わりに{TJAPlayer3.DefaultFontName}の使用を試みます。");
 					//throw new FileNotFoundException( "プライベートフォントの追加に失敗しました。({0})", Path.GetFileName( fontpath ) );
 					//return;
 					_fontfamily = null;
@@ -130,23 +130,23 @@ namespace TJAPlayer3
 				//HighDPI対応のため、pxサイズで指定
 			}
 			else
-			// フォントファイルが見つからなかった場合 (MS UI Gothicを代わりに指定する)
+			// フォントファイルが見つからなかった場合 (デフォルトフォントを代わりに指定する)
 			{
 				float emSize = pt * 96.0f / 72.0f;
-				this._font = new Font("MS UI Gothic", emSize, style, GraphicsUnit.Pixel);	//MS UI GothicのFontオブジェクトを作成する
+				this._font = new Font(TJAPlayer3.DefaultFontName, emSize, style, GraphicsUnit.Pixel);	//デフォルトフォントのオブジェクトを作成する
 				FontFamily[] ffs = new System.Drawing.Text.InstalledFontCollection().Families;
 				int lcid = System.Globalization.CultureInfo.GetCultureInfo("en-us").LCID;
 				foreach (FontFamily ff in ffs)
 				{
 					// Trace.WriteLine( lcid ) );
-					if (ff.GetName(lcid) == "MS UI Gothic")
+					if (ff.GetName(lcid) == TJAPlayer3.DefaultFontName)
 					{
 						this._fontfamily = ff;
-						Trace.TraceInformation("MS UI Gothicを代わりに指定しました。");
+						Trace.TraceInformation(TJAPlayer3.DefaultFontName + "を代わりに指定しました。");
 						return;
 					}
 				}
-				throw new FileNotFoundException("プライベートフォントの追加に失敗し、MS UI Gothicでの代替処理にも失敗しました。({0})", Path.GetFileName(fontpath));
+				throw new FileNotFoundException($"プライベートフォントの追加に失敗し、{TJAPlayer3.DefaultFontName}での代替処理にも失敗しました。({Path.GetFileName(fontpath)})");
 			}
 		}
 

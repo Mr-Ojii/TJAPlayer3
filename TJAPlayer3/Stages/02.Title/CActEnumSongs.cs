@@ -73,7 +73,7 @@ namespace TJAPlayer3
 				int ci = ( CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja" ) ? 0 : 1;
 				if ( ( strMessage != null ) && ( strMessage.Length > 0 ) )
 				{
-					using (CPrivateFont pffont = new CPrivateFont(new FontFamily("MS UI Gothic"), 32, FontStyle.Bold))
+					using (CPrivateFont pffont = new CPrivateFont(new FontFamily(TJAPlayer3.DefaultFontName), 32, FontStyle.Bold))
 					{
 						this.txMessage = TJAPlayer3.tテクスチャの生成(pffont.DrawPrivateFont(strMessage[ci], Color.White), true);
 						this.txMessage.vc拡大縮小倍率 = new System.Numerics.Vector3(0.5f, 0.5f, 1f);

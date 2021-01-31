@@ -255,6 +255,43 @@ namespace TJAPlayer3
 			get;
 			set;
 		}
+		public static DateTime StartupTime
+		{
+			get;
+			private set;
+		}
+		public static string LargeImageKey
+		{
+			get
+			{
+				return "tjaplayer3-f";
+			}
+		}
+		public static string LargeImageText
+		{
+			get
+			{
+				string Platform;
+
+				if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+					Platform = "win";
+				else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+					Platform = "linux";
+				else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+					Platform = "osx";
+				else
+					Platform = Environment.OSVersion.Platform.ToString();
+
+				return "Ver." + Assembly.GetExecutingAssembly().GetName().Version.ToString() + "(" + Platform + "-" + (Environment.Is64BitProcess ? "x64" : "x86") + ")";
+			}
+		}
+		public static string DefaultFontName 
+		{
+			get 
+			{
+				return "MS UI Gothic";
+			}
+		}
 		//		public static CTimer ct;
 		public IntPtr WindowHandle                  // 2012.10.24 yyagi; to add ASIO support
 		{
@@ -1125,36 +1162,6 @@ namespace TJAPlayer3
 		private int n進行描画の戻り値;
 		private OpenTK.Input.MouseButton mb = OpenTK.Input.MouseButton.Right;
 		private Stopwatch judgedoubleclock = new Stopwatch();
-		public static DateTime StartupTime
-		{
-			get;
-			private set;
-		}
-		public static string LargeImageKey 
-		{
-			get 
-			{
-				return "tjaplayer3-f";
-			}
-		}
-		public static string LargeImageText
-		{
-			get
-			{
-				string Platform; 
-
-				if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-					Platform = "win";
-				else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-					Platform = "linux";
-				else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-					Platform = "osx";
-				else
-					Platform = Environment.OSVersion.Platform.ToString();
-
-				return "Ver." + Assembly.GetExecutingAssembly().GetName().Version.ToString() + "(" + Platform + "-" + (Environment.Is64BitProcess ? "x64" : "x86") + ")";
-			}
-		}
 
 		private void t起動処理()
 		{
