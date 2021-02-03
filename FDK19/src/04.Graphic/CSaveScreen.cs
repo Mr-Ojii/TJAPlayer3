@@ -17,13 +17,10 @@ namespace FDK
     public class CSaveScreen
     {
 		/// <summary>
-		/// TJAPlayer3.csより
-		/// この関数はFDK側にあるべきだと思ったので。
-		/// 
-		/// デバイス画像のキャプチャと保存。
+		/// Capture screen and save as .png file
 		/// </summary>
-		/// <param name="device">デバイス</param>
-		/// <param name="strFullPath">保存するファイル名(フルパス)</param>
+		/// <param name="device">Device</param>
+		/// <param name="strFullPath">Filename(FullPath)</param>
 		/// <returns></returns>
 		public static bool CSaveFromDevice(Device device, string strFullPath)
 		{
@@ -37,7 +34,7 @@ namespace FDK
 				catch (Exception e)
 				{
 					Trace.TraceError(e.ToString());
-					Trace.TraceError("例外が発生しましたが処理を継続します。 (0bfe6bff-2a56-4df4-9333-2df26d9b765b)");
+					Trace.TraceError("An exception has occurred, but processing continues. ");
 					return false;
 				}
 			}
