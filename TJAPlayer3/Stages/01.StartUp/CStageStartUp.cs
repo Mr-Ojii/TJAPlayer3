@@ -9,11 +9,11 @@ using FDK;
 
 namespace TJAPlayer3
 {
-	internal class CStage起動 : CStage
+	internal class CStageStartUp : CStage
 	{
 		// コンストラクタ
 
-		public CStage起動()
+		public CStageStartUp()
 		{
 			base.eStageID = CStage.EStage.StartUp;
 			base.b活性化してない = true;

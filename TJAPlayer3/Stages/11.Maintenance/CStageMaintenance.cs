@@ -10,11 +10,11 @@ using DiscordRPC;
 
 namespace TJAPlayer3
 {
-    class CStageメンテナンス : CStage
+    class CStageMaintenance : CStage
     {
 		// コンストラクタ
 
-		public CStageメンテナンス()
+		public CStageMaintenance()
 		{
 			base.eStageID = CStage.EStage.Maintenance;
 			base.b活性化してない = true;
@@ -73,7 +73,7 @@ namespace TJAPlayer3
 				string[] txt = new string[4] { "左ふち", "左面", "右面", "右ふち" };
 				for (int ind = 0; ind < 4; ind++)
 				{
-					moji[ind] = TJAPlayer3.tテクスチャの生成(new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), fontsize).DrawPrivateFont(txt[ind], Color.White, Color.Black));
+					str[ind] = TJAPlayer3.tテクスチャの生成(new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), fontsize).DrawPrivateFont(txt[ind], Color.White, Color.Black));
 				}
 				base.OnManagedリソースの作成();
 			}
@@ -84,7 +84,7 @@ namespace TJAPlayer3
 			if (!base.b活性化してない)
 			{
 				//表示用テクスチャの解放
-				TJAPlayer3.t安全にDisposeする(ref moji);
+				TJAPlayer3.t安全にDisposeする(ref str);
 				TJAPlayer3.t安全にDisposeする(ref don);
 				TJAPlayer3.t安全にDisposeする(ref ka);
 				base.OnManagedリソースの解放();
@@ -100,29 +100,29 @@ namespace TJAPlayer3
 
 			//入力信号に合わせて色を描画
 			if (TJAPlayer3.Pad.b押された(EPad.LBlue))
-				ka.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Sabunn + Width) * 4, y);
+				ka.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Diff + Width) * 4, Y);
 			if (TJAPlayer3.Pad.b押された(EPad.LRed))
-				don.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Sabunn + Width) * 3, y);
+				don.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Diff + Width) * 3, Y);
 			if (TJAPlayer3.Pad.b押された(EPad.RRed))
-				don.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Sabunn + Width) * 2, y);
+				don.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Diff + Width) * 2, Y);
 			if (TJAPlayer3.Pad.b押された(EPad.RBlue))
-				ka.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Sabunn + Width) * 1, y);
+				ka.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Diff + Width) * 1, Y);
 			if (TJAPlayer3.Pad.b押された(EPad.LBlue2P))
-				ka.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Sabunn + Width) * 1, y);
+				ka.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Diff + Width) * 1, Y);
 			if (TJAPlayer3.Pad.b押された(EPad.LRed2P))
-				don.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Sabunn + Width) * 2, y);
+				don.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Diff + Width) * 2, Y);
 			if (TJAPlayer3.Pad.b押された(EPad.RRed2P))
-				don.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Sabunn + Width) * 3, y);
+				don.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Diff + Width) * 3, Y);
 			if (TJAPlayer3.Pad.b押された(EPad.RBlue2P))
-				ka.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Sabunn + Width) * 4, y);
+				ka.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Diff + Width) * 4, Y);
 
 
 
 			for (int index = 0; index < 4; index++)
 			{
 				//文字の描画
-				moji[index].t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Sabunn + Width) * (4 - index), mojiy);
-				moji[index].t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Sabunn + Width) * (index + 1), mojiy);
+				str[index].t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Diff + Width) * (4 - index), strY);
+				str[index].t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Diff + Width) * (index + 1), strY);
 			}
 
 			if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape))
@@ -133,15 +133,15 @@ namespace TJAPlayer3
 		#region[private]
 		private CTexture don;
 		private CTexture ka;
-		private CTexture[] moji = new CTexture[4];
+		private CTexture[] str = new CTexture[4];
 
 		private const int Width = 100;
 		private const int Height = 100;
-		private const int y = 550;
-		private const int mojiy = 450;
+		private const int Y = 550;
+		private const int strY = 450;
 		private const int fontsize = 20;
 
-		private const int Sabunn = 16;
+		private const int Diff = 16;
 		#endregion
 	}
 }

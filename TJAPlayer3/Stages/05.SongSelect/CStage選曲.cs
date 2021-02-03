@@ -170,7 +170,7 @@ namespace TJAPlayer3
 				if ( base.b初めての進行描画 )
 				{
 					this.ct登場時アニメ用共通 = new CCounter( 0, 100, 3, TJAPlayer3.Timer );
-					if( TJAPlayer3.r直前のステージ == TJAPlayer3.stage結果 )
+					if( TJAPlayer3.r直前のステージ == TJAPlayer3.stageResult )
 					{
 						this.actFIfrom結果画面.tFadeIn開始();
 						base.eフェーズID = CStage.Eフェーズ.選曲_結果画面からのFadeIn;

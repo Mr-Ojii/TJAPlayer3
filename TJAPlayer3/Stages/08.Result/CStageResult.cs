@@ -9,7 +9,7 @@ using Rectangle = System.Drawing.Rectangle;
 
 namespace TJAPlayer3
 {
-	internal class CStage結果 : CStage
+	internal class CStageResult : CStage
 	{
 		// プロパティ
 
@@ -25,7 +25,7 @@ namespace TJAPlayer3
 
 		// コンストラクタ
 
-		public CStage結果()
+		public CStageResult()
 		{
 			this.st演奏記録 = new CScoreIni.C演奏記録[2];
 			base.eStageID = CStage.EStage.Result;

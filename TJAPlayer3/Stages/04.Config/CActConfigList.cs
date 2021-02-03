@@ -763,46 +763,46 @@ namespace TJAPlayer3
 			//太鼓のキー設定。
 			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoLRed )
 			{
-				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPad.LRed );
+				TJAPlayer3.stageConfig.tパッド選択通知( EKeyConfigPad.LRed );
 			}
 			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoRRed )
 			{
-				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPad.RRed );
+				TJAPlayer3.stageConfig.tパッド選択通知( EKeyConfigPad.RRed );
 			}
 			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoLBlue )
 			{
-				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPad.LBlue );
+				TJAPlayer3.stageConfig.tパッド選択通知( EKeyConfigPad.LBlue );
 			}
 			else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoRBlue )
 			{
-				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPad.RBlue );
+				TJAPlayer3.stageConfig.tパッド選択通知( EKeyConfigPad.RBlue );
 			}
 
 			//太鼓のキー設定。2P
 			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoLRed2P )
 			{
-				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPad.LRed2P );
+				TJAPlayer3.stageConfig.tパッド選択通知( EKeyConfigPad.LRed2P );
 			}
 			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoRRed2P )
 			{
-				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPad.RRed2P );
+				TJAPlayer3.stageConfig.tパッド選択通知( EKeyConfigPad.RRed2P );
 			}
 			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoLBlue2P )
 			{
-				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPad.LBlue2P );
+				TJAPlayer3.stageConfig.tパッド選択通知( EKeyConfigPad.LBlue2P );
 			}
 			else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoRBlue2P )
 			{
-				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPad.RBlue2P );
+				TJAPlayer3.stageConfig.tパッド選択通知( EKeyConfigPad.RBlue2P );
 			}
 
 			else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignSystemCapture )
 			{
-				TJAPlayer3.stageコンフィグ.tパッド選択通知( EKeyConfigPad.Capture);
+				TJAPlayer3.stageConfig.tパッド選択通知( EKeyConfigPad.Capture);
 			}
 			else if (this.list項目リスト[this.n現在の選択項目] == this.iKeyAssignSystemFullScreen)
 			{
-				TJAPlayer3.stageコンフィグ.tパッド選択通知(EKeyConfigPad.FullScreen);
+				TJAPlayer3.stageConfig.tパッド選択通知(EKeyConfigPad.FullScreen);
 			}
 			#endregion
 			else
@@ -1253,7 +1253,7 @@ namespace TJAPlayer3
 					this.n目標のスクロールカウンタ -= 100;
 					if( this.n目標のスクロールカウンタ == 0 )
 					{
-						TJAPlayer3.stageコンフィグ.t項目変更通知();
+						TJAPlayer3.stageConfig.t項目変更通知();
 					}
 				}
 				else if( this.n現在のスクロールカウンタ <= -100 )
@@ -1263,7 +1263,7 @@ namespace TJAPlayer3
 					this.n目標のスクロールカウンタ += 100;
 					if( this.n目標のスクロールカウンタ == 0 )
 					{
-						TJAPlayer3.stageコンフィグ.t項目変更通知();
+						TJAPlayer3.stageConfig.t項目変更通知();
 					}
 				}
 				//-----------------
@@ -1331,7 +1331,7 @@ namespace TJAPlayer3
 						// CDTXMania.t安全にDisposeする( ref ctItem );
 					}
 				}
-				//CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 0x12, y + 12, this.list項目リスト[ nItem ].str項目名 );
+				//CDTXMania.stageConfig.actFont.t文字列描画( x + 0x12, y + 12, this.list項目リスト[ nItem ].str項目名 );
 				//-----------------
 				#endregion
 				#region [ 現在の行の項目の要素を描画。]
@@ -1343,7 +1343,7 @@ namespace TJAPlayer3
 					case CItemBase.E種別.ONorOFFトグル:
 						#region [ *** ]
 						//-----------------
-						//CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 210, y + 12, ( (CItemToggle) this.list項目リスト[ nItem ] ).bON ? "ON" : "OFF" );
+						//CDTXMania.stageConfig.actFont.t文字列描画( x + 210, y + 12, ( (CItemToggle) this.list項目リスト[ nItem ] ).bON ? "ON" : "OFF" );
 						strParam = ( (CItemToggle) this.list項目リスト[ nItem ] ).bON ? "ON" : "OFF";
 						break;
 					//-----------------
@@ -1355,18 +1355,18 @@ namespace TJAPlayer3
 						if ( this.list項目リスト[ nItem ] == this.iCommonPlaySpeed )
 						{
 							double d = ( (double) ( (CItemInteger) this.list項目リスト[ nItem ] ).n現在の値 ) / 20.0;
-							//CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 210, y + 12, d.ToString( "0.000" ), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
+							//CDTXMania.stageConfig.actFont.t文字列描画( x + 210, y + 12, d.ToString( "0.000" ), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
 							strParam = d.ToString( "0.000" );
 						}
 						else if ( this.list項目リスト[ nItem ] == this.iDrumsScrollSpeed1P || this.list項目リスト[nItem] == this.iDrumsScrollSpeed2P)
 						{
 							float f = ( ( (CItemInteger) this.list項目リスト[ nItem ] ).n現在の値 + 1 ) * 0.1f;
-							//CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 210, y + 12, f.ToString( "x0.0" ), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
+							//CDTXMania.stageConfig.actFont.t文字列描画( x + 210, y + 12, f.ToString( "x0.0" ), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
 							strParam = f.ToString( "x0.0" );
 						}
 						else
 						{
-							//CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 210, y + 12, ( (CItemInteger) this.list項目リスト[ nItem ] ).n現在の値.ToString(), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
+							//CDTXMania.stageConfig.actFont.t文字列描画( x + 210, y + 12, ( (CItemInteger) this.list項目リスト[ nItem ] ).n現在の値.ToString(), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
 							strParam = ( (CItemInteger) this.list項目リスト[ nItem ] ).n現在の値.ToString();
 						}
 						b強調 = ( n行番号 == 0 ) && this.b要素値にフォーカス中;
@@ -1379,7 +1379,7 @@ namespace TJAPlayer3
 						//-----------------
 						{
 							CItemList list = (CItemList) this.list項目リスト[ nItem ];
-							//CDTXMania.stageコンフィグ.actFont.t文字列描画( x + 210, y + 12, list.list項目値[ list.n現在選択されている項目番号 ] );
+							//CDTXMania.stageConfig.actFont.t文字列描画( x + 210, y + 12, list.list項目値[ list.n現在選択されている項目番号 ] );
 							strParam = list.list項目値[ list.n現在選択されている項目番号 ];
 
 							#region [ 必要な場合に、Skinのサンプルを生成・描画する。#28195 2012.5.2 yyagi ]

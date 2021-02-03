@@ -170,17 +170,17 @@ namespace TJAPlayer3
 			private set;
 		}
 
-		public static CStage起動 stage起動
+		public static CStageStartUp stageStartUp
 		{
 			get;
 			private set;
 		}
-		public static CStageタイトル stageタイトル
+		public static CStageTitle stageTitle
 		{
 			get;
 			private set;
 		}
-		public static CStageコンフィグ stageコンフィグ
+		public static CStageConfig stageConfig
 		{
 			get;
 			private set;
@@ -200,7 +200,7 @@ namespace TJAPlayer3
 			get;
 			private set;
 		}
-		public static CStage結果 stage結果
+		public static CStageResult stageResult
 		{
 			get;
 			private set;
@@ -210,12 +210,12 @@ namespace TJAPlayer3
 			get;
 			private set;
 		}
-		public static CStage終了 stage終了
+		public static CStageEnding stageEnding
 		{
 			get;
 			private set;
 		}
-		public static CStageメンテナンス stageメンテ
+		public static CStageMaintenance stageMaintenance
 		{
 			get;
 			private set;
@@ -374,9 +374,9 @@ namespace TJAPlayer3
 				r現在のステージ.On非活性化();
 				Trace.TraceInformation("----------------------");
 				Trace.TraceInformation("■ 終了");
-				stage終了.On活性化();
+				stageEnding.On活性化();
 				r直前のステージ = r現在のステージ;
-				r現在のステージ = stage終了;
+				r現在のステージ = stageEnding;
 				this.tガベージコレクションを実行する();
 			}
 			else
@@ -428,7 +428,7 @@ namespace TJAPlayer3
 							#region [ (特定条件時) 曲検索スレッドの起動_開始 ]
 							if (r現在のステージ.eStageID == CStage.EStage.Title &&
 								 r直前のステージ.eStageID == CStage.EStage.StartUp &&
-								 this.n進行描画の戻り値 == (int)CStageタイトル.E戻り値.継続 &&
+								 this.n進行描画の戻り値 == (int)CStageTitle.E戻り値.継続 &&
 								 !EnumSongs.IsSongListEnumStarted)
 							{
 								actEnumSongs.On活性化();
@@ -489,10 +489,10 @@ namespace TJAPlayer3
 						{
 							r現在のステージ.On非活性化();
 							Trace.TraceInformation("----------------------");
-							Trace.TraceInformation("■ タイトル");
-							stageタイトル.On活性化();
+							Trace.TraceInformation("■ Title");
+							stageTitle.On活性化();
 							r直前のステージ = r現在のステージ;
-							r現在のステージ = stageタイトル;
+							r現在のステージ = stageTitle;
 
 							this.tガベージコレクションを実行する();
 						}
@@ -505,7 +505,7 @@ namespace TJAPlayer3
 						//-----------------------------
 						switch (this.n進行描画の戻り値)
 						{
-							case (int)CStageタイトル.E戻り値.GAMESTART:
+							case (int)CStageTitle.E戻り値.GAMESTART:
 								#region [ 選曲処理へ ]
 								//-----------------------------
 								r現在のステージ.On非活性化();
@@ -518,41 +518,41 @@ namespace TJAPlayer3
 								#endregion
 								break;
 
-							case (int)CStageタイトル.E戻り値.CONFIG:
+							case (int)CStageTitle.E戻り値.CONFIG:
 								#region [ *** ]
 								//-----------------------------
 								r現在のステージ.On非活性化();
 								Trace.TraceInformation("----------------------");
-								Trace.TraceInformation("■ コンフィグ");
-								stageコンフィグ.On活性化();
+								Trace.TraceInformation("■ Config");
+								stageConfig.On活性化();
 								r直前のステージ = r現在のステージ;
-								r現在のステージ = stageコンフィグ;
+								r現在のステージ = stageConfig;
 								//-----------------------------
 								#endregion
 								break;
 
-							case (int)CStageタイトル.E戻り値.EXIT:
+							case (int)CStageTitle.E戻り値.EXIT:
 								#region [ *** ]
 								//-----------------------------
 								r現在のステージ.On非活性化();
 								Trace.TraceInformation("----------------------");
-								Trace.TraceInformation("■ 終了");
-								stage終了.On活性化();
+								Trace.TraceInformation("■ Ending");
+								stageEnding.On活性化();
 								r直前のステージ = r現在のステージ;
-								r現在のステージ = stage終了;
+								r現在のステージ = stageEnding;
 								//-----------------------------
 								#endregion
 								break;
 
-							case (int)CStageタイトル.E戻り値.MAINTENANCE:
+							case (int)CStageTitle.E戻り値.MAINTENANCE:
 								#region [ *** ]
 								//-----------------------------
 								r現在のステージ.On非活性化();
 								Trace.TraceInformation("----------------------");
-								Trace.TraceInformation("■ メンテ");
-								stageメンテ.On活性化();
+								Trace.TraceInformation("■ Maintenance");
+								stageMaintenance.On活性化();
 								r直前のステージ = r現在のステージ;
-								r現在のステージ = stageメンテ;
+								r現在のステージ = stageMaintenance;
 								//-----------------------------
 								#endregion
 								break;
@@ -576,9 +576,9 @@ namespace TJAPlayer3
 									r現在のステージ.On非活性化();
 									Trace.TraceInformation("----------------------");
 									Trace.TraceInformation("■ タイトル");
-									stageタイトル.On活性化();
+									stageTitle.On活性化();
 									r直前のステージ = r現在のステージ;
-									r現在のステージ = stageタイトル;
+									r現在のステージ = stageTitle;
 
 									this.tガベージコレクションを実行する();
 									break;
@@ -616,9 +616,9 @@ namespace TJAPlayer3
 								r現在のステージ.On非活性化();
 								Trace.TraceInformation("----------------------");
 								Trace.TraceInformation("■ タイトル");
-								stageタイトル.On活性化();
+								stageTitle.On活性化();
 								r直前のステージ = r現在のステージ;
-								r現在のステージ = stageタイトル;
+								r現在のステージ = stageTitle;
 
 								this.tガベージコレクションを実行する();
 								break;
@@ -661,9 +661,9 @@ namespace TJAPlayer3
 								r現在のステージ.On非活性化();
 								Trace.TraceInformation("----------------------");
 								Trace.TraceInformation("■ コンフィグ");
-								stageコンフィグ.On活性化();
+								stageConfig.On活性化();
 								r直前のステージ = r現在のステージ;
-								r現在のステージ = stageコンフィグ;
+								r現在のステージ = stageConfig;
 
 								this.tガベージコレクションを実行する();
 								break;
@@ -840,15 +840,15 @@ namespace TJAPlayer3
 
 								r現在のステージ.On非活性化();
 								Trace.TraceInformation("----------------------");
-								Trace.TraceInformation("■ 結果");
-								stage結果.st演奏記録[0] = c演奏記録_Drums[0];
+								Trace.TraceInformation("■ Result");
+								stageResult.st演奏記録[0] = c演奏記録_Drums[0];
 								if (ConfigIni.nPlayerCount == 2)
 								{
-									stage結果.st演奏記録[1] = c演奏記録_Drums[1];
+									stageResult.st演奏記録[1] = c演奏記録_Drums[1];
 								}
-								stage結果.On活性化();
+								stageResult.On活性化();
 								r直前のステージ = r現在のステージ;
-								r現在のステージ = stage結果;
+								r現在のステージ = stageResult;
 
 								break;
 								//-----------------------------
@@ -1498,31 +1498,31 @@ namespace TJAPlayer3
 			//---------------------
 			r現在のステージ = null;
 			r直前のステージ = null;
-			stage起動 = new CStage起動();
-			stageタイトル = new CStageタイトル();
+			stageStartUp = new CStageStartUp();
+			stageTitle = new CStageTitle();
 			//			stageオプション = new CStageオプション();
-			stageコンフィグ = new CStageコンフィグ();
+			stageConfig = new CStageConfig();
 			stage選曲 = new CStage選曲();
 			stage曲読み込み = new CStage曲読み込み();
 			stage演奏ドラム画面 = new CStage演奏画面共通();
-			stage結果 = new CStage結果();
+			stageResult = new CStageResult();
 			stageChangeSkin = new CStageChangeSkin();
-			stage終了 = new CStage終了();
-			stageメンテ = new CStageメンテナンス();
+			stageEnding = new CStageEnding();
+			stageMaintenance = new CStageMaintenance();
 			this.listトップレベルActivities = new List<CActivity>();
 			this.listトップレベルActivities.Add(actEnumSongs);
 			this.listトップレベルActivities.Add(act文字コンソール);
-			this.listトップレベルActivities.Add(stage起動);
-			this.listトップレベルActivities.Add(stageタイトル);
+			this.listトップレベルActivities.Add(stageStartUp);
+			this.listトップレベルActivities.Add(stageTitle);
 			//			this.listトップレベルActivities.Add( stageオプション );
-			this.listトップレベルActivities.Add(stageコンフィグ);
+			this.listトップレベルActivities.Add(stageConfig);
 			this.listトップレベルActivities.Add(stage選曲);
 			this.listトップレベルActivities.Add(stage曲読み込み);
 			this.listトップレベルActivities.Add(stage演奏ドラム画面);
-			this.listトップレベルActivities.Add(stage結果);
+			this.listトップレベルActivities.Add(stageResult);
 			this.listトップレベルActivities.Add(stageChangeSkin);
-			this.listトップレベルActivities.Add(stage終了);
-			this.listトップレベルActivities.Add(stageメンテ);
+			this.listトップレベルActivities.Add(stageEnding);
+			this.listトップレベルActivities.Add(stageMaintenance);
 			//---------------------
 			#endregion
 #region Discordの処理
@@ -1551,7 +1551,7 @@ namespace TJAPlayer3
 			Trace.TraceInformation("----------------------");
 			Trace.TraceInformation("■ 起動");
 
-			r現在のステージ = stage起動;
+			r現在のステージ = stageStartUp;
 
 			r現在のステージ.On活性化();
 

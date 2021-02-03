@@ -10,11 +10,11 @@ using DiscordRPC;
 
 namespace TJAPlayer3
 {
-	internal class CStageタイトル : CStage
+	internal class CStageTitle : CStage
 	{
 		// コンストラクタ
 
-		public CStageタイトル()
+		public CStageTitle()
 		{
 			base.eStageID = CStage.EStage.Title;
 			base.b活性化してない = true;
@@ -97,7 +97,7 @@ namespace TJAPlayer3
 				//---------------------
 				if (base.b初めての進行描画)
 				{
-					if (TJAPlayer3.r直前のステージ == TJAPlayer3.stage起動)
+					if (TJAPlayer3.r直前のステージ == TJAPlayer3.stageStartUp)
 					{
 						this.actFI.tFadeIn開始();
 						base.eフェーズID = CStage.Eフェーズ.タイトル_起動画面からのFadeIn;

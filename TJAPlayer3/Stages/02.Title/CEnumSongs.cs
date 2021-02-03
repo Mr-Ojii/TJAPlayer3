@@ -188,7 +188,7 @@ namespace TJAPlayer3
 			{
 				#region [ 0) システムサウンドの構築  ]
 				//-----------------------------
-				TJAPlayer3.stage起動.eフェーズID = CStage.Eフェーズ.起動0_システムサウンドを構築;
+				TJAPlayer3.stageStartUp.eフェーズID = CStage.Eフェーズ.起動0_システムサウンドを構築;
 
 				Trace.TraceInformation( "0) システムサウンドを構築します。" );
 				Trace.Indent();
@@ -221,9 +221,9 @@ namespace TJAPlayer3
 							}
 						}
 					}
-					lock ( TJAPlayer3.stage起動.list進行文字列 )
+					lock ( TJAPlayer3.stageStartUp.list進行文字列 )
 					{
-						TJAPlayer3.stage起動.list進行文字列.Add( "SYSTEM SOUND...OK" );
+						TJAPlayer3.stageStartUp.list進行文字列.Add( "SYSTEM SOUND...OK" );
 					}
 				}
 				finally
@@ -235,7 +235,7 @@ namespace TJAPlayer3
 
 				#region [ 00) songlist.dbの読み込みによる曲リストの構築  ]
 				//-----------------------------
-				TJAPlayer3.stage起動.eフェーズID = CStage.Eフェーズ.起動00_songlistから曲リストを作成する;
+				TJAPlayer3.stageStartUp.eフェーズID = CStage.Eフェーズ.起動00_songlistから曲リストを作成する;
 
 				Trace.TraceInformation( "1) songlist.dbを読み込みます。" );
 				Trace.Indent();
@@ -253,17 +253,17 @@ namespace TJAPlayer3
 
 						int scores = this.Songs管理.n検索されたスコア数;
 						Trace.TraceInformation( "songlist.db の読み込みを完了しました。[{0}スコア]", scores );
-						lock ( TJAPlayer3.stage起動.list進行文字列 )
+						lock ( TJAPlayer3.stageStartUp.list進行文字列 )
 						{
-							TJAPlayer3.stage起動.list進行文字列.Add( "SONG LIST...OK" );
+							TJAPlayer3.stageStartUp.list進行文字列.Add( "SONG LIST...OK" );
 						}
 					}
 					else
 					{
 						Trace.TraceInformation( "初回の起動であるかまたはDTXManiaのバージョンが上がったため、songlist.db の読み込みをスキップします。" );
-						lock ( TJAPlayer3.stage起動.list進行文字列 )
+						lock ( TJAPlayer3.stageStartUp.list進行文字列 )
 						{
-							TJAPlayer3.stage起動.list進行文字列.Add( "SONG LIST...SKIPPED" );
+							TJAPlayer3.stageStartUp.list進行文字列.Add( "SONG LIST...SKIPPED" );
 						}
 					}
 				}
@@ -276,7 +276,7 @@ namespace TJAPlayer3
 			}
 			finally
 			{
-				TJAPlayer3.stage起動.eフェーズID = CStage.Eフェーズ.起動7_完了;
+				TJAPlayer3.stageStartUp.eフェーズID = CStage.Eフェーズ.起動7_完了;
 				TimeSpan span = (TimeSpan) ( DateTime.Now - now );
 				Trace.TraceInformation( "起動所要時間: {0}", span.ToString() );
 				lock ( this )							// #28700 2012.6.12 yyagi; state change must be in finally{} for exiting as of compact mode.

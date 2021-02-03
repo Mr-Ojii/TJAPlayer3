@@ -8,11 +8,11 @@ using DiscordRPC;
 
 namespace TJAPlayer3
 {
-	internal class CStage終了 : CStage
+	internal class CStageEnding : CStage
 	{
 		// コンストラクタ
 
-		public CStage終了()
+		public CStageEnding()
 		{
 			base.eStageID = CStage.EStage.Ending;
 			base.eフェーズID = CStage.Eフェーズ.共通_通常状態;

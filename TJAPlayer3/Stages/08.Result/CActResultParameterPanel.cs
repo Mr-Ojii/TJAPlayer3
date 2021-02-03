@@ -50,7 +50,7 @@ namespace TJAPlayer3
 			{
 				if (TJAPlayer3.stage選曲.n確定された曲の難易度[index] == (int)Difficulty.Dan)
 				{
-					switch (TJAPlayer3.stage演奏ドラム画面.actDan.GetExamStatus(TJAPlayer3.stage結果.st演奏記録[index].Dan_C, TJAPlayer3.stage結果.st演奏記録[index].Dan_C_Gauge))
+					switch (TJAPlayer3.stage演奏ドラム画面.actDan.GetExamStatus(TJAPlayer3.stageResult.st演奏記録[index].Dan_C, TJAPlayer3.stageResult.st演奏記録[index].Dan_C_Gauge))
 					{
 						case Exam.Status.Failure:
 							this.CrownState[index] = 0;
@@ -67,16 +67,16 @@ namespace TJAPlayer3
 				}
 				else
 				{
-					if (TJAPlayer3.stage結果.st演奏記録[index].fゲージ < 80)
+					if (TJAPlayer3.stageResult.st演奏記録[index].fゲージ < 80)
 					{
 						this.CrownState[index] = 0;
 					}
-					else if (TJAPlayer3.stage結果.st演奏記録[index].nMiss数_Auto含まない != 0)
+					else if (TJAPlayer3.stageResult.st演奏記録[index].nMiss数_Auto含まない != 0)
 					{
 						this.CrownState[index] = 1;
 						this.AllPlayerCannotGetCrown = false;
 					}
-					else if (TJAPlayer3.stage結果.st演奏記録[index].nGreat数_Auto含まない != 0)
+					else if (TJAPlayer3.stageResult.st演奏記録[index].nGreat数_Auto含まない != 0)
 					{
 						this.CrownState[index] = 2;
 						this.AllPlayerCannotGetCrown = false;
@@ -173,24 +173,24 @@ namespace TJAPlayer3
 					}
 					if (TJAPlayer3.Tx.Result_v2_GaugeBase != null&& TJAPlayer3.Tx.Result_v2_Gauge != null)
 					{
-						int width = (int)(TJAPlayer3.Tx.Result_v2_Gauge.szテクスチャサイズ.Width * (Math.Min((TJAPlayer3.stage結果.st演奏記録[i].fゲージ / 100f), this.ctGauge.n現在の値 / 100f))) / (TJAPlayer3.Tx.Result_v2_Gauge.szテクスチャサイズ.Width / 50) * (TJAPlayer3.Tx.Result_v2_Gauge.szテクスチャサイズ.Width / 50);// 2020/10/13 Mr-Ojii 最後の意味が無いように見える乗算、除算には意味があります。消さないで。
+						int width = (int)(TJAPlayer3.Tx.Result_v2_Gauge.szテクスチャサイズ.Width * (Math.Min((TJAPlayer3.stageResult.st演奏記録[i].fゲージ / 100f), this.ctGauge.n現在の値 / 100f))) / (TJAPlayer3.Tx.Result_v2_Gauge.szテクスチャサイズ.Width / 50) * (TJAPlayer3.Tx.Result_v2_Gauge.szテクスチャサイズ.Width / 50);// 2020/10/13 Mr-Ojii 最後の意味が無いように見える乗算、除算には意味があります。消さないで。
 						Rectangle rec = new Rectangle(0, 0, width, TJAPlayer3.Tx.Result_v2_Gauge.szテクスチャサイズ.Height);
 						TJAPlayer3.Tx.Result_v2_GaugeBase.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nResultV2GaugeBodyX[i], TJAPlayer3.Skin.nResultV2GaugeBodyY[i]);
 						TJAPlayer3.Tx.Result_v2_Gauge.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nResultV2GaugeBodyX[i], TJAPlayer3.Skin.nResultV2GaugeBodyY[i], rec);
 					}
 
-					this.t小文字表示V2(TJAPlayer3.Skin.nResultV2GreatX[i], TJAPlayer3.Skin.nResultV2GreatY[i], TJAPlayer3.stage結果.st演奏記録[i].nPerfect数, false, EPhaseV2.Perfect, i);
-					this.t小文字表示V2(TJAPlayer3.Skin.nResultV2GoodX[i], TJAPlayer3.Skin.nResultV2GoodY[i], TJAPlayer3.stage結果.st演奏記録[i].nGreat数, false, EPhaseV2.Good, i);
-					this.t小文字表示V2(TJAPlayer3.Skin.nResultV2BadX[i], TJAPlayer3.Skin.nResultV2BadY[i], TJAPlayer3.stage結果.st演奏記録[i].nMiss数, false, EPhaseV2.Poor, i);
-					this.t小文字表示V2(TJAPlayer3.Skin.nResultV2RollX[i], TJAPlayer3.Skin.nResultV2RollY[i], TJAPlayer3.stage結果.st演奏記録[i].n連打数, false, EPhaseV2.Roll, i);
-					this.t小文字表示V2(TJAPlayer3.Skin.nResultV2ComboX[i], TJAPlayer3.Skin.nResultV2ComboY[i], TJAPlayer3.stage結果.st演奏記録[i].n最大コンボ数, false, EPhaseV2.Combo, i);
+					this.t小文字表示V2(TJAPlayer3.Skin.nResultV2GreatX[i], TJAPlayer3.Skin.nResultV2GreatY[i], TJAPlayer3.stageResult.st演奏記録[i].nPerfect数, false, EPhaseV2.Perfect, i);
+					this.t小文字表示V2(TJAPlayer3.Skin.nResultV2GoodX[i], TJAPlayer3.Skin.nResultV2GoodY[i], TJAPlayer3.stageResult.st演奏記録[i].nGreat数, false, EPhaseV2.Good, i);
+					this.t小文字表示V2(TJAPlayer3.Skin.nResultV2BadX[i], TJAPlayer3.Skin.nResultV2BadY[i], TJAPlayer3.stageResult.st演奏記録[i].nMiss数, false, EPhaseV2.Poor, i);
+					this.t小文字表示V2(TJAPlayer3.Skin.nResultV2RollX[i], TJAPlayer3.Skin.nResultV2RollY[i], TJAPlayer3.stageResult.st演奏記録[i].n連打数, false, EPhaseV2.Roll, i);
+					this.t小文字表示V2(TJAPlayer3.Skin.nResultV2ComboX[i], TJAPlayer3.Skin.nResultV2ComboY[i], TJAPlayer3.stageResult.st演奏記録[i].n最大コンボ数, false, EPhaseV2.Combo, i);
 
-					this.t小文字表示V2(TJAPlayer3.Skin.nResultV2ScoreX[i], TJAPlayer3.Skin.nResultV2ScoreY[i], TJAPlayer3.stage結果.st演奏記録[i].nスコア, true, EPhaseV2.Score, i);
+					this.t小文字表示V2(TJAPlayer3.Skin.nResultV2ScoreX[i], TJAPlayer3.Skin.nResultV2ScoreY[i], TJAPlayer3.stageResult.st演奏記録[i].nスコア, true, EPhaseV2.Score, i);
 
 					#region 段位認定モード用+王冠
 					if (TJAPlayer3.stage選曲.n確定された曲の難易度[i] == (int)Difficulty.Dan)
 					{
-						TJAPlayer3.stage演奏ドラム画面.actDan.DrawExam(TJAPlayer3.stage結果.st演奏記録[i].Dan_C);
+						TJAPlayer3.stage演奏ドラム画面.actDan.DrawExam(TJAPlayer3.stageResult.st演奏記録[i].Dan_C);
 
 						TJAPlayer3.Tx.Result_Dan?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_Dan_XY[0], TJAPlayer3.Skin.Result_Dan_XY[1], new Rectangle(TJAPlayer3.Skin.Result_Dan[0] * CrownState[i], 0, TJAPlayer3.Skin.Result_Dan[0], TJAPlayer3.Skin.Result_Dan[1]));
 						// Dan_Plate
@@ -269,7 +269,7 @@ namespace TJAPlayer3
 					}
 					if (TJAPlayer3.Tx.Result_Gauge_Base != null && TJAPlayer3.Tx.Result_Gauge != null)
 					{
-						double Rate = TJAPlayer3.stage結果.st演奏記録[i].fゲージ;
+						double Rate = TJAPlayer3.stageResult.st演奏記録[i].fゲージ;
 						TJAPlayer3.Tx.Result_Gauge_Base.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nResultGaugeBaseX[i], TJAPlayer3.Skin.nResultGaugeBaseY[i], new Rectangle(0, 0, 691, 47));
 						#region[ ゲージ本体 ]
 						int[] y_tmp = { 145, 439 };
@@ -382,23 +382,23 @@ namespace TJAPlayer3
 					{
 						int[] y_Fire = { 34, 328 };
 						int[] y_Soul = { 107, 401 };
-						if (TJAPlayer3.Tx.Gauge_Soul_Fire != null && TJAPlayer3.stage結果.st演奏記録[i].fゲージ >= 100.0f)
+						if (TJAPlayer3.Tx.Gauge_Soul_Fire != null && TJAPlayer3.stageResult.st演奏記録[i].fゲージ >= 100.0f)
 							TJAPlayer3.Tx.Gauge_Soul_Fire.t2D描画(TJAPlayer3.app.Device, 1100, y_Fire[i], new Rectangle(0, 0, 230, 230));
 						TJAPlayer3.Tx.Gauge_Soul.t2D描画(TJAPlayer3.app.Device, 1174, y_Soul[i], new Rectangle(0, 0, 80, 80));
 					}
 					//演奏中のやつ使いまわせなかった。ファック。
-					this.t小文字表示(TJAPlayer3.Skin.nResultScoreX[i], TJAPlayer3.Skin.nResultScoreY[i], TJAPlayer3.stage結果.st演奏記録[i].nスコア, true, EPhase.Score, i);
-					this.t小文字表示(TJAPlayer3.Skin.nResultGreatX[i], TJAPlayer3.Skin.nResultGreatY[i], TJAPlayer3.stage結果.st演奏記録[i].nPerfect数, false, EPhase.Perfect, i);
-					this.t小文字表示(TJAPlayer3.Skin.nResultGoodX[i], TJAPlayer3.Skin.nResultGoodY[i], TJAPlayer3.stage結果.st演奏記録[i].nGreat数, false, EPhase.Good, i);
-					this.t小文字表示(TJAPlayer3.Skin.nResultBadX[i], TJAPlayer3.Skin.nResultBadY[i], TJAPlayer3.stage結果.st演奏記録[i].nMiss数, false, EPhase.Poor, i);
+					this.t小文字表示(TJAPlayer3.Skin.nResultScoreX[i], TJAPlayer3.Skin.nResultScoreY[i], TJAPlayer3.stageResult.st演奏記録[i].nスコア, true, EPhase.Score, i);
+					this.t小文字表示(TJAPlayer3.Skin.nResultGreatX[i], TJAPlayer3.Skin.nResultGreatY[i], TJAPlayer3.stageResult.st演奏記録[i].nPerfect数, false, EPhase.Perfect, i);
+					this.t小文字表示(TJAPlayer3.Skin.nResultGoodX[i], TJAPlayer3.Skin.nResultGoodY[i], TJAPlayer3.stageResult.st演奏記録[i].nGreat数, false, EPhase.Good, i);
+					this.t小文字表示(TJAPlayer3.Skin.nResultBadX[i], TJAPlayer3.Skin.nResultBadY[i], TJAPlayer3.stageResult.st演奏記録[i].nMiss数, false, EPhase.Poor, i);
 
-					this.t小文字表示(TJAPlayer3.Skin.nResultComboX[i], TJAPlayer3.Skin.nResultComboY[i], TJAPlayer3.stage結果.st演奏記録[i].n最大コンボ数, false, EPhase.Combo, i);
-					this.t小文字表示(TJAPlayer3.Skin.nResultRollX[i], TJAPlayer3.Skin.nResultRollY[i], TJAPlayer3.stage結果.st演奏記録[i].n連打数, false, EPhase.Roll, i);
+					this.t小文字表示(TJAPlayer3.Skin.nResultComboX[i], TJAPlayer3.Skin.nResultComboY[i], TJAPlayer3.stageResult.st演奏記録[i].n最大コンボ数, false, EPhase.Combo, i);
+					this.t小文字表示(TJAPlayer3.Skin.nResultRollX[i], TJAPlayer3.Skin.nResultRollY[i], TJAPlayer3.stageResult.st演奏記録[i].n連打数, false, EPhase.Roll, i);
 
 					#region 段位認定モード用+王冠
 					if (TJAPlayer3.stage選曲.n確定された曲の難易度[i] == (int)Difficulty.Dan)
 					{
-						TJAPlayer3.stage演奏ドラム画面.actDan.DrawExam(TJAPlayer3.stage結果.st演奏記録[i].Dan_C);
+						TJAPlayer3.stage演奏ドラム画面.actDan.DrawExam(TJAPlayer3.stageResult.st演奏記録[i].Dan_C);
 						
 						TJAPlayer3.Tx.Result_Dan?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_Dan_XY[0], TJAPlayer3.Skin.Result_Dan_XY[1], new Rectangle(TJAPlayer3.Skin.Result_Dan[0] * CrownState[i], 0, TJAPlayer3.Skin.Result_Dan[0], TJAPlayer3.Skin.Result_Dan[1]));
 						// Dan_Plate

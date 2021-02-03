@@ -10,7 +10,7 @@ using DiscordRPC;
 
 namespace TJAPlayer3
 {
-	internal class CStageコンフィグ : CStage
+	internal class CStageConfig : CStage
 	{
 		// プロパティ
 
@@ -19,7 +19,7 @@ namespace TJAPlayer3
 
 		// コンストラクタ
 
-		public CStageコンフィグ()
+		public CStageConfig()
 		{
 			CActDFPFont font;
 			base.eStageID = CStage.EStage.Config;
@@ -320,7 +320,7 @@ namespace TJAPlayer3
 					{
 						if ( this.eItemPanelモード == EItemPanelモード.KeyCode一覧 )
 						{
-							TJAPlayer3.stageコンフィグ.tアサイン完了通知();
+							TJAPlayer3.stageConfig.tアサイン完了通知();
 							return 0;
 						}
 						if ( !this.actList.bIsKeyAssignSelected && !this.actList.bIsFocusingParameter )	// #24525 2011.3.15 yyagi, #32059 2013.9.17 yyagi
