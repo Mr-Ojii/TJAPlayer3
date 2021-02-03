@@ -47,7 +47,7 @@ namespace TJAPlayer3
 			{
 				#region [ 初期化 ]
 				//---------------------
-				this.eフェードアウト完了時の戻り値 = E戻り値.継続;
+				this.eFadeOut完了時の戻り値 = E戻り値.継続;
 				this.bアニメが完了 = false;
 				this.bIsCheckedWhetherResultScreenShouldSaveOrNot = false;				// #24609 2011.3.14 yyagi
 				this.b新記録ランク = false;
@@ -205,8 +205,8 @@ namespace TJAPlayer3
 				if( base.b初めての進行描画 )
 				{
 					this.ct登場用 = new CCounter( 0, 100, 5, TJAPlayer3.Timer );
-					this.actFI.tフェードイン開始();
-					base.eフェーズID = CStage.Eフェーズ.共通_フェードイン;
+					this.actFI.tFadeIn開始();
+					base.eフェーズID = CStage.Eフェーズ.共通_FadeIn;
 					base.b初めての進行描画 = false;
 				}
 				this.bアニメが完了 = true;
@@ -311,16 +311,16 @@ namespace TJAPlayer3
 				}
 				#endregion
 
-				if ( base.eフェーズID == CStage.Eフェーズ.共通_フェードイン )
+				if ( base.eフェーズID == CStage.Eフェーズ.共通_FadeIn )
 				{
 					if( this.actFI.On進行描画() != 0 )
 					{
 						base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
 					}
 				}
-				else if( ( base.eフェーズID == CStage.Eフェーズ.共通_フェードアウト ) )			//&& ( this.actFO.On進行描画() != 0 ) )
+				else if( ( base.eフェーズID == CStage.Eフェーズ.共通_FadeOut ) )			//&& ( this.actFO.On進行描画() != 0 ) )
 				{
-					return (int) this.eフェードアウト完了時の戻り値;
+					return (int) this.eFadeOut完了時の戻り値;
 				}
 				#region [ #24609 2011.3.14 yyagi ランク更新or演奏型スキル更新時、リザルト画像をpngで保存する ]
 				if ( this.bアニメが完了 == true && this.bIsCheckedWhetherResultScreenShouldSaveOrNot == false	// #24609 2011.3.14 yyagi; to save result screen in case BestRank or HiSkill.
@@ -334,9 +334,9 @@ namespace TJAPlayer3
 
 				// キー入力
 
-				if ((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.b押された(Eパッド.LRed) || TJAPlayer3.Pad.b押された(Eパッド.RRed) || (TJAPlayer3.Pad.b押された(Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && !this.bアニメが完了)
+				if ((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.b押された(EPad.LRed) || TJAPlayer3.Pad.b押された(EPad.RRed) || (TJAPlayer3.Pad.b押された(EPad.LRed2P) || TJAPlayer3.Pad.b押された(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && !this.bアニメが完了)
 				{
-					this.actFI.tフェードイン完了();                 // #25406 2011.6.9 yyagi
+					this.actFI.tFadeIn完了();                 // #25406 2011.6.9 yyagi
 					this.actParameterPanel.tアニメを完了させる();
 					this.actSongBar.tアニメを完了させる();
 					this.ct登場用.t停止();
@@ -346,16 +346,16 @@ namespace TJAPlayer3
 					if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape))
 					{
 						TJAPlayer3.Skin.sound取消音.t再生する();
-						this.actFO.tフェードアウト開始();
-						base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
-						this.eフェードアウト完了時の戻り値 = E戻り値.完了;
+						this.actFO.tFadeOut開始();
+						base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
+						this.eFadeOut完了時の戻り値 = E戻り値.完了;
 					}
-					if ((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.b押された(Eパッド.LRed) || TJAPlayer3.Pad.b押された(Eパッド.RRed) || (TJAPlayer3.Pad.b押された(Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && this.bアニメが完了)
+					if ((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.b押された(EPad.LRed) || TJAPlayer3.Pad.b押された(EPad.RRed) || (TJAPlayer3.Pad.b押された(EPad.LRed2P) || TJAPlayer3.Pad.b押された(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && this.bアニメが完了)
 					{
 						TJAPlayer3.Skin.sound取消音.t再生する();
-						//							this.actFO.tフェードアウト開始();
-						base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
-						this.eフェードアウト完了時の戻り値 = E戻り値.完了;
+						//							this.actFO.tFadeOut開始();
+						base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
+						this.eFadeOut完了時の戻り値 = E戻り値.完了;
 					}
 				}
 				
@@ -376,7 +376,7 @@ namespace TJAPlayer3
 		//-----------------
 		private CCounter ct登場用;
 		private CCounter ctMountainAndClear;
-		private E戻り値 eフェードアウト完了時の戻り値;
+		private E戻り値 eFadeOut完了時の戻り値;
 		private CActFIFOResult actFI;
 		private CActFIFOBlack actFO;
 		private CActResultParameterPanel actParameterPanel;

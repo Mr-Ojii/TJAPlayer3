@@ -121,10 +121,10 @@ namespace TJAPlayer3
 			[StructLayout(LayoutKind.Sequential)]
 			public struct STKEYASSIGN
 			{
-				public E入力デバイス 入力デバイス;
+				public EInputDevice 入力デバイス;
 				public int ID;
 				public int コード;
-				public STKEYASSIGN(E入力デバイス DeviceType, int nID, int nCode)
+				public STKEYASSIGN(EInputDevice DeviceType, int nID, int nCode)
 				{
 					this.入力デバイス = DeviceType;
 					this.ID = nID;
@@ -324,7 +324,7 @@ namespace TJAPlayer3
 				{
 					for (int k = 0; k < 0x10; k++)
 					{
-						if ((this.KeyAssign[j][k].入力デバイス == E入力デバイス.キーボード) && (this.KeyAssign[j][k].コード == (int)SlimDXKeys.Key.Return))
+						if ((this.KeyAssign[j][k].入力デバイス == EInputDevice.キーボード) && (this.KeyAssign[j][k].コード == (int)SlimDXKeys.Key.Return))
 						{
 							return false;
 						}
@@ -628,7 +628,7 @@ namespace TJAPlayer3
 
 		// メソッド
 
-		public void t指定した入力が既にアサイン済みである場合はそれを全削除する(E入力デバイス DeviceType, int nID, int nCode)
+		public void t指定した入力が既にアサイン済みである場合はそれを全削除する(EInputDevice DeviceType, int nID, int nCode)
 		{
 			for (int j = 0; j < (int)EKeyConfigPad.MAX; j++)
 			{
@@ -640,7 +640,7 @@ namespace TJAPlayer3
 						{
 							this.KeyAssign[j][m] = this.KeyAssign[j][m + 1];
 						}
-						this.KeyAssign[j][15].入力デバイス = E入力デバイス.不明;
+						this.KeyAssign[j][15].入力デバイス = EInputDevice.不明;
 						this.KeyAssign[j][15].ID = 0;
 						this.KeyAssign[j][15].コード = 0;
 						k--;
@@ -1036,7 +1036,7 @@ namespace TJAPlayer3
 			//sw.WriteLine( "; Semi-InvisibleでMissった時のチップ再表示時間(ms)" );
 			//sw.WriteLine( "InvisibleDisplayTimeMs={0}", (int) this.nDisplayTimesMs );
 			//sw.WriteLine();
-			//sw.WriteLine( "; Semi-InvisibleでMissってチップ再表示時間終了後のフェードアウト時間(ms)" );
+			//sw.WriteLine( "; Semi-InvisibleでMissってチップ再表示時間終了後のFadeOut時間(ms)" );
 			//sw.WriteLine( "InvisibleFadeoutTimeMs={0}", (int) this.nFadeoutTimeMs );
 			//sw.WriteLine();
 			#endregion
@@ -1750,7 +1750,7 @@ namespace TJAPlayer3
 											}
 											//else if ( str3.Equals( "JudgeDispPriorityDrums" ) )
 											//{
-											//    this.e判定表示優先度.Drums = (E判定表示優先度) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 1, (int) this.e判定表示優先度.Drums );
+											//    this.e判定表示優先度.Drums = (EJudge表示優先度) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 1, (int) this.e判定表示優先度.Drums );
 											//}
 											else if ( str3.Equals( "Risky" ) )					// #23559 2011.6.23  yyagi
 											{
@@ -1981,7 +1981,7 @@ namespace TJAPlayer3
 				this.KeyAssign[j] = new CKeyAssign.STKEYASSIGN[16];
 				for (int k = 0; k < 16; k++)
 				{
-					this.KeyAssign[j][k] = new CKeyAssign.STKEYASSIGN(E入力デバイス.不明, 0, 0);
+					this.KeyAssign[j][k] = new CKeyAssign.STKEYASSIGN(EInputDevice.不明, 0, 0);
 				}
 			}
 		}
@@ -1990,7 +1990,7 @@ namespace TJAPlayer3
 			bool flag = true;
 			for( int i = 0; i < 0x10; i++ )
 			{
-				if( assign[ i ].入力デバイス == E入力デバイス.不明 )
+				if( assign[ i ].入力デバイス == EInputDevice.不明 )
 				{
 					continue;
 				}
@@ -2001,19 +2001,19 @@ namespace TJAPlayer3
 				flag = false;
 				switch( assign[ i ].入力デバイス )
 				{
-					case E入力デバイス.キーボード:
+					case EInputDevice.キーボード:
 						sw.Write( 'K' );
 						break;
 
-					case E入力デバイス.MIDI入力:
+					case EInputDevice.MIDI入力:
 						sw.Write( 'M' );
 						break;
 
-					case E入力デバイス.ジョイパッド:
+					case EInputDevice.ジョイパッド:
 						sw.Write( 'J' );
 						break;
 
-					case E入力デバイス.マウス:
+					case EInputDevice.マウス:
 						sw.Write( 'N' );
 						break;
 				}
@@ -2025,32 +2025,32 @@ namespace TJAPlayer3
 			string[] strArray = strキー記述.Split( new char[] { ',' } );
 			for( int i = 0; ( i < strArray.Length ) && ( i < 0x10 ); i++ )
 			{
-				E入力デバイス e入力デバイス;
+				EInputDevice e入力デバイス;
 				int id;
 				int code;
 				string str = strArray[ i ].Trim().ToUpper();
 				if ( str.Length >= 3 )
 				{
-					e入力デバイス = E入力デバイス.不明;
+					e入力デバイス = EInputDevice.不明;
 					switch ( str[ 0 ] )
 					{
 						case 'J':
-							e入力デバイス = E入力デバイス.ジョイパッド;
+							e入力デバイス = EInputDevice.ジョイパッド;
 							break;
 
 						case 'K':
-							e入力デバイス = E入力デバイス.キーボード;
+							e入力デバイス = EInputDevice.キーボード;
 							break;
 
 						case 'L':
 							continue;
 
 						case 'M':
-							e入力デバイス = E入力デバイス.MIDI入力;
+							e入力デバイス = EInputDevice.MIDI入力;
 							break;
 
 						case 'N':
-							e入力デバイス = E入力デバイス.マウス;
+							e入力デバイス = EInputDevice.マウス;
 							break;
 					}
 				}

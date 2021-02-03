@@ -125,7 +125,7 @@ namespace TJAPlayer3
 			{
 				base.b初めての進行描画 = false;
 			}
-			if (this.ct進行メイン != null && this.ct進行return用 != null && (TJAPlayer3.stage演奏ドラム画面.eフェーズID == CStage.Eフェーズ.演奏_演奏終了演出 || TJAPlayer3.stage演奏ドラム画面.eフェーズID == CStage.Eフェーズ.演奏_STAGE_CLEAR_フェードアウト))
+			if (this.ct進行メイン != null && this.ct進行return用 != null && (TJAPlayer3.stage演奏ドラム画面.eフェーズID == CStage.Eフェーズ.演奏_演奏終了演出 || TJAPlayer3.stage演奏ドラム画面.eフェーズID == CStage.Eフェーズ.演奏_STAGE_CLEAR_FadeOut))
 			{
 				this.ct進行メイン.t進行();
 				this.ct進行return用.t進行();

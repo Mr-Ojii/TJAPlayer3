@@ -175,8 +175,8 @@ namespace TJAPlayer3
 						this.nBGMの総再生時間ms = TJAPlayer3.Skin.sound曲読込開始音.n長さ_現在のサウンド;
 					}
 				}
-				//this.actFI.tフェードイン開始();							// #27787 2012.3.10 yyagi 曲読み込み画面のフェードインの省略
-				base.eフェーズID = CStage.Eフェーズ.共通_フェードイン;
+				//this.actFI.tFadeIn開始();							// #27787 2012.3.10 yyagi 曲読み込み画面のFadeInの省略
+				base.eフェーズID = CStage.Eフェーズ.共通_FadeIn;
 				base.b初めての進行描画 = false;
 
 				nWAVcount = 1;
@@ -331,9 +331,9 @@ namespace TJAPlayer3
 
 			switch( base.eフェーズID )
 			{
-				case CStage.Eフェーズ.共通_フェードイン:
-					//if( this.actFI.On進行描画() != 0 )			    // #27787 2012.3.10 yyagi 曲読み込み画面のフェードインの省略
-																		// 必ず一度「CStaeg.Eフェーズ.共通_フェードイン」フェーズを経由させること。
+				case CStage.Eフェーズ.共通_FadeIn:
+					//if( this.actFI.On進行描画() != 0 )			    // #27787 2012.3.10 yyagi 曲読み込み画面のFadeInの省略
+																		// 必ず一度「CStaeg.Eフェーズ.共通_FadeIn」フェーズを経由させること。
 																		// さもないと、曲読み込みが完了するまで、曲読み込み画面が描画されない。
 						base.eフェーズID = CStage.Eフェーズ.NOWLOADING_DTXファイルを読み込む;
 					return (int) E曲読込画面の戻り値.継続;
@@ -476,14 +476,14 @@ namespace TJAPlayer3
 							this.nBGM再生開始時刻 = nCurrentTime;
 
 //						if ( ( nCurrentTime - this.nBGM再生開始時刻 ) > ( this.nBGMの総再生時間ms - 1000 ) )
-						if ( ( nCurrentTime - this.nBGM再生開始時刻 ) >= ( this.nBGMの総再生時間ms ) )	// #27787 2012.3.10 yyagi 1000ms == フェードイン分の時間
+						if ( ( nCurrentTime - this.nBGM再生開始時刻 ) >= ( this.nBGMの総再生時間ms ) )	// #27787 2012.3.10 yyagi 1000ms == FadeIn分の時間
 						{
-							base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
+							base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
 						}
 						return (int) E曲読込画面の戻り値.継続;
 					}
 
-				case CStage.Eフェーズ.共通_フェードアウト:
+				case CStage.Eフェーズ.共通_FadeOut:
 					if ( this.ct待機.b終了値に達してない )
 						return (int)E曲読込画面の戻り値.継続;
 

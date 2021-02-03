@@ -28,7 +28,7 @@ namespace FDK
 				}
 				foreach (IInputDevice device in this.list入力デバイス)
 				{
-					if (device.e入力デバイス種別 == E入力デバイス種別.Keyboard)
+					if (device.e入力デバイス種別 == EInputDevice種別.Keyboard)
 					{
 						this._Keyboard = device;
 						return device;
@@ -47,7 +47,7 @@ namespace FDK
 				}
 				foreach (IInputDevice device in this.list入力デバイス)
 				{
-					if (device.e入力デバイス種別 == E入力デバイス種別.Mouse)
+					if (device.e入力デバイス種別 == EInputDevice種別.Mouse)
 					{
 						this._Mouse = device;
 						return device;
@@ -123,7 +123,7 @@ namespace FDK
 		{
 			foreach (IInputDevice device in this.list入力デバイス)
 			{
-				if ((device.e入力デバイス種別 == E入力デバイス種別.Joystick) && (device.ID == ID))
+				if ((device.e入力デバイス種別 == EInputDevice種別.Joystick) && (device.ID == ID))
 				{
 					return device;
 				}
@@ -134,7 +134,7 @@ namespace FDK
 		{
 			foreach (IInputDevice device in this.list入力デバイス)
 			{
-				if ((device.e入力デバイス種別 == E入力デバイス種別.Joystick) && device.GUID.Equals(GUID))
+				if ((device.e入力デバイス種別 == EInputDevice種別.Joystick) && device.GUID.Equals(GUID))
 				{
 					return device;
 				}
@@ -145,7 +145,7 @@ namespace FDK
 		{
 			foreach (IInputDevice device in this.list入力デバイス)
 			{
-				if ((device.e入力デバイス種別 == E入力デバイス種別.MidiIn) && (device.ID == ID))
+				if ((device.e入力デバイス種別 == EInputDevice種別.MidiIn) && (device.ID == ID))
 				{
 					return device;
 				}

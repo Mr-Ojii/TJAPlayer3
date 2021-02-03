@@ -268,20 +268,20 @@ namespace TJAPlayer3
 
 			if (this.ePhase[0] == EChangeSEPhase.Active)
 			{
-				if (TJAPlayer3.Pad.b押された(Eパッド.LRed) || TJAPlayer3.Pad.b押された(Eパッド.RRed))
+				if (TJAPlayer3.Pad.b押された(EPad.LRed) || TJAPlayer3.Pad.b押された(EPad.RRed))
 				{
 					TJAPlayer3.Skin.sound決定音?.t再生する();
 					NowRow[0]++;
 					if (NowRow[0] >= lci[0].Count)
 						tDeativatePopupMenu(0);
 				}
-				if (TJAPlayer3.Pad.b押された(Eパッド.LBlue) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow))
+				if (TJAPlayer3.Pad.b押された(EPad.LBlue) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow))
 				{
 					TJAPlayer3.Skin.sound変更音?.t再生する();
 					lci[0][NowRow[0]].t項目値を前へ移動();
 					SaveValue(0);
 				}
-				if (TJAPlayer3.Pad.b押された(Eパッド.RBlue) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow))
+				if (TJAPlayer3.Pad.b押された(EPad.RBlue) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow))
 				{
 					TJAPlayer3.Skin.sound変更音?.t再生する();
 					lci[0][NowRow[0]].t項目値を次へ移動();
@@ -310,20 +310,20 @@ namespace TJAPlayer3
 
 			if (this.ePhase[1] == EChangeSEPhase.Active)
 			{
-				if (TJAPlayer3.Pad.b押された(Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(Eパッド.RRed2P))
+				if (TJAPlayer3.Pad.b押された(EPad.LRed2P) || TJAPlayer3.Pad.b押された(EPad.RRed2P))
 				{
 					TJAPlayer3.Skin.sound決定音?.t再生する();
 					NowRow[1]++;
 					if (NowRow[1] >= lci[1].Count)
 						tDeativatePopupMenu(1);
 				}
-				if (TJAPlayer3.Pad.b押された(Eパッド.LBlue2P) || (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) && TJAPlayer3.stage選曲.act難易度選択画面.選択済み[0]))
+				if (TJAPlayer3.Pad.b押された(EPad.LBlue2P) || (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) && TJAPlayer3.stage選曲.act難易度選択画面.選択済み[0]))
 				{
 					TJAPlayer3.Skin.sound変更音?.t再生する();
 					lci[1][NowRow[1]].t項目値を前へ移動();
 					SaveValue(1);
 				}
-				if (TJAPlayer3.Pad.b押された(Eパッド.RBlue2P) || (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) && TJAPlayer3.stage選曲.act難易度選択画面.選択済み[0]))
+				if (TJAPlayer3.Pad.b押された(EPad.RBlue2P) || (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) && TJAPlayer3.stage選曲.act難易度選択画面.選択済み[0]))
 				{
 					TJAPlayer3.Skin.sound変更音?.t再生する();
 					lci[1][NowRow[1]].t項目値を次へ移動();

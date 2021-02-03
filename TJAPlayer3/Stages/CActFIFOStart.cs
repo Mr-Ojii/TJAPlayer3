@@ -10,15 +10,15 @@ namespace TJAPlayer3
 	{
 		// メソッド
 
-		public void tフェードアウト開始()
+		public void tFadeOut開始()
 		{
-			this.mode = EFIFOモード.フェードアウト;
+			this.mode = EFIFOMode.FadeOut;
 
 			this.counter = new CCounter( 0, 1500, 1, TJAPlayer3.Timer );
 		}
-		public void tフェードイン開始()
+		public void tFadeIn開始()
 		{
-			this.mode = EFIFOモード.フェードイン;
+			this.mode = EFIFOMode.FadeIn;
 			this.counter = new CCounter( 0, 1500, 1, TJAPlayer3.Timer );
 		}
 
@@ -50,7 +50,7 @@ namespace TJAPlayer3
 			{
 				if (TJAPlayer3.Tx.SongLoading_v2_BG != null)
 				{
-					if (this.mode == EFIFOモード.フェードアウト)
+					if (this.mode == EFIFOMode.FadeOut)
 					{
 						int x = Math.Max(1000 - this.counter.n現在の値, 0);
 						int num = Math.Min(100, x);
@@ -68,7 +68,7 @@ namespace TJAPlayer3
 			}
 			else
 			{
-				if (this.mode == EFIFOモード.フェードアウト)
+				if (this.mode == EFIFOMode.FadeOut)
 				{
 					if (TJAPlayer3.Tx.SongLoading_BG != null)
 					{
@@ -87,14 +87,14 @@ namespace TJAPlayer3
 				}
 			}
 
-			if( this.mode == EFIFOモード.フェードアウト )
+			if( this.mode == EFIFOMode.FadeOut )
 			{
 				if( this.counter.b終了値に達してない )
 				{
 					return 0;
 				}
 			}
-			else if( this.mode == EFIFOモード.フェードイン )
+			else if( this.mode == EFIFOMode.FadeIn )
 			{
 				if( this.counter.b終了値に達してない )
 				{
@@ -110,7 +110,7 @@ namespace TJAPlayer3
 		#region [ private ]
 		//-----------------
 		private CCounter counter;
-		private EFIFOモード mode;
+		private EFIFOMode mode;
 		//-----------------
 		#endregion
 	}

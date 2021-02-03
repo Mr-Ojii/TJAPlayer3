@@ -1346,7 +1346,7 @@ namespace TJAPlayer3
 				Input管理 = new CInput管理(base.WindowInfo.Handle);
 				foreach (IInputDevice device in Input管理.list入力デバイス)
 				{
-					if ((device.e入力デバイス種別 == E入力デバイス種別.Joystick) && !ConfigIni.dicJoystick.ContainsValue(device.GUID))
+					if ((device.e入力デバイス種別 == EInputDevice種別.Joystick) && !ConfigIni.dicJoystick.ContainsValue(device.GUID))
 					{
 						int key = 0;
 						while (ConfigIni.dicJoystick.ContainsKey(key))

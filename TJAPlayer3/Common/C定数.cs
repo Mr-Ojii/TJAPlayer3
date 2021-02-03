@@ -34,7 +34,7 @@ namespace TJAPlayer3
 		完走叩ききりまショー激辛 = 2,
 		特訓モード = 3
 	}
-	public enum Eパッド			// 演奏用のenum。ここを修正するときは、次に出てくる EKeyConfigPad と EパッドFlag もセットで修正すること。
+	public enum EPad			// 演奏用のenum。ここを修正するときは、次に出てくる EKeyConfigPad と EPadFlag もセットで修正すること。
 	{
 		LRed    = 0,
 		RRed    = 1,
@@ -49,31 +49,18 @@ namespace TJAPlayer3
 	}
 	public enum EKeyConfigPad		// #24609 キーコンフィグで使うenum。capture要素あり。
 	{
-		LRed    = Eパッド.LRed,
-		RRed    = Eパッド.RRed,
-		LBlue   = Eパッド.LBlue,
-		RBlue   = Eパッド.RBlue,
-		LRed2P  = Eパッド.LRed2P,
-		RRed2P  = Eパッド.RRed2P,
-		LBlue2P = Eパッド.LBlue2P,
-		RBlue2P = Eパッド.RBlue2P,
+		LRed    = EPad.LRed,
+		RRed    = EPad.RRed,
+		LBlue   = EPad.LBlue,
+		RBlue   = EPad.RBlue,
+		LRed2P  = EPad.LRed2P,
+		RRed2P  = EPad.RRed2P,
+		LBlue2P = EPad.LBlue2P,
+		RBlue2P = EPad.RBlue2P,
 		Capture,
 		FullScreen,
 		MAX,
-		UNKNOWN = Eパッド.UNKNOWN
-	}
-	[Flags]
-	public enum EパッドFlag		// #24063 2011.1.16 yyagi コマンド入力用 パッド入力のフラグ化
-	{
-		LRed    = 0,
-		RRed    = 1,
-		LBlue   = 2,
-		RBlue   = 4,
-		LRed2P  = 8,
-		RRed2P  = 16,
-		LBlue2P = 32,
-		RBlue2P = 64,
-		UNKNOWN = 4096
+		UNKNOWN = EPad.UNKNOWN
 	}
 	public enum ERandomMode
 	{
@@ -83,7 +70,7 @@ namespace TJAPlayer3
 		SUPERRANDOM,
 		HYPERRANDOM
 	}
-	internal enum E入力デバイス
+	internal enum EInputDevice
 	{
 		キーボード		= 0,
 		MIDI入力		= 1,
@@ -91,7 +78,7 @@ namespace TJAPlayer3
 		マウス			= 3,
 		不明			= -1
 	}
-	public enum E判定
+	public enum EJudge
 	{
 		Perfect	= 0,
 		Great	= 1,
@@ -103,10 +90,10 @@ namespace TJAPlayer3
 		AutoGreat   = 7,
 		AutoGood    = 8,
 	}
-	internal enum EFIFOモード
+	internal enum EFIFOMode
 	{
-		フェードイン,
-		フェードアウト
+		FadeIn,
+		FadeOut
 	}
 	internal enum E演奏画面の戻り値
 	{

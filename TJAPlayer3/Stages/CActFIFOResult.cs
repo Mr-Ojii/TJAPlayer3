@@ -10,21 +10,21 @@ namespace TJAPlayer3
 	{
 		// メソッド
 
-		public void tフェードアウト開始()
+		public void tFadeOut開始()
 		{
-			this.mode = EFIFOモード.フェードアウト;
+			this.mode = EFIFOMode.FadeOut;
 			this.counter = new CCounter( 0, 500, 2, TJAPlayer3.Timer );
 			if (TJAPlayer3.Tx.Result_FadeIn != null)
 				TJAPlayer3.Tx.Result_FadeIn.Opacity = 255;
 		}
-		public void tフェードイン開始()
+		public void tFadeIn開始()
 		{
-			this.mode = EFIFOモード.フェードイン;
+			this.mode = EFIFOMode.FadeIn;
 			this.counter = new CCounter( 0, 100, 5, TJAPlayer3.Timer );
 			if (TJAPlayer3.Tx.Result_FadeIn != null)
 				TJAPlayer3.Tx.Result_FadeIn.Opacity = 255;
 		}
-		public void tフェードイン完了()		// #25406 2011.6.9 yyagi
+		public void tFadeIn完了()		// #25406 2011.6.9 yyagi
 		{
 			this.counter.n現在の値 = this.counter.n終了値;
 		}
@@ -59,7 +59,7 @@ namespace TJAPlayer3
 			{
 				if (TJAPlayer3.Tx.Tile_Black != null)
 				{
-					TJAPlayer3.Tx.Tile_Black.Opacity = (this.mode == EFIFOモード.フェードイン) ? (((100 - this.counter.n現在の値) * 0xff) / 100) : ((this.counter.n現在の値 * 0xff) / 500);
+					TJAPlayer3.Tx.Tile_Black.Opacity = (this.mode == EFIFOMode.FadeIn) ? (((100 - this.counter.n現在の値) * 0xff) / 100) : ((this.counter.n現在の値 * 0xff) / 500);
 					for (int i = 0; i <= (GameWindowSize.Width / 64); i++)      // #23510 2010.10.31 yyagi: change "clientSize.Width" to "640" to fix FIFO drawing size
 					{
 						for (int j = 0; j <= (GameWindowSize.Height / 64); j++) // #23510 2010.10.31 yyagi: change "clientSize.Height" to "480" to fix FIFO drawing size
@@ -73,7 +73,7 @@ namespace TJAPlayer3
 			{
 				if (TJAPlayer3.Tx.Result_FadeIn != null)
 				{
-					if (this.mode == EFIFOモード.フェードアウト)
+					if (this.mode == EFIFOMode.FadeOut)
 					{
 						int y = Math.Min(360, this.counter.n現在の値);
 						TJAPlayer3.Tx.Result_FadeIn.t2D描画(TJAPlayer3.app.Device, 0, -360 + y, new Rectangle(0, 0, 1280, 380));
@@ -87,14 +87,14 @@ namespace TJAPlayer3
 					}
 				}
 			}
-			if( this.mode == EFIFOモード.フェードアウト )
+			if( this.mode == EFIFOMode.FadeOut )
 			{
 				if( this.counter.n現在の値 != 500 )
 				{
 					return 0;
 				}
 			}
-			else if( this.mode == EFIFOモード.フェードイン )
+			else if( this.mode == EFIFOMode.FadeIn )
 			{
 				if( this.counter.n現在の値 != 100 )
 				{
@@ -110,7 +110,7 @@ namespace TJAPlayer3
 		#region [ private ]
 		//-----------------
 		private CCounter counter;
-		private EFIFOモード mode;
+		private EFIFOMode mode;
 		//private CTexture tx幕;
 		//-----------------
 		#endregion

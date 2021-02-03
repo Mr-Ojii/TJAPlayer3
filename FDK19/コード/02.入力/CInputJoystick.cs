@@ -12,7 +12,7 @@ namespace FDK
 
 		public CInputJoystick(int joystickindex)
 		{
-			this.e入力デバイス種別 = E入力デバイス種別.Joystick;
+			this.e入力デバイス種別 = EInputDevice種別.Joystick;
 			this.ID = joystickindex;
 			this.GUID = Joystick.GetGuid(ID).ToString();
 
@@ -27,7 +27,7 @@ namespace FDK
 
 		#region [ IInputDevice 実装 ]
 		//-----------------
-		public E入力デバイス種別 e入力デバイス種別
+		public EInputDevice種別 e入力デバイス種別
 		{
 			get;
 			private set;

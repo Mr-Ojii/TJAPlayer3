@@ -27,8 +27,8 @@ namespace TJAPlayer3
 		public enum Eフェーズ
 		{
 			共通_通常状態,
-			共通_フェードイン,
-			共通_フェードアウト,
+			共通_FadeIn,
+			共通_FadeOut,
 			共通_終了状態,
 			起動0_システムサウンドを構築,
 			起動00_songlistから曲リストを作成する,
@@ -40,18 +40,18 @@ namespace TJAPlayer3
 			起動6_スコアキャッシュをSongsDBに出力する,
 			起動_テクスチャの読み込み,
 			起動7_完了,
-			タイトル_起動画面からのフェードイン,
-			選曲_結果画面からのフェードイン,
-			選曲_コース選択画面へのフェードアウト, //2016.10.20 kairera0467
-			選曲_NowLoading画面へのフェードアウト,
+			タイトル_起動画面からのFadeIn,
+			選曲_結果画面からのFadeIn,
+			選曲_コース選択画面へのFadeOut, //2016.10.20 kairera0467
+			選曲_NowLoading画面へのFadeOut,
 			NOWLOADING_DTXファイルを読み込む,
 			NOWLOADING_WAV読み込み待機,
 			NOWLOADING_WAVファイルを読み込む,
 			NOWLOADING_BMPファイルを読み込む,
 			NOWLOADING_システムサウンドBGMの完了を待つ,
 			演奏_STAGE_FAILED,
-			演奏_STAGE_FAILED_フェードアウト,
-			演奏_STAGE_CLEAR_フェードアウト,
+			演奏_STAGE_FAILED_FadeOut,
+			演奏_STAGE_CLEAR_FadeOut,
 			演奏_演奏終了演出, //2016.07.15 kairera0467
 			演奏_再読込
 		}

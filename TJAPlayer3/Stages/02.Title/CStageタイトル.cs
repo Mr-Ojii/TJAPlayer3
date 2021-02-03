@@ -99,13 +99,13 @@ namespace TJAPlayer3
 				{
 					if (TJAPlayer3.r直前のステージ == TJAPlayer3.stage起動)
 					{
-						this.actFI.tフェードイン開始();
-						base.eフェーズID = CStage.Eフェーズ.タイトル_起動画面からのフェードイン;
+						this.actFI.tFadeIn開始();
+						base.eフェーズID = CStage.Eフェーズ.タイトル_起動画面からのFadeIn;
 					}
 					else
 					{
-						this.actFI.tフェードイン開始();
-						base.eフェーズID = CStage.Eフェーズ.共通_フェードイン;
+						this.actFI.tFadeIn開始();
+						base.eフェーズID = CStage.Eフェーズ.共通_FadeIn;
 					}
 					base.b初めての進行描画 = false;
 				}
@@ -146,13 +146,13 @@ namespace TJAPlayer3
 					if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape))
 						return (int)E戻り値.EXIT;
 
-					if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.UpArrow) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.b押された(Eパッド.LBlue) || TJAPlayer3.Pad.b押された(Eパッド.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+					if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.UpArrow) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.b押された(EPad.LBlue) || TJAPlayer3.Pad.b押された(EPad.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 						this.tカーソルを上へ移動する();
 
-					if(TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.DownArrow) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.b押された(Eパッド.RBlue) || TJAPlayer3.Pad.b押された(Eパッド.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+					if(TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.DownArrow) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.b押された(EPad.RBlue) || TJAPlayer3.Pad.b押された(EPad.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 						this.tカーソルを下へ移動する();
 
-					if (((TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return)) || TJAPlayer3.Pad.b押された(Eパッド.LRed) || TJAPlayer3.Pad.b押された(Eパッド.RRed) || (TJAPlayer3.Pad.b押された(Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2))
+					if (((TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return)) || TJAPlayer3.Pad.b押された(EPad.LRed) || TJAPlayer3.Pad.b押された(EPad.RRed) || (TJAPlayer3.Pad.b押された(EPad.LRed2P) || TJAPlayer3.Pad.b押された(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2))
 					{
 						if ((this.n現在のカーソル行 == (int)E戻り値.GAMESTART - 1) && TJAPlayer3.Skin.soundゲーム開始音.b読み込み成功)
 						{
@@ -167,8 +167,8 @@ namespace TJAPlayer3
 						{
 							return (int)E戻り値.EXIT;
 						}
-						this.actFO.tフェードアウト開始();
-						base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
+						this.actFO.tFadeOut開始();
+						base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
 					}
 					//					if ( CDTXMania.Input管理.Keyboard.bキーが押された( (int) Key.Space ) )
 					//						Trace.TraceInformation( "DTXMania Title: SPACE key registered. " + CDTXMania.ct.nシステム時刻 );
@@ -241,7 +241,7 @@ namespace TJAPlayer3
 				CStage.Eフェーズ eフェーズid = base.eフェーズID;
 				switch (eフェーズid)
 				{
-					case CStage.Eフェーズ.共通_フェードイン:
+					case CStage.Eフェーズ.共通_FadeIn:
 						if (this.actFI.On進行描画() != 0)
 						{
 							TJAPlayer3.Skin.soundタイトル音.t再生する();
@@ -249,7 +249,7 @@ namespace TJAPlayer3
 						}
 						break;
 
-					case CStage.Eフェーズ.共通_フェードアウト:
+					case CStage.Eフェーズ.共通_FadeOut:
 						if (this.actFO.On進行描画() == 0)
 						{
 							break;
@@ -272,7 +272,7 @@ namespace TJAPlayer3
 						}
 						break;
 
-					case CStage.Eフェーズ.タイトル_起動画面からのフェードイン:
+					case CStage.Eフェーズ.タイトル_起動画面からのFadeIn:
 						if (this.actFI.On進行描画() != 0)
 						{
 							TJAPlayer3.Skin.soundタイトル音.t再生する();

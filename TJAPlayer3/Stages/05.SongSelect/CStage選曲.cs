@@ -88,7 +88,7 @@ namespace TJAPlayer3
 			try
 			{
 				this.n確定された曲の難易度 = new int[4];
-				this.eフェードアウト完了時の戻り値 = E戻り値.継続;
+				this.eFadeOut完了時の戻り値 = E戻り値.継続;
 				this.bBGM再生済み = false;
 				for (int i = 0; i < 4; i++)
 					this.ctキー反復用[i] = new CCounter(0, 0, 0, TJAPlayer3.Timer);
@@ -172,13 +172,13 @@ namespace TJAPlayer3
 					this.ct登場時アニメ用共通 = new CCounter( 0, 100, 3, TJAPlayer3.Timer );
 					if( TJAPlayer3.r直前のステージ == TJAPlayer3.stage結果 )
 					{
-						this.actFIfrom結果画面.tフェードイン開始();
-						base.eフェーズID = CStage.Eフェーズ.選曲_結果画面からのフェードイン;
+						this.actFIfrom結果画面.tFadeIn開始();
+						base.eフェーズID = CStage.Eフェーズ.選曲_結果画面からのFadeIn;
 					}
 					else
 					{
-						this.actFIFO.tフェードイン開始();
-						base.eフェーズID = CStage.Eフェーズ.共通_フェードイン;
+						this.actFIFO.tFadeIn開始();
+						base.eフェーズID = CStage.Eフェーズ.共通_FadeIn;
 					}
 					this.t選択曲変更通知();
 					base.b初めての進行描画 = false;
@@ -456,7 +456,7 @@ namespace TJAPlayer3
 						}
 						#endregion
 						#region[Decide]
-						if (((TJAPlayer3.Pad.b押された(Eパッド.LRed) || TJAPlayer3.Pad.b押された(Eパッド.RRed)) || (TJAPlayer3.Pad.b押された(Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2 ||
+						if (((TJAPlayer3.Pad.b押された(EPad.LRed) || TJAPlayer3.Pad.b押された(EPad.RRed)) || (TJAPlayer3.Pad.b押された(EPad.LRed2P) || TJAPlayer3.Pad.b押された(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2 ||
 										(TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return))))
 						{
 							if (DanSelectingRow == 1)
@@ -476,14 +476,14 @@ namespace TJAPlayer3
 						}
 						#endregion
 						#region [ Up ]
-						if (TJAPlayer3.Pad.b押された(Eパッド.LBlue) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow))
+						if (TJAPlayer3.Pad.b押された(EPad.LBlue) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow))
 						{
 							TJAPlayer3.Skin.soundカーソル移動音.t再生する();
 							DanSelectingRow = 0;
 						}
 						#endregion
 						#region [ Down ]
-						if (TJAPlayer3.Pad.b押された(Eパッド.RBlue) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow))
+						if (TJAPlayer3.Pad.b押された(EPad.RBlue) || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow))
 						{
 							TJAPlayer3.Skin.soundカーソル移動音.t再生する();
 							DanSelectingRow = 1;
@@ -596,7 +596,7 @@ namespace TJAPlayer3
 								}));
 							#endregion
 							#region [ Decide ]
-							if (((TJAPlayer3.Pad.b押された(Eパッド.LRed) || TJAPlayer3.Pad.b押された(Eパッド.RRed)) ||
+							if (((TJAPlayer3.Pad.b押された(EPad.LRed) || TJAPlayer3.Pad.b押された(EPad.RRed)) ||
 									(TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return))) && !this.act難易度選択画面.選択済み[0] && !this.actChangeSE.bIsActive[0] && !this.actPlayOption.bIsActive[0])
 							{
 								if (this.act難易度選択画面.現在の選択行[0] == 0)
@@ -637,7 +637,7 @@ namespace TJAPlayer3
 								}
 								this.難易度選択完了したか();
 							}
-							else if ((( TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return)) && this.act難易度選択画面.選択済み[0] || TJAPlayer3.Pad.b押された(Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2 && !this.act難易度選択画面.選択済み[1] && !this.actChangeSE.bIsActive[1] && !this.actPlayOption.bIsActive[1])
+							else if ((( TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return)) && this.act難易度選択画面.選択済み[0] || TJAPlayer3.Pad.b押された(EPad.LRed2P) || TJAPlayer3.Pad.b押された(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2 && !this.act難易度選択画面.選択済み[1] && !this.actChangeSE.bIsActive[1] && !this.actPlayOption.bIsActive[1])
 							{
 								if (this.act難易度選択画面.現在の選択行[1] == 0)
 								{
@@ -678,7 +678,7 @@ namespace TJAPlayer3
 							}
 							#endregion
 							#region [ Right ]
-							if ((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.b押された(Eパッド.RBlue)) && !this.act難易度選択画面.選択済み[0] && !this.actChangeSE.bIsActive[0] && !this.actPlayOption.bIsActive[0])
+							if ((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.b押された(EPad.RBlue)) && !this.act難易度選択画面.選択済み[0] && !this.actChangeSE.bIsActive[0] && !this.actPlayOption.bIsActive[0])
 							{
 								TJAPlayer3.Skin.soundカーソル移動音.t再生する();
 								this.act難易度選択画面.現在の選択行[0]++;
@@ -704,7 +704,7 @@ namespace TJAPlayer3
 										this.act曲リスト.n現在のアンカ難易度レベル[0] = this.act難易度選択画面.現在の選択行[0] - 3;
 								}
 							}
-							if (((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) && this.act難易度選択画面.選択済み[0]) || TJAPlayer3.Pad.b押された(Eパッド.RBlue2P)) && !this.act難易度選択画面.選択済み[1] && !this.actChangeSE.bIsActive[1] && !this.actPlayOption.bIsActive[1] && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+							if (((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) && this.act難易度選択画面.選択済み[0]) || TJAPlayer3.Pad.b押された(EPad.RBlue2P)) && !this.act難易度選択画面.選択済み[1] && !this.actChangeSE.bIsActive[1] && !this.actPlayOption.bIsActive[1] && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 							{
 								TJAPlayer3.Skin.soundカーソル移動音.t再生する();
 								this.act難易度選択画面.現在の選択行[1]++;
@@ -732,7 +732,7 @@ namespace TJAPlayer3
 							}
 							#endregion
 							#region [ Left ]
-							if ((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.b押された(Eパッド.LBlue)) && !this.act難易度選択画面.選択済み[0] && !this.actChangeSE.bIsActive[0] && !this.actPlayOption.bIsActive[0])
+							if ((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.b押された(EPad.LBlue)) && !this.act難易度選択画面.選択済み[0] && !this.actChangeSE.bIsActive[0] && !this.actPlayOption.bIsActive[0])
 							{
 								TJAPlayer3.Skin.soundカーソル移動音.t再生する();
 								this.act難易度選択画面.現在の選択行[0]--;
@@ -758,7 +758,7 @@ namespace TJAPlayer3
 										this.act曲リスト.n現在のアンカ難易度レベル[0] = this.act難易度選択画面.現在の選択行[0] - 3;
 								}
 							}
-							if (((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) && this.act難易度選択画面.選択済み[0]) || TJAPlayer3.Pad.b押された(Eパッド.LBlue2P)) && !this.act難易度選択画面.選択済み[1] && !this.actChangeSE.bIsActive[1] && !this.actPlayOption.bIsActive[1] && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+							if (((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) && this.act難易度選択画面.選択済み[0]) || TJAPlayer3.Pad.b押された(EPad.LBlue2P)) && !this.act難易度選択画面.選択済み[1] && !this.actChangeSE.bIsActive[1] && !this.actPlayOption.bIsActive[1] && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 							{
 								TJAPlayer3.Skin.soundカーソル移動音.t再生する();
 								this.act難易度選択画面.現在の選択行[1]--;
@@ -799,9 +799,9 @@ namespace TJAPlayer3
 								if (this.act曲リスト.r現在選択中の曲.r親ノード == null)
 								{   // [ESC]
 									TJAPlayer3.Skin.sound取消音.t再生する();
-									this.eフェードアウト完了時の戻り値 = E戻り値.タイトルに戻る;
-									this.actFIFO.tフェードアウト開始();
-									base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
+									this.eFadeOut完了時の戻り値 = E戻り値.タイトルに戻る;
+									this.actFIFO.tFadeOut開始();
+									base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
 									return 0;
 								}
 								else
@@ -895,7 +895,7 @@ namespace TJAPlayer3
 							if (this.act曲リスト.r現在選択中の曲 != null)
 							{
 								#region [ Decide ]
-								if (((TJAPlayer3.Pad.b押された(Eパッド.LRed) || TJAPlayer3.Pad.b押された(Eパッド.RRed)) || (TJAPlayer3.Pad.b押された(Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2 ||
+								if (((TJAPlayer3.Pad.b押された(EPad.LRed) || TJAPlayer3.Pad.b押された(EPad.RRed)) || (TJAPlayer3.Pad.b押された(EPad.LRed2P) || TJAPlayer3.Pad.b押された(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2 ||
 										(TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return))))
 								{
 									if (this.act曲リスト.r現在選択中の曲 != null)
@@ -949,8 +949,8 @@ namespace TJAPlayer3
 													bool bNeedChangeSkin = this.act曲リスト.tBOXに入る();
 													if (bNeedChangeSkin)
 													{
-														this.eフェードアウト完了時の戻り値 = E戻り値.スキン変更;
-														base.eフェーズID = Eフェーズ.選曲_NowLoading画面へのフェードアウト;
+														this.eFadeOut完了時の戻り値 = E戻り値.スキン変更;
+														base.eフェーズID = Eフェーズ.選曲_NowLoading画面へのFadeOut;
 													}
 												}
 												break;
@@ -960,8 +960,8 @@ namespace TJAPlayer3
 													bool bNeedChangeSkin = this.act曲リスト.tBOXを出る();
 													if (bNeedChangeSkin)
 													{
-														this.eフェードアウト完了時の戻り値 = E戻り値.スキン変更;
-														base.eフェーズID = Eフェーズ.選曲_NowLoading画面へのフェードアウト;
+														this.eFadeOut完了時の戻り値 = E戻り値.スキン変更;
+														base.eフェーズID = Eフェーズ.選曲_NowLoading画面へのFadeOut;
 													}
 												}
 												break;
@@ -975,7 +975,7 @@ namespace TJAPlayer3
 								#endregion
 								#region [ Up ]
 								this.ctキー反復用.Up.tキー反復(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftArrow), new CCounter.DGキー処理(this.tカーソルを上へ移動する));
-								if (TJAPlayer3.Pad.b押された(Eパッド.LBlue) || TJAPlayer3.Pad.b押された(Eパッド.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+								if (TJAPlayer3.Pad.b押された(EPad.LBlue) || TJAPlayer3.Pad.b押された(EPad.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 								{
 									this.tカーソルを上へ移動する();
 								}
@@ -990,7 +990,7 @@ namespace TJAPlayer3
 								#endregion
 								#region [ Down ]
 								this.ctキー反復用.Down.tキー反復(TJAPlayer3.Input管理.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightArrow), new CCounter.DGキー処理(this.tカーソルを下へ移動する));
-								if (TJAPlayer3.Pad.b押された(Eパッド.RBlue) || TJAPlayer3.Pad.b押された(Eパッド.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+								if (TJAPlayer3.Pad.b押された(EPad.RBlue) || TJAPlayer3.Pad.b押された(EPad.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 								{
 									this.tカーソルを下へ移動する();
 								}
@@ -1046,33 +1046,33 @@ namespace TJAPlayer3
 				}
 				switch ( base.eフェーズID )
 				{
-					case CStage.Eフェーズ.共通_フェードイン:
+					case CStage.Eフェーズ.共通_FadeIn:
 						if( this.actFIFO.On進行描画() != 0 )
 						{
 							base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
 						}
 						break;
 
-					case CStage.Eフェーズ.共通_フェードアウト:
+					case CStage.Eフェーズ.共通_FadeOut:
 						if( this.actFIFO.On進行描画() == 0 )
 						{
 							break;
 						}
-						return (int) this.eフェードアウト完了時の戻り値;
+						return (int) this.eFadeOut完了時の戻り値;
 
-					case CStage.Eフェーズ.選曲_結果画面からのフェードイン:
+					case CStage.Eフェーズ.選曲_結果画面からのFadeIn:
 						if( this.actFIfrom結果画面.On進行描画() != 0 )
 						{
 							base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
 						}
 						break;
 
-					case CStage.Eフェーズ.選曲_NowLoading画面へのフェードアウト:
+					case CStage.Eフェーズ.選曲_NowLoading画面へのFadeOut:
 						if( this.actFOtoNowLoading.On進行描画() == 0 )
 						{
 							break;
 						}
-						return (int) this.eフェードアウト完了時の戻り値;
+						return (int) this.eFadeOut完了時の戻り値;
 				}
 			}
 			return 0;
@@ -1109,9 +1109,9 @@ namespace TJAPlayer3
 			actPlayOption.tDeativatePopupMenu(0);
 			actPlayOption.tDeativatePopupMenu(1);
 			this.actPresound.tサウンドの停止MT();
-			this.eフェードアウト完了時の戻り値 = E戻り値.コンフィグ呼び出し;  // #24525 2011.3.16 yyagi: [SHIFT]-[F1]でCONFIG呼び出し
-			this.actFIFO.tフェードアウト開始();
-			base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
+			this.eFadeOut完了時の戻り値 = E戻り値.コンフィグ呼び出し;  // #24525 2011.3.16 yyagi: [SHIFT]-[F1]でCONFIG呼び出し
+			this.actFIFO.tFadeOut開始();
+			base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
 			TJAPlayer3.Skin.sound取消音.t再生する();
 		}
 
@@ -1230,7 +1230,7 @@ namespace TJAPlayer3
 		internal CCounter ct難易度選択画面IN用タイマー;
 		internal CCounter ct難易度選択画面INバー拡大用タイマー;
 		internal CCounter ct難易度選択画面OUT用タイマー;
-		internal E戻り値 eフェードアウト完了時の戻り値;
+		internal E戻り値 eFadeOut完了時の戻り値;
 
 		public void MouseWheel(int i)
 		{
@@ -1327,9 +1327,9 @@ namespace TJAPlayer3
 			this.str確定された曲のジャンル = this.r確定された曲.strジャンル;
 			if ( ( this.r確定された曲 != null ) && ( this.r確定されたスコア != null ) )
 			{
-				this.eフェードアウト完了時の戻り値 = E戻り値.選曲した;
-				this.actFOtoNowLoading.tフェードアウト開始();				// #27787 2012.3.10 yyagi 曲決定時の画面フェードアウトの省略
-				base.eフェーズID = CStage.Eフェーズ.選曲_NowLoading画面へのフェードアウト;
+				this.eFadeOut完了時の戻り値 = E戻り値.選曲した;
+				this.actFOtoNowLoading.tFadeOut開始();				// #27787 2012.3.10 yyagi 曲決定時の画面FadeOutの省略
+				base.eフェーズID = CStage.Eフェーズ.選曲_NowLoading画面へのFadeOut;
 			}
 			TJAPlayer3.Skin.bgm選曲画面.t停止する();
 		}
@@ -1342,9 +1342,9 @@ namespace TJAPlayer3
 			this.str確定された曲のジャンル = this.r確定された曲.strジャンル;
 			if ( ( this.r確定された曲 != null ) && ( this.r確定されたスコア != null ) )
 			{
-				this.eフェードアウト完了時の戻り値 = E戻り値.選曲した;
-				this.actFOtoNowLoading.tフェードアウト開始();				// #27787 2012.3.10 yyagi 曲決定時の画面フェードアウトの省略
-				base.eフェーズID = CStage.Eフェーズ.選曲_NowLoading画面へのフェードアウト;
+				this.eFadeOut完了時の戻り値 = E戻り値.選曲した;
+				this.actFOtoNowLoading.tFadeOut開始();				// #27787 2012.3.10 yyagi 曲決定時の画面FadeOutの省略
+				base.eフェーズID = CStage.Eフェーズ.選曲_NowLoading画面へのFadeOut;
 			}
 
 			TJAPlayer3.Skin.bgm選曲画面.t停止する();
@@ -1358,9 +1358,9 @@ namespace TJAPlayer3
 			this.str確定された曲のジャンル = this.r確定された曲.strジャンル;
 			if ((this.r確定された曲 != null) && (this.r確定されたスコア != null))
 			{
-				this.eフェードアウト完了時の戻り値 = E戻り値.選曲した;
-				this.actFOtoNowLoading.tフェードアウト開始();                // #27787 2012.3.10 yyagi 曲決定時の画面フェードアウトの省略
-				base.eフェーズID = CStage.Eフェーズ.選曲_NowLoading画面へのフェードアウト;
+				this.eFadeOut完了時の戻り値 = E戻り値.選曲した;
+				this.actFOtoNowLoading.tFadeOut開始();                // #27787 2012.3.10 yyagi 曲決定時の画面FadeOutの省略
+				base.eフェーズID = CStage.Eフェーズ.選曲_NowLoading画面へのFadeOut;
 			}
 
 			TJAPlayer3.Skin.bgm選曲画面.t停止する();

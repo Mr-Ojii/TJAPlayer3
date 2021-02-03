@@ -30,7 +30,7 @@ namespace TJAPlayer3
 			this.b風船連打中 = new bool[2] { false, false };
 
 			// ふうせん系アニメーションの総再生時間は画像枚数 x Tick間隔なので、
-			// フェードアウトの開始タイミングは、総再生時間 - フェードアウト時間。
+			// FadeOutの開始タイミングは、総再生時間 - FadeOut時間。
 			var balloonBrokePtn = TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Broke;
 			var balloonMissPtn = TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss;
 			CharaAction_Balloon_FadeOut = new CCounter[2];

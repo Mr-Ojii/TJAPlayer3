@@ -185,8 +185,8 @@ namespace TJAPlayer3
 
 			if( base.b初めての進行描画 )
 			{
-				base.eフェーズID = CStage.Eフェーズ.共通_フェードイン;
-				this.actFIFO.tフェードイン開始();
+				base.eフェーズID = CStage.Eフェーズ.共通_FadeIn;
+				this.actFIFO.tFadeIn開始();
 				base.b初めての進行描画 = false;
 			}
 
@@ -278,11 +278,11 @@ namespace TJAPlayer3
 			//this.actオプションパネル.On進行描画();
 			//---------------------
 			#endregion
-			#region [ フェードイン_アウト ]
+			#region [ FadeIn_アウト ]
 			//---------------------
 			switch( base.eフェーズID )
 			{
-				case CStage.Eフェーズ.共通_フェードイン:
+				case CStage.Eフェーズ.共通_FadeIn:
 					if( this.actFIFO.On進行描画() != 0 )
 					{
 						TJAPlayer3.Skin.bgmコンフィグ画面.t再生する();
@@ -290,7 +290,7 @@ namespace TJAPlayer3
 					}
 					break;
 
-				case CStage.Eフェーズ.共通_フェードアウト:
+				case CStage.Eフェーズ.共通_FadeOut:
 					if( this.actFIFO.On進行描画() == 0 )
 					{
 						break;
@@ -332,17 +332,17 @@ namespace TJAPlayer3
 					}
 					else
 					{
-						this.actFIFO.tフェードアウト開始();
-						base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
+						this.actFIFO.tFadeOut開始();
+						base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
 					}
 				}
-				else if (TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDXKeys.Key.Return ) || TJAPlayer3.Pad.b押された(Eパッド.LRed) || TJAPlayer3.Pad.b押された(Eパッド.RRed) || (TJAPlayer3.Pad.b押された(Eパッド.LRed2P) || TJAPlayer3.Pad.b押された(Eパッド.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+				else if (TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDXKeys.Key.Return ) || TJAPlayer3.Pad.b押された(EPad.LRed) || TJAPlayer3.Pad.b押された(EPad.RRed) || (TJAPlayer3.Pad.b押された(EPad.LRed2P) || TJAPlayer3.Pad.b押された(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 				{
 					if ( this.n現在のメニュー番号 == 2 )
 					{
 						TJAPlayer3.Skin.sound決定音.t再生する();
-						this.actFIFO.tフェードアウト開始();
-						base.eフェーズID = CStage.Eフェーズ.共通_フェードアウト;
+						this.actFIFO.tFadeOut開始();
+						base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
 					}
 					else if ( this.bメニューにフォーカス中 )
 					{
@@ -376,22 +376,22 @@ namespace TJAPlayer3
 				
 				if (this.actList.b要素値にフォーカス中)
 				{
-					if (TJAPlayer3.Pad.b押された(Eパッド.RBlue) || TJAPlayer3.Pad.b押された(Eパッド.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+					if (TJAPlayer3.Pad.b押された(EPad.RBlue) || TJAPlayer3.Pad.b押された(EPad.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 					{
 						this.tカーソルを上へ移動する();
 					}
-					if (TJAPlayer3.Pad.b押された(Eパッド.LBlue) || TJAPlayer3.Pad.b押された(Eパッド.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+					if (TJAPlayer3.Pad.b押された(EPad.LBlue) || TJAPlayer3.Pad.b押された(EPad.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 					{
 						this.tカーソルを下へ移動する();
 					}
 				}
 				else
 				{
-					if (TJAPlayer3.Pad.b押された(Eパッド.RBlue) || TJAPlayer3.Pad.b押された(Eパッド.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+					if (TJAPlayer3.Pad.b押された(EPad.RBlue) || TJAPlayer3.Pad.b押された(EPad.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 					{
 						this.tカーソルを下へ移動する();
 					}
-					if (TJAPlayer3.Pad.b押された(Eパッド.LBlue) || TJAPlayer3.Pad.b押された(Eパッド.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+					if (TJAPlayer3.Pad.b押された(EPad.LBlue) || TJAPlayer3.Pad.b押された(EPad.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 					{
 						this.tカーソルを上へ移動する();
 					}

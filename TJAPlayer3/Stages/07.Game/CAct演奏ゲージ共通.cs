@@ -382,7 +382,7 @@ namespace TJAPlayer3
 		// ----------------------------------
 		#endregion
 
-		public void Damage(int nHitCourse, E判定 e今回の判定, int nPlayer)//2020.04.25 Mr-Ojii akasoko26さんのコードをもとに変更
+		public void Damage(int nHitCourse, EJudge e今回の判定, int nPlayer)//2020.04.25 Mr-Ojii akasoko26さんのコードをもとに変更
 		{
 			float fDamage;
 			//現在のコースを当てるのではなくヒットしたノーツのコースを当ててあげる.2020.04.21.akasoko26
@@ -391,8 +391,8 @@ namespace TJAPlayer3
 
 			switch ( e今回の判定 )
 			{
-				case E判定.Perfect:
-				case E判定.Great:
+				case EJudge.Perfect:
+				case EJudge.Great:
 					{
 						if( TJAPlayer3.DTX[nPlayer].bHasBranchChip )
 						{
@@ -402,7 +402,7 @@ namespace TJAPlayer3
 							fDamage = this.dbゲージ増加量[nPlayer, 0 ];
 					}
 					break;
-				case E判定.Good:
+				case EJudge.Good:
 					{
 						if( TJAPlayer3.DTX[nPlayer].bHasBranchChip )
 						{
@@ -412,8 +412,8 @@ namespace TJAPlayer3
 							fDamage = this.dbゲージ増加量[nPlayer, 1 ];
 					}
 					break;
-				case E判定.Poor:
-				case E判定.Miss:
+				case EJudge.Poor:
+				case EJudge.Miss:
 					{
 						if( TJAPlayer3.DTX[nPlayer].bHasBranchChip )
 						{

@@ -744,9 +744,9 @@ namespace TJAPlayer3
 
 						switch (st状態[i].judge)
 						{
-							case E判定.Perfect:
-							case E判定.Great:
-							case E判定.AutoPerfect:
+							case EJudge.Perfect:
+							case EJudge.Great:
+							case EJudge.AutoPerfect:
 								//this.txアタックエフェクトLower.t2D描画( CDTXMania.app.Device, 285, 127, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n, 260, 260 ) );
 								if (this.st状態[i].nIsBig == 1 && TJAPlayer3.Tx.Effects_Hit_Great_Big[this.st状態[i].ct進行.n現在の値] != null)
 									TJAPlayer3.Tx.Effects_Hit_Great_Big[this.st状態[i].ct進行.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[i] - TJAPlayer3.Tx.Effects_Hit_Great_Big[0].szテクスチャサイズ.Width / 2, TJAPlayer3.Skin.nJudgePointY[i] - TJAPlayer3.Tx.Effects_Hit_Great_Big[0].szテクスチャサイズ.Width / 2);
@@ -754,7 +754,7 @@ namespace TJAPlayer3
 									TJAPlayer3.Tx.Effects_Hit_Great[this.st状態[i].ct進行.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[i] - TJAPlayer3.Tx.Effects_Hit_Great[0].szテクスチャサイズ.Width / 2, TJAPlayer3.Skin.nJudgePointY[i] - TJAPlayer3.Tx.Effects_Hit_Great[0].szテクスチャサイズ.Width / 2);
 								break;
 
-							case E判定.Good:
+							case EJudge.Good:
 								//this.txアタックエフェクトLower.t2D描画( CDTXMania.app.Device, 285, 127, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n + 260, 260, 260 ) );
 								if (this.st状態[i].nIsBig == 1 && TJAPlayer3.Tx.Effects_Hit_Good_Big[this.st状態[i].ct進行.n現在の値] != null)
 									TJAPlayer3.Tx.Effects_Hit_Good_Big[this.st状態[i].ct進行.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[i] - TJAPlayer3.Tx.Effects_Hit_Good_Big[0].szテクスチャサイズ.Width / 2, TJAPlayer3.Skin.nJudgePointY[i] - TJAPlayer3.Tx.Effects_Hit_Good_Big[0].szテクスチャサイズ.Width / 2);
@@ -762,8 +762,8 @@ namespace TJAPlayer3
 									TJAPlayer3.Tx.Effects_Hit_Good[this.st状態[i].ct進行.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[i] - TJAPlayer3.Tx.Effects_Hit_Good[0].szテクスチャサイズ.Width / 2, TJAPlayer3.Skin.nJudgePointY[i] - TJAPlayer3.Tx.Effects_Hit_Good[0].szテクスチャサイズ.Width / 2);
 								break;
 
-							case E判定.Miss:
-							case E判定.Bad:
+							case EJudge.Miss:
+							case EJudge.Bad:
 								break;
 						}
 					}
@@ -773,7 +773,7 @@ namespace TJAPlayer3
 
 		}
 
-		public virtual void Start(int nLane, E判定 judge, bool b両手入力, int nPlayer)
+		public virtual void Start(int nLane, EJudge judge, bool b両手入力, int nPlayer)
 		{
 			//2017.08.15 kairera0467 排他なので番地をそのまま各レーンの状態として扱う
 
@@ -898,7 +898,7 @@ namespace TJAPlayer3
 		{
 			public bool b使用中;
 			public CCounter ct進行;
-			public E判定 judge;
+			public EJudge judge;
 			public int nIsBig;
 			public int nOpacity;
 			public int nPlayer;

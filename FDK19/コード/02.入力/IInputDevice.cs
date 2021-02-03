@@ -8,7 +8,7 @@ namespace FDK
 	{
 		// プロパティ
 
-		E入力デバイス種別 e入力デバイス種別
+		EInputDevice種別 e入力デバイス種別
 		{
 			get;
 		}

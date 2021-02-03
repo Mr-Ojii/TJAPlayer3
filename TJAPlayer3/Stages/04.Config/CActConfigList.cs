@@ -1698,7 +1698,7 @@ namespace TJAPlayer3
 			//Trace.TraceInformation( "Skin現在System  : " + CSkin.strSystemSkinSubfolderFullName );
 			//Trace.TraceInformation( "Skin現在BoxDef  : " + CSkin.strBoxDefSkinSubfolderFullName );
 			//CDTXMania.ConfigIni.nMasterVolume = this.iSystemMasterVolume.n現在の値;							// #33700 2014.4.26 yyagi
-			//CDTXMania.ConfigIni.e判定表示優先度 = (E判定表示優先度) this.iSystemJudgeDispPriority.n現在選択されている項目番号;
+			//CDTXMania.ConfigIni.e判定表示優先度 = (EJudge表示優先度) this.iSystemJudgeDispPriority.n現在選択されている項目番号;
 			TJAPlayer3.ConfigIni.RandomPresence = this.iRandomPresence.bON;
 			TJAPlayer3.ConfigIni.ShowChara = this.ShowChara.bON;
 			TJAPlayer3.ConfigIni.ShowDancer = this.ShowDancer.bON;
@@ -1726,14 +1726,14 @@ namespace TJAPlayer3
 			//else if ( this.iDrumsSudHid.n現在選択されている項目番号 == 5 ) CDTXMania.ConfigIni.eInvisible.Drums = EInvisible.FULL;	// "F-Invisible"
 			//else                                                           CDTXMania.ConfigIni.eInvisible.Drums = EInvisible.OFF;
 			//CDTXMania.ConfigIni.bReverse.Drums = this.iDrumsReverse.bON;
-			//CDTXMania.ConfigIni.判定文字表示位置.Drums = (E判定文字表示位置) this.iDrumsPosition.n現在選択されている項目番号;
+			//CDTXMania.ConfigIni.判定文字表示位置.Drums = (EJudge文字表示位置) this.iDrumsPosition.n現在選択されている項目番号;
 			TJAPlayer3.ConfigIni.bTight = this.iDrumsTight.bON;
 
 			TJAPlayer3.ConfigIni.nInputAdjustTimeMs = this.iInputAdjustTimeMs.n現在の値;
 
 			TJAPlayer3.ConfigIni.n表示可能な最小コンボ数 = this.iSystemMinComboDrums.n現在の値;
 			TJAPlayer3.ConfigIni.nRisky = this.iSystemRisky.n現在の値;						// #23559 2911.7.27 yyagi
-			//CDTXMania.ConfigIni.e判定表示優先度.Drums = (E判定表示優先度) this.iDrumsJudgeDispPriority.n現在選択されている項目番号;
+			//CDTXMania.ConfigIni.e判定表示優先度.Drums = (EJudge表示優先度) this.iDrumsJudgeDispPriority.n現在選択されている項目番号;
 
 			TJAPlayer3.ConfigIni.bBranchGuide = this.iTaikoBranchGuide.bON;
 			TJAPlayer3.ConfigIni.nDefaultCourse = this.iTaikoDefaultCourse.n現在選択されている項目番号;

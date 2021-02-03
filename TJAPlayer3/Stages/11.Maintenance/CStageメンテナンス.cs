@@ -99,21 +99,21 @@ namespace TJAPlayer3
 			}
 
 			//入力信号に合わせて色を描画
-			if (TJAPlayer3.Pad.b押された(Eパッド.LBlue))
+			if (TJAPlayer3.Pad.b押された(EPad.LBlue))
 				ka.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Sabunn + Width) * 4, y);
-			if (TJAPlayer3.Pad.b押された(Eパッド.LRed))
+			if (TJAPlayer3.Pad.b押された(EPad.LRed))
 				don.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Sabunn + Width) * 3, y);
-			if (TJAPlayer3.Pad.b押された(Eパッド.RRed))
+			if (TJAPlayer3.Pad.b押された(EPad.RRed))
 				don.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Sabunn + Width) * 2, y);
-			if (TJAPlayer3.Pad.b押された(Eパッド.RBlue))
+			if (TJAPlayer3.Pad.b押された(EPad.RBlue))
 				ka.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Sabunn + Width) * 1, y);
-			if (TJAPlayer3.Pad.b押された(Eパッド.LBlue2P))
+			if (TJAPlayer3.Pad.b押された(EPad.LBlue2P))
 				ka.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Sabunn + Width) * 1, y);
-			if (TJAPlayer3.Pad.b押された(Eパッド.LRed2P))
+			if (TJAPlayer3.Pad.b押された(EPad.LRed2P))
 				don.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Sabunn + Width) * 2, y);
-			if (TJAPlayer3.Pad.b押された(Eパッド.RRed2P))
+			if (TJAPlayer3.Pad.b押された(EPad.RRed2P))
 				don.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Sabunn + Width) * 3, y);
-			if (TJAPlayer3.Pad.b押された(Eパッド.RBlue2P))
+			if (TJAPlayer3.Pad.b押された(EPad.RBlue2P))
 				ka.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Sabunn + Width) * 4, y);
 
 

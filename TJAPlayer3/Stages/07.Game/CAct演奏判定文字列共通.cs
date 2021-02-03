@@ -17,7 +17,7 @@ namespace TJAPlayer3
 		{
 			public bool b使用中;
 			public CCounter ct進行;
-			public E判定 judge;
+			public EJudge judge;
 			public int n相対X座標;
 			public int n相対Y座標;
 			public int n透明度;
@@ -45,7 +45,7 @@ namespace TJAPlayer3
 
 		// メソッド
 
-		public void Start( E判定 judge, int lag, CDTX.CChip pChip, int player )
+		public void Start( EJudge judge, int lag, CDTX.CChip pChip, int player )
 		{
 			// When performing calibration, reduce visual distraction
 			// and current judgment feedback near the judgment position.
@@ -130,13 +130,13 @@ namespace TJAPlayer3
 						this.st状態[i].b使用中 = false;
 					}
 					int num2 = this.st状態[i].ct進行.n現在の値;
-					if (this.st状態[i].judge != E判定.Great)
+					if (this.st状態[i].judge != EJudge.Great)
 					{
 						this.st状態[i].n相対X座標 = 0;
 						this.st状態[i].n相対Y座標 = 15;
 						this.st状態[i].n透明度 = 0xff;
 					}
-					if ((this.st状態[i].judge != E判定.Miss) && (this.st状態[i].judge != E判定.Bad))
+					if ((this.st状態[i].judge != EJudge.Miss) && (this.st状態[i].judge != EJudge.Bad))
 					{
 						if (num2 < 20)
 						{

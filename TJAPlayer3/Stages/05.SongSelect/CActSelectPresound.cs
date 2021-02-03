@@ -23,7 +23,7 @@ namespace TJAPlayer3
 			this.tサウンドの停止MT();
 			if ((cスコア != null) && ((!(cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.strBGMファイル名).Equals(this.str現在のファイル名) || (this.sound == null)) || !this.sound.b再生中))
 			{
-				this.tBGMフェードイン開始();
+				this.tBGMFadeIn開始();
 				this.long再生位置 = -1;
 				if ((cスコア.譜面情報.strBGMファイル名 != null) && (cスコア.譜面情報.strBGMファイル名.Length > 0))
 				{
@@ -41,8 +41,8 @@ namespace TJAPlayer3
 			token = new CancellationTokenSource();
 			this.str現在のファイル名 = "";
 			this.ct再生待ちウェイト = null;
-			this.ctBGMフェードアウト用 = null;
-			this.ctBGMフェードイン用 = null;
+			this.ctBGMFadeOut用 = null;
+			this.ctBGMFadeIn用 = null;
 			this.long再生位置 = -1;
 			this.long再生開始時のシステム時刻 = -1;
 			base.On活性化();
@@ -56,30 +56,30 @@ namespace TJAPlayer3
 				token = null;
 			}
 			this.ct再生待ちウェイト = null;
-			this.ctBGMフェードイン用 = null;
-			this.ctBGMフェードアウト用 = null;
+			this.ctBGMFadeIn用 = null;
+			this.ctBGMFadeOut用 = null;
 			base.On非活性化();
 		}
 		public override int On進行描画()
 		{
 			if (!base.b活性化してない)
 			{
-				if ((this.ctBGMフェードイン用 != null) && this.ctBGMフェードイン用.b進行中)
+				if ((this.ctBGMFadeIn用 != null) && this.ctBGMFadeIn用.b進行中)
 				{
-					this.ctBGMフェードイン用.t進行();
-					TJAPlayer3.Skin.bgm選曲画面.nAutomationLevel_現在のサウンド = this.ctBGMフェードイン用.n現在の値;
-					if (this.ctBGMフェードイン用.b終了値に達した)
+					this.ctBGMFadeIn用.t進行();
+					TJAPlayer3.Skin.bgm選曲画面.nAutomationLevel_現在のサウンド = this.ctBGMFadeIn用.n現在の値;
+					if (this.ctBGMFadeIn用.b終了値に達した)
 					{
-						this.ctBGMフェードイン用.t停止();
+						this.ctBGMFadeIn用.t停止();
 					}
 				}
-				if ((this.ctBGMフェードアウト用 != null) && this.ctBGMフェードアウト用.b進行中)
+				if ((this.ctBGMFadeOut用 != null) && this.ctBGMFadeOut用.b進行中)
 				{
-					this.ctBGMフェードアウト用.t進行();
-					TJAPlayer3.Skin.bgm選曲画面.nAutomationLevel_現在のサウンド = CSound.MaximumAutomationLevel - this.ctBGMフェードアウト用.n現在の値;
-					if (this.ctBGMフェードアウト用.b終了値に達した)
+					this.ctBGMFadeOut用.t進行();
+					TJAPlayer3.Skin.bgm選曲画面.nAutomationLevel_現在のサウンド = CSound.MaximumAutomationLevel - this.ctBGMFadeOut用.n現在の値;
+					if (this.ctBGMFadeOut用.b終了値に達した)
 					{
-						this.ctBGMフェードアウト用.t停止();
+						this.ctBGMFadeOut用.t停止();
 					}
 				}
 
@@ -111,36 +111,36 @@ namespace TJAPlayer3
 		#region [ private ]
 		//-----------------
 		private CancellationTokenSource token; // 2019.03.23 kairera0467 マルチスレッドの中断処理を行うためのトークン
-		private CCounter ctBGMフェードアウト用;
-		private CCounter ctBGMフェードイン用;
+		private CCounter ctBGMFadeOut用;
+		private CCounter ctBGMFadeIn用;
 		private CCounter ct再生待ちウェイト;
 		private long long再生位置;
 		private long long再生開始時のシステム時刻;
 		private CSound sound;
 		private string str現在のファイル名;
 
-		private void tBGMフェードアウト開始()
+		private void tBGMFadeOut開始()
 		{
-			if (this.ctBGMフェードイン用 != null)
+			if (this.ctBGMFadeIn用 != null)
 			{
-				this.ctBGMフェードイン用.t停止();
+				this.ctBGMFadeIn用.t停止();
 			}
-			this.ctBGMフェードアウト用 = new CCounter(0, 100, 10, TJAPlayer3.Timer);
-			this.ctBGMフェードアウト用.n現在の値 = 100 - TJAPlayer3.Skin.bgm選曲画面.nAutomationLevel_現在のサウンド;
+			this.ctBGMFadeOut用 = new CCounter(0, 100, 10, TJAPlayer3.Timer);
+			this.ctBGMFadeOut用.n現在の値 = 100 - TJAPlayer3.Skin.bgm選曲画面.nAutomationLevel_現在のサウンド;
 		}
-		private void tBGMフェードイン開始()
+		private void tBGMFadeIn開始()
 		{
-			if (this.ctBGMフェードアウト用 != null)
+			if (this.ctBGMFadeOut用 != null)
 			{
-				this.ctBGMフェードアウト用.t停止();
+				this.ctBGMFadeOut用.t停止();
 			}
-			this.ctBGMフェードイン用 = new CCounter(0, 100, 20, TJAPlayer3.Timer);
-			this.ctBGMフェードイン用.n現在の値 = TJAPlayer3.Skin.bgm選曲画面.nAutomationLevel_現在のサウンド;
+			this.ctBGMFadeIn用 = new CCounter(0, 100, 20, TJAPlayer3.Timer);
+			this.ctBGMFadeIn用.n現在の値 = TJAPlayer3.Skin.bgm選曲画面.nAutomationLevel_現在のサウンド;
 		}
 		private async void tプレビューサウンドの作成()
 		{
 			Cスコア cスコア = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア;
-			if ((cスコア != null) && !string.IsNullOrEmpty(cスコア.譜面情報.strBGMファイル名) && TJAPlayer3.stage選曲.eフェーズID != CStage.Eフェーズ.選曲_NowLoading画面へのフェードアウト)
+			if ((cスコア != null) && !string.IsNullOrEmpty(cスコア.譜面情報.strBGMファイル名) && TJAPlayer3.stage選曲.eフェーズID != CStage.Eフェーズ.選曲_NowLoading画面へのFadeOut)
 			{
 				string strPreviewFilename = cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.strBGMファイル名;
 				try
@@ -177,7 +177,7 @@ namespace TJAPlayer3
 					}
 
 					this.str現在のファイル名 = strPreviewFilename;
-					this.tBGMフェードアウト開始();
+					this.tBGMFadeOut開始();
 					Trace.TraceInformation("プレビューサウンドを生成しました。({0})", strPreviewFilename);
 				}
 				catch (Exception e)

@@ -130,7 +130,7 @@ namespace TJAPlayer3
 						this.t演奏を停止する();
 					}
 				}
-				if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.b押された(Eパッド.LBlue))
+				if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.b押された(EPad.LBlue))
 				{
 					if (this.b特訓PAUSE)
 					{
@@ -171,7 +171,7 @@ namespace TJAPlayer3
 						TJAPlayer3.Skin.sound特訓スクロール音.t再生する();
 					}
 				}
-				if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.b押された(Eパッド.RBlue))
+				if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.b押された(EPad.RBlue))
 				{
 					if (this.b特訓PAUSE)
 					{
@@ -213,7 +213,7 @@ namespace TJAPlayer3
 						TJAPlayer3.Skin.sound特訓スクロール音.t再生する();
 					}
 				}
-				if (TJAPlayer3.Pad.b押された(Eパッド.LBlue2P))
+				if (TJAPlayer3.Pad.b押された(EPad.LBlue2P))
 				{
 					if (this.b特訓PAUSE)
 					{
@@ -223,7 +223,7 @@ namespace TJAPlayer3
 						}
 					}
 				}
-				if (TJAPlayer3.Pad.b押された(Eパッド.RBlue2P))
+				if (TJAPlayer3.Pad.b押された(EPad.RBlue2P))
 				{
 					if (this.b特訓PAUSE)
 					{
