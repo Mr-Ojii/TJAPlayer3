@@ -12,7 +12,7 @@ namespace FDK
 
 		public CInputMouse()
 		{
-			this.e入力デバイス種別 = EInputDevice種別.Mouse;
+			this.eInputDeviceType = EInputDeviceType.Mouse;
 			this.GUID = "";
 			this.ID = 0;
 
@@ -27,7 +27,7 @@ namespace FDK
 
 		#region [ IInputDevice 実装 ]
 		//-----------------
-		public EInputDevice種別 e入力デバイス種別 { get; private set; }
+		public EInputDeviceType eInputDeviceType { get; private set; }
 		public string GUID { get; private set; }
 		public int ID { get; private set; }
 		public List<STInputEvent> list入力イベント { get; private set; }

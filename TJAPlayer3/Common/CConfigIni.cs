@@ -123,12 +123,12 @@ namespace TJAPlayer3
 			{
 				public EInputDevice 入力デバイス;
 				public int ID;
-				public int コード;
+				public int Code;
 				public STKEYASSIGN(EInputDevice DeviceType, int nID, int nCode)
 				{
 					this.入力デバイス = DeviceType;
 					this.ID = nID;
-					this.コード = nCode;
+					this.Code = nCode;
 				}
 			}
 		}
@@ -324,7 +324,7 @@ namespace TJAPlayer3
 				{
 					for (int k = 0; k < 0x10; k++)
 					{
-						if ((this.KeyAssign[j][k].入力デバイス == EInputDevice.KeyBoard) && (this.KeyAssign[j][k].コード == (int)SlimDXKeys.Key.Return))
+						if ((this.KeyAssign[j][k].入力デバイス == EInputDevice.KeyBoard) && (this.KeyAssign[j][k].Code == (int)SlimDXKeys.Key.Return))
 						{
 							return false;
 						}
@@ -634,7 +634,7 @@ namespace TJAPlayer3
 			{
 				for (int k = 0; k < 0x10; k++)
 				{
-					if (((this.KeyAssign[j][k].入力デバイス == DeviceType) && (this.KeyAssign[j][k].ID == nID)) && (this.KeyAssign[j][k].コード == nCode))
+					if (((this.KeyAssign[j][k].入力デバイス == DeviceType) && (this.KeyAssign[j][k].ID == nID)) && (this.KeyAssign[j][k].Code == nCode))
 					{
 						for (int m = k; m < 15; m++)
 						{
@@ -642,7 +642,7 @@ namespace TJAPlayer3
 						}
 						this.KeyAssign[j][15].入力デバイス = EInputDevice.Unknown;
 						this.KeyAssign[j][15].ID = 0;
-						this.KeyAssign[j][15].コード = 0;
+						this.KeyAssign[j][15].Code = 0;
 						k--;
 					}
 				}
@@ -1131,7 +1131,7 @@ namespace TJAPlayer3
 			sw.WriteLine();
 			sw.WriteLine( ";-------------------" );
 			sw.WriteLine( "; キーアサイン" );
-			sw.WriteLine( ";   項　目：Keyboard → 'K'＋'0'＋キーコード(10進数)" );
+			sw.WriteLine( ";   項　目：Keyboard → 'K'＋'0'＋KeyCode(10進数)" );
 			sw.WriteLine( ";           Mouse    → 'N'＋'0'＋ボタン番号(0～13)" );
 			sw.WriteLine( ";           MIDI In  → 'M'＋デバイス番号1桁(0～9,A～Z)＋ノート番号(10進数)" );
 			sw.WriteLine( ";           Joystick → 'J'＋デバイス番号1桁(0～9,A～Z)＋ 0 ...... Ｘ減少(左)ボタン" );
@@ -2017,7 +2017,7 @@ namespace TJAPlayer3
 						sw.Write( 'N' );
 						break;
 				}
-				sw.Write( "{0}{1}", "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".Substring( assign[ i ].ID, 1 ), assign[ i ].コード );	// #24166 2011.1.15 yyagi: to support ID > 10, change 2nd character from Decimal to 36-numeral system. (e.g. J1023 -> JA23)
+				sw.Write( "{0}{1}", "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".Substring( assign[ i ].ID, 1 ), assign[ i ].Code );	// #24166 2011.1.15 yyagi: to support ID > 10, change 2nd character from Decimal to 36-numeral system. (e.g. J1023 -> JA23)
 			}
 		}
 		private void tキーの読み出しと設定( string strキー記述, CKeyAssign.STKEYASSIGN[] assign )
@@ -2064,7 +2064,7 @@ namespace TJAPlayer3
 					this.t指定した入力が既にアサイン済みである場合はそれを全削除する( e入力デバイス, id, code );
 					assign[ i ].入力デバイス = e入力デバイス;
 					assign[ i ].ID = id;
-					assign[ i ].コード = code;
+					assign[ i ].Code = code;
 				}
 			}
 		}

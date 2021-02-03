@@ -693,7 +693,7 @@ namespace TJAPlayer3
 						//-----------------------------
 						if (this.n進行描画の戻り値 != 0)
 						{
-							TJAPlayer3.Pad.st検知したデバイス.Clear();  // 入力デバイスフラグクリア(2010.9.11)
+							TJAPlayer3.Pad.stDetectedDevices.Clear();  // 入力デバイスフラグクリア(2010.9.11)
 							r現在のステージ.On非活性化();
 							#region [ ESC押下時は、曲の読み込みを中止して選曲画面に戻る ]
 							if (this.n進行描画の戻り値 == (int)E曲読込画面の戻り値.読込中止)
@@ -1346,7 +1346,7 @@ namespace TJAPlayer3
 				Input管理 = new CInput管理(base.WindowInfo.Handle);
 				foreach (IInputDevice device in Input管理.list入力デバイス)
 				{
-					if ((device.e入力デバイス種別 == EInputDevice種別.Joystick) && !ConfigIni.dicJoystick.ContainsValue(device.GUID))
+					if ((device.eInputDeviceType == EInputDeviceType.Joystick) && !ConfigIni.dicJoystick.ContainsValue(device.GUID))
 					{
 						int key = 0;
 						while (ConfigIni.dicJoystick.ContainsKey(key))
@@ -1938,16 +1938,16 @@ namespace TJAPlayer3
 			{
 				for ( int i = 0; i < 0x10; i++ )
 				{
-					if ( ConfigIni.KeyAssign.Capture[ i ].コード > 0 &&
-							DeviceConstantConverter.TKKtoKey(e.Key) == (SlimDXKeys.Key)ConfigIni.KeyAssign.Capture[i].コード)
+					if ( ConfigIni.KeyAssign.Capture[ i ].Code > 0 &&
+							DeviceConstantConverter.TKKtoKey(e.Key) == (SlimDXKeys.Key)ConfigIni.KeyAssign.Capture[i].Code)
 					{
 						// Debug.WriteLine( "capture: " + string.Format( "{0:2x}", (int) e.KeyCode ) + " " + (int) e.KeyCode );
 						string strFullPath =
 						   Path.Combine( TJAPlayer3.strEXEのあるフォルダ, "Capture_img" );
 						strFullPath = Path.Combine( strFullPath, DateTime.Now.ToString( "yyyyMMddHHmmss" ) + ".png" );
 						CSaveScreen.CSaveFromDevice(TJAPlayer3.app.Device, strFullPath);
-					}else if(ConfigIni.KeyAssign.FullScreen[i].コード > 0 &&
-							DeviceConstantConverter.TKKtoKey(e.Key) == (SlimDXKeys.Key)ConfigIni.KeyAssign.FullScreen[i].コード) 
+					}else if(ConfigIni.KeyAssign.FullScreen[i].Code > 0 &&
+							DeviceConstantConverter.TKKtoKey(e.Key) == (SlimDXKeys.Key)ConfigIni.KeyAssign.FullScreen[i].Code) 
 					{
 
 						if (ConfigIni != null)

@@ -2890,19 +2890,19 @@ namespace TJAPlayer3
 
 		protected void t入力メソッド記憶()
 		{
-			if ( TJAPlayer3.Pad.st検知したデバイス.Keyboard )
+			if ( TJAPlayer3.Pad.stDetectedDevices.Keyboard )
 			{
 				this.b演奏にKeyBoardを使った = true;
 			}
-			if ( TJAPlayer3.Pad.st検知したデバイス.Joypad )
+			if ( TJAPlayer3.Pad.stDetectedDevices.Joypad )
 			{
 				this.b演奏にJoypadを使った = true;
 			}
-			if ( TJAPlayer3.Pad.st検知したデバイス.MIDIIN )
+			if ( TJAPlayer3.Pad.stDetectedDevices.MIDIIN )
 			{
 				this.b演奏にMIDIInputを使った = true;
 			}
-			if ( TJAPlayer3.Pad.st検知したデバイス.Mouse )
+			if ( TJAPlayer3.Pad.stDetectedDevices.Mouse )
 			{
 				this.b演奏にMouseを使った = true;
 			}

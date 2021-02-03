@@ -42,7 +42,7 @@ namespace TJAPlayer3
 		public void tパッド選択通知( EKeyConfigPad pad )					//
 		{																						//
 			this.actKeyAssign.t開始( pad, this.actList.ib現在の選択項目.str項目名 );		//
-			this.eItemPanelモード = EItemPanelモード.キーコード一覧;							//
+			this.eItemPanelモード = EItemPanelモード.KeyCode一覧;							//
 		}																						//
 		public void t項目変更通知()																// OPTIONと共通
 		{																						//
@@ -255,7 +255,7 @@ namespace TJAPlayer3
 					this.actList.t進行描画( !this.bメニューにフォーカス中 );
 					break;
 
-				case EItemPanelモード.キーコード一覧:
+				case EItemPanelモード.KeyCode一覧:
 					this.actKeyAssign.On進行描画();
 					break;
 			}
@@ -318,7 +318,7 @@ namespace TJAPlayer3
 					TJAPlayer3.Skin.sound取消音.t再生する();
 					if ( !this.bメニューにフォーカス中 )
 					{
-						if ( this.eItemPanelモード == EItemPanelモード.キーコード一覧 )
+						if ( this.eItemPanelモード == EItemPanelモード.KeyCode一覧 )
 						{
 							TJAPlayer3.stageコンフィグ.tアサイン完了通知();
 							return 0;
@@ -367,7 +367,7 @@ namespace TJAPlayer3
 								}
 								break;
 
-							case EItemPanelモード.キーコード一覧:
+							case EItemPanelモード.KeyCode一覧:
 								this.actKeyAssign.tEnter押下();
 								break;
 						}
@@ -414,7 +414,7 @@ namespace TJAPlayer3
 		private enum EItemPanelモード
 		{
 			パッド一覧,
-			キーコード一覧
+			KeyCode一覧
 		}
 
 		[StructLayout( LayoutKind.Sequential )]
@@ -496,7 +496,7 @@ namespace TJAPlayer3
 						this.actList.t次に移動();
 						return;
 
-					case EItemPanelモード.キーコード一覧:
+					case EItemPanelモード.KeyCode一覧:
 						this.actKeyAssign.t次に移動();
 						return;
 				}
@@ -532,7 +532,7 @@ namespace TJAPlayer3
 						this.actList.t前に移動();
 						return;
 
-					case EItemPanelモード.キーコード一覧:
+					case EItemPanelモード.KeyCode一覧:
 						this.actKeyAssign.t前に移動();
 						return;
 				}

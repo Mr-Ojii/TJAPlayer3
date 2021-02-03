@@ -6,7 +6,7 @@ namespace FDK
 {
 	// 定数
 
-	public enum EInputDevice種別
+	public enum EInputDeviceType
 	{
 		Keyboard,
 		Mouse,
