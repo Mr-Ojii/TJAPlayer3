@@ -394,8 +394,8 @@ namespace TJAPlayer3
 					}
 					if(TJAPlayer3.Tx.Taiko_Combo_Effect != null )
 					{
-						TJAPlayer3.Tx.Taiko_Combo_Effect.b加算合成 = true;
-						if( this.ctコンボラメ.n現在の値 < 14)
+						TJAPlayer3.Tx.Taiko_Combo_Effect.eBlendMode = CTexture.EBlendMode.Addition;
+						if ( this.ctコンボラメ.n現在の値 < 14)
 						{
 							// ひだり
 							#region[透明度制御]
@@ -437,7 +437,7 @@ namespace TJAPlayer3
 					}
 					if (TJAPlayer3.Tx.Taiko_Combo_Effect != null)
 					{
-						TJAPlayer3.Tx.Taiko_Combo_Effect.b加算合成 = true;
+						TJAPlayer3.Tx.Taiko_Combo_Effect.eBlendMode = CTexture.EBlendMode.Addition;
 						if (this.ctコンボラメ.n現在の値 < 14)
 						{
 							// ひだり

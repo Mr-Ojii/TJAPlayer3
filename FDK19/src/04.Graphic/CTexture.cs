@@ -22,26 +22,8 @@ namespace FDK
 	public class CTexture : IDisposable
 	{
 		// プロパティ
-		public bool b加算合成
-		{
-			get;
-			set;
-		}
-		public bool b乗算合成
-		{
-			get;
-			set;
-		}
-		public bool b減算合成
-		{
-			get;
-			set;
-		}
-		public bool bスクリーン合成
-		{
-			get;
-			set;
-		}
+		public EBlendMode eBlendMode = EBlendMode.Normal;
+
 		public float fZ軸中心回転
 		{
 			get;
@@ -100,7 +82,6 @@ namespace FDK
 			this.vrtVBO = null;
 			this.texVBO = null;
 			this.bSharpDXTextureDispose完了済み = true;
-			this.b加算合成 = false;
 			this.fZ軸中心回転 = 0f;
 			this.vc拡大縮小倍率 = new System.Numerics.Vector3(1f, 1f, 1f);
 			this.vc = new Vector3(1f, 1f, 1f);
@@ -777,6 +758,15 @@ namespace FDK
 			DownRight,
 		}
 
+		public enum EBlendMode 
+		{
+			Normal,
+			Addition,
+			Subtract,
+			Multiply,
+			Screen
+		}
+
 		#region [ private ]
 		//-----------------
 		private int _opacity;
@@ -788,30 +778,28 @@ namespace FDK
 		/// <param name="device">Direct3Dのデバイス</param>
 		private void tレンダリングステートの設定(Device device)
 		{
-			if (this.b加算合成)
+			switch (this.eBlendMode) 
 			{
-				GL.BlendEquation(BlendEquationMode.FuncAdd);
-				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.One);
-			}
-			else if (this.b乗算合成)
-			{
-				GL.BlendEquation(BlendEquationMode.FuncAdd);
-				GL.BlendFunc(BlendingFactor.Zero, BlendingFactor.SrcColor);
-			}
-			else if (this.b減算合成)
-			{
-				GL.BlendEquation(BlendEquationMode.FuncReverseSubtract);
-				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.One);
-			}
-			else if (this.bスクリーン合成)
-			{
-				GL.BlendEquation(BlendEquationMode.FuncAdd);
-				GL.BlendFunc(BlendingFactor.OneMinusDstColor, BlendingFactor.One);
-			}
-			else
-			{
-				GL.BlendEquation(BlendEquationMode.FuncAdd);
-				GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+				case EBlendMode.Addition:
+					GL.BlendEquation(BlendEquationMode.FuncAdd);
+					GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.One);
+					break;
+				case EBlendMode.Multiply:
+					GL.BlendEquation(BlendEquationMode.FuncAdd);
+					GL.BlendFunc(BlendingFactor.Zero, BlendingFactor.SrcColor);
+					break;
+				case EBlendMode.Subtract:
+					GL.BlendEquation(BlendEquationMode.FuncReverseSubtract);
+					GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.One);
+					break;
+				case EBlendMode.Screen:
+					GL.BlendEquation(BlendEquationMode.FuncAdd);
+					GL.BlendFunc(BlendingFactor.OneMinusDstColor, BlendingFactor.One);
+					break;
+				default:
+					GL.BlendEquation(BlendEquationMode.FuncAdd);
+					GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+					break;
 			}
 		}
 		private void ResetWorldMatrix()

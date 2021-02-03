@@ -4369,8 +4369,8 @@ namespace TJAPlayer3
 
 
 					x = (x) - ((int)((130.0 * 1.0) / 2.0));
-					TJAPlayer3.Tx.Notes.b加算合成 = false;
-					TJAPlayer3.Tx.SENotes.b加算合成 = false;
+					TJAPlayer3.Tx.Notes.eBlendMode = CTexture.EBlendMode.Normal;
+					TJAPlayer3.Tx.SENotes.eBlendMode = CTexture.EBlendMode.Normal;
 					var device = TJAPlayer3.app.Device;
 					switch (pChip.nチャンネル番号)
 					{
