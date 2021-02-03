@@ -492,7 +492,7 @@ namespace TJAPlayer3
 					TJAPlayer3.Tx.GameMode_Timer_Tick.t3D描画( TJAPlayer3.app.Device, mat );
 
 					string str表示する残り時間 = ( this.st叩ききりまショー.ct残り時間.n現在の値 < 1000 ) ? "25" : ( ( 26000 - this.st叩ききりまショー.ct残り時間.n現在の値 ) / 1000 ).ToString();
-					this.t小文字表示( 230 + (str表示する残り時間.Length * TJAPlayer3.Skin.Game_Taiko_Combo_Size[0] / 4 ), 84 + TJAPlayer3.Tx.GameMode_Timer_Frame.szテクスチャサイズ.Height / 2 , string.Format("{0,2:#0}", str表示する残り時間 ));
+					this.t小文字表示( 230 + (str表示する残り時間.Length * TJAPlayer3.Skin.Game_Taiko_Combo_Size[0] / 4 ), 84 + TJAPlayer3.Tx.GameMode_Timer_Frame.szTextureSize.Height / 2 , string.Format("{0,2:#0}", str表示する残り時間 ));
 				}
 
 				if( !this.st叩ききりまショー.ct加算審査中.b停止中 )
@@ -863,8 +863,8 @@ namespace TJAPlayer3
 								TJAPlayer3.Tx.Taiko_Combo[0].Opacity = 128;
 							if (this.st叩ききりまショー.b加算アニメ中)
 								TJAPlayer3.Tx.Taiko_Combo[0].Opacity = 0;
-							TJAPlayer3.Tx.Taiko_Combo[0].vc拡大縮小倍率.Y = 1f;
-							TJAPlayer3.Tx.Taiko_Combo[0].vc拡大縮小倍率.X = 1f;
+							TJAPlayer3.Tx.Taiko_Combo[0].vcScaling.Y = 1f;
+							TJAPlayer3.Tx.Taiko_Combo[0].vcScaling.X = 1f;
 							TJAPlayer3.Tx.Taiko_Combo[0].t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x, y, rectangle);
 						}
 						break;
@@ -885,7 +885,7 @@ namespace TJAPlayer3
 						Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.Game_Score_Size[0] * i, 0, TJAPlayer3.Skin.Game_Score_Size[0], TJAPlayer3.Skin.Game_Score_Size[1]);
 						if (TJAPlayer3.Tx.Taiko_Score[0] != null )
 						{
-							TJAPlayer3.Tx.Taiko_Score[0].vc拡大縮小倍率.Y = 1f;
+							TJAPlayer3.Tx.Taiko_Score[0].vcScaling.Y = 1f;
 							TJAPlayer3.Tx.Taiko_Score[0].t2D描画( TJAPlayer3.app.Device, x, y, rectangle );
 						}
 					}

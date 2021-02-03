@@ -59,8 +59,8 @@ namespace TJAPlayer3
 					#region[ ワイドクリップ ]
 					this.rVD.GetNowFrame(ref this.tx描画用);
 
-					this.tx描画用.vc拡大縮小倍率.X = this.ratio1;
-					this.tx描画用.vc拡大縮小倍率.Y = this.ratio1;
+					this.tx描画用.vcScaling.X = this.ratio1;
+					this.tx描画用.vcScaling.Y = this.ratio1;
 
 					if (TJAPlayer3.ConfigIni.eClipDispType == EClipDispType.背景のみ || TJAPlayer3.ConfigIni.eClipDispType == EClipDispType.両方)
 					{
@@ -84,8 +84,8 @@ namespace TJAPlayer3
 					float[] fRatio = new float[] { 640.0f - 4.0f, 360.0f - 4.0f }; //中央下表示
 
 					float ratio = Math.Min((float)(fRatio[0] / this.rVD.FrameSize.Width), (float)(fRatio[1] / this.rVD.FrameSize.Height));
-					this.tx描画用.vc拡大縮小倍率.X = ratio;
-					this.tx描画用.vc拡大縮小倍率.Y = ratio;
+					this.tx描画用.vcScaling.X = ratio;
+					this.tx描画用.vcScaling.Y = ratio;
 
 					this.tx描画用.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, GameWindowSize.Width / 2, GameWindowSize.Height);
 				}

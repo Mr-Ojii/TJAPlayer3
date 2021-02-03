@@ -54,7 +54,7 @@ namespace TJAPlayer3
 					{
 						if (TJAPlayer3.Tx.Mob[(int)ctMobPtn.db現在の値] != null)
 						{
-							TJAPlayer3.Tx.Mob[(int)ctMobPtn.db現在の値].t2D描画(TJAPlayer3.app.Device, 0, (720 - (TJAPlayer3.Tx.Mob[0].szテクスチャサイズ.Height - 70)) + -((float)Math.Sin((float)this.ctMob.db現在の値 * (Math.PI / 180)) * 70));
+							TJAPlayer3.Tx.Mob[(int)ctMobPtn.db現在の値].t2D描画(TJAPlayer3.app.Device, 0, (720 - (TJAPlayer3.Tx.Mob[0].szTextureSize.Height - 70)) + -((float)Math.Sin((float)this.ctMob.db現在の値 * (Math.PI / 180)) * 70));
 						}
 					}
 

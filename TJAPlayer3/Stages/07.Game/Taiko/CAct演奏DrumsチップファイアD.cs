@@ -131,8 +131,8 @@ namespace TJAPlayer3
 							if( TJAPlayer3.Tx.Effects_Hit_Explosion != null && !TJAPlayer3.IsPerformingCalibration )
 							{
 								int n = this.st状態[ i ].nIsBig == 1 ? 520 : 0;
-								int nX = ( TJAPlayer3.Skin.nScrollFieldX[ this.st状態[ i ].nPlayer ] ) - ( (TJAPlayer3.Tx.Effects_Hit_Explosion.szテクスチャサイズ.Width / 7 ) / 2 );
-								int nY = ( TJAPlayer3.Skin.nJudgePointY[ this.st状態[ i ].nPlayer ] ) - ( (TJAPlayer3.Tx.Effects_Hit_Explosion.szテクスチャサイズ.Height / 4 ) / 2 );
+								int nX = ( TJAPlayer3.Skin.nScrollFieldX[ this.st状態[ i ].nPlayer ] ) - ( (TJAPlayer3.Tx.Effects_Hit_Explosion.szTextureSize.Width / 7 ) / 2 );
+								int nY = ( TJAPlayer3.Skin.nJudgePointY[ this.st状態[ i ].nPlayer ] ) - ( (TJAPlayer3.Tx.Effects_Hit_Explosion.szTextureSize.Height / 4 ) / 2 );
 
 								switch( st状態[ i ].judge )
 								{
@@ -178,14 +178,14 @@ namespace TJAPlayer3
 								case EJudge.AutoPerfect:
 									if( this.st状態_大[ i ].nIsBig == 1 )
 									{
-										float fX = 415 - ((TJAPlayer3.Tx.Effects_Hit_Explosion_Big.szテクスチャサイズ.Width * TJAPlayer3.Tx.Effects_Hit_Explosion_Big.vc拡大縮小倍率.X ) / 2.0f);
-										float fY = TJAPlayer3.Skin.nJudgePointY[ this.st状態_大[ i ].nPlayer ] - ((TJAPlayer3.Tx.Effects_Hit_Explosion_Big.szテクスチャサイズ.Height * TJAPlayer3.Tx.Effects_Hit_Explosion_Big.vc拡大縮小倍率.Y ) / 2.0f);
-										//float fY = 257 - ((this.txアタックエフェクトUpper_big.szテクスチャサイズ.Height * this.txアタックエフェクトUpper_big.vc拡大縮小倍率.Y ) / 2.0f);
+										float fX = 415 - ((TJAPlayer3.Tx.Effects_Hit_Explosion_Big.szTextureSize.Width * TJAPlayer3.Tx.Effects_Hit_Explosion_Big.vcScaling.X ) / 2.0f);
+										float fY = TJAPlayer3.Skin.nJudgePointY[ this.st状態_大[ i ].nPlayer ] - ((TJAPlayer3.Tx.Effects_Hit_Explosion_Big.szTextureSize.Height * TJAPlayer3.Tx.Effects_Hit_Explosion_Big.vcScaling.Y ) / 2.0f);
+										//float fY = 257 - ((this.txアタックエフェクトUpper_big.szTextureSize.Height * this.txアタックエフェクトUpper_big.vcScaling.Y ) / 2.0f);
 
 										////7
 										float f倍率 = 0.5f + ( (this.st状態_大[ i ].ct進行.n現在の値 * 0.5f) / 10.0f);
-										//this.txアタックエフェクトUpper_big.vc拡大縮小倍率.X = f倍率;
-										//this.txアタックエフェクトUpper_big.vc拡大縮小倍率.Y = f倍率;
+										//this.txアタックエフェクトUpper_big.vcScaling.X = f倍率;
+										//this.txアタックエフェクトUpper_big.vcScaling.Y = f倍率;
 										//this.txアタックエフェクトUpper_big.n透明度 = (int)(255 * f倍率);
 										//this.txアタックエフェクトUpper_big.t2D描画( CDTXMania.app.Device, fX, fY );
 

@@ -193,14 +193,14 @@ namespace TJAPlayer3
 				for (int i = 0; i < TJAPlayer3.Skin.SECount.ToString().Length; i++)
 				{
 					var number = (int)(TJAPlayer3.Skin.SECount / Math.Pow(10, TJAPlayer3.Skin.SECount.ToString().Length - i - 1) % 10);
-					Rectangle rectangle = new Rectangle(TJAPlayer3.Tx.ChangeSE_Num.szテクスチャサイズ.Width / 10 * number, 0, TJAPlayer3.Tx.ChangeSE_Num.szテクスチャサイズ.Width / 10, TJAPlayer3.Tx.ChangeSE_Num.szテクスチャサイズ.Height);
-					TJAPlayer3.Tx.ChangeSE_Num.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (i * TJAPlayer3.Tx.ChangeSE_Num.szテクスチャサイズ.Width / 10) + 20, y - 260, rectangle);
+					Rectangle rectangle = new Rectangle(TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Width / 10 * number, 0, TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Width / 10, TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Height);
+					TJAPlayer3.Tx.ChangeSE_Num.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (i * TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Width / 10) + 20, y - 260, rectangle);
 				}
 				for (int i = 0; i < (TJAPlayer3.Skin.NowSENum[nPlayer] + 1).ToString().Length; i++)
 				{
 					var number = (int)((TJAPlayer3.Skin.NowSENum[nPlayer] + 1) / Math.Pow(10, i) % 10);
-					Rectangle rectangle = new Rectangle(TJAPlayer3.Tx.ChangeSE_Num.szテクスチャサイズ.Width / 10 * number, 0, TJAPlayer3.Tx.ChangeSE_Num.szテクスチャサイズ.Width / 10, TJAPlayer3.Tx.ChangeSE_Num.szテクスチャサイズ.Height);
-					TJAPlayer3.Tx.ChangeSE_Num.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x - (i * TJAPlayer3.Tx.ChangeSE_Num.szテクスチャサイズ.Width / 10) - 20, y - 260, rectangle);
+					Rectangle rectangle = new Rectangle(TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Width / 10 * number, 0, TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Width / 10, TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Height);
+					TJAPlayer3.Tx.ChangeSE_Num.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x - (i * TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Width / 10) - 20, y - 260, rectangle);
 				}
 			}
 			if (eMoving[nPlayer] == EMoving.None)

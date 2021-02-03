@@ -196,7 +196,7 @@ namespace TJAPlayer3
 					int baseX = 370;
 					//int baseY = 135;
 					int baseY = TJAPlayer3.Skin.nScrollFieldY[this.st状態[j].nPlayer] - 53;
-					int x = TJAPlayer3.Skin.nScrollFieldX[this.st状態[j].nPlayer] - TJAPlayer3.Tx.Judge.szテクスチャサイズ.Width / 2;
+					int x = TJAPlayer3.Skin.nScrollFieldX[this.st状態[j].nPlayer] - TJAPlayer3.Tx.Judge.szTextureSize.Width / 2;
 					int y = (baseY + this.st状態[j].n相対Y座標);
 					TJAPlayer3.Tx.Judge.t2D描画(TJAPlayer3.app.Device, x, y, this.st判定文字列[(int)this.st状態[j].judge]);
 				}

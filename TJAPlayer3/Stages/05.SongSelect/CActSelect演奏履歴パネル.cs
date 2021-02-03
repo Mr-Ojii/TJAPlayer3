@@ -111,12 +111,12 @@ namespace TJAPlayer3
 		{
 			for (int index = 0; index < n.ToString().Length; index++) {
 				int Num = (int)(n / Math.Pow(10, index) % 10);
-				Rectangle rectangle = new Rectangle((TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.szテクスチャサイズ.Width / 10) * Num, 0, TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.szテクスチャサイズ.Width / 10, TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.szテクスチャサイズ.Height / 2);
+				Rectangle rectangle = new Rectangle((TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.szTextureSize.Width / 10) * Num, 0, TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.szTextureSize.Width / 10, TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.szTextureSize.Height / 2);
 				if (TJAPlayer3.Tx.SongSelect_ScoreWindow_Text != null)
 				{
 					TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
 				}
-				x -= TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.szテクスチャサイズ.Width / 10;
+				x -= TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.szTextureSize.Width / 10;
 			}
 		}
 
@@ -141,17 +141,17 @@ namespace TJAPlayer3
 						if (!string.IsNullOrEmpty(First[index]))
 						{
 							this.First[index] = TJAPlayer3.tテクスチャの生成(Font.DrawPrivateFont(First[index], Color.Black));
-							this.First[index].vc拡大縮小倍率 = new Vector3(0.5f);
+							this.First[index].vcScaling = new Vector3(0.5f);
 						}
 						if (!string.IsNullOrEmpty(Second[index]))
 						{
 							this.Second[index] = TJAPlayer3.tテクスチャの生成(Font.DrawPrivateFont(Second[index], Color.Black));
-							this.Second[index].vc拡大縮小倍率 = new Vector3(0.5f);
+							this.Second[index].vcScaling = new Vector3(0.5f);
 						}
 						if (!string.IsNullOrEmpty(Third[index]))
 						{
 							this.Third[index] = TJAPlayer3.tテクスチャの生成(Font.DrawPrivateFont(Third[index], Color.Black));
-							this.Third[index].vc拡大縮小倍率 = new Vector3(0.5f);
+							this.Third[index].vcScaling = new Vector3(0.5f);
 						}
 					}
 			}

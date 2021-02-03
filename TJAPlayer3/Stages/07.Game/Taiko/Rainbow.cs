@@ -95,7 +95,7 @@ namespace TJAPlayer3
 							//this.st虹[f].ct進行.n現在の値 = 164;
 							
 
-							TJAPlayer3.Tx.Effects_Rainbow.vc拡大縮小倍率.X = 1.0f - ((float)(TJAPlayer3.Skin.nScrollFieldX[0] - TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.nDefaultJudgePos[0, 0]) / (float)TJAPlayer3.Tx.Effects_Rainbow.szテクスチャサイズ.Width);
+							TJAPlayer3.Tx.Effects_Rainbow.vcScaling.X = 1.0f - ((float)(TJAPlayer3.Skin.nScrollFieldX[0] - TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.nDefaultJudgePos[0, 0]) / (float)TJAPlayer3.Tx.Effects_Rainbow.szTextureSize.Width);
 
 							if (this.Rainbow1P[f].Counter.n現在の値 < 82)
 							{
@@ -105,7 +105,7 @@ namespace TJAPlayer3
 							else if (this.Rainbow1P[f].Counter.n現在の値 >= 82)
 							{
 								int nRectX = (((this.Rainbow1P[f].Counter.n現在の値 - 82) * 920) / 85);
-								TJAPlayer3.Tx.Effects_Rainbow.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[0] - 54 + (int)(TJAPlayer3.Tx.Effects_Rainbow.vc拡大縮小倍率.X * nRectX), -100, new Rectangle(nRectX, 0, 920 - nRectX, 410));
+								TJAPlayer3.Tx.Effects_Rainbow.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[0] - 54 + (int)(TJAPlayer3.Tx.Effects_Rainbow.vcScaling.X * nRectX), -100, new Rectangle(nRectX, 0, 920 - nRectX, 410));
 							}
 
 						}
@@ -126,7 +126,7 @@ namespace TJAPlayer3
 						if(TJAPlayer3.Tx.Effects_Rainbow != null && this.Rainbow2P[f].Player == 1 ) //画像が出来るまで
 						{
 							//this.st虹[f].ct進行.n現在の値 = 164;
-							TJAPlayer3.Tx.Effects_Rainbow.vc拡大縮小倍率.X = 1.0f - ((float)(TJAPlayer3.Skin.nScrollFieldX[1] - TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.nDefaultJudgePos[1, 0]) / (float)TJAPlayer3.Tx.Effects_Rainbow.szテクスチャサイズ.Width);
+							TJAPlayer3.Tx.Effects_Rainbow.vcScaling.X = 1.0f - ((float)(TJAPlayer3.Skin.nScrollFieldX[1] - TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.nDefaultJudgePos[1, 0]) / (float)TJAPlayer3.Tx.Effects_Rainbow.szTextureSize.Width);
 
 							if (this.Rainbow2P[f].Counter.n現在の値 < 82)
 							{
@@ -136,7 +136,7 @@ namespace TJAPlayer3
 							else if (this.Rainbow2P[f].Counter.n現在の値 >= 82)
 							{
 								int nRectX = (((this.Rainbow2P[f].Counter.n現在の値 - 82) * 920) / 85);
-								TJAPlayer3.Tx.Effects_Rainbow.t2D上下反転描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[1] - 54 + (int)(TJAPlayer3.Tx.Effects_Rainbow.vc拡大縮小倍率.X * nRectX), 410, new Rectangle(nRectX, 0, 920 - nRectX, 410));
+								TJAPlayer3.Tx.Effects_Rainbow.t2D上下反転描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[1] - 54 + (int)(TJAPlayer3.Tx.Effects_Rainbow.vcScaling.X * nRectX), 410, new Rectangle(nRectX, 0, 920 - nRectX, 410));
 							}
 
 						}

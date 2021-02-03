@@ -940,7 +940,7 @@ namespace TJAPlayer3
 							this.bネットワークに接続中 = reply.Status == IPStatus.Success;
 						});
 					}
-					TJAPlayer3.Tx.Network_Connection.t2D描画(app.Device, GameWindowSize.Width - (TJAPlayer3.Tx.Network_Connection.szテクスチャサイズ.Width / 2), GameWindowSize.Height - TJAPlayer3.Tx.Network_Connection.szテクスチャサイズ.Height, new Rectangle((TJAPlayer3.Tx.Network_Connection.szテクスチャサイズ.Width / 2) * (this.bネットワークに接続中 ? 0 : 1), 0, TJAPlayer3.Tx.Network_Connection.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.Network_Connection.szテクスチャサイズ.Height));
+					TJAPlayer3.Tx.Network_Connection.t2D描画(app.Device, GameWindowSize.Width - (TJAPlayer3.Tx.Network_Connection.szTextureSize.Width / 2), GameWindowSize.Height - TJAPlayer3.Tx.Network_Connection.szTextureSize.Height, new Rectangle((TJAPlayer3.Tx.Network_Connection.szTextureSize.Width / 2) * (this.bネットワークに接続中 ? 0 : 1), 0, TJAPlayer3.Tx.Network_Connection.szTextureSize.Width / 2, TJAPlayer3.Tx.Network_Connection.szTextureSize.Height));
 				}
 				// オーバレイを描画する(テクスチャの生成されていない起動ステージは例外
 				if (r現在のステージ != null && r現在のステージ.eStageID != CStage.EStage.StartUp && TJAPlayer3.Tx.Overlay != null)
@@ -1136,8 +1136,8 @@ namespace TJAPlayer3
 		public static float GetSongNameXScaling(ref CTexture cTexture, int samePixel = 660)
 		{
 			if (cTexture == null) return 1f;
-			float scalingRate = (float)samePixel / (float)cTexture.szテクスチャサイズ.Width;
-			if (cTexture.szテクスチャサイズ.Width <= samePixel)
+			float scalingRate = (float)samePixel / (float)cTexture.szTextureSize.Width;
+			if (cTexture.szTextureSize.Width <= samePixel)
 				scalingRate = 1.0f;
 			return scalingRate;
 		}

@@ -360,8 +360,8 @@ namespace TJAPlayer3
 		{
 			if (TJAPlayer3.Tx.PlayOption_List != null && TJAPlayer3.Tx.PlayOption_Active != null)
 			{
-				TJAPlayer3.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.Skin.PlayOption_Box_Section_Y[2], TJAPlayer3.Tx.PlayOption_List.szテクスチャサイズ.Width, TJAPlayer3.Tx.PlayOption_List.szテクスチャサイズ.Height - TJAPlayer3.Skin.PlayOption_Box_Section_Y[2]));//下部
-				y -= TJAPlayer3.Tx.PlayOption_List.szテクスチャサイズ.Height - TJAPlayer3.Skin.PlayOption_Box_Section_Y[2];
+				TJAPlayer3.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.Skin.PlayOption_Box_Section_Y[2], TJAPlayer3.Tx.PlayOption_List.szTextureSize.Width, TJAPlayer3.Tx.PlayOption_List.szTextureSize.Height - TJAPlayer3.Skin.PlayOption_Box_Section_Y[2]));//下部
+				y -= TJAPlayer3.Tx.PlayOption_List.szTextureSize.Height - TJAPlayer3.Skin.PlayOption_Box_Section_Y[2];
 			}
 			else
 			{
@@ -372,7 +372,7 @@ namespace TJAPlayer3
 			{
 				if (TJAPlayer3.Tx.PlayOption_List != null && TJAPlayer3.Tx.PlayOption_Active != null)
 				{
-					TJAPlayer3.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.Skin.PlayOption_Box_Section_Y[1], TJAPlayer3.Tx.PlayOption_List.szテクスチャサイズ.Width, TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]));//リスト本体
+					TJAPlayer3.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.Skin.PlayOption_Box_Section_Y[1], TJAPlayer3.Tx.PlayOption_List.szTextureSize.Width, TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]));//リスト本体
 					if (lci[nPlayer].Count - i == NowRow[nPlayer] + 1)
 						TJAPlayer3.Tx.PlayOption_Active.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y);
 				}
@@ -383,26 +383,26 @@ namespace TJAPlayer3
 				{
 					using (CTexture texture = TJAPlayer3.tテクスチャの生成(this.Font.DrawPrivateFont(((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex() + 1) * 0.1).ToString("0.0"), Color.White, Color.Black)))
 					{
-						texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.PlayOption_List_XY_Diff[0] - texture.szテクスチャサイズ.Width / 2, y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_List_XY_Diff[1]);
+						texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.PlayOption_List_XY_Diff[0] - texture.szTextureSize.Width / 2, y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_List_XY_Diff[1]);
 					}
 				}
 				else if (lci[nPlayer][lci[nPlayer].Count - i - 1].str項目名.Equals("演奏速度"))
 				{
 					using (CTexture texture = TJAPlayer3.tテクスチャの生成(this.Font.DrawPrivateFont((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex() * 0.05).ToString("0.00"), Color.White, Color.Black)))
 					{
-						texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.PlayOption_List_XY_Diff[0] - texture.szテクスチャサイズ.Width / 2, y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_List_XY_Diff[1]);
+						texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.PlayOption_List_XY_Diff[0] - texture.szTextureSize.Width / 2, y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_List_XY_Diff[1]);
 					}
 				}
 				else if (lci[nPlayer][lci[nPlayer].Count - i - 1].e種別 == CItemBase.E種別.整数)
 				{
 					using (CTexture texture = TJAPlayer3.tテクスチャの生成(this.Font.DrawPrivateFont((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex()).ToString(), Color.White, Color.Black)))
 					{
-						texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.PlayOption_List_XY_Diff[0] - texture.szテクスチャサイズ.Width / 2, y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_List_XY_Diff[1]);
+						texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.PlayOption_List_XY_Diff[0] - texture.szTextureSize.Width / 2, y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_List_XY_Diff[1]);
 					}
 				}
 				else if (lci[nPlayer][lci[nPlayer].Count - i - 1].e種別 == CItemBase.E種別.リスト)
 				{
-					this.NameTexture[nPlayer][lci[nPlayer].Count - i - 1].ItemListTexture[lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex()].t2D描画(TJAPlayer3.app.Device, x + 90 - this.NameTexture[nPlayer][lci[nPlayer].Count - i - 1].ItemListTexture[lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex()].szテクスチャサイズ.Width / 2, y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_List_XY_Diff[1]);
+					this.NameTexture[nPlayer][lci[nPlayer].Count - i - 1].ItemListTexture[lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex()].t2D描画(TJAPlayer3.app.Device, x + 90 - this.NameTexture[nPlayer][lci[nPlayer].Count - i - 1].ItemListTexture[lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex()].szTextureSize.Width / 2, y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_List_XY_Diff[1]);
 				}
 
 				y -= TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1];
@@ -410,7 +410,7 @@ namespace TJAPlayer3
 
 			if (TJAPlayer3.Tx.PlayOption_List != null && TJAPlayer3.Tx.PlayOption_Active != null)
 			{
-				TJAPlayer3.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.Skin.PlayOption_Box_Section_Y[0], TJAPlayer3.Tx.PlayOption_List.szテクスチャサイズ.Width, TJAPlayer3.Skin.PlayOption_Box_Section_Y[1] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[0]));//上部
+				TJAPlayer3.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.Skin.PlayOption_Box_Section_Y[0], TJAPlayer3.Tx.PlayOption_List.szTextureSize.Width, TJAPlayer3.Skin.PlayOption_Box_Section_Y[1] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[0]));//上部
 			}
 
 		}

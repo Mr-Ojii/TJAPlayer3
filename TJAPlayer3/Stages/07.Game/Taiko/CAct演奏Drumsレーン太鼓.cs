@@ -257,27 +257,27 @@ namespace TJAPlayer3
 
 					if (this.ctゴーゴー.n現在の値 <= 4)
 					{
-						TJAPlayer3.Tx.Lane_Background_GoGo.vc拡大縮小倍率.Y = 0.2f;
+						TJAPlayer3.Tx.Lane_Background_GoGo.vcScaling.Y = 0.2f;
 						TJAPlayer3.Tx.Lane_Background_GoGo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[i], TJAPlayer3.Skin.nScrollFieldY[i] + 54);
 					}
 					else if (this.ctゴーゴー.n現在の値 <= 5)
 					{
-						TJAPlayer3.Tx.Lane_Background_GoGo.vc拡大縮小倍率.Y = 0.4f;
+						TJAPlayer3.Tx.Lane_Background_GoGo.vcScaling.Y = 0.4f;
 						TJAPlayer3.Tx.Lane_Background_GoGo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[i], TJAPlayer3.Skin.nScrollFieldY[i] + 40);
 					}
 					else if (this.ctゴーゴー.n現在の値 <= 6)
 					{
-						TJAPlayer3.Tx.Lane_Background_GoGo.vc拡大縮小倍率.Y = 0.6f;
+						TJAPlayer3.Tx.Lane_Background_GoGo.vcScaling.Y = 0.6f;
 						TJAPlayer3.Tx.Lane_Background_GoGo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[i], TJAPlayer3.Skin.nScrollFieldY[i] + 26);
 					}
 					else if (this.ctゴーゴー.n現在の値 <= 8)
 					{
-						TJAPlayer3.Tx.Lane_Background_GoGo.vc拡大縮小倍率.Y = 0.8f;
+						TJAPlayer3.Tx.Lane_Background_GoGo.vcScaling.Y = 0.8f;
 						TJAPlayer3.Tx.Lane_Background_GoGo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[i], TJAPlayer3.Skin.nScrollFieldY[i] + 13);
 					}
 					else if (this.ctゴーゴー.n現在の値 >= 9)
 					{
-						TJAPlayer3.Tx.Lane_Background_GoGo.vc拡大縮小倍率.Y = 1.0f;
+						TJAPlayer3.Tx.Lane_Background_GoGo.vcScaling.Y = 1.0f;
 						TJAPlayer3.Tx.Lane_Background_GoGo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[i], TJAPlayer3.Skin.nScrollFieldY[i]);
 					}
 				}
@@ -718,7 +718,7 @@ namespace TJAPlayer3
 						//this.ctゴーゴー.n現在の値 = 6;
 						if (this.ctゴーゴー.b終了値に達した)
 						{
-							TJAPlayer3.Tx.Effects_Fire.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[i] - 180, TJAPlayer3.Skin.nJudgePointY[i] - (TJAPlayer3.Tx.Effects_Fire.szテクスチャサイズ.Height / 2), new Rectangle(360 * (this.ctゴーゴー炎.n現在の値), 0, 360, 370));
+							TJAPlayer3.Tx.Effects_Fire.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[i] - 180, TJAPlayer3.Skin.nJudgePointY[i] - (TJAPlayer3.Tx.Effects_Fire.szTextureSize.Height / 2), new Rectangle(360 * (this.ctゴーゴー炎.n現在の値), 0, 360, 370));
 						}
 						else
 						{
@@ -749,17 +749,17 @@ namespace TJAPlayer3
 							case EJudge.AutoPerfect:
 								//this.txアタックエフェクトLower.t2D描画( CDTXMania.app.Device, 285, 127, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n, 260, 260 ) );
 								if (this.st状態[i].nIsBig == 1 && TJAPlayer3.Tx.Effects_Hit_Great_Big[this.st状態[i].ct進行.n現在の値] != null)
-									TJAPlayer3.Tx.Effects_Hit_Great_Big[this.st状態[i].ct進行.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[i] - TJAPlayer3.Tx.Effects_Hit_Great_Big[0].szテクスチャサイズ.Width / 2, TJAPlayer3.Skin.nJudgePointY[i] - TJAPlayer3.Tx.Effects_Hit_Great_Big[0].szテクスチャサイズ.Width / 2);
+									TJAPlayer3.Tx.Effects_Hit_Great_Big[this.st状態[i].ct進行.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[i] - TJAPlayer3.Tx.Effects_Hit_Great_Big[0].szTextureSize.Width / 2, TJAPlayer3.Skin.nJudgePointY[i] - TJAPlayer3.Tx.Effects_Hit_Great_Big[0].szTextureSize.Width / 2);
 								else if (TJAPlayer3.Tx.Effects_Hit_Great[this.st状態[i].ct進行.n現在の値] != null)
-									TJAPlayer3.Tx.Effects_Hit_Great[this.st状態[i].ct進行.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[i] - TJAPlayer3.Tx.Effects_Hit_Great[0].szテクスチャサイズ.Width / 2, TJAPlayer3.Skin.nJudgePointY[i] - TJAPlayer3.Tx.Effects_Hit_Great[0].szテクスチャサイズ.Width / 2);
+									TJAPlayer3.Tx.Effects_Hit_Great[this.st状態[i].ct進行.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[i] - TJAPlayer3.Tx.Effects_Hit_Great[0].szTextureSize.Width / 2, TJAPlayer3.Skin.nJudgePointY[i] - TJAPlayer3.Tx.Effects_Hit_Great[0].szTextureSize.Width / 2);
 								break;
 
 							case EJudge.Good:
 								//this.txアタックエフェクトLower.t2D描画( CDTXMania.app.Device, 285, 127, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n + 260, 260, 260 ) );
 								if (this.st状態[i].nIsBig == 1 && TJAPlayer3.Tx.Effects_Hit_Good_Big[this.st状態[i].ct進行.n現在の値] != null)
-									TJAPlayer3.Tx.Effects_Hit_Good_Big[this.st状態[i].ct進行.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[i] - TJAPlayer3.Tx.Effects_Hit_Good_Big[0].szテクスチャサイズ.Width / 2, TJAPlayer3.Skin.nJudgePointY[i] - TJAPlayer3.Tx.Effects_Hit_Good_Big[0].szテクスチャサイズ.Width / 2);
+									TJAPlayer3.Tx.Effects_Hit_Good_Big[this.st状態[i].ct進行.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[i] - TJAPlayer3.Tx.Effects_Hit_Good_Big[0].szTextureSize.Width / 2, TJAPlayer3.Skin.nJudgePointY[i] - TJAPlayer3.Tx.Effects_Hit_Good_Big[0].szTextureSize.Width / 2);
 								else if (TJAPlayer3.Tx.Effects_Hit_Good[this.st状態[i].ct進行.n現在の値] != null)
-									TJAPlayer3.Tx.Effects_Hit_Good[this.st状態[i].ct進行.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[i] - TJAPlayer3.Tx.Effects_Hit_Good[0].szテクスチャサイズ.Width / 2, TJAPlayer3.Skin.nJudgePointY[i] - TJAPlayer3.Tx.Effects_Hit_Good[0].szテクスチャサイズ.Width / 2);
+									TJAPlayer3.Tx.Effects_Hit_Good[this.st状態[i].ct進行.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[i] - TJAPlayer3.Tx.Effects_Hit_Good[0].szTextureSize.Width / 2, TJAPlayer3.Skin.nJudgePointY[i] - TJAPlayer3.Tx.Effects_Hit_Good[0].szTextureSize.Width / 2);
 								break;
 
 							case EJudge.Miss:

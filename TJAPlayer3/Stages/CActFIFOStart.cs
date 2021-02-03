@@ -54,15 +54,15 @@ namespace TJAPlayer3
 					{
 						int x = Math.Max(1000 - this.counter.n現在の値, 0);
 						int num = Math.Min(100, x);
-						TJAPlayer3.Tx.SongLoading_v2_BG.t2D幕用描画(TJAPlayer3.app.Device, -x, 0, new Rectangle(0, 0, TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Height), true, num);
-						TJAPlayer3.Tx.SongLoading_v2_BG.t2D幕用描画(TJAPlayer3.app.Device, (TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Width / 2) + x, 0, new Rectangle(TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Width / 2, 0, TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Height), false, num);
+						TJAPlayer3.Tx.SongLoading_v2_BG.t2D幕用描画(TJAPlayer3.app.Device, -x, 0, new Rectangle(0, 0, TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Width / 2, TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Height), true, num);
+						TJAPlayer3.Tx.SongLoading_v2_BG.t2D幕用描画(TJAPlayer3.app.Device, (TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Width / 2) + x, 0, new Rectangle(TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Width / 2, 0, TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Width / 2, TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Height), false, num);
 					}
 					else
 					{
 						int x = Math.Max(this.counter.n現在の値 - 500, 0);
 						int num = Math.Min(100, x);
-						TJAPlayer3.Tx.SongLoading_v2_BG.t2D幕用描画(TJAPlayer3.app.Device, -x, 0, new Rectangle(0, 0, TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Height), true, num);
-						TJAPlayer3.Tx.SongLoading_v2_BG.t2D幕用描画(TJAPlayer3.app.Device, (TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Width / 2) + x, 0, new Rectangle(TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Width / 2, 0, TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.SongLoading_v2_BG.szテクスチャサイズ.Height), false, num);
+						TJAPlayer3.Tx.SongLoading_v2_BG.t2D幕用描画(TJAPlayer3.app.Device, -x, 0, new Rectangle(0, 0, TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Width / 2, TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Height), true, num);
+						TJAPlayer3.Tx.SongLoading_v2_BG.t2D幕用描画(TJAPlayer3.app.Device, (TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Width / 2) + x, 0, new Rectangle(TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Width / 2, 0, TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Width / 2, TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Height), false, num);
 					}
 				}
 			}
@@ -81,7 +81,7 @@ namespace TJAPlayer3
 					if (TJAPlayer3.Tx.SongLoading_BG != null)
 					{
 						int y = this.counter.n現在の値;
-						int sa = (TJAPlayer3.Tx.SongLoading_BG.szテクスチャサイズ.Height - GameWindowSize.Height) / 2;
+						int sa = (TJAPlayer3.Tx.SongLoading_BG.szTextureSize.Height - GameWindowSize.Height) / 2;
 						TJAPlayer3.Tx.SongLoading_BG.t2D描画(TJAPlayer3.app.Device, 0, -sa - y);
 					}
 				}

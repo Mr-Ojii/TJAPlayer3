@@ -24,7 +24,7 @@ namespace FDK
 		// プロパティ
 		public EBlendMode eBlendMode = EBlendMode.Normal;
 
-		public float fZ軸中心回転
+		public float fRotation
 		{
 			get;
 			set;
@@ -51,7 +51,7 @@ namespace FDK
 				}
 			}
 		}
-		public Size szテクスチャサイズ
+		public Size szTextureSize
 		{
 			get;
 			private set;
@@ -61,29 +61,22 @@ namespace FDK
 		private int? texVBO;
 		private Vector3[] vertices = new Vector3[4]{ new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(1, 1, 0), new Vector3(1, 0, 0) };
 		private Vector2[] texcoord = new Vector2[4] { new Vector2(0, 0), new Vector2(0, 1), new Vector2(1, 1), new Vector2(1, 0) };
-		public System.Numerics.Vector3 vc拡大縮小倍率;
+		public System.Numerics.Vector3 vcScaling;
 		private Vector3 vc;
-		public string filename;
-
-		/// <summary>
-		/// <para>論理画面を1とする場合の物理画面の倍率。</para>
-		/// <para>論理値×画面比率＝物理値。</para>
-		/// </summary>
-		public static float f画面比率 = 1.0f;
+		private string filename;
 
 		// コンストラクタ
 
 		public CTexture()
 		{
-			this.szテクスチャサイズ = new Size(0, 0);
-			this.szテクスチャサイズ = new Size(0, 0);
+			this.szTextureSize = new Size(0, 0);
 			this._opacity = 0xff;
 			this.texture = null;
 			this.vrtVBO = null;
 			this.texVBO = null;
-			this.bSharpDXTextureDispose完了済み = true;
-			this.fZ軸中心回転 = 0f;
-			this.vc拡大縮小倍率 = new System.Numerics.Vector3(1f, 1f, 1f);
+			this.bTextureDisposed = true;
+			this.fRotation = 0f;
+			this.vcScaling = new System.Numerics.Vector3(1f, 1f, 1f);
 			this.vc = new Vector3(1f, 1f, 1f);
 			this.filename = "";
 			//			this._txData = null;
@@ -102,6 +95,7 @@ namespace FDK
 			: this()
 		{
 			maketype = MakeType.filename;
+			filename = strファイル名;
 			MakeTexture(device, strファイル名);
 		}
 		public CTexture(Device device, Bitmap bitmap, bool b黒を透過する)
@@ -131,8 +125,8 @@ namespace FDK
 				bitmap.Mutate(c => c.BackgroundColor(SixLabors.ImageSharp.Color.Transparent));
 			try
 			{
-				this.szテクスチャサイズ = new Size(bitmap.Width, bitmap.Height);
-				this.rc全画像 = new Rectangle(0, 0, this.szテクスチャサイズ.Width, this.szテクスチャサイズ.Height);
+				this.szTextureSize = new Size(bitmap.Width, bitmap.Height);
+				this.rc全画像 = new Rectangle(0, 0, this.szTextureSize.Width, this.szTextureSize.Height);
 
 				//VBOをここで生成する
 				this.vrtVBO = GL.GenBuffer();
@@ -179,7 +173,7 @@ namespace FDK
 				GL.Hint(HintTarget.GenerateMipmapHint, HintMode.Nicest);
 				GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
 
-				this.bSharpDXTextureDispose完了済み = false;
+				this.bTextureDisposed = false;
 			}
 			catch
 			{
@@ -193,7 +187,7 @@ namespace FDK
 			if (b黒を透過する)
 				bitmap.MakeTransparent(Color.Black);
 			bitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
-			if (this.szテクスチャサイズ == bitmap.Size) 
+			if (this.szTextureSize == bitmap.Size) 
 			{
 				BitmapData data = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 				GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
@@ -278,28 +272,28 @@ namespace FDK
 					this.t2D描画(device, x, y, depth, rect);
 					break;
 				case RefPnt.Up:
-					this.t2D描画(device, x - (rect.Width / 2 * this.vc拡大縮小倍率.X), y, depth, rect);
+					this.t2D描画(device, x - (rect.Width / 2 * this.vcScaling.X), y, depth, rect);
 					break;
 				case RefPnt.UpRight:
-					this.t2D描画(device, x - rect.Width * this.vc拡大縮小倍率.X, y, depth, rect);
+					this.t2D描画(device, x - rect.Width * this.vcScaling.X, y, depth, rect);
 					break;
 				case RefPnt.Left:
-					this.t2D描画(device, x, y - (rect.Height / 2 * this.vc拡大縮小倍率.Y), depth, rect);
+					this.t2D描画(device, x, y - (rect.Height / 2 * this.vcScaling.Y), depth, rect);
 					break;
 				case RefPnt.Center:
-					this.t2D描画(device, x - (rect.Width / 2 * this.vc拡大縮小倍率.X), y - (rect.Height / 2 * this.vc拡大縮小倍率.Y), depth, rect);
+					this.t2D描画(device, x - (rect.Width / 2 * this.vcScaling.X), y - (rect.Height / 2 * this.vcScaling.Y), depth, rect);
 					break;
 				case RefPnt.Right:
-					this.t2D描画(device, x - rect.Width * this.vc拡大縮小倍率.X, y - (rect.Height / 2 * this.vc拡大縮小倍率.Y), depth, rect);
+					this.t2D描画(device, x - rect.Width * this.vcScaling.X, y - (rect.Height / 2 * this.vcScaling.Y), depth, rect);
 					break;
 				case RefPnt.DownLeft:
-					this.t2D描画(device, x, y - rect.Height * this.vc拡大縮小倍率.Y, depth, rect);
+					this.t2D描画(device, x, y - rect.Height * this.vcScaling.Y, depth, rect);
 					break;
 				case RefPnt.Down:
-					this.t2D描画(device, x - (rect.Width / 2 * this.vc拡大縮小倍率.X), y - rect.Height * this.vc拡大縮小倍率.Y, depth, rect);
+					this.t2D描画(device, x - (rect.Width / 2 * this.vcScaling.X), y - rect.Height * this.vcScaling.Y, depth, rect);
 					break;
 				case RefPnt.DownRight:
-					this.t2D描画(device, x - rect.Width * this.vc拡大縮小倍率.X, y - rect.Height * this.vc拡大縮小倍率.Y, depth, rect);
+					this.t2D描画(device, x - rect.Width * this.vcScaling.X, y - rect.Height * this.vcScaling.Y, depth, rect);
 					break;
 				default:
 					break;
@@ -321,28 +315,28 @@ namespace FDK
 					this.t2D描画(device, x, y, depth, rect);
 					break;
 				case RefPnt.Up:
-					this.t2D描画(device, x - (szテクスチャサイズ.Width / 2), y, depth, rect);
+					this.t2D描画(device, x - (szTextureSize.Width / 2), y, depth, rect);
 					break;
 				case RefPnt.UpRight:
-					this.t2D描画(device, x - szテクスチャサイズ.Width, y, depth, rect);
+					this.t2D描画(device, x - szTextureSize.Width, y, depth, rect);
 					break;
 				case RefPnt.Left:
-					this.t2D描画(device, x, y - (szテクスチャサイズ.Height / 2), depth, rect);
+					this.t2D描画(device, x, y - (szTextureSize.Height / 2), depth, rect);
 					break;
 				case RefPnt.Center:
-					this.t2D描画(device, x - (szテクスチャサイズ.Width / 2), y - (szテクスチャサイズ.Height / 2), depth, rect);
+					this.t2D描画(device, x - (szTextureSize.Width / 2), y - (szTextureSize.Height / 2), depth, rect);
 					break;
 				case RefPnt.Right:
-					this.t2D描画(device, x - szテクスチャサイズ.Width, y - (szテクスチャサイズ.Height / 2), depth, rect);
+					this.t2D描画(device, x - szTextureSize.Width, y - (szTextureSize.Height / 2), depth, rect);
 					break;
 				case RefPnt.DownLeft:
-					this.t2D描画(device, x, y - szテクスチャサイズ.Height, depth, rect);
+					this.t2D描画(device, x, y - szTextureSize.Height, depth, rect);
 					break;
 				case RefPnt.Down:
-					this.t2D描画(device, x - (szテクスチャサイズ.Width / 2), y - szテクスチャサイズ.Height, depth, rect);
+					this.t2D描画(device, x - (szTextureSize.Width / 2), y - szTextureSize.Height, depth, rect);
 					break;
 				case RefPnt.DownRight:
-					this.t2D描画(device, x - szテクスチャサイズ.Width, y - szテクスチャサイズ.Height, depth, rect);
+					this.t2D描画(device, x - szTextureSize.Width, y - szTextureSize.Height, depth, rect);
 					break;
 				default:
 					break;
@@ -368,9 +362,9 @@ namespace FDK
 			if (this.texture == null)
 				return;
 
-			this.tレンダリングステートの設定(device);
+			this.tSetBlendMode(device);
 
-			if (this.fZ軸中心回転 == 0f)
+			if (this.fRotation == 0f)
 			{
 				#region [ (A) 回転なし ]
 				//-----------------
@@ -378,10 +372,10 @@ namespace FDK
 				float f補正値Y = -GameWindowSize.Height / 2f - 0.5f;
 				float w = rc画像内の描画領域.Width;
 				float h = rc画像内の描画領域.Height;
-				float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szテクスチャサイズ.Width);
-				float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
-				float f上V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Top)) / ((float)this.szテクスチャサイズ.Height);
-				float f下V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szテクスチャサイズ.Height);
+				float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szTextureSize.Width);
+				float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szTextureSize.Width);
+				float f上V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
+				float f下V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
 
 				this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
@@ -390,14 +384,14 @@ namespace FDK
 				GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
 				GL.Color4(this.color);
 
-				vertices[0].X = -(x + (w * this.vc拡大縮小倍率.X) + f補正値X);
+				vertices[0].X = -(x + (w * this.vcScaling.X) + f補正値X);
 				vertices[0].Y = -(y + f補正値Y);
 				vertices[1].X = -(x + f補正値X);
 				vertices[1].Y = -(y + f補正値Y);
 				vertices[2].X = -(x + f補正値X);
-				vertices[2].Y = -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y);
-				vertices[3].X = -(x + (w * this.vc拡大縮小倍率.X) + f補正値X);
-				vertices[3].Y = -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y);
+				vertices[2].Y = -((y + (h * this.vcScaling.Y)) + f補正値Y);
+				vertices[3].X = -(x + (w * this.vcScaling.X) + f補正値X);
+				vertices[3].Y = -((y + (h * this.vcScaling.Y)) + f補正値Y);
 
 				texcoord[0].X = f右U値;
 				texcoord[0].Y = f上V値;
@@ -421,10 +415,10 @@ namespace FDK
 				//-----------------
 				float f中央X = ((float)rc画像内の描画領域.Width) / 2f;
 				float f中央Y = ((float)rc画像内の描画領域.Height) / 2f;
-				float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szテクスチャサイズ.Width);
-				float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
-				float f上V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Top)) / ((float)this.szテクスチャサイズ.Height);
-				float f下V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szテクスチャサイズ.Height);
+				float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szTextureSize.Width);
+				float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szTextureSize.Width);
+				float f上V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
+				float f下V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
 
 				this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
@@ -432,12 +426,12 @@ namespace FDK
 				float n描画領域内Y = y + (rc画像内の描画領域.Height / 2.0f);
 				var vc3移動量 = new Vector3(n描画領域内X - (((float)GameWindowSize.Width) / 2f), -(n描画領域内Y - (((float)GameWindowSize.Height) / 2f)), 0f);
 
-				this.vc.X = this.vc拡大縮小倍率.X;
-				this.vc.Y = this.vc拡大縮小倍率.Y;
-				this.vc.Z = this.vc拡大縮小倍率.Z;
+				this.vc.X = this.vcScaling.X;
+				this.vc.Y = this.vcScaling.Y;
+				this.vc.Z = this.vcScaling.Z;
 
 				var matrix = Matrix4.Identity * Matrix4.CreateScale(this.vc);
-				matrix *= Matrix4.CreateRotationZ(this.fZ軸中心回転);
+				matrix *= Matrix4.CreateRotationZ(this.fRotation);
 				matrix *= Matrix4.CreateTranslation(vc3移動量);
 
 				LoadWorldMatrix(matrix);
@@ -478,7 +472,7 @@ namespace FDK
 			if (this.texture == null)
 				return;
 
-			this.tレンダリングステートの設定(device);
+			this.tSetBlendMode(device);
 
 			#region [ (A) 回転なし ]
 			//-----------------
@@ -486,10 +480,10 @@ namespace FDK
 			float f補正値Y = -GameWindowSize.Height / 2f - 0.5f;
 			float w = rc画像内の描画領域.Width;
 			float h = rc画像内の描画領域.Height;
-			float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szテクスチャサイズ.Width);
-			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
-			float f上V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Top)) / ((float)this.szテクスチャサイズ.Height);
-			float f下V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szテクスチャサイズ.Height);
+			float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szTextureSize.Width);
+			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szTextureSize.Width);
+			float f上V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
+			float f下V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
 
 			this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
@@ -498,14 +492,14 @@ namespace FDK
 			GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
 			GL.Color4(this.color);
 
-			vertices[0].X = -(x + (w * this.vc拡大縮小倍率.X) + f補正値X);
+			vertices[0].X = -(x + (w * this.vcScaling.X) + f補正値X);
 			vertices[0].Y = -(y + f補正値Y);
 			vertices[1].X = -(x + f補正値X);
 			vertices[1].Y = -(y + f補正値Y);
 			vertices[2].X = -(x + f補正値X) - ((!left) ? num : 0);
-			vertices[2].Y = -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y);
-			vertices[3].X = -(x + (w * this.vc拡大縮小倍率.X) + f補正値X) + ((left) ? num : 0);
-			vertices[3].Y = -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y);
+			vertices[2].Y = -((y + (h * this.vcScaling.Y)) + f補正値Y);
+			vertices[3].X = -(x + (w * this.vcScaling.X) + f補正値X) + ((left) ? num : 0);
+			vertices[3].Y = -((y + (h * this.vcScaling.Y)) + f補正値Y);
 
 			texcoord[0].X = f右U値;
 			texcoord[0].Y = f上V値;
@@ -537,16 +531,16 @@ namespace FDK
 			if (this.texture == null)
 				throw new InvalidOperationException("テクスチャは生成されていません。");
 
-			this.tレンダリングステートの設定(device);
+			this.tSetBlendMode(device);
 
 			float f補正値X = -GameWindowSize.Width / 2f - 0.5f;
 			float f補正値Y = -GameWindowSize.Height / 2f - 0.5f;
 			float w = rc画像内の描画領域.Width;
 			float h = rc画像内の描画領域.Height;
-			float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szテクスチャサイズ.Width);
-			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
-			float f上V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Top)) / ((float)this.szテクスチャサイズ.Height);
-			float f下V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szテクスチャサイズ.Height);
+			float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szTextureSize.Width);
+			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szTextureSize.Width);
+			float f上V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
+			float f下V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
 
 			this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
@@ -555,14 +549,14 @@ namespace FDK
 			GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
 			GL.Color4(this.color);
 
-			vertices[0].X = -(x + (w * this.vc拡大縮小倍率.X) + f補正値X);
+			vertices[0].X = -(x + (w * this.vcScaling.X) + f補正値X);
 			vertices[0].Y = -(y + f補正値Y);
 			vertices[1].X = -(x + f補正値X);
 			vertices[1].Y = -(y + f補正値Y);
 			vertices[2].X = -(x + f補正値X);
-			vertices[2].Y = -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y);
-			vertices[3].X = -(x + (w * this.vc拡大縮小倍率.X) + f補正値X);
-			vertices[3].Y = -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y);
+			vertices[2].Y = -((y + (h * this.vcScaling.Y)) + f補正値Y);
+			vertices[3].X = -(x + (w * this.vcScaling.X) + f補正値X);
+			vertices[3].Y = -((y + (h * this.vcScaling.Y)) + f補正値Y);
 
 			texcoord[0].X = f右U値;
 			texcoord[0].Y = f下V値;
@@ -592,16 +586,16 @@ namespace FDK
 			if (this.texture == null)
 				throw new InvalidOperationException("テクスチャは生成されていません。");
 
-			this.tレンダリングステートの設定(device);
+			this.tSetBlendMode(device);
 
 			float f補正値X = -GameWindowSize.Width / 2f - 0.5f;
 			float f補正値Y = -GameWindowSize.Height / 2f - 0.5f;
 			float w = rc画像内の描画領域.Width;
 			float h = rc画像内の描画領域.Height;
-			float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szテクスチャサイズ.Width);
-			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width);
-			float f上V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Top)) / ((float)this.szテクスチャサイズ.Height);
-			float f下V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szテクスチャサイズ.Height);
+			float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szTextureSize.Width);
+			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szTextureSize.Width);
+			float f上V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
+			float f下V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
 
 			this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
@@ -610,14 +604,14 @@ namespace FDK
 			GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
 			GL.Color4(this.color);
 
-			vertices[0].X = -(x + (w * this.vc拡大縮小倍率.X) + f補正値X);
+			vertices[0].X = -(x + (w * this.vcScaling.X) + f補正値X);
 			vertices[0].Y = -(y + f補正値Y);
 			vertices[1].X = -(x + f補正値X);
 			vertices[1].Y = -(y + f補正値Y);
 			vertices[2].X = -(x + f補正値X);
-			vertices[2].Y = -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y);
-			vertices[3].X = -(x + (w * this.vc拡大縮小倍率.X) + f補正値X);
-			vertices[3].Y = -((y + (h * this.vc拡大縮小倍率.Y)) + f補正値Y);
+			vertices[2].Y = -((y + (h * this.vcScaling.Y)) + f補正値Y);
+			vertices[3].X = -(x + (w * this.vcScaling.X) + f補正値X);
+			vertices[3].Y = -((y + (h * this.vcScaling.Y)) + f補正値Y);
 
 			texcoord[0].X = f左U値;
 			texcoord[0].Y = f上V値;
@@ -665,14 +659,14 @@ namespace FDK
 
 			float x = ((float)rc画像内の描画領域.Width) / 2f;
 			float y = ((float)rc画像内の描画領域.Height) / 2f;
-			float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szテクスチャサイズ.Width);
-			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szテクスチャサイズ.Width); 
-			float f上V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Top)) / ((float)this.szテクスチャサイズ.Height);
-			float f下V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szテクスチャサイズ.Height);
+			float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szTextureSize.Width);
+			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szTextureSize.Width); 
+			float f上V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
+			float f下V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
 
 			this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
-			this.tレンダリングステートの設定(device);
+			this.tSetBlendMode(device);
 
 			LoadWorldMatrix(matrix);
 
@@ -707,12 +701,12 @@ namespace FDK
 		//-----------------
 		public void Dispose()
 		{
-			if (!this.bDispose完了済み)
+			if (!this.bDisposed)
 			{
 				// テクスチャの破棄
 				if (this.texture.HasValue)
 				{
-					this.bSharpDXTextureDispose完了済み = true;
+					this.bTextureDisposed = true;
 					GL.DeleteTexture((int)this.texture);
 					this.texture = null;
 				}
@@ -727,16 +721,16 @@ namespace FDK
 					this.texVBO = null;
 				}
 
-				this.bDispose完了済み = true;
+				this.bDisposed = true;
 			}
 		}
 		~CTexture()
 		{
 			// ファイナライザの動作時にtextureのDisposeがされていない場合は、
 			// CTextureのDispose漏れと見做して警告をログ出力する
-			if (!this.bSharpDXTextureDispose完了済み)//DTXManiaより
+			if (!this.bTextureDisposed)//DTXManiaより
 			{
-				Trace.TraceWarning("CTexture: Dispose漏れを検出しました。(Size=({0}, {1}), filename={2}, maketype={3})", szテクスチャサイズ.Width, szテクスチャサイズ.Height, filename, maketype.ToString());
+				Trace.TraceWarning("CTexture: Dispose漏れを検出しました。(Size=({0}, {1}), filename={2}, maketype={3})", szTextureSize.Width, szTextureSize.Height, filename, maketype.ToString());
 			}
 			//マネージド リソースらしいので、解放はしない
 		}
@@ -770,13 +764,13 @@ namespace FDK
 		#region [ private ]
 		//-----------------
 		private int _opacity;
-		private bool bDispose完了済み, bSharpDXTextureDispose完了済み;
+		private bool bDisposed, bTextureDisposed;
 
 		/// <summary>
 		/// どれか一つが有効になります。
 		/// </summary>
 		/// <param name="device">Direct3Dのデバイス</param>
-		private void tレンダリングステートの設定(Device device)
+		private void tSetBlendMode(Device device)
 		{
 			switch (this.eBlendMode) 
 			{

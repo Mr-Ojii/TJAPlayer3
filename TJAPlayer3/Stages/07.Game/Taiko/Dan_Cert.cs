@@ -53,7 +53,7 @@ namespace TJAPlayer3
 			});
 
 			Counter_In = new CCounter(0, 999, 1, TJAPlayer3.Timer);
-			ScreenPoint = new double[] { TJAPlayer3.Skin.nScrollFieldBGX[0] - (TJAPlayer3.Tx.DanC_Screen?.szテクスチャサイズ.Width ?? 1280) / 2, 1280 }; //2020.06.06 Mr-Ojii twopointzero氏のソースコードをもとに改良
+			ScreenPoint = new double[] { TJAPlayer3.Skin.nScrollFieldBGX[0] - (TJAPlayer3.Tx.DanC_Screen?.szTextureSize.Width ?? 1280) / 2, 1280 }; //2020.06.06 Mr-Ojii twopointzero氏のソースコードをもとに改良
 			TJAPlayer3.stage演奏ドラム画面.ReSetScore(TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].ScoreInit, TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].ScoreDiff, 0);
             IsAnimating = true;
 
@@ -377,8 +377,8 @@ namespace TJAPlayer3
 						ScreenPoint[1] += ((1280 / 2 + TJAPlayer3.Skin.nScrollFieldBGX[0] / 2) - ScreenPoint[1]) / 180.0;
 					}
 					Counter_In_Old = Counter_In.n現在の値;
-					TJAPlayer3.Tx.DanC_Screen?.t2D描画(TJAPlayer3.app.Device, (int)ScreenPoint[0], TJAPlayer3.Skin.nScrollFieldY[0], new Rectangle(0, 0, TJAPlayer3.Tx.DanC_Screen.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.DanC_Screen.szテクスチャサイズ.Height));
-					TJAPlayer3.Tx.DanC_Screen?.t2D描画(TJAPlayer3.app.Device, (int)ScreenPoint[1], TJAPlayer3.Skin.nScrollFieldY[0], new Rectangle(TJAPlayer3.Tx.DanC_Screen.szテクスチャサイズ.Width / 2, 0, TJAPlayer3.Tx.DanC_Screen.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.DanC_Screen.szテクスチャサイズ.Height));
+					TJAPlayer3.Tx.DanC_Screen?.t2D描画(TJAPlayer3.app.Device, (int)ScreenPoint[0], TJAPlayer3.Skin.nScrollFieldY[0], new Rectangle(0, 0, TJAPlayer3.Tx.DanC_Screen.szTextureSize.Width / 2, TJAPlayer3.Tx.DanC_Screen.szTextureSize.Height));
+					TJAPlayer3.Tx.DanC_Screen?.t2D描画(TJAPlayer3.app.Device, (int)ScreenPoint[1], TJAPlayer3.Skin.nScrollFieldY[0], new Rectangle(TJAPlayer3.Tx.DanC_Screen.szTextureSize.Width / 2, 0, TJAPlayer3.Tx.DanC_Screen.szTextureSize.Width / 2, TJAPlayer3.Tx.DanC_Screen.szTextureSize.Height));
 					//CDTXMania.act文字コンソール.tPrint(0, 420, C文字コンソール.Eフォント種別.白, String.Format("{0} : {1}", ScreenPoint[0], ScreenPoint[1]));
 				}
 				if (Counter_In.b終了値に達した)
@@ -430,8 +430,8 @@ namespace TJAPlayer3
 						ScreenPoint[1] += 3;
 					}
 					Counter_Out_Old = Counter_Out.n現在の値;
-					TJAPlayer3.Tx.DanC_Screen?.t2D描画(TJAPlayer3.app.Device, (int)ScreenPoint[0], TJAPlayer3.Skin.nScrollFieldY[0], new Rectangle(0, 0, TJAPlayer3.Tx.DanC_Screen.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.DanC_Screen.szテクスチャサイズ.Height));
-					TJAPlayer3.Tx.DanC_Screen?.t2D描画(TJAPlayer3.app.Device, (int)ScreenPoint[1], TJAPlayer3.Skin.nScrollFieldY[0], new Rectangle(TJAPlayer3.Tx.DanC_Screen.szテクスチャサイズ.Width / 2, 0, TJAPlayer3.Tx.DanC_Screen.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.DanC_Screen.szテクスチャサイズ.Height));
+					TJAPlayer3.Tx.DanC_Screen?.t2D描画(TJAPlayer3.app.Device, (int)ScreenPoint[0], TJAPlayer3.Skin.nScrollFieldY[0], new Rectangle(0, 0, TJAPlayer3.Tx.DanC_Screen.szTextureSize.Width / 2, TJAPlayer3.Tx.DanC_Screen.szTextureSize.Height));
+					TJAPlayer3.Tx.DanC_Screen?.t2D描画(TJAPlayer3.app.Device, (int)ScreenPoint[1], TJAPlayer3.Skin.nScrollFieldY[0], new Rectangle(TJAPlayer3.Tx.DanC_Screen.szTextureSize.Width / 2, 0, TJAPlayer3.Tx.DanC_Screen.szTextureSize.Width / 2, TJAPlayer3.Tx.DanC_Screen.szTextureSize.Height));
 					//CDTXMania.act文字コンソール.tPrint(0, 420, C文字コンソール.Eフォント種別.白, String.Format("{0} : {1}", ScreenPoint[0], ScreenPoint[1]));
 				}
 				if (Counter_Out.b終了値に達した)
@@ -458,7 +458,7 @@ namespace TJAPlayer3
 				#region ゲージの土台を描画する。
 				if (TJAPlayer3.Tx.DanC_Base != null)
 				{
-					PanelY = (int)(TJAPlayer3.Skin.Game_DanC_Y - (TJAPlayer3.Skin.Game_DanC_Y_Padding * PanelOffset) + (TJAPlayer3.Skin.Game_DanC_Y_Padding * i) - (TJAPlayer3.Tx.DanC_Base.szテクスチャサイズ.Height / 2));
+					PanelY = (int)(TJAPlayer3.Skin.Game_DanC_Y - (TJAPlayer3.Skin.Game_DanC_Y_Padding * PanelOffset) + (TJAPlayer3.Skin.Game_DanC_Y_Padding * i) - (TJAPlayer3.Tx.DanC_Base.szTextureSize.Height / 2));
 					TJAPlayer3.Tx.DanC_Base?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_DanC_X[count - 1], PanelY);
 				}
 				#endregion
@@ -484,7 +484,7 @@ namespace TJAPlayer3
 						drawGaugeType = 0;
 				}
 				TJAPlayer3.Tx.DanC_Gauge[drawGaugeType]?.t2D描画(TJAPlayer3.app.Device,
-					TJAPlayer3.Skin.Game_DanC_X[count - 1] + TJAPlayer3.Skin.Game_DanC_Offset[0], PanelY - TJAPlayer3.Skin.Game_DanC_Offset[1], new Rectangle(0, 0, (int)(dan_C[i].GetAmountToPercent() * (TJAPlayer3.Tx.DanC_Gauge[drawGaugeType].szテクスチャサイズ.Width / 100.0)), TJAPlayer3.Tx.DanC_Gauge[drawGaugeType].szテクスチャサイズ.Height));
+					TJAPlayer3.Skin.Game_DanC_X[count - 1] + TJAPlayer3.Skin.Game_DanC_Offset[0], PanelY - TJAPlayer3.Skin.Game_DanC_Offset[1], new Rectangle(0, 0, (int)(dan_C[i].GetAmountToPercent() * (TJAPlayer3.Tx.DanC_Gauge[drawGaugeType].szTextureSize.Width / 100.0)), TJAPlayer3.Tx.DanC_Gauge[drawGaugeType].szTextureSize.Height));
 				#endregion
 
 				#region 現在の値を描画する。
@@ -538,8 +538,8 @@ namespace TJAPlayer3
 				//offset -= CDTXMania.Skin.Game_DanC_ExamRange_Padding;
 				// 条件の範囲
 				if (TJAPlayer3.Tx.DanC_ExamRange != null)
-					TJAPlayer3.Tx.DanC_ExamRange?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, TJAPlayer3.Skin.Game_DanC_X[count - 1] + offset - TJAPlayer3.Tx.DanC_ExamRange.szテクスチャサイズ.Width, PanelY - TJAPlayer3.Skin.Game_DanC_Exam_Offset[1] + (TJAPlayer3.Tx.DanC_ExamRange.szテクスチャサイズ.Height / 2), new Rectangle(0, (TJAPlayer3.Tx.DanC_ExamRange.szテクスチャサイズ.Height / 2) * (int)dan_C[i].Range, TJAPlayer3.Tx.DanC_ExamRange.szテクスチャサイズ.Width, (TJAPlayer3.Tx.DanC_ExamRange.szテクスチャサイズ.Height / 2)));
-				offset -= TJAPlayer3.Tx.DanC_ExamRange.szテクスチャサイズ.Width;
+					TJAPlayer3.Tx.DanC_ExamRange?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, TJAPlayer3.Skin.Game_DanC_X[count - 1] + offset - TJAPlayer3.Tx.DanC_ExamRange.szTextureSize.Width, PanelY - TJAPlayer3.Skin.Game_DanC_Exam_Offset[1] + (TJAPlayer3.Tx.DanC_ExamRange.szTextureSize.Height / 2), new Rectangle(0, (TJAPlayer3.Tx.DanC_ExamRange.szTextureSize.Height / 2) * (int)dan_C[i].Range, TJAPlayer3.Tx.DanC_ExamRange.szTextureSize.Width, (TJAPlayer3.Tx.DanC_ExamRange.szTextureSize.Height / 2)));
+				offset -= TJAPlayer3.Tx.DanC_ExamRange.szTextureSize.Width;
 
 				// 単位(あれば)
 				switch (dan_C[i].Type)
@@ -573,7 +573,7 @@ namespace TJAPlayer3
 				offset -= TJAPlayer3.Skin.Game_DanC_Number_Small_Padding * (dan_C[i].GetValue(false).ToString().Length);
 
 				// 条件の種類
-				TJAPlayer3.Tx.DanC_ExamType?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, TJAPlayer3.Skin.Game_DanC_X[count - 1] + offset - TJAPlayer3.Tx.DanC_ExamType.szテクスチャサイズ.Width, PanelY - TJAPlayer3.Skin.Game_DanC_Exam_Offset[1] + TJAPlayer3.Skin.Game_DanC_ExamType_Size[1], new Rectangle(0, TJAPlayer3.Skin.Game_DanC_ExamType_Size[1] * (int)dan_C[i].Type, TJAPlayer3.Skin.Game_DanC_ExamType_Size[0], TJAPlayer3.Skin.Game_DanC_ExamType_Size[1]));
+				TJAPlayer3.Tx.DanC_ExamType?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, TJAPlayer3.Skin.Game_DanC_X[count - 1] + offset - TJAPlayer3.Tx.DanC_ExamType.szTextureSize.Width, PanelY - TJAPlayer3.Skin.Game_DanC_Exam_Offset[1] + TJAPlayer3.Skin.Game_DanC_ExamType_Size[1], new Rectangle(0, TJAPlayer3.Skin.Game_DanC_ExamType_Size[1] * (int)dan_C[i].Type, TJAPlayer3.Skin.Game_DanC_ExamType_Size[0], TJAPlayer3.Skin.Game_DanC_ExamType_Size[1]));
 				#endregion
 
 				#region 条件達成失敗の画像を描画する。
@@ -594,14 +594,14 @@ namespace TJAPlayer3
 					TJAPlayer3.Tx.DanC_V2_SoulGauge_Box.t2D描画(TJAPlayer3.app.Device, soulgaugeboxx, TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_Y);
 					
 					if (TJAPlayer3.Tx.DanC_V2_ExamRange != null)
-						TJAPlayer3.Tx.DanC_V2_ExamRange?.t2D描画(TJAPlayer3.app.Device, soulgaugeboxx + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamRange_Offset[0], TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_Y + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamRange_Offset[1], new Rectangle(0, TJAPlayer3.Tx.DanC_V2_ExamRange.szテクスチャサイズ.Height / 2 * (int)Gauge.Range, TJAPlayer3.Tx.DanC_V2_ExamRange.szテクスチャサイズ.Width, TJAPlayer3.Tx.DanC_V2_ExamRange.szテクスチャサイズ.Height / 2));
+						TJAPlayer3.Tx.DanC_V2_ExamRange?.t2D描画(TJAPlayer3.app.Device, soulgaugeboxx + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamRange_Offset[0], TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_Y + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamRange_Offset[1], new Rectangle(0, TJAPlayer3.Tx.DanC_V2_ExamRange.szTextureSize.Height / 2 * (int)Gauge.Range, TJAPlayer3.Tx.DanC_V2_ExamRange.szTextureSize.Width, TJAPlayer3.Tx.DanC_V2_ExamRange.szTextureSize.Height / 2));
 					
 					// 条件の種類
 					if (TJAPlayer3.Tx.DanC_V2_ExamType != null)
 					{
 						if (TJAPlayer3.Tx.DanC_V2_ExamType_Box != null)
 						{
-							TJAPlayer3.Tx.DanC_V2_ExamType_Box.vc拡大縮小倍率.X = 0.5f;
+							TJAPlayer3.Tx.DanC_V2_ExamType_Box.vcScaling.X = 0.5f;
 							TJAPlayer3.Tx.DanC_V2_ExamType_Box?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, soulgaugeboxx + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamType_Offset[0], TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_Y + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamType_Offset[1]);
 						}
 						TJAPlayer3.Tx.DanC_V2_ExamType?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, soulgaugeboxx + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamType_Offset[0], TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_Y + TJAPlayer3.Skin.Game_DanC_v2_SoulGauge_Box_ExamType_Offset[1], new Rectangle(0, TJAPlayer3.Skin.Game_DanC_v2_ExamType_Size[1] * (int)Gauge.Type, TJAPlayer3.Skin.Game_DanC_v2_ExamType_Size[0], TJAPlayer3.Skin.Game_DanC_v2_ExamType_Size[1]));
@@ -637,8 +637,8 @@ namespace TJAPlayer3
 				#region ゲージの土台を描画する。
 				if (TJAPlayer3.Tx.DanC_V2_Base != null)
 				{
-					TJAPlayer3.Tx.DanC_V2_Base.vc拡大縮小倍率.X = GaugeXRatio;
-					TJAPlayer3.Tx.DanC_V2_Base.vc拡大縮小倍率.Y = 1.0f;
+					TJAPlayer3.Tx.DanC_V2_Base.vcScaling.X = GaugeXRatio;
+					TJAPlayer3.Tx.DanC_V2_Base.vcScaling.Y = 1.0f;
 					TJAPlayer3.Tx.DanC_V2_Base?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_DanC_v2_Panel_X[i] + TJAPlayer3.Skin.Game_DanC_v2_Base_Offset[0], PanelY + TJAPlayer3.Skin.Game_DanC_v2_Base_Offset[1]);
 				}
 				#endregion
@@ -665,9 +665,9 @@ namespace TJAPlayer3
 				}
 				if (TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType] != null)
 				{
-					TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType].vc拡大縮小倍率.X = GaugeXRatio;
-					TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType].vc拡大縮小倍率.Y = 1.0f;
-					TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_DanC_v2_Panel_X[i] + TJAPlayer3.Skin.Game_DanC_v2_Base_Offset[0] + (int)(TJAPlayer3.Skin.Game_DanC_v2_Gauge_Offset[0] * GaugeXRatio), PanelY + TJAPlayer3.Skin.Game_DanC_v2_Base_Offset[1] + TJAPlayer3.Skin.Game_DanC_v2_Gauge_Offset[1], new Rectangle(0, 0, (int)(dan_C[i].GetAmountToPercent() * (TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType].szテクスチャサイズ.Width / 100.0)), TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType].szテクスチャサイズ.Height));
+					TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType].vcScaling.X = GaugeXRatio;
+					TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType].vcScaling.Y = 1.0f;
+					TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_DanC_v2_Panel_X[i] + TJAPlayer3.Skin.Game_DanC_v2_Base_Offset[0] + (int)(TJAPlayer3.Skin.Game_DanC_v2_Gauge_Offset[0] * GaugeXRatio), PanelY + TJAPlayer3.Skin.Game_DanC_v2_Base_Offset[1] + TJAPlayer3.Skin.Game_DanC_v2_Gauge_Offset[1], new Rectangle(0, 0, (int)(dan_C[i].GetAmountToPercent() * (TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType].szTextureSize.Width / 100.0)), TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType].szTextureSize.Height));
 				}
 				#endregion
 
@@ -690,7 +690,7 @@ namespace TJAPlayer3
 				#region 条件の文字を描画する。
 				// 条件の範囲
 				if (TJAPlayer3.Tx.DanC_V2_ExamRange != null)
-					TJAPlayer3.Tx.DanC_V2_ExamRange?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_DanC_v2_Panel_X[i] + TJAPlayer3.Skin.Game_DanC_v2_ExamRange_Offset[0], PanelY + TJAPlayer3.Skin.Game_DanC_v2_ExamRange_Offset[1], new Rectangle(0, TJAPlayer3.Tx.DanC_V2_ExamRange.szテクスチャサイズ.Height / 2 * (int)dan_C[i].Range, TJAPlayer3.Tx.DanC_V2_ExamRange.szテクスチャサイズ.Width, TJAPlayer3.Tx.DanC_V2_ExamRange.szテクスチャサイズ.Height / 2));
+					TJAPlayer3.Tx.DanC_V2_ExamRange?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_DanC_v2_Panel_X[i] + TJAPlayer3.Skin.Game_DanC_v2_ExamRange_Offset[0], PanelY + TJAPlayer3.Skin.Game_DanC_v2_ExamRange_Offset[1], new Rectangle(0, TJAPlayer3.Tx.DanC_V2_ExamRange.szTextureSize.Height / 2 * (int)dan_C[i].Range, TJAPlayer3.Tx.DanC_V2_ExamRange.szTextureSize.Width, TJAPlayer3.Tx.DanC_V2_ExamRange.szTextureSize.Height / 2));
 
 				// 条件の数字
 				DrawNumberV2(dan_C[i].GetValue(false), TJAPlayer3.Skin.Game_DanC_v2_Panel_X[i] + TJAPlayer3.Skin.Game_DanC_v2_ExamRange_Offset[0] + TJAPlayer3.Skin.Game_DanC_v2_ExamRangeNum_Offset[0], PanelY + TJAPlayer3.Skin.Game_DanC_v2_ExamRange_Offset[1] + TJAPlayer3.Skin.Game_DanC_v2_ExamRangeNum_Offset[1], true, TJAPlayer3.Skin.Game_DanC_v2_Number_Small_Scale, TJAPlayer3.Skin.Game_DanC_v2_Number_Small_Scale);
@@ -699,7 +699,7 @@ namespace TJAPlayer3
 				{
 					if (TJAPlayer3.Tx.DanC_V2_ExamType_Box != null)
 					{
-						TJAPlayer3.Tx.DanC_V2_ExamType_Box.vc拡大縮小倍率.X = 1f;
+						TJAPlayer3.Tx.DanC_V2_ExamType_Box.vcScaling.X = 1f;
 						TJAPlayer3.Tx.DanC_V2_ExamType_Box?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Game_DanC_v2_Panel_X[i] + TJAPlayer3.Skin.Game_DanC_v2_ExamType_Offset[0], PanelY + TJAPlayer3.Skin.Game_DanC_v2_ExamType_Offset[1]);
 					}
 					TJAPlayer3.Tx.DanC_V2_ExamType?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Game_DanC_v2_Panel_X[i] + TJAPlayer3.Skin.Game_DanC_v2_ExamType_Offset[0], PanelY + TJAPlayer3.Skin.Game_DanC_v2_ExamType_Offset[1], new Rectangle(0, TJAPlayer3.Skin.Game_DanC_v2_ExamType_Size[1] * (int)dan_C[i].Type, TJAPlayer3.Skin.Game_DanC_v2_ExamType_Size[0], TJAPlayer3.Skin.Game_DanC_v2_ExamType_Size[1]));
@@ -711,13 +711,13 @@ namespace TJAPlayer3
 				{
 					if (TJAPlayer3.Tx.DanC_V2_Failed_Cover != null)
 					{
-						TJAPlayer3.Tx.DanC_V2_Failed_Cover.vc拡大縮小倍率.X = GaugeXRatio;
+						TJAPlayer3.Tx.DanC_V2_Failed_Cover.vcScaling.X = GaugeXRatio;
 						TJAPlayer3.Tx.DanC_V2_Failed_Cover.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_DanC_v2_Panel_X[i] + TJAPlayer3.Skin.Game_DanC_v2_Base_Offset[0], PanelY + TJAPlayer3.Skin.Game_DanC_v2_Base_Offset[1]);
 
 						if (TJAPlayer3.Tx.DanC_V2_Failed_Text != null)
 						{
-							int textx = TJAPlayer3.Skin.Game_DanC_v2_Panel_X[i] + TJAPlayer3.Skin.Game_DanC_v2_Base_Offset[0] + (int)(TJAPlayer3.Tx.DanC_V2_Failed_Cover.szテクスチャサイズ.Width * GaugeXRatio / 2) - (TJAPlayer3.Tx.DanC_V2_Failed_Text.szテクスチャサイズ.Width / 2);
-							int texty = PanelY + TJAPlayer3.Skin.Game_DanC_v2_Base_Offset[1] + (int)(TJAPlayer3.Tx.DanC_V2_Failed_Cover.szテクスチャサイズ.Height / 2) - (TJAPlayer3.Tx.DanC_V2_Failed_Text.szテクスチャサイズ.Height / 2);
+							int textx = TJAPlayer3.Skin.Game_DanC_v2_Panel_X[i] + TJAPlayer3.Skin.Game_DanC_v2_Base_Offset[0] + (int)(TJAPlayer3.Tx.DanC_V2_Failed_Cover.szTextureSize.Width * GaugeXRatio / 2) - (TJAPlayer3.Tx.DanC_V2_Failed_Text.szTextureSize.Width / 2);
+							int texty = PanelY + TJAPlayer3.Skin.Game_DanC_v2_Base_Offset[1] + (int)(TJAPlayer3.Tx.DanC_V2_Failed_Cover.szTextureSize.Height / 2) - (TJAPlayer3.Tx.DanC_V2_Failed_Text.szTextureSize.Height / 2);
 							TJAPlayer3.Tx.DanC_V2_Failed_Text.t2D描画(TJAPlayer3.app.Device, textx, texty);
 						}
 					}
@@ -735,8 +735,8 @@ namespace TJAPlayer3
 						//ベース
 						if (TJAPlayer3.Tx.DanC_V2_Base != null)
 						{
-							TJAPlayer3.Tx.DanC_V2_Base.vc拡大縮小倍率.X = GaugeXRatio;
-							TJAPlayer3.Tx.DanC_V2_Base.vc拡大縮小倍率.Y = GaugeYRatio;
+							TJAPlayer3.Tx.DanC_V2_Base.vcScaling.X = GaugeXRatio;
+							TJAPlayer3.Tx.DanC_V2_Base.vcScaling.Y = GaugeYRatio;
 							TJAPlayer3.Tx.DanC_V2_Base?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_DanC_v2_Panel_X[i] + TJAPlayer3.Skin.Game_DanC_v2_SmallGauge_Offset[0] + TJAPlayer3.Skin.Game_DanC_v2_Base_Offset[0], PanelY + TJAPlayer3.Skin.Game_DanC_v2_Base_Offset[1] + TJAPlayer3.Skin.Game_DanC_v2_SmallGauge_Offset[1] + (examindex * TJAPlayer3.Skin.Game_DanC_v2_SmallGauge_Offset_Y_Padding));
 						}
 						//ゲージ
@@ -761,9 +761,9 @@ namespace TJAPlayer3
 						}
 						if (TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType] != null)
 						{
-							TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType].vc拡大縮小倍率.X = GaugeXRatio;
-							TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType].vc拡大縮小倍率.Y = GaugeYRatio;
-							TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_DanC_v2_Panel_X[i] + TJAPlayer3.Skin.Game_DanC_v2_SmallGauge_Offset[0] + TJAPlayer3.Skin.Game_DanC_v2_Base_Offset[0] + (int)(TJAPlayer3.Skin.Game_DanC_v2_Gauge_Offset[0] * GaugeXRatio), PanelY + TJAPlayer3.Skin.Game_DanC_v2_Base_Offset[1] + TJAPlayer3.Skin.Game_DanC_v2_SmallGauge_Offset[1] + (int)(TJAPlayer3.Skin.Game_DanC_v2_Gauge_Offset[1] * GaugeYRatio) + (examindex * TJAPlayer3.Skin.Game_DanC_v2_SmallGauge_Offset_Y_Padding), new Rectangle(0, 0, (int)(dan_C[i].GetAmountToPercent(examindex) * (TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType].szテクスチャサイズ.Width / 100.0)), TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType].szテクスチャサイズ.Height));
+							TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType].vcScaling.X = GaugeXRatio;
+							TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType].vcScaling.Y = GaugeYRatio;
+							TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_DanC_v2_Panel_X[i] + TJAPlayer3.Skin.Game_DanC_v2_SmallGauge_Offset[0] + TJAPlayer3.Skin.Game_DanC_v2_Base_Offset[0] + (int)(TJAPlayer3.Skin.Game_DanC_v2_Gauge_Offset[0] * GaugeXRatio), PanelY + TJAPlayer3.Skin.Game_DanC_v2_Base_Offset[1] + TJAPlayer3.Skin.Game_DanC_v2_SmallGauge_Offset[1] + (int)(TJAPlayer3.Skin.Game_DanC_v2_Gauge_Offset[1] * GaugeYRatio) + (examindex * TJAPlayer3.Skin.Game_DanC_v2_SmallGauge_Offset_Y_Padding), new Rectangle(0, 0, (int)(dan_C[i].GetAmountToPercent(examindex) * (TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType].szTextureSize.Width / 100.0)), TJAPlayer3.Tx.DanC_V2_Gauge[drawGaugeType].szTextureSize.Height));
 						}
 						//値
 						nowAmount = 0;
@@ -803,10 +803,10 @@ namespace TJAPlayer3
 				if(TJAPlayer3.Tx.DanC_Number != null)
 				{
 					var number = (int)(value / Math.Pow(10, i) % 10);
-					Rectangle rectangle = new Rectangle(TJAPlayer3.Tx.DanC_Number.szテクスチャサイズ.Width / 10 * number, 0, TJAPlayer3.Tx.DanC_Number.szテクスチャサイズ.Width / 10, TJAPlayer3.Tx.DanC_Number.szテクスチャサイズ.Height);
-					TJAPlayer3.Tx.DanC_Number.vc拡大縮小倍率.X = scaleX;
-					TJAPlayer3.Tx.DanC_Number.vc拡大縮小倍率.Y = scaleY + scaleJump;
-					TJAPlayer3.Tx.DanC_Number.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (TJAPlayer3.Tx.DanC_V2_Number.szテクスチャサイズ.Width / 20) - ((i + 1) * padding), y + (TJAPlayer3.Tx.DanC_V2_Number.szテクスチャサイズ.Height * scaleY), rectangle);
+					Rectangle rectangle = new Rectangle(TJAPlayer3.Tx.DanC_Number.szTextureSize.Width / 10 * number, 0, TJAPlayer3.Tx.DanC_Number.szTextureSize.Width / 10, TJAPlayer3.Tx.DanC_Number.szTextureSize.Height);
+					TJAPlayer3.Tx.DanC_Number.vcScaling.X = scaleX;
+					TJAPlayer3.Tx.DanC_Number.vcScaling.Y = scaleY + scaleJump;
+					TJAPlayer3.Tx.DanC_Number.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (TJAPlayer3.Tx.DanC_V2_Number.szTextureSize.Width / 20) - ((i + 1) * padding), y + (TJAPlayer3.Tx.DanC_V2_Number.szTextureSize.Height * scaleY), rectangle);
 				}
 			}
 		}
@@ -827,16 +827,16 @@ namespace TJAPlayer3
 		{
 			if (TJAPlayer3.Tx.DanC_V2_Number != null)
 			{
-				int padding = (int)(TJAPlayer3.Tx.DanC_V2_Number.szテクスチャサイズ.Width / 10f * scaleX);
+				int padding = (int)(TJAPlayer3.Tx.DanC_V2_Number.szTextureSize.Width / 10f * scaleX);
 				if (IsRPRight)
 				{
 					for (int i = 0; i < value.ToString().Length; i++)
 					{
 						var number = (int)(value / Math.Pow(10, i) % 10);
-						Rectangle rect = new Rectangle(TJAPlayer3.Tx.DanC_V2_Number.szテクスチャサイズ.Width / 10 * number, 0, TJAPlayer3.Tx.DanC_V2_Number.szテクスチャサイズ.Width / 10, TJAPlayer3.Tx.DanC_V2_Number.szテクスチャサイズ.Height);
-						TJAPlayer3.Tx.DanC_V2_Number.vc拡大縮小倍率.X = scaleX;
-						TJAPlayer3.Tx.DanC_V2_Number.vc拡大縮小倍率.Y = scaleY + scaleJump;
-						TJAPlayer3.Tx.DanC_V2_Number.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (TJAPlayer3.Tx.DanC_V2_Number.szテクスチャサイズ.Width / 20) - ((i + 1) * padding), y + (TJAPlayer3.Tx.DanC_V2_Number.szテクスチャサイズ.Height * scaleY), rect);
+						Rectangle rect = new Rectangle(TJAPlayer3.Tx.DanC_V2_Number.szTextureSize.Width / 10 * number, 0, TJAPlayer3.Tx.DanC_V2_Number.szTextureSize.Width / 10, TJAPlayer3.Tx.DanC_V2_Number.szTextureSize.Height);
+						TJAPlayer3.Tx.DanC_V2_Number.vcScaling.X = scaleX;
+						TJAPlayer3.Tx.DanC_V2_Number.vcScaling.Y = scaleY + scaleJump;
+						TJAPlayer3.Tx.DanC_V2_Number.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (TJAPlayer3.Tx.DanC_V2_Number.szTextureSize.Width / 20) - ((i + 1) * padding), y + (TJAPlayer3.Tx.DanC_V2_Number.szTextureSize.Height * scaleY), rect);
 					}
 				}
 				else
@@ -844,10 +844,10 @@ namespace TJAPlayer3
 					for (int i = 0; i < value.ToString().Length; i++) 
 					{
 						var number = (int)(value / Math.Pow(10, value.ToString().Length - 1 - i) % 10);
-						Rectangle rect = new Rectangle(TJAPlayer3.Tx.DanC_V2_Number.szテクスチャサイズ.Width / 10 * number, 0, TJAPlayer3.Tx.DanC_V2_Number.szテクスチャサイズ.Width / 10, TJAPlayer3.Tx.DanC_V2_Number.szテクスチャサイズ.Height);
-						TJAPlayer3.Tx.DanC_V2_Number.vc拡大縮小倍率.X = scaleX;
-						TJAPlayer3.Tx.DanC_V2_Number.vc拡大縮小倍率.Y = scaleY + scaleJump;
-						TJAPlayer3.Tx.DanC_V2_Number.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (TJAPlayer3.Tx.DanC_V2_Number.szテクスチャサイズ.Width / 20) + (i * padding), y + (TJAPlayer3.Tx.DanC_V2_Number.szテクスチャサイズ.Height * scaleY), rect);
+						Rectangle rect = new Rectangle(TJAPlayer3.Tx.DanC_V2_Number.szTextureSize.Width / 10 * number, 0, TJAPlayer3.Tx.DanC_V2_Number.szTextureSize.Width / 10, TJAPlayer3.Tx.DanC_V2_Number.szTextureSize.Height);
+						TJAPlayer3.Tx.DanC_V2_Number.vcScaling.X = scaleX;
+						TJAPlayer3.Tx.DanC_V2_Number.vcScaling.Y = scaleY + scaleJump;
+						TJAPlayer3.Tx.DanC_V2_Number.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (TJAPlayer3.Tx.DanC_V2_Number.szTextureSize.Width / 20) + (i * padding), y + (TJAPlayer3.Tx.DanC_V2_Number.szTextureSize.Height * scaleY), rect);
 					}
 
 				}

@@ -173,8 +173,8 @@ namespace TJAPlayer3
 					}
 					if (TJAPlayer3.Tx.Result_v2_GaugeBase != null&& TJAPlayer3.Tx.Result_v2_Gauge != null)
 					{
-						int width = (int)(TJAPlayer3.Tx.Result_v2_Gauge.szテクスチャサイズ.Width * (Math.Min((TJAPlayer3.stageResult.st演奏記録[i].fゲージ / 100f), this.ctGauge.n現在の値 / 100f))) / (TJAPlayer3.Tx.Result_v2_Gauge.szテクスチャサイズ.Width / 50) * (TJAPlayer3.Tx.Result_v2_Gauge.szテクスチャサイズ.Width / 50);// 2020/10/13 Mr-Ojii 最後の意味が無いように見える乗算、除算には意味があります。消さないで。
-						Rectangle rec = new Rectangle(0, 0, width, TJAPlayer3.Tx.Result_v2_Gauge.szテクスチャサイズ.Height);
+						int width = (int)(TJAPlayer3.Tx.Result_v2_Gauge.szTextureSize.Width * (Math.Min((TJAPlayer3.stageResult.st演奏記録[i].fゲージ / 100f), this.ctGauge.n現在の値 / 100f))) / (TJAPlayer3.Tx.Result_v2_Gauge.szTextureSize.Width / 50) * (TJAPlayer3.Tx.Result_v2_Gauge.szTextureSize.Width / 50);// 2020/10/13 Mr-Ojii 最後の意味が無いように見える乗算、除算には意味があります。消さないで。
+						Rectangle rec = new Rectangle(0, 0, width, TJAPlayer3.Tx.Result_v2_Gauge.szTextureSize.Height);
 						TJAPlayer3.Tx.Result_v2_GaugeBase.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nResultV2GaugeBodyX[i], TJAPlayer3.Skin.nResultV2GaugeBodyY[i]);
 						TJAPlayer3.Tx.Result_v2_Gauge.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nResultV2GaugeBodyX[i], TJAPlayer3.Skin.nResultV2GaugeBodyY[i], rec);
 					}
@@ -201,8 +201,8 @@ namespace TJAPlayer3
 						if (CrownState[i] != 0 && TJAPlayer3.Tx.Crown_t != null)
 						{
 							TJAPlayer3.Tx.Crown_t.Opacity = this.ctCrown用.n現在の値;
-							TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.X = ((this.ctCrown用.n終了値 - this.ctCrown用.n現在の値) / 255f) * 2f + 1.0f;
-							TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.Y = ((this.ctCrown用.n終了値 - this.ctCrown用.n現在の値) / 255f) * 2f + 1.0f;
+							TJAPlayer3.Tx.Crown_t.vcScaling.X = ((this.ctCrown用.n終了値 - this.ctCrown用.n現在の値) / 255f) * 2f + 1.0f;
+							TJAPlayer3.Tx.Crown_t.vcScaling.Y = ((this.ctCrown用.n終了値 - this.ctCrown用.n現在の値) / 255f) * 2f + 1.0f;
 							TJAPlayer3.Tx.Crown_t.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Result_v2_Crown_X[i], TJAPlayer3.Skin.Result_v2_Crown_Y[i], new Rectangle(CrownState[i] * 100, 0, 100, 100));
 						}
 					}
@@ -409,8 +409,8 @@ namespace TJAPlayer3
 						if (CrownState[i] != 0 && TJAPlayer3.Tx.Crown_t != null)
 						{
 							TJAPlayer3.Tx.Crown_t.Opacity = this.ctCrown用.n現在の値;
-							TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.X = ((this.ctCrown用.n終了値 - this.ctCrown用.n現在の値) / 255f) * 2f + 1.0f;
-							TJAPlayer3.Tx.Crown_t.vc拡大縮小倍率.Y = ((this.ctCrown用.n終了値 - this.ctCrown用.n現在の値) / 255f) * 2f + 1.0f;
+							TJAPlayer3.Tx.Crown_t.vcScaling.X = ((this.ctCrown用.n終了値 - this.ctCrown用.n現在の値) / 255f) * 2f + 1.0f;
+							TJAPlayer3.Tx.Crown_t.vcScaling.Y = ((this.ctCrown用.n終了値 - this.ctCrown用.n現在の値) / 255f) * 2f + 1.0f;
 							TJAPlayer3.Tx.Crown_t.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Result_Crown_X[i], TJAPlayer3.Skin.Result_Crown_Y[i], new Rectangle(CrownState[i] * 100, 0, 100, 100));
 						}
 					}
@@ -461,7 +461,7 @@ namespace TJAPlayer3
 				{
 					if (TJAPlayer3.Tx.Result_Score_Number != null)
 					{
-						Rectangle rectangle = new Rectangle(24 * Num, 0, 24, TJAPlayer3.Tx.Result_Score_Number.szテクスチャサイズ.Height);
+						Rectangle rectangle = new Rectangle(24 * Num, 0, 24, TJAPlayer3.Tx.Result_Score_Number.szTextureSize.Height);
 						if (TJAPlayer3.Tx.Result_Score_Number != null)
 						{
 							TJAPlayer3.Tx.Result_Score_Number.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
@@ -473,7 +473,7 @@ namespace TJAPlayer3
 				{
 					if (TJAPlayer3.Tx.Result_Number != null)
 					{
-						Rectangle rectangle = new Rectangle(32 * Num, 0, 32, TJAPlayer3.Tx.Result_Number.szテクスチャサイズ.Height / 2);
+						Rectangle rectangle = new Rectangle(32 * Num, 0, 32, TJAPlayer3.Tx.Result_Number.szTextureSize.Height / 2);
 						if (TJAPlayer3.Tx.Result_Number != null)
 						{
 							TJAPlayer3.Tx.Result_Number.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
@@ -549,27 +549,27 @@ namespace TJAPlayer3
 				if (score)
 				{
 					float ratio = (float)Math.Sin(this.ct文字V2用.n現在の値 / 180f * Math.PI) * 0.4f + 1f;
-					TJAPlayer3.Tx.Result_v2_Number.vc拡大縮小倍率.X = ratio;
-					TJAPlayer3.Tx.Result_v2_Number.vc拡大縮小倍率.Y = ratio;
+					TJAPlayer3.Tx.Result_v2_Number.vcScaling.X = ratio;
+					TJAPlayer3.Tx.Result_v2_Number.vcScaling.Y = ratio;
 				}
 				else
 				{
 					float ratio = Math.Max(1f, (float)Math.Cos(this.ct文字V2用.n現在の値 / 180f * Math.PI) * 0.4f + 1f);
-					TJAPlayer3.Tx.Result_v2_Number.vc拡大縮小倍率.X = ratio / 1.6f;
-					TJAPlayer3.Tx.Result_v2_Number.vc拡大縮小倍率.Y = ratio / 1.6f;
+					TJAPlayer3.Tx.Result_v2_Number.vcScaling.X = ratio / 1.6f;
+					TJAPlayer3.Tx.Result_v2_Number.vcScaling.Y = ratio / 1.6f;
 				}
 			}
 			else
 			{
 				if (score)
 				{
-					TJAPlayer3.Tx.Result_v2_Number.vc拡大縮小倍率.X = 1f;
-					TJAPlayer3.Tx.Result_v2_Number.vc拡大縮小倍率.Y = 1f;
+					TJAPlayer3.Tx.Result_v2_Number.vcScaling.X = 1f;
+					TJAPlayer3.Tx.Result_v2_Number.vcScaling.Y = 1f;
 				}
 				else 
 				{
-					TJAPlayer3.Tx.Result_v2_Number.vc拡大縮小倍率.X = 0.625f;
-					TJAPlayer3.Tx.Result_v2_Number.vc拡大縮小倍率.Y = 0.625f;
+					TJAPlayer3.Tx.Result_v2_Number.vcScaling.X = 0.625f;
+					TJAPlayer3.Tx.Result_v2_Number.vcScaling.Y = 0.625f;
 				}
 			}
 
@@ -579,15 +579,15 @@ namespace TJAPlayer3
 
 				if (TJAPlayer3.Tx.Result_v2_Number != null)
 				{
-					Rectangle rectangle = new Rectangle(TJAPlayer3.Tx.Result_v2_Number.szテクスチャサイズ.Width / 10 * Num, 0, TJAPlayer3.Tx.Result_v2_Number.szテクスチャサイズ.Width / 10, TJAPlayer3.Tx.Result_v2_Number.szテクスチャサイズ.Height);
+					Rectangle rectangle = new Rectangle(TJAPlayer3.Tx.Result_v2_Number.szTextureSize.Width / 10 * Num, 0, TJAPlayer3.Tx.Result_v2_Number.szTextureSize.Width / 10, TJAPlayer3.Tx.Result_v2_Number.szTextureSize.Height);
 					if (TJAPlayer3.Tx.Result_v2_Number != null)
 					{
 						TJAPlayer3.Tx.Result_v2_Number.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x, y, rectangle);
 					}
 					if(score)
-						x -= TJAPlayer3.Tx.Result_v2_Number.szテクスチャサイズ.Width / 10;
+						x -= TJAPlayer3.Tx.Result_v2_Number.szTextureSize.Width / 10;
 					else
-						x -= TJAPlayer3.Tx.Result_v2_Number.szテクスチャサイズ.Width / 16;
+						x -= TJAPlayer3.Tx.Result_v2_Number.szTextureSize.Width / 16;
 				}
 			}
 		}

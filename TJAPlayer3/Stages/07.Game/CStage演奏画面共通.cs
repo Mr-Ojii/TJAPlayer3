@@ -597,9 +597,9 @@ namespace TJAPlayer3
 				{
 					if (this.tx背景 != null)
 					{
-						float ratio = Math.Min((GameWindowSize.Width / (float)this.tx背景.szテクスチャサイズ.Width), (GameWindowSize.Height / (float)this.tx背景.szテクスチャサイズ.Height));
-						this.tx背景.vc拡大縮小倍率.X = ratio;
-						this.tx背景.vc拡大縮小倍率.Y = ratio;
+						float ratio = Math.Min((GameWindowSize.Width / (float)this.tx背景.szTextureSize.Width), (GameWindowSize.Height / (float)this.tx背景.szTextureSize.Height));
+						this.tx背景.vcScaling.X = ratio;
+						this.tx背景.vcScaling.Y = ratio;
 						this.tx背景.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, GameWindowSize.Width / 2, GameWindowSize.Height / 2);
 					}
 				}
@@ -625,7 +625,7 @@ namespace TJAPlayer3
 				}
 
 				if (!(TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listVD.Count > 0) && !bDoublePlay && TJAPlayer3.ConfigIni.ShowFooter && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード && TJAPlayer3.Tx.Mob_Footer != null)
-					TJAPlayer3.Tx.Mob_Footer.t2D描画(TJAPlayer3.app.Device, 0, 720 - TJAPlayer3.Tx.Mob_Footer.szテクスチャサイズ.Height);
+					TJAPlayer3.Tx.Mob_Footer.t2D描画(TJAPlayer3.app.Device, 0, 720 - TJAPlayer3.Tx.Mob_Footer.szTextureSize.Height);
 
 				if (!(TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listVD.Count > 0) && TJAPlayer3.ConfigIni.ShowChara)
 					this.actChara.On進行描画();
@@ -4559,11 +4559,11 @@ namespace TJAPlayer3
 										TJAPlayer3.Tx.Notes.color = effectedColor;
 									else
 										TJAPlayer3.Tx.Notes.color = normalColor;
-									TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整 + 1) / 128.0f;
+									TJAPlayer3.Tx.Notes.vcScaling.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整 + 1) / 128.0f;
 
 									TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x + 64, y, new Rectangle(781, 0, 128, 130));
 
-									TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
+									TJAPlayer3.Tx.Notes.vcScaling.X = 1.0f;
 
 									TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(910, num9, 130, 130));
 
@@ -4578,9 +4578,9 @@ namespace TJAPlayer3
 								}
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
 								{
-									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = index - 44;
+									TJAPlayer3.Tx.SENotes.vcScaling.X = index - 44;
 									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
-									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = 1.0f;
+									TJAPlayer3.Tx.SENotes.vcScaling.X = 1.0f;
 									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
 									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
 									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x末端 + 46, y + nSenotesY, new Rectangle(58, 270, 78, 30));
@@ -4595,11 +4595,11 @@ namespace TJAPlayer3
 										TJAPlayer3.Tx.Notes.color = effectedColor;
 									else
 										TJAPlayer3.Tx.Notes.color = normalColor;
-									TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整 + 1) / 128.0f;
+									TJAPlayer3.Tx.Notes.vcScaling.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整 + 1) / 128.0f;
 
 									TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 64, y, new Rectangle(781, 0, 128, 130));
 
-									TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
+									TJAPlayer3.Tx.Notes.vcScaling.X = 1.0f;
 
 									TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 - 130 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(910, num9, 130, 130));
 
@@ -4614,9 +4614,9 @@ namespace TJAPlayer3
 								}
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
 								{
-									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = index - 44;
+									TJAPlayer3.Tx.SENotes.vcScaling.X = index - 44;
 									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
-									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = 1.0f;
+									TJAPlayer3.Tx.SENotes.vcScaling.X = 1.0f;
 									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
 									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
 									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 46 - 30, y + nSenotesY, new Rectangle(58, 270, 78, 30));
@@ -4636,11 +4636,11 @@ namespace TJAPlayer3
 									else
 										TJAPlayer3.Tx.Notes.color = normalColor;
 
-									TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = (index - 65 + f末端ノーツのテクスチャ位置調整 + 1) / 128f;
+									TJAPlayer3.Tx.Notes.vcScaling.X = (index - 65 + f末端ノーツのテクスチャ位置調整 + 1) / 128f;
 
 									TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x + 64, y, new Rectangle(1171, 0, 128, 130));
 
-									TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
+									TJAPlayer3.Tx.Notes.vcScaling.X = 1.0f;
 									TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(1300, num9, 130, 130));
 
 									if (TJAPlayer3.Skin.Game_RollColorMode == CSkin.RollColorMode.All)
@@ -4654,9 +4654,9 @@ namespace TJAPlayer3
 								}
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
 								{
-									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = index - 44;
+									TJAPlayer3.Tx.SENotes.vcScaling.X = index - 44;
 									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
-									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = 1.0f;
+									TJAPlayer3.Tx.SENotes.vcScaling.X = 1.0f;
 									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
 									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
 									TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x末端 + 46, y + nSenotesY, new Rectangle(58, 270, 78, 30));
@@ -4672,11 +4672,11 @@ namespace TJAPlayer3
 									else
 										TJAPlayer3.Tx.Notes.color = normalColor;
 
-									TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = (index - 65 + f末端ノーツのテクスチャ位置調整 + 1) / 128f;
+									TJAPlayer3.Tx.Notes.vcScaling.X = (index - 65 + f末端ノーツのテクスチャ位置調整 + 1) / 128f;
 
 									TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 64, y, new Rectangle(1171, 0, 128, 130));
 
-									TJAPlayer3.Tx.Notes.vc拡大縮小倍率.X = 1.0f;
+									TJAPlayer3.Tx.Notes.vcScaling.X = 1.0f;
 									TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 - 130 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(1300, num9, 130, 130));
 
 									if (TJAPlayer3.Skin.Game_RollColorMode == CSkin.RollColorMode.All)
@@ -4690,9 +4690,9 @@ namespace TJAPlayer3
 								}
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
 								{
-									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = index - 44;
+									TJAPlayer3.Tx.SENotes.vcScaling.X = index - 44;
 									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
-									TJAPlayer3.Tx.SENotes.vc拡大縮小倍率.X = 1.0f;
+									TJAPlayer3.Tx.SENotes.vcScaling.X = 1.0f;
 									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
 									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
 									TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 46 - 30, y + nSenotesY, new Rectangle(58, 270, 78, 30));

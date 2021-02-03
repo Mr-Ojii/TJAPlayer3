@@ -235,7 +235,7 @@ namespace TJAPlayer3
 							if (this.st演奏記録[ind].fゲージ >= 80.0 && TJAPlayer3.Tx.Result_v2_Background[1] != null)
 							{
 								TJAPlayer3.Tx.Result_v2_Background[1].Opacity = Math.Min(this.ctMountainAndClear.n現在の値, 255);
-								TJAPlayer3.Tx.Result_v2_Background[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Tx.Result_v2_Background[1].szテクスチャサイズ.Width / TJAPlayer3.ConfigIni.nPlayerCount * ind, 0, new Rectangle(TJAPlayer3.Tx.Result_v2_Background[1].szテクスチャサイズ.Width / TJAPlayer3.ConfigIni.nPlayerCount * ind, 0, TJAPlayer3.Tx.Result_v2_Background[1].szテクスチャサイズ.Width / TJAPlayer3.ConfigIni.nPlayerCount, TJAPlayer3.Tx.Result_v2_Background[1].szテクスチャサイズ.Height));
+								TJAPlayer3.Tx.Result_v2_Background[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.ConfigIni.nPlayerCount * ind, 0, new Rectangle(TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.ConfigIni.nPlayerCount * ind, 0, TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.ConfigIni.nPlayerCount, TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Height));
 							}
 						}
 					}
@@ -249,20 +249,20 @@ namespace TJAPlayer3
 							TJAPlayer3.Tx.Result_v2_Mountain[1].Opacity = Math.Min(this.ctMountainAndClear.n現在の値, 255);
 							if (this.ctMountainAndClear.n現在の値 <= 255 || this.ctMountainAndClear.n現在の値 == this.ctMountainAndClear.n終了値)
 							{
-								TJAPlayer3.Tx.Result_v2_Mountain[1].vc拡大縮小倍率.Y = 1f;
+								TJAPlayer3.Tx.Result_v2_Mountain[1].vcScaling.Y = 1f;
 							}
 							else if (this.ctMountainAndClear.n現在の値 <= 555)
 							{
-								TJAPlayer3.Tx.Result_v2_Mountain[1].vc拡大縮小倍率.Y = 1.0f - (this.ctMountainAndClear.n現在の値 - 255) / 300f * 0.4f;
+								TJAPlayer3.Tx.Result_v2_Mountain[1].vcScaling.Y = 1.0f - (this.ctMountainAndClear.n現在の値 - 255) / 300f * 0.4f;
 							}
 							else if (this.ctMountainAndClear.n現在の値 <= 1155)
 							{
 								//600msで150degなので4で割る
-								TJAPlayer3.Tx.Result_v2_Mountain[1].vc拡大縮小倍率.Y = (float)((Math.Sin((this.ctMountainAndClear.n現在の値 - 555) / 4.0 / 180.0 * Math.PI) * 0.8f) + 0.6f);
+								TJAPlayer3.Tx.Result_v2_Mountain[1].vcScaling.Y = (float)((Math.Sin((this.ctMountainAndClear.n現在の値 - 555) / 4.0 / 180.0 * Math.PI) * 0.8f) + 0.6f);
 							}
 							else 
 							{
-								TJAPlayer3.Tx.Result_v2_Mountain[1].vc拡大縮小倍率.Y = (float)Math.Sin((this.ctMountainAndClear.n現在の値 - 1155) / 500f * Math.PI) * 0.3f + 1f;
+								TJAPlayer3.Tx.Result_v2_Mountain[1].vcScaling.Y = (float)Math.Sin((this.ctMountainAndClear.n現在の値 - 1155) / 500f * Math.PI) * 0.3f + 1f;
 							}
 							TJAPlayer3.Tx.Result_v2_Mountain[1].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640, 720);
 						}
