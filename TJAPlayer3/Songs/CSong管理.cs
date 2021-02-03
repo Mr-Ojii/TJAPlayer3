@@ -559,10 +559,10 @@ namespace TJAPlayer3
 				{
 					#region socre.譜面情報.最大ランク.Drums = ... 
 					//-----------------
-					if (ini.stセクション.HiScore.b演奏にMIDI入力を使用した ||
-						ini.stセクション.HiScore.b演奏にキーボードを使用した ||
-						ini.stセクション.HiScore.b演奏にジョイパッドを使用した ||
-						ini.stセクション.HiScore.b演奏にマウスを使用した)
+					if (ini.stセクション.HiScore.b演奏にMIDIInputを使用した ||
+						ini.stセクション.HiScore.b演奏にKeyBoardを使用した ||
+						ini.stセクション.HiScore.b演奏にJoypadを使用した ||
+						ini.stセクション.HiScore.b演奏にMouseを使用した)
 					{
 						// (A) 全オートじゃないようなので、演奏結果情報を有効としてランクを算出する。
 

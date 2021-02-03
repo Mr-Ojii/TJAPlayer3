@@ -56,7 +56,7 @@ namespace TJAPlayer3
 						{
 							switch( stkeyassignArray[ i ].入力デバイス )
 							{
-								case EInputDevice.キーボード:
+								case EInputDevice.KeyBoard:
 									if( ( device.e入力デバイス種別 == EInputDevice種別.Keyboard ) && ( event2.nKey == stkeyassignArray[ i ].コード ) )
 									{
 										list.Add( event2 );
@@ -64,7 +64,7 @@ namespace TJAPlayer3
 									}
 									break;
 
-								case EInputDevice.MIDI入力:
+								case EInputDevice.MIDIInput:
 									if( ( ( device.e入力デバイス種別 == EInputDevice種別.MidiIn ) && ( device.ID == stkeyassignArray[ i ].ID ) ) && ( event2.nKey == stkeyassignArray[ i ].コード ) )
 									{
 										list.Add( event2 );
@@ -72,7 +72,7 @@ namespace TJAPlayer3
 									}
 									break;
 
-								case EInputDevice.ジョイパッド:
+								case EInputDevice.Joypad:
 									if( ( ( device.e入力デバイス種別 == EInputDevice種別.Joystick ) && ( device.ID == stkeyassignArray[ i ].ID ) ) && ( event2.nKey == stkeyassignArray[ i ].コード ) )
 									{
 										list.Add( event2 );
@@ -80,7 +80,7 @@ namespace TJAPlayer3
 									}
 									break;
 
-								case EInputDevice.マウス:
+								case EInputDevice.Mouse:
 									if( ( device.e入力デバイス種別 == EInputDevice種別.Mouse ) && ( event2.nKey == stkeyassignArray[ i ].コード ) )
 									{
 										list.Add( event2 );
@@ -102,14 +102,14 @@ namespace TJAPlayer3
 			{
 				switch (stkeyassignArray[i].入力デバイス)
 				{
-					case EInputDevice.キーボード:
+					case EInputDevice.KeyBoard:
 						if (!this.rInput管理.Keyboard.bキーが押された(stkeyassignArray[i].コード))
 							break;
 
 						this.st検知したデバイス.Keyboard = true;
 						return true;
 
-					case EInputDevice.MIDI入力:
+					case EInputDevice.MIDIInput:
 						{
 							IInputDevice device2 = this.rInput管理.MidiIn(stkeyassignArray[i].ID);
 							if ((device2 == null) || !device2.bキーが押された(stkeyassignArray[i].コード))
@@ -118,7 +118,7 @@ namespace TJAPlayer3
 							this.st検知したデバイス.MIDIIN = true;
 							return true;
 						}
-					case EInputDevice.ジョイパッド:
+					case EInputDevice.Joypad:
 						{
 							if (!this.rConfigIni.dicJoystick.ContainsKey(stkeyassignArray[i].ID))
 								break;
@@ -130,7 +130,7 @@ namespace TJAPlayer3
 							this.st検知したデバイス.Joypad = true;
 							return true;
 						}
-					case EInputDevice.マウス:
+					case EInputDevice.Mouse:
 						if (!this.rInput管理.Mouse.bキーが押された(stkeyassignArray[i].コード))
 							break;
 
@@ -148,7 +148,7 @@ namespace TJAPlayer3
 			{
 				switch (stkeyassignArray[i].入力デバイス)
 				{
-					case EInputDevice.キーボード:
+					case EInputDevice.KeyBoard:
 						if (!this.rInput管理.Keyboard.bキーが押されている(stkeyassignArray[i].コード))
 						{
 							break;
@@ -156,7 +156,7 @@ namespace TJAPlayer3
 						this.st検知したデバイス.Keyboard = true;
 						return true;
 
-					case EInputDevice.ジョイパッド:
+					case EInputDevice.Joypad:
 						{
 							if (!this.rConfigIni.dicJoystick.ContainsKey(stkeyassignArray[i].ID))
 							{
@@ -170,7 +170,7 @@ namespace TJAPlayer3
 							this.st検知したデバイス.Joypad = true;
 							return true;
 						}
-					case EInputDevice.マウス:
+					case EInputDevice.Mouse:
 						if (!this.rInput管理.Mouse.bキーが押されている(stkeyassignArray[i].コード))
 						{
 							break;

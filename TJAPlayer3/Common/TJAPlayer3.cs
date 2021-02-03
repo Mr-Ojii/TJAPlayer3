@@ -1339,7 +1339,7 @@ namespace TJAPlayer3
 #endregion
 #region [ Input管理 の初期化 ]
 			//---------------------
-			Trace.TraceInformation("DirectInput, MIDI入力の初期化を行います。");
+			Trace.TraceInformation("DirectInput, MIDIInputの初期化を行います。");
 			Trace.Indent();
 			try
 			{
@@ -1362,7 +1362,7 @@ namespace TJAPlayer3
 			}
 			catch
 			{
-				Trace.TraceError("DirectInput, MIDI入力の初期化に失敗しました。");
+				Trace.TraceError("DirectInput, MIDIInputの初期化に失敗しました。");
 				throw;
 			}
 			finally
@@ -1726,22 +1726,22 @@ namespace TJAPlayer3
 				}
 				//---------------------
 #endregion
-#region [ DirectInput, MIDI入力の終了処理 ]
+#region [ DirectInput, MIDIInputの終了処理 ]
 				//---------------------
 				if (Input管理 != null)
 				{
-					Trace.TraceInformation( "DirectInput, MIDI入力の終了処理を行います。" );
+					Trace.TraceInformation( "DirectInput, MIDIInputの終了処理を行います。" );
 					Trace.Indent();
 					try
 					{
 						Input管理.Dispose();
 						Input管理 = null;
-						Trace.TraceInformation( "DirectInput, MIDI入力の終了処理を完了しました。" );
+						Trace.TraceInformation( "DirectInput, MIDIInputの終了処理を完了しました。" );
 					}
 					catch( Exception exception5 )
 					{
 						Trace.TraceError( exception5.ToString() );
-						Trace.TraceError( "DirectInput, MIDI入力の終了処理に失敗しました。" );
+						Trace.TraceError( "DirectInput, MIDIInputの終了処理に失敗しました。" );
 					}
 					finally
 					{

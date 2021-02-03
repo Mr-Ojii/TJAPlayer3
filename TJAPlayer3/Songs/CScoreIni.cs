@@ -95,10 +95,10 @@ namespace TJAPlayer3
 			public bool bDrums有効;
 			public bool bSTAGEFAILED有効;
 			public bool bTight;
-			public bool b演奏にMIDI入力を使用した;
-			public bool b演奏にキーボードを使用した;
-			public bool b演奏にジョイパッドを使用した;
-			public bool b演奏にマウスを使用した;
+			public bool b演奏にMIDIInputを使用した;
+			public bool b演奏にKeyBoardを使用した;
+			public bool b演奏にJoypadを使用した;
+			public bool b演奏にMouseを使用した;
 			public double dbゲーム型スキル値;
 			public double db演奏型スキル値;
 			public ERandomMode eRandom;
@@ -604,19 +604,19 @@ namespace TJAPlayer3
 										{
 											if (item.Equals("UseKeyboard"))
 											{
-												c演奏記録.b演奏にキーボードを使用した = C変換.bONorOFF(para[0]);
+												c演奏記録.b演奏にKeyBoardを使用した = C変換.bONorOFF(para[0]);
 											}
 											else if (item.Equals("UseMIDIIN"))
 											{
-												c演奏記録.b演奏にMIDI入力を使用した = C変換.bONorOFF(para[0]);
+												c演奏記録.b演奏にMIDIInputを使用した = C変換.bONorOFF(para[0]);
 											}
 											else if (item.Equals("UseJoypad"))
 											{
-												c演奏記録.b演奏にジョイパッドを使用した = C変換.bONorOFF(para[0]);
+												c演奏記録.b演奏にJoypadを使用した = C変換.bONorOFF(para[0]);
 											}
 											else if (item.Equals("UseMouse"))
 											{
-												c演奏記録.b演奏にマウスを使用した = C変換.bONorOFF(para[0]);
+												c演奏記録.b演奏にMouseを使用した = C変換.bONorOFF(para[0]);
 											}
 											else if (item.Equals("PerfectRange"))
 											{
@@ -916,10 +916,10 @@ namespace TJAPlayer3
 				writer.WriteLine("PlaySpeed={0}/{1}", this.stセクション[i].n演奏速度分子, this.stセクション[i].n演奏速度分母);
 				writer.WriteLine("Drums={0}", this.stセクション[i].bDrums有効 ? 1 : 0);
 				writer.WriteLine("StageFailed={0}", this.stセクション[i].bSTAGEFAILED有効 ? 1 : 0);
-				writer.WriteLine("UseKeyboard={0}", this.stセクション[i].b演奏にキーボードを使用した ? 1 : 0);
-				writer.WriteLine("UseMIDIIN={0}", this.stセクション[i].b演奏にMIDI入力を使用した ? 1 : 0);
-				writer.WriteLine("UseJoypad={0}", this.stセクション[i].b演奏にジョイパッドを使用した ? 1 : 0);
-				writer.WriteLine("UseMouse={0}", this.stセクション[i].b演奏にマウスを使用した ? 1 : 0);
+				writer.WriteLine("UseKeyboard={0}", this.stセクション[i].b演奏にKeyBoardを使用した ? 1 : 0);
+				writer.WriteLine("UseMIDIIN={0}", this.stセクション[i].b演奏にMIDIInputを使用した ? 1 : 0);
+				writer.WriteLine("UseJoypad={0}", this.stセクション[i].b演奏にJoypadを使用した ? 1 : 0);
+				writer.WriteLine("UseMouse={0}", this.stセクション[i].b演奏にMouseを使用した ? 1 : 0);
 				writer.WriteLine("PerfectRange={0}", this.stセクション[i].nPerfectになる範囲ms);
 				writer.WriteLine("GreatRange={0}", this.stセクション[i].nGreatになる範囲ms);
 				writer.WriteLine("GoodRange={0}", this.stセクション[i].nGoodになる範囲ms);
@@ -982,7 +982,7 @@ namespace TJAPlayer3
 		}
 		internal static int tランク値を計算して返す( C演奏記録 part )
 		{
-			if( part.b演奏にMIDI入力を使用した || part.b演奏にキーボードを使用した || part.b演奏にジョイパッドを使用した || part.b演奏にマウスを使用した )	// 2010.9.11
+			if( part.b演奏にMIDIInputを使用した || part.b演奏にKeyBoardを使用した || part.b演奏にJoypadを使用した || part.b演奏にMouseを使用した )	// 2010.9.11
 			{
 				int nTotal = part.nPerfect数 + part.nGreat数 + part.nGood数 + part.nPoor数 + part.nMiss数;
 				return tランク値を計算して返す( nTotal, part.nPerfect数, part.nGreat数, part.nGood数, part.nPoor数, part.nMiss数 );
@@ -1067,10 +1067,10 @@ namespace TJAPlayer3
 			builder.Append( cc.n演奏速度分母 );
 			builder.Append( boolToChar( cc.bDrums有効 ) );
 			builder.Append( boolToChar( cc.bSTAGEFAILED有効 ) );
-			builder.Append( boolToChar( cc.b演奏にキーボードを使用した ) );
-			builder.Append( boolToChar( cc.b演奏にMIDI入力を使用した ) );
-			builder.Append( boolToChar( cc.b演奏にジョイパッドを使用した ) );
-			builder.Append( boolToChar( cc.b演奏にマウスを使用した ) );
+			builder.Append( boolToChar( cc.b演奏にKeyBoardを使用した ) );
+			builder.Append( boolToChar( cc.b演奏にMIDIInputを使用した ) );
+			builder.Append( boolToChar( cc.b演奏にJoypadを使用した ) );
+			builder.Append( boolToChar( cc.b演奏にMouseを使用した ) );
 			builder.Append( cc.nPerfectになる範囲ms );
 			builder.Append( cc.nGreatになる範囲ms );
 			builder.Append( cc.nGoodになる範囲ms );

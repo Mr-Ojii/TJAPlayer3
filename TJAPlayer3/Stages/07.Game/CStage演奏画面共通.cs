@@ -143,10 +143,10 @@ namespace TJAPlayer3
 				Drums.n演奏速度分子 = TJAPlayer3.ConfigIni.n演奏速度;
 				Drums.n演奏速度分母 = 20;
 				Drums.bSTAGEFAILED有効 = TJAPlayer3.ConfigIni.bSTAGEFAILED有効;
-				Drums.b演奏にキーボードを使用した = this.b演奏にキーボードを使った;
-				Drums.b演奏にMIDI入力を使用した = this.b演奏にMIDI入力を使った;
-				Drums.b演奏にジョイパッドを使用した = this.b演奏にジョイパッドを使った;
-				Drums.b演奏にマウスを使用した = this.b演奏にマウスを使った;
+				Drums.b演奏にKeyBoardを使用した = this.b演奏にKeyBoardを使った;
+				Drums.b演奏にMIDIInputを使用した = this.b演奏にMIDIInputを使った;
+				Drums.b演奏にJoypadを使用した = this.b演奏にJoypadを使った;
+				Drums.b演奏にMouseを使用した = this.b演奏にMouseを使った;
 				Drums.nPerfectになる範囲ms = TJAPlayer3.nPerfect範囲ms;
 				Drums.nGreatになる範囲ms = TJAPlayer3.nGreat範囲ms;
 				Drums.nGoodになる範囲ms = TJAPlayer3.nGood範囲ms;
@@ -290,10 +290,10 @@ namespace TJAPlayer3
 			this.nヒット数_Auto含む[0] = new CHITCOUNTOFRANK();
 			this.nヒット数_Auto含む[1] = new CHITCOUNTOFRANK();
 
-			this.b演奏にキーボードを使った = false;
-			this.b演奏にジョイパッドを使った = false;
-			this.b演奏にMIDI入力を使った = false;
-			this.b演奏にマウスを使った = false;
+			this.b演奏にKeyBoardを使った = false;
+			this.b演奏にJoypadを使った = false;
+			this.b演奏にMIDIInputを使った = false;
+			this.b演奏にMouseを使った = false;
 
 			this.ShownLyric2 = 0;
 			base.On活性化();
@@ -915,10 +915,10 @@ namespace TJAPlayer3
 		public bool bPAUSE;
 		public bool[] bIsAlreadyCleared;
 		public bool[] bIsAlreadyMaxed;
-		protected bool b演奏にMIDI入力を使った;
-		protected bool b演奏にキーボードを使った;
-		protected bool b演奏にジョイパッドを使った;
-		protected bool b演奏にマウスを使った;
+		protected bool b演奏にMIDIInputを使った;
+		protected bool b演奏にKeyBoardを使った;
+		protected bool b演奏にJoypadを使った;
+		protected bool b演奏にMouseを使った;
 		public CCounter[] ctChipAnime;
 		public CCounter[] ctChipAnimeLag;
 		private int bgmlength = 1;
@@ -2892,19 +2892,19 @@ namespace TJAPlayer3
 		{
 			if ( TJAPlayer3.Pad.st検知したデバイス.Keyboard )
 			{
-				this.b演奏にキーボードを使った = true;
+				this.b演奏にKeyBoardを使った = true;
 			}
 			if ( TJAPlayer3.Pad.st検知したデバイス.Joypad )
 			{
-				this.b演奏にジョイパッドを使った = true;
+				this.b演奏にJoypadを使った = true;
 			}
 			if ( TJAPlayer3.Pad.st検知したデバイス.MIDIIN )
 			{
-				this.b演奏にMIDI入力を使った = true;
+				this.b演奏にMIDIInputを使った = true;
 			}
 			if ( TJAPlayer3.Pad.st検知したデバイス.Mouse )
 			{
-				this.b演奏にマウスを使った = true;
+				this.b演奏にMouseを使った = true;
 			}
 		}
 

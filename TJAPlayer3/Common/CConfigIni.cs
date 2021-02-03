@@ -324,7 +324,7 @@ namespace TJAPlayer3
 				{
 					for (int k = 0; k < 0x10; k++)
 					{
-						if ((this.KeyAssign[j][k].入力デバイス == EInputDevice.キーボード) && (this.KeyAssign[j][k].コード == (int)SlimDXKeys.Key.Return))
+						if ((this.KeyAssign[j][k].入力デバイス == EInputDevice.KeyBoard) && (this.KeyAssign[j][k].コード == (int)SlimDXKeys.Key.Return))
 						{
 							return false;
 						}
@@ -640,7 +640,7 @@ namespace TJAPlayer3
 						{
 							this.KeyAssign[j][m] = this.KeyAssign[j][m + 1];
 						}
-						this.KeyAssign[j][15].入力デバイス = EInputDevice.不明;
+						this.KeyAssign[j][15].入力デバイス = EInputDevice.Unknown;
 						this.KeyAssign[j][15].ID = 0;
 						this.KeyAssign[j][15].コード = 0;
 						k--;
@@ -878,7 +878,7 @@ namespace TJAPlayer3
 			sw.WriteLine( $"; Song playback level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
 			sw.WriteLine( "{0}={1}", nameof(SongPlaybackLevel), SongPlaybackLevel );
 			sw.WriteLine();
-			sw.WriteLine( $"; キーボードによる音量変更の増加量、減少量 ({MinimumKeyboardSoundLevelIncrement}-{MaximumKeyboardSoundLevelIncrement})" );
+			sw.WriteLine( $"; KeyBoardによる音量変更の増加量、減少量 ({MinimumKeyboardSoundLevelIncrement}-{MaximumKeyboardSoundLevelIncrement})" );
 			sw.WriteLine( $"; Keyboard sound level increment ({MinimumKeyboardSoundLevelIncrement}-{MaximumKeyboardSoundLevelIncrement})" );
 			sw.WriteLine( "{0}={1}", nameof(KeyboardSoundLevelIncrement), KeyboardSoundLevelIncrement );
 			sw.WriteLine();
@@ -894,7 +894,7 @@ namespace TJAPlayer3
 			sw.WriteLine( "; Stoic mode. (0:OFF, 1:ON)" );
 			sw.WriteLine( "StoicMode={0}", this.bストイックモード ? 1 : 0 );
 			sw.WriteLine();
-			sw.WriteLine("; バッファ入力もどきモード(キーボードのみ)(0:OFF, 1:ON)");
+			sw.WriteLine("; バッファ入力もどきモード(KeyBoardのみ)(0:OFF, 1:ON)");
 			sw.WriteLine("; Using Buffered input-like mode (0:OFF, 1:ON)");
 			sw.WriteLine("BufferedInput={0}", this.bバッファ入力 ? 1 : 0);
 			sw.WriteLine();
@@ -993,7 +993,7 @@ namespace TJAPlayer3
 			sw.WriteLine("; Enable TCC-like style.(0:No, 1:Yes)");
 			sw.WriteLine("TCClikeStyle={0}", this.bTCClikeStyle ? 1 : 0);
 			sw.WriteLine();
-			sw.WriteLine("; 選曲画面でのマウスホイールの有効化(0:無効,1:有効)");   // 2020.10.10 Mr-Ojii
+			sw.WriteLine("; 選曲画面でのMouseホイールの有効化(0:無効,1:有効)");   // 2020.10.10 Mr-Ojii
 			sw.WriteLine("; Enable mousewheel in songselect.(0:No, 1:Yes)");
 			sw.WriteLine("EnableMouseWheel={0}", this.bEnableMouseWheel ? 1 : 0);
 			sw.WriteLine();
@@ -1981,7 +1981,7 @@ namespace TJAPlayer3
 				this.KeyAssign[j] = new CKeyAssign.STKEYASSIGN[16];
 				for (int k = 0; k < 16; k++)
 				{
-					this.KeyAssign[j][k] = new CKeyAssign.STKEYASSIGN(EInputDevice.不明, 0, 0);
+					this.KeyAssign[j][k] = new CKeyAssign.STKEYASSIGN(EInputDevice.Unknown, 0, 0);
 				}
 			}
 		}
@@ -1990,7 +1990,7 @@ namespace TJAPlayer3
 			bool flag = true;
 			for( int i = 0; i < 0x10; i++ )
 			{
-				if( assign[ i ].入力デバイス == EInputDevice.不明 )
+				if( assign[ i ].入力デバイス == EInputDevice.Unknown )
 				{
 					continue;
 				}
@@ -2001,19 +2001,19 @@ namespace TJAPlayer3
 				flag = false;
 				switch( assign[ i ].入力デバイス )
 				{
-					case EInputDevice.キーボード:
+					case EInputDevice.KeyBoard:
 						sw.Write( 'K' );
 						break;
 
-					case EInputDevice.MIDI入力:
+					case EInputDevice.MIDIInput:
 						sw.Write( 'M' );
 						break;
 
-					case EInputDevice.ジョイパッド:
+					case EInputDevice.Joypad:
 						sw.Write( 'J' );
 						break;
 
-					case EInputDevice.マウス:
+					case EInputDevice.Mouse:
 						sw.Write( 'N' );
 						break;
 				}
@@ -2031,26 +2031,26 @@ namespace TJAPlayer3
 				string str = strArray[ i ].Trim().ToUpper();
 				if ( str.Length >= 3 )
 				{
-					e入力デバイス = EInputDevice.不明;
+					e入力デバイス = EInputDevice.Unknown;
 					switch ( str[ 0 ] )
 					{
 						case 'J':
-							e入力デバイス = EInputDevice.ジョイパッド;
+							e入力デバイス = EInputDevice.Joypad;
 							break;
 
 						case 'K':
-							e入力デバイス = EInputDevice.キーボード;
+							e入力デバイス = EInputDevice.KeyBoard;
 							break;
 
 						case 'L':
 							continue;
 
 						case 'M':
-							e入力デバイス = EInputDevice.MIDI入力;
+							e入力デバイス = EInputDevice.MIDIInput;
 							break;
 
 						case 'N':
-							e入力デバイス = EInputDevice.マウス;
+							e入力デバイス = EInputDevice.Mouse;
 							break;
 					}
 				}

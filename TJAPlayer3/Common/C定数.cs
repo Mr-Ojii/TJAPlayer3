@@ -72,11 +72,11 @@ namespace TJAPlayer3
 	}
 	internal enum EInputDevice
 	{
-		キーボード		= 0,
-		MIDI入力		= 1,
-		ジョイパッド	= 2,
-		マウス			= 3,
-		不明			= -1
+		KeyBoard		= 0,
+		MIDIInput		= 1,
+		Joypad			= 2,
+		Mouse			= 3,
+		Unknown			= -1
 	}
 	public enum EJudge
 	{
