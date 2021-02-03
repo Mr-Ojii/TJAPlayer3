@@ -16,7 +16,7 @@ namespace TJAPlayer3
 
 		public CStageメンテナンス()
 		{
-			base.eステージID = CStage.Eステージ.メンテ;
+			base.eStageID = CStage.EStage.Maintenance;
 			base.b活性化してない = true;
 		}
 		// CStage 実装

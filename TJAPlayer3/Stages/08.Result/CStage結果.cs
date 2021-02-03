@@ -28,7 +28,7 @@ namespace TJAPlayer3
 		public CStage結果()
 		{
 			this.st演奏記録 = new CScoreIni.C演奏記録[2];
-			base.eステージID = CStage.Eステージ.結果;
+			base.eStageID = CStage.EStage.Result;
 			base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
 			base.b活性化してない = true;
 			base.list子Activities.Add( this.actParameterPanel = new CActResultParameterPanel() );

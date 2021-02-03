@@ -8,21 +8,19 @@ namespace TJAPlayer3
 	public class CStage : CActivity
 	{
 		// プロパティ
-		internal Eステージ eステージID;
-		public enum Eステージ
+		internal EStage eStageID;
+		public enum EStage
 		{
-			何もしない,
-			起動,
-			タイトル,
-			オプション,
-			コンフィグ,
-			選曲,
-			曲読み込み,
-			演奏,
-			結果,
+			StartUp,
+			Title,
+			Config,
+			SongSelect,
+			SongLoading,
+			Playing,
+			Result,
 			ChangeSkin,						// #28195 2011.5.4 yyagi
-			終了,
-			メンテ							//2020.06.01 Mr-Ojii
+			Ending,
+			Maintenance                         //2020.06.01 Mr-Ojii
 		}
 		
 		internal Eフェーズ eフェーズID;

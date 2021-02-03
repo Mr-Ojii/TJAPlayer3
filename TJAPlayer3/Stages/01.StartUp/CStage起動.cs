@@ -15,7 +15,7 @@ namespace TJAPlayer3
 
 		public CStage起動()
 		{
-			base.eステージID = CStage.Eステージ.起動;
+			base.eStageID = CStage.EStage.StartUp;
 			base.b活性化してない = true;
 		}
 

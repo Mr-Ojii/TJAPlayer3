@@ -18,7 +18,7 @@ namespace TJAPlayer3
 
 		public CStage曲読み込み()
 		{
-			base.eステージID = CStage.Eステージ.曲読み込み;
+			base.eStageID = CStage.EStage.SongLoading;
 			base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
 			base.b活性化してない = true;
 		}

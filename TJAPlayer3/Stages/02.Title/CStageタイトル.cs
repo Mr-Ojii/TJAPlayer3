@@ -16,7 +16,7 @@ namespace TJAPlayer3
 
 		public CStageタイトル()
 		{
-			base.eステージID = CStage.Eステージ.タイトル;
+			base.eStageID = CStage.EStage.Title;
 			base.b活性化してない = true;
 			base.list子Activities.Add(this.actFI = new CActFIFOBlack());
 			base.list子Activities.Add(this.actFO = new CActFIFOBlack());

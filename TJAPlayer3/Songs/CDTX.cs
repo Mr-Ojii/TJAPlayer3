@@ -2477,7 +2477,7 @@ namespace TJAPlayer3
 			}
 
 			#region[ 読み込ませるコースを決定 ]
-			if (TJAPlayer3.r現在のステージ.eステージID == CStage.Eステージ.曲読み込み)//2020.05.12 Mr-Ojii 起動直後の曲読み込みでエラーを吐くので対策
+			if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongLoading)//2020.05.12 Mr-Ojii 起動直後の曲読み込みでエラーを吐くので対策
 				n読み込むコース = TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayerSide];
 			
 			if (this.b譜面が存在する[n読み込むコース] == false)
@@ -2500,7 +2500,7 @@ namespace TJAPlayer3
 
 			//多難易度選択が可能になったので、セッション譜面は同じ難易度再生の時以外はお預けにしておく
 			int n読み込むセッション譜面パート = 0;
-			if (TJAPlayer3.r現在のステージ.eステージID == CStage.Eステージ.曲読み込み)//2020.05.12 Mr-Ojii 起動直後の曲読み込みでエラーを吐くので対策
+			if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongLoading)//2020.05.12 Mr-Ojii 起動直後の曲読み込みでエラーを吐くので対策
 				if (TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] == TJAPlayer3.stage選曲.n確定された曲の難易度[1])
 					n読み込むセッション譜面パート = nPlayerSide + 1;
 
@@ -3440,7 +3440,7 @@ namespace TJAPlayer3
 						this.b譜面が存在する[i] = false;
 				}
 				#region[ 読み込ませるコースを決定 ]
-				if (TJAPlayer3.r現在のステージ.eステージID == CStage.Eステージ.曲読み込み)//2020.05.12 Mr-Ojii 起動直後の曲読み込みでエラーを吐くので対策
+				if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongLoading)//2020.05.12 Mr-Ojii 起動直後の曲読み込みでエラーを吐くので対策
 					n読み込むコース = TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayerSide];
 				if (this.b譜面が存在する[n読み込むコース] == false)
 				{
@@ -3463,7 +3463,7 @@ namespace TJAPlayer3
 
 				//多難易度選択が可能になったので、セッション譜面は同じ難易度再生の時以外はお預けにしておく
 				int n読み込むセッション譜面パート = 0;
-				if (TJAPlayer3.r現在のステージ.eステージID == CStage.Eステージ.曲読み込み)//2020.05.12 Mr-Ojii 起動直後の曲読み込みでエラーを吐くので対策
+				if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongLoading)//2020.05.12 Mr-Ojii 起動直後の曲読み込みでエラーを吐くので対策
 					if (TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] == TJAPlayer3.stage選曲.n確定された曲の難易度[1])
 						n読み込むセッション譜面パート = nPlayerSide + 1;
 
@@ -4096,7 +4096,7 @@ namespace TJAPlayer3
 			}
 			else if (command == "#LYRIC")
 			{
-				if (TJAPlayer3.r現在のステージ.eステージID == CStage.Eステージ.曲読み込み)//起動時に重たくなってしまう問題の修正用
+				if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongLoading)//起動時に重たくなってしまう問題の修正用
 					this.listLyric.Add(this.pf歌詞フォント.DrawPrivateFont(argument, TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor));
 
 				var chip = new CChip();
@@ -5318,7 +5318,7 @@ namespace TJAPlayer3
 						{
 							try
 							{
-								if (TJAPlayer3.r現在のステージ.eステージID == CStage.Eステージ.曲読み込み)//2020.06.06 Mr-Ojii 起動時に重たくなってしまう問題の修正用
+								if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongLoading)//2020.06.06 Mr-Ojii 起動時に重たくなってしまう問題の修正用
 									this.LyricFileParser(strFilePath[index],index);
 								this.bLyrics = true;
 							}

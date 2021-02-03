@@ -22,7 +22,7 @@ namespace TJAPlayer3
 		public CStageコンフィグ()
 		{
 			CActDFPFont font;
-			base.eステージID = CStage.Eステージ.コンフィグ;
+			base.eStageID = CStage.EStage.Config;
 			base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
 			this.actFont = font = new CActDFPFont();
 			base.list子Activities.Add( font );

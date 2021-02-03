@@ -21,7 +21,7 @@ namespace TJAPlayer3
 		// メソッド
 		public CStage演奏画面共通()
 		{
-			base.eステージID = CStage.Eステージ.演奏;
+			base.eStageID = CStage.EStage.Playing;
 			base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
 			base.b活性化してない = true;
 			base.list子Activities.Add(this.actCombo = new CAct演奏Combo共通());

@@ -46,7 +46,7 @@ namespace TJAPlayer3
 		// コンストラクタ
 		public CStage選曲()
 		{
-			base.eステージID = CStage.Eステージ.選曲;
+			base.eStageID = CStage.EStage.SongSelect;
 			base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
 			base.b活性化してない = true;
 			base.list子Activities.Add(this.actFIFO = new CActFIFOBlack());

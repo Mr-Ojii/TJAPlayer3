@@ -368,7 +368,7 @@ namespace TJAPlayer3
 		}
 		protected override void OnClosing(CancelEventArgs e)
 		{
-			if (ConfigIni.bForceEndingAnime && ConfigIni.bEndingAnime && (r現在のステージ.eステージID != CStage.Eステージ.終了))
+			if (ConfigIni.bForceEndingAnime && ConfigIni.bEndingAnime && (r現在のステージ.eStageID != CStage.EStage.Ending))
 			{
 				e.Cancel = true;
 				r現在のステージ.On非活性化();
@@ -417,17 +417,17 @@ namespace TJAPlayer3
 
 				#region [ 曲検索スレッドの起動/終了 ]					// ここに"Enumerating Songs..."表示を集約
 				actEnumSongs.On進行描画();                          // "Enumerating Songs..."アイコンの描画
-				switch (r現在のステージ.eステージID)
+				switch (r現在のステージ.eStageID)
 				{
-					case CStage.Eステージ.タイトル:
-					case CStage.Eステージ.コンフィグ:
-					case CStage.Eステージ.選曲:
-					case CStage.Eステージ.曲読み込み:
+					case CStage.EStage.Title:
+					case CStage.EStage.Config:
+					case CStage.EStage.SongSelect:
+					case CStage.EStage.SongLoading:
 						if (EnumSongs != null)
 						{
 							#region [ (特定条件時) 曲検索スレッドの起動_開始 ]
-							if (r現在のステージ.eステージID == CStage.Eステージ.タイトル &&
-								 r直前のステージ.eステージID == CStage.Eステージ.起動 &&
+							if (r現在のステージ.eStageID == CStage.EStage.Title &&
+								 r直前のステージ.eStageID == CStage.EStage.StartUp &&
 								 this.n進行描画の戻り値 == (int)CStageタイトル.E戻り値.継続 &&
 								 !EnumSongs.IsSongListEnumStarted)
 							{
@@ -438,7 +438,7 @@ namespace TJAPlayer3
 							#endregion
 
 							#region [ 曲検索の中断と再開 ]
-							if (r現在のステージ.eステージID == CStage.Eステージ.選曲 && !EnumSongs.IsSongListEnumCompletelyDone)
+							if (r現在のステージ.eStageID == CStage.EStage.SongSelect && !EnumSongs.IsSongListEnumCompletelyDone)
 							{
 								switch (this.n進行描画の戻り値)
 								{
@@ -456,7 +456,7 @@ namespace TJAPlayer3
 							#endregion
 
 							#region [ 曲探索中断待ち待機 ]
-							if (r現在のステージ.eステージID == CStage.Eステージ.曲読み込み && !EnumSongs.IsSongListEnumCompletelyDone &&
+							if (r現在のステージ.eStageID == CStage.EStage.SongLoading && !EnumSongs.IsSongListEnumCompletelyDone &&
 								EnumSongs.thDTXFileEnumerate != null)                           // #28700 2012.6.12 yyagi; at Compact mode, enumerating thread does not exist.
 							{
 								EnumSongs.WaitUntilSuspended();                                 // 念のため、曲検索が一時中断されるまで待機
@@ -470,7 +470,7 @@ namespace TJAPlayer3
 								actEnumSongs.On非活性化();
 								TJAPlayer3.stage選曲.act曲リスト.bIsEnumeratingSongs = false;
 
-								bool bRemakeSongTitleBar = (r現在のステージ.eステージID == CStage.Eステージ.選曲) ? true : false;
+								bool bRemakeSongTitleBar = (r現在のステージ.eStageID == CStage.EStage.SongSelect) ? true : false;
 								TJAPlayer3.stage選曲.Refresh(EnumSongs.Songs管理, bRemakeSongTitleBar);
 								EnumSongs.SongListEnumCompletelyDone();
 							}
@@ -480,12 +480,9 @@ namespace TJAPlayer3
 				}
 				#endregion
 
-				switch (r現在のステージ.eステージID)
+				switch (r現在のステージ.eStageID)
 				{
-					case CStage.Eステージ.何もしない:
-						break;
-
-					case CStage.Eステージ.起動:
+					case CStage.EStage.StartUp:
 						#region [ *** ]
 						//-----------------------------
 						if (this.n進行描画の戻り値 != 0)
@@ -503,7 +500,7 @@ namespace TJAPlayer3
 						#endregion
 						break;
 
-					case CStage.Eステージ.タイトル:
+					case CStage.EStage.Title:
 						#region [ *** ]
 						//-----------------------------
 						switch (this.n進行描画の戻り値)
@@ -566,14 +563,14 @@ namespace TJAPlayer3
 						#endregion
 						break;
 
-					case CStage.Eステージ.コンフィグ:
+					case CStage.EStage.Config:
 						#region [ *** ]
 						//-----------------------------
 						if (this.n進行描画の戻り値 != 0)
 						{
-							switch (r直前のステージ.eステージID)
+							switch (r直前のステージ.eStageID)
 							{
-								case CStage.Eステージ.タイトル:
+								case CStage.EStage.Title:
 									#region [ *** ]
 									//-----------------------------
 									r現在のステージ.On非活性化();
@@ -588,7 +585,7 @@ namespace TJAPlayer3
 								//-----------------------------
 								#endregion
 
-								case CStage.Eステージ.選曲:
+								case CStage.EStage.SongSelect:
 									#region [ *** ]
 									//-----------------------------
 									r現在のステージ.On非活性化();
@@ -608,7 +605,7 @@ namespace TJAPlayer3
 						#endregion
 						break;
 
-					case CStage.Eステージ.選曲:
+					case CStage.EStage.SongSelect:
 						#region [ *** ]
 						//-----------------------------
 						switch (this.n進行描画の戻り値)
@@ -691,7 +688,7 @@ namespace TJAPlayer3
 						#endregion
 						break;
 
-					case CStage.Eステージ.曲読み込み:
+					case CStage.EStage.SongLoading:
 						#region [ *** ]
 						//-----------------------------
 						if (this.n進行描画の戻り値 != 0)
@@ -726,7 +723,7 @@ namespace TJAPlayer3
 						#endregion
 						break;
 
-					case CStage.Eステージ.演奏:
+					case CStage.EStage.Playing:
 						#region [ *** ]
 						//-----------------------------
 						switch (this.n進行描画の戻り値)
@@ -861,7 +858,7 @@ namespace TJAPlayer3
 						#endregion
 						break;
 
-					case CStage.Eステージ.結果:
+					case CStage.EStage.Result:
 						#region [ *** ]
 						//-----------------------------
 						if (this.n進行描画の戻り値 != 0)
@@ -884,7 +881,7 @@ namespace TJAPlayer3
 						#endregion
 						break;
 
-					case CStage.Eステージ.ChangeSkin:
+					case CStage.EStage.ChangeSkin:
 						#region [ *** ]
 						//-----------------------------
 						if (this.n進行描画の戻り値 != 0)
@@ -901,7 +898,7 @@ namespace TJAPlayer3
 						#endregion
 						break;
 
-					case CStage.Eステージ.終了:
+					case CStage.EStage.Ending:
 						#region [ *** ]
 						//-----------------------------
 						if (this.n進行描画の戻り値 != 0)
@@ -912,7 +909,7 @@ namespace TJAPlayer3
 						#endregion
 						break;
 
-					case CStage.Eステージ.メンテ:
+					case CStage.EStage.Maintenance:
 						#region [ *** ]
 						//-----------------------------
 						if (this.n進行描画の戻り値 != 0) {
@@ -931,7 +928,7 @@ namespace TJAPlayer3
 
 				actScanningLoudness.On進行描画();
 
-				if (r現在のステージ != null && r現在のステージ.eステージID != CStage.Eステージ.起動 && TJAPlayer3.Tx.Network_Connection != null)
+				if (r現在のステージ != null && r現在のステージ.eStageID != CStage.EStage.StartUp && TJAPlayer3.Tx.Network_Connection != null)
 				{
 					if (Math.Abs(CSound管理.rc演奏用タイマ.nシステム時刻ms - this.前回のシステム時刻ms) > 10000)
 					{
@@ -946,7 +943,7 @@ namespace TJAPlayer3
 					TJAPlayer3.Tx.Network_Connection.t2D描画(app.Device, GameWindowSize.Width - (TJAPlayer3.Tx.Network_Connection.szテクスチャサイズ.Width / 2), GameWindowSize.Height - TJAPlayer3.Tx.Network_Connection.szテクスチャサイズ.Height, new Rectangle((TJAPlayer3.Tx.Network_Connection.szテクスチャサイズ.Width / 2) * (this.bネットワークに接続中 ? 0 : 1), 0, TJAPlayer3.Tx.Network_Connection.szテクスチャサイズ.Width / 2, TJAPlayer3.Tx.Network_Connection.szテクスチャサイズ.Height));
 				}
 				// オーバレイを描画する(テクスチャの生成されていない起動ステージは例外
-				if (r現在のステージ != null && r現在のステージ.eステージID != CStage.Eステージ.起動 && TJAPlayer3.Tx.Overlay != null)
+				if (r現在のステージ != null && r現在のステージ.eStageID != CStage.EStage.StartUp && TJAPlayer3.Tx.Overlay != null)
 				{
 					TJAPlayer3.Tx.Overlay.t2D描画(app.Device, 0, 0);
 				}
@@ -1977,7 +1974,7 @@ namespace TJAPlayer3
 		}
 		private void Window_MouseWheel(object sender, OpenTK.Input.MouseWheelEventArgs e)
 		{
-			if (TJAPlayer3.r現在のステージ.eステージID == CStage.Eステージ.選曲 && ConfigIni.bEnableMouseWheel) 
+			if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongSelect && ConfigIni.bEnableMouseWheel) 
 				TJAPlayer3.stage選曲.MouseWheel(e.Delta);
 		}
 
