@@ -167,7 +167,7 @@ namespace TJAPlayer3
 
 			// メソッド
 
-			public void t読み込み()
+			public void tLoad()
 			{
 				this.b読み込み未試行 = false;
 				this.b読み込み成功 = false;
@@ -201,7 +201,7 @@ namespace TJAPlayer3
 				{
 					try
 					{
-						t読み込み();
+						tLoad();
 					}
 					catch (Exception e)
 					{
@@ -712,7 +712,7 @@ namespace TJAPlayer3
 
 				try
 				{
-					cシステムサウンド.t読み込み();
+					cシステムサウンド.tLoad();
 					Trace.TraceInformation("システムサウンドを読み込みました。({0})", cシステムサウンド.strファイル名);
 				}
 				catch (FileNotFoundException e)

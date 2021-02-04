@@ -33,13 +33,13 @@ namespace TJAPlayer3
 		public CBoxDef( string boxdefファイル名 )
 			: this()
 		{
-			this.t読み込み( boxdefファイル名 );
+			this.tLoad( boxdefファイル名 );
 		}
 
 
 		// メソッド
 
-		public void t読み込み( string boxdefファイル名 )
+		public void tLoad( string boxdefファイル名 )
 		{
 			Encoding boxdefEnc = CJudgeTextEncoding.JudgeFileEncoding(boxdefファイル名);
 			using (StreamReader reader = new StreamReader(boxdefファイル名, boxdefEnc))

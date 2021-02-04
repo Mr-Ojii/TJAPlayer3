@@ -244,7 +244,7 @@ namespace TJAPlayer3
 		public CScoreIni( string str読み込むiniファイル )
 			: this()
 		{
-			this.t読み込み( str読み込むiniファイル );
+			this.tLoad( str読み込むiniファイル );
 		}
 
 
@@ -276,7 +276,7 @@ namespace TJAPlayer3
 		/// 指定された .score.ini を読み込む。内容の真偽は判定しない。
 		/// </summary>
 		/// <param name="iniファイル名">読み込む .score.ini ファイルを指定します（絶対パスが安全）。</param>
-		public void t読み込み( string iniファイル名 )
+		public void tLoad( string iniファイル名 )
 		{
 			this.iniファイルのあるフォルダ名 = Path.GetDirectoryName( iniファイル名 );
 			this.iniファイル名 = Path.GetFileName( iniファイル名 );

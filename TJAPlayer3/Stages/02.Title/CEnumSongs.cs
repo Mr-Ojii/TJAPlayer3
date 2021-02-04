@@ -203,7 +203,7 @@ namespace TJAPlayer3
 							CSkin.Cシステムサウンド cシステムサウンド = TJAPlayer3.Skin[ i ];
 							try
 							{
-								cシステムサウンド.t読み込み();
+								cシステムサウンド.tLoad();
 								Trace.TraceInformation("システムサウンドを読み込みました。({0})", cシステムサウンド.strファイル名);
 								//if ( ( cシステムサウンド == CDTXMania.Skin.bgm起動画面 ) && cシステムサウンド.b読み込み成功 )
 								//{
