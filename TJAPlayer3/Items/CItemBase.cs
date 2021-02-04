@@ -19,7 +19,7 @@ namespace TJAPlayer3
 			Base,
 			Toggle,
 			Integer,
-			リスト
+			List
 		}
 
 		public string str項目名;

@@ -1374,7 +1374,7 @@ namespace TJAPlayer3
 					//-----------------
 						#endregion
 
-					case CItemBase.E種別.リスト:	// #28195 2012.5.2 yyagi: add Skin supports
+					case CItemBase.E種別.List:	// #28195 2012.5.2 yyagi: add Skin supports
 						#region [ *** ]
 						//-----------------
 						{

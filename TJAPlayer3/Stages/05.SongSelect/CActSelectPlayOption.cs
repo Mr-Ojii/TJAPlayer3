@@ -82,7 +82,7 @@ namespace TJAPlayer3
 			{
 				CTexture NameTexture = TJAPlayer3.tテクスチャの生成(this.Font.DrawPrivateFont(cItemBases[i].str項目名, Color.White, Color.Black));
 				CTexture[] ListTexture;
-				if (cItemBases[i].e種別 == CItemBase.E種別.リスト) {
+				if (cItemBases[i].e種別 == CItemBase.E種別.List) {
 					ListTexture = new CTexture[((CItemList)cItemBases[i]).list項目値.Count];
 					for (int index = 0; index < ((CItemList)cItemBases[i]).list項目値.Count; index++) {
 						ListTexture[index] = TJAPlayer3.tテクスチャの生成(this.Font.DrawPrivateFont(((CItemList)cItemBases[i]).list項目値[index], Color.White, Color.Black));
@@ -400,7 +400,7 @@ namespace TJAPlayer3
 						texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.PlayOption_List_XY_Diff[0] - texture.szTextureSize.Width / 2, y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_List_XY_Diff[1]);
 					}
 				}
-				else if (lci[nPlayer][lci[nPlayer].Count - i - 1].e種別 == CItemBase.E種別.リスト)
+				else if (lci[nPlayer][lci[nPlayer].Count - i - 1].e種別 == CItemBase.E種別.List)
 				{
 					this.NameTexture[nPlayer][lci[nPlayer].Count - i - 1].ItemListTexture[lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex()].t2D描画(TJAPlayer3.app.Device, x + 90 - this.NameTexture[nPlayer][lci[nPlayer].Count - i - 1].ItemListTexture[lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex()].szTextureSize.Width / 2, y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_List_XY_Diff[1]);
 				}
