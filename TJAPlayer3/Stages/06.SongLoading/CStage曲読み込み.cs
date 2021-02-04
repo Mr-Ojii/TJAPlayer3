@@ -37,7 +37,7 @@ namespace TJAPlayer3
 				this.nBGMの総再生時間ms = 0;
 				if( this.sd読み込み音 != null )
 				{
-					TJAPlayer3.Sound管理.tサウンドを破棄する( this.sd読み込み音 );
+					TJAPlayer3.SoundManager.tサウンドを破棄する( this.sd読み込み音 );
 					this.sd読み込み音 = null;
 				}
 
@@ -161,13 +161,13 @@ namespace TJAPlayer3
 							CSkin.Cシステムサウンド.r最後に再生した排他システムサウンド.t停止する();
 						}
 						this.sd読み込み音.t再生を開始する();
-						this.nBGM再生開始時刻 = CSound管理.rc演奏用タイマ.n現在時刻ms;
+						this.nBGM再生開始時刻 = CSoundManager.rc演奏用タイマ.n現在時刻ms;
 						this.nBGMの総再生時間ms = this.sd読み込み音.n総演奏時間ms;
 					}
 					else
 					{
 						TJAPlayer3.Skin.sound曲読込開始音.t再生する();
-						this.nBGM再生開始時刻 = CSound管理.rc演奏用タイマ.n現在時刻ms;
+						this.nBGM再生開始時刻 = CSoundManager.rc演奏用タイマ.n現在時刻ms;
 						this.nBGMの総再生時間ms = TJAPlayer3.Skin.sound曲読込開始音.n長さ_現在のサウンド;
 					}
 				}
@@ -460,7 +460,7 @@ namespace TJAPlayer3
 						}
 
 						TJAPlayer3.Timer.t更新();
-						//CSound管理.rc演奏用タイマ.t更新();
+						//CSoundManager.rc演奏用タイマ.t更新();
 						base.eフェーズID = CStage.Eフェーズ.NOWLOADING_システムサウンドBGMの完了を待つ;
 						return (int) E曲読込画面の戻り値.継続;
 					}

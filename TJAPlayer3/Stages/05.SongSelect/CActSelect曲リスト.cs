@@ -621,7 +621,7 @@ namespace TJAPlayer3
 			{
 				this.ct登場アニメ用 = new CCounter(0, 100, 3, TJAPlayer3.Timer);
 
-				this.nスクロールタイマ = (long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+				this.nスクロールタイマ = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 				TJAPlayer3.stage選曲.t選択曲変更通知();
 
 				this.ct三角矢印アニメ.t開始(0, 1000, 1, TJAPlayer3.Timer);
@@ -773,7 +773,7 @@ namespace TJAPlayer3
 			{
 				#region [ (2) 通常フェーズの進行。]
 				//-----------------
-				long n現在時刻 = CSound管理.rc演奏用タイマ.n現在時刻ms;
+				long n現在時刻 = CSoundManager.rc演奏用タイマ.n現在時刻ms;
 
 				if (n現在時刻 < this.nスクロールタイマ) // 念のため
 					this.nスクロールタイマ = n現在時刻;

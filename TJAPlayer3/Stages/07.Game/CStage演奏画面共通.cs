@@ -362,7 +362,7 @@ namespace TJAPlayer3
 							{
 								if ( wc.rSound[ i ] != null )
 								{
-									TJAPlayer3.Sound管理.AddMixer( wc.rSound[ i ], db再生速度, pChip.b演奏終了後も再生が続くチップである );
+									TJAPlayer3.SoundManager.AddMixer( wc.rSound[ i ], db再生速度, pChip.b演奏終了後も再生が続くチップである );
 									//AddMixer( wc.rSound[ i ] );		// 最初はqueueを介さず直接ミキサー登録する
 								}
 							}
@@ -398,7 +398,7 @@ namespace TJAPlayer3
 				double dbPtn_GoGo = (60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM) * TJAPlayer3.Skin.Game_Chara_Beat_GoGo[nPlayer] / this.actChara.arゴーゴーモーション番号[nPlayer].Length / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0);
 				if (TJAPlayer3.Skin.Game_Chara_Ptn_Normal[nPlayer] != 0)
 				{
-					this.actChara.ctChara_Normal[nPlayer] = new CCounter(0, this.actChara.arモーション番号[nPlayer].Length - 1, dbPtn_Normal, CSound管理.rc演奏用タイマ);
+					this.actChara.ctChara_Normal[nPlayer] = new CCounter(0, this.actChara.arモーション番号[nPlayer].Length - 1, dbPtn_Normal, CSoundManager.rc演奏用タイマ);
 				}
 				else
 				{
@@ -406,7 +406,7 @@ namespace TJAPlayer3
 				}
 				if (TJAPlayer3.Skin.Game_Chara_Ptn_Clear[nPlayer] != 0)
 				{
-					this.actChara.ctChara_Clear[nPlayer] = new CCounter(0, this.actChara.arクリアモーション番号[nPlayer].Length - 1, dbPtn_Clear, CSound管理.rc演奏用タイマ);
+					this.actChara.ctChara_Clear[nPlayer] = new CCounter(0, this.actChara.arクリアモーション番号[nPlayer].Length - 1, dbPtn_Clear, CSoundManager.rc演奏用タイマ);
 				}
 				else
 				{
@@ -414,7 +414,7 @@ namespace TJAPlayer3
 				}
 				if (TJAPlayer3.Skin.Game_Chara_Ptn_GoGo[nPlayer] != 0)
 				{
-					this.actChara.ctChara_GoGo[nPlayer] = new CCounter(0, this.actChara.arゴーゴーモーション番号[nPlayer].Length - 1, dbPtn_GoGo, CSound管理.rc演奏用タイマ);
+					this.actChara.ctChara_GoGo[nPlayer] = new CCounter(0, this.actChara.arゴーゴーモーション番号[nPlayer].Length - 1, dbPtn_GoGo, CSoundManager.rc演奏用タイマ);
 				}
 				else
 				{
@@ -425,7 +425,7 @@ namespace TJAPlayer3
 			if (this.actDancer.ct踊り子モーション != null)
 			{
 				double dbUnit_dancer = (((60 / (TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM))) / this.actDancer.ar踊り子モーション番号.Length);
-				this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * TJAPlayer3.Skin.Game_Dancer_Beat, CSound管理.rc演奏用タイマ);
+				this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * TJAPlayer3.Skin.Game_Dancer_Beat, CSoundManager.rc演奏用タイマ);
 			}
 			else
 			{
@@ -505,19 +505,19 @@ namespace TJAPlayer3
 					for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
 					{
 						if (File.Exists(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/dong.ogg")))
-							this.soundRed[i] = TJAPlayer3.Sound管理.tCreateSound(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/dong.ogg"), ESoundGroup.SoundEffect);
+							this.soundRed[i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/dong.ogg"), ESoundGroup.SoundEffect);
 						else
-							this.soundRed[i] = TJAPlayer3.Sound管理.tCreateSound(CSkin.Path(@"Sounds/Taiko\dong.ogg"), ESoundGroup.SoundEffect);
+							this.soundRed[i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Taiko\dong.ogg"), ESoundGroup.SoundEffect);
 
 						if (File.Exists(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/ka.ogg")))
-							this.soundBlue[i] = TJAPlayer3.Sound管理.tCreateSound(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/ka.ogg"), ESoundGroup.SoundEffect);
+							this.soundBlue[i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/ka.ogg"), ESoundGroup.SoundEffect);
 						else
-							this.soundBlue[i] = TJAPlayer3.Sound管理.tCreateSound(CSkin.Path(@"Sounds/Taiko/ka.ogg"), ESoundGroup.SoundEffect);
+							this.soundBlue[i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Taiko/ka.ogg"), ESoundGroup.SoundEffect);
 
 						if (File.Exists(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/Adlib.ogg")))
-							this.soundAdlib[i] = TJAPlayer3.Sound管理.tCreateSound(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/Adlib.ogg"), ESoundGroup.SoundEffect);
+							this.soundAdlib[i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/Adlib.ogg"), ESoundGroup.SoundEffect);
 						else
-							this.soundAdlib[i] = TJAPlayer3.Sound管理.tCreateSound(CSkin.Path(@"Sounds/Taiko/Adlib.ogg"), ESoundGroup.SoundEffect);
+							this.soundAdlib[i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Taiko/Adlib.ogg"), ESoundGroup.SoundEffect);
 					}
 
 					if (TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.ConfigIni.b2P演奏時のSEの左右)//2020.05.06 Mr-Ojii 左右に出したかったから、追加。
@@ -571,8 +571,8 @@ namespace TJAPlayer3
 				#region [ 初めての進行描画 ]
 				if (base.b初めての進行描画)
 				{
-					CSound管理.rc演奏用タイマ.tリセット();
-					//CSound管理.rc演奏用タイマ.n現在時刻ms += 50000;
+					CSoundManager.rc演奏用タイマ.tリセット();
+					//CSoundManager.rc演奏用タイマ.n現在時刻ms += 50000;
 					TJAPlayer3.Timer.tリセット();
 
 					// this.actChipFireD.Start( Eレーン.HH );	// #31554 2013.6.12 yyagi
@@ -700,7 +700,7 @@ namespace TJAPlayer3
 				if (!TJAPlayer3.ConfigIni.b演奏情報を表示しない)
 					this.actPlayInfo.t進行描画(1000, 400);
 
-				if (TJAPlayer3.DTX[0].listLyric2.Count > ShownLyric2 && TJAPlayer3.DTX[0].listLyric2[ShownLyric2].Time + TJAPlayer3.DTX[0].nBGMAdjust < (long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
+				if (TJAPlayer3.DTX[0].listLyric2.Count > ShownLyric2 && TJAPlayer3.DTX[0].listLyric2[ShownLyric2].Time + TJAPlayer3.DTX[0].nBGMAdjust < (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
 				{
 					this.actPanel.t歌詞テクスチャを生成する(TJAPlayer3.DTX[0].listLyric2[ShownLyric2++].TextTex);
 				}
@@ -742,7 +742,7 @@ namespace TJAPlayer3
 								{
 									double dbUnit = (((60.0 / (TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM))));
 									this.actChara.アクションタイマーリセット(nPlayer);
-									this.actChara.ctキャラクターアクション_10コンボMAX[nPlayer] = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max[nPlayer] - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max[nPlayer]) * 2, CSound管理.rc演奏用タイマ);
+									this.actChara.ctキャラクターアクション_10コンボMAX[nPlayer] = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max[nPlayer] - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max[nPlayer]) * 2, CSoundManager.rc演奏用タイマ);
 									this.actChara.ctキャラクターアクション_10コンボMAX[nPlayer].t進行db();
 									this.actChara.ctキャラクターアクション_10コンボMAX[nPlayer].db現在の値 = 0D;
 									this.actChara.bマイどんアクション中[nPlayer] = true;
@@ -1021,11 +1021,11 @@ namespace TJAPlayer3
 						stmixer stm = queueMixerSound.Dequeue();
 						if ( stm.bIsAdd )
 						{
-							TJAPlayer3.Sound管理.AddMixer( stm.csound, db再生速度, stm.b演奏終了後も再生が続くチップである );
+							TJAPlayer3.SoundManager.AddMixer( stm.csound, db再生速度, stm.b演奏終了後も再生が続くチップである );
 						}
 						else
 						{
-							TJAPlayer3.Sound管理.RemoveMixer( stm.csound );
+							TJAPlayer3.SoundManager.RemoveMixer( stm.csound );
 						}
 					}
 				}
@@ -1066,14 +1066,14 @@ namespace TJAPlayer3
 				//Debug.WriteLine("nAbsTime=" + (nTime - pChip.n発声時刻ms) + ", nDeltaTime=" + (nTime + nInputAdjustTime - pChip.n発声時刻ms));
 				if( pChip.nチャンネル番号 == 0x15 || pChip.nチャンネル番号 == 0x16 )
 				{
-					if ((CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) > pChip.n発声時刻ms && (CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.nノーツ終了時刻ms)
+					if ((CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) > pChip.n発声時刻ms && (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.nノーツ終了時刻ms)
 					{
 						return EJudge.Perfect;
 					}
 				}
 				else if( pChip.nチャンネル番号 == 0x17 )
 				{
-					if ((CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.n発声時刻ms - 17 && (CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.nノーツ終了時刻ms)
+					if ((CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.n発声時刻ms - 17 && (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.nノーツ終了時刻ms)
 					{
 						return EJudge.Perfect;
 					}
@@ -1216,7 +1216,7 @@ namespace TJAPlayer3
 
 		protected bool tBalloonProcess( CDTX.CChip pChip, int nPlayer )
 		{
-			if ((int)(long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.n発声時刻ms && (int)(long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) <= pChip.nノーツ終了時刻ms)
+			if ((int)(long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.n発声時刻ms && (int)(long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) <= pChip.nノーツ終了時刻ms)
 			{
 				if( pChip.nRollCount == 0 )
 				{
@@ -1356,7 +1356,7 @@ namespace TJAPlayer3
 				{
 					if (TJAPlayer3.ConfigIni.bAuto先生の連打)
 					{
-						if (((CSound管理.rc演奏用タイマ.n現在時刻ms * ((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) > (pChip.n発声時刻ms + (TJAPlayer3.ConfigIni.nAuto先生の連打速度) * pChip.nRollCount))
+						if (((CSoundManager.rc演奏用タイマ.n現在時刻ms * ((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) > (pChip.n発声時刻ms + (TJAPlayer3.ConfigIni.nAuto先生の連打速度) * pChip.nRollCount))
 						{
 							this.nHand[nPlayer] = (this.nHand[nPlayer] + 1) % 2;
 
@@ -1364,13 +1364,13 @@ namespace TJAPlayer3
 							TJAPlayer3.stage演奏ドラム画面.FlyingNotes.Start(pChip.nチャンネル番号 == 0x15 ? 1 : 3, nPlayer, true);
 							TJAPlayer3.stage演奏ドラム画面.actMtaiko.tMtaikoEvent(pChip.nチャンネル番号, this.nHand[nPlayer], nPlayer);
 
-							this.tRollProcess(pChip, (CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), 1, 0, 0, nPlayer);
+							this.tRollProcess(pChip, (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), 1, 0, 0, nPlayer);
 						}
 					}
 				}
 				else
 				{
-					this.tRollProcess(pChip, (CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), 1, nNowInput, 0, nPlayer);
+					this.tRollProcess(pChip, (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), 1, nNowInput, 0, nPlayer);
 				}
 				if (TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM < 0 && (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.HBSCROLL))
 					pChip.fBMSCROLLTime -= TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * -0.05;
@@ -1387,7 +1387,7 @@ namespace TJAPlayer3
 				{
 					if (pChip.nBalloon != 0)
 					{
-						if ((CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) > (pChip.n発声時刻ms + ((pChip.nノーツ終了時刻ms - pChip.n発声時刻ms) / pChip.nBalloon) * pChip.nRollCount))
+						if ((CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) > (pChip.n発声時刻ms + ((pChip.nノーツ終了時刻ms - pChip.n発声時刻ms) / pChip.nBalloon) * pChip.nRollCount))
 						{
 							this.nHand[nPlayer] = (this.nHand[nPlayer] + 1) % 2;
 
@@ -1406,7 +1406,7 @@ namespace TJAPlayer3
 			}
 			else if (pChip.nチャンネル番号 == 0x18)
 			{
-				if (pChip.nノーツ終了時刻ms <= (CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
+				if (pChip.nノーツ終了時刻ms <= (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
 				{
 					this.b連打中[nPlayer] = false;
 					//this.actChara.b風船連打中 = false;
@@ -1459,7 +1459,7 @@ namespace TJAPlayer3
 					if(TJAPlayer3.Skin.Game_Chara_Ptn_SoulIn[nPlayer] != 0 && actChara.CharaAction_Balloon_Delay[nPlayer].b終了値に達した)
 					{
 						this.actChara.アクションタイマーリセット(nPlayer);
-						this.actChara.ctキャラクターアクション_魂MAX[nPlayer] = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_SoulIn[nPlayer] - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_SoulIn[nPlayer]) * 2, CSound管理.rc演奏用タイマ);
+						this.actChara.ctキャラクターアクション_魂MAX[nPlayer] = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_SoulIn[nPlayer] - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_SoulIn[nPlayer]) * 2, CSoundManager.rc演奏用タイマ);
 						this.actChara.ctキャラクターアクション_魂MAX[nPlayer].t進行db();
 						this.actChara.ctキャラクターアクション_魂MAX[nPlayer].db現在の値 = 0D;
 						this.actChara.bマイどんアクション中[nPlayer] = true;
@@ -1471,7 +1471,7 @@ namespace TJAPlayer3
 					if(TJAPlayer3.Skin.Game_Chara_Ptn_ClearIn[nPlayer] != 0 && actChara.CharaAction_Balloon_Delay[nPlayer].b終了値に達した)
 					{
 						this.actChara.アクションタイマーリセット(nPlayer);
-						this.actChara.ctキャラクターアクション_ノルマ[nPlayer] = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_ClearIn[nPlayer] - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_ClearIn[nPlayer]) * 2, CSound管理.rc演奏用タイマ);
+						this.actChara.ctキャラクターアクション_ノルマ[nPlayer] = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_ClearIn[nPlayer] - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_ClearIn[nPlayer]) * 2, CSoundManager.rc演奏用タイマ);
 						this.actChara.ctキャラクターアクション_ノルマ[nPlayer].t進行db();
 						this.actChara.ctキャラクターアクション_ノルマ[nPlayer].db現在の値 = 0D;
 						this.actChara.bマイどんアクション中[nPlayer] = true;
@@ -1635,7 +1635,7 @@ namespace TJAPlayer3
 								// 魂ゲージMAXではない
 								// ジャンプ_ノーマル
 								this.actChara.アクションタイマーリセット(nPlayer);
-								this.actChara.ctキャラクターアクション_10コンボ[nPlayer] = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_10combo[nPlayer] - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_10combo[nPlayer]) * 2, CSound管理.rc演奏用タイマ);
+								this.actChara.ctキャラクターアクション_10コンボ[nPlayer] = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_10combo[nPlayer] - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_10combo[nPlayer]) * 2, CSoundManager.rc演奏用タイマ);
 								this.actChara.ctキャラクターアクション_10コンボ[nPlayer].t進行db();
 								this.actChara.ctキャラクターアクション_10コンボ[nPlayer].db現在の値 = 0D;
 								this.actChara.bマイどんアクション中[nPlayer] = true;
@@ -1649,7 +1649,7 @@ namespace TJAPlayer3
 								// 魂ゲージMAX
 								// ジャンプ_MAX
 								this.actChara.アクションタイマーリセット(nPlayer);
-								this.actChara.ctキャラクターアクション_10コンボMAX[nPlayer] = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max[nPlayer] - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max[nPlayer]) * 2, CSound管理.rc演奏用タイマ);
+								this.actChara.ctキャラクターアクション_10コンボMAX[nPlayer] = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max[nPlayer] - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max[nPlayer]) * 2, CSoundManager.rc演奏用タイマ);
 								this.actChara.ctキャラクターアクション_10コンボMAX[nPlayer].t進行db();
 								this.actChara.ctキャラクターアクション_10コンボMAX[nPlayer].db現在の値 = 0D;
 								this.actChara.bマイどんアクション中[nPlayer] = true;
@@ -2317,7 +2317,7 @@ namespace TJAPlayer3
 					if (!inputEvent.b押された)
 						continue;
 
-					long nTime = (long)(((inputEvent.nTimeStamp + TJAPlayer3.ConfigIni.nInputAdjustTimeMs - CSound管理.rc演奏用タイマ.n前回リセットした時のシステム時刻ms) * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)));
+					long nTime = (long)(((inputEvent.nTimeStamp + TJAPlayer3.ConfigIni.nInputAdjustTimeMs - CSoundManager.rc演奏用タイマ.n前回リセットした時のシステム時刻ms) * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)));
 
 					bool bHitted = false;
 
@@ -2490,14 +2490,14 @@ namespace TJAPlayer3
 									}
 									else if (chipNoHit.eNoteState == ENoteState.waitright)
 									{
-										float time = chipNoHit.n発声時刻ms - (float)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+										float time = chipNoHit.n発声時刻ms - (float)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 										int nWaitTime = TJAPlayer3.ConfigIni.n両手判定の待ち時間;
-										if (time <= 110 && chipNoHit.nProcessTime + nWaitTime > (int)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
+										if (time <= 110 && chipNoHit.nProcessTime + nWaitTime > (int)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
 										{
 											this.tドラムヒット処理(nTime, EPad.LRed, chipNoHit, true, nUsePlayer);
 											bHitted = true;
 										}
-										else if (time <= 110 && chipNoHit.nProcessTime + nWaitTime < (int)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
+										else if (time <= 110 && chipNoHit.nProcessTime + nWaitTime < (int)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
 										{
 											this.tドラムヒット処理(nTime, EPad.LRed, chipNoHit, false, nUsePlayer);
 											bHitted = true;
@@ -2550,15 +2550,15 @@ namespace TJAPlayer3
 									}
 									else if (chipNoHit.eNoteState == ENoteState.waitleft)
 									{
-										float time = chipNoHit.n発声時刻ms - (float)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+										float time = chipNoHit.n発声時刻ms - (float)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 										int nWaitTime = TJAPlayer3.ConfigIni.n両手判定の待ち時間;
-										if (time <= 110 && chipNoHit.nProcessTime + nWaitTime > (int)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
+										if (time <= 110 && chipNoHit.nProcessTime + nWaitTime > (int)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
 										{
 											this.tドラムヒット処理(nTime, EPad.RRed, chipNoHit, true, nUsePlayer);
 											bHitted = true;
 											break;
 										}
-										else if (time <= 110 && chipNoHit.nProcessTime + nWaitTime < (int)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
+										else if (time <= 110 && chipNoHit.nProcessTime + nWaitTime < (int)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
 										{
 											this.tドラムヒット処理(nTime, EPad.RRed, chipNoHit, false, nUsePlayer);
 											bHitted = true;
@@ -2612,14 +2612,14 @@ namespace TJAPlayer3
 									}
 									else if (chipNoHit.eNoteState == ENoteState.waitright)
 									{
-										float time = chipNoHit.n発声時刻ms - (float)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+										float time = chipNoHit.n発声時刻ms - (float)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 										int nWaitTime = TJAPlayer3.ConfigIni.n両手判定の待ち時間;
-										if (time <= 110 && chipNoHit.nProcessTime + nWaitTime > (int)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
+										if (time <= 110 && chipNoHit.nProcessTime + nWaitTime > (int)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
 										{
 											this.tドラムヒット処理(nTime, EPad.LBlue, chipNoHit, true, nUsePlayer);
 											bHitted = true;
 										}
-										else if (time <= 110 && chipNoHit.nProcessTime + nWaitTime < (int)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
+										else if (time <= 110 && chipNoHit.nProcessTime + nWaitTime < (int)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
 										{
 											this.tドラムヒット処理(nTime, EPad.LBlue, chipNoHit, false, nUsePlayer);
 											bHitted = true;
@@ -2672,15 +2672,15 @@ namespace TJAPlayer3
 									}
 									else if (chipNoHit.eNoteState == ENoteState.waitleft)
 									{
-										float time = chipNoHit.n発声時刻ms - (float)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+										float time = chipNoHit.n発声時刻ms - (float)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 										int nWaitTime = TJAPlayer3.ConfigIni.n両手判定の待ち時間;
-										if (time <= 110 && chipNoHit.nProcessTime + nWaitTime > (int)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
+										if (time <= 110 && chipNoHit.nProcessTime + nWaitTime > (int)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
 										{
 											this.tドラムヒット処理(nTime, EPad.RBlue, chipNoHit, true, nUsePlayer);
 											bHitted = true;
 											break;
 										}
-										else if (time <= 110 && chipNoHit.nProcessTime + nWaitTime < (int)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
+										else if (time <= 110 && chipNoHit.nProcessTime + nWaitTime < (int)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
 										{
 											this.tドラムヒット処理(nTime, EPad.RBlue, chipNoHit, false, nUsePlayer);
 											bHitted = true;
@@ -2736,7 +2736,7 @@ namespace TJAPlayer3
 				{
 					TJAPlayer3.Skin.sound変更音.t再生する();
 
-					CSound管理.rc演奏用タイマ.t一時停止();
+					CSoundManager.rc演奏用タイマ.t一時停止();
 					TJAPlayer3.Timer.t一時停止();
 					TJAPlayer3.DTX[0].t全チップの再生一時停止();
 					this.actAVI.tPauseControl();
@@ -2806,7 +2806,7 @@ namespace TJAPlayer3
 					else
 						course = 2;
 
-					long? n1小節後 = r指定時間に一番近い小節線を未来方向に検索する((long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), 0);
+					long? n1小節後 = r指定時間に一番近い小節線を未来方向に検索する((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), 0);
 					if (n1小節後.HasValue)
 					{
 						this.t分岐処理(course, 0, (long)n1小節後);
@@ -2836,7 +2836,7 @@ namespace TJAPlayer3
 					else
 						course = 2;
 
-					long? n1小節後 = r指定時間に一番近い小節線を未来方向に検索する((long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), 1);
+					long? n1小節後 = r指定時間に一番近い小節線を未来方向に検索する((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), 1);
 					if (n1小節後.HasValue)
 					{
 						this.t分岐処理(course, 1, (long)n1小節後);
@@ -2876,7 +2876,7 @@ namespace TJAPlayer3
 				}
 				else if ((keyboard.bキーが押された((int)SlimDXKeys.Key.Escape)))
 				{   // escape (exit)
-					CSound管理.rc演奏用タイマ.t再開();
+					CSoundManager.rc演奏用タイマ.t再開();
 					TJAPlayer3.Timer.t再開();
 					this.t演奏中止();
 				}
@@ -2970,7 +2970,7 @@ namespace TJAPlayer3
 				return true;
 			}
 
-			var n現在時刻ms = (long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+			var n現在時刻ms = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 
 			CConfigIni configIni = TJAPlayer3.ConfigIni;
 
@@ -3048,8 +3048,8 @@ namespace TJAPlayer3
 					if( cChipCurrentlyInProcess.nチャンネル番号 >= 0x13 && cChipCurrentlyInProcess.nチャンネル番号 <= 0x15 )//|| pChip.nチャンネル番号 == 0x9A )
 					{
 						if ( ( ( cChipCurrentlyInProcess.nバーからの距離dot < -500 ) && ( cChipCurrentlyInProcess.n発声時刻ms <= n現在時刻ms && cChipCurrentlyInProcess.nノーツ終了時刻ms >= n現在時刻ms ) ) )
-						   //( ( chip現在処理中の連打チップ.nバーからのノーツ末端距離dot.Taiko < -500 ) && ( chip現在処理中の連打チップ.n発声時刻ms <= CSound管理.rc演奏用タイマ.n現在時刻ms && chip現在処理中の連打チップ.nノーツ終了時刻ms >= CSound管理.rc演奏用タイマ.n現在時刻ms ) ) )
-						   //( ( pChip.n発声時刻ms <= CSound管理.rc演奏用タイマ.n現在時刻ms && pChip.nノーツ終了時刻ms >= CSound管理.rc演奏用タイマ.n現在時刻ms ) ) )
+						   //( ( chip現在処理中の連打チップ.nバーからのノーツ末端距離dot.Taiko < -500 ) && ( chip現在処理中の連打チップ.n発声時刻ms <= CSoundManager.rc演奏用タイマ.n現在時刻ms && chip現在処理中の連打チップ.nノーツ終了時刻ms >= CSoundManager.rc演奏用タイマ.n現在時刻ms ) ) )
+						   //( ( pChip.n発声時刻ms <= CSoundManager.rc演奏用タイマ.n現在時刻ms && pChip.nノーツ終了時刻ms >= CSoundManager.rc演奏用タイマ.n現在時刻ms ) ) )
 						{
 							if(TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer])
 								this.tチップのヒット処理( n現在時刻ms, cChipCurrentlyInProcess, false, 0, nPlayer );
@@ -3076,7 +3076,7 @@ namespace TJAPlayer3
 							pChip.bHit = true;
 							if ( configIni.bBGM音を発声する )
 							{
-								dTX.tチップの再生( pChip, CSound管理.rc演奏用タイマ.n前回リセットした時のシステム時刻ms + (long)(pChip.n発声時刻ms / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)));
+								dTX.tチップの再生( pChip, CSoundManager.rc演奏用タイマ.n前回リセットした時のシステム時刻ms + (long)(pChip.n発声時刻ms / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)));
 							}
 						}
 						break;
@@ -3226,13 +3226,13 @@ namespace TJAPlayer3
 								{
 									for (int i = 0; i < 2; i++)
 									{ 
-										   ctChipAnime[i] = new CCounter(0, 3, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * 1 / 4 / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSound管理.rc演奏用タイマ);
+										   ctChipAnime[i] = new CCounter(0, 3, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * 1 / 4 / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSoundManager.rc演奏用タイマ);
 									}
 
 									if (TJAPlayer3.Skin.Game_Chara_Ptn_Normal[nPlayer] != 0)
 									{
 										double dbPtn_Normal = (60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM) * TJAPlayer3.Skin.Game_Chara_Beat_Normal[nPlayer] / this.actChara.arモーション番号[nPlayer].Length / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0);
-										this.actChara.ctChara_Normal[nPlayer] = new CCounter(0, this.actChara.arモーション番号[nPlayer].Length - 1, dbPtn_Normal, CSound管理.rc演奏用タイマ);
+										this.actChara.ctChara_Normal[nPlayer] = new CCounter(0, this.actChara.arモーション番号[nPlayer].Length - 1, dbPtn_Normal, CSoundManager.rc演奏用タイマ);
 									}
 									else
 									{
@@ -3241,7 +3241,7 @@ namespace TJAPlayer3
 									if (TJAPlayer3.Skin.Game_Chara_Ptn_Clear[nPlayer] != 0)
 									{
 										double dbPtn_Clear = (60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM) * TJAPlayer3.Skin.Game_Chara_Beat_Clear[nPlayer] / this.actChara.arクリアモーション番号[nPlayer].Length / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0);
-										this.actChara.ctChara_Clear[nPlayer] = new CCounter(0, this.actChara.arクリアモーション番号[nPlayer].Length - 1, dbPtn_Clear, CSound管理.rc演奏用タイマ);
+										this.actChara.ctChara_Clear[nPlayer] = new CCounter(0, this.actChara.arクリアモーション番号[nPlayer].Length - 1, dbPtn_Clear, CSoundManager.rc演奏用タイマ);
 									}
 									else
 									{
@@ -3250,7 +3250,7 @@ namespace TJAPlayer3
 									if (TJAPlayer3.Skin.Game_Chara_Ptn_GoGo[nPlayer] != 0)
 									{
 										double dbPtn_GoGo = (60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM) * TJAPlayer3.Skin.Game_Chara_Beat_GoGo[nPlayer] / this.actChara.arゴーゴーモーション番号[nPlayer].Length / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0);
-										this.actChara.ctChara_GoGo[nPlayer] = new CCounter(0, this.actChara.arゴーゴーモーション番号[nPlayer].Length - 1, dbPtn_GoGo, CSound管理.rc演奏用タイマ);
+										this.actChara.ctChara_GoGo[nPlayer] = new CCounter(0, this.actChara.arゴーゴーモーション番号[nPlayer].Length - 1, dbPtn_GoGo, CSoundManager.rc演奏用タイマ);
 									}
 									else
 									{
@@ -3259,7 +3259,7 @@ namespace TJAPlayer3
 									if (TJAPlayer3.Skin.Game_Dancer_Ptn != 0)
 									{
 										double dbUnit_dancer = (((60 / (TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM))) / this.actDancer.ar踊り子モーション番号.Length) / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0);
-										this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * TJAPlayer3.Skin.Game_Dancer_Beat, CSound管理.rc演奏用タイマ);
+										this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * TJAPlayer3.Skin.Game_Dancer_Beat, CSoundManager.rc演奏用タイマ);
 									}
 									else
 									{
@@ -3267,8 +3267,8 @@ namespace TJAPlayer3
 									}
 									if (TJAPlayer3.Skin.Game_Mob_Ptn != 0 && TJAPlayer3.Skin.Game_Mob_Beat > 0 ) //2018.6.15 Game_Mob_Beatが0のままCCounter生成をされて無限ループが発生しないよう対策
 									{
-										this.actMob.ctMob = new CCounter(1, 180, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.Game_Mob_Beat / 180 / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSound管理.rc演奏用タイマ);
-										this.actMob.ctMobPtn = new CCounter(0, TJAPlayer3.Skin.Game_Mob_Ptn - 1, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.Game_Mob_Ptn_Beat / TJAPlayer3.Skin.Game_Mob_Ptn / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSound管理.rc演奏用タイマ);
+										this.actMob.ctMob = new CCounter(1, 180, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.Game_Mob_Beat / 180 / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSoundManager.rc演奏用タイマ);
+										this.actMob.ctMobPtn = new CCounter(0, TJAPlayer3.Skin.Game_Mob_Ptn - 1, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.Game_Mob_Ptn_Beat / TJAPlayer3.Skin.Game_Mob_Ptn / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSoundManager.rc演奏用タイマ);
 									}
 									else
 									{
@@ -3406,7 +3406,7 @@ namespace TJAPlayer3
 								for (int i = 0; i < 2; i++)
 								{
 									double db値 = ctChipAnime[i].db現在の値;
-									ctChipAnime[i] = new CCounter(0, 3, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * 1 / 4 / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSound管理.rc演奏用タイマ);
+									ctChipAnime[i] = new CCounter(0, 3, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * 1 / 4 / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSoundManager.rc演奏用タイマ);
 									this.ctChipAnime[i].t時間Resetdb();
 									this.ctChipAnime[i].db現在の値 = db値;
 								}
@@ -3415,7 +3415,7 @@ namespace TJAPlayer3
 								{
 									double dbPtn_Normal = (60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM) * TJAPlayer3.Skin.Game_Chara_Beat_Normal[nPlayer] / this.actChara.arモーション番号[nPlayer].Length / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0);
 									double db値 = this.actChara.ctChara_Normal[nPlayer].db現在の値;
-									this.actChara.ctChara_Normal[nPlayer] = new CCounter(0, this.actChara.arモーション番号[nPlayer].Length - 1, dbPtn_Normal, CSound管理.rc演奏用タイマ);
+									this.actChara.ctChara_Normal[nPlayer] = new CCounter(0, this.actChara.arモーション番号[nPlayer].Length - 1, dbPtn_Normal, CSoundManager.rc演奏用タイマ);
 									this.actChara.ctChara_Normal[nPlayer].t時間Resetdb();
 									this.actChara.ctChara_Normal[nPlayer].db現在の値 = db値;
 								} else
@@ -3426,7 +3426,7 @@ namespace TJAPlayer3
 								{
 									double dbPtn_Clear = (60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM) * TJAPlayer3.Skin.Game_Chara_Beat_Clear[nPlayer] / this.actChara.arクリアモーション番号[nPlayer].Length / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0);
 									double db値 = this.actChara.ctChara_Clear[nPlayer].db現在の値;
-									this.actChara.ctChara_Clear[nPlayer] = new CCounter(0, this.actChara.arクリアモーション番号[nPlayer].Length - 1, dbPtn_Clear, CSound管理.rc演奏用タイマ);
+									this.actChara.ctChara_Clear[nPlayer] = new CCounter(0, this.actChara.arクリアモーション番号[nPlayer].Length - 1, dbPtn_Clear, CSoundManager.rc演奏用タイマ);
 									this.actChara.ctChara_Clear[nPlayer].t時間Resetdb();
 									this.actChara.ctChara_Clear[nPlayer].db現在の値 = db値;
 								}
@@ -3438,7 +3438,7 @@ namespace TJAPlayer3
 								{
 									double dbPtn_GoGo = (60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM) * TJAPlayer3.Skin.Game_Chara_Beat_GoGo[nPlayer] / this.actChara.arゴーゴーモーション番号[nPlayer].Length / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0);
 									double db値 = this.actChara.ctChara_GoGo[nPlayer].db現在の値;
-									this.actChara.ctChara_GoGo[nPlayer] = new CCounter(0, this.actChara.arゴーゴーモーション番号[nPlayer].Length - 1, dbPtn_GoGo, CSound管理.rc演奏用タイマ);
+									this.actChara.ctChara_GoGo[nPlayer] = new CCounter(0, this.actChara.arゴーゴーモーション番号[nPlayer].Length - 1, dbPtn_GoGo, CSoundManager.rc演奏用タイマ);
 									this.actChara.ctChara_GoGo[nPlayer].t時間Resetdb();
 									this.actChara.ctChara_GoGo[nPlayer].db現在の値 = db値;
 								} else
@@ -3449,7 +3449,7 @@ namespace TJAPlayer3
 								{
 									double dbUnit_dancer = (((60 / (TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM))) / this.actDancer.ar踊り子モーション番号.Length) / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0);
 									double db値 = this.actDancer.ct踊り子モーション.db現在の値;
-									this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * TJAPlayer3.Skin.Game_Dancer_Beat, CSound管理.rc演奏用タイマ);
+									this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * TJAPlayer3.Skin.Game_Dancer_Beat, CSoundManager.rc演奏用タイマ);
 									this.actDancer.ct踊り子モーション.t時間Resetdb();
 									this.actDancer.ct踊り子モーション.db現在の値 = db値;
 								}
@@ -3460,12 +3460,12 @@ namespace TJAPlayer3
 								if (TJAPlayer3.Skin.Game_Mob_Ptn != 0)
 								{
 									double db値 = this.actMob.ctMob.db現在の値;
-									this.actMob.ctMob = new CCounter(1, 180, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.Game_Mob_Beat / 180 / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSound管理.rc演奏用タイマ);
+									this.actMob.ctMob = new CCounter(1, 180, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.Game_Mob_Beat / 180 / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSoundManager.rc演奏用タイマ);
 									this.actMob.ctMob.t時間Resetdb();
 									this.actMob.ctMob.db現在の値 = db値;
 
 									db値 = this.actMob.ctMobPtn.db現在の値;
-									this.actMob.ctMobPtn = new CCounter(0, TJAPlayer3.Skin.Game_Mob_Ptn - 1, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.Game_Mob_Ptn_Beat / TJAPlayer3.Skin.Game_Mob_Ptn / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSound管理.rc演奏用タイマ);
+									this.actMob.ctMobPtn = new CCounter(0, TJAPlayer3.Skin.Game_Mob_Ptn - 1, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.Game_Mob_Ptn_Beat / TJAPlayer3.Skin.Game_Mob_Ptn / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSoundManager.rc演奏用タイマ);
 									this.actMob.ctMobPtn.t時間Resetdb();
 									this.actMob.ctMobPtn.db現在の値 = db値;
 								} else
@@ -3475,8 +3475,8 @@ namespace TJAPlayer3
 								}
 
 								TJAPlayer3.stage演奏ドラム画面.PuchiChara.ChangeBPM(60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
-								//this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, (dbUnit * CDTXMania.Skin.Game_Dancer_Beat) / this.actDancer.ar踊り子モーション番号.Length, CSound管理.rc演奏用タイマ);
-								//this.actChara.ctモブモーション = new CCounter(0, this.actChara.arモブモーション番号.Length - 1, (dbUnit) / this.actChara.arモブモーション番号.Length, CSound管理.rc演奏用タイマ);
+								//this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, (dbUnit * CDTXMania.Skin.Game_Dancer_Beat) / this.actDancer.ar踊り子モーション番号.Length, CSoundManager.rc演奏用タイマ);
+								//this.actChara.ctモブモーション = new CCounter(0, this.actChara.arモブモーション番号.Length - 1, (dbUnit) / this.actChara.arモブモーション番号.Length, CSoundManager.rc演奏用タイマ);
 							}
 
 						}
@@ -3507,7 +3507,7 @@ namespace TJAPlayer3
 									// 魂ゲージMAXではない
 									// ゴーゴースタート_ノーマル
 									this.actChara.アクションタイマーリセット(nPlayer);
-									this.actChara.ctキャラクターアクション_ゴーゴースタート[nPlayer] = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart[nPlayer] - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart[nPlayer]) * 2, CSound管理.rc演奏用タイマ);
+									this.actChara.ctキャラクターアクション_ゴーゴースタート[nPlayer] = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart[nPlayer] - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart[nPlayer]) * 2, CSoundManager.rc演奏用タイマ);
 									this.actChara.ctキャラクターアクション_ゴーゴースタート[nPlayer].t進行db();
 									this.actChara.ctキャラクターアクション_ゴーゴースタート[nPlayer].db現在の値 = 0D;
 									this.actChara.bマイどんアクション中[nPlayer] = true;
@@ -3521,7 +3521,7 @@ namespace TJAPlayer3
 									// 魂ゲージMAX
 									// ゴーゴースタート_MAX
 									this.actChara.アクションタイマーリセット(nPlayer);
-									this.actChara.ctキャラクターアクション_ゴーゴースタートMAX[nPlayer] = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart_Max[nPlayer] - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart_Max[nPlayer]) * 2, CSound管理.rc演奏用タイマ);
+									this.actChara.ctキャラクターアクション_ゴーゴースタートMAX[nPlayer] = new CCounter(0, TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart_Max[nPlayer] - 1, (dbUnit / TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart_Max[nPlayer]) * 2, CSoundManager.rc演奏用タイマ);
 									this.actChara.ctキャラクターアクション_ゴーゴースタートMAX[nPlayer].t進行db();
 									this.actChara.ctキャラクターアクション_ゴーゴースタートMAX[nPlayer].db現在の値 = 0D;
 									this.actChara.bマイどんアクション中[nPlayer] = true;
@@ -3594,7 +3594,7 @@ namespace TJAPlayer3
 								{
 									if ( wc.rSound[ i ] != null )
 									{
-										//CDTXMania.Sound管理.AddMixer( wc.rSound[ i ] );
+										//CDTXMania.SoundManager.AddMixer( wc.rSound[ i ] );
 										AddMixer( wc.rSound[ i ], pChip.b演奏終了後も再生が続くチップである );
 									}
 								}
@@ -3614,7 +3614,7 @@ namespace TJAPlayer3
 								{
 									if ( wc.rSound[ i ] != null )
 									{
-										//CDTXMania.Sound管理.RemoveMixer( wc.rSound[ i ] );
+										//CDTXMania.SoundManager.RemoveMixer( wc.rSound[ i ] );
 										if ( !wc.rSound[ i ].b演奏終了後も再生が続くチップである )	// #32248 2013.10.16 yyagi
 										{															// DTX終了後も再生が続くチップの0xDB登録をなくすことはできず。
 											RemoveMixer( wc.rSound[ i ] );							// (ミキサー解除のタイミングが遅延する場合の対応が面倒なので。)
@@ -3719,7 +3719,7 @@ namespace TJAPlayer3
 						{
 							if (!pChip.bHit)
 							{
-								if (this.bgmlength > CSound管理.rc演奏用タイマ.n現在時刻ms * ((double)TJAPlayer3.ConfigIni.n演奏速度 / 20.0))
+								if (this.bgmlength > CSoundManager.rc演奏用タイマ.n現在時刻ms * ((double)TJAPlayer3.ConfigIni.n演奏速度 / 20.0))
 									break;
 
 								pChip.bHit = true;
@@ -3760,7 +3760,7 @@ namespace TJAPlayer3
 
 			CDTX dTX = TJAPlayer3.DTX[nPlayer];
 
-			var n現在時刻ms = (long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+			var n現在時刻ms = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 
 			for (int nCurrentTopChip = dTX.listChip.Count - 1; nCurrentTopChip > 0; nCurrentTopChip--)
 			{
@@ -3947,7 +3947,7 @@ namespace TJAPlayer3
 			float bpm_time = 0;
 			int last_input = 0;
 			float last_bpm_change_time;
-			play_time = CSound管理.rc演奏用タイマ.n現在時刻ms * (((float)TJAPlayer3.ConfigIni.n演奏速度) / 20.0f) - tja.nOFFSET;
+			play_time = CSoundManager.rc演奏用タイマ.n現在時刻ms * (((float)TJAPlayer3.ConfigIni.n演奏速度) / 20.0f) - tja.nOFFSET;
 
 			for (int i = 1; ; i++)
 			{
@@ -4143,9 +4143,9 @@ namespace TJAPlayer3
 #region [ 演奏開始の発声時刻msを取得し、タイマに設定 ]
 			int nStartTime = (int)(dTX.listChip[this.n現在のトップChip].n発声時刻ms / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 
-			CSound管理.rc演奏用タイマ.tリセット();	// これでPAUSE解除されるので、次のPAUSEチェックは不要
-			CSound管理.rc演奏用タイマ.t一時停止();
-			CSound管理.rc演奏用タイマ.n現在時刻ms = nStartTime;
+			CSoundManager.rc演奏用タイマ.tリセット();	// これでPAUSE解除されるので、次のPAUSEチェックは不要
+			CSoundManager.rc演奏用タイマ.t一時停止();
+			CSoundManager.rc演奏用タイマ.n現在時刻ms = nStartTime;
 #endregion
 
 			List<CSound> pausedCSound = new List<CSound>();
@@ -4167,7 +4167,7 @@ namespace TJAPlayer3
 
 						if ((wc.bIsBGMSound && TJAPlayer3.ConfigIni.bBGM音を発声する) || (!wc.bIsBGMSound))
 						{
-							TJAPlayer3.DTX[0].tチップの再生(pChip, (long)(CSound管理.rc演奏用タイマ.n前回リセットした時のシステム時刻ms) + (long)(n発声時刻ms));
+							TJAPlayer3.DTX[0].tチップの再生(pChip, (long)(CSoundManager.rc演奏用タイマ.n前回リセットした時のシステム時刻ms) + (long)(n発声時刻ms));
 #region [ PAUSEする ]
 							int j = wc.n現在再生中のサウンド番号;
 							if (wc.rSound[j] != null)
@@ -4211,10 +4211,10 @@ namespace TJAPlayer3
 			pausedCSound = null;
 #endregion
 #region [ タイマを再開して、PAUSEから復帰する ]
-			CSound管理.rc演奏用タイマ.n現在時刻ms = nStartTime;
+			CSoundManager.rc演奏用タイマ.n現在時刻ms = nStartTime;
 			TJAPlayer3.Timer.tリセット();						// これでPAUSE解除されるので、3行先の再開()は不要
 			TJAPlayer3.Timer.n現在時刻ms = nStartTime;				// Debug表示のTime: 表記を正しくするために必要
-			CSound管理.rc演奏用タイマ.t再開();
+			CSoundManager.rc演奏用タイマ.t再開();
 			this.bPAUSE = false;								// システムがPAUSE状態だったら、強制解除
 			this.actPanel.Start();
 #endregion
@@ -4233,7 +4233,7 @@ namespace TJAPlayer3
 			#region[ 作り直したもの ]
 			if (pChip.b可視 && !pChip.bHit)
 			{
-				long nPlayTime = (long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+				long nPlayTime = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 				if ((!pChip.bHit) && (pChip.n発声時刻ms <= nPlayTime))
 				{
 					bool bAutoPlay = false;
@@ -4343,7 +4343,7 @@ namespace TJAPlayer3
 				{
 					y = TJAPlayer3.Skin.nScrollFieldY[nPlayer];
 					if (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.Normal)
-						y += (int)(((pChip.n発声時刻ms - ((CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))) * pChip.dbBPM * pChip.dbSCROLL_Y * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0); // 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+						y += (int)(((pChip.n発声時刻ms - ((CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))) * pChip.dbBPM * pChip.dbSCROLL_Y * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0); // 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 					else if (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL || TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.HBSCROLL)
 					{
 						float play_bpm_time = this.GetNowPBMTime(dTX);
@@ -4480,12 +4480,12 @@ namespace TJAPlayer3
 			{
 				if (pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x17)
 				{
-					if (pChip.nノーツ出現時刻ms != 0 && ((long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.n発声時刻ms - pChip.nノーツ出現時刻ms))
+					if (pChip.nノーツ出現時刻ms != 0 && ((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.n発声時刻ms - pChip.nノーツ出現時刻ms))
 						pChip.bShow = false;
 					else if (pChip.nノーツ出現時刻ms != 0 && pChip.nノーツ移動開始時刻ms != 0)
 						pChip.bShow = true;
 
-					if (pChip.nノーツ移動開始時刻ms != 0 && ((long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms))
+					if (pChip.nノーツ移動開始時刻ms != 0 && ((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms))
 					{
 						nノート座標 = (int)((((pChip.n発声時刻ms) - (pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms)) * pChip.dbBPM * pChip.dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 						nノート末端座標 = (int)(((pChip.nノーツ終了時刻ms - (pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms)) * pChip.db末端BPM * pChip.db末端SCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
@@ -4503,7 +4503,7 @@ namespace TJAPlayer3
 
 				if (pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x17)
 				{
-					if (pChip.nノーツ移動開始時刻ms != 0 && ((long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms))
+					if (pChip.nノーツ移動開始時刻ms != 0 && ((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms))
 					{
 						x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + nノート座標;
 						x末端 = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + nノート末端座標;
@@ -4701,9 +4701,9 @@ namespace TJAPlayer3
 						}
 						if (pChip.nチャンネル番号 == 0x17 && pChip.bShow)
 						{
-							if ((long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.n発声時刻ms && (long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.nノーツ終了時刻ms)
+							if ((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.n発声時刻ms && (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.nノーツ終了時刻ms)
 								x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] - 55;
-							else if ((long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.nノーツ終了時刻ms)
+							else if ((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.nノーツ終了時刻ms)
 								x = (TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot - 55);
 
 							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
@@ -4715,7 +4715,7 @@ namespace TJAPlayer3
 					}
 				}
 			}
-			if (pChip.n発声時刻ms < (CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) && pChip.nノーツ終了時刻ms > (CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
+			if (pChip.n発声時刻ms < (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) && pChip.nノーツ終了時刻ms > (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
 			{
 				//時間内でかつ0x9Aじゃないならならヒット処理
 				if (pChip.nチャンネル番号 != 0x18 && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer])
@@ -4734,12 +4734,12 @@ namespace TJAPlayer3
 
 			if (pChip.dbSCROLL_Y != 0.0)
 			{
-				y += (int)(((pChip.n発声時刻ms - (CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))) * pChip.dbBPM * pChip.dbSCROLL_Y * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0);
+				y += (int)(((pChip.n発声時刻ms - (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))) * pChip.dbBPM * pChip.dbSCROLL_Y * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0);
 			}
 
-			if (!pChip.bHit && pChip.n発声時刻ms > CSound管理.rc演奏用タイマ.n現在時刻ms * ((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)
+			if (!pChip.bHit && pChip.n発声時刻ms > CSoundManager.rc演奏用タイマ.n現在時刻ms * ((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)
 			{
-				if (TJAPlayer3.ConfigIni.bWave再生位置自動調整機能有効 && (TJAPlayer3.Sound管理.GetCurrentSoundDeviceType() == "OpenAL" || TJAPlayer3.ConfigIni.bUseOSTimer))
+				if (TJAPlayer3.ConfigIni.bWave再生位置自動調整機能有効 && (TJAPlayer3.SoundManager.GetCurrentSoundDeviceType() == "OpenAL" || TJAPlayer3.ConfigIni.bUseOSTimer))
 				{
 					dTX.tWave再生位置自動補正();
 				}
@@ -4772,7 +4772,7 @@ namespace TJAPlayer3
 		/// </summary>
 		protected void t全体制御メソッド()
 		{
-			int time = (int)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+			int time = (int)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 			//CDTXMania.act文字コンソール.tPrint( 0, 16, C文字コンソール.Eフォント種別.白, t.ToString() );
 
 			for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
@@ -4781,7 +4781,7 @@ namespace TJAPlayer3
 				{
 					if (this.chip現在処理中の連打チップ[i].nチャンネル番号 == 0x17 && this.b連打中[i] == true)
 					{
-						//if (this.chip現在処理中の連打チップ.n発声時刻ms <= (int)CSound管理.rc演奏用タイマ.n現在時刻ms && this.chip現在処理中の連打チップ.nノーツ終了時刻ms >= (int)CSound管理.rc演奏用タイマ.n現在時刻ms)
+						//if (this.chip現在処理中の連打チップ.n発声時刻ms <= (int)CSoundManager.rc演奏用タイマ.n現在時刻ms && this.chip現在処理中の連打チップ.nノーツ終了時刻ms >= (int)CSoundManager.rc演奏用タイマ.n現在時刻ms)
 						if (this.chip現在処理中の連打チップ[i].n発声時刻ms <= time && this.chip現在処理中の連打チップ[i].nノーツ終了時刻ms + 500 >= time)
 						{
 							this.chip現在処理中の連打チップ[i].bShow = false;
@@ -4799,13 +4799,13 @@ namespace TJAPlayer3
 			//常時イベントが発生しているメソッドのほうがいいんじゃないかという予想。
 			for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
 			{
-				CDTX.CChip chipNoHit = GetChipOfNearest((long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), i);
+				CDTX.CChip chipNoHit = GetChipOfNearest((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), i);
 
 				if (chipNoHit != null && (chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1A || chipNoHit.nチャンネル番号 == 0x1B))
 				{
-					float timeC = chipNoHit.n発声時刻ms - (float)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+					float timeC = chipNoHit.n発声時刻ms - (float)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 					int nWaitTime = TJAPlayer3.ConfigIni.n両手判定の待ち時間;
-					if ((chipNoHit.eNoteState == ENoteState.waitleft || chipNoHit.eNoteState == ENoteState.waitright) && timeC <= 110 && chipNoHit.nProcessTime + nWaitTime <= (int)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
+					if ((chipNoHit.eNoteState == ENoteState.waitleft || chipNoHit.eNoteState == ENoteState.waitright) && timeC <= 110 && chipNoHit.nProcessTime + nWaitTime <= (int)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
 					{
 						this.tドラムヒット処理(chipNoHit.nProcessTime, EPad.RRed, chipNoHit, false, i);
 						chipNoHit.eNoteState = ENoteState.none;

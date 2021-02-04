@@ -41,7 +41,7 @@ namespace FDK
 					}
 					else
 					{
-						if ( CSound管理.bUseOSTimer )
+						if ( CSoundManager.bUseOSTimer )
 						//if ( true )
 						{
 							return ctDInputTimer.nシステム時刻ms;				// 仮にCSoundTimerをCTimer相当の動作にしてみた

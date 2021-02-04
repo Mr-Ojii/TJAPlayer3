@@ -92,7 +92,7 @@ namespace TJAPlayer3
 			this.ct進行 = null;
 			if( this.sd効果音 != null )
 			{
-				TJAPlayer3.Sound管理.tサウンドを破棄する( this.sd効果音 );
+				TJAPlayer3.SoundManager.tサウンドを破棄する( this.sd効果音 );
 				this.sd効果音 = null;
 			}
 			base.On非活性化();

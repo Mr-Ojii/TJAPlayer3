@@ -152,7 +152,7 @@ namespace TJAPlayer3
 			private set;
 		}
 
-		public static CSound管理 Sound管理
+		public static CSoundManager SoundManager
 		{
 			get;
 			private set;
@@ -392,7 +392,7 @@ namespace TJAPlayer3
 		protected override void OnRenderFrame(FrameEventArgs e)
 		{
 			Timer?.t更新();
-			CSound管理.rc演奏用タイマ?.t更新();
+			CSoundManager.rc演奏用タイマ?.t更新();
 			Input管理?.tポーリング(this.bApplicationActive, TJAPlayer3.ConfigIni.bバッファ入力);
 			FPS?.tカウンタ更新();
 
@@ -930,9 +930,9 @@ namespace TJAPlayer3
 
 				if (r現在のステージ != null && r現在のステージ.eStageID != CStage.EStage.StartUp && TJAPlayer3.Tx.Network_Connection != null)
 				{
-					if (Math.Abs(CSound管理.rc演奏用タイマ.nシステム時刻ms - this.前回のシステム時刻ms) > 10000)
+					if (Math.Abs(CSoundManager.rc演奏用タイマ.nシステム時刻ms - this.前回のシステム時刻ms) > 10000)
 					{
-						this.前回のシステム時刻ms = CSound管理.rc演奏用タイマ.nシステム時刻ms;
+						this.前回のシステム時刻ms = CSoundManager.rc演奏用タイマ.nシステム時刻ms;
 						Task.Factory.StartNew(() =>
 						{
 							//IPv4 8.8.8.8にPingを送信する(timeout 5000ms)
@@ -1391,7 +1391,7 @@ namespace TJAPlayer3
 			}
 			//---------------------
 #endregion
-#region [ Sound管理 の初期化 ]
+#region [ SoundManager の初期化 ]
 			//---------------------
 			Trace.TraceInformation("サウンドデバイスの初期化を行います。");
 			Trace.Indent();
@@ -1416,7 +1416,7 @@ namespace TJAPlayer3
 						soundDeviceType = ESoundDeviceType.Unknown;
 						break;
 				}
-				Sound管理 = new CSound管理(base.WindowInfo.Handle,
+				SoundManager = new CSoundManager(base.WindowInfo.Handle,
 											soundDeviceType,
 											TJAPlayer3.ConfigIni.nWASAPIBufferSizeMs,
 											// CDTXMania.ConfigIni.nASIOBufferSizeMs,
@@ -1424,8 +1424,6 @@ namespace TJAPlayer3
 											TJAPlayer3.ConfigIni.nASIODevice,
 											TJAPlayer3.ConfigIni.bUseOSTimer
 				);
-				//Sound管理 = FDK.CSound管理.Instance;
-				//Sound管理.tInitialize( soundDeviceType, 0, 0, CDTXMania.ConfigIni.nASIODevice, base.Window.Handle );
 
 
 				Trace.TraceInformation("Initializing loudness scanning, song gain control, and sound group level control...");
@@ -1451,9 +1449,9 @@ namespace TJAPlayer3
 				}
 
 				ShowWindowTitleWithSoundType();
-				CSound管理.bIsTimeStretch = TJAPlayer3.ConfigIni.bTimeStretch;
-				Sound管理.nMasterVolume = TJAPlayer3.ConfigIni.nMasterVolume;
-				//FDK.CSound管理.bIsMP3DecodeByWindowsCodec = CDTXMania.ConfigIni.bNoMP3Streaming;
+				CSoundManager.bIsTimeStretch = TJAPlayer3.ConfigIni.bTimeStretch;
+				SoundManager.nMasterVolume = TJAPlayer3.ConfigIni.nMasterVolume;
+				//FDK.CSoundManager.bIsMP3DecodeByWindowsCodec = CDTXMania.ConfigIni.bNoMP3Streaming;
 				Trace.TraceInformation("サウンドデバイスの初期化を完了しました。");
 			}
 			catch (Exception e)
@@ -1562,12 +1560,12 @@ namespace TJAPlayer3
 		public void ShowWindowTitleWithSoundType()
 		{
 			string delay = "";
-			if (Sound管理.GetCurrentSoundDeviceType() != "OpenAL")
+			if (SoundManager.GetCurrentSoundDeviceType() != "OpenAL")
 			{
-				delay = "(" + Sound管理.GetSoundDelay() + "ms)";
+				delay = "(" + SoundManager.GetSoundDelay() + "ms)";
 			}
 			AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
-			base.Title = asmApp.Name + " Ver." + VERSION + " (" + Sound管理.GetCurrentSoundDeviceType() + delay + ")";
+			base.Title = asmApp.Name + " Ver." + VERSION + " (" + SoundManager.GetCurrentSoundDeviceType() + delay + ")";
 		}
 
 		public void ChangeWindowTitle(string Name, bool StringInitialize = true, bool Concat = true) {
@@ -1681,14 +1679,14 @@ namespace TJAPlayer3
 #endregion
 #region [ サウンドの終了処理 ]
 				//---------------------
-				if (Sound管理 != null)
+				if (SoundManager != null)
 				{
 					Trace.TraceInformation( "サウンド の終了処理を行います。" );
 					Trace.Indent();
 					try
 					{
-						Sound管理.Dispose();
-						Sound管理 = null;
+						SoundManager.Dispose();
+						SoundManager = null;
 						Trace.TraceInformation( "サウンド の終了処理を完了しました。" );
 					}
 					catch( Exception exception3 )

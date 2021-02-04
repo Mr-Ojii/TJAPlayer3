@@ -220,7 +220,7 @@ namespace TJAPlayer3
 						bool bNotesFin = true;
 						for (int index = 0; index < TJAPlayer3.DTX[0].listChip.Count; index++)
 						{
-							if (TJAPlayer3.DTX[0].listChip[index].n発声時刻ms > (long)(CSound管理.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
+							if (TJAPlayer3.DTX[0].listChip[index].n発声時刻ms > (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
 							{
 								if (TJAPlayer3.DTX[0].listChip[index].nチャンネル番号 == 0xff || (Challenge[i].IsForEachSongs && TJAPlayer3.DTX[0].listChip[index].nチャンネル番号 == 0x9B))
 									break;
@@ -277,8 +277,8 @@ namespace TJAPlayer3
 			if (!this.b活性化してない)
 			{
 				Dan_Plate = TJAPlayer3.tCreateTexture(Path.GetDirectoryName(TJAPlayer3.DTX[0].strファイル名の絶対パス) + @"/Dan_Plate.png");
-				Sound_Section = TJAPlayer3.Sound管理.tCreateSound(CSkin.Path(@"Sounds/Dan/Section.ogg"), ESoundGroup.SoundEffect);
-				Sound_Failed = TJAPlayer3.Sound管理.tCreateSound(CSkin.Path(@"Sounds/Dan/Failed.ogg"), ESoundGroup.SoundEffect);
+				Sound_Section = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Dan/Section.ogg"), ESoundGroup.SoundEffect);
+				Sound_Failed = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Dan/Failed.ogg"), ESoundGroup.SoundEffect);
 				base.OnManagedリソースの作成();
 			}
 		}

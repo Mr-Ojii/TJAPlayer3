@@ -268,7 +268,7 @@ namespace FDK
 
 		private void MidiInCallback(int dev, double intime, IntPtr buffer, int length, IntPtr user)
 		{
-			long time = CSound管理.rc演奏用タイマ.nシステム時刻ms;  // lock前に取得。演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+			long time = CSoundManager.rc演奏用タイマ.nシステム時刻ms;  // lock前に取得。演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 
 			lock (this.objMidiIn排他用)
 			{

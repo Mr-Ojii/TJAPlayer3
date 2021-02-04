@@ -427,7 +427,7 @@ namespace TJAPlayer3
 					for (int i = 0; i < TJAPlayer3.ConfigIni.nPoliphonicSounds; i++) // 4
 					{
 						if (this.rSound[i] != null)
-							TJAPlayer3.Sound管理.tサウンドを破棄する(this.rSound[i]);
+							TJAPlayer3.SoundManager.tサウンドを破棄する(this.rSound[i]);
 						this.rSound[i] = null;
 
 						if ((i == 0) && TJAPlayer3.ConfigIni.bLog作成解放ログ出力)
@@ -814,7 +814,7 @@ namespace TJAPlayer3
 				{
 					if ((wc.rSound[i] != null) && (wc.rSound[i].b再生中))
 					{
-						long nCurrentTime = CSound管理.rc演奏用タイマ.nシステム時刻ms;
+						long nCurrentTime = CSoundManager.rc演奏用タイマ.nシステム時刻ms;
 						if (nCurrentTime > wc.n再生開始時刻[i])
 						{
 							long nAbsTimeFromStartPlaying = nCurrentTime - wc.n再生開始時刻[i];
@@ -874,7 +874,7 @@ namespace TJAPlayer3
 				#region [ 同時発音数を、チャンネルによって変える ]
 
 				int nPoly = nPolyphonicSounds;
-				if (TJAPlayer3.Sound管理.GetCurrentSoundDeviceType() != "OpenAL") // DShowでの再生の場合はミキシング負荷が高くないため、
+				if (TJAPlayer3.SoundManager.GetCurrentSoundDeviceType() != "OpenAL") // DShowでの再生の場合はミキシング負荷が高くないため、
 				{
 					// チップのライフタイム管理を行わない
 					if (cwav.bIsBassSound) nPoly = (nPolyphonicSounds >= 2) ? 2 : 1;
@@ -891,7 +891,7 @@ namespace TJAPlayer3
 				{
 					try
 					{
-						cwav.rSound[i] = TJAPlayer3.Sound管理.tCreateSound(str, ESoundGroup.SongPlayback);
+						cwav.rSound[i] = TJAPlayer3.SoundManager.tCreateSound(str, ESoundGroup.SongPlayback);
 
 						if (!TJAPlayer3.ConfigIni.bDynamicBassMixerManagement)
 						{
@@ -1150,7 +1150,7 @@ namespace TJAPlayer3
 					if ((cwav.rSound[i] != null) && cwav.rSound[i].b再生中)
 					{
 						cwav.rSound[i].t再生を一時停止する();
-						cwav.n一時停止時刻[i] = CSound管理.rc演奏用タイマ.nシステム時刻ms;
+						cwav.n一時停止時刻[i] = CSoundManager.rc演奏用タイマ.nシステム時刻ms;
 					}
 				}
 			}
@@ -1166,7 +1166,7 @@ namespace TJAPlayer3
 						//long num1 = cwav.n一時停止時刻[ i ];
 						//long num2 = cwav.n再生開始時刻[ i ];
 						cwav.rSound[i].t再生を再開する(cwav.n一時停止時刻[i] - cwav.n再生開始時刻[i]);
-						cwav.n再生開始時刻[i] += CSound管理.rc演奏用タイマ.nシステム時刻ms - cwav.n一時停止時刻[i];
+						cwav.n再生開始時刻[i] += CSoundManager.rc演奏用タイマ.nシステム時刻ms - cwav.n一時停止時刻[i];
 					}
 				}
 			}
@@ -5796,7 +5796,7 @@ namespace TJAPlayer3
 		/// </summary>
 		public void PlanToAddMixerChannel()
 		{
-			if (TJAPlayer3.Sound管理.GetCurrentSoundDeviceType() == "OpenAL") // DShowでの再生の場合はミキシング負荷が高くないため、
+			if (TJAPlayer3.SoundManager.GetCurrentSoundDeviceType() == "OpenAL") // DShowでの再生の場合はミキシング負荷が高くないため、
 			{                                                                       // チップのライフタイム管理を行わない
 				return;
 			}

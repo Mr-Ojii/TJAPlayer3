@@ -179,13 +179,13 @@ namespace TJAPlayer3
 					Trace.TraceWarning($"ファイルが存在しません。: {this.strファイル名}");
 					return;
 				}
-				if (TJAPlayer3.Sound管理 == null)
-					throw new Exception("Sound管理がnullのため、サウンド生成ができません。");
+				if (TJAPlayer3.SoundManager == null)
+					throw new Exception("SoundManagerがnullのため、サウンド生成ができません。");
 				for (int i = 0; i < 2; i++)     // 一旦Cloneを止めてASIO対応に専念
 				{
 					try
 					{
-						this.rSound[i] = TJAPlayer3.Sound管理.tCreateSound(CSkin.Path(this.strファイル名), _soundGroup);
+						this.rSound[i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(this.strファイル名), _soundGroup);
 					}
 					catch
 					{
@@ -237,13 +237,13 @@ namespace TJAPlayer3
 
 			public void tRemoveMixer()
 			{
-				if (TJAPlayer3.Sound管理.GetCurrentSoundDeviceType() != "OpenAL")
+				if (TJAPlayer3.SoundManager.GetCurrentSoundDeviceType() != "OpenAL")
 				{
 					for (int i = 0; i < 2; i++)
 					{
 						if (this.rSound[i] != null)
 						{
-							TJAPlayer3.Sound管理.RemoveMixer(this.rSound[i]);
+							TJAPlayer3.SoundManager.RemoveMixer(this.rSound[i]);
 						}
 					}
 				}
@@ -259,7 +259,7 @@ namespace TJAPlayer3
 					{
 						if (this.rSound[i] != null)
 						{
-							TJAPlayer3.Sound管理.tサウンドを破棄する(this.rSound[i]);
+							TJAPlayer3.SoundManager.tサウンドを破棄する(this.rSound[i]);
 							this.rSound[i] = null;
 						}
 					}

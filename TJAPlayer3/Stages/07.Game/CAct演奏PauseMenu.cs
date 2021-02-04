@@ -71,7 +71,7 @@ namespace TJAPlayer3
 						case (int)EOrder.Continue:
 							TJAPlayer3.stage演奏ドラム画面.bPAUSE = false;
 
-							CSound管理.rc演奏用タイマ.t再開();
+							CSoundManager.rc演奏用タイマ.t再開();
 							TJAPlayer3.Timer.t再開();
 							TJAPlayer3.DTX[0].t全チップの再生再開();
 							TJAPlayer3.stage演奏ドラム画面.actAVI.tPauseControl();
@@ -83,7 +83,7 @@ namespace TJAPlayer3
 							break;
 
 						case (int)EOrder.Return:
-							CSound管理.rc演奏用タイマ.t再開();
+							CSoundManager.rc演奏用タイマ.t再開();
 							TJAPlayer3.Timer.t再開();
 							TJAPlayer3.stage演奏ドラム画面.t演奏中止();
 							break;

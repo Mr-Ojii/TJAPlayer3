@@ -90,13 +90,13 @@ namespace TJAPlayer3
 					Cスコア cスコア = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア;
 					if (long再生位置 == -1)
 					{
-						this.long再生開始時のシステム時刻 = CSound管理.rc演奏用タイマ.nシステム時刻ms;
+						this.long再生開始時のシステム時刻 = CSoundManager.rc演奏用タイマ.nシステム時刻ms;
 						this.long再生位置 = cスコア.譜面情報.nデモBGMオフセット;
 						this.sound.t再生位置を変更する(cスコア.譜面情報.nデモBGMオフセット);
 					}
 					else
 					{
-						this.long再生位置 = CSound管理.rc演奏用タイマ.nシステム時刻ms - this.long再生開始時のシステム時刻;
+						this.long再生位置 = CSoundManager.rc演奏用タイマ.nシステム時刻ms - this.long再生開始時のシステム時刻;
 						if (this.long再生位置 >= this.sound.n総演奏時間ms - cスコア.譜面情報.nデモBGMオフセット) //2020.04.18 Mr-Ojii #DEMOSTARTから何度も再生するために追加
 							this.long再生位置 = -1;
 					}
@@ -170,10 +170,10 @@ namespace TJAPlayer3
 					this.sound.t再生を開始する(true);
 					if (this.long再生位置 == -1)
 					{
-						this.long再生開始時のシステム時刻 = CSound管理.rc演奏用タイマ.nシステム時刻ms;
+						this.long再生開始時のシステム時刻 = CSoundManager.rc演奏用タイマ.nシステム時刻ms;
 						this.long再生位置 = cスコア.譜面情報.nデモBGMオフセット;
 						this.sound.t再生位置を変更する(cスコア.譜面情報.nデモBGMオフセット);
-						this.long再生位置 = CSound管理.rc演奏用タイマ.nシステム時刻ms - this.long再生開始時のシステム時刻;
+						this.long再生位置 = CSoundManager.rc演奏用タイマ.nシステム時刻ms - this.long再生開始時のシステム時刻;
 					}
 
 					this.str現在のファイル名 = strPreviewFilename;
@@ -220,7 +220,7 @@ namespace TJAPlayer3
 					token.Cancel();
 				}
 				this.sound.t再生を停止する();
-				TJAPlayer3.Sound管理.tサウンドを破棄する(this.sound);
+				TJAPlayer3.SoundManager.tサウンドを破棄する(this.sound);
 				this.sound = null;
 			}
 		}
@@ -235,7 +235,7 @@ namespace TJAPlayer3
 		{
 			try
 			{
-				return TJAPlayer3.Sound管理.tCreateSound(path, ESoundGroup.SongPreview);
+				return TJAPlayer3.SoundManager.tCreateSound(path, ESoundGroup.SongPreview);
 			}
 			catch
 			{
