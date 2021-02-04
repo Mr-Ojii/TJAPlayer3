@@ -379,7 +379,7 @@ namespace TJAPlayer3
 					Counter_In_Old = Counter_In.n現在の値;
 					TJAPlayer3.Tx.DanC_Screen?.t2D描画(TJAPlayer3.app.Device, (int)ScreenPoint[0], TJAPlayer3.Skin.nScrollFieldY[0], new Rectangle(0, 0, TJAPlayer3.Tx.DanC_Screen.szTextureSize.Width / 2, TJAPlayer3.Tx.DanC_Screen.szTextureSize.Height));
 					TJAPlayer3.Tx.DanC_Screen?.t2D描画(TJAPlayer3.app.Device, (int)ScreenPoint[1], TJAPlayer3.Skin.nScrollFieldY[0], new Rectangle(TJAPlayer3.Tx.DanC_Screen.szTextureSize.Width / 2, 0, TJAPlayer3.Tx.DanC_Screen.szTextureSize.Width / 2, TJAPlayer3.Tx.DanC_Screen.szTextureSize.Height));
-					//CDTXMania.act文字コンソール.tPrint(0, 420, C文字コンソール.Eフォント種別.白, String.Format("{0} : {1}", ScreenPoint[0], ScreenPoint[1]));
+					//CDTXMania.act文字コンソール.tPrint(0, 420, C文字コンソール.EFontType.白, String.Format("{0} : {1}", ScreenPoint[0], ScreenPoint[1]));
 				}
 				if (Counter_In.b終了値に達した)
 				{
@@ -432,7 +432,7 @@ namespace TJAPlayer3
 					Counter_Out_Old = Counter_Out.n現在の値;
 					TJAPlayer3.Tx.DanC_Screen?.t2D描画(TJAPlayer3.app.Device, (int)ScreenPoint[0], TJAPlayer3.Skin.nScrollFieldY[0], new Rectangle(0, 0, TJAPlayer3.Tx.DanC_Screen.szTextureSize.Width / 2, TJAPlayer3.Tx.DanC_Screen.szTextureSize.Height));
 					TJAPlayer3.Tx.DanC_Screen?.t2D描画(TJAPlayer3.app.Device, (int)ScreenPoint[1], TJAPlayer3.Skin.nScrollFieldY[0], new Rectangle(TJAPlayer3.Tx.DanC_Screen.szTextureSize.Width / 2, 0, TJAPlayer3.Tx.DanC_Screen.szTextureSize.Width / 2, TJAPlayer3.Tx.DanC_Screen.szTextureSize.Height));
-					//CDTXMania.act文字コンソール.tPrint(0, 420, C文字コンソール.Eフォント種別.白, String.Format("{0} : {1}", ScreenPoint[0], ScreenPoint[1]));
+					//CDTXMania.act文字コンソール.tPrint(0, 420, C文字コンソール.EFontType.白, String.Format("{0} : {1}", ScreenPoint[0], ScreenPoint[1]));
 				}
 				if (Counter_Out.b終了値に達した)
 				{

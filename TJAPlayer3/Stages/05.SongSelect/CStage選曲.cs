@@ -373,19 +373,19 @@ namespace TJAPlayer3
 					}
 				}
 				if (TJAPlayer3.ConfigIni.eGameMode == EGame.完走叩ききりまショー)
-					TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, "GAME: SURVIVAL");
+					TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, "GAME: SURVIVAL");
 				if (TJAPlayer3.ConfigIni.eGameMode == EGame.完走叩ききりまショー激辛)
-					TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, "GAME: SURVIVAL HARD");
+					TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, "GAME: SURVIVAL HARD");
 				if (TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
-					TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, "GAME: TRAINING MODE");
+					TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, "GAME: TRAINING MODE");
 				if (TJAPlayer3.ConfigIni.bSuperHard)
-					TJAPlayer3.act文字コンソール.tPrint(0, 16, C文字コンソール.Eフォント種別.赤, "SUPER HARD MODE : ON");
+					TJAPlayer3.act文字コンソール.tPrint(0, 16, C文字コンソール.EFontType.赤, "SUPER HARD MODE : ON");
 				if (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL)
-					TJAPlayer3.act文字コンソール.tPrint(0, 32, C文字コンソール.Eフォント種別.赤, "BMSCROLL : ON");
+					TJAPlayer3.act文字コンソール.tPrint(0, 32, C文字コンソール.EFontType.赤, "BMSCROLL : ON");
 				else if (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.HBSCROLL)
-					TJAPlayer3.act文字コンソール.tPrint(0, 32, C文字コンソール.Eフォント種別.赤, "HBSCROLL : ON");
+					TJAPlayer3.act文字コンソール.tPrint(0, 32, C文字コンソール.EFontType.赤, "HBSCROLL : ON");
 				else if (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.REGULSPEED)
-					TJAPlayer3.act文字コンソール.tPrint(0, 32, C文字コンソール.Eフォント種別.赤, "Reg.Speed : " + TJAPlayer3.ConfigIni.nRegSpeedBPM.ToString());
+					TJAPlayer3.act文字コンソール.tPrint(0, 32, C文字コンソール.EFontType.赤, "Reg.Speed : " + TJAPlayer3.ConfigIni.nRegSpeedBPM.ToString());
 				#endregion
 
 				if (TJAPlayer3.ConfigIni.bEnableCountdownTimer && TJAPlayer3.Tx.SongSelect_Counter_Back[0] != null && TJAPlayer3.Tx.SongSelect_Counter_Back[1] != null && TJAPlayer3.Tx.SongSelect_Counter_Num[0] != null && TJAPlayer3.Tx.SongSelect_Counter_Num[1] != null)

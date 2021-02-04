@@ -80,7 +80,7 @@ namespace TJAPlayer3
 		{
 			if ( !base.b活性化してない )
 			{
-				//CDTXMania.act文字コンソール.tPrint( 20, 150, C文字コンソール.Eフォント種別.白, this.db現在のゲージ値.Taiko.ToString() );
+				//CDTXMania.act文字コンソール.tPrint( 20, 150, C文字コンソール.EFontType.白, this.db現在のゲージ値.Taiko.ToString() );
 
 				#region [ 初めての進行描画 ]
 				if ( base.b初めての進行描画 )

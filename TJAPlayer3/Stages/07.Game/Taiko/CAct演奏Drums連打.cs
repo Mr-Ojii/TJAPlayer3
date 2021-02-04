@@ -72,7 +72,7 @@ namespace TJAPlayer3
 			const int fadenum = 167;
 			for( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
 			{
-				//CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.ct連打枠カウンター[player].n現在の値.ToString());
+				//CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, this.ct連打枠カウンター[player].n現在の値.ToString());
 				if (this.ct連打枠カウンター[player].b終了値に達してない)
 				{
 					if (ct連打枠カウンター[player].n現在の値 > 1333 && !FadeOutCounter[player].b進行中)

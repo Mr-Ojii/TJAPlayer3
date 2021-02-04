@@ -615,11 +615,11 @@ namespace TJAPlayer3
 				if (TJAPlayer3.Tx.Lane_Background_GoGo != null) TJAPlayer3.Tx.Lane_Background_GoGo.Opacity = 255;
 			}
 
-			//CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, this.nBranchレイヤー透明度.ToString());
-			//CDTXMania.act文字コンソール.tPrint(0, 16, C文字コンソール.Eフォント種別.白, this.ct分岐アニメ進行.n現在の値.ToString());
-			//CDTXMania.act文字コンソール.tPrint(0, 32, C文字コンソール.Eフォント種別.白, this.ct分岐アニメ進行.n終了値.ToString());
+			//CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, this.nBranchレイヤー透明度.ToString());
+			//CDTXMania.act文字コンソール.tPrint(0, 16, C文字コンソール.EFontType.白, this.ct分岐アニメ進行.n現在の値.ToString());
+			//CDTXMania.act文字コンソール.tPrint(0, 32, C文字コンソール.EFontType.白, this.ct分岐アニメ進行.n終了値.ToString());
 
-			//CDTXMania.act文字コンソール.tPrint(0, 32, C文字コンソール.Eフォント種別.白, this.ctゴーゴースプラッシュ.n現在の値.ToString());
+			//CDTXMania.act文字コンソール.tPrint(0, 32, C文字コンソール.EFontType.白, this.ctゴーゴースプラッシュ.n現在の値.ToString());
 
 			/*#region[ ゴーゴースプラッシュ ]
 			for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)

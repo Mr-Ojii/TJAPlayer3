@@ -10,7 +10,7 @@ namespace TJAPlayer3
 	{
 		// 定数
 
-		public enum Eフォント種別
+		public enum EFontType
 		{
 			白,
 			赤,
@@ -19,17 +19,10 @@ namespace TJAPlayer3
 			赤細,
 			灰細
 		}
-		public enum E配置
-		{
-			左詰,
-			中央,
-			右詰
-		}
-
 
 		// メソッド
 
-		public void tPrint( int x, int y, Eフォント種別 font, string str英数字文字列 )
+		public void tPrint( int x, int y, EFontType font, string str英数字文字列 )
 		{
 			if( !base.b活性化してない && !string.IsNullOrEmpty( str英数字文字列 ) )
 			{
@@ -51,9 +44,9 @@ namespace TJAPlayer3
 						}
 						else
 						{
-							if( this.txフォント8x16[ (int) ( (int) font / (int) Eフォント種別.白細 ) ] != null )
+							if( this.txフォント8x16[ (int) ( (int) font / (int) EFontType.白細 ) ] != null )
 							{
-								this.txフォント8x16[ (int) ( (int) font / (int) Eフォント種別.白細 ) ].t2D描画( TJAPlayer3.app.Device, x, y, this.rc文字の矩形領域[ (int) ( (int) font % (int) Eフォント種別.白細 ), index ] );
+								this.txフォント8x16[ (int) ( (int) font / (int) EFontType.白細 ) ].t2D描画( TJAPlayer3.app.Device, x, y, this.rc文字の矩形領域[ (int) ( (int) font % (int) EFontType.白細 ), index ] );
 							}
 							x += nFontWidth;
 						}

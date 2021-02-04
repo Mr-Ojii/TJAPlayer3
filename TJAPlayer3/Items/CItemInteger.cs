@@ -30,13 +30,13 @@ namespace TJAPlayer3
 		{
 			this.tInitialize( strName, nMin, nMax, nDefaultNum );
 		}
-		public CItemInteger(string strName, int nMin, int nMax, int nDefaultNum, string str説明文jp)
+		public CItemInteger(string strName, int nMin, int nMax, int nDefaultNum, string strDescriptionJP)
 			: this() {
-			this.tInitialize(strName, nMin, nMax, nDefaultNum, str説明文jp);
+			this.tInitialize(strName, nMin, nMax, nDefaultNum, strDescriptionJP);
 		}
-		public CItemInteger(string strName, int nMin, int nMax, int nDefaultNum, string str説明文jp, string str説明文en)
+		public CItemInteger(string strName, int nMin, int nMax, int nDefaultNum, string strDescriptionJP, string strDescriptionEN)
 			: this() {
-			this.tInitialize(strName, nMin, nMax, nDefaultNum, str説明文jp, str説明文en);
+			this.tInitialize(strName, nMin, nMax, nDefaultNum, strDescriptionJP, strDescriptionEN);
 		}
 
 		// CItemBase 実装
@@ -64,11 +64,11 @@ namespace TJAPlayer3
 		{
 			this.tInitialize( strName, nMin, nMax, nDefaultNum, "", "" );
 		}
-		public void tInitialize(string strName, int nMin, int nMax, int nDefaultNum, string str説明文jp) {
-			this.tInitialize(strName, nMin, nMax, nDefaultNum, str説明文jp, str説明文jp);
+		public void tInitialize(string strName, int nMin, int nMax, int nDefaultNum, string strDescriptionJP) {
+			this.tInitialize(strName, nMin, nMax, nDefaultNum, strDescriptionJP, strDescriptionJP);
 		}
-		public void tInitialize(string strName, int nMin, int nMax, int nDefaultNum, string str説明文jp, string str説明文en) {
-			base.tInitialize(strName, str説明文jp, str説明文en);
+		public void tInitialize(string strName, int nMin, int nMax, int nDefaultNum, string strDescriptionJP, string strDescriptionEN) {
+			base.tInitialize(strName, strDescriptionJP, strDescriptionEN);
 			this.nMin = nMin;
 			this.nMax = nMax;
 			this.n現在の値 = nDefaultNum;

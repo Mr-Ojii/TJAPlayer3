@@ -26,13 +26,13 @@ namespace TJAPlayer3
 		{
 			this.tInitialize( strName, bDefault );
 		}
-		public CItemToggle(string strName, bool bDefault, string str説明文jp)
+		public CItemToggle(string strName, bool bDefault, string strDescriptionJP)
 			: this() {
-			this.tInitialize(strName, bDefault, str説明文jp);
+			this.tInitialize(strName, bDefault, strDescriptionJP);
 		}
-		public CItemToggle(string strName, bool bDefault, string str説明文jp, string str説明文en)
+		public CItemToggle(string strName, bool bDefault, string strDescriptionJP, string strDescriptionEN)
 			: this() {
-			this.tInitialize(strName, bDefault, str説明文jp, str説明文en);
+			this.tInitialize(strName, bDefault, strDescriptionJP, strDescriptionEN);
 		}
 
 		// CItemBase 実装
@@ -54,11 +54,11 @@ namespace TJAPlayer3
 		{
 			this.tInitialize(strName, bDefault, "", "");
 		}
-		public void tInitialize(string strName, bool bDefault, string str説明文jp) {
-			this.tInitialize(strName, bDefault, str説明文jp, str説明文jp);
+		public void tInitialize(string strName, bool bDefault, string strDescriptionJP) {
+			this.tInitialize(strName, bDefault, strDescriptionJP, strDescriptionJP);
 		}
-		public void tInitialize(string strName, bool bDefault, string str説明文jp, string str説明文en) {
-			base.tInitialize(strName, str説明文jp, str説明文en);
+		public void tInitialize(string strName, bool bDefault, string strDescriptionJP, string strDescriptionEN) {
+			base.tInitialize(strName, strDescriptionJP, strDescriptionEN);
 			this.bON = bDefault;
 		}
 		public override object obj現在値()

@@ -440,15 +440,15 @@ namespace TJAPlayer3
 					}
 				}
 
-				//CDTXMania.act文字コンソール.tPrint( 100, 0, C文字コンソール.Eフォント種別.白, ( 25 - this.st叩ききりまショー.ct残り時間.n現在の値 ).ToString() );
-				//CDTXMania.act文字コンソール.tPrint( 100, 16, C文字コンソール.Eフォント種別.白, this.st叩ききりまショー.n区間ノート数.ToString() );
-				//CDTXMania.act文字コンソール.tPrint( 100, 16 * 2, C文字コンソール.Eフォント種別.白, this.st叩ききりまショー.n現在通過したノート数.ToString() );
-				//CDTXMania.act文字コンソール.tPrint( 100, 16 * 3, C文字コンソール.Eフォント種別.白, this.st叩ききりまショー.nヒット数_MISS.ToString() );
-				//CDTXMania.act文字コンソール.tPrint( 100, 16 * 4, C文字コンソール.Eフォント種別.白, this.st叩ききりまショー.n最小ズレ時間.ToString() );
-				//CDTXMania.act文字コンソール.tPrint( 100, 16 * 5, C文字コンソール.Eフォント種別.白, this.st叩ききりまショー.n最大ズレ時間.ToString() );
-				//CDTXMania.act文字コンソール.tPrint( 100, 16 * 6, C文字コンソール.Eフォント種別.白, this.st叩ききりまショー.n全体最大ズレ時間.ToString() );
-				//CDTXMania.act文字コンソール.tPrint( 100, 16 * 7, C文字コンソール.Eフォント種別.白, this.st叩ききりまショー.n最大コンボ.ToString() );
-				//CDTXMania.act文字コンソール.tPrint( 100, 16 * 7, C文字コンソール.Eフォント種別.白, this.st叩ききりまショー.ct加算審査中.n現在の値.ToString() );
+				//CDTXMania.act文字コンソール.tPrint( 100, 0, C文字コンソール.EFontType.白, ( 25 - this.st叩ききりまショー.ct残り時間.n現在の値 ).ToString() );
+				//CDTXMania.act文字コンソール.tPrint( 100, 16, C文字コンソール.EFontType.白, this.st叩ききりまショー.n区間ノート数.ToString() );
+				//CDTXMania.act文字コンソール.tPrint( 100, 16 * 2, C文字コンソール.EFontType.白, this.st叩ききりまショー.n現在通過したノート数.ToString() );
+				//CDTXMania.act文字コンソール.tPrint( 100, 16 * 3, C文字コンソール.EFontType.白, this.st叩ききりまショー.nヒット数_MISS.ToString() );
+				//CDTXMania.act文字コンソール.tPrint( 100, 16 * 4, C文字コンソール.EFontType.白, this.st叩ききりまショー.n最小ズレ時間.ToString() );
+				//CDTXMania.act文字コンソール.tPrint( 100, 16 * 5, C文字コンソール.EFontType.白, this.st叩ききりまショー.n最大ズレ時間.ToString() );
+				//CDTXMania.act文字コンソール.tPrint( 100, 16 * 6, C文字コンソール.EFontType.白, this.st叩ききりまショー.n全体最大ズレ時間.ToString() );
+				//CDTXMania.act文字コンソール.tPrint( 100, 16 * 7, C文字コンソール.EFontType.白, this.st叩ききりまショー.n最大コンボ.ToString() );
+				//CDTXMania.act文字コンソール.tPrint( 100, 16 * 7, C文字コンソール.EFontType.白, this.st叩ききりまショー.ct加算審査中.n現在の値.ToString() );
 
 				#region[ 残り時間描画 ]
 				if(TJAPlayer3.Tx.Taiko_Combo != null )
@@ -804,7 +804,7 @@ namespace TJAPlayer3
 		private void t加算時間描画( int addtime )
 		{
 			this.t加算文字表示( 258, 150, string.Format( "{0,2:#0}", addtime.ToString() ) );
-			//CDTXMania.act文字コンソール.tPrint( 236, 80, C文字コンソール.Eフォント種別.赤, "+" + string.Format( "{0,2:#0}", addtime.ToString() ) );
+			//CDTXMania.act文字コンソール.tPrint( 236, 80, C文字コンソール.EFontType.赤, "+" + string.Format( "{0,2:#0}", addtime.ToString() ) );
 		}
 
 		private struct ST文字位置

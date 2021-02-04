@@ -616,9 +616,9 @@ namespace TJAPlayer3
 						graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
 
 						CItemBase item = this.actList.ib現在の選択項目;
-						if ((item.str説明文 != null) && (item.str説明文.Length > 0))
+						if ((item.strDescription != null) && (item.strDescription.Length > 0))
 						{
-							graphics.DrawString(item.str説明文, this.ftフォント, Brushes.White, new RectangleF(8f, 0, 630, 430));
+							graphics.DrawString(item.strDescription, this.ftフォント, Brushes.White, new RectangleF(8f, 0, 630, 430));
 						}
 						if (this.tx説明文パネル != null)
 						{

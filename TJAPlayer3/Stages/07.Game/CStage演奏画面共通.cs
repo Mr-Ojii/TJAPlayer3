@@ -2027,10 +2027,10 @@ namespace TJAPlayer3
 #if DEBUG
 			if(player == 0)
 			{
-				TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, pastChip != null ? pastChip.ToString() : "null");
-				TJAPlayer3.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, futureChip != null ? futureChip.ToString() : "null");
-				TJAPlayer3.act文字コンソール.tPrint(0, 40, C文字コンソール.Eフォント種別.白, nearestChip != null ? nearestChip.ToString() : "null");
-				TJAPlayer3.act文字コンソール.tPrint(0, 60, C文字コンソール.Eフォント種別.白, startPosision.ToString());
+				TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, pastChip != null ? pastChip.ToString() : "null");
+				TJAPlayer3.act文字コンソール.tPrint(0, 20, C文字コンソール.EFontType.白, futureChip != null ? futureChip.ToString() : "null");
+				TJAPlayer3.act文字コンソール.tPrint(0, 40, C文字コンソール.EFontType.白, nearestChip != null ? nearestChip.ToString() : "null");
+				TJAPlayer3.act文字コンソール.tPrint(0, 60, C文字コンソール.EFontType.白, startPosision.ToString());
 
 			}
 #endif
@@ -2178,10 +2178,10 @@ namespace TJAPlayer3
 #if DEBUG
 			if(player == 0)
 			{
-				TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, pastChip != null ? pastChip.ToString() : "null");
-				TJAPlayer3.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, futureChip != null ? futureChip.ToString() : "null");
-				TJAPlayer3.act文字コンソール.tPrint(0, 40, C文字コンソール.Eフォント種別.白, nearestChip != null ? nearestChip.ToString() : "null");
-				TJAPlayer3.act文字コンソール.tPrint(0, 60, C文字コンソール.Eフォント種別.白, startPosision.ToString());
+				TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, pastChip != null ? pastChip.ToString() : "null");
+				TJAPlayer3.act文字コンソール.tPrint(0, 20, C文字コンソール.EFontType.白, futureChip != null ? futureChip.ToString() : "null");
+				TJAPlayer3.act文字コンソール.tPrint(0, 40, C文字コンソール.EFontType.白, nearestChip != null ? nearestChip.ToString() : "null");
+				TJAPlayer3.act文字コンソール.tPrint(0, 60, C文字コンソール.EFontType.白, startPosision.ToString());
 
 			}
 #endif
@@ -2982,7 +2982,7 @@ namespace TJAPlayer3
 			}
 
 
-			//CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.灰, this.nLoopCount_Clear.ToString()  );
+			//CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.灰, this.nLoopCount_Clear.ToString()  );
 
 
 			//for ( int nCurrentTopChip = this.n現在のトップChip; nCurrentTopChip < dTX.listChip.Count; nCurrentTopChip++ )
@@ -4748,7 +4748,7 @@ namespace TJAPlayer3
 			{
 				if (x >= 310)
 				{
-					TJAPlayer3.act文字コンソール.tPrint(x + 8, y - 26, C文字コンソール.Eフォント種別.白, pChip.n整数値_内部番号.ToString());
+					TJAPlayer3.act文字コンソール.tPrint(x + 8, y - 26, C文字コンソール.EFontType.白, pChip.n整数値_内部番号.ToString());
 				}
 			}
 			if ((pChip.b可視) && (TJAPlayer3.Tx.Bar != null))
@@ -4773,7 +4773,7 @@ namespace TJAPlayer3
 		protected void t全体制御メソッド()
 		{
 			int time = (int)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
-			//CDTXMania.act文字コンソール.tPrint( 0, 16, C文字コンソール.Eフォント種別.白, t.ToString() );
+			//CDTXMania.act文字コンソール.tPrint( 0, 16, C文字コンソール.EFontType.白, t.ToString() );
 
 			for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
 			{

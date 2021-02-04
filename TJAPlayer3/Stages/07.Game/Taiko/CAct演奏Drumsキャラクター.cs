@@ -288,9 +288,9 @@ namespace TJAPlayer3
 				CharaAction_Balloon_FadeOut[nPlayer].t進行();
 
 				//CharaAction_Balloon_Delay?.t進行();
-				//CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, CharaAction_Balloon_Broke?.b進行中.ToString());
-				//CDTXMania.act文字コンソール.tPrint(0, 20, C文字コンソール.Eフォント種別.白, CharaAction_Balloon_Miss?.b進行中.ToString());
-				//CDTXMania.act文字コンソール.tPrint(0, 40, C文字コンソール.Eフォント種別.白, CharaAction_Balloon_Breaking?.b進行中.ToString());
+				//CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, CharaAction_Balloon_Broke?.b進行中.ToString());
+				//CDTXMania.act文字コンソール.tPrint(0, 20, C文字コンソール.EFontType.白, CharaAction_Balloon_Miss?.b進行中.ToString());
+				//CDTXMania.act文字コンソール.tPrint(0, 40, C文字コンソール.EFontType.白, CharaAction_Balloon_Breaking?.b進行中.ToString());
 
 				if (bマイどんアクション中[nPlayer])
 				{

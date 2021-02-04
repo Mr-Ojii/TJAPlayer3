@@ -142,10 +142,10 @@ namespace TJAPlayer3
 					int y = 20;
 					foreach( string str in this.list進行文字列 )
 					{
-						TJAPlayer3.act文字コンソール.tPrint( x, y, C文字コンソール.Eフォント種別.白, str );
+						TJAPlayer3.act文字コンソール.tPrint( x, y, C文字コンソール.EFontType.白, str );
 						y += 24;
 					}
-					TJAPlayer3.act文字コンソール.tPrint( x, y, C文字コンソール.Eフォント種別.白, this.str現在進行中 );
+					TJAPlayer3.act文字コンソール.tPrint( x, y, C文字コンソール.EFontType.白, this.str現在進行中 );
 				}
 				//-----------------
 				#endregion

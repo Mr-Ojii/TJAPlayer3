@@ -115,7 +115,7 @@ namespace TJAPlayer3
 					base.b初めての進行描画 = false;
 				}
 
-				TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.Eフォント種別.白, "TRAINING MODE (BETA)");
+				TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, "TRAINING MODE (BETA)");
 
 				if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.Space))
 				{
