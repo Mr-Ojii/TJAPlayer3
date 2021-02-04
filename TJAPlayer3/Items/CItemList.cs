@@ -87,34 +87,4 @@ namespace TJAPlayer3
 			n現在選択されている項目番号 = index;
 		}
 	}
-
-
-
-
-	/// <summary>
-	/// 簡易コンフィグの「切り替え」に使用する、「リスト」（複数の固定値からの１つを選択可能）を表すアイテム。
-	/// e種別が違うのと、tPushedEnter()で何もしない以外は、「リスト」そのまま。
-	/// </summary>
-	internal class CSwitchItemList : CItemList
-	{
-		// コンストラクタ
-
-		public CSwitchItemList()
-		{
-			base.e種別 = CItemBase.E種別.切替リスト;
-			this.n現在選択されている項目番号 = 0;
-			this.list項目値 = new List<string>();
-		}
-		public CSwitchItemList( string str項目名, int n初期インデックス値, string str説明文jp, string str説明文en, params string[] arg項目リスト )
-			: this()
-		{
-			this.tInitialize( str項目名, n初期インデックス値, str説明文jp, str説明文en, arg項目リスト );
-		}
-
-		public override void tPushedEnter()
-		{
-			// this.t項目値を次へ移動();	// 何もしない
-		}
-	}
-
 }

@@ -729,7 +729,6 @@ namespace FDK
 			if (!this.bTextureDisposed)//DTXManiaより
 			{
 				Trace.TraceWarning("CTexture: Texture memory leak detected.(Size=({0}, {1}), filename={2}, maketype={3})", szTextureSize.Width, szTextureSize.Height, filename, maketype.ToString());
-				this.Dispose();//Disposeしておく
 			}
 		}
 		//-----------------

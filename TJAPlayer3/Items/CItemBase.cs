@@ -19,8 +19,7 @@ namespace TJAPlayer3
 			Base,
 			Toggle,
 			Integer,
-			リスト,
-			切替リスト
+			リスト
 		}
 
 		public string str項目名;

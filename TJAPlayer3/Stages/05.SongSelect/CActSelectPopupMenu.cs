@@ -342,7 +342,6 @@ namespace TJAPlayer3
 								s = lciMenuItems[i].cItem.obj現在値().ToString();
 								break;
 						}
-						//font.t文字列描画( (int)(340 * Scale.X), (int)(80 + i * 32), s, bValueBold, 1.0f * Scale.Y);
 						using (var bmpStr = bValueBold ?
 							prvFont.DrawPrivateFont(s, Color.White, Color.Black, Color.Yellow, Color.OrangeRed) :
 							prvFont.DrawPrivateFont(s, Color.White, Color.Black))

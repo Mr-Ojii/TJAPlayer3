@@ -38,9 +38,9 @@ namespace TJAPlayer3
 			List<CItemBase> l = new List<CItemBase>();
 
 			#region [ 共通 SET切り替え/More/Return ]
-			l.Add( new CSwitchItemList( "続ける", 0, "", "", new string[] { "" } ) );
-			l.Add( new CSwitchItemList( "やり直し", 0, "", "", new string[] { "" } ) );
-			l.Add( new CSwitchItemList( "演奏中止", 0, "", "", new string[] { "", "" } ) );
+			l.Add( new CItemList( "続ける", 0, "", "", new string[] { "" } ) );
+			l.Add( new CItemList( "やり直し", 0, "", "", new string[] { "" } ) );
+			l.Add( new CItemList( "演奏中止", 0, "", "", new string[] { "", "" } ) );
 			#endregion
 
 			return l;
