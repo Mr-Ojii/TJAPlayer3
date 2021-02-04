@@ -19,7 +19,7 @@ namespace TJAPlayer3
 
 		public CItemInteger()
 		{
-			base.e種別 = CItemBase.E種別.整数;
+			base.e種別 = CItemBase.E種別.Integer;
 			this.n最小値 = 0;
 			this.n最大値 = 0;
 			this.n現在の値 = 0;
@@ -41,7 +41,7 @@ namespace TJAPlayer3
 
 		// CItemBase 実装
 
-		public override void tEnter押下()
+		public override void tPushedEnter()
 		{
 			this.b値がフォーカスされている = !this.b値がフォーカスされている;
 		}

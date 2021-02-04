@@ -34,7 +34,7 @@ namespace TJAPlayer3
 			}
 		}
 		
-		public void tEnter押下()
+		public void tPushedEnter()
 		{
 			if( !this.bキー入力待ち )
 			{

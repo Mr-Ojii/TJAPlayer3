@@ -743,14 +743,14 @@ namespace TJAPlayer3
 			}
 			// これ以外なら何もしない
 		}
-		public void tEnter押下()
+		public void tPushedEnter()
 		{
 			TJAPlayer3.Skin.sound決定音.t再生する();
 			if( this.b要素値にフォーカス中 )
 			{
 				this.b要素値にフォーカス中 = false;
 			}
-			else if( this.list項目リスト[ this.n現在の選択項目 ].e種別 == CItemBase.E種別.整数 )
+			else if( this.list項目リスト[ this.n現在の選択項目 ].e種別 == CItemBase.E種別.Integer )
 			{
 				this.b要素値にフォーカス中 = true;
 			}
@@ -816,7 +816,7 @@ namespace TJAPlayer3
 				//else
 				//{
 				//    // 変更許可
-					this.list項目リスト[ this.n現在の選択項目 ].tEnter押下();
+					this.list項目リスト[ this.n現在の選択項目 ].tPushedEnter();
 				//}
 
 
@@ -1340,7 +1340,7 @@ namespace TJAPlayer3
 				bool b強調 = false;
 				switch ( this.list項目リスト[ nItem ].e種別 )
 				{
-					case CItemBase.E種別.ONorOFFトグル:
+					case CItemBase.E種別.Toggle:
 						#region [ *** ]
 						//-----------------
 						//CDTXMania.stageConfig.actFont.t文字列描画( x + 210, y + 12, ( (CItemToggle) this.list項目リスト[ nItem ] ).bON ? "ON" : "OFF" );
@@ -1349,7 +1349,7 @@ namespace TJAPlayer3
 					//-----------------
 						#endregion
 
-					case CItemBase.E種別.整数:		// #24789 2011.4.8 yyagi: add PlaySpeed supports (copied them from OPTION)
+					case CItemBase.E種別.Integer:		// #24789 2011.4.8 yyagi: add PlaySpeed supports (copied them from OPTION)
 						#region [ *** ]
 						//-----------------
 						if ( this.list項目リスト[ nItem ] == this.iCommonPlaySpeed )

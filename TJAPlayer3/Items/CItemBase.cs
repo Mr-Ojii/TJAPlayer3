@@ -16,9 +16,9 @@ namespace TJAPlayer3
 		public E種別 e種別;
 		public enum E種別
 		{
-			基本形,
-			ONorOFFトグル,
-			整数,
+			Base,
+			Toggle,
+			Integer,
 			リスト,
 			切替リスト
 		}
@@ -51,7 +51,7 @@ namespace TJAPlayer3
 		
 		// メソッド；子クラスで実装する
 
-		public virtual void tEnter押下()
+		public virtual void tPushedEnter()
 		{
 		}
 		public virtual void t項目値を次へ移動()

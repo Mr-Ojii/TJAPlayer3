@@ -37,7 +37,7 @@ namespace TJAPlayer3
 
 		// CItemBase 実装
 
-		public override void tEnter押下()
+		public override void tPushedEnter()
 		{
 			this.t項目値を次へ移動();
 		}

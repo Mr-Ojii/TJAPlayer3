@@ -31,7 +31,7 @@ namespace TJAPlayer3
 		//}
 
 
-		public override void tEnter押下Main( int nSortOrder )
+		public override void tPushedEnterMain( int nSortOrder )
 		{
 			switch ( (EOrder)n現在の選択行 )
 			{

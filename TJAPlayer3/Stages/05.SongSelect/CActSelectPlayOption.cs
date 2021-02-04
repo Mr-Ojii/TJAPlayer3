@@ -393,7 +393,7 @@ namespace TJAPlayer3
 						texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.PlayOption_List_XY_Diff[0] - texture.szTextureSize.Width / 2, y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_List_XY_Diff[1]);
 					}
 				}
-				else if (lci[nPlayer][lci[nPlayer].Count - i - 1].e種別 == CItemBase.E種別.整数)
+				else if (lci[nPlayer][lci[nPlayer].Count - i - 1].e種別 == CItemBase.E種別.Integer)
 				{
 					using (CTexture texture = TJAPlayer3.tテクスチャの生成(this.Font.DrawPrivateFont((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex()).ToString(), Color.White, Color.Black)))
 					{

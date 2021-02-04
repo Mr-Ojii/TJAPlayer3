@@ -88,7 +88,7 @@ namespace TJAPlayer3
 			}
 		}
 
-		public void tEnter押下()
+		public void tPushedEnter()
 		{
 			if ( this.bキー入力待ち )
 			{
@@ -97,11 +97,11 @@ namespace TJAPlayer3
 				if ( this.n現在の選択行 != lciMenuItems.Length - 1 )
 				{
 					if ( lciMenuItems[ n現在の選択行 ].cItem.e種別 == CItemBase.E種別.リスト ||
-						 lciMenuItems[ n現在の選択行 ].cItem.e種別 == CItemBase.E種別.ONorOFFトグル	)
+						 lciMenuItems[ n現在の選択行 ].cItem.e種別 == CItemBase.E種別.Toggle	)
 					{
 						lciMenuItems[ n現在の選択行 ].cItem.t項目値を次へ移動();
 					}
-					else if ( lciMenuItems[ n現在の選択行 ].cItem.e種別 == CItemBase.E種別.整数 )
+					else if ( lciMenuItems[ n現在の選択行 ].cItem.e種別 == CItemBase.E種別.Integer )
 					{
 						bIsSelectingIntItem = !bIsSelectingIntItem;		// 選択状態/選択解除状態を反転する
 					}
@@ -115,7 +115,7 @@ namespace TJAPlayer3
 					}
 					nItemSelecting = n現在の選択行;
 				}
-				tEnter押下Main( (int) lciMenuItems[ n現在の選択行 ].cItem.GetIndex() );
+				tPushedEnterMain( (int) lciMenuItems[ n現在の選択行 ].cItem.GetIndex() );
 			}
 		}
 
@@ -123,7 +123,7 @@ namespace TJAPlayer3
 		/// Decide押下時の処理を、継承先で記述する。
 		/// </summary>
 		/// <param name="val">CItemBaseの現在の設定値のindex</param>
-		public virtual void tEnter押下Main( int val )
+		public virtual void tPushedEnterMain( int val )
 		{
 		}
 		/// <summary>
@@ -263,7 +263,7 @@ namespace TJAPlayer3
 					}
 					if ( eAction == ESortAction.Decide )	// 決定
 					{
-						this.tEnter押下();
+						this.tPushedEnter();
 					}
 					#endregion
 					#region [ キー入力: 前に移動 ]

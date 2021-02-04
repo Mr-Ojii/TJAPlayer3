@@ -101,7 +101,7 @@ namespace TJAPlayer3
 		{
 		}
 
-		public override void tEnter押下Main( int nSortOrder )
+		public override void tPushedEnterMain( int nSortOrder )
 		{
 			if (!this.選択完了)
 			{

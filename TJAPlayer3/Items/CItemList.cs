@@ -36,7 +36,7 @@ namespace TJAPlayer3
 
 		// CItemBase 実装
 
-		public override void tEnter押下()
+		public override void tPushedEnter()
 		{
 			this.t項目値を次へ移動();
 		}
@@ -93,7 +93,7 @@ namespace TJAPlayer3
 
 	/// <summary>
 	/// 簡易コンフィグの「切り替え」に使用する、「リスト」（複数の固定値からの１つを選択可能）を表すアイテム。
-	/// e種別が違うのと、tEnter押下()で何もしない以外は、「リスト」そのまま。
+	/// e種別が違うのと、tPushedEnter()で何もしない以外は、「リスト」そのまま。
 	/// </summary>
 	internal class CSwitchItemList : CItemList
 	{
@@ -111,7 +111,7 @@ namespace TJAPlayer3
 			this.tInitialize( str項目名, n初期インデックス値, str説明文jp, str説明文en, arg項目リスト );
 		}
 
-		public override void tEnter押下()
+		public override void tPushedEnter()
 		{
 			// this.t項目値を次へ移動();	// 何もしない
 		}
