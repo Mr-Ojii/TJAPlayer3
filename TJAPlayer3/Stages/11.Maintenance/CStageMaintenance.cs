@@ -116,8 +116,6 @@ namespace TJAPlayer3
 			if (TJAPlayer3.Pad.b押された(EPad.RBlue2P))
 				ka.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Diff + Width) * 4, Y);
 
-
-
 			for (int index = 0; index < 4; index++)
 			{
 				//文字の描画

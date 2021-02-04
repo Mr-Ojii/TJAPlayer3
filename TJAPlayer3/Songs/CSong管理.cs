@@ -84,7 +84,7 @@ namespace TJAPlayer3
 				if ((strExt.Equals(".tja")) || strExt.Equals(".tcm") || strExt.Equals(".tci"))
 				{
 					#region[ 新処理 ]
-					CDTX dtx = new CDTX(str基点フォルダ + fileinfo.Name, false, 1.0, 0);
+					CDTX dtx = new CDTX(str基点フォルダ + fileinfo.Name, false, 1.0, 0, 0, false);
 					C曲リストノード c曲リストノード = new C曲リストノード();
 					c曲リストノード.eNodeType = C曲リストノード.ENodeType.SCORE;
 

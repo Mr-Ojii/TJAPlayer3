@@ -761,18 +761,6 @@ namespace TJAPlayer3
 
 			Dan_C = new Dan_C[3];
 		}
-		public CDTX(string strファイル名, bool bヘッダのみ)
-			: this()
-		{
-			this.On活性化();
-			this.t入力(strファイル名, bヘッダのみ);
-		}
-		public CDTX(string strファイル名, bool bヘッダのみ, double db再生速度, int nBGMAdjust)
-			: this()
-		{
-			this.On活性化();
-			this.t入力(strファイル名, bヘッダのみ, db再生速度, nBGMAdjust, 0, false);
-		}
 		public CDTX(string strファイル名, bool bヘッダのみ, double db再生速度, int nBGMAdjust, int nPlayerSide, bool bSession)
 			: this()
 		{
