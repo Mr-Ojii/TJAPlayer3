@@ -34,7 +34,7 @@ namespace FDK
 				catch (Exception e)
 				{
 					Trace.TraceError(e.ToString());
-					Trace.TraceError("An exception has occurred, but processing continues. ");
+					Trace.TraceError("An exception has occurred, but processing continues.");
 					return false;
 				}
 			}

@@ -4907,7 +4907,7 @@ namespace TJAPlayer3
 			catch (Exception e)
 			{
 				Trace.TraceError(e.ToString());
-				Trace.TraceError("例外が発生しましたが処理を継続します。 (a80767e1-4de7-4fec-b072-d078b3659e62)");
+				Trace.TraceError("An exception has occurred, but processing continues.");
 				this.tx背景 = null;
 			}
 		}

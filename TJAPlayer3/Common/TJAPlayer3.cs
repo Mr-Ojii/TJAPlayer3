@@ -1185,7 +1185,7 @@ namespace TJAPlayer3
 				{
 					//ConfigIni = new CConfigIni();	// 存在してなければ新規生成
 					Trace.TraceError(e.ToString());
-					Trace.TraceError("例外が発生しましたが処理を継続します。 (b8d93255-bbe4-4ca3-8264-7ee5175b19f3)");
+					Trace.TraceError("An exception has occurred, but processing continues.");
 				}
 			}
 			//---------------------

@@ -88,7 +88,7 @@ namespace TJAPlayer3
 			{
 				Trace.TraceError( "テクスチャの生成に失敗しました。(txMessage)" );
 				Trace.TraceError( e.ToString() );
-				Trace.TraceError( "例外が発生しましたが処理を継続します。 (761b726d-d27c-470d-be0b-a702971601b5)" );
+				Trace.TraceError( "An exception has occurred, but processing continues." );
 				this.txMessage = null;
 			}
 	

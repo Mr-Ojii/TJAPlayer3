@@ -1230,7 +1230,7 @@ namespace TJAPlayer3
 			{
 				Trace.TraceError("おや?エラーが出たようです。お兄様。");
 				Trace.TraceError(ex.ToString());
-				Trace.TraceError("例外が発生しましたが処理を継続します。 (79ff8639-9b3c-477f-bc4a-f2eea9784860)");
+				Trace.TraceError("An exception has occurred, but processing continues.");
 			}
 		}
 		public void t入力_全入力文字列から( string str1, double db再生速度, int nBGMAdjust)
@@ -2623,7 +2623,7 @@ namespace TJAPlayer3
 			catch (Exception ex)
 			{
 				Trace.TraceError(ex.ToString());
-				Trace.TraceError("例外が発生しましたが処理を継続します。 (2da1e880-6b63-4e82-b018-bf18c3568335)");
+				Trace.TraceError("An exception has occurred, but processing continues. (2da1e880-6b63-4e82-b018-bf18c3568335)");
 			}
 		}
 
@@ -3525,7 +3525,7 @@ namespace TJAPlayer3
 				catch (Exception ex)
 				{
 					Trace.TraceError(ex.ToString());
-					Trace.TraceError("例外が発生しましたが処理を継続します。 (9e401212-0b78-4073-88d0-f7e791f36a91)");
+					Trace.TraceError("An exception has occurred, but processing continues. (9e401212-0b78-4073-88d0-f7e791f36a91)");
 				}
 
 				//読み込み部分本体に渡す譜面を作成。
@@ -3550,7 +3550,7 @@ namespace TJAPlayer3
 				catch (Exception ex)
 				{
 					Trace.TraceError(ex.ToString());
-					Trace.TraceError("例外が発生しましたが処理を継続します。 (2da1e880-6b63-4e82-b018-bf18c3568335)");
+					Trace.TraceError("An exception has occurred, but processing continues. (2da1e880-6b63-4e82-b018-bf18c3568335)");
 				}
 				#endregion
 			}
@@ -4929,7 +4929,7 @@ namespace TJAPlayer3
 				{
 					Trace.TraceError($"おや?エラーが出たようです。お兄様。 ({strファイル名の絶対パス})");
 					Trace.TraceError(ex.ToString());
-					Trace.TraceError("例外が発生しましたが処理を継続します。 (95327158-4e83-4fa9-b5e9-ad3c3d4c2a22)");
+					Trace.TraceError("An exception has occurred, but processing continues. (95327158-4e83-4fa9-b5e9-ad3c3d4c2a22)");
 					break;
 				}
 
@@ -5536,7 +5536,7 @@ namespace TJAPlayer3
 			catch (Exception ex)
 			{
 				Trace.TraceError(ex.ToString());
-				Trace.TraceError("例外が発生しましたが処理を継続します。 (b67473e4-1930-44f1-b320-4ead5786e74c)");
+				Trace.TraceError("An exception has occurred, but processing continues. (b67473e4-1930-44f1-b320-4ead5786e74c)");
 			}
 		}
 

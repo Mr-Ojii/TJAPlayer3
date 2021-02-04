@@ -210,7 +210,7 @@ namespace TJAPlayer3
 					catch (Exception e)
 					{
 						Trace.TraceError(e.ToString());
-						Trace.TraceError("例外が発生しましたが処理を継続します。 (c8b6538c-46a1-403e-8cc3-fc7e7ff914fb)");
+						Trace.TraceError("An exception has occurred, but processing continues.");
 					}
 					#endregion
 				}
@@ -522,7 +522,7 @@ namespace TJAPlayer3
 			catch (Exception ex)
 			{
 				Trace.TraceError(ex.ToString());
-				Trace.TraceError("例外が発生しましたが処理を継続します。 (bca6dda7-76ad-42fc-a415-250f52c0b17d)");
+				Trace.TraceError("An exception has occurred, but processing continues. (bca6dda7-76ad-42fc-a415-250f52c0b17d)");
 			}
 		}
 
@@ -604,7 +604,7 @@ namespace TJAPlayer3
 			{
 				Trace.TraceError("演奏記録ファイルの読み込みに失敗しました。[{0}]", strScoreIniファイルパス);
 				Trace.TraceError(e.ToString());
-				Trace.TraceError("例外が発生しましたが処理を継続します。 (801f823d-a952-4809-a1bb-cf6a56194f5c)");
+				Trace.TraceError("An exception has occurred, but processing continues. (801f823d-a952-4809-a1bb-cf6a56194f5c)");
 			}
 		}
 		//-----------------

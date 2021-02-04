@@ -30,19 +30,19 @@ namespace TJAPlayer3
 			BackColor = Color.Black;
 
 		}
-		public CBoxDef( string boxdefファイル名 )
+		public CBoxDef( string boxdefFileName )
 			: this()
 		{
-			this.tLoad( boxdefファイル名 );
+			this.tLoad( boxdefFileName );
 		}
 
 
 		// メソッド
 
-		public void tLoad( string boxdefファイル名 )
+		public void tLoad( string boxdefFileName )
 		{
-			Encoding boxdefEnc = CJudgeTextEncoding.JudgeFileEncoding(boxdefファイル名);
-			using (StreamReader reader = new StreamReader(boxdefファイル名, boxdefEnc))
+			Encoding boxdefEnc = CJudgeTextEncoding.JudgeFileEncoding(boxdefFileName);
+			using (StreamReader reader = new StreamReader(boxdefFileName, boxdefEnc))
 			{
 				string str = null;
 				while ((str = reader.ReadLine()) != null)
@@ -91,7 +91,7 @@ namespace TJAPlayer3
 						catch (Exception e)
 						{
 							Trace.TraceError(e.ToString());
-							Trace.TraceError("例外が発生しましたが処理を継続します。 (178a9a36-a59e-4264-8e4c-b3c3459db43c)");
+							Trace.TraceError("An exception has occurred, but processing continues.");
 							continue;
 						}
 					}

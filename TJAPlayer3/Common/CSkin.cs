@@ -206,7 +206,7 @@ namespace TJAPlayer3
 					catch (Exception e)
 					{
 						Trace.TraceError(e.ToString());
-						Trace.TraceError("例外が発生しましたが処理を継続します。 (17668977-4686-4aa7-b3f0-e0b9a44975b8)");
+						Trace.TraceError("An exception has occurred, but processing continues. (17668977-4686-4aa7-b3f0-e0b9a44975b8)");
 						this.b読み込み未試行 = false;
 					}
 				}
@@ -2181,7 +2181,7 @@ namespace TJAPlayer3
 					catch (Exception exception)
 					{
 						Trace.TraceError(exception.ToString());
-						Trace.TraceError("例外が発生しましたが処理を継続します。 (6a32cc37-1527-412e-968a-512c1f0135cd)");
+						Trace.TraceError("An exception has occurred, but processing continues.");
 						continue;
 					}
 				}

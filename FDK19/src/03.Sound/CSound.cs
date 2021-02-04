@@ -186,7 +186,7 @@ namespace FDK
 				catch ( Exception e )
 				{
 					Trace.TraceError( e.ToString() );
-					Trace.TraceError( "例外が発生しましたが処理を継続します。 (2609806d-23e8-45c2-9389-b427e80915bc)" );
+					Trace.TraceError( "An exception has occurred, but processing continues." );
 					if ( ESoundDeviceTypes[ n初期デバイス ] == ESoundDeviceType.Unknown )
 					{
 						Trace.TraceError( string.Format( "サウンドデバイスの初期化に失敗しました。" ) );
@@ -1144,7 +1144,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 				catch
 				{
 					Trace.TraceError("{0}: Seek error: {1}", Path.GetFileName(this.strファイル名), n位置ms);
-					Trace.TraceError("例外が発生しましたが処理を継続します。 (95dee242-1f92-4fcf-aaf6-b162ad2bfc03)");
+					Trace.TraceError("An exception has occurred, but processing continues. (95dee242-1f92-4fcf-aaf6-b162ad2bfc03)");
 				}
 			}
 		}

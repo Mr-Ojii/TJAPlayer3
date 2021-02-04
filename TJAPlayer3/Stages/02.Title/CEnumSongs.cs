@@ -338,7 +338,7 @@ namespace TJAPlayer3
 									catch ( Exception e )
 									{
 										Trace.TraceError( e.ToString() );
-										Trace.TraceError( "例外が発生しましたが処理を継続します。 (105fd674-e722-4a4e-bd9a-e6f82ac0b1d3)" );
+										Trace.TraceError( "An exception has occurred, but processing continues." );
 								}
 										finally
 									{
@@ -378,7 +378,7 @@ namespace TJAPlayer3
 				catch ( Exception e )
 				{
 					Trace.TraceError( e.ToString() );
-					Trace.TraceError( "例外が発生しましたが処理を継続します。 (6480ffa0-1cc1-40d4-9cc9-aceeecd0264b)" );
+					Trace.TraceError( "An exception has occurred, but processing continues. (6480ffa0-1cc1-40d4-9cc9-aceeecd0264b)" );
 				}
 				finally
 				{
@@ -438,7 +438,7 @@ namespace TJAPlayer3
 			{
 				bSucceededSerialize = false;
 				Trace.TraceError( e.ToString() );
-				Trace.TraceError( "例外が発生しましたが処理を継続します。 (9ad477a4-d922-412c-b87d-e3a49a608e92)" );
+				Trace.TraceError( "An exception has occurred, but processing continues. (9ad477a4-d922-412c-b87d-e3a49a608e92)" );
 			}
 			finally
 			{
@@ -451,7 +451,7 @@ namespace TJAPlayer3
 					catch ( Exception e )
 					{
 						Trace.TraceError( e.ToString() );
-						Trace.TraceError( "例外が発生しましたが処理を継続します。 (62860c67-b44f-46f4-b4fc-999c6fe18cce)" );
+						Trace.TraceError( "An exception has occurred, but processing continues. (62860c67-b44f-46f4-b4fc-999c6fe18cce)" );
 					}
 				}
 			}
@@ -490,7 +490,7 @@ namespace TJAPlayer3
 						// songs管理 = null;
 
 						Trace.TraceError( e.ToString() );
-						Trace.TraceError( "例外が発生しましたが処理を継続します。 (a4289e34-7140-4b67-b821-3b5370a725e1)" );
+						Trace.TraceError( "An exception has occurred, but processing continues. (a4289e34-7140-4b67-b821-3b5370a725e1)" );
 					}
 				}
 				#endregion
@@ -499,7 +499,7 @@ namespace TJAPlayer3
 			{
 				Trace.TraceError( "songlist.db の読み込みに失敗しました。" );
 				Trace.TraceError( e.ToString() );
-				Trace.TraceError( "例外が発生しましたが処理を継続します。 (5a907ed2-f849-4bc4-acd0-d2a6aa3c9c87)" );
+				Trace.TraceError( "An exception has occurred, but processing continues. (5a907ed2-f849-4bc4-acd0-d2a6aa3c9c87)" );
 			}
 			return null;
 		}
