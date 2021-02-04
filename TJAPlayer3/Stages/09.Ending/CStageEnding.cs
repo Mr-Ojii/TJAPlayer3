@@ -78,7 +78,7 @@ namespace TJAPlayer3
 		}
 		public override int On進行描画()
 		{
-			if( !TJAPlayer3.ConfigIni.bEndingAnime || TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape)) //2017.01.27 DD
+			if( !TJAPlayer3.ConfigIni.bEndingAnime || TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape)) //2017.01.27 DD
 			{
 				return 1;
 			}

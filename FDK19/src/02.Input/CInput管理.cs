@@ -9,7 +9,7 @@ using OpenTK.Input;
 
 namespace FDK
 {
-	public class CInput管理 : IDisposable
+	public class CInputManager : IDisposable
 	{
 		// プロパティ
 
@@ -59,7 +59,7 @@ namespace FDK
 
 
 		// コンストラクタ
-		public CInput管理(IntPtr hWnd)
+		public CInputManager(IntPtr hWnd)
 		{
 			this.list入力デバイス = new List<IInputDevice>(10);
 			#region [ Enumerate keyboard/mouse: exception is masked if keyboard/mouse is not connected ]
@@ -246,7 +246,7 @@ namespace FDK
 				this.bDisposed済み = true;
 			}
 		}
-		~CInput管理()
+		~CInputManager()
 		{
 			this.Dispose(false);
 			GC.KeepAlive(this);

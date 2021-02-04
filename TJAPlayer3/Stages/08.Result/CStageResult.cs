@@ -334,7 +334,7 @@ namespace TJAPlayer3
 
 				// キー入力
 
-				if ((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.b押された(EPad.LRed) || TJAPlayer3.Pad.b押された(EPad.RRed) || (TJAPlayer3.Pad.b押された(EPad.LRed2P) || TJAPlayer3.Pad.b押された(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && !this.bアニメが完了)
+				if ((TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.b押された(EPad.LRed) || TJAPlayer3.Pad.b押された(EPad.RRed) || (TJAPlayer3.Pad.b押された(EPad.LRed2P) || TJAPlayer3.Pad.b押された(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && !this.bアニメが完了)
 				{
 					this.actFI.tFadeIn完了();                 // #25406 2011.6.9 yyagi
 					this.actParameterPanel.tアニメを完了させる();
@@ -343,14 +343,14 @@ namespace TJAPlayer3
 				}
 				if (base.eフェーズID == CStage.Eフェーズ.共通_通常状態)
 				{
-					if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape))
+					if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape))
 					{
 						TJAPlayer3.Skin.sound取消音.t再生する();
 						this.actFO.tFadeOut開始();
 						base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
 						this.eFadeOut完了時の戻り値 = E戻り値.完了;
 					}
-					if ((TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.b押された(EPad.LRed) || TJAPlayer3.Pad.b押された(EPad.RRed) || (TJAPlayer3.Pad.b押された(EPad.LRed2P) || TJAPlayer3.Pad.b押された(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && this.bアニメが完了)
+					if ((TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.b押された(EPad.LRed) || TJAPlayer3.Pad.b押された(EPad.RRed) || (TJAPlayer3.Pad.b押された(EPad.LRed2P) || TJAPlayer3.Pad.b押された(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && this.bアニメが完了)
 					{
 						TJAPlayer3.Skin.sound取消音.t再生する();
 						//							this.actFO.tFadeOut開始();

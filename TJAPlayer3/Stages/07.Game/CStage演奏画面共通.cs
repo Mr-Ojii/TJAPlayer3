@@ -2729,7 +2729,7 @@ namespace TJAPlayer3
 		}
 		protected void tキー入力()
 		{
-			IInputDevice keyboard = TJAPlayer3.Input管理.Keyboard;
+			IInputDevice keyboard = TJAPlayer3.InputManager.Keyboard;
 			if (keyboard.bキーが押された((int)SlimDXKeys.Key.F1))
 			{
 				if (!this.actPauseMenu.bIsActivePopupMenu && this.bPAUSE == false)

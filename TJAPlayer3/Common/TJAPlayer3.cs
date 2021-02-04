@@ -81,7 +81,7 @@ namespace TJAPlayer3
 			private set;
 		}
 
-		public static CInput管理 Input管理
+		public static CInputManager InputManager
 		{
 			get;
 			private set;
@@ -393,7 +393,7 @@ namespace TJAPlayer3
 		{
 			Timer?.t更新();
 			CSoundManager.rc演奏用タイマ?.t更新();
-			Input管理?.tポーリング(this.bApplicationActive, TJAPlayer3.ConfigIni.bバッファ入力);
+			InputManager?.tポーリング(this.bApplicationActive, TJAPlayer3.ConfigIni.bバッファ入力);
 			FPS?.tカウンタ更新();
 
 			if (this.Device == null)
@@ -1337,14 +1337,14 @@ namespace TJAPlayer3
 			}
 			//---------------------
 #endregion
-#region [ Input管理 の初期化 ]
+#region [ InputManager の初期化 ]
 			//---------------------
 			Trace.TraceInformation("DirectInput, MIDIInputの初期化を行います。");
 			Trace.Indent();
 			try
 			{
-				Input管理 = new CInput管理(base.WindowInfo.Handle);
-				foreach (IInputDevice device in Input管理.list入力デバイス)
+				InputManager = new CInputManager(base.WindowInfo.Handle);
+				foreach (IInputDevice device in InputManager.list入力デバイス)
 				{
 					if ((device.eInputDeviceType == EInputDeviceType.Joystick) && !ConfigIni.dicJoystick.ContainsValue(device.GUID))
 					{
@@ -1356,8 +1356,8 @@ namespace TJAPlayer3
 						ConfigIni.dicJoystick.Add(key, device.GUID);
 					}
 				}
-				base.KeyDown += Input管理.KeyDownEvent;
-				base.KeyUp += Input管理.KeyUpEvent;
+				base.KeyDown += InputManager.KeyDownEvent;
+				base.KeyUp += InputManager.KeyUpEvent;
 				Trace.TraceInformation("DirectInput の初期化を完了しました。");
 			}
 			catch
@@ -1377,7 +1377,7 @@ namespace TJAPlayer3
 			Trace.Indent();
 			try
 			{
-				Pad = new CPad(ConfigIni, Input管理);
+				Pad = new CPad(ConfigIni, InputManager);
 				Trace.TraceInformation("パッドの初期化を完了しました。");
 			}
 			catch (Exception exception3)
@@ -1726,14 +1726,14 @@ namespace TJAPlayer3
 #endregion
 #region [ DirectInput, MIDIInputの終了処理 ]
 				//---------------------
-				if (Input管理 != null)
+				if (InputManager != null)
 				{
 					Trace.TraceInformation( "DirectInput, MIDIInputの終了処理を行います。" );
 					Trace.Indent();
 					try
 					{
-						Input管理.Dispose();
-						Input管理 = null;
+						InputManager.Dispose();
+						InputManager = null;
 						Trace.TraceInformation( "DirectInput, MIDIInputの終了処理を完了しました。" );
 					}
 					catch( Exception exception5 )

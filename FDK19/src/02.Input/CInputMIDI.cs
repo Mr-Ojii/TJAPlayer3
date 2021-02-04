@@ -22,7 +22,7 @@ namespace FDK
 			this.eInputDeviceType = EInputDeviceType.MidiIn;
 			this.GUID = "";
 			this.ID = (int)nID;
-			this.strDeviceName = "";    // CInput管理で初期化する
+			this.strDeviceName = "";    // CInputManagerで初期化する
 		}
 
 		// メソッド

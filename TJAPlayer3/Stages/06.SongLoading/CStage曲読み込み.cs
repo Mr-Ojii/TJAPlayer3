@@ -498,7 +498,7 @@ namespace TJAPlayer3
 		/// <returns></returns>
 		protected bool tキー入力()
 		{
-			IInputDevice keyboard = TJAPlayer3.Input管理.Keyboard;
+			IInputDevice keyboard = TJAPlayer3.InputManager.Keyboard;
 			if 	( keyboard.bキーが押された( (int)SlimDXKeys.Key.Escape ) )		// escape (exit)
 			{
 				return true;

@@ -239,7 +239,7 @@ namespace TJAPlayer3
 				if ( this.bキー入力待ち )
 				{
 					#region [ キー入力: キャンセル ]
-					if ( ( TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDXKeys.Key.Escape ))
+					if ( ( TJAPlayer3.InputManager.Keyboard.bキーが押された( (int)SlimDXKeys.Key.Escape ))
 						&& this.bEsc有効 )
 					{	// キャンセル
 						TJAPlayer3.Skin.sound取消音.t再生する();
@@ -253,7 +253,7 @@ namespace TJAPlayer3
 					if (
 						TJAPlayer3.Pad.b押された(EPad.LRed )
 						|| TJAPlayer3.Pad.b押された( EPad.RRed )
-						|| ( TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.Input管理.Keyboard.bキーが押された( (int)SlimDXKeys.Key.Return ) ) )
+						|| ( TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bキーが押された( (int)SlimDXKeys.Key.Return ) ) )
 					{
 						eAction = ESortAction.Decide;
 					}
@@ -263,14 +263,14 @@ namespace TJAPlayer3
 					}
 					#endregion
 					#region [ キー入力: 前に移動 ]
-					this.ctキー反復用.Up.tキー反復( TJAPlayer3.Input管理.Keyboard.bキーが押されている( (int)SlimDXKeys.Key.UpArrow ), new CCounter.DGキー処理( this.t前に移動 ) );
+					this.ctキー反復用.Up.tキー反復( TJAPlayer3.InputManager.Keyboard.bキーが押されている( (int)SlimDXKeys.Key.UpArrow ), new CCounter.DGキー処理( this.t前に移動 ) );
 					if (TJAPlayer3.Pad.b押された(EPad.LBlue))
 					{
 						this.t前に移動();
 					}
 					#endregion
 					#region [ キー入力: 次に移動 ]
-					this.ctキー反復用.Down.tキー反復( TJAPlayer3.Input管理.Keyboard.bキーが押されている( (int)SlimDXKeys.Key.DownArrow ), new CCounter.DGキー処理( this.t次に移動 ) );
+					this.ctキー反復用.Down.tキー反復( TJAPlayer3.InputManager.Keyboard.bキーが押されている( (int)SlimDXKeys.Key.DownArrow ), new CCounter.DGキー処理( this.t次に移動 ) );
 					if (TJAPlayer3.Pad.b押された( EPad.RBlue))
 					{
 						this.t次に移動();

@@ -125,7 +125,7 @@ namespace TJAPlayer3
 				str[index].t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Diff + Width) * (index + 1), strY);
 			}
 
-			if (TJAPlayer3.Input管理.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape))
+			if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape))
 				return 1;
 			return 0;
 		}
