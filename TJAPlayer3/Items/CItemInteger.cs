@@ -45,14 +45,14 @@ namespace TJAPlayer3
 		{
 			this.b値がフォーカスされている = !this.b値がフォーカスされている;
 		}
-		public override void t項目値を次へ移動()
+		public override void tMoveItemValueToNext()
 		{
 			if( ++this.n現在の値 > this.nMax )
 			{
 				this.n現在の値 = this.nMax;
 			}
 		}
-		public override void t項目値を前へ移動()
+		public override void tMoveItemValueToForward()
 		{
 			if( --this.n現在の値 < this.nMin )
 			{
@@ -74,7 +74,7 @@ namespace TJAPlayer3
 			this.n現在の値 = nDefaultNum;
 			this.b値がフォーカスされている = false;
 		}
-		public override object obj現在値()
+		public override object objValue()
 		{
 			return this.n現在の値;
 		}

@@ -23,7 +23,7 @@ namespace TJAPlayer3
 		}
 		public object GetObj現在値( int pos )
 		{
-			return lciMenuItems[ pos ].cItem.obj現在値();
+			return lciMenuItems[ pos ].cItem.objValue();
 		}
 		public bool bGotoDetailConfig
 		{
@@ -99,7 +99,7 @@ namespace TJAPlayer3
 					if ( lciMenuItems[ n現在の選択行 ].cItem.eItemType == CItemBase.EItemType.List ||
 						 lciMenuItems[ n現在の選択行 ].cItem.eItemType == CItemBase.EItemType.Toggle	)
 					{
-						lciMenuItems[ n現在の選択行 ].cItem.t項目値を次へ移動();
+						lciMenuItems[ n現在の選択行 ].cItem.tMoveItemValueToNext();
 					}
 					else if ( lciMenuItems[ n現在の選択行 ].cItem.eItemType == CItemBase.EItemType.Integer )
 					{
@@ -142,7 +142,7 @@ namespace TJAPlayer3
 				TJAPlayer3.Skin.soundカーソル移動音.t再生する();
 				if ( bIsSelectingIntItem )
 				{
-					 lciMenuItems[ n現在の選択行 ].cItem.t項目値を前へ移動();		// 項目移動と数値上下は方向が逆になるので注意
+					 lciMenuItems[ n現在の選択行 ].cItem.tMoveItemValueToForward();		// 項目移動と数値上下は方向が逆になるので注意
 				}
 				else
 				{
@@ -160,7 +160,7 @@ namespace TJAPlayer3
 				TJAPlayer3.Skin.soundカーソル移動音.t再生する();
 				if ( bIsSelectingIntItem )
 				{
-					lciMenuItems[ n現在の選択行 ].cItem.t項目値を次へ移動();		// 項目移動と数値上下は方向が逆になるので注意
+					lciMenuItems[ n現在の選択行 ].cItem.tMoveItemValueToNext();		// 項目移動と数値上下は方向が逆になるので注意
 				}
 				else
 				{
@@ -323,19 +323,19 @@ namespace TJAPlayer3
 						{
 							case "演奏速度":
 								{
-									double d = (double)((int)lciMenuItems[i].cItem.obj現在値() / 20.0);
+									double d = (double)((int)lciMenuItems[i].cItem.objValue() / 20.0);
 									s = "x" + d.ToString("0.000");
 								}
 								break;
 							case "ばいそく":
 								{
-									double d = (double)((((int)lciMenuItems[i].cItem.obj現在値()) + 1) / 10.0);
+									double d = (double)((((int)lciMenuItems[i].cItem.objValue()) + 1) / 10.0);
 									s = "x" + d.ToString("0.0");
 								}
 								break;
 
 							default:
-								s = lciMenuItems[i].cItem.obj現在値().ToString();
+								s = lciMenuItems[i].cItem.objValue().ToString();
 								break;
 						}
 						using (var bmpStr = bValueBold ?

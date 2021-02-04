@@ -974,7 +974,7 @@ namespace TJAPlayer3
 			TJAPlayer3.Skin.soundカーソル移動音.t再生する();
 			if( this.b要素値にフォーカス中 )
 			{
-				this.list項目リスト[ this.n現在の選択項目 ].t項目値を前へ移動();
+				this.list項目リスト[ this.n現在の選択項目 ].tMoveItemValueToForward();
 				t要素値を上下に変更中の処理();
 			}
 			else
@@ -987,7 +987,7 @@ namespace TJAPlayer3
 			TJAPlayer3.Skin.soundカーソル移動音.t再生する();
 			if( this.b要素値にフォーカス中 )
 			{
-				this.list項目リスト[ this.n現在の選択項目 ].t項目値を次へ移動();
+				this.list項目リスト[ this.n現在の選択項目 ].tMoveItemValueToNext();
 				t要素値を上下に変更中の処理();
 			}
 			else
@@ -1408,7 +1408,7 @@ namespace TJAPlayer3
 					{
 						stMenuItemRight stm = listMenu[ nItem ];
 						stm.nParam = nIndex;
-						object o = this.list項目リスト[ nItem ].obj現在値();
+						object o = this.list項目リスト[ nItem ].objValue();
 						stm.strParam = ( o == null ) ? "" : o.ToString();
 
 						using (var bmpStr = prvFont.DrawPrivateFont( strParam, Color.White, Color.Black ))

@@ -39,15 +39,15 @@ namespace TJAPlayer3
 
 		public override void tPushedEnter()
 		{
-			this.t項目値を次へ移動();
+			this.tMoveItemValueToNext();
 		}
-		public override void t項目値を次へ移動()
+		public override void tMoveItemValueToNext()
 		{
 			this.bON = !this.bON;
 		}
-		public override void t項目値を前へ移動()
+		public override void tMoveItemValueToForward()
 		{
-			this.t項目値を次へ移動();
+			this.tMoveItemValueToNext();
 		}
 
 		public void tInitialize(string strName, bool bDefault)
@@ -61,7 +61,7 @@ namespace TJAPlayer3
 			base.tInitialize(strName, strDescriptionJP, strDescriptionEN);
 			this.bON = bDefault;
 		}
-		public override object obj現在値()
+		public override object objValue()
 		{
 			return ( this.bON ) ? "ON" : "OFF";
 		}

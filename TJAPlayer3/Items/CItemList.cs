@@ -38,16 +38,16 @@ namespace TJAPlayer3
 
 		public override void tPushedEnter()
 		{
-			this.t項目値を次へ移動();
+			this.tMoveItemValueToNext();
 		}
-		public override void t項目値を次へ移動()
+		public override void tMoveItemValueToNext()
 		{
 			if( ++this.n現在選択されている項目番号 >= this.list項目値.Count )
 			{
 				this.n現在選択されている項目番号 = 0;
 			}
 		}
-		public override void t項目値を前へ移動()
+		public override void tMoveItemValueToForward()
 		{
 			if( --this.n現在選択されている項目番号 < 0 )
 			{
@@ -74,7 +74,7 @@ namespace TJAPlayer3
 				this.list項目値.Add(str);
 			}
 		}
-		public override object obj現在値()
+		public override object objValue()
 		{
 			return this.list項目値[ n現在選択されている項目番号 ];
 		}

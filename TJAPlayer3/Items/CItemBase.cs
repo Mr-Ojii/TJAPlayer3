@@ -53,10 +53,10 @@ namespace TJAPlayer3
 		public virtual void tPushedEnter()
 		{
 		}
-		public virtual void t項目値を次へ移動()
+		public virtual void tMoveItemValueToNext()
 		{
 		}
-		public virtual void t項目値を前へ移動()
+		public virtual void tMoveItemValueToForward()
 		{
 		}
 
@@ -71,7 +71,7 @@ namespace TJAPlayer3
 			this.strName = strName;
 			this.strDescription = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? strDescriptionJP : strDescriptionEN;
 		}
-		public virtual object obj現在値()
+		public virtual object objValue()
 		{
 			return null;
 		}
