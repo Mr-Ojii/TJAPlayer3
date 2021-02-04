@@ -56,7 +56,7 @@ namespace TJAPlayer3
 				y += 15;
 				TJAPlayer3.act文字コンソール.tPrint(x, y, C文字コンソール.Eフォント種別.白, string.Format("NoteN:         {0:####0}", TJAPlayer3.DTX[0].nノーツ数[0]));
 				y += 15;
-				TJAPlayer3.act文字コンソール.tPrint(x, y, C文字コンソール.Eフォント種別.白, string.Format("Frame:         {0:####0} fps", TJAPlayer3.FPS.n現在のFPS));
+				TJAPlayer3.act文字コンソール.tPrint(x, y, C文字コンソール.Eフォント種別.白, string.Format("Frame:         {0:####0} fps", TJAPlayer3.FPS.nFPS));
 				y += 15;
 				TJAPlayer3.act文字コンソール.tPrint(x, y, C文字コンソール.Eフォント種別.白, string.Format("BPM:           {0:####0.0000}", this.dbBPM));
 				y += 15;

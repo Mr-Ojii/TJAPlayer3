@@ -139,13 +139,13 @@ namespace FDK
 			this.n終了値 = 0;
 			this._n間隔ms = 0;
 			this.n現在の値 = 0;
-			this.n現在の経過時間ms = CTimer.n未使用;
+			this.n現在の経過時間ms = CTimer.nUnused;
 
 			this.db開始値 = 0;
 			this.db終了値 = 0;
 			this._db間隔 = 0;
 			this.db現在の値 = 0;
-			this.db現在の経過時間 = CSoundTimer.n未使用;
+			this.db現在の経過時間 = CSoundTimer.nUnused;
 		}
 
 		/// <summary>生成と同時に開始する。</summary>
@@ -205,7 +205,7 @@ namespace FDK
 		/// </summary>
 		public void t進行()
 		{
-			if ( ( this.timer != null ) && ( this.n現在の経過時間ms != CTimer.n未使用 ) )
+			if ( ( this.timer != null ) && ( this.n現在の経過時間ms != CTimer.nUnused ) )
 			{
 				long num = this.timer.n現在時刻ms;
 				if ( num < this.n現在の経過時間ms )
@@ -227,7 +227,7 @@ namespace FDK
 		/// </summary>
 		public void t時間Reset()
 		{
-			if ((this.timer != null) && (this.n現在の経過時間ms != CTimer.n未使用))
+			if ((this.timer != null) && (this.n現在の経過時間ms != CTimer.nUnused))
 			{
 				this.n現在の経過時間ms = this.timer.n現在時刻ms;
 			}
@@ -240,7 +240,7 @@ namespace FDK
 		/// </summary>
 		public void t時間Resetdb()
 		{
-			if ((this.timerdb != null) && (this.db現在の経過時間 != CSoundTimer.n未使用))
+			if ((this.timerdb != null) && (this.db現在の経過時間 != CSoundTimer.nUnused))
 			{
 				this.db現在の経過時間 = this.timerdb.n現在時刻ms;
 			}
@@ -253,7 +253,7 @@ namespace FDK
 		/// </summary>
 		public void t進行db()
 		{
-			if ( ( this.timerdb != null ) && ( this.db現在の経過時間 != CSoundTimer.n未使用 ) )
+			if ( ( this.timerdb != null ) && ( this.db現在の経過時間 != CSoundTimer.nUnused ) )
 			{
 				double num = this.timerdb.n現在時刻ms;
 				if ( num < this.db現在の経過時間 )
@@ -275,7 +275,7 @@ namespace FDK
 		/// </summary>
 		public void t進行Loop()
 		{
-			if ( ( this.timer != null ) && ( this.n現在の経過時間ms != CTimer.n未使用 ) )
+			if ( ( this.timer != null ) && ( this.n現在の経過時間ms != CTimer.nUnused ) )
 			{
 				long num = this.timer.n現在時刻ms;
 				if ( num < this.n現在の経過時間ms )
@@ -297,7 +297,7 @@ namespace FDK
 		/// </summary>
 		public void t進行LoopDb()
 		{
-			if ( ( this.timerdb != null ) && ( this.db現在の経過時間 != CSoundTimer.n未使用 ) )
+			if ( ( this.timerdb != null ) && ( this.db現在の経過時間 != CSoundTimer.nUnused ) )
 			{
 				double num = this.timerdb.n現在時刻ms;
 				if ( num < this.n現在の経過時間ms )
@@ -319,8 +319,8 @@ namespace FDK
 		/// </summary>
 		public void t停止()
 		{
-			this.n現在の経過時間ms = CTimer.n未使用;
-			this.db現在の経過時間 = CSoundTimer.n未使用;
+			this.n現在の経過時間ms = CTimer.nUnused;
+			this.db現在の経過時間 = CSoundTimer.nUnused;
 		}
 
 

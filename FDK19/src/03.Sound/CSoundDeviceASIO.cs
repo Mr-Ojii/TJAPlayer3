@@ -42,7 +42,7 @@ namespace FDK
 	{
 		// プロパティ
 
-		public ESoundDeviceType e出力デバイス
+		public ESoundDeviceType eOutputDevice
 		{
 			get;
 			protected set;
@@ -75,7 +75,7 @@ namespace FDK
 			get;
 			protected set;
 		}
-		public CTimer tmシステムタイマ
+		public CTimer tmSystemTimer
 		{
 			get;
 			protected set;
@@ -124,11 +124,11 @@ namespace FDK
 			// 初期化。
 
 			Trace.TraceInformation( "BASS (ASIO) の初期化を開始します。" );
-			this.e出力デバイス = ESoundDeviceType.Unknown;
+			this.eOutputDevice = ESoundDeviceType.Unknown;
 			this.n実出力遅延ms = 0;
 			this.n経過時間ms = 0;
-			this.n経過時間を更新したシステム時刻ms = CTimer.n未使用;
-			this.tmシステムタイマ = new CTimer();
+			this.n経過時間を更新したシステム時刻ms = CTimer.nUnused;
+			this.tmSystemTimer = new CTimer();
 			this.nASIODevice = _nASIODevice;
 
 			#region [ BASS registration ]
@@ -192,7 +192,7 @@ namespace FDK
 			{
 				#region [ ASIO の初期化に成功。]
 				//-----------------
-				this.e出力デバイス = ESoundDeviceType.ASIO;
+				this.eOutputDevice = ESoundDeviceType.ASIO;
 				asioInfo = BassAsio.BASS_ASIO_GetInfo();
 				this.n出力チャンネル数 = asioInfo.outputs;
 				this.db周波数 = BassAsio.BASS_ASIO_GetRate();
@@ -388,7 +388,7 @@ namespace FDK
 		}
 		protected void Dispose( bool bManagedDispose )
 		{
-			this.e出力デバイス = ESoundDeviceType.Unknown;		// まず出力停止する(Dispose中にクラス内にアクセスされることを防ぐ)
+			this.eOutputDevice = ESoundDeviceType.Unknown;		// まず出力停止する(Dispose中にクラス内にアクセスされることを防ぐ)
 			if ( hMixer != -1 )
 			{
 				Bass.BASS_StreamFree( this.hMixer );
@@ -401,8 +401,8 @@ namespace FDK
 
 			if( bManagedDispose )
 			{
-				C共通.tDisposeする( this.tmシステムタイマ );
-				this.tmシステムタイマ = null;
+				C共通.tDisposeする( this.tmSystemTimer );
+				this.tmSystemTimer = null;
 			}
 		}
 		~CSoundDeviceASIO()
@@ -439,7 +439,7 @@ namespace FDK
 			// データの転送差分ではなく累積転送バイト数から算出する。
 
 			this.n経過時間ms = ( this.n累積転送バイト数 * 1000 / this.nミキサーの1秒あたりのバイト数 ) - this.n実出力遅延ms;
-			this.n経過時間を更新したシステム時刻ms = this.tmシステムタイマ.nシステム時刻ms;
+			this.n経過時間を更新したシステム時刻ms = this.tmSystemTimer.nシステム時刻ms;
 
 
 			// 経過時間を更新後に、今回分の累積転送バイト数を反映。

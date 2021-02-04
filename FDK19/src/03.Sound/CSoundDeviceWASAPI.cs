@@ -12,7 +12,7 @@ namespace FDK
 	{
 		// プロパティ
 
-		public ESoundDeviceType e出力デバイス
+		public ESoundDeviceType eOutputDevice
 		{
 			get;
 			protected set;
@@ -40,7 +40,7 @@ namespace FDK
 			get;
 			protected set;
 		}
-		public CTimer tmシステムタイマ
+		public CTimer tmSystemTimer
 		{
 			get;
 			protected set;
@@ -120,11 +120,11 @@ namespace FDK
 
 			Trace.TraceInformation( "BASS (WASAPI{0}) の初期化を開始します。", mode.ToString() );
 
-			this.e出力デバイス = ESoundDeviceType.Unknown;
+			this.eOutputDevice = ESoundDeviceType.Unknown;
 			this.n実出力遅延ms = 0;
 			this.n経過時間ms = 0;
-			this.n経過時間を更新したシステム時刻ms = CTimer.n未使用;
-			this.tmシステムタイマ = new CTimer();
+			this.n経過時間を更新したシステム時刻ms = CTimer.nUnused;
+			this.tmSystemTimer = new CTimer();
 			this.b最初の実出力遅延算出 = true;
 
 			#region [ BASS registration ]
@@ -323,7 +323,7 @@ namespace FDK
 				{
 					#region [ 排他モードで作成成功。]
 					//-----------------
-					this.e出力デバイス = ESoundDeviceType.ExclusiveWASAPI;
+					this.eOutputDevice = ESoundDeviceType.ExclusiveWASAPI;
 
 					nDevNo = BassWasapi.BASS_WASAPI_GetDevice();
 					deviceInfo = BassWasapi.BASS_WASAPI_GetDeviceInfo( nDevNo );
@@ -360,7 +360,7 @@ namespace FDK
 				{
 					#region [ 共有モードで作成成功。]
 					//-----------------
-					this.e出力デバイス = ESoundDeviceType.SharedWASAPI;
+					this.eOutputDevice = ESoundDeviceType.SharedWASAPI;
 
 					var wasapiInfo = BassWasapi.BASS_WASAPI_GetInfo();
 					int n1サンプルのバイト数 = 2 * wasapiInfo.chans; // default;
@@ -486,17 +486,17 @@ namespace FDK
 		public CSound tサウンドを作成する( string strファイル名, ESoundGroup soundGroup )
 		{
 			var sound = new CSound(soundGroup);
-			sound.tWASAPIサウンドを作成する( strファイル名, this.hMixer, this.e出力デバイス );
+			sound.tWASAPIサウンドを作成する( strファイル名, this.hMixer, this.eOutputDevice );
 			return sound;
 		}
 
 		public void tサウンドを作成する( string strファイル名, CSound sound )
 		{
-			sound.tWASAPIサウンドを作成する( strファイル名, this.hMixer, this.e出力デバイス );
+			sound.tWASAPIサウンドを作成する( strファイル名, this.hMixer, this.eOutputDevice );
 		}
 		public void tサウンドを作成する( byte[] byArrWAVファイルイメージ, CSound sound )
 		{
-			sound.tWASAPIサウンドを作成する( byArrWAVファイルイメージ, this.hMixer, this.e出力デバイス );
+			sound.tWASAPIサウンドを作成する( byArrWAVファイルイメージ, this.hMixer, this.eOutputDevice );
 		}
 		#endregion
 
@@ -509,7 +509,7 @@ namespace FDK
 		}
 		protected void Dispose( bool bManagedDispose )
 		{
-			this.e出力デバイス = ESoundDeviceType.Unknown;		// まず出力停止する(Dispose中にクラス内にアクセスされることを防ぐ)
+			this.eOutputDevice = ESoundDeviceType.Unknown;		// まず出力停止する(Dispose中にクラス内にアクセスされることを防ぐ)
 			if ( hMixer != -1 )
 			{
 				Bass.BASS_StreamFree( this.hMixer );
@@ -521,8 +521,8 @@ namespace FDK
 			}
 			if( bManagedDispose )
 			{
-				C共通.tDisposeする( this.tmシステムタイマ );
-				this.tmシステムタイマ = null;
+				C共通.tDisposeする( this.tmSystemTimer );
+				this.tmSystemTimer = null;
 			}
 		}
 		~CSoundDeviceWASAPI()
@@ -549,7 +549,7 @@ namespace FDK
 
 			int n未再生バイト数 = BassWasapi.BASS_WASAPI_GetData( null, (int) BASSData.BASS_DATA_AVAILABLE );	// 誤差削減のため、必要となるギリギリ直前に取得する。
 			this.n経過時間ms = ( this.n累積転送バイト数 - n未再生バイト数 ) * 1000 / this.nミキサーの1秒あたりのバイト数;
-			this.n経過時間を更新したシステム時刻ms = this.tmシステムタイマ.nシステム時刻ms;
+			this.n経過時間を更新したシステム時刻ms = this.tmSystemTimer.nシステム時刻ms;
 
 			// 実出力遅延を更新。
 			// 未再生バイト数の平均値。

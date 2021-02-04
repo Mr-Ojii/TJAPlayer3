@@ -8,12 +8,12 @@ namespace FDK
 	{
 		// プロパティ
 
-		public int n現在のFPS
+		public int nFPS
 		{
 			get;
 			private set;
 		}
-		public bool bFPSの値が変化した
+		public bool bChangedFPSValue
 		{
 			get;
 			private set;
@@ -24,11 +24,11 @@ namespace FDK
 
 		public CFPS()
 		{
-			this.n現在のFPS = 0;
+			this.nFPS = 0;
 			this.timer = new CTimer();
-			this.基点時刻ms = this.timer.n現在時刻ms;
-			this.内部FPS = 0;
-			this.bFPSの値が変化した = false;
+			this.nBaseTimems = this.timer.n現在時刻ms;
+			this.nLocalFPS = 0;
+			this.bChangedFPSValue = false;
 		}
 
 
@@ -37,17 +37,17 @@ namespace FDK
 		public void tカウンタ更新()
 		{
 			this.timer.t更新();
-			this.bFPSの値が変化した = false;
+			this.bChangedFPSValue = false;
 
 			const long INTERVAL = 1000;
-			while( ( this.timer.n現在時刻ms - this.基点時刻ms ) >= INTERVAL )
+			while( ( this.timer.n現在時刻ms - this.nBaseTimems) >= INTERVAL )
 			{
-				this.n現在のFPS = this.内部FPS;
-				this.内部FPS = 0;
-				this.bFPSの値が変化した = true;
-				this.基点時刻ms += INTERVAL;
+				this.nFPS = this.nLocalFPS;
+				this.nLocalFPS = 0;
+				this.bChangedFPSValue = true;
+				this.nBaseTimems += INTERVAL;
 			}
-			this.内部FPS++;
+			this.nLocalFPS++;
 		}
 
 
@@ -56,8 +56,8 @@ namespace FDK
 		#region [ private ]
 		//-----------------
 		private CTimer	timer;
-		private long	基点時刻ms;
-		private int		内部FPS;
+		private long	nBaseTimems;
+		private int		nLocalFPS;
 		//-----------------
 		#endregion
 	}

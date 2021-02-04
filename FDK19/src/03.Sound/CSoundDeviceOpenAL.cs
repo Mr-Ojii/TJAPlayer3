@@ -13,7 +13,7 @@ namespace FDK
 	{
 		// プロパティ
 
-		public ESoundDeviceType e出力デバイス
+		public ESoundDeviceType eOutputDevice
 		{
 			get;
 			protected set;
@@ -39,7 +39,7 @@ namespace FDK
 				{
 					AL.GetSource(this.sd経過時間計測用サウンドバッファ.SourceOpen[0], ALSourcef.SecOffset, out float sec);
 					int n現在位置 = (int)(sec * 1000);
-					long n現在のシステム時刻ms = this.tmシステムタイマ.nシステム時刻ms;
+					long n現在のシステム時刻ms = this.tmSystemTimer.nシステム時刻ms;
 
 
 					// ループ回数を調整。
@@ -85,7 +85,7 @@ namespace FDK
 		{
 			get { throw new NotImplementedException(); }
 		}
-		public CTimer tmシステムタイマ
+		public CTimer tmSystemTimer
 		{
 			get;
 			protected set;
@@ -111,9 +111,9 @@ namespace FDK
 		{
 			Trace.TraceInformation( "OpenAL の初期化を開始します。" );
 
-			this.e出力デバイス = ESoundDeviceType.Unknown;
+			this.eOutputDevice = ESoundDeviceType.Unknown;
 			this.n実バッファサイズms = this.n実出力遅延ms = n遅延時間ms;
-			this.tmシステムタイマ = new CTimer();
+			this.tmSystemTimer = new CTimer();
 
 			#region[ OpenAL サウンドデバイスの作成]
 
@@ -131,7 +131,7 @@ namespace FDK
 			Console.WriteLine("OpenAL Renderer=" + renderer);
 
 			// デバイス作成完了。
-			this.e出力デバイス = ESoundDeviceType.OpenAL;
+			this.eOutputDevice = ESoundDeviceType.OpenAL;
 			#endregion
 
 			if ( !bUseOSTimer )
@@ -173,7 +173,7 @@ namespace FDK
 				this.n前回の位置 = 0;
 				AL.Source(this.sd経過時間計測用サウンドバッファ.SourceOpen[0], ALSourceb.Looping, true);
 				AL.SourcePlay(this.sd経過時間計測用サウンドバッファ.SourceOpen[0]);
-				this.n前に経過時間を測定したシステム時刻ms = this.tmシステムタイマ.nシステム時刻ms;
+				this.n前に経過時間を測定したシステム時刻ms = this.tmSystemTimer.nシステム時刻ms;
 				//-----------------
 				#endregion
 			}
@@ -217,7 +217,7 @@ namespace FDK
 		}
 		protected void Dispose( bool bManagedDispose )
 		{
-			this.e出力デバイス = ESoundDeviceType.Unknown;		// まず出力停止する(Dispose中にクラス内にアクセスされることを防ぐ)
+			this.eOutputDevice = ESoundDeviceType.Unknown;		// まず出力停止する(Dispose中にクラス内にアクセスされることを防ぐ)
 			if ( bManagedDispose )
 			{
 				#region [ 経緯時間計測用サウンドバッファを解放。]
@@ -230,7 +230,7 @@ namespace FDK
 				//-----------------
 				#endregion
 
-				C共通.tDisposeする( this.tmシステムタイマ );
+				C共通.tDisposeする( this.tmSystemTimer );
 			}
 			if ( ctimer != null )
 			{
@@ -254,7 +254,7 @@ namespace FDK
 		protected const uint n単位繰り上げ間隔ms = n単位繰り上げ間隔sec * 1000;	// [ミリ秒]
 		protected int nループ回数 = 0;
 
-		private long n前に経過時間を測定したシステム時刻ms = CTimer.n未使用;
+		private long n前に経過時間を測定したシステム時刻ms = CTimer.nUnused;
 		private int n前回の位置 = 0;
 
 		private CTimer ctimer = null;

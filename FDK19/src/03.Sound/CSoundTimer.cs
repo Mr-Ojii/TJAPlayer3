@@ -13,9 +13,9 @@ namespace FDK
 		{
 			get
 			{
-				if( this.Device.e出力デバイス == ESoundDeviceType.ExclusiveWASAPI || 
-					this.Device.e出力デバイス == ESoundDeviceType.SharedWASAPI ||
-					this.Device.e出力デバイス == ESoundDeviceType.ASIO )
+				if( this.Device.eOutputDevice == ESoundDeviceType.ExclusiveWASAPI || 
+					this.Device.eOutputDevice == ESoundDeviceType.SharedWASAPI ||
+					this.Device.eOutputDevice == ESoundDeviceType.ASIO )
 				{
 					// BASS 系の ISoundDevice.n経過時間ms はオーディオバッファの更新間隔ずつでしか更新されないため、単にこれを返すだけではとびとびの値になる。
 					// そこで、更新間隔の最中に呼ばれた場合は、システムタイマを使って補間する。
@@ -24,7 +24,7 @@ namespace FDK
 					// 動作がおかしくなる。(具体的には、ここで返すタイマー値の逆行が発生し、スクロールが巻き戻る)
 					// この場合の対策は、ASIOのバッファ量を増やして、ASIOの音声合成処理の負荷を下げること。
 
-					if ( this.Device.n経過時間を更新したシステム時刻ms == CTimer.n未使用 )	// #33890 2014.5.27 yyagi
+					if ( this.Device.n経過時間を更新したシステム時刻ms == CTimer.nUnused )	// #33890 2014.5.27 yyagi
 					{
 						// 環境によっては、ASIOベースの演奏タイマーが動作する前(つまりASIOのサウンド転送が始まる前)に
 						// DTXデータの演奏が始まる場合がある。
@@ -34,7 +34,7 @@ namespace FDK
 						// (画面表示はタイマの値に連動して行われるが、0以上のタイマ値に合わせて動作するため、
 						//  不の値が来ると画面に何も表示されなくなる)
 
-						// そこで、演奏タイマが動作を始める前(this.Device.n経過時間を更新したシステム時刻ms == CTimer.n未使用)は、
+						// そこで、演奏タイマが動作を始める前(this.Device.n経過時間を更新したシステム時刻ms == CTimer.nUnused)は、
 						// 補正部分をゼロにして、n経過時間msだけを返すようにする。
 						// こうすることで、演奏タイマが動作を始めても、破綻しなくなる。
 						return this.Device.n経過時間ms;
@@ -49,16 +49,16 @@ namespace FDK
 						else
 						{
 							return this.Device.n経過時間ms
-								+ ( this.Device.tmシステムタイマ.nシステム時刻ms - this.Device.n経過時間を更新したシステム時刻ms );
+								+ ( this.Device.tmSystemTimer.nシステム時刻ms - this.Device.n経過時間を更新したシステム時刻ms );
 						}
 					}
 				}
-				else if( this.Device.e出力デバイス == ESoundDeviceType.OpenAL )
+				else if( this.Device.eOutputDevice == ESoundDeviceType.OpenAL )
 				{
 					//return this.Device.n経過時間ms;		// #24820 2013.2.3 yyagi TESTCODE OpenALでスクロールが滑らかにならないため、
 					return ct.nシステム時刻ms;				// 仮にCSoundTimerをCTimer相当の動作にしてみた
 				}
-				return CTimerBase.n未使用;
+				return CTimerBase.nUnused;
 			}
 		}
 
@@ -66,7 +66,7 @@ namespace FDK
 		{
 			this.Device = device;
 
-			if ( this.Device.e出力デバイス != ESoundDeviceType.OpenAL )
+			if ( this.Device.eOutputDevice != ESoundDeviceType.OpenAL )
 			{
 				TimerCallback timerDelegate = new TimerCallback( SnapTimers );	// CSoundTimerをシステム時刻に変換するために、
 				timer = new Timer( timerDelegate, null, 0, 1000 );				// CSoundTimerとCTimerを両方とも走らせておき、
@@ -80,7 +80,7 @@ namespace FDK
 	
 		private void SnapTimers(object o)	// 1秒に1回呼び出され、2つのタイマー間の現在値をそれぞれ保持する。
 		{
-			if ( this.Device.e出力デバイス != ESoundDeviceType.OpenAL )
+			if ( this.Device.eOutputDevice != ESoundDeviceType.OpenAL )
 			{
 				try
 				{
