@@ -21,18 +21,18 @@ namespace TJAPlayer3
 			base.eItemType = CItemBase.EItemType.Toggle;
 			this.bON = false;
 		}
-		public CItemToggle( string str項目名, bool b初期状態 )
+		public CItemToggle( string strName, bool bDefault )
 			: this()
 		{
-			this.tInitialize( str項目名, b初期状態 );
+			this.tInitialize( strName, bDefault );
 		}
-		public CItemToggle(string str項目名, bool b初期状態, string str説明文jp)
+		public CItemToggle(string strName, bool bDefault, string str説明文jp)
 			: this() {
-			this.tInitialize(str項目名, b初期状態, str説明文jp);
+			this.tInitialize(strName, bDefault, str説明文jp);
 		}
-		public CItemToggle(string str項目名, bool b初期状態, string str説明文jp, string str説明文en)
+		public CItemToggle(string strName, bool bDefault, string str説明文jp, string str説明文en)
 			: this() {
-			this.tInitialize(str項目名, b初期状態, str説明文jp, str説明文en);
+			this.tInitialize(strName, bDefault, str説明文jp, str説明文en);
 		}
 
 		// CItemBase 実装
@@ -50,16 +50,16 @@ namespace TJAPlayer3
 			this.t項目値を次へ移動();
 		}
 
-		public void tInitialize(string str項目名, bool b初期状態)
+		public void tInitialize(string strName, bool bDefault)
 		{
-			this.tInitialize(str項目名, b初期状態, "", "");
+			this.tInitialize(strName, bDefault, "", "");
 		}
-		public void tInitialize(string str項目名, bool b初期状態, string str説明文jp) {
-			this.tInitialize(str項目名, b初期状態, str説明文jp, str説明文jp);
+		public void tInitialize(string strName, bool bDefault, string str説明文jp) {
+			this.tInitialize(strName, bDefault, str説明文jp, str説明文jp);
 		}
-		public void tInitialize(string str項目名, bool b初期状態, string str説明文jp, string str説明文en) {
-			base.tInitialize(str項目名, str説明文jp, str説明文en);
-			this.bON = b初期状態;
+		public void tInitialize(string strName, bool bDefault, string str説明文jp, string str説明文en) {
+			base.tInitialize(strName, str説明文jp, str説明文en);
+			this.bON = bDefault;
 		}
 		public override object obj現在値()
 		{

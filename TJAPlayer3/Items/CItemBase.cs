@@ -22,7 +22,7 @@ namespace TJAPlayer3
 			List
 		}
 
-		public string str項目名;
+		public string strName;
 		public string str説明文;
 
 
@@ -30,21 +30,21 @@ namespace TJAPlayer3
 
 		public CItemBase()
 		{
-			this.str項目名 = "";
+			this.strName = "";
 			this.str説明文 = "";
 		}
-		public CItemBase( string str項目名 )
+		public CItemBase( string strName )
 			: this()
 		{
-			this.tInitialize( str項目名 );
+			this.tInitialize( strName );
 		}
-		public CItemBase(string str項目名, string str説明文jp)
+		public CItemBase(string strName, string str説明文jp)
 			: this() {
-			this.tInitialize(str項目名, str説明文jp);
+			this.tInitialize(strName, str説明文jp);
 		}
-		public CItemBase(string str項目名,  string str説明文jp, string str説明文en)
+		public CItemBase(string strName,  string str説明文jp, string str説明文en)
 			: this() {
-			this.tInitialize(str項目名, str説明文jp, str説明文en);
+			this.tInitialize(strName, str説明文jp, str説明文en);
 		}
 
 		
@@ -60,15 +60,15 @@ namespace TJAPlayer3
 		{
 		}
 
-		public virtual void tInitialize( string str項目名 )
+		public virtual void tInitialize( string strName )
 		{
-			this.tInitialize(str項目名, "", "");
+			this.tInitialize(strName, "", "");
 		}
-		public virtual void tInitialize(string str項目名, string str説明文jp) {
-			this.tInitialize(str項目名, str説明文jp, str説明文jp);
+		public virtual void tInitialize(string strName, string str説明文jp) {
+			this.tInitialize(strName, str説明文jp, str説明文jp);
 		}
-		public virtual void tInitialize(string str項目名, string str説明文jp, string str説明文en) {
-			this.str項目名 = str項目名;
+		public virtual void tInitialize(string strName, string str説明文jp, string str説明文en) {
+			this.strName = strName;
 			this.str説明文 = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? str説明文jp : str説明文en;
 		}
 		public virtual object obj現在値()

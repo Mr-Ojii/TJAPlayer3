@@ -1324,14 +1324,14 @@ namespace TJAPlayer3
 				}
 				else
 				{
-					using (var bmpItem = prvFont.DrawPrivateFont( this.list項目リスト[ nItem ].str項目名, Color.White, Color.Black ))
+					using (var bmpItem = prvFont.DrawPrivateFont( this.list項目リスト[ nItem ].strName, Color.White, Color.Black ))
 					{
 						listMenu[ nItem ].txMenuItemRight = TJAPlayer3.tテクスチャの生成( bmpItem );
 						// ctItem.t2D描画( CDTXMania.app.Device, ( x + 0x12 ) * Scale.X, ( y + 12 ) * Scale.Y - 20 );
 						// CDTXMania.t安全にDisposeする( ref ctItem );
 					}
 				}
-				//CDTXMania.stageConfig.actFont.t文字列描画( x + 0x12, y + 12, this.list項目リスト[ nItem ].str項目名 );
+				//CDTXMania.stageConfig.actFont.t文字列描画( x + 0x12, y + 12, this.list項目リスト[ nItem ].strName );
 				//-----------------
 				#endregion
 				#region [ 現在の行の項目の要素を描画。]

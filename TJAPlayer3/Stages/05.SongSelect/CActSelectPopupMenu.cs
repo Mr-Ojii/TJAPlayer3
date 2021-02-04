@@ -57,7 +57,7 @@ namespace TJAPlayer3
 
 			stqMenuTitle = new stQuickMenuItem();
 			stqMenuTitle.cItem = new CItemBase();
-			stqMenuTitle.cItem.str項目名 = title;
+			stqMenuTitle.cItem.strName = title;
 			using (var bitmap = prvFont.DrawPrivateFont( title, Color.White, Color.Black ))
 			{
 				stqMenuTitle.txName = TJAPlayer3.tテクスチャの生成( bitmap );
@@ -68,7 +68,7 @@ namespace TJAPlayer3
 			{
 				stQuickMenuItem stqm = new stQuickMenuItem();
 				stqm.cItem = menulist[ i ];
-				using (var bitmap = prvFont.DrawPrivateFont( menulist[ i ].str項目名, Color.White, Color.Black ))
+				using (var bitmap = prvFont.DrawPrivateFont( menulist[ i ].strName, Color.White, Color.Black ))
 				{
 					stqm.txName = TJAPlayer3.tテクスチャの生成( bitmap );
 					stqm.rectName = prvFont.RectStrings;
@@ -308,7 +308,7 @@ namespace TJAPlayer3
 				for ( int i = 0; i < lciMenuItems.Length; i++ )
 				{
 					bool bItemBold = ( i == nItemSelecting && !bShowAllItems ) ? true : false;
-					//font.t文字列描画( 190, 80 + i * 32, lciMenuItems[ i ].cItem.str項目名, bItemBold, 1.0f );
+					//font.t文字列描画( 190, 80 + i * 32, lciMenuItems[ i ].cItem.strName, bItemBold, 1.0f );
 					if ( lciMenuItems[ i ].txName != null )
 					{
 						int height = lciMenuItems[ i ].rectName.Height;
@@ -319,7 +319,7 @@ namespace TJAPlayer3
 					if (bItemBold || bShowAllItems)
 					{
 						string s;
-						switch (lciMenuItems[i].cItem.str項目名)
+						switch (lciMenuItems[i].cItem.strName)
 						{
 							case "演奏速度":
 								{

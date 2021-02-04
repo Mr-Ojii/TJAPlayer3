@@ -10,7 +10,7 @@ namespace TJAPlayer3
 {
 	internal class CAct演奏PauseMenu : CActSelectPopupMenu
 	{
-		private readonly string QuickCfgTitle = "ポーズ";
+		private readonly string QuickCfgTitle = "Pause";
 		// コンストラクタ
 
 		public CAct演奏PauseMenu()

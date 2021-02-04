@@ -80,7 +80,7 @@ namespace TJAPlayer3
 			List<ItemTextureList> textures = new List<ItemTextureList>();
 			for (int i = 0; i < cItemBases.Count; i++)
 			{
-				CTexture NameTexture = TJAPlayer3.tテクスチャの生成(this.Font.DrawPrivateFont(cItemBases[i].str項目名, Color.White, Color.Black));
+				CTexture NameTexture = TJAPlayer3.tテクスチャの生成(this.Font.DrawPrivateFont(cItemBases[i].strName, Color.White, Color.Black));
 				CTexture[] ListTexture;
 				if (cItemBases[i].eItemType == CItemBase.EItemType.List) {
 					ListTexture = new CTexture[((CItemList)cItemBases[i]).list項目値.Count];
@@ -379,14 +379,14 @@ namespace TJAPlayer3
 
 				this.NameTexture[nPlayer][lci[nPlayer].Count - i - 1].ItemNameTexture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.PlayOption_Name_XY_Diff[0], y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_Name_XY_Diff[1]);
 
-				if (lci[nPlayer][lci[nPlayer].Count - i - 1].str項目名.Equals("ばいそく"))
+				if (lci[nPlayer][lci[nPlayer].Count - i - 1].strName.Equals("ばいそく"))
 				{
 					using (CTexture texture = TJAPlayer3.tテクスチャの生成(this.Font.DrawPrivateFont(((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex() + 1) * 0.1).ToString("0.0"), Color.White, Color.Black)))
 					{
 						texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.PlayOption_List_XY_Diff[0] - texture.szTextureSize.Width / 2, y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_List_XY_Diff[1]);
 					}
 				}
-				else if (lci[nPlayer][lci[nPlayer].Count - i - 1].str項目名.Equals("演奏速度"))
+				else if (lci[nPlayer][lci[nPlayer].Count - i - 1].strName.Equals("演奏速度"))
 				{
 					using (CTexture texture = TJAPlayer3.tテクスチャの生成(this.Font.DrawPrivateFont((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex() * 0.05).ToString("0.00"), Color.White, Color.Black)))
 					{

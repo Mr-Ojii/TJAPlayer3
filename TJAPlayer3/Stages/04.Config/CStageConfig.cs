@@ -41,7 +41,7 @@ namespace TJAPlayer3
 		}																						//
 		public void tパッド選択通知( EKeyConfigPad pad )					//
 		{																						//
-			this.actKeyAssign.t開始( pad, this.actList.ib現在の選択項目.str項目名 );		//
+			this.actKeyAssign.t開始( pad, this.actList.ib現在の選択項目.strName );		//
 			this.eItemPanelモード = EItemPanelモード.KeyCode一覧;							//
 		}																						//
 		public void t項目変更通知()																// OPTIONと共通
