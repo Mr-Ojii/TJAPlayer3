@@ -41,9 +41,9 @@ namespace TJAPlayer3
 					for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)
 					{
 						if (File.Exists(CSkin.Path(@"Sounds/Taiko/" + i.ToString() + @"/dong.ogg")))
-							this.donglist[nPlayer, i] = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds/Taiko/" + i.ToString() + @"/dong.ogg"), ESoundGroup.SoundEffect);
+							this.donglist[nPlayer, i] = TJAPlayer3.Sound管理.tCreateSound(CSkin.Path(@"Sounds/Taiko/" + i.ToString() + @"/dong.ogg"), ESoundGroup.SoundEffect);
 						else
-							this.donglist[nPlayer, i] = TJAPlayer3.Sound管理.tサウンドを生成する(CSkin.Path(@"Sounds/Taiko/dong.ogg"), ESoundGroup.SoundEffect);
+							this.donglist[nPlayer, i] = TJAPlayer3.Sound管理.tCreateSound(CSkin.Path(@"Sounds/Taiko/dong.ogg"), ESoundGroup.SoundEffect);
 
 						if (TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.ConfigIni.b2P演奏時のSEの左右 && donglist[nPlayer, i] != null)
 						{

@@ -891,7 +891,7 @@ namespace TJAPlayer3
 				{
 					try
 					{
-						cwav.rSound[i] = TJAPlayer3.Sound管理.tサウンドを生成する(str, ESoundGroup.SongPlayback);
+						cwav.rSound[i] = TJAPlayer3.Sound管理.tCreateSound(str, ESoundGroup.SongPlayback);
 
 						if (!TJAPlayer3.ConfigIni.bDynamicBassMixerManagement)
 						{

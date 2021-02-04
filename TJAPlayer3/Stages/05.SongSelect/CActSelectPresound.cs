@@ -235,7 +235,7 @@ namespace TJAPlayer3
 		{
 			try
 			{
-				return TJAPlayer3.Sound管理.tサウンドを生成する(path, ESoundGroup.SongPreview);
+				return TJAPlayer3.Sound管理.tCreateSound(path, ESoundGroup.SongPreview);
 			}
 			catch
 			{

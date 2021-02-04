@@ -262,7 +262,7 @@ namespace FDK
 
 			CSound.tすべてのサウンドを再構築する( SoundDevice );		// すでに生成済みのサウンドがあれば作り直す。
 		}
-		public CSound tサウンドを生成する( string filename, ESoundGroup soundGroup )
+		public CSound tCreateSound( string filename, ESoundGroup soundGroup )
 		{
 			if( !File.Exists( filename ) )
 			{
