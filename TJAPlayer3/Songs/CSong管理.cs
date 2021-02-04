@@ -86,7 +86,7 @@ namespace TJAPlayer3
 					#region[ 新処理 ]
 					CDTX dtx = new CDTX(str基点フォルダ + fileinfo.Name, false, 1.0, 0);
 					C曲リストノード c曲リストノード = new C曲リストノード();
-					c曲リストノード.eノード種別 = C曲リストノード.Eノード種別.SCORE;
+					c曲リストノード.eNodeType = C曲リストノード.ENodeType.SCORE;
 
 					c曲リストノード.r親ノード = node親;
 					c曲リストノード.strBreadcrumbs = (c曲リストノード.r親ノード == null) ?
@@ -228,7 +228,7 @@ namespace TJAPlayer3
 				{
 					CBoxDef boxdef = new CBoxDef(infoDir.FullName + @"/box.def");
 					C曲リストノード c曲リストノード = new C曲リストノード();
-					c曲リストノード.eノード種別 = C曲リストノード.Eノード種別.BOX;
+					c曲リストノード.eNodeType = C曲リストノード.ENodeType.BOX;
 					c曲リストノード.strタイトル = boxdef.Title;
 					c曲リストノード.strジャンル = boxdef.Genre;
 
@@ -321,7 +321,7 @@ namespace TJAPlayer3
 			if (ノードリスト.Count > 0 && TJAPlayer3.ConfigIni.RandomPresence)
 			{
 				C曲リストノード itemRandom = new C曲リストノード();
-				itemRandom.eノード種別 = C曲リストノード.Eノード種別.RANDOM;
+				itemRandom.eNodeType = C曲リストノード.ENodeType.RANDOM;
 				itemRandom.strタイトル = "ランダムに曲をえらぶ";
 				itemRandom.nスコア数 = (int)Difficulty.Total;
 				itemRandom.r親ノード = ノードリスト[0].r親ノード;
@@ -371,13 +371,13 @@ namespace TJAPlayer3
 
 				#region [ BOXノードなら子リストに <<BACK を入れ、子リストに後処理を適用する ]
 				//-----------------------------
-				if (c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.BOX)
+				if (c曲リストノード.eNodeType == C曲リストノード.ENodeType.BOX)
 				{
 					int 曲数 = c曲リストノード.list子リスト.Count;//for文に直接書くと、もどるもカウントされてしまう。
 					for (int index = 0; index < ((曲数 - 1) / TJAPlayer3.ConfigIni.n閉じる差し込み間隔) + 2; index++)
 					{
 						C曲リストノード itemBack = new C曲リストノード();
-						itemBack.eノード種別 = C曲リストノード.Eノード種別.BACKBOX;
+						itemBack.eNodeType = C曲リストノード.ENodeType.BACKBOX;
 						itemBack.strタイトル = "とじる";
 						itemBack.nスコア数 = 1;
 						itemBack.r親ノード = c曲リストノード;
@@ -487,7 +487,7 @@ namespace TJAPlayer3
 		public static void t曲リストのソート1_絶対パス順(List<C曲リストノード> ノードリスト, int order, params object[] p)
 		{
 			var comparer = new ComparerChain<C曲リストノード>(
-				new C曲リストノードComparerノード種別(),
+				new C曲リストノードComparerNodeType(),
 				new C曲リストノードComparer絶対パス(order),
 				new C曲リストノードComparerタイトル(order));
 
@@ -498,7 +498,7 @@ namespace TJAPlayer3
 		public static void t曲リストのソート2_タイトル順(List<C曲リストノード> ノードリスト, int order, params object[] p)
 		{
 			var comparer = new ComparerChain<C曲リストノード>(
-				new C曲リストノードComparerノード種別(),
+				new C曲リストノードComparerNodeType(),
 				new C曲リストノードComparerタイトル(order),
 				new C曲リストノードComparer絶対パス(order));
 
@@ -511,7 +511,7 @@ namespace TJAPlayer3
 			try
 			{
 				var comparer = new ComparerChain<C曲リストノード>(
-					new C曲リストノードComparerノード種別(),
+					new C曲リストノードComparerNodeType(),
 					new C曲リストノードComparerGenre(order),
 					new C曲リストノードComparer絶対パス(1),
 					new C曲リストノードComparerタイトル(1));
@@ -531,7 +531,7 @@ namespace TJAPlayer3
 			int 戻るノード数 = 0;
 			for (int index = 0; index < ノードリスト.Count; index++)
 			{
-				if (ノードリスト[index].eノード種別 == C曲リストノード.Eノード種別.BACKBOX)
+				if (ノードリスト[index].eNodeType == C曲リストノード.ENodeType.BACKBOX)
 				{
 					C曲リストノード tmp = new C曲リストノード();//今、入ってるBACKBOXを使いまわす。
 					tmp = ノードリスト[index];

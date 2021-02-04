@@ -508,7 +508,7 @@ namespace TJAPlayer3
 		{
 			foreach (C曲リストノード c in cs)
 			{
-				if (c.eノード種別 == C曲リストノード.Eノード種別.BOX && c.list子リスト != null)
+				if (c.eNodeType == C曲リストノード.ENodeType.BOX && c.list子リスト != null)
 				{
 					親ノードを設定する(ref c.list子リスト, c);//再帰
 				}

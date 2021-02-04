@@ -194,11 +194,11 @@ namespace TJAPlayer3
 				if( act曲リスト.r現在選択中の曲 != null )
 				{
 					int nGenreBack = 0;
-					if (act曲リスト.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.BOX || act曲リスト.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.SCORE)
+					if (act曲リスト.r現在選択中の曲.eNodeType == C曲リストノード.ENodeType.BOX || act曲リスト.r現在選択中の曲.eNodeType == C曲リストノード.ENodeType.SCORE)
 					{
 						nGenreBack = TJAPlayer3.Skin.nStrジャンルtoNum(act曲リスト.r現在選択中の曲.strジャンル);
 					}
-					else if (act曲リスト.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.BACKBOX) {
+					else if (act曲リスト.r現在選択中の曲.eNodeType == C曲リストノード.ENodeType.BACKBOX) {
 						nGenreBack = TJAPlayer3.Skin.nStrジャンルtoNum(act曲リスト.r現在選択中の曲.r親ノード.strジャンル);
 					}
 					if (TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack] != null )
@@ -420,7 +420,7 @@ namespace TJAPlayer3
 					}
 				}
 
-				if ((act曲リスト.r現在選択中の曲 != null) && TJAPlayer3.ConfigIni.bTCClikeStyle && act曲リスト.r現在選択中の曲.eノード種別 == C曲リストノード.Eノード種別.SCORE)
+				if ((act曲リスト.r現在選択中の曲 != null) && TJAPlayer3.ConfigIni.bTCClikeStyle && act曲リスト.r現在選択中の曲.eNodeType == C曲リストノード.ENodeType.SCORE)
 					this.act曲リスト.tアイテム数の描画();
 
 				this.actChangeSE.On進行描画();
@@ -900,9 +900,9 @@ namespace TJAPlayer3
 								{
 									if (this.act曲リスト.r現在選択中の曲 != null)
 									{
-										switch (this.act曲リスト.r現在選択中の曲.eノード種別)
+										switch (this.act曲リスト.r現在選択中の曲.eNodeType)
 										{
-											case C曲リストノード.Eノード種別.SCORE:
+											case C曲リストノード.ENodeType.SCORE:
 												if (!((this.n現在選択中の曲の難易度[0] == (int)Difficulty.Dan || this.n現在選択中の曲の難易度[0] == (int)Difficulty.Tower) && (TJAPlayer3.ConfigIni.nPlayerCount >= 2 || TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)))
 												{
 													if (this.n現在選択中の曲の難易度[0] == (int)Difficulty.Dan && TJAPlayer3.Tx.Difficulty_Dan_Box != null && TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting != null)
@@ -943,7 +943,7 @@ namespace TJAPlayer3
 													}
 												}
 												break;
-											case C曲リストノード.Eノード種別.BOX:
+											case C曲リストノード.ENodeType.BOX:
 												{
 													TJAPlayer3.Skin.sound決定音.t再生する();
 													bool bNeedChangeSkin = this.act曲リスト.tBOXに入る();
@@ -954,7 +954,7 @@ namespace TJAPlayer3
 													}
 												}
 												break;
-											case C曲リストノード.Eノード種別.BACKBOX:
+											case C曲リストノード.ENodeType.BACKBOX:
 												{
 													TJAPlayer3.Skin.sound取消音.t再生する();
 													bool bNeedChangeSkin = this.act曲リスト.tBOXを出る();
@@ -965,7 +965,7 @@ namespace TJAPlayer3
 													}
 												}
 												break;
-											case C曲リストノード.Eノード種別.RANDOM:
+											case C曲リストノード.ENodeType.RANDOM:
 												TJAPlayer3.Skin.sound決定音.t再生する();
 												this.t曲をランダム選択する();
 												break;
@@ -1373,7 +1373,7 @@ namespace TJAPlayer3
 			{
 				foreach( C曲リストノード c曲リストノード in TJAPlayer3.Songs管理.list曲ルート )
 				{
-					if( ( c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.SCORE ))
+					if( ( c曲リストノード.eNodeType == C曲リストノード.ENodeType.SCORE ))
 					{
 						list.Add( c曲リストノード );
 					}
@@ -1393,7 +1393,7 @@ namespace TJAPlayer3
 			{
 				foreach( C曲リストノード c曲リストノード in r親.list子リスト )
 				{
-					if( ( c曲リストノード.eノード種別 == C曲リストノード.Eノード種別.SCORE ))
+					if( ( c曲リストノード.eNodeType == C曲リストノード.ENodeType.SCORE ))
 					{
 						list.Add( c曲リストノード );
 					}
