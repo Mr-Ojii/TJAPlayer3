@@ -1425,7 +1425,7 @@ namespace TJAPlayer3
 											TJAPlayer3.ConfigIni.bUseOSTimer
 				);
 				//Sound管理 = FDK.CSound管理.Instance;
-				//Sound管理.t初期化( soundDeviceType, 0, 0, CDTXMania.ConfigIni.nASIODevice, base.Window.Handle );
+				//Sound管理.tInitialize( soundDeviceType, 0, 0, CDTXMania.ConfigIni.nASIODevice, base.Window.Handle );
 
 
 				Trace.TraceInformation("Initializing loudness scanning, song gain control, and sound group level control...");

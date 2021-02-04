@@ -28,15 +28,15 @@ namespace TJAPlayer3
 		public CItemInteger( string str項目名, int n最小値, int n最大値, int n初期値 )
 			: this()
 		{
-			this.t初期化( str項目名, n最小値, n最大値, n初期値 );
+			this.tInitialize( str項目名, n最小値, n最大値, n初期値 );
 		}
 		public CItemInteger(string str項目名, int n最小値, int n最大値, int n初期値, string str説明文jp)
 			: this() {
-			this.t初期化(str項目名, n最小値, n最大値, n初期値, str説明文jp);
+			this.tInitialize(str項目名, n最小値, n最大値, n初期値, str説明文jp);
 		}
 		public CItemInteger(string str項目名, int n最小値, int n最大値, int n初期値, string str説明文jp, string str説明文en)
 			: this() {
-			this.t初期化(str項目名, n最小値, n最大値, n初期値, str説明文jp, str説明文en);
+			this.tInitialize(str項目名, n最小値, n最大値, n初期値, str説明文jp, str説明文en);
 		}
 
 		// CItemBase 実装
@@ -60,15 +60,15 @@ namespace TJAPlayer3
 			}
 		}
 	
-		public void t初期化( string str項目名, int n最小値, int n最大値, int n初期値 )
+		public void tInitialize( string str項目名, int n最小値, int n最大値, int n初期値 )
 		{
-			this.t初期化( str項目名, n最小値, n最大値, n初期値, "", "" );
+			this.tInitialize( str項目名, n最小値, n最大値, n初期値, "", "" );
 		}
-		public void t初期化(string str項目名, int n最小値, int n最大値, int n初期値, string str説明文jp) {
-			this.t初期化(str項目名, n最小値, n最大値, n初期値, str説明文jp, str説明文jp);
+		public void tInitialize(string str項目名, int n最小値, int n最大値, int n初期値, string str説明文jp) {
+			this.tInitialize(str項目名, n最小値, n最大値, n初期値, str説明文jp, str説明文jp);
 		}
-		public void t初期化(string str項目名, int n最小値, int n最大値, int n初期値, string str説明文jp, string str説明文en) {
-			base.t初期化(str項目名, str説明文jp, str説明文en);
+		public void tInitialize(string str項目名, int n最小値, int n最大値, int n初期値, string str説明文jp, string str説明文en) {
+			base.tInitialize(str項目名, str説明文jp, str説明文en);
 			this.n最小値 = n最小値;
 			this.n最大値 = n最大値;
 			this.n現在の値 = n初期値;

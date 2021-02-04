@@ -9,14 +9,14 @@ namespace FDK
 	{
 		ESoundDeviceType eOutputDevice { get; }
 		int nMasterVolume { get; set; }
-		long n実出力遅延ms { get; }
-		long n実バッファサイズms { get; }
-		long n経過時間ms { get; }
-		long n経過時間を更新したシステム時刻ms { get; }
+		long nOutPutDelayms { get; }
+		long nBufferSizems { get; }
+		long nElapsedTimems { get; }
+		long SystemTimemsWhenUpdatingElapsedTime  { get; }
 		CTimer tmSystemTimer { get; }
 
-		CSound tサウンドを作成する( string strファイル名, ESoundGroup soundGroup );
-		void tサウンドを作成する( string strファイル名, CSound sound );
-		void tサウンドを作成する( byte[] byArrWAVファイルイメージ, CSound sound );
+		CSound tCreateSound( string strファイル名, ESoundGroup soundGroup );
+		void tCreateSound( string strファイル名, CSound sound );
+		void tCreateSound( byte[] byArrWAVファイルイメージ, CSound sound );
 	}
 }

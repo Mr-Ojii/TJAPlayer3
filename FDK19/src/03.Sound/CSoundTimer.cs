@@ -17,14 +17,14 @@ namespace FDK
 					this.Device.eOutputDevice == ESoundDeviceType.SharedWASAPI ||
 					this.Device.eOutputDevice == ESoundDeviceType.ASIO )
 				{
-					// BASS 系の ISoundDevice.n経過時間ms はオーディオバッファの更新間隔ずつでしか更新されないため、単にこれを返すだけではとびとびの値になる。
+					// BASS 系の ISoundDevice.nElapsedTimems はオーディオバッファの更新間隔ずつでしか更新されないため、単にこれを返すだけではとびとびの値になる。
 					// そこで、更新間隔の最中に呼ばれた場合は、システムタイマを使って補間する。
 					// この場合の経過時間との誤差は更新間隔以内に収まるので問題ないと判断する。
 					// ただし、ASIOの場合は、転送byte数から時間算出しているため、ASIOの音声合成処理の負荷が大きすぎる場合(処理時間が実時間を超えている場合)は
 					// 動作がおかしくなる。(具体的には、ここで返すタイマー値の逆行が発生し、スクロールが巻き戻る)
 					// この場合の対策は、ASIOのバッファ量を増やして、ASIOの音声合成処理の負荷を下げること。
 
-					if ( this.Device.n経過時間を更新したシステム時刻ms == CTimer.nUnused )	// #33890 2014.5.27 yyagi
+					if ( this.Device.SystemTimemsWhenUpdatingElapsedTime  == CTimer.nUnused )	// #33890 2014.5.27 yyagi
 					{
 						// 環境によっては、ASIOベースの演奏タイマーが動作する前(つまりASIOのサウンド転送が始まる前)に
 						// DTXデータの演奏が始まる場合がある。
@@ -34,10 +34,10 @@ namespace FDK
 						// (画面表示はタイマの値に連動して行われるが、0以上のタイマ値に合わせて動作するため、
 						//  不の値が来ると画面に何も表示されなくなる)
 
-						// そこで、演奏タイマが動作を始める前(this.Device.n経過時間を更新したシステム時刻ms == CTimer.nUnused)は、
-						// 補正部分をゼロにして、n経過時間msだけを返すようにする。
+						// そこで、演奏タイマが動作を始める前(this.Device.SystemTimemsWhenUpdatingElapsedTime  == CTimer.nUnused)は、
+						// 補正部分をゼロにして、nElapsedTimemsだけを返すようにする。
 						// こうすることで、演奏タイマが動作を始めても、破綻しなくなる。
-						return this.Device.n経過時間ms;
+						return this.Device.nElapsedTimems;
 					}
 					else
 					{
@@ -48,14 +48,14 @@ namespace FDK
 						}
 						else
 						{
-							return this.Device.n経過時間ms
-								+ ( this.Device.tmSystemTimer.nシステム時刻ms - this.Device.n経過時間を更新したシステム時刻ms );
+							return this.Device.nElapsedTimems
+								+ ( this.Device.tmSystemTimer.nシステム時刻ms - this.Device.SystemTimemsWhenUpdatingElapsedTime  );
 						}
 					}
 				}
 				else if( this.Device.eOutputDevice == ESoundDeviceType.OpenAL )
 				{
-					//return this.Device.n経過時間ms;		// #24820 2013.2.3 yyagi TESTCODE OpenALでスクロールが滑らかにならないため、
+					//return this.Device.nElapsedTimems;		// #24820 2013.2.3 yyagi TESTCODE OpenALでスクロールが滑らかにならないため、
 					return ct.nシステム時刻ms;				// 仮にCSoundTimerをCTimer相当の動作にしてみた
 				}
 				return CTimerBase.nUnused;

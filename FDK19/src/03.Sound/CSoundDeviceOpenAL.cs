@@ -18,12 +18,12 @@ namespace FDK
 			get;
 			protected set;
 		}
-		public long n実出力遅延ms
+		public long nOutPutDelayms
 		{
 			get;
 			protected set;
 		}
-		public long n実バッファサイズms
+		public long nBufferSizems
 		{
 			get;
 			protected set;
@@ -31,7 +31,7 @@ namespace FDK
 
 		// CSoundTimer 用に公開しているプロパティ
 
-		public long n経過時間ms
+		public long nElapsedTimems
 		{
 			get
 			{
@@ -58,7 +58,7 @@ namespace FDK
 
 					// 経過時間を算出。
 
-					long n経過時間ms = (long) ( ( this.nループ回数 * n単位繰り上げ間隔ms ) + ( n現在位置 * 1000.0 / ( 44100.0 * 2 * 2 ) ) );
+					long nElapsedTimems = (long) ( ( this.nループ回数 * n単位繰り上げ間隔ms ) + ( n現在位置 * 1000.0 / ( 44100.0 * 2 * 2 ) ) );
 
 
 					// 今回の値を次回に向けて保存。
@@ -66,7 +66,7 @@ namespace FDK
 					this.n前に経過時間を測定したシステム時刻ms = n現在のシステム時刻ms;
 					this.n前回の位置 = n現在位置;
 
-					return n経過時間ms;
+					return nElapsedTimems;
 				}
 				else
 				{
@@ -81,7 +81,7 @@ namespace FDK
 				}
 			}
 		}
-		public long n経過時間を更新したシステム時刻ms
+		public long SystemTimemsWhenUpdatingElapsedTime 
 		{
 			get { throw new NotImplementedException(); }
 		}
@@ -112,7 +112,7 @@ namespace FDK
 			Trace.TraceInformation( "OpenAL の初期化を開始します。" );
 
 			this.eOutputDevice = ESoundDeviceType.Unknown;
-			this.n実バッファサイズms = this.n実出力遅延ms = n遅延時間ms;
+			this.nBufferSizems = this.nOutPutDelayms = n遅延時間ms;
 			this.tmSystemTimer = new CTimer();
 
 			#region[ OpenAL サウンドデバイスの作成]
@@ -163,7 +163,7 @@ namespace FDK
 				bw.Close();
 				ms = null;
 				bw = null;
-				this.sd経過時間計測用サウンドバッファ = this.tサウンドを作成する( byArrWaveFleImage, ESoundGroup.Unknown );
+				this.sd経過時間計測用サウンドバッファ = this.tCreateSound( byArrWaveFleImage, ESoundGroup.Unknown );
 
 				CSound.listインスタンス.Remove( this.sd経過時間計測用サウンドバッファ );	// 特殊用途なのでインスタンスリストからは除外する。
 
@@ -184,14 +184,14 @@ namespace FDK
 			Trace.TraceInformation( "OpenAL を初期化しました。({0})", bUseOSTimer? "OStimer" : "FDKtimer" );
 		}
 
-		public CSound tサウンドを作成する( string strファイル名, ESoundGroup soundGroup )
+		public CSound tCreateSound( string strファイル名, ESoundGroup soundGroup )
 		{
 			var sound = new CSound(soundGroup);
 			sound.tOpenALサウンドを作成する(strファイル名);
 			return sound;
 		}
 
-		private CSound tサウンドを作成する( byte[] byArrWAVファイルイメージ, ESoundGroup soundGroup )
+		private CSound tCreateSound( byte[] byArrWAVファイルイメージ, ESoundGroup soundGroup )
 		{
 			var sound = new CSound(soundGroup);
 			sound.tOpenALサウンドを作成する(byArrWAVファイルイメージ);
@@ -199,11 +199,11 @@ namespace FDK
 		}
 
 		// 既存のインスタンス（生成直後 or Dispose済み）に対してサウンドを生成する。
-		public void tサウンドを作成する( string strファイル名, CSound sound )
+		public void tCreateSound( string strファイル名, CSound sound )
 		{
 			sound.tOpenALサウンドを作成する(strファイル名);
 		}
-		public void tサウンドを作成する( byte[] byArrWAVファイルイメージ, CSound sound )
+		public void tCreateSound( byte[] byArrWAVファイルイメージ, CSound sound )
 		{
 			sound.tOpenALサウンドを作成する(byArrWAVファイルイメージ);
 		}

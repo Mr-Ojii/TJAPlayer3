@@ -1102,7 +1102,7 @@ namespace TJAPlayer3
 						soundDeviceType = ESoundDeviceType.Unknown;
 						break;
 				}
-				TJAPlayer3.Sound管理.t初期化( soundDeviceType,
+				TJAPlayer3.Sound管理.tInitialize( soundDeviceType,
 										this.iSystemWASAPIBufferSizeMs.n現在の値,
 										0,
 										// this.iSystemASIOBufferSizeMs.n現在の値,

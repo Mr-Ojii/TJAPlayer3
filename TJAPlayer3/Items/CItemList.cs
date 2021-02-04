@@ -26,12 +26,12 @@ namespace TJAPlayer3
 		public CItemList(string str項目名, int n初期インデックス値, string str説明文jp, params string[] arg項目リスト)
 			: this()
 		{
-			this.t初期化(str項目名, n初期インデックス値, str説明文jp, arg項目リスト);
+			this.tInitialize(str項目名, n初期インデックス値, str説明文jp, arg項目リスト);
 		}
 		public CItemList(string str項目名, int n初期インデックス値, string str説明文jp, string str説明文en, params string[] arg項目リスト)
 			: this()
 		{
-			this.t初期化(str項目名, n初期インデックス値, str説明文jp, str説明文en, arg項目リスト);
+			this.tInitialize(str項目名, n初期インデックス値, str説明文jp, str説明文en, arg項目リスト);
 		}
 
 		// CItemBase 実装
@@ -54,21 +54,21 @@ namespace TJAPlayer3
 				this.n現在選択されている項目番号 = this.list項目値.Count - 1;
 			}
 		}
-		public override void t初期化( string str項目名 )
+		public override void tInitialize( string str項目名 )
 		{
-			base.t初期化( str項目名 );
+			base.tInitialize( str項目名 );
 			this.n現在選択されている項目番号 = 0;
 			this.list項目値.Clear();
 		}
-		public void t初期化( string str項目名, int n初期インデックス値, params string[] arg項目リスト )
+		public void tInitialize( string str項目名, int n初期インデックス値, params string[] arg項目リスト )
 		{
-			this.t初期化(str項目名, n初期インデックス値, "", "",arg項目リスト);
+			this.tInitialize(str項目名, n初期インデックス値, "", "",arg項目リスト);
 		}
-		public void t初期化(string str項目名, int n初期インデックス値, string str説明文jp, params string[] arg項目リスト) {
-			this.t初期化(str項目名, n初期インデックス値, str説明文jp, str説明文jp, arg項目リスト);
+		public void tInitialize(string str項目名, int n初期インデックス値, string str説明文jp, params string[] arg項目リスト) {
+			this.tInitialize(str項目名, n初期インデックス値, str説明文jp, str説明文jp, arg項目リスト);
 		}
-		public void t初期化(string str項目名, int n初期インデックス値, string str説明文jp, string str説明文en, params string[] arg項目リスト) {
-			base.t初期化(str項目名, str説明文jp, str説明文en);
+		public void tInitialize(string str項目名, int n初期インデックス値, string str説明文jp, string str説明文en, params string[] arg項目リスト) {
+			base.tInitialize(str項目名, str説明文jp, str説明文en);
 			this.n現在選択されている項目番号 = n初期インデックス値;
 			foreach (string str in arg項目リスト) {
 				this.list項目値.Add(str);
@@ -108,7 +108,7 @@ namespace TJAPlayer3
 		public CSwitchItemList( string str項目名, int n初期インデックス値, string str説明文jp, string str説明文en, params string[] arg項目リスト )
 			: this()
 		{
-			this.t初期化( str項目名, n初期インデックス値, str説明文jp, str説明文en, arg項目リスト );
+			this.tInitialize( str項目名, n初期インデックス値, str説明文jp, str説明文en, arg項目リスト );
 		}
 
 		public override void tEnter押下()

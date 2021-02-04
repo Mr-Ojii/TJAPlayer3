@@ -37,15 +37,15 @@ namespace TJAPlayer3
 		public CItemBase( string str項目名 )
 			: this()
 		{
-			this.t初期化( str項目名 );
+			this.tInitialize( str項目名 );
 		}
 		public CItemBase(string str項目名, string str説明文jp)
 			: this() {
-			this.t初期化(str項目名, str説明文jp);
+			this.tInitialize(str項目名, str説明文jp);
 		}
 		public CItemBase(string str項目名,  string str説明文jp, string str説明文en)
 			: this() {
-			this.t初期化(str項目名, str説明文jp, str説明文en);
+			this.tInitialize(str項目名, str説明文jp, str説明文en);
 		}
 
 		
@@ -61,14 +61,14 @@ namespace TJAPlayer3
 		{
 		}
 
-		public virtual void t初期化( string str項目名 )
+		public virtual void tInitialize( string str項目名 )
 		{
-			this.t初期化(str項目名, "", "");
+			this.tInitialize(str項目名, "", "");
 		}
-		public virtual void t初期化(string str項目名, string str説明文jp) {
-			this.t初期化(str項目名, str説明文jp, str説明文jp);
+		public virtual void tInitialize(string str項目名, string str説明文jp) {
+			this.tInitialize(str項目名, str説明文jp, str説明文jp);
 		}
-		public virtual void t初期化(string str項目名, string str説明文jp, string str説明文en) {
+		public virtual void tInitialize(string str項目名, string str説明文jp, string str説明文en) {
 			this.str項目名 = str項目名;
 			this.str説明文 = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? str説明文jp : str説明文en;
 		}
