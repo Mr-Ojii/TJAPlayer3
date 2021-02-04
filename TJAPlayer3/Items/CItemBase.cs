@@ -13,8 +13,8 @@ namespace TJAPlayer3
 	{
 		// プロパティ
 
-		public E種別 e種別;
-		public enum E種別
+		public EItemType eItemType;
+		public enum EItemType
 		{
 			Base,
 			Toggle,

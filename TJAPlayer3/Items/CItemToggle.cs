@@ -18,7 +18,7 @@ namespace TJAPlayer3
 
 		public CItemToggle()
 		{
-			base.e種別 = CItemBase.E種別.Toggle;
+			base.eItemType = CItemBase.EItemType.Toggle;
 			this.bON = false;
 		}
 		public CItemToggle( string str項目名, bool b初期状態 )

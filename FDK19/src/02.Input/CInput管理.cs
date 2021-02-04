@@ -61,8 +61,6 @@ namespace FDK
 		// コンストラクタ
 		public CInput管理(IntPtr hWnd)
 		{
-			// this.timer = new CTimer( CTimer.E種別.MultiMedia );
-
 			this.list入力デバイス = new List<IInputDevice>(10);
 			#region [ Enumerate keyboard/mouse: exception is masked if keyboard/mouse is not connected ]
 			CInputKeyboard cinputkeyboard = null;

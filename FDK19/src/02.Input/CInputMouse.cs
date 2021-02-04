@@ -18,8 +18,6 @@ namespace FDK
 
 			for (int i = 0; i < this.bMouseState.Length; i++)
 				this.bMouseState[i] = false;
-
-			//this.timer = new CTimer( CTimer.E種別.MultiMedia );
 			this.list入力イベント = new List<STInputEvent>(32);
 		}
 

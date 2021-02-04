@@ -19,7 +19,7 @@ namespace TJAPlayer3
 
 		public CItemInteger()
 		{
-			base.e種別 = CItemBase.E種別.Integer;
+			base.eItemType = CItemBase.EItemType.Integer;
 			this.n最小値 = 0;
 			this.n最大値 = 0;
 			this.n現在の値 = 0;

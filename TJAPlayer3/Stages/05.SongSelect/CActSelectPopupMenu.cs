@@ -96,12 +96,12 @@ namespace TJAPlayer3
 
 				if ( this.n現在の選択行 != lciMenuItems.Length - 1 )
 				{
-					if ( lciMenuItems[ n現在の選択行 ].cItem.e種別 == CItemBase.E種別.List ||
-						 lciMenuItems[ n現在の選択行 ].cItem.e種別 == CItemBase.E種別.Toggle	)
+					if ( lciMenuItems[ n現在の選択行 ].cItem.eItemType == CItemBase.EItemType.List ||
+						 lciMenuItems[ n現在の選択行 ].cItem.eItemType == CItemBase.EItemType.Toggle	)
 					{
 						lciMenuItems[ n現在の選択行 ].cItem.t項目値を次へ移動();
 					}
-					else if ( lciMenuItems[ n現在の選択行 ].cItem.e種別 == CItemBase.E種別.Integer )
+					else if ( lciMenuItems[ n現在の選択行 ].cItem.eItemType == CItemBase.EItemType.Integer )
 					{
 						bIsSelectingIntItem = !bIsSelectingIntItem;		// 選択状態/選択解除状態を反転する
 					}

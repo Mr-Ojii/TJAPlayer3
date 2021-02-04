@@ -19,7 +19,7 @@ namespace TJAPlayer3
 
 		public CItemList()
 		{
-			base.e種別 = CItemBase.E種別.List;
+			base.eItemType = CItemBase.EItemType.List;
 			this.n現在選択されている項目番号 = 0;
 			this.list項目値 = new List<string>();
 		}
