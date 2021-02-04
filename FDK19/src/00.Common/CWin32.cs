@@ -8,7 +8,7 @@ namespace FDK
 {
 	public class CWin32
 	{
-		#region [ Win32 構造体 ]
+		#region [ Win32 Struct ]
 		//-----------------
 		[StructLayout(LayoutKind.Sequential)]
 		public struct WAVEFORMATEX

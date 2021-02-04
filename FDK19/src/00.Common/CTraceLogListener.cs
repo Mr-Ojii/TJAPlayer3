@@ -32,8 +32,8 @@ namespace FDK
 			{
 				try
 				{
-					this.tイベント種別を出力する( eventType );
-					this.tインデントを出力する();
+					this.tWriteEventType( eventType );
+					this.tWriteIndent();
 					this.streamWriter.WriteLine( message );
 				}
 				catch( ObjectDisposedException )
@@ -47,8 +47,8 @@ namespace FDK
 			{
 				try
 				{
-					this.tイベント種別を出力する( eventType );
-					this.tインデントを出力する();
+					this.tWriteEventType( eventType );
+					this.tWriteIndent();
 					this.streamWriter.WriteLine( string.Format( format, args ) );
 				}
 				catch( ObjectDisposedException )
@@ -103,7 +103,7 @@ namespace FDK
 		//-----------------
 		private StreamWriter streamWriter;
 
-		private void tイベント種別を出力する( TraceEventType eventType )
+		private void tWriteEventType( TraceEventType eventType )
 		{
 			if( this.streamWriter != null )
 			{
@@ -137,7 +137,7 @@ namespace FDK
 				}
 			}
 		}
-		private void tインデントを出力する()
+		private void tWriteIndent()
 		{
 			if( ( this.streamWriter != null ) && ( base.IndentLevel > 0 ) )
 			{

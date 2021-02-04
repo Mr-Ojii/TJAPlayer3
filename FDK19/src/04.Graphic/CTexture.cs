@@ -87,16 +87,14 @@ namespace FDK
 		/// <para>利用可能な画像形式は、BMP, JPG, PNG, TGA, DDS, PPM, DIB, HDR, PFM のいずれか。</para>
 		/// </summary>
 		/// <param name="device">Direct3D9 デバイス。</param>
-		/// <param name="strファイル名">画像ファイル名。</param>
-		/// <param name="format">テクスチャのフォーマット。</param>
-		/// <param name="b黒を透過する">画像の黒（0xFFFFFFFF）を透過させるなら true。</param>
+		/// <param name="strFilename">画像ファイル名。</param>
 		/// <exception cref="CTextureCreateFailedException">テクスチャの作成に失敗しました。</exception>
-		public CTexture(Device device, string strファイル名)
+		public CTexture(Device device, string strFilename)
 			: this()
 		{
 			maketype = MakeType.filename;
-			filename = strファイル名;
-			MakeTexture(device, strファイル名);
+			filename = strFilename;
+			MakeTexture(device, strFilename);
 		}
 		public CTexture(Device device, Bitmap bitmap, bool b黒を透過する)
 			: this()
@@ -111,12 +109,12 @@ namespace FDK
 			MakeTexture(device, image, b黒を透過する);
 		}
 
-		public void MakeTexture(Device device, string strファイル名)
+		public void MakeTexture(Device device, string strFilename)
 		{
-			if (!File.Exists(strファイル名))     // #27122 2012.1.13 from: ImageInformation では FileNotFound 例外は返ってこないので、ここで自分でチェックする。わかりやすいログのために。
-				throw new FileNotFoundException(string.Format("ファイルが存在しません。\n[{0}]", strファイル名));
+			if (!File.Exists(strFilename))     // #27122 2012.1.13 from: ImageInformation では FileNotFound 例外は返ってこないので、ここで自分でチェックする。わかりやすいログのために。
+				throw new FileNotFoundException(string.Format("File does not exist. \n[{0}]", strFilename));
 
-			MakeTexture(device, SixLabors.ImageSharp.Image.Load<Argb32>(strファイル名), false);
+			MakeTexture(device, SixLabors.ImageSharp.Image.Load<Argb32>(strFilename), false);
 		}
 		public void MakeTexture(Device device, SixLabors.ImageSharp.Image<Argb32> bitmap, bool b黒を透過する)
 		{
@@ -126,7 +124,7 @@ namespace FDK
 			try
 			{
 				this.szTextureSize = new Size(bitmap.Width, bitmap.Height);
-				this.rc全画像 = new Rectangle(0, 0, this.szTextureSize.Width, this.szTextureSize.Height);
+				this.rcImageRect = new Rectangle(0, 0, this.szTextureSize.Width, this.szTextureSize.Height);
 
 				//VBOをここで生成する
 				this.vrtVBO = GL.GenBuffer();
@@ -178,7 +176,7 @@ namespace FDK
 			catch
 			{
 				this.Dispose();
-				throw new CTextureCreateFailedException(string.Format("テクスチャの生成に失敗しました。\n"));
+				throw new CTextureCreateFailedException(string.Format("Failed to create texture. \n"));
 			}
 		}
 		// メソッド
@@ -214,7 +212,7 @@ namespace FDK
 
 		public void t2D描画(Device device, RefPnt refpnt, float x, float y) 
 		{
-			this.t2D描画(device, refpnt, x, y, rc全画像);
+			this.t2D描画(device, refpnt, x, y, rcImageRect);
 		}
 		public void t2D描画(Device device, RefPnt refpnt, float x, float y, Rectangle rect)
 		{
@@ -258,7 +256,7 @@ namespace FDK
 
 		public void t2D拡大率考慮描画(Device device, RefPnt refpnt, float x, float y)
 		{
-			this.t2D拡大率考慮描画(device, refpnt, x, y, rc全画像);
+			this.t2D拡大率考慮描画(device, refpnt, x, y, rcImageRect);
 		}
 		public void t2D拡大率考慮描画(Device device, RefPnt refpnt, float x, float y, Rectangle rect)
 		{
@@ -301,7 +299,7 @@ namespace FDK
 		}
 		public void t2D元サイズ基準描画(Device device, RefPnt refpnt, float x, float y)
 		{
-			this.t2D元サイズ基準描画(device, refpnt, x, y, rc全画像);
+			this.t2D元サイズ基準描画(device, refpnt, x, y, rcImageRect);
 		}
 		public void t2D元サイズ基準描画(Device device, RefPnt refpnt, float x, float y, Rectangle rect)
 		{
@@ -351,7 +349,7 @@ namespace FDK
 		/// <param name="y">描画位置（テクスチャの左上位置の Y 座標[dot]）。</param>
 		public void t2D描画(Device device, float x, float y)
 		{
-			this.t2D描画(device, x, y, 1f, this.rc全画像);
+			this.t2D描画(device, x, y, 1f, this.rcImageRect);
 		}
 		public void t2D描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
 		{
@@ -374,8 +372,8 @@ namespace FDK
 				float h = rc画像内の描画領域.Height;
 				float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szTextureSize.Width);
 				float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szTextureSize.Width);
-				float f上V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
-				float f下V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
+				float f上V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
+				float f下V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
 
 				this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
@@ -417,8 +415,8 @@ namespace FDK
 				float f中央Y = ((float)rc画像内の描画領域.Height) / 2f;
 				float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szTextureSize.Width);
 				float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szTextureSize.Width);
-				float f上V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
-				float f下V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
+				float f上V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
+				float f下V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
 
 				this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
@@ -482,8 +480,8 @@ namespace FDK
 			float h = rc画像内の描画領域.Height;
 			float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szTextureSize.Width);
 			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szTextureSize.Width);
-			float f上V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
-			float f下V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
+			float f上V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
+			float f下V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
 
 			this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
@@ -520,7 +518,7 @@ namespace FDK
 
 		public void t2D上下反転描画(Device device, float x, float y)
 		{
-			this.t2D上下反転描画(device, x, y, 1f, this.rc全画像);
+			this.t2D上下反転描画(device, x, y, 1f, this.rcImageRect);
 		}
 		public void t2D上下反転描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
 		{
@@ -529,7 +527,7 @@ namespace FDK
 		public void t2D上下反転描画(Device device, float x, float y, float depth, Rectangle rc画像内の描画領域)
 		{
 			if (this.texture == null)
-				throw new InvalidOperationException("テクスチャは生成されていません。");
+				throw new InvalidOperationException("Texture is not generated. ");
 
 			this.tSetBlendMode(device);
 
@@ -539,8 +537,8 @@ namespace FDK
 			float h = rc画像内の描画領域.Height;
 			float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szTextureSize.Width);
 			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szTextureSize.Width);
-			float f上V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
-			float f下V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
+			float f上V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
+			float f下V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
 
 			this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
@@ -575,7 +573,7 @@ namespace FDK
 
 		public void t2D左右反転描画(Device device, float x, float y)
 		{
-			this.t2D左右反転描画(device, x, y, 1f, this.rc全画像);
+			this.t2D左右反転描画(device, x, y, 1f, this.rcImageRect);
 		}
 		public void t2D左右反転描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
 		{
@@ -584,7 +582,7 @@ namespace FDK
 		public void t2D左右反転描画(Device device, float x, float y, float depth, Rectangle rc画像内の描画領域)
 		{
 			if (this.texture == null)
-				throw new InvalidOperationException("テクスチャは生成されていません。");
+				throw new InvalidOperationException("Texture is not generated. ");
 
 			this.tSetBlendMode(device);
 
@@ -594,8 +592,8 @@ namespace FDK
 			float h = rc画像内の描画領域.Height;
 			float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szTextureSize.Width);
 			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szTextureSize.Width);
-			float f上V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
-			float f下V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
+			float f上V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
+			float f下V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
 
 			this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
@@ -633,7 +631,7 @@ namespace FDK
 		/// </summary>
 		public void t3D描画(Device device, System.Numerics.Matrix4x4 mat)
 		{
-			this.t3D描画(device, mat, this.rc全画像);
+			this.t3D描画(device, mat, this.rcImageRect);
 		}
 		public void t3D描画(Device device, System.Numerics.Matrix4x4 mat, Rectangle rc画像内の描画領域)
 		{
@@ -661,8 +659,8 @@ namespace FDK
 			float y = ((float)rc画像内の描画領域.Height) / 2f;
 			float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szTextureSize.Width);
 			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szTextureSize.Width); 
-			float f上V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
-			float f下V値 = ((float)(rc全画像.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
+			float f上V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
+			float f下V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
 
 			this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
@@ -730,9 +728,9 @@ namespace FDK
 			// CTextureのDispose漏れと見做して警告をログ出力する
 			if (!this.bTextureDisposed)//DTXManiaより
 			{
-				Trace.TraceWarning("CTexture: Dispose漏れを検出しました。(Size=({0}, {1}), filename={2}, maketype={3})", szTextureSize.Width, szTextureSize.Height, filename, maketype.ToString());
+				Trace.TraceWarning("CTexture: Texture memory leak detected.(Size=({0}, {1}), filename={2}, maketype={3})", szTextureSize.Width, szTextureSize.Height, filename, maketype.ToString());
+				this.Dispose();//Disposeしておく
 			}
-			//マネージド リソースらしいので、解放はしない
 		}
 		//-----------------
 		#endregion
@@ -820,7 +818,7 @@ namespace FDK
 
 		// 2012.3.21 さらなる new の省略作戦
 
-		protected Rectangle rc全画像;                              // テクスチャ作ったらあとは不変
+		protected Rectangle rcImageRect;                              // テクスチャ作ったらあとは不変
 		public Color color = Color.FromArgb(255, 255, 255, 255);
 		private Matrix4 matrix = Matrix4.Identity;
 		private MakeType maketype = MakeType.bytearray;
