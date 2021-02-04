@@ -347,9 +347,9 @@ namespace TJAPlayer3
 
 						//if( CDTXMania.DTX == null )
 						{
-							TJAPlayer3.DTX[0] = new CDTX( str, false, 1.0, ini.stファイル.BGMAdjust, 0, true );
+							TJAPlayer3.DTX[0] = new CDTX( str, false, 1.0, ini.stファイル.BGMAdjust, 0, TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] == TJAPlayer3.stage選曲.n確定された曲の難易度[1]);
 							if( TJAPlayer3.ConfigIni.nPlayerCount == 2 )
-								TJAPlayer3.DTX[1] = new CDTX( str, false, 1.0, ini.stファイル.BGMAdjust, 1, true );
+								TJAPlayer3.DTX[1] = new CDTX( str, false, 1.0, ini.stファイル.BGMAdjust, 1, TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] == TJAPlayer3.stage選曲.n確定された曲の難易度[1]);
 
 							Trace.TraceInformation( "----曲情報-----------------" );
 							Trace.TraceInformation( "TITLE: {0}", TJAPlayer3.DTX[0].TITLE );

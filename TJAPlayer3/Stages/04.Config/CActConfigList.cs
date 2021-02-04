@@ -1068,7 +1068,7 @@ namespace TJAPlayer3
 			prvFont.Dispose();
 			base.On非活性化();
 			#region [ Skin変更 ]
-			if ( TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName( true ) != this.skinSubFolder_org )
+			if (TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(true).Replace(System.IO.Path.DirectorySeparatorChar, '/') != this.skinSubFolder_org.Replace(System.IO.Path.DirectorySeparatorChar, '/'))
 			{
 				TJAPlayer3.app.RefleshSkin();
 			}

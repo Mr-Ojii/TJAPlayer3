@@ -2940,7 +2940,7 @@ namespace TJAPlayer3
 
 			var panelString = TJAPlayer3.IsPerformingCalibration
 				? "Calibrating input..."
-				: string.IsNullOrEmpty( TJAPlayer3.DTX[0].PANEL ) ? TJAPlayer3.DTX[0].TITLE: TJAPlayer3.DTX[0].PANEL;
+				: TJAPlayer3.DTX[0].TITLE;
 
 			string subtitle = (TJAPlayer3.ConfigIni.eSubtitleDispMode == ESubtitleDispMode.On || (TJAPlayer3.ConfigIni.eSubtitleDispMode==ESubtitleDispMode.Compliant && TJAPlayer3.DTX[0].SUBTITLEDisp)) ? TJAPlayer3.DTX[0].SUBTITLE : null;
 

@@ -597,7 +597,6 @@ namespace TJAPlayer3
 		public Dictionary<int, CDELAY> listDELAY;
 		public Dictionary<int, CBRANCH> listBRANCH;
 		public STLANEINT n可視チップ数;
-		public string PANEL;
 		public string PATH_WAV;
 		public string strファイル名;
 		public string strファイル名の絶対パス;
@@ -614,8 +613,6 @@ namespace TJAPlayer3
 
 		private int nNowRoll = 0;
 		private int nNowRollCount = 0;
-
-		private int[] n連打チップ_temp = new int[3];
 
 		public int nOFFSET = 0;
 		private bool bOFFSETの値がマイナスである = false;
@@ -721,7 +718,6 @@ namespace TJAPlayer3
 			this.SUBTITLEDisp = false;
 			this.ARTIST = "";
 			this.COMMENT = "";
-			this.PANEL = "";
 			this.GENRE = "";
 			this.bLyrics = false;
 			this.BACKGROUND = "";
@@ -2500,9 +2496,8 @@ namespace TJAPlayer3
 
 			//多難易度選択が可能になったので、セッション譜面は同じ難易度再生の時以外はお預けにしておく
 			int n読み込むセッション譜面パート = 0;
-			if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongLoading)//2020.05.12 Mr-Ojii 起動直後の曲読み込みでエラーを吐くので対策
-				if (TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] == TJAPlayer3.stage選曲.n確定された曲の難易度[1])
-					n読み込むセッション譜面パート = nPlayerSide + 1;
+			if (this.bSession譜面を読み込む)
+				n読み込むセッション譜面パート = nPlayerSide + 1;
 
 			if (n読み込むセッション譜面パート >= 1) 
 			{
@@ -3463,9 +3458,8 @@ namespace TJAPlayer3
 
 				//多難易度選択が可能になったので、セッション譜面は同じ難易度再生の時以外はお預けにしておく
 				int n読み込むセッション譜面パート = 0;
-				if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongLoading)//2020.05.12 Mr-Ojii 起動直後の曲読み込みでエラーを吐くので対策
-					if (TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] == TJAPlayer3.stage選曲.n確定された曲の難易度[1])
-						n読み込むセッション譜面パート = nPlayerSide + 1;
+				if (this.bSession譜面を読み込む)
+					n読み込むセッション譜面パート = nPlayerSide + 1;
 
 				//指定したコースの譜面の命令を消去する。
 				strSplitした譜面[n読み込むコース] = CDTXStyleExtractor.tセッション譜面がある(
