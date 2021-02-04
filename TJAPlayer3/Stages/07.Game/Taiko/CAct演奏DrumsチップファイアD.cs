@@ -83,17 +83,6 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-	//            this.txアタックエフェクトUpper = CDTXMania.tテクスチャの生成Af( CSkin.Path( @"Graphics/7_explosion_upper.png" ) );
-	//            this.txアタックエフェクトUpper_big = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_explosion_upper_big.png" ) );
-				//if( this.txアタックエフェクトUpper != null )
-				//{
-				//	this.txアタックエフェクトUpper.b加算合成 = true;
-				//}
-	//            this.tx大音符花火[0] = CDTXMania.tテクスチャの生成Af( CSkin.Path( @"Graphics/7_explosion_bignotes_red.png" ) );
-	//            this.tx大音符花火[0].b加算合成 = true;
-	//            this.tx大音符花火[1] = CDTXMania.tテクスチャの生成Af( CSkin.Path( @"Graphics/7_explosion_bignotes_blue.png" ) );
-	//            this.tx大音符花火[1].b加算合成 = true;
-				//this.tx紙吹雪 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_particle paper.png" ) );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -101,11 +90,6 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//CDTXMania.t安全にDisposeする( ref this.txアタックエフェクトUpper );
-				//CDTXMania.t安全にDisposeする( ref this.txアタックエフェクトUpper_big );
-	//            CDTXMania.t安全にDisposeする( ref this.tx大音符花火[ 0 ] );
-	//            CDTXMania.t安全にDisposeする( ref this.tx大音符花火[ 1 ] );
-				//CDTXMania.t安全にDisposeする( ref this.tx紙吹雪 );
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -180,20 +164,13 @@ namespace TJAPlayer3
 									{
 										float fX = 415 - ((TJAPlayer3.Tx.Effects_Hit_Explosion_Big.szTextureSize.Width * TJAPlayer3.Tx.Effects_Hit_Explosion_Big.vcScaling.X ) / 2.0f);
 										float fY = TJAPlayer3.Skin.nJudgePointY[ this.st状態_大[ i ].nPlayer ] - ((TJAPlayer3.Tx.Effects_Hit_Explosion_Big.szTextureSize.Height * TJAPlayer3.Tx.Effects_Hit_Explosion_Big.vcScaling.Y ) / 2.0f);
-										//float fY = 257 - ((this.txアタックエフェクトUpper_big.szTextureSize.Height * this.txアタックエフェクトUpper_big.vcScaling.Y ) / 2.0f);
 
 										////7
 										float f倍率 = 0.5f + ( (this.st状態_大[ i ].ct進行.n現在の値 * 0.5f) / 10.0f);
-										//this.txアタックエフェクトUpper_big.vcScaling.X = f倍率;
-										//this.txアタックエフェクトUpper_big.vcScaling.Y = f倍率;
-										//this.txアタックエフェクトUpper_big.n透明度 = (int)(255 * f倍率);
-										//this.txアタックエフェクトUpper_big.t2D描画( CDTXMania.app.Device, fX, fY );
 
 										Matrix4x4 mat = Matrix4x4.Identity;
 										mat *= Matrix4x4.CreateScale( f倍率, f倍率, f倍率 );
 										mat *= Matrix4x4.CreateTranslation(TJAPlayer3.Skin.nScrollFieldX[this.st状態_大[i].nPlayer] - GameWindowSize.Width / 2.0f, -(TJAPlayer3.Skin.nJudgePointY[this.st状態[i].nPlayer] - GameWindowSize.Height / 2.0f), 0f);
-										//mat *= Matrix.Billboard( new Vector3( 15, 15, 15 ), new Vector3(0, 0, 0), new Vector3( 0, 0, 0 ), new Vector3( 0, 0, 0 ) );
-										//mat *= Matrix.Translation( 0f, 0f, 0f );
 
 
 										TJAPlayer3.Tx.Effects_Hit_Explosion_Big.Opacity = 255;
@@ -220,11 +197,6 @@ namespace TJAPlayer3
 
 		#region [ private ]
 		//-----------------
-		//private CTextureAf txアタックエフェクトUpper;
-		//private CTexture txアタックエフェクトUpper_big;
-		//private CTextureAf[] tx大音符花火 = new CTextureAf[2];
-		//private CTexture tx紙吹雪;
-
 		protected STSTATUS[] st状態 = new STSTATUS[ 3 * 4 ];
 		protected STSTATUS_B[] st状態_大 = new STSTATUS_B[ 3 * 4 ];
 

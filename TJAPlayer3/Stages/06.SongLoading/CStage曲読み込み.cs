@@ -105,7 +105,7 @@ namespace TJAPlayer3
 						{
 							using (var bmpSongTitle = pfTITLE.DrawPrivateFont(タイトル, TJAPlayer3.Skin.SongLoading_Title_ForeColor, TJAPlayer3.Skin.SongLoading_Title_BackColor))
 							{
-								this.txタイトル = TJAPlayer3.tテクスチャの生成(bmpSongTitle);
+								this.txタイトル = TJAPlayer3.tCreateTexture(bmpSongTitle);
 								this.txタイトル.vcScaling.X = TJAPlayer3.GetSongNameXScaling(ref txタイトル, 710);
 							}
 						}
@@ -114,7 +114,7 @@ namespace TJAPlayer3
 						{
 							using (var bmpSongSubTitle = pfSUBTITLE.DrawPrivateFont(サブタイトル, TJAPlayer3.Skin.SongLoading_SubTitle_ForeColor, TJAPlayer3.Skin.SongLoading_SubTitle_BackColor))
 							{
-								this.txサブタイトル = TJAPlayer3.tテクスチャの生成(bmpSongSubTitle);
+								this.txサブタイトル = TJAPlayer3.tCreateTexture(bmpSongSubTitle);
 							}
 						}
 					}
@@ -370,7 +370,7 @@ namespace TJAPlayer3
 										{
 											using (var bmpSongTitle = pfTitle.DrawPrivateFont(TJAPlayer3.DTX[0].List_DanSongs[i].Title, TJAPlayer3.Skin.Game_DanC_Title_ForeColor, TJAPlayer3.Skin.Game_DanC_Title_BackColor))
 											{
-												TJAPlayer3.DTX[0].List_DanSongs[i].TitleTex = TJAPlayer3.tテクスチャの生成(bmpSongTitle);
+												TJAPlayer3.DTX[0].List_DanSongs[i].TitleTex = TJAPlayer3.tCreateTexture(bmpSongTitle);
 												TJAPlayer3.DTX[0].List_DanSongs[i].TitleTex.vcScaling.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX[0].List_DanSongs[i].TitleTex, 710);
 											}
 										}
@@ -382,7 +382,7 @@ namespace TJAPlayer3
 										{
 											using (var bmpSongSubTitle = pfSubTitle.DrawPrivateFont(TJAPlayer3.DTX[0].List_DanSongs[i].SubTitle, TJAPlayer3.Skin.Game_DanC_SubTitle_ForeColor, TJAPlayer3.Skin.Game_DanC_SubTitle_BackColor))
 											{
-												TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex = TJAPlayer3.tテクスチャの生成(bmpSongSubTitle);
+												TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex = TJAPlayer3.tCreateTexture(bmpSongSubTitle);
 												TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex.vcScaling.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex, 710);
 											}
 										}

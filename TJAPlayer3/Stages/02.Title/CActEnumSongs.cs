@@ -75,7 +75,7 @@ namespace TJAPlayer3
 				{
 					using (CPrivateFont pffont = new CPrivateFont(new FontFamily(TJAPlayer3.DefaultFontName), 32, FontStyle.Bold))
 					{
-						this.txMessage = TJAPlayer3.tテクスチャの生成(pffont.DrawPrivateFont(strMessage[ci], Color.White), true);
+						this.txMessage = TJAPlayer3.tCreateTexture(pffont.DrawPrivateFont(strMessage[ci], Color.White), true);
 						this.txMessage.vcScaling = new System.Numerics.Vector3(0.5f, 0.5f, 1f);
 					}
 				}

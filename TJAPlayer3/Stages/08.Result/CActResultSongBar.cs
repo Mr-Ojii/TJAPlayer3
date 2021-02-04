@@ -43,7 +43,7 @@ namespace TJAPlayer3
 
 				using (var bmpSongTitle = pfMusicName.DrawPrivateFont(title, TJAPlayer3.Skin.Result_MusicName_ForeColor, TJAPlayer3.Skin.Result_MusicName_BackColor))
 				{
-					this.txMusicName = TJAPlayer3.tテクスチャの生成(bmpSongTitle);
+					this.txMusicName = TJAPlayer3.tCreateTexture(bmpSongTitle);
 					txMusicName.vcScaling.X = TJAPlayer3.GetSongNameXScaling(ref txMusicName);
 				}
 			}
@@ -52,7 +52,7 @@ namespace TJAPlayer3
 			{
 				using (var bmpStageText = pfStageText.DrawPrivateFont(TJAPlayer3.Skin.Game_StageText, TJAPlayer3.Skin.Result_StageText_ForeColor, TJAPlayer3.Skin.Result_StageText_BackColor))
 				{
-					this.txStageText = TJAPlayer3.tテクスチャの生成(bmpStageText);
+					this.txStageText = TJAPlayer3.tCreateTexture(bmpStageText);
 				}
 			}
 

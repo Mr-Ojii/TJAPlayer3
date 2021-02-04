@@ -559,7 +559,7 @@ namespace TJAPlayer3
 
 				using (CPrivateFont pffont = new CPrivateFont(TJAPlayer3.ConfigIni.FontName, 32, FontStyle.Regular))
 				{
-					this.txSongNotFound = TJAPlayer3.tテクスチャの生成(pffont.DrawPrivateFont(s1[c], Color.White), true);
+					this.txSongNotFound = TJAPlayer3.tCreateTexture(pffont.DrawPrivateFont(s1[c], Color.White), true);
 					this.txSongNotFound.vcScaling = new System.Numerics.Vector3(0.5f, 0.5f, 1f);
 				}
 			}
@@ -577,7 +577,7 @@ namespace TJAPlayer3
 
 				using (CPrivateFont pffont = new CPrivateFont(TJAPlayer3.ConfigIni.FontName, 32, FontStyle.Regular))
 				{
-					this.txEnumeratingSongs = TJAPlayer3.tテクスチャの生成(pffont.DrawPrivateFont(s1[c], Color.White), true);
+					this.txEnumeratingSongs = TJAPlayer3.tCreateTexture(pffont.DrawPrivateFont(s1[c], Color.White), true);
 					this.txEnumeratingSongs.vcScaling = new System.Numerics.Vector3(0.5f, 0.5f, 1f);
 				}
 			}
@@ -589,7 +589,7 @@ namespace TJAPlayer3
 			}
 			#endregion
 			#region [ 曲数表示 ]
-			//this.txアイテム数数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/ScreenSelect skill number on gauge etc.png" ), false );
+			//this.txアイテム数数字 = CDTXMania.tCreateTexture( CSkin.Path( @"Graphics/ScreenSelect skill number on gauge etc.png" ), false );
 			#endregion
 			base.OnManagedリソースの作成();
 		}
@@ -1664,7 +1664,7 @@ namespace TJAPlayer3
 			using (var bmp = titleTextureKey.cPrivateFastFont.DrawPrivateFont(
 				titleTextureKey.str文字, titleTextureKey.forecolor, titleTextureKey.backcolor, true))
 			{
-				CTexture tx文字テクスチャ = TJAPlayer3.tテクスチャの生成(bmp);
+				CTexture tx文字テクスチャ = TJAPlayer3.tCreateTexture(bmp);
 				if (tx文字テクスチャ.szTextureSize.Height > titleTextureKey.maxHeight)
 				{
 					tx文字テクスチャ.vcScaling.Y = (float)(((double)titleTextureKey.maxHeight) / tx文字テクスチャ.szTextureSize.Height);

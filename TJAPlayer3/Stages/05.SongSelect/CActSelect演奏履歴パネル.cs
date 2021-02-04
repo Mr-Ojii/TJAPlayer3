@@ -140,17 +140,17 @@ namespace TJAPlayer3
 					{
 						if (!string.IsNullOrEmpty(First[index]))
 						{
-							this.First[index] = TJAPlayer3.tテクスチャの生成(Font.DrawPrivateFont(First[index], Color.Black));
+							this.First[index] = TJAPlayer3.tCreateTexture(Font.DrawPrivateFont(First[index], Color.Black));
 							this.First[index].vcScaling = new Vector3(0.5f);
 						}
 						if (!string.IsNullOrEmpty(Second[index]))
 						{
-							this.Second[index] = TJAPlayer3.tテクスチャの生成(Font.DrawPrivateFont(Second[index], Color.Black));
+							this.Second[index] = TJAPlayer3.tCreateTexture(Font.DrawPrivateFont(Second[index], Color.Black));
 							this.Second[index].vcScaling = new Vector3(0.5f);
 						}
 						if (!string.IsNullOrEmpty(Third[index]))
 						{
-							this.Third[index] = TJAPlayer3.tテクスチャの生成(Font.DrawPrivateFont(Third[index], Color.Black));
+							this.Third[index] = TJAPlayer3.tCreateTexture(Font.DrawPrivateFont(Third[index], Color.Black));
 							this.Third[index].vcScaling = new Vector3(0.5f);
 						}
 					}

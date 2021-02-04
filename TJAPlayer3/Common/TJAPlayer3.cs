@@ -982,7 +982,7 @@ namespace TJAPlayer3
 
 #region [ 汎用ヘルパー ]
 		//-----------------
-		public static CTexture tテクスチャの生成(string fileName)
+		public static CTexture tCreateTexture(string fileName)
 		{
 			if (app == null)
 			{
@@ -1004,11 +1004,11 @@ namespace TJAPlayer3
 				return null;
 			}
 		}
-		public static CTexture tテクスチャの生成(Bitmap bitmap)
+		public static CTexture tCreateTexture(Bitmap bitmap)
 		{
-			return tテクスチャの生成(bitmap, false);
+			return tCreateTexture(bitmap, false);
 		}
-		public static CTexture tテクスチャの生成(Bitmap bitmap, bool b黒を透過する)
+		public static CTexture tCreateTexture(Bitmap bitmap, bool b黒を透過する)
 		{
 			if (app == null)
 			{
@@ -1030,7 +1030,7 @@ namespace TJAPlayer3
 				return null;
 			}
 		}
-		public static CTexture tテクスチャの生成(SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> image)
+		public static CTexture tCreateTexture(SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> image)
 		{
 			if (app == null)
 			{
@@ -1074,7 +1074,7 @@ namespace TJAPlayer3
 		/// <returns></returns>
 		public static CTexture ColorTexture(SixLabors.ImageSharp.Color color, int width, int height)
 		{
-			return TJAPlayer3.tテクスチャの生成(new Image<Argb32>(width, height, color));
+			return TJAPlayer3.tCreateTexture(new Image<Argb32>(width, height, color));
 		}
 
 		/// <summary>プロパティ、インデクサには ref は使用できないので注意。</summary>

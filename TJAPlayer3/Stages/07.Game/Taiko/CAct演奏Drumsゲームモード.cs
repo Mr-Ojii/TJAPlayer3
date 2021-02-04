@@ -66,11 +66,6 @@ namespace TJAPlayer3
 		private int n最後に時間延長した時刻;
 		private int n演奏時間;
 		private int n前回の延長時間;
-		//private CTexture tx残り時間数字;
-		//private CTexture tx背景黒;
-		//private CTexture tx加算時間数字;
-		//private CTexture txタイマー枠;
-		//private CTexture txタイマー針;
 
 		[StructLayout(LayoutKind.Sequential)]
 		private struct STボーナス
@@ -373,21 +368,11 @@ namespace TJAPlayer3
 
 		public override void OnManagedリソースの作成()
 		{
-			//this.tx残り時間数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_combo taiko.png" ) );
-			//this.tx加算時間数字 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_Score_number_1P.png" ) );
-			//this.txタイマー枠 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_TimerPanel.png" ) );
-			//this.txタイマー針 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_TimerTick.png" ) );
-			//this.tx背景黒 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/Tile black 64x64.png" ) );
 			base.OnManagedリソースの作成();
 		}
 
 		public override void OnManagedリソースの解放()
 		{
-			//CDTXMania.t安全にDisposeする( ref this.tx残り時間数字 );
-			//CDTXMania.t安全にDisposeする( ref this.tx加算時間数字 );
-			//CDTXMania.t安全にDisposeする( ref this.txタイマー枠 );
-			//CDTXMania.t安全にDisposeする( ref this.txタイマー針 );
-			//CDTXMania.t安全にDisposeする( ref this.tx背景黒 );
 			base.OnManagedリソースの解放();
 		}
 

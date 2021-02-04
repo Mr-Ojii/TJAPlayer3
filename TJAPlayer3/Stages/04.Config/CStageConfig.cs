@@ -126,10 +126,6 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//this.tx背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/4_background.jpg" ), false );
-				//this.tx上部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/4_header panel.png" ) );
-				//this.tx下部パネル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/4_footer panel.png" ) );
-				//this.txMenuカーソル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/ScreenConfig menu cursor.png" ) );
 				string[] strMenuItem = {"System", "Drums", "Exit"};
 				txMenuItemLeft = new CTexture[strMenuItem.Length, 2];
 				using (var prvFont = new CPrivateFastFont(CSkin.Path(@"mplus-1p-heavy.ttf"), 20))
@@ -138,11 +134,11 @@ namespace TJAPlayer3
 					{
 						using (var bmpStr = prvFont.DrawPrivateFont(strMenuItem[i], Color.White, Color.Black))
 						{
-							txMenuItemLeft[i, 0] = TJAPlayer3.tテクスチャの生成(bmpStr);
+							txMenuItemLeft[i, 0] = TJAPlayer3.tCreateTexture(bmpStr);
 						}
 						using (var bmpStr = prvFont.DrawPrivateFont(strMenuItem[i], Color.White, Color.Black, Color.Yellow, Color.OrangeRed))
 						{
-							txMenuItemLeft[i, 1] = TJAPlayer3.tテクスチャの生成(bmpStr);
+							txMenuItemLeft[i, 1] = TJAPlayer3.tCreateTexture(bmpStr);
 						}
 					}
 				}
@@ -229,14 +225,9 @@ namespace TJAPlayer3
 			int stepY = 39;
 			for ( int i = 0; i < txMenuItemLeft.GetLength( 0 ); i++ )
 			{
-				//Bitmap bmpStr = (this.n現在のメニュー番号 == i) ?
-				//      prvFont.DrawPrivateFont( strMenuItem[ i ], Color.White, Color.Black, Color.Yellow, Color.OrangeRed ) :
-				//      prvFont.DrawPrivateFont( strMenuItem[ i ], Color.White, Color.Black );
-				//txMenuItemLeft = CDTXMania.tテクスチャの生成( bmpStr, false );
 				int flag = ( this.n現在のメニュー番号 == i ) ? 1 : 0;
 				int num4 = txMenuItemLeft[ i, flag ].szTextureSize.Width;
 				txMenuItemLeft[i, flag].t2D描画(TJAPlayer3.app.Device, 282 - (num4 / 2) + TJAPlayer3.Skin.Config_ItemText_Correction_X, menuY + TJAPlayer3.Skin.Config_ItemText_Correction_Y ); //55
-				//txMenuItem.Dispose();
 				menuY += stepY;
 			}
 			//---------------------
@@ -602,7 +593,7 @@ namespace TJAPlayer3
 						{
 							this.tx説明文パネル.Dispose();
 						}
-						this.tx説明文パネル = TJAPlayer3.tテクスチャの生成(image, true);
+						this.tx説明文パネル = TJAPlayer3.tCreateTexture(image, true);
 					}
 				}
 			}
@@ -633,7 +624,7 @@ namespace TJAPlayer3
 						{
 							this.tx説明文パネル.Dispose();
 						}
-						this.tx説明文パネル = TJAPlayer3.tテクスチャの生成(image, true);
+						this.tx説明文パネル = TJAPlayer3.tCreateTexture(image, true);
 					}
 				}
 			}

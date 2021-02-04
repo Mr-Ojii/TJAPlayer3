@@ -59,11 +59,11 @@ namespace TJAPlayer3
 
 		internal CTexture TxC(string FileName)
 		{
-			return TJAPlayer3.tテクスチャの生成(CSkin.Path(BASE + FileName));
+			return TJAPlayer3.tCreateTexture(CSkin.Path(BASE + FileName));
 		}
 		internal CTexture TxCGen(string FileName)
 		{
-			return TJAPlayer3.tテクスチャの生成(CSkin.Path(BASE + GAME + GENRE + FileName + ".png"));
+			return TJAPlayer3.tCreateTexture(CSkin.Path(BASE + GAME + GENRE + FileName + ".png"));
 		}
 
 		public void LoadTexture()

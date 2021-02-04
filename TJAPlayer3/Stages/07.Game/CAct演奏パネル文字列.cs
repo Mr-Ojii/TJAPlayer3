@@ -40,7 +40,7 @@ namespace TJAPlayer3
 						TJAPlayer3.t安全にDisposeする(ref txSubTitleName);
 						using (var bmpSongTitle = pfMusicName.DrawPrivateFont(songName, TJAPlayer3.Skin.Game_MusicName_ForeColor, TJAPlayer3.Skin.Game_MusicName_BackColor))
 						{
-							this.txMusicName = TJAPlayer3.tテクスチャの生成( bmpSongTitle );
+							this.txMusicName = TJAPlayer3.tCreateTexture( bmpSongTitle );
 						}
 						if (txMusicName != null)
 						{
@@ -50,7 +50,7 @@ namespace TJAPlayer3
 						{
 							using (var bmpSubTitle = pfSubTitleName.DrawPrivateFont(subtitle, TJAPlayer3.Skin.Game_MusicName_ForeColor, TJAPlayer3.Skin.Game_MusicName_BackColor))
 							{
-								this.txSubTitleName = TJAPlayer3.tテクスチャの生成(bmpSubTitle);
+								this.txSubTitleName = TJAPlayer3.tCreateTexture(bmpSubTitle);
 							}
 							if (txSubTitleName != null)
 							{
@@ -60,7 +60,7 @@ namespace TJAPlayer3
 
 						using (Bitmap bmpDiff = pfMusicName.DrawPrivateFont(stageText, TJAPlayer3.Skin.Game_StageText_ForeColor, TJAPlayer3.Skin.Game_StageText_BackColor))
 						{
-							this.tx難易度とステージ数 = TJAPlayer3.tテクスチャの生成( bmpDiff );
+							this.tx難易度とステージ数 = TJAPlayer3.tCreateTexture( bmpDiff );
 						}
 					}
 					catch( CTextureCreateFailedException e )
@@ -84,7 +84,7 @@ namespace TJAPlayer3
 		public void t歌詞テクスチャを生成する( Bitmap bmplyric )
 		{
 			TJAPlayer3.t安全にDisposeする(ref this.tx歌詞テクスチャ);
-			this.tx歌詞テクスチャ = TJAPlayer3.tテクスチャの生成( bmplyric );
+			this.tx歌詞テクスチャ = TJAPlayer3.tCreateTexture( bmplyric );
 		}
 
 		public void t歌詞テクスチャを削除する()

@@ -59,31 +59,12 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//this.txゲージ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_Gauge.png" ) );
-				//this.txゲージ背景 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_Gauge_base.png" ) );
-	//            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-	//                this.txゲージ2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_Gauge_2P.png" ) );
-	//            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-	//                this.txゲージ背景2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_Gauge_base_2P.png" ) );
-	//            this.txゲージ線 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_Gauge_line.png" ) );
-	//            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-	//                this.txゲージ線2P = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_Gauge_line_2P.png" ) );
-
-	//            this.tx魂 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_Soul.png" ) );
-	//            this.tx炎 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_Soul_fire.png" ) );
-
-	//            this.tx魂花火 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/7_explosion_soul.png" ) );
-				//for( int i = 0; i < 12; i++ )
-				//{
-				//    this.txゲージ虹[ i ] = CDTXMania.tテクスチャの生成( CSkin.Path(@"Graphics/Gauge/Gauge_rainbow_" + i.ToString() + ".png") );
-				//}
 				if(TJAPlayer3.Skin.Game_Gauge_Rainbow_Timer <= 1)
 				{
 					throw new DivideByZeroException("SkinConfigの設定\"Game_Gauge_Rainbow_Timer\"を1以下にすることは出来ません。");
 				}
 				this.ct虹アニメ = new CCounter( 0, TJAPlayer3.Skin.Game_Gauge_Rainbow_Ptn -1, TJAPlayer3.Skin.Game_Gauge_Rainbow_Timer, TJAPlayer3.Timer );
 				this.ct虹透明度 = new CCounter(0, TJAPlayer3.Skin.Game_Gauge_Rainbow_Timer-1, 1, TJAPlayer3.Timer);
-				//this.tx音符 = CDTXMania.tテクスチャの生成(CSkin.Path(@"Graphics/7_taiko_notes.png"));
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -91,27 +72,7 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//CDTXMania.t安全にDisposeする( ref this.txゲージ );
-				//CDTXMania.t安全にDisposeする( ref this.txゲージ背景 );
-	//            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-	//                CDTXMania.t安全にDisposeする( ref this.txゲージ2P );
-	//            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-	//                CDTXMania.t安全にDisposeする( ref this.txゲージ背景2P );
-	//            CDTXMania.t安全にDisposeする( ref this.txゲージ線 );
-	//            if (CDTXMania.stage演奏ドラム画面.bDoublePlay)
-	//                CDTXMania.t安全にDisposeする( ref this.txゲージ線2P );
-	//            CDTXMania.t安全にDisposeする( ref this.tx魂 );
-	//            CDTXMania.t安全にDisposeする( ref this.tx炎 );
-	//            CDTXMania.t安全にDisposeする( ref this.tx魂花火 );
-
-
-	//            for( int i = 0; i < 12; i++ )
-	//            {
-	//                CDTXMania.t安全にDisposeする( ref this.txゲージ虹[ i ] );
-	//            }
 				this.ct虹アニメ = null;
-
-				//CDTXMania.t安全にDisposeする(ref this.tx音符);
 				base.OnManagedリソースの解放();
 			}
 		}

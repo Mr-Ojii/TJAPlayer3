@@ -35,7 +35,6 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//CDTXMania.t安全にDisposeする( ref this.tx幕 );
 				base.On非活性化();
 			}
 		}
@@ -43,7 +42,6 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//this.tx幕 = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/8_background_mask.png" ) );
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -111,7 +109,6 @@ namespace TJAPlayer3
 		//-----------------
 		private CCounter counter;
 		private EFIFOMode mode;
-		//private CTexture tx幕;
 		//-----------------
 		#endregion
 	}

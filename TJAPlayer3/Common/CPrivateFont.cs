@@ -24,7 +24,7 @@ namespace TJAPlayer3
 	/// とか
 	/// Bitmap bmp = prvFont.DrawPrivateFont( "ABCDE", Color.White, Color.Black, Color.Yellow, Color.OrangeRed ); // 上下グラデーション(Yellow→OrangeRed)
 	/// とかして、
-	/// CTexture ctBmp = CDTXMania.tテクスチャの生成( bmp, false );
+	/// CTexture ctBmp = CDTXMania.tCreateTexture( bmp, false );
 	/// ctBMP.t2D描画( ～～～ );
 	/// で表示してください。
 	/// 

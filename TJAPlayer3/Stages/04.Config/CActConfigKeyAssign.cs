@@ -90,8 +90,6 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//CDTXMania.t安全にDisposeする( ref this.txカーソル );
-				//CDTXMania.t安全にDisposeする( ref this.txHitKeyダイアログ );
 				base.On非活性化();
 			}
 		}
@@ -99,8 +97,6 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				//this.txカーソル = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/ScreenConfig menu cursor.png" ), false );
-				//this.txHitKeyダイアログ = CDTXMania.tテクスチャの生成( CSkin.Path( @"Graphics/ScreenConfig hit key to assign dialog.png" ), false );
 				base.OnManagedリソースの作成();
 			}
 		}
