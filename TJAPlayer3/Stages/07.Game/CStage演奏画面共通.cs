@@ -62,7 +62,7 @@ namespace TJAPlayer3
 			base.list子Activities.Add(this.PuchiChara = new PuchiChara());
 
 			base.list子Activities.Add(this.actDan = new Dan_Cert());
-			base.list子Activities.Add(this.actTokkun = new CAct演奏Drums特訓モード());
+			base.list子Activities.Add(this.actTraining = new CAct演奏Drums特訓モード());
 			#region[ 文字初期化 ]
 			ST文字位置[] st文字位置Array = new ST文字位置[11];
 			ST文字位置 st文字位置 = new ST文字位置();
@@ -599,7 +599,7 @@ namespace TJAPlayer3
 				}
 				else if (TJAPlayer3.ConfigIni.bBGA有効)
 				{
-					if (TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード) actTokkun.On進行描画_背景();
+					if (TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード) actTraining.On進行描画_背景();
 					else actBackground.On進行描画();
 				}
 
@@ -660,7 +660,7 @@ namespace TJAPlayer3
 				this.GoGoSplash.On進行描画();
 				this.t進行描画_リアルタイム判定数表示();
 				if (TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
-					this.actTokkun.On進行描画_小節_速度();
+					this.actTraining.On進行描画_小節_速度();
 
 				if (!TJAPlayer3.ConfigIni.bNoInfo)
 					this.actCombo.On進行描画();
@@ -668,7 +668,7 @@ namespace TJAPlayer3
 					this.actScore.On進行描画();
 
 				if (TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
-					actTokkun.On進行描画();
+					actTraining.On進行描画();
 
 				this.Rainbow.On進行描画();
 				this.FireWorks.On進行描画();
@@ -714,10 +714,10 @@ namespace TJAPlayer3
 					if (TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
 					{
 						TJAPlayer3.Skin.sound特訓停止音.t再生する();
-						actTokkun.t演奏を停止する();
+						actTraining.t演奏を停止する();
 
-						actTokkun.n現在の小節線 = TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0];
-						actTokkun.t譜面の表示位置を合わせる(false);
+						actTraining.n現在の小節線 = TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0];
+						actTraining.t譜面の表示位置を合わせる(false);
 					}
 					else
 					{
@@ -890,7 +890,7 @@ namespace TJAPlayer3
 		public CAct演奏Drumsレーン太鼓 actLaneTaiko;
 		public CAct演奏Drums演奏終了演出 actEnd;
 		public CAct演奏Drums背景 actBackground;
-		public CAct演奏Drums特訓モード actTokkun;
+		public CAct演奏Drums特訓モード actTraining;
 		public Dan_Cert actDan;
 		public GoGoSplash GoGoSplash;
 		public FlyingNotes FlyingNotes;
