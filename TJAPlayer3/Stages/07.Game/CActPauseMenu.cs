@@ -8,12 +8,12 @@ using FDK;
 
 namespace TJAPlayer3
 {
-	internal class CAct演奏PauseMenu : CActSelectPopupMenu
+	internal class CActPauseMenu : CActSelectPopupMenu
 	{
 		private readonly string QuickCfgTitle = "Pause";
 		// コンストラクタ
 
-		public CAct演奏PauseMenu()
+		public CActPauseMenu()
 		{
 			CAct演奏PauseMenuMain();
 		}

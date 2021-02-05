@@ -8,11 +8,11 @@ using FDK;
 
 namespace TJAPlayer3
 {
-	internal class CAct演奏Combo音声 : CActivity
+	internal class CActComboVoice : CActivity
 	{
 		// コンストラクタ
 
-		public CAct演奏Combo音声()
+		public CActComboVoice()
 		{
 			base.b活性化してない = true;
 		}

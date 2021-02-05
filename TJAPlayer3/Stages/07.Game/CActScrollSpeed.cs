@@ -5,7 +5,7 @@ using FDK;
 
 namespace TJAPlayer3
 {
-	internal class CAct演奏スクロール速度 : CActivity
+	internal class CActScrollSpeed : CActivity
 	{
 		// プロパティ
 
@@ -14,7 +14,7 @@ namespace TJAPlayer3
 
 		// コンストラクタ
 
-		public CAct演奏スクロール速度()
+		public CActScrollSpeed()
 		{
 			base.b活性化してない = true;
 		}

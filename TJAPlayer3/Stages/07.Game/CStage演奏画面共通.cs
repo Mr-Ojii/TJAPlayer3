@@ -31,7 +31,7 @@ namespace TJAPlayer3
 			base.list子Activities.Add(this.actJudgeString = new CActJudgeString());
 			base.list子Activities.Add(this.actTaikoLaneFlash = new TaikoLaneFlash());
 			base.list子Activities.Add(this.actScore = new CActScore());
-			base.list子Activities.Add(this.act譜面スクロール速度 = new CAct演奏スクロール速度());
+			base.list子Activities.Add(this.actScrollSpeed = new CActScrollSpeed());
 			base.list子Activities.Add(this.actAVI = new CAct演奏AVI());
 			base.list子Activities.Add(this.actPanel = new CActPanel());
 			base.list子Activities.Add(this.actStageFailed = new CActStageFailed());
@@ -51,8 +51,8 @@ namespace TJAPlayer3
 			base.list子Activities.Add(this.actBackground = new CAct演奏Drums背景());
 			base.list子Activities.Add(this.actRollChara = new CAct演奏Drums連打キャラ());
 			base.list子Activities.Add(this.actComboBalloon = new CAct演奏Drumsコンボ吹き出し());
-			base.list子Activities.Add(this.actComboVoice = new CAct演奏Combo音声());
-			base.list子Activities.Add(this.actPauseMenu = new CAct演奏PauseMenu());
+			base.list子Activities.Add(this.actComboVoice = new CActComboVoice());
+			base.list子Activities.Add(this.actPauseMenu = new CActPauseMenu());
 			base.list子Activities.Add(this.actChipEffects = new CActChipEffects());
 			base.list子Activities.Add(this.actRunner = new CActRunner());
 			base.list子Activities.Add(this.actMob = new CActMob());
@@ -625,7 +625,7 @@ namespace TJAPlayer3
 				if (TJAPlayer3.ConfigIni.eGameMode != EGame.OFF)
 					this.actGame.On進行描画();
 
-				this.act譜面スクロール速度.On進行描画();
+				this.actScrollSpeed.On進行描画();
 				this.t進行描画_チップアニメ();
 
 				if (TJAPlayer3.ConfigIni.ShowRunner)
@@ -873,14 +873,14 @@ namespace TJAPlayer3
 		public CActPlayInfo actPlayInfo;
 		public CActScore actScore;
 		public CActStageFailed actStageFailed;
-		protected CAct演奏スクロール速度 act譜面スクロール速度;
+		protected CActScrollSpeed actScrollSpeed;
 		protected CActRoll actRoll;
 		protected CAct演奏Drums風船 actBalloon;
 		public CActChara actChara;
 		protected CAct演奏Drums連打キャラ actRollChara;
 		protected CAct演奏Drumsコンボ吹き出し actComboBalloon;
-		protected CAct演奏Combo音声 actComboVoice;
-		protected CAct演奏PauseMenu actPauseMenu;
+		protected CActComboVoice actComboVoice;
+		protected CActPauseMenu actPauseMenu;
 		public CActChipEffects actChipEffects;
 		public CActRunner actRunner;
 		public CActMob actMob;
@@ -2977,9 +2977,9 @@ namespace TJAPlayer3
 //Debug.WriteLine( "nCurrentTopChip=" + nCurrentTopChip + ", ch=" + pChip.nチャンネル番号.ToString("x2") + ", 発音位置=" + pChip.n発声位置 + ", 発声時刻ms=" + pChip.n発声時刻ms );
 				var time = pChip.n発声時刻ms - n現在時刻ms;
 				pChip.TimeSpan = (int) ( time );
-				pChip.nバーからの距離dot = (int) ( time * pChip.dbBPM * pChip.dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0 );//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
+				pChip.nバーからの距離dot = (int) ( time * pChip.dbBPM * pChip.dbSCROLL * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0 );//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
 				if( pChip.nノーツ終了時刻ms != 0 )
-					pChip.nバーからのノーツ末端距離dot = (int) (  ( pChip.nノーツ終了時刻ms - n現在時刻ms) * pChip.db末端BPM * pChip.db末端SCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+					pChip.nバーからのノーツ末端距離dot = (int) (  ( pChip.nノーツ終了時刻ms - n現在時刻ms) * pChip.db末端BPM * pChip.db末端SCROLL * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 
 				if ( TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL || TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.HBSCROLL )
 				{
@@ -2988,16 +2988,16 @@ namespace TJAPlayer3
 					var dbSCROLL = TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.dbSCROLL;
 					var db末端SCROLL = TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.db末端SCROLL;
 
-					pChip.nバーからの距離dot = (int)(3 * 0.8335 * ( ( pChip.fBMSCROLLTime * NOTE_GAP ) - ( play_bpm_time * NOTE_GAP ) ) * dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 ) / 2  / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+					pChip.nバーからの距離dot = (int)(3 * 0.8335 * ( ( pChip.fBMSCROLLTime * NOTE_GAP ) - ( play_bpm_time * NOTE_GAP ) ) * dbSCROLL * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0 ) / 2  / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 
 					if ( pChip.nノーツ終了時刻ms != 0 )
-						pChip.nバーからのノーツ末端距離dot = (int)( 3 * 0.8335 *( ( pChip.fBMSCROLLTime_end * NOTE_GAP) - ( play_bpm_time * NOTE_GAP ) ) * db末端SCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 ) / 2 /5.0);// 2020.04.20 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+						pChip.nバーからのノーツ末端距離dot = (int)( 3 * 0.8335 *( ( pChip.fBMSCROLLTime_end * NOTE_GAP) - ( play_bpm_time * NOTE_GAP ) ) * db末端SCROLL * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0 ) / 2 /5.0);// 2020.04.20 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 				}
 				else if(TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.REGULSPEED) 
 				{
-					pChip.nバーからの距離dot = (int)(time * TJAPlayer3.ConfigIni.nRegSpeedBPM * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0) / 502.8594 / 5.0);//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
+					pChip.nバーからの距離dot = (int)(time * TJAPlayer3.ConfigIni.nRegSpeedBPM * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0) / 502.8594 / 5.0);//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
 					if (pChip.nノーツ終了時刻ms != 0)
-						pChip.nバーからのノーツ末端距離dot = (int)((pChip.nノーツ終了時刻ms - n現在時刻ms) * TJAPlayer3.ConfigIni.nRegSpeedBPM * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0) / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+						pChip.nバーからのノーツ末端距離dot = (int)((pChip.nノーツ終了時刻ms - n現在時刻ms) * TJAPlayer3.ConfigIni.nRegSpeedBPM * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0) / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 				}
 
 				if (!pChip.IsMissed && !pChip.bHit)//2020.04.25 Mr-Ojii akasoko26さんのコードをもとに変更
@@ -4266,7 +4266,7 @@ namespace TJAPlayer3
 
 				if (pChip.nノーツ移動開始時刻ms != 0 && (nPlayTime < pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms))
 				{
-					x = (int)((((pChip.n発声時刻ms) - (pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms)) * pChip.dbBPM * pChip.dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0); // 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+					x = (int)((((pChip.n発声時刻ms) - (pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms)) * pChip.dbBPM * pChip.dbSCROLL * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0); // 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 				}
 				else
 				{
@@ -4328,14 +4328,14 @@ namespace TJAPlayer3
 				{
 					y = TJAPlayer3.Skin.nScrollFieldY[nPlayer];
 					if (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.Normal)
-						y += (int)(((pChip.n発声時刻ms - ((CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))) * pChip.dbBPM * pChip.dbSCROLL_Y * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0); // 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+						y += (int)(((pChip.n発声時刻ms - ((CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))) * pChip.dbBPM * pChip.dbSCROLL_Y * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0); // 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 					else if (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL || TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.HBSCROLL)
 					{
 						float play_bpm_time = this.GetNowPBMTime(dTX);
 
 						var dbSCROLL_Y = TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.dbSCROLL_Y;
 
-						y += (int)(3 * 0.8335 * ((pChip.fBMSCROLLTime * NOTE_GAP) - (play_bpm_time * NOTE_GAP)) * dbSCROLL_Y * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0) / 2 / 5.0);
+						y += (int)(3 * 0.8335 * ((pChip.fBMSCROLLTime * NOTE_GAP) - (play_bpm_time * NOTE_GAP)) * dbSCROLL_Y * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0) / 2 / 5.0);
 					}
 				}
 
@@ -4472,8 +4472,8 @@ namespace TJAPlayer3
 
 					if (pChip.nノーツ移動開始時刻ms != 0 && ((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms))
 					{
-						nノート座標 = (int)((((pChip.n発声時刻ms) - (pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms)) * pChip.dbBPM * pChip.dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
-						nノート末端座標 = (int)(((pChip.nノーツ終了時刻ms - (pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms)) * pChip.db末端BPM * pChip.db末端SCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+						nノート座標 = (int)((((pChip.n発声時刻ms) - (pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms)) * pChip.dbBPM * pChip.dbSCROLL * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+						nノート末端座標 = (int)(((pChip.nノーツ終了時刻ms - (pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms)) * pChip.db末端BPM * pChip.db末端SCROLL * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 					}
 					else
 					{
@@ -4719,7 +4719,7 @@ namespace TJAPlayer3
 
 			if (pChip.dbSCROLL_Y != 0.0)
 			{
-				y += (int)(((pChip.n発声時刻ms - (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))) * pChip.dbBPM * pChip.dbSCROLL_Y * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0);
+				y += (int)(((pChip.n発声時刻ms - (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))) * pChip.dbBPM * pChip.dbSCROLL_Y * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0);
 			}
 
 			if (!pChip.bHit && pChip.n発声時刻ms > CSoundManager.rc演奏用タイマ.n現在時刻ms * ((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)
