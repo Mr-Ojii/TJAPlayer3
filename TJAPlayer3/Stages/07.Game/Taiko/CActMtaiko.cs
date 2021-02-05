@@ -11,13 +11,13 @@ using Rectangle = System.Drawing.Rectangle;
 
 namespace TJAPlayer3
 {
-	internal class CAct演奏DrumsMtaiko : CActivity
+	internal class CActMtaiko : CActivity
 	{
 		/// <summary>
 		/// mtaiko部分を描画するクラス。左側だけ。
 		/// 
 		/// </summary>
-		public CAct演奏DrumsMtaiko()
+		public CActMtaiko()
 		{
 			base.b活性化してない = true;
 		}

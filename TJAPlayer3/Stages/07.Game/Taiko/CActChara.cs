@@ -18,9 +18,9 @@ namespace TJAPlayer3
 	//_ゴーゴータイムモーション
 	//_クリア時モーション
 	//
-	internal class CAct演奏Drumsキャラクター : CActivity
+	internal class CActChara : CActivity
 	{
-		public CAct演奏Drumsキャラクター()
+		public CActChara()
 		{
 
 		}

@@ -28,34 +28,34 @@ namespace TJAPlayer3
 			base.list子Activities.Add(this.actChipFireD = new CAct演奏DrumsチップファイアD());
 			base.list子Activities.Add(this.Rainbow = new Rainbow());
 			base.list子Activities.Add(this.actGauge = new CAct演奏Drumsゲージ());
-			base.list子Activities.Add(this.actJudgeString = new CAct演奏判定文字列共通());
+			base.list子Activities.Add(this.actJudgeString = new CActJudgeString());
 			base.list子Activities.Add(this.actTaikoLaneFlash = new TaikoLaneFlash());
-			base.list子Activities.Add(this.actScore = new CAct演奏スコア共通());
+			base.list子Activities.Add(this.actScore = new CActScore());
 			base.list子Activities.Add(this.act譜面スクロール速度 = new CAct演奏スクロール速度());
 			base.list子Activities.Add(this.actAVI = new CAct演奏AVI());
-			base.list子Activities.Add(this.actPanel = new CAct演奏パネル文字列());
-			base.list子Activities.Add(this.actStageFailed = new CAct演奏ステージ失敗());
-			base.list子Activities.Add(this.actPlayInfo = new CAct演奏演奏情報());
+			base.list子Activities.Add(this.actPanel = new CActPanel());
+			base.list子Activities.Add(this.actStageFailed = new CActStageFailed());
+			base.list子Activities.Add(this.actPlayInfo = new CActPlayInfo());
 			base.list子Activities.Add(this.actFI = new CActFIFOStart());
 			base.list子Activities.Add(this.actFO = new CActFIFOBlack());
 			base.list子Activities.Add(this.actFOClear = new CActFIFOResult());
 			base.list子Activities.Add(this.actLane = new CAct演奏Drumsレーン());
 			base.list子Activities.Add(this.actEnd = new CAct演奏Drums演奏終了演出());
-			base.list子Activities.Add(this.actDancer = new CAct演奏DrumsDancer());
-			base.list子Activities.Add(this.actMtaiko = new CAct演奏DrumsMtaiko());
+			base.list子Activities.Add(this.actDancer = new CActDancer());
+			base.list子Activities.Add(this.actMtaiko = new CActMtaiko());
 			base.list子Activities.Add(this.actLaneTaiko = new CAct演奏Drumsレーン太鼓());
-			base.list子Activities.Add(this.actRoll = new CAct演奏Drums連打());
+			base.list子Activities.Add(this.actRoll = new CActRoll());
 			base.list子Activities.Add(this.actBalloon = new CAct演奏Drums風船());
-			base.list子Activities.Add(this.actChara = new CAct演奏Drumsキャラクター());
+			base.list子Activities.Add(this.actChara = new CActChara());
 			base.list子Activities.Add(this.actGame = new CAct演奏Drumsゲームモード());
 			base.list子Activities.Add(this.actBackground = new CAct演奏Drums背景());
 			base.list子Activities.Add(this.actRollChara = new CAct演奏Drums連打キャラ());
 			base.list子Activities.Add(this.actComboBalloon = new CAct演奏Drumsコンボ吹き出し());
 			base.list子Activities.Add(this.actComboVoice = new CAct演奏Combo音声());
 			base.list子Activities.Add(this.actPauseMenu = new CAct演奏PauseMenu());
-			base.list子Activities.Add(this.actChipEffects = new CAct演奏Drumsチップエフェクト());
-			base.list子Activities.Add(this.actRunner = new CAct演奏DrumsRunner());
-			base.list子Activities.Add(this.actMob = new CAct演奏DrumsMob());
+			base.list子Activities.Add(this.actChipEffects = new CActChipEffects());
+			base.list子Activities.Add(this.actRunner = new CActRunner());
+			base.list子Activities.Add(this.actMob = new CActMob());
 			base.list子Activities.Add(this.GoGoSplash = new GoGoSplash());
 			base.list子Activities.Add(this.FlyingNotes = new FlyingNotes());
 			base.list子Activities.Add(this.FireWorks = new FireWorks());
@@ -257,12 +257,6 @@ namespace TJAPlayer3
 				this.ReSetScore(TJAPlayer3.DTX[nPlayer].nScoreInit[0, TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]], TJAPlayer3.DTX[nPlayer].nScoreDiff[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]], nPlayer);
 			this.eフェーズID = CStage.Eフェーズ.共通_通常状態;//初期化する。
 
-			listChip = new List<CDTX.CChip>[ 4 ];
-			for( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
-			{
-				listChip[i] = TJAPlayer3.DTX[i].listChip;
-			}
-
 			for (int index = TJAPlayer3.DTX[0].listChip.Count - 1; index >= 0; index--)
 			{
 				if (TJAPlayer3.DTX[0].listChip[index].nチャンネル番号 == 0x01)
@@ -280,10 +274,8 @@ namespace TJAPlayer3
 				ctChipAnimeLag[i] = new CCounter();
 			}
 
-			listWAV = TJAPlayer3.DTX[0].listWAV;
-
 			this.eFadeOut完了時の戻り値 = E演奏画面の戻り値.継続;
-			this.n現在のトップChip = ( listChip[0].Count > 0 ) ? 0 : -1;
+			this.n現在のトップChip = ( TJAPlayer3.DTX[0].listChip.Count > 0 ) ? 0 : -1;
 
 			this.nヒット数_Auto含まない[0] = new CHITCOUNTOFRANK();
 			this.nヒット数_Auto含まない[1] = new CHITCOUNTOFRANK();
@@ -347,7 +339,7 @@ namespace TJAPlayer3
 			db再生速度 = ( (double) TJAPlayer3.ConfigIni.n演奏速度 ) / 20.0;
 			
 			#region [ 演奏開始前にmixer登録しておくべきサウンド(開幕してすぐに鳴らすことになるチップ音)を登録しておく ]
-			foreach ( CDTX.CChip pChip in listChip[0] )
+			foreach ( CDTX.CChip pChip in TJAPlayer3.DTX[0].listChip )
 			{
 //				Debug.WriteLine( "CH=" + pChip.nチャンネル番号.ToString( "x2" ) + ", 整数値=" + pChip.n整数値 +  ", time=" + pChip.n発声時刻ms );
 				if ( pChip.n発声時刻ms <= 0 )
@@ -356,7 +348,7 @@ namespace TJAPlayer3
 					{
 						pChip.bHit = true;
 //						Trace.TraceInformation( "first [DA] BAR=" + pChip.n発声位置 / 384 + " ch=" + pChip.nチャンネル番号.ToString( "x2" ) + ", wav=" + pChip.n整数値 + ", time=" + pChip.n発声時刻ms );
-						if ( listWAV.TryGetValue( pChip.n整数値_内部番号, out CDTX.CWAV wc ) )
+						if ( TJAPlayer3.DTX[0].listWAV.TryGetValue( pChip.n整数値_内部番号, out CDTX.CWAV wc ) )
 						{
 							for ( int i = 0; i < nPolyphonicSounds; i++ )
 							{
@@ -464,9 +456,6 @@ namespace TJAPlayer3
 				ctChipAnimeLag[i] = null;
 			}
 
-			listWAV.Clear();
-			listWAV = null;
-			listChip = null;
 			queueMixerSound.Clear();
 			queueMixerSound = null;
 //			GCSettings.LatencyMode = this.gclatencymode;
@@ -877,27 +866,27 @@ namespace TJAPlayer3
 		protected CActFIFOResult actFOClear;
 		public    CAct演奏ゲージ共通 actGauge;
 
-		public CAct演奏DrumsDancer actDancer;
-		protected CAct演奏判定文字列共通 actJudgeString;
+		public CActDancer actDancer;
+		protected CActJudgeString actJudgeString;
 		public TaikoLaneFlash actTaikoLaneFlash;
-		public CAct演奏パネル文字列 actPanel;
-		public CAct演奏演奏情報 actPlayInfo;
-		public CAct演奏スコア共通 actScore;
-		public CAct演奏ステージ失敗 actStageFailed;
+		public CActPanel actPanel;
+		public CActPlayInfo actPlayInfo;
+		public CActScore actScore;
+		public CActStageFailed actStageFailed;
 		protected CAct演奏スクロール速度 act譜面スクロール速度;
-		protected CAct演奏Drums連打 actRoll;
+		protected CActRoll actRoll;
 		protected CAct演奏Drums風船 actBalloon;
-		public CAct演奏Drumsキャラクター actChara;
+		public CActChara actChara;
 		protected CAct演奏Drums連打キャラ actRollChara;
 		protected CAct演奏Drumsコンボ吹き出し actComboBalloon;
 		protected CAct演奏Combo音声 actComboVoice;
 		protected CAct演奏PauseMenu actPauseMenu;
-		public CAct演奏Drumsチップエフェクト actChipEffects;
-		public CAct演奏DrumsRunner actRunner;
-		public CAct演奏DrumsMob actMob;
+		public CActChipEffects actChipEffects;
+		public CActRunner actRunner;
+		public CActMob actMob;
 		public CAct演奏DrumsチップファイアD actChipFireD;
 		public CAct演奏Drumsレーン actLane;
-		public CAct演奏DrumsMtaiko actMtaiko;
+		public CActMtaiko actMtaiko;
 		public CAct演奏Drumsレーン太鼓 actLaneTaiko;
 		public CAct演奏Drums演奏終了演出 actEnd;
 		public CAct演奏Drums背景 actBackground;
@@ -939,8 +928,6 @@ namespace TJAPlayer3
 
 //		protected int nRisky_InitialVar, nRiskyTime;		// #23559 2011.7.28 yyagi → CAct演奏ゲージ共通クラスに隠蔽
 		protected int nPolyphonicSounds;
-		protected List<CDTX.CChip>[] listChip = new List<CDTX.CChip>[4];
-		protected Dictionary<int, CDTX.CWAV> listWAV;
 
 		public CBRANCHSCORE[] CBranchScore = new CBRANCHSCORE[6];
 		public bool[] bIsGOGOTIME = new bool[ 4 ];
@@ -1898,8 +1885,8 @@ namespace TJAPlayer3
 		protected CDTX.CChip GetChipOfNearest(long nowTime, int player)
 		{
 			var nearestChip = new CDTX.CChip();
-			var count = listChip[player].Count;
-			var chips = listChip[player];
+			var count = TJAPlayer3.DTX[player].listChip.Count;
+			var chips = TJAPlayer3.DTX[player].listChip;
 			var startPosision = NowProcessingChip[player];
 			CDTX.CChip pastChip; // 判定されるべき過去ノート
 			CDTX.CChip futureChip; // 判定されるべき未来ノート
@@ -2046,8 +2033,8 @@ namespace TJAPlayer3
 		protected CDTX.CChip GetChipOfNearest(long nowTime, int player, bool don)
 		{
 			var nearestChip = new CDTX.CChip();
-			var count = listChip[player].Count;
-			var chips = listChip[player];
+			var count = TJAPlayer3.DTX[player].listChip.Count;
+			var chips = TJAPlayer3.DTX[player].listChip;
 			var startPosision = NowProcessingChip[player];
 			CDTX.CChip pastChip; // 判定されるべき過去ノート
 			CDTX.CChip futureChip; // 判定されるべき未来ノート
@@ -2192,9 +2179,9 @@ namespace TJAPlayer3
 		{
 			nTime += nInputAdjustTime;
 
-			for ( int i = 0; i < listChip[ nPlayer ].Count; i++ )
+			for ( int i = 0; i < TJAPlayer3.DTX[nPlayer].listChip.Count; i++ )
 			{
-				CDTX.CChip chip = listChip[ nPlayer ][ i ];
+				CDTX.CChip chip = TJAPlayer3.DTX[nPlayer].listChip[ i ];
 				if ( !chip.bHit )
 				{
 					if ( ( ( 0x11 <= chip.nチャンネル番号 ) && ( chip.nチャンネル番号 <= 0x14 ) ) || chip.nチャンネル番号 == 0x1A || chip.nチャンネル番号 == 0x1B )
@@ -2961,7 +2948,7 @@ namespace TJAPlayer3
 			{
 				return true;
 			}
-			if ( ( this.n現在のトップChip == -1 ) || ( this.n現在のトップChip >= listChip[ nPlayer ].Count ) )
+			if ( ( this.n現在のトップChip == -1 ) || ( this.n現在のトップChip >= TJAPlayer3.DTX[nPlayer].listChip.Count ) )
 			{
 				return true;
 			}
@@ -2971,8 +2958,6 @@ namespace TJAPlayer3
 			}
 
 			var n現在時刻ms = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
-
-			CConfigIni configIni = TJAPlayer3.ConfigIni;
 
 			CDTX dTX = TJAPlayer3.DTX[nPlayer];
 
@@ -2996,19 +2981,19 @@ namespace TJAPlayer3
 				if( pChip.nノーツ終了時刻ms != 0 )
 					pChip.nバーからのノーツ末端距離dot = (int) (  ( pChip.nノーツ終了時刻ms - n現在時刻ms) * pChip.db末端BPM * pChip.db末端SCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 
-				if ( configIni.eScrollMode == EScrollMode.BMSCROLL || configIni.eScrollMode == EScrollMode.HBSCROLL )
+				if ( TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL || TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.HBSCROLL )
 				{
 					float play_bpm_time = this.GetNowPBMTime( dTX );
 
-					var dbSCROLL = configIni.eScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.dbSCROLL;
-					var db末端SCROLL = configIni.eScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.db末端SCROLL;
+					var dbSCROLL = TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.dbSCROLL;
+					var db末端SCROLL = TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.db末端SCROLL;
 
 					pChip.nバーからの距離dot = (int)(3 * 0.8335 * ( ( pChip.fBMSCROLLTime * NOTE_GAP ) - ( play_bpm_time * NOTE_GAP ) ) * dbSCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 ) / 2  / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 
 					if ( pChip.nノーツ終了時刻ms != 0 )
 						pChip.nバーからのノーツ末端距離dot = (int)( 3 * 0.8335 *( ( pChip.fBMSCROLLTime_end * NOTE_GAP) - ( play_bpm_time * NOTE_GAP ) ) * db末端SCROLL * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0 ) / 2 /5.0);// 2020.04.20 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 				}
-				else if(configIni.eScrollMode == EScrollMode.REGULSPEED) 
+				else if(TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.REGULSPEED) 
 				{
 					pChip.nバーからの距離dot = (int)(time * TJAPlayer3.ConfigIni.nRegSpeedBPM * (this.act譜面スクロール速度.db現在の譜面スクロール速度[nPlayer] + 1.0) / 502.8594 / 5.0);//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
 					if (pChip.nノーツ終了時刻ms != 0)
@@ -3074,7 +3059,7 @@ namespace TJAPlayer3
 						if ( !pChip.bHit && ( pChip.TimeSpan < 0 ) )
 						{
 							pChip.bHit = true;
-							if ( configIni.bBGM音を発声する )
+							if ( TJAPlayer3.ConfigIni.bBGM音を発声する )
 							{
 								dTX.tチップの再生( pChip, CSoundManager.rc演奏用タイマ.n前回リセットした時のシステム時刻ms + (long)(pChip.n発声時刻ms / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)));
 							}
@@ -3305,7 +3290,7 @@ namespace TJAPlayer3
 						{
 							if ((dTX.listVD.TryGetValue(pChip.n整数値, out CVideoDecoder vd)))
 							{
-								if (configIni.bAVI有効 && vd != null)
+								if (TJAPlayer3.ConfigIni.bAVI有効 && vd != null)
 								{
 									this.actAVI.Start(pChip.nチャンネル番号, vd);
 								}
@@ -3588,7 +3573,7 @@ namespace TJAPlayer3
 						{
 //Debug.WriteLine( "[DA(AddMixer)] BAR=" + pChip.n発声位置 / 384 + " ch=" + pChip.nチャンネル番号.ToString( "x2" ) + ", wav=" + pChip.n整数値.ToString( "x2" ) + ", time=" + pChip.n発声時刻ms );
 							pChip.bHit = true;
-							if ( listWAV.TryGetValue( pChip.n整数値_内部番号, out CDTX.CWAV wc ) )	// 参照が遠いので後日最適化する
+							if ( TJAPlayer3.DTX[0].listWAV.TryGetValue( pChip.n整数値_内部番号, out CDTX.CWAV wc ) )	// 参照が遠いので後日最適化する
 							{
 								for ( int i = 0; i < nPolyphonicSounds; i++ )
 								{
@@ -3608,7 +3593,7 @@ namespace TJAPlayer3
 						{
 //Debug.WriteLine( "[DB(RemoveMixer)] BAR=" + pChip.n発声位置 / 384 + " ch=" + pChip.nチャンネル番号.ToString( "x2" ) + ", wav=" + pChip.n整数値.ToString( "x2" ) + ", time=" + pChip.n発声時刻ms );
 							pChip.bHit = true;
-							if ( listWAV.TryGetValue( pChip.n整数値_内部番号, out CDTX.CWAV wc ) )	// 参照が遠いので後日最適化する
+							if ( TJAPlayer3.DTX[0].listWAV.TryGetValue( pChip.n整数値_内部番号, out CDTX.CWAV wc ) )	// 参照が遠いので後日最適化する
 							{
 								for ( int i = 0; i < nPolyphonicSounds; i++ )
 								{
@@ -3753,7 +3738,7 @@ namespace TJAPlayer3
 			{
 				return true;
 			}
-			if ( ( this.n現在のトップChip == -1 ) || ( this.n現在のトップChip >= listChip[ nPlayer ].Count ) )
+			if ( ( this.n現在のトップChip == -1 ) || ( this.n現在のトップChip >= TJAPlayer3.DTX[nPlayer].listChip.Count ) )
 			{
 				return true;
 			}

@@ -7,12 +7,12 @@ using FDK;
 
 namespace TJAPlayer3
 {
-	internal class CAct演奏パネル文字列 : CActivity
+	internal class CActPanel : CActivity
 	{
 
 		// コンストラクタ
 
-		public CAct演奏パネル文字列()
+		public CActPanel()
 		{
 			base.b活性化してない = true;
 			this.Start();

@@ -8,11 +8,11 @@ using FDK;
 
 namespace TJAPlayer3
 {
-	internal class CAct演奏ステージ失敗 : CActivity
+	internal class CActStageFailed : CActivity
 	{
 		// コンストラクタ
 
-		public CAct演奏ステージ失敗()
+		public CActStageFailed()
 		{
 			ST文字位置[] st文字位置Array = new ST文字位置[ 11 ];
 

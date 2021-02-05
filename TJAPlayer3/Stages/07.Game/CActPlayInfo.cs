@@ -6,17 +6,16 @@ using System.Diagnostics;
 
 namespace TJAPlayer3
 {
-	internal class CAct演奏演奏情報 : CActivity
+	internal class CActPlayInfo : CActivity
 	{
 		// プロパティ
 
 		public double dbBPM;
 		public readonly int[] NowMeasure = new int[2];
-		public double dbSCROLL;
 
 		// コンストラクタ
 
-		public CAct演奏演奏情報()
+		public CActPlayInfo()
 		{
 			base.b活性化してない = true;
 		}
@@ -31,7 +30,6 @@ namespace TJAPlayer3
 				NowMeasure[i] = 0;
 			}
 			this.dbBPM = TJAPlayer3.DTX[0].BASEBPM;
-			this.dbSCROLL = 1.0;
 			base.On活性化();
 		}
 		public override int On進行描画()
@@ -46,7 +44,7 @@ namespace TJAPlayer3
 				y += 15;
 				TJAPlayer3.act文字コンソール.tPrint(x, y, C文字コンソール.EFontType.白, string.Format("SCOREMODE:     {0:####0}", TJAPlayer3.DTX[0].nScoreModeTmp));
 				y += 15;
-				TJAPlayer3.act文字コンソール.tPrint(x, y, C文字コンソール.EFontType.白, string.Format("SCROLL:        {0:####0.00}", this.dbSCROLL));
+				TJAPlayer3.act文字コンソール.tPrint(x, y, C文字コンソール.EFontType.白, string.Format("SCROLL:        {0:####0.00}/{1:####0.00}", (TJAPlayer3.ConfigIni.n譜面スクロール速度[0] + 1) * 0.1, (TJAPlayer3.ConfigIni.n譜面スクロール速度[1] + 1) * 0.1));
 				y += 15;
 				TJAPlayer3.act文字コンソール.tPrint(x, y, C文字コンソール.EFontType.白, string.Format("NoteC:         {0:####0}", TJAPlayer3.DTX[0].nノーツ数[3]));
 				y += 15;

@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 
 namespace TJAPlayer3
 {
-	internal class CAct演奏スコア共通 : CActivity
+	internal class CActScore : CActivity
 	{
 		// プロパティ
 
@@ -52,7 +52,7 @@ namespace TJAPlayer3
 
 		// コンストラクタ
 
-		public CAct演奏スコア共通()
+		public CActScore()
 		{
 			ST文字位置[] st文字位置Array = new ST文字位置[11];
 			ST文字位置 st文字位置 = new ST文字位置();

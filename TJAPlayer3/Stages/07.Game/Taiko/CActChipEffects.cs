@@ -7,11 +7,11 @@ using FDK;
 
 namespace TJAPlayer3
 {
-	internal class CAct演奏Drumsチップエフェクト : CActivity
+	internal class CActChipEffects : CActivity
 	{
 		// コンストラクタ
 
-		public CAct演奏Drumsチップエフェクト()
+		public CActChipEffects()
 		{
 			//base.b活性化してない = true;
 		}

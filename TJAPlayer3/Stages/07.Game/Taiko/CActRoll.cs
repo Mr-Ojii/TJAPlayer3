@@ -8,11 +8,11 @@ using FDK;
 
 namespace TJAPlayer3
 {
-	internal class CAct演奏Drums連打 : CActivity
+	internal class CActRoll : CActivity
 	{
 
 
-		public CAct演奏Drums連打()
+		public CActRoll()
 		{
 			base.b活性化してない = true;
 		}

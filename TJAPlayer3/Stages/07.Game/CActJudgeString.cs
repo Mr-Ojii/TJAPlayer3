@@ -7,7 +7,7 @@ using FDK;
 
 namespace TJAPlayer3
 {
-	internal class CAct演奏判定文字列共通 : CActivity
+	internal class CActJudgeString : CActivity
 	{
 		// プロパティ
 
@@ -28,7 +28,7 @@ namespace TJAPlayer3
 
 		// コンストラクタ
 
-		public CAct演奏判定文字列共通()
+		public CActJudgeString()
 		{
 			this.st判定文字列 = new Rectangle[] {
 				new Rectangle( 0, 0,    90, 60 ),		// Perfect
