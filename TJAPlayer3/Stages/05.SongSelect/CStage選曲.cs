@@ -55,7 +55,7 @@ namespace TJAPlayer3
 			base.list子Activities.Add(this.actFOtoNowLoading = new CActFIFOStart());
 			base.list子Activities.Add(this.act曲リスト = new CActSelect曲リスト());
 			base.list子Activities.Add(this.actDifficultySelect = new CActSelectDifficultySelect());
-			base.list子Activities.Add(this.act演奏履歴パネル = new CActSelect演奏履歴パネル());
+			base.list子Activities.Add(this.actHistoryPanel = new CActSelectHistoryPanel());
 			base.list子Activities.Add(this.actPresound = new CActSelectPresound());
 			base.list子Activities.Add(this.actSortSongs = new CActSortSongs());
 			base.list子Activities.Add(this.actPlayOption = new CActSelectPlayOption());
@@ -402,7 +402,7 @@ namespace TJAPlayer3
 				if (this.act曲リスト.n現在選択中の曲の難易度レベル[0] != (int)Difficulty.Dan)
 					this.actPresound.On進行描画();
 
-				this.act演奏履歴パネル.On進行描画();
+				this.actHistoryPanel.On進行描画();
 
 				if (act曲リスト.r現在選択中の曲 != null && TJAPlayer3.Tx.SongSelect_Difficulty != null)
 					TJAPlayer3.Tx.SongSelect_Difficulty.t2D描画(TJAPlayer3.app.Device, 830, 40, new Rectangle(0, 70 * this.n現在選択中の曲の難易度[0], 260, 70));
@@ -1213,7 +1213,7 @@ namespace TJAPlayer3
 		//private CActFIFOBlack actFOtoNowLoading;
 		private CActFIFOStart actFOtoNowLoading;
 		private CActSelectPresound actPresound;
-		public CActSelect演奏履歴パネル act演奏履歴パネル;
+		public CActSelectHistoryPanel actHistoryPanel;
 		public CActSelect曲リスト act曲リスト;
 		internal CActSelectDifficultySelect actDifficultySelect;
 		private bool 完全に選択済み = false;

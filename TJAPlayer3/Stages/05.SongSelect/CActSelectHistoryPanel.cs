@@ -13,11 +13,11 @@ using Color = System.Drawing.Color;
 
 namespace TJAPlayer3
 {
-	internal class CActSelect演奏履歴パネル : CActivity
+	internal class CActSelectHistoryPanel : CActivity
 	{
 		// メソッド
 
-		public CActSelect演奏履歴パネル()
+		public CActSelectHistoryPanel()
 		{
 			base.b活性化してない = true;
 		}

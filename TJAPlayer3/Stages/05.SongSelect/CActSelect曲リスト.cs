@@ -481,7 +481,7 @@ namespace TJAPlayer3
 				nCurrentPosition = current;
 				nNumOfItems = count;
 			}
-			TJAPlayer3.stage選曲.act演奏履歴パネル.tSongChange();
+			TJAPlayer3.stage選曲.actHistoryPanel.tSongChange();
 		}
 
 		// CActivity 実装
