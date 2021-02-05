@@ -50,11 +50,11 @@ namespace TJAPlayer3
 			base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
 			base.b活性化してない = true;
 			base.list子Activities.Add(this.actFIFO = new CActFIFOBlack());
-			base.list子Activities.Add(this.actFIfrom結果画面 = new CActFIFOBlack());
+			base.list子Activities.Add(this.actFIfromResult = new CActFIFOBlack());
 			//base.list子Activities.Add( this.actFOtoNowLoading = new CActFIFOBlack() );
 			base.list子Activities.Add(this.actFOtoNowLoading = new CActFIFOStart());
 			base.list子Activities.Add(this.act曲リスト = new CActSelect曲リスト());
-			base.list子Activities.Add(this.act難易度選択画面 = new CActSelect難易度選択画面());
+			base.list子Activities.Add(this.actDifficultySelect = new CActSelectDifficultySelect());
 			base.list子Activities.Add(this.act演奏履歴パネル = new CActSelect演奏履歴パネル());
 			base.list子Activities.Add(this.actPresound = new CActSelectPresound());
 			base.list子Activities.Add(this.actSortSongs = new CActSortSongs());
@@ -93,7 +93,7 @@ namespace TJAPlayer3
 				for (int i = 0; i < 4; i++)
 					this.ctキー反復用[i] = new CCounter(0, 0, 0, TJAPlayer3.Timer);
 
-				//this.act難易度選択画面.bIsDifficltSelect = true;
+				//this.actDifficultySelect.bIsDifficltSelect = true;
 				base.On活性化();
 
 				現在の選曲画面状況 = E選曲画面.通常;
@@ -146,9 +146,9 @@ namespace TJAPlayer3
 				if (TJAPlayer3.Tx.SongSelect_Background != null)
 					this.ct背景スクロール用タイマー = new CCounter(0, TJAPlayer3.Tx.SongSelect_Background.szTextureSize.Width, 30, TJAPlayer3.Timer);
 				this.ctカウントダウン用タイマー = new CCounter(0, 100, 1000, TJAPlayer3.Timer);
-				this.ct難易度選択画面IN用タイマー = new CCounter(0, 750, 1, TJAPlayer3.Timer);
-				this.ct難易度選択画面INバー拡大用タイマー = new CCounter(0, 750, 1, TJAPlayer3.Timer);
-				this.ct難易度選択画面OUT用タイマー = new CCounter(0, 500, 1, TJAPlayer3.Timer);
+				this.ctDifficultySelectIN用タイマー = new CCounter(0, 750, 1, TJAPlayer3.Timer);
+				this.ctDifficultySelectINバー拡大用タイマー = new CCounter(0, 750, 1, TJAPlayer3.Timer);
+				this.ctDifficultySelectOUT用タイマー = new CCounter(0, 500, 1, TJAPlayer3.Timer);
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -172,7 +172,7 @@ namespace TJAPlayer3
 					this.ct登場時アニメ用共通 = new CCounter( 0, 100, 3, TJAPlayer3.Timer );
 					if( TJAPlayer3.r直前のステージ == TJAPlayer3.stageResult )
 					{
-						this.actFIfrom結果画面.tFadeIn開始();
+						this.actFIfromResult.tFadeIn開始();
 						base.eフェーズID = CStage.Eフェーズ.選曲_結果画面からのFadeIn;
 					}
 					else
@@ -216,17 +216,17 @@ namespace TJAPlayer3
 				if (現在の選曲画面状況 != E選曲画面.難易度選択)
 				{
 					this.act曲リスト.On進行描画();
-					this.act難易度選択画面.裏表示 = false;
-					this.act難易度選択画面.裏カウント[0] = 0;
+					this.actDifficultySelect.裏表示 = false;
+					this.actDifficultySelect.裏カウント[0] = 0;
 				}
 
 				if (現在の選曲画面状況 == E選曲画面.難易度選択In)
 				{
-					this.ct難易度選択画面IN用タイマー.t進行();
-					if (this.ct難易度選択画面IN用タイマー.b終了値に達した)
+					this.ctDifficultySelectIN用タイマー.t進行();
+					if (this.ctDifficultySelectIN用タイマー.b終了値に達した)
 					{
-						this.ct難易度選択画面INバー拡大用タイマー.t進行();
-						if (this.ct難易度選択画面INバー拡大用タイマー.b終了値に達した)
+						this.ctDifficultySelectINバー拡大用タイマー.t進行();
+						if (this.ctDifficultySelectINバー拡大用タイマー.b終了値に達した)
 						{
 
 							現在の選曲画面状況 = E選曲画面.難易度選択;
@@ -234,8 +234,8 @@ namespace TJAPlayer3
 					}
 					else
 					{
-						this.ct難易度選択画面INバー拡大用タイマー.n現在の値 = 0;
-						this.ct難易度選択画面INバー拡大用タイマー.t時間Reset();
+						this.ctDifficultySelectINバー拡大用タイマー.n現在の値 = 0;
+						this.ctDifficultySelectINバー拡大用タイマー.t時間Reset();
 					}
 
 					if (TJAPlayer3.Tx.Difficulty_Center_Bar != null)
@@ -243,14 +243,14 @@ namespace TJAPlayer3
 						//Bar_Centerの拡大アニメーション
 						int width = Math.Max(Math.Min(
 							TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[1] +
-							(int)((TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[3] - TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[1]) * (((double)ct難易度選択画面INバー拡大用タイマー.n現在の値 * 3) / ct難易度選択画面INバー拡大用タイマー.n終了値)),
+							(int)((TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[3] - TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[1]) * (((double)ctDifficultySelectINバー拡大用タイマー.n現在の値 * 3) / ctDifficultySelectINバー拡大用タイマー.n終了値)),
 							TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[3]), TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[1]);
 
 						int height = Math.Max(Math.Min(
-							TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[2] + (int)((TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[4] - TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[2]) * (((double)ct難易度選択画面INバー拡大用タイマー.n現在の値 * 2 - ct難易度選択画面INバー拡大用タイマー.n終了値 / 2) / ct難易度選択画面INバー拡大用タイマー.n終了値)),
+							TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[2] + (int)((TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[4] - TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[2]) * (((double)ctDifficultySelectINバー拡大用タイマー.n現在の値 * 2 - ctDifficultySelectINバー拡大用タイマー.n終了値 / 2) / ctDifficultySelectINバー拡大用タイマー.n終了値)),
 							TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[4]), TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[2]);
 
-						int ydiff = Math.Min(Math.Max(TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[5] + (int)((TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[6] - TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[5]) * (((double)ct難易度選択画面INバー拡大用タイマー.n現在の値 * 2 - ct難易度選択画面INバー拡大用タイマー.n終了値 / 2) / ct難易度選択画面INバー拡大用タイマー.n終了値)), TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[6]), TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[5]);
+						int ydiff = Math.Min(Math.Max(TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[5] + (int)((TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[6] - TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[5]) * (((double)ctDifficultySelectINバー拡大用タイマー.n現在の値 * 2 - ctDifficultySelectINバー拡大用タイマー.n終了値 / 2) / ctDifficultySelectINバー拡大用タイマー.n終了値)), TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[6]), TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[5]);
 
 						int xdiff = TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[0] - width / 2;
 
@@ -300,8 +300,8 @@ namespace TJAPlayer3
 						}
 					}
 
-					int xAnime = Math.Min((int)(200 * Math.Max((((double)ct難易度選択画面INバー拡大用タイマー.n現在の値 * 3) / ct難易度選択画面INバー拡大用タイマー.n終了値),0)),200);
-					int yAnime = Math.Min((int)(60 * Math.Max((((double)ct難易度選択画面INバー拡大用タイマー.n現在の値 * 2 - ct難易度選択画面INバー拡大用タイマー.n終了値 / 2) / ct難易度選択画面INバー拡大用タイマー.n終了値),0)),60);
+					int xAnime = Math.Min((int)(200 * Math.Max((((double)ctDifficultySelectINバー拡大用タイマー.n現在の値 * 3) / ctDifficultySelectINバー拡大用タイマー.n終了値),0)),200);
+					int yAnime = Math.Min((int)(60 * Math.Max((((double)ctDifficultySelectINバー拡大用タイマー.n現在の値 * 2 - ctDifficultySelectINバー拡大用タイマー.n終了値 / 2) / ctDifficultySelectINバー拡大用タイマー.n終了値),0)),60);
 
 					if (this.act曲リスト.ttk選択している曲のサブタイトル != null)
 					{
@@ -319,21 +319,21 @@ namespace TJAPlayer3
 				}
 				else
 				{
-					this.ct難易度選択画面IN用タイマー.n現在の値 = 0;
-					this.ct難易度選択画面IN用タイマー.t時間Reset();
+					this.ctDifficultySelectIN用タイマー.n現在の値 = 0;
+					this.ctDifficultySelectIN用タイマー.t時間Reset();
 				}
 
 				if (現在の選曲画面状況 == E選曲画面.難易度選択Out)
 				{
-					this.ct難易度選択画面OUT用タイマー.t進行();
-					if (this.ct難易度選択画面OUT用タイマー.b終了値に達した)	{
+					this.ctDifficultySelectOUT用タイマー.t進行();
+					if (this.ctDifficultySelectOUT用タイマー.b終了値に達した)	{
 						現在の選曲画面状況 = E選曲画面.通常;
 					}
 				}
 				else
 				{
-					this.ct難易度選択画面OUT用タイマー.n現在の値=0;
-					this.ct難易度選択画面OUT用タイマー.t時間Reset();
+					this.ctDifficultySelectOUT用タイマー.n現在の値=0;
+					this.ctDifficultySelectOUT用タイマー.t時間Reset();
 				}
 
 
@@ -341,7 +341,7 @@ namespace TJAPlayer3
 				//	this.bIsEnumeratingSongs = !this.actPreimageパネル.bIsPlayingPremovie;				// #27060 2011.3.2 yyagi: #PREMOVIE再生中は曲検索を中断する
 				if (現在の選曲画面状況 == E選曲画面.難易度選択)
 				{
-                    this.act難易度選択画面.On進行描画();
+                    this.actDifficultySelect.On進行描画();
 				}
 
 				if( TJAPlayer3.Tx.SongSelect_Header != null )
@@ -491,9 +491,9 @@ namespace TJAPlayer3
 						#endregion
 					}
 					#endregion			
-					#region[難易度選択画面のキー入力]
+					#region[DifficultySelectのキー入力]
 					else if (現在の選曲画面状況 == E選曲画面.難易度選択)
-					{//2020.06.02 Mr-Ojii 難易度選択画面の追加
+					{//2020.06.02 Mr-Ojii DifficultySelectの追加
 						if (!this.actSortSongs.bIsActivePopupMenu)
 						{
 							#region [ ESC ]
@@ -503,7 +503,7 @@ namespace TJAPlayer3
 									this.actChangeSE.tDeativateChangeSE(0);
 								else if (this.actPlayOption.bIsActive[0])
 									this.actPlayOption.tDeativatePopupMenu(0);
-								else if (this.act難易度選択画面.選択済み[0] && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+								else if (this.actDifficultySelect.選択済み[0] && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 								{
 									if (this.actChangeSE.bIsActive[1])
 										this.actChangeSE.tDeativateChangeSE(1);
@@ -597,17 +597,17 @@ namespace TJAPlayer3
 							#endregion
 							#region [ Decide ]
 							if (((TJAPlayer3.Pad.b押された(EPad.LRed) || TJAPlayer3.Pad.b押された(EPad.RRed)) ||
-									(TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return))) && !this.act難易度選択画面.選択済み[0] && !this.actChangeSE.bIsActive[0] && !this.actPlayOption.bIsActive[0])
+									(TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return))) && !this.actDifficultySelect.選択済み[0] && !this.actChangeSE.bIsActive[0] && !this.actPlayOption.bIsActive[0])
 							{
-								if (this.act難易度選択画面.現在の選択行[0] == 0)
+								if (this.actDifficultySelect.現在の選択行[0] == 0)
 								{
 									難易度から選曲へ戻る();
 								}
-								else if (this.act難易度選択画面.現在の選択行[0] == 1)
+								else if (this.actDifficultySelect.現在の選択行[0] == 1)
 								{
 									this.popupbool[0] = true;
 								}
-								else if (this.act難易度選択画面.現在の選択行[0] == 2)
+								else if (this.actDifficultySelect.現在の選択行[0] == 2)
 								{
 									TJAPlayer3.Skin.sound音色選択音?.t再生する();
 									this.actChangeSE.tActivateChangeSE(0);
@@ -616,38 +616,38 @@ namespace TJAPlayer3
 								{
 									if (!(TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード && TJAPlayer3.ConfigIni.nPlayerCount >= 2))
 									{
-										if (this.act難易度選択画面.裏表示 && this.act難易度選択画面.現在の選択行[0] == 6)
+										if (this.actDifficultySelect.裏表示 && this.actDifficultySelect.現在の選択行[0] == 6)
 										{
 											TJAPlayer3.Skin.sound決定音.t再生する();
-											this.act難易度選択画面.選択済み[0] = true;
-											this.act難易度選択画面.確定された難易度[0] = (int)Difficulty.Edit;
+											this.actDifficultySelect.選択済み[0] = true;
+											this.actDifficultySelect.確定された難易度[0] = (int)Difficulty.Edit;
 										}
 										else
 										{
 
 
-											if (this.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[this.act難易度選択画面.現在の選択行[0] - 3])
+											if (this.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[this.actDifficultySelect.現在の選択行[0] - 3])
 											{
 												TJAPlayer3.Skin.sound決定音.t再生する();
-												this.act難易度選択画面.選択済み[0] = true;
-												this.act難易度選択画面.確定された難易度[0] = this.act難易度選択画面.現在の選択行[0] - 3;
+												this.actDifficultySelect.選択済み[0] = true;
+												this.actDifficultySelect.確定された難易度[0] = this.actDifficultySelect.現在の選択行[0] - 3;
 											}
 										}
 									}
 								}
 								this.難易度選択完了したか();
 							}
-							else if ((( TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return)) && this.act難易度選択画面.選択済み[0] || TJAPlayer3.Pad.b押された(EPad.LRed2P) || TJAPlayer3.Pad.b押された(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2 && !this.act難易度選択画面.選択済み[1] && !this.actChangeSE.bIsActive[1] && !this.actPlayOption.bIsActive[1])
+							else if ((( TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return)) && this.actDifficultySelect.選択済み[0] || TJAPlayer3.Pad.b押された(EPad.LRed2P) || TJAPlayer3.Pad.b押された(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2 && !this.actDifficultySelect.選択済み[1] && !this.actChangeSE.bIsActive[1] && !this.actPlayOption.bIsActive[1])
 							{
-								if (this.act難易度選択画面.現在の選択行[1] == 0)
+								if (this.actDifficultySelect.現在の選択行[1] == 0)
 								{
 									難易度から選曲へ戻る();
 								}
-								else if (this.act難易度選択画面.現在の選択行[1] == 1)
+								else if (this.actDifficultySelect.現在の選択行[1] == 1)
 								{
 									this.popupbool[1] = true;
 								}
-								else if (this.act難易度選択画面.現在の選択行[1] == 2)
+								else if (this.actDifficultySelect.現在の選択行[1] == 2)
 								{
 									TJAPlayer3.Skin.sound音色選択音?.t再生する();
 									this.actChangeSE.tActivateChangeSE(1);
@@ -656,20 +656,20 @@ namespace TJAPlayer3
 								{
 									if (!(TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード && TJAPlayer3.ConfigIni.nPlayerCount >= 2))
 									{
-										if (this.act難易度選択画面.裏表示 && this.act難易度選択画面.現在の選択行[1] == 6)
+										if (this.actDifficultySelect.裏表示 && this.actDifficultySelect.現在の選択行[1] == 6)
 										{
 											TJAPlayer3.Skin.sound決定音.t再生する();
-											this.act難易度選択画面.選択済み[1] = true;
-											this.act難易度選択画面.確定された難易度[1] = (int)Difficulty.Edit;
+											this.actDifficultySelect.選択済み[1] = true;
+											this.actDifficultySelect.確定された難易度[1] = (int)Difficulty.Edit;
 										}
 										else
 										{
-											if (this.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[this.act難易度選択画面.現在の選択行[1] - 3])
+											if (this.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[this.actDifficultySelect.現在の選択行[1] - 3])
 											{
 												TJAPlayer3.Skin.sound決定音.t再生する();
 
-												this.act難易度選択画面.選択済み[1] = true;
-												this.act難易度選択画面.確定された難易度[1] = this.act難易度選択画面.現在の選択行[1] - 3;
+												this.actDifficultySelect.選択済み[1] = true;
+												this.actDifficultySelect.確定された難易度[1] = this.actDifficultySelect.現在の選択行[1] - 3;
 											}
 										}
 									}
@@ -678,110 +678,110 @@ namespace TJAPlayer3
 							}
 							#endregion
 							#region [ Right ]
-							if ((TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.b押された(EPad.RBlue)) && !this.act難易度選択画面.選択済み[0] && !this.actChangeSE.bIsActive[0] && !this.actPlayOption.bIsActive[0])
+							if ((TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.b押された(EPad.RBlue)) && !this.actDifficultySelect.選択済み[0] && !this.actChangeSE.bIsActive[0] && !this.actPlayOption.bIsActive[0])
 							{
 								TJAPlayer3.Skin.soundカーソル移動音.t再生する();
-								this.act難易度選択画面.現在の選択行[0]++;
+								this.actDifficultySelect.現在の選択行[0]++;
 
-								if (this.act難易度選択画面.現在の選択行[0] > 6)
+								if (this.actDifficultySelect.現在の選択行[0] > 6)
 								{
-									this.act難易度選択画面.現在の選択行[0] = 6;
-									this.act難易度選択画面.裏カウント[0]++;
+									this.actDifficultySelect.現在の選択行[0] = 6;
+									this.actDifficultySelect.裏カウント[0]++;
 								}
 								else
 								{
-									this.act難易度選択画面.裏カウント[0] = 0;
-									this.act難易度選択画面.ct難易度拡大用[0].n現在の値 = 0;
-									this.act難易度選択画面.ct難易度拡大用[0].t時間Reset();
+									this.actDifficultySelect.裏カウント[0] = 0;
+									this.actDifficultySelect.ct難易度拡大用[0].n現在の値 = 0;
+									this.actDifficultySelect.ct難易度拡大用[0].t時間Reset();
 								}
-								if (this.act難易度選択画面.裏表示 && this.act難易度選択画面.現在の選択行[0] == 6)
+								if (this.actDifficultySelect.裏表示 && this.actDifficultySelect.現在の選択行[0] == 6)
 								{
 									this.act曲リスト.n現在のアンカ難易度レベル[0] = 4;
 								}
 								else
 								{
-									if (this.act難易度選択画面.現在の選択行[0] >= 3 && this.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[this.act難易度選択画面.現在の選択行[0] - 3])
-										this.act曲リスト.n現在のアンカ難易度レベル[0] = this.act難易度選択画面.現在の選択行[0] - 3;
+									if (this.actDifficultySelect.現在の選択行[0] >= 3 && this.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[this.actDifficultySelect.現在の選択行[0] - 3])
+										this.act曲リスト.n現在のアンカ難易度レベル[0] = this.actDifficultySelect.現在の選択行[0] - 3;
 								}
 							}
-							if (((TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) && this.act難易度選択画面.選択済み[0]) || TJAPlayer3.Pad.b押された(EPad.RBlue2P)) && !this.act難易度選択画面.選択済み[1] && !this.actChangeSE.bIsActive[1] && !this.actPlayOption.bIsActive[1] && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+							if (((TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) && this.actDifficultySelect.選択済み[0]) || TJAPlayer3.Pad.b押された(EPad.RBlue2P)) && !this.actDifficultySelect.選択済み[1] && !this.actChangeSE.bIsActive[1] && !this.actPlayOption.bIsActive[1] && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 							{
 								TJAPlayer3.Skin.soundカーソル移動音.t再生する();
-								this.act難易度選択画面.現在の選択行[1]++;
+								this.actDifficultySelect.現在の選択行[1]++;
 
-								if (this.act難易度選択画面.現在の選択行[1] > 6)
+								if (this.actDifficultySelect.現在の選択行[1] > 6)
 								{
-									this.act難易度選択画面.現在の選択行[1] = 6;
-									this.act難易度選択画面.裏カウント[1]++;
+									this.actDifficultySelect.現在の選択行[1] = 6;
+									this.actDifficultySelect.裏カウント[1]++;
 								}
 								else
 								{
-									this.act難易度選択画面.裏カウント[1] = 0;
-									this.act難易度選択画面.ct難易度拡大用[1].n現在の値 = 0;
-									this.act難易度選択画面.ct難易度拡大用[1].t時間Reset();
+									this.actDifficultySelect.裏カウント[1] = 0;
+									this.actDifficultySelect.ct難易度拡大用[1].n現在の値 = 0;
+									this.actDifficultySelect.ct難易度拡大用[1].t時間Reset();
 								}
-								if (this.act難易度選択画面.裏表示 && this.act難易度選択画面.現在の選択行[1] == 6)
+								if (this.actDifficultySelect.裏表示 && this.actDifficultySelect.現在の選択行[1] == 6)
 								{
 									this.act曲リスト.n現在のアンカ難易度レベル[1] = 4;
 								}
 								else
 								{
-									if (this.act難易度選択画面.現在の選択行[1] >= 3 && this.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[this.act難易度選択画面.現在の選択行[1] - 3])
-										this.act曲リスト.n現在のアンカ難易度レベル[1] = this.act難易度選択画面.現在の選択行[1] - 3;
+									if (this.actDifficultySelect.現在の選択行[1] >= 3 && this.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[this.actDifficultySelect.現在の選択行[1] - 3])
+										this.act曲リスト.n現在のアンカ難易度レベル[1] = this.actDifficultySelect.現在の選択行[1] - 3;
 								}
 							}
 							#endregion
 							#region [ Left ]
-							if ((TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.b押された(EPad.LBlue)) && !this.act難易度選択画面.選択済み[0] && !this.actChangeSE.bIsActive[0] && !this.actPlayOption.bIsActive[0])
+							if ((TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.b押された(EPad.LBlue)) && !this.actDifficultySelect.選択済み[0] && !this.actChangeSE.bIsActive[0] && !this.actPlayOption.bIsActive[0])
 							{
 								TJAPlayer3.Skin.soundカーソル移動音.t再生する();
-								this.act難易度選択画面.現在の選択行[0]--;
-								if (this.act難易度選択画面.現在の選択行[0] < 0)
+								this.actDifficultySelect.現在の選択行[0]--;
+								if (this.actDifficultySelect.現在の選択行[0] < 0)
 								{
-									this.act難易度選択画面.現在の選択行[0] = 0;
+									this.actDifficultySelect.現在の選択行[0] = 0;
 								}
 								else
 								{
-									this.act難易度選択画面.ct難易度拡大用[0].n現在の値 = 0;
-									this.act難易度選択画面.ct難易度拡大用[0].t時間Reset();
+									this.actDifficultySelect.ct難易度拡大用[0].n現在の値 = 0;
+									this.actDifficultySelect.ct難易度拡大用[0].t時間Reset();
 								}
 
-								this.act難易度選択画面.裏カウント[0] = 0;
+								this.actDifficultySelect.裏カウント[0] = 0;
 
-								if (this.act難易度選択画面.裏表示 && this.act難易度選択画面.現在の選択行[0] == 6)
+								if (this.actDifficultySelect.裏表示 && this.actDifficultySelect.現在の選択行[0] == 6)
 								{
 									this.act曲リスト.n現在のアンカ難易度レベル[0] = 4;
 								}
 								else
 								{
-									if (this.act難易度選択画面.現在の選択行[0] >= 3 && this.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[this.act難易度選択画面.現在の選択行[0] - 3])
-										this.act曲リスト.n現在のアンカ難易度レベル[0] = this.act難易度選択画面.現在の選択行[0] - 3;
+									if (this.actDifficultySelect.現在の選択行[0] >= 3 && this.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[this.actDifficultySelect.現在の選択行[0] - 3])
+										this.act曲リスト.n現在のアンカ難易度レベル[0] = this.actDifficultySelect.現在の選択行[0] - 3;
 								}
 							}
-							if (((TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) && this.act難易度選択画面.選択済み[0]) || TJAPlayer3.Pad.b押された(EPad.LBlue2P)) && !this.act難易度選択画面.選択済み[1] && !this.actChangeSE.bIsActive[1] && !this.actPlayOption.bIsActive[1] && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+							if (((TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) && this.actDifficultySelect.選択済み[0]) || TJAPlayer3.Pad.b押された(EPad.LBlue2P)) && !this.actDifficultySelect.選択済み[1] && !this.actChangeSE.bIsActive[1] && !this.actPlayOption.bIsActive[1] && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 							{
 								TJAPlayer3.Skin.soundカーソル移動音.t再生する();
-								this.act難易度選択画面.現在の選択行[1]--;
-								if (this.act難易度選択画面.現在の選択行[1] < 0)
+								this.actDifficultySelect.現在の選択行[1]--;
+								if (this.actDifficultySelect.現在の選択行[1] < 0)
 								{
-									this.act難易度選択画面.現在の選択行[1] = 0;
+									this.actDifficultySelect.現在の選択行[1] = 0;
 								}
 								else
 								{
-									this.act難易度選択画面.ct難易度拡大用[1].n現在の値 = 0;
-									this.act難易度選択画面.ct難易度拡大用[1].t時間Reset();
+									this.actDifficultySelect.ct難易度拡大用[1].n現在の値 = 0;
+									this.actDifficultySelect.ct難易度拡大用[1].t時間Reset();
 								}
 
-								this.act難易度選択画面.裏カウント[1] = 0;
+								this.actDifficultySelect.裏カウント[1] = 0;
 
-								if (this.act難易度選択画面.裏表示 && this.act難易度選択画面.現在の選択行[1] == 6)
+								if (this.actDifficultySelect.裏表示 && this.actDifficultySelect.現在の選択行[1] == 6)
 								{
 									this.act曲リスト.n現在のアンカ難易度レベル[1] = 4;
 								}
 								else
 								{
-									if (this.act難易度選択画面.現在の選択行[1] >= 3 && this.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[this.act難易度選択画面.現在の選択行[1] - 3])
-										this.act曲リスト.n現在のアンカ難易度レベル[1] = this.act難易度選択画面.現在の選択行[1] - 3;
+									if (this.actDifficultySelect.現在の選択行[1] >= 3 && this.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[this.actDifficultySelect.現在の選択行[1] - 3])
+										this.act曲リスト.n現在のアンカ難易度レベル[1] = this.actDifficultySelect.現在の選択行[1] - 3;
 								}
 							}
 							#endregion
@@ -1061,7 +1061,7 @@ namespace TJAPlayer3
 						return (int) this.eFadeOut完了時の戻り値;
 
 					case CStage.Eフェーズ.選曲_結果画面からのFadeIn:
-						if( this.actFIfrom結果画面.On進行描画() != 0 )
+						if( this.actFIfromResult.On進行描画() != 0 )
 						{
 							base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
 						}
@@ -1091,7 +1091,7 @@ namespace TJAPlayer3
 		{ 
 			通常,
 			Dan選択,//2020.05.25 Mr-Ojii Danの選択用
-			難易度選択In,//2020.05.25 Mr-Ojii 難易度選択画面を追加したとき用
+			難易度選択In,//2020.05.25 Mr-Ojii DifficultySelectを追加したとき用
 			難易度選択,
 			難易度選択Out
 		}
@@ -1120,25 +1120,25 @@ namespace TJAPlayer3
 			{
 				if (TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 				{
-					if (this.act難易度選択画面.選択済み[0] && this.act難易度選択画面.選択済み[1])
+					if (this.actDifficultySelect.選択済み[0] && this.actDifficultySelect.選択済み[1])
 					{
 						if (TJAPlayer3.Skin.sound曲決定音.b読み込み成功)
 							TJAPlayer3.Skin.sound曲決定音.t再生する();
 						else
 							TJAPlayer3.Skin.sound決定音.t再生する();
-						this.t曲を選択する(this.act難易度選択画面.確定された難易度[0], this.act難易度選択画面.確定された難易度[1]);
+						this.t曲を選択する(this.actDifficultySelect.確定された難易度[0], this.actDifficultySelect.確定された難易度[1]);
 						完全に選択済み = true;
 					}
 				}
 				else
 				{
-					if (this.act難易度選択画面.選択済み[0])
+					if (this.actDifficultySelect.選択済み[0])
 					{
 						if (TJAPlayer3.Skin.sound曲決定音.b読み込み成功)
 							TJAPlayer3.Skin.sound曲決定音.t再生する();
 						else
 							TJAPlayer3.Skin.sound決定音.t再生する();
-						this.t曲を選択する(this.act難易度選択画面.確定された難易度[0]);
+						this.t曲を選択する(this.actDifficultySelect.確定された難易度[0]);
 						完全に選択済み = true;
 					}
 				}
@@ -1150,9 +1150,9 @@ namespace TJAPlayer3
 			if (!this.actChangeSE.bIsActive[0] && !this.actChangeSE.bIsActive[1] && !this.actPlayOption.bIsActive[0] && !this.actPlayOption.bIsActive[1])
 			{
 				TJAPlayer3.Skin.sound取消音.t再生する();
-				this.act難易度選択画面.選択済み[0] = false;
-				this.act難易度選択画面.選択済み[1] = false;
-				this.act難易度選択画面.b開いた直後 = true;
+				this.actDifficultySelect.選択済み[0] = false;
+				this.actDifficultySelect.選択済み[1] = false;
+				this.actDifficultySelect.b開いた直後 = true;
 				現在の選曲画面状況 = E選曲画面.難易度選択Out;
 			}
 		}
@@ -1209,13 +1209,13 @@ namespace TJAPlayer3
 			}
 		}
 		internal CActFIFOBlack actFIFO;
-		private CActFIFOBlack actFIfrom結果画面;
+		private CActFIFOBlack actFIfromResult;
 		//private CActFIFOBlack actFOtoNowLoading;
 		private CActFIFOStart actFOtoNowLoading;
 		private CActSelectPresound actPresound;
 		public CActSelect演奏履歴パネル act演奏履歴パネル;
 		public CActSelect曲リスト act曲リスト;
-		internal CActSelect難易度選択画面 act難易度選択画面;
+		internal CActSelectDifficultySelect actDifficultySelect;
 		private bool 完全に選択済み = false;
 
 		private CActSortSongs actSortSongs;
@@ -1227,9 +1227,9 @@ namespace TJAPlayer3
 		public CCounter ct登場時アニメ用共通;
 		private CCounter ct背景スクロール用タイマー;
 		private CCounter ctカウントダウン用タイマー;
-		internal CCounter ct難易度選択画面IN用タイマー;
-		internal CCounter ct難易度選択画面INバー拡大用タイマー;
-		internal CCounter ct難易度選択画面OUT用タイマー;
+		internal CCounter ctDifficultySelectIN用タイマー;
+		internal CCounter ctDifficultySelectINバー拡大用タイマー;
+		internal CCounter ctDifficultySelectOUT用タイマー;
 		internal E戻り値 eFadeOut完了時の戻り値;
 
 		public void MouseWheel(int i)

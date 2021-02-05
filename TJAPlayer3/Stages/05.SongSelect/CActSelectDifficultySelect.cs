@@ -15,9 +15,9 @@ using Rectangle = System.Drawing.Rectangle;
 namespace TJAPlayer3
 {
 	/// <summary>
-	/// 難易度選択画面。
+	/// DifficultySelect。
 	/// </summary>
-	internal class CActSelect難易度選択画面 : CActivity
+	internal class CActSelectDifficultySelect : CActivity
 	{
 		// プロパティ
 

@@ -125,7 +125,6 @@ namespace TJAPlayer3
 			public int n最大コンボ数;
 			public int n全チップ数;
 			public string strDTXManiaのバージョン;
-			public bool レーン9モード;
 			public int nRisky;		// #23559 2011.6.20 yyagi 0=OFF, 1-10=Risky
 			public string 最終更新日時;
 			public float fゲージ;
@@ -159,7 +158,6 @@ namespace TJAPlayer3
 				this.strDTXManiaのバージョン = "Unknown";
 				this.最終更新日時 = "";
 				this.Hash = "00000000000000000000000000000000";
-				this.レーン9モード = true;
 				this.nRisky = 0;									// #23559 2011.6.20 yyagi
 				this.fゲージ = 0.0f;
 				this.b途中でAutoを切り替えたか = false;
@@ -645,10 +643,6 @@ namespace TJAPlayer3
 											else if (item.Equals("Hash"))
 											{
 												c演奏記録.Hash = para;
-											}
-											else if (item.Equals("9LaneMode"))
-											{
-												c演奏記録.レーン9モード = C変換.bONorOFF(para[0]);
 											}
 											else if (item.Equals("HiScore1"))
 											{

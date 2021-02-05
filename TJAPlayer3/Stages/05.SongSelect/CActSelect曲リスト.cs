@@ -670,13 +670,13 @@ namespace TJAPlayer3
 				}
 			//-----
 
-			//難易度選択画面フェード用
+			//DifficultySelectフェード用
 
 			int 全体Opacity;
 			if (TJAPlayer3.stage選曲.現在の選曲画面状況 == CStage選曲.E選曲画面.難易度選択In)
-				全体Opacity = (int)(255.0f - (TJAPlayer3.stage選曲.ct難易度選択画面IN用タイマー.n現在の値 * 255.0f / TJAPlayer3.stage選曲.ct難易度選択画面IN用タイマー.n終了値));
+				全体Opacity = (int)(255.0f - (TJAPlayer3.stage選曲.ctDifficultySelectIN用タイマー.n現在の値 * 255.0f / TJAPlayer3.stage選曲.ctDifficultySelectIN用タイマー.n終了値));
 			else if (TJAPlayer3.stage選曲.現在の選曲画面状況 == CStage選曲.E選曲画面.難易度選択Out)
-				全体Opacity = (int)(TJAPlayer3.stage選曲.ct難易度選択画面OUT用タイマー.n現在の値 * 255.0f / TJAPlayer3.stage選曲.ct難易度選択画面OUT用タイマー.n終了値);
+				全体Opacity = (int)(TJAPlayer3.stage選曲.ctDifficultySelectOUT用タイマー.n現在の値 * 255.0f / TJAPlayer3.stage選曲.ctDifficultySelectOUT用タイマー.n終了値);
 			else
 				全体Opacity = 255;
 			
@@ -1122,16 +1122,16 @@ namespace TJAPlayer3
                 if (TJAPlayer3.stage選曲.現在の選曲画面状況 == CStage選曲.E選曲画面.難易度選択Out)
 				{
 					if (n見た目の行番号 < 6)
-						xAnime += (TJAPlayer3.stage選曲.ct難易度選択画面OUT用タイマー.n現在の値 - TJAPlayer3.stage選曲.ct難易度選択画面OUT用タイマー.n終了値) * 3;
+						xAnime += (TJAPlayer3.stage選曲.ctDifficultySelectOUT用タイマー.n現在の値 - TJAPlayer3.stage選曲.ctDifficultySelectOUT用タイマー.n終了値) * 3;
 					else if (n見た目の行番号 > 6)
-						xAnime -= (TJAPlayer3.stage選曲.ct難易度選択画面OUT用タイマー.n現在の値 - TJAPlayer3.stage選曲.ct難易度選択画面OUT用タイマー.n終了値) * 3;
+						xAnime -= (TJAPlayer3.stage選曲.ctDifficultySelectOUT用タイマー.n現在の値 - TJAPlayer3.stage選曲.ctDifficultySelectOUT用タイマー.n終了値) * 3;
 				}
 				else if (TJAPlayer3.stage選曲.現在の選曲画面状況 == CStage選曲.E選曲画面.難易度選択In)
 				{
 					if (n見た目の行番号 < 6)
-						xAnime -= TJAPlayer3.stage選曲.ct難易度選択画面IN用タイマー.n現在の値 * 3;
+						xAnime -= TJAPlayer3.stage選曲.ctDifficultySelectIN用タイマー.n現在の値 * 3;
 					else if (n見た目の行番号 > 6)
-						xAnime += TJAPlayer3.stage選曲.ct難易度選択画面IN用タイマー.n現在の値 * 3;
+						xAnime += TJAPlayer3.stage選曲.ctDifficultySelectIN用タイマー.n現在の値 * 3;
 				}
 				#endregion
 

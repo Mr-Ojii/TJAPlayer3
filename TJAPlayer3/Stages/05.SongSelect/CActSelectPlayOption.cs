@@ -317,33 +317,33 @@ namespace TJAPlayer3
 					if (NowRow[1] >= lci[1].Count)
 						tDeativatePopupMenu(1);
 				}
-				if (TJAPlayer3.Pad.b押された(EPad.LBlue2P) || (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) && TJAPlayer3.stage選曲.act難易度選択画面.選択済み[0]))
+				if (TJAPlayer3.Pad.b押された(EPad.LBlue2P) || (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) && TJAPlayer3.stage選曲.actDifficultySelect.選択済み[0]))
 				{
 					TJAPlayer3.Skin.sound変更音?.t再生する();
 					lci[1][NowRow[1]].tMoveItemValueToForward();
 					SaveValue(1);
 				}
-				if (TJAPlayer3.Pad.b押された(EPad.RBlue2P) || (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) && TJAPlayer3.stage選曲.act難易度選択画面.選択済み[0]))
+				if (TJAPlayer3.Pad.b押された(EPad.RBlue2P) || (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) && TJAPlayer3.stage選曲.actDifficultySelect.選択済み[0]))
 				{
 					TJAPlayer3.Skin.sound変更音?.t再生する();
 					lci[1][NowRow[1]].tMoveItemValueToNext();
 					SaveValue(1);
 				}
-				if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.UpArrow) && TJAPlayer3.stage選曲.act難易度選択画面.選択済み[0])
+				if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.UpArrow) && TJAPlayer3.stage選曲.actDifficultySelect.選択済み[0])
 				{
 					TJAPlayer3.Skin.sound変更音?.t再生する();
 					NowRow[1]--;
 					if (NowRow[1] < 0)
 						NowRow[1] = lci[1].Count - 1;
 				}
-				if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.DownArrow) && TJAPlayer3.stage選曲.act難易度選択画面.選択済み[0])
+				if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.DownArrow) && TJAPlayer3.stage選曲.actDifficultySelect.選択済み[0])
 				{
 					TJAPlayer3.Skin.sound変更音?.t再生する();
 					NowRow[1]++;
 					if (NowRow[1] >= lci[1].Count)
 						NowRow[1] = 0;
 				}
-				if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return) && TJAPlayer3.stage選曲.act難易度選択画面.選択済み[0])
+				if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return) && TJAPlayer3.stage選曲.actDifficultySelect.選択済み[0])
 				{
 					TJAPlayer3.Skin.sound決定音?.t再生する();
 					tDeativatePopupMenu(1);
