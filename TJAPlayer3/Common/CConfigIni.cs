@@ -301,8 +301,7 @@ namespace TJAPlayer3
 		public bool bSuperHard = false;
 		public bool bJust;
 
-		public bool bEndingAnime = false;   // 2017.01.27 DD 「また遊んでね」画面の有効/無効オプション追加
-		public bool bForceEndingAnime = false;
+		public EEndingAnime eEndingAnime = EEndingAnime.Off;
 
 		public int nInputAdjustTimeMs;
 		public bool bIsAutoResultCapture;			// #25399 2011.6.9 yyagi リザルト画像自動保存機能のON/OFF制御
@@ -343,17 +342,6 @@ namespace TJAPlayer3
 			set
 			{
 				this.b全画面モード = !value;
-			}
-		}
-		public bool b演奏情報を表示しない
-		{
-			get
-			{
-				return !this.b演奏情報を表示する;
-			}
-			set
-			{
-				this.b演奏情報を表示する = !value;
 			}
 		}
 		public int n背景の透過度
@@ -609,7 +597,6 @@ namespace TJAPlayer3
 			this.eGameMode = EGame.OFF;
 			this.TokkunSkipMeasures = 5;
 			this.TokkunMashInterval = 750;
-			this.bEndingAnime = false;
 			this.nPlayerCount = 1; //2017.08.18 kairera0467 マルチプレイ対応
 			ShinuchiMode[0] = false;
 			ShinuchiMode[1] = false;
@@ -921,11 +908,8 @@ namespace TJAPlayer3
 			sw.WriteLine("InputAdjustTime={0}", this.nInputAdjustTimeMs);		//
 			sw.WriteLine();
 			#endregion
-			sw.WriteLine( "; 「また遊んでね」画面(0:OFF, 1:ON)" );
-			sw.WriteLine( "EndingAnime={0}", this.bEndingAnime ? 1 : 0 );
-			sw.WriteLine();
-			sw.WriteLine("; 「また遊んでね」画面を強制的に表示させる(0:OFF, 1:ON)");
-			sw.WriteLine("ForceEndingAnime={0}", this.bForceEndingAnime ? 1 : 0);
+			sw.WriteLine( "; 「また遊んでね」画面(0:OFF, 1:ON, 2:Force)" );
+			sw.WriteLine( "EndingAnime={0}", (int)this.eEndingAnime );
 			sw.WriteLine();
 			sw.WriteLine( ";-------------------" );
 			#endregion
@@ -1561,11 +1545,7 @@ namespace TJAPlayer3
 											//}
 											else if( str3.Equals( "EndingAnime" ) )
 											{
-												this.bEndingAnime = C変換.bONorOFF( str4[ 0 ] );
-											}
-											else if (str3.Equals("ForceEndingAnime"))
-											{
-												this.bForceEndingAnime = C変換.bONorOFF(str4[0]);
+												this.eEndingAnime = (EEndingAnime)C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 2, (int)this.eEndingAnime);
 											}
 
 											continue;

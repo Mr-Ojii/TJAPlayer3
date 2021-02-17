@@ -142,4 +142,11 @@ namespace TJAPlayer3
 		On,
 	}
 
+	public enum EEndingAnime : int
+	{
+		Off,
+		On,
+		Force
+	}
+
 }

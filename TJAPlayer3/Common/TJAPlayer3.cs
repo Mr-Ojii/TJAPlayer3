@@ -368,7 +368,7 @@ namespace TJAPlayer3
 		}
 		protected override void OnClosing(CancelEventArgs e)
 		{
-			if (ConfigIni.bForceEndingAnime && ConfigIni.bEndingAnime && (r現在のステージ.eStageID != CStage.EStage.Ending))
+			if (ConfigIni.eEndingAnime == EEndingAnime.Force && (r現在のステージ.eStageID != CStage.EStage.Ending))
 			{
 				e.Cancel = true;
 				r現在のステージ.On非活性化();

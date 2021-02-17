@@ -686,7 +686,7 @@ namespace TJAPlayer3
 				if (!TJAPlayer3.ConfigIni.bNoInfo)
 					this.actJudgeString.t進行描画();
 
-				if (!TJAPlayer3.ConfigIni.b演奏情報を表示しない)
+				if (TJAPlayer3.ConfigIni.b演奏情報を表示する)
 					this.actPlayInfo.t進行描画(1000, 400);
 
 				if (TJAPlayer3.DTX[0].listLyric2.Count > ShownLyric2 && TJAPlayer3.DTX[0].listLyric2[ShownLyric2].Time + TJAPlayer3.DTX[0].nBGMAdjust < (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
