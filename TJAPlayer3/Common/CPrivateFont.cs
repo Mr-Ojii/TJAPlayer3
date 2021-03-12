@@ -642,18 +642,12 @@ namespace TJAPlayer3
 			Color backColor = bmp.GetPixel(0, 0);
 			//実際にBitmapに文字列を描画する
 
-			StringFormat sFormat = new StringFormat()
-			{
-				LineAlignment = StringAlignment.Center, // 画面下部（垂直方向位置）
-				Alignment = StringAlignment.Near,   // 画面中央（水平方向位置）
-			};
-
 			// DrawPathで、ポイントサイズを使って描画するために、DPIを使って単位変換する
 			// (これをしないと、単位が違うために、小さめに描画されてしまう)
-			float sizeInPixels = _font.SizeInPoints * bmpGraphics.DpiY / 72f;  // 1 inch = 72 points
+			float sizeInPixels = font.SizeInPoints * bmpGraphics.DpiY / 72f;  // 1 inch = 72 points
 
 			GraphicsPath gpV = new GraphicsPath();
-			gpV.AddString(text, this._fontfamily, (int)this._font.Style, sizeInPixels, new Rectangle(0, 0, proposedSize.Width, proposedSize.Height), sFormat);
+			gpV.AddString(text, this._fontfamily, (int)font.Style, sizeInPixels, new Rectangle(0, 0, proposedSize.Width, proposedSize.Height), stringFormat);
 
 			// 縁取りを描画する
 			//int nEdgePt = (_pt / 3); // 縁取りをフォントサイズ基準に変更
