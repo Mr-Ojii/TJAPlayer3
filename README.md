@@ -56,8 +56,8 @@ VisualStudio Community 2019
 
 ## Discord鯖
 作っていいものかと思いながら、公開鯖を作ってみたかったので作ってしまいました。  
-私のモチベにもなるから、気軽に入ってね。  
-[https://discord.gg/AkfUrMW](https://discord.gg/AkfUrMW)
+参加した場合、#readmeをご一読ください。よろしくお願いいたします。  
+[https://discord.gg/WtdsBqESaX](https://discord.gg/WtdsBqESaX)
 
 ## 追加命令について
 Testフォルダ内の「追加・変更機能について.md」で説明いたします。
