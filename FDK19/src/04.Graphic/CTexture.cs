@@ -171,6 +171,8 @@ namespace FDK
 				GL.Hint(HintTarget.GenerateMipmapHint, HintMode.Nicest);
 				GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
 
+				UpdateTexCoordArray(0, 0, 0, 1, 1, 1, 1, 0);//TextureCoordinateの初期化
+
 				this.bTextureDisposed = false;
 			}
 			catch
@@ -391,17 +393,12 @@ namespace FDK
 				vertices[3].X = -(x + (w * this.vcScaling.X) + f補正値X);
 				vertices[3].Y = -((y + (h * this.vcScaling.Y)) + f補正値Y);
 
-				texcoord[0].X = f右U値;
-				texcoord[0].Y = f上V値;
-				texcoord[1].X = f左U値;
-				texcoord[1].Y = f上V値;
-				texcoord[2].X = f左U値;
-				texcoord[2].Y = f下V値;
-				texcoord[3].X = f右U値;
-				texcoord[3].Y = f下V値;
-
 				GL.VertexPointer(3, VertexPointerType.Float, 0, this.vertices);
-				GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, this.texcoord);
+				UpdateTexCoordArray(f右U値, f上V値, f左U値, f上V値, f左U値, f下V値, f右U値, f下V値);
+
+				GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
+				GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
+				GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 
 				GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
 				//-----------------
@@ -446,17 +443,12 @@ namespace FDK
 				vertices[3].X = -f中央X;
 				vertices[3].Y = f中央Y;
 
-				texcoord[0].X = f左U値;
-				texcoord[0].Y = f下V値;
-				texcoord[1].X = f右U値;
-				texcoord[1].Y = f下V値;
-				texcoord[2].X = f右U値;
-				texcoord[2].Y = f上V値;
-				texcoord[3].X = f左U値;
-				texcoord[3].Y = f上V値;
-
 				GL.VertexPointer(3, VertexPointerType.Float, 0, this.vertices);
-				GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, this.texcoord);
+				UpdateTexCoordArray(f左U値, f下V値, f右U値, f下V値, f右U値, f上V値, f左U値, f上V値);
+
+				GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
+				GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
+				GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 
 				GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
 				//-----------------
@@ -499,17 +491,12 @@ namespace FDK
 			vertices[3].X = -(x + (w * this.vcScaling.X) + f補正値X) + ((left) ? num : 0);
 			vertices[3].Y = -((y + (h * this.vcScaling.Y)) + f補正値Y);
 
-			texcoord[0].X = f右U値;
-			texcoord[0].Y = f上V値;
-			texcoord[1].X = f左U値;
-			texcoord[1].Y = f上V値;
-			texcoord[2].X = f左U値;
-			texcoord[2].Y = f下V値;
-			texcoord[3].X = f右U値;
-			texcoord[3].Y = f下V値;
-
 			GL.VertexPointer(3, VertexPointerType.Float, 0, this.vertices);
-			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, this.texcoord);
+			UpdateTexCoordArray(f右U値, f上V値, f左U値, f上V値, f左U値, f下V値, f右U値, f下V値);
+
+			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
+			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
+			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 
 			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
 			//-----------------
@@ -556,17 +543,12 @@ namespace FDK
 			vertices[3].X = -(x + (w * this.vcScaling.X) + f補正値X);
 			vertices[3].Y = -((y + (h * this.vcScaling.Y)) + f補正値Y);
 
-			texcoord[0].X = f右U値;
-			texcoord[0].Y = f下V値;
-			texcoord[1].X = f左U値;
-			texcoord[1].Y = f下V値;
-			texcoord[2].X = f左U値;
-			texcoord[2].Y = f上V値;
-			texcoord[3].X = f右U値;
-			texcoord[3].Y = f上V値;
-
 			GL.VertexPointer(3, VertexPointerType.Float, 0, this.vertices);
-			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, this.texcoord);
+			UpdateTexCoordArray(f右U値, f下V値, f左U値, f下V値, f左U値, f上V値, f右U値, f上V値);
+
+			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
+			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
+			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 
 			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
 		}
@@ -611,17 +593,12 @@ namespace FDK
 			vertices[3].X = -(x + (w * this.vcScaling.X) + f補正値X);
 			vertices[3].Y = -((y + (h * this.vcScaling.Y)) + f補正値Y);
 
-			texcoord[0].X = f左U値;
-			texcoord[0].Y = f上V値;
-			texcoord[1].X = f右U値;
-			texcoord[1].Y = f上V値;
-			texcoord[2].X = f右U値;
-			texcoord[2].Y = f下V値;
-			texcoord[3].X = f左U値;
-			texcoord[3].Y = f下V値;
-
 			GL.VertexPointer(3, VertexPointerType.Float, 0, this.vertices);
-			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, this.texcoord);
+			UpdateTexCoordArray(f左U値, f上V値, f右U値, f上V値, f右U値, f下V値, f左U値, f下V値);
+
+			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
+			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
+			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 
 			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
 		}
@@ -680,19 +657,35 @@ namespace FDK
 			vertices[3].X = x;
 			vertices[3].Y = -y;
 
-			texcoord[0].X = f右U値;
-			texcoord[0].Y = f上V値;
-			texcoord[1].X = f左U値;
-			texcoord[1].Y = f上V値;
-			texcoord[2].X = f左U値;
-			texcoord[2].Y = f下V値;
-			texcoord[3].X = f右U値;
-			texcoord[3].Y = f下V値;
-
 			GL.VertexPointer(3, VertexPointerType.Float, 0, this.vertices);
-			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, this.texcoord);
+
+			UpdateTexCoordArray(f右U値, f上V値, f左U値, f上V値, f左U値, f下V値, f右U値, f下V値);
+
+			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
+			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
+			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 
 			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
+		}
+
+		private void UpdateTexCoordArray(float zerox, float zeroy, float onex, float oney, float twox, float twoy, float threex, float threey) 
+		{
+			//TextureCoordinateの更新を行わないことでの描画の高速化を狙う
+			//条件文が冗長なのを直したい
+			if (zerox != texcoord[0].X || zeroy != texcoord[0].Y || onex != texcoord[1].X || oney != texcoord[1].Y || twox != texcoord[2].X || twoy != texcoord[2].Y || threex != texcoord[3].X || threey != texcoord[3].Y)
+			{
+				GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
+				texcoord[0].X = zerox;
+				texcoord[0].Y = zeroy;
+				texcoord[1].X = onex;
+				texcoord[1].Y = oney;
+				texcoord[2].X = twox;
+				texcoord[2].Y = twoy;
+				texcoord[3].X = threex;
+				texcoord[3].Y = threey;
+				GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.texcoord.Length * Vector2.SizeInBytes, this.texcoord);
+				GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+			}
 		}
 
 		#region [ IDisposable 実装 ]
