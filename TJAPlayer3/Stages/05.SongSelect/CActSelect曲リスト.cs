@@ -557,7 +557,7 @@ namespace TJAPlayer3
 			{
 				string[] s1 = { "曲データが見つかりません。\n曲データをDTXManiaGR.exe以下の\nフォルダにインストールして下さい。", "Songs not found.\nYou need to install songs." };
 
-				using (CPrivateFont pffont = new CPrivateFont(TJAPlayer3.ConfigIni.FontName, 32, FontStyle.Regular))
+				using (CPrivateFont pffont = new CPrivateFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 32))
 				{
 					this.txSongNotFound = TJAPlayer3.tCreateTexture(pffont.DrawPrivateFont(s1[c], Color.White), true);
 					this.txSongNotFound.vcScaling = new System.Numerics.Vector3(0.5f, 0.5f, 1f);
@@ -575,7 +575,7 @@ namespace TJAPlayer3
 			{
 				string[] s1 = { "曲データを検索しています。\nそのまましばらくお待ち下さい。", "Now enumerating songs.\nPlease wait..." };
 
-				using (CPrivateFont pffont = new CPrivateFont(TJAPlayer3.ConfigIni.FontName, 32, FontStyle.Regular))
+				using (CPrivateFont pffont = new CPrivateFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 32))
 				{
 					this.txEnumeratingSongs = TJAPlayer3.tCreateTexture(pffont.DrawPrivateFont(s1[c], Color.White), true);
 					this.txEnumeratingSongs.vcScaling = new System.Numerics.Vector3(0.5f, 0.5f, 1f);

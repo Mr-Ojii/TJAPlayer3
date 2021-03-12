@@ -49,21 +49,21 @@ namespace TJAPlayer3
 	public class CPrivateFont : IDisposable
 	{
 		#region [ コンストラクタ ]
-		public CPrivateFont( FontFamily fontfamily, int pt, FontStyle style )
+		public CPrivateFont( FontFamily fontfamily, int pt, SixLabors.Fonts.FontStyle style )
 		{
 			Initialize( null, fontfamily, pt, style );
 		}
 		public CPrivateFont( FontFamily fontfamily, int pt )
 		{
-			Initialize( null, fontfamily, pt, FontStyle.Regular );
+			Initialize( null, fontfamily, pt, SixLabors.Fonts.FontStyle.Regular );
 		}
-		public CPrivateFont( string fontpath, int pt, FontStyle style )
+		public CPrivateFont( string fontpath, int pt, SixLabors.Fonts.FontStyle style )
 		{
 			Initialize( fontpath, null, pt, style );
 		}
 		public CPrivateFont( string fontpath, int pt )
 		{
-			Initialize( fontpath, null, pt, FontStyle.Regular );
+			Initialize( fontpath, null, pt, SixLabors.Fonts.FontStyle.Regular );
 		}
 		public CPrivateFont()
 		{
@@ -71,7 +71,7 @@ namespace TJAPlayer3
 		}
 		#endregion
 
-		protected void Initialize( string fontpath, FontFamily fontfamily, int pt, FontStyle style )
+		protected void Initialize(string fontpath, FontFamily fontfamily, int pt, SixLabors.Fonts.FontStyle stylel )
 		{
 			this._pfc = null;
 			this._fontfamily = null;
@@ -80,6 +80,23 @@ namespace TJAPlayer3
 			this._rectStrings = new Rectangle(0, 0, 0, 0);
 			this._ptOrigin = new Point(0, 0);
 			this.bDispose完了済み = false;
+
+			FontStyle style;
+			switch (stylel) 
+			{
+				case SixLabors.Fonts.FontStyle.Bold:
+					style = FontStyle.Bold;
+					break;
+				case SixLabors.Fonts.FontStyle.BoldItalic:
+					style = FontStyle.Bold | FontStyle.Italic;
+					break;
+				case SixLabors.Fonts.FontStyle.Italic:
+					style = FontStyle.Italic;
+					break;
+				default:
+					style = FontStyle.Regular;
+					break;
+			}
 
 			if (fontfamily != null)
 			{
