@@ -197,7 +197,7 @@ namespace TJAPlayer3
 		/// <param name="drawstr">描画文字列</param>
 		/// <param name="fontColor">描画色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public Bitmap DrawPrivateFont( string drawstr, Color fontColor )
+		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor )
 		{
 			return DrawPrivateFont( drawstr, DrawMode.Normal, fontColor, Color.White, Color.White, Color.White );
 		}
@@ -209,7 +209,7 @@ namespace TJAPlayer3
 		/// <param name="fontColor">描画色</param>
 		/// <param name="edgeColor">縁取色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public Bitmap DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor )
+		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor )
 		{
 			return DrawPrivateFont( drawstr, DrawMode.Edge, fontColor, edgeColor, Color.White, Color.White );
 		}
@@ -222,7 +222,7 @@ namespace TJAPlayer3
 		/// <param name="gradationTopColor">グラデーション 上側の色</param>
 		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public Bitmap DrawPrivateFont( string drawstr, Color fontColor, Color gradationTopColor, Color gradataionBottomColor )
+		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor, Color gradationTopColor, Color gradataionBottomColor )
 		{
 		    return DrawPrivateFont( drawstr, DrawMode.Gradation, fontColor, Color.White, gradationTopColor, gradataionBottomColor );
 		}
@@ -236,7 +236,7 @@ namespace TJAPlayer3
 		/// <param name="gradationTopColor">グラデーション 上側の色</param>
 		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public Bitmap DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradataionBottomColor )
+		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradataionBottomColor )
 		{
 			return DrawPrivateFont( drawstr, DrawMode.Edge | DrawMode.Gradation, fontColor, edgeColor, gradationTopColor, gradataionBottomColor );
 		}
@@ -255,7 +255,7 @@ namespace TJAPlayer3
 		/// <param name="gradationTopColor">グラデーション 上側の色</param>
 		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
 		/// <returns>描画済テクスチャ</returns>
-		protected Bitmap DrawPrivateFont(string drawstr, DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor)
+		protected SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont(string drawstr, DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor)
 		{
 			if (this._fontfamily == null || drawstr == null || drawstr == "" || drawstr == " " || drawstr == "　")
 			{
@@ -268,7 +268,7 @@ namespace TJAPlayer3
 				}
 				_rectStrings = new Rectangle(0, 0, 0, 0);
 				_ptOrigin = new Point(0, 0);
-				return new Bitmap(1, 1);
+				return new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32>(1, 1);
 			}
 
 			// 描画サイズを測定する
@@ -361,7 +361,7 @@ namespace TJAPlayer3
 				_ptOrigin = new Point(nEdgePt * 2, nEdgePt * 2);
 			}
 
-			return bmp;
+			return C変換.ToImageSharpImage(bmp);
 		}
 
 		/// <summary>
@@ -376,7 +376,7 @@ namespace TJAPlayer3
 		/// <param name="gradationTopColor">グラデーション 上側の色</param>
 		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
 		/// <returns>描画済テクスチャ</returns>
-		protected Bitmap DrawPrivateFont_V( string drawstr, Color fontColor, Color edgeColor, bool bVertical )
+		protected SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont_V( string drawstr, Color fontColor, Color edgeColor, bool bVertical )
 		{
 			if ( this._fontfamily == null || drawstr == null || drawstr == "" || drawstr == " " || drawstr == "　")
 			{
@@ -389,7 +389,7 @@ namespace TJAPlayer3
 				}
 				_rectStrings = new Rectangle( 0, 0, 0, 0 );
 				_ptOrigin = new Point( 0, 0 );
-				return new Bitmap(1, 1);
+				return new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32>(1, 1);
 			}
 
 			if (this._font == null)
@@ -648,7 +648,7 @@ namespace TJAPlayer3
 				}
 			}
 
-			return bmpCambus;
+			return C変換.ToImageSharpImage(bmpCambus);
 		}
 
 		/// <summary>

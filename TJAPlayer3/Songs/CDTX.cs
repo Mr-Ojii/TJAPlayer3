@@ -473,7 +473,7 @@ namespace TJAPlayer3
 		public struct STLYRIC
 		{
 			public long Time;
-			public Bitmap TextTex;
+			public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> TextTex;
 			public string Text;
 			public int index;
 		}
@@ -657,7 +657,7 @@ namespace TJAPlayer3
 		private List<int> listBalloon_Expert;
 		private List<int> listBalloon_Master;
 
-		public List<Bitmap> listLyric; //2020.05.13 Mr-Ojii 曲読み込み時にテクスチャを生成するために変更
+		public List<SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32>> listLyric; //2020.05.13 Mr-Ojii 曲読み込み時にテクスチャを生成するために変更
 		public List<STLYRIC> listLyric2;
 
 		private int listBalloon_Normal_数値管理;
@@ -5983,7 +5983,7 @@ namespace TJAPlayer3
 			this.listBalloon_Expert = new List<int>();
 			this.listBalloon_Master = new List<int>();
 			this.listLine = new List<CLine>();
-			this.listLyric = new List<Bitmap>();
+			this.listLyric = new List<SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32>>();
 			this.listLyric2 = new List<STLYRIC>();
 			this.List_DanSongs = new List<DanSongs>();
 			base.On活性化();

@@ -50,7 +50,7 @@ namespace TJAPlayer3
 		/// <param name="drawstr">描画文字列</param>
 		/// <param name="fontColor">描画色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public new Bitmap DrawPrivateFont( string drawstr, Color fontColor )
+		public new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor )
 		{
 			return DrawPrivateFont( drawstr, DrawMode.Normal, fontColor, Color.White, Color.White, Color.White );
 		}
@@ -62,7 +62,7 @@ namespace TJAPlayer3
 		/// <param name="fontColor">描画色</param>
 		/// <param name="edgeColor">縁取色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public new Bitmap DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor )
+		public new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor )
 		{
 			return DrawPrivateFont( drawstr, DrawMode.Edge, fontColor, edgeColor, Color.White, Color.White );
 		}
@@ -74,7 +74,7 @@ namespace TJAPlayer3
 		/// <param name="fontColor">描画色</param>
 		/// <param name="edgeColor">縁取色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public Bitmap DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, DrawMode dMode )
+		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, DrawMode dMode )
 		{
 			return DrawPrivateFont( drawstr, dMode, fontColor, edgeColor, Color.White, Color.White );
 		}
@@ -88,7 +88,7 @@ namespace TJAPlayer3
 		/// <param name="gradationTopColor">グラデーション 上側の色</param>
 		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public new Bitmap DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradataionBottomColor )
+		public new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradataionBottomColor )
 		{
 			return DrawPrivateFont( drawstr, DrawMode.Edge | DrawMode.Gradation, fontColor, edgeColor, gradationTopColor, gradataionBottomColor );
 		}
@@ -102,7 +102,7 @@ namespace TJAPlayer3
 		/// <param name="gradationTopColor">グラデーション 上側の色</param>
 		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public Bitmap DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, bool bVertical )
+		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, bool bVertical )
 		{
 			if (bVertical)
 			{
@@ -116,7 +116,7 @@ namespace TJAPlayer3
 
 		#endregion
 
-		protected new Bitmap DrawPrivateFont( string drawstr, DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor )
+		protected new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor )
 		{
 			#region [ 以前レンダリングしたことのある文字列/フォントか? (キャッシュにヒットするか?) ]
 			int index = listFontCache.FindIndex(
@@ -164,7 +164,7 @@ namespace TJAPlayer3
 				#endregion
 
 				// 呼び出し元のDispose()でキャッシュもDispose()されないように、Clone()で返す。
-				return (Bitmap)listFontCache[ listFontCache.Count - 1 ].bmp.Clone();
+				return (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32>)listFontCache[ listFontCache.Count - 1 ].bmp.Clone();
 			}
 			else
 			{
@@ -173,12 +173,12 @@ namespace TJAPlayer3
 				RectStrings = listFontCache[ index ].rectStrings;
 				PtOrigin = listFontCache[ index ].ptOrigin;
 				// 呼び出し元のDispose()でキャッシュもDispose()されないように、Clone()で返す。
-				return (Bitmap) listFontCache[ index ].bmp.Clone();
+				return (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32>) listFontCache[ index ].bmp.Clone();
 				#endregion
 			}
 		}
 
-		protected new Bitmap DrawPrivateFont_V( string drawstr, Color fontColor, Color edgeColor, bool bVertical )
+		protected new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont_V( string drawstr, Color fontColor, Color edgeColor, bool bVertical )
 		{
 			#region [ 以前レンダリングしたことのある文字列/フォントか? (キャッシュにヒットするか?) ]
 			int index = listFontCache.FindIndex(
@@ -221,7 +221,7 @@ namespace TJAPlayer3
 				#endregion
 
 				// 呼び出し元のDispose()でキャッシュもDispose()されないように、Clone()で返す。
-				return (Bitmap)listFontCache[ listFontCache.Count - 1 ].bmp.Clone();
+				return (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32>)listFontCache[ listFontCache.Count - 1 ].bmp.Clone();
 			}
 			else
 			{
@@ -230,7 +230,7 @@ namespace TJAPlayer3
 				RectStrings = listFontCache[ index ].rectStrings;
 				PtOrigin = listFontCache[ index ].ptOrigin;
 				// 呼び出し元のDispose()でキャッシュもDispose()されないように、Clone()で返す。
-				return (Bitmap) listFontCache[ index ].bmp.Clone();
+				return (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32>) listFontCache[ index ].bmp.Clone();
 				#endregion
 			}
 		}
@@ -279,7 +279,7 @@ namespace TJAPlayer3
 			public Color edgeColor;
 			public Color gradationTopColor;
 			public Color gradationBottomColor;
-			public Bitmap bmp;
+			public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> bmp;
 			public Rectangle rectStrings;
 			public Point ptOrigin;
 		}

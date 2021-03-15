@@ -58,7 +58,7 @@ namespace TJAPlayer3
 							}
 						}
 
-						using (Bitmap bmpDiff = pfMusicName.DrawPrivateFont(stageText, TJAPlayer3.Skin.Game_StageText_ForeColor, TJAPlayer3.Skin.Game_StageText_BackColor))
+						using (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> bmpDiff = pfMusicName.DrawPrivateFont(stageText, TJAPlayer3.Skin.Game_StageText_ForeColor, TJAPlayer3.Skin.Game_StageText_BackColor))
 						{
 							this.tx難易度とステージ数 = TJAPlayer3.tCreateTexture( bmpDiff );
 						}
@@ -81,7 +81,7 @@ namespace TJAPlayer3
 			}
 		}
 
-		public void t歌詞テクスチャを生成する( Bitmap bmplyric )
+		public void t歌詞テクスチャを生成する(SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> bmplyric )
 		{
 			TJAPlayer3.t安全にDisposeする(ref this.tx歌詞テクスチャ);
 			this.tx歌詞テクスチャ = TJAPlayer3.tCreateTexture( bmplyric );

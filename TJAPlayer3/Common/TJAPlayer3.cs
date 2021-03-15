@@ -998,10 +998,6 @@ namespace TJAPlayer3
 				return null;
 			}
 		}
-		public static CTexture tCreateTexture(Bitmap bitmap)
-		{
-			return tCreateTexture(bitmap, false);
-		}
 		public static CTexture tCreateTexture(Bitmap bitmap, bool b黒を透過する)
 		{
 			if (app == null)
