@@ -5960,14 +5960,8 @@ namespace TJAPlayer3
 		private CPrivateFastFont pf歌詞フォント;
 		public override void On活性化()
 		{
-			if (!string.IsNullOrEmpty(TJAPlayer3.Skin.Game_Lyric_FontName))
-			{
-				this.pf歌詞フォント = new CPrivateFastFont(new FontFamily(TJAPlayer3.Skin.Game_Lyric_FontName), TJAPlayer3.Skin.Game_Lyric_FontSize);
-			}
-			else
-			{
-				this.pf歌詞フォント = new CPrivateFastFont(new FontFamily(CPrivateFont.DefaultFontName), TJAPlayer3.Skin.Game_Lyric_FontSize);
-			}
+			this.pf歌詞フォント = new CPrivateFastFont(TJAPlayer3.Skin.Game_Lyric_FontName, TJAPlayer3.Skin.Game_Lyric_FontSize);
+
 			this.listWAV = new Dictionary<int, CWAV>();
 			this.listBPM = new Dictionary<int, CBPM>();
 			this.listSCROLL = new Dictionary<int, CSCROLL>();

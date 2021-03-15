@@ -38,7 +38,7 @@ namespace TJAPlayer3
 				? $"Calibration complete. InputAdjustTime is now {TJAPlayer3.ConfigIni.nInputAdjustTimeMs}ms"
 				: TJAPlayer3.DTX[0].TITLE;
 
-			using (CPrivateFastFont pfMusicName = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), TJAPlayer3.Skin.Result_MusicName_FontSize))
+			using (CPrivateFastFont pfMusicName = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.Result_MusicName_FontSize))
 			{
 
 				using (var bmpSongTitle = pfMusicName.DrawPrivateFont(title, TJAPlayer3.Skin.Result_MusicName_ForeColor, TJAPlayer3.Skin.Result_MusicName_BackColor))
@@ -48,7 +48,7 @@ namespace TJAPlayer3
 				}
 			}
 
-			using (CPrivateFastFont pfStageText = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), TJAPlayer3.Skin.Result_StageText_FontSize))
+			using (CPrivateFastFont pfStageText = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.Result_StageText_FontSize))
 			{
 				using (var bmpStageText = pfStageText.DrawPrivateFont(TJAPlayer3.Skin.Game_StageText, TJAPlayer3.Skin.Result_StageText_ForeColor, TJAPlayer3.Skin.Result_StageText_BackColor))
 				{

@@ -34,7 +34,7 @@ namespace TJAPlayer3
 			if (!base.b活性化してない)
 			{
 
-				this.Font = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 30);
+				this.Font = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 30);
 				this.donglist = new CSound[2, TJAPlayer3.Skin.SECount];
 				for (int nPlayer = 0; nPlayer < 2; nPlayer++)
 				{

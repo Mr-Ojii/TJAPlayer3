@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Drawing;
 using System.Diagnostics;
-using System.Drawing.Text;
 using FDK;
 using System.Numerics;
 using System.Reflection;

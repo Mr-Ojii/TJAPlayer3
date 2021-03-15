@@ -4,7 +4,6 @@ using System.Text;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Drawing.Text;
 using FDK;
 
 using RectangleF = System.Drawing.RectangleF;
@@ -101,7 +100,7 @@ namespace TJAPlayer3
 
 					if( !string.IsNullOrEmpty(タイトル) )
 					{
-						using (CPrivateFont pfTITLE = new CPrivateFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), TJAPlayer3.Skin.SongLoading_Title_FontSize))
+						using (CPrivateFont pfTITLE = new CPrivateFont(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.SongLoading_Title_FontSize))
 						{
 							using (var bmpSongTitle = pfTITLE.DrawPrivateFont(タイトル, TJAPlayer3.Skin.SongLoading_Title_ForeColor, TJAPlayer3.Skin.SongLoading_Title_BackColor))
 							{
@@ -110,7 +109,7 @@ namespace TJAPlayer3
 							}
 						}
 
-						using (CPrivateFont pfSUBTITLE = new CPrivateFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), TJAPlayer3.Skin.SongLoading_SubTitle_FontSize))
+						using (CPrivateFont pfSUBTITLE = new CPrivateFont(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.SongLoading_SubTitle_FontSize))
 						{
 							using (var bmpSongSubTitle = pfSUBTITLE.DrawPrivateFont(サブタイトル, TJAPlayer3.Skin.SongLoading_SubTitle_ForeColor, TJAPlayer3.Skin.SongLoading_SubTitle_BackColor))
 							{
@@ -366,7 +365,7 @@ namespace TJAPlayer3
 								{
 									if (!string.IsNullOrEmpty(TJAPlayer3.DTX[0].List_DanSongs[i].Title))
 									{
-										using (CPrivateFastFont pfTitle = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 32))
+										using (CPrivateFastFont pfTitle = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 32))
 										{
 											using (var bmpSongTitle = pfTitle.DrawPrivateFont(TJAPlayer3.DTX[0].List_DanSongs[i].Title, TJAPlayer3.Skin.Game_DanC_Title_ForeColor, TJAPlayer3.Skin.Game_DanC_Title_BackColor))
 											{
@@ -378,7 +377,7 @@ namespace TJAPlayer3
 
 									if (!string.IsNullOrEmpty(TJAPlayer3.DTX[0].List_DanSongs[i].SubTitle))
 									{
-										using (CPrivateFastFont pfSubTitle = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 19))
+										using (CPrivateFastFont pfSubTitle = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 19))
 										{
 											using (var bmpSongSubTitle = pfSubTitle.DrawPrivateFont(TJAPlayer3.DTX[0].List_DanSongs[i].SubTitle, TJAPlayer3.Skin.Game_DanC_SubTitle_ForeColor, TJAPlayer3.Skin.Game_DanC_SubTitle_BackColor))
 											{

@@ -128,8 +128,8 @@ namespace TJAPlayer3
 
 		public override void On活性化()
 		{
-			this.pfMusicName = new CPrivateFastFont( new FontFamily( TJAPlayer3.ConfigIni.FontName), TJAPlayer3.Skin.Game_MusicName_FontSize);
-			this.pfSubTitleName = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), TJAPlayer3.Skin.Game_SubTitleName_FontSize);
+			this.pfMusicName = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.Game_MusicName_FontSize);
+			this.pfSubTitleName = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.Game_SubTitleName_FontSize);
 
 			this.txPanel = null;
 			this.ct進行用 = new CCounter();

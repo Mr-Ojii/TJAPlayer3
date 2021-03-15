@@ -73,7 +73,7 @@ namespace TJAPlayer3
 				string[] txt = new string[4] { "左ふち", "左面", "右面", "右ふち" };
 				for (int ind = 0; ind < 4; ind++)
 				{
-					str[ind] = TJAPlayer3.tCreateTexture(new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), fontsize).DrawPrivateFont(txt[ind], Color.White, Color.Black));
+					str[ind] = TJAPlayer3.tCreateTexture(new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, fontsize).DrawPrivateFont(txt[ind], Color.White, Color.Black));
 				}
 				base.OnManagedリソースの作成();
 			}

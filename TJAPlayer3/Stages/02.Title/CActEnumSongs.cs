@@ -73,7 +73,7 @@ namespace TJAPlayer3
 				int ci = ( CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja" ) ? 0 : 1;
 				if ( ( strMessage != null ) && ( strMessage.Length > 0 ) )
 				{
-					using (CPrivateFont pffont = new CPrivateFont(new FontFamily(CPrivateFont.DefaultFontName), 32, SixLabors.Fonts.FontStyle.Bold))
+					using (CPrivateFont pffont = new CPrivateFont(CPrivateFont.DefaultFontName, 32, SixLabors.Fonts.FontStyle.Bold))
 					{
 						this.txMessage = TJAPlayer3.tCreateTexture(pffont.DrawPrivateFont(strMessage[ci], Color.White), true);
 						this.txMessage.vcScaling = new System.Numerics.Vector3(0.5f, 0.5f, 1f);

@@ -195,7 +195,7 @@ namespace TJAPlayer3
 
 		public override void On活性化()
 		{
-			this.Font = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 20);
+			this.Font = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 20);
 			lci = new List<CItemBase>[2];
 			for (int nPlayer = 0; nPlayer < 2; nPlayer++)
 			{

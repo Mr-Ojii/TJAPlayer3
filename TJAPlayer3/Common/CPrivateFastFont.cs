@@ -12,21 +12,13 @@ namespace TJAPlayer3
 	public class CPrivateFastFont : CPrivateFont
 	{
 		#region [ コンストラクタ ]
-		public CPrivateFastFont( FontFamily fontfamily, int pt, SixLabors.Fonts.FontStyle style )
-		{
-			Initialize( null, fontfamily, pt, style );
-		}
-		public CPrivateFastFont( FontFamily fontfamily, int pt )
-		{
-			Initialize( null, fontfamily, pt, SixLabors.Fonts.FontStyle.Regular );
-		}
 		public CPrivateFastFont( string fontpath, int pt, SixLabors.Fonts.FontStyle style )
 		{
-			Initialize( fontpath, null, pt, style );
+			Initialize( fontpath, pt, style );
 		}
 		public CPrivateFastFont( string fontpath, int pt )
 		{
-			Initialize( fontpath, null, pt, SixLabors.Fonts.FontStyle.Regular );
+			Initialize( fontpath, pt, SixLabors.Fonts.FontStyle.Regular );
 		}
 		public CPrivateFastFont()
 		{
@@ -34,11 +26,11 @@ namespace TJAPlayer3
 		}
 		#endregion
 		#region [ コンストラクタから呼ばれる初期化処理 ]
-		protected new void Initialize( string fontpath, FontFamily fontfamily, int pt, SixLabors.Fonts.FontStyle style )
+		protected new void Initialize( string fontpath, int pt, SixLabors.Fonts.FontStyle style )
 		{
 			this.bDispose完了済み_CPrivateFastFont = false;
 			this.listFontCache = new List<FontCache>();
-			base.Initialize( fontpath, fontfamily, pt, style );
+			base.Initialize( fontpath, pt, style );
 		}
 		#endregion
 

@@ -50,21 +50,13 @@ namespace TJAPlayer3
 	public class CPrivateFont : IDisposable
 	{
 		#region [ コンストラクタ ]
-		public CPrivateFont( FontFamily fontfamily, int pt, SixLabors.Fonts.FontStyle style )
-		{
-			Initialize( null, fontfamily, pt, style );
-		}
-		public CPrivateFont( FontFamily fontfamily, int pt )
-		{
-			Initialize( null, fontfamily, pt, SixLabors.Fonts.FontStyle.Regular );
-		}
 		public CPrivateFont( string fontpath, int pt, SixLabors.Fonts.FontStyle style )
 		{
-			Initialize( fontpath, null, pt, style );
+			Initialize( fontpath, pt, style );
 		}
 		public CPrivateFont( string fontpath, int pt )
 		{
-			Initialize( fontpath, null, pt, SixLabors.Fonts.FontStyle.Regular );
+			Initialize( fontpath, pt, SixLabors.Fonts.FontStyle.Regular );
 		}
 		public CPrivateFont()
 		{
@@ -72,7 +64,10 @@ namespace TJAPlayer3
 		}
 		#endregion
 
-		protected void Initialize(string fontpath, FontFamily fontfamily, int pt, SixLabors.Fonts.FontStyle stylel )
+		/// <param name="fontpath">フォント名orフォントパス</param>
+		/// <param name="pt">大きさ</param>
+		/// <param name="stylel">フォントスタイル</param>
+		protected void Initialize(string fontpath, int pt, SixLabors.Fonts.FontStyle stylel )
 		{
 			this._pfc = null;
 			this._fontfamily = null;
@@ -99,11 +94,17 @@ namespace TJAPlayer3
 					break;
 			}
 
-			if (fontfamily != null)
+			try
 			{
-				this._fontfamily = fontfamily;
+				this._fontfamily = new FontFamily(fontpath);
 			}
-			else
+			catch 
+			{
+				Trace.TraceWarning($"{fontpath}はフォント名ではないようです。");
+				this._fontfamily = null;
+			}
+
+			if (this._fontfamily == null)
 			{
 				try
 				{
@@ -116,7 +117,7 @@ namespace TJAPlayer3
 					Trace.TraceWarning($"プライベートフォントの追加に失敗しました({fontpath})。代わりに{CPrivateFont.DefaultFontName}の使用を試みます。");
 					//throw new FileNotFoundException( "プライベートフォントの追加に失敗しました。({0})", Path.GetFileName( fontpath ) );
 					//return;
-					_fontfamily = null;
+					this._fontfamily = null;
 				}
 			}
 

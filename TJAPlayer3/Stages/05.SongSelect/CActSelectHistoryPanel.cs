@@ -37,7 +37,7 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				this.Font = new CPrivateFastFont(new FontFamily(TJAPlayer3.ConfigIni.FontName), 40);
+				this.Font = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 40);
 				base.OnManagedリソースの作成();
 				tSongChange();
 			}
