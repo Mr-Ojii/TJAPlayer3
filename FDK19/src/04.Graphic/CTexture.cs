@@ -23,11 +23,7 @@ namespace FDK
 		// プロパティ
 		public EBlendMode eBlendMode = EBlendMode.Normal;
 
-		public float fRotation
-		{
-			get;
-			set;
-		}
+		public float fRotation;
 		public int Opacity
 		{
 			get
@@ -61,7 +57,7 @@ namespace FDK
 		private Vector3[] vertices = new Vector3[4]{ new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(1, 1, 0), new Vector3(1, 0, 0) };
 		private Vector2[] texcoord = new Vector2[4] { new Vector2(0, 0), new Vector2(0, 1), new Vector2(1, 1), new Vector2(1, 0) };
 		public System.Numerics.Vector3 vcScaling;
-		private Vector3 vc;
+		private Vector3 vcS;
 		private string filename;
 
 		// コンストラクタ
@@ -76,7 +72,7 @@ namespace FDK
 			this.bTextureDisposed = true;
 			this.fRotation = 0f;
 			this.vcScaling = new System.Numerics.Vector3(1f, 1f, 1f);
-			this.vc = new Vector3(1f, 1f, 1f);
+			this.vcS = new Vector3(1f, 1f, 1f);
 			this.filename = "";
 			//			this._txData = null;
 		}
@@ -392,15 +388,15 @@ namespace FDK
 
 				this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
-				float n描画領域内X = x + (rc画像内の描画領域.Width / 2.0f);
-				float n描画領域内Y = y + (rc画像内の描画領域.Height / 2.0f);
+				float n描画領域内X = x + (rc画像内の描画領域.Width * this.vcScaling.X / 2.0f);
+				float n描画領域内Y = y + (rc画像内の描画領域.Height * this.vcScaling.Y / 2.0f);
 				var vc3移動量 = new Vector3(n描画領域内X - (((float)GameWindowSize.Width) / 2f), -(n描画領域内Y - (((float)GameWindowSize.Height) / 2f)), 0f);
 
-				this.vc.X = this.vcScaling.X;
-				this.vc.Y = this.vcScaling.Y;
-				this.vc.Z = this.vcScaling.Z;
+				this.vcS.X = this.vcScaling.X;
+				this.vcS.Y = this.vcScaling.Y;
+				this.vcS.Z = this.vcScaling.Z;
 
-				var matrix = Matrix4.Identity * Matrix4.CreateScale(this.vc);
+				var matrix = Matrix4.Identity * Matrix4.CreateScale(this.vcS);
 				matrix *= Matrix4.CreateRotationZ(this.fRotation);
 				matrix *= Matrix4.CreateTranslation(vc3移動量);
 
@@ -772,9 +768,9 @@ namespace FDK
 		{
 			Matrix4 tmpmat = CAction.ModelView;
 			GL.MatrixMode(MatrixMode.Modelview);
-			GL.LoadMatrix(ref tmpmat);
-			mat *= Matrix4.CreateScale(-1, 1, 0);
-			GL.MultMatrix(ref mat);
+			mat *= Matrix4.CreateScale(-1, 1, 1);
+			mat *= tmpmat;
+			GL.LoadMatrix(ref mat);
 		}
 		private enum MakeType
 		{
