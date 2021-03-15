@@ -10,11 +10,12 @@ namespace FDK
 	public class CDecodedFrame : IDisposable
 	{
 		public double Time;
-		public Bitmap Tex;
+		public byte[] Tex;
+		public Size size;
 
 		public void Dispose()
 		{
-			Tex.Dispose();
+			//GCヨロシク！
 		}
 	}
 }

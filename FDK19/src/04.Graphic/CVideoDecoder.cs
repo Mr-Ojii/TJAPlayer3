@@ -3,7 +3,6 @@ using System.IO;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Collections.Concurrent;
 using System.Linq;
@@ -171,7 +170,7 @@ namespace FDK
 										continue;
 									}
 
-							lastTexture.UpdateTexture(cdecodedframe.Tex, false);
+							lastTexture.UpdateTexture(cdecodedframe.Tex, cdecodedframe.size);
 
 							cdecodedframe.Dispose();
 						}
@@ -233,7 +232,7 @@ namespace FDK
 
 										outframe = frameconv.Convert(frame);
 
-										decodedframes.Enqueue(new CDecodedFrame() { Time = (outframe->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Tex = getframe(outframe) });
+										decodedframes.Enqueue(new CDecodedFrame() { Time = (outframe->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Tex = getframe(outframe), size = new Size(outframe->width, outframe->height) });
 
 										ffmpeg.av_frame_unref(frame);
 										ffmpeg.av_frame_unref(outframe);
@@ -271,9 +270,18 @@ namespace FDK
 			}
 		}
 
-		private Bitmap getframe(AVFrame* frame)
+		private byte[] getframe(AVFrame* frame)
 		{
-			return new Bitmap(frame->width, frame->height, frame->linesize[0], PixelFormat.Format32bppArgb, (IntPtr)frame->data[0]);
+			byte[] bytearray = new byte[frame->linesize[0] * frame->height];
+			fixed (byte* bytep = &bytearray[0])
+			{
+				for (int y = 0; y < frame->height; y++)
+				{
+					Buffer.MemoryCopy(frame->data[0] + (frame->linesize[0] * frame->height - (frame->linesize[0] * (y + 1))), bytep + frame->linesize[0] * y, frame->linesize[0], frame->linesize[0]);
+				} 
+			}
+
+			return bytearray;
 		}
 
 		public Size FrameSize 

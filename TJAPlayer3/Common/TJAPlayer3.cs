@@ -998,28 +998,6 @@ namespace TJAPlayer3
 				return null;
 			}
 		}
-		public static CTexture tCreateTexture(Bitmap bitmap, bool b黒を透過する)
-		{
-			if (app == null)
-			{
-				return null;
-			}
-			if (bitmap == null)
-			{
-				Trace.TraceError("テクスチャの生成に失敗しました。(bitmap==null)");
-				return null;
-			}
-			try
-			{
-				return new CTexture(app.Device, bitmap, b黒を透過する);
-			}
-			catch (CTextureCreateFailedException e)
-			{
-				Trace.TraceError(e.ToString());
-				Trace.TraceError("テクスチャの生成に失敗しました。(txData)");
-				return null;
-			}
-		}
 		public static CTexture tCreateTexture(SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> image)
 		{
 			return tCreateTexture(image, false);

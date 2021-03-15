@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Diagnostics;
 using OpenTK;
@@ -96,12 +95,6 @@ namespace FDK
 			filename = strFilename;
 			MakeTexture(device, strFilename);
 		}
-		public CTexture(Device device, Bitmap bitmap, bool b黒を透過する)
-			: this()
-		{
-			maketype = MakeType.bitmap;
-			MakeTexture(device, C変換.ToImageSharpImage(bitmap), b黒を透過する);
-		}
 		public CTexture(Device device, Image<Argb32> image, bool b黒を透過する)
 			: this()
 		{
@@ -182,17 +175,12 @@ namespace FDK
 			}
 		}
 		// メソッド
-		public void UpdateTexture(Bitmap bitmap, bool b黒を透過する) 
+		public void UpdateTexture(byte[] bitmap, Size size) 
 		{
-			if (b黒を透過する)
-				bitmap.MakeTransparent(Color.Black);
-			bitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
-			if (this.szTextureSize == bitmap.Size) 
+			if (this.szTextureSize == size) 
 			{
-				BitmapData data = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 				GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
-				GL.TexSubImage2D(TextureTarget.Texture2D, 0, 0, 0, bitmap.Width, bitmap.Height, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, (IntPtr)data.Scan0);
-				bitmap.UnlockBits(data);
+				GL.TexSubImage2D(TextureTarget.Texture2D, 0, 0, 0, size.Width, size.Height, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bitmap);
 
 				GL.Hint(HintTarget.GenerateMipmapHint, HintMode.Nicest);
 				GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
