@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using FDK;
 
 namespace TJAPlayer3
@@ -112,7 +113,7 @@ namespace TJAPlayer3
 				}
 				catch (System.IO.FileNotFoundException)
 				{
-					Trace.TraceWarning($"プライベートフォントの追加に失敗しました({fontpath})。代わりに{TJAPlayer3.DefaultFontName}の使用を試みます。");
+					Trace.TraceWarning($"プライベートフォントの追加に失敗しました({fontpath})。代わりに{CPrivateFont.DefaultFontName}の使用を試みます。");
 					//throw new FileNotFoundException( "プライベートフォントの追加に失敗しました。({0})", Path.GetFileName( fontpath ) );
 					//return;
 					_fontfamily = null;
@@ -150,20 +151,20 @@ namespace TJAPlayer3
 			// フォントファイルが見つからなかった場合 (デフォルトフォントを代わりに指定する)
 			{
 				float emSize = pt * 96.0f / 72.0f;
-				this._font = new Font(TJAPlayer3.DefaultFontName, emSize, style, GraphicsUnit.Pixel);	//デフォルトフォントのオブジェクトを作成する
+				this._font = new Font(CPrivateFont.DefaultFontName, emSize, style, GraphicsUnit.Pixel);	//デフォルトフォントのオブジェクトを作成する
 				FontFamily[] ffs = new System.Drawing.Text.InstalledFontCollection().Families;
 				int lcid = System.Globalization.CultureInfo.GetCultureInfo("en-us").LCID;
 				foreach (FontFamily ff in ffs)
 				{
 					// Trace.WriteLine( lcid ) );
-					if (ff.GetName(lcid) == TJAPlayer3.DefaultFontName)
+					if (ff.GetName(lcid) == CPrivateFont.DefaultFontName)
 					{
 						this._fontfamily = ff;
-						Trace.TraceInformation(TJAPlayer3.DefaultFontName + "を代わりに指定しました。");
+						Trace.TraceInformation(CPrivateFont.DefaultFontName + "を代わりに指定しました。");
 						return;
 					}
 				}
-				throw new FileNotFoundException($"プライベートフォントの追加に失敗し、{TJAPlayer3.DefaultFontName}での代替処理にも失敗しました。({Path.GetFileName(fontpath)})");
+				throw new FileNotFoundException($"プライベートフォントの追加に失敗し、{CPrivateFont.DefaultFontName}での代替処理にも失敗しました。({Path.GetFileName(fontpath)})");
 			}
 		}
 
@@ -174,6 +175,19 @@ namespace TJAPlayer3
 			Edge,
 			Gradation,
 			Vertical
+		}
+
+		public static string DefaultFontName
+		{
+			get
+			{
+				if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+					return "MS UI Gothic";
+				else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+					return "ヒラギノ角ゴ Std W8";//OSX搭載PC未所持のため暫定
+				else
+					return "Droid Sans Fallback";
+			}
 		}
 
 		#region [ DrawPrivateFontのオーバーロード群 ]

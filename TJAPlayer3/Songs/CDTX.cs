@@ -5966,7 +5966,7 @@ namespace TJAPlayer3
 			}
 			else
 			{
-				this.pf歌詞フォント = new CPrivateFastFont(new FontFamily(TJAPlayer3.DefaultFontName), TJAPlayer3.Skin.Game_Lyric_FontSize);
+				this.pf歌詞フォント = new CPrivateFastFont(new FontFamily(CPrivateFont.DefaultFontName), TJAPlayer3.Skin.Game_Lyric_FontSize);
 			}
 			this.listWAV = new Dictionary<int, CWAV>();
 			this.listBPM = new Dictionary<int, CBPM>();

@@ -483,8 +483,8 @@ namespace TJAPlayer3
 			this.bランダムセレクトで子BOXを検索対象とする = true;
 			this.n表示可能な最小コンボ数 = new int();
 			this.n表示可能な最小コンボ数 = 3;
-			this.FontName = TJAPlayer3.DefaultFontName;
-			this.FontNamed = TJAPlayer3.DefaultFontName;
+			this.FontName = CPrivateFont.DefaultFontName;
+			this.FontNamed = CPrivateFont.DefaultFontName;
 			this.RandomPresence = true;
 			this.OpenOneSide = false;
 			this.SongSelectSkipCount = 7;
@@ -1390,7 +1390,7 @@ namespace TJAPlayer3
 												this.FontName = str4;
 												this.FontNamed = str4;
 												if (string.IsNullOrEmpty(TJAPlayer3.ConfigIni.FontName))
-													this.FontName = TJAPlayer3.DefaultFontName;
+													this.FontName = CPrivateFont.DefaultFontName;
 												try //2020.05.04 Mr-Ojii フォントの例外処理を出さないように追加
 												{
 													FontFamily ff = new FontFamily(this.FontName);
@@ -1398,8 +1398,8 @@ namespace TJAPlayer3
 												} 
 												catch
 												{
-													this.FontName = TJAPlayer3.DefaultFontName;
-													Console.WriteLine(this.FontNamed + $"を使用すると、例外が発生するので、{TJAPlayer3.DefaultFontName}を使用します。");
+													this.FontName = CPrivateFont.DefaultFontName;
+													Console.WriteLine(this.FontNamed + $"を使用すると、例外が発生するので、{CPrivateFont.DefaultFontName}を使用します。");
 												}
 
 											}

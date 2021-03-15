@@ -285,13 +285,7 @@ namespace TJAPlayer3
 				return "Ver." + Assembly.GetExecutingAssembly().GetName().Version.ToString() + "(" + Platform + "-" + (Environment.Is64BitProcess ? "x64" : "x86") + ")";
 			}
 		}
-		public static string DefaultFontName 
-		{
-			get 
-			{
-				return "MS UI Gothic";
-			}
-		}
+
 		//		public static CTimer ct;
 		public IntPtr WindowHandle                  // 2012.10.24 yyagi; to add ASIO support
 		{

@@ -2512,7 +2512,7 @@ namespace TJAPlayer3
 		public int Game_Genre_Y = 74;
 		public int Game_Lyric_X = 640;
 		public int Game_Lyric_Y = 630;
-		public string Game_Lyric_FontName = TJAPlayer3.DefaultFontName;
+		public string Game_Lyric_FontName = CPrivateFont.DefaultFontName;
 		public int Game_Lyric_FontSize = 38;
 		public ReferencePoint Game_Lyric_ReferencePoint = ReferencePoint.Center;
 
