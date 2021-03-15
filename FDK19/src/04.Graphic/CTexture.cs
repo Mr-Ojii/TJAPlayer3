@@ -100,7 +100,7 @@ namespace FDK
 			: this()
 		{
 			maketype = MakeType.bitmap;
-			MakeTexture(device, ToImageSharpImage(bitmap), b黒を透過する);
+			MakeTexture(device, C変換.ToImageSharpImage(bitmap), b黒を透過する);
 		}
 		public CTexture(Device device, Image<Argb32> image, bool b黒を透過する)
 			: this()
@@ -196,19 +196,6 @@ namespace FDK
 
 				GL.Hint(HintTarget.GenerateMipmapHint, HintMode.Nicest);
 				GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
-			}
-		}
-
-		//参考:https://gist.github.com/vurdalakov/00d9471356da94454b372843067af24e
-		public static Image<Argb32> ToImageSharpImage(System.Drawing.Bitmap bitmap)
-		{
-			using (var memoryStream = new MemoryStream())
-			{
-				bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
-
-				memoryStream.Seek(0, SeekOrigin.Begin);
-
-				return SixLabors.ImageSharp.Image.Load<Argb32>(memoryStream);
 			}
 		}
 

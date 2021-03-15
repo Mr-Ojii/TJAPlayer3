@@ -1032,13 +1032,17 @@ namespace TJAPlayer3
 		}
 		public static CTexture tCreateTexture(SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> image)
 		{
+			return tCreateTexture(image, false);
+		}
+		public static CTexture tCreateTexture(SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> image, bool b黒を透過する)
+		{
 			if (app == null)
 			{
 				return null;
 			}
 			try
 			{
-				return new CTexture(app.Device, image, false);
+				return new CTexture(app.Device, image, b黒を透過する);
 			}
 			catch (CTextureCreateFailedException e)
 			{

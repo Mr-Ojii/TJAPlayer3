@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace FDK
 {
@@ -202,6 +205,19 @@ namespace FDK
 		public static int n255ToParsent(int num)
 		{
 			return (int)(100.0 / num);
+		}
+
+		//参考:https://gist.github.com/vurdalakov/00d9471356da94454b372843067af24e
+		public static Image<Argb32> ToImageSharpImage(System.Drawing.Bitmap bitmap)
+		{
+			using (var memoryStream = new MemoryStream())
+			{
+				bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+
+				memoryStream.Seek(0, SeekOrigin.Begin);
+
+				return SixLabors.ImageSharp.Image.Load<Argb32>(memoryStream);
+			}
 		}
 
 		#region [ private ]
