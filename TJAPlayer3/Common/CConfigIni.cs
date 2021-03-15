@@ -1389,19 +1389,6 @@ namespace TJAPlayer3
 											{
 												this.FontName = str4;
 												this.FontNamed = str4;
-												if (string.IsNullOrEmpty(TJAPlayer3.ConfigIni.FontName))
-													this.FontName = CPrivateFont.DefaultFontName;
-												try //2020.05.04 Mr-Ojii フォントの例外処理を出さないように追加
-												{
-													FontFamily ff = new FontFamily(this.FontName);
-													ff.IsStyleAvailable(FontStyle.Regular);
-												} 
-												catch
-												{
-													this.FontName = CPrivateFont.DefaultFontName;
-													Console.WriteLine(this.FontNamed + $"を使用すると、例外が発生するので、{CPrivateFont.DefaultFontName}を使用します。");
-												}
-
 											}
 											#endregion
 

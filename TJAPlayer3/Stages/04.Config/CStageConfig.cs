@@ -59,8 +59,8 @@ namespace TJAPlayer3
 			try
 			{
 				this.n現在のメニュー番号 = 0;                                                    //
-				
-				this.ftフォント = new Font(TJAPlayer3.ConfigIni.FontName, 18.0f, FontStyle.Bold, GraphicsUnit.Pixel);
+
+				this.privatefont = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 14, SixLabors.Fonts.FontStyle.Bold);
 
 				for( int i = 0; i < 4; i++ )													//
 				{																				//
@@ -94,12 +94,12 @@ namespace TJAPlayer3
 			try
 			{
 				TJAPlayer3.ConfigIni.t書き出し( TJAPlayer3.strEXEのあるフォルダ + "Config.ini" );	// CONFIGだけ
-				if( this.ftフォント != null )													// 以下OPTIONと共通
+				if (this.privatefont != null)                                                    // 以下OPTIONと共通
 				{
-					this.ftフォント.Dispose();
-					this.ftフォント = null;
+					this.privatefont.Dispose();
+					this.privatefont = null;
 				}
-				for( int i = 0; i < 4; i++ )
+				for ( int i = 0; i < 4; i++ )
 				{
 					this.ctキー反復用[ i ] = null;
 				}
@@ -468,7 +468,7 @@ namespace TJAPlayer3
 		private const int DESC_H = 0x80;
 		private const int DESC_W = 220;
 		private EItemPanelモード eItemPanelモード;
-		private Font ftフォント;
+		private CPrivateFastFont privatefont;
 		private int n現在のメニュー番号;
 		//private CTexture txMenuカーソル;
 		//private CTexture tx下部パネル;
@@ -553,54 +553,37 @@ namespace TJAPlayer3
 		{
 			try
 			{
-				using (Bitmap image = new Bitmap(440, 288))        // 説明文領域サイズの縦横 2 倍。（描画時に 0.5 倍で表示する。）
+				string[] str = new string[2];
+				switch (this.n現在のメニュー番号)
 				{
-					using (var graphics = Graphics.FromImage(image))
-					{
-						graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-						graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+					case 0:
+						str[0] = "システムに関係する項目を設定します。";
+						str[1] = "Settings for an overall systems.";
+						break;
 
-						string[,] str = new string[2, 2];
-						switch (this.n現在のメニュー番号)
-						{
-							case 0:
-								str[0, 0] = "システムに関係する項目を設定します。";
-								str[0, 1] = "";
-								str[1, 0] = "Settings for an overall systems.";
-								break;
+					case 1:
+						str[0] = "ドラムの演奏に関する項目を設定します。";
+						str[1] = "Settings to play the drums.";
+						break;
 
-							case 1:
-								str[0, 0] = "ドラムの演奏に関する項目を設定します。";
-								str[0, 1] = "";
-								str[1, 0] = "Settings to play the drums.";
-								str[1, 1] = "";
-								break;
-
-							case 2:
-								str[0, 0] = "設定を保存し、コンフィグ画面を終了します。";
-								str[0, 1] = "";
-								str[1, 0] = "Save the settings and exit from";
-								str[1, 1] = "CONFIGURATION menu.";
-								break;
-						}
-
-						int c = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
-						for (int i = 0; i < 2; i++)
-						{
-							graphics.DrawString(str[c, i], this.ftフォント, Brushes.White, new PointF(8f, (i * 30) * 1.5f));
-						}
-						if (this.tx説明文パネル != null)
-						{
-							this.tx説明文パネル.Dispose();
-						}
-						this.tx説明文パネル = TJAPlayer3.tCreateTexture(image, true);
-					}
+					case 2:
+						str[0] = "設定を保存し、コンフィグ画面を終了します。";
+						str[1] = "Save the settings and exit from";
+						break;
 				}
+
+				int c = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
+
+				if (this.tx説明文パネル != null)
+				{
+					this.tx説明文パネル.Dispose();
+				}
+				this.tx説明文パネル = TJAPlayer3.tCreateTexture(this.privatefont.DrawPrivateFont(str[c], Color.White), true);
 			}
-			catch( CTextureCreateFailedException e)
+			catch (CTextureCreateFailedException e)
 			{
-				Trace.TraceError( e.ToString() );
-				Trace.TraceError( "説明文テクスチャの作成に失敗しました。" );
+				Trace.TraceError(e.ToString());
+				Trace.TraceError("説明文テクスチャの作成に失敗しました。");
 				this.tx説明文パネル = null;
 			}
 		}
@@ -608,25 +591,12 @@ namespace TJAPlayer3
 		{
 			try
 			{
-				using (Bitmap image = new Bitmap(440, 288))        // 説明文領域サイズの縦横 2 倍。（描画時に 0.5 倍で表示する___のは中止。処理速度向上のため。）
+				CItemBase item = this.actList.ib現在の選択項目;
+				if (this.tx説明文パネル != null)
 				{
-					using (var graphics = Graphics.FromImage(image))
-					{
-						graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-						graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
-
-						CItemBase item = this.actList.ib現在の選択項目;
-						if ((item.strDescription != null) && (item.strDescription.Length > 0))
-						{
-							graphics.DrawString(item.strDescription, this.ftフォント, Brushes.White, new RectangleF(8f, 0, 630, 430));
-						}
-						if (this.tx説明文パネル != null)
-						{
-							this.tx説明文パネル.Dispose();
-						}
-						this.tx説明文パネル = TJAPlayer3.tCreateTexture(image, true);
-					}
+					this.tx説明文パネル.Dispose();
 				}
+				this.tx説明文パネル = TJAPlayer3.tCreateTexture(privatefont.DrawPrivateFont(item.strDescription, Color.White), true);
 			}
 			catch( CTextureCreateFailedException e )
 			{
