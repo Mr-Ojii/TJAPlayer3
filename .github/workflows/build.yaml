@@ -65,7 +65,7 @@ jobs:
         path: Test/net5.0/${{matrix.platform}}
         
     - name: Rename App File
-      if: matrix.platform == "linux-x64"
+      if: matrix.platform == 'linux-x64'
       run: |
         cd $Env:GITHUB_WORKSPACE
         move "Test\net5.0\TJAPlayer3-f" "Test\net5.0\TJAPlayer3-f.AppImage"
