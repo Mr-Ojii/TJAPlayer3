@@ -101,13 +101,13 @@ Fork元より使用しているライブラリ
 + [Zeranoe FFmpeg](http://ffmpeg.zeranoe.com/builds/)からのx86ライブラリ  
 + [FFmpeg Static Auto-Builds](https://github.com/BtbN/FFmpeg-Builds)からのx64ライブラリ  
 
-バージョンは4.3.1です。(2021/01/16現在)
+バージョンは4.3.1です。(2021/03/16現在)
 
 DLL群のバージョンアップをしたい方は自己責任で差し替えをしてください。  
 
 ## OpenAL Softについて
 このリポジトリにはあらかじめOpenAL Softライブラリが同梱されています。  
-バージョンは1.15.1です。(2021/01/16現在)
+バージョンは1.21.1です。(2021/03/16現在)
 
 このプログラムはFROM氏の「DTXMania」を元に製作しています。
 
