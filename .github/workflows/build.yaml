@@ -13,6 +13,7 @@ jobs:
     runs-on: windows-latest
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
+      upload_url2: ${{ steps.create_release2.outputs.upload_url }}
     steps:
     - name: Create a Release(Pre)
       if: (startsWith(github.ref, 'refs/tags/Ver')) != true
@@ -97,7 +98,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ needs.create_release2.outputs.upload_url }}
+        upload_url: ${{ needs.create_release.outputs.upload_url2 }}
         asset_path: ./TJAPlayer3-f-Release.zip
         asset_name: TJAPlayer3-f-${{matrix.platform}}-${{ github.ref }}.zip
         asset_content_type: application/zip
