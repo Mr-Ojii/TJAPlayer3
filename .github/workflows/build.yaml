@@ -63,6 +63,13 @@ jobs:
       uses: JesseTG/rm@v1.0.0
       with:
         path: Test/net5.0/${{matrix.platform}}
+        
+    - name: Rename App File
+      if: matrix.platform == "linux-x64"
+      run: |
+        cd $Env:GITHUB_WORKSPACE
+        move "Test\net5.0\TJAPlayer3-f" "Test\net5.0\TJAPlayer3-f.AppImage"
+        
     - name: Create Archive
       run: |
         cd $Env:GITHUB_WORKSPACE
