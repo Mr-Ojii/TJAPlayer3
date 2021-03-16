@@ -12,24 +12,40 @@ masterブランチでほぼすべての開発を行います。
 
 起動時にコンソールが出現しますが、気にしないでください。
 
-linux-x64 osx-x64ビルドはテスト段階です。  
+osx-x64ビルドはテスト段階です。  
 動作確認ができていません。そのため、動作保証ができません。ご承知おきください。
 
 このプログラムを使用し発生した、いかなる不具合・損失に対しても、一切の責任を負いません。
 
 
 ## 推奨環境
-Windows 7以降のWindows環境  
-まぁ、Windows 10で動作確認をしているので、Windows 10が一番安定してるかと...
+* Windows 7以降のWindows環境  
+* Ubuntu系のLinux環境 (x64)  
 
-## 開発環境
-Windows 10(Ver.20H2)  
-VisualStudio Community 2019
+~~まぁ、Windows 10で動作確認をしているので、Windows 10が一番安定してるかと...~~
+__Windows10(Ver.20H2)とLinux Mint 20.1(Xfce)ではLinux Mintの方が安定して動作していました。__
+
+
+Ubuntu系Linuxではターミナルで  
+``sudo apt install freeglut3 freeglut3-dev libgdiplus ffmpeg``  
+を実行しそれぞれのライブラリをインストールしてから実行してください。
+
+
+## 開発環境(動作確認環境)
+OS
+* Windows 10(Ver.20H2) (x64)  
+* Linux Mint 20.1(Xfce) (x64)  
+* Ubuntu 20.04 LTS (x64)
+
+Editor
+* Visual Studio Community 2019  
+* Visual Studio Code  
+* Vim
 
 ## バグ報告のお願い
-改造者:[@Mr_Ojii](https://twitter.com/Mr_Ojii)はC#を2020年3月に初めて触りました。  
+改造者:[@Mr_Ojii](https://twitter.com/Mr_Ojii)はC#を2020年3月16日に初めて触りました。  
 この改造をしながら、C#を勉強しているため、相当な量のバグが含まれていると思われます。  
-バグを見つけた場合、TJAPlayer3-fから開かれたフォームまたは、Issuesで報告してもらえると、  
+バグを見つけた場合、Discordサーバーまたは、Issuesで報告してもらえると、  
 自分の勉強もはかどるのでよろしくお願いします。
 
 ## 開発状況(ログみたいなもん)
