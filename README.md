@@ -22,7 +22,7 @@ osx-x64ビルドはテスト段階です。
 * Windows 7以降のWindows環境  
 * Ubuntu系のLinux環境 (x64)  
 
-~~まぁ、Windows 10で動作確認をしているので、Windows 10が一番安定してるかと...~~
+~~まぁ、Windows 10で動作確認をしているので、Windows 10が一番安定してるかと...~~  
 __Windows10(Ver.20H2)とLinux Mint 20.1(Xfce)ではLinux Mintの方が安定して動作していました。__
 
 
@@ -69,6 +69,7 @@ Editor
 |Ver.1.6.2.0|2020-10-06|.NET Core 3.1にフレームワークをアップデート                                             |
 |Ver.1.6.3.0|2021-01-03|.NET 5にフレームワークをアップデート                                                    |
 |Ver.1.6.4.0|2021-01-06|OpenGL描画に対応                                                                        |
+|Ver.1.7.0.0|2021-03-16|Ubuntu系のLinux Distributionに対応                                                      |
 
 ## Discord鯖
 作っていいものかと思いながら、公開鯖を作ってみたかったので作ってしまいました。  
