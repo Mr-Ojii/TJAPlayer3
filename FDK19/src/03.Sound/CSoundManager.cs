@@ -28,8 +28,6 @@ namespace FDK
 		// DTXMania単体でこれをtrueにすると、WASAPI/ASIO時に演奏タイマーとしてFDKタイマーではなく
 		// システムのタイマーを使うようになる。こうするとスクロールは滑らかになるが、音ズレが出るかもしれない。
 
-		public static IntPtr WindowHandle;
-
 		public static bool bIsTimeStretch = false;
 
 		private static int _nMasterVolume;
@@ -84,14 +82,6 @@ namespace FDK
 		/// </summary>
 		public static int SoundDelayASIO = 0;                       // 0にすると、デバイスの設定値をそのまま使う。
 		public static int ASIODevice = 0;
-		public int GetASIODevice()
-		{
-			return ASIODevice;
-		}
-		public void SetASIODevice(int value)
-		{
-			ASIODevice = value;
-		}
 		/// <summary>
 		/// <para>OpenAL 出力における再生遅延[ms]。ユーザが決定する。</para>
 		/// </summary>
@@ -120,9 +110,8 @@ namespace FDK
 		/// <param name="nSoundDelayExclusiveWASAPI"></param>
 		/// <param name="nSoundDelayASIO"></param>
 		/// <param name="nASIODevice"></param>
-		public CSoundManager(IntPtr handle, ESoundDeviceType soundDeviceType, int nSoundDelayExclusiveWASAPI, int nSoundDelayASIO, int nASIODevice, bool _bUseOSTimer)
+		public CSoundManager(ESoundDeviceType soundDeviceType, int nSoundDelayExclusiveWASAPI, int nSoundDelayASIO, int nASIODevice, bool _bUseOSTimer)
 		{
-			WindowHandle = handle;
 			SoundDevice = null;
 			//bUseOSTimer = false;
 			tInitialize(soundDeviceType, nSoundDelayExclusiveWASAPI, nSoundDelayASIO, nASIODevice, _bUseOSTimer);
@@ -238,7 +227,7 @@ namespace FDK
 					break;
 
 				case ESoundDeviceType.OpenAL:
-					SoundDevice = new CSoundDeviceOpenAL(WindowHandle, SoundDelayOpenAL, bUseOSTimer);
+					SoundDevice = new CSoundDeviceOpenAL(SoundDelayOpenAL, bUseOSTimer);
 					break;
 
 				default:
@@ -269,11 +258,6 @@ namespace FDK
 				throw new Exception(string.Format("未対応の SoundDeviceType です。[{0}]", SoundDeviceType.ToString()));
 			}
 			return SoundDevice.tCreateSound(filename, soundGroup);
-		}
-
-		public void tサウンドを破棄する(CSound csound)
-		{
-			csound?.t解放する(true);            // インスタンスは存続→破棄にする。
 		}
 
 		public float GetCPUusage()

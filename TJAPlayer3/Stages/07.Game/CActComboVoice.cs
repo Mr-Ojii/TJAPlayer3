@@ -98,7 +98,11 @@ namespace TJAPlayer3
 				{
 					foreach (var item in ListCombo[i])
 					{
-						TJAPlayer3.SoundManager.tサウンドを破棄する(item.soundComboVoice);
+						if (item.soundComboVoice != null)
+						{
+							item.soundComboVoice?.t解放する();
+							item.soundComboVoice = null;
+						}
 					}
 					ListCombo[i].Clear();
 				}

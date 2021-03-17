@@ -36,7 +36,7 @@ namespace TJAPlayer3
 				this.nBGMの総再生時間ms = 0;
 				if( this.sd読み込み音 != null )
 				{
-					TJAPlayer3.SoundManager.tサウンドを破棄する( this.sd読み込み音 );
+					this.sd読み込み音.t解放する();
 					this.sd読み込み音 = null;
 				}
 

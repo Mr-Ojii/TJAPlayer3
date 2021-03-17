@@ -107,7 +107,7 @@ namespace FDK
 
 		// メソッド
 
-		public unsafe CSoundDeviceOpenAL( IntPtr hWnd, long n遅延時間ms, bool bUseOSTimer )
+		public unsafe CSoundDeviceOpenAL( long n遅延時間ms, bool bUseOSTimer )
 		{
 			Trace.TraceInformation( "OpenAL の初期化を開始します。" );
 

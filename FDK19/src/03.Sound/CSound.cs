@@ -53,10 +53,6 @@ namespace FDK
 			get;
 			private set;
 		}
-		public int nサウンドバッファサイズ		// 取りあえず0固定★★★★★★★★★★★★★★★★★★★★
-		{
-			get { return 0; }
-		}
 		public double db再生速度
 		{
 			get
@@ -599,10 +595,6 @@ namespace FDK
 
 		#region [ DTXMania用の変換 ]
 
-		public void tサウンドを破棄する( CSound cs )
-		{
-			cs.t解放する();
-		}
 		public void t再生を開始する()
 		{
 			t再生位置を先頭に戻す();

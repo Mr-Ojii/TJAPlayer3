@@ -1388,8 +1388,7 @@ namespace TJAPlayer3
 						soundDeviceType = ESoundDeviceType.Unknown;
 						break;
 				}
-				SoundManager = new CSoundManager(base.WindowInfo.Handle,
-											soundDeviceType,
+				SoundManager = new CSoundManager(soundDeviceType,
 											TJAPlayer3.ConfigIni.nWASAPIBufferSizeMs,
 											// CDTXMania.ConfigIni.nASIOBufferSizeMs,
 											0,

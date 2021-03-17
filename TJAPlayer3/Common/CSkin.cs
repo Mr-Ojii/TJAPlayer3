@@ -259,7 +259,7 @@ namespace TJAPlayer3
 					{
 						if (this.rSound[i] != null)
 						{
-							TJAPlayer3.SoundManager.tサウンドを破棄する(this.rSound[i]);
+							this.rSound[i].t解放する();
 							this.rSound[i] = null;
 						}
 					}

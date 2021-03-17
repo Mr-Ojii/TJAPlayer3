@@ -220,7 +220,7 @@ namespace TJAPlayer3
 					token.Cancel();
 				}
 				this.sound.t再生を停止する();
-				TJAPlayer3.SoundManager.tサウンドを破棄する(this.sound);
+				this.sound.t解放する();
 				this.sound = null;
 			}
 		}

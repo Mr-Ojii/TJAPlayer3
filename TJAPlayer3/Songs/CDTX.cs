@@ -427,7 +427,7 @@ namespace TJAPlayer3
 					for (int i = 0; i < TJAPlayer3.ConfigIni.nPoliphonicSounds; i++) // 4
 					{
 						if (this.rSound[i] != null)
-							TJAPlayer3.SoundManager.tサウンドを破棄する(this.rSound[i]);
+							this.rSound[i].t解放する();
 						this.rSound[i] = null;
 
 						if ((i == 0) && TJAPlayer3.ConfigIni.bLog作成解放ログ出力)
@@ -884,8 +884,7 @@ namespace TJAPlayer3
 
 						if (TJAPlayer3.ConfigIni.bLog作成解放ログ出力)
 						{
-							Trace.TraceInformation("サウンドを作成しました。({3})({0})({1})({2}bytes)", cwav.strコメント文, str,
-								cwav.rSound[0].nサウンドバッファサイズ, "OnMemory");
+							Trace.TraceInformation("サウンドを作成しました。({2})({0})({1})", cwav.strコメント文, str, "OnMemory");
 						}
 					}
 					catch (Exception e)

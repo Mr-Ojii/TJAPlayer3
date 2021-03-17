@@ -82,7 +82,6 @@ namespace TJAPlayer3
 
 		public override void On活性化()
 		{
-			this.sd効果音 = null;
 			this.b効果音再生済み = false;
 			this.ct進行 = new CCounter();
 			base.On活性化();
@@ -90,11 +89,6 @@ namespace TJAPlayer3
 		public override void On非活性化()
 		{
 			this.ct進行 = null;
-			if( this.sd効果音 != null )
-			{
-				TJAPlayer3.SoundManager.tサウンドを破棄する( this.sd効果音 );
-				this.sd効果音 = null;
-			}
 			base.On非活性化();
 		}
 		public override void OnManagedリソースの作成()
@@ -194,7 +188,6 @@ namespace TJAPlayer3
 		//-----------------
 		private bool b効果音再生済み;
 		private CCounter ct進行;
-		private CSound sd効果音;
 		private double dbFailedTime;
 		//-----------------
 		private ST文字位置[] st文字位置;
