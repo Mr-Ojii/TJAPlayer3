@@ -280,7 +280,8 @@ namespace TJAPlayer3
 			// #24820 2013.1.3 yyagi
 			this.iSystemSoundType = new CItemList("SoundType", TJAPlayer3.ConfigIni.nSoundDeviceType,
 				"サウンドの出力方式:\n" +
-				"WASAPI(排他), ASIO, OpenAL\n" +
+				"WASAPI(共有), WASAPI(排他)\n" +
+				"BASS, ASIO, OpenAL\n" +
 				"の中からサウンド出力方式を選択\n" +
 				"します。\n" +
 				"WASAPIはVista以降でのみ使用可能\n" +
@@ -293,8 +294,8 @@ namespace TJAPlayer3
 				"※ 設定はCONFIGURATION画面の\n" +
 				"　終了時に有効になります。",
 				"Sound output type:\n" +
-				"You can choose WASAPI(Exclusive)\n" +
-				", ASIO or DShow(DirectShow).\n" +
+				"You can choose WASAPI(Shared)\n" +
+				"WASAPI(Exclusive), ASIO, BASS or OpenAL.\n" +
 				"WASAPI can use only after Vista.\n" +
 				"ASIO can use on the\n" +
 				"\"ASIO-supported\" sound device.\n" +
@@ -303,7 +304,7 @@ namespace TJAPlayer3
 				"\n" +
 				"Note: Exit CONFIGURATION to make\n" +
 				"     the setting take effect.",
-				new string[] { "OpenAL", "ASIO", "WASAPI(Exclusive)", "WASAPI(Shared)" });
+				new string[] { "OpenAL", "BASS", "ASIO", "WASAPI(Exclusive)", "WASAPI(Shared)" });
 			this.list項目リスト.Add(this.iSystemSoundType);
 
 			// #24820 2013.1.15 yyagi
@@ -380,6 +381,28 @@ namespace TJAPlayer3
 			//    "Note: Exit CONFIGURATION to make\n" +
 			//    "     the setting take effect." );
 			//this.list項目リスト.Add( this.iSystemASIOBufferSizeMs );
+
+			// 2021.3.18 Mr-Ojii
+			this.iSystemBASSBufferSizeMs = new CItemInteger("BASSBufSize", 0, 99999, TJAPlayer3.ConfigIni.nBASSBufferSizeMs,
+				"BASS使用時のバッファサイズ:\n" +
+				"0～99999ms を指定可能です。\n" +
+				"0を指定すると、OSがバッファの\n" +
+				"サイズを自動設定します。\n" +
+				"値を小さくするほど発音ラグが\n" +
+				"減少しますが、音割れや異常動作を\n" +
+				"引き起こす場合があります。\n" +
+				"※ 設定はCONFIGURATION画面の\n" +
+				"　終了時に有効になります。",
+				"Sound buffer size for BASS:\n" +
+				"You can set from 0 to 99999ms.\n" +
+				"Set 0 to use a default sysytem\n" +
+				"buffer size.\n" +
+				"Smaller value makes smaller lag,\n" +
+				"but it may cause sound troubles.\n" +
+				"\n" +
+				"Note: Exit CONFIGURATION to make\n" +
+				"     the setting take effect.");
+			this.list項目リスト.Add(this.iSystemBASSBufferSizeMs);
 
 			// #33689 2014.6.17 yyagi
 			this.iSystemSoundTimerType = new CItemToggle( "UseOSTimer", TJAPlayer3.ConfigIni.bUseOSTimer,
@@ -1052,7 +1075,8 @@ namespace TJAPlayer3
 			this.iSystemSoundType_initial			= this.iSystemSoundType.n現在選択されている項目番号;	// CONFIGに入ったときの値を保持しておく
 			 this.iSystemWASAPIBufferSizeMs_initial	= this.iSystemWASAPIBufferSizeMs.n現在の値;				// CONFIG脱出時にこの値から変更されているようなら
 			// this.iSystemASIOBufferSizeMs_initial	= this.iSystemASIOBufferSizeMs.n現在の値;				// サウンドデバイスを再構築する
-			this.iSystemASIODevice_initial			= this.iSystemASIODevice.n現在選択されている項目番号;	//
+			this.iSystemASIODevice_initial			= this.iSystemASIODevice.n現在選択されている項目番号;    //
+			this.iSystemBASSBufferSizeMs_initial = this.iSystemBASSBufferSizeMs.n現在の値;              // CONFIG脱出時にこの値から変更されているようなら
 			this.iSystemSoundTimerType_initial      = this.iSystemSoundTimerType.GetIndex();				//
 			base.On活性化();
 		}
@@ -1081,6 +1105,7 @@ namespace TJAPlayer3
 				 this.iSystemWASAPIBufferSizeMs_initial != this.iSystemWASAPIBufferSizeMs.n現在の値 ||
 				// this.iSystemASIOBufferSizeMs_initial != this.iSystemASIOBufferSizeMs.n現在の値 ||
 				this.iSystemASIODevice_initial != this.iSystemASIODevice.n現在選択されている項目番号 ||
+				 this.iSystemBASSBufferSizeMs_initial != this.iSystemBASSBufferSizeMs.n現在の値 ||
 				this.iSystemSoundTimerType_initial != this.iSystemSoundTimerType.GetIndex() )
 			{
 				ESoundDeviceType soundDeviceType;
@@ -1090,12 +1115,15 @@ namespace TJAPlayer3
 						soundDeviceType = ESoundDeviceType.OpenAL;
 						break;
 					case 1:
-						soundDeviceType = ESoundDeviceType.ASIO;
+						soundDeviceType = ESoundDeviceType.BASS;
 						break;
 					case 2:
-						soundDeviceType = ESoundDeviceType.ExclusiveWASAPI;
+						soundDeviceType = ESoundDeviceType.ASIO;
 						break;
 					case 3:
+						soundDeviceType = ESoundDeviceType.ExclusiveWASAPI;
+						break;
+					case 4:
 						soundDeviceType = ESoundDeviceType.SharedWASAPI;
 						break;
 					default:
@@ -1107,6 +1135,7 @@ namespace TJAPlayer3
 										0,
 										// this.iSystemASIOBufferSizeMs.n現在の値,
 										this.iSystemASIODevice.n現在選択されている項目番号,
+										this.iSystemBASSBufferSizeMs.n現在の値,
 										this.iSystemSoundTimerType.bON );
 				TJAPlayer3.app.ShowWindowTitleWithSoundType();
 				TJAPlayer3.Skin.ReloadSkin();//2020.07.07 Mr-Ojii 音声の再読み込みをすることによって、音量の初期化を防ぐ
@@ -1527,12 +1556,14 @@ namespace TJAPlayer3
 		private CItemList iSystemSoundType;					// #24820 2013.1.3 yyagi
 		private CItemInteger iSystemWASAPIBufferSizeMs;		// #24820 2013.1.15 yyagi
 //		private CItemInteger iSystemASIOBufferSizeMs;		// #24820 2013.1.3 yyagi
-		private CItemList	iSystemASIODevice;				// #24820 2013.1.17 yyagi
+		private CItemList	iSystemASIODevice;              // #24820 2013.1.17 yyagi
+		private CItemInteger iSystemBASSBufferSizeMs;     // #24820 2013.1.15 yyagi
 
 		private int iSystemSoundType_initial;
 		private int iSystemWASAPIBufferSizeMs_initial;
 //		private int iSystemASIOBufferSizeMs_initial;
 		private int iSystemASIODevice_initial;
+		private int iSystemBASSBufferSizeMs_initial;
 		private CItemToggle iSystemSoundTimerType;			// #33689 2014.6.17 yyagi
 		private int iSystemSoundTimerType_initial;			// #33689 2014.6.17 yyagi
 
@@ -1683,7 +1714,8 @@ namespace TJAPlayer3
 			TJAPlayer3.ConfigIni.nSoundDeviceType = this.iSystemSoundType.n現在選択されている項目番号;		// #24820 2013.1.3 yyagi
 			TJAPlayer3.ConfigIni.nWASAPIBufferSizeMs = this.iSystemWASAPIBufferSizeMs.n現在の値;				// #24820 2013.1.15 yyagi
 //			CDTXMania.ConfigIni.nASIOBufferSizeMs = this.iSystemASIOBufferSizeMs.n現在の値;					// #24820 2013.1.3 yyagi
-			TJAPlayer3.ConfigIni.nASIODevice = this.iSystemASIODevice.n現在選択されている項目番号;			// #24820 2013.1.17 yyagi
+			TJAPlayer3.ConfigIni.nASIODevice = this.iSystemASIODevice.n現在選択されている項目番号;           // #24820 2013.1.17 yyagi
+			TJAPlayer3.ConfigIni.nBASSBufferSizeMs = this.iSystemBASSBufferSizeMs.n現在の値;                // 2021.3.18 Mr-Ojii
 			TJAPlayer3.ConfigIni.bUseOSTimer = this.iSystemSoundTimerType.bON;								// #33689 2014.6.17 yyagi
 
 			TJAPlayer3.ConfigIni.bTimeStretch = this.iSystemTimeStretch.bON;                                    // #23664 2013.2.24 yyagi

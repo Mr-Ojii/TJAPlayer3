@@ -15,7 +15,8 @@ namespace FDK
 			{
 				if( this.Device.eOutputDevice == ESoundDeviceType.ExclusiveWASAPI || 
 					this.Device.eOutputDevice == ESoundDeviceType.SharedWASAPI ||
-					this.Device.eOutputDevice == ESoundDeviceType.ASIO )
+					this.Device.eOutputDevice == ESoundDeviceType.ASIO ||
+					this.Device.eOutputDevice == ESoundDeviceType.BASS )
 				{
 					// BASS 系の ISoundDevice.nElapsedTimems はオーディオバッファの更新間隔ずつでしか更新されないため、単にこれを返すだけではとびとびの値になる。
 					// そこで、更新間隔の最中に呼ばれた場合は、システムタイマを使って補間する。

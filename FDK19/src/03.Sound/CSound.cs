@@ -316,6 +316,16 @@ namespace FDK
 			this._hTempoStream = 0;
 		}
 
+		public void tBASSサウンドを作成する(string strファイル名, int hMixer)
+		{
+			this.eSoundDeviceType = ESoundDeviceType.BASS;      // 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
+			this.tBASSサウンドを作成する(strファイル名, hMixer, BASSFlag.BASS_STREAM_DECODE);
+		}
+		public void tBASSサウンドを作成する(byte[] byArrWAVファイルイメージ, int hMixer)
+		{
+			this.eSoundDeviceType = ESoundDeviceType.BASS;      // 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
+			this.tBASSサウンドを作成する(byArrWAVファイルイメージ, hMixer, BASSFlag.BASS_STREAM_DECODE);
+		}
 		public void tASIOサウンドを作成する( string strファイル名, int hMixer )
 		{
 			this.eSoundDeviceType = ESoundDeviceType.ASIO;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
@@ -1048,6 +1058,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strファイ�
 			get
 			{
 				return (
+					this.eSoundDeviceType == ESoundDeviceType.BASS ||
 					this.eSoundDeviceType == ESoundDeviceType.ASIO ||
 					this.eSoundDeviceType == ESoundDeviceType.ExclusiveWASAPI ||
 					this.eSoundDeviceType == ESoundDeviceType.SharedWASAPI );

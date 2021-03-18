@@ -73,6 +73,14 @@ namespace FDK
 		/// <para>SoundDelay よりも小さい値であること。（小さすぎる場合はBASSによって自動修正される。）</para>
 		/// </summary>
 		public static int SoundUpdatePeriodSharedWASAPI = 6;
+		/// <summary>
+		/// <para>WASAPI BASS出力における再生遅延[ms]。ユーザが決定する。</para>
+		/// </summary>
+		public static int SoundDelayBASS = 15;
+		/// <para>BASSバッファの更新間隔。出力間隔ではないので注意。</para>
+		/// <para>SoundDelay よりも小さい値であること。（小さすぎる場合はBASSによって自動修正される。）</para>
+		/// </summary>
+		public static int SoundUpdatePeriodBASS = 1;
 		///// <summary>
 		///// <para>ASIO 出力における再生遅延[ms]（の希望値）。最終的にはこの数値を基にドライバが決定する）。</para>
 		///// </summary>
@@ -110,17 +118,17 @@ namespace FDK
 		/// <param name="nSoundDelayExclusiveWASAPI"></param>
 		/// <param name="nSoundDelayASIO"></param>
 		/// <param name="nASIODevice"></param>
-		public CSoundManager(ESoundDeviceType soundDeviceType, int nSoundDelayExclusiveWASAPI, int nSoundDelayASIO, int nASIODevice, bool _bUseOSTimer)
+		public CSoundManager(ESoundDeviceType soundDeviceType, int nSoundDelayExclusiveWASAPI, int nSoundDelayASIO, int nASIODevice, int nSoundDelayBASS, bool _bUseOSTimer)
 		{
 			SoundDevice = null;
 			//bUseOSTimer = false;
-			tInitialize(soundDeviceType, nSoundDelayExclusiveWASAPI, nSoundDelayASIO, nASIODevice, _bUseOSTimer);
+			tInitialize(soundDeviceType, nSoundDelayExclusiveWASAPI, nSoundDelayASIO, nASIODevice, nSoundDelayBASS, _bUseOSTimer);
 		}
 		public void Dispose()
 		{
 			t終了();
 		}
-		public void tInitialize(ESoundDeviceType soundDeviceType, int _nSoundDelayExclusiveWASAPI, int _nSoundDelayASIO, int _nASIODevice, bool _bUseOSTimer)
+		public void tInitialize(ESoundDeviceType soundDeviceType, int _nSoundDelayExclusiveWASAPI, int _nSoundDelayASIO, int _nASIODevice, int _nSoundDelayBASS, bool _bUseOSTimer)
 		{
 			//SoundDevice = null;						// 後で再初期化することがあるので、null初期化はコンストラクタに回す
 			rc演奏用タイマ = null;                        // Global.Bass 依存（つまりユーザ依存）
@@ -128,14 +136,16 @@ namespace FDK
 
 			SoundDelayExclusiveWASAPI = _nSoundDelayExclusiveWASAPI;
 			SoundDelayASIO = _nSoundDelayASIO;
+			SoundDelayBASS = _nSoundDelayBASS;
 			ASIODevice = _nASIODevice;
 			bUseOSTimer = _bUseOSTimer;
 
-			ESoundDeviceType[] ESoundDeviceTypes = new ESoundDeviceType[5]
+			ESoundDeviceType[] ESoundDeviceTypes = new ESoundDeviceType[6]
 			{
 				ESoundDeviceType.SharedWASAPI,
 				ESoundDeviceType.ExclusiveWASAPI,
 				ESoundDeviceType.ASIO,
+				ESoundDeviceType.BASS,
 				ESoundDeviceType.OpenAL,
 				ESoundDeviceType.Unknown
 			};
@@ -152,11 +162,14 @@ namespace FDK
 				case ESoundDeviceType.ASIO:
 					n初期デバイス = 2;
 					break;
-				case ESoundDeviceType.OpenAL:
+				case ESoundDeviceType.BASS:
 					n初期デバイス = 3;
 					break;
-				default:
+				case ESoundDeviceType.OpenAL:
 					n初期デバイス = 4;
+					break;
+				default:
+					n初期デバイス = 5;
 					break;
 			}
 			for (SoundDeviceType = ESoundDeviceTypes[n初期デバイス]; ; SoundDeviceType = ESoundDeviceTypes[++n初期デバイス])
@@ -177,7 +190,7 @@ namespace FDK
 					}
 				}
 			}
-			if (SoundDeviceType == ESoundDeviceType.ExclusiveWASAPI || SoundDeviceType == ESoundDeviceType.SharedWASAPI || SoundDeviceType == ESoundDeviceType.ASIO)
+			if (SoundDeviceType == ESoundDeviceType.ExclusiveWASAPI || SoundDeviceType == ESoundDeviceType.SharedWASAPI || SoundDeviceType == ESoundDeviceType.ASIO || SoundDeviceType == ESoundDeviceType.BASS)
 			{
 				Trace.TraceInformation("BASS_CONFIG_UpdatePeriod=" + Bass.BASS_GetConfig(BASSConfig.BASS_CONFIG_UPDATEPERIOD));
 				Trace.TraceInformation("BASS_CONFIG_UpdateThreads=" + Bass.BASS_GetConfig(BASSConfig.BASS_CONFIG_UPDATETHREADS));
@@ -226,6 +239,10 @@ namespace FDK
 					SoundDevice = new CSoundDeviceASIO(SoundDelayASIO, ASIODevice);
 					break;
 
+				case ESoundDeviceType.BASS:
+					SoundDevice = new CSoundDeviceBASS(SoundUpdatePeriodBASS, SoundDelayBASS);
+					break;
+
 				case ESoundDeviceType.OpenAL:
 					SoundDevice = new CSoundDeviceOpenAL(SoundDelayOpenAL, bUseOSTimer);
 					break;
@@ -272,6 +289,9 @@ namespace FDK
 				case ESoundDeviceType.ASIO:
 					f = BassAsio.BASS_ASIO_GetCPU();
 					break;
+				case ESoundDeviceType.BASS:
+					f = Bass.BASS_GetCPU();
+					break;
 				case ESoundDeviceType.OpenAL:
 					f = 0.0f;
 					break;
@@ -292,6 +312,8 @@ namespace FDK
 					return "WASAPI(Shared)";
 				case ESoundDeviceType.ASIO:
 					return "ASIO";
+				case ESoundDeviceType.BASS:
+					return "BASS";
 				case ESoundDeviceType.OpenAL:
 					return "OpenAL";
 				default:

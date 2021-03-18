@@ -1376,12 +1376,15 @@ namespace TJAPlayer3
 						soundDeviceType = ESoundDeviceType.OpenAL;
 						break;
 					case 1:
-						soundDeviceType = ESoundDeviceType.ASIO;
+						soundDeviceType = ESoundDeviceType.BASS;
 						break;
 					case 2:
-						soundDeviceType = ESoundDeviceType.ExclusiveWASAPI;
+						soundDeviceType = ESoundDeviceType.ASIO;
 						break;
 					case 3:
+						soundDeviceType = ESoundDeviceType.ExclusiveWASAPI;
+						break;
+					case 4:
 						soundDeviceType = ESoundDeviceType.SharedWASAPI;
 						break;
 					default:
@@ -1393,6 +1396,7 @@ namespace TJAPlayer3
 											// CDTXMania.ConfigIni.nASIOBufferSizeMs,
 											0,
 											TJAPlayer3.ConfigIni.nASIODevice,
+											TJAPlayer3.ConfigIni.nBASSBufferSizeMs,
 											TJAPlayer3.ConfigIni.bUseOSTimer
 				);
 

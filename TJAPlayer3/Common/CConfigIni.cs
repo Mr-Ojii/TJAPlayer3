@@ -138,6 +138,7 @@ namespace TJAPlayer3
 		public enum ESoundDeviceTypeForConfig
 		{
 			ACM = 0,
+			BASS,
 			ASIO,
 			WASAPI_Exclusive,
 			WASAPI_Shared,
@@ -369,10 +370,11 @@ namespace TJAPlayer3
 		public bool b2P演奏時のSEの左右;
 		public int nRisky;						// #23559 2011.6.20 yyagi Riskyでの残ミス数。0で閉店
 		public bool bIsAllowedDoubleClickFullscreen;	// #26752 2011.11.27 yyagi ダブルクリックしてもフルスクリーンに移行しない
-		public int nSoundDeviceType;				// #24820 2012.12.23 yyagi 出力サウンドデバイス(0=ACM(にしたいが設計がきつそうならDirectShow), 1=ASIO, 2=WASAPI)
+		public int nSoundDeviceType;				// #24820 2012.12.23 yyagi 出力サウンドデバイス(0=OpenAL, 1=BASS, 2=ASIO, 3=WASAPI(Exclusive), 4=WASAPI(Shared))
 		public int nWASAPIBufferSizeMs;				// #24820 2013.1.15 yyagi WASAPIのバッファサイズ
 //		public int nASIOBufferSizeMs;				// #24820 2012.12.28 yyagi ASIOのバッファサイズ
-		public int nASIODevice;						// #24820 2013.1.17 yyagi ASIOデバイス
+		public int nASIODevice;                     // #24820 2013.1.17 yyagi ASIOデバイス
+		public int nBASSBufferSizeMs;             // 2021.3.18 Mr-Ojii BASSのバッファサイズ
 		public bool bUseOSTimer;					// #33689 2014.6.6 yyagi 演奏タイマーの種類
 		public bool bDynamicBassMixerManagement;	// #24820
 		public bool bTimeStretch;					// #23664 2013.2.24 yyagi ピッチ変更無しで再生速度を変更するかどうか
@@ -558,8 +560,9 @@ namespace TJAPlayer3
 			this.nSoundDeviceType = (int)(COS.bIsWin10OrLater() ? ESoundDeviceTypeForConfig.WASAPI_Shared : ESoundDeviceTypeForConfig.WASAPI_Exclusive);
 
 			this.nWASAPIBufferSizeMs = 2;				// #24820 2013.1.15 yyagi 初期値は50(0で自動設定)
-			this.nASIODevice = 0;						// #24820 2013.1.17 yyagi
-//			this.nASIOBufferSizeMs = 0;					// #24820 2012.12.25 yyagi 初期値は0(自動設定)
+			this.nASIODevice = 0;                       // #24820 2013.1.17 yyagi
+			//			this.nASIOBufferSizeMs = 0;					// #24820 2012.12.25 yyagi 初期値は0(自動設定)
+			this.nBASSBufferSizeMs = 15;
 			#endregion
 			this.bUseOSTimer = false;					// #33689 2014.6.6 yyagi 初期値はfalse (FDKのタイマー。ＦＲＯＭ氏考案の独自タイマー)
 			this.bDynamicBassMixerManagement = true;	//
@@ -734,12 +737,12 @@ namespace TJAPlayer3
 			#endregion
 			
 			#region [ WASAPI/ASIO関連 ]
-			sw.WriteLine( "; サウンド出力方式(0=OpenAL, 1=ASIO, 2=WASAPI(排他), 3=WASAPI(共有))" );
+			sw.WriteLine( "; サウンド出力方式(0=OpenAL, 1=BASS, 2=ASIO, 3=WASAPI(排他), 4=WASAPI(共有))" );
 			sw.WriteLine( "; WASAPIはVista以降のOSで使用可能。推奨方式はWASAPI。" );
-			sw.WriteLine( "; なお、WASAPIが使用不可ならASIOを、ASIOが使用不可ならOpenALを使用します。" );
-			sw.WriteLine( "; Sound device type(0=OpenAL, 1=ASIO, 2=WASAPI(Exclusive), 3=WASAPI(Shared))");
+			sw.WriteLine( "; なお、WASAPIが使用不可ならASIOを、ASIOが使用不可ならBASS、BASSが使用不可ならOpenALを使用します。");
+			sw.WriteLine( "; Sound device type(0=OpenAL, 1=BASS, 2=ASIO, 3=WASAPI(Exclusive), 4=WASAPI(Shared))");
 			sw.WriteLine( "; WASAPI can use on Vista or later OSs." );
-			sw.WriteLine( "; If WASAPI is not available, DTXMania try to use ASIO. If ASIO can't be used, OpenAL is used." );
+			sw.WriteLine("; If WASAPI is not available, DTXMania try to use ASIO. If ASIO can't be used, DTXMania try to use BASS. If BASS can't be used, OpenAL is used.");
 			sw.WriteLine( "SoundDeviceType={0}", (int) this.nSoundDeviceType );
 			sw.WriteLine();
 
@@ -782,8 +785,15 @@ namespace TJAPlayer3
 			//sw.WriteLine( "DynamicBassMixerManagement={0}", this.bDynamicBassMixerManagement ? 1 : 0 );
 			//sw.WriteLine();
 
-			sw.WriteLine( "; WASAPI/ASIO時に使用する演奏タイマーの種類" );
-			sw.WriteLine( "; Playback timer used for WASAPI/ASIO" );
+			sw.WriteLine("; BASS使用時のサウンドバッファサイズ");
+			sw.WriteLine("; (0=デバイスに設定されている値を使用, 1～9999=バッファサイズ(単位:ms)の手動指定");
+			sw.WriteLine("; BASS Sound Buffer Size.");
+			sw.WriteLine("; (0=Use system default buffer size, 1-9999=specify the buffer size(ms) by yourself)");
+			sw.WriteLine("BASSBufferSizeMs={0}", (int)this.nBASSBufferSizeMs);
+			sw.WriteLine();
+
+			sw.WriteLine( "; 演奏タイマーの種類" );
+			sw.WriteLine( "; Playback timer" );
 			sw.WriteLine( "; (0=FDK Timer, 1=System Timer)" );
 			sw.WriteLine( "SoundTimerType={0}", this.bUseOSTimer ? 1 : 0 );
 			sw.WriteLine();
@@ -1374,6 +1384,10 @@ namespace TJAPlayer3
 											//{
 											//    this.bDynamicBassMixerManagement = C変換.bONorOFF( str4[ 0 ] );
 											//}
+											else if (str3.Equals("BASSBufferSizeMs"))
+											{
+												this.nBASSBufferSizeMs = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 9999, this.nBASSBufferSizeMs);
+											}
 											else if ( str3.Equals( "SoundTimerType" ) )			// #33689 2014.6.6 yyagi
 											{
 												this.bUseOSTimer = C変換.bONorOFF( str4[ 0 ] );
