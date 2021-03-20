@@ -377,7 +377,7 @@ namespace TJAPlayer3
 		/// <param name="gradationTopColor">グラデーション 上側の色</param>
 		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
 		/// <returns>描画済テクスチャ</returns>
-		protected SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont_V(string drawstr, DrawMode drawMode, Color fontColor, Color edgeColor)
+		protected SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont_V(string drawstr, DrawMode drawMode, Color fontColor, Color edgeColor, int edge_Ratio)
 		{
 			if ( this._fontfamily == null || drawstr == null || drawstr == "" || drawstr == " " || drawstr == "　")
 			{
@@ -438,7 +438,7 @@ namespace TJAPlayer3
 				{
 
 					//できるだけ正確な値を計算しておきたい...!
-					Rectangle rect正確なサイズ = this.MeasureStringPrecisely(strName[i], strSize, sFormat, TJAPlayer3.Skin.Font_Edge_Ratio_Vertical);
+					Rectangle rect正確なサイズ = this.MeasureStringPrecisely(strName[i], strSize, sFormat, edge_Ratio);
 					int n余白サイズ = strSize.Height - rect正確なサイズ.Height;
 
 					if (strName[i] == "ー" || strName[i] == "-" || strName[i] == "～" || strName[i] == "<" || strName[i] == ">" || strName[i] == "(" || strName[i] == ")" || strName[i] == "「" || strName[i] == "」" || strName[i] == "[" || strName[i] == "]")
@@ -497,7 +497,7 @@ namespace TJAPlayer3
 					};
 
 					//できるだけ正確な値を計算しておきたい...!
-					Rectangle rect正確なサイズ = this.MeasureStringPrecisely(strName[i], strSize, sFormat, TJAPlayer3.Skin.Font_Edge_Ratio_Vertical);
+					Rectangle rect正確なサイズ = this.MeasureStringPrecisely(strName[i], strSize, sFormat, edge_Ratio);
 					int n余白サイズ = strSize.Height - rect正確なサイズ.Height;
 
 					Bitmap bmpV = new Bitmap((rect正確なサイズ.Width + 6) + nAdded, (rect正確なサイズ.Height) + 6);
@@ -563,7 +563,7 @@ namespace TJAPlayer3
 
 					// 縁取りを描画する
 					//int nEdgePt = (_pt / 3); // 縁取りをフォントサイズ基準に変更
-					float nEdgePt = (10f * _pt / TJAPlayer3.Skin.Font_Edge_Ratio_Vertical); // SkinConfigにて設定可能に(rhimm)
+					float nEdgePt = (10f * _pt / edge_Ratio); // SkinConfigにて設定可能に(rhimm)
 					Pen pV = new Pen(edgeColor, nEdgePt);
 					pV.LineJoin = LineJoin.Round;
 					gV.DrawPath(pV, gpV);

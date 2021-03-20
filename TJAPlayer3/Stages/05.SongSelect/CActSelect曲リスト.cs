@@ -1662,7 +1662,7 @@ namespace TJAPlayer3
 		private static CTexture GenerateTitleTexture(TitleTextureKey titleTextureKey)
 		{
 			using (var bmp = titleTextureKey.cPrivateFastFont.DrawPrivateFont_V(
-				titleTextureKey.str文字, titleTextureKey.forecolor, titleTextureKey.backcolor))
+				titleTextureKey.str文字, titleTextureKey.forecolor, titleTextureKey.backcolor, TJAPlayer3.Skin.Font_Edge_Ratio_Vertical))
 			{
 				CTexture tx文字テクスチャ = TJAPlayer3.tCreateTexture(bmp);
 				if (tx文字テクスチャ.szTextureSize.Height > titleTextureKey.maxHeight)
