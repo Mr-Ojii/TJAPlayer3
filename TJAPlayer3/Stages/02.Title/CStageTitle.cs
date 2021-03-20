@@ -299,7 +299,7 @@ namespace TJAPlayer3
 		#region [ private ]
 		//-----------------
 		private CTexture 文字テクスチャを生成する(string str文字, Color forecolor, Color backcolor) {
-			using (var bmp = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 28).DrawPrivateFont(str文字, forecolor, backcolor, true)) {
+			using (var bmp = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 28).DrawPrivateFont_V(str文字, forecolor, backcolor)) {
 				return TJAPlayer3.tCreateTexture(bmp);
 			}
 		}

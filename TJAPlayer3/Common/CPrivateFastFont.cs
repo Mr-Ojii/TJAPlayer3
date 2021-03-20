@@ -94,16 +94,9 @@ namespace TJAPlayer3
 		/// <param name="gradationTopColor">グラデーション 上側の色</param>
 		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, bool bVertical )
+		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont_V( string drawstr, Color fontColor, Color edgeColor )
 		{
-			if (bVertical)
-			{
-				return DrawPrivateFont_V(drawstr, fontColor, edgeColor, bVertical);
-			}
-			else 
-			{
-				return DrawPrivateFont(drawstr, fontColor, edgeColor);
-			}
+			return DrawPrivateFont_V(drawstr, DrawMode.Edge, fontColor, edgeColor); ;
 		}
 
 		#endregion
@@ -170,7 +163,7 @@ namespace TJAPlayer3
 			}
 		}
 
-		protected new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont_V( string drawstr, Color fontColor, Color edgeColor, bool bVertical )
+		protected new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont_V(string drawstr, DrawMode drawMode, Color fontColor, Color edgeColor)
 		{
 			#region [ 以前レンダリングしたことのある文字列/フォントか? (キャッシュにヒットするか?) ]
 			int index = listFontCache.FindIndex(
@@ -179,8 +172,7 @@ namespace TJAPlayer3
 					return (
 						drawstr == fontcache.drawstr &&
 						fontColor == fontcache.fontColor &&
-						edgeColor == fontcache.edgeColor &&
-						bVertical == true
+						edgeColor == fontcache.edgeColor 
 					// _font == fontcache.font
 					);
 				}
@@ -191,7 +183,7 @@ namespace TJAPlayer3
 				// キャッシュにヒットせず。
 				#region [ レンダリングして、キャッシュに登録 ]
 				FontCache fc = new FontCache();
-				fc.bmp = base.DrawPrivateFont_V(drawstr, fontColor, edgeColor, true);
+				fc.bmp = base.DrawPrivateFont_V(drawstr, drawMode, fontColor, edgeColor);
 				fc.drawstr = drawstr;
 				fc.fontColor = fontColor;
 				fc.edgeColor = edgeColor;

@@ -18,7 +18,7 @@ namespace TJAPlayer3
 	/// 簡単な使い方
 	/// CPrivateFont prvFont = new CPrivateFont( CSkin.Path( @"Graphics/fonts/mplus-1p-bold.ttf" ), 36 );	// プライベートフォント
 	/// とか
-	/// CPrivateFont prvFont = new CPrivateFont( new FontFamily("MS UI Gothic"), 36, FontStyle.Bold );		// システムフォント
+	/// CPrivateFont prvFont = new CPrivateFont( "MS UI Gothic", 36, FontStyle.Bold );		// システムフォント
 	/// とかした上で、
 	/// Bitmap bmp = prvFont.DrawPrivateFont( "ABCDE", Color.
 	/// , Color.Black );							// フォント色＝白、縁の色＝黒の例。縁の色は省略可能
@@ -377,7 +377,7 @@ namespace TJAPlayer3
 		/// <param name="gradationTopColor">グラデーション 上側の色</param>
 		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
 		/// <returns>描画済テクスチャ</returns>
-		protected SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont_V( string drawstr, Color fontColor, Color edgeColor, bool bVertical )
+		protected SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont_V(string drawstr, DrawMode drawMode, Color fontColor, Color edgeColor)
 		{
 			if ( this._fontfamily == null || drawstr == null || drawstr == "" || drawstr == " " || drawstr == "　")
 			{
