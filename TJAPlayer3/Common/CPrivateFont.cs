@@ -438,7 +438,7 @@ namespace TJAPlayer3
 				{
 
 					//できるだけ正確な値を計算しておきたい...!
-					Rectangle rect正確なサイズ = this.MeasureStringPrecisely(strName[i], this._font, strSize, sFormat);
+					Rectangle rect正確なサイズ = this.MeasureStringPrecisely(strName[i], strSize, sFormat, TJAPlayer3.Skin.Font_Edge_Ratio_Vertical);
 					int n余白サイズ = strSize.Height - rect正確なサイズ.Height;
 
 					if (strName[i] == "ー" || strName[i] == "-" || strName[i] == "～" || strName[i] == "<" || strName[i] == ">" || strName[i] == "(" || strName[i] == ")" || strName[i] == "「" || strName[i] == "」" || strName[i] == "[" || strName[i] == "]")
@@ -497,7 +497,7 @@ namespace TJAPlayer3
 					};
 
 					//できるだけ正確な値を計算しておきたい...!
-					Rectangle rect正確なサイズ = this.MeasureStringPrecisely(strName[i], this._font, strSize, sFormat);
+					Rectangle rect正確なサイズ = this.MeasureStringPrecisely(strName[i], strSize, sFormat, TJAPlayer3.Skin.Font_Edge_Ratio_Vertical);
 					int n余白サイズ = strSize.Height - rect正確なサイズ.Height;
 
 					Bitmap bmpV = new Bitmap((rect正確なサイズ.Width + 6) + nAdded, (rect正確なサイズ.Height) + 6);
@@ -656,14 +656,14 @@ namespace TJAPlayer3
 		/// Graphics.DrawStringで文字列を描画した時の大きさと位置を正確に計測する
 		/// </summary>
 		/// <param name="text">描画する文字列</param>
-		/// <param name="font">描画に使用するフォント</param>
 		/// <param name="proposedSize">これ以上大きいことはないというサイズ。
 		/// できるだけ小さくすること。</param>
 		/// <param name="stringFormat">描画に使用するStringFormat</param>
+		/// <param name="edge_Ratio">縁取りの割合</param>
 		/// <returns>文字列が描画される範囲。
 		/// 見つからなかった時は、Rectangle.Empty。</returns>
 		public Rectangle MeasureStringPrecisely(
-			string text, Font font, Size proposedSize, StringFormat stringFormat)
+			string text, Size proposedSize, StringFormat stringFormat, int edge_Ratio)
 		{
 			//解像度を引き継いで、Bitmapを作成する
 			Bitmap bmp = new Bitmap(proposedSize.Width, proposedSize.Height);
@@ -676,14 +676,14 @@ namespace TJAPlayer3
 
 			// DrawPathで、ポイントサイズを使って描画するために、DPIを使って単位変換する
 			// (これをしないと、単位が違うために、小さめに描画されてしまう)
-			float sizeInPixels = font.SizeInPoints * bmpGraphics.DpiY / 72f;  // 1 inch = 72 points
+			float sizeInPixels = this._font.SizeInPoints * bmpGraphics.DpiY / 72f;  // 1 inch = 72 points
 
 			GraphicsPath gpV = new GraphicsPath();
-			gpV.AddString(text, this._fontfamily, (int)font.Style, sizeInPixels, new Rectangle(0, 0, proposedSize.Width, proposedSize.Height), stringFormat);
+			gpV.AddString(text, this._fontfamily, (int)this._font.Style, sizeInPixels, new Rectangle(0, 0, proposedSize.Width, proposedSize.Height), stringFormat);
 
 			// 縁取りを描画する
 			//int nEdgePt = (_pt / 3); // 縁取りをフォントサイズ基準に変更
-			float nEdgePt = (10f * _pt / TJAPlayer3.Skin.Font_Edge_Ratio_Vertical); // SkinConfigにて設定可能に(rhimm)
+			float nEdgePt = (10f * _pt / edge_Ratio); // SkinConfigにて設定可能に(rhimm)
 			Pen pV = new Pen(Color.Black, nEdgePt);
 			pV.LineJoin = LineJoin.Round;
 			bmpGraphics.DrawPath(pV, gpV);
@@ -708,7 +708,7 @@ namespace TJAPlayer3
 		/// <summary>
 		/// 指定されたBitmapで、backColor以外の色が使われている範囲を計測する
 		/// </summary>
-		private Rectangle MeasureForegroundArea(Bitmap bmp, Color backColor)
+		private static Rectangle MeasureForegroundArea(Bitmap bmp, Color backColor)
 		{
 			int backColorArgb = backColor.ToArgb();
 			int maxWidth = bmp.Width;
