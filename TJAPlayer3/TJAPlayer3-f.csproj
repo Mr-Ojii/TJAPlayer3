@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup Label="Resources">
     <EmbeddedResource Include="TJAPlayer3-f.ico" />
+    <EmbeddedResource Include="mplus-1p-medium.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FDK19\FDK19.csproj" />

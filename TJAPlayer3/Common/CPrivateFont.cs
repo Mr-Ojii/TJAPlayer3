@@ -3,6 +3,7 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Diagnostics;
+using System.Reflection;
 using System.Linq;
 using System.Runtime.InteropServices;
 using FDK;
@@ -114,7 +115,7 @@ namespace TJAPlayer3
 				}
 				catch (System.IO.FileNotFoundException)
 				{
-					Trace.TraceWarning($"プライベートフォントの追加に失敗しました({fontpath})。代わりに{CPrivateFont.DefaultFontName}の使用を試みます。");
+					Trace.TraceWarning($"プライベートフォントの追加に失敗しました({fontpath})。代わりに内蔵フォントの使用を試みます。");
 					//throw new FileNotFoundException( "プライベートフォントの追加に失敗しました。({0})", Path.GetFileName( fontpath ) );
 					//return;
 					this._fontfamily = null;
@@ -152,20 +153,34 @@ namespace TJAPlayer3
 			// フォントファイルが見つからなかった場合 (デフォルトフォントを代わりに指定する)
 			{
 				float emSize = pt * 96.0f / 72.0f;
-				this._font = new Font(CPrivateFont.DefaultFontName, emSize, style, GraphicsUnit.Pixel);	//デフォルトフォントのオブジェクトを作成する
-				FontFamily[] ffs = new System.Drawing.Text.InstalledFontCollection().Families;
-				int lcid = System.Globalization.CultureInfo.GetCultureInfo("en-us").LCID;
-				foreach (FontFamily ff in ffs)
+				try
 				{
-					// Trace.WriteLine( lcid ) );
-					if (ff.GetName(lcid) == CPrivateFont.DefaultFontName)
+					this._pfc = new System.Drawing.Text.PrivateFontCollection();
+					using (MemoryStream ms = new MemoryStream()) 
 					{
-						this._fontfamily = ff;
-						Trace.TraceInformation(CPrivateFont.DefaultFontName + "を代わりに指定しました。");
-						return;
+						Assembly.GetExecutingAssembly().GetManifestResourceStream(@"TJAPlayer3.mplus-1p-medium.ttf").CopyTo(ms);
+						byte[] bytes = ms.ToArray();
+                        unsafe {
+							fixed (byte* bytesp = bytes)
+								this._pfc.AddMemoryFont((IntPtr)bytesp, bytes.Length); 
+						}
 					}
+					
+					this._fontfamily = _pfc.Families[0];
+					this._font = new Font(this._fontfamily, emSize, style, GraphicsUnit.Pixel);
+
+					Trace.TraceInformation($"{this._fontfamily.Name}を代わりに指定しました。");
+
+					return;
 				}
-				throw new FileNotFoundException($"プライベートフォントの追加に失敗し、{CPrivateFont.DefaultFontName}での代替処理にも失敗しました。({Path.GetFileName(fontpath)})");
+				catch (Exception e)
+				{
+					Trace.TraceError(e.ToString());
+					this._fontfamily = null;
+					this._font = null;
+				}
+
+				throw new FileNotFoundException($"プライベートフォントの追加に失敗し、内蔵フォントでの代替処理にも失敗しました。({Path.GetFileName(fontpath)})");
 			}
 		}
 
