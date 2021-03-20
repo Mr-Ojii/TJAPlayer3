@@ -132,11 +132,11 @@ namespace TJAPlayer3
 				{
 					for (int i = 0; i < strMenuItem.Length; i++)
 					{
-						using (var bmpStr = prvFont.DrawPrivateFont(strMenuItem[i], Color.White, Color.Black))
+						using (var bmpStr = prvFont.DrawPrivateFont(strMenuItem[i], Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio))
 						{
 							txMenuItemLeft[i, 0] = TJAPlayer3.tCreateTexture(bmpStr);
 						}
-						using (var bmpStr = prvFont.DrawPrivateFont(strMenuItem[i], Color.White, Color.Black, Color.Yellow, Color.OrangeRed))
+						using (var bmpStr = prvFont.DrawPrivateFont(strMenuItem[i], Color.White, Color.Black, Color.Yellow, Color.OrangeRed, TJAPlayer3.Skin.Font_Edge_Ratio))
 						{
 							txMenuItemLeft[i, 1] = TJAPlayer3.tCreateTexture(bmpStr);
 						}

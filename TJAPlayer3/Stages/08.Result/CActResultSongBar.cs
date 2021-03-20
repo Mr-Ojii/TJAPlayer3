@@ -41,7 +41,7 @@ namespace TJAPlayer3
 			using (CPrivateFastFont pfMusicName = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.Result_MusicName_FontSize))
 			{
 
-				using (var bmpSongTitle = pfMusicName.DrawPrivateFont(title, TJAPlayer3.Skin.Result_MusicName_ForeColor, TJAPlayer3.Skin.Result_MusicName_BackColor))
+				using (var bmpSongTitle = pfMusicName.DrawPrivateFont(title, TJAPlayer3.Skin.Result_MusicName_ForeColor, TJAPlayer3.Skin.Result_MusicName_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio))
 				{
 					this.txMusicName = TJAPlayer3.tCreateTexture(bmpSongTitle);
 					txMusicName.vcScaling.X = TJAPlayer3.GetSongNameXScaling(ref txMusicName);
@@ -50,7 +50,7 @@ namespace TJAPlayer3
 
 			using (CPrivateFastFont pfStageText = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.Result_StageText_FontSize))
 			{
-				using (var bmpStageText = pfStageText.DrawPrivateFont(TJAPlayer3.Skin.Game_StageText, TJAPlayer3.Skin.Result_StageText_ForeColor, TJAPlayer3.Skin.Result_StageText_BackColor))
+				using (var bmpStageText = pfStageText.DrawPrivateFont(TJAPlayer3.Skin.Game_StageText, TJAPlayer3.Skin.Result_StageText_ForeColor, TJAPlayer3.Skin.Result_StageText_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio))
 				{
 					this.txStageText = TJAPlayer3.tCreateTexture(bmpStageText);
 				}

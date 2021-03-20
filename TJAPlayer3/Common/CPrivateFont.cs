@@ -200,7 +200,7 @@ namespace TJAPlayer3
 		/// <returns>描画済テクスチャ</returns>
 		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor )
 		{
-			return DrawPrivateFont( drawstr, DrawMode.Normal, fontColor, Color.White, Color.White, Color.White );
+			return DrawPrivateFont( drawstr, DrawMode.Normal, fontColor, Color.White, Color.White, Color.White, 0);
 		}
 
 		/// <summary>
@@ -210,9 +210,9 @@ namespace TJAPlayer3
 		/// <param name="fontColor">描画色</param>
 		/// <param name="edgeColor">縁取色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor )
+		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, int edge_Ratio )
 		{
-			return DrawPrivateFont( drawstr, DrawMode.Edge, fontColor, edgeColor, Color.White, Color.White );
+			return DrawPrivateFont( drawstr, DrawMode.Edge, fontColor, edgeColor, Color.White, Color.White, edge_Ratio);
 		}
 
 		/// <summary>
@@ -223,9 +223,9 @@ namespace TJAPlayer3
 		/// <param name="gradationTopColor">グラデーション 上側の色</param>
 		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor, Color gradationTopColor, Color gradataionBottomColor )
+		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio )
 		{
-		    return DrawPrivateFont( drawstr, DrawMode.Gradation, fontColor, Color.White, gradationTopColor, gradataionBottomColor );
+		    return DrawPrivateFont( drawstr, DrawMode.Gradation, fontColor, Color.White, gradationTopColor, gradataionBottomColor, edge_Ratio);
 		}
 
 		/// <summary>
@@ -237,9 +237,9 @@ namespace TJAPlayer3
 		/// <param name="gradationTopColor">グラデーション 上側の色</param>
 		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradataionBottomColor )
+		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio )
 		{
-			return DrawPrivateFont( drawstr, DrawMode.Edge | DrawMode.Gradation, fontColor, edgeColor, gradationTopColor, gradataionBottomColor );
+			return DrawPrivateFont( drawstr, DrawMode.Edge | DrawMode.Gradation, fontColor, edgeColor, gradationTopColor, gradataionBottomColor, edge_Ratio );
 		}
 		#endregion
 
@@ -256,7 +256,7 @@ namespace TJAPlayer3
 		/// <param name="gradationTopColor">グラデーション 上側の色</param>
 		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
 		/// <returns>描画済テクスチャ</returns>
-		protected SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont(string drawstr, DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor)
+		protected SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont(string drawstr, DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
 		{
 			if (this._fontfamily == null || drawstr == null || drawstr == "" || drawstr == " " || drawstr == "　")
 			{
@@ -299,7 +299,7 @@ namespace TJAPlayer3
 			bool bGradation = ((drawmode & DrawMode.Gradation) == DrawMode.Gradation);
 
 			// 縁取りの縁のサイズは、とりあえずフォントの大きさの(1/SkinConfig)とする
-			int nEdgePt = (bEdge) ? (10 * _pt / TJAPlayer3.Skin.Font_Edge_Ratio) : 0; //SkinConfigにて設定可能に(rhimm)
+			int nEdgePt = (bEdge) ? (10 * _pt / edge_Ratio) : 0; //SkinConfigにて設定可能に(rhimm)
 
 			//取得した描画サイズを基に、描画先のbitmapを作成する
 			Bitmap bmp = new Bitmap(stringSize.Width + nEdgePt * 2, stringSize.Height + nEdgePt * 2);

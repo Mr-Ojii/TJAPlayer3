@@ -256,7 +256,7 @@ namespace TJAPlayer3
 			{
 				TJAPlayer3.t安全にDisposeする(ref this.NameMoving[nPlayer]);
 				this.NameMoving[nPlayer] = this.SEName[nPlayer];;
-				this.SEName[nPlayer] = TJAPlayer3.tCreateTexture(this.Font.DrawPrivateFont(TJAPlayer3.Skin.SENames[TJAPlayer3.Skin.NowSENum[nPlayer]], Color.White, Color.Black));
+				this.SEName[nPlayer] = TJAPlayer3.tCreateTexture(this.Font.DrawPrivateFont(TJAPlayer3.Skin.SENames[TJAPlayer3.Skin.NowSENum[nPlayer]], Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio));
 			}
 		}
 
