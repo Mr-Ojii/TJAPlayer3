@@ -62,11 +62,9 @@
     <PackageReference Include="DiscordRichPresence" Version="1.0.175" />
     <PackageReference Include="LargeAddressAware" Version="1.0.5" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="SixLabors.Fonts" Version="1.0.0-beta0013" />
   </ItemGroup>
   <ItemGroup Label="Resources">
     <EmbeddedResource Include="TJAPlayer3-f.ico" />
-    <EmbeddedResource Include="mplus-1p-medium.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FDK19\FDK19.csproj" />

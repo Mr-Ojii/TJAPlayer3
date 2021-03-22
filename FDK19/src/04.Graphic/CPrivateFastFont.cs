@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Diagnostics;
 
-namespace TJAPlayer3
+namespace FDK
 {
 	/// <summary>
 	/// 高速描画版のCPrivateFontクラス。

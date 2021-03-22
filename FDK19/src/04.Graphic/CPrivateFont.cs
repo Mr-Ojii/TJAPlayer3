@@ -6,9 +6,8 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Linq;
 using System.Runtime.InteropServices;
-using FDK;
 
-namespace TJAPlayer3
+namespace FDK
 {
 	/// <summary>
 	/// プライベートフォントでの描画を扱うクラス。
@@ -21,10 +20,10 @@ namespace TJAPlayer3
 	/// とか
 	/// CPrivateFont prvFont = new CPrivateFont( "MS UI Gothic", 36, FontStyle.Bold );		// システムフォント
 	/// とかした上で、
-	/// Bitmap bmp = prvFont.DrawPrivateFont( "ABCDE", Color.
+	/// Image bmp = prvFont.DrawPrivateFont( "ABCDE", Color.
 	/// , Color.Black );							// フォント色＝白、縁の色＝黒の例。縁の色は省略可能
 	/// とか
-	/// Bitmap bmp = prvFont.DrawPrivateFont( "ABCDE", Color.White, Color.Black, Color.Yellow, Color.OrangeRed ); // 上下グラデーション(Yellow→OrangeRed)
+	/// Image bmp = prvFont.DrawPrivateFont( "ABCDE", Color.White, Color.Black, Color.Yellow, Color.OrangeRed ); // 上下グラデーション(Yellow→OrangeRed)
 	/// とかして、
 	/// CTexture ctBmp = CDTXMania.tCreateTexture( bmp, false );
 	/// ctBMP.t2D描画( ～～～ );
@@ -202,7 +201,7 @@ namespace TJAPlayer3
 					this._pfc = new System.Drawing.Text.PrivateFontCollection();
 					using (MemoryStream ms = new MemoryStream()) 
 					{
-						Assembly.GetExecutingAssembly().GetManifestResourceStream(@"TJAPlayer3.mplus-1p-medium.ttf").CopyTo(ms);
+						Assembly.GetExecutingAssembly().GetManifestResourceStream(@"FDK.mplus-1p-medium.ttf").CopyTo(ms);
 						byte[] bytes = ms.ToArray();
 						unsafe {
 							fixed (byte* bytesp = bytes)
