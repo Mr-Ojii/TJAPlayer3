@@ -50,6 +50,50 @@ namespace TJAPlayer3
 
 	public class CPrivateFont : IDisposable
 	{
+		#region[static系]
+		public static void SetTextCorrectionX(int x) 
+		{
+			Text_Correction_X = x;
+		}
+		public static void SetTextCorrectionY(int y)
+		{
+			Text_Correction_Y = y;
+		}
+		public static void SetTextCorrectionX_Chara_List_Vertical(string[] list)
+		{
+			if (list != null)
+				CorrectionX_Chara_List_Vertical = list.Where(c => c != null).ToArray();
+		}
+		public static void SetTextCorrectionX_Chara_List_Value_Vertical(int[] list)
+		{
+			if (list != null)
+				CorrectionX_Chara_List_Value_Vertical = list;
+		}
+		public static void SetTextCorrectionY_Chara_List_Vertical(string[] list)
+		{
+			if (list != null)
+				CorrectionY_Chara_List_Vertical = list.Where(c => c != null).ToArray();
+		}
+		public static void SetTextCorrectionY_Chara_List_Value_Vertical(int[] list)
+		{
+			if (list != null)
+				CorrectionY_Chara_List_Value_Vertical = list;
+		}
+		public static void SetRotate_Chara_List_Vertical(string[] list)
+		{
+			if (list != null)
+				Rotate_Chara_List_Vertical = list.Where(c => c != null).ToArray();
+		}
+
+		private static int Text_Correction_X = 0;
+		private static int Text_Correction_Y = 0;
+		private static string[] CorrectionX_Chara_List_Vertical = new string[0];
+		private static int[] CorrectionX_Chara_List_Value_Vertical = new int[0];
+		private static string[] CorrectionY_Chara_List_Vertical = new string[0];
+		private static int[] CorrectionY_Chara_List_Value_Vertical = new int[0];
+		private static string[] Rotate_Chara_List_Vertical = new string[0];
+		#endregion
+
 		#region [ コンストラクタ ]
 		public CPrivateFont( string fontpath, int pt, SixLabors.Fonts.FontStyle style )
 		{
@@ -160,7 +204,7 @@ namespace TJAPlayer3
 					{
 						Assembly.GetExecutingAssembly().GetManifestResourceStream(@"TJAPlayer3.mplus-1p-medium.ttf").CopyTo(ms);
 						byte[] bytes = ms.ToArray();
-                        unsafe {
+						unsafe {
 							fixed (byte* bytesp = bytes)
 								this._pfc.AddMemoryFont((IntPtr)bytesp, bytes.Length); 
 						}
@@ -240,7 +284,7 @@ namespace TJAPlayer3
 		/// <returns>描画済テクスチャ</returns>
 		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio )
 		{
-		    return DrawPrivateFont( drawstr, DrawMode.Gradation, fontColor, Color.White, gradationTopColor, gradataionBottomColor, edge_Ratio);
+			return DrawPrivateFont( drawstr, DrawMode.Gradation, fontColor, Color.White, gradationTopColor, gradataionBottomColor, edge_Ratio);
 		}
 
 		/// <summary>
@@ -326,7 +370,7 @@ namespace TJAPlayer3
 				g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
 
 				// レイアウト枠
-				Rectangle r = new Rectangle(0, 0, stringSize.Width + nEdgePt * 2 + (TJAPlayer3.Skin.Text_Correction_X * stringSize.Width / 100), stringSize.Height + nEdgePt * 2 + (TJAPlayer3.Skin.Text_Correction_Y * stringSize.Height / 100));
+				Rectangle r = new Rectangle(0, 0, stringSize.Width + nEdgePt * 2 + (Text_Correction_X * stringSize.Width / 100), stringSize.Height + nEdgePt * 2 + (Text_Correction_Y * stringSize.Height / 100));
 
 				if (bEdge)    // 縁取り有りの描画
 				{
@@ -336,7 +380,7 @@ namespace TJAPlayer3
 						Alignment = StringAlignment.Center,  // 画面中央（水平方向位置）     
 						FormatFlags = StringFormatFlags.NoWrap, // どんなに長くて単語の区切りが良くても改行しない (AioiLight)
 						Trimming = StringTrimming.None, // どんなに長くてもトリミングしない (AioiLight)	
-                    }) 
+					}) 
 					{
 						// DrawPathで、ポイントサイズを使って描画するために、DPIを使って単位変換する
 						// (これをしないと、単位が違うために、小さめに描画されてしまう)
@@ -406,11 +450,6 @@ namespace TJAPlayer3
 				_rectStrings = new Rectangle( 0, 0, 0, 0 );
 				_ptOrigin = new Point( 0, 0 );
 				return new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32>(1, 1);
-			}
-
-			if (this._font == null)
-			{
-				this._font = new Font(TJAPlayer3.ConfigIni.FontName, 28);//this._font==nullの例外が発生したので追記(Mr-Ojii)
 			}
 
 			drawstr = drawstr.Replace("・", "．");
@@ -521,18 +560,18 @@ namespace TJAPlayer3
 					Graphics gV = Graphics.FromImage(bmpV);
 					gV.SmoothingMode = SmoothingMode.HighQuality;
 
-					if (TJAPlayer3.Skin.SongSelect_CorrectionX_Chara != null && TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value != null)
+					if (CorrectionX_Chara_List_Vertical != null && CorrectionX_Chara_List_Value_Vertical != null)
 					{
-						int Xindex = Array.IndexOf(TJAPlayer3.Skin.SongSelect_CorrectionX_Chara, strName[i]);
-						if (-1 < Xindex && Xindex < TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value.Length && strName[i].In(TJAPlayer3.Skin.SongSelect_CorrectionX_Chara))
+						int Xindex = Array.IndexOf(CorrectionX_Chara_List_Vertical, strName[i]);
+						if (-1 < Xindex && Xindex < CorrectionX_Chara_List_Value_Vertical.Length && strName[i].In(CorrectionX_Chara_List_Vertical))
 						{
-							nEdge補正X = TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value[Xindex];
+							nEdge補正X = CorrectionX_Chara_List_Value_Vertical[Xindex];
 						}
 						else
 						{
-							if (-1 < Xindex && TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value.Length <= Xindex && strName[i].In(TJAPlayer3.Skin.SongSelect_CorrectionX_Chara))
+							if (-1 < Xindex && CorrectionX_Chara_List_Value_Vertical.Length <= Xindex && strName[i].In(CorrectionX_Chara_List_Vertical))
 							{
-								nEdge補正X = TJAPlayer3.Skin.SongSelect_CorrectionX_Chara_Value[0];
+								nEdge補正X = CorrectionX_Chara_List_Value_Vertical[0];
 							}
 							else
 							{
@@ -541,18 +580,18 @@ namespace TJAPlayer3
 						}
 					}
 
-					if (TJAPlayer3.Skin.SongSelect_CorrectionY_Chara != null && TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value != null)
+					if (CorrectionY_Chara_List_Vertical != null && CorrectionY_Chara_List_Value_Vertical != null)
 					{
-						int Yindex = Array.IndexOf(TJAPlayer3.Skin.SongSelect_CorrectionY_Chara, strName[i]);
-						if (-1 < Yindex && Yindex < TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value.Length && strName[i].In(TJAPlayer3.Skin.SongSelect_CorrectionY_Chara))
+						int Yindex = Array.IndexOf(CorrectionY_Chara_List_Vertical, strName[i]);
+						if (-1 < Yindex && Yindex < CorrectionY_Chara_List_Value_Vertical.Length && strName[i].In(CorrectionY_Chara_List_Vertical))
 						{
-							nEdge補正Y = TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value[Yindex];
+							nEdge補正Y = CorrectionY_Chara_List_Value_Vertical[Yindex];
 						}
 						else
 						{
-							if (-1 < Yindex && TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value.Length <= Yindex && strName[i].In(TJAPlayer3.Skin.SongSelect_CorrectionY_Chara))
+							if (-1 < Yindex && CorrectionY_Chara_List_Value_Vertical.Length <= Yindex && strName[i].In(CorrectionY_Chara_List_Vertical))
 							{
-								nEdge補正Y = TJAPlayer3.Skin.SongSelect_CorrectionY_Chara_Value[0];
+								nEdge補正Y = CorrectionY_Chara_List_Value_Vertical[0];
 							}
 							else
 							{
@@ -642,7 +681,7 @@ namespace TJAPlayer3
 							//nNowPos = nNowPos;
 						}
 					}
-					else if (strName[i].In(TJAPlayer3.Skin.SongSelect_Rotate_Chara))
+					else if (strName[i].In(Rotate_Chara_List_Vertical))
 					{
 						bmpV.RotateFlip(RotateFlipType.Rotate90FlipNone);
 					}

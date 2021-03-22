@@ -1058,22 +1058,27 @@ namespace TJAPlayer3
 							else if (strCommand == nameof(SongSelect_CorrectionX_Chara))
 							{
 								SongSelect_CorrectionX_Chara = strParam.Split(',').ToArray();
+								CPrivateFont.SetTextCorrectionX_Chara_List_Vertical(SongSelect_CorrectionX_Chara);
 							}
 							else if (strCommand == nameof(SongSelect_CorrectionY_Chara))
 							{
 								SongSelect_CorrectionY_Chara = strParam.Split(',').ToArray();
+								CPrivateFont.SetTextCorrectionY_Chara_List_Vertical(SongSelect_CorrectionY_Chara);
 							}
 							else if (strCommand == nameof(SongSelect_CorrectionX_Chara_Value))
 							{
 								SongSelect_CorrectionX_Chara_Value = strParam.Split(',').Select(int.Parse).ToArray();
+								CPrivateFont.SetTextCorrectionX_Chara_List_Value_Vertical(SongSelect_CorrectionX_Chara_Value);
 							}
 							else if (strCommand == nameof(SongSelect_CorrectionY_Chara_Value))
 							{
 								SongSelect_CorrectionY_Chara_Value = strParam.Split(',').Select(int.Parse).ToArray();
+								CPrivateFont.SetTextCorrectionY_Chara_List_Value_Vertical(SongSelect_CorrectionY_Chara_Value);
 							}
 							else if (strCommand == nameof(SongSelect_Rotate_Chara))
 							{
 								SongSelect_Rotate_Chara = strParam.Split(',').ToArray();
+								CPrivateFont.SetRotate_Chara_List_Vertical(SongSelect_Rotate_Chara);
 							}
 							else if (strCommand == nameof(SongSelect_BackBoxText_Y_Diff))
 							{
@@ -2168,10 +2173,12 @@ namespace TJAPlayer3
 							else if (strCommand == nameof(Text_Correction_X))
 							{
 								Text_Correction_X = int.Parse(strParam);
+								CPrivateFont.SetTextCorrectionX(Text_Correction_X);
 							}
 							else if (strCommand == nameof(Text_Correction_Y))
 							{
 								Text_Correction_Y = int.Parse(strParam);
+								CPrivateFont.SetTextCorrectionY(Text_Correction_Y);
 							}
 							#endregion
 							#endregion
