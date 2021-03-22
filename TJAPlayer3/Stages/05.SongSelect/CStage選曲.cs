@@ -196,10 +196,10 @@ namespace TJAPlayer3
 					int nGenreBack = 0;
 					if (act曲リスト.r現在選択中の曲.eNodeType == C曲リストノード.ENodeType.BOX || act曲リスト.r現在選択中の曲.eNodeType == C曲リストノード.ENodeType.SCORE)
 					{
-						nGenreBack = TJAPlayer3.Skin.nStrジャンルtoNum(act曲リスト.r現在選択中の曲.strジャンル);
+						nGenreBack = TJAPlayer3.Skin.nStrジャンルtoNum(act曲リスト.r現在選択中の曲.strGenre);
 					}
 					else if (act曲リスト.r現在選択中の曲.eNodeType == C曲リストノード.ENodeType.BACKBOX) {
-						nGenreBack = TJAPlayer3.Skin.nStrジャンルtoNum(act曲リスト.r現在選択中の曲.r親ノード.strジャンル);
+						nGenreBack = TJAPlayer3.Skin.nStrジャンルtoNum(act曲リスト.r現在選択中の曲.r親ノード.strGenre);
 					}
 					if (TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack] != null )
 					{
@@ -1324,7 +1324,7 @@ namespace TJAPlayer3
 			this.r確定されたスコア = this.act曲リスト.r現在選択中のスコア;
 			this.n確定された曲の難易度[0] = this.act曲リスト.n現在選択中の曲の難易度レベル[0];
 			this.n確定された曲の難易度[1] = this.act曲リスト.n現在選択中の曲の難易度レベル[1];
-			this.str確定された曲のジャンル = this.r確定された曲.strジャンル;
+			this.str確定された曲のジャンル = this.r確定された曲.strGenre;
 			if ( ( this.r確定された曲 != null ) && ( this.r確定されたスコア != null ) )
 			{
 				this.eFadeOut完了時の戻り値 = E戻り値.選曲した;
@@ -1339,7 +1339,7 @@ namespace TJAPlayer3
 			this.r確定されたスコア = this.act曲リスト.r現在選択中のスコア;
 			this.n確定された曲の難易度[0] = nCurrentLevel;
 			this.n確定された曲の難易度[1] = nCurrentLevel;
-			this.str確定された曲のジャンル = this.r確定された曲.strジャンル;
+			this.str確定された曲のジャンル = this.r確定された曲.strGenre;
 			if ( ( this.r確定された曲 != null ) && ( this.r確定されたスコア != null ) )
 			{
 				this.eFadeOut完了時の戻り値 = E戻り値.選曲した;
@@ -1355,7 +1355,7 @@ namespace TJAPlayer3
 			this.r確定されたスコア = this.act曲リスト.r現在選択中のスコア;
 			this.n確定された曲の難易度[0] = nCurrentLevel;
 			this.n確定された曲の難易度[1] = nCurrentLevel2;
-			this.str確定された曲のジャンル = this.r確定された曲.strジャンル;
+			this.str確定された曲のジャンル = this.r確定された曲.strGenre;
 			if ((this.r確定された曲 != null) && (this.r確定されたスコア != null))
 			{
 				this.eFadeOut完了時の戻り値 = E戻り値.選曲した;

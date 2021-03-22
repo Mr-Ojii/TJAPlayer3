@@ -847,8 +847,8 @@ namespace TJAPlayer3
 							song = this.r次の曲(song);
 
 						int index = (this.n現在の選択行 + 6) % 13;    // 新しく最下部に表示されるパネルのインデックス（0～12）。
-						this.stバー情報[index].strタイトル文字列 = song.strタイトル;
-						this.stバー情報[index].strサブタイトル = song.strサブタイトル;
+						this.stバー情報[index].strタイトル文字列 = song.strTitle;
+						this.stバー情報[index].strSubTitle = song.strSubTitle;
 						this.stバー情報[index].ar難易度 = song.nLevel;
 						this.stバー情報[index].b分岐 = song.arスコア.譜面情報.b譜面分岐;
 						this.stバー情報[index].n王冠 = song.arスコア.譜面情報.n王冠;
@@ -908,8 +908,8 @@ namespace TJAPlayer3
 							song = this.r前の曲(song);
 
 						int index = ((this.n現在の選択行 - 6) + 13) % 13; // 新しく最上部に表示されるパネルのインデックス（0～12）。
-						this.stバー情報[index].strタイトル文字列 = song.strタイトル;
-						this.stバー情報[index].strサブタイトル = song.strサブタイトル;
+						this.stバー情報[index].strタイトル文字列 = song.strTitle;
+						this.stバー情報[index].strSubTitle = song.strSubTitle;
 						this.stバー情報[index].ar難易度 = song.nLevel;
 						this.stバー情報[index].b分岐 = song.arスコア.譜面情報.b譜面分岐;
 						this.stバー情報[index].n王冠 = song.arスコア.譜面情報.n王冠;
@@ -1001,7 +1001,7 @@ namespace TJAPlayer3
 
 			if (this.r現在選択中の曲.r親ノード != null)
 			{
-				int GenreBack = TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.r親ノード.strジャンル);
+				int GenreBack = TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.r親ノード.strGenre);
 				if (TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[GenreBack] != null && TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[GenreBack] != null && !TJAPlayer3.ConfigIni.OpenOneSide)
 				{
 					int ForLoop = (int)(1280 / 100) + 1;
@@ -1012,7 +1012,7 @@ namespace TJAPlayer3
 				}
 			}
 
-			int nnGenreBack = TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
+			int nnGenreBack = TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strGenre);
 
 			#region [ (2) 通常フェーズの描画。]
 			//-----------------
@@ -1032,7 +1032,7 @@ namespace TJAPlayer3
 
 					if (n見た目の行番号 == 5 && this.stバー情報[(nパネル番号 + 1) % 13].song.r親ノード != null) //5のところでCenterを描画しないと、選択曲変更のとき、背景に隠れてしまう。
 					{
-						int genre = TJAPlayer3.Skin.nStrジャンルtoNum(this.stバー情報[(nパネル番号 + 1) % 13].song.r親ノード.strジャンル);
+						int genre = TJAPlayer3.Skin.nStrジャンルtoNum(this.stバー情報[(nパネル番号 + 1) % 13].song.r親ノード.strGenre);
 						int basho = 1;
 						if (this.stバー情報[(nパネル番号 + 1) % 13].song.r親ノード.list子リスト.IndexOf(this.stバー情報[(nパネル番号 + 1) % 13].song) == 0)
 							basho = 0;
@@ -1075,7 +1075,7 @@ namespace TJAPlayer3
 
 					if (this.stバー情報[nパネル番号].song.r親ノード != null)
 					{
-						int genre = TJAPlayer3.Skin.nStrジャンルtoNum(this.stバー情報[nパネル番号].song.r親ノード.strジャンル);
+						int genre = TJAPlayer3.Skin.nStrジャンルtoNum(this.stバー情報[nパネル番号].song.r親ノード.strGenre);
 						int basho = 1;
 						if (this.stバー情報[nパネル番号].song.r親ノード.list子リスト.IndexOf(this.stバー情報[nパネル番号].song) == 0)
 							basho = 0;
@@ -1098,7 +1098,7 @@ namespace TJAPlayer3
 
 				if (this.r現在選択中の曲.r親ノード != null)
 				{
-					int genreheader = TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.r親ノード.strジャンル);
+					int genreheader = TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.r親ノード.strGenre);
 					if (TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[genreheader] != null)
 					{
 						TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[genreheader].vcScaling = new Vector3(1f);
@@ -1141,9 +1141,9 @@ namespace TJAPlayer3
 					#region [ バーテクスチャを描画。]
 					//-----------------
 					if (n現在のスクロールカウンタ != 0)
-						this.tジャンル別選択されていない曲バーの描画(xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y, TJAPlayer3.Skin.nStrジャンルtoNum(this.stバー情報[nパネル番号].song.strジャンル), this.stバー情報[nパネル番号].eNodeType);
+						this.tジャンル別選択されていない曲バーの描画(xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y, TJAPlayer3.Skin.nStrジャンルtoNum(this.stバー情報[nパネル番号].song.strGenre), this.stバー情報[nパネル番号].eNodeType);
 					else if (n見た目の行番号 != 6 || !(ctバー展開ディレイ用タイマー.b終了値に達した))
-						this.tジャンル別選択されていない曲バーの描画(xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y, TJAPlayer3.Skin.nStrジャンルtoNum(this.stバー情報[nパネル番号].song.strジャンル), this.stバー情報[nパネル番号].eNodeType);
+						this.tジャンル別選択されていない曲バーの描画(xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y, TJAPlayer3.Skin.nStrジャンルtoNum(this.stバー情報[nパネル番号].song.strGenre), this.stバー情報[nパネル番号].eNodeType);
 					//-----------------
 					#endregion
 
@@ -1190,7 +1190,7 @@ namespace TJAPlayer3
 
 			if ((this.n現在のスクロールカウンタ == 0) && (ctバー展開ディレイ用タイマー.b終了値に達した))
 			{
-				nnGenreBack = TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
+				nnGenreBack = TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strGenre);
 				if (TJAPlayer3.Tx.SongSelect_Box_Center_Genre[nnGenreBack] != null && TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[nnGenreBack] != null && this.r現在選択中の曲.eNodeType != C曲リストノード.ENodeType.BACKBOX && this.r現在選択中の曲.eNodeType != C曲リストノード.ENodeType.RANDOM)
 				{
 					if (this.r現在選択中の曲.eNodeType != C曲リストノード.ENodeType.SCORE)
@@ -1208,7 +1208,7 @@ namespace TJAPlayer3
 
 				if (this.r現在選択中の曲.eNodeType == C曲リストノード.ENodeType.BOX)
 				{
-					int genretextureindex = TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
+					int genretextureindex = TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strGenre);
 					if (TJAPlayer3.Tx.SongSelect_GenreText != null)
 					{
 						TJAPlayer3.Tx.SongSelect_GenreText.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y - 25, new Rectangle(0, genretextureindex * (TJAPlayer3.Tx.SongSelect_GenreText.szTextureSize.Height / (TJAPlayer3.Skin.MaxKeyNum + 2)), TJAPlayer3.Tx.SongSelect_GenreText.szTextureSize.Width, (TJAPlayer3.Tx.SongSelect_GenreText.szTextureSize.Height / (TJAPlayer3.Skin.MaxKeyNum + 2))));
@@ -1303,8 +1303,8 @@ namespace TJAPlayer3
 							}
 							#endregion
 							#region[譜面分岐や歌詞やパパママ]
-							if (TJAPlayer3.Tx.SongSelect_Lyric_Text[TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル)] != null && this.r現在選択中のスコア.譜面情報.b歌詞あり)
-								TJAPlayer3.Tx.SongSelect_Lyric_Text[TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル)].t2D描画(TJAPlayer3.app.Device, 483, TJAPlayer3.Skin.SongSelect_Overall_Y + 21);
+							if (TJAPlayer3.Tx.SongSelect_Lyric_Text[TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strGenre)] != null && this.r現在選択中のスコア.譜面情報.b歌詞あり)
+								TJAPlayer3.Tx.SongSelect_Lyric_Text[TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strGenre)].t2D描画(TJAPlayer3.app.Device, 483, TJAPlayer3.Skin.SongSelect_Overall_Y + 21);
 
 							if (TJAPlayer3.Tx.SongSelect_Branch_Text_NEW != null && TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0] != (int)Difficulty.Tower && TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0] != (int)Difficulty.Dan)
 							{
@@ -1435,8 +1435,8 @@ namespace TJAPlayer3
 					//-----------------
 					if (this.stバー情報[nパネル番号].strタイトル文字列 != "" && this.ttk選択している曲の曲名 == null)
 						this.ttk選択している曲の曲名 = this.ttk曲名テクスチャを生成する(this.stバー情報[nパネル番号].strタイトル文字列, Color.White, Color.Black);
-					if (this.stバー情報[nパネル番号].strサブタイトル != "" && this.ttk選択している曲のサブタイトル == null)
-						this.ttk選択している曲のサブタイトル = this.ttkサブタイトルテクスチャを生成する(this.stバー情報[nパネル番号].strサブタイトル);
+					if (this.stバー情報[nパネル番号].strSubTitle != "" && this.ttk選択している曲のサブタイトル == null)
+						this.ttk選択している曲のサブタイトル = this.ttkサブタイトルテクスチャを生成する(this.stバー情報[nパネル番号].strSubTitle);
 
 					//サブタイトルがあったら700
 
@@ -1450,7 +1450,7 @@ namespace TJAPlayer3
 					{
 						if (this.ttk選択している曲の曲名 != null)
 						{
-							if (!(this.r現在選択中の曲.eNodeType == C曲リストノード.ENodeType.BOX && TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル) != 0))
+							if (!(this.r現在選択中の曲.eNodeType == C曲リストノード.ENodeType.BOX && TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strGenre) != 0))
 							{
 								タイトルtmp = ResolveTitleTexture(this.ttk選択している曲の曲名);
 								タイトルtmp.t2D描画(TJAPlayer3.app.Device, 750, TJAPlayer3.Skin.SongSelect_Overall_Y + TJAPlayer3.Skin.SongSelect_Box_Center_Header_Y_Diff + 23);
@@ -1473,7 +1473,7 @@ namespace TJAPlayer3
 
 			if (this.r現在選択中の曲.eNodeType != C曲リストノード.ENodeType.BOX)
 			{
-				int genretextureindex = (this.r現在選択中の曲.r親ノード != null) ? TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.r親ノード.strジャンル) : TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strジャンル);
+				int genretextureindex = (this.r現在選択中の曲.r親ノード != null) ? TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.r親ノード.strGenre) : TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strGenre);
 				if (TJAPlayer3.Tx.SongSelect_GenreText != null)
 				{
 					TJAPlayer3.Tx.SongSelect_GenreText.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, BoxCenterx, TJAPlayer3.Skin.SongSelect_Overall_Y - 25, new Rectangle(0, genretextureindex * (TJAPlayer3.Tx.SongSelect_GenreText.szTextureSize.Height / (TJAPlayer3.Skin.MaxKeyNum + 2)), TJAPlayer3.Tx.SongSelect_GenreText.szTextureSize.Width, (TJAPlayer3.Tx.SongSelect_GenreText.szTextureSize.Height / (TJAPlayer3.Skin.MaxKeyNum + 2))));
@@ -1495,7 +1495,7 @@ namespace TJAPlayer3
 			public bool[] b分岐;
 			public Color ForeColor;
 			public Color BackColor;
-			public string strサブタイトル;
+			public string strSubTitle;
 			public TitleTextureKey ttkタイトル;
 			public int[] n王冠;
 			public C曲リストノード song;
@@ -1596,9 +1596,9 @@ namespace TJAPlayer3
 
 			for (int i = 0; i < 13; i++)
 			{
-				this.stバー情報[i].strタイトル文字列 = song.strタイトル;
+				this.stバー情報[i].strタイトル文字列 = song.strTitle;
 				this.stバー情報[i].eNodeType = song.eNodeType;
-				this.stバー情報[i].strサブタイトル = song.strサブタイトル;
+				this.stバー情報[i].strSubTitle = song.strSubTitle;
 				this.stバー情報[i].ar難易度 = song.nLevel;
 				this.stバー情報[i].b分岐 = song.arスコア.譜面情報.b譜面分岐;
 				this.stバー情報[i].n王冠 = song.arスコア.譜面情報.n王冠;

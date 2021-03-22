@@ -50,10 +50,10 @@ namespace TJAPlayer3
 		[StructLayout( LayoutKind.Sequential )]
 		public struct ST譜面情報
 		{
-			public string タイトル;
-			public string アーティスト名;
-			public string コメント;
-			public string ジャンル;
+			public string Title;
+			public string Artist;
+			public string Comment;
+			public string Genre;
 			public string Backgound;
 			public int 最大ランク;
 			public double 最大スキル;
@@ -77,7 +77,7 @@ namespace TJAPlayer3
 			public string[] strSecondScorerName;
 			public string[] strThirdScorerName;
 			public int[] n王冠;
-			public string strサブタイトル;
+			public string strSubTitle;
 			public int[] nレベル;
 
 			[Serializable]
@@ -161,10 +161,10 @@ namespace TJAPlayer3
 			this.ScoreIni情報 = new STScoreIni情報( DateTime.MinValue, 0L );
 			this.ファイル情報 = new STファイル情報( "", "", DateTime.MinValue, 0L );
 			this.譜面情報 = new ST譜面情報();
-			this.譜面情報.タイトル = "";
-			this.譜面情報.アーティスト名 = "";
-			this.譜面情報.コメント = "";
-			this.譜面情報.ジャンル = "";
+			this.譜面情報.Title = "";
+			this.譜面情報.Artist = "";
+			this.譜面情報.Comment = "";
+			this.譜面情報.Genre = "";
 			this.譜面情報.Backgound = "";
 			this.譜面情報.最大ランク =  (int)CScoreIni.ERANK.UNKNOWN;
 			this.譜面情報.フルコンボ = false;
@@ -195,7 +195,7 @@ namespace TJAPlayer3
 			this.譜面情報.strSecondScorerName = new string[(int)Difficulty.Total];
 			this.譜面情報.strThirdScorerName = new string[(int)Difficulty.Total];
 			this.譜面情報.n王冠 = new int[(int)Difficulty.Total];
-			this.譜面情報.strサブタイトル = "";
+			this.譜面情報.strSubTitle = "";
 			this.譜面情報.nレベル = new int[(int)Difficulty.Total] { -1, -1, -1, -1, -1, -1, -1};
 		}
 	}

@@ -92,18 +92,18 @@ namespace TJAPlayer3
 					c曲リストノード.strBreadcrumbs = (c曲リストノード.r親ノード == null) ?
 						str基点フォルダ + fileinfo.Name : c曲リストノード.r親ノード.strBreadcrumbs + " > " + str基点フォルダ + fileinfo.Name;
 
-					c曲リストノード.strタイトル = dtx.TITLE;
-					c曲リストノード.strサブタイトル = dtx.SUBTITLE;
+					c曲リストノード.strTitle = dtx.TITLE;
+					c曲リストノード.strSubTitle = dtx.SUBTITLE;
 					if (!string.IsNullOrEmpty(dtx.GENRE))
 					{
-						c曲リストノード.strジャンル = dtx.GENRE;
+						c曲リストノード.strGenre = dtx.GENRE;
 					}
 					else
 					{
-						if (c曲リストノード.r親ノード != null && c曲リストノード.r親ノード.strジャンル != "")
+						if (c曲リストノード.r親ノード != null && c曲リストノード.r親ノード.strGenre != "")
 						{
 							// .tjaのジャンルが存在しなくて、かつ親ノードにジャンルが指定されていればそちらを読み込む。
-							c曲リストノード.strジャンル = c曲リストノード.r親ノード.strジャンル;
+							c曲リストノード.strGenre = c曲リストノード.r親ノード.strGenre;
 						}
 					}
 
@@ -113,8 +113,8 @@ namespace TJAPlayer3
 						c曲リストノード.BackColor = c曲リストノード.r親ノード.BackColor;
 					}
 
-					c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor[TJAPlayer3.Skin.nStrジャンルtoNum(c曲リストノード.strジャンル)];
-					c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor[TJAPlayer3.Skin.nStrジャンルtoNum(c曲リストノード.strジャンル)];
+					c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor[TJAPlayer3.Skin.nStrジャンルtoNum(c曲リストノード.strGenre)];
+					c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor[TJAPlayer3.Skin.nStrジャンルtoNum(c曲リストノード.strGenre)];
 
 					c曲リストノード.nLevel = dtx.LEVELtaiko;
 
@@ -134,10 +134,10 @@ namespace TJAPlayer3
 						c曲リストノード.arスコア.ScoreIni情報.最終更新日時 = infoScoreIni.LastWriteTime;
 					}
 
-					c曲リストノード.arスコア.譜面情報.タイトル = dtx.TITLE;
-					c曲リストノード.arスコア.譜面情報.アーティスト名 = dtx.ARTIST;
-					c曲リストノード.arスコア.譜面情報.コメント = dtx.COMMENT;
-					c曲リストノード.arスコア.譜面情報.ジャンル = dtx.GENRE;
+					c曲リストノード.arスコア.譜面情報.Title = dtx.TITLE;
+					c曲リストノード.arスコア.譜面情報.Artist = dtx.ARTIST;
+					c曲リストノード.arスコア.譜面情報.Comment = dtx.COMMENT;
+					c曲リストノード.arスコア.譜面情報.Genre = dtx.GENRE;
 					c曲リストノード.arスコア.譜面情報.Backgound = ((dtx.BACKGROUND != null) && (dtx.BACKGROUND.Length > 0)) ? dtx.BACKGROUND : "";
 					c曲リストノード.arスコア.譜面情報.Bpm = dtx.BPM;
 					c曲リストノード.arスコア.譜面情報.Duration = 0;   //  (cdtx.listChip == null)? 0 : cdtx.listChip[ cdtx.listChip.Count - 1 ].n発声時刻ms;
@@ -159,7 +159,7 @@ namespace TJAPlayer3
 					c曲リストノード.arスコア.譜面情報.bPapaMamaSupport[4] = dtx.bPapaMamaSupport[4];
 					c曲リストノード.arスコア.譜面情報.bPapaMamaSupport[5] = dtx.bPapaMamaSupport[5];
 					c曲リストノード.arスコア.譜面情報.bPapaMamaSupport[6] = dtx.bPapaMamaSupport[6];
-					c曲リストノード.arスコア.譜面情報.strサブタイトル = dtx.SUBTITLE;
+					c曲リストノード.arスコア.譜面情報.strSubTitle = dtx.SUBTITLE;
 					c曲リストノード.arスコア.譜面情報.nレベル[0] = dtx.LEVELtaiko[0];
 					c曲リストノード.arスコア.譜面情報.nレベル[1] = dtx.LEVELtaiko[1];
 					c曲リストノード.arスコア.譜面情報.nレベル[2] = dtx.LEVELtaiko[2];
@@ -221,25 +221,25 @@ namespace TJAPlayer3
 					CBoxDef boxdef = new CBoxDef(infoDir.FullName + @"/box.def");
 					C曲リストノード c曲リストノード = new C曲リストノード();
 					c曲リストノード.eNodeType = C曲リストノード.ENodeType.BOX;
-					c曲リストノード.strタイトル = boxdef.Title;
-					c曲リストノード.strジャンル = boxdef.Genre;
+					c曲リストノード.strTitle = boxdef.Title;
+					c曲リストノード.strGenre = boxdef.Genre;
 
 					c曲リストノード.ForeColor = boxdef.ForeColor;
 					c曲リストノード.BackColor = boxdef.BackColor;
 
-					c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor[TJAPlayer3.Skin.nStrジャンルtoNum(c曲リストノード.strジャンル)];
-					c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor[TJAPlayer3.Skin.nStrジャンルtoNum(c曲リストノード.strジャンル)];
+					c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor[TJAPlayer3.Skin.nStrジャンルtoNum(c曲リストノード.strGenre)];
+					c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor[TJAPlayer3.Skin.nStrジャンルtoNum(c曲リストノード.strGenre)];
 
 					c曲リストノード.nスコア数 = 1;
 					c曲リストノード.arスコア = new Cスコア();
 					c曲リストノード.arスコア.ファイル情報.フォルダの絶対パス = infoDir.FullName + @"/";
-					c曲リストノード.arスコア.譜面情報.タイトル = boxdef.Title;
-					c曲リストノード.arスコア.譜面情報.ジャンル = boxdef.Genre;
+					c曲リストノード.arスコア.譜面情報.Title = boxdef.Title;
+					c曲リストノード.arスコア.譜面情報.Genre = boxdef.Genre;
 					c曲リストノード.r親ノード = node親;
 					c曲リストノード.Openindex = 1;
 
 					c曲リストノード.strBreadcrumbs = (c曲リストノード.r親ノード == null) ?
-						c曲リストノード.strタイトル : c曲リストノード.r親ノード.strBreadcrumbs + " > " + c曲リストノード.strタイトル;
+						c曲リストノード.strTitle : c曲リストノード.r親ノード.strBreadcrumbs + " > " + c曲リストノード.strTitle;
 
 
 					c曲リストノード.list子リスト = new List<C曲リストノード>();
@@ -306,18 +306,18 @@ namespace TJAPlayer3
 			{
 				C曲リストノード itemRandom = new C曲リストノード();
 				itemRandom.eNodeType = C曲リストノード.ENodeType.RANDOM;
-				itemRandom.strタイトル = "ランダムに曲をえらぶ";
+				itemRandom.strTitle = "ランダムに曲をえらぶ";
 				itemRandom.nスコア数 = (int)Difficulty.Total;
 				itemRandom.r親ノード = ノードリスト[0].r親ノード;
 
 				itemRandom.strBreadcrumbs = (itemRandom.r親ノード == null) ?
-					itemRandom.strタイトル : itemRandom.r親ノード.strBreadcrumbs + " > " + itemRandom.strタイトル;
+					itemRandom.strTitle : itemRandom.r親ノード.strBreadcrumbs + " > " + itemRandom.strTitle;
 
 				itemRandom.arスコア = new Cスコア();
 				for (int i = 0; i < (int)Difficulty.Total; i++)
 				{
-					itemRandom.arスコア.譜面情報.タイトル = string.Format("< RANDOM SELECT Lv.{0} >", i + 1);
-					itemRandom.arスコア.譜面情報.コメント =
+					itemRandom.arスコア.譜面情報.Title = string.Format("< RANDOM SELECT Lv.{0} >", i + 1);
+					itemRandom.arスコア.譜面情報.Comment =
 						 (CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ja") ?
 						 string.Format("難易度レベル {0} 付近の曲をランダムに選択します。難易度レベルを持たない曲も選択候補となります。", i + 1) :
 						 string.Format("Random select from the songs which has the level about L{0}. Non-leveled songs may also selected.", i + 1);
@@ -362,7 +362,7 @@ namespace TJAPlayer3
 					{
 						C曲リストノード itemBack = new C曲リストノード();
 						itemBack.eNodeType = C曲リストノード.ENodeType.BACKBOX;
-						itemBack.strタイトル = "とじる";
+						itemBack.strTitle = "とじる";
 						itemBack.nスコア数 = 1;
 						itemBack.r親ノード = c曲リストノード;
 
@@ -375,12 +375,12 @@ namespace TJAPlayer3
 						}
 
 						itemBack.strBreadcrumbs = (itemBack.r親ノード == null) ?
-							itemBack.strタイトル : itemBack.r親ノード.strBreadcrumbs + " > " + itemBack.strタイトル;
+							itemBack.strTitle : itemBack.r親ノード.strBreadcrumbs + " > " + itemBack.strTitle;
 
 						itemBack.arスコア = new Cスコア();
 						itemBack.arスコア.ファイル情報.フォルダの絶対パス = "";
-						itemBack.arスコア.譜面情報.タイトル = itemBack.strタイトル;
-						itemBack.arスコア.譜面情報.コメント =
+						itemBack.arスコア.譜面情報.Title = itemBack.strTitle;
+						itemBack.arスコア.譜面情報.Comment =
 							(CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ja") ?
 							"BOX を出ます。" :
 							"Exit from the BOX.";
@@ -417,16 +417,16 @@ namespace TJAPlayer3
 
 				#region [ ノードにタイトルがないなら、最初に見つけたスコアのタイトルを設定する ]
 				//-----------------------------
-				if (string.IsNullOrEmpty(c曲リストノード.strタイトル))
+				if (string.IsNullOrEmpty(c曲リストノード.strTitle))
 				{
 					for (int j = 0; j < (int)Difficulty.Total; j++)
 					{
-						if ((c曲リストノード.arスコア.譜面情報.b譜面が存在する[j] != false) && !string.IsNullOrEmpty(c曲リストノード.arスコア.譜面情報.タイトル))
+						if ((c曲リストノード.arスコア.譜面情報.b譜面が存在する[j] != false) && !string.IsNullOrEmpty(c曲リストノード.arスコア.譜面情報.Title))
 						{
-							c曲リストノード.strタイトル = c曲リストノード.arスコア.譜面情報.タイトル;
+							c曲リストノード.strTitle = c曲リストノード.arスコア.譜面情報.Title;
 
 							if (TJAPlayer3.ConfigIni.bLog曲検索ログ出力)
-								Trace.TraceInformation("タイトルを設定しました。(nID#{0:D3}, title={1})", c曲リストノード.nID, c曲リストノード.strタイトル);
+								Trace.TraceInformation("タイトルを設定しました。(nID#{0:D3}, title={1})", c曲リストノード.nID, c曲リストノード.strTitle);
 
 							break;
 						}

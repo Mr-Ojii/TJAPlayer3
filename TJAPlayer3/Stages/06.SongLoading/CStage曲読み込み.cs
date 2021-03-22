@@ -41,8 +41,8 @@ namespace TJAPlayer3
 				}
 
 				var 譜面情報 = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報;
-				this.str曲タイトル = 譜面情報.タイトル;
-				this.strサブタイトル = 譜面情報.strサブタイトル;
+				this.str曲タイトル = 譜面情報.Title;
+				this.strSubTitle = 譜面情報.strSubTitle;
 				
 				
 
@@ -54,7 +54,7 @@ namespace TJAPlayer3
 					!TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] &&
 					TJAPlayer3.ConfigIni.nPlayerCount == 1 &&
 					str曲タイトル == "Input Calibration" &&
-					strサブタイトル == "TJAPlayer3 Developers";
+					strSubTitle == "TJAPlayer3 Developers";
 
 				base.On活性化();
 			}
@@ -96,7 +96,7 @@ namespace TJAPlayer3
 
 					var サブタイトル = TJAPlayer3.IsPerformingCalibration
 						? "Please play as accurately as possible."
-						: this.strサブタイトル;
+						: this.strSubTitle;
 
 					if( !string.IsNullOrEmpty(タイトル) )
 					{
@@ -232,7 +232,7 @@ namespace TJAPlayer3
 
 					if (this.txタイトル != null)
 					{
-						int nサブタイトル補正 = string.IsNullOrEmpty(TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.strサブタイトル) ? 15 : 0;
+						int nサブタイトル補正 = string.IsNullOrEmpty(TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.strSubTitle) ? 15 : 0;
 
 						this.txタイトル.Opacity = C変換.nParsentTo255((this.ct曲名表示.n現在の値 / 30.0));
 						if (TJAPlayer3.Skin.SongLoading_v2_Title_ReferencePoint == CSkin.ReferencePoint.Left)
@@ -287,7 +287,7 @@ namespace TJAPlayer3
 
 					if (this.txタイトル != null)
 					{
-						int nサブタイトル補正 = string.IsNullOrEmpty(TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.strサブタイトル) ? 15 : 0;
+						int nサブタイトル補正 = string.IsNullOrEmpty(TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.strSubTitle) ? 15 : 0;
 
 						this.txタイトル.Opacity = C変換.nParsentTo255((this.ct曲名表示.n現在の値 / 30.0));
 						if (TJAPlayer3.Skin.SongLoading_Title_ReferencePoint == CSkin.ReferencePoint.Left)
@@ -513,7 +513,7 @@ namespace TJAPlayer3
 		private long nBGM再生開始時刻;
 		private CSound sd読み込み音;
 		private string str曲タイトル;
-		private string strサブタイトル;
+		private string strSubTitle;
 		private CTexture txタイトル;
 		private CTexture txサブタイトル;
 		private DateTime timeBeginLoad;
