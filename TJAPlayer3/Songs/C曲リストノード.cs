@@ -23,8 +23,6 @@ namespace TJAPlayer3
 		public Cスコア arスコア = new Cスコア();
 		public Color ForeColor = Color.White;
 		public Color BackColor = Color.Black;
-		public bool IsChangedForeColor;
-		public bool IsChangedBackColor;
 		[JsonIgnore]
 		public List<C曲リストノード> listランダム用ノードリスト;
 		public List<C曲リストノード> list子リスト;

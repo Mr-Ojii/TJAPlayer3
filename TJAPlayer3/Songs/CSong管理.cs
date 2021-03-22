@@ -109,16 +109,8 @@ namespace TJAPlayer3
 
 					if (c曲リストノード.r親ノード != null)
 					{
-						if (c曲リストノード.r親ノード.IsChangedForeColor)
-						{
-							c曲リストノード.ForeColor = c曲リストノード.r親ノード.ForeColor;
-							c曲リストノード.IsChangedForeColor = true;
-						}
-						if (c曲リストノード.r親ノード.IsChangedBackColor)
-						{
-							c曲リストノード.BackColor = c曲リストノード.r親ノード.BackColor;
-							c曲リストノード.IsChangedBackColor = true;
-						}
+						c曲リストノード.ForeColor = c曲リストノード.r親ノード.ForeColor;
+						c曲リストノード.BackColor = c曲リストノード.r親ノード.BackColor;
 					}
 
 					c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor[TJAPlayer3.Skin.nStrジャンルtoNum(c曲リストノード.strジャンル)];
@@ -232,16 +224,8 @@ namespace TJAPlayer3
 					c曲リストノード.strタイトル = boxdef.Title;
 					c曲リストノード.strジャンル = boxdef.Genre;
 
-					if (boxdef.IsChangedForeColor)
-					{
-						c曲リストノード.ForeColor = boxdef.ForeColor;
-						c曲リストノード.IsChangedForeColor = true;
-					}
-					if (boxdef.IsChangedBackColor)
-					{
-						c曲リストノード.BackColor = boxdef.BackColor;
-						c曲リストノード.IsChangedBackColor = true;
-					}
+					c曲リストノード.ForeColor = boxdef.ForeColor;
+					c曲リストノード.BackColor = boxdef.BackColor;
 
 					c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor[TJAPlayer3.Skin.nStrジャンルtoNum(c曲リストノード.strジャンル)];
 					c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor[TJAPlayer3.Skin.nStrジャンルtoNum(c曲リストノード.strジャンル)];

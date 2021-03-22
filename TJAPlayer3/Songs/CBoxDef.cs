@@ -11,13 +11,10 @@ namespace TJAPlayer3
 	{
 		// プロパティ
 
-		public Color Color;
 		public string Genre;
 		public string Title;
 		public Color ForeColor;
 		public Color BackColor;
-		public bool IsChangedForeColor;
-		public bool IsChangedBackColor;
 
 
 		// コンストラクタ
@@ -71,19 +68,13 @@ namespace TJAPlayer3
 								{
 									this.Genre = str.Substring(6).Trim(ignoreChars);
 								}
-								else if (str.StartsWith("#FONTCOLOR", StringComparison.OrdinalIgnoreCase))
-								{
-									this.Color = ColorTranslator.FromHtml(str.Substring(10).Trim(ignoreChars));
-								}
 								else if (str.StartsWith("#FORECOLOR", StringComparison.OrdinalIgnoreCase))
 								{
 									this.ForeColor = ColorTranslator.FromHtml(str.Substring(10).Trim(ignoreChars));
-									IsChangedForeColor = true;
 								}
 								else if (str.StartsWith("#BACKCOLOR", StringComparison.OrdinalIgnoreCase))
 								{
 									this.BackColor = ColorTranslator.FromHtml(str.Substring(10).Trim(ignoreChars));
-									IsChangedBackColor = true;
 								}
 							}
 							continue;
