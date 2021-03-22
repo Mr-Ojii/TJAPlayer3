@@ -161,6 +161,7 @@ namespace FDK
 				GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
 
 				UpdateTexCoordArray(0, 0, 0, 1, 1, 1, 1, 0);//TextureCoordinateの初期化
+				GL.BindTexture(TextureTarget.Texture2D, 0);
 
 				this.bTextureDisposed = false;
 			}
@@ -180,6 +181,7 @@ namespace FDK
 
 				GL.Hint(HintTarget.GenerateMipmapHint, HintMode.Nicest);
 				GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
+				GL.BindTexture(TextureTarget.Texture2D, 0);
 			}
 		}
 
@@ -371,7 +373,8 @@ namespace FDK
 				GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
 				GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 
-				GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
+				GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length);
+				GL.BindTexture(TextureTarget.Texture2D, 0);
 				//-----------------
 				#endregion
 			}
@@ -421,7 +424,8 @@ namespace FDK
 				GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
 				GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 
-				GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
+				GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length);
+				GL.BindTexture(TextureTarget.Texture2D, 0);
 				//-----------------
 				#endregion
 			}
@@ -469,7 +473,8 @@ namespace FDK
 			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
 			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 
-			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
+			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length);
+			GL.BindTexture(TextureTarget.Texture2D, 0);
 			//-----------------
 			#endregion
 		}
@@ -521,7 +526,8 @@ namespace FDK
 			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
 			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 
-			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
+			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length);
+			GL.BindTexture(TextureTarget.Texture2D, 0);
 		}
 
 		public void t2D左右反転描画(Device device, float x, float y)
@@ -571,7 +577,8 @@ namespace FDK
 			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
 			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 
-			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
+			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length);
+			GL.BindTexture(TextureTarget.Texture2D, 0);
 		}
 
 		/// <summary>
@@ -636,7 +643,8 @@ namespace FDK
 			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
 			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 
-			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length * 3);
+			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length);
+			GL.BindTexture(TextureTarget.Texture2D, 0);
 		}
 
 		private void UpdateTexCoordArray(float zerox, float zeroy, float onex, float oney, float twox, float twoy, float threex, float threey) 
