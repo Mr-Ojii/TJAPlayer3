@@ -1948,7 +1948,7 @@ namespace TJAPlayer3
 		private void Window_MouseWheel(object sender, OpenTK.Input.MouseWheelEventArgs e)
 		{
 			if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongSelect && ConfigIni.bEnableMouseWheel) 
-				TJAPlayer3.stage選曲.MouseWheel(e.Delta);
+				TJAPlayer3.stage選曲.MouseWheel(e.DeltaPrecise);
 		}
 
 		private void Window_ResizeEnd(object sender, EventArgs e)               // #23510 2010.11.20 yyagi: to get resized window size

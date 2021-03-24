@@ -1232,7 +1232,7 @@ namespace TJAPlayer3
 		internal CCounter ctDifficultySelectOUT用タイマー;
 		internal E戻り値 eFadeOut完了時の戻り値;
 
-		public void MouseWheel(int i)
+		public void MouseWheel(float i)
 		{
 			if (this.現在の選曲画面状況 == E選曲画面.通常) 			
 			{
