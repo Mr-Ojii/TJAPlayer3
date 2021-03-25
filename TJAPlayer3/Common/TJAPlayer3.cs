@@ -385,6 +385,32 @@ namespace TJAPlayer3
 		}
 		protected override void OnRenderFrame(FrameEventArgs e)
 		{
+			if (this.D != Direction.None)
+			{
+				Console.WriteLine(D);
+				Rectangle rect = new Rectangle(base.X, base.Y, ClientSize.Width, ClientSize.Height);
+				if ((D & Direction.Right) == Direction.Right || (D & Direction.Left) == Direction.Left)
+				{
+					rect = new Rectangle(base.X, base.Y, ClientSize.Width, (int)(((double)GameWindowSize.Height / GameWindowSize.Width) * ClientSize.Width));
+				}
+				else if ((D & Direction.Bottom) == Direction.Bottom || (D & Direction.Top) == Direction.Top)
+				{
+					rect = new Rectangle(base.X, base.Y, (int)(((double)GameWindowSize.Width / GameWindowSize.Height) * ClientSize.Height), ClientSize.Height);
+				}
+
+				if (ConfigIni.bウィンドウモード)
+				{
+					ConfigIni.n初期ウィンドウ開始位置X = rect.X;   // #30675 2013.02.04 ikanick add
+					ConfigIni.n初期ウィンドウ開始位置Y = rect.Y;   //
+				}
+
+				ConfigIni.nウインドウwidth = (ConfigIni.bウィンドウモード) ? rect.Width : currentClientSize.Width;    // #23510 2010.10.31 yyagi add
+				ConfigIni.nウインドウheight = (ConfigIni.bウィンドウモード) ? rect.Height : currentClientSize.Height;
+
+				this.ClientRectangle = rect;
+				D = Direction.None;
+				return;
+			}
 			Timer?.t更新();
 			CSoundManager.rc演奏用タイマ?.t更新();
 			InputManager?.tポーリング(this.bApplicationActive, TJAPlayer3.ConfigIni.bバッファ入力);
@@ -1218,9 +1244,10 @@ namespace TJAPlayer3
 			base.KeyDown += this.Window_KeyDown;
 			base.MouseDown += this.Window_MouseDown;
 			base.MouseWheel += this.Window_MouseWheel;
-			base.Resize += this.Window_ResizeEnd;                       // #23510 2010.11.20 yyagi: to set resized window size in Config.ini
+			base.Resize += this.Window_ResizeOrMove;                       // #23510 2010.11.20 yyagi: to set resized window size in Config.ini
+			base.Move += this.Window_ResizeOrMove;
 			//---------------------
-#endregion
+			#endregion
 #region [ Direct3D9 デバイスの生成 ]
 			//---------------------
 			this.WindowState = ConfigIni.bウィンドウモード ? OpenTK.WindowState.Normal : OpenTK.WindowState.Fullscreen;
@@ -1951,18 +1978,38 @@ namespace TJAPlayer3
 				TJAPlayer3.stage選曲.MouseWheel(e.DeltaPrecise);
 		}
 
-		private void Window_ResizeEnd(object sender, EventArgs e)               // #23510 2010.11.20 yyagi: to get resized window size
+		private void Window_ResizeOrMove(object sender, EventArgs e)               // #23510 2010.11.20 yyagi: to get resized window size
 		{
-			base.ClientSize = new Size((int)(((double)GameWindowSize.Width / GameWindowSize.Height) * ClientSize.Height + 0.5), ClientSize.Height);
-			if ( ConfigIni.bウィンドウモード )
+			if (ConfigIni.n初期ウィンドウ開始位置X != base.X)
 			{
-				ConfigIni.n初期ウィンドウ開始位置X = base.X;	// #30675 2013.02.04 ikanick add
-				ConfigIni.n初期ウィンドウ開始位置Y = base.Y;	//
+				D |= Direction.Left;
+			}
+			else if (ConfigIni.nウインドウwidth != base.ClientSize.Width)
+			{
+				D |= Direction.Right;
 			}
 
-			ConfigIni.nウインドウwidth = (ConfigIni.bウィンドウモード) ? base.ClientSize.Width : currentClientSize.Width;	// #23510 2010.10.31 yyagi add
-			ConfigIni.nウインドウheight = (ConfigIni.bウィンドウモード) ? base.ClientSize.Height : currentClientSize.Height;
+			if (ConfigIni.n初期ウィンドウ開始位置Y != base.Y)
+			{
+				D |= Direction.Top;
+			}
+			else if (ConfigIni.nウインドウheight != base.ClientSize.Height)
+			{
+				D |= Direction.Bottom;
+			}
 		}
+
+		[Flags]
+		private enum Direction : int 
+		{
+			None = 0,
+			Top,
+			Bottom,
+			Left,
+			Right
+		}
+		private Direction D = Direction.None;
+
 #endregion
 #endregion
 	}
