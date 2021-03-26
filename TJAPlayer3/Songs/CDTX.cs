@@ -145,7 +145,6 @@ namespace TJAPlayer3
 			public bool b可視 = true;
 			public bool bShow;
 			public bool bBranch = false;
-			public double dbチップサイズ倍率 = 1.0;
 			public double db実数値;
 			public double dbBPM;
 			public double db末端BPM = 120.0;
@@ -172,7 +171,6 @@ namespace TJAPlayer3
 			public double fBMSCROLLTime_end;
 			public int n発声時刻ms;
 			public double db発声時刻ms;
-			public int nノーツ終了位置;
 			public int nノーツ終了時刻ms;
 			public int nノーツ出現時刻ms;
 			public int nノーツ移動開始時刻ms;
@@ -2841,14 +2839,12 @@ namespace TJAPlayer3
 						}
 						if (nObjectNum == 8)
 						{
-							chip.nノーツ終了位置 = (this.n現在の小節数 * 384) + ((384 * n) / n文字数);
 							chip.nノーツ終了時刻ms = (int)this.dbNowTime;
 							chip.fBMSCROLLTime_end = (float)this.dbNowBMScollTime;
 
 							chip.nノーツ出現時刻ms = listChip[nNowRollCount + i].nノーツ出現時刻ms;
 							chip.nノーツ移動開始時刻ms = listChip[nNowRollCount + i].nノーツ移動開始時刻ms;
 
-							listChip[nNowRollCount + i].nノーツ終了位置 = (this.n現在の小節数 * 384) + ((384 * n) / n文字数);
 							listChip[nNowRollCount + i].nノーツ終了時刻ms = (int)this.dbNowTime;
 							listChip[nNowRollCount + i].fBMSCROLLTime_end = (int)this.dbNowBMScollTime;
 							listChip[nNowRollCount + i].db末端BPM = dbNowBPM;
@@ -4556,14 +4552,12 @@ namespace TJAPlayer3
 								}
 								if (nObjectNum == 8)
 								{
-									chip.nノーツ終了位置 = (this.n現在の小節数 * 384) + ((384 * n) / n文字数);
 									chip.nノーツ終了時刻ms = (int)this.dbNowTime;
 									chip.fBMSCROLLTime_end = (float)this.dbNowBMScollTime;
 
 									chip.nノーツ出現時刻ms = listChip[nNowRollCount + i].nノーツ出現時刻ms;
 									chip.nノーツ移動開始時刻ms = listChip[nNowRollCount + i].nノーツ移動開始時刻ms;
 
-									listChip[nNowRollCount + i].nノーツ終了位置 = (this.n現在の小節数 * 384) + ((384 * n) / n文字数);
 									listChip[nNowRollCount + i].nノーツ終了時刻ms = (int)this.dbNowTime;
 									listChip[nNowRollCount + i].fBMSCROLLTime_end = (int)this.dbNowBMScollTime;
 									listChip[nNowRollCount + i].db末端BPM = dbNowBPM;
