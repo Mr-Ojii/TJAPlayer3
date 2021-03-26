@@ -1024,11 +1024,11 @@ namespace TJAPlayer3
 				return null;
 			}
 		}
-		public static CTexture tCreateTexture(SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> image)
+		public static CTexture tCreateTexture(SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> image)
 		{
 			return tCreateTexture(image, false);
 		}
-		public static CTexture tCreateTexture(SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> image, bool b黒を透過する)
+		public static CTexture tCreateTexture(SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> image, bool b黒を透過する)
 		{
 			if (app == null)
 			{
@@ -1072,7 +1072,7 @@ namespace TJAPlayer3
 		/// <returns></returns>
 		public static CTexture ColorTexture(SixLabors.ImageSharp.Color color, int width, int height)
 		{
-			return TJAPlayer3.tCreateTexture(new Image<Argb32>(width, height, color));
+			return TJAPlayer3.tCreateTexture(new Image<Rgba32>(width, height, color));
 		}
 
 		/// <summary>プロパティ、インデクサには ref は使用できないので注意。</summary>

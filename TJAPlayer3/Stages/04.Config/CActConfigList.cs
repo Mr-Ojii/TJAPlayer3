@@ -899,7 +899,7 @@ namespace TJAPlayer3
 			{
 				string path = skinSubFolders[ nSkinIndex ];
 				path = System.IO.Path.Combine( path, @"Graphics/1_Title/Background.png" );
-				using (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> image = SixLabors.ImageSharp.Image.Load<SixLabors.ImageSharp.PixelFormats.Argb32>(path))
+				using (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> image = SixLabors.ImageSharp.Image.Load<SixLabors.ImageSharp.PixelFormats.Rgba32>(path))
 				{
 					image.Mutate(c => c.Resize(image.Width / 4, image.Height / 4));
 					if (txSkinSample1 != null)

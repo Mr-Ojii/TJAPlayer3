@@ -256,7 +256,7 @@ namespace FDK
 		/// <param name="drawstr">描画文字列</param>
 		/// <param name="fontColor">描画色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor )
+		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> DrawPrivateFont( string drawstr, Color fontColor )
 		{
 			return DrawPrivateFont( drawstr, DrawMode.Normal, fontColor, Color.White, Color.White, Color.White, 0);
 		}
@@ -268,7 +268,7 @@ namespace FDK
 		/// <param name="fontColor">描画色</param>
 		/// <param name="edgeColor">縁取色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, int edge_Ratio )
+		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, int edge_Ratio )
 		{
 			return DrawPrivateFont( drawstr, DrawMode.Edge, fontColor, edgeColor, Color.White, Color.White, edge_Ratio);
 		}
@@ -281,7 +281,7 @@ namespace FDK
 		/// <param name="gradationTopColor">グラデーション 上側の色</param>
 		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio )
+		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> DrawPrivateFont( string drawstr, Color fontColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio )
 		{
 			return DrawPrivateFont( drawstr, DrawMode.Gradation, fontColor, Color.White, gradationTopColor, gradataionBottomColor, edge_Ratio);
 		}
@@ -295,7 +295,7 @@ namespace FDK
 		/// <param name="gradationTopColor">グラデーション 上側の色</param>
 		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio )
+		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio )
 		{
 			return DrawPrivateFont( drawstr, DrawMode.Edge | DrawMode.Gradation, fontColor, edgeColor, gradationTopColor, gradataionBottomColor, edge_Ratio );
 		}
@@ -314,7 +314,7 @@ namespace FDK
 		/// <param name="gradationTopColor">グラデーション 上側の色</param>
 		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
 		/// <returns>描画済テクスチャ</returns>
-		protected SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont(string drawstr, DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
+		protected SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> DrawPrivateFont(string drawstr, DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
 		{
 			if (this._fontfamily == null || drawstr == null || drawstr == "" || drawstr == " " || drawstr == "　")
 			{
@@ -327,7 +327,7 @@ namespace FDK
 				}
 				_rectStrings = new Rectangle(0, 0, 0, 0);
 				_ptOrigin = new Point(0, 0);
-				return new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32>(1, 1);
+				return new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>(1, 1);
 			}
 
 			// 描画サイズを測定する
@@ -435,7 +435,7 @@ namespace FDK
 		/// <param name="gradationTopColor">グラデーション 上側の色</param>
 		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
 		/// <returns>描画済テクスチャ</returns>
-		protected SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont_V(string drawstr, DrawMode drawMode, Color fontColor, Color edgeColor, int edge_Ratio)
+		protected SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> DrawPrivateFont_V(string drawstr, DrawMode drawMode, Color fontColor, Color edgeColor, int edge_Ratio)
 		{
 			if ( this._fontfamily == null || drawstr == null || drawstr == "" || drawstr == " " || drawstr == "　")
 			{
@@ -448,7 +448,7 @@ namespace FDK
 				}
 				_rectStrings = new Rectangle( 0, 0, 0, 0 );
 				_ptOrigin = new Point( 0, 0 );
-				return new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32>(1, 1);
+				return new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>(1, 1);
 			}
 
 			drawstr = drawstr.Replace("・", "．");

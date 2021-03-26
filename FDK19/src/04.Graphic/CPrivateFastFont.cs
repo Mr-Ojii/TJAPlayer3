@@ -42,7 +42,7 @@ namespace FDK
 		/// <param name="drawstr">描画文字列</param>
 		/// <param name="fontColor">描画色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor )
+		public new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> DrawPrivateFont( string drawstr, Color fontColor )
 		{
 			return DrawPrivateFont( drawstr, DrawMode.Normal, fontColor, Color.White, Color.White, Color.White, 0 );
 		}
@@ -54,7 +54,7 @@ namespace FDK
 		/// <param name="fontColor">描画色</param>
 		/// <param name="edgeColor">縁取色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, int edge_Ratio)
+		public new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, int edge_Ratio)
 		{
 			return DrawPrivateFont( drawstr, DrawMode.Edge, fontColor, edgeColor, Color.White, Color.White, edge_Ratio );
 		}
@@ -66,7 +66,7 @@ namespace FDK
 		/// <param name="fontColor">描画色</param>
 		/// <param name="edgeColor">縁取色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, DrawMode dMode, int edge_Ratio)
+		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, DrawMode dMode, int edge_Ratio)
 		{
 			return DrawPrivateFont( drawstr, dMode, fontColor, edgeColor, Color.White, Color.White, edge_Ratio );
 		}
@@ -80,7 +80,7 @@ namespace FDK
 		/// <param name="gradationTopColor">グラデーション 上側の色</param>
 		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio )
+		public new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio )
 		{
 			return DrawPrivateFont( drawstr, DrawMode.Edge | DrawMode.Gradation, fontColor, edgeColor, gradationTopColor, gradataionBottomColor, edge_Ratio );
 		}
@@ -94,14 +94,14 @@ namespace FDK
 		/// <param name="gradationTopColor">グラデーション 上側の色</param>
 		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont_V( string drawstr, Color fontColor, Color edgeColor, int edge_Ratio )
+		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> DrawPrivateFont_V( string drawstr, Color fontColor, Color edgeColor, int edge_Ratio )
 		{
 			return DrawPrivateFont_V(drawstr, DrawMode.Edge, fontColor, edgeColor, edge_Ratio);
 		}
 
 		#endregion
 
-		protected new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont( string drawstr, DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio )
+		protected new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> DrawPrivateFont( string drawstr, DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio )
 		{
 			#region [ 以前レンダリングしたことのある文字列/フォントか? (キャッシュにヒットするか?) ]
 			int index = listFontCache.FindIndex(
@@ -149,7 +149,7 @@ namespace FDK
 				#endregion
 
 				// 呼び出し元のDispose()でキャッシュもDispose()されないように、Clone()で返す。
-				return (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32>)listFontCache[ listFontCache.Count - 1 ].bmp.Clone();
+				return (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>)listFontCache[ listFontCache.Count - 1 ].bmp.Clone();
 			}
 			else
 			{
@@ -158,12 +158,12 @@ namespace FDK
 				RectStrings = listFontCache[ index ].rectStrings;
 				PtOrigin = listFontCache[ index ].ptOrigin;
 				// 呼び出し元のDispose()でキャッシュもDispose()されないように、Clone()で返す。
-				return (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32>) listFontCache[ index ].bmp.Clone();
+				return (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>) listFontCache[ index ].bmp.Clone();
 				#endregion
 			}
 		}
 
-		protected new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> DrawPrivateFont_V(string drawstr, DrawMode drawMode, Color fontColor, Color edgeColor,int edge_Ratio)
+		protected new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> DrawPrivateFont_V(string drawstr, DrawMode drawMode, Color fontColor, Color edgeColor,int edge_Ratio)
 		{
 			#region [ 以前レンダリングしたことのある文字列/フォントか? (キャッシュにヒットするか?) ]
 			int index = listFontCache.FindIndex(
@@ -205,7 +205,7 @@ namespace FDK
 				#endregion
 
 				// 呼び出し元のDispose()でキャッシュもDispose()されないように、Clone()で返す。
-				return (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32>)listFontCache[ listFontCache.Count - 1 ].bmp.Clone();
+				return (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>)listFontCache[ listFontCache.Count - 1 ].bmp.Clone();
 			}
 			else
 			{
@@ -214,7 +214,7 @@ namespace FDK
 				RectStrings = listFontCache[ index ].rectStrings;
 				PtOrigin = listFontCache[ index ].ptOrigin;
 				// 呼び出し元のDispose()でキャッシュもDispose()されないように、Clone()で返す。
-				return (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32>) listFontCache[ index ].bmp.Clone();
+				return (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>) listFontCache[ index ].bmp.Clone();
 				#endregion
 			}
 		}
@@ -263,7 +263,7 @@ namespace FDK
 			public Color edgeColor;
 			public Color gradationTopColor;
 			public Color gradationBottomColor;
-			public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Argb32> bmp;
+			public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> bmp;
 			public Rectangle rectStrings;
 			public Point ptOrigin;
 		}

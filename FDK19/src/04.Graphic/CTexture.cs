@@ -91,7 +91,7 @@ namespace FDK
 			filename = strFilename;
 			MakeTexture(device, strFilename);
 		}
-		public CTexture(Device device, Image<Argb32> image, bool b黒を透過する)
+		public CTexture(Device device, Image<Rgba32> image, bool b黒を透過する)
 			: this()
 		{
 			maketype = MakeType.bitmap;
@@ -103,9 +103,10 @@ namespace FDK
 			if (!File.Exists(strFilename))     // #27122 2012.1.13 from: ImageInformation では FileNotFound 例外は返ってこないので、ここで自分でチェックする。わかりやすいログのために。
 				throw new FileNotFoundException(string.Format("File does not exist. \n[{0}]", strFilename));
 
-			MakeTexture(device, SixLabors.ImageSharp.Image.Load<Argb32>(strFilename), false);
+			using (SixLabors.ImageSharp.Image<Rgba32> image = SixLabors.ImageSharp.Image.Load<Rgba32>(strFilename))
+				MakeTexture(device, image, false);
 		}
-		public void MakeTexture(Device device, SixLabors.ImageSharp.Image<Argb32> bitmap, bool b黒を透過する)
+		public void MakeTexture(Device device, SixLabors.ImageSharp.Image<Rgba32> bitmap, bool b黒を透過する)
 		{
 			bitmap.Mutate(c => c.Flip(FlipMode.Vertical));
 			if (b黒を透過する)
@@ -141,20 +142,13 @@ namespace FDK
 				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
 				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
 
-                unsafe
+				if (bitmap.TryGetSinglePixelSpan(out Span<Rgba32> span))
 				{
-					var data = new byte[bitmap.Width * bitmap.Height * 4];
-					for (var x = 0; x < bitmap.Width; x++)
-					{
-						for (var y = 0; y < bitmap.Height; y++)
-						{
-							data[((y * bitmap.Width) + x) * 4 + 0] = bitmap[x, y].R;
-							data[((y * bitmap.Width) + x) * 4 + 1] = bitmap[x, y].G;
-							data[((y * bitmap.Width) + x) * 4 + 2] = bitmap[x, y].B;
-							data[((y * bitmap.Width) + x) * 4 + 3] = bitmap[x, y].A;
-						}
-					}
-					GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bitmap.Width, bitmap.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Rgba, PixelType.UnsignedByte, data);
+					GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bitmap.Width, bitmap.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Rgba, PixelType.UnsignedByte, span.ToArray());
+				}
+				else
+				{
+					throw new CTextureCreateFailedException("GetPixelData failed");
 				}
 
 				GL.Hint(HintTarget.GenerateMipmapHint, HintMode.Nicest);

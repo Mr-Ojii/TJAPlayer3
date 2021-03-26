@@ -148,7 +148,7 @@ namespace FDK
 			this.EnqueueFrames();
 			if (lastTexture != null)
 				lastTexture.Dispose();
-			lastTexture = new CTexture(new Device(), new Image<Argb32>(FrameSize.Width, FrameSize.Height), false);
+			lastTexture = new CTexture(new Device(), new Image<Rgba32>(FrameSize.Width, FrameSize.Height), false);
 		}
 
 		public void GetNowFrame(ref CTexture Texture)
@@ -183,7 +183,7 @@ namespace FDK
 			}
 
 			if (lastTexture == null)
-				lastTexture = new CTexture(new Device(), new Image<Argb32>(FrameSize.Width, FrameSize.Height), false);
+				lastTexture = new CTexture(new Device(), new Image<Rgba32>(FrameSize.Width, FrameSize.Height), false);
 
 			if (Texture == lastTexture)
 				return;
