@@ -27,10 +27,12 @@ namespace FDK
 			}
 		}
 
+		internal static Game Instance = null;
+
 		public Game()
 			: base(GameWindowSize.Width, GameWindowSize.Height, GraphicsMode.Default, "TJAP3-f(OpenGL)Alpha")
 		{
-
+			Instance = this;
 			string osplatform = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "win" : (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? "osx" : "linux");
 			string platform = Environment.Is64BitProcess ? "x64" : "x86";
 			if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) 

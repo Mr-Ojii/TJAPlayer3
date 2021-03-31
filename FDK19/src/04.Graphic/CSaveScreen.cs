@@ -39,14 +39,17 @@ namespace FDK
 				}
 			}
 
-			using (IMemoryOwner<Rgb24> pixels = Configuration.Default.MemoryAllocator.Allocate<Rgb24>(GameWindowSize.Width * GameWindowSize.Height))
+			using (IMemoryOwner<Rgba32> pixels = Configuration.Default.MemoryAllocator.Allocate<Rgba32>(Game.Instance.ClientSize.Width * Game.Instance.ClientSize.Height)) 
 			{
-				GL.ReadPixels(0, 0, GameWindowSize.Width, GameWindowSize.Height, PixelFormat.Rgb, PixelType.UnsignedByte, ref MemoryMarshal.GetReference(pixels.Memory.Span));
-				using (Image<Rgb24> image = Image.LoadPixelData<Rgb24>(pixels.Memory.Span, GameWindowSize.Width, GameWindowSize.Height))
+				GL.ReadPixels(0, 0, Game.Instance.ClientSize.Width, Game.Instance.ClientSize.Height, PixelFormat.Rgba, PixelType.UnsignedByte, ref MemoryMarshal.GetReference(pixels.Memory.Span));
+				Image<Rgba32> image = Image.LoadPixelData<Rgba32>(pixels.Memory.Span, Game.Instance.ClientSize.Width, Game.Instance.ClientSize.Height);
+				Task.Factory.StartNew(() =>
 				{
 					image.Mutate(con => con.Flip(FlipMode.Vertical));
 					image.SaveAsPng(strFullPath);
+					image.Dispose();
 				}
+					);
 			}
 
 			return true;
