@@ -59,7 +59,6 @@ namespace FDK
 			// フレームの確保
 			AVFrame* frame = ffmpeg.av_frame_alloc();
 			AVPacket* packet = ffmpeg.av_packet_alloc();
-			ffmpeg.av_init_packet(packet);
 			SwrContext* swr = null;
 			byte* swr_buf = null;
 			int swr_buf_len = 0;

@@ -16,22 +16,27 @@ namespace FDK
 	{
 		public static string[] GetAllASIODevices()
 		{
-			//Debug.WriteLine( "BassAsio.BASS_ASIO_GetDeviceInfos():" );
-			BASS_ASIO_DEVICEINFO[] bassAsioDevInfo = BassAsio.BASS_ASIO_GetDeviceInfos();
-
 			List<string> asioDeviceList = new List<string>();
 
-			if ( bassAsioDevInfo.Length == 0 )
+			try
 			{
-				asioDeviceList.Add( "None" );
-			}
-			else
-			{
-				for ( int i = 0; i < bassAsioDevInfo.Length; i++ )
+				BASS_ASIO_DEVICEINFO[] bassAsioDevInfo = BassAsio.BASS_ASIO_GetDeviceInfos();
+				if (bassAsioDevInfo.Length == 0)
 				{
-					asioDeviceList.Add( bassAsioDevInfo[ i ].name );
-					//Trace.TraceInformation( "ASIO Device {0}: {1}", i, bassAsioDevInfo[ i ].name );
+					asioDeviceList.Add("None");
 				}
+				else
+				{
+					for (int i = 0; i < bassAsioDevInfo.Length; i++)
+					{
+						asioDeviceList.Add(bassAsioDevInfo[i].name);
+						//Trace.TraceInformation( "ASIO Device {0}: {1}", i, bassAsioDevInfo[ i ].name );
+					}
+				}
+			}
+			catch
+			{
+				asioDeviceList.Add("None");
 			}
 
 			return asioDeviceList.ToArray();
