@@ -27,21 +27,22 @@ namespace FDK
 
 		// メソッド
 
-		public unsafe void tメッセージからMIDI信号のみ受信(int dev, long time, IntPtr buffer, int length, IntPtr user)
+		public unsafe void tメッセージからMIDI信号のみ受信(int dev, long time, byte[] buf, int count) 
 		{
-			Debug.Print(length.ToString());
-			byte* buf = (byte*)buffer;
-			int nMIDIevent = buf[0];
-			int nPara1 = buf[1];
-			int nPara2 = buf[2];
-
-			if ((nMIDIevent == 0x90) && (nPara2 != 0))      // Note ON
+			if (this.ID == dev)
 			{
-				STInputEvent item = new STInputEvent();
-				item.nKey = nPara1;
-				item.b押された = true;
-				item.nTimeStamp = time;
-				this.listEventBuffer.Add(item);
+				int nMIDIevent = buf[count * 3];
+				int nPara1 = buf[count * 3 + 1];
+				int nPara2 = buf[count * 3 + 2];
+
+				if ((nMIDIevent == 0x90) && (nPara2 != 0))      // Note ON
+				{
+					STInputEvent item = new STInputEvent();
+					item.nKey = nPara1;
+					item.b押された = true;
+					item.nTimeStamp = time;
+					this.listEventBuffer.Add(item);
+				}
 			}
 		}
 

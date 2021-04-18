@@ -109,6 +109,8 @@ Fork元より使用しているライブラリ
 * [discord-rpc-csharp](https://github.com/Lachee/discord-rpc-csharp)
 * [SixLabors.ImageSharp](https://github.com/SixLabors/ImageSharp)
 * [SixLabors.Fonts](https://github.com/SixLabors/Fonts)
+* [M+ FONTS](https://osdn.net/projects/mplus-fonts/)
+* [managed-midi](https://github.com/atsushieno/managed-midi)
 
 また、フレームワークに[.NET](https://dotnet.microsoft.com/)を使用しています。
 

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using Un4seen.Bass;
-using Un4seen.Bass.AddOn.Midi;
+using Commons.Music.Midi;
 using OpenTK.Input;
 
 namespace FDK
@@ -99,12 +99,14 @@ namespace FDK
 
 			try
 			{
-				this.proc = new MIDIINPROC(this.MidiInCallback);
-				for (int i = 0; i < BassMidi.BASS_MIDI_InGetDeviceInfos(); i++)
+				var midiinlisttmp = MidiAccessManager.Default.Inputs.ToArray();
+
+				for (int i = 0; i < midiinlisttmp.Length; i++) 
 				{
-					BassMidi.BASS_MIDI_InInit(i, this.proc, IntPtr.Zero);
-					BassMidi.BASS_MIDI_InStart(i);
-					CInputMIDI item = new CInputMIDI((uint)i);
+					var midiintmp = MidiAccessManager.Default.OpenInputAsync(midiinlisttmp[i].Id).Result;
+					midiintmp.MessageReceived += onMessageRecevied;
+					this.midiInputs.Add(midiintmp);
+					CInputMIDI item = new CInputMIDI(uint.Parse(midiinlisttmp[i].Id));
 					this.list入力デバイス.Add(item);
 				}
 			}
@@ -223,11 +225,7 @@ namespace FDK
 			{
 				if (disposeManagedObjects)
 				{
-					for (int i = 0; i < BassMidi.BASS_MIDI_InGetDeviceInfos(); i++)
-					{
-						BassMidi.BASS_MIDI_InStop(i);
-						BassMidi.BASS_MIDI_InFree(i);
-					}
+					midiInputs.Clear();
 					foreach (IInputDevice device2 in this.list入力デバイス)
 					{
 						device2.Dispose();
@@ -236,12 +234,6 @@ namespace FDK
 					{
 						this.list入力デバイス.Clear();
 					}
-
-					//if( this.timer != null )
-					//{
-					//    this.timer.Dispose();
-					//    this.timer = null;
-					//}
 				}
 				this.bDisposed済み = true;
 			}
@@ -263,12 +255,13 @@ namespace FDK
 		private IInputDevice _Mouse;
 		private bool bDisposed済み;
 		private object objMidiIn排他用 = new object();
-		private MIDIINPROC proc;
-		//		private CTimer timer;
+		private List<IMidiInput> midiInputs = new List<IMidiInput>();
 
-		private void MidiInCallback(int dev, double intime, IntPtr buffer, int length, IntPtr user)
+		private void onMessageRecevied(object sender, MidiReceivedEventArgs e)
 		{
 			long time = CSoundManager.rc演奏用タイマ.nシステム時刻ms;  // lock前に取得。演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+
+			int dev = int.Parse((sender as IMidiInput).Details.Id);
 
 			lock (this.objMidiIn排他用)
 			{
@@ -277,9 +270,10 @@ namespace FDK
 					foreach (IInputDevice device in this.list入力デバイス)
 					{
 						CInputMIDI tmidi = device as CInputMIDI;
-						if ((tmidi != null) && (tmidi.ID == dev))
+						if ((tmidi != null) && (tmidi.ID == dev)) 
 						{
-							tmidi.tメッセージからMIDI信号のみ受信(dev, time, buffer, length, user);
+							for (int i = 0; i < e.Length / 3; i++)
+								tmidi.tメッセージからMIDI信号のみ受信(dev, time, e.Data, i);
 							break;
 						}
 					}
