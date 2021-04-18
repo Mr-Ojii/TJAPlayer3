@@ -84,7 +84,7 @@ namespace TJAPlayer3
 		{
 			if (prvFont == null)
 			{
-				prvFont = new CPrivateFastFont(CSkin.Path(@"Graphics/ipag.ttf"), 18);
+				prvFont = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 18);
 			}
 		}
 
@@ -284,8 +284,8 @@ namespace TJAPlayer3
 				}
 				#endregion
 				#region [ ソートメニュータイトル描画 ]
-				int x = 210, y = 44;
-				stqMenuTitle.txName.t2D描画( TJAPlayer3.app.Device, x, y );
+				int x = 210, y = 60;
+				stqMenuTitle.txName.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Left, x, y);
 				#endregion
 				#region [ カーソル描画 ]
 				if ( TJAPlayer3.Tx.Menu_Highlight != null )
@@ -312,7 +312,7 @@ namespace TJAPlayer3
 					if ( lciMenuItems[ i ].txName != null )
 					{
 						int height = lciMenuItems[ i ].rectName.Height;
-						lciMenuItems[ i ].txName.t2D描画( TJAPlayer3.app.Device, 180, 77 + i * 32 );
+						lciMenuItems[i].txName.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Left, 180, 92 + i * 32);
 					}
 
 					bool bValueBold = (bItemBold || (i == nItemSelecting && bIsSelectingIntItem)) ? true : false;
@@ -344,7 +344,7 @@ namespace TJAPlayer3
 						{
 							using (var ctStr = TJAPlayer3.tCreateTexture(bmpStr))
 							{
-								ctStr.t2D描画(TJAPlayer3.app.Device, 330, 77 + i * 32);
+								ctStr.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Left, 330, 92 + i * 32);
 							}
 						}
 					}

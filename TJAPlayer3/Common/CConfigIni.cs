@@ -250,7 +250,7 @@ namespace TJAPlayer3
 		public string strDTXManiaのバージョン;
 		public string str曲データ検索パス;
 		public string FontName;
-		public string FontNamed;
+		private string FontNamed;
 		public bool bBranchGuide;
 		public int nScoreMode;
 		public int nDefaultCourse; //2017.01.30 DD デフォルトでカーソルをあわせる難易度

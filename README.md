@@ -97,7 +97,6 @@ Fork元より使用しているライブラリ
 * [bass](https://www.un4seen.com/bass.html)
 * [Bass.Net](http://bass.radio42.com/)
 * FDK21(改造しているので、FDKとは呼べないライブラリと化しています)
-* IPAフォント
 
 以下のライブラリを追加いたしました。
 * [ReadJEnc](https://github.com/hnx8/ReadJEnc)

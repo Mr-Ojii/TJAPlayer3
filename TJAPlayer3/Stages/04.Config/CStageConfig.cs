@@ -128,7 +128,7 @@ namespace TJAPlayer3
 			{
 				string[] strMenuItem = {"System", "Drums", "Exit"};
 				txMenuItemLeft = new CTexture[strMenuItem.Length, 2];
-				using (var prvFont = new CPrivateFastFont(CSkin.Path(@"mplus-1p-heavy.ttf"), 20))
+				using (var prvFont = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 20))
 				{
 					for (int i = 0; i < strMenuItem.Length; i++)
 					{
