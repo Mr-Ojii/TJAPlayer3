@@ -86,6 +86,13 @@ namespace FDK
 			protected set;
 		}
 
+		public float CPUUsage 
+		{
+			get
+			{
+				return BassAsio.BASS_ASIO_GetCPU();
+			}
+		}
 
 		// マスターボリュームの制御コードは、WASAPI/ASIOで全く同じ。
 		public int nMasterVolume

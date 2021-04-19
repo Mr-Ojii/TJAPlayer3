@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 using System.IO;
-using Un4seen.Bass;
-using Un4seen.BassAsio;
-using Un4seen.BassWasapi;
 
 namespace FDK
 {
@@ -190,11 +187,6 @@ namespace FDK
 					}
 				}
 			}
-			if (SoundDeviceType == ESoundDeviceType.ExclusiveWASAPI || SoundDeviceType == ESoundDeviceType.SharedWASAPI || SoundDeviceType == ESoundDeviceType.ASIO || SoundDeviceType == ESoundDeviceType.BASS)
-			{
-				Trace.TraceInformation("BASS_CONFIG_UpdatePeriod=" + Bass.BASS_GetConfig(BASSConfig.BASS_CONFIG_UPDATEPERIOD));
-				Trace.TraceInformation("BASS_CONFIG_UpdateThreads=" + Bass.BASS_GetConfig(BASSConfig.BASS_CONFIG_UPDATETHREADS));
-			}
 		}
 
 		public static void t終了()
@@ -279,27 +271,7 @@ namespace FDK
 
 		public float GetCPUusage()
 		{
-			float f;
-			switch (SoundDeviceType)
-			{
-				case ESoundDeviceType.ExclusiveWASAPI:
-				case ESoundDeviceType.SharedWASAPI:
-					f = BassWasapi.BASS_WASAPI_GetCPU();
-					break;
-				case ESoundDeviceType.ASIO:
-					f = BassAsio.BASS_ASIO_GetCPU();
-					break;
-				case ESoundDeviceType.BASS:
-					f = Bass.BASS_GetCPU();
-					break;
-				case ESoundDeviceType.OpenAL:
-					f = 0.0f;
-					break;
-				default:
-					f = 0.0f;
-					break;
-			}
-			return f;
+			return SoundDevice.CPUUsage;
 		}
 
 		public string GetCurrentSoundDeviceType()

@@ -91,6 +91,14 @@ namespace FDK
 			protected set;
 		}
 
+		public float CPUUsage 
+		{
+			get 
+			{
+				return 0.0f;
+			}
+		}
+
 		public int nMasterVolume
 		{
 			get

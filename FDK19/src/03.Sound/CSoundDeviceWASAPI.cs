@@ -46,6 +46,15 @@ namespace FDK
 			protected set;
 		}
 
+
+		public float CPUUsage
+		{
+			get
+			{
+				return BassWasapi.BASS_WASAPI_GetCPU();
+			}
+		}
+
 		public enum Eデバイスモード { Exclusive, Shared }
 
 		public int nMasterVolume

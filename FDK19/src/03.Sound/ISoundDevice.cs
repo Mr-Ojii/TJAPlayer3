@@ -14,6 +14,7 @@ namespace FDK
 		long nElapsedTimems { get; }
 		long SystemTimemsWhenUpdatingElapsedTime  { get; }
 		CTimer tmSystemTimer { get; }
+		float CPUUsage { get; }
 
 		CSound tCreateSound( string strファイル名, ESoundGroup soundGroup );
 		void tCreateSound( string strファイル名, CSound sound );
