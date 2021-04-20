@@ -170,7 +170,7 @@ namespace FDK
 										continue;
 									}
 
-							lastTexture.UpdateTexture(cdecodedframe.Tex, cdecodedframe.size);
+							lastTexture.UpdateTexture(cdecodedframe.Tex, cdecodedframe.TexSize);
 
 							cdecodedframe.Dispose();
 						}
@@ -232,7 +232,7 @@ namespace FDK
 
 										outframe = frameconv.Convert(frame);
 
-										decodedframes.Enqueue(new CDecodedFrame() { Time = (outframe->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, Tex = getframe(outframe), size = new Size(outframe->width, outframe->height) });
+										decodedframes.Enqueue(new CDecodedFrame((outframe->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, getframe(outframe), new Size(outframe->width, outframe->height)));
 
 										ffmpeg.av_frame_unref(frame);
 										ffmpeg.av_frame_unref(outframe);
