@@ -7,7 +7,7 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace FDK
 {
-	public class C変換
+	public class CConvert
 	{
 		// プロパティ
 
@@ -224,7 +224,7 @@ namespace FDK
 		//-----------------
 
 		// private コンストラクタでインスタンス生成を禁止する。
-		private C変換()
+		private CConvert()
 		{
 		}
 		//-----------------

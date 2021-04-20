@@ -1314,13 +1314,13 @@ namespace TJAPlayer3
 											}
 											else if (str3.Equals(nameof(FastRender)))
 											{
-												FastRender = C変換.bONorOFF(str4[0]);
+												FastRender = CConvert.bONorOFF(str4[0]);
 											}
 											#endregion
 											#region [ Window関係 ]
 											else if (str3.Equals("FullScreen"))
 											{
-												this.b全画面モード = C変換.bONorOFF(str4[0]);
+												this.b全画面モード = CConvert.bONorOFF(str4[0]);
 											}
 											else if ( str3.Equals( "WindowX" ) )        // #30675 2013.02.04 ikanick add
 											{
@@ -1334,7 +1334,7 @@ namespace TJAPlayer3
 											}
 											else if ( str3.Equals( "WindowWidth" ) )		// #23510 2010.10.31 yyagi add
 											{
-												this.nウインドウwidth = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 65535, this.nウインドウwidth );
+												this.nウインドウwidth = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 65535, this.nウインドウwidth );
 												if( this.nウインドウwidth <= 0 )
 												{
 													this.nウインドウwidth = GameWindowSize.Width;
@@ -1342,7 +1342,7 @@ namespace TJAPlayer3
 											}
 											else if( str3.Equals( "WindowHeight" ) )		// #23510 2010.10.31 yyagi add
 											{
-												this.nウインドウheight = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 65535, this.nウインドウheight );
+												this.nウインドウheight = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 65535, this.nウインドウheight );
 												if( this.nウインドウheight <= 0 )
 												{
 													this.nウインドウheight = GameWindowSize.Height;
@@ -1350,51 +1350,51 @@ namespace TJAPlayer3
 											}
 											else if ( str3.Equals( "DoubleClickFullScreen" ) )	// #26752 2011.11.27 yyagi
 											{
-												this.bIsAllowedDoubleClickFullscreen = C変換.bONorOFF( str4[ 0 ] );
+												this.bIsAllowedDoubleClickFullscreen = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if ( str3.Equals( "EnableSystemMenu" ) )		// #28200 2012.5.1 yyagi
 											{
-												this.bIsEnabledSystemMenu = C変換.bONorOFF( str4[ 0 ] );
+												this.bIsEnabledSystemMenu = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if ( str3.Equals( "BackSleep" ) )				// #23568 2010.11.04 ikanick add
 											{
-												this.n非フォーカス時スリープms = C変換.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, 0, 50, this.n非フォーカス時スリープms );
+												this.n非フォーカス時スリープms = CConvert.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, 0, 50, this.n非フォーカス時スリープms );
 											}
 											#endregion
 
 											#region [ WASAPI/ASIO関係 ]
 											else if ( str3.Equals( "SoundDeviceType" ) )
 											{
-												this.nSoundDeviceType = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, this.nSoundDeviceType );
+												this.nSoundDeviceType = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, this.nSoundDeviceType );
 											}
 											else if ( str3.Equals( "WASAPIBufferSizeMs" ) )
 											{
-												this.nWASAPIBufferSizeMs = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 9999, this.nWASAPIBufferSizeMs );
+												this.nWASAPIBufferSizeMs = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 9999, this.nWASAPIBufferSizeMs );
 											}
 											else if ( str3.Equals( "ASIODevice" ) )
 											{
 												string[] asiodev = CEnumerateAllAsioDevices.GetAllASIODevices();
-												this.nASIODevice = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, asiodev.Length - 1, this.nASIODevice );
+												this.nASIODevice = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, asiodev.Length - 1, this.nASIODevice );
 											}
 											//else if ( str3.Equals( "ASIOBufferSizeMs" ) )
 											//{
-											//    this.nASIOBufferSizeMs = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 9999, this.nASIOBufferSizeMs );
+											//    this.nASIOBufferSizeMs = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 9999, this.nASIOBufferSizeMs );
 											//}
 											//else if ( str3.Equals( "DynamicBassMixerManagement" ) )
 											//{
-											//    this.bDynamicBassMixerManagement = C変換.bONorOFF( str4[ 0 ] );
+											//    this.bDynamicBassMixerManagement = CConvert.bONorOFF( str4[ 0 ] );
 											//}
 											else if (str3.Equals("BASSBufferSizeMs"))
 											{
-												this.nBASSBufferSizeMs = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 9999, this.nBASSBufferSizeMs);
+												this.nBASSBufferSizeMs = CConvert.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 9999, this.nBASSBufferSizeMs);
 											}
 											else if ( str3.Equals( "SoundTimerType" ) )			// #33689 2014.6.6 yyagi
 											{
-												this.bUseOSTimer = C変換.bONorOFF( str4[ 0 ] );
+												this.bUseOSTimer = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											//else if ( str3.Equals( "MasterVolume" ) )
 											//{
-											//    this.nMasterVolume = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 100, this.nMasterVolume );
+											//    this.nMasterVolume = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 100, this.nMasterVolume );
 											//}
 											#endregion
 
@@ -1408,103 +1408,103 @@ namespace TJAPlayer3
 
 											else if ( str3.Equals( "VSyncWait" ) )
 											{
-												this.b垂直帰線待ちを行う = C変換.bONorOFF( str4[ 0 ] );
+												this.b垂直帰線待ちを行う = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if( str3.Equals( "SleepTimePerFrame" ) )		// #23568 2011.11.27 yyagi
 											{
-												this.nフレーム毎スリープms = C変換.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, -1, 50, this.nフレーム毎スリープms );
+												this.nフレーム毎スリープms = CConvert.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, -1, 50, this.nフレーム毎スリープms );
 											}
 											else if( str3.Equals( "BGAlpha" ) )
 											{
-												this.n背景の透過度 = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0xff, this.n背景の透過度 );
+												this.n背景の透過度 = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0xff, this.n背景の透過度 );
 											}
 											else if ( str3.Equals( "StageFailed" ) )
 											{
-												this.bSTAGEFAILED有効 = C変換.bONorOFF( str4[ 0 ] );
+												this.bSTAGEFAILED有効 = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											#region [ AVI/BGA ]
 											else if( str3.Equals( "AVI" ) )
 											{
-												this.bAVI有効 = C変換.bONorOFF( str4[ 0 ] );
+												this.bAVI有効 = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if( str3.Equals( "BGA" ) )
 											{
-												this.bBGA有効 = C変換.bONorOFF( str4[ 0 ] );
+												this.bBGA有効 = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if( str3.Equals( "ClipDispType" ) )
 											{
-												this.eClipDispType = (EClipDispType)C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, (int) this.eClipDispType );
+												this.eClipDispType = (EClipDispType)CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, (int) this.eClipDispType );
 											}
 											#endregion
 											#region [ プレビュー音 ]
 											else if( str3.Equals( "PreviewImageWait" ) )
 											{
-												this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x5f5e0ff, this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms );
+												this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x5f5e0ff, this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms );
 											}
 											#endregion
 											//else if( str3.Equals( "AdjustWaves" ) )
 											//{
-											//	this.bWave再生位置自動調整機能有効 = C変換.bONorOFF( str4[ 0 ] );
+											//	this.bWave再生位置自動調整機能有効 = CConvert.bONorOFF( str4[ 0 ] );
 											//}
 											#region [ BGM/ドラムのヒット音 ]
 											else if( str3.Equals( "BGMSound" ) )
 											{
-												this.bBGM音を発声する = C変換.bONorOFF( str4[ 0 ] );
+												this.bBGM音を発声する = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											#endregion
 											else if( str3.Equals( "SaveScoreIni" ) )
 											{
-												this.bScoreIniを出力する = C変換.bONorOFF( str4[ 0 ] );
+												this.bScoreIniを出力する = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if( str3.Equals( "RandomFromSubBox" ) )
 											{
-												this.bランダムセレクトで子BOXを検索対象とする = C変換.bONorOFF( str4[ 0 ] );
+												this.bランダムセレクトで子BOXを検索対象とする = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											#region [ コンボ数 ]
 											else if( str3.Equals( "MinComboDrums" ) )
 											{
-												this.n表示可能な最小コンボ数 = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 0x1869f, this.n表示可能な最小コンボ数 );
+												this.n表示可能な最小コンボ数 = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 0x1869f, this.n表示可能な最小コンボ数 );
 											}
 											#endregion
 											else if( str3.Equals( "ShowDebugStatus" ) )
 											{
-												this.b演奏情報を表示する = C変換.bONorOFF( str4[ 0 ] );
+												this.b演奏情報を表示する = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if( str3.Equals( nameof(ApplyLoudnessMetadata) ) )
 											{
-												this.ApplyLoudnessMetadata = C変換.bONorOFF( str4[ 0 ] );
+												this.ApplyLoudnessMetadata = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if( str3.Equals( nameof(TargetLoudness) ) )
 											{
-												this.TargetLoudness = C変換.db値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumLufs.ToDouble(), CSound.MaximumLufs.ToDouble(), this.TargetLoudness );
+												this.TargetLoudness = CConvert.db値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumLufs.ToDouble(), CSound.MaximumLufs.ToDouble(), this.TargetLoudness );
 											}
 											else if( str3.Equals( nameof(ApplySongVol) ) )
 											{
-												this.ApplySongVol = C変換.bONorOFF( str4[ 0 ] );
+												this.ApplySongVol = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if( str3.Equals( nameof(SoundEffectLevel) ) )
 											{
-												this.SoundEffectLevel = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SoundEffectLevel );
+												this.SoundEffectLevel = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SoundEffectLevel );
 											}
 											else if( str3.Equals( nameof(VoiceLevel) ) )
 											{
-												this.VoiceLevel = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.VoiceLevel );
+												this.VoiceLevel = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.VoiceLevel );
 											}
 											else if( str3.Equals( nameof(SongPreviewLevel) ) )
 											{
-												this.SongPreviewLevel = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SongPreviewLevel );
+												this.SongPreviewLevel = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SongPreviewLevel );
 											}
 											else if( str3.Equals( nameof(SongPlaybackLevel) ) )
 											{
-												this.SongPlaybackLevel = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SongPlaybackLevel );
+												this.SongPlaybackLevel = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SongPlaybackLevel );
 											}
 											else if( str3.Equals( nameof(KeyboardSoundLevelIncrement) ) )
 											{
-												this.KeyboardSoundLevelIncrement = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, MinimumKeyboardSoundLevelIncrement, MaximumKeyboardSoundLevelIncrement, this.KeyboardSoundLevelIncrement );
+												this.KeyboardSoundLevelIncrement = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, MinimumKeyboardSoundLevelIncrement, MaximumKeyboardSoundLevelIncrement, this.KeyboardSoundLevelIncrement );
 											}
 											else if (str3.Equals("UsePanning"))
 											{
-												this.b2P演奏時のSEの左右 = C変換.bONorOFF(str4[0]);
+												this.b2P演奏時のSEの左右 = CConvert.bONorOFF(str4[0]);
 											}
 											else if( str3.Equals(nameof(MusicPreTimeMs)))
 											{
@@ -1512,41 +1512,41 @@ namespace TJAPlayer3
 											}
 											else if( str3.Equals( "StoicMode" ) )
 											{
-												this.bストイックモード = C変換.bONorOFF( str4[ 0 ] );
+												this.bストイックモード = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if (str3.Equals( "BufferedInput" ) )
 											{
-												this.bバッファ入力 = C変換.bONorOFF(str4[0]);
+												this.bバッファ入力 = CConvert.bONorOFF(str4[0]);
 											}
 											else if ( str3.Equals( "AutoResultCapture" ) )			// #25399 2011.6.9 yyagi
 											{
-												this.bIsAutoResultCapture = C変換.bONorOFF( str4[ 0 ] );
+												this.bIsAutoResultCapture = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if (str3.Equals(nameof(SendDiscordPlayingInformation)))
 											{
-												SendDiscordPlayingInformation = C変換.bONorOFF(str4[0]);
+												SendDiscordPlayingInformation = CConvert.bONorOFF(str4[0]);
 											}
 											else if ( str3.Equals( "TimeStretch" ) )				// #23664 2013.2.24 yyagi
 											{
-												this.bTimeStretch = C変換.bONorOFF( str4[ 0 ] );
+												this.bTimeStretch = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											#region [ AdjustTime ]
 											else if( str3.Equals( "InputAdjustTime" ) )
 											{
-												this.nInputAdjustTimeMs = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, -99, 99, this.nInputAdjustTimeMs );
+												this.nInputAdjustTimeMs = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, -99, 99, this.nInputAdjustTimeMs );
 											}
 											#endregion
 											else if ( str3.Equals( "PolyphonicSounds" ) )		// #28228 2012.5.1 yyagi
 											{
-												this.nPoliphonicSounds = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 8, this.nPoliphonicSounds );
+												this.nPoliphonicSounds = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 8, this.nPoliphonicSounds );
 											}
 											//else if ( str3.Equals( "NoMP3Streaming" ) )
 											//{
-											//    this.bNoMP3Streaming = C変換.bONorOFF( str4[ 0 ] );
+											//    this.bNoMP3Streaming = CConvert.bONorOFF( str4[ 0 ] );
 											//}
 											else if( str3.Equals( "EndingAnime" ) )
 											{
-												this.eEndingAnime = (EEndingAnime)C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 2, (int)this.eEndingAnime);
+												this.eEndingAnime = (EEndingAnime)CConvert.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 2, (int)this.eEndingAnime);
 											}
 
 											continue;
@@ -1559,19 +1559,19 @@ namespace TJAPlayer3
 									case Eセクション種別.AutoPlay:
 										if (str3.Equals("Taiko"))
 										{
-											this.b太鼓パートAutoPlay[0] = C変換.bONorOFF(str4[0]);
+											this.b太鼓パートAutoPlay[0] = CConvert.bONorOFF(str4[0]);
 										}
 										else if (str3.Equals("Taiko2P"))
 										{
-											this.b太鼓パートAutoPlay[1] = C変換.bONorOFF(str4[0]);
+											this.b太鼓パートAutoPlay[1] = CConvert.bONorOFF(str4[0]);
 										}
 										else if (str3.Equals("TaikoAutoRoll"))
 										{
-											this.bAuto先生の連打 = C変換.bONorOFF(str4[0]);
+											this.bAuto先生の連打 = CConvert.bONorOFF(str4[0]);
 										}
 										else if (str3.Equals("TaikoAutoRollSpeed"))
 										{
-											this.nAuto先生の連打速度 = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 9999, this.nAuto先生の連打速度);
+											this.nAuto先生の連打速度 = CConvert.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 9999, this.nAuto先生の連打速度);
 										}
 										continue;
 									//-----------------------------
@@ -1582,19 +1582,19 @@ namespace TJAPlayer3
 									case Eセクション種別.HitRange:
 										if (str3.Equals("Perfect"))
 										{
-											this.nヒット範囲ms.Perfect = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 0x3e7, this.nヒット範囲ms.Perfect);
+											this.nヒット範囲ms.Perfect = CConvert.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 0x3e7, this.nヒット範囲ms.Perfect);
 										}
 										else if (str3.Equals("Great"))
 										{
-											this.nヒット範囲ms.Great = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 0x3e7, this.nヒット範囲ms.Great);
+											this.nヒット範囲ms.Great = CConvert.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 0x3e7, this.nヒット範囲ms.Great);
 										}
 										else if (str3.Equals("Good"))
 										{
-											this.nヒット範囲ms.Good = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 0x3e7, this.nヒット範囲ms.Good);
+											this.nヒット範囲ms.Good = CConvert.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 0x3e7, this.nヒット範囲ms.Good);
 										}
 										else if (str3.Equals("Poor"))
 										{
-											this.nヒット範囲ms.Poor = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 0x3e7, this.nヒット範囲ms.Poor);
+											this.nヒット範囲ms.Poor = CConvert.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 0x3e7, this.nヒット範囲ms.Poor);
 										}
 										continue;
 									//-----------------------------
@@ -1608,19 +1608,19 @@ namespace TJAPlayer3
 										{
 											if( str3.Equals( "OutputLog" ) )
 											{
-												this.bログ出力 = C変換.bONorOFF( str4[ 0 ] );
+												this.bログ出力 = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if( str3.Equals( "TraceCreatedDisposed" ) )
 											{
-												this.bLog作成解放ログ出力 = C変換.bONorOFF( str4[ 0 ] );
+												this.bLog作成解放ログ出力 = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if( str3.Equals( "TraceDTXDetails" ) )
 											{
-												this.bLogDTX詳細ログ出力 = C変換.bONorOFF( str4[ 0 ] );
+												this.bLogDTX詳細ログ出力 = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if( str3.Equals( "TraceSongSearch" ) )
 											{
-												this.bLog曲検索ログ出力 = C変換.bONorOFF( str4[ 0 ] );
+												this.bLog曲検索ログ出力 = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											continue;
 										}
@@ -1633,31 +1633,31 @@ namespace TJAPlayer3
 										{
 											if (str3.Equals("EnableRandomSongSelect"))
 											{
-												this.RandomPresence = C変換.bONorOFF(str4[0]);
+												this.RandomPresence = CConvert.bONorOFF(str4[0]);
 											}
 											else if (str3.Equals("EnableOpenOneSide"))
 											{
-												this.OpenOneSide = C変換.bONorOFF(str4[0]);
+												this.OpenOneSide = CConvert.bONorOFF(str4[0]);
 											}
 											else if (str3.Equals("EnableCountDownTimer"))
 											{
-												this.bEnableCountdownTimer = C変換.bONorOFF(str4[0]);
+												this.bEnableCountdownTimer = CConvert.bONorOFF(str4[0]);
 											}
 											else if (str3.Equals("TCClikeStyle"))
 											{
-												this.bTCClikeStyle = C変換.bONorOFF(str4[0]);
+												this.bTCClikeStyle = CConvert.bONorOFF(str4[0]);
 											}
 											else if (str3.Equals("EnableMouseWheel"))
 											{
-												this.bEnableMouseWheel = C変換.bONorOFF(str4[0]);
+												this.bEnableMouseWheel = CConvert.bONorOFF(str4[0]);
 											}
 											else if (str3.Equals("SongSelectSkipCount"))
 											{
-												this.SongSelectSkipCount = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 9999, this.SongSelectSkipCount);
+												this.SongSelectSkipCount = CConvert.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 9999, this.SongSelectSkipCount);
 											}
 											else if (str3.Equals("BackBoxInterval"))
 											{
-												this.n閉じる差し込み間隔 = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 9999, this.n閉じる差し込み間隔);
+												this.n閉じる差し込み間隔 = CConvert.n値を文字列から取得して範囲内に丸めて返す(str4, 1, 9999, this.n閉じる差し込み間隔);
 											}
 											else if (str3.Equals("1PPlayerName"))
 											{
@@ -1669,165 +1669,165 @@ namespace TJAPlayer3
 											}
 											else if (str3.Equals("ShowChara"))
 											{
-												ShowChara = C変換.bONorOFF(str4[0]);
+												ShowChara = CConvert.bONorOFF(str4[0]);
 											}
 											else if( str3.Equals("ShowDancer"))
 											{
-												ShowDancer = C変換.bONorOFF(str4[0]);
+												ShowDancer = CConvert.bONorOFF(str4[0]);
 											}
 											else if (str3.Equals("ShowRunner"))
 											{
-												ShowRunner = C変換.bONorOFF(str4[0]);
+												ShowRunner = CConvert.bONorOFF(str4[0]);
 											}
 											else if (str3.Equals("ShowMob"))
 											{
-												ShowMob = C変換.bONorOFF(str4[0]);
+												ShowMob = CConvert.bONorOFF(str4[0]);
 											}
 											else if (str3.Equals("ShowFooter"))
 											{
-												ShowFooter = C変換.bONorOFF(str4[0]);
+												ShowFooter = CConvert.bONorOFF(str4[0]);
 											}
 											else if (str3.Equals("ShowPuchiChara"))
 											{
-												ShowPuchiChara = C変換.bONorOFF(str4[0]);
+												ShowPuchiChara = CConvert.bONorOFF(str4[0]);
 											}
 											else if (str3.Equals("SubtitleDispMode"))
 											{
-												this.eSubtitleDispMode = (ESubtitleDispMode)C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 2, (int)this.eSubtitleDispMode);
+												this.eSubtitleDispMode = (ESubtitleDispMode)CConvert.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 2, (int)this.eSubtitleDispMode);
 											}
 											else if( str3.Equals( "ScrollMode" ) )
 											{
-												this.eScrollMode = ( EScrollMode )C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, 0 );
+												this.eScrollMode = ( EScrollMode )CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, 0 );
 											}
 											#region [ Invisible ]
 											//else if ( str3.Equals( "DrumsInvisible" ) )
 											//{
-											//	this.eInvisible = (EInvisible) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, (int) this.eInvisible );
+											//	this.eInvisible = (EInvisible) CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, (int) this.eInvisible );
 											//}
 											//else if ( str3.Equals( "InvisibleDisplayTimeMs" ) )
 											//{
-											//    this.nDisplayTimesMs = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 9999999, (int) this.nDisplayTimesMs );
+											//    this.nDisplayTimesMs = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 9999999, (int) this.nDisplayTimesMs );
 											//}
 											//else if ( str3.Equals( "InvisibleFadeoutTimeMs" ) )
 											//{
-											//    this.nFadeoutTimeMs = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 9999999, (int) this.nFadeoutTimeMs );
+											//    this.nFadeoutTimeMs = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 9999999, (int) this.nFadeoutTimeMs );
 											//}
 											#endregion
 											else if( str3.Equals( "1PDrumsScrollSpeed" ) )
 											{
-												this.n譜面スクロール速度[0] = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x7cf, this.n譜面スクロール速度[0] );
+												this.n譜面スクロール速度[0] = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x7cf, this.n譜面スクロール速度[0] );
 											}
 											else if (str3.Equals( "2PDrumsScrollSpeed" ) )
 											{
-												this.n譜面スクロール速度[1] = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x7cf, this.n譜面スクロール速度[1] );
+												this.n譜面スクロール速度[1] = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x7cf, this.n譜面スクロール速度[1] );
 											}
 											else if( str3.Equals( "PlaySpeed" ) )
 											{
-												this.n演奏速度 = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 5, 400, this.n演奏速度 );
+												this.n演奏速度 = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 5, 400, this.n演奏速度 );
 											}
 											else if (str3.Equals("PlaySpeedNotEqualOneNoSound"))
 											{
-												this.b演奏速度が一倍速であるとき以外音声を再生しない = C変換.bONorOFF(str4[0]);
+												this.b演奏速度が一倍速であるとき以外音声を再生しない = CConvert.bONorOFF(str4[0]);
 											}
 											//else if ( str3.Equals( "JudgeDispPriorityDrums" ) )
 											//{
-											//    this.e判定表示優先度.Drums = (EJudge表示優先度) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 1, (int) this.e判定表示優先度.Drums );
+											//    this.e判定表示優先度.Drums = (EJudge表示優先度) CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 1, (int) this.e判定表示優先度.Drums );
 											//}
 											else if ( str3.Equals( "Risky" ) )					// #23559 2011.6.23  yyagi
 											{
-												this.nRisky = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 10, this.nRisky );
+												this.nRisky = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 10, this.nRisky );
 											}
 											else if ( str3.Equals( "DrumsTight" ) )
 											{
-												this.bTight = C変換.bONorOFF( str4[ 0 ] );
+												this.bTight = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if ( str3.Equals( "BranchGuide" ) )
 											{
-												this.bBranchGuide = C変換.bONorOFF( str4[ 0 ] );
+												this.bBranchGuide = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if ( str3.Equals( "DefaultCourse" ) ) //2017.01.30 DD
 											{
-												this.nDefaultCourse = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, this.nDefaultCourse );
+												this.nDefaultCourse = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, this.nDefaultCourse );
 											}
 											else if ( str3.Equals( "ScoreMode" ) )
 											{
-												this.nScoreMode = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, this.nScoreMode );
+												this.nScoreMode = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, this.nScoreMode );
 											}
 											else if ( str3.Equals( "HispeedRandom" ) )
 											{
-												this.bHispeedRandom = C変換.bONorOFF( str4[ 0 ] );
+												this.bHispeedRandom = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if (str3.Equals("BigNotesJudgeFrame"))
 											{
-												this.b両手判定待ち時間中に大音符を判定枠に合わせるか = C変換.bONorOFF(str4[0]);
+												this.b両手判定待ち時間中に大音符を判定枠に合わせるか = CConvert.bONorOFF(str4[0]);
 											}
 											else if ( str3.Equals( "BigNotesWaitTime" ) )
 											{
-												this.n両手判定の待ち時間 = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 100, this.n両手判定の待ち時間 );
+												this.n両手判定の待ち時間 = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 100, this.n両手判定の待ち時間 );
 											}
 											else if ( str3.Equals( "BigNotesJudge" ) )
 											{
-												this.b大音符判定 = C変換.bONorOFF( str4[ 0 ] );
+												this.b大音符判定 = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if ( str3.Equals( "BranchAnime" ) )
 											{
-												this.nBranchAnime = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 1, this.nBranchAnime );
+												this.nBranchAnime = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 1, this.nBranchAnime );
 											}
 											else if ( str3.Equals( "NoInfo" ) )
 											{
-												this.bNoInfo = C変換.bONorOFF( str4[ 0 ] );
+												this.bNoInfo = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if ( str3.Equals( "DefaultSongSort" ) )
 											{
-												this.nDefaultSongSort = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 1, this.nDefaultSongSort );
+												this.nDefaultSongSort = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 1, this.nDefaultSongSort );
 											}
 											else if( str3.Equals( "1PTaikoRandom" ) )
 											{
-												this.eRandom[0] = (ERandomMode) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, (int) this.eRandom[0] );
+												this.eRandom[0] = (ERandomMode) CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, (int) this.eRandom[0] );
 											}
 											else if (str3.Equals("2PTaikoRandom"))
 											{
-												this.eRandom[1] = (ERandomMode) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, (int) this.eRandom[1] );
+												this.eRandom[1] = (ERandomMode) CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, (int) this.eRandom[1] );
 											}
 											else if( str3.Equals( "1PTaikoStealth" ) )
 											{
-												this.eSTEALTH[0] = (EStealthMode) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, (int) this.eSTEALTH[0] );
+												this.eSTEALTH[0] = (EStealthMode) CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, (int) this.eSTEALTH[0] );
 											}
 											else if (str3.Equals("2PTaikoStealth"))
 											{
-												this.eSTEALTH[1] = (EStealthMode)C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 3, (int)this.eSTEALTH[1]);
+												this.eSTEALTH[1] = (EStealthMode)CConvert.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 3, (int)this.eSTEALTH[1]);
 											}
 											else if( str3.Equals( "GameMode" ) )
 											{
-												this.eGameMode = (EGame) C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, (int) this.eGameMode );
+												this.eGameMode = (EGame) CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, (int) this.eGameMode );
 											}
 											else if (str3.Equals("TokkunSkipMeasures"))
 											{
-												this.TokkunSkipMeasures = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 9999, this.TokkunSkipMeasures);
+												this.TokkunSkipMeasures = CConvert.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 9999, this.TokkunSkipMeasures);
 											}
 											else if (str3.Equals(nameof(TokkunMashInterval)))
 											{
-												this.TokkunMashInterval = C変換.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 9999, this.TokkunMashInterval);
+												this.TokkunMashInterval = CConvert.n値を文字列から取得して範囲内に丸めて返す(str4, 0, 9999, this.TokkunMashInterval);
 											}
 											else if( str3.Equals( "JudgeCountDisplay" ) )
 											{
-												this.bJudgeCountDisplay = C変換.bONorOFF( str4[ 0 ] );
+												this.bJudgeCountDisplay = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if( str3.Equals( "Just" ) )
 											{
-												this.bJust = C変換.bONorOFF( str4[ 0 ] );
+												this.bJust = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if( str3.Equals( "PlayerCount" ) )
 											{
-												this.nPlayerCount = C変換.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 2, this.nPlayerCount );
+												this.nPlayerCount = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 2, this.nPlayerCount );
 											}
 											else if(str3.Equals("1PShinuchiMode"))
 											{
-												ShinuchiMode[0] = C変換.bONorOFF(str4[0]);
+												ShinuchiMode[0] = CConvert.bONorOFF(str4[0]);
 											}
 											else if (str3.Equals("2PShinuchiMode"))
 											{
-												ShinuchiMode[1] = C変換.bONorOFF(str4[0]);
+												ShinuchiMode[1] = CConvert.bONorOFF(str4[0]);
 											}
 											continue;
 										}

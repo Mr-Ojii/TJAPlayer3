@@ -459,9 +459,9 @@ namespace TJAPlayer3
 
 					int nCenterX = 230;
 					int nCerterY = 84;
-					float fRotate = -C変換.DegreeToRadian( 360.0f * ( this.st叩ききりまショー.ct針アニメ.n現在の値 / 1000.0f ) );
+					float fRotate = -CConvert.DegreeToRadian( 360.0f * ( this.st叩ききりまショー.ct針アニメ.n現在の値 / 1000.0f ) );
 					if( this.st叩ききりまショー.b加算アニメ中 == true )
-						fRotate = C変換.DegreeToRadian( 360.0f * ( this.st叩ききりまショー.ct針アニメ.n現在の値 / (float)this.st叩ききりまショー.n延長アニメ速度 ) );
+						fRotate = CConvert.DegreeToRadian( 360.0f * ( this.st叩ききりまショー.ct針アニメ.n現在の値 / (float)this.st叩ききりまショー.n延長アニメ速度 ) );
 
 					Matrix4x4 mat = Matrix4x4.Identity;
 					if( this.st叩ききりまショー.b最初のチップが叩かれた )

@@ -233,16 +233,16 @@ namespace FDK
 				if ( this.sd経過時間計測用サウンドバッファ != null )
 				{
 					this.sd経過時間計測用サウンドバッファ.tサウンドを停止する();
-					C共通.tDisposeする( ref this.sd経過時間計測用サウンドバッファ );
+					CCommon.tDisposeする( ref this.sd経過時間計測用サウンドバッファ );
 				}
 				//-----------------
 				#endregion
 
-				C共通.tDisposeする( this.tmSystemTimer );
+				CCommon.tDisposeする( this.tmSystemTimer );
 			}
 			if ( ctimer != null )
 			{
-				C共通.tDisposeする( ref this.ctimer );
+				CCommon.tDisposeする( ref this.ctimer );
 			}
 			//使わなくなったデータをクリーンアップ
 			Alc.MakeContextCurrent(ContextHandle.Zero);

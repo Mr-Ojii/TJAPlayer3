@@ -31,8 +31,8 @@ namespace TJAPlayer3
 
 		public override void OnManagedリソースの作成()
 		{
-			this.ar踊り子モーション番号 = C変換.ar配列形式のstringをint配列に変換して返す(TJAPlayer3.Skin.Game_Dancer_Motion);
-			if(this.ar踊り子モーション番号 == null) ar踊り子モーション番号 = C変換.ar配列形式のstringをint配列に変換して返す("0,0");
+			this.ar踊り子モーション番号 = CConvert.ar配列形式のstringをint配列に変換して返す(TJAPlayer3.Skin.Game_Dancer_Motion);
+			if(this.ar踊り子モーション番号 == null) ar踊り子モーション番号 = CConvert.ar配列形式のstringをint配列に変換して返す("0,0");
 			this.ct踊り子モーション = new CCounter(0, this.ar踊り子モーション番号.Length - 1, 0.01, CSoundManager.rc演奏用タイマ);
 			base.OnManagedリソースの作成();
 		}

@@ -80,12 +80,12 @@ namespace TJAPlayer3
 
 			for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++)
 			{
-				this.arモーション番号[nPlayer] = C変換.ar配列形式のstringをint配列に変換して返す(TJAPlayer3.Skin.Game_Chara_Motion_Normal[nPlayer]);
-				this.arゴーゴーモーション番号[nPlayer] = C変換.ar配列形式のstringをint配列に変換して返す(TJAPlayer3.Skin.Game_Chara_Motion_GoGo[nPlayer]);
-				this.arクリアモーション番号[nPlayer] = C変換.ar配列形式のstringをint配列に変換して返す(TJAPlayer3.Skin.Game_Chara_Motion_Clear[nPlayer]);
-				if (arモーション番号[nPlayer] == null) this.arモーション番号[nPlayer] = C変換.ar配列形式のstringをint配列に変換して返す("0,0");
-				if (arゴーゴーモーション番号[nPlayer] == null) this.arゴーゴーモーション番号[nPlayer] = C変換.ar配列形式のstringをint配列に変換して返す("0,0");
-				if (arクリアモーション番号[nPlayer] == null) this.arクリアモーション番号[nPlayer] = C変換.ar配列形式のstringをint配列に変換して返す("0,0");
+				this.arモーション番号[nPlayer] = CConvert.ar配列形式のstringをint配列に変換して返す(TJAPlayer3.Skin.Game_Chara_Motion_Normal[nPlayer]);
+				this.arゴーゴーモーション番号[nPlayer] = CConvert.ar配列形式のstringをint配列に変換して返す(TJAPlayer3.Skin.Game_Chara_Motion_GoGo[nPlayer]);
+				this.arクリアモーション番号[nPlayer] = CConvert.ar配列形式のstringをint配列に変換して返す(TJAPlayer3.Skin.Game_Chara_Motion_Clear[nPlayer]);
+				if (arモーション番号[nPlayer] == null) this.arモーション番号[nPlayer] = CConvert.ar配列形式のstringをint配列に変換して返す("0,0");
+				if (arゴーゴーモーション番号[nPlayer] == null) this.arゴーゴーモーション番号[nPlayer] = CConvert.ar配列形式のstringをint配列に変換して返す("0,0");
+				if (arクリアモーション番号[nPlayer] == null) this.arクリアモーション番号[nPlayer] = CConvert.ar配列形式のstringをint配列に変換して返す("0,0");
 
 				ctChara_Normal[nPlayer] = new CCounter();
 				ctChara_GoGo[nPlayer] = new CCounter();

@@ -420,7 +420,7 @@ namespace FDK
 				_ptOrigin = new Point(nEdgePt * 2, nEdgePt * 2);
 			}
 
-			return C変換.ToImageSharpImage(bmp);
+			return CConvert.ToImageSharpImage(bmp);
 		}
 
 		/// <summary>
@@ -702,7 +702,7 @@ namespace FDK
 				}
 			}
 
-			return C変換.ToImageSharpImage(bmpCambus);
+			return CConvert.ToImageSharpImage(bmpCambus);
 		}
 
 		/// <summary>

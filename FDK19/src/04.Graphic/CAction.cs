@@ -23,7 +23,7 @@ namespace FDK
 		{
 			get
 			{
-				return Matrix4.CreatePerspectiveFieldOfView(C変換.DegreeToRadian((float)59.9f), ((float)GameWindowSize.Width) / ((float)GameWindowSize.Height), 0.0000001f, 100f);
+				return Matrix4.CreatePerspectiveFieldOfView(CConvert.DegreeToRadian((float)59.9f), ((float)GameWindowSize.Width) / ((float)GameWindowSize.Height), 0.0000001f, 100f);
 			}
 		}
 		public static void LoadContentAction()
