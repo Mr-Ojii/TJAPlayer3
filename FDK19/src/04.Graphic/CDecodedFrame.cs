@@ -4,29 +4,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
+using FFmpeg.AutoGen;
 
 namespace FDK
 {
 	public class CDecodedFrame : IDisposable
 	{
-		public CDecodedFrame(double time, byte[] tex, Size texsize)
+		public unsafe CDecodedFrame(double time, AVFrame* frame, Size texsize)
 		{
 			this.Time = time;
-			this.Tex = tex;
 			this.TexSize = texsize;
+
+			this.TexPointer = Marshal.AllocHGlobal(frame->linesize[0] * frame->height);
+
+			for (int y = 0; y < frame->height; y++)
+			{
+				Buffer.MemoryCopy(frame->data[0] + (frame->linesize[0] * frame->height - (frame->linesize[0] * (y + 1))), (byte*)(this.TexPointer + frame->linesize[0] * y), frame->linesize[0], frame->linesize[0]);
+			}
+
 		}
 
-		public bool Using
-		{
-			get;
-			private set;
-		}
 		public double Time 
 		{
 			get;
 			private set;
 		}
-		public byte[] Tex
+		public IntPtr TexPointer
 		{
 			get;
 			private set;
@@ -39,7 +43,7 @@ namespace FDK
 
 		public void Dispose()
 		{
-			//GCヨロシク！
+			Marshal.FreeHGlobal(this.TexPointer);
 		}
 	}
 }

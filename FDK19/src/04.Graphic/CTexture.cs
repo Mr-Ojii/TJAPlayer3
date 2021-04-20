@@ -166,7 +166,7 @@ namespace FDK
 			}
 		}
 		// メソッド
-		public void UpdateTexture(byte[] bitmap, Size size) 
+		public void UpdateTexture(IntPtr bitmap, Size size) 
 		{
 			if (this.szTextureSize == size) 
 			{
