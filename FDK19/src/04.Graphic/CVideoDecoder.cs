@@ -71,6 +71,9 @@ namespace FDK
 
 				decodedframes = new ConcurrentQueue<CDecodedFrame>();
 
+				for (int i = 0; i < framelist.Length; i++)
+					framelist[i] = new CDecodedFrame(new Size(codec_context->width, codec_context->height));
+
 				CTimer = new CTimer();
 			}
 		}
@@ -143,8 +146,9 @@ namespace FDK
 				Trace.TraceError("av_seek_frame failed\n");
 			ffmpeg.avcodec_flush_buffers(codec_context);
 			CTimer.n現在時刻ms = timestampms;
+			cts?.Dispose();
 			while (decodedframes.TryDequeue(out CDecodedFrame frame))
-				frame.Dispose();
+				frame.RemoveFrame();
 			this.EnqueueFrames();
 			if (lastTexture != null)
 				lastTexture.Dispose();
@@ -166,13 +170,13 @@ namespace FDK
 								if (decodedframes.TryPeek(out frame))
 									if (frame.Time <= (CTimer.n現在時刻ms * _dbPlaySpeed))
 									{
-										cdecodedframe.Dispose();
+										cdecodedframe.RemoveFrame();
 										continue;
 									}
 
 							lastTexture.UpdateTexture(cdecodedframe.TexPointer, cdecodedframe.TexSize);
 
-							cdecodedframe.Dispose();
+							cdecodedframe.RemoveFrame();
 						}
 						break;
 					}
@@ -216,7 +220,7 @@ namespace FDK
 					}
 
 					//2020/10/27 Mr-Ojii 閾値フレームごとにパケット生成するのは無駄だと感じたので、ループに入ったら、パケット生成し、シークによるキャンセルまたは、EOFまで無限ループ
-					if (decodedframes.Count < 5)//現在は適当に5
+					if (decodedframes.Count < framelist.Length)
 					{
 						int error = ffmpeg.av_read_frame(format_context, packet);
 
@@ -232,7 +236,7 @@ namespace FDK
 
 										outframe = frameconv.Convert(frame);
 
-										decodedframes.Enqueue(new CDecodedFrame((outframe->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, outframe, new Size(outframe->width, outframe->height)));
+										decodedframes.Enqueue(PickUnusedDcodedFrame().UpdateFrame((outframe->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, outframe));
 
 										ffmpeg.av_frame_unref(frame);
 										ffmpeg.av_frame_unref(outframe);
@@ -268,6 +272,17 @@ namespace FDK
 				ffmpeg.av_free(frame);
 				DS = DecodingState.Stopped;
 			}
+		}
+
+		public CDecodedFrame PickUnusedDcodedFrame() 
+		{
+			for (int i = 0; i < framelist.Length; i++) {
+				if (framelist[i].Using == false) 
+				{
+					return framelist[i];
+				}	
+			}
+			return null;
 		}
 
 		public Size FrameSize 
@@ -309,6 +324,7 @@ namespace FDK
 		private AVCodecContext* codec_context;
 		private ConcurrentQueue<CDecodedFrame> decodedframes;
 		private CancellationTokenSource cts;
+		private CDecodedFrame[] framelist = new CDecodedFrame[5];
 		private DecodingState DS = DecodingState.Stopped;
 		private enum DecodingState
 		{

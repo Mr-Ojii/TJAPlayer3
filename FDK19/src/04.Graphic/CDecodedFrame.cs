@@ -11,20 +11,18 @@ namespace FDK
 {
 	public class CDecodedFrame : IDisposable
 	{
-		public unsafe CDecodedFrame(double time, AVFrame* frame, Size texsize)
+		public CDecodedFrame(Size texsize)
 		{
-			this.Time = time;
+			this.Using = false;
 			this.TexSize = texsize;
-
-			this.TexPointer = Marshal.AllocHGlobal(frame->linesize[0] * frame->height);
-
-			for (int y = 0; y < frame->height; y++)
-			{
-				Buffer.MemoryCopy(frame->data[0] + (frame->linesize[0] * frame->height - (frame->linesize[0] * (y + 1))), (byte*)(this.TexPointer + frame->linesize[0] * y), frame->linesize[0], frame->linesize[0]);
-			}
-
+			this.TexPointer = Marshal.AllocHGlobal(texsize.Width * TexSize.Height * 4);
 		}
 
+		public bool Using
+		{
+			get;
+			private set;
+		}
 		public double Time 
 		{
 			get;
@@ -41,8 +39,25 @@ namespace FDK
 			private set;
 		}
 
+		public unsafe CDecodedFrame UpdateFrame(double time, AVFrame* frame) 
+		{
+			this.Time = time;
+			for (int y = 0; y < frame->height; y++)
+			{
+				Buffer.MemoryCopy(frame->data[0] + (frame->linesize[0] * frame->height - (frame->linesize[0] * (y + 1))), (byte*)(this.TexPointer + frame->linesize[0] * y), frame->linesize[0], frame->linesize[0]);
+			}
+			this.Using = true;
+			return this;
+		}
+
+		public void RemoveFrame()
+		{
+			this.Using = false;
+		}
+
 		public void Dispose()
 		{
+			this.Using = false;
 			Marshal.FreeHGlobal(this.TexPointer);
 		}
 	}
