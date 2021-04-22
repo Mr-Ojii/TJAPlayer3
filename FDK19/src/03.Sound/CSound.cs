@@ -696,9 +696,7 @@ namespace FDK
 				_cbEndofStream = null;
 				CSoundManager.nStreams--;
 			}
-			bool bManagedも解放する = true;
-			bool bインスタンス削除 = _bインスタンス削除;	// CSoundの再初期化時は、インスタンスは存続する。
-			this.Dispose( bManagedも解放する, bインスタンス削除 );
+			this.Dispose( true, _bインスタンス削除 );   // CSoundの再初期化時は、インスタンスは存続する。
 		}
 		public void tサウンドを再生する()
 		{

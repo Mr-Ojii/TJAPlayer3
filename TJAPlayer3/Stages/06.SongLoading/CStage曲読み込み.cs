@@ -34,11 +34,6 @@ namespace TJAPlayer3
 				
 				this.nBGM再生開始時刻 = -1;
 				this.nBGMの総再生時間ms = 0;
-				if( this.sd読み込み音 != null )
-				{
-					this.sd読み込み音.t解放する();
-					this.sd読み込み音 = null;
-				}
 
 				var 譜面情報 = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報;
 				this.str曲タイトル = 譜面情報.Title;
@@ -153,22 +148,9 @@ namespace TJAPlayer3
 			{
 				if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan)
 				{
-					if (this.sd読み込み音 != null)
-					{
-						if (TJAPlayer3.Skin.sound曲読込開始音.b排他 && (CSkin.Cシステムサウンド.r最後に再生した排他システムサウンド != null))
-						{
-							CSkin.Cシステムサウンド.r最後に再生した排他システムサウンド.t停止する();
-						}
-						this.sd読み込み音.t再生を開始する();
-						this.nBGM再生開始時刻 = CSoundManager.rc演奏用タイマ.n現在時刻ms;
-						this.nBGMの総再生時間ms = this.sd読み込み音.n総演奏時間ms;
-					}
-					else
-					{
-						TJAPlayer3.Skin.sound曲読込開始音.t再生する();
-						this.nBGM再生開始時刻 = CSoundManager.rc演奏用タイマ.n現在時刻ms;
-						this.nBGMの総再生時間ms = TJAPlayer3.Skin.sound曲読込開始音.n長さ_現在のサウンド;
-					}
+					TJAPlayer3.Skin.sound曲読込開始音.t再生する();
+					this.nBGM再生開始時刻 = CSoundManager.rc演奏用タイマ.n現在時刻ms;
+					this.nBGMの総再生時間ms = TJAPlayer3.Skin.sound曲読込開始音.n長さ_現在のサウンド;
 				}
 				//this.actFI.tFadeIn開始();							// #27787 2012.3.10 yyagi 曲読み込み画面のFadeInの省略
 				base.eフェーズID = CStage.Eフェーズ.共通_FadeIn;
@@ -185,11 +167,6 @@ namespace TJAPlayer3
 			#region [ ESC押下時は選曲画面に戻る ]
 			if ( tキー入力() )
 			{
-				if ( this.sd読み込み音 != null )
-				{
-					this.sd読み込み音.tサウンドを停止する();
-					this.sd読み込み音.t解放する();
-				}
 				return (int) E曲読込画面の戻り値.読込中止;
 			}
 			#endregion
@@ -482,10 +459,6 @@ namespace TJAPlayer3
 					if ( this.ct待機.b終了値に達してない )
 						return (int)E曲読込画面の戻り値.継続;
 
-					if ( this.sd読み込み音 != null )
-					{
-						this.sd読み込み音.t解放する();
-					}
 					return (int) E曲読込画面の戻り値.読込完了;
 			}
 			return (int) E曲読込画面の戻り値.継続;
@@ -511,7 +484,6 @@ namespace TJAPlayer3
 		//-----------------
 		private long nBGMの総再生時間ms;
 		private long nBGM再生開始時刻;
-		private CSound sd読み込み音;
 		private string str曲タイトル;
 		private string strSubTitle;
 		private CTexture txタイトル;

@@ -220,7 +220,7 @@ namespace FDK
 					}
 
 					//2020/10/27 Mr-Ojii 閾値フレームごとにパケット生成するのは無駄だと感じたので、ループに入ったら、パケット生成し、シークによるキャンセルまたは、EOFまで無限ループ
-					if (decodedframes.Count < framelist.Length)
+					if (decodedframes.Count < framelist.Length - 1)//-1をして、余裕を持たせておく。
 					{
 						int error = ffmpeg.av_read_frame(format_context, packet);
 
@@ -324,7 +324,7 @@ namespace FDK
 		private AVCodecContext* codec_context;
 		private ConcurrentQueue<CDecodedFrame> decodedframes;
 		private CancellationTokenSource cts;
-		private CDecodedFrame[] framelist = new CDecodedFrame[5];
+		private CDecodedFrame[] framelist = new CDecodedFrame[6];
 		private DecodingState DS = DecodingState.Stopped;
 		private enum DecodingState
 		{
