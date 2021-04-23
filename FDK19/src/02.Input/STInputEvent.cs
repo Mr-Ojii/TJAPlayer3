@@ -5,14 +5,14 @@ using System.Runtime.InteropServices;
 
 namespace FDK
 {
-	// 構造体
+	// struct
 
 	[StructLayout( LayoutKind.Sequential )]
 	public struct STInputEvent
 	{
 		public int nKey { get; set; }
-		public bool b押された { get; set; }
-		public bool b離された { get; set; }
+		public bool bPressed { get; set; }
+		public bool bReleased { get; set; }
 		public long nTimeStamp { get; set; }
 	}
 }

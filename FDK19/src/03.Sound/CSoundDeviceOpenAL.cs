@@ -192,10 +192,10 @@ namespace FDK
 			Trace.TraceInformation( "OpenAL を初期化しました。({0})", bUseOSTimer? "OStimer" : "FDKtimer" );
 		}
 
-		public CSound tCreateSound( string strファイル名, ESoundGroup soundGroup )
+		public CSound tCreateSound( string strFilename, ESoundGroup soundGroup )
 		{
 			var sound = new CSound(soundGroup);
-			sound.tOpenALサウンドを作成する(strファイル名);
+			sound.tOpenALサウンドを作成する(strFilename);
 			return sound;
 		}
 
@@ -207,9 +207,9 @@ namespace FDK
 		}
 
 		// 既存のインスタンス（生成直後 or Dispose済み）に対してサウンドを生成する。
-		public void tCreateSound( string strファイル名, CSound sound )
+		public void tCreateSound( string strFilename, CSound sound )
 		{
-			sound.tOpenALサウンドを作成する(strファイル名);
+			sound.tOpenALサウンドを作成する(strFilename);
 		}
 		public void tCreateSound( byte[] byArrWAVファイルイメージ, CSound sound )
 		{

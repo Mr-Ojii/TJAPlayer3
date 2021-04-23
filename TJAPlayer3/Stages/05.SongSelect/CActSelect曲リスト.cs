@@ -985,7 +985,7 @@ namespace TJAPlayer3
 					if (this.txSongNotFound != null)
 						this.txSongNotFound.t2D描画(TJAPlayer3.app.Device, 320, 160);
 				}
-				if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape))
+				if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
 				{
 					TJAPlayer3.Skin.sound取消音.t再生する();
 					TJAPlayer3.stage選曲.eFadeOut完了時の戻り値 = CStage選曲.E戻り値.タイトルに戻る;

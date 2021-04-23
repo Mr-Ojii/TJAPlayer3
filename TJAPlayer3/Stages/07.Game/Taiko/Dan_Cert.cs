@@ -276,7 +276,7 @@ namespace TJAPlayer3
         {
 			if (!this.b活性化してない)
 			{
-				Dan_Plate = TJAPlayer3.tCreateTexture(Path.GetDirectoryName(TJAPlayer3.DTX[0].strファイル名の絶対パス) + @"/Dan_Plate.png");
+				Dan_Plate = TJAPlayer3.tCreateTexture(Path.GetDirectoryName(TJAPlayer3.DTX[0].strFilenameの絶対パス) + @"/Dan_Plate.png");
 				Sound_Section = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Dan/Section.ogg"), ESoundGroup.SoundEffect);
 				Sound_Failed = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Dan/Failed.ogg"), ESoundGroup.SoundEffect);
 				base.OnManagedリソースの作成();

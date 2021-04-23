@@ -29,9 +29,9 @@ namespace FDK
 		// メソッドインターフェース
 
 		void tPolling( bool bIsWindowActive, bool bEnableBufferInput );
-		bool bキーが押された( int nKey );
-		bool bキーが押されている( int nKey );
-		bool bキーが離された( int nKey );
-		bool bキーが離されている( int nKey );
+		bool bIsKeyPressed( int nKey );
+		bool bIsKeyDown( int nKey );
+		bool bIsKeyReleased( int nKey );
+		bool bIsKeyUp( int nKey );
 	}
 }

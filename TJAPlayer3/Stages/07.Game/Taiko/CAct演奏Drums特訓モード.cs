@@ -117,7 +117,7 @@ namespace TJAPlayer3
 
 				TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, "TRAINING MODE (BETA)");
 
-				if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.Space))
+				if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Space))
 				{
 					if (this.b特訓PAUSE)
 					{
@@ -130,7 +130,7 @@ namespace TJAPlayer3
 						this.t演奏を停止する();
 					}
 				}
-				if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.b押された(EPad.LBlue))
+				if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.bPressed(EPad.LBlue))
 				{
 					if (this.b特訓PAUSE)
 					{
@@ -157,7 +157,7 @@ namespace TJAPlayer3
 						}
 					}
 				}
-				if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.PageDown))
+				if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.PageDown))
 				{
 					if (this.b特訓PAUSE)
 					{
@@ -171,7 +171,7 @@ namespace TJAPlayer3
 						TJAPlayer3.Skin.sound特訓スクロール音.t再生する();
 					}
 				}
-				if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.b押された(EPad.RBlue))
+				if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.bPressed(EPad.RBlue))
 				{
 					if (this.b特訓PAUSE)
 					{
@@ -199,7 +199,7 @@ namespace TJAPlayer3
 
 					}
 				}
-				if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.PageUp))
+				if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.PageUp))
 				{
 					if (this.b特訓PAUSE)
 					{
@@ -213,7 +213,7 @@ namespace TJAPlayer3
 						TJAPlayer3.Skin.sound特訓スクロール音.t再生する();
 					}
 				}
-				if (TJAPlayer3.Pad.b押された(EPad.LBlue2P))
+				if (TJAPlayer3.Pad.bPressed(EPad.LBlue2P))
 				{
 					if (this.b特訓PAUSE)
 					{
@@ -223,7 +223,7 @@ namespace TJAPlayer3
 						}
 					}
 				}
-				if (TJAPlayer3.Pad.b押された(EPad.RBlue2P))
+				if (TJAPlayer3.Pad.bPressed(EPad.RBlue2P))
 				{
 					if (this.b特訓PAUSE)
 					{
@@ -234,7 +234,7 @@ namespace TJAPlayer3
 						}
 					}
 				}
-				if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.Home))
+				if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Home))
 				{
 					if (this.b特訓PAUSE)
 					{
@@ -248,7 +248,7 @@ namespace TJAPlayer3
 						}
 					}
 				}
-				if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.End))
+				if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.End))
 				{
 					if (this.b特訓PAUSE)
 					{
@@ -262,7 +262,7 @@ namespace TJAPlayer3
 						}
 					}
 				}
-				if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.A))
+				if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.A))
 					this.t現在の位置にジャンプポイントを設定する();
 
 				if (this.bスクロール中)

@@ -16,8 +16,8 @@ namespace FDK
 		CTimer tmSystemTimer { get; }
 		float CPUUsage { get; }
 
-		CSound tCreateSound( string strファイル名, ESoundGroup soundGroup );
-		void tCreateSound( string strファイル名, CSound sound );
+		CSound tCreateSound( string strFilename, ESoundGroup soundGroup );
+		void tCreateSound( string strFilename, CSound sound );
 		void tCreateSound( byte[] byArrWAVファイルイメージ, CSound sound );
 	}
 }

@@ -489,16 +489,16 @@ namespace FDK
 			BassWasapi.BASS_WASAPI_Start();
 		}
 		#region [ tCreateSound() ]
-		public CSound tCreateSound( string strファイル名, ESoundGroup soundGroup )
+		public CSound tCreateSound( string strFilename, ESoundGroup soundGroup )
 		{
 			var sound = new CSound(soundGroup);
-			sound.tWASAPIサウンドを作成する( strファイル名, this.hMixer, this.eOutputDevice );
+			sound.tWASAPIサウンドを作成する( strFilename, this.hMixer, this.eOutputDevice );
 			return sound;
 		}
 
-		public void tCreateSound( string strファイル名, CSound sound )
+		public void tCreateSound( string strFilename, CSound sound )
 		{
-			sound.tWASAPIサウンドを作成する( strファイル名, this.hMixer, this.eOutputDevice );
+			sound.tWASAPIサウンドを作成する( strFilename, this.hMixer, this.eOutputDevice );
 		}
 		public void tCreateSound( byte[] byArrWAVファイルイメージ, CSound sound )
 		{

@@ -1855,13 +1855,13 @@ namespace TJAPlayer3
 		}
 		private CScoreIni tScoreIniへBGMAdjustとHistoryとPlayCountを更新(string str新ヒストリ行)
 		{
-			string strFilename = DTX[0].strファイル名の絶対パス + ".score.ini";
+			string strFilename = DTX[0].strFilenameの絶対パス + ".score.ini";
 			CScoreIni ini = new CScoreIni( strFilename );
 			if( !File.Exists( strFilename ) )
 			{
 				ini.stファイル.Title = DTX[0].TITLE;
-				ini.stファイル.Name = DTX[0].strファイル名;
-				ini.stファイル.Hash = CScoreIni.tファイルのMD5を求めて返す( DTX[0].strファイル名の絶対パス );
+				ini.stファイル.Name = DTX[0].strFilename;
+				ini.stファイル.Hash = CScoreIni.tファイルのMD5を求めて返す( DTX[0].strFilenameの絶対パス );
 				for( int i = 0; i < 2; i++ )
 				{
 					ini.stセクション[i].nPerfectになる範囲ms = nPerfect範囲ms;

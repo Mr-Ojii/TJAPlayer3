@@ -38,8 +38,8 @@ namespace FDK
 				STInputEvent item = new STInputEvent()
 				{
 					nKey = (int)key,
-					b押された = true,
-					b離された = false,
+					bPressed = true,
+					bReleased = false,
 					nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms,
 				};
 				this.listEventBuffer.Add(item);
@@ -58,8 +58,8 @@ namespace FDK
 				STInputEvent item = new STInputEvent()
 				{
 					nKey = (int)key,
-					b押された = false,
-					b離された = true,
+					bPressed = false,
+					bReleased = true,
 					nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms,
 				};
 
@@ -93,12 +93,12 @@ namespace FDK
 
 					for (int i = 0; i < this.listEventBuffer.Count; i++)
 					{
-						if (this.listEventBuffer[i].b押された)
+						if (this.listEventBuffer[i].bPressed)
 						{
 							this.bKeyState[this.listEventBuffer[i].nKey] = true;
 							this.bKeyPushDown[this.listEventBuffer[i].nKey] = true;
 						}
-						else if(this.listEventBuffer[i].b離された)
+						else if(this.listEventBuffer[i].bReleased)
 						{
 							this.bKeyState[this.listEventBuffer[i].nKey] = false;
 							this.bKeyPullUp[this.listEventBuffer[i].nKey] = true;
@@ -133,8 +133,8 @@ namespace FDK
 										var ev = new STInputEvent()
 										{
 											nKey = (int)key,
-											b押された = true,
-											b離された = false,
+											bPressed = true,
+											bReleased = false,
 											nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 										};
 										this.listInputEvents.Add(ev);
@@ -155,8 +155,8 @@ namespace FDK
 									var ev = new STInputEvent()
 									{
 										nKey = (int)key,
-										b押された = false,
-										b離された = true,
+										bPressed = false,
+										bReleased = true,
 										nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 									};
 									this.listInputEvents.Add(ev);
@@ -175,7 +175,7 @@ namespace FDK
 		/// <param name="nKey">
 		///		調べる SlimDX.DirectInput.Key を int にキャストした値。
 		/// </param>
-		public bool bキーが押された(int nKey)
+		public bool bIsKeyPressed(int nKey)
 		{
 			return this.bKeyPushDown[nKey];
 		}
@@ -183,7 +183,7 @@ namespace FDK
 		/// <param name="nKey">
 		///		調べる SlimDX.DirectInput.Key を int にキャストした値。
 		/// </param>
-		public bool bキーが押されている(int nKey)
+		public bool bIsKeyDown(int nKey)
 		{
 			return this.bKeyState[nKey];
 		}
@@ -191,7 +191,7 @@ namespace FDK
 		/// <param name="nKey">
 		///		調べる SlimDX.DirectInput.Key を int にキャストした値。
 		/// </param>
-		public bool bキーが離された(int nKey)
+		public bool bIsKeyReleased(int nKey)
 		{
 			return this.bKeyPullUp[nKey];
 		}
@@ -199,7 +199,7 @@ namespace FDK
 		/// <param name="nKey">
 		///		調べる SlimDX.DirectInput.Key を int にキャストした値。
 		/// </param>
-		public bool bキーが離されている(int nKey)
+		public bool bIsKeyUp(int nKey)
 		{
 			return !this.bKeyState[nKey];
 		}
@@ -210,13 +210,13 @@ namespace FDK
 		//-----------------
 		public void Dispose()
 		{
-			if (!this.bDispose完了済み)
+			if (!this.bDisposed)
 			{
 				if (this.listInputEvents != null)
 				{
 					this.listInputEvents = null;
 				}
-				this.bDispose完了済み = true;
+				this.bDisposed = true;
 			}
 		}
 		//-----------------
@@ -227,7 +227,7 @@ namespace FDK
 
 		#region [ private ]
 		//-----------------
-		private bool bDispose完了済み;
+		private bool bDisposed;
 		private bool[] bKeyPullUp = new bool[256];
 		private bool[] bKeyPushDown = new bool[256];
 		private bool[] bKeyState = new bool[256];

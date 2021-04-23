@@ -207,16 +207,16 @@ namespace FDK
 		}
 
 		#region [ tCreateSound() ]
-		public CSound tCreateSound(string strファイル名, ESoundGroup soundGroup)
+		public CSound tCreateSound(string strFilename, ESoundGroup soundGroup)
 		{
 			var sound = new CSound(soundGroup);
-			sound.tBASSサウンドを作成する(strファイル名, this.hMixer);
+			sound.tBASSサウンドを作成する(strFilename, this.hMixer);
 			return sound;
 		}
 
-		public void tCreateSound(string strファイル名, CSound sound)
+		public void tCreateSound(string strFilename, CSound sound)
 		{
-			sound.tBASSサウンドを作成する(strファイル名, this.hMixer);
+			sound.tBASSサウンドを作成する(strFilename, this.hMixer);
 		}
 		public void tCreateSound(byte[] byArrWAVファイルイメージ, CSound sound)
 		{

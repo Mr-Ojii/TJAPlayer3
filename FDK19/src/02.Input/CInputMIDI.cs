@@ -39,7 +39,7 @@ namespace FDK
 				{
 					STInputEvent item = new STInputEvent();
 					item.nKey = nPara1;
-					item.b押された = true;
+					item.bPressed = true;
 					item.nTimeStamp = time;
 					this.listEventBuffer.Add(item);
 				}
@@ -64,26 +64,26 @@ namespace FDK
 
 			this.listEventBuffer.Clear();
 		}
-		public bool bキーが押された(int nKey)
+		public bool bIsKeyPressed(int nKey)
 		{
 			foreach (STInputEvent event2 in this.listInputEvents)
 			{
-				if ((event2.nKey == nKey) && event2.b押された)
+				if ((event2.nKey == nKey) && event2.bPressed)
 				{
 					return true;
 				}
 			}
 			return false;
 		}
-		public bool bキーが押されている(int nKey)
+		public bool bIsKeyDown(int nKey)
 		{
 			return false;
 		}
-		public bool bキーが離された(int nKey)
+		public bool bIsKeyReleased(int nKey)
 		{
 			return false;
 		}
-		public bool bキーが離されている(int nKey)
+		public bool bIsKeyUp(int nKey)
 		{
 			return false;
 		}

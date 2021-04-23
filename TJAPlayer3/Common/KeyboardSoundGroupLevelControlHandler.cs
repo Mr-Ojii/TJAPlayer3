@@ -26,8 +26,8 @@ namespace TJAPlayer3
 			CSkin skin,
 			bool isSongPreview)
 		{
-			var isAdjustmentPositive = keyboard.bキーが押された((int)SlimDXKeys.Key.RightBracket);
-			if (!(isAdjustmentPositive || keyboard.bキーが押された((int)SlimDXKeys.Key.LeftBracket)))
+			var isAdjustmentPositive = keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightBracket);
+			if (!(isAdjustmentPositive || keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftBracket)))
 			{
 				return;
 			}
@@ -35,14 +35,14 @@ namespace TJAPlayer3
 			ESoundGroup soundGroup;
 			CSkin.Cシステムサウンド システムサウンド = null;
 
-			if (keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftControl) ||
-				keyboard.bキーが押されている((int)SlimDXKeys.Key.RightControl))
+			if (keyboard.bIsKeyDown((int)SlimDXKeys.Key.LeftControl) ||
+				keyboard.bIsKeyDown((int)SlimDXKeys.Key.RightControl))
 			{
 				soundGroup = ESoundGroup.SoundEffect;
 				システムサウンド = skin.sound決定音;
 			}
-			else if (keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftShift) ||
-					 keyboard.bキーが押されている((int)SlimDXKeys.Key.RightShift))
+			else if (keyboard.bIsKeyDown((int)SlimDXKeys.Key.LeftShift) ||
+					 keyboard.bIsKeyDown((int)SlimDXKeys.Key.RightShift))
 			{
 				soundGroup = ESoundGroup.Voice;
 				システムサウンド = skin.soundゲーム開始音;

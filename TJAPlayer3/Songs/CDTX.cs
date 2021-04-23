@@ -383,7 +383,7 @@ namespace TJAPlayer3
 			public int n表記上の番号;
 			public CSound[] rSound = new CSound[TJAPlayer3.ConfigIni.nPoliphonicSounds];     // 4
 			public string strコメント文 = "";
-			public string strファイル名 = "";
+			public string strFilename = "";
 			public bool bIsBassSound = false;
 			public bool bIsGuitarSound = false;
 			public bool bIsDrumsSound = false;
@@ -403,7 +403,7 @@ namespace TJAPlayer3
 					sb.Append(string.Format("CWAV{0}(内部{1}): ", CDTX.tZZ(this.n表記上の番号), this.n内部番号));
 				}
 				sb.Append(
-					$"{nameof(SongVol)}:{this.SongVol}, {nameof(LoudnessMetadata.Integrated)}:{this.SongLoudnessMetadata?.Integrated}, {nameof(LoudnessMetadata.TruePeak)}:{this.SongLoudnessMetadata?.TruePeak}, File:{this.strファイル名}, Comment:{this.strコメント文}");
+					$"{nameof(SongVol)}:{this.SongVol}, {nameof(LoudnessMetadata.Integrated)}:{this.SongLoudnessMetadata?.Integrated}, {nameof(LoudnessMetadata.TruePeak)}:{this.SongLoudnessMetadata?.TruePeak}, File:{this.strFilename}, Comment:{this.strコメント文}");
 
 				return sb.ToString();
 			}
@@ -429,7 +429,7 @@ namespace TJAPlayer3
 						this.rSound[i] = null;
 
 						if ((i == 0) && TJAPlayer3.ConfigIni.bLog作成解放ログ出力)
-							Trace.TraceInformation("サウンドを解放しました。({0})({1})", this.strコメント文, this.strファイル名);
+							Trace.TraceInformation("サウンドを解放しました。({0})({1})", this.strコメント文, this.strFilename);
 					}
 				}
 
@@ -596,8 +596,8 @@ namespace TJAPlayer3
 		public Dictionary<int, CBRANCH> listBRANCH;
 		public STLANEINT n可視チップ数;
 		public string PATH_WAV;
-		public string strファイル名;
-		public string strファイル名の絶対パス;
+		public string strFilename;
+		public string strFilenameの絶対パス;
 		public string strフォルダ名;
 		public string EXTENSION;
 		public string SUBTITLE;
@@ -724,9 +724,9 @@ namespace TJAPlayer3
 			this.bHIDDENBRANCH = false;
 			this.db再生速度 = 1.0;
 			this.bHasBranchChip = false;
-			this.strファイル名 = "";
+			this.strFilename = "";
 			this.strフォルダ名 = "";
-			this.strファイル名の絶対パス = "";
+			this.strFilenameの絶対パス = "";
 			this.listBalloon_Normal_数値管理 = 0;
 			this.listBalloon_Expert_数値管理 = 0;
 			this.listBalloon_Master_数値管理 = 0;
@@ -759,11 +759,11 @@ namespace TJAPlayer3
 
 			Dan_C = new Dan_C[3];
 		}
-		public CDTX(string strファイル名, bool bヘッダのみ, double db再生速度, int nBGMAdjust, int nPlayerSide, bool bSession)
+		public CDTX(string strFilename, bool bヘッダのみ, double db再生速度, int nBGMAdjust, int nPlayerSide, bool bSession)
 			: this()
 		{
 			this.On活性化();
-			this.t入力(strファイル名, bヘッダのみ, db再生速度, nBGMAdjust, nPlayerSide, bSession);
+			this.t入力(strFilename, bヘッダのみ, db再生速度, nBGMAdjust, nPlayerSide, bSession);
 		}
 
 
@@ -801,7 +801,7 @@ namespace TJAPlayer3
 						{
 							long nAbsTimeFromStartPlaying = nCurrentTime - wc.n再生開始時刻[i];
 							//Trace.TraceInformation( "再生位置自動補正: {0}, seek先={1}ms, 全音長={2}ms",
-							//    Path.GetFileName( wc.rSound[ 0 ].strファイル名 ),
+							//    Path.GetFileName( wc.rSound[ 0 ].strFilename ),
 							//    nAbsTimeFromStartPlaying,
 							//    wc.rSound[ 0 ].n総演奏時間ms
 							//);
@@ -849,7 +849,7 @@ namespace TJAPlayer3
 		public void tWAVの読み込み(CWAV cwav)
 		{
 			string str = string.IsNullOrEmpty(this.PATH_WAV) ? this.strフォルダ名 : this.PATH_WAV;
-			str = str + cwav.strファイル名;
+			str = str + cwav.strFilename;
 
 			try
 			{
@@ -1168,32 +1168,32 @@ namespace TJAPlayer3
 		}
 		#endregion
 
-		public void t入力(string strファイル名, bool bヘッダのみ)
+		public void t入力(string strFilename, bool bヘッダのみ)
 		{
-			this.t入力(strファイル名, bヘッダのみ, 1.0, 0, 0, false);
+			this.t入力(strFilename, bヘッダのみ, 1.0, 0, 0, false);
 		}
-		public void t入力(string strファイル名, bool bヘッダのみ, double db再生速度, int nBGMAdjust, int nPlayerSide, bool bSession)
+		public void t入力(string strFilename, bool bヘッダのみ, double db再生速度, int nBGMAdjust, int nPlayerSide, bool bSession)
 		{
 			this.bヘッダのみ = bヘッダのみ;
-			this.strファイル名の絶対パス = Path.GetFullPath(strファイル名);
-			this.strファイル名 = Path.GetFileName(this.strファイル名の絶対パス);
-			this.strフォルダ名 = Path.GetDirectoryName(this.strファイル名の絶対パス) + @"/";
+			this.strFilenameの絶対パス = Path.GetFullPath(strFilename);
+			this.strFilename = Path.GetFileName(this.strFilenameの絶対パス);
+			this.strフォルダ名 = Path.GetDirectoryName(this.strFilenameの絶対パス) + @"/";
 
 			try
 			{
-				this.EXTENSION = Path.GetExtension(strファイル名);
+				this.EXTENSION = Path.GetExtension(strFilename);
 				this.nPlayerSide = nPlayerSide;
 				this.bSession譜面を読み込む = bSession;
-				if (Path.GetExtension(strファイル名).Equals(".tci"))
+				if (Path.GetExtension(strFilename).Equals(".tci"))
 				{
-					string tcistr = CJudgeTextEncoding.ReadTextFile(strファイル名);
+					string tcistr = CJudgeTextEncoding.ReadTextFile(strFilename);
 
 					this.t入力tci(tcistr, db再生速度, nBGMAdjust);
 
 				}
-				else if (Path.GetExtension(strファイル名).Equals(".tcm"))
+				else if (Path.GetExtension(strFilename).Equals(".tcm"))
 				{
-					string tcmstr = CJudgeTextEncoding.ReadTextFile(strファイル名);
+					string tcmstr = CJudgeTextEncoding.ReadTextFile(strFilename);
 
 					this.t入力tcm(tcmstr, db再生速度, nBGMAdjust);
 
@@ -1201,7 +1201,7 @@ namespace TJAPlayer3
 				else
 				{
 					//次郎方式
-					string str2 = CJudgeTextEncoding.ReadTextFile(strファイル名);
+					string str2 = CJudgeTextEncoding.ReadTextFile(strFilename);
 
 					this.t入力_全入力文字列から(str2, db再生速度, nBGMAdjust);
 				}
@@ -2015,10 +2015,10 @@ namespace TJAPlayer3
 							n表記上の番号 = this.n内部番号WAV1to,
 							SongVol = this.SongVol,
 							SongLoudnessMetadata = this.SongLoudnessMetadata,
-							strファイル名 = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, dansongs.FileName),
+							strFilename = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strFilename, dansongs.FileName),
 							strコメント文 = "TJA BGM"
 						};
-						dansongs.Wave.SongLoudnessMetadata = LoudnessMetadataScanner.LoadForAudioPath(dansongs.Wave.strファイル名);
+						dansongs.Wave.SongLoudnessMetadata = LoudnessMetadataScanner.LoadForAudioPath(dansongs.Wave.strFilename);
 						List_DanSongs.Add(dansongs);
 						this.listWAV.Add(this.n内部番号WAV1to, dansongs.Wave);
 						this.n内部番号WAV1to++;
@@ -2031,7 +2031,7 @@ namespace TJAPlayer3
 						nextSongnextSongChip.n整数値 = 0x01;
 						nextSongnextSongChip.n整数値_内部番号 = 1 + List_DanSongs.Count;
 
-						this.listWAV[1].strファイル名 = "";
+						this.listWAV[1].strFilename = "";
 
 						// チップを配置。
 						this.listChip.Add(nextSongnextSongChip);
@@ -2068,11 +2068,11 @@ namespace TJAPlayer3
 			#region[BGM]
 			if (strBGM_PATH != null)
 			{
-				Trace.TraceWarning($"{nameof(CDTX)} is ignoring an extra WAVE header in {this.strファイル名の絶対パス}");
+				Trace.TraceWarning($"{nameof(CDTX)} is ignoring an extra WAVE header in {this.strFilenameの絶対パス}");
 			}
 			else
 			{
-				this.strBGM_PATH = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, obj.WAVFile);
+				this.strBGM_PATH = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strFilename, obj.WAVFile);
 				//tbWave.Text = strCommandParam;
 				if (this.listWAV != null)
 				{
@@ -2089,7 +2089,7 @@ namespace TJAPlayer3
 						n表記上の番号 = 1,
 						SongVol = this.SongVol,
 						SongLoudnessMetadata = this.SongLoudnessMetadata,
-						strファイル名 = this.strBGM_PATH,
+						strFilename = this.strBGM_PATH,
 						strコメント文 = "TJA BGM",
 					};
 
@@ -2290,11 +2290,11 @@ namespace TJAPlayer3
 			#region[BGM]
 			if (strBGM_PATH != null)
 			{
-				Trace.TraceWarning($"{nameof(CDTX)} is ignoring an extra WAVE header in {this.strファイル名の絶対パス}");
+				Trace.TraceWarning($"{nameof(CDTX)} is ignoring an extra WAVE header in {this.strFilenameの絶対パス}");
 			}
 			else
 			{
-				this.strBGM_PATH = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, obj.WAVFile);
+				this.strBGM_PATH = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strFilename, obj.WAVFile);
 				//tbWave.Text = strCommandParam;
 				if (this.listWAV != null)
 				{
@@ -2311,7 +2311,7 @@ namespace TJAPlayer3
 						n表記上の番号 = 1,
 						SongVol = this.SongVol,
 						SongLoudnessMetadata = this.SongLoudnessMetadata,
-						strファイル名 = this.strBGM_PATH,
+						strFilename = this.strBGM_PATH,
 						strコメント文 = "TJA BGM",
 					};
 
@@ -2405,7 +2405,7 @@ namespace TJAPlayer3
 				if (!string.IsNullOrEmpty(obj.BGFile))
 				{
 					this.strBGVIDEO_PATH =
-						CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, obj.BGFile);
+						CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strFilename, obj.BGFile);
 				}
 
 				string strVideoFilename;
@@ -3367,7 +3367,7 @@ namespace TJAPlayer3
 				var startIndex = strInput.IndexOf("#START");
 				if (startIndex < 0)
 				{
-					Trace.TraceWarning($"#START命令が少なくとも1つは必要です。 ({strファイル名の絶対パス})");
+					Trace.TraceWarning($"#START命令が少なくとも1つは必要です。 ({strFilenameの絶対パス})");
 				}
 				string strInputHeader = strInput.Remove(startIndex);
 				strInput = strInput.Remove(0, startIndex);
@@ -3448,7 +3448,7 @@ namespace TJAPlayer3
 				strSplitした譜面[n読み込むコース] = CDTXStyleExtractor.tセッション譜面がある(
 					strSplitした譜面[n読み込むコース],
 					n読み込むセッション譜面パート,
-					this.strファイル名の絶対パス);
+					this.strFilenameの絶対パス);
 
 				//------
 
@@ -4197,10 +4197,10 @@ namespace TJAPlayer3
 					n表記上の番号 = this.n内部番号WAV1to,
 					SongVol = this.SongVol,
 					SongLoudnessMetadata = this.SongLoudnessMetadata,
-					strファイル名 = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, dansongs.FileName),
+					strFilename = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strFilename, dansongs.FileName),
 					strコメント文 = "TJA BGM"
 				};
-				dansongs.Wave.SongLoudnessMetadata = LoudnessMetadataScanner.LoadForAudioPath(dansongs.Wave.strファイル名);
+				dansongs.Wave.SongLoudnessMetadata = LoudnessMetadataScanner.LoadForAudioPath(dansongs.Wave.strFilename);
 				List_DanSongs.Add(dansongs);
 				this.listWAV.Add(this.n内部番号WAV1to, dansongs.Wave);
 				this.n内部番号WAV1to++;
@@ -4213,7 +4213,7 @@ namespace TJAPlayer3
 				nextSongnextSongChip.n整数値 = 0x01;
 				nextSongnextSongChip.n整数値_内部番号 = 1 + List_DanSongs.Count;
 
-				this.listWAV[1].strファイル名 = "";
+				this.listWAV[1].strFilename = "";
 
 				// チップを配置。
 				this.listChip.Add(nextSongnextSongChip);
@@ -4305,7 +4305,7 @@ namespace TJAPlayer3
 			if (strArray.Length < minimumLength)
 			{
 				Trace.TraceWarning(
-					$"命令 {name} のパラメータが足りません。少なくとも {minimumLength} つのパラメータが必要です。 (現在のパラメータ数: {strArray.Length}). ({strファイル名の絶対パス})");
+					$"命令 {name} のパラメータが足りません。少なくとも {minimumLength} つのパラメータが必要です。 (現在のパラメータ数: {strArray.Length}). ({strFilenameの絶対パス})");
 			}
 		}
 
@@ -4882,7 +4882,7 @@ namespace TJAPlayer3
 			}
 			else
 			{
-				Trace.TraceWarning($"命令名: {name} のパラメータの値が正しくないことを検知しました。値: {unparsedValue} ({strファイル名の絶対パス})");
+				Trace.TraceWarning($"命令名: {name} のパラメータの値が正しくないことを検知しました。値: {unparsedValue} ({strFilenameの絶対パス})");
 			}
 		}
 
@@ -4902,7 +4902,7 @@ namespace TJAPlayer3
 				}
 				catch (Exception ex)
 				{
-					Trace.TraceError($"おや?エラーが出たようです。お兄様。 ({strファイル名の絶対パス})");
+					Trace.TraceError($"おや?エラーが出たようです。お兄様。 ({strFilenameの絶対パス})");
 					Trace.TraceError(ex.ToString());
 					Trace.TraceError("An exception has occurred, but processing continues. (95327158-4e83-4fa9-b5e9-ad3c3d4c2a22)");
 					break;
@@ -5030,11 +5030,11 @@ namespace TJAPlayer3
 			{
 				if (strBGM_PATH != null)
 				{
-					Trace.TraceWarning($"{nameof(CDTX)} is ignoring an extra WAVE header in {this.strファイル名の絶対パス}");
+					Trace.TraceWarning($"{nameof(CDTX)} is ignoring an extra WAVE header in {this.strFilenameの絶対パス}");
 				}
 				else
 				{
-					this.strBGM_PATH = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, strCommandParam);
+					this.strBGM_PATH = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strFilename, strCommandParam);
 					//tbWave.Text = strCommandParam;
 					if (this.listWAV != null)
 					{
@@ -5051,7 +5051,7 @@ namespace TJAPlayer3
 							n表記上の番号 = 1,
 							SongVol = this.SongVol,
 							SongLoudnessMetadata = this.SongLoudnessMetadata,
-							strファイル名 = this.strBGM_PATH,
+							strFilename = this.strBGM_PATH,
 							strコメント文 = "TJA BGM",
 						};
 
@@ -5238,7 +5238,7 @@ namespace TJAPlayer3
 				if (!string.IsNullOrEmpty(strCommandParam))
 				{
 					this.strBGVIDEO_PATH =
-						CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strファイル名, strCommandParam);
+						CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strFilename, strCommandParam);
 				}
 
 				string strVideoFilename;

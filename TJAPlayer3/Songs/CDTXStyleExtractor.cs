@@ -198,7 +198,7 @@ namespace TJAPlayer3
 				},
 			};
 
-		public static string tセッション譜面がある(string strTJA, int seqNo, string strファイル名の絶対パス)
+		public static string tセッション譜面がある(string strTJA, int seqNo, string strFilenameの絶対パス)
 		{
 			void TraceError(string subMessage)
 			{
@@ -207,7 +207,7 @@ namespace TJAPlayer3
 
 			string FormatTraceMessage(string subMessage)
 			{
-				return $"{nameof(CDTXStyleExtractor)} {subMessage} (seqNo={seqNo}, {strファイル名の絶対パス})";
+				return $"{nameof(CDTXStyleExtractor)} {subMessage} (seqNo={seqNo}, {strFilenameの絶対パス})";
 			}
 
 			//入力された譜面がnullでないかチェック。

@@ -79,7 +79,7 @@ namespace TJAPlayer3
 
 				#region [ .score.ini の作成と出力 ]
 				//---------------------
-				string str = TJAPlayer3.DTX[0].strファイル名の絶対パス + ".score.ini";
+				string str = TJAPlayer3.DTX[0].strFilenameの絶対パス + ".score.ini";
 				CScoreIni ini = new CScoreIni( str );
 
 				bool b今までにフルコンボしたことがある = false;
@@ -334,7 +334,7 @@ namespace TJAPlayer3
 
 				// キー入力
 
-				if ((TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.b押された(EPad.LRed) || TJAPlayer3.Pad.b押された(EPad.RRed) || (TJAPlayer3.Pad.b押された(EPad.LRed2P) || TJAPlayer3.Pad.b押された(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && !this.bアニメが完了)
+				if ((TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && !this.bアニメが完了)
 				{
 					this.actFI.tFadeIn完了();                 // #25406 2011.6.9 yyagi
 					this.actParameterPanel.tアニメを完了させる();
@@ -343,14 +343,14 @@ namespace TJAPlayer3
 				}
 				if (base.eフェーズID == CStage.Eフェーズ.共通_通常状態)
 				{
-					if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape))
+					if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
 					{
 						TJAPlayer3.Skin.sound取消音.t再生する();
 						this.actFO.tFadeOut開始();
 						base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
 						this.eFadeOut完了時の戻り値 = E戻り値.完了;
 					}
-					if ((TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.b押された(EPad.LRed) || TJAPlayer3.Pad.b押された(EPad.RRed) || (TJAPlayer3.Pad.b押された(EPad.LRed2P) || TJAPlayer3.Pad.b押された(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && this.bアニメが完了)
+					if ((TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && this.bアニメが完了)
 					{
 						TJAPlayer3.Skin.sound取消音.t再生する();
 						//							this.actFO.tFadeOut開始();
@@ -401,7 +401,7 @@ namespace TJAPlayer3
 				if (this.b新記録ランク == true)
 				{
 					string strRank = ((CScoreIni.ERANK)(this.nランク値)).ToString();
-					string strFullPath = TJAPlayer3.DTX[0].strファイル名の絶対パス + "." + datetime + "_" + strRank + ".png";
+					string strFullPath = TJAPlayer3.DTX[0].strFilenameの絶対パス + "." + datetime + "_" + strRank + ".png";
 
 					CSaveScreen.CSaveFromDevice(TJAPlayer3.app.Device, strFullPath);
 				}

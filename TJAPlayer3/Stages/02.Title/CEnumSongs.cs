@@ -204,7 +204,7 @@ namespace TJAPlayer3
 							try
 							{
 								cシステムサウンド.tLoad();
-								Trace.TraceInformation("システムサウンドを読み込みました。({0})", cシステムサウンド.strファイル名);
+								Trace.TraceInformation("システムサウンドを読み込みました。({0})", cシステムサウンド.strFilename);
 								//if ( ( cシステムサウンド == CDTXMania.Skin.bgm起動画面 ) && cシステムサウンド.b読み込み成功 )
 								//{
 								//	cシステムサウンド.t再生する();
@@ -212,12 +212,12 @@ namespace TJAPlayer3
 							}
 							catch (FileNotFoundException)
 							{
-								Trace.TraceWarning("システムサウンドが存在しません。({0})", cシステムサウンド.strファイル名);
+								Trace.TraceWarning("システムサウンドが存在しません。({0})", cシステムサウンド.strFilename);
 							}
 							catch (Exception e)
 							{
 								Trace.TraceWarning(e.ToString());
-								Trace.TraceWarning("システムサウンドの読み込みに失敗しました。({0})", cシステムサウンド.strファイル名);
+								Trace.TraceWarning("システムサウンドの読み込みに失敗しました。({0})", cシステムサウンド.strFilename);
 							}
 						}
 					}

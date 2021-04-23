@@ -58,7 +58,7 @@ namespace TJAPlayer3
 			public bool b読み込み未試行;
 			public bool b読み込み成功;
 			public bool b排他;
-			public string strファイル名 = "";
+			public string strFilename = "";
 			public bool b再生中
 			{
 				get
@@ -151,13 +151,13 @@ namespace TJAPlayer3
 			/// <summary>
 			/// コンストラクタ
 			/// </summary>
-			/// <param name="strファイル名"></param>
+			/// <param name="strFilename"></param>
 			/// <param name="bループ"></param>
 			/// <param name="b排他"></param>
 			/// <param name="bCompact対象"></param>
-			public Cシステムサウンド(string strファイル名, bool bループ, bool b排他, ESoundGroup soundGroup)
+			public Cシステムサウンド(string strFilename, bool bループ, bool b排他, ESoundGroup soundGroup)
 			{
-				this.strファイル名 = strファイル名;
+				this.strFilename = strFilename;
 				this.bループ = bループ;
 				this.b排他 = b排他;
 				_soundGroup = soundGroup;
@@ -171,12 +171,12 @@ namespace TJAPlayer3
 			{
 				this.b読み込み未試行 = false;
 				this.b読み込み成功 = false;
-				if (string.IsNullOrEmpty(this.strファイル名))
+				if (string.IsNullOrEmpty(this.strFilename))
 					throw new InvalidOperationException("ファイル名が無効です。");
 
-				if (!File.Exists(CSkin.Path(this.strファイル名)))
+				if (!File.Exists(CSkin.Path(this.strFilename)))
 				{
-					Trace.TraceWarning($"ファイルが存在しません。: {this.strファイル名}");
+					Trace.TraceWarning($"ファイルが存在しません。: {this.strFilename}");
 					return;
 				}
 				if (TJAPlayer3.SoundManager == null)
@@ -185,7 +185,7 @@ namespace TJAPlayer3
 				{
 					try
 					{
-						this.rSound[i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(this.strファイル名), _soundGroup);
+						this.rSound[i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(this.strFilename), _soundGroup);
 					}
 					catch
 					{
@@ -514,9 +514,9 @@ namespace TJAPlayer3
 		public void SEloader()
 		{
 			this.SECount = TJAPlayer3.t連番フォルダの個数を数える(CSkin.Path(@"Sounds/Taiko/"));
-			string strファイル名 = CSkin.Path(@"Sounds/Taiko/SElist.csv");
+			string strFilename = CSkin.Path(@"Sounds/Taiko/SElist.csv");
 
-			if (!File.Exists(strファイル名))
+			if (!File.Exists(strFilename))
 			{
 				string[] splitstr = new string[this.SECount];
 				for (int i = 0; i < this.SECount; i++)
@@ -525,7 +525,7 @@ namespace TJAPlayer3
 			}
 			else
 			{
-				string str = CJudgeTextEncoding.ReadTextFile(strファイル名);
+				string str = CJudgeTextEncoding.ReadTextFile(strFilename);
 				str = str.Replace(CJudgeTextEncoding.JudgeNewLine(str), "\n");
 				str = str.Replace(',', '\n');
 				string[] splitstr = str.Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -713,17 +713,17 @@ namespace TJAPlayer3
 				try
 				{
 					cシステムサウンド.tLoad();
-					Trace.TraceInformation("システムサウンドを読み込みました。({0})", cシステムサウンド.strファイル名);
+					Trace.TraceInformation("システムサウンドを読み込みました。({0})", cシステムサウンド.strFilename);
 				}
 				catch (FileNotFoundException e)
 				{
 					Trace.TraceWarning(e.ToString());
-					Trace.TraceWarning("システムサウンドが存在しません。({0})", cシステムサウンド.strファイル名);
+					Trace.TraceWarning("システムサウンドが存在しません。({0})", cシステムサウンド.strFilename);
 				}
 				catch (Exception e)
 				{
 					Trace.TraceWarning(e.ToString());
-					Trace.TraceWarning("システムサウンドの読み込みに失敗しました。({0})", cシステムサウンド.strファイル名);
+					Trace.TraceWarning("システムサウンドの読み込みに失敗しました。({0})", cシステムサウンド.strFilename);
 				}
 
 			}

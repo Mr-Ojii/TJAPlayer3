@@ -329,7 +329,7 @@ namespace TJAPlayer3
 
 							Trace.TraceInformation( "----曲情報-----------------" );
 							Trace.TraceInformation( "TITLE: {0}", TJAPlayer3.DTX[0].TITLE );
-							Trace.TraceInformation( "FILE: {0}",  TJAPlayer3.DTX[0].strファイル名の絶対パス );
+							Trace.TraceInformation( "FILE: {0}",  TJAPlayer3.DTX[0].strFilenameの絶対パス );
 							Trace.TraceInformation( "---------------------------" );
 
 							TimeSpan span = (TimeSpan) ( DateTime.Now - timeBeginLoad );
@@ -471,7 +471,7 @@ namespace TJAPlayer3
 		protected bool tキー入力()
 		{
 			IInputDevice keyboard = TJAPlayer3.InputManager.Keyboard;
-			if 	( keyboard.bキーが押された( (int)SlimDXKeys.Key.Escape ) )		// escape (exit)
+			if 	( keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.Escape ) )		// escape (exit)
 			{
 				return true;
 			}

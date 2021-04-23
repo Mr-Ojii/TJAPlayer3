@@ -28,7 +28,7 @@ namespace FDK
 		#region [ コンストラクタから呼ばれる初期化処理 ]
 		protected new void Initialize( string fontpath, int pt, SixLabors.Fonts.FontStyle style )
 		{
-			this.bDispose完了済み_CPrivateFastFont = false;
+			this.bDisposed_CPrivateFastFont = false;
 			this.listFontCache = new List<FontCache>();
 			base.Initialize( fontpath, pt, style );
 		}
@@ -223,7 +223,7 @@ namespace FDK
 		//-----------------
 		public new void Dispose()
 		{
-			if (!this.bDispose完了済み_CPrivateFastFont)
+			if (!this.bDisposed_CPrivateFastFont)
 			{
 				if (listFontCache != null)
 				{
@@ -240,7 +240,7 @@ namespace FDK
 					listFontCache.Clear();
 					listFontCache = null;
 				}
-				this.bDispose完了済み_CPrivateFastFont = true;
+				this.bDisposed_CPrivateFastFont = true;
 			}
 			base.Dispose();
 		}
@@ -269,7 +269,7 @@ namespace FDK
 		}
 		private List<FontCache> listFontCache;
 
-		protected bool bDispose完了済み_CPrivateFastFont;
+		protected bool bDisposed_CPrivateFastFont;
 		//-----------------
 		#endregion
 	}

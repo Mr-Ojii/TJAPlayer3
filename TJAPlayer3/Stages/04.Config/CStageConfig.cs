@@ -304,7 +304,7 @@ namespace TJAPlayer3
 			// 曲データの一覧取得中は、キー入力を無効化する
 			if ( !TJAPlayer3.EnumSongs.IsEnumerating || TJAPlayer3.actEnumSongs.bコマンドでの曲データ取得 != true )
 			{
-				if ( ( TJAPlayer3.InputManager.Keyboard.bキーが押された( (int)SlimDXKeys.Key.Escape )))
+				if ( ( TJAPlayer3.InputManager.Keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.Escape )))
 				{
 					TJAPlayer3.Skin.sound取消音.t再生する();
 					if ( !this.bメニューにフォーカス中 )
@@ -327,7 +327,7 @@ namespace TJAPlayer3
 						base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
 					}
 				}
-				else if (TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bキーが押された( (int)SlimDXKeys.Key.Return ) || TJAPlayer3.Pad.b押された(EPad.LRed) || TJAPlayer3.Pad.b押された(EPad.RRed) || (TJAPlayer3.Pad.b押された(EPad.LRed2P) || TJAPlayer3.Pad.b押された(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+				else if (TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.Return ) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 				{
 					if ( this.n現在のメニュー番号 == 2 )
 					{
@@ -367,31 +367,31 @@ namespace TJAPlayer3
 				
 				if (this.actList.b要素値にフォーカス中)
 				{
-					if (TJAPlayer3.Pad.b押された(EPad.RBlue) || TJAPlayer3.Pad.b押された(EPad.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+					if (TJAPlayer3.Pad.bPressed(EPad.RBlue) || TJAPlayer3.Pad.bPressed(EPad.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 					{
 						this.tカーソルを上へ移動する();
 					}
-					if (TJAPlayer3.Pad.b押された(EPad.LBlue) || TJAPlayer3.Pad.b押された(EPad.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+					if (TJAPlayer3.Pad.bPressed(EPad.LBlue) || TJAPlayer3.Pad.bPressed(EPad.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 					{
 						this.tカーソルを下へ移動する();
 					}
 				}
 				else
 				{
-					if (TJAPlayer3.Pad.b押された(EPad.RBlue) || TJAPlayer3.Pad.b押された(EPad.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+					if (TJAPlayer3.Pad.bPressed(EPad.RBlue) || TJAPlayer3.Pad.bPressed(EPad.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 					{
 						this.tカーソルを下へ移動する();
 					}
-					if (TJAPlayer3.Pad.b押された(EPad.LBlue) || TJAPlayer3.Pad.b押された(EPad.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+					if (TJAPlayer3.Pad.bPressed(EPad.LBlue) || TJAPlayer3.Pad.bPressed(EPad.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 					{
 						this.tカーソルを上へ移動する();
 					}
 				}
 
 
-				this.ctキー反復用.Up.tキー反復( TJAPlayer3.InputManager.Keyboard.bキーが押されている( (int)SlimDXKeys.Key.UpArrow ) , new CCounter.DGキー処理( this.tカーソルを上へ移動する ) );
+				this.ctキー反復用.Up.tキー反復( TJAPlayer3.InputManager.Keyboard.bIsKeyDown( (int)SlimDXKeys.Key.UpArrow ) , new CCounter.DGキー処理( this.tカーソルを上へ移動する ) );
 
-				this.ctキー反復用.Down.tキー反復( TJAPlayer3.InputManager.Keyboard.bキーが押されている( (int)SlimDXKeys.Key.DownArrow ), new CCounter.DGキー処理( this.tカーソルを下へ移動する ) );
+				this.ctキー反復用.Down.tキー反復( TJAPlayer3.InputManager.Keyboard.bIsKeyDown( (int)SlimDXKeys.Key.DownArrow ), new CCounter.DGキー処理( this.tカーソルを下へ移動する ) );
 
 			}
 			return 0;

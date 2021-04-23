@@ -106,7 +106,7 @@ namespace TJAPlayer3
 			{
 				if( this.bキー入力待ち )
 				{
-					if( TJAPlayer3.InputManager.Keyboard.bキーが押された( (int)SlimDXKeys.Key.Escape ) )
+					if( TJAPlayer3.InputManager.Keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.Escape ) )
 					{
 						TJAPlayer3.Skin.sound取消音.t再生する();
 						this.bキー入力待ち = false;
@@ -118,7 +118,7 @@ namespace TJAPlayer3
 						TJAPlayer3.InputManager.tPolling(TJAPlayer3.app.bApplicationActive, false);
 					}
 				}
-				else if( ( TJAPlayer3.InputManager.Keyboard.bキーが押された( (int)SlimDXKeys.Key.Delete ) && ( this.n現在の選択行 >= 0 ) ) && ( this.n現在の選択行 <= 15 ) )
+				else if( ( TJAPlayer3.InputManager.Keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.Delete ) && ( this.n現在の選択行 >= 0 ) ) && ( this.n現在の選択行 <= 15 ) )
 				{
 					TJAPlayer3.Skin.sound決定音.t再生する();
 					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = EInputDevice.Unknown;
@@ -307,7 +307,7 @@ namespace TJAPlayer3
 				{
 					for( int i = 0; i < 8 + 0x80 + 8; i++ )		// +8 for Axis, +8 for HAT
 					{
-						if( device.bキーが押された( i ) )
+						if( device.bIsKeyPressed( i ) )
 						{
 							TJAPlayer3.Skin.sound決定音.t再生する();
 							TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( EInputDevice.Joypad, device.ID, i );
@@ -332,7 +332,7 @@ namespace TJAPlayer3
 					i != (int)SlimDXKeys.Key.LeftArrow &&
 					i != (int)SlimDXKeys.Key.RightArrow &&
 					i != (int)SlimDXKeys.Key.Delete &&
-					 TJAPlayer3.InputManager.Keyboard.bキーが押された( i ) )
+					 TJAPlayer3.InputManager.Keyboard.bIsKeyPressed( i ) )
 				{
 					TJAPlayer3.Skin.sound決定音.t再生する();
 					TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( EInputDevice.KeyBoard, 0, i );
@@ -352,7 +352,7 @@ namespace TJAPlayer3
 				{
 					for( int i = 0; i < 0x100; i++ )
 					{
-						if( device.bキーが押された( i ) )
+						if( device.bIsKeyPressed( i ) )
 						{
 							TJAPlayer3.Skin.sound決定音.t再生する();
 							TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( EInputDevice.MIDIInput, device.ID, i );
@@ -370,7 +370,7 @@ namespace TJAPlayer3
 		{
 			for( int i = 0; i < 8; i++ )
 			{
-				if( TJAPlayer3.InputManager.Mouse.bキーが押された( i ) )
+				if( TJAPlayer3.InputManager.Mouse.bIsKeyPressed( i ) )
 				{
 					TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( EInputDevice.Mouse, 0, i );
 					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = EInputDevice.Mouse;

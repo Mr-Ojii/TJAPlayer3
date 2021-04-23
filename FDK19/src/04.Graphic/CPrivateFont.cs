@@ -109,7 +109,7 @@ namespace FDK
 			this._pt = pt;
 			this._rectStrings = new Rectangle(0, 0, 0, 0);
 			this._ptOrigin = new Point(0, 0);
-			this.bDispose完了済み = false;
+			this.bDisposed = false;
 
 			FontStyle style;
 			switch (stylel) 
@@ -885,7 +885,7 @@ namespace FDK
 		//-----------------
 		public void Dispose()
 		{
-			if (!this.bDispose完了済み)
+			if (!this.bDisposed)
 			{
 				if (this._font != null)
 				{
@@ -898,7 +898,7 @@ namespace FDK
 					this._pfc = null;
 				}
 
-				this.bDispose完了済み = true;
+				this.bDisposed = true;
 			}
 		}
 
@@ -906,7 +906,7 @@ namespace FDK
 		#endregion
 		#region [ private ]
 		//-----------------
-		protected bool bDispose完了済み;
+		protected bool bDisposed;
 		protected Font _font;
 
 		private System.Drawing.Text.PrivateFontCollection _pfc;

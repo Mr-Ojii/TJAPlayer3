@@ -99,21 +99,21 @@ namespace TJAPlayer3
 			}
 
 			//入力信号に合わせて色を描画
-			if (TJAPlayer3.Pad.b押された(EPad.LBlue))
+			if (TJAPlayer3.Pad.bPressed(EPad.LBlue))
 				ka.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Diff + Width) * 4, Y);
-			if (TJAPlayer3.Pad.b押された(EPad.LRed))
+			if (TJAPlayer3.Pad.bPressed(EPad.LRed))
 				don.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Diff + Width) * 3, Y);
-			if (TJAPlayer3.Pad.b押された(EPad.RRed))
+			if (TJAPlayer3.Pad.bPressed(EPad.RRed))
 				don.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Diff + Width) * 2, Y);
-			if (TJAPlayer3.Pad.b押された(EPad.RBlue))
+			if (TJAPlayer3.Pad.bPressed(EPad.RBlue))
 				ka.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Diff + Width) * 1, Y);
-			if (TJAPlayer3.Pad.b押された(EPad.LBlue2P))
+			if (TJAPlayer3.Pad.bPressed(EPad.LBlue2P))
 				ka.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Diff + Width) * 1, Y);
-			if (TJAPlayer3.Pad.b押された(EPad.LRed2P))
+			if (TJAPlayer3.Pad.bPressed(EPad.LRed2P))
 				don.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Diff + Width) * 2, Y);
-			if (TJAPlayer3.Pad.b押された(EPad.RRed2P))
+			if (TJAPlayer3.Pad.bPressed(EPad.RRed2P))
 				don.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Diff + Width) * 3, Y);
-			if (TJAPlayer3.Pad.b押された(EPad.RBlue2P))
+			if (TJAPlayer3.Pad.bPressed(EPad.RBlue2P))
 				ka.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Diff + Width) * 4, Y);
 
 			for (int index = 0; index < 4; index++)
@@ -123,7 +123,7 @@ namespace TJAPlayer3
 				str[index].t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Diff + Width) * (index + 1), strY);
 			}
 
-			if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape))
+			if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
 				return 1;
 			return 0;
 		}

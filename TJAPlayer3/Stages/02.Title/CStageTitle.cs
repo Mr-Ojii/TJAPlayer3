@@ -145,20 +145,20 @@ namespace TJAPlayer3
 
 				if (base.eフェーズID == CStage.Eフェーズ.共通_通常状態)        // 通常状態
 				{
-					if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.Escape))
+					if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
 						return (int)E戻り値.EXIT;
 
-					if (TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.UpArrow) || TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.b押された(EPad.LBlue) || TJAPlayer3.Pad.b押された(EPad.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+					if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.UpArrow) || TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.bPressed(EPad.LBlue) || TJAPlayer3.Pad.bPressed(EPad.LBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 						this.tカーソルを上へ移動する();
 
-					if(TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.DownArrow) || TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.b押された(EPad.RBlue) || TJAPlayer3.Pad.b押された(EPad.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
+					if(TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.DownArrow) || TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.bPressed(EPad.RBlue) || TJAPlayer3.Pad.bPressed(EPad.RBlue2P) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 						this.tカーソルを下へ移動する();
 
-					if (((TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bキーが押された((int)SlimDXKeys.Key.Return)) || TJAPlayer3.Pad.b押された(EPad.LRed) || TJAPlayer3.Pad.b押された(EPad.RRed) || (TJAPlayer3.Pad.b押された(EPad.LRed2P) || TJAPlayer3.Pad.b押された(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2))
+					if (((TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return)) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2))
 					{
 						if ((this.n現在のカーソル行 == (int)E戻り値.GAMESTART - 1) && TJAPlayer3.Skin.soundゲーム開始音.b読み込み成功)
 						{
-							if (!((TJAPlayer3.InputManager.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftControl) || TJAPlayer3.InputManager.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightControl)) && TJAPlayer3.InputManager.Keyboard.bキーが押されている((int)SlimDXKeys.Key.A)))
+							if (!((TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.LeftControl) || TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.RightControl)) && TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.A)))
 								TJAPlayer3.Skin.soundゲーム開始音.t再生する();
 						}
 						else
@@ -172,7 +172,7 @@ namespace TJAPlayer3
 						this.actFO.tFadeOut開始();
 						base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
 					}
-					//					if ( CDTXMania.InputManager.Keyboard.bキーが押された( (int) Key.Space ) )
+					//					if ( CDTXMania.InputManager.Keyboard.bIsKeyPressed( (int) Key.Space ) )
 					//						Trace.TraceInformation( "DTXMania Title: SPACE key registered. " + CDTXMania.ct.nシステム時刻 );
 				}
 
@@ -233,7 +233,7 @@ namespace TJAPlayer3
 				var point = TJAPlayer3.app.PointToClient(new Point(OpenTK.Input.Mouse.GetCursorState().X,OpenTK.Input.Mouse.GetCursorState().Y));
 				// クライアント領域の横幅を取得して、1280で割る。もちろんdouble型。
 				var scaling = 1.000 * TJAPlayer3.app.ClientSize.Width / 1280;
-				if (TJAPlayer3.InputManager.Mouse.bキーが押された((int)SlimDXKeys.Mouse.Left))
+				if (TJAPlayer3.InputManager.Mouse.bIsKeyPressed((int)SlimDXKeys.Mouse.Left))
 				{
 					if (point.X >= 180 * scaling && point.X <= 490 * scaling && point.Y >= 0 && point.Y <= 20 * scaling)
 						CWebOpen.Open(strCreator);
@@ -260,7 +260,7 @@ namespace TJAPlayer3
 						switch (this.n現在のカーソル行)
 						{
 							case (int)E戻り値.GAMESTART - 1:
-								if (!((TJAPlayer3.InputManager.Keyboard.bキーが押されている((int)SlimDXKeys.Key.LeftControl) || TJAPlayer3.InputManager.Keyboard.bキーが押されている((int)SlimDXKeys.Key.RightControl)) && TJAPlayer3.InputManager.Keyboard.bキーが押されている((int)SlimDXKeys.Key.A)))
+								if (!((TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.LeftControl) || TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.RightControl)) && TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.A)))
 									return (int)E戻り値.GAMESTART;
 								else
 									return (int)E戻り値.MAINTENANCE;
