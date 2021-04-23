@@ -76,7 +76,7 @@ namespace TJAPlayer3
 		/// 曲リストをリセットする
 		/// </summary>
 		/// <param name="cs"></param>
-		public void Refresh(CSongs管理 cs, bool bRemakeSongTitleBar)
+		public void Refresh(CSongsManager cs, bool bRemakeSongTitleBar)
 		{
 			this.act曲リスト.Refresh(cs, bRemakeSongTitleBar);
 		}
@@ -1369,9 +1369,9 @@ namespace TJAPlayer3
 		{
 			List<C曲リストノード> list = new List<C曲リストノード>();
 			song = song.r親ノード;
-			if( ( song == null ) && ( TJAPlayer3.Songs管理.list曲ルート.Count > 0 ) )
+			if( ( song == null ) && ( TJAPlayer3.SongsManager.list曲ルート.Count > 0 ) )
 			{
-				foreach( C曲リストノード c曲リストノード in TJAPlayer3.Songs管理.list曲ルート )
+				foreach( C曲リストノード c曲リストノード in TJAPlayer3.SongsManager.list曲ルート )
 				{
 					if( ( c曲リストノード.eNodeType == C曲リストノード.ENodeType.SCORE ))
 					{

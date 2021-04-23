@@ -77,7 +77,7 @@ namespace FDK
 		public int ID { get; private set; }
 		public List<STInputEvent> listInputEvents { get; private set; }
 
-		public void tポーリング(bool bWindowがアクティブ中, bool bバッファ入力有効)
+		public void tPolling(bool bIsWindowActive, bool bEnableBufferInput)
 		{
 			for (int i = 0; i < 256; i++)
 			{
@@ -85,9 +85,9 @@ namespace FDK
 				this.bKeyPullUp[i] = false;
 			}
 
-			if (bWindowがアクティブ中)
+			if (bIsWindowActive)
 			{
-				if (bバッファ入力有効)
+				if (bEnableBufferInput)
 				{
 					this.listInputEvents.Clear();
 

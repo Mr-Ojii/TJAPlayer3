@@ -12,7 +12,7 @@ namespace TJAPlayer3
 	internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得するクラス
 	{													// ファイルキャッシュ(songslist.db)からの取得と、ディスクからの取得を、この一つのクラスに集約。
 
-		public CSongs管理 Songs管理						// 曲の探索結果はこのSongs管理に読み込まれる
+		public CSongsManager SongsManager						// 曲の探索結果はこのSongsManagerに読み込まれる
 		{
 			get;
 			private set;
@@ -53,7 +53,7 @@ namespace TJAPlayer3
 		public void SongListEnumCompletelyDone()
 		{
 			this.state = DTXEnumState.CompletelyDone;
-			this.Songs管理 = null;						// GCはOSに任せる
+			this.SongsManager = null;						// GCはOSに任せる
 		}
 
 		private readonly string strPathSongList = TJAPlayer3.strEXEのあるフォルダ + "songlist.json";
@@ -79,7 +79,7 @@ namespace TJAPlayer3
 		/// </summary>
 		public CEnumSongs()
 		{
-			this.Songs管理 = new CSongs管理();
+			this.SongsManager = new CSongsManager();
 		}
 
 		/// <summary>
@@ -107,9 +107,9 @@ namespace TJAPlayer3
 				}
 				// this.autoReset = new AutoResetEvent( true );
 
-				if ( this.Songs管理 == null )		// Enumerating Songs完了後、CONFIG画面から再スキャンしたときにこうなる
+				if ( this.SongsManager == null )		// Enumerating Songs完了後、CONFIG画面から再スキャンしたときにこうなる
 				{
-					this.Songs管理 = new CSongs管理();
+					this.SongsManager = new CSongsManager();
 				}
 				this.thDTXFileEnumerate = new Thread( new ThreadStart( this.t曲リストの構築2 ) );
 				this.thDTXFileEnumerate.Name = "曲リストの構築";
@@ -129,7 +129,7 @@ namespace TJAPlayer3
 				( ( thDTXFileEnumerate.ThreadState & ( System.Threading.ThreadState.Background ) ) != 0 ) )
 			{
 				// this.thDTXFileEnumerate.Suspend();		// obsoleteにつき使用中止
-				this.Songs管理.bIsSuspending = true;
+				this.SongsManager.bIsSuspending = true;
 				this.state = DTXEnumState.Suspended;
 				Trace.TraceInformation( "★曲データ検索スレッドを中断しました。" );
 			}
@@ -145,8 +145,8 @@ namespace TJAPlayer3
 				if ( ( this.thDTXFileEnumerate.ThreadState & ( System.Threading.ThreadState.WaitSleepJoin | System.Threading.ThreadState.StopRequested ) ) != 0 )	//
 				{
 					// this.thDTXFileEnumerate.Resume();	// obsoleteにつき使用中止
-					this.Songs管理.bIsSuspending = false;
-					this.Songs管理.autoReset.Set();
+					this.SongsManager.bIsSuspending = false;
+					this.SongsManager.autoReset.Set();
 					this.state = DTXEnumState.Ongoing;
 					Trace.TraceInformation( "★曲データ検索スレッドを再開しました。" );
 				}
@@ -244,14 +244,14 @@ namespace TJAPlayer3
 				{
 					if ( !TJAPlayer3.ConfigIni.bConfigIniがないかDTXManiaのバージョンが異なる )
 					{
-						CSongs管理 s = new CSongs管理();
-						s = Deserialize( strPathSongList );		// 直接this.Songs管理にdeserialize()結果を代入するのは避ける。nullにされてしまうことがあるため。
+						CSongsManager s = new CSongsManager();
+						s = Deserialize( strPathSongList );		// 直接this.SongsManagerにdeserialize()結果を代入するのは避ける。nullにされてしまうことがあるため。
 						if ( s != null )
 						{
-							this.Songs管理 = s;
+							this.SongsManager = s;
 						}
 
-						int scores = this.Songs管理.n検索されたスコア数;
+						int scores = this.SongsManager.n検索されたスコア数;
 						Trace.TraceInformation( "songlist.db の読み込みを完了しました。[{0}スコア]", scores );
 						lock ( TJAPlayer3.stageStartUp.list進行文字列 )
 						{
@@ -333,7 +333,7 @@ namespace TJAPlayer3
 
 									try
 									{
-										this.Songs管理.t曲を検索してリストを作成する(path, true);
+										this.SongsManager.t曲を検索してリストを作成する(path, true);
 									}
 									catch ( Exception e )
 									{
@@ -355,12 +355,12 @@ namespace TJAPlayer3
 				}
 				finally
 				{
-					Trace.TraceInformation( "曲データの検索を完了しました。[{0}曲{1}スコア]", this.Songs管理.n検索された曲ノード数, this.Songs管理.n検索されたスコア数 );
+					Trace.TraceInformation( "曲データの検索を完了しました。[{0}曲{1}スコア]", this.SongsManager.n検索された曲ノード数, this.SongsManager.n検索されたスコア数 );
 					Trace.Unindent();
 				}
 				//	lock ( this.list進行文字列 )
 				//	{
-				//		this.list進行文字列.Add( string.Format( "{0} ... {1} scores ({2} songs)", "Enumerating songs", this..Songs管理_裏読.n検索されたスコア数, this.Songs管理_裏読.n検索された曲ノード数 ) );
+				//		this.list進行文字列.Add( string.Format( "{0} ... {1} scores ({2} songs)", "Enumerating songs", this..SongsManager_裏読.n検索されたスコア数, this.SongsManager_裏読.n検索された曲ノード数 ) );
 				//	}
 				//-----------------------------
 				#endregion
@@ -373,7 +373,7 @@ namespace TJAPlayer3
 
 				try
 				{
-					this.Songs管理.t曲リストへ後処理を適用する();
+					this.SongsManager.t曲リストへ後処理を適用する();
 				}
 				catch ( Exception e )
 				{
@@ -397,7 +397,7 @@ namespace TJAPlayer3
 				Trace.TraceInformation( "enum7) 曲データの情報を songlist.db へ出力します。" );
 				Trace.Indent();
 
-				SerializeSongList( this.Songs管理, strPathSongList );
+				SerializeSongList( this.SongsManager, strPathSongList );
 				Trace.TraceInformation( "songlist.db への出力を完了しました。" );
 				Trace.Unindent();
 				//-----------------------------
@@ -423,7 +423,7 @@ namespace TJAPlayer3
 		/// <summary>
 		/// 曲リストのserialize
 		/// </summary>
-		private static void SerializeSongList( CSongs管理 cs, string strPathSongList )
+		private static void SerializeSongList( CSongsManager cs, string strPathSongList )
 		{
 			bool bSucceededSerialize = true;
 			try
@@ -460,9 +460,9 @@ namespace TJAPlayer3
 		/// <summary>
 		/// 曲リストのdeserialize
 		/// </summary>
-		/// <param name="songs管理"></param>
+		/// <param name="SongsManager"></param>
 		/// <param name="strPathSongList"></param>
-		private CSongs管理 Deserialize( string strPathSongList )
+		private CSongsManager Deserialize( string strPathSongList )
 		{
 			try
 			{
@@ -480,14 +480,14 @@ namespace TJAPlayer3
 						using (StreamReader file = new StreamReader(strPathSongList, Encoding.UTF8))
 						{
 							JsonSerializer serializer = new JsonSerializer();
-							CSongs管理 tmp = (CSongs管理)serializer.Deserialize(file, typeof(CSongs管理));
+							CSongsManager tmp = (CSongsManager)serializer.Deserialize(file, typeof(CSongsManager));
 							親ノードを設定する(ref tmp.list曲ルート, null);//親ノードはシリアライズしないため、読み込み後設定する。
 							return tmp;
 						}
 					}
 					catch ( Exception e )
 					{
-						// songs管理 = null;
+						// SongsManager = null;
 
 						Trace.TraceError( e.ToString() );
 						Trace.TraceError( "An exception has occurred, but processing continues. (a4289e34-7140-4b67-b821-3b5370a725e1)" );

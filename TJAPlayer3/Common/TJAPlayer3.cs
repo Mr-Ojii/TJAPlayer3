@@ -131,7 +131,7 @@ namespace TJAPlayer3
 			get;
 			private set;
 		}
-		public static CSongs管理 Songs管理
+		public static CSongsManager SongsManager
 		{
 			get;
 			set;    // 2012.1.26 yyagi private解除 CStage起動でのdesirialize読み込みのため
@@ -406,7 +406,7 @@ namespace TJAPlayer3
 			}
 			Timer?.t更新();
 			CSoundManager.rc演奏用タイマ?.t更新();
-			InputManager?.tポーリング(this.bApplicationActive, TJAPlayer3.ConfigIni.bバッファ入力);
+			InputManager?.tPolling(this.bApplicationActive, TJAPlayer3.ConfigIni.bバッファ入力);
 			FPS?.tカウンタ更新();
 
 			if (this.Device == null)
@@ -484,7 +484,7 @@ namespace TJAPlayer3
 								TJAPlayer3.stage選曲.act曲リスト.bIsEnumeratingSongs = false;
 
 								bool bRemakeSongTitleBar = (r現在のステージ.eStageID == CStage.EStage.SongSelect) ? true : false;
-								TJAPlayer3.stage選曲.Refresh(EnumSongs.Songs管理, bRemakeSongTitleBar);
+								TJAPlayer3.stage選曲.Refresh(EnumSongs.SongsManager, bRemakeSongTitleBar);
 								EnumSongs.SongListEnumCompletelyDone();
 							}
 							#endregion
@@ -1459,14 +1459,14 @@ namespace TJAPlayer3
 			}
 			//---------------------
 #endregion
-#region [ Songs管理 の初期化 ]
+#region [ SongsManager の初期化 ]
 			//---------------------
 			Trace.TraceInformation("曲リストの初期化を行います。");
 			Trace.Indent();
 			try
 			{
-				Songs管理 = new CSongs管理();
-				//				Songs管理_裏読 = new CSongs管理();
+				SongsManager = new CSongsManager();
+				//				SongsManager_裏読 = new CSongsManager();
 				EnumSongs = new CEnumSongs();
 				actEnumSongs = new CActEnumSongs();
 				Trace.TraceInformation("曲リストの初期化を完了しました。");
@@ -1624,13 +1624,13 @@ namespace TJAPlayer3
 #endregion
 #region [ 曲リストの終了処理 ]
 				//---------------------
-				if (Songs管理 != null)
+				if (SongsManager != null)
 				{
 					Trace.TraceInformation( "曲リストの終了処理を行います。" );
 					Trace.Indent();
 					try
 					{
-						Songs管理 = null;
+						SongsManager = null;
 						Trace.TraceInformation( "曲リストの終了処理を完了しました。" );
 					}
 					catch( Exception exception )

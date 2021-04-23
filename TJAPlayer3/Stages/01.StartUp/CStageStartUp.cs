@@ -106,15 +106,15 @@ namespace TJAPlayer3
 						break;
 
 					case CStage.Eフェーズ.起動2_曲を検索してリストを作成する:
-						this.str現在進行中 = string.Format( "{0} ... {1}", "Enumerating songs", es.Songs管理.n検索されたスコア数 );
+						this.str現在進行中 = string.Format( "{0} ... {1}", "Enumerating songs", es.SongsManager.n検索されたスコア数 );
 						break;
 
 					case CStage.Eフェーズ.起動3_スコアキャッシュをリストに反映する:
-						this.str現在進行中 = string.Format( "{0} ... {1}/{2}", "Loading score properties from songs.db", es.Songs管理.nスコアキャッシュから反映できたスコア数, es.Songs管理.n検索されたスコア数 );
+						this.str現在進行中 = string.Format( "{0} ... {1}/{2}", "Loading score properties from songs.db", es.SongsManager.nスコアキャッシュから反映できたスコア数, es.SongsManager.n検索されたスコア数 );
 						break;
 
 					case CStage.Eフェーズ.起動4_スコアキャッシュになかった曲をファイルから読み込んで反映する:
-						this.str現在進行中 = string.Format( "{0} ... {1}/{2}", "Loading score properties from files", es.Songs管理.nファイルから反映できたスコア数, es.Songs管理.n検索されたスコア数 - es.Songs管理.nスコアキャッシュから反映できたスコア数 );
+						this.str現在進行中 = string.Format( "{0} ... {1}/{2}", "Loading score properties from files", es.SongsManager.nファイルから反映できたスコア数, es.SongsManager.n検索されたスコア数 - es.SongsManager.nスコアキャッシュから反映できたスコア数 );
 						break;
 
 					case CStage.Eフェーズ.起動5_曲リストへ後処理を適用する:
@@ -152,7 +152,7 @@ namespace TJAPlayer3
 
 				if( es != null && es.IsSongListEnumCompletelyDone && TJAPlayer3.Tx.IsLoaded )							// 曲リスト作成が終わったら
 				{
-					TJAPlayer3.Songs管理 = es.Songs管理;		// 最後に、曲リストを拾い上げる
+					TJAPlayer3.SongsManager = es.SongsManager;		// 最後に、曲リストを拾い上げる
 					return 1;
 				}
 			}

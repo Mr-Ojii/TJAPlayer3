@@ -11,7 +11,7 @@ using FDK;
 namespace TJAPlayer3
 {
 	[Serializable]
-	internal class CSongs管理
+	internal class CSongsManager
 	{
 		// プロパティ
 
@@ -46,7 +46,7 @@ namespace TJAPlayer3
 
 		// コンストラクタ
 
-		public CSongs管理()
+		public CSongsManager()
 		{
 			this.list曲ルート = new List<C曲リストノード>();
 			this.n検索された曲ノード数 = 0;

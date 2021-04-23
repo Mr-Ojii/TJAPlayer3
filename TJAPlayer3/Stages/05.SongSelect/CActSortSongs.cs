@@ -39,7 +39,7 @@ namespace TJAPlayer3
 					nSortOrder *= 2;    // 0,1  => -1, 1
 					nSortOrder -= 1;
 					this.act曲リスト.t曲リストのソート(
-						CSongs管理.t曲リストのソート1_絶対パス順, nSortOrder
+						CSongsManager.t曲リストのソート1_絶対パス順, nSortOrder
 					);
 					this.act曲リスト.t選択曲が変更された(true);
 					break;
@@ -47,14 +47,14 @@ namespace TJAPlayer3
 					nSortOrder *= 2;    // 0,1  => -1, 1
 					nSortOrder -= 1;
 					this.act曲リスト.t曲リストのソート(
-						CSongs管理.t曲リストのソート2_タイトル順, nSortOrder
+						CSongsManager.t曲リストのソート2_タイトル順, nSortOrder
 					);
 					this.act曲リスト.t選択曲が変更された(true);
 					break;
 				//ジャンル順
 				case EOrder.Genre:
 					this.act曲リスト.t曲リストのソート(
-						CSongs管理.t曲リストのソート9_ジャンル順, nSortOrder
+						CSongsManager.t曲リストのソート9_ジャンル順, nSortOrder
 					);
 					this.act曲リスト.t選択曲が変更された( true );
 					break;

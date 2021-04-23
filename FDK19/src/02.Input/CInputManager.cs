@@ -152,7 +152,7 @@ namespace FDK
 			}
 			return null;
 		}
-		public void tポーリング(bool bWindowがアクティブ中, bool bバッファ入力有効)
+		public void tPolling(bool bIsWindowActive, bool bEnableBufferInput)
 		{
 			lock (this.objMidiIn排他用)
 			{
@@ -162,13 +162,13 @@ namespace FDK
 					IInputDevice device = this.listInputDevices[i];
 					try
 					{
-						device.tポーリング(bWindowがアクティブ中, bバッファ入力有効);
+						device.tPolling(bIsWindowActive, bEnableBufferInput);
 					}
 					catch (Exception e)                                      // #24016 2011.1.6 yyagi: catch exception for unplugging USB joystick, and remove the device object from the polling items.
 					{
 						this.listInputDevices.Remove(device);
 						device.Dispose();
-						Trace.TraceError("tポーリング時に例外発生。該当deviceをポーリング対象からRemoveしました。");
+						Trace.TraceError("tPolling時に例外発生。該当deviceをポーリング対象からRemoveしました。");
 						Trace.TraceError(e.ToString());
 					}
 				}
@@ -221,7 +221,7 @@ namespace FDK
 		}
 		public void Dispose(bool disposeManagedObjects)
 		{
-			if (!this.bDisposed済み)
+			if (!this.bDisposed)
 			{
 				if (disposeManagedObjects)
 				{
@@ -235,7 +235,7 @@ namespace FDK
 						this.listInputDevices.Clear();
 					}
 				}
-				this.bDisposed済み = true;
+				this.bDisposed = true;
 			}
 		}
 		~CInputManager()
@@ -253,7 +253,7 @@ namespace FDK
 		//-----------------
 		private IInputDevice _Keyboard;
 		private IInputDevice _Mouse;
-		private bool bDisposed済み;
+		private bool bDisposed;
 		private object objMidiIn排他用 = new object();
 		private List<IMidiInput> midiInputs = new List<IMidiInput>();
 

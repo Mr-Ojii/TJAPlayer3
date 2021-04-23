@@ -54,7 +54,7 @@ namespace FDK
 		public List<STInputEvent> listInputEvents { get; private set; }
 		public string strDeviceName { get; set; }
 
-		public void tポーリング(bool bWindowがアクティブ中, bool bバッファ入力有効)
+		public void tPolling(bool bIsWindowActive, bool bEnableBufferInput)
 		{
 			// this.listInputEvents = new List<STInputEvent>( 32 );
 			this.listInputEvents.Clear();                                // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();

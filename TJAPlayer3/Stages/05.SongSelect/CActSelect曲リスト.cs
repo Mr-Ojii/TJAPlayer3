@@ -130,7 +130,7 @@ namespace TJAPlayer3
 		{
 			if (song.r親ノード == null)                 // root階層のノートだったら
 			{
-				return TJAPlayer3.Songs管理.list曲ルート; // rootのリストを返す
+				return TJAPlayer3.SongsManager.list曲ルート; // rootのリストを返す
 			}
 			else
 			{
@@ -161,7 +161,7 @@ namespace TJAPlayer3
 			}
 			else
 			{
-				//				CDTXMania.Songs管理.t曲リストのソート3_演奏回数の多い順( songList, eInst, order );
+				//				CDTXMania.SongsManager.t曲リストのソート3_演奏回数の多い順( songList, eInst, order );
 				sf(songList, order, p);
 				//				this.r現在選択中の曲 = CDTXMania
 				this.t現在選択中の曲を元に曲バーを再構成する();
@@ -190,7 +190,7 @@ namespace TJAPlayer3
 					TJAPlayer3.Skin.GetSkinSubfolderFullNameFromSkinName(CSkin.GetSkinName(this.r現在選択中の曲.strSkinPath)), false);
 			}
 			if (TJAPlayer3.ConfigIni.OpenOneSide) {
-				List<C曲リストノード> list = TJAPlayer3.Songs管理.list曲ルート;
+				List<C曲リストノード> list = TJAPlayer3.SongsManager.list曲ルート;
 				list.InsertRange(list.IndexOf(this.r現在選択中の曲) + 1, this.r現在選択中の曲.list子リスト);
 				int n回数 = this.r現在選択中の曲.Openindex;
 				for (int index = 0; index <= n回数; index++)
@@ -231,7 +231,7 @@ namespace TJAPlayer3
 			TJAPlayer3.Skin.SetCurrentSkinSubfolderFullName(
 				(this.r現在選択中の曲.strSkinPath == "") ? "" : TJAPlayer3.Skin.GetSkinSubfolderFullNameFromSkinName(CSkin.GetSkinName(this.r現在選択中の曲.strSkinPath)), false);
 			if (TJAPlayer3.ConfigIni.OpenOneSide) {
-				List<C曲リストノード> list = TJAPlayer3.Songs管理.list曲ルート;
+				List<C曲リストノード> list = TJAPlayer3.SongsManager.list曲ルート;
 				this.r現在選択中の曲.r親ノード.Openindex = r現在選択中の曲.r親ノード.list子リスト.IndexOf(this.r現在選択中の曲);
 				list.Insert(list.IndexOf(this.r現在選択中の曲) + 1, this.r現在選択中の曲.r親ノード);
 				this.r現在選択中の曲 = this.r次の曲(r現在選択中の曲);
@@ -309,7 +309,7 @@ namespace TJAPlayer3
 				if (this.r現在選択中の曲.r親ノード != null)
 					this.r現在選択中の曲 = this.r現在選択中の曲.r親ノード.list子リスト[0];
 				else
-					this.r現在選択中の曲 = TJAPlayer3.Songs管理.list曲ルート[0];
+					this.r現在選択中の曲 = TJAPlayer3.SongsManager.list曲ルート[0];
 			}
 			this.t現在選択中の曲を元に曲バーを再構成する();
 			this.t選択曲が変更された(false);
@@ -323,7 +323,7 @@ namespace TJAPlayer3
 				if (this.r現在選択中の曲.r親ノード != null)
 					this.r現在選択中の曲 = this.r現在選択中の曲.r親ノード.list子リスト[this.r現在選択中の曲.r親ノード.list子リスト.Count - 1];
 				else
-					this.r現在選択中の曲 = TJAPlayer3.Songs管理.list曲ルート[TJAPlayer3.Songs管理.list曲ルート.Count - 1];
+					this.r現在選択中の曲 = TJAPlayer3.SongsManager.list曲ルート[TJAPlayer3.SongsManager.list曲ルート.Count - 1];
 			}
 			this.t現在選択中の曲を元に曲バーを再構成する();
 			this.t選択曲が変更された(false);
@@ -395,16 +395,16 @@ namespace TJAPlayer3
 		/// 曲リストをリセットする
 		/// </summary>
 		/// <param name="cs"></param>
-		public void Refresh(CSongs管理 cs, bool bRemakeSongTitleBar)      // #26070 2012.2.28 yyagi
+		public void Refresh(CSongsManager cs, bool bRemakeSongTitleBar)      // #26070 2012.2.28 yyagi
 		{
 			//			this.On非活性化();
 
 			if (cs != null && cs.list曲ルート.Count > 0)    // 新しい曲リストを検索して、1曲以上あった
 			{
-				TJAPlayer3.Songs管理 = cs;
+				TJAPlayer3.SongsManager = cs;
 				if (this.r現在選択中の曲 != null)          // r現在選択中の曲==null とは、「最初songlist.dbが無かった or 検索したが1曲もない」
 				{
-					this.r現在選択中の曲 = searchCurrentBreadcrumbsPosition(TJAPlayer3.Songs管理.list曲ルート, this.r現在選択中の曲.strBreadcrumbs);
+					this.r現在選択中の曲 = searchCurrentBreadcrumbsPosition(TJAPlayer3.SongsManager.list曲ルート, this.r現在選択中の曲.strBreadcrumbs);
 					if (bRemakeSongTitleBar)                    // 選曲画面以外に居るときには再構成しない (非活性化しているときに実行すると例外となる)
 					{
 						this.t現在選択中の曲を元に曲バーを再構成する();
@@ -459,7 +459,7 @@ namespace TJAPlayer3
 
 			song_last = song;
 
-			List<C曲リストノード> list = (song.r親ノード != null && !TJAPlayer3.ConfigIni.OpenOneSide) ? song.r親ノード.list子リスト : TJAPlayer3.Songs管理.list曲ルート;
+			List<C曲リストノード> list = (song.r親ノード != null && !TJAPlayer3.ConfigIni.OpenOneSide) ? song.r親ノード.list子リスト : TJAPlayer3.SongsManager.list曲ルート;
 			int index = list.IndexOf(song) + 1;
 			if (index <= 0)
 			{
@@ -509,8 +509,8 @@ namespace TJAPlayer3
 
 			// 現在選択中の曲がない（＝はじめての活性化）なら、現在選択中の曲をルートの先頭ノードに設定する。
 
-			if ((this.r現在選択中の曲 == null) && (TJAPlayer3.Songs管理.list曲ルート.Count > 0))
-				this.r現在選択中の曲 = TJAPlayer3.Songs管理.list曲ルート[0];
+			if ((this.r現在選択中の曲 == null) && (TJAPlayer3.SongsManager.list曲ルート.Count > 0))
+				this.r現在選択中の曲 = TJAPlayer3.SongsManager.list曲ルート[0];
 
 
 			// バー情報を初期化する。
@@ -634,8 +634,8 @@ namespace TJAPlayer3
 
 			// まだ選択中の曲が決まってなければ、曲ツリールートの最初の曲にセットする。
 
-			if ((this.r現在選択中の曲 == null) && (TJAPlayer3.Songs管理.list曲ルート.Count > 0))
-				this.r現在選択中の曲 = TJAPlayer3.Songs管理.list曲ルート[0];
+			if ((this.r現在選択中の曲 == null) && (TJAPlayer3.SongsManager.list曲ルート.Count > 0))
+				this.r現在選択中の曲 = TJAPlayer3.SongsManager.list曲ルート[0];
 
 			// 本ステージは、(1)登場アニメフェーズ → (2)通常フェーズ　と二段階にわけて進む。
 
@@ -1542,7 +1542,7 @@ namespace TJAPlayer3
 				return null;
 
 			
-			List<C曲リストノード> list = (song.r親ノード != null && !TJAPlayer3.ConfigIni.OpenOneSide) ? song.r親ノード.list子リスト : TJAPlayer3.Songs管理.list曲ルート;
+			List<C曲リストノード> list = (song.r親ノード != null && !TJAPlayer3.ConfigIni.OpenOneSide) ? song.r親ノード.list子リスト : TJAPlayer3.SongsManager.list曲ルート;
 
 			int index = list.IndexOf(song);
 
@@ -1559,7 +1559,7 @@ namespace TJAPlayer3
 			if (song == null)
 				return null;
 
-			List<C曲リストノード> list = (song.r親ノード != null && !TJAPlayer3.ConfigIni.OpenOneSide) ? song.r親ノード.list子リスト : TJAPlayer3.Songs管理.list曲ルート;
+			List<C曲リストノード> list = (song.r親ノード != null && !TJAPlayer3.ConfigIni.OpenOneSide) ? song.r親ノード.list子リスト : TJAPlayer3.SongsManager.list曲ルート;
 
 			int index = list.IndexOf(song);
 
@@ -1583,9 +1583,9 @@ namespace TJAPlayer3
 
 			if (song == null)
 			{
-				if (TJAPlayer3.Songs管理.list曲ルート[0] != null)
+				if (TJAPlayer3.SongsManager.list曲ルート[0] != null)
 				{
-					this.r現在選択中の曲 = TJAPlayer3.Songs管理.list曲ルート[0];
+					this.r現在選択中の曲 = TJAPlayer3.SongsManager.list曲ルート[0];
 					this.t現在選択中の曲を元に曲バーを再構成する();
 					this.t選択曲が変更された(false);
 					this.b選択曲が変更された = true;

@@ -48,7 +48,7 @@ namespace FDK
 			private set;
 		}
 
-		public void tポーリング(bool bWindowがアクティブ中, bool bバッファ入力有効)
+		public void tPolling(bool bIsWindowActive, bool bEnableBufferInput)
 		{
 			#region [ bButtonフラグ初期化 ]
 			for (int i = 0; i < 256; i++)
@@ -58,7 +58,7 @@ namespace FDK
 			}
 			#endregion
 
-			if (bWindowがアクティブ中)
+			if (bIsWindowActive)
 			{
 				this.listInputEvents.Clear();                        // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
 

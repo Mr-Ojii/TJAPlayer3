@@ -30,7 +30,7 @@ namespace FDK
 		public int ID { get; private set; }
 		public List<STInputEvent> listInputEvents { get; private set; }
 
-		public void tポーリング(bool bWindowがアクティブ中, bool bバッファ入力有効)
+		public void tPolling(bool bIsWindowActive, bool bEnableBufferInput)
 		{
 			for (int i = 0; i < Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length; i++)
 			{
@@ -38,7 +38,7 @@ namespace FDK
 				this.bMousePullUp[i] = false;
 			}
 
-			if (bWindowがアクティブ中)
+			if (bIsWindowActive)
 			{
 
 				this.listInputEvents.Clear();            // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
