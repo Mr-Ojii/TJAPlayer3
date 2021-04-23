@@ -18,7 +18,7 @@ namespace FDK
 		{
 			this.hMidiIn = IntPtr.Zero;
 			this.listEventBuffer = new List<STInputEvent>(32);
-			this.list入力イベント = new List<STInputEvent>(32);
+			this.listInputEvents = new List<STInputEvent>(32);
 			this.eInputDeviceType = EInputDeviceType.MidiIn;
 			this.GUID = "";
 			this.ID = (int)nID;
@@ -51,22 +51,22 @@ namespace FDK
 		public EInputDeviceType eInputDeviceType { get; private set; }
 		public string GUID { get; private set; }
 		public int ID { get; private set; }
-		public List<STInputEvent> list入力イベント { get; private set; }
+		public List<STInputEvent> listInputEvents { get; private set; }
 		public string strDeviceName { get; set; }
 
 		public void tポーリング(bool bWindowがアクティブ中, bool bバッファ入力有効)
 		{
-			// this.list入力イベント = new List<STInputEvent>( 32 );
-			this.list入力イベント.Clear();                                // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
+			// this.listInputEvents = new List<STInputEvent>( 32 );
+			this.listInputEvents.Clear();                                // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
 
 			for (int i = 0; i < this.listEventBuffer.Count; i++)
-				this.list入力イベント.Add(this.listEventBuffer[i]);
+				this.listInputEvents.Add(this.listEventBuffer[i]);
 
 			this.listEventBuffer.Clear();
 		}
 		public bool bキーが押された(int nKey)
 		{
-			foreach (STInputEvent event2 in this.list入力イベント)
+			foreach (STInputEvent event2 in this.listInputEvents)
 			{
 				if ((event2.nKey == nKey) && event2.b押された)
 				{
@@ -98,9 +98,9 @@ namespace FDK
 			{
 				this.listEventBuffer = null;
 			}
-			if (this.list入力イベント != null)
+			if (this.listInputEvents != null)
 			{
-				this.list入力イベント = null;
+				this.listInputEvents = null;
 			}
 		}
 		//-----------------

@@ -18,7 +18,7 @@ namespace FDK
 
 			for (int i = 0; i < this.bMouseState.Length; i++)
 				this.bMouseState[i] = false;
-			this.list入力イベント = new List<STInputEvent>(32);
+			this.listInputEvents = new List<STInputEvent>(32);
 		}
 
 		// メソッド
@@ -28,7 +28,7 @@ namespace FDK
 		public EInputDeviceType eInputDeviceType { get; private set; }
 		public string GUID { get; private set; }
 		public int ID { get; private set; }
-		public List<STInputEvent> list入力イベント { get; private set; }
+		public List<STInputEvent> listInputEvents { get; private set; }
 
 		public void tポーリング(bool bWindowがアクティブ中, bool bバッファ入力有効)
 		{
@@ -41,7 +41,7 @@ namespace FDK
 			if (bWindowがアクティブ中)
 			{
 
-				this.list入力イベント.Clear();            // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
+				this.listInputEvents.Clear();            // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
 				
 				//-----------------------------
 				MouseState currentState = Mouse.GetState();
@@ -59,7 +59,7 @@ namespace FDK
 								b離された = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.list入力イベント.Add(ev);
+							this.listInputEvents.Add(ev);
 
 							this.bMouseState[j] = true;
 							this.bMousePushDown[j] = true;
@@ -73,7 +73,7 @@ namespace FDK
 								b離された = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.list入力イベント.Add(ev);
+							this.listInputEvents.Add(ev);
 
 							this.bMouseState[j] = false;
 							this.bMousePullUp[j] = true;
@@ -109,9 +109,9 @@ namespace FDK
 		{
 			if (!this.bDispose完了済み)
 			{
-				if (this.list入力イベント != null)
+				if (this.listInputEvents != null)
 				{
-					this.list入力イベント = null;
+					this.listInputEvents = null;
 				}
 				this.bDispose完了済み = true;
 			}

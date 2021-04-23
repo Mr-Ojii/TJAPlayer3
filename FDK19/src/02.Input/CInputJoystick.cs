@@ -19,7 +19,7 @@ namespace FDK
 			for (int i = 0; i < this.bButtonState.Length; i++)
 				this.bButtonState[i] = false;
 
-			this.list入力イベント = new List<STInputEvent>(32);
+			this.listInputEvents = new List<STInputEvent>(32);
 		}
 
 
@@ -42,7 +42,7 @@ namespace FDK
 			get;
 			private set;
 		}
-		public List<STInputEvent> list入力イベント
+		public List<STInputEvent> listInputEvents
 		{
 			get;
 			private set;
@@ -60,7 +60,7 @@ namespace FDK
 
 			if (bWindowがアクティブ中)
 			{
-				this.list入力イベント.Clear();                        // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
+				this.listInputEvents.Clear();                        // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
 
 
 				#region [ 入力 ]
@@ -80,7 +80,7 @@ namespace FDK
 								b押された = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.list入力イベント.Add(ev);
+							this.listInputEvents.Add(ev);
 
 							this.bButtonState[0] = true;
 							this.bButtonPushDown[0] = true;
@@ -96,7 +96,7 @@ namespace FDK
 								b押された = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.list入力イベント.Add(ev);
+							this.listInputEvents.Add(ev);
 
 							this.bButtonState[0] = false;
 							this.bButtonPullUp[0] = true;
@@ -116,7 +116,7 @@ namespace FDK
 								b押された = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.list入力イベント.Add(ev);
+							this.listInputEvents.Add(ev);
 
 							this.bButtonState[1] = true;
 							this.bButtonPushDown[1] = true;
@@ -132,7 +132,7 @@ namespace FDK
 								b押された = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.list入力イベント.Add(event7);
+							this.listInputEvents.Add(event7);
 
 							this.bButtonState[1] = false;
 							this.bButtonPullUp[1] = true;
@@ -152,7 +152,7 @@ namespace FDK
 								b押された = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.list入力イベント.Add(ev);
+							this.listInputEvents.Add(ev);
 
 							this.bButtonState[2] = true;
 							this.bButtonPushDown[2] = true;
@@ -168,7 +168,7 @@ namespace FDK
 								b押された = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.list入力イベント.Add(ev);
+							this.listInputEvents.Add(ev);
 
 							this.bButtonState[2] = false;
 							this.bButtonPullUp[2] = true;
@@ -188,7 +188,7 @@ namespace FDK
 								b押された = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.list入力イベント.Add(ev);
+							this.listInputEvents.Add(ev);
 
 							this.bButtonState[3] = true;
 							this.bButtonPushDown[3] = true;
@@ -204,7 +204,7 @@ namespace FDK
 								b押された = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.list入力イベント.Add(ev);
+							this.listInputEvents.Add(ev);
 
 							this.bButtonState[3] = false;
 							this.bButtonPullUp[3] = true;
@@ -224,7 +224,7 @@ namespace FDK
 								b押された = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.list入力イベント.Add(ev);
+							this.listInputEvents.Add(ev);
 
 							this.bButtonState[4] = true;
 							this.bButtonPushDown[4] = true;
@@ -240,7 +240,7 @@ namespace FDK
 								b押された = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.list入力イベント.Add(ev);
+							this.listInputEvents.Add(ev);
 
 							this.bButtonState[4] = false;
 							this.bButtonPullUp[4] = true;
@@ -260,7 +260,7 @@ namespace FDK
 								b押された = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.list入力イベント.Add(ev);
+							this.listInputEvents.Add(ev);
 
 							this.bButtonState[5] = true;
 							this.bButtonPushDown[5] = true;
@@ -276,7 +276,7 @@ namespace FDK
 								b押された = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.list入力イベント.Add(event15);
+							this.listInputEvents.Add(event15);
 
 							this.bButtonState[5] = false;
 							this.bButtonPullUp[5] = true;
@@ -296,7 +296,7 @@ namespace FDK
 								b押された = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.list入力イベント.Add(ev);
+							this.listInputEvents.Add(ev);
 
 							this.bButtonState[6] = true;
 							this.bButtonPushDown[6] = true;
@@ -312,7 +312,7 @@ namespace FDK
 								b押された = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.list入力イベント.Add(ev);
+							this.listInputEvents.Add(ev);
 
 							this.bButtonState[6] = false;
 							this.bButtonPullUp[6] = true;
@@ -332,7 +332,7 @@ namespace FDK
 								b押された = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.list入力イベント.Add(ev);
+							this.listInputEvents.Add(ev);
 
 							this.bButtonState[7] = true;
 							this.bButtonPushDown[7] = true;
@@ -348,7 +348,7 @@ namespace FDK
 								b押された = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.list入力イベント.Add(event15);
+							this.listInputEvents.Add(event15);
 
 							this.bButtonState[7] = false;
 							this.bButtonPullUp[7] = true;
@@ -369,7 +369,7 @@ namespace FDK
 								b押された = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.list入力イベント.Add(item);
+							this.listInputEvents.Add(item);
 
 							this.bButtonState[8 + j] = true;
 							this.bButtonPushDown[8 + j] = true;
@@ -383,7 +383,7 @@ namespace FDK
 								b押された = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.list入力イベント.Add(item);
+							this.listInputEvents.Add(item);
 
 							this.bButtonState[8 + j] = false;
 							this.bButtonPullUp[8 + j] = true;
@@ -408,7 +408,7 @@ namespace FDK
 									b押された = true,
 									nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 								};
-								this.list入力イベント.Add(stevent);
+								this.listInputEvents.Add(stevent);
 
 								this.bButtonState[stevent.nKey] = true;
 								this.bButtonPushDown[stevent.nKey] = true;
@@ -435,7 +435,7 @@ namespace FDK
 								b押された = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.list入力イベント.Add(stevent);
+							this.listInputEvents.Add(stevent);
 
 							this.bButtonState[nWay] = false;
 							this.bButtonPullUp[nWay] = true;
@@ -473,9 +473,9 @@ namespace FDK
 		{
 			if (!this.bDispose完了済み)
 			{
-				if (this.list入力イベント != null)
+				if (this.listInputEvents != null)
 				{
-					this.list入力イベント = null;
+					this.listInputEvents = null;
 				}
 				this.bDispose完了済み = true;
 			}

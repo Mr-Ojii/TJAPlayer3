@@ -11,7 +11,7 @@ namespace FDK
 	{
 		// 解放
 
-		public static void tDisposeする<T>( ref T obj )
+		public static void tDispose<T>( ref T obj )
 		{
 			if( obj == null )
 				return;
@@ -24,7 +24,7 @@ namespace FDK
 				obj = default( T );
 			}
 		}
-		public static void tDisposeする<T>( T obj )
+		public static void tDispose<T>( T obj )
 		{
 			if( obj == null )
 				return;
@@ -35,7 +35,7 @@ namespace FDK
 				d.Dispose();
 		}
 
-		public static void t完全なガベージコレクションを実施する()
+		public static void tRunCompleteGC()
 		{
 			GC.Collect();					// アクセス不可能なオブジェクトを除去し、ファイナライぜーション実施。
 			GC.WaitForPendingFinalizers();	// ファイナライゼーションが終わるまでスレッドを待機。

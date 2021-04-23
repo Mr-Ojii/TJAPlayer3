@@ -301,7 +301,7 @@ namespace TJAPlayer3
 		}
 		private bool tキーチェックとアサイン_Joypad()
 		{
-			foreach( IInputDevice device in TJAPlayer3.InputManager.list入力デバイス )
+			foreach( IInputDevice device in TJAPlayer3.InputManager.listInputDevices )
 			{
 				if( device.eInputDeviceType == EInputDeviceType.Joystick )
 				{
@@ -346,7 +346,7 @@ namespace TJAPlayer3
 		}
 		private bool tキーチェックとアサイン_MidiIn()
 		{
-			foreach( IInputDevice device in TJAPlayer3.InputManager.list入力デバイス )
+			foreach( IInputDevice device in TJAPlayer3.InputManager.listInputDevices )
 			{
 				if( device.eInputDeviceType == EInputDeviceType.MidiIn )
 				{

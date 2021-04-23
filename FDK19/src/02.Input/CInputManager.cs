@@ -13,7 +13,7 @@ namespace FDK
 	{
 		// プロパティ
 
-		public List<IInputDevice> list入力デバイス
+		public List<IInputDevice> listInputDevices
 		{
 			get;
 			private set;
@@ -26,7 +26,7 @@ namespace FDK
 				{
 					return this._Keyboard;
 				}
-				foreach (IInputDevice device in this.list入力デバイス)
+				foreach (IInputDevice device in this.listInputDevices)
 				{
 					if (device.eInputDeviceType == EInputDeviceType.Keyboard)
 					{
@@ -45,7 +45,7 @@ namespace FDK
 				{
 					return this._Mouse;
 				}
-				foreach (IInputDevice device in this.list入力デバイス)
+				foreach (IInputDevice device in this.listInputDevices)
 				{
 					if (device.eInputDeviceType == EInputDeviceType.Mouse)
 					{
@@ -61,7 +61,7 @@ namespace FDK
 		// コンストラクタ
 		public CInputManager(IntPtr hWnd)
 		{
-			this.list入力デバイス = new List<IInputDevice>(10);
+			this.listInputDevices = new List<IInputDevice>(10);
 			#region [ Enumerate keyboard/mouse: exception is masked if keyboard/mouse is not connected ]
 			CInputKeyboard cinputkeyboard = null;
 			CInputMouse cinputmouse = null;
@@ -75,11 +75,11 @@ namespace FDK
 			}
 			if (cinputkeyboard != null)
 			{
-				this.list入力デバイス.Add(cinputkeyboard);
+				this.listInputDevices.Add(cinputkeyboard);
 			}
 			if (cinputmouse != null)
 			{
-				this.list入力デバイス.Add(cinputmouse);
+				this.listInputDevices.Add(cinputmouse);
 			}
 			#endregion
 			#region [ Enumerate joypad ]
@@ -88,7 +88,7 @@ namespace FDK
 				for (int joynum = 0; joynum < 8; joynum++)//2020.06.28 Mr-Ojii joystickの検出数を返す関数が見つからないので適当に8個で
 				{
 					if (OpenTK.Input.Joystick.GetState(joynum).IsConnected)
-						this.list入力デバイス.Add(new CInputJoystick(joynum));
+						this.listInputDevices.Add(new CInputJoystick(joynum));
 				}
 			}
 			catch (Exception e)
@@ -107,7 +107,7 @@ namespace FDK
 					midiintmp.MessageReceived += onMessageRecevied;
 					this.midiInputs.Add(midiintmp);
 					CInputMIDI item = new CInputMIDI(uint.Parse(midiinlisttmp[i].Id));
-					this.list入力デバイス.Add(item);
+					this.listInputDevices.Add(item);
 				}
 			}
 			catch (Exception e) 
@@ -121,7 +121,7 @@ namespace FDK
 
 		public IInputDevice Joystick(int ID)
 		{
-			foreach (IInputDevice device in this.list入力デバイス)
+			foreach (IInputDevice device in this.listInputDevices)
 			{
 				if ((device.eInputDeviceType == EInputDeviceType.Joystick) && (device.ID == ID))
 				{
@@ -132,7 +132,7 @@ namespace FDK
 		}
 		public IInputDevice Joystick(string GUID)
 		{
-			foreach (IInputDevice device in this.list入力デバイス)
+			foreach (IInputDevice device in this.listInputDevices)
 			{
 				if ((device.eInputDeviceType == EInputDeviceType.Joystick) && device.GUID.Equals(GUID))
 				{
@@ -143,7 +143,7 @@ namespace FDK
 		}
 		public IInputDevice MidiIn(int ID)
 		{
-			foreach (IInputDevice device in this.list入力デバイス)
+			foreach (IInputDevice device in this.listInputDevices)
 			{
 				if ((device.eInputDeviceType == EInputDeviceType.MidiIn) && (device.ID == ID))
 				{
@@ -156,17 +156,17 @@ namespace FDK
 		{
 			lock (this.objMidiIn排他用)
 			{
-				//				foreach( IInputDevice device in this.list入力デバイス )
-				for (int i = this.list入力デバイス.Count - 1; i >= 0; i--)    // #24016 2011.1.6 yyagi: change not to use "foreach" to avoid InvalidOperation exception by Remove().
+				//				foreach( IInputDevice device in this.listInputDevices )
+				for (int i = this.listInputDevices.Count - 1; i >= 0; i--)    // #24016 2011.1.6 yyagi: change not to use "foreach" to avoid InvalidOperation exception by Remove().
 				{
-					IInputDevice device = this.list入力デバイス[i];
+					IInputDevice device = this.listInputDevices[i];
 					try
 					{
 						device.tポーリング(bWindowがアクティブ中, bバッファ入力有効);
 					}
 					catch (Exception e)                                      // #24016 2011.1.6 yyagi: catch exception for unplugging USB joystick, and remove the device object from the polling items.
 					{
-						this.list入力デバイス.Remove(device);
+						this.listInputDevices.Remove(device);
 						device.Dispose();
 						Trace.TraceError("tポーリング時に例外発生。該当deviceをポーリング対象からRemoveしました。");
 						Trace.TraceError(e.ToString());
@@ -179,9 +179,9 @@ namespace FDK
 		{
 			lock (this.objMidiIn排他用)
 			{
-				if ((this.list入力デバイス != null) && (this.list入力デバイス.Count != 0))
+				if ((this.listInputDevices != null) && (this.listInputDevices.Count != 0))
 				{
-					foreach (IInputDevice device in this.list入力デバイス)
+					foreach (IInputDevice device in this.listInputDevices)
 					{
 						CInputKeyboard tkey = device as CInputKeyboard;
 						if ((tkey != null))
@@ -198,9 +198,9 @@ namespace FDK
 		{
 			lock (this.objMidiIn排他用)
 			{
-				if ((this.list入力デバイス != null) && (this.list入力デバイス.Count != 0))
+				if ((this.listInputDevices != null) && (this.listInputDevices.Count != 0))
 				{
-					foreach (IInputDevice device in this.list入力デバイス)
+					foreach (IInputDevice device in this.listInputDevices)
 					{
 						CInputKeyboard tkey = device as CInputKeyboard;
 						if ((tkey != null))
@@ -226,13 +226,13 @@ namespace FDK
 				if (disposeManagedObjects)
 				{
 					midiInputs.Clear();
-					foreach (IInputDevice device2 in this.list入力デバイス)
+					foreach (IInputDevice device2 in this.listInputDevices)
 					{
 						device2.Dispose();
 					}
 					lock (this.objMidiIn排他用)
 					{
-						this.list入力デバイス.Clear();
+						this.listInputDevices.Clear();
 					}
 				}
 				this.bDisposed済み = true;
@@ -265,9 +265,9 @@ namespace FDK
 
 			lock (this.objMidiIn排他用)
 			{
-				if ((this.list入力デバイス != null) && (this.list入力デバイス.Count != 0))
+				if ((this.listInputDevices != null) && (this.listInputDevices.Count != 0))
 				{
-					foreach (IInputDevice device in this.list入力デバイス)
+					foreach (IInputDevice device in this.listInputDevices)
 					{
 						CInputMIDI tmidi = device as CInputMIDI;
 						if ((tmidi != null) && (tmidi.ID == dev)) 

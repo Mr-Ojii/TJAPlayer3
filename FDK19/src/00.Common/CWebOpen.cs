@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace FDK
 {
-    public class CWebOpen
+    public static class CWebOpen
     {
         //ref:https://brockallen.com/2016/09/24/process-start-for-urls-on-net-core/
         public static void Open(string url)

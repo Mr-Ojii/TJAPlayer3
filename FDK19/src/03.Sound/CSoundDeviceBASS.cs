@@ -251,7 +251,7 @@ namespace FDK
 
 			if (bManagedDispose)
 			{
-				CCommon.tDisposeする(this.tmSystemTimer);
+				CCommon.tDispose(this.tmSystemTimer);
 				this.tmSystemTimer = null;
 			}
 		}

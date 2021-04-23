@@ -20,7 +20,7 @@ namespace FDK
 		{
 			get;
 		}
-		List<STInputEvent> list入力イベント
+		List<STInputEvent> listInputEvents
 		{
 			get;
 		}

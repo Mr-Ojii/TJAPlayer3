@@ -46,11 +46,11 @@ namespace TJAPlayer3
 			List<STInputEvent> list = new List<STInputEvent>();
 
 			// すべての入力デバイスについて…
-			foreach( IInputDevice device in this.rInputManager.list入力デバイス )
+			foreach( IInputDevice device in this.rInputManager.listInputDevices )
 			{
-				if( ( device.list入力イベント != null ) && ( device.list入力イベント.Count != 0 ) )
+				if( ( device.listInputEvents != null ) && ( device.listInputEvents.Count != 0 ) )
 				{
-					foreach( STInputEvent event2 in device.list入力イベント )
+					foreach( STInputEvent event2 in device.listInputEvents )
 					{
 						for( int i = 0; i < stkeyassignArray.Length; i++ )
 						{

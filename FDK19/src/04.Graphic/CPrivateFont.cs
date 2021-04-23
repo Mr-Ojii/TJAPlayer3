@@ -37,16 +37,6 @@ namespace FDK
 	/// テクスチャに定義するようにしてください。
 	/// </remarks>
 
-	#region In拡張子
-	public static class StringExtensions
-	{
-		public static bool In(this string str, params string[] param)
-		{
-			return param.Contains(str);
-		}
-	}
-	#endregion
-
 	public class CPrivateFont : IDisposable
 	{
 		#region[static系]
@@ -562,13 +552,13 @@ namespace FDK
 					if (CorrectionX_Chara_List_Vertical != null && CorrectionX_Chara_List_Value_Vertical != null)
 					{
 						int Xindex = Array.IndexOf(CorrectionX_Chara_List_Vertical, strName[i]);
-						if (-1 < Xindex && Xindex < CorrectionX_Chara_List_Value_Vertical.Length && strName[i].In(CorrectionX_Chara_List_Vertical))
+						if (-1 < Xindex && Xindex < CorrectionX_Chara_List_Value_Vertical.Length && CorrectionX_Chara_List_Vertical.Contains(strName[i]))
 						{
 							nEdge補正X = CorrectionX_Chara_List_Value_Vertical[Xindex];
 						}
 						else
 						{
-							if (-1 < Xindex && CorrectionX_Chara_List_Value_Vertical.Length <= Xindex && strName[i].In(CorrectionX_Chara_List_Vertical))
+							if (-1 < Xindex && CorrectionX_Chara_List_Value_Vertical.Length <= Xindex && CorrectionX_Chara_List_Vertical.Contains(strName[i]))
 							{
 								nEdge補正X = CorrectionX_Chara_List_Value_Vertical[0];
 							}
@@ -582,13 +572,13 @@ namespace FDK
 					if (CorrectionY_Chara_List_Vertical != null && CorrectionY_Chara_List_Value_Vertical != null)
 					{
 						int Yindex = Array.IndexOf(CorrectionY_Chara_List_Vertical, strName[i]);
-						if (-1 < Yindex && Yindex < CorrectionY_Chara_List_Value_Vertical.Length && strName[i].In(CorrectionY_Chara_List_Vertical))
+						if (-1 < Yindex && Yindex < CorrectionY_Chara_List_Value_Vertical.Length &&  CorrectionY_Chara_List_Vertical.Contains(strName[i]))
 						{
 							nEdge補正Y = CorrectionY_Chara_List_Value_Vertical[Yindex];
 						}
 						else
 						{
-							if (-1 < Yindex && CorrectionY_Chara_List_Value_Vertical.Length <= Yindex && strName[i].In(CorrectionY_Chara_List_Vertical))
+							if (-1 < Yindex && CorrectionY_Chara_List_Value_Vertical.Length <= Yindex && CorrectionY_Chara_List_Vertical.Contains(strName[i]))
 							{
 								nEdge補正Y = CorrectionY_Chara_List_Value_Vertical[0];
 							}
@@ -680,7 +670,7 @@ namespace FDK
 							//nNowPos = nNowPos;
 						}
 					}
-					else if (strName[i].In(Rotate_Chara_List_Vertical))
+					else if (Rotate_Chara_List_Vertical.Contains(strName[i]))
 					{
 						bmpV.RotateFlip(RotateFlipType.Rotate90FlipNone);
 					}

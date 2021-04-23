@@ -7,7 +7,7 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace FDK
 {
-	public class CConvert
+	public static class CConvert
 	{
 		// プロパティ
 
@@ -219,15 +219,5 @@ namespace FDK
 				return SixLabors.ImageSharp.Image.Load<Rgba32>(memoryStream);
 			}
 		}
-
-		#region [ private ]
-		//-----------------
-
-		// private コンストラクタでインスタンス生成を禁止する。
-		private CConvert()
-		{
-		}
-		//-----------------
-		#endregion
 	} 
 }

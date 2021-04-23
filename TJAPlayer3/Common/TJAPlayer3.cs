@@ -285,13 +285,6 @@ namespace TJAPlayer3
 				return "Ver." + Assembly.GetExecutingAssembly().GetName().Version.ToString() + "(" + Platform + "-" + (Environment.Is64BitProcess ? "x64" : "x86") + ")";
 			}
 		}
-
-		//		public static CTimer ct;
-		public IntPtr WindowHandle                  // 2012.10.24 yyagi; to add ASIO support
-		{
-			get { return base.WindowInfo.Handle; }
-		}
-
 		#endregion
 
 		// コンストラクタ
@@ -1343,7 +1336,7 @@ namespace TJAPlayer3
 			try
 			{
 				InputManager = new CInputManager(base.WindowInfo.Handle);
-				foreach (IInputDevice device in InputManager.list入力デバイス)
+				foreach (IInputDevice device in InputManager.listInputDevices)
 				{
 					if ((device.eInputDeviceType == EInputDeviceType.Joystick) && !ConfigIni.dicJoystick.ContainsValue(device.GUID))
 					{
