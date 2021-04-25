@@ -99,24 +99,30 @@ namespace TJAPlayer3
 
 		public override void OnManagedリソースの作成()
 		{
-			this.soundFailed = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Failed.ogg"), ESoundGroup.SoundEffect);
-			this.soundClear = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Clear.ogg"), ESoundGroup.SoundEffect);
-			this.soundFullCombo = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Full Combo.ogg"), ESoundGroup.SoundEffect);
-			this.soundDonderFullCombo = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Donder Full Combo.ogg"), ESoundGroup.SoundEffect);
-			base.OnManagedリソースの作成();
+			if (!base.b活性化してない)
+			{
+				this.soundFailed = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Failed.ogg"), ESoundGroup.SoundEffect);
+				this.soundClear = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Clear.ogg"), ESoundGroup.SoundEffect);
+				this.soundFullCombo = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Full Combo.ogg"), ESoundGroup.SoundEffect);
+				this.soundDonderFullCombo = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Donder Full Combo.ogg"), ESoundGroup.SoundEffect);
+				base.OnManagedリソースの作成();
+			}
 		}
 
 		public override void OnManagedリソースの解放()
 		{
-			if (this.soundFailed != null)
-				this.soundFailed.t解放する();
-			if (this.soundClear != null)
-				this.soundClear.t解放する();
-			if (this.soundFullCombo != null)
-				this.soundFullCombo.t解放する();
-			if (this.soundDonderFullCombo != null)
-				this.soundDonderFullCombo.t解放する();
-			base.OnManagedリソースの解放();
+			if (!base.b活性化してない)
+			{
+				if (this.soundFailed != null)
+					this.soundFailed.t解放する();
+				if (this.soundClear != null)
+					this.soundClear.t解放する();
+				if (this.soundFullCombo != null)
+					this.soundFullCombo.t解放する();
+				if (this.soundDonderFullCombo != null)
+					this.soundDonderFullCombo.t解放する();
+				base.OnManagedリソースの解放();
+			}
 		}
 
 		public override int On進行描画()
