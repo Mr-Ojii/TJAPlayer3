@@ -75,8 +75,8 @@ namespace TJAPlayer3
 #endif
 						writer.WriteLine("<table>");
 						writer.WriteLine("<tbody>");
-						writer.WriteLine("<tr><th>Name</th><th>Version</th><th>Exception</th><th>DateTime</th><th>SkinName</th><th>SkinVersion</th><th>SkinCreator</th><th>OS</th></tr>");
-						writer.WriteLine($"<tr><td>{asmApp.Name}</td><td>{asmApp.Version.ToString()}</td><td>{e.ToString()}</td><td>{DateTime.UtcNow.ToString()}</td><td>{SkinName}</td><td>{SkinVersion}</td><td>{SkinCreator}</td><td>{Environment.OSVersion.ToString()}</td></tr>");
+						writer.WriteLine("<tr><th>Name</th><th>Version</th><th>Exception</th><th>DateTime</th><th>SkinName</th><th>SkinVersion</th><th>SkinCreator</th><th>OS</th><th>OSDescription</th><th>OSArchitecture</th><th>RuntimeIdentifier</th><th>FrameworkDescription</th><th>ProcessArchitecture</th></tr>");
+						writer.WriteLine($"<tr><td>{asmApp.Name}</td><td>{asmApp.Version.ToString()}</td><td>{e.ToString()}</td><td>{DateTime.UtcNow.ToString()}</td><td>{SkinName}</td><td>{SkinVersion}</td><td>{SkinCreator}</td><td>{Environment.OSVersion}</td><td>{RuntimeInformation.OSDescription}</td><td>{RuntimeInformation.OSArchitecture}</td><td>{RuntimeInformation.RuntimeIdentifier}</td><td>{RuntimeInformation.FrameworkDescription}</td><td>{RuntimeInformation.ProcessArchitecture}</td></tr>");
 						writer.WriteLine("</tbody>");
 						writer.WriteLine("</table>");
 						writer.WriteLine("</body>");
@@ -94,14 +94,19 @@ namespace TJAPlayer3
 						new JProperty("skinname", SkinName),
 						new JProperty("skinversion", SkinVersion),
 						new JProperty("skincreator", SkinCreator),
-						new JProperty("operatingsystem", Environment.OSVersion.ToString())
+						new JProperty("operatingsystem", Environment.OSVersion.ToString()),
+						new JProperty("osdescription", RuntimeInformation.OSDescription),
+						new JProperty("osarchitecture", RuntimeInformation.OSArchitecture.ToString()),
+						new JProperty("runtimeidentifier", RuntimeInformation.RuntimeIdentifier),
+						new JProperty("frameworkdescription", RuntimeInformation.FrameworkDescription),
+						new JProperty("processarchitecture", RuntimeInformation.ProcessArchitecture.ToString())
 						);
 
 					using (var client = new HttpClient())
 					{
 						var content = new StringContent(JsonConvert.SerializeObject(errorjsonobject, Formatting.None), Encoding.UTF8, "application/json");
 
-						var resString = client.PostAsync("https://script.google.com/macros/s/AKfycbw6QWCXEEbciDV7tA5zV72EyLkynlJUCiM0cRz5TR4nDQeRUiA/exec", content).Result;
+						var resString = client.PostAsync("https://script.google.com/macros/s/AKfycbzPWvX1cd5aDcDjs0ohgBveIxBh6wZPvGk0Xvg7xFsEsoXXUFCSUeziaVsn7uoMtm_3/exec", content).Result;
 					}
 #endif
 				}
