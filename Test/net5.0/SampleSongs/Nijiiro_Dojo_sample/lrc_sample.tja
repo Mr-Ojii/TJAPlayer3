@@ -1,20 +1,20 @@
 TITLE:ニジイロ条件テスト用譜面
 SUBTITLE:--あくまでテスト 譜面はテキトー
 BPM:120
-WAVE:どんぐりころころ.ogg
+WAVE:DonguriKorokoro.ogg
 DEMOSTART:0
 SCOREMODE:2
 COURSE:Dan
 LEVEL:2
 BALLOON:
-LYRICFILE:,どんぐりころころ.lrc,かたつむり.lrc
+LYRICFILE:,DonguriKorokoro.lrc,Katatsumuri.lrc
 EXAMGAUGE:94,97,m
 EXAM1:h,80,100,m
 EXAM2:jg,10,5,20,10,l
 EXAM3:jb,5,2,10,5,l
 
 #START
-#NEXTSONG どんぐりころころ,,,どんぐりころころ.ogg,130,20
+#NEXTSONG どんぐりころころ,,,DonguriKorokoro.ogg,130,20
 #BPMCHANGE 120
 #MEASURE 4/4
 #SCROLL 1.0
@@ -30,7 +30,7 @@ EXAM3:jb,5,2,10,5,l
 11122000,
 #GOGOEND
 0,
-#NEXTSONG かたつむり,,,かたつむり.ogg,800,20
+#NEXTSONG かたつむり,,,Katatsumuri.ogg,800,20
 #BPMCHANGE 72
 #MEASURE 2/4
 #SCROLL 1.0
