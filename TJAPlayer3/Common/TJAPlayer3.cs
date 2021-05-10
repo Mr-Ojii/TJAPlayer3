@@ -1335,7 +1335,7 @@ namespace TJAPlayer3
 			Trace.Indent();
 			try
 			{
-				InputManager = new CInputManager(base.WindowInfo.Handle);
+				InputManager = new CInputManager();
 				foreach (IInputDevice device in InputManager.listInputDevices)
 				{
 					if ((device.eInputDeviceType == EInputDeviceType.Joystick) && !ConfigIni.dicJoystick.ContainsValue(device.GUID))

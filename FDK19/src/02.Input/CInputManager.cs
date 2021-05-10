@@ -59,7 +59,7 @@ namespace FDK
 
 
 		// コンストラクタ
-		public CInputManager(IntPtr hWnd)
+		public CInputManager()
 		{
 			this.listInputDevices = new List<IInputDevice>(10);
 			#region [ Enumerate keyboard/mouse: exception is masked if keyboard/mouse is not connected ]
