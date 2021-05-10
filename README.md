@@ -81,7 +81,7 @@ Editor
 [https://discord.gg/WtdsBqESaX](https://discord.gg/WtdsBqESaX)
 
 ## 追加命令について
-Testフォルダ内の「追加・変更機能について.md」で説明いたします。
+Test/Readmeフォルダ内の「About_additional_and_modified_functions.md」で説明いたします。
 
 ## 謝辞
 このTJAPlayer3-fのもととなるソフトウェアを作成・メンテナンスしてきた中でも  

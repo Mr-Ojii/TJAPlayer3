@@ -31,7 +31,7 @@
 
 # SkinConfig
 フェーズの追加や仕様変更により、SkinConfig.iniにも変更点があります。  
-詳しくは``System/SkinConfig.ini``について.txtで説明いたします。
+詳しくは``System/About_SkinConfig.ini.txt``で説明いたします。
 
 
 # GenreConfig

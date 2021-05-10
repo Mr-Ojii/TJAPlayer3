@@ -1,5 +1,5 @@
 ;############
-;Skinconfig.iniについて.txt(更新途中)
+;About_Skinconfig.ini.txt(更新途中)
 ;############
 
 ;ここから下にSkinConfig.iniで使えるパラメータ名とデフォルト値・説明を書き連ねていきます。
