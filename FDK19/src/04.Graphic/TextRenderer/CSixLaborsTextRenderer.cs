@@ -28,7 +28,8 @@ namespace FDK
 
         protected void Initialize(string fontpath, int pt, FontStyle style) 
         {
-            this.pt = pt;
+
+            this.pt = (pt * 1.5f);
             this.fontStyle = style;
 
             if (File.Exists(fontpath))
@@ -51,6 +52,21 @@ namespace FDK
             return DrawPrivateFont(drawstr, CPrivateFont.DrawMode.Normal, fontColor, Color.White, Color.White, Color.White, 0);
         }
 
+        public Image<Rgba32> DrawPrivateFont(string drawstr, Color fontColor, Color edgeColor, int edge_Ratio)
+        {
+            return DrawPrivateFont(drawstr, CPrivateFont.DrawMode.Edge, fontColor, edgeColor, Color.White, Color.White, edge_Ratio);
+        }
+
+        public Image<Rgba32> DrawPrivateFont(string drawstr, Color fontColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio)
+        {
+            return DrawPrivateFont(drawstr, CPrivateFont.DrawMode.Gradation, fontColor, Color.White, gradationTopColor, gradataionBottomColor, edge_Ratio);
+        }
+
+        public Image<Rgba32> DrawPrivateFont(string drawstr, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio)
+        {
+            return DrawPrivateFont(drawstr, CPrivateFont.DrawMode.Edge | CPrivateFont.DrawMode.Gradation, fontColor, edgeColor, gradationTopColor, gradataionBottomColor, edge_Ratio);
+        }
+
         protected Image<Rgba32> DrawPrivateFont(string drawstr, CPrivateFont.DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
         {
             FontRectangle size = TextMeasurer.Measure(drawstr, new RendererOptions(this.font));
@@ -68,18 +84,18 @@ namespace FDK
             {
                 brush = new LinearGradientBrush(new PointF(0, size.Top), new PointF(0, size.Height), GradientRepetitionMode.None, new ColorStop(0, gradationTopColorL), new ColorStop(1, gradationBottomColorL));
             }
-            else 
+            else
             {
                 brush = new SolidBrush(fontColorL);
             }
 
-            if ((drawmode & CPrivateFont.DrawMode.Normal) == CPrivateFont.DrawMode.Normal)
+            if (drawmode == CPrivateFont.DrawMode.Normal)
             {
                 image.Mutate(ctx => ctx.DrawText(drawstr, this.font, brush, PointF.Empty));
             }
             else if ((drawmode & CPrivateFont.DrawMode.Edge) == CPrivateFont.DrawMode.Edge) 
             {
-                image.Mutate(ctx => ctx.DrawText(drawstr, this.font, brush, new Pen(edgeColorL, edge_Ratio), PointF.Empty));
+                image.Mutate(ctx => ctx.DrawText(drawstr, this.font, brush, new Pen(edgeColorL, (this.pt / edge_Ratio)), PointF.Empty));
             }
 
             return image;
@@ -89,7 +105,7 @@ namespace FDK
         {
         }
 
-        private int pt = 12;
+        private float pt = 12;
         private FontStyle fontStyle;
         private FontFamily fontFamily;
         private Font font;
