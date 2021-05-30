@@ -61,7 +61,6 @@ namespace TJAPlayer3
 			using (var bitmap = prvFont.DrawPrivateFont( title, Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio))
 			{
 				stqMenuTitle.txName = TJAPlayer3.tCreateTexture( bitmap );
-				stqMenuTitle.rectName = prvFont.RectStrings;
 			}
 			lciMenuItems = new stQuickMenuItem[ menulist.Count ];
 			for (int i = 0; i < menulist.Count; i++ )
@@ -71,7 +70,6 @@ namespace TJAPlayer3
 				using (var bitmap = prvFont.DrawPrivateFont( menulist[ i ].strName, Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio))
 				{
 					stqm.txName = TJAPlayer3.tCreateTexture( bitmap );
-					stqm.rectName = prvFont.RectStrings;
 				}
 				lciMenuItems[ i ] = stqm;
 			}
@@ -311,7 +309,6 @@ namespace TJAPlayer3
 					//font.t文字列描画( 190, 80 + i * 32, lciMenuItems[ i ].cItem.strName, bItemBold, 1.0f );
 					if ( lciMenuItems[ i ].txName != null )
 					{
-						int height = lciMenuItems[ i ].rectName.Height;
 						lciMenuItems[i].txName.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Left, 180, 92 + i * 32);
 					}
 
@@ -374,7 +371,6 @@ namespace TJAPlayer3
 		{
 			internal CItemBase cItem;
 			internal CTexture txName;
-			internal Rectangle rectName;
 		}
 		private stQuickMenuItem[] lciMenuItems;
 		private stQuickMenuItem stqMenuTitle;

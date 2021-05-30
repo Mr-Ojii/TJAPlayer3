@@ -107,8 +107,6 @@ namespace FDK
 			this._fontfamily = null;
 			this._font = null;
 			this._pt = pt;
-			this._rectStrings = new Rectangle(0, 0, 0, 0);
-			this._ptOrigin = new Point(0, 0);
 			this.bDisposed = false;
 
 			FontStyle style;
@@ -315,8 +313,6 @@ namespace FDK
 				{
 					Trace.TraceWarning("DrawPrivateFont()の入力不正。最小値のbitmapを返します。");
 				}
-				_rectStrings = new Rectangle(0, 0, 0, 0);
-				_ptOrigin = new Point(0, 0);
 				return new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>(1, 1);
 			}
 
@@ -406,11 +402,11 @@ namespace FDK
 					// 縁取りなしの描画
 					g.DrawString(drawstr, _font, new SolidBrush(fontColor), new PointF(0, 0));
 				}
-				_rectStrings = new Rectangle(0, 0, stringSize.Width, stringSize.Height);
-				_ptOrigin = new Point(nEdgePt * 2, nEdgePt * 2);
 			}
 
-			return CConvert.ToImageSharpImage(bmp);
+			SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> image = CConvert.ToImageSharpImage(bmp);
+			bmp.Dispose();
+			return image;
 		}
 
 		/// <summary>
@@ -436,8 +432,6 @@ namespace FDK
 				{
 					Trace.TraceWarning( "DrawPrivateFont()の入力不正。最小値のbitmapを返します。" );
 				}
-				_rectStrings = new Rectangle( 0, 0, 0, 0 );
-				_ptOrigin = new Point( 0, 0 );
 				return new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>(1, 1);
 			}
 
@@ -686,13 +680,15 @@ namespace FDK
 					nNowPos += bmpV.Size.Height - 6;
 
 					if (bmpV != null) bmpV.Dispose();
-
-					_rectStrings = new Rectangle(0, 0, strSize.Width, strSize.Height);
-					_ptOrigin = new Point(6 * 2, 6 * 2);
 				}
 			}
 
-			return CConvert.ToImageSharpImage(bmpCambus);
+
+			SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> image = CConvert.ToImageSharpImage(bmpCambus);
+			bmpCambus.Dispose();
+
+
+			return image;
 		}
 
 		/// <summary>
@@ -742,7 +738,9 @@ namespace FDK
 
 			bmpGraphics.Dispose();
 			//文字列が描画されている範囲を計測する
-			Rectangle resultRect = MeasureForegroundArea(bmp, backColor);
+			Rectangle resultRect = Rectangle.Empty;
+			using (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> image = CConvert.ToImageSharpImage(bmp))
+				resultRect = MeasureForegroundArea(image, backColor);
 			bmp.Dispose();
 
 			return resultRect;
@@ -751,9 +749,8 @@ namespace FDK
 		/// <summary>
 		/// 指定されたBitmapで、backColor以外の色が使われている範囲を計測する
 		/// </summary>
-		private static Rectangle MeasureForegroundArea(Bitmap bmp, Color backColor)
+		private static Rectangle MeasureForegroundArea(SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> bmp, Color backColor)
 		{
-			int backColorArgb = backColor.ToArgb();
 			int maxWidth = bmp.Width;
 			int maxHeight = bmp.Height;
 
@@ -764,7 +761,7 @@ namespace FDK
 				for (int y = 0; y < maxHeight; y++)
 				{
 					//違う色を見つけたときは、位置を決定する
-					if (bmp.GetPixel(x, y).ToArgb() != backColorArgb)
+					if (bmp[x, y].A != backColor.A || bmp[x, y].R != backColor.R || bmp[x, y].G != backColor.G || bmp[x, y].B != backColor.B) 
 					{
 						leftPosition = x;
 						break;
@@ -787,7 +784,7 @@ namespace FDK
 			{
 				for (int y = 0; y < maxHeight; y++)
 				{
-					if (bmp.GetPixel(x, y).ToArgb() != backColorArgb)
+					if (bmp[x, y].A != backColor.A || bmp[x, y].R != backColor.R || bmp[x, y].G != backColor.G || bmp[x, y].B != backColor.B)
 					{
 						rightPosition = x;
 						break;
@@ -809,7 +806,7 @@ namespace FDK
 			{
 				for (int x = leftPosition; x <= rightPosition; x++)
 				{
-					if (bmp.GetPixel(x, y).ToArgb() != backColorArgb)
+					if (bmp[x, y].A != backColor.A || bmp[x, y].R != backColor.R || bmp[x, y].G != backColor.G || bmp[x, y].B != backColor.B)
 					{
 						topPosition = y;
 						break;
@@ -831,7 +828,7 @@ namespace FDK
 			{
 				for (int x = leftPosition; x <= rightPosition; x++)
 				{
-					if (bmp.GetPixel(x, y).ToArgb() != backColorArgb)
+					if (bmp[x, y].A != backColor.A || bmp[x, y].R != backColor.R || bmp[x, y].G != backColor.G || bmp[x, y].B != backColor.B)
 					{
 						bottomPosition = y;
 						break;
@@ -854,32 +851,6 @@ namespace FDK
 
 
 		//------------------------------------------------
-
-		/// <summary>
-		/// 最後にDrawPrivateFont()した文字列の描画領域を取得します。
-		/// </summary>
-		public Rectangle RectStrings
-		{
-			get
-			{
-				return _rectStrings;
-			}
-			protected set
-			{
-				_rectStrings = value;
-			}
-		}
-		public Point PtOrigin
-		{
-			get
-			{
-				return _ptOrigin;
-			}
-			protected set
-			{
-				_ptOrigin = value;
-			}
-		}
 
 		#region [ IDisposable 実装 ]
 		//-----------------
@@ -912,8 +883,6 @@ namespace FDK
 		private System.Drawing.Text.PrivateFontCollection _pfc;
 		private FontFamily _fontfamily;
 		private int _pt;
-		private Rectangle _rectStrings;
-		private Point _ptOrigin;
 		//-----------------
 		#endregion
 	}

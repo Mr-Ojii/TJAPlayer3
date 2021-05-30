@@ -131,8 +131,6 @@ namespace FDK
 				fc.edgeColor = edgeColor;
 				fc.gradationTopColor = gradationTopColor;
 				fc.gradationBottomColor = gradationBottomColor;
-				fc.rectStrings = RectStrings;
-				fc.ptOrigin = PtOrigin;
 				listFontCache.Add( fc );
 				Debug.WriteLine( drawstr + ": Cacheにヒットせず。(cachesize=" + listFontCache.Count + ")" );
 				#endregion
@@ -155,8 +153,6 @@ namespace FDK
 			{
 				Debug.WriteLine( drawstr + ": Cacheにヒット!! index=" + index );
 				#region [ キャッシュにヒット。レンダリングは行わず、キャッシュ内のデータを返して終了。]
-				RectStrings = listFontCache[ index ].rectStrings;
-				PtOrigin = listFontCache[ index ].ptOrigin;
 				// 呼び出し元のDispose()でキャッシュもDispose()されないように、Clone()で返す。
 				return (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>) listFontCache[ index ].bmp.Clone();
 				#endregion
@@ -187,8 +183,6 @@ namespace FDK
 				fc.drawstr = drawstr;
 				fc.fontColor = fontColor;
 				fc.edgeColor = edgeColor;
-				fc.rectStrings = RectStrings;
-				fc.ptOrigin = PtOrigin;
 				listFontCache.Add( fc );
 				Debug.WriteLine( drawstr + ": Cacheにヒットせず。(cachesize=" + listFontCache.Count + ")" );
 				#endregion
@@ -211,8 +205,6 @@ namespace FDK
 			{
 				Debug.WriteLine( drawstr + ": Cacheにヒット!! index=" + index );
 				#region [ キャッシュにヒット。レンダリングは行わず、キャッシュ内のデータを返して終了。]
-				RectStrings = listFontCache[ index ].rectStrings;
-				PtOrigin = listFontCache[ index ].ptOrigin;
 				// 呼び出し元のDispose()でキャッシュもDispose()されないように、Clone()で返す。
 				return (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>) listFontCache[ index ].bmp.Clone();
 				#endregion
@@ -264,8 +256,6 @@ namespace FDK
 			public Color gradationTopColor;
 			public Color gradationBottomColor;
 			public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> bmp;
-			public Rectangle rectStrings;
-			public Point ptOrigin;
 		}
 		private List<FontCache> listFontCache;
 
