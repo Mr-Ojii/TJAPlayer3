@@ -23,7 +23,7 @@ osx-x64ビルドはテスト段階です。
 * Ubuntu系のLinux環境 (x64)  
 
 ~~まぁ、Windows 10で動作確認をしているので、Windows 10が一番安定してるかと...~~  
-__Windows10(Ver.20H2)とLinux Mint 20.1(Xfce)ではLinux Mintの方が安定して動作していました。__
+__Windows10(Ver.21H1)とLinux Mint 20.1(Xfce)ではLinux Mintの方が安定して動作していました。__
 
 
 Ubuntu系Linuxではターミナルで  
@@ -33,7 +33,7 @@ Ubuntu系Linuxではターミナルで
 
 ## 開発環境(動作確認環境)
 OS
-* Windows 10(Ver.20H2) (x64)  
+* Windows 10(Ver.21H1) (x64)  
 * Linux Mint 20.1(Xfce) (x64)  
 * Ubuntu 20.04 LTS (x64)
 
