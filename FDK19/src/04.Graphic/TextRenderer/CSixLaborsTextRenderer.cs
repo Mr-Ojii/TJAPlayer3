@@ -10,6 +10,8 @@ using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.Fonts;
 
+using Color = System.Drawing.Color;
+
 namespace FDK
 {
     public class CSixLaborsTextRenderer : IDisposable
@@ -55,21 +57,31 @@ namespace FDK
 
             Image<Rgba32> image = new Image<Rgba32>((int)size.Width + 10, (int)size.Height + 10);
 
+            SixLabors.ImageSharp.Color fontColorL = SixLabors.ImageSharp.Color.FromRgba(fontColor.R, fontColor.G, fontColor.B, fontColor.A);
+            SixLabors.ImageSharp.Color edgeColorL = SixLabors.ImageSharp.Color.FromRgba(edgeColor.R, edgeColor.G, edgeColor.B, edgeColor.A);
+            SixLabors.ImageSharp.Color gradationTopColorL = SixLabors.ImageSharp.Color.FromRgba(gradationTopColor.R, gradationTopColor.G, gradationTopColor.B, gradationTopColor.A);
+            SixLabors.ImageSharp.Color gradationBottomColorL = SixLabors.ImageSharp.Color.FromRgba(gradationBottomColor.R, gradationBottomColor.G, gradationBottomColor.B, gradationBottomColor.A);
 
-            if (drawmode == CPrivateFont.DrawMode.Normal)
+
+            IBrush brush;
+            if ((drawmode & CPrivateFont.DrawMode.Gradation) == CPrivateFont.DrawMode.Gradation)
             {
-                image.Mutate(ctx => ctx.DrawText(drawstr, this.font, fontColor, PointF.Empty));
+                brush = new LinearGradientBrush(new PointF(0, size.Top), new PointF(0, size.Height), GradientRepetitionMode.None, new ColorStop(0, gradationTopColorL), new ColorStop(1, gradationBottomColorL));
             }
-            else if (drawmode == CPrivateFont.DrawMode.Edge)
+            else 
             {
-                image.Mutate(ctx => ctx.DrawText(drawstr, this.font, new SolidBrush(fontColor), new Pen(edgeColor, edge_Ratio), PointF.Empty));
+                brush = new SolidBrush(fontColorL);
             }
-            else if (drawmode == CPrivateFont.DrawMode.Gradation)
+
+            if ((drawmode & CPrivateFont.DrawMode.Normal) == CPrivateFont.DrawMode.Normal)
             {
+                image.Mutate(ctx => ctx.DrawText(drawstr, this.font, brush, PointF.Empty));
             }
-            else if (drawmode == (CPrivateFont.DrawMode.Gradation | CPrivateFont.DrawMode.Edge))
+            else if ((drawmode & CPrivateFont.DrawMode.Edge) == CPrivateFont.DrawMode.Edge) 
             {
+                image.Mutate(ctx => ctx.DrawText(drawstr, this.font, brush, new Pen(edgeColorL, edge_Ratio), PointF.Empty));
             }
+
             return image;
         }
 
