@@ -7,6 +7,7 @@ using System.Reflection;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Drawing;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.Fonts;
 
@@ -69,9 +70,10 @@ namespace FDK
 
         protected Image<Rgba32> DrawPrivateFont(string drawstr, CPrivateFont.DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
         {
-            FontRectangle size = TextMeasurer.Measure(drawstr, new RendererOptions(this.font));
+            RendererOptions roption = new RendererOptions(this.font);
+            FontRectangle size = TextMeasurer.Measure(drawstr, roption);
 
-            Image<Rgba32> image = new Image<Rgba32>((int)size.Width + 10, (int)size.Height + 10);
+            Image<Rgba32> image = new Image<Rgba32>((int)size.Width + 20, (int)size.Height + 20);
 
             SixLabors.ImageSharp.Color fontColorL = SixLabors.ImageSharp.Color.FromRgba(fontColor.R, fontColor.G, fontColor.B, fontColor.A);
             SixLabors.ImageSharp.Color edgeColorL = SixLabors.ImageSharp.Color.FromRgba(edgeColor.R, edgeColor.G, edgeColor.B, edgeColor.A);
@@ -95,7 +97,13 @@ namespace FDK
             }
             else if ((drawmode & CPrivateFont.DrawMode.Edge) == CPrivateFont.DrawMode.Edge) 
             {
-                image.Mutate(ctx => ctx.DrawText(drawstr, this.font, brush, new Pen(edgeColorL, (this.pt / edge_Ratio)), PointF.Empty));
+                DrawingOptions doption = new DrawingOptions();
+                IPathCollection pathc = TextBuilder.GenerateGlyphs(drawstr, new PointF(10, 10), roption);
+                image.Mutate(ctx => ctx.Draw(doption, new Pen(edgeColorL, this.pt * 5 / edge_Ratio), pathc));
+
+                //どちらを使いましょう？
+                //image.Mutate(ctx => ctx.DrawText(drawstr, this.font, brush, new PointF(10, 10)));
+                image.Mutate(ctx => ctx.Fill(doption, brush, pathc));
             }
 
             return image;
