@@ -4,8 +4,8 @@ using System.Text;
 using System.Diagnostics;
 using System.Reflection;
 using System.IO;
-using Un4seen.Bass;
-using Un4seen.Bass.AddOn.Mix;
+using ManagedBass;
+using ManagedBass.Mix;
 
 namespace FDK
 {
@@ -51,7 +51,7 @@ namespace FDK
 		{
 			get
 			{
-				return Bass.BASS_GetCPU();
+				return (float)Bass.CPUUsage;
 			}
 		}
 
@@ -62,10 +62,10 @@ namespace FDK
 			get
 			{
 				float f音量 = 0.0f;
-				bool b = Bass.BASS_ChannelGetAttribute(this.hMixer, BASSAttribute.BASS_ATTRIB_VOL, ref f音量);
+				bool b = Bass.ChannelGetAttribute(this.hMixer, ChannelAttribute.Volume, out f音量);
 				if (!b)
 				{
-					BASSError be = Bass.BASS_ErrorGetCode();
+					Errors be = Bass.LastError;
 					Trace.TraceInformation("ASIO Master Volume Get Error: " + be.ToString());
 				}
 				else
@@ -77,10 +77,10 @@ namespace FDK
 			}
 			set
 			{
-				bool b = Bass.BASS_ChannelSetAttribute(this.hMixer, BASSAttribute.BASS_ATTRIB_VOL, (float)(value / 100.0));
+				bool b = Bass.ChannelSetAttribute(this.hMixer, ChannelAttribute.Volume, (float)(value / 100.0));
 				if (!b)
 				{
-					BASSError be = Bass.BASS_ErrorGetCode();
+					Errors be = Bass.LastError;
 					Trace.TraceInformation("ASIO Master Volume Set Error: " + be.ToString());
 				}
 				else
@@ -100,50 +100,32 @@ namespace FDK
 			this.SystemTimemsWhenUpdatingElapsedTime = CTimer.nUnused;
 			this.tmSystemTimer = new CTimer();
 
-			#region [ BASS registration ]
-			// BASS.NET ユーザ登録（BASSスプラッシュが非表示になる）。
-			BassNet.Registration("dtx2013@gmail.com", "2X9181017152222");
-			#endregion
-
-			#region [ BASS Version Check ]
-			// BASS のバージョンチェック。
-			int nBASSVersion = Utils.HighWord(Bass.BASS_GetVersion());
-			if (nBASSVersion != Bass.BASSVERSION)
-				throw new DllNotFoundException(string.Format("bass.dll のバージョンが異なります({0})。このプログラムはバージョン{1}で動作します。", nBASSVersion, Bass.BASSVERSION));
-
-			int nBASSMixVersion = Utils.HighWord(BassMix.BASS_Mixer_GetVersion());
-			if (nBASSMixVersion != BassMix.BASSMIXVERSION)
-				throw new DllNotFoundException(string.Format("bassmix.dll のバージョンが異なります({0})。このプログラムはバージョン{1}で動作します。", nBASSMixVersion, BassMix.BASSMIXVERSION));
-			#endregion
-
 			this.bIsBASSSoundFree = true;
 
 			// BASS の初期化。
 
 			int n周波数 = 44100;
-			if (!Bass.BASS_Init(-1, n周波数, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero))
-				throw new Exception(string.Format("BASS の初期化に失敗しました。(BASS_Init)[{0}]", Bass.BASS_ErrorGetCode().ToString()));
-
-			Bass.BASS_SetDevice(-1);
+			if (!Bass.Init(-1, n周波数, DeviceInitFlags.Default, IntPtr.Zero))
+				throw new Exception(string.Format("BASS の初期化に失敗しました。(BASS_Init)[{0}]", Bass.LastError.ToString()));
 			
-			if (!Bass.BASS_SetConfig(BASSConfig.BASS_CONFIG_UPDATEPERIOD, UpdatePeriod))
+			if (!Bass.Configure(Configuration.UpdatePeriod, UpdatePeriod))
 			{
-				Trace.TraceWarning($"BASS_SetConfig({nameof(BASSConfig.BASS_CONFIG_UPDATEPERIOD)}) に失敗しました。[{Bass.BASS_ErrorGetCode()}]");
+				Trace.TraceWarning($"BASS_SetConfig({nameof(Configuration.UpdatePeriod)}) に失敗しました。[{Bass.LastError}]");
 			}
 			
-			Bass.BASS_SetConfig(BASSConfig.BASS_CONFIG_BUFFER, BufferSizems);
-			Bass.BASS_SetConfig(BASSConfig.BASS_CONFIG_CURVE_VOL, true);
+			Bass.Configure(Configuration.PlaybackBufferLength, BufferSizems);
+			Bass.Configure(Configuration.LogarithmicVolumeCurve, true);
 
-			this.tSTREAMPROC = new STREAMPROC(Stream処理);
-			this.hMainStream = Bass.BASS_StreamCreate(n周波数, 2, BASSFlag.BASS_DEFAULT, this.tSTREAMPROC, IntPtr.Zero);
+			this.tSTREAMPROC = new StreamProcedure(Stream処理);
+			this.hMainStream = Bass.CreateStream(n周波数, 2, BassFlags.Default, this.tSTREAMPROC, IntPtr.Zero);
 
-			var flag = BASSFlag.BASS_MIXER_NONSTOP| BASSFlag.BASS_STREAM_DECODE;   // デコードのみ＝発声しない。
-			this.hMixer = BassMix.BASS_Mixer_StreamCreate(n周波数, 2, flag);
+			var flag = BassFlags.MixerNonStop| BassFlags.Decode;   // デコードのみ＝発声しない。
+			this.hMixer = BassMix.CreateMixerStream(n周波数, 2, flag);
 
 			if (this.hMixer == 0)
 			{
-				BASSError err = Bass.BASS_ErrorGetCode();
-				Bass.BASS_Free();
+				Errors err = Bass.LastError;
+				Bass.Free();
 				this.bIsBASSSoundFree = true;
 				throw new Exception(string.Format("BASSミキサ(mixing)の作成に失敗しました。[{0}]", err));
 			}
@@ -152,31 +134,31 @@ namespace FDK
 
 			this.bIsBASSSoundFree = false;
 
-			var mixerInfo = Bass.BASS_ChannelGetInfo(this.hMixer);
+			var mixerInfo = Bass.ChannelGetInfo(this.hMixer);
 			int nサンプルサイズbyte = 2;
 			//long nミキサーの1サンプルあたりのバイト数 = /*mixerInfo.chans*/ 2 * nサンプルサイズbyte;
-			long nミキサーの1サンプルあたりのバイト数 = mixerInfo.chans * nサンプルサイズbyte;
-			this.nミキサーの1秒あたりのバイト数 = nミキサーの1サンプルあたりのバイト数 * mixerInfo.freq;
+			long nミキサーの1サンプルあたりのバイト数 = mixerInfo.Channels * nサンプルサイズbyte;
+			this.nミキサーの1秒あたりのバイト数 = nミキサーの1サンプルあたりのバイト数 * mixerInfo.Frequency;
 
 			// 単純に、hMixerの音量をMasterVolumeとして制御しても、
 			// ChannelGetData()の内容には反映されない。
 			// そのため、もう一段mixerを噛ませて、一段先のmixerからChannelGetData()することで、
 			// hMixerの音量制御を反映させる。
-			this.hMixer_DeviceOut = BassMix.BASS_Mixer_StreamCreate(
+			this.hMixer_DeviceOut = BassMix.CreateMixerStream(
 				n周波数, 2, flag);
 			if (this.hMixer_DeviceOut == 0)
 			{
-				BASSError errcode = Bass.BASS_ErrorGetCode();
-				Bass.BASS_Free();
+				Errors errcode = Bass.LastError;
+				Bass.Free();
 				this.bIsBASSSoundFree = true;
 				throw new Exception(string.Format("BASSミキサ(最終段)の作成に失敗しました。[{0}]", errcode));
 			}
 			{
-				bool b1 = BassMix.BASS_Mixer_StreamAddChannel(this.hMixer_DeviceOut, this.hMixer, BASSFlag.BASS_DEFAULT);
+				bool b1 = BassMix.MixerAddChannel(this.hMixer_DeviceOut, this.hMixer, BassFlags.Default);
 				if (!b1)
 				{
-					BASSError errcode = Bass.BASS_ErrorGetCode();
-					Bass.BASS_Free();
+					Errors errcode = Bass.LastError;
+					Bass.Free();
 					this.bIsBASSSoundFree = true;
 					throw new Exception(string.Format("BASSミキサ(最終段とmixing)の接続に失敗しました。[{0}]", errcode));
 				};
@@ -186,23 +168,23 @@ namespace FDK
 
 			// 出力を開始。
 
-			if (!Bass.BASS_Start())     // 範囲外の値を指定した場合は自動的にデフォルト値に設定される。
+			if (!Bass.Start())     // 範囲外の値を指定した場合は自動的にデフォルト値に設定される。
 			{
-				BASSError err = Bass.BASS_ErrorGetCode();
-				Bass.BASS_Free();
+				Errors err = Bass.LastError;
+				Bass.Free();
 				this.bIsBASSSoundFree = true;
 				throw new Exception("BASS デバイス出力開始に失敗しました。" + err.ToString());
 			}
 			else
 			{
-				var info = Bass.BASS_GetInfo();
+				Bass.GetInfo(out var info);
 
-				this.nBufferSizems = this.nOutPutDelayms = info.latency + BufferSizems;//求め方があっているのだろうか…
+				this.nBufferSizems = this.nOutPutDelayms = info.Latency + BufferSizems;//求め方があっているのだろうか…
 
 				Trace.TraceInformation("BASS デバイス出力開始:[{0}ms]", this.nOutPutDelayms);
 			}
 
-			Bass.BASS_ChannelPlay(this.hMainStream, false);
+			Bass.ChannelPlay(this.hMainStream, false);
 
 		}
 
@@ -237,16 +219,16 @@ namespace FDK
 			this.eOutputDevice = ESoundDeviceType.Unknown;      // まず出力停止する(Dispose中にクラス内にアクセスされることを防ぐ)
 			if (hMainStream != -1)
 			{
-				Bass.BASS_StreamFree(this.hMainStream);
+				Bass.StreamFree(this.hMainStream);
 			}
 			if (hMixer != -1)
 			{
-				Bass.BASS_StreamFree(this.hMixer);
+				Bass.StreamFree(this.hMixer);
 			}
 			if (!this.bIsBASSSoundFree)
 			{
-				Bass.BASS_Stop();
-				Bass.BASS_Free();// システムタイマより先に呼び出すこと。（Stream処理() の中でシステムタイマを参照してるため）
+				Bass.Stop();
+				Bass.Free();// システムタイマより先に呼び出すこと。（Stream処理() の中でシステムタイマを参照してるため）
 			}
 
 			if (bManagedDispose)
@@ -266,7 +248,7 @@ namespace FDK
 		{
 			// BASSミキサからの出力データをそのまま ASIO buffer へ丸投げ。
 
-			int num = Bass.BASS_ChannelGetData(this.hMixer_DeviceOut, buffer, length);      // num = 実際に転送した長さ
+			int num = Bass.ChannelGetData(this.hMixer_DeviceOut, buffer, length);      // num = 実際に転送した長さ
 
 			if (num == -1) num = 0;
 
@@ -288,7 +270,7 @@ namespace FDK
 		protected int hMainStream = -1;
 		protected int hMixer = -1;
 		protected int hMixer_DeviceOut = -1;
-		protected STREAMPROC tSTREAMPROC = null;
+		protected StreamProcedure tSTREAMPROC = null;
 		private bool bIsBASSSoundFree = true;
 
 	}

@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
-using Un4seen.Bass;
-using Un4seen.BassAsio;
-using Un4seen.Bass.AddOn.Mix;
+using ManagedBass;
+using ManagedBass.Asio;
+using ManagedBass.Mix;
 
 namespace FDK
 {
@@ -20,7 +20,12 @@ namespace FDK
 
 			try
 			{
-				BASS_ASIO_DEVICEINFO[] bassAsioDevInfo = BassAsio.BASS_ASIO_GetDeviceInfos();
+				AsioDeviceInfo[] bassAsioDevInfo = new AsioDeviceInfo[BassAsio.DeviceCount];
+				for(int i=0;i<bassAsioDevInfo.Length;i++)
+                {
+					bassAsioDevInfo[i] = BassAsio.GetDeviceInfo(i);
+				}
+					
 				if (bassAsioDevInfo.Length == 0)
 				{
 					asioDeviceList.Add("None");
@@ -29,7 +34,7 @@ namespace FDK
 				{
 					for (int i = 0; i < bassAsioDevInfo.Length; i++)
 					{
-						asioDeviceList.Add(bassAsioDevInfo[i].name);
+						asioDeviceList.Add(bassAsioDevInfo[i].Name);
 						//Trace.TraceInformation( "ASIO Device {0}: {1}", i, bassAsioDevInfo[ i ].name );
 					}
 				}
@@ -90,7 +95,7 @@ namespace FDK
 		{
 			get
 			{
-				return BassAsio.BASS_ASIO_GetCPU();
+				return (float)BassAsio.CPUUsage;
 			}
 		}
 
@@ -100,10 +105,10 @@ namespace FDK
 			get
 			{
 				float f音量 = 0.0f;
-				bool b = Bass.BASS_ChannelGetAttribute( this.hMixer, BASSAttribute.BASS_ATTRIB_VOL, ref f音量 );
+				bool b = Bass.ChannelGetAttribute( this.hMixer, ChannelAttribute.Volume, out f音量 );
 				if ( !b )
 				{
-					BASSError be = Bass.BASS_ErrorGetCode();
+					Errors be = Bass.LastError;
 					Trace.TraceInformation( "ASIO Master Volume Get Error: " + be.ToString() );
 				}
 				else
@@ -115,10 +120,10 @@ namespace FDK
 			}
 			set
 			{
-				bool b = Bass.BASS_ChannelSetAttribute( this.hMixer, BASSAttribute.BASS_ATTRIB_VOL, (float) ( value / 100.0 ) );
+				bool b = Bass.ChannelSetAttribute( this.hMixer, ChannelAttribute.Volume, (float) ( value / 100.0 ) );
 				if ( !b )
 				{
-					BASSError be = Bass.BASS_ErrorGetCode();
+					Errors be = Bass.LastError;
 					Trace.TraceInformation( "ASIO Master Volume Set Error: " + be.ToString() );
 				}
 				else
@@ -143,47 +148,27 @@ namespace FDK
 			this.tmSystemTimer = new CTimer();
 			this.nASIODevice = _nASIODevice;
 
-			#region [ BASS registration ]
-			// BASS.NET ユーザ登録（BASSスプラッシュが非表示になる）。
-			BassNet.Registration( "dtx2013@gmail.com", "2X9181017152222" );
-			#endregion
-
-			#region [ BASS Version Check ]
-			// BASS のバージョンチェック。
-			int nBASSVersion = Utils.HighWord( Bass.BASS_GetVersion() );
-			if( nBASSVersion != Bass.BASSVERSION )
-				throw new DllNotFoundException( string.Format( "bass.dll のバージョンが異なります({0})。このプログラムはバージョン{1}で動作します。", nBASSVersion, Bass.BASSVERSION ) );
-
-			int nBASSMixVersion = Utils.HighWord( BassMix.BASS_Mixer_GetVersion() );
-			if( nBASSMixVersion != BassMix.BASSMIXVERSION )
-				throw new DllNotFoundException( string.Format( "bassmix.dll のバージョンが異なります({0})。このプログラムはバージョン{1}で動作します。", nBASSMixVersion, BassMix.BASSMIXVERSION ) );
-
-			int nBASSASIO = Utils.HighWord( BassAsio.BASS_ASIO_GetVersion() );
-			if( nBASSASIO != BassAsio.BASSASIOVERSION )
-				throw new DllNotFoundException( string.Format( "bassasio.dll のバージョンが異なります({0})。このプログラムはバージョン{1}で動作します。", nBASSASIO, BassAsio.BASSASIOVERSION ) );
-			#endregion
-
 			// BASS の設定。
 
 			this.bIsBASSSoundFree = true;
 
-		    if (!Bass.BASS_SetConfig( BASSConfig.BASS_CONFIG_UPDATEPERIOD, 0 )) // 0:BASSストリームの自動更新を行わない。
+		    if (!Bass.Configure( Configuration.UpdatePeriod, 0 )) // 0:BASSストリームの自動更新を行わない。
 		    {
-		        Trace.TraceWarning($"BASS_SetConfig({nameof(BASSConfig.BASS_CONFIG_UPDATEPERIOD)}) に失敗しました。[{Bass.BASS_ErrorGetCode()}]");
+		        Trace.TraceWarning($"BASS_SetConfig({nameof(Configuration.UpdatePeriod)}) に失敗しました。[{Bass.LastError}]");
 		    }
-		    if (!Bass.BASS_SetConfig( BASSConfig.BASS_CONFIG_UPDATETHREADS, 0 )) // 0:BASSストリームの自動更新を行わない。
+		    if (!Bass.Configure( Configuration.UpdateThreads, 0 )) // 0:BASSストリームの自動更新を行わない。
 		    {
-		        Trace.TraceWarning($"BASS_SetConfig({nameof(BASSConfig.BASS_CONFIG_UPDATETHREADS)}) に失敗しました。[{Bass.BASS_ErrorGetCode()}]");
+		        Trace.TraceWarning($"BASS_SetConfig({nameof(Configuration.UpdateThreads)}) に失敗しました。[{Bass.LastError}]");
 		    }
 		
 			// BASS の初期化。
 
 			int nデバイス = 0;		// 0:"no device" … BASS からはデバイスへアクセスさせない。アクセスは BASSASIO アドオンから行う。
 			int n周波数 = 44100;	// 仮決め。最終的な周波数はデバイス（≠ドライバ）が決める。
-			if( !Bass.BASS_Init( nデバイス, n周波数, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero ) )
-				throw new Exception( string.Format( "BASS の初期化に失敗しました。(BASS_Init)[{0}]", Bass.BASS_ErrorGetCode().ToString() ) );
+			if( !Bass.Init( nデバイス, n周波数, DeviceInitFlags.Default, IntPtr.Zero ) )
+				throw new Exception( string.Format( "BASS の初期化に失敗しました。(BASS_Init)[{0}]", Bass.LastError.ToString() ) );
 
-		    Bass.BASS_SetConfig(BASSConfig.BASS_CONFIG_CURVE_VOL, true);
+		    Bass.Configure(Configuration.LogarithmicVolumeCurve, true);
 
 //Debug.WriteLine( "BASS_Init()完了。" );
 			#region [ デバッグ用: ASIOデバイスのenumerateと、ログ出力 ]
@@ -199,24 +184,24 @@ namespace FDK
 			#endregion
 
 			// BASS ASIO の初期化。
-			BASS_ASIO_INFO asioInfo = null;
-			if ( BassAsio.BASS_ASIO_Init( nASIODevice, BASSASIOInit.BASS_ASIO_THREAD ) )	// 専用スレッドにて起動
+			AsioInfo asioInfo;
+			if ( BassAsio.Init( nASIODevice, AsioInitFlags.Thread ) )	// 専用スレッドにて起動
 			{
 				#region [ ASIO の初期化に成功。]
 				//-----------------
 				this.eOutputDevice = ESoundDeviceType.ASIO;
-				asioInfo = BassAsio.BASS_ASIO_GetInfo();
-				this.n出力チャンネル数 = asioInfo.outputs;
-				this.db周波数 = BassAsio.BASS_ASIO_GetRate();
-				this.fmtASIOデバイスフォーマット = BassAsio.BASS_ASIO_ChannelGetFormat( false, 0 );
+				BassAsio.GetInfo(out asioInfo);
+				this.n出力チャンネル数 = asioInfo.Outputs;
+				this.db周波数 = BassAsio.Rate;
+				this.fmtASIOデバイスフォーマット = BassAsio.ChannelGetFormat( false, 0 );
 
 				Trace.TraceInformation( "BASS を初期化しました。(ASIO, デバイス:\"{0}\", 入力{1}, 出力{2}, {3}Hz, バッファ{4}～{6}sample ({5:0.###}～{7:0.###}ms), デバイスフォーマット:{8})",
-					asioInfo.name,
-					asioInfo.inputs,
-					asioInfo.outputs,
+					asioInfo.Name,
+					asioInfo.Inputs,
+					asioInfo.Outputs,
 					this.db周波数.ToString( "0.###" ),
-					asioInfo.bufmin, asioInfo.bufmin * 1000 / this.db周波数,
-					asioInfo.bufmax, asioInfo.bufmax * 1000 / this.db周波数,
+					asioInfo.MinBufferLength, asioInfo.MinBufferLength * 1000 / this.db周波数,
+					asioInfo.MaxBufferLength, asioInfo.MaxBufferLength * 1000 / this.db周波数,
 					this.fmtASIOデバイスフォーマット.ToString()
 					);
 				this.bIsBASSSoundFree = false;
@@ -238,13 +223,13 @@ namespace FDK
 			{
 				#region [ ASIO の初期化に失敗。]
 				//-----------------
-				BASSError errcode = Bass.BASS_ErrorGetCode();
+				Errors errcode = Bass.LastError;
 				string errmes = errcode.ToString();
-				if ( errcode == BASSError.BASS_OK )
+				if ( errcode == Errors.OK )
 				{
 					errmes = "BASS_OK; The device may be dissconnected";
 				}
-				Bass.BASS_Free();
+				Bass.Free();
 				this.bIsBASSSoundFree = true;
 				throw new Exception( string.Format( "BASS (ASIO) の初期化に失敗しました。(BASS_ASIO_Init)[{0}]", errmes ) );
 				//-----------------
@@ -254,97 +239,97 @@ namespace FDK
 
 			// ASIO 出力チャンネルの初期化。
 
-			this.tAsioProc = new ASIOPROC( this.tAsio処理 );		// アンマネージに渡す delegate は、フィールドとして保持しておかないとGCでアドレスが変わってしまう。
-			if ( !BassAsio.BASS_ASIO_ChannelEnable( false, 0, this.tAsioProc, IntPtr.Zero ) )		// 出力チャンネル0 の有効化。
+			this.tAsioProc = new AsioProcedure( this.tAsio処理 );		// アンマネージに渡す delegate は、フィールドとして保持しておかないとGCでアドレスが変わってしまう。
+			if ( !BassAsio.ChannelEnable( false, 0, this.tAsioProc, IntPtr.Zero ) )		// 出力チャンネル0 の有効化。
 			{
 				#region [ ASIO 出力チャンネルの初期化に失敗。]
 				//-----------------
-				BassAsio.BASS_ASIO_Free();
-				Bass.BASS_Free();
+				BassAsio.Free();
+				Bass.Free();
 				this.bIsBASSSoundFree = true;
-				throw new Exception( string.Format( "Failed BASS_ASIO_ChannelEnable() [{0}]", BassAsio.BASS_ASIO_ErrorGetCode().ToString() ) );
+				throw new Exception( string.Format( "Failed BASS_ASIO_ChannelEnable() [{0}]", BassAsio.LastError.ToString() ) );
 				//-----------------
 				#endregion
 			}
 			for ( int i = 1; i < this.n出力チャンネル数; i++ )		// 出力チャネルを全てチャネル0とグループ化する。
 			{														// チャネル1だけを0とグループ化すると、3ch以上の出力をサポートしたカードでの動作がおかしくなる
-				if ( !BassAsio.BASS_ASIO_ChannelJoin( false, i, 0 ) )
+				if ( !BassAsio.ChannelJoin( false, i, 0 ) )
 				{
 					#region [ 初期化に失敗。]
 					//-----------------
-					BassAsio.BASS_ASIO_Free();
-					Bass.BASS_Free();
+					BassAsio.Free();
+					Bass.Free();
 					this.bIsBASSSoundFree = true;
-					throw new Exception( string.Format( "Failed BASS_ASIO_ChannelJoin({1}) [{0}]", BassAsio.BASS_ASIO_ErrorGetCode().ToString(), i ) );
+					throw new Exception( string.Format( "Failed BASS_ASIO_ChannelJoin({1}) [{0}]", BassAsio.LastError.ToString(), i ) );
 					//-----------------
 					#endregion
 				}
 			}
-			if ( !BassAsio.BASS_ASIO_ChannelSetFormat( false, 0, this.fmtASIOチャンネルフォーマット ) )	// 出力チャンネル0のフォーマット
+			if ( !BassAsio.ChannelSetFormat( false, 0, this.fmtASIOチャンネルフォーマット ) )	// 出力チャンネル0のフォーマット
 			{
 				#region [ ASIO 出力チャンネルの初期化に失敗。]
 				//-----------------
-				BassAsio.BASS_ASIO_Free();
-				Bass.BASS_Free();
+				BassAsio.Free();
+				Bass.Free();
 				this.bIsBASSSoundFree = true;
-				throw new Exception( string.Format( "Failed BASS_ASIO_ChannelSetFormat() [{0}]", BassAsio.BASS_ASIO_ErrorGetCode().ToString() ) );
+				throw new Exception( string.Format( "Failed BASS_ASIO_ChannelSetFormat() [{0}]", BassAsio.LastError.ToString() ) );
 				//-----------------
 				#endregion
 			}
 
 			// ASIO 出力と同じフォーマットを持つ BASS ミキサーを作成。
 
-			var flag = BASSFlag.BASS_MIXER_NONSTOP | BASSFlag.BASS_STREAM_DECODE;	// デコードのみ＝発声しない。ASIO に出力されるだけ。
-			if( this.fmtASIOデバイスフォーマット == BASSASIOFormat.BASS_ASIO_FORMAT_FLOAT )
-				flag |= BASSFlag.BASS_SAMPLE_FLOAT;
-			this.hMixer = BassMix.BASS_Mixer_StreamCreate( (int) this.db周波数, this.n出力チャンネル数, flag );
+			var flag = BassFlags.MixerNonStop | BassFlags.Decode;	// デコードのみ＝発声しない。ASIO に出力されるだけ。
+			if( this.fmtASIOデバイスフォーマット == AsioSampleFormat.Float )
+				flag |= BassFlags.Float;
+			this.hMixer = BassMix.CreateMixerStream( (int) this.db周波数, this.n出力チャンネル数, flag );
 
 			if ( this.hMixer == 0 )
 			{
-				BASSError err = Bass.BASS_ErrorGetCode(); 
-				BassAsio.BASS_ASIO_Free();
-				Bass.BASS_Free();
+				Errors err = Bass.LastError; 
+				BassAsio.Free();
+				Bass.Free();
 				this.bIsBASSSoundFree = true;
 				throw new Exception( string.Format( "BASSミキサ(mixing)の作成に失敗しました。[{0}]", err ) );
 			}
 
 			// BASS ミキサーの1秒あたりのバイト数を算出。
 
-			var mixerInfo = Bass.BASS_ChannelGetInfo( this.hMixer );
+			var mixerInfo = Bass.ChannelGetInfo( this.hMixer );
 			int nサンプルサイズbyte = 0;
 			switch( this.fmtASIOチャンネルフォーマット )
 			{
-				case BASSASIOFormat.BASS_ASIO_FORMAT_16BIT: nサンプルサイズbyte = 2; break;
-				case BASSASIOFormat.BASS_ASIO_FORMAT_24BIT: nサンプルサイズbyte = 3; break;
-				case BASSASIOFormat.BASS_ASIO_FORMAT_32BIT: nサンプルサイズbyte = 4; break;
-				case BASSASIOFormat.BASS_ASIO_FORMAT_FLOAT: nサンプルサイズbyte = 4; break;
+				case AsioSampleFormat.Bit16: nサンプルサイズbyte = 2; break;
+				case AsioSampleFormat.Bit24: nサンプルサイズbyte = 3; break;
+				case AsioSampleFormat.Bit32: nサンプルサイズbyte = 4; break;
+				case AsioSampleFormat.Float: nサンプルサイズbyte = 4; break;
 			}
 			//long nミキサーの1サンプルあたりのバイト数 = /*mixerInfo.chans*/ 2 * nサンプルサイズbyte;
-			long nミキサーの1サンプルあたりのバイト数 = mixerInfo.chans * nサンプルサイズbyte;
-			this.nミキサーの1秒あたりのバイト数 = nミキサーの1サンプルあたりのバイト数 * mixerInfo.freq;
+			long nミキサーの1サンプルあたりのバイト数 = mixerInfo.Channels * nサンプルサイズbyte;
+			this.nミキサーの1秒あたりのバイト数 = nミキサーの1サンプルあたりのバイト数 * mixerInfo.Frequency;
 
 
 			// 単純に、hMixerの音量をMasterVolumeとして制御しても、
 			// ChannelGetData()の内容には反映されない。
 			// そのため、もう一段mixerを噛ませて、一段先のmixerからChannelGetData()することで、
 			// hMixerの音量制御を反映させる。
-			this.hMixer_DeviceOut = BassMix.BASS_Mixer_StreamCreate(
+			this.hMixer_DeviceOut = BassMix.CreateMixerStream(
 				(int) this.db周波数, this.n出力チャンネル数, flag );
 			if ( this.hMixer_DeviceOut == 0 )
 			{
-				BASSError errcode = Bass.BASS_ErrorGetCode();
-				BassAsio.BASS_ASIO_Free();
-				Bass.BASS_Free();
+				Errors errcode = Bass.LastError;
+				BassAsio.Free();
+				Bass.Free();
 				this.bIsBASSSoundFree = true;
 				throw new Exception( string.Format( "BASSミキサ(最終段)の作成に失敗しました。[{0}]", errcode ) );
 			}
 			{
-				bool b1 = BassMix.BASS_Mixer_StreamAddChannel( this.hMixer_DeviceOut, this.hMixer, BASSFlag.BASS_DEFAULT );
+				bool b1 = BassMix.MixerAddChannel( this.hMixer_DeviceOut, this.hMixer, BassFlags.Default );
 				if ( !b1 )
 				{
-					BASSError errcode = Bass.BASS_ErrorGetCode();
-					BassAsio.BASS_ASIO_Free();
-					Bass.BASS_Free();
+					Errors errcode = Bass.LastError;
+					BassAsio.Free();
+					Bass.Free();
 					this.bIsBASSSoundFree = true;
 					throw new Exception( string.Format( "BASSミキサ(最終段とmixing)の接続に失敗しました。[{0}]", errcode ) );
 				};
@@ -355,17 +340,17 @@ namespace FDK
 
 			this.nバッファサイズsample = (int) ( n希望バッファサイズms * this.db周波数 / 1000.0 );
 			//this.nバッファサイズsample = (int)  nバッファサイズbyte;
-			if ( !BassAsio.BASS_ASIO_Start( this.nバッファサイズsample ) )		// 範囲外の値を指定した場合は自動的にデフォルト値に設定される。
+			if ( !BassAsio.Start( this.nバッファサイズsample ) )		// 範囲外の値を指定した場合は自動的にデフォルト値に設定される。
 			{
-				BASSError err = BassAsio.BASS_ASIO_ErrorGetCode();
-				BassAsio.BASS_ASIO_Free();
-				Bass.BASS_Free();
+				Errors err = BassAsio.LastError;
+				BassAsio.Free();
+				Bass.Free();
 				this.bIsBASSSoundFree = true;
 				throw new Exception( "ASIO デバイス出力開始に失敗しました。" + err.ToString() );
 			}
 			else
 			{
-				int n遅延sample = BassAsio.BASS_ASIO_GetLatency( false );	// この関数は BASS_ASIO_Start() 後にしか呼び出せない。
+				int n遅延sample = BassAsio.GetLatency( false );	// この関数は BASS_ASIO_Start() 後にしか呼び出せない。
 				int n希望遅延sample = (int) ( n希望バッファサイズms * this.db周波数 / 1000.0 );
 				this.nBufferSizems = this.nOutPutDelayms = (long) ( n遅延sample * 1000.0f / this.db周波数 );
 				Trace.TraceInformation( "ASIO デバイス出力開始：バッファ{0}sample(希望{1}) [{2}ms(希望{3}ms)]", n遅延sample, n希望遅延sample, this.nOutPutDelayms, n希望バッファサイズms );
@@ -403,12 +388,12 @@ namespace FDK
 			this.eOutputDevice = ESoundDeviceType.Unknown;		// まず出力停止する(Dispose中にクラス内にアクセスされることを防ぐ)
 			if ( hMixer != -1 )
 			{
-				Bass.BASS_StreamFree( this.hMixer );
+				Bass.StreamFree( this.hMixer );
 			}
 			if ( !this.bIsBASSSoundFree )
 			{
-				BassAsio.BASS_ASIO_Free();	// システムタイマより先に呼び出すこと。（tAsio処理() の中でシステムタイマを参照してるため）
-				Bass.BASS_Free();
+				BassAsio.Free();	// システムタイマより先に呼び出すこと。（tAsio処理() の中でシステムタイマを参照してるため）
+				Bass.Free();
 			}
 
 			if( bManagedDispose )
@@ -430,10 +415,10 @@ namespace FDK
 		protected int n出力チャンネル数 = 0;
 		protected double db周波数 = 0.0;
 		protected int nバッファサイズsample = 0;
-		protected BASSASIOFormat fmtASIOデバイスフォーマット = BASSASIOFormat.BASS_ASIO_FORMAT_UNKNOWN;
-		protected BASSASIOFormat fmtASIOチャンネルフォーマット = BASSASIOFormat.BASS_ASIO_FORMAT_16BIT;		// 16bit 固定
+		protected AsioSampleFormat fmtASIOデバイスフォーマット = AsioSampleFormat.Unknown;
+		protected AsioSampleFormat fmtASIOチャンネルフォーマット = AsioSampleFormat.Bit16;		// 16bit 固定
 		//protected BASSASIOFormat fmtASIOチャンネルフォーマット = BASSASIOFormat.BASS_ASIO_FORMAT_32BIT;// 16bit 固定
-		protected ASIOPROC tAsioProc = null;
+		protected AsioProcedure tAsioProc = null;
 
 		protected int tAsio処理( bool input, int channel, IntPtr buffer, int length, IntPtr user )
 		{
@@ -442,7 +427,7 @@ namespace FDK
 
 			// BASSミキサからの出力データをそのまま ASIO buffer へ丸投げ。
 
-			int num = Bass.BASS_ChannelGetData( this.hMixer_DeviceOut, buffer, length );		// num = 実際に転送した長さ
+			int num = Bass.ChannelGetData( this.hMixer_DeviceOut, buffer, length );		// num = 実際に転送した長さ
 
 			if ( num == -1 ) num = 0;
 

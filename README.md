@@ -75,6 +75,7 @@ Editor
 |Ver.1.7.1.2|2021-04-19|Linux環境でMidi入力ができない問題の修正                                                 |
 |Ver.1.7.1.3|2021-04-22|動画再生時のメモリ使用量の変動が大きい問題の修正(また、動画再生時の負荷軽減)            |
 |Ver.1.7.1.4|2021-05-12|メモリリークの修正 & エラー発生時の取得情報の追加                                       |
+|Ver.1.7.1.5|2021-07-29|使用する.NET用 BASSラッパーをManagedBassに変更                                          |
 
 ## Discord鯖
 作っていいものかと思いながら、公開鯖を作ってみたかったので作ってしまいました。  
@@ -98,7 +99,6 @@ Test/Readmeフォルダ内の「About_additional_and_modified_functions.md」で
 ## ライセンス関係
 Fork元より使用しているライブラリ
 * [bass](https://www.un4seen.com/bass.html)
-* [Bass.Net](http://bass.radio42.com/)
 * FDK21(改造しているので、FDKとは呼べないライブラリと化しています)
 
 以下のライブラリを追加いたしました。
@@ -113,6 +113,7 @@ Fork元より使用しているライブラリ
 * [SixLabors.Fonts](https://github.com/SixLabors/Fonts)
 * [M+ FONTS](https://osdn.net/projects/mplus-fonts/)
 * [managed-midi](https://github.com/atsushieno/managed-midi)
+* [ManagedBass](https://github.com/ManagedBass/Home)
 
 また、フレームワークに[.NET](https://dotnet.microsoft.com/)を使用しています。
 
