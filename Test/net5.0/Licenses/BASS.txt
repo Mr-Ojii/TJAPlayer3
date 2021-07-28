@@ -1,0 +1,160 @@
+Licence (BASS)
+=======
+BASS is free for non-commercial use. If you are a non-commercial entity
+(eg. an individual) and you are not making any money from your product
+(through sales/advertising/etc), then you can use BASS in it for free.
+If you wish to use BASS in commercial products, then please also see the
+next section.
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, BASS IS PROVIDED
+"AS IS", WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY
+AND/OR FITNESS FOR A PARTICULAR PURPOSE. THE AUTHORS SHALL NOT BE HELD
+LIABLE FOR ANY DAMAGE THAT MAY RESULT FROM THE USE OF BASS. YOU USE
+BASS ENTIRELY AT YOUR OWN RISK.
+
+Usage of BASS indicates that you agree to the above conditions.
+
+All trademarks and other registered names contained in the BASS
+package are the property of their respective owners.
+
+
+
+
+Licence (BASSMIX)
+=======
+BASSmix is free to use with BASS.
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, BASSMIX IS PROVIDED
+"AS IS", WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY
+AND/OR FITNESS FOR A PARTICULAR PURPOSE. THE AUTHORS SHALL NOT BE HELD
+LIABLE FOR ANY DAMAGE THAT MAY RESULT FROM THE USE OF BASSMIX. YOU USE
+BASSMIX ENTIRELY AT YOUR OWN RISK.
+
+Usage of BASSmix indicates that you agree to the above conditions.
+
+All trademarks and other registered names contained in the BASSmix
+package are the property of their respective owners.
+
+
+
+
+Licence (BASSWASAPI)
+=======
+BASSWASAPI is free to use with BASS.
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, BASSWASAPI IS PROVIDED
+"AS IS", WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY
+AND/OR FITNESS FOR A PARTICULAR PURPOSE. THE AUTHORS SHALL NOT BE HELD
+LIABLE FOR ANY DAMAGE THAT MAY RESULT FROM THE USE OF BASSWASAPI. YOU USE
+BASSWASAPI ENTIRELY AT YOUR OWN RISK.
+
+Usage of BASSWASAPI indicates that you agree to the above conditions.
+
+All trademarks and other registered names contained in the BASSWASAPI
+package are the property of their respective owners.
+
+
+
+Licence (BASSASIO)
+=======
+BASSASIO is free for non-commercial use. If you are a non-commercial entity
+(eg. an individual) and you are not making any money from your product
+(through sales/advertising/etc), then you can use BASSASIO in it for free.
+If you wish to use BASSASIO in commercial products, then please also see the
+next section.
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, BASSASIO IS PROVIDED
+"AS IS", WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY
+AND/OR FITNESS FOR A PARTICULAR PURPOSE. THE AUTHORS SHALL NOT BE HELD
+LIABLE FOR ANY DAMAGE THAT MAY RESULT FROM THE USE OF BASSASIO. YOU USE
+BASSASIO ENTIRELY AT YOUR OWN RISK.
+
+Usage of BASSASIO indicates that you agree to the above conditions.
+
+ASIO is a trademark of Steinberg Media Technologies GmbH. All other
+trademarks and registered names contained in the BASSASIO package
+are the property of their respective owners.
+
+
+
+Licence (BASS_FX)
+==============================================
+The BASS_FX library is free, so if anyone tries to charge you
+for it, kick 'em where it hurts.
+
+This software is provided "as is", without warranty of ANY KIND,
+either expressed or implied, including but not limited to the
+implied warranties of merchantability and/or fitness for a
+particular purpose. The author shall NOT be held liable for
+ANY damage to you, your computer, or to anyone or anything else,
+that may result from its use, or misuse. Basically, you use it
+at YOUR OWN RISK.
+
+Usage of BASS_FX indicates that you agree to the above conditions.
+
+You may freely distribute the BASS_FX package as long as NO FEE is
+charged and all the files remain INTACT AND UNMODIFIED.
+
+All trademarks and other registered names contained in the BASS_FX
+package are the property of their respective owners.
+
+
+Licence (BASSenc)
+=======
+BASSenc is free to use with BASS.
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, BASSENC IS PROVIDED
+"AS IS", WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY
+AND/OR FITNESS FOR A PARTICULAR PURPOSE. THE AUTHORS SHALL NOT BE HELD
+LIABLE FOR ANY DAMAGE THAT MAY RESULT FROM THE USE OF BASSENC. YOU USE
+BASSENC ENTIRELY AT YOUR OWN RISK.
+
+Usage of BASSenc indicates that you agree to the above conditions.
+
+All trademarks and other registered names contained in the BASSenc
+package are the property of their respective owners.
+
+
+Licence (BASSMIDI)
+=======
+BASSMIDI is free to use with BASS.
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, BASSMIDI IS PROVIDED
+"AS IS", WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY
+AND/OR FITNESS FOR A PARTICULAR PURPOSE. THE AUTHORS SHALL NOT BE HELD
+LIABLE FOR ANY DAMAGE THAT MAY RESULT FROM THE USE OF BASSMIDI. YOU USE
+BASSMIDI ENTIRELY AT YOUR OWN RISK.
+
+Usage of BASSMIDI indicates that you agree to the above conditions.
+
+All trademarks and other registered names contained in the BASSMIDI
+package are the property of their respective owners.
+
+
+
+BASS.NET
+ Note 
+(c) 2005-2012 by radio42, Germany. Author: Bernd Niedergesaess - All rights reserved.
+
+BASS.NET is the property of radio42 and is protected by copyright laws
+ and international copyright treaties. BASS.NET is not sold, it is licensed.
+
+BASS and Add-Ons: All trademarks and other registered names contained
+ in the BASS.NET package are the property of their respective owners.
+
+Requires: BASS (c) 1999-2012 by Ian Luck. 
+ 
+Caution 
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, BASS.NET IS PROVIDED
+"AS IS", WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY
+AND/OR FITNESS FOR A PARTICULAR PURPOSE. THE AUTHORS SHALL NOT BE HELD
+LIABLE FOR ANY DAMAGE THAT MAY RESULT FROM THE USE OF BASS.NET.
+BASICALLY, YOU USE BASS.NET ENTIRELY AT YOUR OWN RISK.
+ 
