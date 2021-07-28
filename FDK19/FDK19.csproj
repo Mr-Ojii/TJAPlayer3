@@ -47,7 +47,7 @@
     <PackageReference Include="ManagedBass.Fx" Version="2.0.1" />
     <PackageReference Include="ManagedBass.Mix" Version="2.1.0" />
     <PackageReference Include="ManagedBass.Wasapi" Version="2.0.0" />
-    <PackageReference Include="OpenTK" Version="3.2" />
+    <PackageReference Include="OpenTK" Version="3.3.2" />
     <PackageReference Include="ReadJEnc" Version="1.3.1.2" />
     <PackageReference Include="SixLabors.Fonts" Version="1.0.0-beta15" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.3" />
