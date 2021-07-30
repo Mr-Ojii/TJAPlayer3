@@ -70,6 +70,12 @@ namespace FDK
 
         protected Image<Rgba32> DrawPrivateFont(string drawstr, CPrivateFont.DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
         {
+            if(string.IsNullOrEmpty(drawstr))
+            {
+                //Error
+                return new Image<Rgba32>(1, 1);
+            }
+
             RendererOptions roption = new RendererOptions(this.font);
             FontRectangle size = TextMeasurer.Measure(drawstr, roption);
 
