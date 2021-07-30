@@ -69,7 +69,7 @@ namespace TJAPlayer3
 						writer.WriteLine("<body>");
 						writer.WriteLine("<h1>An error has occurred.(エラーが発生しました。)</h1>");
 #if !PUBLISH
-						writer.WriteLine("<p>It is a debug build, so it did not send any error information.(ローカルビルドのため、エラー情報を送信しませんでした。)</p>");
+						writer.WriteLine("<p>It is a local build, so it did not send any error information.(ローカルビルドのため、エラー情報を送信しませんでした。)</p>");
 #else
 						writer.WriteLine("<p>Error information has been sent.(エラー情報を送信しました。)</p>");
 #endif
