@@ -2844,6 +2844,7 @@ namespace TJAPlayer3
 				{
 					TJAPlayer3.ConfigIni.eClipDispType = (EClipDispType)(((int)TJAPlayer3.ConfigIni.eClipDispType + 1) % 4);
 				}
+#if PLAYABLE
 				if ( keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.F6 ) )
 				{
 					TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] = !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0];
@@ -2854,6 +2855,7 @@ namespace TJAPlayer3
 					TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] = !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1];
 					this.b途中でAutoを切り替えたか[1] = true;
 				}
+#endif
 			}
 			if( !this.actPauseMenu.bIsActivePopupMenu && this.bPAUSE && ( ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED ) ) && ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED_FadeOut ) )
 			{
@@ -4084,7 +4086,7 @@ namespace TJAPlayer3
 				dTX.listChip[i].nProcessTime = 0;
 				dTX.listChip[i].nRollCount = 0;
 			}
-			#endregion
+#endregion
 
 #region [ 処理を開始するチップの特定 ]
 			bool bSuccessSeek = false;
@@ -4123,7 +4125,7 @@ namespace TJAPlayer3
 				while (this.n現在のトップChip != 0 && dTX.listChip[this.n現在のトップChip].n発声時刻ms == dTX.listChip[TJAPlayer3.stage演奏ドラム画面.n現在のトップChip - 1].n発声時刻ms)
 					TJAPlayer3.stage演奏ドラム画面.n現在のトップChip--;
 			}
-			#endregion
+#endregion
 
 #region [ 演奏開始の発声時刻msを取得し、タイマに設定 ]
 			int nStartTime = (int)(dTX.listChip[this.n現在のトップChip].n発声時刻ms / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
@@ -4166,7 +4168,7 @@ namespace TJAPlayer3
 					}
 				}
 			}
-			#endregion
+#endregion
 
 #region [ 演奏開始時点で既に表示されているBGAとAVIの、シークと再生 ]
 			if (dTX.listVD.Count > 0)
@@ -4215,7 +4217,7 @@ namespace TJAPlayer3
 
 		protected void t進行描画_チップ_Taiko(ref CDTX dTX, ref CDTX.CChip pChip, int nPlayer)
 		{
-			#region[ 作り直したもの ]
+#region[ 作り直したもの ]
 			if (pChip.b可視 && !pChip.bHit)
 			{
 				long nPlayTime = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
@@ -4276,7 +4278,7 @@ namespace TJAPlayer3
 				int xTemp = 0;
 				int yTemp = 0;
 
-				#region[ スクロール方向変更 ]
+#region[ スクロール方向変更 ]
 				if (pChip.nスクロール方向 != 0)
 				{
 					xTemp = x;
@@ -4315,14 +4317,14 @@ namespace TJAPlayer3
 						y = TJAPlayer3.Skin.nScrollFieldY[nPlayer] + xTemp;
 						break;
 				}
-				#endregion
+#endregion
 
-				#region[ 両手待ち時 ]
+#region[ 両手待ち時 ]
 				if ((pChip.eNoteState == ENoteState.waitleft || pChip.eNoteState == ENoteState.waitright) && TJAPlayer3.ConfigIni.b両手判定待ち時間中に大音符を判定枠に合わせるか)
 				{
 					x = (TJAPlayer3.Skin.nScrollFieldX[pChip.nPlayerSide]);
 				}
-				#endregion
+#endregion
 
 				if (pChip.dbSCROLL_Y != 0.0)
 				{
@@ -4452,7 +4454,7 @@ namespace TJAPlayer3
 			{
 				return;
 			}
-			#endregion
+#endregion
 		}
 		protected void t進行描画_チップ_Taiko連打(ref CDTX dTX, ref CDTX.CChip pChip, int nPlayer)
 		{
@@ -4460,7 +4462,7 @@ namespace TJAPlayer3
 			int nノート座標 = 0;
 			int nノート末端座標 = 0;
 
-			#region[ 作り直したもの ]
+#region[ 作り直したもの ]
 			if (pChip.b可視)
 			{
 				if (pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x17)
@@ -4539,7 +4541,7 @@ namespace TJAPlayer3
 							{
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
 								{
-									#region[末端をテクスチャ側でつなげる場合の方式]
+#region[末端をテクスチャ側でつなげる場合の方式]
 									if (TJAPlayer3.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
 										TJAPlayer3.Tx.Notes.color = effectedColor;
 									else
@@ -4559,7 +4561,7 @@ namespace TJAPlayer3
 
 									TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x, y, 0, new Rectangle(650, num9, 130, 130));
 									TJAPlayer3.Tx.Notes.color = normalColor;
-									#endregion
+#endregion
 								}
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
 								{
@@ -4575,7 +4577,7 @@ namespace TJAPlayer3
 							{
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
 								{
-									#region[末端をテクスチャ側でつなげる場合の方式]
+#region[末端をテクスチャ側でつなげる場合の方式]
 									if (TJAPlayer3.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
 										TJAPlayer3.Tx.Notes.color = effectedColor;
 									else
@@ -4595,7 +4597,7 @@ namespace TJAPlayer3
 
 									TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x, y, 0, new Rectangle(650, num9, 130, 130));
 									TJAPlayer3.Tx.Notes.color = normalColor;
-									#endregion
+#endregion
 								}
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
 								{
@@ -4615,7 +4617,7 @@ namespace TJAPlayer3
 							{
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
 								{
-									#region[末端をテクスチャ側でつなげる場合の方式]
+#region[末端をテクスチャ側でつなげる場合の方式]
 									if (TJAPlayer3.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
 										TJAPlayer3.Tx.Notes.color = effectedColor;
 									else
@@ -4635,7 +4637,7 @@ namespace TJAPlayer3
 
 									TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x, y, new Rectangle(1040, num9, 130, 130));
 									TJAPlayer3.Tx.Notes.color = normalColor;
-									#endregion
+#endregion
 								}
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
 								{
@@ -4651,7 +4653,7 @@ namespace TJAPlayer3
 							{
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
 								{
-									#region[末端をテクスチャ側でつなげる場合の方式]
+#region[末端をテクスチャ側でつなげる場合の方式]
 									if (TJAPlayer3.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
 										TJAPlayer3.Tx.Notes.color = effectedColor;
 									else
@@ -4671,7 +4673,7 @@ namespace TJAPlayer3
 
 									TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x, y, new Rectangle(1040, num9, 130, 130));
 									TJAPlayer3.Tx.Notes.color = normalColor;
-									#endregion
+#endregion
 								}
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
 								{
@@ -4706,7 +4708,7 @@ namespace TJAPlayer3
 				if (pChip.nチャンネル番号 != 0x18 && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer])
 					this.tチップのヒット処理(pChip.n発声時刻ms, pChip, false, 0, nPlayer);
 			}
-			#endregion
+#endregion
 		}
 
 		protected void t進行描画_チップ_小節線(ref CDTX dTX, ref CDTX.CChip pChip, int nPlayer)
@@ -4780,7 +4782,7 @@ namespace TJAPlayer3
 				}
 			}
 
-			#region[ 片手判定をこっちに持ってきてみる。]
+#region[ 片手判定をこっちに持ってきてみる。]
 			//常時イベントが発生しているメソッドのほうがいいんじゃないかという予想。
 			for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
 			{
@@ -4799,7 +4801,7 @@ namespace TJAPlayer3
 					}
 				}
 			}
-			#endregion
+#endregion
 
 		}
 		protected void t進行描画_チップアニメ()
@@ -5002,6 +5004,6 @@ namespace TJAPlayer3
 				x += 28;
 			}
 		}
-		#endregion
+#endregion
 	}
 }

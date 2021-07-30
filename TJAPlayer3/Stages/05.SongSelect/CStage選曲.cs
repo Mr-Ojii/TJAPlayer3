@@ -524,6 +524,7 @@ namespace TJAPlayer3
 								return 0;
 							}
 							#endregion
+#if PLAYABLE
 							#region [ F3 1PオートON/OFF ]
 							if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.F3))
 							{
@@ -541,6 +542,7 @@ namespace TJAPlayer3
 								}
 							}
 							#endregion
+#endif
 							#region [ F5 スーパーハード ]
 							if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.F5))
 							{
@@ -821,6 +823,7 @@ namespace TJAPlayer3
 								return 0;
 							}
 							#endregion
+#if PLAYABLE
 							#region [ F3 1PオートON/OFF ]
 							if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.F3))
 							{
@@ -838,6 +841,7 @@ namespace TJAPlayer3
 								}
 							}
 							#endregion
+#endif
 							#region [ F5 スーパーハード ]
 							if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.F5))
 							{

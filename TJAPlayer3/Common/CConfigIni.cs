@@ -928,8 +928,10 @@ namespace TJAPlayer3
 			sw.WriteLine("[AutoPlay]");
 			sw.WriteLine();
 			sw.WriteLine("; 自動演奏(0:OFF, 1:ON)");
+#if PLAYABLE
 			sw.WriteLine("Taiko={0}", this.b太鼓パートAutoPlay[0] ? 1 : 0);
 			sw.WriteLine("Taiko2P={0}", this.b太鼓パートAutoPlay[1] ? 1 : 0);
+#endif
 			sw.WriteLine("TaikoAutoRoll={0}", this.bAuto先生の連打 ? 1 : 0);
 			sw.WriteLine();
 			sw.WriteLine(";Auto先生の連打間隔の変更(ms)");
@@ -937,9 +939,9 @@ namespace TJAPlayer3
 			sw.WriteLine("TaikoAutoRollSpeed={0}", this.nAuto先生の連打速度);
 			sw.WriteLine();
 			sw.WriteLine(";-------------------");
-			#endregion
+#endregion
 
-			#region [ HitRange ]
+#region [ HitRange ]
 			sw.WriteLine("[HitRange]");
 			sw.WriteLine();
 			sw.WriteLine("; Perfect～Poor とみなされる範囲[ms]");
@@ -948,9 +950,9 @@ namespace TJAPlayer3
 			sw.WriteLine("Poor={0}", this.nヒット範囲ms.Poor);
 			sw.WriteLine();
 			sw.WriteLine(";-------------------");
-			#endregion
+#endregion
 
-			#region [ Log ]
+#region [ Log ]
 			sw.WriteLine( "[Log]" );
 			sw.WriteLine();
 			sw.WriteLine( "; Log出力(0:OFF, 1:ON)" );
@@ -966,9 +968,9 @@ namespace TJAPlayer3
 			sw.WriteLine( "TraceDTXDetails={0}", this.bLogDTX詳細ログ出力 ? 1 : 0 );
 			sw.WriteLine();
 			sw.WriteLine( ";-------------------" );
-			#endregion
+#endregion
 
-			#region [ PlayOption ]
+#region [ PlayOption ]
 			sw.WriteLine( "[PlayOption]" );
 			sw.WriteLine();                                                             //
 			sw.WriteLine("; 選曲画面でランダム選曲を表示するか(0:表示しない,1:表示する)");   // 2020.03.24 Mr-Ojii
@@ -1022,7 +1024,7 @@ namespace TJAPlayer3
 			sw.WriteLine("; ぷちキャラ画像 (0:OFF, 1:ON)");
 			sw.WriteLine("ShowPuchiChara={0}", ShowPuchiChara ? 1 : 0);
 			sw.WriteLine();
-			#region [ Invisible ]
+#region [ Invisible ]
 			//sw.WriteLine( "; ドラムチップ非表示モード (0:OFF, 1=SEMI, 2:FULL)" );
 			//sw.WriteLine( "; Drums chip invisible mode" );
 			//sw.WriteLine( "DrumsInvisible={0}", (int) this.eInvisible );
@@ -1033,7 +1035,7 @@ namespace TJAPlayer3
 			//sw.WriteLine( "; Semi-InvisibleでMissってチップ再表示時間終了後のFadeOut時間(ms)" );
 			//sw.WriteLine( "InvisibleFadeoutTimeMs={0}", (int) this.nFadeoutTimeMs );
 			//sw.WriteLine();
-			#endregion
+#endregion
 			sw.WriteLine( "; RISKYモード(0:OFF, 1-10)" );									// #23559 2011.6.23 yyagi
 			sw.WriteLine( "; RISKY mode. 0=OFF, 1-10 is the times of misses to be Failed." );	//
 			sw.WriteLine( "Risky={0}", this.nRisky );			//
@@ -1112,16 +1114,16 @@ namespace TJAPlayer3
 			sw.WriteLine();
 
 			sw.WriteLine( ";-------------------" );
-			#endregion
-			#region [ GUID ]
+#endregion
+#region [ GUID ]
 			sw.WriteLine( "[GUID]" );
 			sw.WriteLine();
 			foreach( KeyValuePair<int, string> pair in this.dicJoystick )
 			{
 				sw.WriteLine( "JoystickID={0},{1}", pair.Key, pair.Value );
 			}
-			#endregion
-			#region [ DrumsKeyAssign ]
+#endregion
+#region [ DrumsKeyAssign ]
 			sw.WriteLine();
 			sw.WriteLine( ";-------------------" );
 			sw.WriteLine( "; キーアサイン" );
@@ -1173,8 +1175,8 @@ namespace TJAPlayer3
 			this.tキーの書き出し( sw, this.KeyAssign.RightBlue2P );	//
 			sw.WriteLine();
 			sw.WriteLine();
-			#endregion
-			#region [ SystemkeyAssign ]
+#endregion
+#region [ SystemkeyAssign ]
 			sw.WriteLine( "[SystemKeyAssign]" );
 			sw.WriteLine();
 			sw.Write( "Capture=" );
@@ -1184,7 +1186,7 @@ namespace TJAPlayer3
 			this.tキーの書き出し(sw, this.KeyAssign.FullScreen);
 			sw.WriteLine();
 			sw.WriteLine();
-			#endregion
+#endregion
 
 			sw.Close();
 		}
@@ -1217,7 +1219,7 @@ namespace TJAPlayer3
 						string str4;
 						if ( str[ 0 ] == '[' )
 						{
-							#region [ セクションの変更 ]
+#region [ セクションの変更 ]
 							//-----------------------------
 							StringBuilder builder = new StringBuilder( 0x20 );
 							int num = 1;
@@ -1267,7 +1269,7 @@ namespace TJAPlayer3
 								unknown = Eセクション種別.Unknown;
 							}
 							//-----------------------------
-							#endregion
+#endregion
 						}
 						else
 						{
@@ -1278,23 +1280,23 @@ namespace TJAPlayer3
 								str4 = strArray[ 1 ].Trim();
 								switch( unknown )
 								{
-									#region [ [System] ]
+#region [ [System] ]
 									//-----------------------------
 									case Eセクション種別.System:
 										{
-											#region [ Version ]
+#region [ Version ]
 											if ( str3.Equals( "Version" ) )
 											{
 												this.strDTXManiaのバージョン = str4;
 											}
-											#endregion
-											#region [ TJAPath ]
+#endregion
+#region [ TJAPath ]
 											else if( str3.Equals( "TJAPath" ) )
 											{
 												this.str曲データ検索パス = str4;
 											}
-											#endregion
-											#region [ skin関係 ]
+#endregion
+#region [ skin関係 ]
 											else if ( str3.Equals( "SkinPath" ) )
 											{
 												string absSkinPath = str4;
@@ -1316,8 +1318,8 @@ namespace TJAPlayer3
 											{
 												FastRender = CConvert.bONorOFF(str4[0]);
 											}
-											#endregion
-											#region [ Window関係 ]
+#endregion
+#region [ Window関係 ]
 											else if (str3.Equals("FullScreen"))
 											{
 												this.b全画面モード = CConvert.bONorOFF(str4[0]);
@@ -1360,9 +1362,9 @@ namespace TJAPlayer3
 											{
 												this.n非フォーカス時スリープms = CConvert.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, 0, 50, this.n非フォーカス時スリープms );
 											}
-											#endregion
+#endregion
 
-											#region [ WASAPI/ASIO関係 ]
+#region [ WASAPI/ASIO関係 ]
 											else if ( str3.Equals( "SoundDeviceType" ) )
 											{
 												this.nSoundDeviceType = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, this.nSoundDeviceType );
@@ -1396,15 +1398,15 @@ namespace TJAPlayer3
 											//{
 											//    this.nMasterVolume = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 100, this.nMasterVolume );
 											//}
-											#endregion
+#endregion
 
-											#region [ フォント ]
+#region [ フォント ]
 											else if (str3.Equals("FontName"))
 											{
 												this.FontName = str4;
 												this.FontNamed = str4;
 											}
-											#endregion
+#endregion
 
 											else if ( str3.Equals( "VSyncWait" ) )
 											{
@@ -1422,7 +1424,7 @@ namespace TJAPlayer3
 											{
 												this.bSTAGEFAILED有効 = CConvert.bONorOFF( str4[ 0 ] );
 											}
-											#region [ AVI/BGA ]
+#region [ AVI/BGA ]
 											else if( str3.Equals( "AVI" ) )
 											{
 												this.bAVI有効 = CConvert.bONorOFF( str4[ 0 ] );
@@ -1435,23 +1437,23 @@ namespace TJAPlayer3
 											{
 												this.eClipDispType = (EClipDispType)CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, (int) this.eClipDispType );
 											}
-											#endregion
-											#region [ プレビュー音 ]
+#endregion
+#region [ プレビュー音 ]
 											else if( str3.Equals( "PreviewImageWait" ) )
 											{
 												this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x5f5e0ff, this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms );
 											}
-											#endregion
+#endregion
 											//else if( str3.Equals( "AdjustWaves" ) )
 											//{
 											//	this.bWave再生位置自動調整機能有効 = CConvert.bONorOFF( str4[ 0 ] );
 											//}
-											#region [ BGM/ドラムのヒット音 ]
+#region [ BGM/ドラムのヒット音 ]
 											else if( str3.Equals( "BGMSound" ) )
 											{
 												this.bBGM音を発声する = CConvert.bONorOFF( str4[ 0 ] );
 											}
-											#endregion
+#endregion
 											else if( str3.Equals( "SaveScoreIni" ) )
 											{
 												this.bScoreIniを出力する = CConvert.bONorOFF( str4[ 0 ] );
@@ -1460,12 +1462,12 @@ namespace TJAPlayer3
 											{
 												this.bランダムセレクトで子BOXを検索対象とする = CConvert.bONorOFF( str4[ 0 ] );
 											}
-											#region [ コンボ数 ]
+#region [ コンボ数 ]
 											else if( str3.Equals( "MinComboDrums" ) )
 											{
 												this.n表示可能な最小コンボ数 = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 0x1869f, this.n表示可能な最小コンボ数 );
 											}
-											#endregion
+#endregion
 											else if( str3.Equals( "ShowDebugStatus" ) )
 											{
 												this.b演奏情報を表示する = CConvert.bONorOFF( str4[ 0 ] );
@@ -1530,12 +1532,12 @@ namespace TJAPlayer3
 											{
 												this.bTimeStretch = CConvert.bONorOFF( str4[ 0 ] );
 											}
-											#region [ AdjustTime ]
+#region [ AdjustTime ]
 											else if( str3.Equals( "InputAdjustTime" ) )
 											{
 												this.nInputAdjustTimeMs = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, -99, 99, this.nInputAdjustTimeMs );
 											}
-											#endregion
+#endregion
 											else if ( str3.Equals( "PolyphonicSounds" ) )		// #28228 2012.5.1 yyagi
 											{
 												this.nPoliphonicSounds = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 1, 8, this.nPoliphonicSounds );
@@ -1552,11 +1554,12 @@ namespace TJAPlayer3
 											continue;
 										}
 									//-----------------------------
-									#endregion
+#endregion
 
-									#region [ [AutoPlay] ]
+#region [ [AutoPlay] ]
 									//-----------------------------
 									case Eセクション種別.AutoPlay:
+#if PLAYABLE
 										if (str3.Equals("Taiko"))
 										{
 											this.b太鼓パートAutoPlay[0] = CConvert.bONorOFF(str4[0]);
@@ -1565,7 +1568,8 @@ namespace TJAPlayer3
 										{
 											this.b太鼓パートAutoPlay[1] = CConvert.bONorOFF(str4[0]);
 										}
-										else if (str3.Equals("TaikoAutoRoll"))
+#endif
+										if (str3.Equals("TaikoAutoRoll"))
 										{
 											this.bAuto先生の連打 = CConvert.bONorOFF(str4[0]);
 										}
@@ -1575,9 +1579,9 @@ namespace TJAPlayer3
 										}
 										continue;
 									//-----------------------------
-									#endregion
+#endregion
 
-									#region [ [HitRange] ]
+#region [ [HitRange] ]
 									//-----------------------------
 									case Eセクション種別.HitRange:
 										if (str3.Equals("Perfect"))
@@ -1598,11 +1602,11 @@ namespace TJAPlayer3
 										}
 										continue;
 									//-----------------------------
-									#endregion
+#endregion
 
 
 
-									#region [ [Log] ]
+#region [ [Log] ]
 									//-----------------------------
 									case Eセクション種別.Log:
 										{
@@ -1625,9 +1629,9 @@ namespace TJAPlayer3
 											continue;
 										}
 									//-----------------------------
-									#endregion
+#endregion
 
-									#region [ [PlayOption] ]
+#region [ [PlayOption] ]
 									//-----------------------------
 									case Eセクション種別.PlayOption:
 										{
@@ -1699,7 +1703,7 @@ namespace TJAPlayer3
 											{
 												this.eScrollMode = ( EScrollMode )CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, 0 );
 											}
-											#region [ Invisible ]
+#region [ Invisible ]
 											//else if ( str3.Equals( "DrumsInvisible" ) )
 											//{
 											//	this.eInvisible = (EInvisible) CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 2, (int) this.eInvisible );
@@ -1712,7 +1716,7 @@ namespace TJAPlayer3
 											//{
 											//    this.nFadeoutTimeMs = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 9999999, (int) this.nFadeoutTimeMs );
 											//}
-											#endregion
+#endregion
 											else if( str3.Equals( "1PDrumsScrollSpeed" ) )
 											{
 												this.n譜面スクロール速度[0] = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 0x7cf, this.n譜面スクロール速度[0] );
@@ -1832,9 +1836,9 @@ namespace TJAPlayer3
 											continue;
 										}
 									//-----------------------------
-									#endregion
+#endregion
 
-									#region [ [GUID] ]
+#region [ [GUID] ]
 									//-----------------------------
 									case Eセクション種別.GUID:
 										if( str3.Equals( "JoystickID" ) )
@@ -1843,9 +1847,9 @@ namespace TJAPlayer3
 										}
 										continue;
 									//-----------------------------
-									#endregion
+#endregion
 
-									#region [ [DrumsKeyAssign] ]
+#region [ [DrumsKeyAssign] ]
 									//-----------------------------
 									case Eセクション種別.DrumsKeyAssign:
 										{
@@ -1886,9 +1890,9 @@ namespace TJAPlayer3
 											continue;
 										}
 									//-----------------------------
-									#endregion
+#endregion
 
-									#region [ [SystemKeyAssign] ]
+#region [ [SystemKeyAssign] ]
 									//-----------------------------
 									case Eセクション種別.SystemKeyAssign:
 										if( str3.Equals( "Capture" ) )
@@ -1901,7 +1905,7 @@ namespace TJAPlayer3
 										}
 										continue;
 									//-----------------------------
-									#endregion
+#endregion
 								}
 							}
 						}
@@ -1919,7 +1923,7 @@ namespace TJAPlayer3
 
 		// その他
 
-		#region [ private ]
+#region [ private ]
 		//-----------------
 		private enum Eセクション種別
 		{
@@ -2071,7 +2075,7 @@ FullScreen=K064
 			t文字列から読み込み( strDefaultKeyAssign );
 		}
 		//-----------------
-		#endregion
+#endregion
 
 
 		public event PropertyChangedEventHandler PropertyChanged;

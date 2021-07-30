@@ -68,8 +68,8 @@ namespace TJAPlayer3
 						writer.WriteLine("</head>");
 						writer.WriteLine("<body>");
 						writer.WriteLine("<h1>An error has occurred.(エラーが発生しました。)</h1>");
-#if DEBUG
-						writer.WriteLine("<p>It is a debug build, so it did not send any error information.(Debugビルドのため、エラー情報を送信しませんでした。)</p>");
+#if !PUBLISH
+						writer.WriteLine("<p>It is a debug build, so it did not send any error information.(ローカルビルドのため、エラー情報を送信しませんでした。)</p>");
 #else
 						writer.WriteLine("<p>Error information has been sent.(エラー情報を送信しました。)</p>");
 #endif
@@ -84,7 +84,7 @@ namespace TJAPlayer3
 					}
 					CWebOpen.Open(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Error.html");
 
-#if !DEBUG
+#if PUBLISH
 					//エラーの送信
 					JObject errorjsonobject = new JObject(
 						new JProperty("name", asmApp.Name),

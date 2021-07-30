@@ -530,6 +530,7 @@ namespace TJAPlayer3
 			this.list項目リスト.Add( this.iDrumsReturnToMenu );
 
 			#region [ AutoPlay ]
+#if PLAYABLE
 			this.iTaikoAutoPlay = new CItemToggle( "AUTO PLAY", TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0],
 				"すべての音符を自動で演奏します。\n" +
 				"",
@@ -543,6 +544,7 @@ namespace TJAPlayer3
 				"To play both Taiko\n" +
 				" automatically." );
 			this.list項目リスト.Add( this.iTaikoAutoPlay2P );
+#endif
 
 			this.iTaikoAutoRoll = new CItemToggle( "AUTO Roll", TJAPlayer3.ConfigIni.bAuto先生の連打,
 				"OFFにするとAUTO先生が黄色連打を\n" +
@@ -550,7 +552,7 @@ namespace TJAPlayer3
 				"To play both Taiko\n" +
 				" automatically." );
 			this.list項目リスト.Add( this.iTaikoAutoRoll );
-			#endregion
+#endregion
 
 			this.iDrumsScrollSpeed1P = new CItemInteger( "1P ScrollSpeed", 0, 0x7cf, TJAPlayer3.ConfigIni.n譜面スクロール速度[0],
 				"演奏時のドラム譜面のスクロールの\n" +
@@ -744,7 +746,7 @@ namespace TJAPlayer3
 			this.n現在の選択項目 = 0;
 			this.eメニュー種別 = Eメニュー種別.Drums;
 		}
-		#endregion
+#endregion
 
 		/// <summary>
 		/// ESC押下時の右メニュー描画
@@ -782,7 +784,7 @@ namespace TJAPlayer3
 				//this.tConfigIniへ記録する();
 				//CONFIG中にスキン変化が発生すると面倒なので、一旦マスクした。
 			}
-			#region [ 個々のキーアサイン ]
+#region [ 個々のキーアサイン ]
 			//太鼓のキー設定。
 			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoLRed )
 			{
@@ -827,7 +829,7 @@ namespace TJAPlayer3
 			{
 				TJAPlayer3.stageConfig.tパッド選択通知(EKeyConfigPad.FullScreen);
 			}
-			#endregion
+#endregion
 			else
 			{
 				// #27029 2012.1.5 from
@@ -854,7 +856,7 @@ namespace TJAPlayer3
 					TJAPlayer3.ConfigIni.b垂直帰線待ちを行う = this.iSystemVSyncWait.bON;
 					TJAPlayer3.app.b次のタイミングで垂直帰線同期切り替えを行う = true;
 				}
-				#region [ キーアサインへの遷移と脱出 ]
+#region [ キーアサインへの遷移と脱出 ]
 				else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iSystemGoToKeyAssign )			// #24609 2011.4.12 yyagi
 				{
 					t項目リストの設定_KeyAssignSystem();
@@ -871,14 +873,14 @@ namespace TJAPlayer3
 				{
 					t項目リストの設定_Drums();
 				}
-				#endregion
-				#region [ スキン項目でEnterを押下した場合に限り、スキンの縮小サンプルを生成する。]
+#endregion
+#region [ スキン項目でEnterを押下した場合に限り、スキンの縮小サンプルを生成する。]
 				else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iSystemSkinSubfolder )			// #28195 2012.5.2 yyagi
 				{
 					tGenerateSkinSample();
 				}
-				#endregion
-				#region [ 曲データ一覧の再読み込み ]
+#endregion
+#region [ 曲データ一覧の再読み込み ]
 				else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iSystemReloadDTX )				// #32081 2013.10.21 yyagi
 				{
 					if (!TJAPlayer3.EnumSongs.IsEnumerating)//現在の実行中のリスト生成が終わってから
@@ -888,7 +890,7 @@ namespace TJAPlayer3
 						TJAPlayer3.actEnumSongs.On活性化();
 					}
 				}
-				#endregion
+#endregion
 			}
 		}
 
@@ -912,7 +914,7 @@ namespace TJAPlayer3
 			}
 		}
 
-		#region [ 項目リストの設定 ( Exit, KeyAssignSystem/Drums) ]
+#region [ 項目リストの設定 ( Exit, KeyAssignSystem/Drums) ]
 		public void t項目リストの設定_Exit()
 		{
 			this.tConfigIniへ記録する();
@@ -991,7 +993,7 @@ namespace TJAPlayer3
 			this.n現在の選択項目 = 0;
 			this.eメニュー種別 = Eメニュー種別.KeyAssignDrums;
 		}
-		#endregion
+#endregion
 		public void t次に移動()
 		{
 			TJAPlayer3.Skin.soundカーソル移動音.t再生する();
@@ -1037,7 +1039,7 @@ namespace TJAPlayer3
 			this.list項目リスト = new List<CItemBase>();
 			this.eメニュー種別 = Eメニュー種別.Unknown;
 
-			#region [ スキン選択肢と、現在選択中のスキン(index)の準備 #28195 2012.5.2 yyagi ]
+#region [ スキン選択肢と、現在選択中のスキン(index)の準備 #28195 2012.5.2 yyagi ]
 			int ns = ( TJAPlayer3.Skin.strSystemSkinSubfolders == null ) ? 0 : TJAPlayer3.Skin.strSystemSkinSubfolders.Length;
 			int nb = ( TJAPlayer3.Skin.strBoxDefSkinSubfolders == null ) ? 0 : TJAPlayer3.Skin.strBoxDefSkinSubfolders.Length;
 			skinSubFolders = new string[ ns + nb ];
@@ -1058,7 +1060,7 @@ namespace TJAPlayer3
 				nSkinIndex = 0;
 			}
 			nSkinSampleIndex = -1;
-			#endregion
+#endregion
 
 			this.prvFont = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 20 );	// t項目リストの設定 の前に必要
 
@@ -1091,16 +1093,16 @@ namespace TJAPlayer3
 			
 			prvFont.Dispose();
 			base.On非活性化();
-			#region [ Skin変更 ]
+#region [ Skin変更 ]
 			if (TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(true).Replace(System.IO.Path.DirectorySeparatorChar, '/') != this.skinSubFolder_org.Replace(System.IO.Path.DirectorySeparatorChar, '/'))
 			{
 				TJAPlayer3.app.RefleshSkin();
 			}
-			#endregion
+#endregion
 
 			// #24820 2013.1.22 yyagi CONFIGでWASAPI/ASIO/OpenAL関連の設定を変更した場合、サウンドデバイスを再構築する。
 			// #33689 2014.6.17 yyagi CONFIGでSoundTimerTypeの設定を変更した場合も、サウンドデバイスを再構築する。
-			#region [ サウンドデバイス変更 ]
+#region [ サウンドデバイス変更 ]
 			if ( this.iSystemSoundType_initial != this.iSystemSoundType.n現在選択されている項目番号 ||
 				 this.iSystemWASAPIBufferSizeMs_initial != this.iSystemWASAPIBufferSizeMs.n現在の値 ||
 				// this.iSystemASIOBufferSizeMs_initial != this.iSystemASIOBufferSizeMs.n現在の値 ||
@@ -1140,10 +1142,10 @@ namespace TJAPlayer3
 				TJAPlayer3.app.ShowWindowTitleWithSoundType();
 				TJAPlayer3.Skin.ReloadSkin();//2020.07.07 Mr-Ojii 音声の再読み込みをすることによって、音量の初期化を防ぐ
 			}
-			#endregion
-			#region [ サウンドのタイムストレッチモード変更 ]
+#endregion
+#region [ サウンドのタイムストレッチモード変更 ]
 			CSoundManager.bIsTimeStretch = this.iSystemTimeStretch.bON;
-			#endregion
+#endregion
 		}
 		public override void OnManagedリソースの作成()
 		{
@@ -1200,7 +1202,7 @@ namespace TJAPlayer3
 
 			// 進行
 
-			#region [ 初めての進行描画 ]
+#region [ 初めての進行描画 ]
 			//-----------------
 			if( base.b初めての進行描画 )
 			{
@@ -1210,11 +1212,11 @@ namespace TJAPlayer3
 				base.b初めての進行描画 = false;
 			}
 			//-----------------
-			#endregion
+#endregion
 
 			this.b項目リスト側にフォーカスがある = b項目リスト側にフォーカスがある;		// 記憶
 
-			#region [ 項目スクロールの進行 ]
+#region [ 項目スクロールの進行 ]
 			//-----------------
 			long n現在時刻 = TJAPlayer3.Timer.n現在時刻ms;
 			if( n現在時刻 < this.nスクロール用タイマ値 ) this.nスクロール用タイマ値 = n現在時刻;
@@ -1225,7 +1227,7 @@ namespace TJAPlayer3
 				int n目標項目までのスクロール量 = Math.Abs( (int) ( this.n目標のスクロールカウンタ - this.n現在のスクロールカウンタ ) );
 				int n加速度 = 0;
 
-				#region [ n加速度の決定；目標まで遠いほど加速する。]
+#region [ n加速度の決定；目標まで遠いほど加速する。]
 				//-----------------
 				if( n目標項目までのスクロール量 <= 100 )
 				{
@@ -1244,8 +1246,8 @@ namespace TJAPlayer3
 					n加速度 = 8;
 				}
 				//-----------------
-				#endregion
-				#region [ this.n現在のスクロールカウンタに n加速度 を加減算。]
+#endregion
+#region [ this.n現在のスクロールカウンタに n加速度 を加減算。]
 				//-----------------
 				if( this.n現在のスクロールカウンタ < this.n目標のスクロールカウンタ )
 				{
@@ -1266,8 +1268,8 @@ namespace TJAPlayer3
 					}
 				}
 				//-----------------
-				#endregion
-				#region [ 行超え処理、ならびに目標位置に到達したらスクロールを停止して項目変更通知を発行。]
+#endregion
+#region [ 行超え処理、ならびに目標位置に到達したらスクロールを停止して項目変更通知を発行。]
 				//-----------------
 				if( this.n現在のスクロールカウンタ >= 100 )
 				{
@@ -1290,26 +1292,26 @@ namespace TJAPlayer3
 					}
 				}
 				//-----------------
-				#endregion
+#endregion
 
 				this.nスクロール用タイマ値 += INTERVAL;
 			}
 			//-----------------
-			#endregion
+#endregion
 			
-			#region [ ▲印アニメの進行 ]
+#region [ ▲印アニメの進行 ]
 			//-----------------
 			if( this.b項目リスト側にフォーカスがある && ( this.n目標のスクロールカウンタ == 0 ) )
 				this.ct三角矢印アニメ.t進行Loop();
 			//-----------------
-			#endregion
+#endregion
 
 
 			// 描画
 
 			this.ptパネルの基本座標[ 4 ].X = this.b項目リスト側にフォーカスがある ? 0x228 : 0x25a;		// メニューにフォーカスがあるなら、項目リストの中央は頭を出さない。
 
-			#region [ 計11個の項目パネルを描画する。]
+#region [ 計11個の項目パネルを描画する。]
 			//-----------------
 			int nItem = this.n現在の選択項目;
 			for( int i = 0; i < 4; i++ )
@@ -1317,7 +1319,7 @@ namespace TJAPlayer3
 
 			for( int n行番号 = -4; n行番号 < 6; n行番号++ )		// n行番号 == 0 がフォーカスされている項目パネル。
 			{
-				#region [ 今まさに画面外に飛びだそうとしている項目パネルは描画しない。]
+#region [ 今まさに画面外に飛びだそうとしている項目パネルは描画しない。]
 				//-----------------
 				if( ( ( n行番号 == -4 ) && ( this.n現在のスクロールカウンタ > 0 ) ) ||		// 上に飛び出そうとしている
 					( ( n行番号 == +5 ) && ( this.n現在のスクロールカウンタ < 0 ) ) )		// 下に飛び出そうとしている
@@ -1326,20 +1328,20 @@ namespace TJAPlayer3
 					continue;
 				}
 				//-----------------
-				#endregion
+#endregion
 
 				int n移動元の行の基本位置 = n行番号 + 4;
 				int n移動先の行の基本位置 = ( this.n現在のスクロールカウンタ <= 0 ) ? ( ( n移動元の行の基本位置 + 1 ) % 10 ) : ( ( ( n移動元の行の基本位置 - 1 ) + 10 ) % 10 );
 				int x = this.ptパネルの基本座標[ n移動元の行の基本位置 ].X + ( (int) ( ( this.ptパネルの基本座標[ n移動先の行の基本位置 ].X - this.ptパネルの基本座標[ n移動元の行の基本位置 ].X ) * ( ( (double) Math.Abs( this.n現在のスクロールカウンタ ) ) / 100.0 ) ) );
 				int y = this.ptパネルの基本座標[ n移動元の行の基本位置 ].Y + ( (int) ( ( this.ptパネルの基本座標[ n移動先の行の基本位置 ].Y - this.ptパネルの基本座標[ n移動元の行の基本位置 ].Y ) * ( ( (double) Math.Abs( this.n現在のスクロールカウンタ ) ) / 100.0 ) ) );
 
-				#region [ 現在の行の項目パネル枠を描画。]
+#region [ 現在の行の項目パネル枠を描画。]
 				//-----------------
 				if ( TJAPlayer3.Tx.Config_ItemBox != null )
 					TJAPlayer3.Tx.Config_ItemBox.t2D描画( TJAPlayer3.app.Device, x, y );
 				//-----------------
-				#endregion
-				#region [ 現在の行の項目名を描画。]
+#endregion
+#region [ 現在の行の項目名を描画。]
 				//-----------------
 				if ( listMenu[ nItem ].txMenuItemRight != null )	// 自前のキャッシュに含まれているようなら、再レンダリングせずキャッシュを使用
 				{
@@ -1356,24 +1358,24 @@ namespace TJAPlayer3
 				}
 				//CDTXMania.stageConfig.actFont.t文字列描画( x + 0x12, y + 12, this.list項目リスト[ nItem ].strName );
 				//-----------------
-				#endregion
-				#region [ 現在の行の項目の要素を描画。]
+#endregion
+#region [ 現在の行の項目の要素を描画。]
 				//-----------------
 				string strParam = null;
 				bool b強調 = false;
 				switch ( this.list項目リスト[ nItem ].eItemType )
 				{
 					case CItemBase.EItemType.Toggle:
-						#region [ *** ]
+#region [ *** ]
 						//-----------------
 						//CDTXMania.stageConfig.actFont.t文字列描画( x + 210, y + 12, ( (CItemToggle) this.list項目リスト[ nItem ] ).bON ? "ON" : "OFF" );
 						strParam = ( (CItemToggle) this.list項目リスト[ nItem ] ).bON ? "ON" : "OFF";
 						break;
 					//-----------------
-						#endregion
+#endregion
 
 					case CItemBase.EItemType.Integer:		// #24789 2011.4.8 yyagi: add PlaySpeed supports (copied them from OPTION)
-						#region [ *** ]
+#region [ *** ]
 						//-----------------
 						if ( this.list項目リスト[ nItem ] == this.iCommonPlaySpeed )
 						{
@@ -1395,17 +1397,17 @@ namespace TJAPlayer3
 						b強調 = ( n行番号 == 0 ) && this.b要素値にフォーカス中;
 						break;
 					//-----------------
-						#endregion
+#endregion
 
 					case CItemBase.EItemType.List:	// #28195 2012.5.2 yyagi: add Skin supports
-						#region [ *** ]
+#region [ *** ]
 						//-----------------
 						{
 							CItemList list = (CItemList) this.list項目リスト[ nItem ];
 							//CDTXMania.stageConfig.actFont.t文字列描画( x + 210, y + 12, list.list項目値[ list.n現在選択されている項目番号 ] );
 							strParam = list.list項目値[ list.n現在選択されている項目番号 ];
 
-							#region [ 必要な場合に、Skinのサンプルを生成・描画する。#28195 2012.5.2 yyagi ]
+#region [ 必要な場合に、Skinのサンプルを生成・描画する。#28195 2012.5.2 yyagi ]
 							if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iSystemSkinSubfolder )
 							{
 								tGenerateSkinSample();		// 最初にSkinの選択肢にきたとき(Enterを押す前)に限り、サンプル生成が発生する。
@@ -1414,11 +1416,11 @@ namespace TJAPlayer3
 									txSkinSample1.t2D描画( TJAPlayer3.app.Device, 124, 409 );
 								}
 							}
-							#endregion
+#endregion
 							break;
 						}
 					//-----------------
-						#endregion
+#endregion
 				}
 				if ( b強調 )
 				{
@@ -1450,14 +1452,14 @@ namespace TJAPlayer3
 					listMenu[ nItem ].txParam.t2D描画( TJAPlayer3.app.Device,  x + 400 + TJAPlayer3.Skin.Config_ItemText_Correction_X, y + 12 + TJAPlayer3.Skin.Config_ItemText_Correction_Y );
 				}
 				//-----------------
-				#endregion
+#endregion
 				
 				nItem = this.t次の項目( nItem );
 			}
 			//-----------------
-			#endregion
+#endregion
 			
-			#region [ 項目リストにフォーカスがあって、かつスクロールが停止しているなら、パネルの上下に▲印を描画する。]
+#region [ 項目リストにフォーカスがあって、かつスクロールが停止しているなら、パネルの上下に▲印を描画する。]
 			//-----------------
 			if( this.b項目リスト側にフォーカスがある && ( this.n目標のスクロールカウンタ == 0 ) )
 			{
@@ -1489,14 +1491,14 @@ namespace TJAPlayer3
 				}
 			}
 			//-----------------
-			#endregion
+#endregion
 			return 0;
 		}
 	
 
 		// その他
 
-		#region [ private ]
+#region [ private ]
 		//-----------------
 		private enum Eメニュー種別
 		{
@@ -1512,7 +1514,7 @@ namespace TJAPlayer3
 		public bool b要素値にフォーカス中;
 		private CCounter ct三角矢印アニメ;
 		private Eメニュー種別 eメニュー種別;
-		#region [ キーコンフィグ ]
+#region [ キーコンフィグ ]
 		private CItemBase iKeyAssignSystemFullScreen;          // #24609
 		private CItemBase iKeyAssignSystemCapture;			// #24609
 		private CItemBase iKeyAssignSystemReturnToMenu;		// #24609
@@ -1527,7 +1529,7 @@ namespace TJAPlayer3
 		private CItemBase iKeyAssignTaikoLBlue2P;
 		private CItemBase iKeyAssignTaikoRBlue2P;
 
-		#endregion
+#endregion
 		private CItemToggle iLogOutputLog;
 		private CItemToggle iSystemApplyLoudnessMetadata;
 		private CItemInteger iSystemTargetLoudness;
@@ -1604,8 +1606,10 @@ namespace TJAPlayer3
 		private CItemInteger iDrumsScrollSpeed1P;
 		private CItemInteger iDrumsScrollSpeed2P;
 		private CItemToggle iDrumsTight;
+#if PLAYABLE
 		private CItemToggle iTaikoAutoPlay;
 		private CItemToggle iTaikoAutoPlay2P;
+#endif
 		private CItemToggle iTaikoAutoRoll;
 		private CItemToggle iTaikoBranchGuide;
 		private CItemList iTaikoDefaultCourse; //2017.01.30 DD デフォルトでカーソルをあわせる難易度
@@ -1737,8 +1741,10 @@ namespace TJAPlayer3
 		}
 		private void tConfigIniへ記録する_Drums()
 		{
+#if PLAYABLE
 			TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] = this.iTaikoAutoPlay.bON;
 			TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] = this.iTaikoAutoPlay2P.bON;
+#endif
 			TJAPlayer3.ConfigIni.bAuto先生の連打 = this.iTaikoAutoRoll.bON;
 
 			TJAPlayer3.ConfigIni.n譜面スクロール速度[0] = this.iDrumsScrollSpeed1P.n現在の値;
@@ -1779,6 +1785,6 @@ namespace TJAPlayer3
 			TJAPlayer3.ConfigIni.b大音符判定 = this.iTaikoBigNotesJudge.bON;
 		}
 		//-----------------
-		#endregion
+#endregion
 	}
 }
