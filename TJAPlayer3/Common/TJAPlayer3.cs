@@ -405,8 +405,9 @@ namespace TJAPlayer3
 				return;
 			}
 			Timer?.t更新();
-			InputManager?.tSwapEventList();
 			CSoundManager.rc演奏用タイマ?.t更新();
+			InputManager?.tSwapEventList();
+			FPS?.tカウンタ更新();
 
 			if (this.Device == null)
 				return;
@@ -1556,7 +1557,6 @@ namespace TJAPlayer3
 		{
 			while (!InputCTS.IsCancellationRequested)
 			{
-				FPS?.tカウンタ更新();
 				InputManager?.tPolling(this.bApplicationActive);
 				Thread.Sleep(1);
 			}
