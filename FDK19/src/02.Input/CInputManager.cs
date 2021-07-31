@@ -152,8 +152,32 @@ namespace FDK
 			}
 			return null;
 		}
-		public void tPolling(bool bIsWindowActive, bool bEnableBufferInput)
+		public void tPolling(bool bIsWindowActive)
 		{
+			if (CSoundManager.rc演奏用タイマ != null)
+				lock (this.objMidiIn排他用)
+				{
+					//				foreach( IInputDevice device in this.listInputDevices )
+					for (int i = this.listInputDevices.Count - 1; i >= 0; i--)    // #24016 2011.1.6 yyagi: change not to use "foreach" to avoid InvalidOperation exception by Remove().
+					{
+						IInputDevice device = this.listInputDevices[i];
+						try
+						{
+							device.tPolling(bIsWindowActive);
+						}
+						catch (Exception e)                                      // #24016 2011.1.6 yyagi: catch exception for unplugging USB joystick, and remove the device object from the polling items.
+						{
+							this.listInputDevices.Remove(device);
+							device.Dispose();
+							Trace.TraceError("tPolling時に例外発生。該当deviceをポーリング対象からRemoveしました。");
+							Trace.TraceError(e.ToString());
+						}
+					}
+				}
+		}
+
+		public void tSwapEventList()
+        {
 			lock (this.objMidiIn排他用)
 			{
 				//				foreach( IInputDevice device in this.listInputDevices )
@@ -162,52 +186,14 @@ namespace FDK
 					IInputDevice device = this.listInputDevices[i];
 					try
 					{
-						device.tPolling(bIsWindowActive, bEnableBufferInput);
+						device.tSwapEventList();
 					}
 					catch (Exception e)                                      // #24016 2011.1.6 yyagi: catch exception for unplugging USB joystick, and remove the device object from the polling items.
 					{
 						this.listInputDevices.Remove(device);
 						device.Dispose();
-						Trace.TraceError("tPolling時に例外発生。該当deviceをポーリング対象からRemoveしました。");
+						Trace.TraceError("tClearEventLisr時に例外発生。該当deviceをポーリング対象からRemoveしました。");
 						Trace.TraceError(e.ToString());
-					}
-				}
-			}
-		}
-
-		public void KeyDownEvent(object sender, KeyboardKeyEventArgs e)
-		{
-			lock (this.objMidiIn排他用)
-			{
-				if ((this.listInputDevices != null) && (this.listInputDevices.Count != 0))
-				{
-					foreach (IInputDevice device in this.listInputDevices)
-					{
-						CInputKeyboard tkey = device as CInputKeyboard;
-						if ((tkey != null))
-						{
-							tkey.Key押された受信(e.Key);
-							break;
-						}
-					}
-				}
-			}
-		}
-
-		public void KeyUpEvent(object sender, KeyboardKeyEventArgs e)
-		{
-			lock (this.objMidiIn排他用)
-			{
-				if ((this.listInputDevices != null) && (this.listInputDevices.Count != 0))
-				{
-					foreach (IInputDevice device in this.listInputDevices)
-					{
-						CInputKeyboard tkey = device as CInputKeyboard;
-						if ((tkey != null))
-						{
-							tkey.Key離された受信(e.Key);
-							break;
-						}
 					}
 				}
 			}

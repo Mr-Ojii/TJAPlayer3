@@ -110,12 +110,12 @@ namespace TJAPlayer3
 					{
 						TJAPlayer3.Skin.sound取消音.t再生する();
 						this.bキー入力待ち = false;
-						TJAPlayer3.InputManager.tPolling(TJAPlayer3.app.bApplicationActive, false);
+						TJAPlayer3.InputManager.tSwapEventList();
 					}
 					else if( ( this.tキーチェックとアサイン_Keyboard() || this.tキーチェックとアサイン_MidiIn() ) || ( this.tキーチェックとアサイン_Joypad() || this.tキーチェックとアサイン_Mouse() ) )
 					{
 						this.bキー入力待ち = false;
-						TJAPlayer3.InputManager.tPolling(TJAPlayer3.app.bApplicationActive, false);
+						TJAPlayer3.InputManager.tSwapEventList();
 					}
 				}
 				else if( ( TJAPlayer3.InputManager.Keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.Delete ) && ( this.n現在の選択行 >= 0 ) ) && ( this.n現在の選択行 <= 15 ) )
@@ -376,6 +376,7 @@ namespace TJAPlayer3
 					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = EInputDevice.Mouse;
 					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].ID = 0;
 					TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].Code = i;
+					return true;
 				}
 			}
 			return false;

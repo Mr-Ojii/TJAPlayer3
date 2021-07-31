@@ -46,6 +46,7 @@ namespace FDK
 			}
 		}
 
+
 		#region [ IInputDevice 実装 ]
 		//-----------------
 		public EInputDeviceType eInputDeviceType { get; private set; }
@@ -54,16 +55,20 @@ namespace FDK
 		public List<STInputEvent> listInputEvents { get; private set; }
 		public string strDeviceName { get; set; }
 
-		public void tPolling(bool bIsWindowActive, bool bEnableBufferInput)
+		public void tPolling(bool bIsWindowActive)
 		{
-			// this.listInputEvents = new List<STInputEvent>( 32 );
-			this.listInputEvents.Clear();                                // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
+		}
+
+		public void tSwapEventList()
+		{
+			this.listInputEvents.Clear();            // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
 
 			for (int i = 0; i < this.listEventBuffer.Count; i++)
 				this.listInputEvents.Add(this.listEventBuffer[i]);
 
 			this.listEventBuffer.Clear();
 		}
+
 		public bool bIsKeyPressed(int nKey)
 		{
 			foreach (STInputEvent event2 in this.listInputEvents)

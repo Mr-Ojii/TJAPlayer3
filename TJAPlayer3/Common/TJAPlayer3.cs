@@ -405,9 +405,8 @@ namespace TJAPlayer3
 				return;
 			}
 			Timer?.t更新();
+			InputManager?.tSwapEventList();
 			CSoundManager.rc演奏用タイマ?.t更新();
-			InputManager?.tPolling(this.bApplicationActive, TJAPlayer3.ConfigIni.bバッファ入力);
-			FPS?.tカウンタ更新();
 
 			if (this.Device == null)
 				return;
@@ -1150,6 +1149,7 @@ namespace TJAPlayer3
 		private int n進行描画の戻り値;
 		private OpenTK.Input.MouseButton mb = OpenTK.Input.MouseButton.Right;
 		private Stopwatch judgedoubleclock = new Stopwatch();
+		private CancellationTokenSource InputCTS = null;
 
 		private void t起動処理()
 		{
@@ -1348,8 +1348,8 @@ namespace TJAPlayer3
 						ConfigIni.dicJoystick.Add(key, device.GUID);
 					}
 				}
-				base.KeyDown += InputManager.KeyDownEvent;
-				base.KeyUp += InputManager.KeyUpEvent;
+				InputCTS = new CancellationTokenSource();
+				Task.Factory.StartNew(() => InputLoop());
 				Trace.TraceInformation("DirectInput の初期化を完了しました。");
 			}
 			catch
@@ -1552,6 +1552,16 @@ namespace TJAPlayer3
 #endregion
 		}
 
+		private void InputLoop()
+		{
+			while (!InputCTS.IsCancellationRequested)
+			{
+				FPS?.tカウンタ更新();
+				InputManager?.tPolling(this.bApplicationActive);
+				Thread.Sleep(1);
+			}
+		}
+
 		public void ShowWindowTitleWithSoundType()
 		{
 			string delay = "";
@@ -1727,6 +1737,7 @@ namespace TJAPlayer3
 					Trace.Indent();
 					try
 					{
+						InputCTS.Cancel();
 						InputManager.Dispose();
 						InputManager = null;
 						Trace.TraceInformation( "DirectInput, MIDIInputの終了処理を完了しました。" );

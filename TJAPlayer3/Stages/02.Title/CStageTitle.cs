@@ -194,6 +194,9 @@ namespace TJAPlayer3
 				TJAPlayer3.act文字コンソール.tPrint(4, (720 - 24), C文字コンソール.EFontType.白, "TJAPlayer3-f forked TJAPlayer3(AioiLight) forked TJAPlayer2 forPC(kairera0467)");
 				#endregion
 
+				if(TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.M))
+					TJAPlayer3.act文字コンソール.tPrint(4, (500), C文字コンソール.EFontType.白, "TJAPlayer3-f forked TJAPlayer3(AioiLight) forked TJAPlayer2 forPC(kairera0467)");
+
 
 				if (TJAPlayer3.Tx.Title_InBar != null && TJAPlayer3.Tx.Title_AcBar != null)
 				{

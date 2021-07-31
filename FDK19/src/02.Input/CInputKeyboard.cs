@@ -12,8 +12,6 @@ namespace FDK
 	{
 		// コンストラクタ
 
-		public List<STInputEvent> listEventBuffer;
-
 		public CInputKeyboard()
 		{
 			this.eInputDeviceType = EInputDeviceType.Keyboard;
@@ -23,49 +21,8 @@ namespace FDK
 			for (int i = 0; i < this.bKeyState.Length; i++)
 				this.bKeyState[i] = false;
 
-			this.listInputEvents = new List<STInputEvent>(32);
-			this.listEventBuffer = new List<STInputEvent>(32);
-		}
-
-		public void Key押された受信(Key Code)
-		{
-			var key = DeviceConstantConverter.TKKtoKey(Code);
-			if (SlimDXKey.Unknown == key)
-				return;   // 未対応キーは無視。
-
-			if (this.bKeyStateForBuff[(int)key] == false)
-			{
-				STInputEvent item = new STInputEvent()
-				{
-					nKey = (int)key,
-					bPressed = true,
-					bReleased = false,
-					nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms,
-				};
-				this.listEventBuffer.Add(item);
-
-				this.bKeyStateForBuff[(int)key] = true;
-			}
-		}
-		public void Key離された受信(Key Code)
-		{
-			var key = DeviceConstantConverter.TKKtoKey(Code);
-			if (SlimDXKey.Unknown == key)
-				return;   // 未対応キーは無視。
-
-			if (this.bKeyStateForBuff[(int)key] == true)
-			{
-				STInputEvent item = new STInputEvent()
-				{
-					nKey = (int)key,
-					bPressed = false,
-					bReleased = true,
-					nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms,
-				};
-
-				this.listEventBuffer.Add(item);
-				this.bKeyStateForBuff[(int)key] = false;
-			}
+			this.listInputEvents = new List<STInputEvent>();
+			this.listtmpInputEvents = new List<STInputEvent>();
 		}
 
 		// メソッド
@@ -77,41 +34,11 @@ namespace FDK
 		public int ID { get; private set; }
 		public List<STInputEvent> listInputEvents { get; private set; }
 
-		public void tPolling(bool bIsWindowActive, bool bEnableBufferInput)
+		public void tPolling(bool bIsWindowActive)
 		{
-			for (int i = 0; i < 256; i++)
-			{
-				this.bKeyPushDown[i] = false;
-				this.bKeyPullUp[i] = false;
-			}
-
 			if (bIsWindowActive)
 			{
-				if (bEnableBufferInput)
 				{
-					this.listInputEvents.Clear();
-
-					for (int i = 0; i < this.listEventBuffer.Count; i++)
-					{
-						if (this.listEventBuffer[i].bPressed)
-						{
-							this.bKeyState[this.listEventBuffer[i].nKey] = true;
-							this.bKeyPushDown[this.listEventBuffer[i].nKey] = true;
-						}
-						else if(this.listEventBuffer[i].bReleased)
-						{
-							this.bKeyState[this.listEventBuffer[i].nKey] = false;
-							this.bKeyPullUp[this.listEventBuffer[i].nKey] = true;
-						}
-						this.listInputEvents.Add(this.listEventBuffer[i]);
-					}
-
-					this.listEventBuffer.Clear();
-				}
-				else
-				{
-					this.listInputEvents.Clear();            // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
-
 					//-----------------------------
 					KeyboardState currentState = Keyboard.GetState();
 
@@ -126,9 +53,9 @@ namespace FDK
 								if (SlimDXKey.Unknown == key)
 									continue;   // 未対応キーは無視。
 
-								if (this.bKeyState[(int)key] == false)
+								if (this.btmpKeyState[(int)key] == false)
 								{
-									if (key != SlimDXKey.Return || (bKeyState[(int)SlimDXKey.LeftAlt] == false && bKeyState[(int)SlimDXKey.RightAlt] == false))    // #23708 2016.3.19 yyagi
+									if (key != SlimDXKey.Return || (btmpKeyState[(int)SlimDXKey.LeftAlt] == false && btmpKeyState[(int)SlimDXKey.RightAlt] == false))    // #23708 2016.3.19 yyagi
 									{
 										var ev = new STInputEvent()
 										{
@@ -137,20 +64,21 @@ namespace FDK
 											bReleased = false,
 											nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 										};
-										this.listInputEvents.Add(ev);
+										this.listtmpInputEvents.Add(ev);
 
-										this.bKeyState[(int)key] = true;
-										this.bKeyPushDown[(int)key] = true;
+										this.btmpKeyState[(int)key] = true;
+										this.btmpKeyPushDown[(int)key] = true;
 									}
 								}
 							}
+							else
 							{
 								// #xxxxx: 2017.5.7: from: TKK (OpenTK.Input.Key) を SlimDX.DirectInput.Key に変換。
 								var key = DeviceConstantConverter.TKKtoKey((Key)index);
 								if (SlimDXKey.Unknown == key)
 									continue;   // 未対応キーは無視。
 
-								if (this.bKeyState[(int)key] == true && !currentState.IsKeyDown((Key)index)) // 前回は押されているのに今回は押されていない → 離された
+								if (this.btmpKeyState[(int)key] == true) // 前回は押されているのに今回は押されていない → 離された
 								{
 									var ev = new STInputEvent()
 									{
@@ -159,10 +87,10 @@ namespace FDK
 										bReleased = true,
 										nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 									};
-									this.listInputEvents.Add(ev);
+									this.listtmpInputEvents.Add(ev);
 
-									this.bKeyState[(int)key] = false;
-									this.bKeyPullUp[(int)key] = true;
+									this.btmpKeyState[(int)key] = false;
+									this.btmpKeyPullUp[(int)key] = true;
 								}
 							}
 						}
@@ -171,6 +99,27 @@ namespace FDK
 				//-----------------------------
 			}
 		}
+		public void tSwapEventList()
+        {
+			this.listInputEvents.Clear();
+			for (int i = 0; i < 256; i++)
+			{
+				//Swap
+				this.bKeyPullUp[i] = this.btmpKeyPullUp[i];
+				this.bKeyPushDown[i] = this.btmpKeyPushDown[i];
+				this.bKeyState[i] = this.btmpKeyState[i];
+
+				//Clear
+				this.btmpKeyPushDown[i] = false;
+				this.btmpKeyPullUp[i] = false;
+			}
+			for (int i = 0; i < this.listtmpInputEvents.Count; i++)
+            {
+				this.listInputEvents.Add(this.listtmpInputEvents[i]);
+			}
+			this.listtmpInputEvents.Clear();            // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
+		}
+
 
 		/// <param name="nKey">
 		///		調べる SlimDX.DirectInput.Key を int にキャストした値。
@@ -231,7 +180,10 @@ namespace FDK
 		private bool[] bKeyPullUp = new bool[256];
 		private bool[] bKeyPushDown = new bool[256];
 		private bool[] bKeyState = new bool[256];
-		private bool[] bKeyStateForBuff = new bool[256];
+		private bool[] btmpKeyPullUp = new bool[256];
+		private bool[] btmpKeyPushDown = new bool[256];
+		private bool[] btmpKeyState = new bool[256];
+		private List<STInputEvent> listtmpInputEvents;
 		//-----------------
 		#endregion
 	}
