@@ -27,8 +27,13 @@ __Windows10(Ver.21H1)とLinux Mint 20.1(Xfce)ではLinux Mintの方が安定し�
 
 
 Ubuntu系Linuxではターミナルで  
-``sudo apt install freeglut3 freeglut3-dev libgdiplus ffmpeg``  
-を実行しそれぞれのライブラリをインストールしてから実行してください。
+``chmod +x TJAPlayer3-f(.AppImage)``  
+を実行し、実行ファイルに実行権限をつけ、  
+``sudo apt install freeglut3 freeglut3-dev libgdiplus ffmpeg libopenal-dev``  
+を実行し、それぞれのライブラリをインストールし、  
+``ln -sf /usr/lib/x86_64-linux-gnu/libopenal.so ./dll/linux-x64/openal32.dll``  
+を実行し、libopenal.soのシンボリックリンクを実行ファイルと同じフォルダに作成してから実行してください。  
+※()内は実行ファイルの名前にしたがってください。
 
 
 ## 開発環境(動作確認環境)
