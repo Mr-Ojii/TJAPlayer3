@@ -19,7 +19,8 @@ namespace FDK
 			for (int i = 0; i < this.bButtonState.Length; i++)
 				this.bButtonState[i] = false;
 
-			this.listInputEvents = new List<STInputEvent>(32);
+			this.listInputEvents = new List<STInputEvent>();
+			this.listtmpInputEvents = new List<STInputEvent>();
 		}
 
 
@@ -48,21 +49,10 @@ namespace FDK
 			private set;
 		}
 
-		public void tPolling(bool bIsWindowActive, bool bEnableBufferInput)
+		public void tPolling(bool bIsWindowActive)
 		{
-			#region [ bButtonフラグ初期化 ]
-			for (int i = 0; i < 256; i++)
-			{
-				this.bButtonPushDown[i] = false;
-				this.bButtonPullUp[i] = false;
-			}
-			#endregion
-
 			if (bIsWindowActive)
 			{
-				this.listInputEvents.Clear();                        // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
-
-
 				#region [ 入力 ]
 				//-----------------------------
 				JoystickState ButtonState = Joystick.GetState(ID);
@@ -72,7 +62,7 @@ namespace FDK
 					//-----------------------------
 					if (ButtonState.GetAxis(0) < -0.5)
 					{
-						if (this.bButtonState[0] == false)
+						if (this.btmpButtonState[0] == false)
 						{
 							STInputEvent ev = new STInputEvent()
 							{
@@ -80,15 +70,15 @@ namespace FDK
 								bPressed = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listInputEvents.Add(ev);
+							this.listtmpInputEvents.Add(ev);
 
-							this.bButtonState[0] = true;
-							this.bButtonPushDown[0] = true;
+							this.btmpButtonState[0] = true;
+							this.btmpButtonPushDown[0] = true;
 						}
 					}
 					else
 					{
-						if (this.bButtonState[0] == true)
+						if (this.btmpButtonState[0] == true)
 						{
 							STInputEvent ev = new STInputEvent()
 							{
@@ -96,10 +86,10 @@ namespace FDK
 								bPressed = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listInputEvents.Add(ev);
+							this.listtmpInputEvents.Add(ev);
 
-							this.bButtonState[0] = false;
-							this.bButtonPullUp[0] = true;
+							this.btmpButtonState[0] = false;
+							this.btmpButtonPullUp[0] = true;
 						}
 					}
 					//-----------------------------
@@ -108,7 +98,7 @@ namespace FDK
 					//-----------------------------
 					if (ButtonState.GetAxis(0) > 0.5)
 					{
-						if (this.bButtonState[1] == false)
+						if (this.btmpButtonState[1] == false)
 						{
 							STInputEvent ev = new STInputEvent()
 							{
@@ -116,15 +106,15 @@ namespace FDK
 								bPressed = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listInputEvents.Add(ev);
+							this.listtmpInputEvents.Add(ev);
 
-							this.bButtonState[1] = true;
-							this.bButtonPushDown[1] = true;
+							this.btmpButtonState[1] = true;
+							this.btmpButtonPushDown[1] = true;
 						}
 					}
 					else
 					{
-						if (this.bButtonState[1] == true)
+						if (this.btmpButtonState[1] == true)
 						{
 							STInputEvent event7 = new STInputEvent()
 							{
@@ -132,10 +122,10 @@ namespace FDK
 								bPressed = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listInputEvents.Add(event7);
+							this.listtmpInputEvents.Add(event7);
 
-							this.bButtonState[1] = false;
-							this.bButtonPullUp[1] = true;
+							this.btmpButtonState[1] = false;
+							this.btmpButtonPullUp[1] = true;
 						}
 					}
 					//-----------------------------
@@ -144,7 +134,7 @@ namespace FDK
 					//-----------------------------
 					if (ButtonState.GetAxis(1) < -0.5)
 					{
-						if (this.bButtonState[2] == false)
+						if (this.btmpButtonState[2] == false)
 						{
 							STInputEvent ev = new STInputEvent()
 							{
@@ -152,15 +142,15 @@ namespace FDK
 								bPressed = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listInputEvents.Add(ev);
+							this.listtmpInputEvents.Add(ev);
 
-							this.bButtonState[2] = true;
-							this.bButtonPushDown[2] = true;
+							this.btmpButtonState[2] = true;
+							this.btmpButtonPushDown[2] = true;
 						}
 					}
 					else
 					{
-						if (this.bButtonState[2] == true)
+						if (this.btmpButtonState[2] == true)
 						{
 							STInputEvent ev = new STInputEvent()
 							{
@@ -168,10 +158,10 @@ namespace FDK
 								bPressed = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listInputEvents.Add(ev);
+							this.listtmpInputEvents.Add(ev);
 
-							this.bButtonState[2] = false;
-							this.bButtonPullUp[2] = true;
+							this.btmpButtonState[2] = false;
+							this.btmpButtonPullUp[2] = true;
 						}
 					}
 					//-----------------------------
@@ -180,7 +170,7 @@ namespace FDK
 					//-----------------------------
 					if (ButtonState.GetAxis(1) > 0.5)
 					{
-						if (this.bButtonState[3] == false)
+						if (this.btmpButtonState[3] == false)
 						{
 							STInputEvent ev = new STInputEvent()
 							{
@@ -188,15 +178,15 @@ namespace FDK
 								bPressed = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listInputEvents.Add(ev);
+							this.listtmpInputEvents.Add(ev);
 
-							this.bButtonState[3] = true;
-							this.bButtonPushDown[3] = true;
+							this.btmpButtonState[3] = true;
+							this.btmpButtonPushDown[3] = true;
 						}
 					}
 					else
 					{
-						if (this.bButtonState[3] == true)
+						if (this.btmpButtonState[3] == true)
 						{
 							STInputEvent ev = new STInputEvent()
 							{
@@ -204,10 +194,10 @@ namespace FDK
 								bPressed = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listInputEvents.Add(ev);
+							this.listtmpInputEvents.Add(ev);
 
-							this.bButtonState[3] = false;
-							this.bButtonPullUp[3] = true;
+							this.btmpButtonState[3] = false;
+							this.btmpButtonPullUp[3] = true;
 						}
 					}
 					//-----------------------------
@@ -216,7 +206,7 @@ namespace FDK
 					//-----------------------------
 					if (ButtonState.GetAxis(2) < -0.5)
 					{
-						if (this.bButtonState[4] == false)
+						if (this.btmpButtonState[4] == false)
 						{
 							STInputEvent ev = new STInputEvent()
 							{
@@ -224,15 +214,15 @@ namespace FDK
 								bPressed = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listInputEvents.Add(ev);
+							this.listtmpInputEvents.Add(ev);
 
-							this.bButtonState[4] = true;
-							this.bButtonPushDown[4] = true;
+							this.btmpButtonState[4] = true;
+							this.btmpButtonPushDown[4] = true;
 						}
 					}
 					else
 					{
-						if (this.bButtonState[4] == true)
+						if (this.btmpButtonState[4] == true)
 						{
 							STInputEvent ev = new STInputEvent()
 							{
@@ -240,10 +230,10 @@ namespace FDK
 								bPressed = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listInputEvents.Add(ev);
+							this.listtmpInputEvents.Add(ev);
 
-							this.bButtonState[4] = false;
-							this.bButtonPullUp[4] = true;
+							this.btmpButtonState[4] = false;
+							this.btmpButtonPullUp[4] = true;
 						}
 					}
 					//-----------------------------
@@ -252,7 +242,7 @@ namespace FDK
 					//-----------------------------
 					if (ButtonState.GetAxis(2) > 0.5)
 					{
-						if (this.bButtonState[5] == false)
+						if (this.btmpButtonState[5] == false)
 						{
 							STInputEvent ev = new STInputEvent()
 							{
@@ -260,15 +250,15 @@ namespace FDK
 								bPressed = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listInputEvents.Add(ev);
+							this.listtmpInputEvents.Add(ev);
 
-							this.bButtonState[5] = true;
-							this.bButtonPushDown[5] = true;
+							this.btmpButtonState[5] = true;
+							this.btmpButtonPushDown[5] = true;
 						}
 					}
 					else
 					{
-						if (this.bButtonState[5] == true)
+						if (this.btmpButtonState[5] == true)
 						{
 							STInputEvent event15 = new STInputEvent()
 							{
@@ -276,10 +266,10 @@ namespace FDK
 								bPressed = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listInputEvents.Add(event15);
+							this.listtmpInputEvents.Add(event15);
 
-							this.bButtonState[5] = false;
-							this.bButtonPullUp[5] = true;
+							this.btmpButtonState[5] = false;
+							this.btmpButtonPullUp[5] = true;
 						}
 					}
 					//-----------------------------
@@ -288,7 +278,7 @@ namespace FDK
 					//-----------------------------
 					if (ButtonState.GetAxis(3) < -0.5)
 					{
-						if (this.bButtonState[6] == false)
+						if (this.btmpButtonState[6] == false)
 						{
 							STInputEvent ev = new STInputEvent()
 							{
@@ -296,15 +286,15 @@ namespace FDK
 								bPressed = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listInputEvents.Add(ev);
+							this.listtmpInputEvents.Add(ev);
 
-							this.bButtonState[6] = true;
-							this.bButtonPushDown[6] = true;
+							this.btmpButtonState[6] = true;
+							this.btmpButtonPushDown[6] = true;
 						}
 					}
 					else
 					{
-						if (this.bButtonState[4] == true)
+						if (this.btmpButtonState[4] == true)
 						{
 							STInputEvent ev = new STInputEvent()
 							{
@@ -312,10 +302,10 @@ namespace FDK
 								bPressed = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listInputEvents.Add(ev);
+							this.listtmpInputEvents.Add(ev);
 
-							this.bButtonState[6] = false;
-							this.bButtonPullUp[6] = true;
+							this.btmpButtonState[6] = false;
+							this.btmpButtonPullUp[6] = true;
 						}
 					}
 					//-----------------------------
@@ -324,7 +314,7 @@ namespace FDK
 					//-----------------------------
 					if (ButtonState.GetAxis(3) > 0.5)
 					{
-						if (this.bButtonState[7] == false)
+						if (this.btmpButtonState[7] == false)
 						{
 							STInputEvent ev = new STInputEvent()
 							{
@@ -332,15 +322,15 @@ namespace FDK
 								bPressed = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listInputEvents.Add(ev);
+							this.listtmpInputEvents.Add(ev);
 
-							this.bButtonState[7] = true;
-							this.bButtonPushDown[7] = true;
+							this.btmpButtonState[7] = true;
+							this.btmpButtonPushDown[7] = true;
 						}
 					}
 					else
 					{
-						if (this.bButtonState[7] == true)
+						if (this.btmpButtonState[7] == true)
 						{
 							STInputEvent event15 = new STInputEvent()
 							{
@@ -348,10 +338,10 @@ namespace FDK
 								bPressed = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listInputEvents.Add(event15);
+							this.listtmpInputEvents.Add(event15);
 
-							this.bButtonState[7] = false;
-							this.bButtonPullUp[7] = true;
+							this.btmpButtonState[7] = false;
+							this.btmpButtonPullUp[7] = true;
 						}
 					}
 					//-----------------------------
@@ -361,7 +351,7 @@ namespace FDK
 					bool bIsButtonPressedReleased = false;
 					for (int j = 0; j < 128; j++)
 					{
-						if (this.bButtonState[8 + j] == false && ButtonState.IsButtonDown(j))
+						if (this.btmpButtonState[8 + j] == false && ButtonState.IsButtonDown(j))
 						{
 							STInputEvent item = new STInputEvent()
 							{
@@ -369,13 +359,13 @@ namespace FDK
 								bPressed = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listInputEvents.Add(item);
+							this.listtmpInputEvents.Add(item);
 
-							this.bButtonState[8 + j] = true;
-							this.bButtonPushDown[8 + j] = true;
+							this.btmpButtonState[8 + j] = true;
+							this.btmpButtonPushDown[8 + j] = true;
 							bIsButtonPressedReleased = true;
 						}
-						else if (this.bButtonState[8 + j] == true && !ButtonState.IsButtonDown(j))
+						else if (this.btmpButtonState[8 + j] == true && !ButtonState.IsButtonDown(j))
 						{
 							STInputEvent item = new STInputEvent()
 							{
@@ -383,10 +373,10 @@ namespace FDK
 								bPressed = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listInputEvents.Add(item);
+							this.listtmpInputEvents.Add(item);
 
-							this.bButtonState[8 + j] = false;
-							this.bButtonPullUp[8 + j] = true;
+							this.btmpButtonState[8 + j] = false;
+							this.btmpButtonPullUp[8 + j] = true;
 							bIsButtonPressedReleased = true;
 						}
 					}
@@ -400,7 +390,7 @@ namespace FDK
 					{
 						if (hatState.Position == (OpenTK.Input.HatPosition)nWay + 1)
 						{
-							if (this.bButtonState[8 + 128 + nWay] == false)
+							if (this.btmpButtonState[8 + 128 + nWay] == false)
 							{
 								STInputEvent stevent = new STInputEvent()
 								{
@@ -408,10 +398,10 @@ namespace FDK
 									bPressed = true,
 									nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 								};
-								this.listInputEvents.Add(stevent);
+								this.listtmpInputEvents.Add(stevent);
 
-								this.bButtonState[stevent.nKey] = true;
-								this.bButtonPushDown[stevent.nKey] = true;
+								this.btmpButtonState[stevent.nKey] = true;
+								this.btmpButtonPushDown[stevent.nKey] = true;
 							}
 							bIsButtonPressedReleased = true;
 						}
@@ -421,7 +411,7 @@ namespace FDK
 						int nWay = 0;
 						for (int i = 8 + 0x80; i < 8 + 0x80 + 8; i++)
 						{                                           // 離されたボタンを調べるために、元々押されていたボタンを探す。
-							if (this.bButtonState[i] == true)   // DirectInputを直接いじるならこんなことしなくて良いのに、あぁ面倒。
+							if (this.btmpButtonState[i] == true)   // DirectInputを直接いじるならこんなことしなくて良いのに、あぁ面倒。
 							{                                       // この処理が必要なために、POVを1個しかサポートできない。無念。
 								nWay = i;
 								break;
@@ -435,10 +425,10 @@ namespace FDK
 								bPressed = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listInputEvents.Add(stevent);
+							this.listtmpInputEvents.Add(stevent);
 
-							this.bButtonState[nWay] = false;
-							this.bButtonPullUp[nWay] = true;
+							this.btmpButtonState[nWay] = false;
+							this.btmpButtonPullUp[nWay] = true;
 						}
 					}
 					#endregion
@@ -446,6 +436,27 @@ namespace FDK
 					#endregion
 				}
 			}
+		}
+
+		public void tSwapEventList()
+		{
+			this.listInputEvents.Clear();
+			for (int i = 0; i < 256; i++)
+			{
+				//Swap
+				this.bButtonPushDown[i] = this.btmpButtonPushDown[i];
+				this.bButtonPullUp[i] = this.btmpButtonPullUp[i];
+				this.bButtonState[i] = this.btmpButtonState[i];
+
+				//Clear
+				this.btmpButtonPushDown[i] = false;
+				this.btmpButtonPullUp[i] = false;
+			}
+			for (int i = 0; i < this.listtmpInputEvents.Count; i++)
+			{
+				this.listInputEvents.Add(this.listtmpInputEvents[i]);
+			}
+			this.listtmpInputEvents.Clear();            // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
 		}
 
 		public bool bIsKeyPressed(int nButton)
@@ -491,6 +502,10 @@ namespace FDK
 		private bool[] bButtonPullUp = new bool[0x100];
 		private bool[] bButtonPushDown = new bool[0x100];
 		private bool[] bButtonState = new bool[0x100];      // 0-5: XYZ, 6 - 0x128+5: buttons, 0x128+6 - 0x128+6+8: POV/HAT
+		private bool[] btmpButtonPullUp = new bool[0x100];
+		private bool[] btmpButtonPushDown = new bool[0x100];
+		private bool[] btmpButtonState = new bool[0x100];      // 0-5: XYZ, 6 - 0x128+5: buttons, 0x128+6 - 0x128+6+8: POV/HAT
+		private List<STInputEvent> listtmpInputEvents;
 		private bool bDisposed;
 		//-----------------
 		#endregion

@@ -18,7 +18,8 @@ namespace FDK
 
 			for (int i = 0; i < this.bMouseState.Length; i++)
 				this.bMouseState[i] = false;
-			this.listInputEvents = new List<STInputEvent>(32);
+			this.listInputEvents = new List<STInputEvent>();
+			this.listtmpInputEvents = new List<STInputEvent>();
 		}
 
 		// メソッド
@@ -30,19 +31,10 @@ namespace FDK
 		public int ID { get; private set; }
 		public List<STInputEvent> listInputEvents { get; private set; }
 
-		public void tPolling(bool bIsWindowActive, bool bEnableBufferInput)
+		public void tPolling(bool bIsWindowActive)
 		{
-			for (int i = 0; i < Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length; i++)
-			{
-				this.bMousePushDown[i] = false;
-				this.bMousePullUp[i] = false;
-			}
-
 			if (bIsWindowActive)
 			{
-
-				this.listInputEvents.Clear();            // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
-				
 				//-----------------------------
 				MouseState currentState = Mouse.GetState();
 
@@ -50,7 +42,7 @@ namespace FDK
 				{
 					for (int j = 0; j < Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length; j++)
 					{
-						if (this.bMouseState[j] == false && currentState[(MouseButton)j] == true)
+						if (this.btmpMouseState[j] == false && currentState[(MouseButton)j])
 						{
 							var ev = new STInputEvent()
 							{
@@ -59,12 +51,12 @@ namespace FDK
 								bReleased = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listInputEvents.Add(ev);
+							this.listtmpInputEvents.Add(ev);
 
-							this.bMouseState[j] = true;
-							this.bMousePushDown[j] = true;
+							this.btmpMouseState[j] = true;
+							this.btmpMousePushDown[j] = true;
 						}
-						else if (this.bMouseState[j] == true && currentState[(MouseButton)j] == false)
+						else if (this.btmpMouseState[j] == true && !currentState[(MouseButton)j])
 						{
 							var ev = new STInputEvent()
 							{
@@ -73,10 +65,10 @@ namespace FDK
 								bReleased = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listInputEvents.Add(ev);
+							this.listtmpInputEvents.Add(ev);
 
-							this.bMouseState[j] = false;
-							this.bMousePullUp[j] = true;
+							this.btmpMouseState[j] = false;
+							this.btmpMousePullUp[j] = true;
 						}
 					}
 				}
@@ -84,6 +76,29 @@ namespace FDK
 				
 			}
 		}
+
+
+		public void tSwapEventList()
+		{
+			this.listInputEvents.Clear();
+			for (int i = 0; i < Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length; i++)
+			{
+				//Swap
+				this.bMousePullUp[i] = this.btmpMousePullUp[i];
+				this.bMousePushDown[i] = this.btmpMousePushDown[i];
+				this.bMouseState[i] = this.btmpMouseState[i];
+
+				//Clear
+				this.btmpMousePushDown[i] = false;
+				this.btmpMousePullUp[i] = false;
+			}
+			for (int i = 0; i < this.listtmpInputEvents.Count; i++)
+			{
+				this.listInputEvents.Add(this.listtmpInputEvents[i]);
+			}
+			this.listtmpInputEvents.Clear();            // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
+		}
+
 		public bool bIsKeyPressed(int nButton)
 		{
 			return (((0 <= nButton) && (nButton < Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length)) && this.bMousePushDown[nButton]);
@@ -128,6 +143,10 @@ namespace FDK
 		private bool[] bMousePullUp = new bool[Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length];
 		private bool[] bMousePushDown = new bool[Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length];
 		private bool[] bMouseState = new bool[Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length];
+		private bool[] btmpMousePullUp = new bool[Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length];
+		private bool[] btmpMousePushDown = new bool[Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length];
+		private bool[] btmpMouseState = new bool[Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length];
+		public List<STInputEvent> listtmpInputEvents;
 		//-----------------
 		#endregion
 	}
