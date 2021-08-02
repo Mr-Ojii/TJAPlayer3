@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
@@ -12,6 +13,41 @@ namespace FDK
 
     public class CFontRenderer : IDisposable
     {
+		#region[static系]
+		public static void SetTextCorrectionX_Chara_List_Vertical(string[] list)
+		{
+			if (list != null)
+				CorrectionX_Chara_List_Vertical = list.Where(c => c != null).ToArray();
+		}
+		public static void SetTextCorrectionX_Chara_List_Value_Vertical(int[] list)
+		{
+			if (list != null)
+				CorrectionX_Chara_List_Value_Vertical = list;
+		}
+		public static void SetTextCorrectionY_Chara_List_Vertical(string[] list)
+		{
+			if (list != null)
+				CorrectionY_Chara_List_Vertical = list.Where(c => c != null).ToArray();
+		}
+		public static void SetTextCorrectionY_Chara_List_Value_Vertical(int[] list)
+		{
+			if (list != null)
+				CorrectionY_Chara_List_Value_Vertical = list;
+		}
+		public static void SetRotate_Chara_List_Vertical(string[] list)
+		{
+			if (list != null)
+				Rotate_Chara_List_Vertical = list.Where(c => c != null).ToArray();
+		}
+
+		private static string[] CorrectionX_Chara_List_Vertical = new string[0];
+		private static int[] CorrectionX_Chara_List_Value_Vertical = new int[0];
+		private static string[] CorrectionY_Chara_List_Vertical = new string[0];
+		private static int[] CorrectionY_Chara_List_Value_Vertical = new int[0];
+		private static string[] Rotate_Chara_List_Vertical = new string[0];
+		#endregion
+
+        
         #region [ コンストラクタ ]
         public CFontRenderer(string fontpath, int pt, SixLabors.Fonts.FontStyle style)
         {
@@ -28,17 +64,29 @@ namespace FDK
         #endregion
 
         protected void Initialize(string fontpath, int pt, FontStyle style)
-        {
-            try
+		{
+			try
+			{
+				this.textRenderer = new CGDIPlusTextRenderer(fontpath, pt, style);
+				return;
+			}
+			catch (Exception e)
+			{
+				Trace.TraceWarning("GDI+でのフォント生成に失敗しました。" + e.ToString());
+				this.textRenderer.Dispose();
+			}
+			
+			try
             {
                 this.textRenderer = new CSixLaborsTextRenderer(fontpath, pt, style);
+				return;
             }
             catch (Exception e)
             {
                 Trace.TraceWarning("SixLabors.Fontsでのフォント生成に失敗しました。" + e.ToString());
+				this.textRenderer.Dispose();
+				throw;
             }
-
-            //GDI+の方も
         }
 
 		public Image<Rgba32> DrawPrivateFont(string drawstr, Color fontColor)
@@ -62,6 +110,7 @@ namespace FDK
 		}
 		protected Image<Rgba32> DrawPrivateFont(string drawstr, CPrivateFont.DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
 		{
+			//横書きに対してのCorrectionは廃止
             return this.textRenderer.DrawText(drawstr, drawmode, fontColor, edgeColor, gradationTopColor, gradationBottomColor, edge_Ratio);
 		}
 
@@ -108,8 +157,8 @@ namespace FDK
 				strImageList[i] = this.textRenderer.DrawText(strList[i], drawmode, fontColor, edgeColor, gradationTopColor, gradationBottomColor, edge_Ratio);
 
 				//回転する文字
-				//if(Rotate_Chara_List_Vertical.Contains(strList[i]))
-				//	strImageList[i].Mutate(ctx => ctx.Rotate(RotateMode.Rotate90));
+				if(Rotate_Chara_List_Vertical.Contains(strList[i]))
+					strImageList[i].Mutate(ctx => ctx.Rotate(RotateMode.Rotate90));
 
 				nWidth = Math.Max(nWidth, strImageList[i].Width);
 				nHeight += strImageList[i].Height;

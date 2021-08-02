@@ -16,7 +16,7 @@ using Color = System.Drawing.Color;
 
 namespace FDK
 {
-	public class CSixLaborsTextRenderer : ITextRenderer
+	internal class CSixLaborsTextRenderer : ITextRenderer
 	{
 		public CSixLaborsTextRenderer(string fontpath, int pt)
 		{
