@@ -2,6 +2,7 @@
 *.snk
 *.pfx
 /.vs
+/.vscode
 */bin
 */obj
 *.exe
