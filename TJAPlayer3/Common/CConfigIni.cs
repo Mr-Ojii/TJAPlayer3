@@ -483,8 +483,8 @@ namespace TJAPlayer3
 			this.bランダムセレクトで子BOXを検索対象とする = true;
 			this.n表示可能な最小コンボ数 = new int();
 			this.n表示可能な最小コンボ数 = 3;
-			this.FontName = CPrivateFont.DefaultFontName;
-			this.FontNamed = CPrivateFont.DefaultFontName;
+			this.FontName = CFontRenderer.DefaultFontName;
+			this.FontNamed = CFontRenderer.DefaultFontName;
 			this.RandomPresence = true;
 			this.OpenOneSide = false;
 			this.SongSelectSkipCount = 7;

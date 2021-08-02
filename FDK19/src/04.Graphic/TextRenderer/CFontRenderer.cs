@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
@@ -47,7 +48,30 @@ namespace FDK
 		private static string[] Rotate_Chara_List_Vertical = new string[0];
 		#endregion
 
-		
+
+
+		[Flags]
+		public enum DrawMode
+		{
+			Normal,
+			Edge,
+			Gradation,
+			Vertical
+		}
+
+		public static string DefaultFontName
+		{
+			get
+			{
+				if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+					return "MS UI Gothic";
+				else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+					return "ヒラギノ角ゴ Std W8";//OSX搭載PC未所持のため暫定
+				else
+					return "Droid Sans Fallback";
+			}
+		}
+
 		#region [ コンストラクタ ]
 		public CFontRenderer(string fontpath, int pt, SixLabors.Fonts.FontStyle style)
 		{
@@ -59,7 +83,7 @@ namespace FDK
 		}
 		public CFontRenderer()
 		{
-			//throw new ArgumentException("CPrivateFont: 引数があるコンストラクタを使用してください。");
+			//throw new ArgumentException("CFontRenderer: 引数があるコンストラクタを使用してください。");
 		}
 		#endregion
 
@@ -75,7 +99,7 @@ namespace FDK
 				Trace.TraceWarning("GDI+でのフォント生成に失敗しました。" + e.ToString());
 				this.textRenderer.Dispose();
 			}
-			
+
 			try
 			{
 				this.textRenderer = new CSixLaborsTextRenderer(fontpath, pt, style);
@@ -89,52 +113,52 @@ namespace FDK
 			}
 		}
 
-		public Image<Rgba32> DrawPrivateFont(string drawstr, Color fontColor)
+		public Image<Rgba32> DrawText(string drawstr, Color fontColor)
 		{
-			return DrawPrivateFont(drawstr, CPrivateFont.DrawMode.Normal, fontColor, Color.White, Color.White, Color.White, 0);
+			return DrawText(drawstr, CFontRenderer.DrawMode.Normal, fontColor, Color.White, Color.White, Color.White, 0);
 		}
 
-		public Image<Rgba32> DrawPrivateFont(string drawstr, Color fontColor, Color edgeColor, int edge_Ratio)
+		public Image<Rgba32> DrawText(string drawstr, Color fontColor, Color edgeColor, int edge_Ratio)
 		{
-			return DrawPrivateFont(drawstr, CPrivateFont.DrawMode.Edge, fontColor, edgeColor, Color.White, Color.White, edge_Ratio);
+			return DrawText(drawstr, CFontRenderer.DrawMode.Edge, fontColor, edgeColor, Color.White, Color.White, edge_Ratio);
 		}
 
-		public Image<Rgba32> DrawPrivateFont(string drawstr, Color fontColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio)
+		public Image<Rgba32> DrawText(string drawstr, Color fontColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio)
 		{
-			return DrawPrivateFont(drawstr, CPrivateFont.DrawMode.Gradation, fontColor, Color.White, gradationTopColor, gradataionBottomColor, edge_Ratio);
+			return DrawText(drawstr, CFontRenderer.DrawMode.Gradation, fontColor, Color.White, gradationTopColor, gradataionBottomColor, edge_Ratio);
 		}
 
-		public Image<Rgba32> DrawPrivateFont(string drawstr, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio)
+		public Image<Rgba32> DrawText(string drawstr, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio)
 		{
-			return DrawPrivateFont(drawstr, CPrivateFont.DrawMode.Edge | CPrivateFont.DrawMode.Gradation, fontColor, edgeColor, gradationTopColor, gradataionBottomColor, edge_Ratio);
+			return DrawText(drawstr, CFontRenderer.DrawMode.Edge | CFontRenderer.DrawMode.Gradation, fontColor, edgeColor, gradationTopColor, gradataionBottomColor, edge_Ratio);
 		}
-		protected Image<Rgba32> DrawPrivateFont(string drawstr, CPrivateFont.DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
+		protected Image<Rgba32> DrawText(string drawstr, CFontRenderer.DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
 		{
 			//横書きに対してのCorrectionは廃止
 			return this.textRenderer.DrawText(drawstr, drawmode, fontColor, edgeColor, gradationTopColor, gradationBottomColor, edge_Ratio);
 		}
 
 
-		public Image<Rgba32> DrawPrivateFont_V(string drawstr, Color fontColor)
+		public Image<Rgba32> DrawText_V(string drawstr, Color fontColor)
 		{
-			return DrawPrivateFont_V(drawstr, CPrivateFont.DrawMode.Normal, fontColor, Color.White, Color.White, Color.White, 0);
+			return DrawText_V(drawstr, CFontRenderer.DrawMode.Normal, fontColor, Color.White, Color.White, Color.White, 0);
 		}
 
-		public Image<Rgba32> DrawPrivateFont_V(string drawstr, Color fontColor, Color edgeColor, int edge_Ratio)
+		public Image<Rgba32> DrawText_V(string drawstr, Color fontColor, Color edgeColor, int edge_Ratio)
 		{
-			return DrawPrivateFont_V(drawstr, CPrivateFont.DrawMode.Edge, fontColor, edgeColor, Color.White, Color.White, edge_Ratio);
+			return DrawText_V(drawstr, CFontRenderer.DrawMode.Edge, fontColor, edgeColor, Color.White, Color.White, edge_Ratio);
 		}
 
-		public Image<Rgba32> DrawPrivateFont_V(string drawstr, Color fontColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio)
+		public Image<Rgba32> DrawText_V(string drawstr, Color fontColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio)
 		{
-			return DrawPrivateFont_V(drawstr, CPrivateFont.DrawMode.Gradation, fontColor, Color.White, gradationTopColor, gradataionBottomColor, edge_Ratio);
+			return DrawText_V(drawstr, CFontRenderer.DrawMode.Gradation, fontColor, Color.White, gradationTopColor, gradataionBottomColor, edge_Ratio);
 		}
 
-		public Image<Rgba32> DrawPrivateFont_V(string drawstr, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio)
+		public Image<Rgba32> DrawText_V(string drawstr, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio)
 		{
-			return DrawPrivateFont_V(drawstr, CPrivateFont.DrawMode.Edge | CPrivateFont.DrawMode.Gradation, fontColor, edgeColor, gradationTopColor, gradataionBottomColor, edge_Ratio);
+			return DrawText_V(drawstr, CFontRenderer.DrawMode.Edge | CFontRenderer.DrawMode.Gradation, fontColor, edgeColor, gradationTopColor, gradataionBottomColor, edge_Ratio);
 		}
-		protected Image<Rgba32> DrawPrivateFont_V(string drawstr, CPrivateFont.DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
+		protected Image<Rgba32> DrawText_V(string drawstr, CFontRenderer.DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
 		{
 			if (string.IsNullOrEmpty(drawstr))
 			{
@@ -170,7 +194,48 @@ namespace FDK
 			int nowHeightPos = 0;
 			for (int i = 0; i < strImageList.Length; i++)
 			{
-				image.Mutate(ctx => ctx.DrawImage(strImageList[i], new Point((nWidth - strImageList[i].Width) / 2, nowHeightPos), 1));
+				int Correction_X = 0, Correction_Y = 0;
+				if (CorrectionX_Chara_List_Vertical != null && CorrectionX_Chara_List_Value_Vertical != null)
+				{
+					int Xindex = Array.IndexOf(CorrectionX_Chara_List_Vertical, strList[i]);
+					if (-1 < Xindex && Xindex < CorrectionX_Chara_List_Value_Vertical.Length && CorrectionX_Chara_List_Vertical.Contains(strList[i]))
+					{
+						Correction_X = CorrectionX_Chara_List_Value_Vertical[Xindex];
+					}
+					else
+					{
+						if (-1 < Xindex && CorrectionX_Chara_List_Value_Vertical.Length <= Xindex && CorrectionX_Chara_List_Vertical.Contains(strList[i]))
+						{
+							Correction_X = CorrectionX_Chara_List_Value_Vertical[0];
+						}
+						else
+						{
+							Correction_X = 0;
+						}
+					}
+				}
+
+				if (CorrectionY_Chara_List_Vertical != null && CorrectionY_Chara_List_Value_Vertical != null)
+				{
+					int Yindex = Array.IndexOf(CorrectionY_Chara_List_Vertical, strList[i]);
+					if (-1 < Yindex && Yindex < CorrectionY_Chara_List_Value_Vertical.Length && CorrectionY_Chara_List_Vertical.Contains(strList[i]))
+					{
+						Correction_Y = CorrectionY_Chara_List_Value_Vertical[Yindex];
+					}
+					else
+					{
+						if (-1 < Yindex && CorrectionY_Chara_List_Value_Vertical.Length <= Yindex && CorrectionY_Chara_List_Vertical.Contains(strList[i]))
+						{
+							Correction_Y = CorrectionY_Chara_List_Value_Vertical[0];
+						}
+						else
+						{
+							Correction_Y = 0;
+						}
+					}
+				}
+
+				image.Mutate(ctx => ctx.DrawImage(strImageList[i], new Point((nWidth - strImageList[i].Width) / 2 + Correction_X, nowHeightPos + Correction_Y), 1));
 				nowHeightPos += strImageList[i].Height;
 			}
 

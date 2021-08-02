@@ -49,7 +49,7 @@ namespace FDK
 			this.font = this.fontFamily.CreateFont(this.pt, this.fontStyle);
 		}
 
-		public Image<Rgba32> DrawText(string drawstr, CPrivateFont.DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
+		public Image<Rgba32> DrawText(string drawstr, CFontRenderer.DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
 		{
 			if (string.IsNullOrEmpty(drawstr))
 			{
@@ -72,7 +72,7 @@ namespace FDK
 
 
 			IBrush brush;
-			if (drawmode.HasFlag(CPrivateFont.DrawMode.Gradation))
+			if (drawmode.HasFlag(CFontRenderer.DrawMode.Gradation))
 			{
 				brush = new LinearGradientBrush(new PointF(0, size.Top), new PointF(0, size.Height), GradientRepetitionMode.None, new ColorStop(0, gradationTopColorL), new ColorStop(1, gradationBottomColorL));
 			}
@@ -84,7 +84,7 @@ namespace FDK
 			//あらかじめ背景色を取っておく
 			SixLabors.ImageSharp.Color back = (SixLabors.ImageSharp.Color)image[0, 0].ToVector4();
 
-			if (drawmode.HasFlag(CPrivateFont.DrawMode.Edge))
+			if (drawmode.HasFlag(CFontRenderer.DrawMode.Edge))
 			{
 				DrawingOptions doption = new DrawingOptions();
 				IPathCollection pathc = TextBuilder.GenerateGlyphs(drawstr, new PointF(10, 10), roption);
@@ -107,7 +107,7 @@ namespace FDK
 			else 
 			{
 				image.Dispose();
-				return new Image<Rgba32>((int)size.Width, (int)size.Height);
+				return new Image<Rgba32>((int)size.Height / 2, (int)size.Height);
 			}
 
 			return image;

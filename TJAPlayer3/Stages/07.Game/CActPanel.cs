@@ -38,7 +38,7 @@ namespace TJAPlayer3
 					{
 						TJAPlayer3.t安全にDisposeする(ref txMusicName);
 						TJAPlayer3.t安全にDisposeする(ref txSubTitleName);
-						using (var bmpSongTitle = pfMusicName.DrawPrivateFont(songName, TJAPlayer3.Skin.Game_MusicName_ForeColor, TJAPlayer3.Skin.Game_MusicName_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio))
+						using (var bmpSongTitle = pfMusicName.DrawText(songName, TJAPlayer3.Skin.Game_MusicName_ForeColor, TJAPlayer3.Skin.Game_MusicName_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio))
 						{
 							this.txMusicName = TJAPlayer3.tCreateTexture( bmpSongTitle );
 						}
@@ -48,7 +48,7 @@ namespace TJAPlayer3
 						}
 						if (!string.IsNullOrEmpty(subtitle))
 						{
-							using (var bmpSubTitle = pfSubTitleName.DrawPrivateFont(subtitle, TJAPlayer3.Skin.Game_MusicName_ForeColor, TJAPlayer3.Skin.Game_MusicName_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio))
+							using (var bmpSubTitle = pfSubTitleName.DrawText(subtitle, TJAPlayer3.Skin.Game_MusicName_ForeColor, TJAPlayer3.Skin.Game_MusicName_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio))
 							{
 								this.txSubTitleName = TJAPlayer3.tCreateTexture(bmpSubTitle);
 							}
@@ -58,7 +58,7 @@ namespace TJAPlayer3
 							}
 						}
 
-						using (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> bmpDiff = pfMusicName.DrawPrivateFont(stageText, TJAPlayer3.Skin.Game_StageText_ForeColor, TJAPlayer3.Skin.Game_StageText_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio))
+						using (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> bmpDiff = pfMusicName.DrawText(stageText, TJAPlayer3.Skin.Game_StageText_ForeColor, TJAPlayer3.Skin.Game_StageText_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio))
 						{
 							this.tx難易度とステージ数 = TJAPlayer3.tCreateTexture( bmpDiff );
 						}
@@ -128,8 +128,8 @@ namespace TJAPlayer3
 
 		public override void On活性化()
 		{
-			this.pfMusicName = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.Game_MusicName_FontSize);
-			this.pfSubTitleName = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.Game_SubTitleName_FontSize);
+			this.pfMusicName = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.Game_MusicName_FontSize);
+			this.pfSubTitleName = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.Game_SubTitleName_FontSize);
 
 			this.txPanel = null;
 			this.ct進行用 = new CCounter();
@@ -333,8 +333,8 @@ namespace TJAPlayer3
 		private CTexture tx難易度とステージ数;
 		private CTexture txGENRE;
 		private CTexture tx歌詞テクスチャ;
-		private CPrivateFastFont pfMusicName;
-		private CPrivateFastFont pfSubTitleName;
+		private CCachedFontRenderer pfMusicName;
+		private CCachedFontRenderer pfSubTitleName;
 		//-----------------
 		#endregion
 	}

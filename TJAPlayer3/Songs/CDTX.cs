@@ -4074,7 +4074,7 @@ namespace TJAPlayer3
 			else if (command == "#LYRIC")
 			{
 				if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongLoading)//起動時に重たくなってしまう問題の修正用
-					this.listLyric.Add(this.pf歌詞フォント.DrawPrivateFont(argument, TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio));
+					this.listLyric.Add(this.pf歌詞フォント.DrawText(argument, TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio));
 
 				var chip = new CChip();
 
@@ -5445,7 +5445,7 @@ namespace TJAPlayer3
 						{
 							STLYRIC stlrc;
 							stlrc.Text = strSplit後[i];
-							stlrc.TextTex = this.pf歌詞フォント.DrawPrivateFont(strSplit後[i], TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio);
+							stlrc.TextTex = this.pf歌詞フォント.DrawText(strSplit後[i], TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio);
 							stlrc.Time = list[listindex];
 							stlrc.index = ordnumber;
 							this.listLyric2.Add(stlrc);
@@ -5950,10 +5950,10 @@ namespace TJAPlayer3
 
 		// CActivity 実装
 
-		private CPrivateFastFont pf歌詞フォント;
+		private CCachedFontRenderer pf歌詞フォント;
 		public override void On活性化()
 		{
-			this.pf歌詞フォント = new CPrivateFastFont(TJAPlayer3.Skin.Game_Lyric_FontName, TJAPlayer3.Skin.Game_Lyric_FontSize);
+			this.pf歌詞フォント = new CCachedFontRenderer(TJAPlayer3.Skin.Game_Lyric_FontName, TJAPlayer3.Skin.Game_Lyric_FontSize);
 
 			this.listWAV = new Dictionary<int, CWAV>();
 			this.listBPM = new Dictionary<int, CBPM>();

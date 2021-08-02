@@ -80,12 +80,12 @@ namespace TJAPlayer3
 			List<ItemTextureList> textures = new List<ItemTextureList>();
 			for (int i = 0; i < cItemBases.Count; i++)
 			{
-				CTexture NameTexture = TJAPlayer3.tCreateTexture(this.Font.DrawPrivateFont(cItemBases[i].strName, Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio));
+				CTexture NameTexture = TJAPlayer3.tCreateTexture(this.Font.DrawText(cItemBases[i].strName, Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio));
 				CTexture[] ListTexture;
 				if (cItemBases[i].eItemType == CItemBase.EItemType.List) {
 					ListTexture = new CTexture[((CItemList)cItemBases[i]).list項目値.Count];
 					for (int index = 0; index < ((CItemList)cItemBases[i]).list項目値.Count; index++) {
-						ListTexture[index] = TJAPlayer3.tCreateTexture(this.Font.DrawPrivateFont(((CItemList)cItemBases[i]).list項目値[index], Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio));
+						ListTexture[index] = TJAPlayer3.tCreateTexture(this.Font.DrawText(((CItemList)cItemBases[i]).list項目値[index], Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio));
 					}
 				}
 				else
@@ -195,7 +195,7 @@ namespace TJAPlayer3
 
 		public override void On活性化()
 		{
-			this.Font = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 20);
+			this.Font = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 20);
 			lci = new List<CItemBase>[2];
 			for (int nPlayer = 0; nPlayer < 2; nPlayer++)
 			{
@@ -381,21 +381,21 @@ namespace TJAPlayer3
 
 				if (lci[nPlayer][lci[nPlayer].Count - i - 1].strName.Equals("ばいそく"))
 				{
-					using (CTexture texture = TJAPlayer3.tCreateTexture(this.Font.DrawPrivateFont(((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex() + 1) * 0.1).ToString("0.0"), Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio)))
+					using (CTexture texture = TJAPlayer3.tCreateTexture(this.Font.DrawText(((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex() + 1) * 0.1).ToString("0.0"), Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio)))
 					{
 						texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.PlayOption_List_XY_Diff[0] - texture.szTextureSize.Width / 2, y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_List_XY_Diff[1]);
 					}
 				}
 				else if (lci[nPlayer][lci[nPlayer].Count - i - 1].strName.Equals("演奏速度"))
 				{
-					using (CTexture texture = TJAPlayer3.tCreateTexture(this.Font.DrawPrivateFont((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex() * 0.05).ToString("0.00"), Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio)))
+					using (CTexture texture = TJAPlayer3.tCreateTexture(this.Font.DrawText((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex() * 0.05).ToString("0.00"), Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio)))
 					{
 						texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.PlayOption_List_XY_Diff[0] - texture.szTextureSize.Width / 2, y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_List_XY_Diff[1]);
 					}
 				}
 				else if (lci[nPlayer][lci[nPlayer].Count - i - 1].eItemType == CItemBase.EItemType.Integer)
 				{
-					using (CTexture texture = TJAPlayer3.tCreateTexture(this.Font.DrawPrivateFont((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex()).ToString(), Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio)))
+					using (CTexture texture = TJAPlayer3.tCreateTexture(this.Font.DrawText((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex()).ToString(), Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio)))
 					{
 						texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.PlayOption_List_XY_Diff[0] - texture.szTextureSize.Width / 2, y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_List_XY_Diff[1]);
 					}
@@ -454,7 +454,7 @@ namespace TJAPlayer3
 		private int[] NowRow = { 0, 0 };
 		private List<ItemTextureList>[] NameTexture = new List<ItemTextureList>[2];
 		private List<CItemBase>[] lci;
-		private CPrivateFastFont Font;
+		private CCachedFontRenderer Font;
 
 		private enum EChangeSEPhase
 		{

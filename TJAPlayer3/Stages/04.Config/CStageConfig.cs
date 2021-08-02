@@ -60,7 +60,7 @@ namespace TJAPlayer3
 			{
 				this.n現在のメニュー番号 = 0;                                                    //
 
-				this.privatefont = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 14, SixLabors.Fonts.FontStyle.Bold);
+				this.privatefont = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 14, SixLabors.Fonts.FontStyle.Bold);
 
 				for( int i = 0; i < 4; i++ )													//
 				{																				//
@@ -128,15 +128,15 @@ namespace TJAPlayer3
 			{
 				string[] strMenuItem = {"System", "Drums", "Exit"};
 				txMenuItemLeft = new CTexture[strMenuItem.Length, 2];
-				using (var prvFont = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 20))
+				using (var prvFont = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 20))
 				{
 					for (int i = 0; i < strMenuItem.Length; i++)
 					{
-						using (var bmpStr = prvFont.DrawPrivateFont(strMenuItem[i], Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio))
+						using (var bmpStr = prvFont.DrawText(strMenuItem[i], Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio))
 						{
 							txMenuItemLeft[i, 0] = TJAPlayer3.tCreateTexture(bmpStr);
 						}
-						using (var bmpStr = prvFont.DrawPrivateFont(strMenuItem[i], Color.White, Color.Black, Color.Yellow, Color.OrangeRed, TJAPlayer3.Skin.Font_Edge_Ratio))
+						using (var bmpStr = prvFont.DrawText(strMenuItem[i], Color.White, Color.Black, Color.Yellow, Color.OrangeRed, TJAPlayer3.Skin.Font_Edge_Ratio))
 						{
 							txMenuItemLeft[i, 1] = TJAPlayer3.tCreateTexture(bmpStr);
 						}
@@ -468,7 +468,7 @@ namespace TJAPlayer3
 		private const int DESC_H = 0x80;
 		private const int DESC_W = 220;
 		private EItemPanelモード eItemPanelモード;
-		private CPrivateFastFont privatefont;
+		private CCachedFontRenderer privatefont;
 		private int n現在のメニュー番号;
 		//private CTexture txMenuカーソル;
 		//private CTexture tx下部パネル;
@@ -578,7 +578,7 @@ namespace TJAPlayer3
 				{
 					this.tx説明文パネル.Dispose();
 				}
-				this.tx説明文パネル = TJAPlayer3.tCreateTexture(this.privatefont.DrawPrivateFont(str[c], Color.White), true);
+				this.tx説明文パネル = TJAPlayer3.tCreateTexture(this.privatefont.DrawText(str[c], Color.White), true);
 			}
 			catch (CTextureCreateFailedException e)
 			{
@@ -596,7 +596,7 @@ namespace TJAPlayer3
 				{
 					this.tx説明文パネル.Dispose();
 				}
-				this.tx説明文パネル = TJAPlayer3.tCreateTexture(privatefont.DrawPrivateFont(item.strDescription, Color.White), true);
+				this.tx説明文パネル = TJAPlayer3.tCreateTexture(privatefont.DrawText(item.strDescription, Color.White), true);
 			}
 			catch( CTextureCreateFailedException e )
 			{

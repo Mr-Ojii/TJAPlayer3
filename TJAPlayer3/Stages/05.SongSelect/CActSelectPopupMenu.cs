@@ -58,7 +58,7 @@ namespace TJAPlayer3
 			stqMenuTitle = new stQuickMenuItem();
 			stqMenuTitle.cItem = new CItemBase();
 			stqMenuTitle.cItem.strName = title;
-			using (var bitmap = prvFont.DrawPrivateFont( title, Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio))
+			using (var bitmap = prvFont.DrawText( title, Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio))
 			{
 				stqMenuTitle.txName = TJAPlayer3.tCreateTexture( bitmap );
 			}
@@ -67,7 +67,7 @@ namespace TJAPlayer3
 			{
 				stQuickMenuItem stqm = new stQuickMenuItem();
 				stqm.cItem = menulist[ i ];
-				using (var bitmap = prvFont.DrawPrivateFont( menulist[ i ].strName, Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio))
+				using (var bitmap = prvFont.DrawText( menulist[ i ].strName, Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio))
 				{
 					stqm.txName = TJAPlayer3.tCreateTexture( bitmap );
 				}
@@ -82,7 +82,7 @@ namespace TJAPlayer3
 		{
 			if (prvFont == null)
 			{
-				prvFont = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 18);
+				prvFont = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 18);
 			}
 		}
 
@@ -336,8 +336,8 @@ namespace TJAPlayer3
 								break;
 						}
 						using (var bmpStr = bValueBold ?
-							prvFont.DrawPrivateFont(s, Color.White, Color.Black, Color.Yellow, Color.OrangeRed, TJAPlayer3.Skin.Font_Edge_Ratio) :
-							prvFont.DrawPrivateFont(s, Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio))
+							prvFont.DrawText(s, Color.White, Color.Black, Color.Yellow, Color.OrangeRed, TJAPlayer3.Skin.Font_Edge_Ratio) :
+							prvFont.DrawText(s, Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio))
 						{
 							using (var ctStr = TJAPlayer3.tCreateTexture(bmpStr))
 							{
@@ -365,7 +365,7 @@ namespace TJAPlayer3
 		//private CTexture txPopupMenuBackground;
 		//private CTexture txCursor;
 		private CActDFPFont font;
-		CPrivateFastFont prvFont;
+		CCachedFontRenderer prvFont;
 
 		internal struct stQuickMenuItem
 		{

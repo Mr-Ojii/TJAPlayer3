@@ -1058,27 +1058,27 @@ namespace TJAPlayer3
 							else if (strCommand == nameof(SongSelect_CorrectionX_Chara))
 							{
 								SongSelect_CorrectionX_Chara = strParam.Split(',').ToArray();
-								CPrivateFont.SetTextCorrectionX_Chara_List_Vertical(SongSelect_CorrectionX_Chara);
+								CFontRenderer.SetTextCorrectionX_Chara_List_Vertical(SongSelect_CorrectionX_Chara);
 							}
 							else if (strCommand == nameof(SongSelect_CorrectionY_Chara))
 							{
 								SongSelect_CorrectionY_Chara = strParam.Split(',').ToArray();
-								CPrivateFont.SetTextCorrectionY_Chara_List_Vertical(SongSelect_CorrectionY_Chara);
+								CFontRenderer.SetTextCorrectionY_Chara_List_Vertical(SongSelect_CorrectionY_Chara);
 							}
 							else if (strCommand == nameof(SongSelect_CorrectionX_Chara_Value))
 							{
 								SongSelect_CorrectionX_Chara_Value = strParam.Split(',').Select(int.Parse).ToArray();
-								CPrivateFont.SetTextCorrectionX_Chara_List_Value_Vertical(SongSelect_CorrectionX_Chara_Value);
+								CFontRenderer.SetTextCorrectionX_Chara_List_Value_Vertical(SongSelect_CorrectionX_Chara_Value);
 							}
 							else if (strCommand == nameof(SongSelect_CorrectionY_Chara_Value))
 							{
 								SongSelect_CorrectionY_Chara_Value = strParam.Split(',').Select(int.Parse).ToArray();
-								CPrivateFont.SetTextCorrectionY_Chara_List_Value_Vertical(SongSelect_CorrectionY_Chara_Value);
+								CFontRenderer.SetTextCorrectionY_Chara_List_Value_Vertical(SongSelect_CorrectionY_Chara_Value);
 							}
 							else if (strCommand == nameof(SongSelect_Rotate_Chara))
 							{
 								SongSelect_Rotate_Chara = strParam.Split(',').ToArray();
-								CPrivateFont.SetRotate_Chara_List_Vertical(SongSelect_Rotate_Chara);
+								CFontRenderer.SetRotate_Chara_List_Vertical(SongSelect_Rotate_Chara);
 							}
 							else if (strCommand == nameof(SongSelect_BackBoxText_Y_Diff))
 							{
@@ -2170,16 +2170,6 @@ namespace TJAPlayer3
 								if (int.Parse(strParam) > 0)
 									Font_Edge_Ratio_Vertical = int.Parse(strParam);
 							}
-							else if (strCommand == nameof(Text_Correction_X))
-							{
-								Text_Correction_X = int.Parse(strParam);
-								CPrivateFont.SetTextCorrectionX(Text_Correction_X);
-							}
-							else if (strCommand == nameof(Text_Correction_Y))
-							{
-								Text_Correction_Y = int.Parse(strParam);
-								CPrivateFont.SetTextCorrectionY(Text_Correction_Y);
-							}
 							#endregion
 							#endregion
 						}
@@ -2519,7 +2509,7 @@ namespace TJAPlayer3
 		public int Game_Genre_Y = 74;
 		public int Game_Lyric_X = 640;
 		public int Game_Lyric_Y = 630;
-		public string Game_Lyric_FontName = CPrivateFont.DefaultFontName;
+		public string Game_Lyric_FontName = CFontRenderer.DefaultFontName;
 		public int Game_Lyric_FontSize = 38;
 		public ReferencePoint Game_Lyric_ReferencePoint = ReferencePoint.Center;
 

@@ -495,8 +495,8 @@ namespace TJAPlayer3
 			// enter or return to the song select screen.
 			TJAPlayer3.IsPerformingCalibration = false;
 
-			this.pfMusicName = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 30);
-			this.pfSubtitle = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 23);
+			this.pfMusicName = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 30);
+			this.pfSubtitle = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 23);
 
 			this.n目標のスクロールカウンタ = 0;
 			this.n現在のスクロールカウンタ = 0;
@@ -557,9 +557,9 @@ namespace TJAPlayer3
 			{
 				string[] s1 = { "曲データが見つかりません。\n曲データをDTXManiaGR.exe以下の\nフォルダにインストールして下さい。", "Songs not found.\nYou need to install songs." };
 
-				using (CPrivateFont pffont = new CPrivateFont(TJAPlayer3.ConfigIni.FontName, 32))
+				using (CFontRenderer pffont = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, 32))
 				{
-					this.txSongNotFound = TJAPlayer3.tCreateTexture(pffont.DrawPrivateFont(s1[c], Color.White), true);
+					this.txSongNotFound = TJAPlayer3.tCreateTexture(pffont.DrawText(s1[c], Color.White), true);
 					this.txSongNotFound.vcScaling = new System.Numerics.Vector3(0.5f, 0.5f, 1f);
 				}
 			}
@@ -575,9 +575,9 @@ namespace TJAPlayer3
 			{
 				string[] s1 = { "曲データを検索しています。\nそのまましばらくお待ち下さい。", "Now enumerating songs.\nPlease wait..." };
 
-				using (CPrivateFont pffont = new CPrivateFont(TJAPlayer3.ConfigIni.FontName, 32))
+				using (CFontRenderer pffont = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, 32))
 				{
-					this.txEnumeratingSongs = TJAPlayer3.tCreateTexture(pffont.DrawPrivateFont(s1[c], Color.White), true);
+					this.txEnumeratingSongs = TJAPlayer3.tCreateTexture(pffont.DrawText(s1[c], Color.White), true);
 					this.txEnumeratingSongs.vcScaling = new System.Numerics.Vector3(0.5f, 0.5f, 1f);
 				}
 			}
@@ -1509,8 +1509,8 @@ namespace TJAPlayer3
 		private CCounter ct分岐フェード用タイマー;
 		private CCounter ctバー展開用タイマー;
 		private CCounter ctバー展開ディレイ用タイマー;
-		private CPrivateFastFont pfMusicName;
-		private CPrivateFastFont pfSubtitle;
+		private CCachedFontRenderer pfMusicName;
+		private CCachedFontRenderer pfSubtitle;
 		internal CTexture タイトルtmp;
 		internal CTexture サブタイトルtmp;
 
@@ -1661,7 +1661,7 @@ namespace TJAPlayer3
 
 		private static CTexture GenerateTitleTexture(TitleTextureKey titleTextureKey)
 		{
-			using (var bmp = titleTextureKey.cPrivateFastFont.DrawPrivateFont_V(
+			using (var bmp = titleTextureKey.CCachedFontRenderer.DrawText_V(
 				titleTextureKey.str文字, titleTextureKey.forecolor, titleTextureKey.backcolor, TJAPlayer3.Skin.Font_Edge_Ratio_Vertical))
 			{
 				CTexture tx文字テクスチャ = TJAPlayer3.tCreateTexture(bmp);
@@ -1686,15 +1686,15 @@ namespace TJAPlayer3
 		internal sealed class TitleTextureKey
 		{
 			public readonly string str文字;
-			public readonly CPrivateFastFont cPrivateFastFont;
+			public readonly CCachedFontRenderer CCachedFontRenderer;
 			public readonly Color forecolor;
 			public readonly Color backcolor;
 			public readonly int maxHeight;
 
-			public TitleTextureKey(string str文字, CPrivateFastFont cPrivateFastFont, Color forecolor, Color backcolor, int maxHeight)
+			public TitleTextureKey(string str文字, CCachedFontRenderer CCachedFontRenderer, Color forecolor, Color backcolor, int maxHeight)
 			{
 				this.str文字 = str文字;
-				this.cPrivateFastFont = cPrivateFastFont;
+				this.CCachedFontRenderer = CCachedFontRenderer;
 				this.forecolor = forecolor;
 				this.backcolor = backcolor;
 				this.maxHeight = maxHeight;
@@ -1703,7 +1703,7 @@ namespace TJAPlayer3
 			private bool Equals(TitleTextureKey other)
 			{
 				return string.Equals(str文字, other.str文字) &&
-					   cPrivateFastFont.Equals(other.cPrivateFastFont) &&
+					   CCachedFontRenderer.Equals(other.CCachedFontRenderer) &&
 					   forecolor.Equals(other.forecolor) &&
 					   backcolor.Equals(other.backcolor) &&
 					   maxHeight == other.maxHeight;
@@ -1721,7 +1721,7 @@ namespace TJAPlayer3
 				unchecked
 				{
 					var hashCode = str文字.GetHashCode();
-					hashCode = (hashCode * 397) ^ cPrivateFastFont.GetHashCode();
+					hashCode = (hashCode * 397) ^ CCachedFontRenderer.GetHashCode();
 					hashCode = (hashCode * 397) ^ forecolor.GetHashCode();
 					hashCode = (hashCode * 397) ^ backcolor.GetHashCode();
 					hashCode = (hashCode * 397) ^ maxHeight;

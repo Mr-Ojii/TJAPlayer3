@@ -141,7 +141,7 @@ namespace FDK
 			}
 		}
 
-		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> DrawText(string drawstr, CPrivateFont.DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
+		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> DrawText(string drawstr, CFontRenderer.DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
 		{
 			if (this._fontfamily == null || string.IsNullOrEmpty(drawstr))
 			{
@@ -150,7 +150,7 @@ namespace FDK
 				// まずはこの仕様で進めますが、問題有れば(上位側からエラー検出が必要であれば)例外を出したりエラー状態であるプロパティを定義するなり検討します。
 				if (drawstr != "")
 				{
-					Trace.TraceWarning("DrawPrivateFont()の入力不正。最小値のbitmapを返します。");
+					Trace.TraceWarning("DrawText()の入力不正。最小値のbitmapを返します。");
 				}
 				return new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>(1, 1);
 			}
@@ -172,13 +172,13 @@ namespace FDK
 					{
 						//float to int
 						SizeF fstringSize = gtmp.MeasureString(drawstr, this._font, new PointF(0, 0), sf);
-						stringSize = new Size((int)fstringSize.Width, this._font.Height);
+						stringSize = new Size((int)fstringSize.Width, (int)fstringSize.Height);
 					}
 				}
 			}
 
-			bool bEdge = ((drawmode & CPrivateFont.DrawMode.Edge) == CPrivateFont.DrawMode.Edge);
-			bool bGradation = ((drawmode & CPrivateFont.DrawMode.Gradation) == CPrivateFont.DrawMode.Gradation);
+			bool bEdge = ((drawmode & CFontRenderer.DrawMode.Edge) == CFontRenderer.DrawMode.Edge);
+			bool bGradation = ((drawmode & CFontRenderer.DrawMode.Gradation) == CFontRenderer.DrawMode.Gradation);
 
 			// 縁取りの縁のサイズは、とりあえずフォントの大きさの(1/SkinConfig)とする
 			int nEdgePt = (bEdge) ? (10 * _pt / edge_Ratio) : 0; //SkinConfigにて設定可能に(rhimm)
@@ -253,7 +253,7 @@ namespace FDK
 			else
 			{
 				image.Dispose();
-				return new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>(stringSize.Width, stringSize.Height);
+				return new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>((int)stringSize.Height / 2, stringSize.Height);
 			}
 
 			return image;
@@ -262,10 +262,24 @@ namespace FDK
 
 		public void Dispose()
 		{
+			if (!this.bDisposed)
+			{
+				if (this._font != null)
+				{
+					this._font.Dispose();
+					this._font = null;
+				}
+				if (this._pfc != null)
+				{
+					this._pfc.Dispose();
+					this._pfc = null;
+				}
+
+				this.bDisposed = true;
+			}
 		}
 
 		private int _pt = 12;
-		private FontStyle fontStyle;
 		private FontFamily _fontfamily;
 		private System.Drawing.Text.PrivateFontCollection _pfc;
 		private Font _font;

@@ -34,7 +34,7 @@ namespace TJAPlayer3
 			if (!base.b活性化してない)
 			{
 
-				this.Font = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 30);
+				this.Font = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 30);
 				this.donglist = new CSound[2, TJAPlayer3.Skin.SECount];
 				for (int nPlayer = 0; nPlayer < 2; nPlayer++)
 				{
@@ -256,7 +256,7 @@ namespace TJAPlayer3
 			{
 				TJAPlayer3.t安全にDisposeする(ref this.NameMoving[nPlayer]);
 				this.NameMoving[nPlayer] = this.SEName[nPlayer];;
-				this.SEName[nPlayer] = TJAPlayer3.tCreateTexture(this.Font.DrawPrivateFont(TJAPlayer3.Skin.SENames[TJAPlayer3.Skin.NowSENum[nPlayer]], Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio));
+				this.SEName[nPlayer] = TJAPlayer3.tCreateTexture(this.Font.DrawText(TJAPlayer3.Skin.SENames[TJAPlayer3.Skin.NowSENum[nPlayer]], Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio));
 			}
 		}
 
@@ -322,7 +322,7 @@ namespace TJAPlayer3
 		private CSound[,] donglist;
 		private CTexture[] SEName;
 		private CTexture[] NameMoving;
-		private CPrivateFastFont Font;
+		private CCachedFontRenderer Font;
         #endregion
     }
 }

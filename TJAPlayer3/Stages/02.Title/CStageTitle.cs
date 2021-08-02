@@ -72,7 +72,7 @@ namespace TJAPlayer3
 		public override void OnManagedリソースの作成()
 		{
 			if( !base.b活性化してない) {
-				this.pf = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 28);
+				this.pf = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 28);
 				texttexture[0] = this.文字テクスチャを生成する("演奏ゲーム", Color.White, Color.SaddleBrown);
 				texttexture[1] = this.文字テクスチャを生成する("コンフィグ", Color.White, Color.SaddleBrown);
 				texttexture[2] = this.文字テクスチャを生成する("やめる", Color.White, Color.SaddleBrown);
@@ -304,7 +304,7 @@ namespace TJAPlayer3
 		#region [ private ]
 		//-----------------
 		private CTexture 文字テクスチャを生成する(string str文字, Color forecolor, Color backcolor) {
-			using (var bmp = pf.DrawPrivateFont_V(str文字, forecolor, backcolor, TJAPlayer3.Skin.Font_Edge_Ratio_Vertical)) {
+			using (var bmp = pf.DrawText_V(str文字, forecolor, backcolor, TJAPlayer3.Skin.Font_Edge_Ratio_Vertical)) {
 				return TJAPlayer3.tCreateTexture(bmp);
 			}
 		}
@@ -317,7 +317,7 @@ namespace TJAPlayer3
 		//縦スタイル用
 		private readonly int[] MENU_XT = {300,640,980 };
 		private const int MENU_YT = 100;
-		private CPrivateFastFont pf = null;
+		private CCachedFontRenderer pf = null;
 		//------------------------------------
 		private int n現在のカーソル行;
 	

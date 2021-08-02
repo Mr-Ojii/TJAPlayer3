@@ -9,45 +9,45 @@ using Color = System.Drawing.Color;
 namespace FDK
 {
 	/// <summary>
-	/// 高速描画版のCPrivateFontクラス。
+	/// 高速描画版のCFontRendererクラス。
 	/// といっても、一度レンダリングした結果をキャッシュして使いまわしているだけ。
 	/// </summary>
-	public class CPrivateFastFont : CPrivateFont
+	public class CCachedFontRenderer : CFontRenderer
 	{
 		#region [ コンストラクタ ]
-		public CPrivateFastFont( string fontpath, int pt, SixLabors.Fonts.FontStyle style )
+		public CCachedFontRenderer( string fontpath, int pt, SixLabors.Fonts.FontStyle style )
 		{
 			Initialize( fontpath, pt, style );
 		}
-		public CPrivateFastFont( string fontpath, int pt )
+		public CCachedFontRenderer( string fontpath, int pt )
 		{
 			Initialize( fontpath, pt, SixLabors.Fonts.FontStyle.Regular );
 		}
-		public CPrivateFastFont()
+		public CCachedFontRenderer()
 		{
-			throw new ArgumentException("CPrivateFastFont: 引数があるコンストラクタを使用してください。");
+			throw new ArgumentException("CCachedFontRenderer: 引数があるコンストラクタを使用してください。");
 		}
 		#endregion
 		#region [ コンストラクタから呼ばれる初期化処理 ]
 		protected new void Initialize( string fontpath, int pt, SixLabors.Fonts.FontStyle style )
 		{
-			this.bDisposed_CPrivateFastFont = false;
+			this.bDisposed_CCachedFontRenderer = false;
 			this.listFontCache = new List<FontCache>();
 			base.Initialize( fontpath, pt, style );
 		}
 		#endregion
 
 
-		#region [ DrawPrivateFontのオーバーロード群 ]
+		#region [ DrawTextのオーバーロード群 ]
 		/// <summary>
 		/// 文字列を描画したテクスチャを返す
 		/// </summary>
 		/// <param name="drawstr">描画文字列</param>
 		/// <param name="fontColor">描画色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public new Image<Rgba32> DrawPrivateFont( string drawstr, Color fontColor )
+		public new Image<Rgba32> DrawText( string drawstr, Color fontColor )
 		{
-			return DrawPrivateFont( drawstr, DrawMode.Normal, fontColor, Color.White, Color.White, Color.White, 0 );
+			return DrawText( drawstr, DrawMode.Normal, fontColor, Color.White, Color.White, Color.White, 0 );
 		}
 
 		/// <summary>
@@ -57,9 +57,9 @@ namespace FDK
 		/// <param name="fontColor">描画色</param>
 		/// <param name="edgeColor">縁取色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public new Image<Rgba32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, int edge_Ratio)
+		public new Image<Rgba32> DrawText( string drawstr, Color fontColor, Color edgeColor, int edge_Ratio)
 		{
-			return DrawPrivateFont( drawstr, DrawMode.Edge, fontColor, edgeColor, Color.White, Color.White, edge_Ratio );
+			return DrawText( drawstr, DrawMode.Edge, fontColor, edgeColor, Color.White, Color.White, edge_Ratio );
 		}
 
 		/// <summary>
@@ -69,23 +69,9 @@ namespace FDK
 		/// <param name="fontColor">描画色</param>
 		/// <param name="edgeColor">縁取色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public Image<Rgba32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, DrawMode dMode, int edge_Ratio)
+		public Image<Rgba32> DrawText( string drawstr, Color fontColor, Color edgeColor, DrawMode dMode, int edge_Ratio)
 		{
-			return DrawPrivateFont( drawstr, dMode, fontColor, edgeColor, Color.White, Color.White, edge_Ratio );
-		}
-
-		/// <summary>
-		/// 文字列を描画したテクスチャを返す
-		/// </summary>
-		/// <param name="drawstr">描画文字列</param>
-		/// <param name="fontColor">描画色</param>
-		/// <param name="edgeColor">縁取色</param>
-		/// <param name="gradationTopColor">グラデーション 上側の色</param>
-		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
-		/// <returns>描画済テクスチャ</returns>
-		public new Image<Rgba32> DrawPrivateFont( string drawstr, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio )
-		{
-			return DrawPrivateFont( drawstr, DrawMode.Edge | DrawMode.Gradation, fontColor, edgeColor, gradationTopColor, gradataionBottomColor, edge_Ratio );
+			return DrawText( drawstr, dMode, fontColor, edgeColor, Color.White, Color.White, edge_Ratio );
 		}
 
 		/// <summary>
@@ -97,14 +83,28 @@ namespace FDK
 		/// <param name="gradationTopColor">グラデーション 上側の色</param>
 		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
 		/// <returns>描画済テクスチャ</returns>
-		public Image<Rgba32> DrawPrivateFont_V( string drawstr, Color fontColor, Color edgeColor, int edge_Ratio )
+		public new Image<Rgba32> DrawText( string drawstr, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio )
 		{
-			return DrawPrivateFont_V(drawstr, DrawMode.Edge, fontColor, edgeColor, edge_Ratio);
+			return DrawText( drawstr, DrawMode.Edge | DrawMode.Gradation, fontColor, edgeColor, gradationTopColor, gradataionBottomColor, edge_Ratio );
+		}
+
+		/// <summary>
+		/// 文字列を描画したテクスチャを返す
+		/// </summary>
+		/// <param name="drawstr">描画文字列</param>
+		/// <param name="fontColor">描画色</param>
+		/// <param name="edgeColor">縁取色</param>
+		/// <param name="gradationTopColor">グラデーション 上側の色</param>
+		/// <param name="gradationBottomColor">グラデーション 下側の色</param>
+		/// <returns>描画済テクスチャ</returns>
+		public new Image<Rgba32> DrawText_V( string drawstr, Color fontColor, Color edgeColor, int edge_Ratio )
+		{
+			return DrawText_V(drawstr, DrawMode.Edge, fontColor, edgeColor, Color.Black, Color.Black, edge_Ratio);
 		}
 
 		#endregion
 
-		protected new Image<Rgba32> DrawPrivateFont( string drawstr, DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio )
+		protected new Image<Rgba32> DrawText( string drawstr, DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio )
 		{
 			#region [ 以前レンダリングしたことのある文字列/フォントか? (キャッシュにヒットするか?) ]
 			int index = listFontCache.FindIndex(
@@ -116,8 +116,8 @@ namespace FDK
 						fontColor == fontcache.fontColor &&
 						edgeColor == fontcache.edgeColor &&
 						gradationTopColor == fontcache.gradationTopColor &&
-						gradationBottomColor == fontcache.gradationBottomColor
-						// _font == fontcache.font
+						gradationBottomColor == fontcache.gradationBottomColor &&
+						fontcache.Vertical == false
 					);
 				}
 			);
@@ -127,13 +127,14 @@ namespace FDK
 				// キャッシュにヒットせず。
 				#region [ レンダリングして、キャッシュに登録 ]
 				FontCache fc = new FontCache();
-				fc.bmp = base.DrawPrivateFont( drawstr, drawmode, fontColor, edgeColor, gradationTopColor, gradationBottomColor, edge_Ratio);
+				fc.bmp = base.DrawText( drawstr, drawmode, fontColor, edgeColor, gradationTopColor, gradationBottomColor, edge_Ratio);
 				fc.drawstr = drawstr;
 				fc.drawmode = drawmode;
 				fc.fontColor = fontColor;
 				fc.edgeColor = edgeColor;
 				fc.gradationTopColor = gradationTopColor;
 				fc.gradationBottomColor = gradationBottomColor;
+				fc.Vertical = false;
 				listFontCache.Add( fc );
 				Debug.WriteLine( drawstr + ": Cacheにヒットせず。(cachesize=" + listFontCache.Count + ")" );
 				#endregion
@@ -162,7 +163,7 @@ namespace FDK
 			}
 		}
 
-		protected new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> DrawPrivateFont_V(string drawstr, DrawMode drawMode, Color fontColor, Color edgeColor,int edge_Ratio)
+		protected new Image<Rgba32> DrawText_V(string drawstr, DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
 		{
 			#region [ 以前レンダリングしたことのある文字列/フォントか? (キャッシュにヒットするか?) ]
 			int index = listFontCache.FindIndex(
@@ -170,9 +171,12 @@ namespace FDK
 				{
 					return (
 						drawstr == fontcache.drawstr &&
+						drawmode == fontcache.drawmode &&
 						fontColor == fontcache.fontColor &&
-						edgeColor == fontcache.edgeColor 
-					// _font == fontcache.font
+						edgeColor == fontcache.edgeColor &&
+						gradationTopColor == fontcache.gradationTopColor &&
+						gradationBottomColor == fontcache.gradationBottomColor &&
+						fontcache.Vertical == true
 					);
 				}
 			);
@@ -182,10 +186,13 @@ namespace FDK
 				// キャッシュにヒットせず。
 				#region [ レンダリングして、キャッシュに登録 ]
 				FontCache fc = new FontCache();
-				fc.bmp = base.DrawPrivateFont_V(drawstr, drawMode, fontColor, edgeColor, edge_Ratio);
+				fc.bmp = base.DrawText_V(drawstr, drawmode, fontColor, edgeColor, gradationTopColor, gradationBottomColor, edge_Ratio);
 				fc.drawstr = drawstr;
 				fc.fontColor = fontColor;
 				fc.edgeColor = edgeColor;
+				fc.gradationTopColor = gradationTopColor;
+				fc.gradationBottomColor = gradationBottomColor;
+				fc.Vertical = true;
 				listFontCache.Add( fc );
 				Debug.WriteLine( drawstr + ": Cacheにヒットせず。(cachesize=" + listFontCache.Count + ")" );
 				#endregion
@@ -218,11 +225,11 @@ namespace FDK
 		//-----------------
 		public new void Dispose()
 		{
-			if (!this.bDisposed_CPrivateFastFont)
+			if (!this.bDisposed_CCachedFontRenderer)
 			{
 				if (listFontCache != null)
 				{
-					//Debug.WriteLine( "Disposing CPrivateFastFont()" );
+					//Debug.WriteLine( "Disposing CCachedFontRenderer()" );
 					#region [ キャッシュしている画像を破棄する ]
 					foreach (FontCache bc in listFontCache)
 					{
@@ -235,7 +242,7 @@ namespace FDK
 					listFontCache.Clear();
 					listFontCache = null;
 				}
-				this.bDisposed_CPrivateFastFont = true;
+				this.bDisposed_CCachedFontRenderer = true;
 			}
 			base.Dispose();
 		}
@@ -259,10 +266,11 @@ namespace FDK
 			public Color gradationTopColor;
 			public Color gradationBottomColor;
 			public Image<Rgba32> bmp;
+			public bool Vertical;
 		}
 		private List<FontCache> listFontCache;
 
-		protected bool bDisposed_CPrivateFastFont;
+		protected bool bDisposed_CCachedFontRenderer;
 		//-----------------
 		#endregion
 	}

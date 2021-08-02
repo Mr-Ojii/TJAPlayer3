@@ -37,7 +37,7 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				this.Font = new CPrivateFastFont(TJAPlayer3.ConfigIni.FontName, 40);
+				this.Font = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 40);
 				base.OnManagedリソースの作成();
 				tSongChange();
 			}
@@ -104,7 +104,7 @@ namespace TJAPlayer3
 		private CTexture[] First = new CTexture[(int)Difficulty.Total];
 		private CTexture[] Second = new CTexture[(int)Difficulty.Total];
 		private CTexture[] Third = new CTexture[(int)Difficulty.Total];
-		private CPrivateFastFont Font;
+		private CCachedFontRenderer Font;
 		//-----------------
 
 		private void t小文字表示(int x, int y, long n)
@@ -140,17 +140,17 @@ namespace TJAPlayer3
 					{
 						if (!string.IsNullOrEmpty(First[index]))
 						{
-							this.First[index] = TJAPlayer3.tCreateTexture(Font.DrawPrivateFont(First[index], Color.Black));
+							this.First[index] = TJAPlayer3.tCreateTexture(Font.DrawText(First[index], Color.Black));
 							this.First[index].vcScaling = new Vector3(0.5f);
 						}
 						if (!string.IsNullOrEmpty(Second[index]))
 						{
-							this.Second[index] = TJAPlayer3.tCreateTexture(Font.DrawPrivateFont(Second[index], Color.Black));
+							this.Second[index] = TJAPlayer3.tCreateTexture(Font.DrawText(Second[index], Color.Black));
 							this.Second[index].vcScaling = new Vector3(0.5f);
 						}
 						if (!string.IsNullOrEmpty(Third[index]))
 						{
-							this.Third[index] = TJAPlayer3.tCreateTexture(Font.DrawPrivateFont(Third[index], Color.Black));
+							this.Third[index] = TJAPlayer3.tCreateTexture(Font.DrawText(Third[index], Color.Black));
 							this.Third[index].vcScaling = new Vector3(0.5f);
 						}
 					}
