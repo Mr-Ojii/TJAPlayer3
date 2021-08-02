@@ -512,17 +512,17 @@ namespace TJAPlayer3
 					if (TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.ConfigIni.b2P演奏時のSEの左右)//2020.05.06 Mr-Ojii 左右に出したかったから、追加。
 					{
 						if (this.soundRed[0] != null)
-							this.soundRed[0].n位置 = -100;
+							this.soundRed[0].nPanning = -100;
 						if (this.soundBlue[0] != null)
-							this.soundBlue[0].n位置 = -100;
+							this.soundBlue[0].nPanning = -100;
 						if (this.soundAdlib[0] != null)
-							this.soundAdlib[0].n位置 = -100;
+							this.soundAdlib[0].nPanning = -100;
 						if (this.soundRed[1] != null)
-							this.soundRed[1].n位置 = 100;
+							this.soundRed[1].nPanning = 100;
 						if (this.soundBlue[1] != null)
-							this.soundBlue[1].n位置 = 100;
+							this.soundBlue[1].nPanning = 100;
 						if (this.soundAdlib[1] != null)
-							this.soundAdlib[1].n位置 = 100;
+							this.soundAdlib[1].nPanning = 100;
 					}
 				}
 

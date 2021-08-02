@@ -21,7 +21,7 @@ namespace TJAPlayer3
 			Cスコア cスコア = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア;
 
 			this.tサウンドの停止MT();
-			if ((cスコア != null) && ((!(cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.strBGMファイル名).Equals(this.str現在のファイル名) || (this.sound == null)) || !this.sound.b再生中))
+			if ((cスコア != null) && ((!(cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.strBGMファイル名).Equals(this.str現在のファイル名) || (this.sound == null)) || !this.sound.bPlaying))
 			{
 				this.tBGMFadeIn開始();
 				this.long再生位置 = -1;
@@ -97,7 +97,7 @@ namespace TJAPlayer3
 					else
 					{
 						this.long再生位置 = CSoundManager.rc演奏用タイマ.nシステム時刻ms - this.long再生開始時のシステム時刻;
-						if (this.long再生位置 >= this.sound.n総演奏時間ms - cスコア.譜面情報.nデモBGMオフセット) //2020.04.18 Mr-Ojii #DEMOSTARTから何度も再生するために追加
+						if (this.long再生位置 >= this.sound.nDurationms - cスコア.譜面情報.nデモBGMオフセット) //2020.04.18 Mr-Ojii #DEMOSTARTから何度も再生するために追加
 							this.long再生位置 = -1;
 					}
 				}

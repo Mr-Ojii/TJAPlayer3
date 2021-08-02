@@ -23,7 +23,7 @@ namespace FDK
         {
             get
             {
-                return new Device() { Num = 0 };
+                return new Device();
             }
         }
 

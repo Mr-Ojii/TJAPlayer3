@@ -8,8 +8,6 @@ using System.Threading;
 using FDK.ExtensionMethods;
 using FDK.BassMixExtension;
 using ManagedBass;
-using ManagedBass.Asio;
-using ManagedBass.Wasapi;
 using ManagedBass.Mix;
 using ManagedBass.Fx;
 using OpenTK.Audio.OpenAL;
@@ -49,26 +47,26 @@ namespace FDK
 
 		#region [ DTXMania用拡張 ]
 
-		public int n総演奏時間ms
+		public int nDurationms
 		{
 			get;
 			private set;
 		}
-		public double db再生速度
+		public double dbPlaySpeed
 		{
 			get
 			{
-				return _db再生速度;
+				return _dbPlaySpeed;
 			}
 			set
 			{
-				if ( _db再生速度 != value )
+				if ( _dbPlaySpeed != value )
 				{
-					_db再生速度 = value;
-					bIs1倍速再生 = ( _db再生速度 == 1.000f );
+					_dbPlaySpeed = value;
+					bIs1倍速再生 = ( _dbPlaySpeed == 1.000f );
 					if (bIsBASSSound)
 					{
-						if (_hTempoStream != 0 && !this.bIs1倍速再生)   // 再生速度がx1.000のときは、TempoStreamを用いないようにして高速化する
+						if (_hTempoStream != 0 && !this.bIs1倍速再生)   // PlaySpeedがx1.000のときは、TempoStreamを用いないようにして高速化する
 						{
 							this.hBassStream = _hTempoStream;
 						}
@@ -79,20 +77,20 @@ namespace FDK
 
 						if (CSoundManager.bIsTimeStretch)
 						{
-							Bass.ChannelSetAttribute(this.hBassStream, ChannelAttribute.Tempo, (float)(_db再生速度 * 100 - 100));
+							Bass.ChannelSetAttribute(this.hBassStream, ChannelAttribute.Tempo, (float)(_dbPlaySpeed * 100 - 100));
 							//double seconds = Bass.BASS_ChannelBytes2Seconds( this.hTempoStream, nBytes );
 							//this.n総演奏時間ms = (int) ( seconds * 1000 );
 						}
 						else
 						{
-							Bass.ChannelSetAttribute(this.hBassStream, ChannelAttribute.Frequency, (float)(_db再生速度 * nオリジナルの周波数));
+							Bass.ChannelSetAttribute(this.hBassStream, ChannelAttribute.Frequency, (float)(_dbPlaySpeed * nFrequency));
 						}
 					}
 					else
 					{
 						for (int i = 0; i < this.SourceOpen.Length; i++)
 						{
-							AL.Source(this.SourceOpen[i], ALSourcef.Pitch, (float)db再生速度);
+							AL.Source(this.SourceOpen[i], ALSourcef.Pitch, (float)dbPlaySpeed);
 						}
 					}
 				}
@@ -236,25 +234,25 @@ namespace FDK
 					$"{nameof(CSound)}.{nameof(SetVolume)}: Gain:{_gain}. Automation Level: {automationLevel}. Group Level: {groupLevel}. Summed Gain: {gain}. Safe True Peak Gain: {safeTruePeakGain}. Final Gain: {finalGain}.");
 			}
 
-			lufs音量 = finalGain;
+			lufsVolume = finalGain;
 		}
 
-		private Lufs lufs音量
+		private Lufs lufsVolume
 		{
 			set
 			{
 				if (this.bIsBASSSound)
 				{
-					var db音量 = ((value.ToDouble() / 100.0) + 1.0).Clamp(0, 1);
-					Bass.ChannelSetAttribute(this.hBassStream, ChannelAttribute.Volume, (float) db音量);
+					var dbVolume = ((value.ToDouble() / 100.0) + 1.0).Clamp(0, 1);
+					Bass.ChannelSetAttribute(this.hBassStream, ChannelAttribute.Volume, (float) dbVolume);
 				}
 				else if (this.bIsOpenALSound)
 				{
-					var db音量 = ((value.ToDouble() / 100.0) + 1.0).Clamp(0, 1);
+					var dbVolume = ((value.ToDouble() / 100.0) + 1.0).Clamp(0, 1);
 
 					for (int i = 0; i < this.SourceOpen.Length; i++)
 					{
-						AL.Source(this.SourceOpen[i], ALSourcef.Gain, (float)db音量);
+						AL.Source(this.SourceOpen[i], ALSourcef.Gain, (float)dbVolume);
 					}
 				}
 			}
@@ -263,20 +261,20 @@ namespace FDK
 		/// <summary>
 		/// <para>左:-100～中央:0～100:右。set のみ。</para>
 		/// </summary>
-		public int n位置
+		public int nPanning
 		{
 			get
 			{
 				if( this.bIsBASSSound )
 				{
-					float f位置 = 0.0f;
-					if ( !Bass.ChannelGetAttribute( this.hBassStream, ChannelAttribute.Pan, out f位置 ) )
+					float fPan = 0.0f;
+					if ( !Bass.ChannelGetAttribute( this.hBassStream, ChannelAttribute.Pan, out fPan) )
 						return 0;
-					return (int) ( f位置 * 100 );
+					return (int) (fPan * 100 );
 				}
 				else if( this.bIsOpenALSound )
 				{
-					return this._n位置;
+					return this._nPanning;
 				}
 				return -9999;
 			}
@@ -284,19 +282,19 @@ namespace FDK
 			{
 				if( this.bIsBASSSound )
 				{
-					float f位置 = Math.Min( Math.Max( value, -100 ), 100 ) / 100.0f;	// -100～100 → -1.0～1.0
-					Bass.ChannelSetAttribute( this.hBassStream, ChannelAttribute.Pan, f位置 );
+					float fPan = Math.Min( Math.Max( value, -100 ), 100 ) / 100.0f;	// -100～100 → -1.0～1.0
+					Bass.ChannelSetAttribute( this.hBassStream, ChannelAttribute.Pan, fPan);
 				}
 				else if( this.bIsOpenALSound )
 				{
-					float f位置 = (Math.Min(Math.Max(value, -100), 100) / 100.0f);  // -100～100 → -1.0～1.0
+					float fPan = (Math.Min(Math.Max(value, -100), 100) / 100.0f);  // -100～100 → -1.0～1.0
 					for (int i = 0; i < this.SourceOpen.Length; i++)
 					{
-						float tmppan = Math.Min(Math.Max(f位置 * 2 + defaultPan[i], -1f), 1f);//もっとよい数式ください
+						float tmppan = Math.Min(Math.Max(fPan * 2 + defaultPan[i], -1f), 1f);//もっとよい数式ください
 
 						AL.Source(this.SourceOpen[i], ALSource3f.Position, tmppan, 0f, 0f);
 					}
-					_n位置 = value;
+					_nPanning = value;
 				}
 			}
 		}
@@ -310,8 +308,8 @@ namespace FDK
 		public CSound(ESoundGroup soundGroup)
 		{
 			SoundGroup = soundGroup;
-			this.n位置 = 0;
-			this._db再生速度 = 1.0;
+			this.nPanning = 0;
+			this._dbPlaySpeed = 1.0;
 //			this._cbRemoveMixerChannel = new WaitCallback( RemoveMixerChannelLater );
 			this._hBassStream = -1;
 			this._hTempoStream = 0;
@@ -365,7 +363,7 @@ namespace FDK
 
 				int nPCMサイズbyte;
 				CWin32.WAVEFORMATEX cw32wfx;
-				tオンメモリ方式でデコードする(strFilename, out this.byArrWAVファイルイメージ,
+				tDecodeAudioFile(strFilename, out this.byArrWAVファイルイメージ,
 				out nPCMデータの先頭インデックス, out nPCMサイズbyte, out cw32wfx, false);
 
 				// セカンダリバッファを作成し、PCMデータを書き込む。
@@ -591,8 +589,8 @@ namespace FDK
 			this.byArrWAVファイルイメージ = byArrWAVファイルイメージ;
 
 			// DTXMania用に追加
-			this.nオリジナルの周波数 = (int)wfx.nSamplesPerSec;
-			n総演奏時間ms = (int)(((double)nPCMサイズbyte) / (wfx.nAvgBytesPerSec * 0.001));
+			this.nFrequency = (int)wfx.nSamplesPerSec;
+			nDurationms = (int)(((double)nPCMサイズbyte) / (wfx.nAvgBytesPerSec * 0.001));
 
 			for (int i = 0; i < wfx.nChannels; i++)
 			{
@@ -660,7 +658,7 @@ namespace FDK
 				}
 			}
 		}
-		public bool b再生中
+		public bool bPlaying
 		{
 			get
 			{
@@ -798,7 +796,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strFilename) +
 				bool b = true;
 				try
 				{
-					b = BassMix.ChannelSetPosition( this.hBassStream, Bass.ChannelSeconds2Bytes( this.hBassStream, n位置ms * _db再生速度 / 1000.0 ), PositionFlags.Bytes );
+					b = BassMix.ChannelSetPosition( this.hBassStream, Bass.ChannelSeconds2Bytes( this.hBassStream, n位置ms * _dbPlaySpeed / 1000.0 ), PositionFlags.Bytes );
 				}
 				catch( Exception e )
 				{
@@ -820,7 +818,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strFilename) +
 				{
 					for (int i = 0; i < this.SourceOpen.Length; i++)
 					{
-						AL.Source(this.SourceOpen[i], ALSourcef.SecOffset, (float)(n位置ms * 0.001f * this.db再生速度));
+						AL.Source(this.SourceOpen[i], ALSourcef.SecOffset, (float)(n位置ms * 0.001f * this.dbPlaySpeed));
 					}
 				}
 				catch
@@ -849,7 +847,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strFilename) +
 				n位置byte = (long)n位置bytei;
 				AL.GetSource(this.SourceOpen[0], ALSourcef.SecOffset, out float ms);
 
-				db位置ms = ms / _db再生速度;
+				db位置ms = ms / _dbPlaySpeed;
 			}
 			else
 			{
@@ -1023,12 +1021,12 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strFilename) +
 		protected int _hBassStream = -1;					// ASIO, WASAPI 用
 		protected int hBassStream = 0;						// #31076 2013.4.1 yyagi; プロパティとして実装すると動作が低速になったため、
 															// tBASSサウンドを作成する_ストリーム生成後の共通処理()のタイミングと、
-															// 再生速度を変更したタイミングでのみ、
+															// PlaySpeedを変更したタイミングでのみ、
 															// hBassStreamを更新するようにした。
 		//{
 		//    get
 		//    {
-		//        if ( _hTempoStream != 0 && !this.bIs1倍速再生 )	// 再生速度がx1.000のときは、TempoStreamを用いないようにして高速化する
+		//        if ( _hTempoStream != 0 && !this.bIs1倍速再生 )	// PlaySpeedがx1.000のときは、TempoStreamを用いないようにして高速化する
 		//        {
 		//            return _hTempoStream;
 		//        }
@@ -1066,15 +1064,15 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strFilename) +
 		public int[] BufferOpen;
 		public int[] SourceOpen;
 		public float[] defaultPan;
-		private int _n位置 = 0;
+		private int _nPanning = 0;
 		private Lufs _gain = DefaultGain;
 		private Lufs? _truePeak = null;
 		private int _automationLevel = DefaultAutomationLevel;
 		private int _groupLevel = DefaultGroupLevel;
 		private long nBytes = 0;
 		private int n一時停止回数 = 0;
-		private int nオリジナルの周波数 = 0;
-		private double _db再生速度 = 1.0;
+		private int nFrequency = 0;
+		private double _dbPlaySpeed = 1.0;
 		private bool bIs1倍速再生 = true;
 
 		private void tBASSサウンドを作成する( string strFilename, int hMixer, BassFlags flags )
@@ -1088,7 +1086,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strFilename) +
 			if (this._hBassStream == 0) 
 			{
 				//ファイルからのサウンド生成に失敗した場合にデコードする。(時間がかかるのはしょうがないね)
-				tオンメモリ方式でデコードする(strFilename, out byArrWAVファイルイメージ, out _, out _, out _, true);
+				tDecodeAudioFile(strFilename, out byArrWAVファイルイメージ, out _, out _, out _, true);
 				tBASSサウンドを作成する(byArrWAVファイルイメージ, hMixer, flags);
 				return;
 			}
@@ -1135,7 +1133,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strFilename) +
 				}
 			}
 
-			if ( _hTempoStream != 0 && !this.bIs1倍速再生 )	// 再生速度がx1.000のときは、TempoStreamを用いないようにして高速化する
+			if ( _hTempoStream != 0 && !this.bIs1倍速再生 )	// PlaySpeedがx1.000のときは、TempoStreamを用いないようにして高速化する
 			{
 				this.hBassStream = _hTempoStream;
 			}
@@ -1150,7 +1148,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strFilename) +
 
 			// n総演奏時間の取得; DTXMania用に追加。
 			double seconds = Bass.ChannelBytes2Seconds( this._hBassStream, nBytes );
-			this.n総演奏時間ms = (int) ( seconds * 1000 );
+			this.nDurationms = (int) ( seconds * 1000 );
 			//this.pos = 0;
 			this.hMixer = hMixer;
 			float freq = 0.0f;
@@ -1159,7 +1157,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strFilename) +
 				hGC.Free();
 				throw new Exception( string.Format( "サウンドストリームの周波数取得に失敗しました。(BASS_ChannelGetAttribute)[{0}]", Bass.LastError.ToString() ) );
 			}
-			this.nオリジナルの周波数 = (int) freq;
+			this.nFrequency = (int) freq;
 
 			// インスタンスリストに登録。
 
@@ -1219,17 +1217,17 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strFilename) +
 			return true;
 		}
 
-		#region [ tオンメモリ方式でデコードする() ]
-		public void tオンメモリ方式でデコードする(string strFilename, out byte[] buffer,
-			out int nPCMデータの先頭インデックス, out int totalPCMSize, out CWin32.WAVEFORMATEX wfx, bool enablechunk)
+		#region [ tDecodeAudioFile() ]
+		public void tDecodeAudioFile(string strFilename, out byte[] buffer,
+			out int nPCMDataIndex, out int totalPCMSize, out CWin32.WAVEFORMATEX wfx, bool enablechunk)
 		{
-			nPCMデータの先頭インデックス = 0;
+			nPCMDataIndex = 0;
 
 			if ( !File.Exists( strFilename ) )
 				throw new FileNotFoundException( string.Format( "File Not Found...({0})", strFilename ) );
 
 			//丸投げ
-			int rtn = CAudioDecoder.AudioDecode(strFilename, out buffer, out nPCMデータの先頭インデックス, out totalPCMSize, out wfx, enablechunk);
+			int rtn = CAudioDecoder.AudioDecode(strFilename, out buffer, out nPCMDataIndex, out totalPCMSize, out wfx, enablechunk);
 
 			//正常にDecodeできなかった場合、例外
 			if ( rtn < 0 )

@@ -74,9 +74,9 @@ namespace TJAPlayer3
 							if (TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.ConfigIni.b2P演奏時のSEの左右) //2020.05.06 Mr-Ojii 左右に出したかったから追加。
 							{
 								if (i == 0)
-									comboVoice.soundComboVoice.n位置 = -100;
+									comboVoice.soundComboVoice.nPanning = -100;
 								else
-									comboVoice.soundComboVoice.n位置 = 100; 
+									comboVoice.soundComboVoice.nPanning = 100; 
 							}
 							comboVoice.nCombo = int.Parse(Path.GetFileNameWithoutExtension(item));
 							ListCombo[i].Add(comboVoice);

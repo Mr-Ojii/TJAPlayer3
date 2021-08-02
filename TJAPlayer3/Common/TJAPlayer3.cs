@@ -407,7 +407,7 @@ namespace TJAPlayer3
 			Timer?.t更新();
 			CSoundManager.rc演奏用タイマ?.t更新();
 			InputManager?.tSwapEventList();
-			FPS?.tカウンタ更新();
+			FPS?.tUpdateCounter();
 
 			if (this.Device == null)
 				return;

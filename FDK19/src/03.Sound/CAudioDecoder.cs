@@ -10,7 +10,7 @@ namespace FDK
 	public unsafe class CAudioDecoder
 	{
 		public static int AudioDecode(string filename, out byte[] buffer,
-			out int nPCMデータの先頭インデックス, out int totalPCMSize, out CWin32.WAVEFORMATEX wfx, bool enablechunk)
+			out int nPCMDataIndex, out int totalPCMSize, out CWin32.WAVEFORMATEX wfx, bool enablechunk)
 		{
 			if (!File.Exists(filename))
 				throw new FileNotFoundException(filename + " not found...");
@@ -175,7 +175,7 @@ namespace FDK
 				}
 			}
 
-			nPCMデータの先頭インデックス = pos;
+			nPCMDataIndex = pos;
 			totalPCMSize = buffer.Length;
 			wfx = new CWin32.WAVEFORMATEX(1, (ushort)codec_context->channels, (uint)codec_context->sample_rate, (uint)(16 / 8 * codec_context->channels * codec_context->sample_rate), (ushort)(codec_context->channels * 16 / 8), 16);
 

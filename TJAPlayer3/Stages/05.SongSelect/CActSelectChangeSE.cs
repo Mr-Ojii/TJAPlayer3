@@ -47,7 +47,7 @@ namespace TJAPlayer3
 
 						if (TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.ConfigIni.b2P演奏時のSEの左右 && donglist[nPlayer, i] != null)
 						{
-							this.donglist[nPlayer, i].n位置 = (nPlayer * 200) - 100;
+							this.donglist[nPlayer, i].nPanning = (nPlayer * 200) - 100;
 						}
 					}
 				}

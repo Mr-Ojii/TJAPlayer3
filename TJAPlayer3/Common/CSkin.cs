@@ -66,7 +66,7 @@ namespace TJAPlayer3
 					if (this.rSound[1 - this.n次に鳴るサウンド番号] == null)
 						return false;
 
-					return this.rSound[1 - this.n次に鳴るサウンド番号].b再生中;
+					return this.rSound[1 - this.n次に鳴るサウンド番号].bPlaying;
 				}
 			}
 			public int n位置_現在のサウンド
@@ -77,13 +77,13 @@ namespace TJAPlayer3
 					if (sound == null)
 						return 0;
 
-					return sound.n位置;
+					return sound.nPanning;
 				}
 				set
 				{
 					CSound sound = this.rSound[1 - this.n次に鳴るサウンド番号];
 					if (sound != null)
-						sound.n位置 = value;
+						sound.nPanning = value;
 				}
 			}
 			public int n位置_次に鳴るサウンド
@@ -94,13 +94,13 @@ namespace TJAPlayer3
 					if (sound == null)
 						return 0;
 
-					return sound.n位置;
+					return sound.nPanning;
 				}
 				set
 				{
 					CSound sound = this.rSound[this.n次に鳴るサウンド番号];
 					if (sound != null)
-						sound.n位置 = value;
+						sound.nPanning = value;
 				}
 			}
 			public int nAutomationLevel_現在のサウンド
@@ -131,7 +131,7 @@ namespace TJAPlayer3
 					{
 						return 0;
 					}
-					return sound.n総演奏時間ms;
+					return sound.nDurationms;
 				}
 			}
 			public int n長さ_次に鳴るサウンド
@@ -143,7 +143,7 @@ namespace TJAPlayer3
 					{
 						return 0;
 					}
-					return sound.n総演奏時間ms;
+					return sound.nDurationms;
 				}
 			}
 

@@ -281,7 +281,7 @@ namespace TJAPlayer3
 					}
 					else
 					{
-						nDuration = (wc.rSound[0] == null) ? 0 : wc.rSound[0].n総演奏時間ms;
+						nDuration = (wc.rSound[0] == null) ? 0 : wc.rSound[0].nDurationms;
 					}
 				}
 				else if (this.nチャンネル番号 == 0x54) 
@@ -790,11 +790,11 @@ namespace TJAPlayer3
 		}
 		public void tWave再生位置自動補正(CWAV wc)
 		{
-			if (wc.rSound[0] != null && wc.rSound[0].n総演奏時間ms >= 5000)
+			if (wc.rSound[0] != null && wc.rSound[0].nDurationms >= 5000)
 			{
 				for (int i = 0; i < nPolyphonicSounds; i++)
 				{
-					if ((wc.rSound[i] != null) && (wc.rSound[i].b再生中))
+					if ((wc.rSound[i] != null) && (wc.rSound[i].bPlaying))
 					{
 						long nCurrentTime = CSoundManager.rc演奏用タイマ.nシステム時刻ms;
 						if (nCurrentTime > wc.n再生開始時刻[i])
@@ -832,7 +832,7 @@ namespace TJAPlayer3
 			{
 				for (int i = 0; i < nPolyphonicSounds; i++)
 				{
-					if (cwav.rSound[i] != null && cwav.rSound[i].b再生中)
+					if (cwav.rSound[i] != null && cwav.rSound[i].bPlaying)
 					{
 						if (bミキサーからも削除する)
 						{
@@ -1077,7 +1077,7 @@ namespace TJAPlayer3
 					CSound sound = wc.rSound[index];
 					if (sound != null)
 					{
-						sound.db再生速度 = ((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0;
+						sound.dbPlaySpeed = ((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0;
 						// 再生速度によって、WASAPI/ASIOで使う使用mixerが決まるため、付随情報の設定(音量/PAN)は、再生速度の設定後に行う
 
 						// 2018-08-27 twopointzero - DON'T attempt to load (or queue scanning) loudness metadata here.
@@ -1085,7 +1085,7 @@ namespace TJAPlayer3
 						//                           will have just made such an attempt.
 						TJAPlayer3.SongGainController.Set(wc.SongVol, wc.SongLoudnessMetadata, sound);
 
-						sound.n位置 = 0;
+						sound.nPanning = 0;
 						sound.t再生を開始する();
 					}
 					wc.n再生開始時刻[wc.n現在再生中のサウンド番号] = n再生開始システム時刻ms;
@@ -1115,7 +1115,7 @@ namespace TJAPlayer3
 			{
 				for (int j = 0; j < nPolyphonicSounds; j++)
 				{
-					if ((cwav.rSound[j] != null) && cwav.rSound[j].b再生中)
+					if ((cwav.rSound[j] != null) && cwav.rSound[j].bPlaying)
 					{
 						cwav.n再生開始時刻[j] += nBGMAdjustの増減値;
 					}
@@ -1128,7 +1128,7 @@ namespace TJAPlayer3
 			{
 				for (int i = 0; i < nPolyphonicSounds; i++)
 				{
-					if ((cwav.rSound[i] != null) && cwav.rSound[i].b再生中)
+					if ((cwav.rSound[i] != null) && cwav.rSound[i].bPlaying)
 					{
 						cwav.rSound[i].t再生を一時停止する();
 						cwav.n一時停止時刻[i] = CSoundManager.rc演奏用タイマ.nシステム時刻ms;
@@ -5828,7 +5828,7 @@ namespace TJAPlayer3
 						int duration = 0;
 						if (listWAV.TryGetValue(pChip.n整数値_内部番号, out CDTX.CWAV wc))
 						{
-							duration = (wc.rSound[0] == null) ? 0 : (int)(wc.rSound[0].n総演奏時間ms / this.db再生速度); // #23664 durationに再生速度が加味されておらず、低速再生でBGMが途切れる問題を修正 (発声時刻msは、DTX読み込み時に再生速度加味済)
+							duration = (wc.rSound[0] == null) ? 0 : (int)(wc.rSound[0].nDurationms / this.db再生速度); // #23664 durationに再生速度が加味されておらず、低速再生でBGMが途切れる問題を修正 (発声時刻msは、DTX読み込み時に再生速度加味済)
 						}
 						//Debug.WriteLine("duration=" + duration );
 						int n新RemoveMixer時刻ms, n新RemoveMixer位置;

@@ -34,7 +34,7 @@ namespace FDK
 
 		// メソッド
 
-		public void tカウンタ更新()
+		public void tUpdateCounter()
 		{
 			this.timer.t更新();
 			this.bChangedFPSValue = false;

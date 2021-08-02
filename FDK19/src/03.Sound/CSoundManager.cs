@@ -296,7 +296,7 @@ namespace FDK
 		public void AddMixer(CSound cs, double db再生速度, bool _b演奏終了後も再生が続くチップである)
 		{
 			cs.b演奏終了後も再生が続くチップである = _b演奏終了後も再生が続くチップである;
-			cs.db再生速度 = db再生速度;
+			cs.dbPlaySpeed = db再生速度;
 			cs.tBASSサウンドをミキサーに追加する();
 		}
 		public void RemoveMixer(CSound cs)

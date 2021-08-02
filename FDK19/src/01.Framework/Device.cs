@@ -11,6 +11,5 @@ namespace FDK
     /// </summary>
     public class Device
     {
-        public int Num;
     }
 }
