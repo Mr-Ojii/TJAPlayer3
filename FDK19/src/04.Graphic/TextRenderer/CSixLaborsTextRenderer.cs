@@ -16,15 +16,8 @@ using Color = System.Drawing.Color;
 
 namespace FDK
 {
-	public class CSixLaborsTextRenderer : IDisposable
+	public class CSixLaborsTextRenderer : ITextRenderer
 	{
-		public static void SetRotate_Chara_List_Vertical(string[] list)
-		{
-			if (list != null)
-				Rotate_Chara_List_Vertical = list.Where(c => c != null).ToArray();
-		}
-		private static string[] Rotate_Chara_List_Vertical = new string[0];
-
 		public CSixLaborsTextRenderer(string fontpath, int pt)
 		{
 			Initialize(fontpath, pt, FontStyle.Regular);
@@ -56,27 +49,7 @@ namespace FDK
 			this.font = this.fontFamily.CreateFont(this.pt, this.fontStyle);
 		}
 
-		public Image<Rgba32> DrawPrivateFont(string drawstr, Color fontColor)
-		{
-			return DrawPrivateFont(drawstr, DrawMode.Normal, fontColor, Color.White, Color.White, Color.White, 0);
-		}
-
-		public Image<Rgba32> DrawPrivateFont(string drawstr, Color fontColor, Color edgeColor, int edge_Ratio)
-		{
-			return DrawPrivateFont(drawstr, DrawMode.Edge, fontColor, edgeColor, Color.White, Color.White, edge_Ratio);
-		}
-
-		public Image<Rgba32> DrawPrivateFont(string drawstr, Color fontColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio)
-		{
-			return DrawPrivateFont(drawstr, DrawMode.Gradation, fontColor, Color.White, gradationTopColor, gradataionBottomColor, edge_Ratio);
-		}
-
-		public Image<Rgba32> DrawPrivateFont(string drawstr, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio)
-		{
-			return DrawPrivateFont(drawstr, DrawMode.Edge | DrawMode.Gradation, fontColor, edgeColor, gradationTopColor, gradataionBottomColor, edge_Ratio);
-		}
-
-		protected Image<Rgba32> DrawPrivateFont(string drawstr, DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
+		public Image<Rgba32> DrawText(string drawstr, CPrivateFont.DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
 		{
 			if (string.IsNullOrEmpty(drawstr))
 			{
@@ -99,7 +72,7 @@ namespace FDK
 
 
 			IBrush brush;
-			if (drawmode.HasFlag(DrawMode.Gradation))
+			if (drawmode.HasFlag(CPrivateFont.DrawMode.Gradation))
 			{
 				brush = new LinearGradientBrush(new PointF(0, size.Top), new PointF(0, size.Height), GradientRepetitionMode.None, new ColorStop(0, gradationTopColorL), new ColorStop(1, gradationBottomColorL));
 			}
@@ -111,7 +84,7 @@ namespace FDK
 			//あらかじめ背景色を取っておく
 			SixLabors.ImageSharp.Color back = (SixLabors.ImageSharp.Color)image[0, 0].ToVector4();
 
-			if (drawmode.HasFlag(DrawMode.Edge))
+			if (drawmode.HasFlag(CPrivateFont.DrawMode.Edge))
 			{
 				DrawingOptions doption = new DrawingOptions();
 				IPathCollection pathc = TextBuilder.GenerateGlyphs(drawstr, new PointF(10, 10), roption);
@@ -135,98 +108,6 @@ namespace FDK
 			return image;
 		}
 
-		
-		public Image<Rgba32> DrawPrivateFont_V(string drawstr, Color fontColor)
-		{
-			return DrawPrivateFont_V(drawstr, DrawMode.Normal, fontColor, Color.White, Color.White, Color.White, 0);
-		}
-
-		public Image<Rgba32> DrawPrivateFont_V(string drawstr, Color fontColor, Color edgeColor, int edge_Ratio)
-		{
-			return DrawPrivateFont_V(drawstr, DrawMode.Edge, fontColor, edgeColor, Color.White, Color.White, edge_Ratio);
-		}
-
-		public Image<Rgba32> DrawPrivateFont_V(string drawstr, Color fontColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio)
-		{
-			return DrawPrivateFont_V(drawstr, DrawMode.Gradation, fontColor, Color.White, gradationTopColor, gradataionBottomColor, edge_Ratio);
-		}
-
-		public Image<Rgba32> DrawPrivateFont_V(string drawstr, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio)
-		{
-			return DrawPrivateFont_V(drawstr, DrawMode.Edge | DrawMode.Gradation, fontColor, edgeColor, gradationTopColor, gradataionBottomColor, edge_Ratio);
-		}
-
-		protected Image<Rgba32> DrawPrivateFont_V(string drawstr, DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
-		{
-			if (string.IsNullOrEmpty(drawstr))
-			{
-				//nullか""だったら、1x1を返す
-				return new Image<Rgba32>(1, 1);
-			}
-
-			//グラデ(全体)にも対応したいですね？
-
-			string[] strList = new string[drawstr.Length];
-			for (int i = 0; i < drawstr.Length; i++)
-				strList[i] = drawstr.Substring(i, 1);
-			Image<Rgba32>[] strImageList = new Image<Rgba32>[drawstr.Length];
-
-			//レンダリング,大きさ計測
-			int nWidth = 0;
-			int nHeight = 0;
-			for (int i = 0; i < strImageList.Length; i++)
-			{
-				strImageList[i] = this.DrawPrivateFont(strList[i], drawmode, fontColor, edgeColor, gradationTopColor, gradationBottomColor, edge_Ratio);
-
-				//回転する文字
-				if(Rotate_Chara_List_Vertical.Contains(strList[i]))
-					strImageList[i].Mutate(ctx => ctx.Rotate(RotateMode.Rotate90));
-
-				nWidth = Math.Max(nWidth, strImageList[i].Width);
-				nHeight += strImageList[i].Height;
-			}
-
-			Image<Rgba32> image = new Image<Rgba32>(nWidth, nHeight);
-
-			//1文字ずつ描画したやつを全体キャンバスに描画していく
-			int nowHeightPos = 0;
-			for (int i = 0; i < strImageList.Length; i++)
-			{
-				image.Mutate(ctx => ctx.DrawImage(strImageList[i], new Point((nWidth - strImageList[i].Width) / 2, nowHeightPos), 1));
-				nowHeightPos += strImageList[i].Height;
-			}
-
-			//1文字ずつ描画したやつの解放
-			for (int i = 0; i < strImageList.Length; i++)
-			{
-				strImageList[i].Dispose();
-			}
-
-			//返します
-			return image;
-		}
-		
-		[Flags]
-		public enum DrawMode
-		{
-			Normal,
-			Edge,
-			Gradation,
-			Vertical
-		}
-
-		public static string DefaultFontName
-		{
-			get
-			{
-				if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-					return "MS UI Gothic";
-				else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-					return "ヒラギノ角ゴ Std W8";//OSX搭載PC未所持のため暫定
-				else
-					return "Droid Sans Fallback";
-			}
-		}
 
 
 		/// <summary>

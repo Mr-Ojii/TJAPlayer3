@@ -1079,7 +1079,6 @@ namespace TJAPlayer3
 							{
 								SongSelect_Rotate_Chara = strParam.Split(',').ToArray();
 								CPrivateFont.SetRotate_Chara_List_Vertical(SongSelect_Rotate_Chara);
-								CSixLaborsTextRenderer.SetRotate_Chara_List_Vertical(SongSelect_Rotate_Chara);
 							}
 							else if (strCommand == nameof(SongSelect_BackBoxText_Y_Diff))
 							{
