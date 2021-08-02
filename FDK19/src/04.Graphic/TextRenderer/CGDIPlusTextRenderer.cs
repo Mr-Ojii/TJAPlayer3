@@ -8,6 +8,7 @@ using System.Drawing.Drawing2D;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using SixLabors.ImageSharp.Processing;
 
 using Color = System.Drawing.Color;
 using Rectangle = System.Drawing.Rectangle;
@@ -172,7 +173,6 @@ namespace FDK
 						//float to int
 						SizeF fstringSize = gtmp.MeasureString(drawstr, this._font, new PointF(0, 0), sf);
 						stringSize = new Size((int)fstringSize.Width, this._font.Height);
-						stringSize.Width += 10; //2015.04.01 kairera0467 ROTTERDAM NATIONの描画サイズがうまくいかんので。
 					}
 				}
 			}
@@ -184,16 +184,18 @@ namespace FDK
 			int nEdgePt = (bEdge) ? (10 * _pt / edge_Ratio) : 0; //SkinConfigにて設定可能に(rhimm)
 
 			//取得した描画サイズを基に、描画先のbitmapを作成する
-			Bitmap bmp = new Bitmap(stringSize.Width + nEdgePt * 2, stringSize.Height + nEdgePt * 2);
+			Bitmap bmp = new Bitmap(stringSize.Width + nEdgePt * 2 + 20, stringSize.Height + nEdgePt * 2 + 20);
 			bmp.MakeTransparent();
 
+			SixLabors.ImageSharp.Color backColor = new SixLabors.ImageSharp.Color(new SixLabors.ImageSharp.PixelFormats.Rgba32(bmp.GetPixel(0, 0).R, bmp.GetPixel(0, 0).G, bmp.GetPixel(0, 0).B, bmp.GetPixel(0, 0).A));
+				
 			using (Graphics g = Graphics.FromImage(bmp))
 			{
 				g.SmoothingMode = SmoothingMode.HighQuality;
 				g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
 
 				// レイアウト枠
-				Rectangle r = new Rectangle(0, 0, stringSize.Width + nEdgePt * 2 , stringSize.Height + nEdgePt * 2);
+				Rectangle r = new Rectangle(0, 0, stringSize.Width + nEdgePt * 2 + 10, stringSize.Height + nEdgePt * 2 + 10);
 
 				if (bEdge)    // 縁取り有りの描画
 				{
@@ -244,6 +246,16 @@ namespace FDK
 
 			SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> image = CConvert.ToImageSharpImage(bmp);
 			bmp.Dispose();
+			SixLabors.ImageSharp.Rectangle rect = CCommon.MeasureForegroundArea(image, backColor);
+			
+			if (rect != SixLabors.ImageSharp.Rectangle.Empty)
+				image.Mutate(ctx => ctx.Crop(rect));
+			else
+			{
+				image.Dispose();
+				return new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>(stringSize.Width, stringSize.Height);
+			}
+
 			return image;
 		}
 

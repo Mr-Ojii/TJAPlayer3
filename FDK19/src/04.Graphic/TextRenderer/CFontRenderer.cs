@@ -11,8 +11,8 @@ using Color = System.Drawing.Color;
 namespace FDK
 {
 
-    public class CFontRenderer : IDisposable
-    {
+	public class CFontRenderer : IDisposable
+	{
 		#region[static系]
 		public static void SetTextCorrectionX_Chara_List_Vertical(string[] list)
 		{
@@ -47,23 +47,23 @@ namespace FDK
 		private static string[] Rotate_Chara_List_Vertical = new string[0];
 		#endregion
 
-        
-        #region [ コンストラクタ ]
-        public CFontRenderer(string fontpath, int pt, SixLabors.Fonts.FontStyle style)
-        {
-            Initialize(fontpath, pt, style);
-        }
-        public CFontRenderer(string fontpath, int pt)
-        {
-            Initialize(fontpath, pt, SixLabors.Fonts.FontStyle.Regular);
-        }
-        public CFontRenderer()
-        {
-            //throw new ArgumentException("CPrivateFont: 引数があるコンストラクタを使用してください。");
-        }
-        #endregion
+		
+		#region [ コンストラクタ ]
+		public CFontRenderer(string fontpath, int pt, SixLabors.Fonts.FontStyle style)
+		{
+			Initialize(fontpath, pt, style);
+		}
+		public CFontRenderer(string fontpath, int pt)
+		{
+			Initialize(fontpath, pt, SixLabors.Fonts.FontStyle.Regular);
+		}
+		public CFontRenderer()
+		{
+			//throw new ArgumentException("CPrivateFont: 引数があるコンストラクタを使用してください。");
+		}
+		#endregion
 
-        protected void Initialize(string fontpath, int pt, FontStyle style)
+		protected void Initialize(string fontpath, int pt, FontStyle style)
 		{
 			try
 			{
@@ -77,17 +77,17 @@ namespace FDK
 			}
 			
 			try
-            {
-                this.textRenderer = new CSixLaborsTextRenderer(fontpath, pt, style);
+			{
+				this.textRenderer = new CSixLaborsTextRenderer(fontpath, pt, style);
 				return;
-            }
-            catch (Exception e)
-            {
-                Trace.TraceWarning("SixLabors.Fontsでのフォント生成に失敗しました。" + e.ToString());
+			}
+			catch (Exception e)
+			{
+				Trace.TraceWarning("SixLabors.Fontsでのフォント生成に失敗しました。" + e.ToString());
 				this.textRenderer.Dispose();
 				throw;
-            }
-        }
+			}
+		}
 
 		public Image<Rgba32> DrawPrivateFont(string drawstr, Color fontColor)
 		{
@@ -111,7 +111,7 @@ namespace FDK
 		protected Image<Rgba32> DrawPrivateFont(string drawstr, CPrivateFont.DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
 		{
 			//横書きに対してのCorrectionは廃止
-            return this.textRenderer.DrawText(drawstr, drawmode, fontColor, edgeColor, gradationTopColor, gradationBottomColor, edge_Ratio);
+			return this.textRenderer.DrawText(drawstr, drawmode, fontColor, edgeColor, gradationTopColor, gradationBottomColor, edge_Ratio);
 		}
 
 
@@ -184,11 +184,11 @@ namespace FDK
 			return image;
 		}
 
-        public void Dispose()
-        {
-            this.textRenderer.Dispose();
-        }
+		public void Dispose()
+		{
+			this.textRenderer.Dispose();
+		}
 
-        private ITextRenderer textRenderer;
-    }
+		private ITextRenderer textRenderer;
+	}
 }
