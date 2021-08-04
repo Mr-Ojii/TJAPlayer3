@@ -538,6 +538,9 @@ namespace TJAPlayer3
 			TJAPlayer3.t安全にDisposeする(ref pfMusicName);
 			TJAPlayer3.t安全にDisposeする(ref pfSubtitle);
 
+			this.ttk選択している曲の曲名 = null;
+			this.ttk選択している曲のサブタイトル = null;
+
 			this.ct登場アニメ用 = null;
 
 			this.ct三角矢印アニメ = null;
@@ -1438,13 +1441,6 @@ namespace TJAPlayer3
 					if (this.stバー情報[nパネル番号].strSubTitle != "" && this.ttk選択している曲のサブタイトル == null)
 						this.ttk選択している曲のサブタイトル = this.ttkサブタイトルテクスチャを生成する(this.stバー情報[nパネル番号].strSubTitle);
 
-					//サブタイトルがあったら700
-
-					if (this.ttk選択している曲のサブタイトル != null)
-					{
-						サブタイトルtmp = ResolveTitleTexture(ttk選択している曲のサブタイトル);
-						サブタイトルtmp.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 707 + (サブタイトルtmp.szTextureSize.Width / 2), TJAPlayer3.Skin.SongSelect_Overall_Y + 430);
-					}
 
 					if (TJAPlayer3.Tx.SongSelect_Box_Center_Genre[nnGenreBack] != null && TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[nnGenreBack] != null)
 					{
@@ -1462,6 +1458,14 @@ namespace TJAPlayer3
 					{
 						タイトルtmp = ResolveTitleTexture(this.ttk選択している曲の曲名);
 						タイトルtmp.t2D描画(TJAPlayer3.app.Device, 750, TJAPlayer3.Skin.SongSelect_Overall_Y + TJAPlayer3.Skin.SongSelect_Box_Center_Header_Y_Diff + 23);
+					}
+
+					//サブタイトルがあったら700
+
+					if (this.ttk選択している曲のサブタイトル != null)
+					{
+						サブタイトルtmp = ResolveTitleTexture(ttk選択している曲のサブタイトル);
+						サブタイトルtmp.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 707 + (サブタイトルtmp.szTextureSize.Width / 2), TJAPlayer3.Skin.SongSelect_Overall_Y + 430);
 					}
 
 					//-----------------
