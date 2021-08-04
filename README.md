@@ -2,58 +2,80 @@
 TJAPlayer3をForkして、趣味程度に改造してます。  
 スパゲッティコードと化してますね。うん。たまに整理しましょうかね。
 
+**現在は、譜面ビューアーとして開発を続行しています。**
+
 実装してほしいものがあればGitHubのIssuesまたはDiscord鯖まで。  
 趣味程度の改造なので時間はかかりますが、実装要望があったものは、なるべく実装したいと考えています。  
 (Issueについて、確認済みのものはラベルを貼ります。)  
 趣味ですから、気分次第で実装をするので、バグ報告がなされても後回しにする可能性があります。すみません。
 
 masterブランチでほぼすべての開発を行います。  
-(基本的なものはです。大規模なテスト実装などは、別のブランチに移行するかも。)
+(基本的なものはです。大規模なテスト実装などは、別のブランチに移行するかもしれません。)
 
 起動時にコンソールが出現しますが、気にしないでください。
 
 osx-x64ビルドはテスト段階です。  
-動作確認ができていません。そのため、動作保証ができません。ご承知おきください。
+動作確認ができていません。そのため、いかなる動作保証もできません。ご承知おきください。
 
 このプログラムを使用し発生した、いかなる不具合・損失に対しても、一切の責任を負いません。
 
-
-## 推奨環境
-* Windows 7以降のWindows環境  
-* Ubuntu系のLinux環境 (x64)  
-
-~~まぁ、Windows 10で動作確認をしているので、Windows 10が一番安定してるかと...~~  
-__Windows10(Ver.21H1)とLinux Mint 20.1(Xfce)ではLinux Mintの方が安定して動作していました。__
-
-
-Ubuntu系Linuxではターミナルで  
-``chmod +x TJAPlayer3-f(.AppImage)``  
-を実行し、実行ファイルに実行権限をつけ、  
-``sudo apt install freeglut3 freeglut3-dev libgdiplus ffmpeg libopenal-dev``  
-を実行し、それぞれのライブラリをインストールし、  
-``ln -sf /usr/lib/x86_64-linux-gnu/libopenal.so ./dll/linux-x64/openal32.dll``  
-を実行し、libopenal.soのシンボリックリンクを実行ファイルと同じフォルダに作成してから実行してください。  
-※()内は実行ファイルの名前にしたがってください。
-
-
-## 開発環境(動作確認環境)
-OS
-* Windows 10(Ver.21H1) (x64)  
-* Linux Mint 20.1(Xfce) (x64)  
-* Ubuntu 20.04 LTS (x64)
-
-Editor
-* Visual Studio Community 2019  
-* Visual Studio Code  
-* Vim
-
 ## バグ報告のお願い
-改造者:[@Mr_Ojii](https://twitter.com/Mr_Ojii)はC#を2020年3月16日に初めて触りました。  
+開発者:[@Mr_Ojii](https://twitter.com/Mr_Ojii)はC#を2020年3月16日に初めて触りました。  
 この改造をしながら、C#を勉強しているため、相当な量のバグが含まれていると思われます。  
 バグを見つけた場合、Discordサーバーまたは、Issuesで報告してもらえると、自分の勉強もはかどるのでよろしくお願いします。  
 プログラムが落ちるようなエラーである場合、情報を開発者に送信するような仕様になっております。ご了承ください。
 
-## 開発状況(ログみたいなもん)
+
+## 追加命令について
+Test/Readmeフォルダ内の「About_additional_and_modified_functions.md」で説明いたします。
+
+
+## 推奨動作環境
+* Windows 7以降のWindows (x86,x64)
+* Debian系のLinux 最新版 (x64)
+* Arch Linux(デスクトップ環境構築済み) (x64)
+
+
+## 実行方法
+* Windows環境  
+  ダウンロード後、Zipファイルを解凍し、フォルダ内に入っているTJAPlayer3-f.exeを実行してください。
+
+* Linux環境
+  * Debian系  
+    ```sh
+    sudo apt install freeglut3-dev libgdiplus ffmpeg libopenal-dev
+    ```
+  * Arch Linux
+    ```sh
+    pacman -S freeglut libgdiplus ffmpeg openal
+    ln -sf /usr/lib /usr/lib/x86_64-linux-gnu
+    ```
+  で、必要なパッケージをインストール/パスを通しておき、
+
+  TJAPlayer3-fのダウンロードごとに、Zipファイルを解凍し、  
+  TJAPlayer3-fが存在するディレクトリをカレントディレクトリとしたターミナルで  
+  ```sh
+  ln -sf /usr/lib/x86_64-linux-gnu/libopenal.so ./libopenal32.dll
+  chmod +x TJAPlayer3-f(.AppImage)
+  ```
+
+  を実行してからTJAPlayer3-f.AppImageを実行してください。  
+  ※()内は実行ファイルの名前にしたがってください。
+
+
+## 開発環境(動作確認環境)
+OS
+* Windows 10(Ver.21H1) (x64)
+* Linux Mint 20.2(Xfce) (x64)
+* Debian 10.10(Xfce) (VirtualBox) (x64)
+* Arch Linux(Xfce) (VirtualBox) (x64)
+
+Editor
+* Visual Studio Community 2019
+* Visual Studio Code
+* Vim
+
+## 開発状況
 |バージョン |日付(JST) |                                        実装内容                                        |
 |:---------:|:--------:|:---------------------------------------------------------------------------------------|
 |Ver.1.5.8.0|2020-03-25|より本家っぽく。                                                                        |
@@ -87,8 +109,6 @@ Editor
 参加した場合、#readmeをご一読ください。よろしくお願いいたします。  
 [https://discord.gg/WtdsBqESaX](https://discord.gg/WtdsBqESaX)
 
-## 追加命令について
-Test/Readmeフォルダ内の「About_additional_and_modified_functions.md」で説明いたします。
 
 ## 謝辞
 このTJAPlayer3-fのもととなるソフトウェアを作成・メンテナンスしてきた中でも  
@@ -100,6 +120,7 @@ Test/Readmeフォルダ内の「About_additional_and_modified_functions.md」で
 
 また、他のTJAPlayer関係のソースコードを参考にさせてもらっている箇所があります。  
 ありがとうございます。
+
 
 ## ライセンス関係
 Fork元より使用しているライブラリ
