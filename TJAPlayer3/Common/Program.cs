@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using System.Text.Json;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,8 +11,6 @@ using System.IO;
 using System.Reflection;
 using System.Net.Http;
 using FDK;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace TJAPlayer3
 {
@@ -54,6 +53,24 @@ namespace TJAPlayer3
 					Trace.WriteLine("An error has occurred. Sorry.");
 					AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
 
+					//情報リスト
+					Dictionary<string, string> errorjsonobject = new Dictionary<string, string>
+					{
+						{ "Name",asmApp.Name},
+						{ "Version",asmApp.Version.ToString()},
+						{ "Exception",e.ToString()},
+						{ "DateTime",DateTime.UtcNow.ToString("yyyy/MM/dd HH:mm:ss.ff")},
+						{ "SkinName",SkinName},
+						{ "SkinVersion",SkinVersion},
+						{ "SkinCreator",SkinCreator},
+						{ "OperatingSystem",Environment.OSVersion.ToString()},
+						{ "OSDescription",RuntimeInformation.OSDescription},
+						{ "OSArchitecture",RuntimeInformation.OSArchitecture.ToString()},
+						{ "RuntimeIdentifier",RuntimeInformation.RuntimeIdentifier},
+						{ "FrameworkDescription",RuntimeInformation.FrameworkDescription},
+						{ "ProcessArchitecture",RuntimeInformation.ProcessArchitecture.ToString()}
+					};
+					
 					//エラーが発生したことをユーザーに知らせるため、HTMLを作成する。
 					using (StreamWriter writer = new StreamWriter(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Error.html", false, Encoding.UTF8))
 					{
@@ -68,15 +85,25 @@ namespace TJAPlayer3
 						writer.WriteLine("</head>");
 						writer.WriteLine("<body>");
 						writer.WriteLine("<h1>An error has occurred.(エラーが発生しました。)</h1>");
-#if !PUBLISH
-						writer.WriteLine("<p>It is a local build, so it did not send any error information.(ローカルビルドのため、エラー情報を送信しませんでした。)</p>");
-#else
+#if PUBLISH
 						writer.WriteLine("<p>Error information has been sent.(エラー情報を送信しました。)</p>");
+#else
+						writer.WriteLine("<p>It is a local build, so it did not send any error information.(ローカルビルドのため、エラー情報を送信しませんでした。)</p>");
 #endif
 						writer.WriteLine("<table>");
 						writer.WriteLine("<tbody>");
-						writer.WriteLine("<tr><th>Name</th><th>Version</th><th>Exception</th><th>DateTime</th><th>SkinName</th><th>SkinVersion</th><th>SkinCreator</th><th>OS</th><th>OSDescription</th><th>OSArchitecture</th><th>RuntimeIdentifier</th><th>FrameworkDescription</th><th>ProcessArchitecture</th></tr>");
-						writer.WriteLine($"<tr><td>{asmApp.Name}</td><td>{asmApp.Version.ToString()}</td><td>{e.ToString()}</td><td>{DateTime.UtcNow.ToString()}</td><td>{SkinName}</td><td>{SkinVersion}</td><td>{SkinCreator}</td><td>{Environment.OSVersion}</td><td>{RuntimeInformation.OSDescription}</td><td>{RuntimeInformation.OSArchitecture}</td><td>{RuntimeInformation.RuntimeIdentifier}</td><td>{RuntimeInformation.FrameworkDescription}</td><td>{RuntimeInformation.ProcessArchitecture}</td></tr>");
+						writer.Write("<tr>");
+						foreach (KeyValuePair<string, string> keyValuePair in errorjsonobject) 
+						{
+							writer.Write($"<th>{keyValuePair.Key}</th>");
+						}
+						writer.WriteLine("</tr>");
+						writer.Write("<tr>");
+						foreach (KeyValuePair<string, string> keyValuePair in errorjsonobject)
+						{
+							writer.Write($"<td>{keyValuePair.Value}</td>");
+						}
+						writer.WriteLine("</tr>");
 						writer.WriteLine("</tbody>");
 						writer.WriteLine("</table>");
 						writer.WriteLine("</body>");
@@ -86,25 +113,9 @@ namespace TJAPlayer3
 
 #if PUBLISH
 					//エラーの送信
-					JObject errorjsonobject = new JObject(
-						new JProperty("name", asmApp.Name),
-						new JProperty("version", asmApp.Version.ToString()),
-						new JProperty("exception", e.ToString()),
-						new JProperty("datetime", DateTime.UtcNow.ToString()),
-						new JProperty("skinname", SkinName),
-						new JProperty("skinversion", SkinVersion),
-						new JProperty("skincreator", SkinCreator),
-						new JProperty("operatingsystem", Environment.OSVersion.ToString()),
-						new JProperty("osdescription", RuntimeInformation.OSDescription),
-						new JProperty("osarchitecture", RuntimeInformation.OSArchitecture.ToString()),
-						new JProperty("runtimeidentifier", RuntimeInformation.RuntimeIdentifier),
-						new JProperty("frameworkdescription", RuntimeInformation.FrameworkDescription),
-						new JProperty("processarchitecture", RuntimeInformation.ProcessArchitecture.ToString())
-						);
-
 					using (var client = new HttpClient())
 					{
-						var content = new StringContent(JsonConvert.SerializeObject(errorjsonobject, Formatting.None), Encoding.UTF8, "application/json");
+						var content = new StringContent(JsonSerializer.Serialize(errorjsonobject, new JsonSerializerOptions() { DictionaryKeyPolicy = new LowerCaseJsonNamingPolicy() }), Encoding.UTF8, "application/json");
 
 						var resString = client.PostAsync("https://script.google.com/macros/s/AKfycbzPWvX1cd5aDcDjs0ohgBveIxBh6wZPvGk0Xvg7xFsEsoXXUFCSUeziaVsn7uoMtm_3/exec", content).Result;
 					}
@@ -122,6 +133,13 @@ namespace TJAPlayer3
 				Console.WriteLine($"TJAPlayer3-f(Ver.{Assembly.GetExecutingAssembly().GetName().Version}) is already running.");
 				Thread.Sleep(2000);
 			}
+		}
+
+		//渡されたのをLowerCaseにして返します
+		private class LowerCaseJsonNamingPolicy : JsonNamingPolicy 
+		{
+			public override string ConvertName(string name) 
+				=> name.ToLower();
 		}
 	}
 }
