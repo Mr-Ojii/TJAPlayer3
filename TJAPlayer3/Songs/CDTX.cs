@@ -8,7 +8,8 @@ using System.IO;
 using System.Globalization;
 using System.Threading;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using FDK;
 using FDK.ExtensionMethods;
 
@@ -1212,6 +1213,8 @@ namespace TJAPlayer3
 				Trace.TraceError("おや?エラーが出たようです。お兄様。");
 				Trace.TraceError(ex.ToString());
 				Trace.TraceError("An exception has occurred, but processing continues.");
+				for (int i = 0; i < this.b譜面が存在する.Length; i++)
+					this.b譜面が存在する[i] = false;
 			}
 		}
 		public void t入力_全入力文字列から( string str1, double db再生速度, int nBGMAdjust)
@@ -1791,8 +1794,8 @@ namespace TJAPlayer3
 				this.dbNowSCROLL_Master = new double[] { 1.0, 0.0 };
 				this.n現在のコース = 0;
 				#endregion
-				
-				OTCMedley obj = JsonConvert.DeserializeObject<OTCMedley>(入力文字列);
+
+				OTCMedley obj = JsonSerializer.Deserialize<OTCMedley>(入力文字列, new JsonSerializerOptions() { AllowTrailingCommas = true });
 				
 				if (obj.Jouken != null)
 					for (int joukenindex = 0; joukenindex < Math.Min(obj.Jouken.Length,3); joukenindex++)
@@ -1973,7 +1976,7 @@ namespace TJAPlayer3
 						AddMusicPreTimeMs(); // 段位の幕が開いてからの遅延。
 
 
-						OTCInfomation objtci = JsonConvert.DeserializeObject<OTCInfomation>(tcistr);
+						OTCInfomation objtci = JsonSerializer.Deserialize<OTCInfomation>(tcistr, new JsonSerializerOptions() { AllowTrailingCommas = true });
 
 						int n譜面数 = 0;
 
@@ -1990,7 +1993,7 @@ namespace TJAPlayer3
 
 						string tccstr = CJudgeTextEncoding.ReadTextFile(読み込むtccファイル);
 
-						OTCCource objtcc = JsonConvert.DeserializeObject<OTCCource>(tccstr);
+						OTCCource objtcc = JsonSerializer.Deserialize<OTCCource>(tccstr, new JsonSerializerOptions() { AllowTrailingCommas = true });
 
 						var dansongs = new DanSongs();
 						if (objtci.SubTitle != null)
@@ -2063,7 +2066,7 @@ namespace TJAPlayer3
 
 		private void t入力tci_tcm用(string 入力文字列, double 再生速度, int cindex) {
 
-			OTCInfomation obj = JsonConvert.DeserializeObject<OTCInfomation>(入力文字列);
+			OTCInfomation obj = JsonSerializer.Deserialize<OTCInfomation>(入力文字列, new JsonSerializerOptions() { AllowTrailingCommas = true });
 
 			#region[BGM]
 			if (strBGM_PATH != null)
@@ -2265,7 +2268,7 @@ namespace TJAPlayer3
 
 		private void t入力tciファイル(string 全入力文字列) 
 		{
-			OTCInfomation obj = JsonConvert.DeserializeObject<OTCInfomation>(全入力文字列);
+			OTCInfomation obj = JsonSerializer.Deserialize<OTCInfomation>(全入力文字列, new JsonSerializerOptions() { AllowTrailingCommas = true });
 
 			#region[タイトル&サブタイ]
 			this.TITLE = obj.Title;
@@ -2563,7 +2566,7 @@ namespace TJAPlayer3
 
 			string tccstr = CJudgeTextEncoding.ReadTextFile(読み込むtccファイル);
 
-			OTCCource obj = JsonConvert.DeserializeObject<OTCCource>(tccstr);
+			OTCCource obj = JsonSerializer.Deserialize<OTCCource>(tccstr, new JsonSerializerOptions() { AllowTrailingCommas = true });
 
 			this.nScoreModeTmp = 2;
 
@@ -6108,91 +6111,85 @@ namespace TJAPlayer3
 		private int n内部番号DELAY1to;
 		private int n内部番号WAV1to;
 
-		[JsonObject("infomation")]
 		private class OTCInfomation
 		{
-			[JsonProperty("title")]
+			[JsonPropertyName("title")]
 			public string Title { get; set; }
-			[JsonProperty("subtitle")]
+			[JsonPropertyName("subtitle")]
 			public string SubTitle { get; set; }
-			[JsonProperty("albumart")]
+			[JsonPropertyName("albumart")]
 			public string Albumart { get; set; }
-			[JsonProperty("artist")]
+			[JsonPropertyName("artist")]
 			public string[] Artist { get; set; }
-			[JsonProperty("creator")]
+			[JsonPropertyName("creator")]
 			public string[] Creator { get; set; }
-			[JsonProperty("audio")]
+			[JsonPropertyName("audio")]
 			public string WAVFile { get; set; }
-			[JsonProperty("songpreview")]
+			[JsonPropertyName("songpreview")]
 			public double? PreviewOffset { get; set; }
-			[JsonProperty("background")]
+			[JsonPropertyName("background")]
 			public string BGFile { get; set; }
-			[JsonProperty("movieoffset")]
+			[JsonPropertyName("movieoffset")]
 			public double? MVOffset { get; set; }
-			[JsonProperty("bpm")]
+			[JsonPropertyName("bpm")]
 			public double? BPM { get; set; }
-			[JsonProperty("offset")]
+			[JsonPropertyName("offset")]
 			public double? Offset { get; set; }
-			[JsonProperty("courses")]
+			[JsonPropertyName("courses")]
 			public OTCInfomationHumen[] Courses { get; set; }
 		}
 
-		[JsonObject("infohumen")]
 		private class OTCInfomationHumen
 		{
-			[JsonProperty("difficulty")]
+			[JsonPropertyName("difficulty")]
 			public string Diffculty { get; set; }
-			[JsonProperty("level")]
+			[JsonPropertyName("level")]
 			public int? Level { get; set; }
-			[JsonProperty("single")]
+			[JsonPropertyName("single")]
 			public string Single { get; set; }
-			[JsonProperty("multiple")]
+			[JsonPropertyName("multiple")]
 			public string[] Multiple { get; set; }
 		}
 
-		[JsonObject("cource")]
 		private class OTCCource
 		{
-			[JsonProperty("scoreinit")]
+			[JsonPropertyName("scoreinit")]
 			public int? ScoreInit { get; set; }
-			[JsonProperty("scorediff")]
+			[JsonPropertyName("scorediff")]
 			public int? ScoreDiff { get; set; }
-			[JsonProperty("scoreshinuchi")]
+			[JsonPropertyName("scoreshinuchi")]
 			public int? ScoreShinuchi { get; set; }
-			[JsonProperty("balloon")]
+			[JsonPropertyName("balloon")]
 			public int?[] Balloon { get; set; }
-			[JsonProperty("measures")]
+			[JsonPropertyName("measures")]
 			public string[][] Measures { get; set; }
 		}
 
-		[JsonObject("medley")]
 		private class OTCMedley
 		{
-			[JsonProperty("title")]
+			[JsonPropertyName("title")]
 			public string Title { get; set; }
-			[JsonProperty("exams")]
+			[JsonPropertyName("exams")]
 			public OTCMedleyJouken[] Jouken { get; set; }
-			[JsonProperty("charts")]
+			[JsonPropertyName("charts")]
 			public OTCMedleyHumen[] Humen { get; set; }
 		}
 
-		[JsonObject("medleyjouken")]
 		private class OTCMedleyJouken
 		{
-			[JsonProperty("type")]
+			[JsonPropertyName("type")]
 			public string Type { get; set; }
-			[JsonProperty("range")]
+			[JsonPropertyName("range")]
 			public string Range { get; set; }
-			[JsonProperty("value")]
+			[JsonPropertyName("value")]
 			public int?[] Value { get; set; }
 		}
 
-		[JsonObject("medleyHumen")]
 		private class OTCMedleyHumen
 		{
-			[JsonProperty("file")]
+			[JsonPropertyName("file")]
 			public string File { get; set; }
-			[JsonProperty("difficulty")]
+			[JsonPropertyName("difficulty")]
 			public string Diff { get; set; }
 		}
 
