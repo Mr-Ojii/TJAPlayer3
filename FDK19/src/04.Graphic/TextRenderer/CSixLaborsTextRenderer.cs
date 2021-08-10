@@ -107,7 +107,7 @@ namespace FDK
 			else 
 			{
 				image.Dispose();
-				return new Image<Rgba32>((int)size.Height / 2, (int)size.Height);
+				return new Image<Rgba32>((int)size.Width, 1);
 			}
 
 			return image;

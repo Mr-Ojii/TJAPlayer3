@@ -253,7 +253,7 @@ namespace FDK
 			else
 			{
 				image.Dispose();
-				return new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>((int)stringSize.Height / 2, stringSize.Height);
+				return new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>((int)stringSize.Width, 1);
 			}
 
 			return image;
