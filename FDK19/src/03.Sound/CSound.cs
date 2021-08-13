@@ -1204,7 +1204,7 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strFilename) +
 		{
 			if ( BassMix.ChannelGetMixer( hBassStream ) == 0 )
 			{
-				BassFlags bf = BassFlags.SpeakerFront | BassFlags.MixerNoRampin | BassFlags.MixerPause;
+				BassFlags bf = BassFlags.SpeakerFront | BassFlags.MixerChanNoRampin | BassFlags.MixerChanPause;
 				Interlocked.Increment( ref CSoundManager.nMixing );
 
 				// preloadされることを期待して、敢えてflagからはBASS_MIXER_PAUSEを外してAddChannelした上で、すぐにPAUSEする
