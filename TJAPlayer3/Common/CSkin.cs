@@ -2672,12 +2672,12 @@ namespace TJAPlayer3
 		public int[] Game_DanC_v2_Panel_Y = new int[] { 385, 495, 605 };
 		public int[] Game_DanC_v2_Base_Offset = new int[] { 260, 17 };
 		public int[] Game_DanC_v2_Gauge_Offset = new int[] { 5, 5 };
-		public int[] Game_DanC_v2_Amount_Offset = new int[] { 20, 0 };
+		public int[] Game_DanC_v2_Amount_Offset = new int[] { 0, 0 };
 		public float Game_DanC_v2_Amount_Scale = 1f;
 		public int[] Game_DanC_v2_ExamType_Offset = new int[] { 122, 10 };
 		public int[] Game_DanC_v2_ExamType_Size = new int[] { 100, 25 };
 		public int[] Game_DanC_v2_ExamRange_Offset = new int[] { 180, 30 };
-		public int[] Game_DanC_v2_ExamRangeNum_Offset = new int[] { 0, 3 };
+		public int[] Game_DanC_v2_ExamRangeNum_Offset = new int[] { -15, 3 };
 		public int[] Game_DanC_v2_Dan_Plate = new int[] { 1000, 416 };
 
 		public int[] Game_DanC_v2_SoulGauge_Box_X = new int[] { 110, 800 };//0%,100%のX座標

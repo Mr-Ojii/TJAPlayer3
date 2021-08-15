@@ -948,9 +948,16 @@ namespace TJAPlayer3
 						this.前回のシステム時刻ms = CSoundManager.rc演奏用タイマ.nシステム時刻ms;
 						Task.Factory.StartNew(() =>
 						{
-							//IPv4 8.8.8.8にPingを送信する(timeout 5000ms)
-							PingReply reply = new Ping().Send("8.8.8.8", 5000);
-							this.bネットワークに接続中 = reply.Status == IPStatus.Success;
+							try
+							{
+								//IPv4 8.8.8.8にPingを送信する(timeout 5000ms)
+								PingReply reply = new Ping().Send("8.8.8.8", 5000);
+								this.bネットワークに接続中 = reply.Status == IPStatus.Success;
+							}
+							catch
+							{
+								this.bネットワークに接続中 = false;
+							}
 						});
 					}
 					TJAPlayer3.Tx.Network_Connection.t2D描画(app.Device, GameWindowSize.Width - (TJAPlayer3.Tx.Network_Connection.szTextureSize.Width / 2), GameWindowSize.Height - TJAPlayer3.Tx.Network_Connection.szTextureSize.Height, new Rectangle((TJAPlayer3.Tx.Network_Connection.szTextureSize.Width / 2) * (this.bネットワークに接続中 ? 0 : 1), 0, TJAPlayer3.Tx.Network_Connection.szTextureSize.Width / 2, TJAPlayer3.Tx.Network_Connection.szTextureSize.Height));

@@ -538,8 +538,10 @@ namespace TJAPlayer3
 				//offset -= CDTXMania.Skin.Game_DanC_ExamRange_Padding;
 				// 条件の範囲
 				if (TJAPlayer3.Tx.DanC_ExamRange != null)
+				{
 					TJAPlayer3.Tx.DanC_ExamRange?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, TJAPlayer3.Skin.Game_DanC_X[count - 1] + offset - TJAPlayer3.Tx.DanC_ExamRange.szTextureSize.Width, PanelY - TJAPlayer3.Skin.Game_DanC_Exam_Offset[1] + (TJAPlayer3.Tx.DanC_ExamRange.szTextureSize.Height / 2), new Rectangle(0, (TJAPlayer3.Tx.DanC_ExamRange.szTextureSize.Height / 2) * (int)dan_C[i].Range, TJAPlayer3.Tx.DanC_ExamRange.szTextureSize.Width, (TJAPlayer3.Tx.DanC_ExamRange.szTextureSize.Height / 2)));
-				offset -= TJAPlayer3.Tx.DanC_ExamRange.szTextureSize.Width;
+					offset -= TJAPlayer3.Tx.DanC_ExamRange.szTextureSize.Width;
+				}
 
 				// 単位(あれば)
 				switch (dan_C[i].Type)
@@ -569,7 +571,6 @@ namespace TJAPlayer3
 
 				// 条件の数字
 				DrawNumber(dan_C[i].GetValue(false), TJAPlayer3.Skin.Game_DanC_X[count - 1] + offset, PanelY - TJAPlayer3.Skin.Game_DanC_Exam_Offset[1], TJAPlayer3.Skin.Game_DanC_Number_Small_Padding, TJAPlayer3.Skin.Game_DanC_Number_Small_Scale, TJAPlayer3.Skin.Game_DanC_Number_Small_Scale);
-				//offset -= CDTXMania.Skin.Game_DanC_Number_Small_Padding * (dan_C[i].Value[0].ToString().Length + 1);
 				offset -= TJAPlayer3.Skin.Game_DanC_Number_Small_Padding * (dan_C[i].GetValue(false).ToString().Length);
 
 				// 条件の種類
