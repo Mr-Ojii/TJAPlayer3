@@ -2657,7 +2657,7 @@ namespace TJAPlayer3
 		public int Game_DanC_Y_Padding = 100;
 		public int[] Game_DanC_Offset = new int[] { 15, 10 };
 		public int Game_DanC_Number_Padding = 50;
-		public int[] Game_DanC_Number_XY = new int[] { 235, 550 };
+		public int[] Game_DanC_Number_XY = new int[] { 250, 550 };
 		public float Game_DanC_Number_Small_Scale = 0.5f;
 		public int Game_DanC_Number_Small_Padding = 26;
 		public int[] Game_DanC_Dan_Plate = new int[] { 149, 416 };

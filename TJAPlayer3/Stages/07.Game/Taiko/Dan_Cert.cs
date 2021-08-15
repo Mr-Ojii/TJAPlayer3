@@ -807,7 +807,7 @@ namespace TJAPlayer3
 					Rectangle rectangle = new Rectangle(TJAPlayer3.Tx.DanC_Number.szTextureSize.Width / 10 * number, 0, TJAPlayer3.Tx.DanC_Number.szTextureSize.Width / 10, TJAPlayer3.Tx.DanC_Number.szTextureSize.Height);
 					TJAPlayer3.Tx.DanC_Number.vcScaling.X = scaleX;
 					TJAPlayer3.Tx.DanC_Number.vcScaling.Y = scaleY + scaleJump;
-					TJAPlayer3.Tx.DanC_Number.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (TJAPlayer3.Tx.DanC_V2_Number.szTextureSize.Width / 20) - ((i + 1) * padding), y + (TJAPlayer3.Tx.DanC_V2_Number.szTextureSize.Height * scaleY), rectangle);
+					TJAPlayer3.Tx.DanC_Number.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownRight, x + (TJAPlayer3.Tx.DanC_V2_Number.szTextureSize.Width / 20) - ((i + 1) * padding), y + (TJAPlayer3.Tx.DanC_V2_Number.szTextureSize.Height * scaleY), rectangle);
 				}
 			}
 		}
