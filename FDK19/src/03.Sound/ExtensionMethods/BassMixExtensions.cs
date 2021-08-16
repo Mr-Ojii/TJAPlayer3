@@ -10,12 +10,12 @@ namespace FDK.BassMixExtension
     {
         public static bool ChannelPlay(int hHandle)
         {
-            return ((int)BassMix.ChannelFlags(hHandle, 0, BassFlags.MixerChanPause) != -1);
+            return BassMix.ChannelRemoveFlag(hHandle, BassFlags.MixerChanPause);
         }
 
         public static bool ChannelPause(int hHandle)
         {
-            return ((int)BassMix.ChannelFlags(hHandle, BassFlags.MixerChanPause, BassFlags.MixerChanPause) != -1);
+            return BassMix.ChannelAddFlag(hHandle, BassFlags.MixerChanPause);
         }
 
         public static bool ChannelIsPlaying(int hHandle)

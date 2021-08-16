@@ -100,6 +100,8 @@ namespace FDK
 			this.SystemTimemsWhenUpdatingElapsedTime = CTimer.nUnused;
 			this.tmSystemTimer = new CTimer();
 
+			this.libCache = new CBassLibraryLoader();
+
 			this.bIsBASSSoundFree = true;
 
 			// BASS の初期化。
@@ -111,6 +113,10 @@ namespace FDK
 			if (!Bass.Configure(Configuration.UpdatePeriod, UpdatePeriod))
 			{
 				Trace.TraceWarning($"BASS_SetConfig({nameof(Configuration.UpdatePeriod)}) に失敗しました。[{Bass.LastError}]");
+			}
+			if (!Bass.Configure(Configuration.UpdateThreads, 1))
+			{
+				Trace.TraceWarning($"BASS_SetConfig({nameof(Configuration.UpdateThreads)}) に失敗しました。[{Bass.LastError}]");
 			}
 			
 			Bass.Configure(Configuration.PlaybackBufferLength, BufferSizems);
@@ -235,6 +241,8 @@ namespace FDK
 			{
 				CCommon.tDispose(this.tmSystemTimer);
 				this.tmSystemTimer = null;
+				libCache.Dispose();
+				this.libCache = null;
 			}
 		}
 		~CSoundDeviceBASS()
@@ -273,5 +281,7 @@ namespace FDK
 		protected StreamProcedure tSTREAMPROC = null;
 		private bool bIsBASSSoundFree = true;
 
+		//WASAPIとASIOはLinuxでは使えないので、ここだけで良し
+		private CBassLibraryLoader libCache = null;
 	}
 }
