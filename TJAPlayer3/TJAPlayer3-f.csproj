@@ -68,9 +68,6 @@
   <ItemGroup>
     <ProjectReference Include="..\FDK19\FDK19.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
 
   <PropertyGroup>
     <PackageId>TJAPlayer3-f</PackageId>
