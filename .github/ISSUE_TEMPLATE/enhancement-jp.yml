@@ -1,12 +1,12 @@
-name: 要望
-description: 改善のための要望
+name: リクエスト
+description: 実装要望
 labels: [enhancement]
 body:
   - type: textarea
     id: description
     attributes:
-      label: 要望の説明
-      description: 要望についての説明を明確かつ簡潔に記述してください。
+      label: リクエストについての説明
+      description: リクエストについての説明を明確かつ簡潔に記述してください。
     validations:
       required: true
   - type: textarea
