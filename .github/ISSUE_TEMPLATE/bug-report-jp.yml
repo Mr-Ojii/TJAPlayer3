@@ -7,16 +7,15 @@ body:
     id: description
     attributes:
       label: バグについての説明を書いてください
-      description: そのバグの説明を明確かつ簡潔に説明してください。
+      description: バグについての説明を明確かつ簡潔に説明してください。
     validations:
       required: true
   - type: textarea
     id: process
     attributes:
       label: バグを引き起こす手順を書いてください
-      description: |
+      value: |
         例
-        バグを引き起こす手順:
         1. 起動する
         2. コンフィグを選択する
         3. Exitを選択する
@@ -26,8 +25,7 @@ body:
   - type: textarea
     id: enviroment
       label: バグが起こったPC環境を書いてください
-      description: |
-        例
+      value: |
         OS: Windows 10 Pro Version 21H1
         CPU: Intel Core i7-10700K
         RAM: 32GB
