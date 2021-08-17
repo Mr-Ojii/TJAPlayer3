@@ -24,6 +24,7 @@ body:
       required: true
   - type: textarea
     id: enviroment
+    attributes:
       label: バグが起こったPC環境を書いてください
       value: |
         OS: Windows 10 Pro Version 21H1
