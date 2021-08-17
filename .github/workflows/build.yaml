@@ -61,7 +61,7 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet publish -o Test/net5.0 -r ${{matrix.platform}} -p:MyOption=PUBLISH -p:PublishSingleFile=true --configuration Release --self-contained true
+      run: dotnet publish TJAPlayer3 -o Test/net5.0 -r ${{matrix.platform}} -p:MyOption=PUBLISH -p:PublishSingleFile=true --configuration Release --self-contained true
     - name: Remove File
       uses: JesseTG/rm@v1.0.0
       with:
