@@ -857,14 +857,12 @@ namespace TJAPlayer3
 				#region [ 同時発音数を、チャンネルによって変える ]
 
 				int nPoly = nPolyphonicSounds;
-				if (TJAPlayer3.SoundManager.GetCurrentSoundDeviceType() != "OpenAL") // DShowでの再生の場合はミキシング負荷が高くないため、
-				{
-					// チップのライフタイム管理を行わない
-					if (cwav.bIsBassSound) nPoly = (nPolyphonicSounds >= 2) ? 2 : 1;
-					else if (cwav.bIsGuitarSound) nPoly = (nPolyphonicSounds >= 2) ? 2 : 1;
-					else if (cwav.bIsSESound) nPoly = 1;
-					else if (cwav.bIsBGMSound) nPoly = 1;
-				}
+				
+				if (cwav.bIsBassSound) nPoly = (nPolyphonicSounds >= 2) ? 2 : 1;
+				else if (cwav.bIsGuitarSound) nPoly = (nPolyphonicSounds >= 2) ? 2 : 1;
+				else if (cwav.bIsSESound) nPoly = 1;
+				else if (cwav.bIsBGMSound) nPoly = 1;
+				
 
 				if (cwav.bIsBGMSound) nPoly = 1;
 
@@ -5774,11 +5772,6 @@ namespace TJAPlayer3
 		/// </summary>
 		public void PlanToAddMixerChannel()
 		{
-			if (TJAPlayer3.SoundManager.GetCurrentSoundDeviceType() == "OpenAL") // DShowでの再生の場合はミキシング負荷が高くないため、
-			{                                                                       // チップのライフタイム管理を行わない
-				return;
-			}
-
 			List<CChip> listAddMixerChannel = new List<CChip>(128); ;
 			List<CChip> listRemoveMixerChannel = new List<CChip>(128);
 			List<CChip> listRemoveTiming = new List<CChip>(128);

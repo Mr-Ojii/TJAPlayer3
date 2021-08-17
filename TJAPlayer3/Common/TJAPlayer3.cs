@@ -1401,18 +1401,15 @@ namespace TJAPlayer3
 				switch (TJAPlayer3.ConfigIni.nSoundDeviceType)
 				{
 					case 0:
-						soundDeviceType = ESoundDeviceType.OpenAL;
-						break;
-					case 1:
 						soundDeviceType = ESoundDeviceType.BASS;
 						break;
-					case 2:
+					case 1:
 						soundDeviceType = ESoundDeviceType.ASIO;
 						break;
-					case 3:
+					case 2:
 						soundDeviceType = ESoundDeviceType.ExclusiveWASAPI;
 						break;
-					case 4:
+					case 3:
 						soundDeviceType = ESoundDeviceType.SharedWASAPI;
 						break;
 					default:
@@ -1571,11 +1568,7 @@ namespace TJAPlayer3
 
 		public void ShowWindowTitleWithSoundType()
 		{
-			string delay = "";
-			if (SoundManager.GetCurrentSoundDeviceType() != "OpenAL")
-			{
-				delay = "(" + SoundManager.GetSoundDelay() + "ms)";
-			}
+			string delay = "(" + SoundManager.GetSoundDelay() + "ms)";
 			AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
 			base.Title = asmApp.Name + " Ver." + VERSION + " (" + SoundManager.GetCurrentSoundDeviceType() + delay + ")";
 		}

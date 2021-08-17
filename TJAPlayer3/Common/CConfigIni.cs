@@ -137,8 +137,7 @@ namespace TJAPlayer3
 		//
 		public enum ESoundDeviceTypeForConfig
 		{
-			ACM = 0,
-			BASS,
+			BASS = 0,
 			ASIO,
 			WASAPI_Exclusive,
 			WASAPI_Shared,
@@ -370,7 +369,7 @@ namespace TJAPlayer3
 		public bool b2P演奏時のSEの左右;
 		public int nRisky;						// #23559 2011.6.20 yyagi Riskyでの残ミス数。0で閉店
 		public bool bIsAllowedDoubleClickFullscreen;	// #26752 2011.11.27 yyagi ダブルクリックしてもフルスクリーンに移行しない
-		public int nSoundDeviceType;				// #24820 2012.12.23 yyagi 出力サウンドデバイス(0=OpenAL, 1=BASS, 2=ASIO, 3=WASAPI(Exclusive), 4=WASAPI(Shared))
+		public int nSoundDeviceType;				// #24820 2012.12.23 yyagi 出力サウンドデバイス(0=BASS, 1=ASIO, 2=WASAPI(Exclusive), 3=WASAPI(Shared))
 		public int nWASAPIBufferSizeMs;				// #24820 2013.1.15 yyagi WASAPIのバッファサイズ
 //		public int nASIOBufferSizeMs;				// #24820 2012.12.28 yyagi ASIOのバッファサイズ
 		public int nASIODevice;                     // #24820 2013.1.17 yyagi ASIOデバイス
@@ -733,12 +732,12 @@ namespace TJAPlayer3
 			#endregion
 			
 			#region [ WASAPI/ASIO関連 ]
-			sw.WriteLine( "; サウンド出力方式(0=OpenAL, 1=BASS, 2=ASIO, 3=WASAPI(排他), 4=WASAPI(共有))" );
+			sw.WriteLine( "; サウンド出力方式(0=BASS, 1=ASIO, 2=WASAPI(排他), 3=WASAPI(共有))" );
 			sw.WriteLine( "; WASAPIはVista以降のOSで使用可能。推奨方式はWASAPI。" );
-			sw.WriteLine( "; なお、WASAPIが使用不可ならASIOを、ASIOが使用不可ならBASS、BASSが使用不可ならOpenALを使用します。");
-			sw.WriteLine( "; Sound device type(0=OpenAL, 1=BASS, 2=ASIO, 3=WASAPI(Exclusive), 4=WASAPI(Shared))");
+			sw.WriteLine( "; なお、WASAPIが使用不可ならASIOを、ASIOが使用不可ならBASSを使用します。");
+			sw.WriteLine( "; Sound device type(0=BASS, 1=ASIO, 2=WASAPI(Exclusive), 3=WASAPI(Shared))");
 			sw.WriteLine( "; WASAPI can use on Vista or later OSs." );
-			sw.WriteLine("; If WASAPI is not available, DTXMania try to use ASIO. If ASIO can't be used, DTXMania try to use BASS. If BASS can't be used, OpenAL is used.");
+			sw.WriteLine("; If WASAPI is not available, DTXMania try to use ASIO. If ASIO can't be used, DTXMania try to use BASS.");
 			sw.WriteLine( "SoundDeviceType={0}", (int) this.nSoundDeviceType );
 			sw.WriteLine();
 
@@ -1359,7 +1358,7 @@ namespace TJAPlayer3
 #region [ WASAPI/ASIO関係 ]
 											else if ( str3.Equals( "SoundDeviceType" ) )
 											{
-												this.nSoundDeviceType = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 4, this.nSoundDeviceType );
+												this.nSoundDeviceType = CConvert.n値を文字列から取得して範囲内に丸めて返す( str4, 0, 3, this.nSoundDeviceType );
 											}
 											else if ( str3.Equals( "WASAPIBufferSizeMs" ) )
 											{

@@ -4726,7 +4726,7 @@ namespace TJAPlayer3
 
 			if (!pChip.bHit && pChip.n発声時刻ms > CSoundManager.rc演奏用タイマ.n現在時刻ms * ((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)
 			{
-				if (TJAPlayer3.ConfigIni.bWave再生位置自動調整機能有効 && (TJAPlayer3.SoundManager.GetCurrentSoundDeviceType() == "OpenAL" || TJAPlayer3.ConfigIni.bUseOSTimer))
+				if (TJAPlayer3.ConfigIni.bWave再生位置自動調整機能有効 && TJAPlayer3.ConfigIni.bUseOSTimer)
 				{
 					dTX.tWave再生位置自動補正();
 				}

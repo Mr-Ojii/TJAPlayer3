@@ -281,7 +281,7 @@ namespace TJAPlayer3
 			this.iSystemSoundType = new CItemList("SoundType", TJAPlayer3.ConfigIni.nSoundDeviceType,
 				"サウンドの出力方式:\n" +
 				"WASAPI(共有), WASAPI(排他)\n" +
-				"BASS, ASIO, OpenAL\n" +
+				"BASS, ASIO\n" +
 				"の中からサウンド出力方式を選択\n" +
 				"します。\n" +
 				"WASAPIはVista以降でのみ使用可能\n" +
@@ -295,7 +295,7 @@ namespace TJAPlayer3
 				"　終了時に有効になります。",
 				"Sound output type:\n" +
 				"You can choose WASAPI(Shared)\n" +
-				"WASAPI(Exclusive), ASIO, BASS or OpenAL.\n" +
+				"WASAPI(Exclusive), ASIO or BASS.\n" +
 				"WASAPI can use only after Vista.\n" +
 				"ASIO can use on the\n" +
 				"\"ASIO-supported\" sound device.\n" +
@@ -304,7 +304,7 @@ namespace TJAPlayer3
 				"\n" +
 				"Note: Exit CONFIGURATION to make\n" +
 				"     the setting take effect.",
-				new string[] { "OpenAL", "BASS", "ASIO", "WASAPI(Exclusive)", "WASAPI(Shared)" });
+				new string[] { "BASS", "ASIO", "WASAPI(Exclusive)", "WASAPI(Shared)" });
 			this.list項目リスト.Add(this.iSystemSoundType);
 
 			// #24820 2013.1.15 yyagi
@@ -1100,7 +1100,7 @@ namespace TJAPlayer3
 			}
 #endregion
 
-			// #24820 2013.1.22 yyagi CONFIGでWASAPI/ASIO/OpenAL関連の設定を変更した場合、サウンドデバイスを再構築する。
+			// #24820 2013.1.22 yyagi CONFIGでWASAPI/ASIO/BASS関連の設定を変更した場合、サウンドデバイスを再構築する。
 			// #33689 2014.6.17 yyagi CONFIGでSoundTimerTypeの設定を変更した場合も、サウンドデバイスを再構築する。
 #region [ サウンドデバイス変更 ]
 			if ( this.iSystemSoundType_initial != this.iSystemSoundType.n現在選択されている項目番号 ||
@@ -1114,18 +1114,15 @@ namespace TJAPlayer3
 				switch ( this.iSystemSoundType.n現在選択されている項目番号 )
 				{
 					case 0:
-						soundDeviceType = ESoundDeviceType.OpenAL;
-						break;
-					case 1:
 						soundDeviceType = ESoundDeviceType.BASS;
 						break;
-					case 2:
+					case 1:
 						soundDeviceType = ESoundDeviceType.ASIO;
 						break;
-					case 3:
+					case 2:
 						soundDeviceType = ESoundDeviceType.ExclusiveWASAPI;
 						break;
-					case 4:
+					case 3:
 						soundDeviceType = ESoundDeviceType.SharedWASAPI;
 						break;
 					default:

@@ -10,7 +10,6 @@ namespace FDK
 		SharedWASAPI,
 		ASIO,
 		BASS,
-		OpenAL,
 		Unknown,
 	}
 }

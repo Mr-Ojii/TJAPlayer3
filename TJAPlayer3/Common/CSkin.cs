@@ -237,14 +237,11 @@ namespace TJAPlayer3
 
 			public void tRemoveMixer()
 			{
-				if (TJAPlayer3.SoundManager.GetCurrentSoundDeviceType() != "OpenAL")
+				for (int i = 0; i < 2; i++)
 				{
-					for (int i = 0; i < 2; i++)
+					if (this.rSound[i] != null)
 					{
-						if (this.rSound[i] != null)
-						{
-							TJAPlayer3.SoundManager.RemoveMixer(this.rSound[i]);
-						}
+						TJAPlayer3.SoundManager.RemoveMixer(this.rSound[i]);
 					}
 				}
 			}

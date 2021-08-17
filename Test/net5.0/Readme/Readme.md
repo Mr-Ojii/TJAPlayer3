@@ -94,11 +94,11 @@ MITライセンスのルールのもと、改造・再配布を行うことは自由ですが、**全て自己責任*
 ### Linux環境
 * Debian系  
   ```sh
-  sudo apt install freeglut3-dev libgdiplus ffmpeg libopenal-dev
+  sudo apt install freeglut3-dev libgdiplus ffmpeg
   ```
 * Arch Linux
   ```sh
-  pacman -S freeglut libgdiplus ffmpeg openal
+  pacman -S freeglut libgdiplus ffmpeg
   ln -sf /usr/lib /usr/lib/x86_64-linux-gnu
   ```
 で、必要なパッケージをインストール/パスを通しておき、
@@ -106,7 +106,6 @@ MITライセンスのルールのもと、改造・再配布を行うことは自由ですが、**全て自己責任*
 TJAPlayer3-fのダウンロードごとに、Zipファイルを解凍し、  
 TJAPlayer3-fが存在するディレクトリをカレントディレクトリとしたターミナルで  
 ```sh
-ln -sf /usr/lib/x86_64-linux-gnu/libopenal.so ./libopenal32.dll
 chmod +x TJAPlayer3-f(.AppImage)
 ```
 
@@ -199,7 +198,6 @@ Fork元より使用しているライブラリ
 * [FFmpeg.AutoGen](https://github.com/Ruslan-B/FFmpeg.AutoGen)
 * [FFmpeg](https://ffmpeg.org/)
 * [OpenTK](https://opentk.net/)
-* [OpenAL Soft](https://openal-soft.org/)
 * [discord-rpc-csharp](https://github.com/Lachee/discord-rpc-csharp)
 * [SixLabors.ImageSharp](https://github.com/SixLabors/ImageSharp)
 * [SixLabors.ImageSharp.Drawing](https://github.com/SixLabors/ImageSharp.Drawing)
@@ -224,9 +222,9 @@ Fork元より使用しているライブラリ
 DLL群のバージョンアップをしたい方は自己責任で差し替えをしてください。  
 
 
-## OpenAL Softについて
-このリポジトリにはあらかじめOpenAL Softライブラリが同梱されています。  
-バージョンは1.21.1です。(2021/03/16現在)
+## BASSについて
+このリポジトリにはあらかじめBASSライブラリが同梱されています。  
+バージョンは2.4.16.3です。(2021/08/17現在)
 
 
 ## 謝辞

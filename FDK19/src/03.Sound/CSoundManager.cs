@@ -50,7 +50,7 @@ namespace FDK
 
 		public static int nMixing = 0;
 		public static int nStreams = 0;
-		#region [ WASAPI/ASIO/OpenAL設定値 ]
+		#region [ WASAPI/ASIO/BASS設定値 ]
 		/// <summary>
 		/// <para>WASAPI 排他モード出力における再生遅延[ms]（の希望値）。最終的にはこの数値を基にドライバが決定する）。</para>
 		/// <para>0以下の値を指定すると、この数値はWASAPI初期化時に自動設定する。正数を指定すると、その値を設定しようと試みる。</para>
@@ -87,10 +87,6 @@ namespace FDK
 		/// </summary>
 		public static int SoundDelayASIO = 0;                       // 0にすると、デバイスの設定値をそのまま使う。
 		public static int ASIODevice = 0;
-		/// <summary>
-		/// <para>OpenAL 出力における再生遅延[ms]。ユーザが決定する。</para>
-		/// </summary>
-		public static int SoundDelayOpenAL = 100;
 
 		public long GetSoundDelay()
 		{
@@ -137,13 +133,12 @@ namespace FDK
 			ASIODevice = _nASIODevice;
 			bUseOSTimer = _bUseOSTimer;
 
-			ESoundDeviceType[] ESoundDeviceTypes = new ESoundDeviceType[6]
+			ESoundDeviceType[] ESoundDeviceTypes = new ESoundDeviceType[5]
 			{
 				ESoundDeviceType.SharedWASAPI,
 				ESoundDeviceType.ExclusiveWASAPI,
 				ESoundDeviceType.ASIO,
 				ESoundDeviceType.BASS,
-				ESoundDeviceType.OpenAL,
 				ESoundDeviceType.Unknown
 			};
 
@@ -162,11 +157,8 @@ namespace FDK
 				case ESoundDeviceType.BASS:
 					n初期デバイス = 3;
 					break;
-				case ESoundDeviceType.OpenAL:
-					n初期デバイス = 4;
-					break;
 				default:
-					n初期デバイス = 5;
+					n初期デバイス = 4;
 					break;
 			}
 			for (SoundDeviceType = ESoundDeviceTypes[n初期デバイス]; ; SoundDeviceType = ESoundDeviceTypes[++n初期デバイス])
@@ -235,10 +227,6 @@ namespace FDK
 					SoundDevice = new CSoundDeviceBASS(SoundUpdatePeriodBASS, SoundDelayBASS);
 					break;
 
-				case ESoundDeviceType.OpenAL:
-					SoundDevice = new CSoundDeviceOpenAL(SoundDelayOpenAL, bUseOSTimer);
-					break;
-
 				default:
 					throw new Exception(string.Format("未対応の SoundDeviceType です。[{0}]", SoundDeviceType.ToString()));
 			}
@@ -286,8 +274,6 @@ namespace FDK
 					return "ASIO";
 				case ESoundDeviceType.BASS:
 					return "BASS";
-				case ESoundDeviceType.OpenAL:
-					return "OpenAL";
 				default:
 					return "Unknown";
 			}

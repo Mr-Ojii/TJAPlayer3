@@ -10,7 +10,6 @@ using FDK.BassMixExtension;
 using ManagedBass;
 using ManagedBass.Mix;
 using ManagedBass.Fx;
-using OpenTK.Audio.OpenAL;
 
 namespace FDK
 {
@@ -60,38 +59,29 @@ namespace FDK
 			}
 			set
 			{
-				if ( _dbPlaySpeed != value )
+				if (_dbPlaySpeed != value)
 				{
 					_dbPlaySpeed = value;
-					bIs1倍速再生 = ( _dbPlaySpeed == 1.000f );
-					if (bIsBASSSound)
-					{
-						if (_hTempoStream != 0 && !this.bIs1倍速再生)   // PlaySpeedがx1.000のときは、TempoStreamを用いないようにして高速化する
-						{
-							this.hBassStream = _hTempoStream;
-						}
-						else
-						{
-							this.hBassStream = _hBassStream;
-						}
+					bIs1倍速再生 = (_dbPlaySpeed == 1.000f);
 
-						if (CSoundManager.bIsTimeStretch)
-						{
-							Bass.ChannelSetAttribute(this.hBassStream, ChannelAttribute.Tempo, (float)(_dbPlaySpeed * 100 - 100));
-							//double seconds = Bass.BASS_ChannelBytes2Seconds( this.hTempoStream, nBytes );
-							//this.n総演奏時間ms = (int) ( seconds * 1000 );
-						}
-						else
-						{
-							Bass.ChannelSetAttribute(this.hBassStream, ChannelAttribute.Frequency, (float)(_dbPlaySpeed * nFrequency));
-						}
+					if (_hTempoStream != 0 && !this.bIs1倍速再生)   // PlaySpeedがx1.000のときは、TempoStreamを用いないようにして高速化する
+					{
+						this.hBassStream = _hTempoStream;
 					}
 					else
 					{
-						for (int i = 0; i < this.SourceOpen.Length; i++)
-						{
-							AL.Source(this.SourceOpen[i], ALSourcef.Pitch, (float)dbPlaySpeed);
-						}
+						this.hBassStream = _hBassStream;
+					}
+
+					if (CSoundManager.bIsTimeStretch)
+					{
+						Bass.ChannelSetAttribute(this.hBassStream, ChannelAttribute.Tempo, (float)(_dbPlaySpeed * 100 - 100));
+						//double seconds = Bass.BASS_ChannelBytes2Seconds( this.hTempoStream, nBytes );
+						//this.n総演奏時間ms = (int) ( seconds * 1000 );
+					}
+					else
+					{
+						Bass.ChannelSetAttribute(this.hBassStream, ChannelAttribute.Frequency, (float)(_dbPlaySpeed * nFrequency));
 					}
 				}
 			}
@@ -241,20 +231,8 @@ namespace FDK
 		{
 			set
 			{
-				if (this.bIsBASSSound)
-				{
-					var dbVolume = ((value.ToDouble() / 100.0) + 1.0).Clamp(0, 1);
-					Bass.ChannelSetAttribute(this.hBassStream, ChannelAttribute.Volume, (float) dbVolume);
-				}
-				else if (this.bIsOpenALSound)
-				{
-					var dbVolume = ((value.ToDouble() / 100.0) + 1.0).Clamp(0, 1);
-
-					for (int i = 0; i < this.SourceOpen.Length; i++)
-					{
-						AL.Source(this.SourceOpen[i], ALSourcef.Gain, (float)dbVolume);
-					}
-				}
+				var dbVolume = ((value.ToDouble() / 100.0) + 1.0).Clamp(0, 1);
+				Bass.ChannelSetAttribute(this.hBassStream, ChannelAttribute.Volume, (float)dbVolume);
 			}
 		}
 
@@ -265,37 +243,15 @@ namespace FDK
 		{
 			get
 			{
-				if( this.bIsBASSSound )
-				{
-					float fPan = 0.0f;
-					if ( !Bass.ChannelGetAttribute( this.hBassStream, ChannelAttribute.Pan, out fPan) )
-						return 0;
-					return (int) (fPan * 100 );
-				}
-				else if( this.bIsOpenALSound )
-				{
-					return this._nPanning;
-				}
-				return -9999;
+				float fPan = 0.0f;
+				if (!Bass.ChannelGetAttribute(this.hBassStream, ChannelAttribute.Pan, out fPan))
+					return 0;
+				return (int)(fPan * 100);
 			}
 			set
 			{
-				if( this.bIsBASSSound )
-				{
-					float fPan = Math.Min( Math.Max( value, -100 ), 100 ) / 100.0f;	// -100～100 → -1.0～1.0
-					Bass.ChannelSetAttribute( this.hBassStream, ChannelAttribute.Pan, fPan);
-				}
-				else if( this.bIsOpenALSound )
-				{
-					float fPan = (Math.Min(Math.Max(value, -100), 100) / 100.0f);  // -100～100 → -1.0～1.0
-					for (int i = 0; i < this.SourceOpen.Length; i++)
-					{
-						float tmppan = Math.Min(Math.Max(fPan * 2 + defaultPan[i], -1f), 1f);//もっとよい数式ください
-
-						AL.Source(this.SourceOpen[i], ALSource3f.Position, tmppan, 0f, 0f);
-					}
-					_nPanning = value;
-				}
+				float fPan = Math.Min(Math.Max(value, -100), 100) / 100.0f; // -100～100 → -1.0～1.0
+				Bass.ChannelSetAttribute(this.hBassStream, ChannelAttribute.Pan, fPan);
 			}
 		}
 
@@ -345,262 +301,6 @@ namespace FDK
 			this.eSoundDeviceType = eSoundDeviceType;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
 			this.tBASSサウンドを作成する( byArrWAVファイルイメージ, hMixer, BassFlags.Decode | BassFlags.Float );
 		}
-		public void tOpenALサウンドを作成する(string strFilename)
-		{
-			this.e作成方法 = E作成方法.ファイルから;
-			this.strFilename = strFilename;
-			// すべてのファイルを FFmpeg でデコードすると時間がかかるので、ファイルが WAV かつ PCM フォーマットでない場合のみ FFmpeg でデコードする。
-
-			byte[] byArrWAVファイルイメージ = null;
-
-			try
-			{
-				this.e作成方法 = E作成方法.ファイルから;
-				this.strFilename = strFilename;
-
-				int nPCMデータの先頭インデックス = 0;
-				//			int nPCMサイズbyte = (int) ( xa.xaheader.nSamples * xa.xaheader.nChannels * 2 );	// nBytes = Bass.BASS_ChannelGetLength( this.hBassStream );
-
-				int nPCMサイズbyte;
-				CWin32.WAVEFORMATEX cw32wfx;
-				tDecodeAudioFile(strFilename, out this.byArrWAVファイルイメージ,
-				out nPCMデータの先頭インデックス, out nPCMサイズbyte, out cw32wfx, false);
-
-				// セカンダリバッファを作成し、PCMデータを書き込む。
-				tOpenALサウンドを作成する_セカンダリバッファの作成とWAVデータ書き込み
-					(ref this.byArrWAVファイルイメージ, cw32wfx, nPCMサイズbyte, nPCMデータの先頭インデックス);
-				return;
-			}
-			catch (Exception e)
-			{
-				string s = Path.GetFileName(strFilename);
-				Trace.TraceWarning($"Failed to create OpenAL buffer by using libav({s}: {e.Message})");
-			}
-
-			// あとはあちらで。
-
-			this.tOpenALサウンドを作成する(byArrWAVファイルイメージ);
-		}
-
-		public void tOpenALサウンドを作成する( byte[] byArrWAVファイルイメージ )
-		{
-			if (byArrWAVファイルイメージ == null)
-				return;
-
-			if( this.e作成方法 == E作成方法.Unknown )
-				this.e作成方法 = E作成方法.WAVファイルイメージから;
-
-			bool EnableData = false;
-			CWin32.WAVEFORMATEX c32wfx = new CWin32.WAVEFORMATEX();
-			int nPCMデータの先頭インデックス = -1;
-			int nPCMサイズbyte = -1;
-	
-			#region [ byArrWAVファイルイメージ[] から上記３つのデータを取得。]
-			//-----------------
-			var ms = new MemoryStream( byArrWAVファイルイメージ );
-			var br = new BinaryReader( ms );
-
-			try
-			{
-				// 'RIFF'＋RIFFデータサイズ
-
-				if( br.ReadUInt32() != 0x46464952 )
-					throw new InvalidDataException( "RIFFファイルではありません。" );
-				br.ReadInt32();
-
-				// 'WAVE'
-				if( br.ReadUInt32() != 0x45564157 )
-					throw new InvalidDataException( "WAVEファイルではありません。" );
-
-				// チャンク
-				while( ( ms.Position + 8 ) < ms.Length )	// +8 は、チャンク名＋チャンクサイズ。残り8バイト未満ならループ終了。
-				{
-					uint chunkName = br.ReadUInt32();
-
-					// 'fmt '
-					if( chunkName == 0x20746D66 )
-					{
-						long chunkSize = (long) br.ReadUInt32();
-
-						var tag = br.ReadUInt16();
-						int Channels = br.ReadInt16();
-						int SamplesPerSecond = br.ReadInt32();
-						int AverageBytesPerSecond = br.ReadInt32();
-						int BlockAlignment = br.ReadInt16();
-						int BitsPerSample = br.ReadInt16();
-
-
-						if (tag == PCM) EnableData = true;
-						else
-							throw new InvalidDataException(string.Format("未対応のWAVEフォーマットタグです。(Tag:{0})", tag.ToString()));
-
-						c32wfx = new CWin32.WAVEFORMATEX((short)tag, (ushort)Channels, (uint)SamplesPerSecond, (uint)AverageBytesPerSecond, (ushort)BlockAlignment, (ushort)BitsPerSample);
-						
-						long nフォーマットサイズbyte = 16;
-
-						ms.Seek( chunkSize - nフォーマットサイズbyte, SeekOrigin.Current );
-						continue;
-					}
-
-					// 'data'
-					else if( chunkName == 0x61746164 )
-					{
-						nPCMサイズbyte = br.ReadInt32();
-						nPCMデータの先頭インデックス = (int) ms.Position;
-
-						ms.Seek( nPCMサイズbyte, SeekOrigin.Current );
-						continue;
-					}
-
-					// その他
-					else
-					{
-						long chunkSize = (long) br.ReadUInt32();
-						ms.Seek( chunkSize, SeekOrigin.Current );
-						continue;
-					}
-				}
-
-				if( !EnableData )
-					throw new InvalidDataException( "fmt チャンクが存在しません。不正なサウンドデータです。" );
-				if( nPCMサイズbyte < 0 )
-					throw new InvalidDataException( "data チャンクが存在しません。不正なサウンドデータです。" );
-			}
-			finally
-			{
-				ms.Close();
-				br.Close();
-			}
-			//-----------------
-			#endregion
-
-
-			// セカンダリバッファを作成し、PCMデータを書き込む。
-			tOpenALサウンドを作成する_セカンダリバッファの作成とWAVデータ書き込み(
-				ref byArrWAVファイルイメージ, c32wfx, nPCMサイズbyte, nPCMデータの先頭インデックス);
-		}
-
-		private void tOpenALサウンドを作成する_セカンダリバッファの作成とWAVデータ書き込み
-			( ref byte[] byArrWAVファイルイメージ, CWin32.WAVEFORMATEX wfx,
-			int nPCMサイズbyte, int nPCMデータの先頭インデックス )
-		{
-			byte[] tmp = new byte[byArrWAVファイルイメージ.Length - nPCMデータの先頭インデックス];
-			Array.Copy(byArrWAVファイルイメージ, nPCMデータの先頭インデックス, tmp, 0, byArrWAVファイルイメージ.Length - nPCMデータの先頭インデックス);
-			byArrWAVファイルイメージ = tmp;
-			
-			this.SourceOpen = new int[wfx.nChannels];
-			this.BufferOpen = new int[wfx.nChannels];
-			this.defaultPan = new float[wfx.nChannels];
-
-			for (int i = 0; i < wfx.nChannels; i++)
-			{
-				this.SourceOpen[i] = AL.GenSource();
-				this.BufferOpen[i] = AL.GenBuffer();
-			}
-
-			ALFormat alformat;
-			if (wfx.wBitsPerSample == 8)
-			{
-				alformat = ALFormat.Mono8;
-			}
-			else
-			{
-				alformat = ALFormat.Mono16;
-			}
-
-			int BytesPerSample = (wfx.wBitsPerSample / 8);
-
-			{
-				for (int i = 0; i < wfx.nChannels; i++)
-				{
-					byte[] wavdat = new byte[byArrWAVファイルイメージ.Length / wfx.nChannels];
-					for (int j = 0; j < wavdat.Length; j += BytesPerSample)
-					{
-						for (int k = 0; k < BytesPerSample; k++)
-						{
-							wavdat[j + k] = byArrWAVファイルイメージ[(j * wfx.nChannels) + (i * BytesPerSample) + k];
-						}
-					}
-
-
-					AL.BufferData(this.BufferOpen[i], alformat, wavdat, wavdat.Length, (int)wfx.nSamplesPerSec);
-					AL.BindBufferToSource(this.SourceOpen[i], this.BufferOpen[i]);
-				}
-			}
-
-			switch (wfx.nChannels)//強制2Dパン(面倒くさいだけです。すみません。)
-			{
-				case 1://FC
-					this.defaultPan[0] = 0;
-					break;
-				case 2://FL+FR
-					this.defaultPan[0] = -1;
-					this.defaultPan[1] = 1;
-					break;
-				case 3://FL+FR+FC
-					this.defaultPan[0] = -1;
-					this.defaultPan[1] = 1;
-					this.defaultPan[2] = 0;
-					break;
-				case 4://FL+FR+BL+BR
-					this.defaultPan[0] = -1;
-					this.defaultPan[1] = 1;
-					this.defaultPan[2] = -1;
-					this.defaultPan[3] = 1;
-					break;
-				case 5://FL+FR+FC+SL+SR
-					this.defaultPan[0] = -1;
-					this.defaultPan[1] = 1;
-					this.defaultPan[2] = 0;
-					this.defaultPan[3] = -1;
-					this.defaultPan[4] = 1;
-					break;
-				case 6://FL+FR+FC+BC+SL+SR
-					this.defaultPan[0] = -1;
-					this.defaultPan[1] = 1;
-					this.defaultPan[2] = 0;
-					this.defaultPan[3] = 0;
-					this.defaultPan[4] = -1;
-					this.defaultPan[5] = 1;
-					break;
-				case 7://FL+FR+FC+BL+BR+SL+SR
-					this.defaultPan[0] = -1;
-					this.defaultPan[1] = 1;
-					this.defaultPan[2] = 0;
-					this.defaultPan[3] = -1;
-					this.defaultPan[4] = 1;
-					this.defaultPan[5] = -1;
-					this.defaultPan[6] = 1;
-					break;
-				case 8://FL+FR+FC+BL+BR+BC+SL+SR
-					this.defaultPan[0] = -1;
-					this.defaultPan[1] = 1;
-					this.defaultPan[2] = 0;
-					this.defaultPan[3] = -1;
-					this.defaultPan[4] = 1;
-					this.defaultPan[5] = 0;
-					this.defaultPan[6] = -1;
-					this.defaultPan[7] = 1;
-					break;
-			}
-			// 作成完了。
-
-			this.eSoundDeviceType = ESoundDeviceType.OpenAL;
-			this.byArrWAVファイルイメージ = byArrWAVファイルイメージ;
-
-			// DTXMania用に追加
-			this.nFrequency = (int)wfx.nSamplesPerSec;
-			nDurationms = (int)(((double)nPCMサイズbyte) / (wfx.nAvgBytesPerSec * 0.001));
-
-			for (int i = 0; i < wfx.nChannels; i++)
-			{
-				AL.Source(this.SourceOpen[i], ALSource3f.Position, defaultPan[i], 0f, 0f);//デフォルトパンの適用
-			}
-
-			// インスタンスリストに登録。
-
-			CSound.listインスタンス.Add( this );
-		}
 
 		#region [ DTXMania用の変換 ]
 
@@ -609,21 +309,18 @@ namespace FDK
 			t再生位置を先頭に戻す();
 			tサウンドを再生する();
 		}
-		public void t再生を開始する( bool bループする)
+		public void t再生を開始する(bool bループする)
 		{
-			if ( bIsBASSSound )
+			if (bループする)
 			{
-				if ( bループする )
-				{
-					Bass.ChannelFlags(this.hBassStream, BassFlags.Loop, BassFlags.Loop);
-				}
-				else
-				{
-					Bass.ChannelFlags( this.hBassStream, BassFlags.Default, BassFlags.Default);
-				}
+				Bass.ChannelFlags(this.hBassStream, BassFlags.Loop, BassFlags.Loop);
+			}
+			else
+			{
+				Bass.ChannelFlags(this.hBassStream, BassFlags.Default, BassFlags.Default);
 			}
 			t再生位置を先頭に戻す();
-			tサウンドを再生する( bループする);
+			tサウンドを再生する(bループする);
 		}
 		public void t再生を停止する()
 		{
@@ -646,37 +343,23 @@ namespace FDK
 		{
 			get
 			{
-				if ( this.bIsBASSSound )
-				{
-					bool ret = ( !BassMixExtensions.ChannelIsPlaying(this.hBassStream) ) &
-								( BassMix.ChannelGetPosition( this.hBassStream ) > 0 );
-					return ret;
-				}
-				else
-				{
-					return ( this.n一時停止回数 > 0 );
-				}
+				bool ret = (!BassMixExtensions.ChannelIsPlaying(this.hBassStream)) &
+							(BassMix.ChannelGetPosition(this.hBassStream) > 0);
+				return ret;
 			}
 		}
 		public bool bPlaying
 		{
 			get
 			{
-				if ( this.eSoundDeviceType == ESoundDeviceType.OpenAL )
+				// 基本的にはBASS_ACTIVE_PLAYINGなら再生中だが、最後まで再生しきったchannelも
+				// BASS_ACTIVE_PLAYINGのままになっているので、小細工が必要。
+				bool ret = (BassMixExtensions.ChannelIsPlaying(this.hBassStream));
+				if (BassMix.ChannelGetPosition(this.hBassStream) >= nBytes)
 				{
-					return AL.GetSourceState(SourceOpen[0]) == ALSourceState.Playing;//すべてのチャンネルで同期させているはずなので、0で取得
+					ret = false;
 				}
-				else
-				{
-					// 基本的にはBASS_ACTIVE_PLAYINGなら再生中だが、最後まで再生しきったchannelも
-					// BASS_ACTIVE_PLAYINGのままになっているので、小細工が必要。
-					bool ret = ( BassMixExtensions.ChannelIsPlaying( this.hBassStream ) );
-					if ( BassMix.ChannelGetPosition( this.hBassStream ) >= nBytes )
-					{
-						ret = false;
-					}
-					return ret;
-				}
+				return ret;
 			}
 		}
 		#endregion
@@ -687,144 +370,91 @@ namespace FDK
 			t解放する( false );
 		}
 
-		public void t解放する( bool _bインスタンス削除 )
+		public void t解放する(bool _bインスタンス削除)
 		{
-			if ( this.bIsBASSSound )		// stream数の削減用
-			{
-				tBASSサウンドをミキサーから削除する();
-				_cbEndofStream = null;
-				CSoundManager.nStreams--;
-			}
-			this.Dispose( true, _bインスタンス削除 );   // CSoundの再初期化時は、インスタンスは存続する。
+			tBASSサウンドをミキサーから削除する();
+			_cbEndofStream = null;
+			CSoundManager.nStreams--;
+
+			this.Dispose(true, _bインスタンス削除);   // CSoundの再初期化時は、インスタンスは存続する。
 		}
 		public void tサウンドを再生する()
 		{
 			tサウンドを再生する(false);
 		}
-		private void tサウンドを再生する( bool bループする)
+		private void tサウンドを再生する(bool bループする)
 		{
-			if ( this.bIsBASSSound )			// BASSサウンド時のループ処理は、t再生を開始する()側に実装。ここでは「bループする」は未使用。
+			// BASSサウンド時のループ処理は、t再生を開始する()側に実装。ここでは「bループする」は未使用。
+
+			//Debug.WriteLine( "再生中?: " +  System.IO.Path.GetFileName(this.strFilename) + " status=" + BassMix.BASS_Mixer_ChannelIsActive( this.hBassStream ) + " current=" + BassMix.BASS_Mixer_ChannelGetPosition( this.hBassStream ) + " nBytes=" + nBytes );
+			bool b = BassMixExtensions.ChannelPlay(this.hBassStream);
+			if (!b)
 			{
-//Debug.WriteLine( "再生中?: " +  System.IO.Path.GetFileName(this.strFilename) + " status=" + BassMix.BASS_Mixer_ChannelIsActive( this.hBassStream ) + " current=" + BassMix.BASS_Mixer_ChannelGetPosition( this.hBassStream ) + " nBytes=" + nBytes );
-				bool b = BassMixExtensions.ChannelPlay( this.hBassStream );
-				if ( !b )
+				//Debug.WriteLine( "再生しようとしたが、Mixerに登録されていなかった: " + Path.GetFileName( this.strFilename ) + ", stream#=" + this.hBassStream + ", ErrCode=" + Bass.BASS_ErrorGetCode() );
+
+				bool bb = tBASSサウンドをミキサーに追加する();
+				if (!bb)
 				{
-//Debug.WriteLine( "再生しようとしたが、Mixerに登録されていなかった: " + Path.GetFileName( this.strFilename ) + ", stream#=" + this.hBassStream + ", ErrCode=" + Bass.BASS_ErrorGetCode() );
-
-					bool bb = tBASSサウンドをミキサーに追加する();
-					if ( !bb )
-					{
-Debug.WriteLine( "Mixerへの登録に失敗: " + Path.GetFileName( this.strFilename ) + ", ErrCode=" + Bass.LastError );
-					}
-					else
-					{
-//Debug.WriteLine( "Mixerへの登録に成功: " + Path.GetFileName( this.strFilename ) + ": " + Bass.BASS_ErrorGetCode() );
-					}
-					//this.t再生位置を先頭に戻す();
-
-					bool bbb = BassMixExtensions.ChannelPlay( this.hBassStream );
-					if (!bbb)
-					{
-Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strFilename) + ", ErrCode=" + Bass.LastError );
-					}
-					else
-					{
-//						Debug.WriteLine("再生成功(ミキサー追加後)                       : " + Path.GetFileName(this.strFilename));
-					}
+					Debug.WriteLine("Mixerへの登録に失敗: " + Path.GetFileName(this.strFilename) + ", ErrCode=" + Bass.LastError);
 				}
 				else
 				{
-//Debug.WriteLine( "再生成功: " + Path.GetFileName( this.strFilename ) + " (" + hBassStream + ")" );
+					//Debug.WriteLine( "Mixerへの登録に成功: " + Path.GetFileName( this.strFilename ) + ": " + Bass.BASS_ErrorGetCode() );
+				}
+				//this.t再生位置を先頭に戻す();
+
+				bool bbb = BassMixExtensions.ChannelPlay(this.hBassStream);
+				if (!bbb)
+				{
+					Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strFilename) + ", ErrCode=" + Bass.LastError);
+				}
+				else
+				{
+					//Debug.WriteLine("再生成功(ミキサー追加後): " + Path.GetFileName(this.strFilename));
 				}
 			}
-			else if( this.bIsOpenALSound )
+			else
 			{
-				for (int i = 0; i < this.SourceOpen.Length; i++)
-				{
-					AL.Source(this.SourceOpen[i], ALSourceb.Looping, bループする);
-					AL.SourcePlay(this.SourceOpen[i]);
-				}
+				//Debug.WriteLine( "再生成功: " + Path.GetFileName( this.strFilename ) + " (" + hBassStream + ")" );
 			}
 		}
 		public void tサウンドを停止してMixerからも削除する()
 		{
-			tサウンドを停止する( false );
-			if ( bIsBASSSound )
-			{
-				tBASSサウンドをミキサーから削除する();
-			}
+			tサウンドを停止する(false);
+			tBASSサウンドをミキサーから削除する();
 		}
 		public void tサウンドを停止する()
 		{
 			tサウンドを停止する( false );
 		}
-		public void tサウンドを停止する( bool pause )
+		public void tサウンドを停止する(bool pause)
 		{
-			if( this.bIsBASSSound )
-			{
-				BassMixExtensions.ChannelPause( this.hBassStream );
-			}
-			else if( this.bIsOpenALSound )
-			{
-				for (int i = 0; i < this.SourceOpen.Length; i++)
-				{
-					AL.SourceStop(this.SourceOpen[i]);
-				}
-			}
+			BassMixExtensions.ChannelPause(this.hBassStream);
 			this.n一時停止回数 = 0;
 		}
-		
+
 		public void t再生位置を先頭に戻す()
 		{
-			if( this.bIsBASSSound )
-			{
-				BassMix.ChannelSetPosition( this.hBassStream, 0 );
-				//pos = 0;
-			}
-			else if( this.bIsOpenALSound )
-			{
-				for (int i = 0; i < this.SourceOpen.Length; i++)
-				{
-					AL.Source(this.SourceOpen[i], ALSourcef.SecOffset, 0f);
-				}
-			}
+			BassMix.ChannelSetPosition(this.hBassStream, 0);
 		}
-		public void t再生位置を変更する( long n位置ms )
+		public void t再生位置を変更する(long n位置ms)
 		{
-			if( this.bIsBASSSound )
+			bool b = true;
+			try
 			{
-				bool b = true;
-				try
-				{
-					b = BassMix.ChannelSetPosition( this.hBassStream, Bass.ChannelSeconds2Bytes( this.hBassStream, n位置ms * _dbPlaySpeed / 1000.0 ), PositionFlags.Bytes );
-				}
-				catch( Exception e )
-				{
-					Trace.TraceError( e.ToString() );
-					Trace.TraceInformation( Path.GetFileName( this.strFilename ) + ": Seek error: " + e.ToString() + ": " + n位置ms + "ms" );
-				}
-				finally
-				{
-					if ( !b )
-					{
-						Errors be = Bass.LastError;
-						Trace.TraceInformation( Path.GetFileName( this.strFilename ) + ": Seek error: " + be.ToString() + ": " + n位置ms + "MS" );
-					}
-				}
+				b = BassMix.ChannelSetPosition(this.hBassStream, Bass.ChannelSeconds2Bytes(this.hBassStream, n位置ms * _dbPlaySpeed / 1000.0), PositionFlags.Bytes);
 			}
-			else if( this.bIsOpenALSound )
+			catch (Exception e)
 			{
-				try
+				Trace.TraceError(e.ToString());
+				Trace.TraceInformation(Path.GetFileName(this.strFilename) + ": Seek error: " + e.ToString() + ": " + n位置ms + "ms");
+			}
+			finally
+			{
+				if (!b)
 				{
-					for (int i = 0; i < this.SourceOpen.Length; i++)
-					{
-						AL.Source(this.SourceOpen[i], ALSourcef.SecOffset, (float)(n位置ms * 0.001f * this.dbPlaySpeed));
-					}
-				}
-				catch
-				{
-					Trace.TraceError("{0}: Seek error: {1}", Path.GetFileName(this.strFilename), n位置ms);
-					Trace.TraceError("An exception has occurred, but processing continues. (95dee242-1f92-4fcf-aaf6-b162ad2bfc03)");
+					Errors be = Bass.LastError;
+					Trace.TraceInformation(Path.GetFileName(this.strFilename) + ": Seek error: " + be.ToString() + ": " + n位置ms + "MS");
 				}
 			}
 		}
@@ -833,27 +463,10 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strFilename) +
 		/// </summary>
 		/// <param name="n位置byte"></param>
 		/// <param name="db位置ms"></param>
-		public void t再生位置を取得する( out long n位置byte, out double db位置ms )
+		public void t再生位置を取得する(out long n位置byte, out double db位置ms)
 		{
-			if ( this.bIsBASSSound )
-			{
-				n位置byte = BassMix.ChannelGetPosition( this.hBassStream );
-				db位置ms = Bass.ChannelBytes2Seconds( this.hBassStream, n位置byte );
-			}
-			else if ( this.bIsOpenALSound )
-			{
-				//すべてのチャンネルで長さは同じはず0で取得する
-				AL.GetSource(this.SourceOpen[0], ALGetSourcei.ByteOffset, out int n位置bytei);
-				n位置byte = (long)n位置bytei;
-				AL.GetSource(this.SourceOpen[0], ALSourcef.SecOffset, out float ms);
-
-				db位置ms = ms / _dbPlaySpeed;
-			}
-			else
-			{
-				n位置byte = 0;
-				db位置ms = 0.0;
-			}
+			n位置byte = BassMix.ChannelGetPosition(this.hBassStream);
+			db位置ms = Bass.ChannelBytes2Seconds(this.hBassStream, n位置byte);
 		}
 
 
@@ -880,29 +493,20 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strFilename) +
 
 			for( int i = 0; i < sounds.Length; i++ )
 			{
-				switch( sounds[ i ].e作成方法 )
+				switch (sounds[i].e作成方法)
 				{
 					#region [ ファイルから ]
 					case E作成方法.ファイルから:
-						string strFilename = sounds[ i ].strFilename;
-						sounds[ i ].Dispose( true, false );
-						device.tCreateSound( strFilename, sounds[ i ] );
+						string strFilename = sounds[i].strFilename;
+						sounds[i].Dispose(true, false);
+						device.tCreateSound(strFilename, sounds[i]);
 						break;
 					#endregion
 					#region [ WAVファイルイメージから ]
 					case E作成方法.WAVファイルイメージから:
-						if( sounds[ i ].bIsBASSSound )
-						{
-							byte[] byArrWaveファイルイメージ = sounds[ i ].byArrWAVファイルイメージ;
-							sounds[ i ].Dispose( true, false );
-							device.tCreateSound( byArrWaveファイルイメージ, sounds[ i ] );
-						}
-						else if( sounds[ i ].bIsOpenALSound )
-						{
-							byte[] byArrWaveファイルイメージ = sounds[ i ].byArrWAVファイルイメージ;
-							sounds[ i ].Dispose( true, false );
-							( (CSoundDeviceOpenAL) device ).tCreateSound( byArrWaveファイルイメージ, sounds[ i ] );
-						}
+						byte[] byArrWaveファイルイメージ = sounds[i].byArrWAVファイルイメージ;
+						sounds[i].Dispose(true, false);
+						device.tCreateSound(byArrWaveファイルイメージ, sounds[i]);
 						break;
 					#endregion
 				}
@@ -916,74 +520,41 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strFilename) +
 			this.Dispose( true, true );
 			GC.SuppressFinalize( this );
 		}
-		private void Dispose( bool bManagedも解放する, bool bインスタンス削除 )
+		private void Dispose(bool bManagedも解放する, bool bインスタンス削除)
 		{
-			if( this.bIsBASSSound )
+			#region [ Stream の解放 ]
+			//-----------------
+			if (_hTempoStream != 0)
 			{
-				#region [ ASIO, WASAPI の解放 ]
-				//-----------------
-				if ( _hTempoStream != 0 )
-				{
-					BassMix.MixerRemoveChannel( this._hTempoStream );
-					Bass.StreamFree( this._hTempoStream );
-				}
-				BassMix.MixerRemoveChannel( this._hBassStream );
-				Bass.StreamFree( this._hBassStream );
-				this.hBassStream = -1;
-				this._hBassStream = -1;
-				this._hTempoStream = 0;
-				//-----------------
-				#endregion
+				BassMix.MixerRemoveChannel(this._hTempoStream);
+				Bass.StreamFree(this._hTempoStream);
 			}
+			BassMix.MixerRemoveChannel(this._hBassStream);
+			Bass.StreamFree(this._hBassStream);
+			this.hBassStream = -1;
+			this._hBassStream = -1;
+			this._hTempoStream = 0;
+			//-----------------
+			#endregion
 
-			if( bManagedも解放する )
+			if (bManagedも解放する)
 			{
-				//int freeIndex = -1;
-
-				//if ( CSound.listインスタンス != null )
-				//{
-				//    freeIndex = CSound.listインスタンス.IndexOf( this );
-				//    if ( freeIndex == -1 )
-				//    {
-				//        Debug.WriteLine( "ERR: freeIndex==-1 : Count=" + CSound.listインスタンス.Count + ", filename=" + Path.GetFileName( this.strFilename ) );
-				//    }
-				//}
-
-				if( this.eSoundDeviceType == ESoundDeviceType.OpenAL )
+				if (this.e作成方法 == E作成方法.WAVファイルイメージから)
 				{
-					#region [ OpenAL の解放 ]
-					//-----------------
-					for (int i = 0; i < this.SourceOpen.Length; i++)
-					{
-						AL.SourceStop(this.SourceOpen[i]);
-					}
-
-					for (int i = 0; i < this.SourceOpen.Length; i++)//SourceOpenとBufferOpenは同じ長さでないといけない
-					{
-						AL.DeleteSource(this.SourceOpen[i]);
-						AL.DeleteBuffer(this.BufferOpen[i]);
-					}
-					//-----------------
-					#endregion
-				}
-
-				if( this.e作成方法 == E作成方法.WAVファイルイメージから &&
-					this.eSoundDeviceType != ESoundDeviceType.OpenAL )	// OpenAL は hGC 未使用。
-				{
-					if ( this.hGC.IsAllocated )
+					if (this.hGC.IsAllocated)
 					{
 						this.hGC.Free();
-						this.hGC = default( GCHandle );
+						this.hGC = default(GCHandle);
 					}
 				}
-				if ( this.byArrWAVファイルイメージ != null )
+				if (this.byArrWAVファイルイメージ != null)
 				{
 					this.byArrWAVファイルイメージ = null;
 				}
 
 				this.eSoundDeviceType = ESoundDeviceType.Unknown;
 
-				if ( bインスタンス削除 )
+				if (bインスタンス削除)
 				{
 					//try
 					//{
@@ -993,10 +564,10 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strFilename) +
 					//{
 					//    Debug.WriteLine( "FAILED to remove CSound.listインスタンス: Count=" + CSound.listインスタンス.Count + ", filename=" + Path.GetFileName( this.strFilename ) );
 					//}
-					bool b = CSound.listインスタンス.Remove( this );	// これだと、Clone()したサウンドのremoveに失敗する
-					if ( !b )
+					bool b = CSound.listインスタンス.Remove(this);    // これだと、Clone()したサウンドのremoveに失敗する
+					if (!b)
 					{
-						Debug.WriteLine( "FAILED to remove CSound.listインスタンス: Count=" + CSound.listインスタンス.Count + ", filename=" + Path.GetFileName( this.strFilename ) );
+						Debug.WriteLine("FAILED to remove CSound.listインスタンス: Count=" + CSound.listインスタンス.Count + ", filename=" + Path.GetFileName(this.strFilename));
 					}
 
 				}
@@ -1046,25 +617,9 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strFilename) +
 
 		#region [ private ]
 		//-----------------
-		private bool bIsOpenALSound
-		{
-			get { return ( this.eSoundDeviceType == ESoundDeviceType.OpenAL ); }
-		}
-		private bool bIsBASSSound
-		{
-			get
-			{
-				return (
-					this.eSoundDeviceType == ESoundDeviceType.BASS ||
-					this.eSoundDeviceType == ESoundDeviceType.ASIO ||
-					this.eSoundDeviceType == ESoundDeviceType.ExclusiveWASAPI ||
-					this.eSoundDeviceType == ESoundDeviceType.SharedWASAPI );
-			}
-		}
 		public int[] BufferOpen;
 		public int[] SourceOpen;
 		public float[] defaultPan;
-		private int _nPanning = 0;
 		private Lufs _gain = DefaultGain;
 		private Lufs? _truePeak = null;
 		private int _automationLevel = DefaultAutomationLevel;
@@ -1179,14 +734,11 @@ Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strFilename) +
 			}
 		}
 
-// mixerからの削除
+		// mixerからの削除
 
 		public bool tBASSサウンドをミキサーから削除する()
 		{
-			if (this.bIsBASSSound)
-				return tBASSサウンドをミキサーから削除する(this.hBassStream);
-			else
-				return false;
+			return tBASSサウンドをミキサーから削除する(this.hBassStream);
 		}
 		public static bool tBASSサウンドをミキサーから削除する( int channel )
 		{

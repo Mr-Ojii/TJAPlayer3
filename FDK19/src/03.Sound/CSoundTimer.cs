@@ -13,91 +13,72 @@ namespace FDK
 		{
 			get
 			{
-				if( this.Device.eOutputDevice == ESoundDeviceType.ExclusiveWASAPI || 
-					this.Device.eOutputDevice == ESoundDeviceType.SharedWASAPI ||
-					this.Device.eOutputDevice == ESoundDeviceType.ASIO ||
-					this.Device.eOutputDevice == ESoundDeviceType.BASS )
+				if(this.Device.eOutputDevice == ESoundDeviceType.Unknown)
+					return CTimerBase.nUnused;
+
+				// BASS 系の ISoundDevice.nElapsedTimems はオーディオバッファの更新間隔ずつでしか更新されないため、単にこれを返すだけではとびとびの値になる。
+				// そこで、更新間隔の最中に呼ばれた場合は、システムタイマを使って補間する。
+				// この場合の経過時間との誤差は更新間隔以内に収まるので問題ないと判断する。
+				// ただし、ASIOの場合は、転送byte数から時間算出しているため、ASIOの音声合成処理の負荷が大きすぎる場合(処理時間が実時間を超えている場合)は
+				// 動作がおかしくなる。(具体的には、ここで返すタイマー値の逆行が発生し、スクロールが巻き戻る)
+				// この場合の対策は、ASIOのバッファ量を増やして、ASIOの音声合成処理の負荷を下げること。
+
+				if (this.Device.SystemTimemsWhenUpdatingElapsedTime == CTimer.nUnused)  // #33890 2014.5.27 yyagi
 				{
-					// BASS 系の ISoundDevice.nElapsedTimems はオーディオバッファの更新間隔ずつでしか更新されないため、単にこれを返すだけではとびとびの値になる。
-					// そこで、更新間隔の最中に呼ばれた場合は、システムタイマを使って補間する。
-					// この場合の経過時間との誤差は更新間隔以内に収まるので問題ないと判断する。
-					// ただし、ASIOの場合は、転送byte数から時間算出しているため、ASIOの音声合成処理の負荷が大きすぎる場合(処理時間が実時間を超えている場合)は
-					// 動作がおかしくなる。(具体的には、ここで返すタイマー値の逆行が発生し、スクロールが巻き戻る)
-					// この場合の対策は、ASIOのバッファ量を増やして、ASIOの音声合成処理の負荷を下げること。
+					// 環境によっては、ASIOベースの演奏タイマーが動作する前(つまりASIOのサウンド転送が始まる前)に
+					// DTXデータの演奏が始まる場合がある。
+					// その場合、"this.Device.n経過時間を更新したシステム時刻" が正しい値でないため、
+					// 演奏タイマの値が正しいものとはならない。そして、演奏タイマーの動作が始まると同時に、
+					// 演奏タイマの値がすっ飛ぶ(極端な負の値になる)ため、演奏のみならず画面表示もされない状態となる。
+					// (画面表示はタイマの値に連動して行われるが、0以上のタイマ値に合わせて動作するため、
+					//  不の値が来ると画面に何も表示されなくなる)
 
-					if ( this.Device.SystemTimemsWhenUpdatingElapsedTime  == CTimer.nUnused )	// #33890 2014.5.27 yyagi
+					// そこで、演奏タイマが動作を始める前(this.Device.SystemTimemsWhenUpdatingElapsedTime  == CTimer.nUnused)は、
+					// 補正部分をゼロにして、nElapsedTimemsだけを返すようにする。
+					// こうすることで、演奏タイマが動作を始めても、破綻しなくなる。
+					return this.Device.nElapsedTimems;
+				}
+				else
+				{
+					if (CSoundManager.bUseOSTimer)
+					//if ( true )
 					{
-						// 環境によっては、ASIOベースの演奏タイマーが動作する前(つまりASIOのサウンド転送が始まる前)に
-						// DTXデータの演奏が始まる場合がある。
-						// その場合、"this.Device.n経過時間を更新したシステム時刻" が正しい値でないため、
-						// 演奏タイマの値が正しいものとはならない。そして、演奏タイマーの動作が始まると同時に、
-						// 演奏タイマの値がすっ飛ぶ(極端な負の値になる)ため、演奏のみならず画面表示もされない状態となる。
-						// (画面表示はタイマの値に連動して行われるが、0以上のタイマ値に合わせて動作するため、
-						//  不の値が来ると画面に何も表示されなくなる)
-
-						// そこで、演奏タイマが動作を始める前(this.Device.SystemTimemsWhenUpdatingElapsedTime  == CTimer.nUnused)は、
-						// 補正部分をゼロにして、nElapsedTimemsだけを返すようにする。
-						// こうすることで、演奏タイマが動作を始めても、破綻しなくなる。
-						return this.Device.nElapsedTimems;
+						return ctDInputTimer.nシステム時刻ms;             // 仮にCSoundTimerをCTimer相当の動作にしてみた
 					}
 					else
 					{
-						if ( CSoundManager.bUseOSTimer )
-						//if ( true )
-						{
-							return ctDInputTimer.nシステム時刻ms;				// 仮にCSoundTimerをCTimer相当の動作にしてみた
-						}
-						else
-						{
-							return this.Device.nElapsedTimems
-								+ ( this.Device.tmSystemTimer.nシステム時刻ms - this.Device.SystemTimemsWhenUpdatingElapsedTime  );
-						}
+						return this.Device.nElapsedTimems
+							+ (this.Device.tmSystemTimer.nシステム時刻ms - this.Device.SystemTimemsWhenUpdatingElapsedTime);
 					}
 				}
-				else if( this.Device.eOutputDevice == ESoundDeviceType.OpenAL )
-				{
-					//return this.Device.nElapsedTimems;		// #24820 2013.2.3 yyagi TESTCODE OpenALでスクロールが滑らかにならないため、
-					return ct.nシステム時刻ms;				// 仮にCSoundTimerをCTimer相当の動作にしてみた
-				}
-				return CTimerBase.nUnused;
 			}
 		}
 
-		internal CSoundTimer( ISoundDevice device )
+		internal CSoundTimer(ISoundDevice device)
 		{
 			this.Device = device;
 
-			if ( this.Device.eOutputDevice != ESoundDeviceType.OpenAL )
-			{
-				TimerCallback timerDelegate = new TimerCallback( SnapTimers );	// CSoundTimerをシステム時刻に変換するために、
-				timer = new Timer( timerDelegate, null, 0, 1000 );				// CSoundTimerとCTimerを両方とも走らせておき、
-				ctDInputTimer = new CTimer();			// 1秒に1回時差を測定するようにしておく
-			}
-			else																// TESTCODE OpenAL時のみ、CSoundTimerでなくCTimerを使う
-			{
-			    ct = new CTimer();
-			}
+			TimerCallback timerDelegate = new TimerCallback(SnapTimers);    // CSoundTimerをシステム時刻に変換するために、
+			timer = new Timer(timerDelegate, null, 0, 1000);                // CSoundTimerとCTimerを両方とも走らせておき、
+			ctDInputTimer = new CTimer();           // 1秒に1回時差を測定するようにしておく			
 		}
-	
-		private void SnapTimers(object o)	// 1秒に1回呼び出され、2つのタイマー間の現在値をそれぞれ保持する。
+
+		private void SnapTimers(object o)   // 1秒に1回呼び出され、2つのタイマー間の現在値をそれぞれ保持する。
 		{
-			if ( this.Device.eOutputDevice != ESoundDeviceType.OpenAL )
+			try
 			{
-				try
-				{
-					this.nDInputTimerCounter = this.ctDInputTimer.nシステム時刻ms;
-					this.nSoundTimerCounter = this.nシステム時刻ms;
-					//Debug.WriteLine( "BaseCounter: " + nDInputTimerCounter + ", " + nSoundTimerCounter );
-				}
-				catch ( Exception e )
-				// サウンド設定変更時に、timer.Dispose()した後、timerが実際に停止する前にここに来てしまう場合があり
-				// その際にNullReferenceExceptionが発生する
-				// timerが実際に停止したことを検出してから次の設定をすべきだが、実装が難しいため、
-				// ここで単に例外破棄することで代替する
-				{
-					Trace.TraceInformation( e.ToString() );
-					Trace.TraceInformation("FDK: CSoundTimer.SnapTimers(): 例外発生しましたが、継続します。" );
-				}
+				this.nDInputTimerCounter = this.ctDInputTimer.nシステム時刻ms;
+				this.nSoundTimerCounter = this.nシステム時刻ms;
+				//Debug.WriteLine( "BaseCounter: " + nDInputTimerCounter + ", " + nSoundTimerCounter );
+			}
+			catch (Exception e)
+			// サウンド設定変更時に、timer.Dispose()した後、timerが実際に停止する前にここに来てしまう場合があり
+			// その際にNullReferenceExceptionが発生する
+			// timerが実際に停止したことを検出してから次の設定をすべきだが、実装が難しいため、
+			// ここで単に例外破棄することで代替する
+			{
+				Trace.TraceInformation(e.ToString());
+				Trace.TraceInformation("FDK: CSoundTimer.SnapTimers(): 例外発生しましたが、継続します。");
 			}
 		}
 		public long nサウンドタイマーのシステム時刻msへの変換( long nDInputのタイムスタンプ )
