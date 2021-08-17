@@ -30,7 +30,7 @@ namespace TJAPlayer3
 			{
 
 				Trace.WriteLine("Current Directory: " + Environment.CurrentDirectory);
-				Trace.WriteLine("EXEのあるフォルダ: " + Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
+				Trace.WriteLine("EXEのあるフォルダ: " + AppContext.BaseDirectory);
 
 				Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 
@@ -72,7 +72,7 @@ namespace TJAPlayer3
 					};
 					
 					//エラーが発生したことをユーザーに知らせるため、HTMLを作成する。
-					using (StreamWriter writer = new StreamWriter(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Error.html", false, Encoding.UTF8))
+					using (StreamWriter writer = new StreamWriter(AppContext.BaseDirectory + "Error.html", false, Encoding.UTF8))
 					{
 						writer.WriteLine("<html>");
 						writer.WriteLine("<head>");
@@ -109,7 +109,7 @@ namespace TJAPlayer3
 						writer.WriteLine("</body>");
 						writer.WriteLine("</html>");
 					}
-					CWebOpen.Open(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Error.html");
+					CWebOpen.Open(AppContext.BaseDirectory + "Error.html");
 
 #if PUBLISH
 					//エラーの送信

@@ -1165,7 +1165,7 @@ namespace TJAPlayer3
 			//-----------------
 			// BEGIN #23629 2010.11.13 from: デバッグ時は Application.ExecutablePath が ($SolutionDir)/bin/x86/Debug/ などになり System/ の読み込みに失敗するので、カレントディレクトリを採用する。（プロジェクトのプロパティ→デバッグ→作業ディレクトリが有効になる）
 
-			strEXEのあるフォルダ = Path.GetDirectoryName( Assembly.GetEntryAssembly().Location ) + @"/";
+			strEXEのあるフォルダ = AppContext.BaseDirectory;
 
 			// END #23629 2010.11.13 from
 			//-----------------

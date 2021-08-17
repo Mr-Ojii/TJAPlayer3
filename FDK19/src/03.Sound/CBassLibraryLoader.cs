@@ -25,7 +25,7 @@ namespace FDK
         public CBassLibraryLoader()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                this.libraryHandle = dlopen(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/libbass.so", 0x101);
+                this.libraryHandle = dlopen(AppContext.BaseDirectory + "libbass.so", 0x101);
         }
 
         public void Dispose()

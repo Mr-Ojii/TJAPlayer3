@@ -43,17 +43,17 @@ namespace FDK
                     FFmpeg.AutoGen.ffmpeg.RootPath = "/usr/lib/i386-linux-gnu/";
             }
             else
-                FFmpeg.AutoGen.ffmpeg.RootPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"/ffmpeg/" + osplatform + "-" + platform + "/";
+                FFmpeg.AutoGen.ffmpeg.RootPath = AppContext.BaseDirectory + @"ffmpeg/" + osplatform + "-" + platform + "/";
 
             if (!Directory.Exists(FFmpeg.AutoGen.ffmpeg.RootPath))
                 throw new DirectoryNotFoundException("FFmpeg RootPath Not Found.\nPath=" + FFmpeg.AutoGen.ffmpeg.RootPath);
 
-            DirectoryInfo info = new DirectoryInfo(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"/dll/" + osplatform + "-" + platform + "/");
+            DirectoryInfo info = new DirectoryInfo(AppContext.BaseDirectory + @"dll/" + osplatform + "-" + platform + "/");
 
             //exeの階層にdllをコピー
             foreach (FileInfo fileinfo in info.GetFiles())
             {
-                fileinfo.CopyTo(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/" + fileinfo.Name, true);
+                fileinfo.CopyTo(AppContext.BaseDirectory + fileinfo.Name, true);
             }
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);//CP932用
