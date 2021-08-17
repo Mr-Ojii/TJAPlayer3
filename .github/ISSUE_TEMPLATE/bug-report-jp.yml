@@ -29,7 +29,7 @@ body:
       description: バグが起こった環境を書いてください。
       value: |
         例
-        OS: Windows 10 Pro Version 21H1
+        OS: Windows 10 Pro Version 21H1 64bit
         CPU: Intel Core i7-10700K
         RAM: 32GB
         GPU: iGPU

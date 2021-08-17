@@ -27,7 +27,7 @@ body:
       label: Environment
       value: |
         Example
-        OS: Windows 10 Pro Version 21H1
+        OS: Windows 10 Pro Version 21H1 64bit
         CPU: Intel Core i7-10700K
         RAM: 32GB
         GPU: iGPU
