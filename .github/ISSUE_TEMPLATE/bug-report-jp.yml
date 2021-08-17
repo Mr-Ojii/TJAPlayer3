@@ -1,0 +1,47 @@
+name: バグの報告
+about: 改善のためのバグの報告
+labels: [Bug]
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: バグについての説明を書いてください
+      description: そのバグの説明を明確かつ簡潔に説明してください。
+    validations:
+      required: true
+  - type: textarea
+    id: process
+    attributes:
+      label: バグを引き起こす手順を書いてください
+      description: |
+        例
+        バグを引き起こす手順:
+        1. 起動する
+        2. コンフィグを選択する
+        3. Exitを選択する
+        4. エラーが発生する
+    validations:
+      required: true
+  - type: textarea
+    id: enviroment
+      label: バグが起こったPC環境を書いてください
+      description: |
+        例
+        OS: Windows 10 Pro Version 21H1
+        CPU: Intel Core i7-10700K
+        RAM: 32GB
+        GPU: iGPU
+        Version: 1.7.1.5
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: スクリーンショットを添付してください(任意)
+    validations:
+      required: false
+  - type: textarea
+    id: additional
+    attributes:
+      label: 追加情報を書いてください(任意)
+    validations:
+      required: false
