@@ -12,17 +12,10 @@
     <RootNamespace>FDK</RootNamespace>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>false</SignAssembly>
-    <OldToolsVersion>3.5</OldToolsVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <NoWarn>0219</NoWarn>
     <LangVersion>7.3</LangVersion>
     <Platforms>AnyCPU</Platforms>
-    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
-    <PackageId>FDKライブラリ</PackageId>
-    <Product>FDKライブラリ ver.21</Product>
-    <Copyright>Copyright(C) 2000-2013 DTXMania Group</Copyright>
-    <Version>21.0.0.0</Version>
-    <NeutralLanguage>ja-JP</NeutralLanguage>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,11 +29,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\AnyCPU\Release\</OutputPath>
-    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <DebugSymbols>true</DebugSymbols>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>
@@ -62,4 +55,13 @@
   <ItemGroup Label="Resources">
     <EmbeddedResource Include="mplus-1p-medium.ttf" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <PackageId>FDKライブラリ</PackageId>
+    <Product>FDKライブラリ ver.21</Product>
+    <Copyright>Copyright(C) 2000-2013 DTXMania Group</Copyright>
+    <Version>21.0.0.0</Version>
+    <NeutralLanguage>ja-JP</NeutralLanguage>
+  </PropertyGroup>
+  
 </Project>
