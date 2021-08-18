@@ -81,7 +81,7 @@ namespace TJAPlayer3
 			NamePlate = new CTexture[2];
 			NamePlate[0] = TxC(@"1P_NamePlate.png");
 			NamePlate[1] = TxC(@"2P_NamePlate.png");
-			Difficulty_Icons = TxC(@"Difficulty Icons.png");
+			Difficulty_Icons = TxC(@"Difficulty_Icons.png");
 			#endregion
 			#region 1_タイトル画面
 			Title_Background = TxC(TITLE + @"Background.png");
@@ -95,8 +95,6 @@ namespace TJAPlayer3
 			Config_ItemBox = TxC(CONFIG + @"ItemBox.png");
 			Config_Arrow = TxC(CONFIG + @"Arrow.png");
 			Config_KeyAssign = TxC(CONFIG + @"KeyAssign.png");
-			Config_Font = TxC(CONFIG + @"Font.png");
-			Config_Font_Bold = TxC(CONFIG + @"Font_Bold.png");
 			Config_Enum_Song = TxC(CONFIG + @"Enum_Song.png");
 			#endregion
 
@@ -735,8 +733,6 @@ namespace TJAPlayer3
 			TJAPlayer3.t安全にDisposeする(ref Config_ItemBox);
 			TJAPlayer3.t安全にDisposeする(ref Config_Arrow);
 			TJAPlayer3.t安全にDisposeする(ref Config_KeyAssign);
-			TJAPlayer3.t安全にDisposeする(ref Config_Font);
-			TJAPlayer3.t安全にDisposeする(ref Config_Font_Bold);
 			TJAPlayer3.t安全にDisposeする(ref Config_Enum_Song);
 			#endregion
 
@@ -1061,8 +1057,6 @@ namespace TJAPlayer3
 			Config_ItemBox,
 			Config_Arrow,
 			Config_KeyAssign,
-			Config_Font,
-			Config_Font_Bold,
 			Config_Enum_Song;
 		#endregion
 

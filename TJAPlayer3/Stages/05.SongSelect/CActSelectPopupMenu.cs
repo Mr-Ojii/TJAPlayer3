@@ -183,8 +183,6 @@ namespace TJAPlayer3
 			base.b活性化してない = true;
 
 			this.bIsActivePopupMenu = false;
-			this.font = new CActDFPFont();
-			base.list子Activities.Add( this.font );
 			nItemSelecting = -1;
 
 			base.On活性化();
@@ -193,10 +191,6 @@ namespace TJAPlayer3
 		{
 			if ( !base.b活性化してない )
 			{
-				base.list子Activities.Remove( this.font );
-				this.font.On非活性化();
-				this.font = null;
-
 				//CDTXMania.t安全にDisposeする( ref this.txCursor );
 				//CDTXMania.t安全にDisposeする( ref this.txPopupMenuBackground );
 				for ( int i = 0; i < 4; i++ )
@@ -364,7 +358,6 @@ namespace TJAPlayer3
 
 		//private CTexture txPopupMenuBackground;
 		//private CTexture txCursor;
-		private CActDFPFont font;
 		CCachedFontRenderer prvFont;
 
 		internal struct stQuickMenuItem

@@ -12,20 +12,12 @@ namespace TJAPlayer3
 {
 	internal class CStageConfig : CStage
 	{
-		// プロパティ
-
-		public CActDFPFont actFont { get; private set; }
-
-
 		// コンストラクタ
 
 		public CStageConfig()
 		{
-			CActDFPFont font;
 			base.eStageID = CStage.EStage.Config;
 			base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
-			this.actFont = font = new CActDFPFont();
-			base.list子Activities.Add( font );
 			base.list子Activities.Add( this.actFIFO = new CActFIFOBlack() );
 			base.list子Activities.Add( this.actList = new CActConfigList() );
 			base.list子Activities.Add( this.actKeyAssign = new CActConfigKeyAssign() );

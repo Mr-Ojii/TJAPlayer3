@@ -92,10 +92,6 @@ namespace FDK
 			// 活性化してないなら何もしない。
 			if( this.b活性化してない )
 				return;
-
-			// すべての 子Activity の Managed リソースを作成する。
-			foreach( CActivity activity in this.list子Activities )
-				activity.OnManagedリソースの作成();
 		}
 
 		/// <summary>
@@ -110,10 +106,6 @@ namespace FDK
 			// 活性化してないなら何もしない。
 			if( this.b活性化してない )
 				return;
-
-			// すべての 子Activity の Unmanaged リソースを作成する。
-			foreach( CActivity activity in this.list子Activities )
-				activity.OnUnmanagedリソースの作成();
 		}
 		
 		/// <summary>
@@ -127,10 +119,6 @@ namespace FDK
 			// 活性化してないなら何もしない。
 			if( this.b活性化してない )
 				return;
-
-			// すべての 子Activity の Unmanaged リソースを解放する。
-			foreach( CActivity activity in this.list子Activities )
-				activity.OnUnmanagedリソースの解放();
 		}
 
 		/// <summary>
@@ -145,10 +133,6 @@ namespace FDK
 			// 活性化してないなら何もしない。
 			if( this.b活性化してない )
 				return;
-
-			// すべての 子Activity の Managed リソースを解放する。
-			foreach( CActivity activity in this.list子Activities )
-				activity.OnManagedリソースの解放();
 		}
 
 		/// <summary>
