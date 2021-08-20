@@ -8,9 +8,27 @@ on:
       - "Ver.*"
 
 jobs:
+  get_rev_list_count:
+    name: Get rev-list_count
+    runs-on: ubuntu-latest
+    outputs:
+      rev_list_count: ${{ steps.rev.outputs.REV_LIST_COUNT }}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Set REV_LIST_COUNT
+      id: rev
+      run: |
+        cd ${{ github.workspace }}
+        REVCOUNT=`git rev-list --count HEAD`
+        echo "::set-output name=REV_LIST_COUNT::${REVCOUNT}"
+    
   create_release:
     name: Create release
     runs-on: windows-latest
+    needs: get_rev_list_count
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
       upload_url2: ${{ steps.create_release2.outputs.upload_url }}
@@ -22,8 +40,8 @@ jobs:
       env: 
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: prerelease-${{ github.sha }}
-        release_name: TJAPlayer3-f-prerelease-${{ github.sha }}
+        tag_name: prerelease-${{ needs.get_rev_list_count.outputs.rev_list_count }}
+        release_name: TJAPlayer3-f-prerelease-${{ needs.get_rev_list_count.outputs.rev_list_count }}
         draft: false
         prerelease: true
     - name: Create a Release
@@ -41,7 +59,7 @@ jobs:
   build:
     name: Build
     runs-on: windows-latest
-    needs: create_release
+    needs: [create_release,get_rev_list_count]
     strategy:
       matrix:
         platform: [win-x86, win-x64, osx-x64, linux-x64]
@@ -84,7 +102,7 @@ jobs:
       with:
         upload_url: ${{ needs.create_release.outputs.upload_url }}
         asset_path: ./TJAPlayer3-f-Release.zip
-        asset_name: TJAPlayer3-f-PreRelease-${{matrix.platform}}-${{ github.sha }}.zip
+        asset_name: TJAPlayer3-f-PreRelease-${{matrix.platform}}-${{ needs.get_rev_list_count.outputs.rev_list_count }}.zip
         asset_content_type: application/zip
 
     #Release
