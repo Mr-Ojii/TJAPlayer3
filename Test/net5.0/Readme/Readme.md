@@ -174,7 +174,6 @@ masterブランチでほぼすべての開発を行います。
 * Audacity
 * SofTalk
 * UTAU
-* FontForge
 
 &それぞれのソフトのプラグイン/スクリプトなど
 
