@@ -84,12 +84,12 @@ jobs:
     - name: Rename App File
       if: matrix.platform == 'linux-x64'
       run: |
-        cd $Env:GITHUB_WORKSPACE
+        cd ${{ github.workspace }}
         mv "Test/net5.0/TJAPlayer3-f" "Test/net5.0/TJAPlayer3-f.AppImage"
         
     - name: Create Archive
       run: |
-        cd $Env:GITHUB_WORKSPACE
+        cd ${{ github.workspace }}
         zip TJAPlayer3-f-Release -r Test
     
     #Push
