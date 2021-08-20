@@ -93,12 +93,11 @@ MITライセンスのルールのもと、改造・再配布を行うことは自由ですが、**全て自己責任*
 ### Linux環境
 * Debian系  
   ```sh
-  sudo apt install freeglut3-dev libgdiplus ffmpeg
+  sudo apt install freeglut3-dev libgdiplus
   ```
 * Arch Linux
   ```sh
-  pacman -S freeglut libgdiplus ffmpeg
-  ln -sf /usr/lib /usr/lib/x86_64-linux-gnu
+  pacman -S freeglut libgdiplus
   ```
 で、必要なパッケージをインストール/パスを通しておき、
 
@@ -115,8 +114,6 @@ chmod +x TJAPlayer3-f.AppImage
 #### OS
 * Windows 10(Ver.21H1) (x64)
 * Linux Mint 20.2(Xfce) (x64)
-* Debian 10.10(Xfce) (VirtualBox) (x64)
-* Arch Linux(Xfce) (VirtualBox) (x64)
 
 #### Editor
 * Visual Studio Community 2019

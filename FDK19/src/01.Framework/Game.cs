@@ -35,15 +35,8 @@ namespace FDK
             Instance = this;
             string osplatform = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "win" : (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? "osx" : "linux");
             string platform = Environment.Is64BitProcess ? "x64" : "x86";
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                if (Environment.Is64BitProcess)
-                    FFmpeg.AutoGen.ffmpeg.RootPath = "/usr/lib/x86_64-linux-gnu/";
-                else
-                    FFmpeg.AutoGen.ffmpeg.RootPath = "/usr/lib/i386-linux-gnu/";
-            }
-            else
-                FFmpeg.AutoGen.ffmpeg.RootPath = AppContext.BaseDirectory + @"ffmpeg/" + osplatform + "-" + platform + "/";
+
+            FFmpeg.AutoGen.ffmpeg.RootPath = AppContext.BaseDirectory + @"ffmpeg/" + osplatform + "-" + platform + "/";
 
             DirectoryInfo info = new DirectoryInfo(AppContext.BaseDirectory + @"dll/" + osplatform + "-" + platform + "/");
 
