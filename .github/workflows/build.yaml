@@ -80,6 +80,15 @@ jobs:
       uses: JesseTG/rm@v1.0.0
       with:
         path: Test/net5.0/${{matrix.platform}}
+    - name: Remove Directory
+      run: |
+        cd ${{ github.workspace }}
+        cd Test/net5.0/ffmpeg
+        echo for %%i in (*) do ( > remove.bat
+        echo if not %%i==${{matrix.platform}} rd /s /q %%i >> remove.bat
+        echo ) >> remove.bat
+        echo del remove.bat >> remove.bat
+        remove.bat
         
     - name: Rename App File
       if: matrix.platform == 'linux-x64'
