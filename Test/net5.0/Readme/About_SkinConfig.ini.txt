@@ -158,3 +158,6 @@ Result_RotateInterval=50
 Game_Chara_Beat_Normal=1,1
 Game_Chara_Beat_Clear=2,2
 Game_Chara_Beat_GoGo=2,2
+
+;GoGo時のFireエフェクトの画像のX幅,Y幅,個数の指定
+Game_Effect_Fire=230,230,8

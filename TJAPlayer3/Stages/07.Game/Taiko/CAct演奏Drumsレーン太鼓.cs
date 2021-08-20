@@ -43,7 +43,7 @@ namespace TJAPlayer3
 			this.nDefaultJudgePos[0,1] = TJAPlayer3.Skin.nScrollFieldY[0];
 			this.nDefaultJudgePos[1,0] = TJAPlayer3.Skin.nScrollFieldX[1];
 			this.nDefaultJudgePos[1,1] = TJAPlayer3.Skin.nScrollFieldY[1];
-			this.ctゴーゴー炎 = new CCounter(0, 6, 50, TJAPlayer3.Timer);
+			this.ctゴーゴー炎 = new CCounter(0, TJAPlayer3.Skin.Game_Effect_Fire[2], 50, TJAPlayer3.Timer);
 			base.On活性化();
 		}
 
@@ -718,11 +718,11 @@ namespace TJAPlayer3
 						//this.ctゴーゴー.n現在の値 = 6;
 						if (this.ctゴーゴー.b終了値に達した)
 						{
-							TJAPlayer3.Tx.Effects_Fire.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[i] - 180, TJAPlayer3.Skin.nJudgePointY[i] - (TJAPlayer3.Tx.Effects_Fire.szTextureSize.Height / 2), new Rectangle(360 * (this.ctゴーゴー炎.n現在の値), 0, 360, 370));
+							TJAPlayer3.Tx.Effects_Fire.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[i] - (TJAPlayer3.Skin.Game_Effect_Fire[0] / 2), TJAPlayer3.Skin.nJudgePointY[i] - (TJAPlayer3.Skin.Game_Effect_Fire[1] / 2), new Rectangle(TJAPlayer3.Skin.Game_Effect_Fire[0] * (this.ctゴーゴー炎.n現在の値), 0, TJAPlayer3.Skin.Game_Effect_Fire[0], TJAPlayer3.Skin.Game_Effect_Fire[1]));
 						}
 						else
 						{
-							TJAPlayer3.Tx.Effects_Fire.t3D描画(TJAPlayer3.app.Device, mat, new Rectangle(360 * (this.ctゴーゴー炎.n現在の値), 0, 360, 370));
+							TJAPlayer3.Tx.Effects_Fire.t3D描画(TJAPlayer3.app.Device, mat, new Rectangle(TJAPlayer3.Skin.Game_Effect_Fire[0] * (this.ctゴーゴー炎.n現在の値), 0, TJAPlayer3.Skin.Game_Effect_Fire[0], TJAPlayer3.Skin.Game_Effect_Fire[1]));
 						}
 					}
 				}

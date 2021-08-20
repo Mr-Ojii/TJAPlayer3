@@ -1805,6 +1805,10 @@ namespace TJAPlayer3
 							{
 								Game_Effect_GoGoSplash_Timer = int.Parse(strParam);
 							}
+							else if (strCommand == nameof(Game_Effect_Fire))
+							{
+								Game_Effect_Fire = strParam.Split(',').Select(int.Parse).ToArray();
+							}
 							else if (strCommand == nameof(Game_Effect_FlyingNotes_StartPoint_X))
 							{
 								Game_Effect_FlyingNotes_StartPoint_X = strParam.Split(',').Select(int.Parse).ToArray();
@@ -2598,11 +2602,12 @@ namespace TJAPlayer3
 		public int Game_Effect_Roll_Ptn;
 		public int[] Game_Effect_NotesFlash = new int[] { 180, 180, 12 }; // Width, Height, Ptn
 		public int Game_Effect_NotesFlash_Timer = 20;
-		public int[] Game_Effect_GoGoSplash = new int[] { 300, 400, 30 };
+		public int[] Game_Effect_GoGoSplash = new int[] { 300, 400, 10 };
 		public int[] Game_Effect_GoGoSplash_X = new int[] { 120, 300, 520, 760, 980, 1160 };
 		public int[] Game_Effect_GoGoSplash_Y = new int[] { 740, 730, 720, 720, 730, 740 };
 		public bool Game_Effect_GoGoSplash_Rotate = true;
-		public int Game_Effect_GoGoSplash_Timer = 18;
+		public int Game_Effect_GoGoSplash_Timer = 25;
+		public int[] Game_Effect_Fire = new int[] { 230, 230, 8 };
 		// super-flying-notes AioiLight
 		public int[] Game_Effect_FlyingNotes_StartPoint_X = new int[] { 414, 414 };
 		public int[] Game_Effect_FlyingNotes_StartPoint_Y = new int[] { 260, 434 };
@@ -2612,7 +2617,7 @@ namespace TJAPlayer3
 		public int Game_Effect_FlyingNotes_Sine = 220;
 		public bool Game_Effect_FlyingNotes_IsUsingEasing = true;
 		public int Game_Effect_FlyingNotes_Timer = 3;
-		public int[] Game_Effect_FireWorks = new int[] { 180, 180, 30 };
+		public int[] Game_Effect_FireWorks = new int[] { 180, 180, 10 };
 		public int Game_Effect_FireWorks_Timer = 5;
 		public int Game_Effect_Rainbow_Timer = 7;
 
