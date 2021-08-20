@@ -76,8 +76,7 @@ MITライセンスのルールのもと、改造・再配布を行うことは自由ですが、**全て自己責任*
 ## 推奨動作環境
 #### OS
 * Windows 7以降のWindows (x86,x64)
-* Debian系のLinux 最新版 (x64)
-* Arch Linux(デスクトップ環境構築済み) (x64)
+* デスクトップ環境構築済みの Linux ディストリビューション 最新版 (x64)
 
 #### CPU
 * マルチスレッド対応
@@ -91,15 +90,21 @@ MITライセンスのルールのもと、改造・再配布を行うことは自由ですが、**全て自己責任*
 ダウンロード後、Zipファイルを解凍し、フォルダ内に入っているTJAPlayer3-f.exeを実行してください。
 
 ### Linux環境
-* Debian系  
+各種パッケージマネージャー  
+* apt  
   ```sh
   sudo apt install freeglut3-dev libgdiplus
   ```
-* Arch Linux
+* dnf
+  ```sh
+  dnf install freeglut-devel libgdiplus
+  ```
+* pacman
   ```sh
   pacman -S freeglut libgdiplus
   ```
-で、必要なパッケージをインストール/パスを通しておき、
+で、必要なパッケージをインストールしておき、　　
+(ここに記載がないパッケージマネージャーは自身で調べて、freeglut3とlibgdiplusをインストールしてください。)
 
 TJAPlayer3-fのダウンロードごとに、Zipファイルを解凍し、  
 TJAPlayer3-fが存在するディレクトリをカレントディレクトリとしたターミナルで  
