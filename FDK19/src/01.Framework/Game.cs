@@ -45,9 +45,6 @@ namespace FDK
             else
                 FFmpeg.AutoGen.ffmpeg.RootPath = AppContext.BaseDirectory + @"ffmpeg/" + osplatform + "-" + platform + "/";
 
-            if (!Directory.Exists(FFmpeg.AutoGen.ffmpeg.RootPath))
-                throw new DirectoryNotFoundException("FFmpeg RootPath Not Found.\nPath=" + FFmpeg.AutoGen.ffmpeg.RootPath);
-
             DirectoryInfo info = new DirectoryInfo(AppContext.BaseDirectory + @"dll/" + osplatform + "-" + platform + "/");
 
             //exeの階層にdllをコピー

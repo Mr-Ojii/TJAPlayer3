@@ -211,12 +211,10 @@ Fork元より使用しているライブラリ
 ## FFmpegについて
 このリポジトリにはあらかじめFFmpegライブラリが同梱されています。  
 同梱しているライブラリは
-+ [Zeranoe FFmpeg](http://ffmpeg.zeranoe.com/builds/)からのx86ライブラリ  
-+ [FFmpeg Static Auto-Builds](https://github.com/BtbN/FFmpeg-Builds)からのx64ライブラリ  
++ [FFmpeg-Builds-Win32](https://github.com/sudo-nautilus/FFmpeg-Builds-Win32)からのx86ライブラリ  
++ [FFmpeg-Builds](https://github.com/BtbN/FFmpeg-Builds)からのx64ライブラリ  
 
-バージョンは4.3.1です。(2021/03/16現在)
-
-DLL群のバージョンアップをしたい方は自己責任で差し替えをしてください。  
+バージョンは4.4です。(2021/08/20現在)
 
 
 ## BASSについて
