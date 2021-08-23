@@ -954,19 +954,19 @@ namespace TJAPlayer3
 								}
 							}
 
-							if (strCommand == "Name")
+							if (strCommand == nameof(Name))
 							{
-								this.Skin_Name = strParam;
+								this.Name = strParam;
 								Program.SkinName = strParam;
 							}
-							else if (strCommand == "Version")
+							else if (strCommand == nameof(Version))
 							{
-								this.Skin_Version = strParam;
+								this.Version = strParam;
 								Program.SkinVersion = strParam;
 							}
-							else if (strCommand == "Creator")
+							else if (strCommand == nameof(Creator))
 							{
-								this.Skin_Creator = strParam;
+								this.Creator = strParam;
 								Program.SkinCreator = strParam;
 							}
 							#endregion
@@ -982,27 +982,27 @@ namespace TJAPlayer3
 							//-----------------------------
 							else if (strCommand == "ScrollFieldP1Y")
 							{
-								this.nScrollFieldY[0] = CConvert.n値を文字列から取得して返す(strParam, 192);
+								this.nScrollFieldY[0] = int.Parse(strParam);
 							}
 							else if (strCommand == "ScrollFieldP2Y")
 							{
-								this.nScrollFieldY[1] = CConvert.n値を文字列から取得して返す(strParam, 192);
+								this.nScrollFieldY[1] = int.Parse(strParam);
 							}
 							else if (strCommand == "SENotesP1Y")
 							{
-								this.nSENotesY[0] = CConvert.n値を文字列から取得して返す(strParam, this.nSENotesY[0]);
+								this.nSENotesY[0] = int.Parse(strParam);
 							}
 							else if (strCommand == "SENotesP2Y")
 							{
-								this.nSENotesY[1] = CConvert.n値を文字列から取得して返す(strParam, this.nSENotesY[1]);
+								this.nSENotesY[1] = int.Parse(strParam);
 							}
 							else if (strCommand == "JudgePointP1Y")
 							{
-								this.nJudgePointY[0] = CConvert.n値を文字列から取得して返す(strParam, this.nJudgePointY[0]);
+								this.nJudgePointY[0] = int.Parse(strParam);
 							}
 							else if (strCommand == "JudgePointP2Y")
 							{
-								this.nJudgePointY[1] = CConvert.n値を文字列から取得して返す(strParam, this.nJudgePointY[1]);
+								this.nJudgePointY[1] = int.Parse(strParam);
 							}
 							else if (strCommand == "NowStageDisp")
 							{
@@ -2365,9 +2365,9 @@ namespace TJAPlayer3
 
 		#region 新・SkinConfig
 		#region General
-		public string Skin_Name = "Unknown";
-		public string Skin_Version = "Unknown";
-		public string Skin_Creator = "Unknown";
+		public string Name = "Unknown";
+		public string Version = "Unknown";
+		public string Creator = "Unknown";
 		#endregion
 		#region Config
 		public int Config_ItemText_Correction_X = 0;

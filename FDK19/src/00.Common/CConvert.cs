@@ -91,14 +91,6 @@ namespace FDK
 			return n取得失敗時のデフォルト値;
 		}
 		// --------------------ここまで-------------------------/
-		public static int n値を文字列から取得して返す( string str数値文字列, int n取得失敗時のデフォルト値 )
-		{
-			int num;
-			if( !int.TryParse( str数値文字列, out num ) )
-				num = n取得失敗時のデフォルト値;
-
-			return num;
-		}
 
 		public static int[] ar配列形式のstringをint配列に変換して返す( string str )
 		{

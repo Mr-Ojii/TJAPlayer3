@@ -30,9 +30,6 @@ namespace TJAPlayer3
 			}
 			Debug.Print(path + " Encoding=" + enc.CodePage);
 
-			if (enc == null) {
-				enc = Encoding.GetEncoding(932);
-			}
 			return enc;
 		}
 		/// <summary>
