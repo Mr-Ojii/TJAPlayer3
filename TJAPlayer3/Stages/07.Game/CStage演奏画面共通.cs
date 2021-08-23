@@ -631,10 +631,6 @@ namespace TJAPlayer3
 				if (TJAPlayer3.ConfigIni.ShowRunner)
 					this.actRunner.On進行描画();
 
-
-				if (!TJAPlayer3.ConfigIni.bNoInfo)
-					this.t進行描画_パネル文字列();
-
 				this.actLaneTaiko.On進行描画();
 
 				if ((TJAPlayer3.ConfigIni.eClipDispType == EClipDispType.ウィンドウのみ || TJAPlayer3.ConfigIni.eClipDispType == EClipDispType.両方) && TJAPlayer3.ConfigIni.nPlayerCount == 1)
@@ -685,6 +681,9 @@ namespace TJAPlayer3
 
 				if (!TJAPlayer3.ConfigIni.bNoInfo)
 					this.actJudgeString.t進行描画();
+
+				if (!TJAPlayer3.ConfigIni.bNoInfo)
+					this.t進行描画_パネル文字列();
 
 				if (TJAPlayer3.ConfigIni.b演奏情報を表示する)
 					this.actPlayInfo.t進行描画(1000, 400);
