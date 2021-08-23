@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{BCD40908-F3E2-4707-BFAA-1DD99DF6357D}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <UseWindowsForms>false</UseWindowsForms>
 
     <AssemblyName>FDK</AssemblyName>
@@ -14,6 +14,7 @@
     <SignAssembly>false</SignAssembly>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <NoWarn>0219</NoWarn>
+    
     <LangVersion>7.3</LangVersion>
     <Platforms>AnyCPU</Platforms>
   </PropertyGroup>

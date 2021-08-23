@@ -271,18 +271,7 @@ namespace TJAPlayer3
 		{
 			get
 			{
-				string Platform;
-
-				if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-					Platform = "win";
-				else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-					Platform = "linux";
-				else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-					Platform = "osx";
-				else
-					Platform = Environment.OSVersion.Platform.ToString();
-
-				return "Ver." + Assembly.GetExecutingAssembly().GetName().Version.ToString() + "(" + Platform + "-" + (Environment.Is64BitProcess ? "x64" : "x86") + ")";
+				return "Ver." + Assembly.GetExecutingAssembly().GetName().Version.ToString() + "(" + RuntimeInformation.RuntimeIdentifier + ")";
 			}
 		}
 		#endregion

@@ -70,8 +70,9 @@ namespace FDK
 				cinputkeyboard = new CInputKeyboard();
 				cinputmouse = new CInputMouse();
 			}
-			catch
+			catch (Exception e)
 			{
+				Trace.WriteLine(e.ToString());
 			}
 			if (cinputkeyboard != null)
 			{
