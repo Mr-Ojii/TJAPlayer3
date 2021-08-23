@@ -9,6 +9,7 @@ using System.IO;
 using System.Diagnostics;
 using OpenTK.Graphics.OpenGL;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 
@@ -39,10 +40,12 @@ namespace FDK
 				}
 			}
 
-			using (IMemoryOwner<Rgba32> pixels = Configuration.Default.MemoryAllocator.Allocate<Rgba32>(Game.Instance.ClientSize.Width * Game.Instance.ClientSize.Height)) 
+			int width = Game.Instance.ClientSize.Width / 4 * 4;
+			int height = Game.Instance.ClientSize.Height;
+			using (IMemoryOwner<Rgb24> pixels = Configuration.Default.MemoryAllocator.Allocate<Rgb24>(width * height)) 
 			{
-				GL.ReadPixels(0, 0, Game.Instance.ClientSize.Width, Game.Instance.ClientSize.Height, PixelFormat.Rgba, PixelType.UnsignedByte, ref MemoryMarshal.GetReference(pixels.Memory.Span));
-				Image<Rgba32> image = Image.LoadPixelData<Rgba32>(pixels.Memory.Span, Game.Instance.ClientSize.Width, Game.Instance.ClientSize.Height);
+				GL.ReadPixels(0, 0, width, height, PixelFormat.Rgb, PixelType.UnsignedByte, ref MemoryMarshal.GetReference(pixels.Memory.Span));
+				Image<Rgb24> image = Image.LoadPixelData<Rgb24>(pixels.Memory.Span, width, height);
 				Task.Factory.StartNew(() =>
 				{
 					image.Mutate(con => con.Flip(FlipMode.Vertical));
