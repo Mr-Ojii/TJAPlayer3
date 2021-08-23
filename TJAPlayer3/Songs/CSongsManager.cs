@@ -541,34 +541,6 @@ namespace TJAPlayer3
 
 				for (int n楽器番号 = 0; n楽器番号 < 1; n楽器番号++)
 				{
-					#region socre.譜面情報.最大ランク.Drums = ... 
-					//-----------------
-					if (ini.stセクション.HiScore.b演奏にMIDIInputを使用した ||
-						ini.stセクション.HiScore.b演奏にKeyBoardを使用した ||
-						ini.stセクション.HiScore.b演奏にJoypadを使用した ||
-						ini.stセクション.HiScore.b演奏にMouseを使用した)
-					{
-						// (A) 全オートじゃないようなので、演奏結果情報を有効としてランクを算出する。
-
-						score.譜面情報.最大ランク =
-							CScoreIni.tランク値を計算して返す(
-								ini.stセクション.HiScore.n全チップ数,
-								ini.stセクション.HiScore.nPerfect数,
-								ini.stセクション.HiScore.nGreat数,
-								ini.stセクション.HiScore.nGood数,
-								ini.stセクション.HiScore.nPoor数,
-								ini.stセクション.HiScore.nMiss数);
-					}
-					else
-					{
-						// (B) 全オートらしいので、ランクは無効とする。
-
-						score.譜面情報.最大ランク = (int)CScoreIni.ERANK.UNKNOWN;
-					}
-					//-----------------
-					#endregion
-					score.譜面情報.最大スキル = ini.stセクション.HiScore.db演奏型スキル値;
-					score.譜面情報.フルコンボ = ini.stセクション.HiScore.bフルコンボである;
 					for (int i = 0; i < (int)Difficulty.Total; i++)
 					{
 						score.譜面情報.nハイスコア[i] = (int)ini.stセクション.HiScore.nハイスコア[i];

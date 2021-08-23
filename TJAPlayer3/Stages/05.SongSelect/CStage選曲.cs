@@ -1279,47 +1279,8 @@ namespace TJAPlayer3
 		}
 		private void t曲をランダム選択する()
 		{
-			C曲リストノード song = this.act曲リスト.r現在選択中の曲;
-			if( ( song.stackランダム演奏番号.Count == 0 ) || ( song.listランダム用ノードリスト == null ) )
-			{
-				if( song.listランダム用ノードリスト == null )
-				{
-					song.listランダム用ノードリスト = this.t指定された曲が存在する場所の曲を列挙する_子リスト含む( song );
-				}
-				int count = song.listランダム用ノードリスト.Count;
-				if( count == 0 )
-				{
-					return;
-				}
-				int[] numArray = new int[ count ];
-				for( int i = 0; i < count; i++ )
-				{
-					numArray[ i ] = i;
-				}
-				for( int j = 0; j < ( count * 1.5 ); j++ )
-				{
-					int index = TJAPlayer3.Random.Next( count );
-					int num5 = TJAPlayer3.Random.Next( count );
-					int num6 = numArray[ num5 ];
-					numArray[ num5 ] = numArray[ index ];
-					numArray[ index ] = num6;
-				}
-				for( int k = 0; k < count; k++ )
-				{
-					song.stackランダム演奏番号.Push( numArray[ k ] );
-				}
-				if( TJAPlayer3.ConfigIni.bLogDTX詳細ログ出力 )
-				{
-					StringBuilder builder = new StringBuilder( 0x400 );
-					builder.Append( string.Format( "ランダムインデックスリストを作成しました: {0}曲: ", song.stackランダム演奏番号.Count ) );
-					for( int m = 0; m < count; m++ )
-					{
-						builder.Append( string.Format( "{0} ", numArray[ m ] ) );
-					}
-					Trace.TraceInformation( builder.ToString() );
-				}
-			}
-			this.act曲リスト.RandomSelect(song.listランダム用ノードリスト[song.stackランダム演奏番号.Pop()]);
+			List<C曲リストノード> list = this.t指定された曲が存在する場所の曲を列挙する_子リスト含む( this.act曲リスト.r現在選択中の曲 );
+			this.act曲リスト.RandomSelect(list[TJAPlayer3.Random.Next(0,list.Count - 1)]);
 
 		}
 		private void t曲を選択する()

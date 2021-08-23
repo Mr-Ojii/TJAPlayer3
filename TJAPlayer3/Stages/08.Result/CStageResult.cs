@@ -13,13 +13,11 @@ namespace TJAPlayer3
 	{
 		// プロパティ
 
-		public bool b新記録ランク;
 		public float fPerfect率;
 		public float fGreat率;
 		public float fGood率;
 		public float fPoor率;
 		public float fMiss率;
-		public int nランク値;
 		public CScoreIni.C演奏記録[] st演奏記録;
 
 
@@ -49,8 +47,6 @@ namespace TJAPlayer3
 				//---------------------
 				this.eFadeOut完了時の戻り値 = E戻り値.継続;
 				this.bアニメが完了 = false;
-				this.bIsCheckedWhetherResultScreenShouldSaveOrNot = false;				// #24609 2011.3.14 yyagi
-				this.b新記録ランク = false;
 				//---------------------
 				#endregion
 
@@ -58,21 +54,7 @@ namespace TJAPlayer3
 				//---------------------
 				for( int i = 0; i < 1; i++ )
 				{
-					this.nランク値 = -1;
 					this.fPerfect率 = this.fGreat率 = this.fGood率 = this.fPoor率 = this.fMiss率 = 0.0f;	// #28500 2011.5.24 yyagi
-					if ( ( i != 0 ) )
-					{
-						CScoreIni.C演奏記録 part = this.st演奏記録[0];
-
-						bool bIsAutoPlay = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0];
-
-						this.fPerfect率 = bIsAutoPlay ? 0f : ( ( 100f * part.nPerfect数 ) / ( (float) part.n全チップ数 ) );
-						this.fGreat率 = bIsAutoPlay ? 0f : ( ( 100f * part.nGreat数 ) / ( (float) part.n全チップ数 ) );
-						this.fGood率 = bIsAutoPlay ? 0f : ( ( 100f * part.nGood数 ) / ( (float) part.n全チップ数 ) );
-						this.fPoor率 = bIsAutoPlay ? 0f : ( ( 100f * part.nPoor数 ) / ( (float) part.n全チップ数 ) );
-						this.fMiss率 = bIsAutoPlay ? 0f : ( ( 100f * part.nMiss数 ) / ( (float) part.n全チップ数 ) );
-						this.nランク値 = CScoreIni.tランク値を計算して返す( part );
-					}
 				}
 				//---------------------
 				#endregion
@@ -82,21 +64,9 @@ namespace TJAPlayer3
 				string str = TJAPlayer3.DTX[0].strFilenameの絶対パス + ".score.ini";
 				CScoreIni ini = new CScoreIni( str );
 
-				bool b今までにフルコンボしたことがある = false;
 
 				for( int i = 0; i < 1; i++ )
 				{
-					// フルコンボチェックならびに新記録ランクチェックは、ini.Record[] が、スコアチェックや演奏型スキルチェックの IF 内で書き直されてしまうよりも前に行う。(2010.9.10)
-
-					b今までにフルコンボしたことがある = ini.stセクション.HiScore.bフルコンボである;
-
-					// #24459 上記の条件だと[HiSkill.***]でのランクしかチェックしていないので、BestRankと比較するよう変更。
-					if ( this.nランク値 >= 0 && ini.stファイル.BestRank > this.nランク値 )		// #24459 2011.3.1 yyagi update BestRank
-					{
-						this.b新記録ランク = true;
-						ini.stファイル.BestRank = this.nランク値;
-					}
-
 					if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == false && this.st演奏記録[0].b途中でAutoを切り替えたか == false)
 					ini.stセクション.HiScore = this.st演奏記録[0];
 
@@ -129,13 +99,6 @@ namespace TJAPlayer3
 
 					if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == false && this.st演奏記録[0].b途中でAutoを切り替えたか == false)
 					{
-						// FullCombo した記録を FullCombo なしで超えた場合、FullCombo マークが消えてしまう。
-						// → FullCombo は、最新記録と関係なく、一度達成したらずっとつくようにする。(2010.9.11)
-						cスコア.譜面情報.フルコンボ = this.st演奏記録[0].bフルコンボである | b今までにフルコンボしたことがある;
-
-						cスコア.譜面情報.最大ランク = this.nランク値;
-						cスコア.譜面情報.最大スキル = this.st演奏記録[0].db演奏型スキル値;
-
 						cスコア.譜面情報.n王冠 = st演奏記録[0].n王冠;//2020.05.22 Mr-Ojii データが保存されない問題の解決策。
 						cスコア.譜面情報.nハイスコア = st演奏記録[0].nハイスコア;
 						cスコア.譜面情報.nSecondScore = st演奏記録[0].nSecondScore;
@@ -322,15 +285,6 @@ namespace TJAPlayer3
 				{
 					return (int) this.eFadeOut完了時の戻り値;
 				}
-				#region [ #24609 2011.3.14 yyagi ランク更新or演奏型スキル更新時、リザルト画像をpngで保存する ]
-				if ( this.bアニメが完了 == true && this.bIsCheckedWhetherResultScreenShouldSaveOrNot == false	// #24609 2011.3.14 yyagi; to save result screen in case BestRank or HiSkill.
-					&& TJAPlayer3.ConfigIni.bScoreIniを出力する
-					&& TJAPlayer3.ConfigIni.bIsAutoResultCapture)												// #25399 2011.6.9 yyagi
-				{
-					CheckAndSaveResultScreen(true);
-					this.bIsCheckedWhetherResultScreenShouldSaveOrNot = true;
-				}
-				#endregion
 
 				// キー入力
 
@@ -382,33 +336,7 @@ namespace TJAPlayer3
 		private CActResultParameterPanel actParameterPanel;
 		private CActResultSongBar actSongBar;
 		private bool bアニメが完了;
-		private bool bIsCheckedWhetherResultScreenShouldSaveOrNot;				// #24509 2011.3.14 yyagi
 
-		#region [ #24609 リザルト画像をpngで保存する ]		// #24609 2011.3.14 yyagi; to save result screen in case BestRank or HiSkill.
-		/// <summary>
-		/// リザルト画像のキャプチャと保存。
-		/// 自動保存モード時は、ランク更新or演奏型スキル更新時に自動保存。
-		/// 手動保存モード時は、ランクに依らず保存。
-		/// </summary>
-		/// <param name="bIsAutoSave">true=自動保存モード, false=手動保存モード</param>
-		private void CheckAndSaveResultScreen(bool bIsAutoSave)
-		{
-			string datetime = DateTime.Now.ToString( "yyyyMMddHHmmss" );
-			if ( bIsAutoSave )
-			{
-				// リザルト画像を自動保存するときは、dtxファイル名.yyMMddHHmmss_SS.png という形式で保存。
-
-				if (this.b新記録ランク == true)
-				{
-					string strRank = ((CScoreIni.ERANK)(this.nランク値)).ToString();
-					string strFullPath = TJAPlayer3.DTX[0].strFilenameの絶対パス + "." + datetime + "_" + strRank + ".png";
-
-					CSaveScreen.CSaveFromDevice(TJAPlayer3.app.Device, strFullPath);
-				}
-			}
-		}
-		#endregion
-		//-----------------
 		#endregion
 	}
 }

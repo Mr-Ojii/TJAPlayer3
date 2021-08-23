@@ -55,9 +55,6 @@ namespace TJAPlayer3
 			public string Comment;
 			public string Genre;
 			public string Backgound;
-			public int 最大ランク;
-			public double 最大スキル;
-			public bool フルコンボ;
 			public int 演奏回数;
 			public STHISTORY 演奏履歴;
 			public double Bpm;
@@ -166,8 +163,6 @@ namespace TJAPlayer3
 			this.譜面情報.Comment = "";
 			this.譜面情報.Genre = "";
 			this.譜面情報.Backgound = "";
-			this.譜面情報.最大ランク =  (int)CScoreIni.ERANK.UNKNOWN;
-			this.譜面情報.フルコンボ = false;
 			this.譜面情報.演奏回数 = new int();
 			this.譜面情報.演奏履歴 = new ST譜面情報.STHISTORY();
 			this.譜面情報.演奏履歴.行1 = "";
@@ -177,7 +172,6 @@ namespace TJAPlayer3
 			this.譜面情報.演奏履歴.行5 = "";
 			this.譜面情報.演奏履歴.行6 = "";
 			this.譜面情報.演奏履歴.行7 = "";
-			this.譜面情報.最大スキル = new double();
 			this.譜面情報.Bpm = 120.0;
 			this.譜面情報.Duration = 0;
 			this.譜面情報.strBGMファイル名 = "";

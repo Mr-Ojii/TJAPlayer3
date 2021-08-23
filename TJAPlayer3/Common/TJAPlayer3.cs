@@ -797,48 +797,7 @@ namespace TJAPlayer3
 									stage演奏ドラム画面.t演奏結果を格納する(out c演奏記録_Drums[1], 1);
 								}
 
-								double ps = 0.0, gs = 0.0;
-								if (!TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] && c演奏記録_Drums[0].n全チップ数 > 0) {
-									ps = c演奏記録_Drums[0].db演奏型スキル値;
-									gs = c演奏記録_Drums[0].dbゲーム型スキル値;
-								}
-								string str = "Cleared";
-								switch (CScoreIni.t総合ランク値を計算して返す(c演奏記録_Drums[0]))
-								{
-									case (int)CScoreIni.ERANK.SS:
-										str = string.Format("Cleared (SS: {0:F2})", ps);
-										break;
-
-									case (int)CScoreIni.ERANK.S:
-										str = string.Format("Cleared (S: {0:F2})", ps);
-										break;
-
-									case (int)CScoreIni.ERANK.A:
-										str = string.Format("Cleared (A: {0:F2})", ps);
-										break;
-
-									case (int)CScoreIni.ERANK.B:
-										str = string.Format("Cleared (B: {0:F2})", ps);
-										break;
-
-									case (int)CScoreIni.ERANK.C:
-										str = string.Format("Cleared (C: {0:F2})", ps);
-										break;
-
-									case (int)CScoreIni.ERANK.D:
-										str = string.Format("Cleared (D: {0:F2})", ps);
-										break;
-
-									case (int)CScoreIni.ERANK.E:
-										str = string.Format("Cleared (E: {0:F2})", ps);
-										break;
-
-									case (int)CScoreIni.ERANK.UNKNOWN:  // #23534 2010.10.28 yyagi add: 演奏チップが0個のとき
-										str = "Cleared (No chips)";
-										break;
-								}
-
-								scoreIni = this.tScoreIniへBGMAdjustとHistoryとPlayCountを更新(str);
+								scoreIni = this.tScoreIniへBGMAdjustとHistoryとPlayCountを更新("Cleared (" + c演奏記録_Drums[0].nスコア.ToString() + ")");
 
 								r現在のステージ.On非活性化();
 								Trace.TraceInformation("----------------------");

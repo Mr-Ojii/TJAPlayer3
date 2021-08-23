@@ -247,10 +247,6 @@ namespace TJAPlayer3
 			//    "About displaying the lag from\n the \"just timing\".\n  OFF: Don't show it.\n  ON: Show it.\n  GREAT-: Show it except you've\n  gotten PERFECT.",
 			//    new string[] { "OFF", "ON", "GREAT-" } );
 			//this.list項目リスト.Add( this.iSystemShowLag );
-			this.iSystemAutoResultCapture = new CItemToggle( "Autosaveresult", TJAPlayer3.ConfigIni.bIsAutoResultCapture,
-				"リザルト画像自動保存機能：\nONにすると、ハイスコア/ハイスキル時に\n自動でリザルト画像を曲データと同じ\nフォルダに保存します。",
-				"AutoSaveResult:\nTurn ON to save your result screen\n image automatically when you get\n hiscore/hiskill." );
-			this.list項目リスト.Add( this.iSystemAutoResultCapture );
 
 			SendDiscordPlayingInformation = new CItemToggle(nameof(SendDiscordPlayingInformation),
 				TJAPlayer3.ConfigIni.SendDiscordPlayingInformation,
@@ -1549,7 +1545,6 @@ namespace TJAPlayer3
 		private CItemToggle iSystemSaveScore;
 		private CItemToggle iSystemStageFailed;
 		private CItemToggle iSystemVSyncWait;
-		private CItemToggle iSystemAutoResultCapture;		// #25399 2011.6.9 yyagi
 		private CItemToggle SendDiscordPlayingInformation;
 		private CItemInteger iSystemRisky;					// #23559 2011.7.27 yyagi
 		private CItemList iSystemSoundType;					// #24820 2013.1.3 yyagi
@@ -1704,7 +1699,6 @@ namespace TJAPlayer3
 			//CDTXMania.ConfigIni.bストイックモード = this.iSystemStoicMode.bON;
 
 			//CDTXMania.ConfigIni.nShowLagType = this.iSystemShowLag.n現在選択されている項目番号;				// #25370 2011.6.3 yyagi
-			TJAPlayer3.ConfigIni.bIsAutoResultCapture = this.iSystemAutoResultCapture.bON;					// #25399 2011.6.9 yyagi
 			TJAPlayer3.ConfigIni.SendDiscordPlayingInformation = this.SendDiscordPlayingInformation.bON;
 
 			TJAPlayer3.ConfigIni.nRisky = this.iSystemRisky.n現在の値;										// #23559 2011.7.27 yyagi

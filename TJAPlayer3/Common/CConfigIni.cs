@@ -304,7 +304,6 @@ namespace TJAPlayer3
 		public EEndingAnime eEndingAnime = EEndingAnime.Off;
 
 		public int nInputAdjustTimeMs;
-		public bool bIsAutoResultCapture;			// #25399 2011.6.9 yyagi リザルト画像自動保存機能のON/OFF制御
 		public int nPoliphonicSounds;				// #28228 2012.5.1 yyagi レーン毎の最大同時発音数
 		public bool bIsEnabledSystemMenu;			// #28200 2012.5.1 yyagi System Menuの使用可否切替
 		public string strSystemSkinSubfolderFullName;	// #28195 2012.5.2 yyagi Skin切替用 System/以下のサブフォルダ名
@@ -543,7 +542,6 @@ namespace TJAPlayer3
 			this.dicJoystick = new Dictionary<int, string>( 10 );
 			this.tデフォルトのキーアサインに設定する();
 			this.nRisky = 0;							// #23539 2011.7.26 yyagi RISKYモード
-			this.bIsAutoResultCapture = false;			// #25399 2011.6.9 yyagi リザルト画像自動保存機能ON/OFF
 
 			this.bIsAllowedDoubleClickFullscreen = false;	// #26752 2011.11.26 ダブルクリックでのフルスクリーンモード移行を許可 2020.03.24初期値をfalseにした。 Mr-Ojii
 			this.nPoliphonicSounds = 4;					// #28228 2012.5.1 yyagi レーン毎の最大同時発音数
@@ -885,11 +883,6 @@ namespace TJAPlayer3
 			sw.WriteLine( "; ストイックモード(0:OFF, 1:ON)" );
 			sw.WriteLine( "; Stoic mode. (0:OFF, 1:ON)" );
 			sw.WriteLine( "StoicMode={0}", this.bストイックモード ? 1 : 0 );
-			sw.WriteLine();
-			sw.WriteLine( "; リザルト画像自動保存機能(0:OFF, 1:ON)" );						// #25399 2011.6.9 yyagi
-			sw.WriteLine( "; Set \"1\" if you'd like to save result screen image automatically");	//
-			sw.WriteLine( "; when you get hiscore/hiskill.");								//
-			sw.WriteLine( "AutoResultCapture={0}", this.bIsAutoResultCapture? 1 : 0 );		//
 			sw.WriteLine();
 			sw.WriteLine("; Discordに再生中の譜面情報を送信する(0:OFF, 1:ON)");                        // #25399 2011.6.9 yyagi
 			sw.WriteLine("; Share Playing .tja file infomation on Discord.");                     //
@@ -1506,10 +1499,6 @@ namespace TJAPlayer3
 											else if( str3.Equals( "StoicMode" ) )
 											{
 												this.bストイックモード = CConvert.bONorOFF( str4[ 0 ] );
-											}
-											else if ( str3.Equals( "AutoResultCapture" ) )			// #25399 2011.6.9 yyagi
-											{
-												this.bIsAutoResultCapture = CConvert.bONorOFF( str4[ 0 ] );
 											}
 											else if (str3.Equals(nameof(SendDiscordPlayingInformation)))
 											{

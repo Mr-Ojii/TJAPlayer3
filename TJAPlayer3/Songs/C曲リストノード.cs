@@ -26,11 +26,7 @@ namespace TJAPlayer3
 		public List<C曲リストノード> list子リスト;
 		public int nスコア数;
 		[JsonIgnore]
-		public List<C曲リストノード> listランダム用ノードリスト;
-		[JsonIgnore]
 		public C曲リストノード r親ノード;
-		[JsonIgnore]
-		public Stack<int> stackランダム演奏番号 = new Stack<int>();
 		[JsonIgnore]
 		public int Openindex;
 		public string strGenre = "";
