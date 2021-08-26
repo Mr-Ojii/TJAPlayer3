@@ -70,8 +70,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: Install dependencies
-      run: dotnet restore
     - name: Build
       run: dotnet publish TJAPlayer3 -o Test/net5.0 -r ${{matrix.platform}} -p:MyOption=PUBLISH -p:PublishSingleFile=true --configuration Release --self-contained true
     - name: Remove File
