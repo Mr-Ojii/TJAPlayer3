@@ -40,7 +40,7 @@ jobs:
         echo "#!"/bin/sh > del.sh
         echo "for filename in *" >> del.sh
         echo "do" >> del.sh
-        echo "  ""if [ ""$""{filename}"" "-eq" ""${{matrix.platform}}"" ] ; then" >> del.sh
+        echo "  ""if [ ""$""{filename}"" ""!""="" ""${{matrix.platform}}"" ] ; then" >> del.sh
         echo "    rm -rf ""$""{filename}" >> del.sh
         echo "  fi" >> del.sh
         echo "  "echo" ""$""{filename}" >> del.sh
