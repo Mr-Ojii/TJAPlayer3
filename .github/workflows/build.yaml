@@ -72,10 +72,36 @@ jobs:
         dotnet-version: 5.0.x
     - name: Build
       run: dotnet publish TJAPlayer3 -o Test/net5.0 -r ${{matrix.platform}} -p:MyOption=PUBLISH -p:PublishSingleFile=true --configuration Release --self-contained true
-    - name: Remove File
+
+    - name: Remove Folder
       uses: JesseTG/rm@v1.0.0
       with:
         path: Test/net5.0/${{matrix.platform}}
+
+    - name: Remove Folder
+      run: |
+        cd ${{ github.workspace }}/Test/net5.0/dll
+        echo "#!"/bin/sh > del.sh
+        echo "for filename in *" >> del.sh
+        echo "do" >> del.sh
+        echo "  ""if [ ""$""{filename}"" ""!""="" ""${{matrix.platform}}"" ] ; then" >> del.sh
+        echo "    rm -rf ""$""{filename}" >> del.sh
+        echo "    "echo" ""$""{filename}" >> del.sh
+        echo "  fi" >> del.sh
+        echo "done" >> del.sh
+        sh del.sh
+    - name: Remove Folder
+      run: |
+        cd ${{ github.workspace }}/Test/net5.0/ffmpeg
+        echo "#!"/bin/sh > del.sh
+        echo "for filename in *" >> del.sh
+        echo "do" >> del.sh
+        echo "  ""if [ ""$""{filename}"" ""!""="" ""${{matrix.platform}}"" ] ; then" >> del.sh
+        echo "    rm -rf ""$""{filename}" >> del.sh
+        echo "    "echo" ""$""{filename}" >> del.sh
+        echo "  fi" >> del.sh
+        echo "done" >> del.sh
+        sh del.sh
         
     - name: Rename App File
       if: matrix.platform == 'linux-x64'
