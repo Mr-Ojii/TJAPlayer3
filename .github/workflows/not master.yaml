@@ -45,7 +45,6 @@ jobs:
         echo "  fi" >> del.sh
         echo "  "echo" ""$""{filename}" >> del.sh
         echo "done" >> del.sh
-        echo "rm del.sh" >> del.sh
         sh del.sh
     - name: Upload artifacts
       uses: actions/upload-artifact@v1.0.0
