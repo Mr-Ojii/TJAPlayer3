@@ -641,7 +641,7 @@ namespace FDK
 			if (this._hBassStream == 0) 
 			{
 				//ファイルからのサウンド生成に失敗した場合にデコードする。(時間がかかるのはしょうがないね)
-				tDecodeAudioFile(strFilename, out byArrWAVファイルイメージ, out _, out _, out _, true);
+				tDecodeAudioFile(strFilename, out byArrWAVファイルイメージ, out _, out _, true);
 				tBASSサウンドを作成する(byArrWAVファイルイメージ, hMixer, flags);
 				return;
 			}
@@ -771,7 +771,7 @@ namespace FDK
 
 		#region [ tDecodeAudioFile() ]
 		public void tDecodeAudioFile(string strFilename, out byte[] buffer,
-			out int nPCMDataIndex, out int totalPCMSize, out CWin32.WAVEFORMATEX wfx, bool enablechunk)
+			out int nPCMDataIndex, out int totalPCMSize, bool enablechunk)
 		{
 			nPCMDataIndex = 0;
 
@@ -779,7 +779,7 @@ namespace FDK
 				throw new FileNotFoundException( string.Format( "File Not Found...({0})", strFilename ) );
 
 			//丸投げ
-			int rtn = CAudioDecoder.AudioDecode(strFilename, out buffer, out nPCMDataIndex, out totalPCMSize, out wfx, enablechunk);
+			int rtn = CAudioDecoder.AudioDecode(strFilename, out buffer, out nPCMDataIndex, out totalPCMSize, enablechunk);
 
 			//正常にDecodeできなかった場合、例外
 			if ( rtn < 0 )
