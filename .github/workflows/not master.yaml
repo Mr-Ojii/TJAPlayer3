@@ -34,6 +34,19 @@ jobs:
       uses: JesseTG/rm@v1.0.0
       with:
         path: Test/net5.0/${{matrix.platform}}
+    - name: Remove Dll Files
+      run: |
+        cd ${{ github.workspace }}/Test/net5.0/dll
+        echo "#!"/bin/sh > del.sh
+        echo "for filename in *" >> del.sh
+        echo "do" >> del.sh
+        echo "  ""if [ ""$""{filename}"" "-eq" ""${{matrix.platform}}"" ] ; then" >> del.sh
+        echo "    rm -rf ""$""{filename}" >> del.sh
+        echo "  fi" >> del.sh
+        echo "  "echo" ""$""{filename}" >> del.sh
+        echo "done" >> del.sh
+        echo "rm del.sh" >> del.sh
+        sh del.sh
     - name: Upload artifacts
       uses: actions/upload-artifact@v1.0.0
       with:
