@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
@@ -8,29 +6,15 @@ namespace FDK
 {
     public static class CWebOpen
     {
-        //ref:https://brockallen.com/2016/09/24/process-start-for-urls-on-net-core/
+        //ref:https://qiita.com/tsukasa_labz/items/80a94d202f5e88f1ddc0
         public static void Open(string url)
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            ProcessStartInfo info = new ProcessStartInfo()
             {
-                //Windows
-                url = url.Replace("&", "^&");
-                Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                //Linux
-                Process.Start("xdg-open", url);
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                //Mac
-                Process.Start("open", url);
-            }
-            else
-            {
-                throw new PlatformNotSupportedException();
-            }
+                FileName = url,
+                UseShellExecute = true,
+            };
+            Process.Start(info);
         }
     }
 }
