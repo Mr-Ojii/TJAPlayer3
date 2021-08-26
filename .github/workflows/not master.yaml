@@ -29,7 +29,7 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Build
-      run: dotnet publish TJAPlayer3 -o Test/net5.0 -r ${{ matrix.platform }} -p:PublishSingleFile=true --configuration Release --self-contained true
+      run: dotnet publish TJAPlayer3-f -o Test/net5.0 -r ${{ matrix.platform }} -p:PublishSingleFile=true --configuration Release --self-contained true
     - name: Remove Folder
       uses: JesseTG/rm@v1.0.0
       with:
