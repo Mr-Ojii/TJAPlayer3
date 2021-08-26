@@ -62,7 +62,7 @@ namespace TJAPlayer3
 					this.tx描画用.vcScaling.X = this.ratio1;
 					this.tx描画用.vcScaling.Y = this.ratio1;
 
-					if (TJAPlayer3.ConfigIni.eClipDispType == EClipDispType.背景のみ || TJAPlayer3.ConfigIni.eClipDispType == EClipDispType.両方)
+					if (TJAPlayer3.ConfigIni.eClipDispType.HasFlag(EClipDispType.Background))
 					{
 						this.tx描画用.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, GameWindowSize.Width / 2, GameWindowSize.Height / 2);
 					}

@@ -125,15 +125,13 @@ namespace TJAPlayer3
 		STEALTH = 2
 	}
 
-	#region[Ver.K追加]
+	[Flags]
 	public enum EClipDispType
 	{
-		背景のみ           = 1,
-		ウィンドウのみ     = 2,
-		両方               = 3,
-		OFF                = 0
+		OFF = 0,
+		Background = 1,
+		Window = 2,
 	}
-	#endregion
 
 	public enum ESubtitleDispMode : int
 	{

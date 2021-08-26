@@ -631,7 +631,7 @@ namespace TJAPlayer3
 
 				this.actLaneTaiko.On進行描画();
 
-				if ((TJAPlayer3.ConfigIni.eClipDispType == EClipDispType.ウィンドウのみ || TJAPlayer3.ConfigIni.eClipDispType == EClipDispType.両方) && TJAPlayer3.ConfigIni.nPlayerCount == 1)
+				if (TJAPlayer3.ConfigIni.eClipDispType.HasFlag(EClipDispType.Window) && TJAPlayer3.ConfigIni.nPlayerCount == 1)
 					this.actAVI.t窓表示();
 
 				if (!TJAPlayer3.ConfigIni.bNoInfo && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
