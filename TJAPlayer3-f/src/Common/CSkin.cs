@@ -4,6 +4,7 @@ using System.Text;
 using System.IO;
 using System.Diagnostics;
 using FDK;
+using FDK.ExtensionMethods;
 using System.Drawing;
 using System.Linq;
 
@@ -1006,7 +1007,7 @@ namespace TJAPlayer3
 							}
 							else if (strCommand == "NowStageDisp")
 							{
-								this.b現在のステージ数を表示しない = CConvert.bONorOFF(strParam[0]);
+								this.b現在のステージ数を表示しない = strParam[0].ToBool();
 							}
 
 							//-----------------------------
@@ -1247,7 +1248,7 @@ namespace TJAPlayer3
 							}
 							else if (strCommand == nameof(SongLoading_Plate_ScreenBlend))
 							{
-								SongLoading_Plate_ScreenBlend = CConvert.bONorOFF(strParam[0]);
+								SongLoading_Plate_ScreenBlend = strParam[0].ToBool();
 							}
 							else if (strCommand == nameof(SongLoading_v2_Plate_X))
 							{
@@ -1289,7 +1290,7 @@ namespace TJAPlayer3
 							#region Game
 							else if (strCommand == nameof(Game_Notes_Anime))
 							{
-								Game_Notes_Anime = CConvert.bONorOFF(strParam[0]);
+								Game_Notes_Anime = strParam[0].ToBool();
 							}
 							else if (strCommand == nameof(Game_StageText))
 							{
@@ -1301,7 +1302,7 @@ namespace TJAPlayer3
 							}
 							else if (strCommand == nameof(Game_JudgeFrame_AddBlend))
 							{
-								Game_JudgeFrame_AddBlend = CConvert.bONorOFF(strParam[0]);
+								Game_JudgeFrame_AddBlend = strParam[0].ToBool();
 							}
 
 							#region CourseSymbol
@@ -1617,7 +1618,7 @@ namespace TJAPlayer3
 							}
 							else if (strCommand == nameof(Game_Taiko_Combo_Ex_IsJumping))
 							{
-								Game_Taiko_Combo_Ex_IsJumping = CConvert.bONorOFF(strParam[0]);
+								Game_Taiko_Combo_Ex_IsJumping = strParam[0].ToBool();
 							}
 							#endregion
 							#region Gauge
@@ -1799,7 +1800,7 @@ namespace TJAPlayer3
 							}
 							else if (strCommand == nameof(Game_Effect_GoGoSplash_Rotate))
 							{
-								Game_Effect_GoGoSplash_Rotate = CConvert.bONorOFF(strParam[0]);
+								Game_Effect_GoGoSplash_Rotate = strParam[0].ToBool();
 							}
 							else if (strCommand == nameof(Game_Effect_GoGoSplash_Timer))
 							{
@@ -1831,7 +1832,7 @@ namespace TJAPlayer3
 							}
 							else if (strCommand == nameof(Game_Effect_FlyingNotes_IsUsingEasing))
 							{
-								Game_Effect_FlyingNotes_IsUsingEasing = CConvert.bONorOFF(strParam[0]);
+								Game_Effect_FlyingNotes_IsUsingEasing = strParam[0].ToBool();
 							}
 							else if (strCommand == nameof(Game_Effect_FlyingNotes_Timer))
 							{
@@ -1851,23 +1852,23 @@ namespace TJAPlayer3
 							}
 							else if (strCommand == nameof(Game_Effect_HitExplosion_AddBlend))
 							{
-								Game_Effect_HitExplosion_AddBlend = CConvert.bONorOFF(strParam[0]);
+								Game_Effect_HitExplosion_AddBlend = strParam[0].ToBool();
 							}
 							else if (strCommand == nameof(Game_Effect_HitExplosionBig_AddBlend))
 							{
-								Game_Effect_HitExplosionBig_AddBlend = CConvert.bONorOFF(strParam[0]);
+								Game_Effect_HitExplosionBig_AddBlend = strParam[0].ToBool();
 							}
 							else if (strCommand == nameof(Game_Effect_FireWorks_AddBlend))
 							{
-								Game_Effect_FireWorks_AddBlend = CConvert.bONorOFF(strParam[0]);
+								Game_Effect_FireWorks_AddBlend = strParam[0].ToBool();
 							}
 							else if (strCommand == nameof(Game_Effect_Fire_AddBlend))
 							{
-								Game_Effect_Fire_AddBlend = CConvert.bONorOFF(strParam[0]);
+								Game_Effect_Fire_AddBlend = strParam[0].ToBool();
 							}
 							else if (strCommand == nameof(Game_Effect_GoGoSplash_AddBlend))
 							{
-								Game_Effect_GoGoSplash_AddBlend = CConvert.bONorOFF(strParam[0]);
+								Game_Effect_GoGoSplash_AddBlend = strParam[0].ToBool();
 							}
 							else if (strCommand == nameof(Game_Effect_FireWorks_Timing))
 							{

@@ -505,7 +505,7 @@ namespace TJAPlayer3
 								}
 								else if (item.Equals("TightDrums"))
 								{
-									c演奏記録.bTight = CConvert.bONorOFF(para[0]);
+									c演奏記録.bTight = para[0].ToBool();
 								}
 								#endregion
 								else
@@ -532,32 +532,32 @@ namespace TJAPlayer3
 										#region [ Drums ]
 										if (item.Equals("Drums"))
 										{
-											c演奏記録.bDrums有効 = CConvert.bONorOFF(para[0]);
+											c演奏記録.bDrums有効 = para[0].ToBool();
 										}
 										#endregion
 										#region [ StageFailed ]
 										else if (item.Equals("StageFailed"))
 										{
-											c演奏記録.bSTAGEFAILED有効 = CConvert.bONorOFF(para[0]);
+											c演奏記録.bSTAGEFAILED有効 = para[0].ToBool();
 										}
 										#endregion
 										else
 										{
 											if (item.Equals("UseKeyboard"))
 											{
-												c演奏記録.b演奏にKeyBoardを使用した = CConvert.bONorOFF(para[0]);
+												c演奏記録.b演奏にKeyBoardを使用した = para[0].ToBool();
 											}
 											else if (item.Equals("UseMIDIIN"))
 											{
-												c演奏記録.b演奏にMIDIInputを使用した = CConvert.bONorOFF(para[0]);
+												c演奏記録.b演奏にMIDIInputを使用した = para[0].ToBool();
 											}
 											else if (item.Equals("UseJoypad"))
 											{
-												c演奏記録.b演奏にJoypadを使用した = CConvert.bONorOFF(para[0]);
+												c演奏記録.b演奏にJoypadを使用した = para[0].ToBool();
 											}
 											else if (item.Equals("UseMouse"))
 											{
-												c演奏記録.b演奏にMouseを使用した = CConvert.bONorOFF(para[0]);
+												c演奏記録.b演奏にMouseを使用した = para[0].ToBool();
 											}
 											else if (item.Equals("PerfectRange"))
 											{

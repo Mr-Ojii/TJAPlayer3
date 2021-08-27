@@ -1300,13 +1300,13 @@ namespace TJAPlayer3
 											}
 											else if (str3.Equals(nameof(FastRender)))
 											{
-												FastRender = CConvert.bONorOFF(str4[0]);
+												FastRender = str4[0].ToBool();
 											}
 #endregion
 #region [ Window関係 ]
 											else if (str3.Equals("FullScreen"))
 											{
-												this.b全画面モード = CConvert.bONorOFF(str4[0]);
+												this.b全画面モード = str4[0].ToBool();
 											}
 											else if ( str3.Equals( "WindowX" ) )        // #30675 2013.02.04 ikanick add
 											{
@@ -1336,11 +1336,11 @@ namespace TJAPlayer3
 											}
 											else if ( str3.Equals( "DoubleClickFullScreen" ) )	// #26752 2011.11.27 yyagi
 											{
-												this.bIsAllowedDoubleClickFullscreen = CConvert.bONorOFF( str4[ 0 ] );
+												this.bIsAllowedDoubleClickFullscreen = str4[0].ToBool();
 											}
 											else if ( str3.Equals( "EnableSystemMenu" ) )		// #28200 2012.5.1 yyagi
 											{
-												this.bIsEnabledSystemMenu = CConvert.bONorOFF( str4[ 0 ] );
+												this.bIsEnabledSystemMenu = str4[0].ToBool();
 											}
 											else if ( str3.Equals( "BackSleep" ) )				// #23568 2010.11.04 ikanick add
 											{
@@ -1368,7 +1368,7 @@ namespace TJAPlayer3
 											//}
 											//else if ( str3.Equals( "DynamicBassMixerManagement" ) )
 											//{
-											//    this.bDynamicBassMixerManagement = CConvert.bONorOFF( str4[ 0 ] );
+											//    this.bDynamicBassMixerManagement = str4[0].ToBool();
 											//}
 											else if (str3.Equals("BASSBufferSizeMs"))
 											{
@@ -1376,7 +1376,7 @@ namespace TJAPlayer3
 											}
 											else if ( str3.Equals( "SoundTimerType" ) )			// #33689 2014.6.6 yyagi
 											{
-												this.bUseOSTimer = CConvert.bONorOFF( str4[ 0 ] );
+												this.bUseOSTimer = str4[0].ToBool();
 											}
 											//else if ( str3.Equals( "MasterVolume" ) )
 											//{
@@ -1394,7 +1394,7 @@ namespace TJAPlayer3
 
 											else if ( str3.Equals( "VSyncWait" ) )
 											{
-												this.b垂直帰線待ちを行う = CConvert.bONorOFF( str4[ 0 ] );
+												this.b垂直帰線待ちを行う = str4[0].ToBool();
 											}
 											else if( str3.Equals( "SleepTimePerFrame" ) )		// #23568 2011.11.27 yyagi
 											{
@@ -1406,16 +1406,16 @@ namespace TJAPlayer3
 											}
 											else if ( str3.Equals( "StageFailed" ) )
 											{
-												this.bSTAGEFAILED有効 = CConvert.bONorOFF( str4[ 0 ] );
+												this.bSTAGEFAILED有効 = str4[0].ToBool();
 											}
 #region [ AVI/BGA ]
 											else if( str3.Equals( "AVI" ) )
 											{
-												this.bAVI有効 = CConvert.bONorOFF( str4[ 0 ] );
+												this.bAVI有効 = str4[0].ToBool();
 											}
 											else if( str3.Equals( "BGA" ) )
 											{
-												this.bBGA有効 = CConvert.bONorOFF( str4[ 0 ] );
+												this.bBGA有効 = str4[0].ToBool();
 											}
 											else if( str3.Equals( "ClipDispType" ) )
 											{
@@ -1430,21 +1430,21 @@ namespace TJAPlayer3
 #endregion
 											//else if( str3.Equals( "AdjustWaves" ) )
 											//{
-											//	this.bWave再生位置自動調整機能有効 = CConvert.bONorOFF( str4[ 0 ] );
+											//	this.bWave再生位置自動調整機能有効 = str4[0].ToBool();
 											//}
 #region [ BGM/ドラムのヒット音 ]
 											else if( str3.Equals( "BGMSound" ) )
 											{
-												this.bBGM音を発声する = CConvert.bONorOFF( str4[ 0 ] );
+												this.bBGM音を発声する = str4[0].ToBool();
 											}
 #endregion
 											else if( str3.Equals( "SaveScoreIni" ) )
 											{
-												this.bScoreIniを出力する = CConvert.bONorOFF( str4[ 0 ] );
+												this.bScoreIniを出力する = str4[0].ToBool();
 											}
 											else if( str3.Equals( "RandomFromSubBox" ) )
 											{
-												this.bランダムセレクトで子BOXを検索対象とする = CConvert.bONorOFF( str4[ 0 ] );
+												this.bランダムセレクトで子BOXを検索対象とする = str4[0].ToBool();
 											}
 #region [ コンボ数 ]
 											else if( str3.Equals( "MinComboDrums" ) )
@@ -1454,11 +1454,11 @@ namespace TJAPlayer3
 #endregion
 											else if( str3.Equals( "ShowDebugStatus" ) )
 											{
-												this.b演奏情報を表示する = CConvert.bONorOFF( str4[ 0 ] );
+												this.b演奏情報を表示する = str4[0].ToBool();
 											}
 											else if( str3.Equals( nameof(ApplyLoudnessMetadata) ) )
 											{
-												this.ApplyLoudnessMetadata = CConvert.bONorOFF( str4[ 0 ] );
+												this.ApplyLoudnessMetadata = str4[0].ToBool();
 											}
 											else if( str3.Equals( nameof(TargetLoudness) ) )
 											{
@@ -1466,7 +1466,7 @@ namespace TJAPlayer3
 											}
 											else if( str3.Equals( nameof(ApplySongVol) ) )
 											{
-												this.ApplySongVol = CConvert.bONorOFF( str4[ 0 ] );
+												this.ApplySongVol = str4[0].ToBool();
 											}
 											else if( str3.Equals( nameof(SoundEffectLevel) ) )
 											{
@@ -1490,7 +1490,7 @@ namespace TJAPlayer3
 											}
 											else if (str3.Equals("UsePanning"))
 											{
-												this.b2P演奏時のSEの左右 = CConvert.bONorOFF(str4[0]);
+												this.b2P演奏時のSEの左右 = str4[0].ToBool();
 											}
 											else if( str3.Equals(nameof(MusicPreTimeMs)))
 											{
@@ -1498,15 +1498,15 @@ namespace TJAPlayer3
 											}
 											else if( str3.Equals( "StoicMode" ) )
 											{
-												this.bストイックモード = CConvert.bONorOFF( str4[ 0 ] );
+												this.bストイックモード = str4[0].ToBool();
 											}
 											else if (str3.Equals(nameof(SendDiscordPlayingInformation)))
 											{
-												SendDiscordPlayingInformation = CConvert.bONorOFF(str4[0]);
+												SendDiscordPlayingInformation = str4[0].ToBool();
 											}
 											else if ( str3.Equals( "TimeStretch" ) )				// #23664 2013.2.24 yyagi
 											{
-												this.bTimeStretch = CConvert.bONorOFF( str4[ 0 ] );
+												this.bTimeStretch = str4[0].ToBool();
 											}
 #region [ AdjustTime ]
 											else if( str3.Equals( "InputAdjustTime" ) )
@@ -1520,7 +1520,7 @@ namespace TJAPlayer3
 											}
 											//else if ( str3.Equals( "NoMP3Streaming" ) )
 											//{
-											//    this.bNoMP3Streaming = CConvert.bONorOFF( str4[ 0 ] );
+											//    this.bNoMP3Streaming = str4[0].ToBool();
 											//}
 											else if( str3.Equals( "EndingAnime" ) )
 											{
@@ -1538,16 +1538,16 @@ namespace TJAPlayer3
 #if PLAYABLE
 										if (str3.Equals("Taiko"))
 										{
-											this.b太鼓パートAutoPlay[0] = CConvert.bONorOFF(str4[0]);
+											this.b太鼓パートAutoPlay[0] = str4[0].ToBool();
 										}
 										else if (str3.Equals("Taiko2P"))
 										{
-											this.b太鼓パートAutoPlay[1] = CConvert.bONorOFF(str4[0]);
+											this.b太鼓パートAutoPlay[1] = str4[0].ToBool();
 										}
 #endif
 										if (str3.Equals("TaikoAutoRoll"))
 										{
-											this.bAuto先生の連打 = CConvert.bONorOFF(str4[0]);
+											this.bAuto先生の連打 = str4[0].ToBool();
 										}
 										else if (str3.Equals("TaikoAutoRollSpeed"))
 										{
@@ -1588,19 +1588,19 @@ namespace TJAPlayer3
 										{
 											if( str3.Equals( "OutputLog" ) )
 											{
-												this.bログ出力 = CConvert.bONorOFF( str4[ 0 ] );
+												this.bログ出力 = str4[0].ToBool();
 											}
 											else if( str3.Equals( "TraceCreatedDisposed" ) )
 											{
-												this.bLog作成解放ログ出力 = CConvert.bONorOFF( str4[ 0 ] );
+												this.bLog作成解放ログ出力 = str4[0].ToBool();
 											}
 											else if( str3.Equals( "TraceDTXDetails" ) )
 											{
-												this.bLogDTX詳細ログ出力 = CConvert.bONorOFF( str4[ 0 ] );
+												this.bLogDTX詳細ログ出力 = str4[0].ToBool();
 											}
 											else if( str3.Equals( "TraceSongSearch" ) )
 											{
-												this.bLog曲検索ログ出力 = CConvert.bONorOFF( str4[ 0 ] );
+												this.bLog曲検索ログ出力 = str4[0].ToBool();
 											}
 											continue;
 										}
@@ -1613,23 +1613,23 @@ namespace TJAPlayer3
 										{
 											if (str3.Equals("EnableRandomSongSelect"))
 											{
-												this.RandomPresence = CConvert.bONorOFF(str4[0]);
+												this.RandomPresence = str4[0].ToBool();
 											}
 											else if (str3.Equals("EnableOpenOneSide"))
 											{
-												this.OpenOneSide = CConvert.bONorOFF(str4[0]);
+												this.OpenOneSide = str4[0].ToBool();
 											}
 											else if (str3.Equals("EnableCountDownTimer"))
 											{
-												this.bEnableCountdownTimer = CConvert.bONorOFF(str4[0]);
+												this.bEnableCountdownTimer = str4[0].ToBool();
 											}
 											else if (str3.Equals("TCClikeStyle"))
 											{
-												this.bTCClikeStyle = CConvert.bONorOFF(str4[0]);
+												this.bTCClikeStyle = str4[0].ToBool();
 											}
 											else if (str3.Equals("EnableMouseWheel"))
 											{
-												this.bEnableMouseWheel = CConvert.bONorOFF(str4[0]);
+												this.bEnableMouseWheel = str4[0].ToBool();
 											}
 											else if (str3.Equals("SongSelectSkipCount"))
 											{
@@ -1649,27 +1649,27 @@ namespace TJAPlayer3
 											}
 											else if (str3.Equals("ShowChara"))
 											{
-												ShowChara = CConvert.bONorOFF(str4[0]);
+												ShowChara = str4[0].ToBool();
 											}
 											else if( str3.Equals("ShowDancer"))
 											{
-												ShowDancer = CConvert.bONorOFF(str4[0]);
+												ShowDancer = str4[0].ToBool();
 											}
 											else if (str3.Equals("ShowRunner"))
 											{
-												ShowRunner = CConvert.bONorOFF(str4[0]);
+												ShowRunner = str4[0].ToBool();
 											}
 											else if (str3.Equals("ShowMob"))
 											{
-												ShowMob = CConvert.bONorOFF(str4[0]);
+												ShowMob = str4[0].ToBool();
 											}
 											else if (str3.Equals("ShowFooter"))
 											{
-												ShowFooter = CConvert.bONorOFF(str4[0]);
+												ShowFooter = str4[0].ToBool();
 											}
 											else if (str3.Equals("ShowPuchiChara"))
 											{
-												ShowPuchiChara = CConvert.bONorOFF(str4[0]);
+												ShowPuchiChara = str4[0].ToBool();
 											}
 											else if (str3.Equals("SubtitleDispMode"))
 											{
@@ -1707,7 +1707,7 @@ namespace TJAPlayer3
 											}
 											else if (str3.Equals("PlaySpeedNotEqualOneNoSound"))
 											{
-												this.b演奏速度が一倍速であるとき以外音声を再生しない = CConvert.bONorOFF(str4[0]);
+												this.b演奏速度が一倍速であるとき以外音声を再生しない = str4[0].ToBool();
 											}
 											else if ( str3.Equals( "Risky" ) )					// #23559 2011.6.23  yyagi
 											{
@@ -1715,11 +1715,11 @@ namespace TJAPlayer3
 											}
 											else if ( str3.Equals( "DrumsTight" ) )
 											{
-												this.bTight = CConvert.bONorOFF( str4[ 0 ] );
+												this.bTight = str4[0].ToBool();
 											}
 											else if ( str3.Equals( "BranchGuide" ) )
 											{
-												this.bBranchGuide = CConvert.bONorOFF( str4[ 0 ] );
+												this.bBranchGuide = str4[0].ToBool();
 											}
 											else if ( str3.Equals( "DefaultCourse" ) ) //2017.01.30 DD
 											{
@@ -1731,11 +1731,11 @@ namespace TJAPlayer3
 											}
 											else if ( str3.Equals( "HispeedRandom" ) )
 											{
-												this.bHispeedRandom = CConvert.bONorOFF( str4[ 0 ] );
+												this.bHispeedRandom = str4[0].ToBool();
 											}
 											else if (str3.Equals("BigNotesJudgeFrame"))
 											{
-												this.b両手判定待ち時間中に大音符を判定枠に合わせるか = CConvert.bONorOFF(str4[0]);
+												this.b両手判定待ち時間中に大音符を判定枠に合わせるか = str4[0].ToBool();
 											}
 											else if ( str3.Equals( "BigNotesWaitTime" ) )
 											{
@@ -1743,7 +1743,7 @@ namespace TJAPlayer3
 											}
 											else if ( str3.Equals( "BigNotesJudge" ) )
 											{
-												this.b大音符判定 = CConvert.bONorOFF( str4[ 0 ] );
+												this.b大音符判定 = str4[0].ToBool();
 											}
 											else if ( str3.Equals( "BranchAnime" ) )
 											{
@@ -1751,7 +1751,7 @@ namespace TJAPlayer3
 											}
 											else if ( str3.Equals( "NoInfo" ) )
 											{
-												this.bNoInfo = CConvert.bONorOFF( str4[ 0 ] );
+												this.bNoInfo = str4[0].ToBool();
 											}
 											else if ( str3.Equals( "DefaultSongSort" ) )
 											{
@@ -1787,11 +1787,11 @@ namespace TJAPlayer3
 											}
 											else if( str3.Equals( "JudgeCountDisplay" ) )
 											{
-												this.bJudgeCountDisplay = CConvert.bONorOFF( str4[ 0 ] );
+												this.bJudgeCountDisplay = str4[0].ToBool();
 											}
 											else if( str3.Equals( "Just" ) )
 											{
-												this.bJust = CConvert.bONorOFF( str4[ 0 ] );
+												this.bJust = str4[0].ToBool();
 											}
 											else if( str3.Equals( "PlayerCount" ) )
 											{
@@ -1799,11 +1799,11 @@ namespace TJAPlayer3
 											}
 											else if(str3.Equals("1PShinuchiMode"))
 											{
-												ShinuchiMode[0] = CConvert.bONorOFF(str4[0]);
+												ShinuchiMode[0] = str4[0].ToBool();
 											}
 											else if (str3.Equals("2PShinuchiMode"))
 											{
-												ShinuchiMode[1] = CConvert.bONorOFF(str4[0]);
+												ShinuchiMode[1] = str4[0].ToBool();
 											}
 											continue;
 										}

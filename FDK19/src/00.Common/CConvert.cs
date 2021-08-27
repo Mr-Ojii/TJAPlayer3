@@ -18,11 +18,6 @@ namespace FDK
 
 		// メソッド
 
-		public static bool bONorOFF( char c )
-		{
-			return ( c != '0' );
-		}
-
 		public static double DegreeToRadian( double angle )
 		{
 			return ( ( Math.PI * angle ) / 180.0 );
