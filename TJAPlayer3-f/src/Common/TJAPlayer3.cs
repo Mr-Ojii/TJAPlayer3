@@ -367,7 +367,7 @@ namespace TJAPlayer3
 			{
 				Thread.Sleep(ConfigIni.nフレーム毎スリープms);
 			}
-			if (ConfigIni.n非フォーカス時スリープms > 0)
+			if (ConfigIni.n非フォーカス時スリープms > 0 && !this.Focused)
 			{
 				Thread.Sleep(ConfigIni.n非フォーカス時スリープms);
 			}
