@@ -435,11 +435,6 @@ namespace TJAPlayer3
 						span = ( TimeSpan ) ( DateTime.Now - timeBeginLoad );
 						Trace.TraceInformation( "総読込時間:                {0}", span.ToString() );
 
-						if(TJAPlayer3.ConfigIni.FastRender)
-						{
-							FastRender.Render();//staticに変更 インスタンス作成不要
-						}
-
 						TJAPlayer3.Timer.t更新();
 						//CSoundManager.rc演奏用タイマ.t更新();
 						base.eフェーズID = CStage.Eフェーズ.NOWLOADING_システムサウンドBGMの完了を待つ;

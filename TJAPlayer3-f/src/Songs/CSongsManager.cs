@@ -93,7 +93,6 @@ namespace TJAPlayer3
 						str基点フォルダ + fileinfo.Name : c曲リストノード.r親ノード.strBreadcrumbs + " > " + str基点フォルダ + fileinfo.Name;
 
 					c曲リストノード.strTitle = dtx.TITLE;
-					c曲リストノード.strSubTitle = dtx.SUBTITLE;
 					if (!string.IsNullOrEmpty(dtx.GENRE))
 					{
 						c曲リストノード.strGenre = dtx.GENRE;
@@ -115,9 +114,6 @@ namespace TJAPlayer3
 
 					c曲リストノード.ForeColor = TJAPlayer3.Skin.SongSelect_ForeColor[TJAPlayer3.Skin.nStrジャンルtoNum(c曲リストノード.strGenre)];
 					c曲リストノード.BackColor = TJAPlayer3.Skin.SongSelect_BackColor[TJAPlayer3.Skin.nStrジャンルtoNum(c曲リストノード.strGenre)];
-
-					c曲リストノード.nLevel = dtx.LEVELtaiko;
-
 
 					bool b = false;
 
@@ -333,9 +329,6 @@ namespace TJAPlayer3
 						itemBack.strTitle = "とじる";
 						itemBack.nスコア数 = 1;
 						itemBack.r親ノード = c曲リストノード;
-
-						itemBack.strSkinPath = (c曲リストノード.r親ノード == null) ?
-							"" : c曲リストノード.r親ノード.strSkinPath;
 
 						itemBack.strBreadcrumbs = (itemBack.r親ノード == null) ?
 							itemBack.strTitle : itemBack.r親ノード.strBreadcrumbs + " > " + itemBack.strTitle;

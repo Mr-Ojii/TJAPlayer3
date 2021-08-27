@@ -190,7 +190,7 @@ namespace TJAPlayer3
 
 				#region[ バージョン表示 ]
 				//string strVersion = "KTT:J:A:I:2017072200";
-				string strCreator = "https://github.com/Mr-Ojii/TJAPlayer3";
+				string strCreator = "https://github.com/Mr-Ojii/TJAPlayer3-f";
 				AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
 #if DEBUG
 				TJAPlayer3.act文字コンソール.tPrint(4, 44, C文字コンソール.EFontType.白, "DEBUG BUILD");
@@ -200,9 +200,6 @@ namespace TJAPlayer3
 				//CDTXMania.act文字コンソール.tPrint(4, 24, C文字コンソール.EFontType.白, strSubTitle);
 				TJAPlayer3.act文字コンソール.tPrint(4, (720 - 24), C文字コンソール.EFontType.白, "TJAPlayer3-f forked TJAPlayer3(AioiLight) forked TJAPlayer2 forPC(kairera0467)");
 				#endregion
-
-				if(TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.M))
-					TJAPlayer3.act文字コンソール.tPrint(4, (500), C文字コンソール.EFontType.白, "TJAPlayer3-f forked TJAPlayer3(AioiLight) forked TJAPlayer2 forPC(kairera0467)");
 
 
 				if (TJAPlayer3.Tx.Title_InBar != null && TJAPlayer3.Tx.Title_AcBar != null)

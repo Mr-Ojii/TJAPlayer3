@@ -2896,7 +2896,7 @@ namespace TJAPlayer3
 
 		protected virtual void t進行描画_AVI()
 		{
-			if ( ( ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED ) && ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED_FadeOut ) ) && ( !TJAPlayer3.ConfigIni.bストイックモード && TJAPlayer3.ConfigIni.bAVI有効 ) )
+			if ( ( ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED ) && ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED_FadeOut ) ) && ( TJAPlayer3.ConfigIni.bAVI有効 ) )
 			{
 				this.actAVI.t進行描画();
 			}

@@ -1135,10 +1135,6 @@ namespace TJAPlayer3
 		}
 		#endregion
 
-		public void t入力(string strFilename, bool bヘッダのみ)
-		{
-			this.t入力(strFilename, bヘッダのみ, 0, 0, false);
-		}
 		public void t入力(string strFilename, bool bヘッダのみ, int nBGMAdjust, int nPlayerSide, bool bSession)
 		{
 			this.bヘッダのみ = bヘッダのみ;

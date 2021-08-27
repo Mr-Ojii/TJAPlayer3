@@ -363,9 +363,13 @@ namespace TJAPlayer3
 
 			// #xxxxx 2013.4.8 yyagi; sleepの挿入位置を、EndScnene～Present間から、BeginScene前に移動。描画遅延を小さくするため。
 			#region [ スリープ ]
-			if (ConfigIni.nフレーム毎スリープms >= 0)            // #xxxxx 2011.11.27 yyagi
+			if (ConfigIni.nフレーム毎スリープms > 0)            // #xxxxx 2011.11.27 yyagi
 			{
 				Thread.Sleep(ConfigIni.nフレーム毎スリープms);
+			}
+			if (ConfigIni.n非フォーカス時スリープms > 0)
+			{
+				Thread.Sleep(ConfigIni.n非フォーカス時スリープms);
 			}
 			#endregion
 
@@ -1063,8 +1067,6 @@ namespace TJAPlayer3
 
 		private List<CActivity> listトップレベルActivities;
 		private int n進行描画の戻り値;
-		private OpenTK.Input.MouseButton mb = OpenTK.Input.MouseButton.Right;
-		private Stopwatch judgedoubleclock = new Stopwatch();
 		private CancellationTokenSource InputCTS = null;
 
 		private void t起動処理()
@@ -1151,7 +1153,6 @@ namespace TJAPlayer3
 
 			base.Icon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("TJAPlayer3.TJAPlayer3-f.ico"));
 			base.KeyDown += this.Window_KeyDown;
-			base.MouseDown += this.Window_MouseDown;
 			base.MouseWheel += this.Window_MouseWheel;
 			base.Resize += this.Window_ResizeOrMove;                       // #23510 2010.11.20 yyagi: to set resized window size in Config.ini
 			base.Move += this.Window_ResizeOrMove;
@@ -1869,19 +1870,6 @@ namespace TJAPlayer3
 						}
 					}
 				}
-			}
-		}
-		private void Window_MouseDown( object sender, OpenTK.Input.MouseButtonEventArgs e)
-		{
-			if (mb.Equals(OpenTK.Input.MouseButton.Left) && ConfigIni.bIsAllowedDoubleClickFullscreen && judgedoubleclock.ElapsedMilliseconds < 1000)  // #26752 2011.11.27 yyagi
-			{
-				ConfigIni.bウィンドウモード = !ConfigIni.bウィンドウモード;
-				this.t全画面_ウィンドウモード切り替え();
-			}
-			else
-			{
-				mb = e.Button;
-				judgedoubleclock.Restart();
 			}
 		}
 		private void Window_MouseWheel(object sender, OpenTK.Input.MouseWheelEventArgs e)

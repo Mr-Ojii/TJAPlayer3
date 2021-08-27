@@ -209,8 +209,6 @@ namespace TJAPlayer3
 		}
 		public void tBOXを出る()
 		{
-			TJAPlayer3.Skin.SetCurrentSkinSubfolderFullName(
-				(this.r現在選択中の曲.strSkinPath == "") ? "" : TJAPlayer3.Skin.GetSkinSubfolderFullNameFromSkinName(CSkin.GetSkinName(this.r現在選択中の曲.strSkinPath)), false);
 			if (TJAPlayer3.ConfigIni.OpenOneSide) {
 				List<C曲リストノード> list = TJAPlayer3.SongsManager.list曲ルート;
 				this.r現在選択中の曲.r親ノード.Openindex = r現在選択中の曲.r親ノード.list子リスト.IndexOf(this.r現在選択中の曲);
@@ -831,8 +829,8 @@ namespace TJAPlayer3
 
 						int index = (this.n現在の選択行 + 6) % 13;    // 新しく最下部に表示されるパネルのインデックス（0～12）。
 						this.stバー情報[index].strタイトル文字列 = song.strTitle;
-						this.stバー情報[index].strSubTitle = song.strSubTitle;
-						this.stバー情報[index].ar難易度 = song.nLevel;
+						this.stバー情報[index].strSubTitle = song.arスコア.譜面情報.strSubTitle;
+						this.stバー情報[index].ar難易度 = song.arスコア.譜面情報.nレベル;
 						this.stバー情報[index].b分岐 = song.arスコア.譜面情報.b譜面分岐;
 						this.stバー情報[index].n王冠 = song.arスコア.譜面情報.n王冠;
 						this.stバー情報[index].ForeColor = song.ForeColor;
@@ -892,8 +890,8 @@ namespace TJAPlayer3
 
 						int index = ((this.n現在の選択行 - 6) + 13) % 13; // 新しく最上部に表示されるパネルのインデックス（0～12）。
 						this.stバー情報[index].strタイトル文字列 = song.strTitle;
-						this.stバー情報[index].strSubTitle = song.strSubTitle;
-						this.stバー情報[index].ar難易度 = song.nLevel;
+						this.stバー情報[index].strSubTitle = song.arスコア.譜面情報.strSubTitle;
+						this.stバー情報[index].ar難易度 = song.arスコア.譜面情報.nレベル;
 						this.stバー情報[index].b分岐 = song.arスコア.譜面情報.b譜面分岐;
 						this.stバー情報[index].n王冠 = song.arスコア.譜面情報.n王冠;
 						this.stバー情報[index].ForeColor = song.ForeColor;
@@ -1581,8 +1579,8 @@ namespace TJAPlayer3
 			{
 				this.stバー情報[i].strタイトル文字列 = song.strTitle;
 				this.stバー情報[i].eNodeType = song.eNodeType;
-				this.stバー情報[i].strSubTitle = song.strSubTitle;
-				this.stバー情報[i].ar難易度 = song.nLevel;
+				this.stバー情報[i].strSubTitle = song.arスコア.譜面情報.strSubTitle;
+				this.stバー情報[i].ar難易度 = song.arスコア.譜面情報.nレベル;
 				this.stバー情報[i].b分岐 = song.arスコア.譜面情報.b譜面分岐;
 				this.stバー情報[i].n王冠 = song.arスコア.譜面情報.n王冠;
 				this.stバー情報[i].ForeColor = song.ForeColor;

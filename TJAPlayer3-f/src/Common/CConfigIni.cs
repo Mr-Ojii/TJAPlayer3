@@ -157,7 +157,6 @@ namespace TJAPlayer3
 		public bool bSTAGEFAILED有効;
 		public bool bTight;
 		public bool bWave再生位置自動調整機能有効;
-		public bool bストイックモード;
 		public bool bランダムセレクトで子BOXを検索対象とする;
 		public bool bログ出力;
 		public bool b演奏情報を表示する;
@@ -175,7 +174,6 @@ namespace TJAPlayer3
 		public int n演奏速度;
 		public bool b演奏速度が一倍速であるとき以外音声を再生しない;
 		public string[] strPlayerName;
-		public int n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms;
 
 		private bool _applyLoudnessMetadata;
 
@@ -305,7 +303,6 @@ namespace TJAPlayer3
 
 		public int nInputAdjustTimeMs;
 		public int nPoliphonicSounds;				// #28228 2012.5.1 yyagi レーン毎の最大同時発音数
-		public bool bIsEnabledSystemMenu;			// #28200 2012.5.1 yyagi System Menuの使用可否切替
 		public string strSystemSkinSubfolderFullName;	// #28195 2012.5.2 yyagi Skin切替用 System/以下のサブフォルダ名
 		public bool bConfigIniがないかDTXManiaのバージョンが異なる
 		{
@@ -367,7 +364,6 @@ namespace TJAPlayer3
 		}
 		public bool b2P演奏時のSEの左右;
 		public int nRisky;						// #23559 2011.6.20 yyagi Riskyでの残ミス数。0で閉店
-		public bool bIsAllowedDoubleClickFullscreen;	// #26752 2011.11.27 yyagi ダブルクリックしてもフルスクリーンに移行しない
 		public int nSoundDeviceType;				// #24820 2012.12.23 yyagi 出力サウンドデバイス(0=BASS, 1=ASIO, 2=WASAPI(Exclusive), 3=WASAPI(Shared))
 		public int nWASAPIBufferSizeMs;				// #24820 2013.1.15 yyagi WASAPIのバッファサイズ
 //		public int nASIOBufferSizeMs;				// #24820 2012.12.28 yyagi ASIOのバッファサイズ
@@ -380,7 +376,6 @@ namespace TJAPlayer3
 		//public bool bNoMP3Streaming;				// 2014.4.14 yyagi; mp3のシーク位置がおかしくなる場合は、これをtrueにすることで、wavにデコードしてからオンメモリ再生する
 		public int nMasterVolume;
 		public bool[] ShinuchiMode = new bool[2]; // 真打モード
-		public bool FastRender; // 事前画像描画モード
 		public int MusicPreTimeMs; // 音源再生前の待機時間ms
 		/// <summary>
 		/// DiscordのRitch Presenceに再生中の.tjaファイルの情報を送信するかどうか。
@@ -473,7 +468,6 @@ namespace TJAPlayer3
 			this.bSTAGEFAILED有効 = true;
 			this.bAVI有効 = false;
 			this.bBGA有効 = true;
-			this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms = 100;
 			//this.bWave再生位置自動調整機能有効 = true;
 			this.bWave再生位置自動調整機能有効 = false;
 			this.bBGM音を発声する = true;
@@ -543,11 +537,9 @@ namespace TJAPlayer3
 			this.tデフォルトのキーアサインに設定する();
 			this.nRisky = 0;							// #23539 2011.7.26 yyagi RISKYモード
 
-			this.bIsAllowedDoubleClickFullscreen = false;	// #26752 2011.11.26 ダブルクリックでのフルスクリーンモード移行を許可 2020.03.24初期値をfalseにした。 Mr-Ojii
 			this.nPoliphonicSounds = 4;					// #28228 2012.5.1 yyagi レーン毎の最大同時発音数
 														// #24820 2013.1.15 yyagi 初期値を4から2に変更。BASS.net使用時の負荷軽減のため。
 														// #24820 2013.1.17 yyagi 初期値を4に戻した。動的なミキサー制御がうまく動作しているため。
-			this.bIsEnabledSystemMenu = true;			// #28200 2012.5.1 yyagi System Menuの利用可否切替(使用可)
 			this.strSystemSkinSubfolderFullName = "";	// #28195 2012.5.2 yyagi 使用中のSkinサブフォルダ名
 			this.bTight = false;                        // #29500 2012.9.11 kairera0467 TIGHTモード
 			#region [ WASAPI/ASIO ]
@@ -598,7 +590,6 @@ namespace TJAPlayer3
 			this.nPlayerCount = 1; //2017.08.18 kairera0467 マルチプレイ対応
 			ShinuchiMode[0] = false;
 			ShinuchiMode[1] = false;
-			FastRender = true;
 			MusicPreTimeMs = 1000; // 一秒
 			SendDiscordPlayingInformation = true;
 		}
@@ -673,10 +664,6 @@ namespace TJAPlayer3
 			sw.WriteLine( "; e.g. System/Default/Graphics/... -> Set SkinPath=./Default/" );
 			sw.WriteLine( "SkinPath={0}", relPath );
 			sw.WriteLine();
-			sw.WriteLine("; 事前画像描画機能を使うかどうか。(0: OFF, 1: ON)");
-			sw.WriteLine("; Use pre-textures render.");
-			sw.WriteLine("{0}={1}", nameof(FastRender), FastRender ? 1 : 0);
-			sw.WriteLine();
 			#endregion
 			#region [ Window関連 ]
 			sw.WriteLine( "; 画面モード(0:ウィンドウ, 1:全画面)" );
@@ -699,15 +686,6 @@ namespace TJAPlayer3
 			sw.WriteLine( "; Y position in the window mode." );	            	    //
 			sw.WriteLine( "WindowY={0}", this.n初期ウィンドウ開始位置Y );   		//
 			sw.WriteLine();												            //
-
-			sw.WriteLine( "; ウインドウをダブルクリックした時にフルスクリーンに移行するか(0:移行しない,1:移行する)" );	// #26752 2011.11.27 yyagi
-			sw.WriteLine( "; Whether double click to go full screen mode or not.(0:No, 1:Yes)" );		//
-			sw.WriteLine( "DoubleClickFullScreen={0}", this.bIsAllowedDoubleClickFullscreen? 1 : 0);	//
-			sw.WriteLine();																				//
-			sw.WriteLine( "; ALT+SPACEのメニュー表示を抑制するかどうか(0:抑制する 1:抑制しない)" );		// #28200 2012.5.1 yyagi
-			sw.WriteLine( "; Whether ALT+SPACE menu would be masked or not.(0=masked 1=not masked)" );	//
-			sw.WriteLine( "EnableSystemMenu={0}", this.bIsEnabledSystemMenu? 1 : 0 );					//
-			sw.WriteLine();																				//
 			sw.WriteLine( "; 非フォーカス時のsleep値[ms]" );	    			    // #23568 2011.11.04 ikanick add
 			sw.WriteLine( "; A sleep time[ms] while the window is inactive." );	//
 			sw.WriteLine( "BackSleep={0}", this.n非フォーカス時スリープms );		// そのまま引用（苦笑）
@@ -817,11 +795,6 @@ namespace TJAPlayer3
 			sw.WriteLine( "ClipDispType={0}", (int) this.eClipDispType );
 			sw.WriteLine();
 			#endregion
-			#region [ プレビュー音 ]
-			sw.WriteLine( "; 曲選択からプレビュー画像表示までのウェイト[ms]" );
-			sw.WriteLine( "PreviewImageWait={0}", this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms );
-			sw.WriteLine();
-			#endregion
 			#region [ BGMの再生 ]
 			sw.WriteLine( "; BGM の再生(0:OFF, 1:ON)" );
 			sw.WriteLine( "BGMSound={0}", this.bBGM音を発声する ? 1 : 0 );
@@ -880,19 +853,13 @@ namespace TJAPlayer3
 			sw.WriteLine($"; Blank time before music source to play. (ms)");
 			sw.WriteLine("{0}={1}", nameof(MusicPreTimeMs), MusicPreTimeMs);
 			sw.WriteLine();
-			sw.WriteLine( "; ストイックモード(0:OFF, 1:ON)" );
-			sw.WriteLine( "; Stoic mode. (0:OFF, 1:ON)" );
-			sw.WriteLine( "StoicMode={0}", this.bストイックモード ? 1 : 0 );
-			sw.WriteLine();
 			sw.WriteLine("; Discordに再生中の譜面情報を送信する(0:OFF, 1:ON)");                        // #25399 2011.6.9 yyagi
 			sw.WriteLine("; Share Playing .tja file infomation on Discord.");                     //
 			sw.WriteLine("{0}={1}", nameof(SendDiscordPlayingInformation), SendDiscordPlayingInformation ? 1 : 0);       //
 			sw.WriteLine();
 			sw.WriteLine( "; 再生速度変更を、ピッチ変更で行うかどうか(0:ピッチ変更, 1:タイムストレッチ" );	// #23664 2013.2.24 yyagi
-			sw.WriteLine( "; (WASAPI/ASIO使用時のみ有効) " );
 			sw.WriteLine( "; Set \"0\" if you'd like to use pitch shift with PlaySpeed." );	//
 			sw.WriteLine( "; Set \"1\" for time stretch." );								//
-			sw.WriteLine( "; (Only available when you're using using WASAPI or ASIO)" );	//
 			sw.WriteLine( "TimeStretch={0}", this.bTimeStretch ? 1 : 0 );					//
 			sw.WriteLine();
 
@@ -1298,10 +1265,6 @@ namespace TJAPlayer3
 												}
 												this.strSystemSkinSubfolderFullName = absSkinPath;
 											}
-											else if (str3.Equals(nameof(FastRender)))
-											{
-												FastRender = str4[0].ToBool();
-											}
 #endregion
 #region [ Window関係 ]
 											else if (str3.Equals("FullScreen"))
@@ -1333,14 +1296,6 @@ namespace TJAPlayer3
 												{
 													this.nウインドウheight = GameWindowSize.Height;
 												}
-											}
-											else if ( str3.Equals( "DoubleClickFullScreen" ) )	// #26752 2011.11.27 yyagi
-											{
-												this.bIsAllowedDoubleClickFullscreen = str4[0].ToBool();
-											}
-											else if ( str3.Equals( "EnableSystemMenu" ) )		// #28200 2012.5.1 yyagi
-											{
-												this.bIsEnabledSystemMenu = str4[0].ToBool();
 											}
 											else if ( str3.Equals( "BackSleep" ) )				// #23568 2010.11.04 ikanick add
 											{
@@ -1422,12 +1377,6 @@ namespace TJAPlayer3
 												this.eClipDispType = (EClipDispType)str4.ToInt32(0, 3, (int) this.eClipDispType);
 											}
 #endregion
-#region [ プレビュー音 ]
-											else if( str3.Equals( "PreviewImageWait" ) )
-											{
-												this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms = str4.ToInt32(0, 0x5f5e0ff, this.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms);
-											}
-#endregion
 											//else if( str3.Equals( "AdjustWaves" ) )
 											//{
 											//	this.bWave再生位置自動調整機能有効 = str4[0].ToBool();
@@ -1495,10 +1444,6 @@ namespace TJAPlayer3
 											else if( str3.Equals(nameof(MusicPreTimeMs)))
 											{
 												MusicPreTimeMs = int.Parse(str4);
-											}
-											else if( str3.Equals( "StoicMode" ) )
-											{
-												this.bストイックモード = str4[0].ToBool();
 											}
 											else if (str3.Equals(nameof(SendDiscordPlayingInformation)))
 											{

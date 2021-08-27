@@ -163,10 +163,6 @@ namespace TJAPlayer3
 				"BGAの使用：\n画像(BGA)を表示可能にする場合に\nON にします。BGA の再生には、それ\nなりのマシンパワーが必要とされます。",
 				"To draw BGA (back ground animations)\n or not." );
 			this.list項目リスト.Add( this.iSystemBGA );
-			this.iSystemPreviewImageWait = new CItemInteger( "PreImageWait", 0, 0x2710, TJAPlayer3.ConfigIni.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms,
-				"プレビュー画像表示までの時間：\n曲にカーソルが合わされてからプレ\nビュー画像が表示されるまでの時間\nを指定します。\n0 ～ 10000 [ms] が指定可能です。",
-				"Delay time(ms) to show preview image\n in SELECT MUSIC screen.\nYou can specify from 0ms to 10000ms." );
-			this.list項目リスト.Add( this.iSystemPreviewImageWait );
 			this.iSystemDebugInfo = new CItemToggle( "Debug Info", TJAPlayer3.ConfigIni.b演奏情報を表示する,
 				"演奏情報の表示：\n演奏中、BGA領域の下部に演奏情報\n（FPS、BPM、演奏時間など）を表示し\nます。\nまた、小節線の横に小節番号が表示\nされるようになります。",
 				"To show song informations on playing\n BGA area. (FPS, BPM, total time etc)\nYou can ON/OFF the indications\n by pushing [Del] while playing drums" );
@@ -467,10 +463,6 @@ namespace TJAPlayer3
 				"");
 			this.list項目リスト.Add(ShowFooter);
 
-			FastRender = new CItemToggle(nameof(FastRender), TJAPlayer3.ConfigIni.FastRender,
-				"事前画像描画機能を使うかどうか。\n",
-				"Use pre-textures render.\n");
-			this.list項目リスト.Add(FastRender);
 			ShowPuchiChara = new CItemToggle("ShowPuchiChara", TJAPlayer3.ConfigIni.ShowPuchiChara,
 				"ぷちキャラ画像を表示するかどうか\n",
 				"Show PuchiChara Images.\n" +
@@ -1522,7 +1514,6 @@ namespace TJAPlayer3
 		private CItemToggle iSystemDebugInfo;
 		private CItemToggle iSystemFullscreen;
 		private CItemInteger iSystemMinComboDrums;
-		private CItemInteger iSystemPreviewImageWait;
 		private CItemToggle iSystemRandomFromSubBox;
 		private CItemBase iSystemReturnToMenu;
 		private CItemToggle iSystemSaveScore;
@@ -1609,7 +1600,6 @@ namespace TJAPlayer3
 		CItemToggle ShowPuchiChara;
 		CItemToggle ShinuchiMode1P;
 		CItemToggle ShinuchiMode2P;
-		CItemToggle FastRender;
 		CItemInteger MusicPreTimeMs;
 
 		private CItemInteger iInputAdjustTimeMs;
@@ -1660,7 +1650,6 @@ namespace TJAPlayer3
 			TJAPlayer3.ConfigIni.bAVI有効 = this.iSystemAVI.bON;
 			TJAPlayer3.ConfigIni.bBGA有効 = this.iSystemBGA.bON;
 //			CDTXMania.ConfigIni.bGraph有効 = this.iSystemGraph.bON;#24074 2011.01.23 comment-out ikanick オプション(Drums)へ移行
-			TJAPlayer3.ConfigIni.n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms = this.iSystemPreviewImageWait.n現在の値;
 			TJAPlayer3.ConfigIni.b演奏情報を表示する = this.iSystemDebugInfo.bON;
 			TJAPlayer3.ConfigIni.n背景の透過度 = this.iSystemBGAlpha.n現在の値;
 			TJAPlayer3.ConfigIni.bBGM音を発声する = this.iSystemBGMSound.bON;
@@ -1710,7 +1699,6 @@ namespace TJAPlayer3
 			TJAPlayer3.ConfigIni.ShowFooter = this.ShowFooter.bON;
 			TJAPlayer3.ConfigIni.ShowPuchiChara = this.ShowPuchiChara.bON;
 			TJAPlayer3.ConfigIni.nPlayerCount = this.iTaikoPlayerCount.n現在の値;
-			TJAPlayer3.ConfigIni.FastRender = this.FastRender.bON;
 		}
 		private void tConfigIniへ記録する_Drums()
 		{
