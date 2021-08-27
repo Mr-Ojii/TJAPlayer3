@@ -4,6 +4,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using FDK;
 using System.Reflection;
 using DiscordRPC;
@@ -71,14 +72,20 @@ namespace TJAPlayer3
 		}
 		public override void OnManagedリソースの作成()
 		{
-			if( !base.b活性化してない) {
+			string[,] str = new string[,]{
+				{ "演奏ゲーム","Taiko Mode"},
+				{ "コンフィグ","Config"},
+				{ "やめる","Quit"}
+			};
+			int lang = (CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
+			if ( !base.b活性化してない) {
 				this.pf = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 28);
-				texttexture[0] = this.文字テクスチャを生成する("演奏ゲーム", Color.White, Color.SaddleBrown);
-				texttexture[1] = this.文字テクスチャを生成する("コンフィグ", Color.White, Color.SaddleBrown);
-				texttexture[2] = this.文字テクスチャを生成する("やめる", Color.White, Color.SaddleBrown);
-				texttexture[3] = this.文字テクスチャを生成する("演奏ゲーム", Color.White, Color.Black);
-				texttexture[4] = this.文字テクスチャを生成する("コンフィグ", Color.White, Color.Black);
-				texttexture[5] = this.文字テクスチャを生成する("やめる", Color.White, Color.Black);
+				texttexture[0] = this.文字テクスチャを生成する(str[0, lang], Color.White, Color.SaddleBrown);
+				texttexture[1] = this.文字テクスチャを生成する(str[1, lang], Color.White, Color.SaddleBrown);
+				texttexture[2] = this.文字テクスチャを生成する(str[2, lang], Color.White, Color.SaddleBrown);
+				texttexture[3] = this.文字テクスチャを生成する(str[0, lang], Color.White, Color.Black);
+				texttexture[4] = this.文字テクスチャを生成する(str[1, lang], Color.White, Color.Black);
+				texttexture[5] = this.文字テクスチャを生成する(str[2, lang], Color.White, Color.Black);
 				base.OnManagedリソースの作成();
 			}
 		}
