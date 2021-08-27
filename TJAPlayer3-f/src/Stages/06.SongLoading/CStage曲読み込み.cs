@@ -327,6 +327,11 @@ namespace TJAPlayer3
 							if( TJAPlayer3.ConfigIni.nPlayerCount == 2 )
 								TJAPlayer3.DTX[1] = new CDTX( str, false, 1.0, ini.stファイル.BGMAdjust, 1, TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] == TJAPlayer3.stage選曲.n確定された曲の難易度[1]);
 
+							if ( TJAPlayer3.ConfigIni.bスクロールモードを上書き == false)
+							{
+								TJAPlayer3.ConfigIni.eScrollMode = TJAPlayer3.DTX[0].eScrollMode;
+							}
+
 							Trace.TraceInformation( "----曲情報-----------------" );
 							Trace.TraceInformation( "TITLE: {0}", TJAPlayer3.DTX[0].TITLE );
 							Trace.TraceInformation( "FILE: {0}",  TJAPlayer3.DTX[0].strFilenameの絶対パス );

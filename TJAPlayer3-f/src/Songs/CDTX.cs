@@ -705,6 +705,7 @@ namespace TJAPlayer3
 		public bool IsEnabledFixSENote;
 		public int FixSENote;
 		public GaugeIncreaseMode GaugeIncreaseMode;
+		public EScrollMode eScrollMode;
 
 		// コンストラクタ
 
@@ -753,6 +754,7 @@ namespace TJAPlayer3
 
 			this.SongVol = CSound.DefaultSongVol;
 			this.SongLoudnessMetadata = null;
+			this.eScrollMode = EScrollMode.Normal;
 
 			GaugeIncreaseMode = GaugeIncreaseMode.Normal;
 
@@ -4660,16 +4662,13 @@ namespace TJAPlayer3
 		/// <param name="InputText"></param>
 		private void t難易度別ヘッダ(string InputText)
 		{
-			if (TJAPlayer3.actEnumSongs.b活性化してない)
+			if (InputText.Equals("#HBSCROLL"))
 			{
-				if (InputText.Equals("#HBSCROLL") && TJAPlayer3.ConfigIni.bスクロールモードを上書き == false)
-				{
-					TJAPlayer3.ConfigIni.eScrollMode = EScrollMode.HBSCROLL;
-				}
-				if (InputText.Equals("#BMSCROLL") && TJAPlayer3.ConfigIni.bスクロールモードを上書き == false)
-				{
-					TJAPlayer3.ConfigIni.eScrollMode = EScrollMode.BMSCROLL;
-				}
+				this.eScrollMode = EScrollMode.HBSCROLL;
+			}
+			else if (InputText.Equals("#BMSCROLL")) 
+			{
+				this.eScrollMode = EScrollMode.BMSCROLL;
 			}
 
 			string[] strArray = InputText.Split(new char[] { ':' });
