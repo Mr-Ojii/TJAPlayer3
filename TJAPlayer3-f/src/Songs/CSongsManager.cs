@@ -84,7 +84,7 @@ namespace TJAPlayer3
 				if ((strExt.Equals(".tja")) || strExt.Equals(".tcm") || strExt.Equals(".tci"))
 				{
 					#region[ 新処理 ]
-					CDTX dtx = new CDTX(str基点フォルダ + fileinfo.Name, false, 1.0, 0, 0, false);
+					CDTX dtx = new CDTX(str基点フォルダ + fileinfo.Name, false, 0, 0, false);
 					C曲リストノード c曲リストノード = new C曲リストノード();
 					c曲リストノード.eNodeType = C曲リストノード.ENodeType.SCORE;
 
@@ -135,8 +135,6 @@ namespace TJAPlayer3
 					}
 
 					c曲リストノード.arスコア.譜面情報.Title = dtx.TITLE;
-					c曲リストノード.arスコア.譜面情報.Artist = dtx.ARTIST;
-					c曲リストノード.arスコア.譜面情報.Comment = dtx.COMMENT;
 					c曲リストノード.arスコア.譜面情報.Genre = dtx.GENRE;
 					c曲リストノード.arスコア.譜面情報.Backgound = ((dtx.BACKGROUND != null) && (dtx.BACKGROUND.Length > 0)) ? dtx.BACKGROUND : "";
 					c曲リストノード.arスコア.譜面情報.Bpm = dtx.BPM;
@@ -291,10 +289,6 @@ namespace TJAPlayer3
 				for (int i = 0; i < (int)Difficulty.Total; i++)
 				{
 					itemRandom.arスコア.譜面情報.Title = string.Format("< RANDOM SELECT Lv.{0} >", i + 1);
-					itemRandom.arスコア.譜面情報.Comment =
-						 (CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ja") ?
-						 string.Format("難易度レベル {0} 付近の曲をランダムに選択します。難易度レベルを持たない曲も選択候補となります。", i + 1) :
-						 string.Format("Random select from the songs which has the level about L{0}. Non-leveled songs may also selected.", i + 1);
 					itemRandom.arスコア.譜面情報.b譜面が存在する[i] = true;
 				}
 				ノードリスト.Add(itemRandom);
@@ -349,10 +343,6 @@ namespace TJAPlayer3
 						itemBack.arスコア = new Cスコア();
 						itemBack.arスコア.ファイル情報.フォルダの絶対パス = "";
 						itemBack.arスコア.譜面情報.Title = itemBack.strTitle;
-						itemBack.arスコア.譜面情報.Comment =
-							(CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ja") ?
-							"BOX を出ます。" :
-							"Exit from the BOX.";
 						c曲リストノード.arスコア.譜面情報.b譜面が存在する[0] = true;
 						c曲リストノード.list子リスト.Insert(Math.Min(index * (TJAPlayer3.ConfigIni.n閉じる差し込み間隔 + 1), c曲リストノード.list子リスト.Count), itemBack);
 

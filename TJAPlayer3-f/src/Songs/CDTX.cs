@@ -277,7 +277,7 @@ namespace TJAPlayer3
 					}
 				}
 
-				return (int)(nDuration / TJAPlayer3.DTX[0].db再生速度);
+				return (int)nDuration;
 			}
 
 			#region [ IComparable 実装 ]
@@ -525,7 +525,6 @@ namespace TJAPlayer3
 			public double dbBMScollTime;
 			public double db移動待機時刻;
 			public double db出現時刻;
-			public double db再生速度;
 			public float fMeasure_s;
 			public float fMeasure_m;
 		}
@@ -545,13 +544,10 @@ namespace TJAPlayer3
 		public int nPlayerSide; //2017.08.14 kairera0467 引数で指定する
 		public bool bSession譜面を読み込む;
 
-		public string ARTIST;
 		public string BACKGROUND;
 		public double BASEBPM;
 		public double BPM;
 		public bool bHasBranchChip;
-		public string COMMENT;
-		public double db再生速度;
 		public string GENRE;
 		public bool bLyrics;
 		public int[] LEVELtaiko = new int[(int)Difficulty.Total] { -1, -1, -1, -1, -1, -1, -1 };
@@ -689,15 +685,12 @@ namespace TJAPlayer3
 			this.TITLE = "";
 			this.SUBTITLE = "";
 			this.SUBTITLEDisp = false;
-			this.ARTIST = "";
-			this.COMMENT = "";
 			this.GENRE = "";
 			this.bLyrics = false;
 			this.BACKGROUND = "";
 			this.PATH_WAV = "";
 			this.BPM = 120.0;
 			this.bHIDDENBRANCH = false;
-			this.db再生速度 = 1.0;
 			this.bHasBranchChip = false;
 			this.strFilename = "";
 			this.strフォルダ名 = "";
@@ -735,11 +728,11 @@ namespace TJAPlayer3
 
 			Dan_C = new Dan_C[3];
 		}
-		public CDTX(string strFilename, bool bヘッダのみ, double db再生速度, int nBGMAdjust, int nPlayerSide, bool bSession)
+		public CDTX(string strFilename, bool bヘッダのみ, int nBGMAdjust, int nPlayerSide, bool bSession)
 			: this()
 		{
 			this.On活性化();
-			this.t入力(strFilename, bヘッダのみ, db再生速度, nBGMAdjust, nPlayerSide, bSession);
+			this.t入力(strFilename, bヘッダのみ, nBGMAdjust, nPlayerSide, bSession);
 		}
 
 
@@ -1144,9 +1137,9 @@ namespace TJAPlayer3
 
 		public void t入力(string strFilename, bool bヘッダのみ)
 		{
-			this.t入力(strFilename, bヘッダのみ, 1.0, 0, 0, false);
+			this.t入力(strFilename, bヘッダのみ, 0, 0, false);
 		}
-		public void t入力(string strFilename, bool bヘッダのみ, double db再生速度, int nBGMAdjust, int nPlayerSide, bool bSession)
+		public void t入力(string strFilename, bool bヘッダのみ, int nBGMAdjust, int nPlayerSide, bool bSession)
 		{
 			this.bヘッダのみ = bヘッダのみ;
 			this.strFilenameの絶対パス = Path.GetFullPath(strFilename);
@@ -1162,14 +1155,14 @@ namespace TJAPlayer3
 				{
 					string tcistr = CJudgeTextEncoding.ReadTextFile(strFilename);
 
-					this.t入力tci(tcistr, db再生速度, nBGMAdjust);
+					this.t入力tci(tcistr, nBGMAdjust);
 
 				}
 				else if (Path.GetExtension(strFilename).Equals(".tcm"))
 				{
 					string tcmstr = CJudgeTextEncoding.ReadTextFile(strFilename);
 
-					this.t入力tcm(tcmstr, db再生速度, nBGMAdjust);
+					this.t入力tcm(tcmstr, nBGMAdjust);
 
 				}
 				else
@@ -1177,7 +1170,7 @@ namespace TJAPlayer3
 					//次郎方式
 					string str2 = CJudgeTextEncoding.ReadTextFile(strFilename);
 
-					this.t入力_全入力文字列から(str2, db再生速度, nBGMAdjust);
+					this.t入力_全入力文字列から(str2, nBGMAdjust);
 				}
 
 			}
@@ -1190,13 +1183,12 @@ namespace TJAPlayer3
 					this.b譜面が存在する[i] = false;
 			}
 		}
-		public void t入力_全入力文字列から( string str1, double db再生速度, int nBGMAdjust)
+		public void t入力_全入力文字列から( string str1, int nBGMAdjust)
 		{
 			if (!string.IsNullOrEmpty(str1))
 			{
 				#region [ 入力/行解析 ]
 				#region[初期化]
-				this.db再生速度 = db再生速度;
 				this.n内部番号WAV1to = 1;
 				this.n内部番号BPM1to = 1;
 				this.dbNowScroll = 1.0;
@@ -1648,15 +1640,6 @@ namespace TJAPlayer3
 							}
 					}
 				}
-				if (this.db再生速度 > 0.0)
-				{
-					foreach (CChip chip in this.listChip)
-					{
-						chip.n発声時刻ms = (int)(((double)chip.n発声時刻ms) / this.db再生速度);
-						chip.db発声時刻ms = (((double)chip.n発声時刻ms) / this.db再生速度);
-						chip.nノーツ終了時刻ms = (int)(((double)chip.nノーツ終了時刻ms) / this.db再生速度);
-					}
-				}
 				#endregion
 
 				#region[listlyricを時間順に並び替え。]
@@ -1754,11 +1737,11 @@ namespace TJAPlayer3
 			#endregion
 		}
 
-		private void t入力tcm(string 入力文字列,　double 再生速度,int nBGMAdjust) {
+		private void t入力tcm(string 入力文字列, int nBGMAdjust)
+		{
 			if (!string.IsNullOrEmpty(入力文字列))
 			{
 				#region [ 初期化 ]
-				this.db再生速度 = 再生速度;
 				this.n内部番号WAV1to = 1;
 				this.n内部番号BPM1to = 1;
 				this.dbNowScroll = 1.0;
@@ -2014,7 +1997,7 @@ namespace TJAPlayer3
 						#endregion
 
 
-						t入力tci_tcm用(tcistr, 再生速度, coursesindex[diff]);
+						t入力tci_tcm用(tcistr, coursesindex[diff]);
 					}
 				
 				#region[#END命令の挿入]
@@ -2037,7 +2020,7 @@ namespace TJAPlayer3
 			}
 		}
 
-		private void t入力tci_tcm用(string 入力文字列, double 再生速度, int cindex) {
+		private void t入力tci_tcm用(string 入力文字列, int cindex) {
 
 			OTCInfomation obj = JsonSerializer.Deserialize<OTCInfomation>(入力文字列, new JsonSerializerOptions() { AllowTrailingCommas = true });
 
@@ -2191,12 +2174,11 @@ namespace TJAPlayer3
 		}
 
 
-		private void t入力tci(string 入力文字列, double 再生速度,int nBGMAdjust)
+		private void t入力tci(string 入力文字列,int nBGMAdjust)
 		{
 			if (!string.IsNullOrEmpty(入力文字列))
 			{
 				#region [ 初期化 ]
-				this.db再生速度 = 再生速度;
 				this.n内部番号WAV1to = 1;
 				this.n内部番号BPM1to = 1;
 				this.dbNowScroll = 1.0;
@@ -3472,20 +3454,6 @@ namespace TJAPlayer3
 			}
 		}
 
-		private CChip t発声位置から過去方向で一番近くにある指定チャンネルのチップを返す(int n発声時刻, int nチャンネル番号)
-		{
-			//過去方向への検索
-			for (int i = this.listChip.Count - 1; i >= 0; i--)
-			{
-				if (this.listChip[i].nチャンネル番号 == nチャンネル番号)
-				{
-					return this.listChip[i];
-				}
-			}
-
-			return null;
-		}
-
 		//現在、以下のような行には対応できていません。
 		//_パラメータを持つ命令がある
 		//_行の途中に命令がある
@@ -4136,7 +4104,6 @@ namespace TJAPlayer3
 				cBranchStart.fMeasure_m = this.fNow_Measure_m;
 				cBranchStart.nMeasureCount = this.n現在の小節数;
 				cBranchStart.db移動待機時刻 = this.db移動待機時刻;
-				cBranchStart.db再生速度 = this.db再生速度;
 				cBranchStart.db出現時刻 = this.db出現時刻;
 				#endregion
 			}
@@ -4152,7 +4119,6 @@ namespace TJAPlayer3
 				this.fNow_Measure_m = cBranchStart.fMeasure_m;
 				this.n現在の小節数 = cBranchStart.nMeasureCount;
 				this.db移動待機時刻 = cBranchStart.db移動待機時刻;
-				this.db再生速度 = cBranchStart.db再生速度;
 				this.db出現時刻 = cBranchStart.db出現時刻;
 				#endregion
 			}
@@ -5691,7 +5657,7 @@ namespace TJAPlayer3
 						int duration = 0;
 						if (listWAV.TryGetValue(pChip.n整数値_内部番号, out CDTX.CWAV wc))
 						{
-							duration = (wc.rSound[0] == null) ? 0 : (int)(wc.rSound[0].nDurationms / this.db再生速度); // #23664 durationに再生速度が加味されておらず、低速再生でBGMが途切れる問題を修正 (発声時刻msは、DTX読み込み時に再生速度加味済)
+							duration = (wc.rSound[0] == null) ? 0 : (int)wc.rSound[0].nDurationms; // #23664 durationに再生速度が加味されておらず、低速再生でBGMが途切れる問題を修正 (発声時刻msは、DTX読み込み時に再生速度加味済)
 						}
 						//Debug.WriteLine("duration=" + duration );
 						int n新RemoveMixer時刻ms, n新RemoveMixer位置;

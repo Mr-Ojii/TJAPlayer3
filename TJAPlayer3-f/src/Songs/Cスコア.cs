@@ -51,8 +51,6 @@ namespace TJAPlayer3
 		public struct ST譜面情報
 		{
 			public string Title;
-			public string Artist;
-			public string Comment;
 			public string Genre;
 			public string Backgound;
 			public int 演奏回数;
@@ -159,8 +157,6 @@ namespace TJAPlayer3
 			this.ファイル情報 = new STファイル情報( "", "", DateTime.MinValue, 0L );
 			this.譜面情報 = new ST譜面情報();
 			this.譜面情報.Title = "";
-			this.譜面情報.Artist = "";
-			this.譜面情報.Comment = "";
 			this.譜面情報.Genre = "";
 			this.譜面情報.Backgound = "";
 			this.譜面情報.演奏回数 = new int();
