@@ -39,24 +39,6 @@ namespace FDK
 			return (float) RadianToDegree( (double) angle );
 		}
 
-		public static int n値を文字列から取得して範囲内に丸めて返す( string str数値文字列, int n最小値, int n最大値, int n取得失敗時のデフォルト値 )
-		{
-			int num;
-			if( ( int.TryParse( str数値文字列, out num ) && ( num >= n最小値 ) ) && ( num <= n最大値 ) )
-				return num;
-
-			return n取得失敗時のデフォルト値;
-		}
-
-		public static double db値を文字列から取得して範囲内に丸めて返す( string str数値文字列, double db最小値, double db最大値, double db取得失敗時のデフォルト値 )
-		{
-			double num;
-			if( ( double.TryParse( str数値文字列, out num ) && ( num >= db最小値 ) ) && ( num <= db最大値 ) )
-				return num;
-
-			return db取得失敗時のデフォルト値;
-		}
-
 		// #23568 2010.11.04 ikanick add
 		public static int n値を文字列から取得して範囲内にちゃんと丸めて返す(string str数値文字列, int n最小値, int n最大値, int n取得失敗時のデフォルト値)
 		{

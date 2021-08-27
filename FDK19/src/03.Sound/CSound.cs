@@ -617,9 +617,6 @@ namespace FDK
 
 		#region [ private ]
 		//-----------------
-		public int[] BufferOpen;
-		public int[] SourceOpen;
-		public float[] defaultPan;
 		private Lufs _gain = DefaultGain;
 		private Lufs? _truePeak = null;
 		private int _automationLevel = DefaultAutomationLevel;

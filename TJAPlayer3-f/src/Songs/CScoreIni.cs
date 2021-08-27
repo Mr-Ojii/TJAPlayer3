@@ -342,12 +342,12 @@ namespace TJAPlayer3
 								}
 								else if (item.Equals("PlayCountDrums"))
 								{
-									this.stファイル.PlayCountDrums = CConvert.n値を文字列から取得して範囲内に丸めて返す(para, 0, 99999999, 0);
+									this.stファイル.PlayCountDrums = CConvert.n値を文字列から取得して範囲内にちゃんと丸めて返す(para, 0, 99999999, 0);
 								}
 								// #23596 10.11.16 add ikanick------------------------------------/
 								else if (item.Equals("ClearCountDrums"))
 								{
-									this.stファイル.ClearCountDrums = CConvert.n値を文字列から取得して範囲内に丸めて返す(para, 0, 99999999, 0);
+									this.stファイル.ClearCountDrums = CConvert.n値を文字列から取得して範囲内にちゃんと丸めて返す(para, 0, 99999999, 0);
 								}
 								//----------------------------------------------------------------/
 								else if (item.Equals("History0"))
@@ -372,7 +372,7 @@ namespace TJAPlayer3
 								}
 								else if (item.Equals("HistoryCount"))
 								{
-									this.stファイル.HistoryCount = CConvert.n値を文字列から取得して範囲内に丸めて返す(para, 0, 99999999, 0);
+									this.stファイル.HistoryCount = CConvert.n値を文字列から取得して範囲内にちゃんと丸めて返す(para, 0, 99999999, 0);
 								}
 								else if (item.Equals("BGMAdjust"))
 								{
