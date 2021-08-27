@@ -1519,7 +1519,6 @@ namespace TJAPlayer3
 		private int nCurrentPosition = 0;
 		private int nNumOfItems = 0;
 
-		//private string strBoxDefSkinPath = "";
 		private C曲リストノード r次の曲(C曲リストノード song)
 		{
 			if (song == null)

@@ -488,18 +488,6 @@ namespace TJAPlayer3
 				"Change skin.",
 				skinNames);
 			this.list項目リスト.Add(this.iSystemSkinSubfolder);
-			//this.iSystemUseBoxDefSkin = new CItemToggle( "Skin (Box)", CDTXMania.ConfigIni.bUseBoxDefSkin,
-			//	"Music boxスキンの利用：\n" +
-			//	"特別なスキンが設定されたMusic box\n" +
-			//	"に出入りしたときに、自動でスキンを\n" +
-			//	"切り替えるかどうかを設定します。\n",
-			//	//"\n" +
-			//	//"(Music Boxスキンは、box.defファイル\n" +
-			//	//" で指定できます)\n",
-			//	"Box skin:\n" +
-			//	"Automatically change skin\n" +
-			//	"specified in box.def file." );
-			//this.list項目リスト.Add( this.iSystemUseBoxDefSkin );
 
 
 			this.iSystemGoToKeyAssign = new CItemBase( "System Keys",
@@ -1037,15 +1025,10 @@ namespace TJAPlayer3
 
 #region [ スキン選択肢と、現在選択中のスキン(index)の準備 #28195 2012.5.2 yyagi ]
 			int ns = ( TJAPlayer3.Skin.strSystemSkinSubfolders == null ) ? 0 : TJAPlayer3.Skin.strSystemSkinSubfolders.Length;
-			int nb = ( TJAPlayer3.Skin.strBoxDefSkinSubfolders == null ) ? 0 : TJAPlayer3.Skin.strBoxDefSkinSubfolders.Length;
-			skinSubFolders = new string[ ns + nb ];
+			skinSubFolders = new string[ ns ];
 			for ( int i = 0; i < ns; i++ )
 			{
 				skinSubFolders[ i ] = TJAPlayer3.Skin.strSystemSkinSubfolders[ i ];
-			}
-			for ( int i = 0; i < nb; i++ )
-			{
-				skinSubFolders[ ns + i ] = TJAPlayer3.Skin.strBoxDefSkinSubfolders[ i ];
 			}
 			skinSubFolder_org = TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName( true );
 			Array.Sort( skinSubFolders );
@@ -1717,7 +1700,6 @@ namespace TJAPlayer3
 			//Trace.TraceInformation( "saved" );
 			//Trace.TraceInformation( "Skin現在Current : " + CDTXMania.Skin.GetCurrentSkinSubfolderFullName(true) );
 			//Trace.TraceInformation( "Skin現在System  : " + CSkin.strSystemSkinSubfolderFullName );
-			//Trace.TraceInformation( "Skin現在BoxDef  : " + CSkin.strBoxDefSkinSubfolderFullName );
 			//CDTXMania.ConfigIni.nMasterVolume = this.iSystemMasterVolume.n現在の値;							// #33700 2014.4.26 yyagi
 			//CDTXMania.ConfigIni.e判定表示優先度 = (EJudge表示優先度) this.iSystemJudgeDispPriority.n現在選択されている項目番号;
 			TJAPlayer3.ConfigIni.RandomPresence = this.iRandomPresence.bON;

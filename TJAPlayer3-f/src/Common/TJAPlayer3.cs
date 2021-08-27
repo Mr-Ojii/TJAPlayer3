@@ -1214,7 +1214,7 @@ namespace TJAPlayer3
 			Trace.Indent();
 			try
 			{
-				Skin = new CSkin(TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName, false);
+				Skin = new CSkin(TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName);
 				TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName = TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(true);    // 旧指定のSkinフォルダが消滅していた場合に備える
 				Trace.TraceInformation("スキンの初期化を完了しました。");
 			}
@@ -1866,7 +1866,7 @@ namespace TJAPlayer3
 
 			TJAPlayer3.Skin.Dispose();
 			TJAPlayer3.Skin = null;
-			TJAPlayer3.Skin = new CSkin(TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName, false);
+			TJAPlayer3.Skin = new CSkin(TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName);
 
 
 			TJAPlayer3.Tx.DisposeTexture();

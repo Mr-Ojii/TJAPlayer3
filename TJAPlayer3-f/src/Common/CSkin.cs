@@ -396,50 +396,10 @@ namespace TJAPlayer3
 		}
 
 
-		// スキンの切り替えについて___
-		//
-		// _スキンの種類は大きく分けて2種類。Systemスキンとboxdefスキン。
-		// 　前者はSystem/フォルダにユーザーが自らインストールしておくスキン。
-		// 　後者はbox.defで指定する、曲データ制作者が提示するスキン。
-		//
-		// _Config画面で、2種のスキンを区別無く常時使用するよう設定することができる。
-		// _box.defの#SKINPATH 設定により、boxdefスキンを一時的に使用するよう設定する。
-		// 　(box.defの効果の及ばない他のmuxic boxでは、当該boxdefスキンの有効性が無くなる)
-		//
-		// これを実現するために___
-		// _Systemスキンの設定情報と、boxdefスキンの設定情報は、分離して持つ。
-		// 　(strSystem～～ と、strBoxDef～～～)
-		// _Config画面からは前者のみ書き換えできるようにし、
-		// 　選曲画面からは後者のみ書き換えできるようにする。(SetCurrent...())
-		// _読み出しは両者から行えるようにすると共に
-		// 　選曲画面用に二種の情報を区別しない読み出し方法も提供する(GetCurrent...)
-
-		private object lockBoxDefSkin;
-		public static bool bUseBoxDefSkin = true;                       // box.defからのスキン変更を許容するか否か
-
 		public string strSystemSkinRoot = null;
 		public string[] strSystemSkinSubfolders = null;     // List<string>だとignoreCaseな検索が面倒なので、配列に逃げる :-)
-		private string[] _strBoxDefSkinSubfolders = null;
-		public string[] strBoxDefSkinSubfolders
-		{
-			get
-			{
-				lock (lockBoxDefSkin)
-				{
-					return _strBoxDefSkinSubfolders;
-				}
-			}
-			set
-			{
-				lock (lockBoxDefSkin)
-				{
-					_strBoxDefSkinSubfolders = value;
-				}
-			}
-		}           // 別スレッドからも書き込みアクセスされるため、スレッドセーフなアクセス法を提供
 
 		private static string strSystemSkinSubfolderFullName;           // Config画面で設定されたスキン
-		private static string strBoxDefSkinSubfolderFullName = "";      // box.defで指定されているスキン
 
 		/// <summary>
 		/// スキンパス名をフルパスで取得する
@@ -448,14 +408,7 @@ namespace TJAPlayer3
 		/// <returns></returns>
 		public string GetCurrentSkinSubfolderFullName(bool bFromUserConfig)
 		{
-			if (!bUseBoxDefSkin || bFromUserConfig == true || strBoxDefSkinSubfolderFullName == "")
-			{
-				return strSystemSkinSubfolderFullName;
-			}
-			else
-			{
-				return strBoxDefSkinSubfolderFullName;
-			}
+			return strSystemSkinSubfolderFullName;	
 		}
 		/// <summary>
 		/// スキンパス名をフルパスで設定する
@@ -464,23 +417,14 @@ namespace TJAPlayer3
 		/// <param name="bFromUserConfig">ユーザー設定用ならtrue, box.defからの設定ならfalse</param>
 		public void SetCurrentSkinSubfolderFullName(string value, bool bFromUserConfig)
 		{
-			if (bFromUserConfig)
-			{
-				strSystemSkinSubfolderFullName = value;
-			}
-			else
-			{
-				strBoxDefSkinSubfolderFullName = value;
-			}
+			strSystemSkinSubfolderFullName = value;
 		}
 
 
 		// コンストラクタ
-		public CSkin(string _strSkinSubfolderFullName, bool _bUseBoxDefSkin)
+		public CSkin(string _strSkinSubfolderFullName)
 		{
-			lockBoxDefSkin = new object();
 			strSystemSkinSubfolderFullName = _strSkinSubfolderFullName;
-			bUseBoxDefSkin = _bUseBoxDefSkin;
 			InitializeSkinPathRoot();
 			ReloadSkinPaths();
 			PrepareReloadSkin();
@@ -490,9 +434,7 @@ namespace TJAPlayer3
 		}
 		public CSkin()
 		{
-			lockBoxDefSkin = new object();
 			InitializeSkinPathRoot();
-			bUseBoxDefSkin = true;
 			ReloadSkinPaths();
 			PrepareReloadSkin();
 			SEloader();
@@ -654,9 +596,7 @@ namespace TJAPlayer3
 		public void PrepareReloadSkin()
 		{
 			Trace.TraceInformation("SkinPath設定: {0}",
-				(strBoxDefSkinSubfolderFullName == "") ?
-				strSystemSkinSubfolderFullName :
-				strBoxDefSkinSubfolderFullName
+				strSystemSkinSubfolderFullName 
 			);
 
 			for (int i = 0; i < nシステムサウンド数; i++)
@@ -765,16 +705,6 @@ namespace TJAPlayer3
 			Array.Sort(strSystemSkinSubfolders);    // BinarySearch実行前にSortが必要
 			#endregion
 
-			#region [ 現在のSkinパスがbox.defスキンをCONFIG指定していた場合のために、最初にこれが有効かチェックする。有効ならこれを使う。 ]
-			if (bIsValid(strSystemSkinSubfolderFullName) &&
-				Array.BinarySearch(strSystemSkinSubfolders, strSystemSkinSubfolderFullName,
-				StringComparer.InvariantCultureIgnoreCase) < 0)
-			{
-				strBoxDefSkinSubfolders = new string[1] { strSystemSkinSubfolderFullName };
-				return;
-			}
-			#endregion
-
 			#region [ 次に、現在のSkinパスが存在するか調べる。あれば終了。]
 			if (Array.BinarySearch(strSystemSkinSubfolders, strSystemSkinSubfolderFullName,
 				StringComparer.InvariantCultureIgnoreCase) >= 0)
@@ -812,14 +742,7 @@ namespace TJAPlayer3
 
 		public static string Path(string strファイルの相対パス)
 		{
-			if (strBoxDefSkinSubfolderFullName == "" || !bUseBoxDefSkin)
-			{
-				return System.IO.Path.Combine(strSystemSkinSubfolderFullName, strファイルの相対パス);
-			}
-			else
-			{
-				return System.IO.Path.Combine(strBoxDefSkinSubfolderFullName, strファイルの相対パス);
-			}
+			return System.IO.Path.Combine(strSystemSkinSubfolderFullName, strファイルの相対パス);	
 		}
 
 		/// <summary>
@@ -856,11 +779,6 @@ namespace TJAPlayer3
 			{
 				if (GetSkinName(s) == skinName)
 					return s;
-			}
-			foreach (string b in strBoxDefSkinSubfolders)
-			{
-				if (GetSkinName(b) == skinName)
-					return b;
 			}
 			return null;
 		}

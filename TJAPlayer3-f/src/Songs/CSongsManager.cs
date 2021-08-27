@@ -269,33 +269,7 @@ namespace TJAPlayer3
 		//-----------------
 		public void t曲リストへ後処理を適用する()
 		{
-			listStrBoxDefSkinSubfolderFullName = new List<string>();
-			if (TJAPlayer3.Skin.strBoxDefSkinSubfolders != null)
-			{
-				foreach (string b in TJAPlayer3.Skin.strBoxDefSkinSubfolders)
-				{
-					listStrBoxDefSkinSubfolderFullName.Add(b);
-				}
-			}
-
 			this.t曲リストへ後処理を適用する(this.list曲ルート);
-
-			#region [ skin名で比較して、systemスキンとboxdefスキンに重複があれば、boxdefスキン側を削除する ]
-			string[] systemSkinNames = CSkin.GetSkinName(TJAPlayer3.Skin.strSystemSkinSubfolders);
-			List<string> l = new List<string>(listStrBoxDefSkinSubfolderFullName);
-			foreach (string boxdefSkinSubfolderFullName in l)
-			{
-				if (Array.BinarySearch(systemSkinNames,
-					CSkin.GetSkinName(boxdefSkinSubfolderFullName),
-					StringComparer.InvariantCultureIgnoreCase) >= 0)
-				{
-					listStrBoxDefSkinSubfolderFullName.Remove(boxdefSkinSubfolderFullName);
-				}
-			}
-			#endregion
-			string[] ba = listStrBoxDefSkinSubfolderFullName.ToArray();
-			Array.Sort(ba);
-			TJAPlayer3.Skin.strBoxDefSkinSubfolders = ba;
 		}
 		private void t曲リストへ後処理を適用する(List<C曲リストノード> ノードリスト)
 		{
@@ -368,11 +342,6 @@ namespace TJAPlayer3
 
 						itemBack.strSkinPath = (c曲リストノード.r親ノード == null) ?
 							"" : c曲リストノード.r親ノード.strSkinPath;
-
-						if (itemBack.strSkinPath != "" && !listStrBoxDefSkinSubfolderFullName.Contains(itemBack.strSkinPath))
-						{
-							listStrBoxDefSkinSubfolderFullName.Add(itemBack.strSkinPath);
-						}
 
 						itemBack.strBreadcrumbs = (itemBack.r親ノード == null) ?
 							itemBack.strTitle : itemBack.r親ノード.strBreadcrumbs + " > " + itemBack.strTitle;
@@ -570,8 +539,6 @@ namespace TJAPlayer3
 
 		#region [ private ]
 		//-----------------
-		private List<string> listStrBoxDefSkinSubfolderFullName;
-
 		/// <summary>
 		/// 検索を中断_スローダウンする
 		/// </summary>
