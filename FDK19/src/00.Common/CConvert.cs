@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Linq;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
@@ -37,64 +38,6 @@ namespace FDK
 		public static float RadianToDegree( float angle )
 		{
 			return (float) RadianToDegree( (double) angle );
-		}
-
-		// #23568 2010.11.04 ikanick add
-		public static int n値を文字列から取得して範囲内にちゃんと丸めて返す(string str数値文字列, int n最小値, int n最大値, int n取得失敗時のデフォルト値)
-		{
-			// 1 と違って範囲外の場合ちゃんと丸めて返します。
-			int num;
-			if (int.TryParse(str数値文字列, out num)) {
-				if ((num >= n最小値) && (num <= n最大値))
-					return num;
-				if ( num < n最小値 )
-					return n最小値;
-				if ( num > n最大値 )
-					return n最大値;
-			}
-
-			return n取得失敗時のデフォルト値;
-		}
-
-		public static double db値を文字列から取得して範囲内にちゃんと丸めて返す(string str数値文字列, double n最小値, double n最大値, double n取得失敗時のデフォルト値)
-		{
-			// 1 と違って範囲外の場合ちゃんと丸めて返します。
-			double num;
-			if (double.TryParse(str数値文字列, out num))
-			{
-				if ((num >= n最小値) && (num <= n最大値))
-					return num;
-				if (num < n最小値)
-					return n最小値;
-				if (num > n最大値)
-					return n最大値;
-			}
-
-			return n取得失敗時のデフォルト値;
-		}
-		// --------------------ここまで-------------------------/
-
-		public static int[] ar配列形式のstringをint配列に変換して返す( string str )
-		{
-			//0,1,2 ...の形式で書かれたstringをint配列に変換する。
-			//一応実装はしたものの、例外処理などはまだ完成していない。
-			//str = "0,1,2";
-			if( String.IsNullOrEmpty( str ) )
-				return null;
-
-			string[] strArray = str.Split( ',' );
-			List<int> listIntArray;
-			listIntArray = new List<int>();
-
-			for( int n = 0; n < strArray.Length; n++ )
-			{
-				int n追加する数値 = Convert.ToInt32( strArray[ n ] );
-				listIntArray.Add( n追加する数値 );
-			}
-			int[] nArray = new int[] { 1 };
-			nArray = listIntArray.ToArray();
-
-			return nArray;
 		}
 
 		/// <summary>
