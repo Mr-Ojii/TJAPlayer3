@@ -809,7 +809,7 @@ namespace TJAPlayer3
 								else
 								{
 									TJAPlayer3.Skin.sound取消音.t再生する();
-									bool bNeedChangeSkin = this.act曲リスト.tBOXを出る();
+									this.act曲リスト.tBOXを出る();
 								}
 								this.actPresound.tサウンドの停止MT();
 							}
@@ -950,23 +950,13 @@ namespace TJAPlayer3
 											case C曲リストノード.ENodeType.BOX:
 												{
 													TJAPlayer3.Skin.sound決定音.t再生する();
-													bool bNeedChangeSkin = this.act曲リスト.tBOXに入る();
-													if (bNeedChangeSkin)
-													{
-														this.eFadeOut完了時の戻り値 = E戻り値.スキン変更;
-														base.eフェーズID = Eフェーズ.選曲_NowLoading画面へのFadeOut;
-													}
+													this.act曲リスト.tBOXに入る();
 												}
 												break;
 											case C曲リストノード.ENodeType.BACKBOX:
 												{
 													TJAPlayer3.Skin.sound取消音.t再生する();
-													bool bNeedChangeSkin = this.act曲リスト.tBOXを出る();
-													if (bNeedChangeSkin)
-													{
-														this.eFadeOut完了時の戻り値 = E戻り値.スキン変更;
-														base.eフェーズID = Eフェーズ.選曲_NowLoading画面へのFadeOut;
-													}
+													this.act曲リスト.tBOXを出る();
 												}
 												break;
 											case C曲リストノード.ENodeType.RANDOM:

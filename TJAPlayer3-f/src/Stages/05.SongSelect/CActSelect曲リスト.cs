@@ -178,17 +178,8 @@ namespace TJAPlayer3
 			TJAPlayer3.stage選曲.t選択曲変更通知();
 		}
 
-		public bool tBOXに入る()
+		public void tBOXに入る()
 		{
-			bool ret = false;
-			if (CSkin.GetSkinName(TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(false)) != CSkin.GetSkinName(this.r現在選択中の曲.strSkinPath)
-				&& CSkin.bUseBoxDefSkin)
-			{
-				ret = true;
-				// BOXに入るときは、スキン変更発生時のみboxdefスキン設定の更新を行う
-				TJAPlayer3.Skin.SetCurrentSkinSubfolderFullName(
-					TJAPlayer3.Skin.GetSkinSubfolderFullNameFromSkinName(CSkin.GetSkinName(this.r現在選択中の曲.strSkinPath)), false);
-			}
 			if (TJAPlayer3.ConfigIni.OpenOneSide) {
 				List<C曲リストノード> list = TJAPlayer3.SongsManager.list曲ルート;
 				list.InsertRange(list.IndexOf(this.r現在選択中の曲) + 1, this.r現在選択中の曲.list子リスト);
@@ -215,19 +206,9 @@ namespace TJAPlayer3
 				}
 			}
 			TJAPlayer3.stage選曲.t選択曲変更通知();
-			return ret;
 		}
-		public bool tBOXを出る()
+		public void tBOXを出る()
 		{
-			bool ret = false;
-			if (CSkin.GetSkinName(TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(false)) != CSkin.GetSkinName(this.r現在選択中の曲.strSkinPath)
-				&& CSkin.bUseBoxDefSkin)
-			{
-				ret = true;
-			}
-			// スキン変更が発生しなくても、boxdef圏外に出る場合は、boxdefスキン設定の更新が必要
-			// (ユーザーがboxdefスキンをConfig指定している場合への対応のために必要)
-			// tBoxに入る()とは処理が微妙に異なるので注意
 			TJAPlayer3.Skin.SetCurrentSkinSubfolderFullName(
 				(this.r現在選択中の曲.strSkinPath == "") ? "" : TJAPlayer3.Skin.GetSkinSubfolderFullNameFromSkinName(CSkin.GetSkinName(this.r現在選択中の曲.strSkinPath)), false);
 			if (TJAPlayer3.ConfigIni.OpenOneSide) {
@@ -260,7 +241,6 @@ namespace TJAPlayer3
 				}
 			}
 			TJAPlayer3.stage選曲.t選択曲変更通知();
-			return ret;
 		}
 		public void t次に移動()
 		{
