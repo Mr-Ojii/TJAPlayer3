@@ -24,7 +24,7 @@ namespace FDK
 	/// </summary>
 	public unsafe class CVideoDecoder : IDisposable
 	{
-		public CVideoDecoder(Device device, string filename)
+		public CVideoDecoder(string filename)
 		{
 			if (!File.Exists(filename))
 				throw new FileNotFoundException(filename + " not found...");

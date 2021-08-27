@@ -3470,10 +3470,6 @@ namespace TJAPlayer3
 						if ( !pChip.bHit && ( pChip.TimeSpan < 0 ) )
 						{
 							pChip.bHit = true;
-							//if ( dTX.listSCROLL.ContainsKey( pChip.n整数値_内部番号 ) )
-							//{
-								//this.actPlayInfo.dbBPM = ( dTX.listBPM[ pChip.n整数値_内部番号 ].dbBPM値 * ( ( (double) configIni.n演奏速度 ) / 20.0 ) );// + dTX.BASEBPM;
-							//}
 						}
 						break;
 

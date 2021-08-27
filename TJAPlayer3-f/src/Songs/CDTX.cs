@@ -46,28 +46,6 @@ namespace TJAPlayer3
 				return builder.ToString();
 			}
 		}
-		public class CSCROLL
-		{
-			public double dbSCROLL値;
-			public double dbSCROLL値Y;
-			public int n内部番号;
-			public int n表記上の番号;
-
-			public override string ToString()
-			{
-				StringBuilder builder = new StringBuilder(0x80);
-				if (this.n内部番号 != this.n表記上の番号)
-				{
-					builder.Append(string.Format("CSCROLL{0}(内部{1})", CDTX.tZZ(this.n表記上の番号), this.n内部番号));
-				}
-				else
-				{
-					builder.Append(string.Format("CSCROLL{0}", CDTX.tZZ(this.n表記上の番号)));
-				}
-				builder.Append(string.Format(", SCROLL:{0}", this.dbSCROLL値));
-				return builder.ToString();
-			}
-		}
 		/// <summary>
 		/// 判定ライン移動命令
 		/// </summary>
@@ -581,10 +559,6 @@ namespace TJAPlayer3
 		public Dictionary<int, CBPM> listBPM;
 		public List<CChip> listChip;
 		public Dictionary<int, CWAV> listWAV;
-		public Dictionary<int, CSCROLL> listSCROLL;
-		public Dictionary<int, CSCROLL> listSCROLL_Normal;
-		public Dictionary<int, CSCROLL> listSCROLL_Expert;
-		public Dictionary<int, CSCROLL> listSCROLL_Master;
 		public Dictionary<int, CJPOSSCROLL> listJPOSSCROLL;
 		public List<DanSongs> List_DanSongs;
 
@@ -604,7 +578,6 @@ namespace TJAPlayer3
 		public string SUBTITLE;
 		public string TITLE;
 		public bool SUBTITLEDisp;
-		public double dbScrollSpeed;
 		public int nデモBGMオフセット = 0;
 		public bool[] bPapaMamaSupport = new bool[(int)Difficulty.Total] { false, false, false, false, false, false, false };
 
@@ -2199,7 +2172,6 @@ namespace TJAPlayer3
 			this.dbNowScroll = dbSCROLL;
 			this.dbNowScrollY = 0.0;
 
-			this.listSCROLL.Add(this.n内部番号SCROLL1to, new CSCROLL() { n内部番号 = this.n内部番号SCROLL1to, n表記上の番号 = 0, dbSCROLL値 = dbSCROLL, dbSCROLL値Y = 0.0 });
 
 			switch (this.n現在のコース)
 			{
@@ -2213,23 +2185,6 @@ namespace TJAPlayer3
 					this.dbNowSCROLL_Master[0] = dbSCROLL;
 					break;
 			}
-
-			//チップ追加して割り込んでみる。
-			var chipsc = new CChip();
-
-			chipsc.nチャンネル番号 = 0x9D;
-			chipsc.n発声位置 = ((this.n現在の小節数) * 384) - 1;
-			chipsc.n発声時刻ms = (int)this.dbNowTime;
-			chipsc.n整数値_内部番号 = this.n内部番号SCROLL1to;
-			chipsc.dbSCROLL = dbSCROLL;
-			chipsc.dbSCROLL_Y = 0.0;
-			chipsc.nコース = this.n現在のコース;
-
-			// チップを配置。
-
-			this.listChip.Add(chipsc);
-
-			this.n内部番号SCROLL1to++;
 			#endregion
 
 			t入力tccファイル(obj.Courses[cindex].Single);
@@ -2419,7 +2374,7 @@ namespace TJAPlayer3
 
 				try
 				{
-					CVideoDecoder vd = new CVideoDecoder(TJAPlayer3.app.Device, strVideoFilename);
+					CVideoDecoder vd = new CVideoDecoder(strVideoFilename);
 
 					if (this.listVD.ContainsKey(1))
 						this.listVD.Remove(1);
@@ -2987,8 +2942,6 @@ namespace TJAPlayer3
 				this.dbNowScroll = dbSCROLL;
 				this.dbNowScrollY = 0.0;
 
-				this.listSCROLL.Add(this.n内部番号SCROLL1to, new CSCROLL() { n内部番号 = this.n内部番号SCROLL1to, n表記上の番号 = 0, dbSCROLL値 = dbSCROLL, dbSCROLL値Y = 0.0 });
-
 				switch (this.n現在のコース)
 				{
 					case 0:
@@ -3001,23 +2954,6 @@ namespace TJAPlayer3
 						this.dbNowSCROLL_Master[0] = dbSCROLL;
 						break;
 				}
-
-				//チップ追加して割り込んでみる。
-				var chip = new CChip();
-
-				chip.nチャンネル番号 = 0x9D;
-				chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
-				chip.n発声時刻ms = (int)this.dbNowTime;
-				chip.n整数値_内部番号 = this.n内部番号SCROLL1to;
-				chip.dbSCROLL = dbSCROLL;
-				chip.dbSCROLL_Y = 0.0;
-				chip.nコース = this.n現在のコース;
-
-				// チップを配置。
-
-				this.listChip.Add(chip);
-
-				this.n内部番号SCROLL1to++;
 			}
 			else if (InputArr[0].Equals("#tsign"))
 			{
@@ -3737,8 +3673,6 @@ namespace TJAPlayer3
 					this.dbNowScroll = dbComplexNum[0];
 					this.dbNowScrollY = dbComplexNum[1];
 
-					this.listSCROLL.Add(this.n内部番号SCROLL1to, new CSCROLL() { n内部番号 = this.n内部番号SCROLL1to, n表記上の番号 = 0, dbSCROLL値 = dbComplexNum[0], dbSCROLL値Y = dbComplexNum[1] });
-
 					switch (this.n現在のコース)
 					{
 						case 0:
@@ -3758,29 +3692,12 @@ namespace TJAPlayer3
 							this.dbNowSCROLL_Normal[1] = dbComplexNum[1];
 							break;
 					}
-
-					//チップ追加して割り込んでみる。
-					var chip = new CChip();
-
-					chip.nチャンネル番号 = 0x9D;
-					chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
-					chip.n発声時刻ms = (int)this.dbNowTime;
-					chip.n整数値_内部番号 = this.n内部番号SCROLL1to;
-					chip.dbSCROLL = dbComplexNum[0];
-					chip.dbSCROLL_Y = dbComplexNum[1];
-					chip.nコース = this.n現在のコース;
-
-					// チップを配置。
-
-					this.listChip.Add(chip);
 				}
 				else
 				{
 					double dbSCROLL = Convert.ToDouble(argument);
 					this.dbNowScroll = dbSCROLL;
 					this.dbNowScrollY = 0.0;
-
-					this.listSCROLL.Add(this.n内部番号SCROLL1to, new CSCROLL() { n内部番号 = this.n内部番号SCROLL1to, n表記上の番号 = 0, dbSCROLL値 = dbSCROLL, dbSCROLL値Y = 0.0 });
 
 					switch (this.n現在のコース)
 					{
@@ -3794,27 +3711,8 @@ namespace TJAPlayer3
 							this.dbNowSCROLL_Master[0] = dbSCROLL;
 							break;
 					}
-
-					//チップ追加して割り込んでみる。
-					var chip = new CChip();
-
-					chip.nチャンネル番号 = 0x9D;
-					chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
-					chip.n発声時刻ms = (int)this.dbNowTime;
-					chip.n整数値_内部番号 = this.n内部番号SCROLL1to;
-					chip.dbSCROLL = dbSCROLL;
-					chip.dbSCROLL_Y = 0.0;
-					chip.nコース = this.n現在のコース;
-
-					// チップを配置。
-
-					this.listChip.Add(chip);
 				}
 
-
-
-
-				this.n内部番号SCROLL1to++;
 			}
 			else if (command == "#MEASURE")
 			{
@@ -4076,8 +3974,7 @@ namespace TJAPlayer3
 			}
 			else if (command == "#LYRIC")
 			{
-				if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongLoading)//起動時に重たくなってしまう問題の修正用
-					this.listLyric.Add(this.pf歌詞フォント.DrawText(argument, TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio));
+				this.listLyric.Add(this.pf歌詞フォント.DrawText(argument, TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio));
 
 				var chip = new CChip();
 
@@ -5171,34 +5068,6 @@ namespace TJAPlayer3
 					this.n参照中の難易度 = this.strConvertCourse(strCommandParam);
 				}
 			}
-
-			else if (strCommandName.Equals("HEADSCROLL"))
-			{
-				//新定義:初期スクロール速度設定(というよりこのシステムに合わせるには必須。)
-				//どうしても一番最初に1小節挿入されるから、こうするしかなかったんだ___
-
-				this.dbScrollSpeed = Convert.ToDouble(strCommandParam);
-
-				this.listSCROLL.Add(this.n内部番号SCROLL1to, new CSCROLL() { n内部番号 = this.n内部番号SCROLL1to, n表記上の番号 = 0, dbSCROLL値 = this.dbScrollSpeed, });
-
-
-				//チップ追加して割り込んでみる。
-				var chip = new CChip();
-
-				chip.nチャンネル番号 = 0x9D;
-				chip.n発声位置 = ((this.n現在の小節数 - 2) * 384);
-				chip.n整数値 = 0x00;
-				chip.n整数値_内部番号 = this.n内部番号SCROLL1to;
-				chip.dbSCROLL = this.dbScrollSpeed;
-
-				// チップを配置。
-
-				this.listChip.Add(chip);
-				this.n内部番号SCROLL1to++;
-
-				//this.nScoreDiff = Convert.ToInt16( strCommandParam );
-				//tbScoreDiff.Text = strCommandParam;
-			}
 			else if (strCommandName.Equals("GENRE"))
 			{
 				//2015.03.28 kairera0467
@@ -5249,7 +5118,7 @@ namespace TJAPlayer3
 
 				try
 				{
-					CVideoDecoder vd = new CVideoDecoder(TJAPlayer3.app.Device, strVideoFilename);
+					CVideoDecoder vd = new CVideoDecoder(strVideoFilename);
 
 					if (this.listVD.ContainsKey(1))
 						this.listVD.Remove(1);
@@ -5293,8 +5162,7 @@ namespace TJAPlayer3
 						{
 							try
 							{
-								if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongLoading)//2020.06.06 Mr-Ojii 起動時に重たくなってしまう問題の修正用
-									this.LyricFileParser(strFilePath[index],index);
+								this.LyricFileParser(strFilePath[index],index);
 								this.bLyrics = true;
 							}
 							catch
@@ -5952,10 +5820,6 @@ namespace TJAPlayer3
 
 			this.listWAV = new Dictionary<int, CWAV>();
 			this.listBPM = new Dictionary<int, CBPM>();
-			this.listSCROLL = new Dictionary<int, CSCROLL>();
-			this.listSCROLL_Normal = new Dictionary<int, CSCROLL>();
-			this.listSCROLL_Expert = new Dictionary<int, CSCROLL>();
-			this.listSCROLL_Master = new Dictionary<int, CSCROLL>();
 			this.listJPOSSCROLL = new Dictionary<int, CJPOSSCROLL>();
 			this.listDELAY = new Dictionary<int, CDELAY>();
 			this.listBRANCH = new Dictionary<int, CBRANCH>();
@@ -6002,27 +5866,6 @@ namespace TJAPlayer3
 			{
 				this.listBRANCH.Clear();
 				this.listBRANCH = null;
-			}
-			if (this.listSCROLL != null)
-			{
-				this.listSCROLL.Clear();
-				this.listSCROLL = null;
-			}
-
-			if (this.listSCROLL_Normal != null)
-			{
-				this.listSCROLL_Normal.Clear();
-				this.listSCROLL_Normal = null;
-			}
-			if (this.listSCROLL_Expert != null)
-			{
-				this.listSCROLL_Expert.Clear();
-				this.listSCROLL_Expert = null;
-			}
-			if (this.listSCROLL_Master != null)
-			{
-				this.listSCROLL_Master.Clear();
-				this.listSCROLL_Master = null;
 			}
 			if (this.listJPOSSCROLL != null)
 			{
@@ -6098,7 +5941,6 @@ namespace TJAPlayer3
 		private int nPolyphonicSounds = 4;                          // #28228 2012.5.1 yyagi
 
 		private int n内部番号BPM1to;
-		private int n内部番号SCROLL1to;
 		private int n内部番号JSCROLL1to;
 		private int n内部番号DELAY1to;
 		private int n内部番号WAV1to;
