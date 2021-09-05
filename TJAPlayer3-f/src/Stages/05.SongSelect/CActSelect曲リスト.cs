@@ -532,7 +532,7 @@ namespace TJAPlayer3
 			if (this.b活性化してない)
 				return;
 
-			int c = (CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
+			int c = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
 			#region [ Songs not found画像 ]
 			try
 			{

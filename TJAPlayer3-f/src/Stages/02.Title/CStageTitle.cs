@@ -77,7 +77,7 @@ namespace TJAPlayer3
 				{ "コンフィグ","Config"},
 				{ "やめる","Quit"}
 			};
-			int lang = (CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
+			int lang = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
 			if ( !base.b活性化してない) {
 				this.pf = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 28);
 				texttexture[0] = this.文字テクスチャを生成する(str[0, lang], Color.White, Color.SaddleBrown);
