@@ -107,37 +107,9 @@ namespace FDK
 				//HighDPI対応のため、pxサイズで指定
 			}
 			else
-			// フォントファイルが見つからなかった場合 (デフォルトフォントを代わりに指定する)
+			// フォントファイルが見つからなかった場合
 			{
-				float emSize = pt * 96.0f / 72.0f;
-				try
-				{
-					this._pfc = new System.Drawing.Text.PrivateFontCollection();
-					using (MemoryStream ms = new MemoryStream()) 
-					{
-						Assembly.GetExecutingAssembly().GetManifestResourceStream(@"FDK.mplus-1p-medium.ttf").CopyTo(ms);
-						byte[] bytes = ms.ToArray();
-						unsafe {
-							fixed (byte* bytesp = bytes)
-								this._pfc.AddMemoryFont((IntPtr)bytesp, bytes.Length); 
-						}
-					}
-					
-					this._fontfamily = _pfc.Families[0];
-					this._font = new Font(this._fontfamily, emSize, style, GraphicsUnit.Pixel);
-
-					Trace.TraceInformation($"{this._fontfamily.Name}を代わりに指定しました。");
-
-					return;
-				}
-				catch (Exception e)
-				{
-					Trace.TraceError(e.ToString());
-					this._fontfamily = null;
-					this._font = null;
-				}
-
-				throw new FileNotFoundException($"プライベートフォントの追加に失敗し、内蔵フォントでの代替処理にも失敗しました。({Path.GetFileName(fontpath)})");
+				throw new FileNotFoundException($"プライベートフォントの追加に失敗しました。({Path.GetFileName(fontpath)})");
 			}
 		}
 

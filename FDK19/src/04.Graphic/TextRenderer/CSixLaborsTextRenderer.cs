@@ -28,9 +28,14 @@ namespace FDK
 			Initialize(fontpath, pt, style);
 		}
 
+		//For Built-in Font
+		public CSixLaborsTextRenderer(Stream fontStream, int pt, FontStyle style)
+		{
+			Initialize(fontStream, pt, style);
+		}
+
 		protected void Initialize(string fontpath, int pt, FontStyle style)
 		{
-
 			this.pt = (pt * 1.3f);
 			this.fontStyle = style;
 
@@ -44,8 +49,17 @@ namespace FDK
 			}
 			else
 			{
-				this.fontFamily = new FontCollection().Install(Assembly.GetExecutingAssembly().GetManifestResourceStream(@"FDK.mplus-1p-medium.ttf"));
+				throw new FileNotFoundException($"Font File Not Found.({fontpath})");
 			}
+			this.font = this.fontFamily.CreateFont(this.pt, this.fontStyle);
+		}
+
+		protected void Initialize(Stream fontStream, int pt, FontStyle style)
+		{
+			this.pt = (pt * 1.3f);
+			this.fontStyle = style;
+
+			this.fontFamily = new FontCollection().Install(fontStream);
 			this.font = this.fontFamily.CreateFont(this.pt, this.fontStyle);
 		}
 

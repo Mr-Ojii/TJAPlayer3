@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
@@ -91,24 +92,34 @@ namespace FDK
 		{
 			try
 			{
-				this.textRenderer = new CGDIPlusTextRenderer(fontpath, pt, style);
-				return;
-			}
-			catch (Exception e)
-			{
-				Trace.TraceWarning("GDI+でのフォント生成に失敗しました。" + e.ToString());
-				this.textRenderer.Dispose();
-			}
-
-			try
-			{
 				this.textRenderer = new CSixLaborsTextRenderer(fontpath, pt, style);
 				return;
 			}
 			catch (Exception e)
 			{
 				Trace.TraceWarning("SixLabors.Fontsでのフォント生成に失敗しました。" + e.ToString());
-				this.textRenderer.Dispose();
+				this.textRenderer?.Dispose();
+			}
+
+			try
+			{
+				this.textRenderer = new CGDIPlusTextRenderer(fontpath, pt, style);
+				return;
+			}
+			catch (Exception e)
+			{
+				Trace.TraceWarning("GDI+でのフォント生成に失敗しました。" + e.ToString());
+				this.textRenderer?.Dispose();
+			}
+
+			try 
+			{
+				this.textRenderer = new CSixLaborsTextRenderer(Assembly.GetExecutingAssembly().GetManifestResourceStream(@"FDK.mplus-1p-medium.ttf"), pt, style);
+			}
+			catch (Exception e)
+			{
+				Trace.TraceWarning("ビルトインフォントを使用してのフォント生成に失敗しました。" + e.ToString());
+				this.textRenderer?.Dispose();
 				throw;
 			}
 		}
