@@ -121,7 +121,7 @@ chmod +x TJAPlayer3-f.AppImage
 * Linux Mint 20.2(Xfce) (x64)
 
 #### Editor
-* Visual Studio Community 2019
+* Visual Studio Community 2022
 * Visual Studio Code
 * Vim
 
@@ -159,6 +159,7 @@ masterブランチでほぼすべての開発を行います。
 |Ver.1.7.1.3|2021-04-22|動画再生時のメモリ使用量の変動が大きい問題の修正(また、動画再生時の負荷軽減)            |
 |Ver.1.7.1.4|2021-05-12|メモリリークの修正 & エラー発生時の取得情報の追加                                       |
 |Ver.1.7.1.5|2021-07-29|使用する.NET用 BASSラッパーをManagedBassに変更                                          |
+|Ver.1.7.2.0|2021-11-12|.NET 6にフレームワークをアップデート                                                    |
 
 
 ## デフォルトスキンについて
