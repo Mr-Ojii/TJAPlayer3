@@ -27,16 +27,16 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 6.0.x
     - name: Build
-      run: dotnet publish TJAPlayer3-f -o Test/net5.0 -r ${{ matrix.platform }} -p:PublishSingleFile=true --configuration Release --self-contained true
+      run: dotnet publish TJAPlayer3-f -o Test/net6.0 -r ${{ matrix.platform }} -p:PublishSingleFile=true --configuration Release --self-contained true
     - name: Remove Folder
       uses: JesseTG/rm@v1.0.0
       with:
-        path: Test/net5.0/${{matrix.platform}}
+        path: Test/net6.0/${{matrix.platform}}
     - name: Remove Folder
       run: |
-        cd ${{ github.workspace }}/Test/net5.0/dll
+        cd ${{ github.workspace }}/Test/net6.0/dll
         echo "#!"/bin/sh > del.sh
         echo "for filename in *" >> del.sh
         echo "do" >> del.sh
@@ -48,7 +48,7 @@ jobs:
         sh del.sh
     - name: Remove Folder
       run: |
-        cd ${{ github.workspace }}/Test/net5.0/ffmpeg
+        cd ${{ github.workspace }}/Test/net6.0/ffmpeg
         echo "#!"/bin/sh > del.sh
         echo "for filename in *" >> del.sh
         echo "do" >> del.sh
