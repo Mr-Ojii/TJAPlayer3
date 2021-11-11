@@ -22,7 +22,6 @@ namespace TJAPlayer3
 		{
 			public string Title;
 			public string Name;
-			public string Hash;
 			public int PlayCountDrums;
 			// #23596 10.11.16 add ikanick-----/
 			public int ClearCountDrums;
@@ -89,7 +88,6 @@ namespace TJAPlayer3
 			public bool b演奏にMouseを使用した;
 			public ERandomMode eRandom;
 			public float f譜面スクロール速度;
-			public string Hash;
 			public int nGoodになる範囲ms;
 			public int nGood数;
 			public int nGreatになる範囲ms;
@@ -143,7 +141,6 @@ namespace TJAPlayer3
 				this.nPoorになる範囲ms = 117;
 				this.strDTXManiaのバージョン = "Unknown";
 				this.最終更新日時 = "";
-				this.Hash = "00000000000000000000000000000000";
 				this.nRisky = 0;									// #23559 2011.6.20 yyagi
 				this.fゲージ = 0.0f;
 				this.b途中でAutoを切り替えたか = false;
@@ -197,7 +194,6 @@ namespace TJAPlayer3
 			this.stファイル = new STファイル();
 			stファイル.Title = "";
 			stファイル.Name = "";
-			stファイル.Hash = "";
 			stファイル.History = new string[] { "", "", "", "", "" };
 	
 			this.stセクション = new STセクション();
@@ -213,31 +209,6 @@ namespace TJAPlayer3
 			: this()
 		{
 			this.tLoad( str読み込むiniファイル );
-		}
-
-
-		// メソッド
-				
-		/// <summary>
-		/// 指定されたファイルの内容から MD5 値を求め、それを16進数に変換した文字列を返す。
-		/// </summary>
-		/// <param name="ファイル名">MD5 を求めるファイル名。</param>
-		/// <returns>算出結果の MD5 を16進数で並べた文字列。</returns>
-		public static string tファイルのMD5を求めて返す( string ファイル名 )
-		{
-			byte[] buffer = null;
-			FileStream stream = new FileStream( ファイル名, FileMode.Open, FileAccess.Read );
-			buffer = new byte[ stream.Length ];
-			stream.Read( buffer, 0, (int) stream.Length );
-			stream.Close();
-			StringBuilder builder = new StringBuilder(0x21);
-			{
-				MD5CryptoServiceProvider m = new MD5CryptoServiceProvider();
-				byte[] buffer2 = m.ComputeHash(buffer);
-				foreach (byte num in buffer2)
-					builder.Append(num.ToString("x2"));
-			}
-			return builder.ToString();
 		}
 		
 		/// <summary>
@@ -336,10 +307,6 @@ namespace TJAPlayer3
 								if (item.Equals("Name"))
 								{
 									this.stファイル.Name = para;
-								}
-								else if (item.Equals("Hash"))
-								{
-									this.stファイル.Hash = para;
 								}
 								else if (item.Equals("PlayCountDrums"))
 								{
@@ -583,10 +550,6 @@ namespace TJAPlayer3
 											{
 												c演奏記録.最終更新日時 = para;
 											}
-											else if (item.Equals("Hash"))
-											{
-												c演奏記録.Hash = para;
-											}
 											else if (item.Equals("HiScore1"))
 											{
 												c演奏記録.nハイスコア[0] = int.Parse(para);
@@ -818,7 +781,6 @@ namespace TJAPlayer3
 			writer.WriteLine( "[File]" );
 			writer.WriteLine( "Title={0}", this.stファイル.Title );
 			writer.WriteLine( "Name={0}", this.stファイル.Name );
-			writer.WriteLine( "Hash={0}", this.stファイル.Hash );
 			writer.WriteLine( "PlayCountDrums={0}", this.stファイル.PlayCountDrums );
 			writer.WriteLine( "ClearCountDrums={0}", this.stファイル.ClearCountDrums );       // #23596 10.11.16 add ikanick
 			writer.WriteLine( "HistoryCount={0}", this.stファイル.HistoryCount );
@@ -860,7 +822,6 @@ namespace TJAPlayer3
 				writer.WriteLine("PoorRange={0}", this.stセクション[i].nPoorになる範囲ms);
 				writer.WriteLine("DTXManiaVersion={0}", this.stセクション[i].strDTXManiaのバージョン);
 				writer.WriteLine("DateTime={0}", this.stセクション[i].最終更新日時);
-				writer.WriteLine("Hash={0}", this.stセクション[i].Hash);
 				writer.WriteLine("HiScore1={0}", this.stセクション[i].nハイスコア[0]);
 				writer.WriteLine("HiScore2={0}", this.stセクション[i].nハイスコア[1]);
 				writer.WriteLine("HiScore3={0}", this.stセクション[i].nハイスコア[2]);
@@ -913,44 +874,6 @@ namespace TJAPlayer3
 			}
 
 			writer.Close();
-		}
-		internal static string t演奏セクションのMD5を求めて返す( C演奏記録 cc )
-		{
-			StringBuilder builder = new StringBuilder();
-			builder.Append( cc.nスコア.ToString() );
-			builder.Append( cc.nPerfect数 );
-			builder.Append( cc.nGreat数 );
-			builder.Append( cc.nGood数 );
-			builder.Append( cc.nPoor数 );
-			builder.Append( cc.nMiss数 );
-			builder.Append( cc.n最大コンボ数 );
-			builder.Append( cc.n全チップ数 );
-			builder.Append( boolToChar( cc.bTight ) );
-			builder.Append( cc.f譜面スクロール速度.ToString( ".000000" ) );
-			builder.Append( cc.n演奏速度分子 );
-			builder.Append( cc.n演奏速度分母 );
-			builder.Append( boolToChar( cc.bDrums有効 ) );
-			builder.Append( boolToChar( cc.bSTAGEFAILED有効 ) );
-			builder.Append( boolToChar( cc.b演奏にKeyBoardを使用した ) );
-			builder.Append( boolToChar( cc.b演奏にMIDIInputを使用した ) );
-			builder.Append( boolToChar( cc.b演奏にJoypadを使用した ) );
-			builder.Append( boolToChar( cc.b演奏にMouseを使用した ) );
-			builder.Append( cc.nPerfectになる範囲ms );
-			builder.Append( cc.nGreatになる範囲ms );
-			builder.Append( cc.nGoodになる範囲ms );
-			builder.Append( cc.nPoorになる範囲ms );
-			builder.Append( cc.strDTXManiaのバージョン );
-			builder.Append( cc.最終更新日時 );
-
-			byte[] bytes = Encoding.GetEncoding( "Shift_JIS" ).GetBytes( builder.ToString() );
-			StringBuilder builder2 = new StringBuilder(0x21);
-			{
-				MD5CryptoServiceProvider m = new MD5CryptoServiceProvider();
-				byte[] buffer2 = m.ComputeHash(bytes);
-				foreach (byte num2 in buffer2)
-					builder2.Append(num2.ToString("x2"));
-			}
-			return builder2.ToString();
 		}
 
 		// その他

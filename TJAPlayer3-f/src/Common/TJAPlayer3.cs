@@ -1781,7 +1781,6 @@ namespace TJAPlayer3
 			{
 				ini.stファイル.Title = DTX[0].TITLE;
 				ini.stファイル.Name = DTX[0].strFilename;
-				ini.stファイル.Hash = CScoreIni.tファイルのMD5を求めて返す( DTX[0].strFilenameの絶対パス );
 				for( int i = 0; i < 2; i++ )
 				{
 					ini.stセクション[i].nPerfectになる範囲ms = nPerfect範囲ms;

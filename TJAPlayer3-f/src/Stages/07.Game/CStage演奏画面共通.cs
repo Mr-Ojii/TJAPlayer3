@@ -151,7 +151,6 @@ namespace TJAPlayer3
 				Drums.nPoorになる範囲ms = TJAPlayer3.nPoor範囲ms;
 				Drums.strDTXManiaのバージョン = TJAPlayer3.VERSION;
 				Drums.最終更新日時 = DateTime.Now.ToString();
-				Drums.Hash = CScoreIni.t演奏セクションのMD5を求めて返す( Drums );
 				Drums.fゲージ = (float)this.actGauge.db現在のゲージ値[ nPlayer ];
 				Drums.b途中でAutoを切り替えたか = this.b途中でAutoを切り替えたか[nPlayer];
 				if( !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] )
