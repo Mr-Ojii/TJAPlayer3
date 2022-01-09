@@ -41,7 +41,7 @@ namespace TJAPlayer3
 			get;
 			set;
 		}
-		[NonSerialized]
+		[System.Text.Json.Serialization.JsonIgnore]
 		public AutoResetEvent autoReset;
 
 		// コンストラクタ

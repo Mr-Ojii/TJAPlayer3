@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace TJAPlayer3
 {
-	[Serializable]
 	internal class C曲リストノード
 	{
 		// プロパティ
@@ -19,6 +18,7 @@ namespace TJAPlayer3
 			RANDOM,
 			UNKNOWN
 		}
+		[JsonIgnore]
 		public int nID { get; private set; }
 		public Cスコア arスコア = new Cスコア();
 		public Color ForeColor = Color.White;

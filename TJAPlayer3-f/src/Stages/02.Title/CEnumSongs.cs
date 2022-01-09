@@ -5,7 +5,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using System.Drawing;
+using System.Text.Json;
 
 namespace TJAPlayer3
 {
@@ -430,7 +431,13 @@ namespace TJAPlayer3
 			{
 				using (StreamWriter f = new StreamWriter(strPathSongList, false, Encoding.UTF8))
 				{
-					string a = JsonConvert.SerializeObject(cs, Formatting.None);
+					System.Text.Json.JsonSerializerOptions options = new System.Text.Json.JsonSerializerOptions
+					{
+						Converters = { new ColorJsonConverter() },
+						Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(System.Text.Unicode.UnicodeRanges.All),
+						IncludeFields = true,
+					};
+					string a = System.Text.Json.JsonSerializer.Serialize(cs, options);
 					f.Write(a);
 				}
 			}
@@ -479,9 +486,15 @@ namespace TJAPlayer3
 					{
 						using (StreamReader file = new StreamReader(strPathSongList, Encoding.UTF8))
 						{
-							JsonSerializer serializer = new JsonSerializer();
-							CSongsManager tmp = (CSongsManager)serializer.Deserialize(file, typeof(CSongsManager));
-							親ノードを設定する(ref tmp.list曲ルート, null);//親ノードはシリアライズしないため、読み込み後設定する。
+							JsonSerializerOptions options = new JsonSerializerOptions
+							{
+								Converters = { new ColorJsonConverter() },
+								Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(System.Text.Unicode.UnicodeRanges.All),
+								IncludeFields = true,
+                            };
+
+							CSongsManager tmp = JsonSerializer.Deserialize<CSongsManager>(file.ReadToEnd(), options);
+							親ノードを設定する(ref tmp.list曲ルート, null);
 							return tmp;
 						}
 					}
@@ -517,6 +530,13 @@ namespace TJAPlayer3
 					c.r親ノード = parent;
 				}
 			}
+		}
+
+		private class ColorJsonConverter : System.Text.Json.Serialization.JsonConverter<System.Drawing.Color>
+        {
+			public override Color Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => ColorTranslator.FromHtml(reader.GetString());
+
+			public override void Write(Utf8JsonWriter writer, Color value, JsonSerializerOptions options) => writer.WriteStringValue("#" + value.A.ToString("X2") + value.R.ToString("X2") + value.G.ToString("X2") + value.B.ToString("X2"));
 		}
 	}
 }

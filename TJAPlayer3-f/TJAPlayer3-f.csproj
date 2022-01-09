@@ -40,7 +40,6 @@
   <ItemGroup>
     <PackageReference Include="DiscordRichPresence" Version="1.0.175" />
     <PackageReference Include="LargeAddressAware" Version="1.0.5" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
   <ItemGroup Label="Resources">
     <EmbeddedResource Include="TJAPlayer3-f.ico" />
