@@ -3,15 +3,9 @@ using System.Collections.Generic;
 
 namespace TJAPlayer3
 {
-	internal static class CStrジャンルtoNum
+	internal static class CStrGenreToNum
 	{
-		/// <summary>
-		/// ジャンルソート用関数
-		/// </summary>
-		/// <param name="strジャンル"></param>
-		/// <param name="order"></param>
-		/// <returns></returns>
-		internal static int Genre(string strジャンル, int order)
+		internal static int Genre(string strGenre, int order)
 		{
 			Dictionary<string, int> Dic = TJAPlayer3.Skin.DictionaryList[order];
 
@@ -21,9 +15,9 @@ namespace TJAPlayer3
 				maxvalue = Math.Max(pair.Value, maxvalue);
 			}
 
-			if (Dic.ContainsKey(strジャンル))
+			if (Dic.ContainsKey(strGenre))
 			{
-				return Dic[strジャンル];
+				return Dic[strGenre];
 			}
 			else
 			{
