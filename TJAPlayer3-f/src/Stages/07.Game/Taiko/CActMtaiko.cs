@@ -141,10 +141,9 @@ namespace TJAPlayer3
 				{
 					//this.ctレベルアップダウン[ i ].n現在の値 = 110;
 
-					//2017.08.21 kairera0467 t3D描画に変更。
 					float fScale = 1.0f;
 					int nAlpha = 255;
-					float[] fY = new float[] { 206, -206, 0, 0 };
+					float[] fY = new float[] { -206, 206, 0, 0 };
 					if( this.ctレベルアップダウン[ i ].n現在の値 >= 0 && this.ctレベルアップダウン[ i ].n現在の値 <= 20 )
 					{
 						nAlpha = 60;
@@ -188,12 +187,14 @@ namespace TJAPlayer3
 					{
 						//レベルアップ
 						TJAPlayer3.Tx.Taiko_LevelUp.Opacity = nAlpha;
-						TJAPlayer3.Tx.Taiko_LevelUp.t3D描画( TJAPlayer3.app.Device, mat );
+						TJAPlayer3.Tx.Taiko_LevelUp.vcScaling = new Vector3( fScale, fScale, 1.0f );
+						TJAPlayer3.Tx.Taiko_LevelUp.t2D拡大率考慮描画( TJAPlayer3.app.Device, CTexture.RefPnt.Center, -329 + GameWindowSize.Width / 2, fY[ i ] + GameWindowSize.Height / 2);
 					}
 					else
 					{
 						TJAPlayer3.Tx.Taiko_LevelDown.Opacity = nAlpha;
-						TJAPlayer3.Tx.Taiko_LevelDown.t3D描画( TJAPlayer3.app.Device, mat );
+						TJAPlayer3.Tx.Taiko_LevelDown.vcScaling = new Vector3(fScale, fScale, 1.0f);
+						TJAPlayer3.Tx.Taiko_LevelDown.t2D拡大率考慮描画( TJAPlayer3.app.Device, CTexture.RefPnt.Center, -329 + GameWindowSize.Width / 2, fY[ i ] + GameWindowSize.Height / 2 );
 					}
 				}
 			}

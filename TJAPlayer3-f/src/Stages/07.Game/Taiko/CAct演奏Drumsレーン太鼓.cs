@@ -718,11 +718,13 @@ namespace TJAPlayer3
 						//this.ctゴーゴー.n現在の値 = 6;
 						if (this.ctゴーゴー.b終了値に達した)
 						{
+							TJAPlayer3.Tx.Effects_Fire.vcScaling = Vector3.One;
 							TJAPlayer3.Tx.Effects_Fire.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[i] - (TJAPlayer3.Skin.Game_Effect_Fire[0] / 2), TJAPlayer3.Skin.nJudgePointY[i] - (TJAPlayer3.Skin.Game_Effect_Fire[1] / 2), new Rectangle(TJAPlayer3.Skin.Game_Effect_Fire[0] * (this.ctゴーゴー炎.n現在の値), 0, TJAPlayer3.Skin.Game_Effect_Fire[0], TJAPlayer3.Skin.Game_Effect_Fire[1]));
 						}
 						else
 						{
-							TJAPlayer3.Tx.Effects_Fire.t3D描画(TJAPlayer3.app.Device, mat, new Rectangle(TJAPlayer3.Skin.Game_Effect_Fire[0] * (this.ctゴーゴー炎.n現在の値), 0, TJAPlayer3.Skin.Game_Effect_Fire[0], TJAPlayer3.Skin.Game_Effect_Fire[1]));
+							TJAPlayer3.Tx.Effects_Fire.vcScaling = new Vector3( f倍率, f倍率, 1.0f );
+							TJAPlayer3.Tx.Effects_Fire.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.nScrollFieldX[i], TJAPlayer3.Skin.nJudgePointY[i], new Rectangle(TJAPlayer3.Skin.Game_Effect_Fire[0] * (this.ctゴーゴー炎.n現在の値), 0, TJAPlayer3.Skin.Game_Effect_Fire[0], TJAPlayer3.Skin.Game_Effect_Fire[1]));
 						}
 					}
 				}

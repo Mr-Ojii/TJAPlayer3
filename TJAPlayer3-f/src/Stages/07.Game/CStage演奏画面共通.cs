@@ -4734,14 +4734,16 @@ namespace TJAPlayer3
 			{
 				if (x >= 0)
 				{
-					Matrix4x4 mat = Matrix4x4.Identity;
-					mat *= Matrix4x4.CreateRotationZ(pChip.dbSCROLL != 0 ? (float)-Math.Atan((pChip.dbSCROLL_Y / pChip.dbSCROLL)) : (float)(Math.PI / 2.0));
-					mat *= Matrix4x4.CreateTranslation((float)(x - 640.0f) - 1.5f, -(y - 360.0f + 65.0f), 0f);
-
 					if (pChip.bBranch)
-						TJAPlayer3.Tx.Bar_Branch.t3D描画(TJAPlayer3.app.Device, mat, new Rectangle(0, 0, 3, 130));
+					{
+						TJAPlayer3.Tx.Bar_Branch.fRotation = pChip.dbSCROLL != 0 ? (float)-Math.Atan((pChip.dbSCROLL_Y / pChip.dbSCROLL)) : (float)(Math.PI / 2.0);
+						TJAPlayer3.Tx.Bar_Branch.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x - 1.5f, y + 65f, new Rectangle(0, 0, 3, 130));
+					}
 					else
-						TJAPlayer3.Tx.Bar.t3D描画(TJAPlayer3.app.Device, mat, new Rectangle(0, 0, 3, 130));
+					{
+						TJAPlayer3.Tx.Bar.fRotation = pChip.dbSCROLL != 0 ? (float)-Math.Atan((pChip.dbSCROLL_Y / pChip.dbSCROLL)) : (float)(Math.PI / 2.0);
+						TJAPlayer3.Tx.Bar.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x - 1.5f, y + 65f, new Rectangle(0, 0, 3, 130));
+					}
 				}
 			}
 		}

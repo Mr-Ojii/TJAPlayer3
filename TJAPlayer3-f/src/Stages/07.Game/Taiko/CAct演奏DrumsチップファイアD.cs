@@ -162,19 +162,11 @@ namespace TJAPlayer3
 								case EJudge.AutoPerfect:
 									if( this.st状態_大[ i ].nIsBig == 1 )
 									{
-										float fX = 415 - ((TJAPlayer3.Tx.Effects_Hit_Explosion_Big.szTextureSize.Width * TJAPlayer3.Tx.Effects_Hit_Explosion_Big.vcScaling.X ) / 2.0f);
-										float fY = TJAPlayer3.Skin.nJudgePointY[ this.st状態_大[ i ].nPlayer ] - ((TJAPlayer3.Tx.Effects_Hit_Explosion_Big.szTextureSize.Height * TJAPlayer3.Tx.Effects_Hit_Explosion_Big.vcScaling.Y ) / 2.0f);
-
-										////7
 										float f倍率 = 0.5f + ( (this.st状態_大[ i ].ct進行.n現在の値 * 0.5f) / 10.0f);
 
-										Matrix4x4 mat = Matrix4x4.Identity;
-										mat *= Matrix4x4.CreateScale( f倍率, f倍率, f倍率 );
-										mat *= Matrix4x4.CreateTranslation(TJAPlayer3.Skin.nScrollFieldX[this.st状態_大[i].nPlayer] - GameWindowSize.Width / 2.0f, -(TJAPlayer3.Skin.nJudgePointY[this.st状態[i].nPlayer] - GameWindowSize.Height / 2.0f), 0f);
-
-
 										TJAPlayer3.Tx.Effects_Hit_Explosion_Big.Opacity = 255;
-										TJAPlayer3.Tx.Effects_Hit_Explosion_Big.t3D描画( TJAPlayer3.app.Device, mat );
+										TJAPlayer3.Tx.Effects_Hit_Explosion_Big.vcScaling = new Vector3( f倍率 );
+										TJAPlayer3.Tx.Effects_Hit_Explosion_Big.t2D拡大率考慮描画( TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.nScrollFieldX[this.st状態_大[i].nPlayer], TJAPlayer3.Skin.nJudgePointY[this.st状態[i].nPlayer] );
 									}
 									break;
 									

@@ -575,72 +575,6 @@ namespace FDK
 			GL.BindTexture(TextureTarget.Texture2D, 0);
 		}
 
-		/// <summary>
-		/// テクスチャを 3D 画像と見なして描画する。
-		/// </summary>
-		public void t3D描画(Device device, System.Numerics.Matrix4x4 mat)
-		{
-			this.t3D描画(device, mat, this.rcImageRect);
-		}
-		public void t3D描画(Device device, System.Numerics.Matrix4x4 mat, Rectangle rc画像内の描画領域)
-		{
-			if (this.texture == null)
-				return;
-
-			matrix.M11 = mat.M11;
-			matrix.M12 = mat.M12;
-			matrix.M13 = mat.M13;
-			matrix.M14 = mat.M14;
-			matrix.M21 = mat.M21;
-			matrix.M22 = mat.M22;
-			matrix.M23 = mat.M23;
-			matrix.M24 = mat.M24;
-			matrix.M31 = mat.M31;
-			matrix.M32 = mat.M32;
-			matrix.M33 = mat.M33;
-			matrix.M34 = mat.M34;
-			matrix.M41 = mat.M41;
-			matrix.M42 = mat.M42;
-			matrix.M43 = mat.M43;
-			matrix.M44 = mat.M44;
-
-			float x = ((float)rc画像内の描画領域.Width) / 2f;
-			float y = ((float)rc画像内の描画領域.Height) / 2f;
-			float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szTextureSize.Width);
-			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szTextureSize.Width); 
-			float f上V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
-			float f下V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
-
-			this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
-
-			this.tSetBlendMode(device);
-
-			LoadWorldMatrix(matrix);
-
-			GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
-			GL.Color4(this.color);
-
-			vertices[0].X = x;
-			vertices[0].Y = y;
-			vertices[1].X = -x;
-			vertices[1].Y = y;
-			vertices[2].X = -x;
-			vertices[2].Y = -y;
-			vertices[3].X = x;
-			vertices[3].Y = -y;
-
-			GL.VertexPointer(3, VertexPointerType.Float, 0, this.vertices);
-
-			UpdateTexCoordArray(f右U値, f上V値, f左U値, f上V値, f左U値, f下V値, f右U値, f下V値);
-
-			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
-			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
-			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-
-			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length);
-			GL.BindTexture(TextureTarget.Texture2D, 0);
-		}
-
 		private void UpdateTexCoordArray(float zerox, float zeroy, float onex, float oney, float twox, float twoy, float threex, float threey) 
 		{
 			//TextureCoordinateの更新を行わないことでの描画の高速化を狙う
@@ -785,7 +719,6 @@ namespace FDK
 
 		protected Rectangle rcImageRect;                              // テクスチャ作ったらあとは不変
 		public Color color = Color.FromArgb(255, 255, 255, 255);
-		private Matrix4 matrix = Matrix4.Identity;
 		private MakeType maketype = MakeType.bytearray;
 		//-----------------
 		#endregion
