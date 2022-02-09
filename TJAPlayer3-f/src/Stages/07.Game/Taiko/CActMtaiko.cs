@@ -180,9 +180,6 @@ namespace TJAPlayer3
 						fScale = 1.0f;
 					}
 
-					Matrix4x4 mat = Matrix4x4.Identity;
-					mat *= Matrix4x4.CreateScale( fScale, fScale, 1.0f );
-					mat *= Matrix4x4.CreateTranslation( -329, fY[ i ], 0 );
 					if( this.After[ i ] - this.Before[ i ] >= 0 )
 					{
 						//レベルアップ

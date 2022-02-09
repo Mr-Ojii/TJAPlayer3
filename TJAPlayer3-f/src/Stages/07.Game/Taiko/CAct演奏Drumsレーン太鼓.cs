@@ -709,10 +709,6 @@ namespace TJAPlayer3
 
 						f倍率 = ar倍率[this.ctゴーゴー.n現在の値];
 
-						Matrix4x4 mat = Matrix4x4.Identity;
-						mat *= Matrix4x4.CreateScale(f倍率, f倍率, 1.0f);
-						mat *= Matrix4x4.CreateTranslation(TJAPlayer3.Skin.nScrollFieldX[i] - GameWindowSize.Width / 2.0f, -(TJAPlayer3.Skin.nJudgePointY[i] - GameWindowSize.Height / 2.0f), 0f);
-
 						//this.txゴーゴー炎.b加算合成 = true;
 
 						//this.ctゴーゴー.n現在の値 = 6;

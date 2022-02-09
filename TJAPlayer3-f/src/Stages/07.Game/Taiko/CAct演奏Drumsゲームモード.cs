@@ -463,23 +463,16 @@ namespace TJAPlayer3
 					if( this.st叩ききりまショー.b加算アニメ中 == true )
 						fRotate = CConvert.DegreeToRadian( 360.0f * ( this.st叩ききりまショー.ct針アニメ.n現在の値 / (float)this.st叩ききりまショー.n延長アニメ速度 ) );
 
-					Matrix4x4 mat = Matrix4x4.Identity;
 					if( this.st叩ききりまショー.b最初のチップが叩かれた )
 					{
-						mat *= Matrix4x4.CreateRotationZ( fRotate );
-						mat *= Matrix4x4.CreateTranslation( 280 - 640, -( 134 - 360 ), 0 );
 						TJAPlayer3.Tx.GameMode_Timer_Tick.fRotation = fRotate;
 					}
 					else
 					{
-						mat *= Matrix4x4.CreateTranslation( 280 - 640, -( 134 - 360 ), 0 );
 						TJAPlayer3.Tx.GameMode_Timer_Tick.fRotation = 0;
 					}
 
 					TJAPlayer3.Tx.GameMode_Timer_Tick.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, 280, 134);
-					//TJAPlayer3.Tx.GameMode_Timer_Tick.t3D描画( TJAPlayer3.app.Device, mat );
-
-					
 
 					string str表示する残り時間 = ( this.st叩ききりまショー.ct残り時間.n現在の値 < 1000 ) ? "25" : ( ( 26000 - this.st叩ききりまショー.ct残り時間.n現在の値 ) / 1000 ).ToString();
 					this.t小文字表示( 230 + (str表示する残り時間.Length * TJAPlayer3.Skin.Game_Taiko_Combo_Size[0] / 4 ), 84 + TJAPlayer3.Tx.GameMode_Timer_Frame.szTextureSize.Height / 2 , string.Format("{0,2:#0}", str表示する残り時間 ));
