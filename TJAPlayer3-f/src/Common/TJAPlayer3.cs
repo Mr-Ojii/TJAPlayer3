@@ -12,8 +12,6 @@ using FDK;
 using System.Reflection;
 using DiscordRPC;
 using System.Runtime.InteropServices;
-using OpenTK;
-using OpenTK.Graphics;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
@@ -288,7 +286,7 @@ namespace TJAPlayer3
 
 		public void t全画面_ウィンドウモード切り替え()
 		{
-			if ((ConfigIni != null) && (ConfigIni.bウィンドウモード != (this.WindowState == OpenTK.WindowState.Normal)))
+			if ((ConfigIni != null) && (ConfigIni.bウィンドウモード != (this.WindowState == FDK.Windowing.WindowState.Normal)))
 			{
 				if (ConfigIni.bウィンドウモード == false)   // #23510 2010.10.27 yyagi: backup current window size before going fullscreen mode
 				{
@@ -297,7 +295,7 @@ namespace TJAPlayer3
 					ConfigIni.nウインドウheight = this.ClientSize.Height;
 					//					FDK.CTaskBar.ShowTaskBar( false );
 				}
-				this.WindowState = ConfigIni.bウィンドウモード ? OpenTK.WindowState.Normal : OpenTK.WindowState.Fullscreen;
+				this.WindowState = ConfigIni.bウィンドウモード ? FDK.Windowing.WindowState.Normal : FDK.Windowing.WindowState.FullScreen_Desktop;
 				if (ConfigIni.bウィンドウモード == true)    // #23510 2010.10.27 yyagi: to resume window size from backuped value
 				{
 					base.ClientSize =
@@ -310,8 +308,6 @@ namespace TJAPlayer3
 
 		protected override void OnLoad(EventArgs e)
 		{
-			CAction.LoadContentAction();
-
 			if (this.listトップレベルActivities != null)
 			{
 				foreach (CActivity activity in this.listトップレベルActivities)
@@ -347,11 +343,8 @@ namespace TJAPlayer3
 			}
 			base.OnClosing(e);
 		}
-		protected override void OnUpdateFrame(FrameEventArgs e)
-		{
-			base.OnUpdateFrame(e);
-		}
-		protected override void OnRenderFrame(FrameEventArgs e)
+
+		protected override void OnRenderFrame(EventArgs e)
 		{
 			Timer?.t更新();
 			CSoundManager.rc演奏用タイマ?.t更新();
@@ -372,8 +365,6 @@ namespace TJAPlayer3
 				Thread.Sleep(ConfigIni.n非フォーカス時スリープms);
 			}
 			#endregion
-
-			CAction.BeginScene(this.ClientRectangle);
 
 			if (r現在のステージ != null)
 			{
@@ -880,9 +871,40 @@ namespace TJAPlayer3
 					TJAPlayer3.Tx.Overlay.t2D描画(app.Device, 0, 0);
 				}
 			}
-			this.SwapBuffers();
-			
-			CAction.Flush();// Flush GPU	// EndScene()～Present()間 (つまりVSync前) でFlush実行	
+
+
+			for (int i = 0; i < 0x10; i++)
+			{
+				if (ConfigIni.KeyAssign.Capture[i].Code > 0)
+					if (InputManager.Keyboard.bIsKeyPressed((int)ConfigIni.KeyAssign.Capture[i].Code))
+					{
+						// Debug.WriteLine( "capture: " + string.Format( "{0:2x}", (int) e.KeyCode ) + " " + (int) e.KeyCode );
+						string strFullPath =
+						   Path.Combine(TJAPlayer3.strEXEのあるフォルダ, "Capture_img");
+						strFullPath = Path.Combine(strFullPath, DateTime.Now.ToString("yyyyMMddHHmmss") + ".bmp");
+						CSaveScreen.CSaveFromDevice(TJAPlayer3.app.Device, strFullPath);
+					}
+				if (ConfigIni.KeyAssign.FullScreen[i].Code > 0)
+					if (InputManager.Keyboard.bIsKeyPressed((int)ConfigIni.KeyAssign.FullScreen[i].Code))
+					{
+						if (ConfigIni != null)
+						{
+							ConfigIni.bウィンドウモード = !ConfigIni.bウィンドウモード;
+							this.t全画面_ウィンドウモード切り替え();
+						}
+					}
+			}
+			if ((InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.LeftAlt) || InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.RightAlt)) && InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return))
+			{
+				if (ConfigIni != null)
+				{
+					ConfigIni.bウィンドウモード = !ConfigIni.bウィンドウモード;
+					this.t全画面_ウィンドウモード切り替え();
+				}
+			}
+
+			this.Render();
+
 
 			#region [ 全画面_ウインドウ切り替え ]
 			if (this.b次のタイミングで全画面_ウィンドウ切り替えを行う)
@@ -896,16 +918,11 @@ namespace TJAPlayer3
 			#region [ 垂直基線同期切り替え ]
 			if (this.b次のタイミングで垂直帰線同期切り替えを行う)
 			{
-				bool bIsMaximized = this.WindowState == WindowState.Maximized;                                            // #23510 2010.11.3 yyagi: to backup current window mode before changing VSyncWait
 				currentClientSize = this.ClientSize;                                             // #23510 2010.11.3 yyagi: to backup current window size before changing VSyncWait
 
-				this.VSync = ConfigIni.b垂直帰線待ちを行う ? OpenTK.VSyncMode.On : OpenTK.VSyncMode.Off;
+				this.VSync = ConfigIni.b垂直帰線待ちを行う;
 				this.b次のタイミングで垂直帰線同期切り替えを行う = false;
 				base.ClientSize = new Size(currentClientSize.Width, currentClientSize.Height);   // #23510 2010.11.3 yyagi: to resume window size after changing VSyncWait
-				if (bIsMaximized)
-				{
-					this.WindowState = WindowState.Maximized;                                // #23510 2010.11.3 yyagi: to resume window mode after changing VSyncWait
-				}
 			}
 			#endregion
 		}
@@ -1151,8 +1168,7 @@ namespace TJAPlayer3
 				currentClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);
 			}
 
-			base.Icon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("TJAPlayer3.TJAPlayer3-f.ico"));
-			base.KeyDown += this.Window_KeyDown;
+			base.Icon = Assembly.GetExecutingAssembly().GetManifestResourceStream("TJAPlayer3.TJAPlayer3-f.ico");
 			base.MouseWheel += this.Window_MouseWheel;
 			base.Resize += this.Window_ResizeOrMove;                       // #23510 2010.11.20 yyagi: to set resized window size in Config.ini
 			base.Move += this.Window_ResizeOrMove;
@@ -1160,8 +1176,8 @@ namespace TJAPlayer3
 			#endregion
 #region [ Direct3D9 デバイスの生成 ]
 			//---------------------
-			this.WindowState = ConfigIni.bウィンドウモード ? OpenTK.WindowState.Normal : OpenTK.WindowState.Fullscreen;
-			this.VSync = ConfigIni.b垂直帰線待ちを行う ? OpenTK.VSyncMode.On : OpenTK.VSyncMode.Off;
+			this.WindowState = ConfigIni.bウィンドウモード ? FDK.Windowing.WindowState.Normal : FDK.Windowing.WindowState.FullScreen;
+			this.VSync = ConfigIni.b垂直帰線待ちを行う;
 			base.ClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);   // #23510 2010.10.31 yyagi: to recover window size. width and height are able to get from Config.ini.
 			//---------------------
 #endregion
@@ -1836,45 +1852,10 @@ namespace TJAPlayer3
 		}
 #region [ Windowイベント処理 ]
 		//-----------------
-		private void Window_KeyDown( object sender, OpenTK.Input.KeyboardKeyEventArgs e)
-		{
-			if ((e.Key == OpenTK.Input.Key.Enter) && e.Alt)
-			{
-				if ( ConfigIni != null )
-				{
-					ConfigIni.bウィンドウモード = !ConfigIni.bウィンドウモード;
-					this.t全画面_ウィンドウモード切り替え();
-				}
-			}
-			else
-			{
-				for ( int i = 0; i < 0x10; i++ )
-				{
-					if ( ConfigIni.KeyAssign.Capture[ i ].Code > 0 &&
-							DeviceConstantConverter.TKKtoKey(e.Key) == (SlimDXKeys.Key)ConfigIni.KeyAssign.Capture[i].Code)
-					{
-						// Debug.WriteLine( "capture: " + string.Format( "{0:2x}", (int) e.KeyCode ) + " " + (int) e.KeyCode );
-						string strFullPath =
-						   Path.Combine( TJAPlayer3.strEXEのあるフォルダ, "Capture_img" );
-						strFullPath = Path.Combine( strFullPath, DateTime.Now.ToString( "yyyyMMddHHmmss" ) + ".png" );
-						CSaveScreen.CSaveFromDevice(TJAPlayer3.app.Device, strFullPath);
-					}else if(ConfigIni.KeyAssign.FullScreen[i].Code > 0 &&
-							DeviceConstantConverter.TKKtoKey(e.Key) == (SlimDXKeys.Key)ConfigIni.KeyAssign.FullScreen[i].Code) 
-					{
-
-						if (ConfigIni != null)
-						{
-							ConfigIni.bウィンドウモード = !ConfigIni.bウィンドウモード;
-							this.t全画面_ウィンドウモード切り替え();
-						}
-					}
-				}
-			}
-		}
-		private void Window_MouseWheel(object sender, OpenTK.Input.MouseWheelEventArgs e)
+		private void Window_MouseWheel(object sender, FDK.Windowing.MouseWheelEventArgs e)
 		{
 			if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongSelect && ConfigIni.bEnableMouseWheel) 
-				TJAPlayer3.stage選曲.MouseWheel(e.DeltaPrecise);
+				TJAPlayer3.stage選曲.MouseWheel(e.y);
 		}
 
 		private void Window_ResizeOrMove(object sender, EventArgs e)               // #23510 2010.11.20 yyagi: to get resized window size
@@ -1885,8 +1866,8 @@ namespace TJAPlayer3
 				ConfigIni.n初期ウィンドウ開始位置Y = this.Y;   //
 			}
 
-			ConfigIni.nウインドウwidth = (ConfigIni.bウィンドウモード) ? this.Width : currentClientSize.Width;    // #23510 2010.10.31 yyagi add
-			ConfigIni.nウインドウheight = (ConfigIni.bウィンドウモード) ? this.Height : currentClientSize.Height;
+			ConfigIni.nウインドウwidth = (ConfigIni.bウィンドウモード) ? this.ClientWidth : currentClientSize.Width;    // #23510 2010.10.31 yyagi add
+			ConfigIni.nウインドウheight = (ConfigIni.bウィンドウモード) ? this.ClientHeight : currentClientSize.Height;
 		}
 
 #endregion

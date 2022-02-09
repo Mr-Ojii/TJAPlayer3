@@ -42,10 +42,7 @@ namespace FDK
 		public unsafe CDecodedFrame UpdateFrame(double time, AVFrame* frame) 
 		{
 			this.Time = time;
-			for (int y = 0; y < frame->height; y++)
-			{
-				Buffer.MemoryCopy(frame->data[0] + (frame->linesize[0] * frame->height - (frame->linesize[0] * (y + 1))), (byte*)(this.TexPointer + frame->linesize[0] * y), frame->linesize[0], frame->linesize[0]);
-			}
+			Buffer.MemoryCopy(frame->data[0], (void*)this.TexPointer, frame->linesize[0] * frame->height, frame->linesize[0] * frame->height);
 			this.Using = true;
 			return this;
 		}

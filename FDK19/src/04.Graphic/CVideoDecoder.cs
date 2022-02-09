@@ -24,11 +24,12 @@ namespace FDK
 	/// </summary>
 	public unsafe class CVideoDecoder : IDisposable
 	{
-		public CVideoDecoder(string filename)
+		public CVideoDecoder(string filename, Device device)
 		{
 			if (!File.Exists(filename))
 				throw new FileNotFoundException(filename + " not found...");
 
+			this.device = device;
 			format_context = ffmpeg.avformat_alloc_context();
 			fixed (AVFormatContext** format_contexttmp = &format_context)
 			{
@@ -152,7 +153,7 @@ namespace FDK
 			this.EnqueueFrames();
 			if (lastTexture != null)
 				lastTexture.Dispose();
-			lastTexture = new CTexture(new Device(), new Image<Rgba32>(FrameSize.Width, FrameSize.Height), false);
+			lastTexture = new CTexture(device, new Image<Rgba32>(FrameSize.Width, FrameSize.Height), false);
 		}
 
 		public void GetNowFrame(ref CTexture Texture)
@@ -187,7 +188,7 @@ namespace FDK
 			}
 
 			if (lastTexture == null)
-				lastTexture = new CTexture(new Device(), new Image<Rgba32>(FrameSize.Width, FrameSize.Height), false);
+				lastTexture = new CTexture(this.device, new Image<Rgba32>(FrameSize.Width, FrameSize.Height), false);
 
 			if (Texture == lastTexture)
 				return;
@@ -341,6 +342,7 @@ namespace FDK
 
 		//for convert
 		private CFrameConverter frameconv;
+		private Device device;
 		#endregion
 	}
 }

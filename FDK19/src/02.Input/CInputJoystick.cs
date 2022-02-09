@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
-using OpenTK.Input;
+using SDL2;
 
 namespace FDK
 {
@@ -12,9 +12,10 @@ namespace FDK
 
 		public CInputJoystick(int joystickindex)
 		{
+			this.joystick_handle = SDL.SDL_JoystickOpen(joystickindex);
 			this.eInputDeviceType = EInputDeviceType.Joystick;
 			this.ID = joystickindex;
-			this.GUID = Joystick.GetGuid(ID).ToString();
+			this.GUID = SDL.SDL_JoystickGetGUID(joystick_handle).ToString();
 
 			for (int i = 0; i < this.bButtonState.Length; i++)
 				this.bButtonState[i] = false;
@@ -55,12 +56,10 @@ namespace FDK
 			{
 				#region [ 入力 ]
 				//-----------------------------
-				JoystickState ButtonState = Joystick.GetState(ID);
-				if (ButtonState.IsConnected)
 				{
 					#region [ X軸－ ]
 					//-----------------------------
-					if (ButtonState.GetAxis(0) < -0.5)
+					if (SDL.SDL_JoystickGetAxis(joystick_handle, 0) < -16384)
 					{
 						if (this.btmpButtonState[0] == false)
 						{
@@ -96,7 +95,7 @@ namespace FDK
 					#endregion
 					#region [ X軸＋ ]
 					//-----------------------------
-					if (ButtonState.GetAxis(0) > 0.5)
+					if (SDL.SDL_JoystickGetAxis(joystick_handle, 0) > 16384)
 					{
 						if (this.btmpButtonState[1] == false)
 						{
@@ -132,7 +131,7 @@ namespace FDK
 					#endregion
 					#region [ Y軸－ ]
 					//-----------------------------
-					if (ButtonState.GetAxis(1) < -0.5)
+					if (SDL.SDL_JoystickGetAxis(joystick_handle, 1) < -16384)
 					{
 						if (this.btmpButtonState[2] == false)
 						{
@@ -168,7 +167,7 @@ namespace FDK
 					#endregion
 					#region [ Y軸＋ ]
 					//-----------------------------
-					if (ButtonState.GetAxis(1) > 0.5)
+					if (SDL.SDL_JoystickGetAxis(joystick_handle, 1) > 16384)
 					{
 						if (this.btmpButtonState[3] == false)
 						{
@@ -204,7 +203,7 @@ namespace FDK
 					#endregion
 					#region [ Z軸－ ]
 					//-----------------------------
-					if (ButtonState.GetAxis(2) < -0.5)
+					if (SDL.SDL_JoystickGetAxis(joystick_handle,2) < -16384)
 					{
 						if (this.btmpButtonState[4] == false)
 						{
@@ -240,7 +239,7 @@ namespace FDK
 					#endregion
 					#region [ Z軸＋ ]
 					//-----------------------------
-					if (ButtonState.GetAxis(2) > 0.5)
+					if (SDL.SDL_JoystickGetAxis(joystick_handle, 2) > 16384)
 					{
 						if (this.btmpButtonState[5] == false)
 						{
@@ -276,7 +275,7 @@ namespace FDK
 					#endregion
 					#region [ Z軸回転－ ]
 					//-----------------------------
-					if (ButtonState.GetAxis(3) < -0.5)
+					if (SDL.SDL_JoystickGetAxis(joystick_handle, 3) < -16384)
 					{
 						if (this.btmpButtonState[6] == false)
 						{
@@ -312,7 +311,7 @@ namespace FDK
 					#endregion
 					#region [ Z軸回転＋ ]
 					//-----------------------------
-					if (ButtonState.GetAxis(3) > 0.5)
+					if (SDL.SDL_JoystickGetAxis(joystick_handle, 3) > 16384)
 					{
 						if (this.btmpButtonState[7] == false)
 						{
@@ -351,7 +350,8 @@ namespace FDK
 					bool bIsButtonPressedReleased = false;
 					for (int j = 0; j < 128; j++)
 					{
-						if (this.btmpButtonState[8 + j] == false && ButtonState.IsButtonDown(j))
+						bool buttonState = (SDL.SDL_JoystickGetButton(joystick_handle, j) == 1);
+						if (this.btmpButtonState[8 + j] == false && buttonState)
 						{
 							STInputEvent item = new STInputEvent()
 							{
@@ -365,7 +365,7 @@ namespace FDK
 							this.btmpButtonPushDown[8 + j] = true;
 							bIsButtonPressedReleased = true;
 						}
-						else if (this.btmpButtonState[8 + j] == true && !ButtonState.IsButtonDown(j))
+						else if (this.btmpButtonState[8 + j] == true && !buttonState)
 						{
 							STInputEvent item = new STInputEvent()
 							{
@@ -384,11 +384,11 @@ namespace FDK
 					#endregion
 					// #24341 2011.3.12 yyagi: POV support
 					#region [ POV HAT 4/8way (only single POV switch is supported)]
-					JoystickHatState hatState = ButtonState.GetHat(JoystickHat.Hat0);
+					byte hatState = SDL.SDL_JoystickGetHat(joystick_handle, 0);
 
 					for (int nWay = 0; nWay < 8; nWay++)
 					{
-						if (hatState.Position == (OpenTK.Input.HatPosition)nWay + 1)
+						if (hatState == hatList[nWay])
 						{
 							if (this.btmpButtonState[8 + 128 + nWay] == false)
 							{
@@ -484,6 +484,10 @@ namespace FDK
 		{
 			if (!this.bDisposed)
 			{
+				if (SDL.SDL_JoystickGetAttached(joystick_handle)== SDL.SDL_bool.SDL_TRUE)
+				{
+					SDL.SDL_JoystickClose(joystick_handle);
+				}
 				if (this.listInputEvents != null)
 				{
 					this.listInputEvents = null;
@@ -507,6 +511,20 @@ namespace FDK
 		private bool[] btmpButtonState = new bool[0x100];      // 0-5: XYZ, 6 - 0x128+5: buttons, 0x128+6 - 0x128+6+8: POV/HAT
 		private List<STInputEvent> listtmpInputEvents;
 		private bool bDisposed;
+
+		private IntPtr joystick_handle;
+
+		private byte[] hatList = new byte[]
+		{
+			SDL.SDL_HAT_UP,
+			SDL.SDL_HAT_RIGHTUP,
+			SDL.SDL_HAT_RIGHT,
+			SDL.SDL_HAT_RIGHTDOWN,
+			SDL.SDL_HAT_DOWN,
+			SDL.SDL_HAT_LEFTDOWN,
+			SDL.SDL_HAT_LEFT,
+			SDL.SDL_HAT_LEFTUP,
+		};
 		//-----------------
 		#endregion
 	}

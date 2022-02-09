@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
-using OpenTK.Input;
+using SDL2;
 
 namespace FDK
 {
@@ -36,13 +36,12 @@ namespace FDK
 			if (bIsWindowActive)
 			{
 				//-----------------------------
-				MouseState currentState = Mouse.GetState();
+				uint currentState = SDL.SDL_GetMouseState(out int _, out int _);
 
-				if (currentState.IsConnected)
 				{
 					for (int j = 0; j < Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length; j++)
 					{
-						if (this.btmpMouseState[j] == false && currentState[(MouseButton)j])
+						if (this.btmpMouseState[j] == false && ((currentState & masklist[j]) != 0))
 						{
 							var ev = new STInputEvent()
 							{
@@ -56,7 +55,7 @@ namespace FDK
 							this.btmpMouseState[j] = true;
 							this.btmpMousePushDown[j] = true;
 						}
-						else if (this.btmpMouseState[j] == true && !currentState[(MouseButton)j])
+						else if (this.btmpMouseState[j] == true && !((currentState & masklist[j]) != 0))
 						{
 							var ev = new STInputEvent()
 							{
@@ -101,19 +100,19 @@ namespace FDK
 
 		public bool bIsKeyPressed(int nButton)
 		{
-			return (((0 <= nButton) && (nButton < Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length)) && this.bMousePushDown[nButton]);
+			return ((0 <= nButton) && (nButton < 0) && this.bMousePushDown[nButton]);
 		}
 		public bool bIsKeyDown(int nButton)
 		{
-			return (((0 <= nButton) && (nButton < Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length)) && this.bMouseState[nButton]);
+			return ((0 <= nButton) && (nButton < 0) && this.bMouseState[nButton]);
 		}
 		public bool bIsKeyReleased(int nButton)
 		{
-			return (((0 <= nButton) && (nButton < Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length)) && this.bMousePullUp[nButton]);
+			return ((0 <= nButton) && (nButton < 0) && this.bMousePullUp[nButton]);
 		}
 		public bool bIsKeyUp(int nButton)
 		{
-			return (((0 <= nButton) && (nButton < Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length)) && !this.bMouseState[nButton]);
+			return ((0 <= nButton) && (nButton < 0) && !this.bMouseState[nButton]);
 		}
 		//-----------------
 		#endregion
@@ -147,6 +146,13 @@ namespace FDK
 		private bool[] btmpMousePushDown = new bool[Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length];
 		private bool[] btmpMouseState = new bool[Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length];
 		public List<STInputEvent> listtmpInputEvents;
+
+		private uint[] masklist = new uint[] 
+		{
+			SDL.SDL_BUTTON_LMASK,
+			SDL.SDL_BUTTON_MMASK,
+			SDL.SDL_BUTTON_RMASK
+		};
 		//-----------------
 		#endregion
 	}

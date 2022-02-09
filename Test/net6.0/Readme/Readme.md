@@ -197,7 +197,8 @@ Fork元より使用しているライブラリ
 * [Json.NET](https://www.newtonsoft.com/json)
 * [FFmpeg.AutoGen](https://github.com/Ruslan-B/FFmpeg.AutoGen)
 * [FFmpeg](https://ffmpeg.org/)
-* [OpenTK](https://opentk.net/)
+* [SDL]2(https://www.libsdl.org/)
+* [ppy/SDL2-CS](https://github.com/ppy/SDL2-CS)
 * [discord-rpc-csharp](https://github.com/Lachee/discord-rpc-csharp)
 * [SixLabors.ImageSharp](https://github.com/SixLabors/ImageSharp)
 * [SixLabors.ImageSharp.Drawing](https://github.com/SixLabors/ImageSharp.Drawing)
@@ -212,17 +213,41 @@ Fork元より使用しているライブラリ
 
 
 ## FFmpegについて
-このリポジトリにはあらかじめFFmpegライブラリが同梱されています。  
-同梱しているライブラリは
-+ [FFmpeg-Builds-Win32](https://github.com/sudo-nautilus/FFmpeg-Builds-Win32)からのx86ライブラリ  
-+ [FFmpeg-Builds](https://github.com/BtbN/FFmpeg-Builds)からのx64ライブラリ  
+`TJAPlayer3-f`と同じフォルダに`ffmpeg`フォルダを作成し、  
+OSとTJAPlayer3-fのビット数に対応したフォルダを作成し、
+`TJAPlayer3-f`のビット数に対応したFFmpegバイナリ(Shared)を置くことにより、
 
-バージョンは4.4です。(2021/08/20現在)
++ FFmpegが対応している動画ファイル再生
++ FFmpegが対応している音声ファイル再生
+
+ができるようになります。
+
+バージョン5.0を推奨しています。(2022/02/09現在)
+
+### OSとTJAPlayer3-fのビット数に対応したフォルダ名
++ Windows
+  - 32bit : `win-x86`
+  - 64bit : `win-x64`
++ macOS
+  - 64bit : `osx-x64`
++ Linux
+  - 32bit : `linux-x86`
+  - 64bit : `linux-x64`
 
 
 ## BASSについて
 このリポジトリにはあらかじめBASSライブラリが同梱されています。  
-バージョンは2.4.16.3です。(2021/08/17現在)
+
+### 各種バージョン
+|Module     |  Version |
+|:----------|:--------:|
+|BASS       | 2.4.16.7 |
+|BASSmix    | 2.4.11.2 |
+|BASS FX    | 2.4.12.6 |
+|BASSWASAPI | 2.4.3.1  |
+|BASSASIO   |  1.4.1   |
+
+(2022/02/09現在)
 
 
 ## 謝辞

@@ -4,12 +4,11 @@ using System.Text;
 using System.Drawing;
 using System.IO;
 using System.Diagnostics;
-using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using System.Numerics;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
+using SDL2;
 
 using Rectangle = System.Drawing.Rectangle;
 using Point = System.Drawing.Point;
@@ -51,12 +50,8 @@ namespace FDK
 			get;
 			private set;
 		}
-		private int? texture;
-		private int? vrtVBO;
-		private int? texVBO;
-		private Vector3[] vertices = new Vector3[4]{ new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(1, 1, 0), new Vector3(1, 0, 0) };
-		private Vector2[] texcoord = new Vector2[4] { new Vector2(0, 0), new Vector2(0, 1), new Vector2(1, 1), new Vector2(1, 0) };
-		public System.Numerics.Vector3 vcScaling;
+		private IntPtr? texture;
+		public Vector3 vcScaling;
 		private Vector3 vcS;
 		private string filename;
 
@@ -67,14 +62,11 @@ namespace FDK
 			this.szTextureSize = new Size(0, 0);
 			this._opacity = 0xff;
 			this.texture = null;
-			this.vrtVBO = null;
-			this.texVBO = null;
 			this.bTextureDisposed = true;
 			this.fRotation = 0f;
 			this.vcScaling = new System.Numerics.Vector3(1f, 1f, 1f);
 			this.vcS = new Vector3(1f, 1f, 1f);
 			this.filename = "";
-			//			this._txData = null;
 		}
 
 		/// <summary>
@@ -108,7 +100,6 @@ namespace FDK
 		}
 		public void MakeTexture(Device device, SixLabors.ImageSharp.Image<Rgba32> bitmap, bool b黒を透過する)
 		{
-			bitmap.Mutate(c => c.Flip(FlipMode.Vertical));
 			if (b黒を透過する)
 				bitmap.Mutate(c => c.BackgroundColor(SixLabors.ImageSharp.Color.Transparent));
 			try
@@ -116,46 +107,31 @@ namespace FDK
 				this.szTextureSize = new Size(bitmap.Width, bitmap.Height);
 				this.rcImageRect = new Rectangle(0, 0, this.szTextureSize.Width, this.szTextureSize.Height);
 
-				//VBOをここで生成する
-				this.vrtVBO = GL.GenBuffer();
-				GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.vrtVBO);
-				GL.BufferData(BufferTarget.ArrayBuffer, this.vertices.Length * Vector3.SizeInBytes, vertices, BufferUsageHint.DynamicDraw);
-				this.texVBO = GL.GenBuffer();
-				GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
-				GL.BufferData(BufferTarget.ArrayBuffer, this.texcoord.Length * Vector2.SizeInBytes, texcoord, BufferUsageHint.DynamicDraw);
-				GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-
-				this.texture = GL.GenTexture();
-
-				//テクスチャ用バッファのひもづけ
-				GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
-
-				//テクスチャの設定
-				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureBaseLevel, 0);
-				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMaxLevel, 3);
-
-				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinLod, 0);
-				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMaxLod, 3);
-
-				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.LinearMipmapLinear);
-				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.LinearSharpenSgis);
-				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
-				GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
-
-				if (bitmap.TryGetSinglePixelSpan(out Span<Rgba32> span))
+				this.texture = SDL.SDL_CreateTexture(device.renderer, SDL.SDL_PIXELFORMAT_ABGR8888, (int)SDL.SDL_TextureAccess.SDL_TEXTUREACCESS_TARGET, szTextureSize.Width, szTextureSize.Height);
+				
+				SDL.SDL_Rect rect = new SDL.SDL_Rect()
 				{
-					GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bitmap.Width, bitmap.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Rgba, PixelType.UnsignedByte, span.ToArray());
-				}
-				else
-				{
+					x = 0,
+					y = 0,
+					w = bitmap.Width,
+					h = bitmap.Height
+				};
+				if(bitmap.TryGetSinglePixelSpan(out Span<Rgba32> span))
+                {
+                    unsafe
+                    {
+						fixed(Rgba32* ptr = span)
+                        {
+							SDL.SDL_UpdateTexture((IntPtr)this.texture, ref rect, (IntPtr)ptr, bitmap.Width * 4);
+						}
+                    }
+                }
+                else
+                {
 					throw new CTextureCreateFailedException("GetPixelData failed");
 				}
 
-				GL.Hint(HintTarget.GenerateMipmapHint, HintMode.Nicest);
-				GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
-
-				UpdateTexCoordArray(0, 0, 0, 1, 1, 1, 1, 0);//TextureCoordinateの初期化
-				GL.BindTexture(TextureTarget.Texture2D, 0);
+				SDL.SDL_SetTextureBlendMode((IntPtr)this.texture, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
 
 				this.bTextureDisposed = false;
 			}
@@ -168,14 +144,16 @@ namespace FDK
 		// メソッド
 		public void UpdateTexture(IntPtr bitmap, Size size) 
 		{
-			if (this.szTextureSize == size) 
+			if (this.szTextureSize == size)
 			{
-				GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
-				GL.TexSubImage2D(TextureTarget.Texture2D, 0, 0, 0, size.Width, size.Height, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bitmap);
-
-				GL.Hint(HintTarget.GenerateMipmapHint, HintMode.Nicest);
-				GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
-				GL.BindTexture(TextureTarget.Texture2D, 0);
+				SDL.SDL_Rect rect = new SDL.SDL_Rect()
+				{
+					x = 0,
+					y = 0,
+					w = size.Width,
+					h = size.Height
+				};
+				SDL.SDL_UpdateTexture((IntPtr)this.texture, ref rect, bitmap, size.Width * 4);
 			}
 		}
 
@@ -331,98 +309,21 @@ namespace FDK
 
 			this.tSetBlendMode(device);
 
-			if (this.fRotation == 0f)
-			{
-				#region [ (A) 回転なし ]
-				//-----------------
-				float f補正値X = -GameWindowSize.Width / 2f - 0.5f;
-				float f補正値Y = -GameWindowSize.Height / 2f - 0.5f;
-				float w = rc画像内の描画領域.Width;
-				float h = rc画像内の描画領域.Height;
-				float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szTextureSize.Width);
-				float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szTextureSize.Width);
-				float f上V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
-				float f下V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
+			SDL.SDL_SetTextureAlphaMod((IntPtr)this.texture, (byte)this._opacity);
+			SDL.SDL_SetTextureColorMod((IntPtr)this.texture, (byte)this.color.R, (byte)this.color.G, (byte)this.color.B);
 
-				this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
 
-				ResetWorldMatrix();
+			dstrect.x = (int)x;
+			dstrect.y = (int)y;
+			dstrect.w = (int)(rc画像内の描画領域.Width * this.vcScaling.X);
+			dstrect.h = (int)(rc画像内の描画領域.Height * this.vcScaling.Y);
 
-				GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
-				GL.Color4(this.color);
+			srcrect.x = rc画像内の描画領域.X;
+			srcrect.y = rc画像内の描画領域.Y;
+			srcrect.w = rc画像内の描画領域.Width;
+			srcrect.h = rc画像内の描画領域.Height;
 
-				vertices[0].X = -(x + (w * this.vcScaling.X) + f補正値X);
-				vertices[0].Y = -(y + f補正値Y);
-				vertices[1].X = -(x + f補正値X);
-				vertices[1].Y = -(y + f補正値Y);
-				vertices[2].X = -(x + f補正値X);
-				vertices[2].Y = -((y + (h * this.vcScaling.Y)) + f補正値Y);
-				vertices[3].X = -(x + (w * this.vcScaling.X) + f補正値X);
-				vertices[3].Y = -((y + (h * this.vcScaling.Y)) + f補正値Y);
-
-				GL.VertexPointer(3, VertexPointerType.Float, 0, this.vertices);
-				UpdateTexCoordArray(f右U値, f上V値, f左U値, f上V値, f左U値, f下V値, f右U値, f下V値);
-
-				GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
-				GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
-				GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-
-				GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length);
-				GL.BindTexture(TextureTarget.Texture2D, 0);
-				//-----------------
-				#endregion
-			}
-			else
-			{
-				#region [ (B) 回転あり ]
-				//-----------------
-				float f中央X = ((float)rc画像内の描画領域.Width) / 2f;
-				float f中央Y = ((float)rc画像内の描画領域.Height) / 2f;
-				float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szTextureSize.Width);
-				float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szTextureSize.Width);
-				float f上V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
-				float f下V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
-
-				this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
-
-				float n描画領域内X = x + (rc画像内の描画領域.Width * this.vcScaling.X / 2.0f);
-				float n描画領域内Y = y + (rc画像内の描画領域.Height * this.vcScaling.Y / 2.0f);
-				var vc3移動量 = new Vector3(n描画領域内X - (((float)GameWindowSize.Width) / 2f), -(n描画領域内Y - (((float)GameWindowSize.Height) / 2f)), 0f);
-
-				this.vcS.X = this.vcScaling.X;
-				this.vcS.Y = this.vcScaling.Y;
-				this.vcS.Z = this.vcScaling.Z;
-
-				var matrix = Matrix4.Identity * Matrix4.CreateScale(this.vcS);
-				matrix *= Matrix4.CreateRotationZ(this.fRotation);
-				matrix *= Matrix4.CreateTranslation(vc3移動量);
-
-				LoadWorldMatrix(matrix);
-
-				GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
-				GL.Color4(this.color);
-
-				vertices[0].X = -f中央X;
-				vertices[0].Y = -f中央Y;
-				vertices[1].X = f中央X;
-				vertices[1].Y = -f中央Y;
-				vertices[2].X = f中央X;
-				vertices[2].Y = f中央Y;
-				vertices[3].X = -f中央X;
-				vertices[3].Y = f中央Y;
-
-				GL.VertexPointer(3, VertexPointerType.Float, 0, this.vertices);
-				UpdateTexCoordArray(f左U値, f下V値, f右U値, f下V値, f右U値, f上V値, f左U値, f上V値);
-
-				GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
-				GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
-				GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-
-				GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length);
-				GL.BindTexture(TextureTarget.Texture2D, 0);
-				//-----------------
-				#endregion
-			}
+			SDL.SDL_RenderCopyEx(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect, (this.fRotation * 180 / Math.PI), IntPtr.Zero, SDL.SDL_RendererFlip.SDL_FLIP_NONE);
 		}
 
 
@@ -433,44 +334,20 @@ namespace FDK
 
 			this.tSetBlendMode(device);
 
-			#region [ (A) 回転なし ]
-			//-----------------
-			float f補正値X = -GameWindowSize.Width / 2f - 0.5f;
-			float f補正値Y = -GameWindowSize.Height / 2f - 0.5f;
-			float w = rc画像内の描画領域.Width;
-			float h = rc画像内の描画領域.Height;
-			float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szTextureSize.Width);
-			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szTextureSize.Width);
-			float f上V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
-			float f下V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
+			SDL.SDL_SetTextureAlphaMod((IntPtr)this.texture, (byte)this._opacity);
+			SDL.SDL_SetTextureColorMod((IntPtr)this.texture, (byte)this.color.R, (byte)this.color.G, (byte)this.color.B);
 
-			this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
+			dstrect.x = (int)x;
+			dstrect.y = (int)y;
+			dstrect.w = (int)(rc画像内の描画領域.Width * this.vcScaling.X);
+			dstrect.h = (int)(rc画像内の描画領域.Height * this.vcScaling.Y);
 
-			ResetWorldMatrix();
+			srcrect.x = rc画像内の描画領域.X;
+			srcrect.y = rc画像内の描画領域.Y;
+			srcrect.w = rc画像内の描画領域.Width;
+			srcrect.h = rc画像内の描画領域.Height;
 
-			GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
-			GL.Color4(this.color);
-
-			vertices[0].X = -(x + (w * this.vcScaling.X) + f補正値X);
-			vertices[0].Y = -(y + f補正値Y);
-			vertices[1].X = -(x + f補正値X);
-			vertices[1].Y = -(y + f補正値Y);
-			vertices[2].X = -(x + f補正値X) - ((!left) ? num : 0);
-			vertices[2].Y = -((y + (h * this.vcScaling.Y)) + f補正値Y);
-			vertices[3].X = -(x + (w * this.vcScaling.X) + f補正値X) + ((left) ? num : 0);
-			vertices[3].Y = -((y + (h * this.vcScaling.Y)) + f補正値Y);
-
-			GL.VertexPointer(3, VertexPointerType.Float, 0, this.vertices);
-			UpdateTexCoordArray(f右U値, f上V値, f左U値, f上V値, f左U値, f下V値, f右U値, f下V値);
-
-			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
-			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
-			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-
-			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length);
-			GL.BindTexture(TextureTarget.Texture2D, 0);
-			//-----------------
-			#endregion
+			SDL.SDL_RenderCopy(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect);
 		}
 
 		public void t2D上下反転描画(Device device, float x, float y)
@@ -488,40 +365,20 @@ namespace FDK
 
 			this.tSetBlendMode(device);
 
-			float f補正値X = -GameWindowSize.Width / 2f - 0.5f;
-			float f補正値Y = -GameWindowSize.Height / 2f - 0.5f;
-			float w = rc画像内の描画領域.Width;
-			float h = rc画像内の描画領域.Height;
-			float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szTextureSize.Width);
-			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szTextureSize.Width);
-			float f上V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
-			float f下V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
+			SDL.SDL_SetTextureAlphaMod((IntPtr)this.texture, (byte)this._opacity);
+			SDL.SDL_SetTextureColorMod((IntPtr)this.texture, (byte)this.color.R, (byte)this.color.G, (byte)this.color.B);
 
-			this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
+			dstrect.x = (int)x;
+			dstrect.y = (int)y;
+			dstrect.w = (int)(rc画像内の描画領域.Width * this.vcScaling.X);
+			dstrect.h = (int)(rc画像内の描画領域.Height * this.vcScaling.Y);
 
-			ResetWorldMatrix();
+			srcrect.x = rc画像内の描画領域.X;
+			srcrect.y = rc画像内の描画領域.Y;
+			srcrect.w = rc画像内の描画領域.Width;
+			srcrect.h = rc画像内の描画領域.Height;
 
-			GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
-			GL.Color4(this.color);
-
-			vertices[0].X = -(x + (w * this.vcScaling.X) + f補正値X);
-			vertices[0].Y = -(y + f補正値Y);
-			vertices[1].X = -(x + f補正値X);
-			vertices[1].Y = -(y + f補正値Y);
-			vertices[2].X = -(x + f補正値X);
-			vertices[2].Y = -((y + (h * this.vcScaling.Y)) + f補正値Y);
-			vertices[3].X = -(x + (w * this.vcScaling.X) + f補正値X);
-			vertices[3].Y = -((y + (h * this.vcScaling.Y)) + f補正値Y);
-
-			GL.VertexPointer(3, VertexPointerType.Float, 0, this.vertices);
-			UpdateTexCoordArray(f右U値, f下V値, f左U値, f下V値, f左U値, f上V値, f右U値, f上V値);
-
-			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
-			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
-			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-
-			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length);
-			GL.BindTexture(TextureTarget.Texture2D, 0);
+			SDL.SDL_RenderCopyEx(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect, 0, IntPtr.Zero, SDL.SDL_RendererFlip.SDL_FLIP_VERTICAL);
 		}
 
 		public void t2D左右反転描画(Device device, float x, float y)
@@ -539,60 +396,20 @@ namespace FDK
 
 			this.tSetBlendMode(device);
 
-			float f補正値X = -GameWindowSize.Width / 2f - 0.5f;
-			float f補正値Y = -GameWindowSize.Height / 2f - 0.5f;
-			float w = rc画像内の描画領域.Width;
-			float h = rc画像内の描画領域.Height;
-			float f左U値 = ((float)rc画像内の描画領域.Left) / ((float)this.szTextureSize.Width);
-			float f右U値 = ((float)rc画像内の描画領域.Right) / ((float)this.szTextureSize.Width);
-			float f上V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Top)) / ((float)this.szTextureSize.Height);
-			float f下V値 = ((float)(rcImageRect.Bottom - rc画像内の描画領域.Bottom)) / ((float)this.szTextureSize.Height);
+			SDL.SDL_SetTextureAlphaMod((IntPtr)this.texture, (byte)this._opacity);
+			SDL.SDL_SetTextureColorMod((IntPtr)this.texture, (byte)this.color.R, (byte)this.color.G, (byte)this.color.B);
 
-			this.color = Color.FromArgb(this._opacity, this.color.R, this.color.G, this.color.B);
+			dstrect.x = (int)x;
+			dstrect.y = (int)y;
+			dstrect.w = (int)(rc画像内の描画領域.Width * this.vcScaling.X);
+			dstrect.h = (int)(rc画像内の描画領域.Height * this.vcScaling.Y);
 
-			ResetWorldMatrix();
+			srcrect.x = rc画像内の描画領域.X;
+			srcrect.y = rc画像内の描画領域.Y;
+			srcrect.w = rc画像内の描画領域.Width;
+			srcrect.h = rc画像内の描画領域.Height;
 
-			GL.BindTexture(TextureTarget.Texture2D, (int)this.texture);
-			GL.Color4(this.color);
-
-			vertices[0].X = -(x + (w * this.vcScaling.X) + f補正値X);
-			vertices[0].Y = -(y + f補正値Y);
-			vertices[1].X = -(x + f補正値X);
-			vertices[1].Y = -(y + f補正値Y);
-			vertices[2].X = -(x + f補正値X);
-			vertices[2].Y = -((y + (h * this.vcScaling.Y)) + f補正値Y);
-			vertices[3].X = -(x + (w * this.vcScaling.X) + f補正値X);
-			vertices[3].Y = -((y + (h * this.vcScaling.Y)) + f補正値Y);
-
-			GL.VertexPointer(3, VertexPointerType.Float, 0, this.vertices);
-			UpdateTexCoordArray(f左U値, f上V値, f右U値, f上V値, f右U値, f下V値, f左U値, f下V値);
-
-			GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
-			GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, 0);
-			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-
-			GL.DrawArrays(PrimitiveType.Quads, 0, vertices.Length);
-			GL.BindTexture(TextureTarget.Texture2D, 0);
-		}
-
-		private void UpdateTexCoordArray(float zerox, float zeroy, float onex, float oney, float twox, float twoy, float threex, float threey) 
-		{
-			//TextureCoordinateの更新を行わないことでの描画の高速化を狙う
-			//条件文が冗長なのを直したい
-			if (zerox != texcoord[0].X || zeroy != texcoord[0].Y || onex != texcoord[1].X || oney != texcoord[1].Y || twox != texcoord[2].X || twoy != texcoord[2].Y || threex != texcoord[3].X || threey != texcoord[3].Y)
-			{
-				GL.BindBuffer(BufferTarget.ArrayBuffer, (int)this.texVBO);
-				texcoord[0].X = zerox;
-				texcoord[0].Y = zeroy;
-				texcoord[1].X = onex;
-				texcoord[1].Y = oney;
-				texcoord[2].X = twox;
-				texcoord[2].Y = twoy;
-				texcoord[3].X = threex;
-				texcoord[3].Y = threey;
-				GL.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)0, this.texcoord.Length * Vector2.SizeInBytes, this.texcoord);
-				GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-			}
+			SDL.SDL_RenderCopyEx(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect, 0, IntPtr.Zero, SDL.SDL_RendererFlip.SDL_FLIP_HORIZONTAL);
 		}
 
 		#region [ IDisposable 実装 ]
@@ -605,18 +422,9 @@ namespace FDK
 				if (this.texture.HasValue)
 				{
 					this.bTextureDisposed = true;
-					GL.DeleteTexture((int)this.texture);
+					if(this.texture != null)
+						SDL.SDL_DestroyTexture((IntPtr)this.texture);
 					this.texture = null;
-				}
-				if (this.vrtVBO.HasValue) 
-				{
-					GL.DeleteBuffer((int)this.vrtVBO);
-					this.vrtVBO = null;
-				}
-				if (this.texVBO.HasValue)
-				{
-					GL.DeleteBuffer((int)this.texVBO);
-					this.texVBO = null;
 				}
 
 				this.bDisposed = true;
@@ -653,9 +461,6 @@ namespace FDK
 		{
 			Normal,
 			Addition,
-			Subtract,
-			Multiply,
-			Screen
 		}
 
 		#region [ private ]
@@ -672,42 +477,14 @@ namespace FDK
 			switch (this.eBlendMode) 
 			{
 				case EBlendMode.Addition:
-					GL.BlendEquation(BlendEquationMode.FuncAdd);
-					GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.One);
-					break;
-				case EBlendMode.Multiply:
-					GL.BlendEquation(BlendEquationMode.FuncAdd);
-					GL.BlendFunc(BlendingFactor.Zero, BlendingFactor.SrcColor);
-					break;
-				case EBlendMode.Subtract:
-					GL.BlendEquation(BlendEquationMode.FuncReverseSubtract);
-					GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.One);
-					break;
-				case EBlendMode.Screen:
-					GL.BlendEquation(BlendEquationMode.FuncAdd);
-					GL.BlendFunc(BlendingFactor.OneMinusDstColor, BlendingFactor.One);
+					SDL.SDL_SetTextureBlendMode((IntPtr)this.texture, SDL.SDL_BlendMode.SDL_BLENDMODE_ADD);
 					break;
 				default:
-					GL.BlendEquation(BlendEquationMode.FuncAdd);
-					GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+					SDL.SDL_SetTextureBlendMode((IntPtr)this.texture, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
 					break;
 			}
 		}
-		private void ResetWorldMatrix()
-		{
-			Matrix4 tmpmat = CAction.ModelView;
-			GL.MatrixMode(MatrixMode.Modelview);
-			GL.LoadMatrix(ref tmpmat);
-		}
 
-		private void LoadWorldMatrix(Matrix4 mat)
-		{
-			Matrix4 tmpmat = CAction.ModelView;
-			GL.MatrixMode(MatrixMode.Modelview);
-			mat *= Matrix4.CreateScale(-1, 1, 1);
-			mat *= tmpmat;
-			GL.LoadMatrix(ref mat);
-		}
 		private enum MakeType
 		{
 			filename,
@@ -720,6 +497,8 @@ namespace FDK
 		protected Rectangle rcImageRect;                              // テクスチャ作ったらあとは不変
 		public Color color = Color.FromArgb(255, 255, 255, 255);
 		private MakeType maketype = MakeType.bytearray;
+		private SDL.SDL_Rect srcrect;
+		private SDL.SDL_Rect dstrect;
 		//-----------------
 		#endregion
 	}

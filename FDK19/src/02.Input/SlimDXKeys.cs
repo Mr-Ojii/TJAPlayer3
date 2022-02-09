@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OpenTK.Input;
+using SDL2;
 
 namespace SlimDXKeys
 {
@@ -161,18 +161,8 @@ namespace SlimDXKeys
 	/// </summary>
 	public enum Mouse
 	{
-		Left = MouseButton.Left,
-		Middle = MouseButton.Middle,
-		Right = MouseButton.Right,
-		Button1 = MouseButton.Button1,
-		Button2 = MouseButton.Button2,
-		Button3 = MouseButton.Button3,
-		Button4 = MouseButton.Button4,
-		Button5 = MouseButton.Button5,
-		Button6 = MouseButton.Button6,
-		Button7 = MouseButton.Button7,
-		Button8 = MouseButton.Button8,
-		Button9 = MouseButton.Button9,
-		LastButton = MouseButton.LastButton,
+		Left = 0,
+		Middle,
+		Right
 	}
 }

@@ -7,11 +7,11 @@ using System.Runtime.InteropServices;
 using System.Buffers;
 using System.IO;
 using System.Diagnostics;
-using OpenTK.Graphics.OpenGL;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
+using SDL2;
 
 namespace FDK
 {
@@ -40,19 +40,20 @@ namespace FDK
 				}
 			}
 
-			int width = Game.Instance.ClientSize.Width / 4 * 4;
-			int height = Game.Instance.ClientSize.Height;
-			using (IMemoryOwner<Rgb24> pixels = Configuration.Default.MemoryAllocator.Allocate<Rgb24>(width * height)) 
+			unsafe
 			{
-				GL.ReadPixels(0, 0, width, height, PixelFormat.Rgb, PixelType.UnsignedByte, ref MemoryMarshal.GetReference(pixels.Memory.Span));
-				Image<Rgb24> image = Image.LoadPixelData<Rgb24>(pixels.Memory.Span, width, height);
-				Task.Factory.StartNew(() =>
+				SDL.SDL_GetWindowSize(device.window, out int width, out int height);
+				SDL.SDL_Surface* sshot = (SDL.SDL_Surface*)SDL.SDL_CreateRGBSurface(0, width, height, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
+				SDL.SDL_Rect rect = new SDL.SDL_Rect()
 				{
-					image.Mutate(con => con.Flip(FlipMode.Vertical));
-					image.SaveAsPng(strFullPath);
-					image.Dispose();
-				}
-					);
+					x = 0,
+					y = 0,
+					w = sshot->w,
+					h = sshot->h,
+				};
+				SDL.SDL_RenderReadPixels(device.renderer, ref rect, SDL.SDL_PIXELFORMAT_ARGB8888, sshot->pixels, sshot->pitch);
+				SDL.SDL_SaveBMP((IntPtr)sshot, strFullPath);
+				SDL.SDL_FreeSurface((IntPtr)sshot);
 			}
 
 			return true;

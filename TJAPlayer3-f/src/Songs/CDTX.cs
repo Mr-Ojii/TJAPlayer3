@@ -2352,7 +2352,7 @@ namespace TJAPlayer3
 
 				try
 				{
-					CVideoDecoder vd = new CVideoDecoder(strVideoFilename);
+					CVideoDecoder vd = new CVideoDecoder(strVideoFilename, TJAPlayer3.app.Device);
 
 					if (this.listVD.ContainsKey(1))
 						this.listVD.Remove(1);
@@ -5080,7 +5080,7 @@ namespace TJAPlayer3
 
 				try
 				{
-					CVideoDecoder vd = new CVideoDecoder(strVideoFilename);
+					CVideoDecoder vd = new CVideoDecoder(strVideoFilename, TJAPlayer3.app.Device);
 
 					if (this.listVD.ContainsKey(1))
 						this.listVD.Remove(1);

@@ -237,7 +237,8 @@ namespace TJAPlayer3
 				// URLの座標が押されたらブラウザで開いてやる 兼 マウスクリックのテスト
 				// クライアント領域内のカーソル座標を取得する。
 				// point.X、point.Yは負の値になることもある。
-				var point = TJAPlayer3.app.PointToClient(new Point(OpenTK.Input.Mouse.GetCursorState().X,OpenTK.Input.Mouse.GetCursorState().Y));
+				SDL2.SDL.SDL_GetMouseState(out int x, out int y);
+				var point = new Point(x, y);
 				// クライアント領域の横幅を取得して、1280で割る。もちろんdouble型。
 				var scaling = 1.000 * TJAPlayer3.app.ClientSize.Width / 1280;
 				if (TJAPlayer3.InputManager.Mouse.bIsKeyPressed((int)SlimDXKeys.Mouse.Left))

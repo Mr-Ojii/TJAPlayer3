@@ -191,7 +191,6 @@ namespace TJAPlayer3
 				{
 					if (TJAPlayer3.Tx.SongLoading_v2_Plate != null)
 					{
-						TJAPlayer3.Tx.SongLoading_v2_Plate.eBlendMode = TJAPlayer3.Skin.SongLoading_Plate_ScreenBlend ? CTexture.EBlendMode.Screen : CTexture.EBlendMode.Normal; //あまりにも出番が無い
 						TJAPlayer3.Tx.SongLoading_v2_Plate.Opacity = CConvert.nParsentTo255((this.ct曲名表示.n現在の値 / 30.0));
 						if (TJAPlayer3.Skin.SongLoading_v2_Plate_ReferencePoint == CSkin.ReferencePoint.Left)
 						{
@@ -246,7 +245,6 @@ namespace TJAPlayer3
 				{
 					if (TJAPlayer3.Tx.SongLoading_Plate != null)
 					{
-						TJAPlayer3.Tx.SongLoading_Plate.eBlendMode = TJAPlayer3.Skin.SongLoading_Plate_ScreenBlend ? CTexture.EBlendMode.Screen : CTexture.EBlendMode.Normal; //あまりにも出番が無い
 						TJAPlayer3.Tx.SongLoading_Plate.Opacity = CConvert.nParsentTo255((this.ct曲名表示.n現在の値 / 30.0));
 						if (TJAPlayer3.Skin.SongLoading_Plate_ReferencePoint == CSkin.ReferencePoint.Left)
 						{

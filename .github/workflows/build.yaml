@@ -62,7 +62,7 @@ jobs:
     needs: [create_release,get_rev_list_count]
     strategy:
       matrix:
-        platform: [win-x86, win-x64, linux-x64]
+        platform: [win-x86, win-x64, linux-x64, osx-x64]
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2

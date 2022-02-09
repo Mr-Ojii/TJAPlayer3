@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
-using OpenTK.Input;
+using SDL2;
 
 using SlimDXKey = SlimDXKeys.Key;
 
@@ -38,60 +38,55 @@ namespace FDK
 		{
 			if (bIsWindowActive)
 			{
+				unsafe
 				{
 					//-----------------------------
-					KeyboardState currentState = Keyboard.GetState();
+					byte* currentState = (byte*)SDL.SDL_GetKeyboardState(out int _);
 
-					if (currentState.IsConnected)
+					for (int index = 0; index < (int)SDL.SDL_Scancode.SDL_NUM_SCANCODES; index++)
 					{
-						for (int index = 0; index < Enum.GetNames(typeof(Key)).Length; index++)
+						if (currentState[index] == 1)
 						{
-							if (currentState[(Key)index])
+							// #xxxxx: 2022.02.09 Mr-Ojii: SDLK (SDL.SDL_Scancode) を SlimDX.DirectInput.Key に変換。
+							var key = DeviceConstantConverter.SDLKToKey((SDL.SDL_Scancode)index);
+							if (SlimDXKey.Unknown == key)
+								continue;   // 未対応キーは無視。
+
+							if (this.btmpKeyState[(int)key] == false)
 							{
-								// #xxxxx: 2017.5.7: from: TKK (OpenTK.Input.Key) を SlimDX.DirectInput.Key に変換。
-								var key = DeviceConstantConverter.TKKtoKey((Key)index);
-								if (SlimDXKey.Unknown == key)
-									continue;   // 未対応キーは無視。
-
-								if (this.btmpKeyState[(int)key] == false)
+								var ev = new STInputEvent()
 								{
-									if (key != SlimDXKey.Return || (btmpKeyState[(int)SlimDXKey.LeftAlt] == false && btmpKeyState[(int)SlimDXKey.RightAlt] == false))    // #23708 2016.3.19 yyagi
-									{
-										var ev = new STInputEvent()
-										{
-											nKey = (int)key,
-											bPressed = true,
-											bReleased = false,
-											nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-										};
-										this.listtmpInputEvents.Add(ev);
+									nKey = (int)key,
+									bPressed = true,
+									bReleased = false,
+									nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+								};
+								this.listtmpInputEvents.Add(ev);
 
-										this.btmpKeyState[(int)key] = true;
-										this.btmpKeyPushDown[(int)key] = true;
-									}
-								}
+								this.btmpKeyState[(int)key] = true;
+								this.btmpKeyPushDown[(int)key] = true;
 							}
-							else
+						}
+						else
+						{
+							// #xxxxx: 2022.02.09 Mr-Ojii: from: SDLK (SDL.SDL_Scancode) を SlimDX.DirectInput.Key に変換。
+							var key = DeviceConstantConverter.SDLKToKey((SDL.SDL_Scancode)index);
+							if (SlimDXKey.Unknown == key)
+								continue;   // 未対応キーは無視。
+
+							if (this.btmpKeyState[(int)key] == true) // 前回は押されているのに今回は押されていない → 離された
 							{
-								// #xxxxx: 2017.5.7: from: TKK (OpenTK.Input.Key) を SlimDX.DirectInput.Key に変換。
-								var key = DeviceConstantConverter.TKKtoKey((Key)index);
-								if (SlimDXKey.Unknown == key)
-									continue;   // 未対応キーは無視。
-
-								if (this.btmpKeyState[(int)key] == true) // 前回は押されているのに今回は押されていない → 離された
+								var ev = new STInputEvent()
 								{
-									var ev = new STInputEvent()
-									{
-										nKey = (int)key,
-										bPressed = false,
-										bReleased = true,
-										nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-									};
-									this.listtmpInputEvents.Add(ev);
+									nKey = (int)key,
+									bPressed = false,
+									bReleased = true,
+									nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+								};
+								this.listtmpInputEvents.Add(ev);
 
-									this.btmpKeyState[(int)key] = false;
-									this.btmpKeyPullUp[(int)key] = true;
-								}
+								this.btmpKeyState[(int)key] = false;
+								this.btmpKeyPullUp[(int)key] = true;
 							}
 						}
 					}

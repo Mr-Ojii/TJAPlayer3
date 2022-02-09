@@ -5,7 +5,6 @@ using System.Linq;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Commons.Music.Midi;
-using OpenTK.Input;
 
 namespace FDK
 {
@@ -86,10 +85,9 @@ namespace FDK
 			#region [ Enumerate joypad ]
 			try
 			{
-				for (int joynum = 0; joynum < 8; joynum++)//2020.06.28 Mr-Ojii joystickの検出数を返す関数が見つからないので適当に8個で
+				for (int joynum = 0; joynum < SDL2.SDL.SDL_NumJoysticks(); joynum++)
 				{
-					if (OpenTK.Input.Joystick.GetState(joynum).IsConnected)
-						this.listInputDevices.Add(new CInputJoystick(joynum));
+					this.listInputDevices.Add(new CInputJoystick(joynum));
 				}
 			}
 			catch (Exception e)

@@ -1164,10 +1164,6 @@ namespace TJAPlayer3
 							{
 								SongLoading_SubTitle_BackColor = ColorTranslator.FromHtml(strParam);
 							}
-							else if (strCommand == nameof(SongLoading_Plate_ScreenBlend))
-							{
-								SongLoading_Plate_ScreenBlend = strParam[0].ToBool();
-							}
 							else if (strCommand == nameof(SongLoading_v2_Plate_X))
 							{
 								SongLoading_v2_Plate_X = int.Parse(strParam);
@@ -2364,7 +2360,6 @@ namespace TJAPlayer3
 		public ReferencePoint SongLoading_v2_Plate_ReferencePoint = ReferencePoint.Center;
 		public ReferencePoint SongLoading_v2_Title_ReferencePoint = ReferencePoint.Center;
 		public ReferencePoint SongLoading_v2_SubTitle_ReferencePoint = ReferencePoint.Center;
-		public bool SongLoading_Plate_ScreenBlend = true;
 
 		#endregion
 		#region Game
