@@ -323,7 +323,7 @@ namespace FDK
 			srcrect.w = rc画像内の描画領域.Width;
 			srcrect.h = rc画像内の描画領域.Height;
 
-			SDL.SDL_RenderCopyEx(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect, (this.fRotation * 180 / Math.PI), IntPtr.Zero, SDL.SDL_RendererFlip.SDL_FLIP_NONE);
+			SDL.SDL_RenderCopyEx(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect, -(this.fRotation * 180 / Math.PI), IntPtr.Zero, SDL.SDL_RendererFlip.SDL_FLIP_NONE);
 		}
 
 
