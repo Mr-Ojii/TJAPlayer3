@@ -5865,6 +5865,10 @@ namespace TJAPlayer3
 			{
 				this.listLyric2.Clear();
 			}
+			if(this.pf歌詞フォント != null)
+            {
+				this.pf歌詞フォント.Dispose();
+			}
 
 			base.On非活性化();
 		}
@@ -5880,7 +5884,6 @@ namespace TJAPlayer3
 		{
 			if (!base.b活性化してない)
 			{
-				TJAPlayer3.t安全にDisposeする(ref this.pf歌詞フォント);
 				if (this.listVD != null)
 				{
 					foreach (CVideoDecoder cvd in this.listVD.Values)
