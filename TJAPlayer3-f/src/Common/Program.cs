@@ -19,6 +19,7 @@ namespace TJAPlayer3
 		internal static string SkinName = "Unknown";
 		internal static string SkinVersion = "Unknown";
 		internal static string SkinCreator = "Unknown";
+		internal static string Renderer = "Unknown";
 		private static Mutex mutex;
 
 		[STAThread]
@@ -56,19 +57,20 @@ namespace TJAPlayer3
 					//情報リスト
 					Dictionary<string, string> errorjsonobject = new Dictionary<string, string>
 					{
-						{ "Name",asmApp.Name},
-						{ "Version",asmApp.Version.ToString()},
-						{ "Exception",e.ToString()},
-						{ "DateTime",DateTime.UtcNow.ToString("yyyy/MM/dd HH:mm:ss.ff")},
-						{ "SkinName",SkinName},
-						{ "SkinVersion",SkinVersion},
-						{ "SkinCreator",SkinCreator},
-						{ "OperatingSystem",Environment.OSVersion.ToString()},
-						{ "OSDescription",RuntimeInformation.OSDescription},
-						{ "OSArchitecture",RuntimeInformation.OSArchitecture.ToString()},
-						{ "RuntimeIdentifier",RuntimeInformation.RuntimeIdentifier},
-						{ "FrameworkDescription",RuntimeInformation.FrameworkDescription},
-						{ "ProcessArchitecture",RuntimeInformation.ProcessArchitecture.ToString()}
+						{ "Name",asmApp.Name },
+						{ "Version",asmApp.Version.ToString() },
+						{ "Exception",e.ToString() },
+						{ "DateTime",DateTime.UtcNow.ToString("yyyy/MM/dd HH:mm:ss.ff") },
+						{ "SkinName",SkinName },
+						{ "SkinVersion",SkinVersion },
+						{ "SkinCreator",SkinCreator },
+						{ "Renderer",Renderer },
+						{ "OperatingSystem",Environment.OSVersion.ToString() },
+						{ "OSDescription",RuntimeInformation.OSDescription },
+						{ "OSArchitecture",RuntimeInformation.OSArchitecture.ToString() },
+						{ "RuntimeIdentifier",RuntimeInformation.RuntimeIdentifier },
+						{ "FrameworkDescription",RuntimeInformation.FrameworkDescription },
+						{ "ProcessArchitecture",RuntimeInformation.ProcessArchitecture.ToString() }
 					};
 					
 					//エラーが発生したことをユーザーに知らせるため、HTMLを作成する。

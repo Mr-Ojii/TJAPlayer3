@@ -1088,6 +1088,7 @@ namespace TJAPlayer3
 
 		private void t起動処理()
 		{
+			Program.Renderer = this.RendererName;
 #region [ strEXEのあるフォルダを決定する ]
 			//-----------------
 			// BEGIN #23629 2010.11.13 from: デバッグ時は Application.ExecutablePath が ($SolutionDir)/bin/x86/Debug/ などになり System/ の読み込みに失敗するので、カレントディレクトリを採用する。（プロジェクトのプロパティ→デバッグ→作業ディレクトリが有効になる）

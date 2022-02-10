@@ -147,6 +147,15 @@ namespace FDK.Windowing
             }
         }
 
+        public string RendererName
+        {
+            get
+            {
+                SDL.SDL_GetRendererInfo(this._renderer_handle, out var info);
+                return Marshal.PtrToStringUTF8(info.name);
+            }
+        }
+
         public void Exit()
         {
             _quit = true;
