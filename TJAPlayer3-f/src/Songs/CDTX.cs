@@ -5859,10 +5859,14 @@ namespace TJAPlayer3
 			}
 			if (this.listLyric != null)
 			{
+				for (int i = 0; i < this.listLyric.Count; i++)
+					this.listLyric[i].Dispose();
 				this.listLyric.Clear();
 			}
 			if (this.listLyric2 != null)
 			{
+				for (int i = 0; i < this.listLyric2.Count; i++)
+					this.listLyric2[i].TextTex.Dispose();
 				this.listLyric2.Clear();
 			}
 			if(this.pf歌詞フォント != null)
