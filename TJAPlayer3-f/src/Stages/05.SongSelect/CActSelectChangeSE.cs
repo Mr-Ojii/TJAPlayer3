@@ -33,8 +33,6 @@ namespace TJAPlayer3
 		{
 			if (!base.b活性化してない)
 			{
-
-				this.Font = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 30);
 				this.donglist = new CSound[2, TJAPlayer3.Skin.SECount];
 				for (int nPlayer = 0; nPlayer < 2; nPlayer++)
 				{
@@ -54,6 +52,15 @@ namespace TJAPlayer3
 
 				this.SEName = new CTexture[2];
 				this.NameMoving = new CTexture[2];
+				this.SENameList = new CTexture[TJAPlayer3.Skin.SECount];
+
+				using (var font = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, 30))
+					for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)
+					{
+						using (var bmp = font.DrawText(TJAPlayer3.Skin.SENames[i], Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio))
+							this.SENameList[i] = TJAPlayer3.tCreateTexture(bmp);
+					}
+
 				this.SENameChanger(0);
 				this.SENameChanger(1);
 			}
@@ -64,10 +71,6 @@ namespace TJAPlayer3
 		{
 			if (!base.b活性化してない)
 			{
-
-				if (this.Font != null)
-					this.Font.Dispose();
-
 				for (int nPlayer = 0; nPlayer < 2; nPlayer++)
 				{
 					for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)
@@ -76,8 +79,8 @@ namespace TJAPlayer3
 					}
 				}
 
-				TJAPlayer3.t安全にDisposeする(ref this.SEName);
-				TJAPlayer3.t安全にDisposeする(ref this.NameMoving);
+				//Classは参照渡しであるため、ListをDisposeするだけでよい
+				TJAPlayer3.t安全にDisposeする(ref this.SENameList);
 			}
 			base.OnManagedリソースの解放();
         }
@@ -254,9 +257,8 @@ namespace TJAPlayer3
 		{
 			if (TJAPlayer3.Skin.SECount != 0)
 			{
-				TJAPlayer3.t安全にDisposeする(ref this.NameMoving[nPlayer]);
-				this.NameMoving[nPlayer] = this.SEName[nPlayer];;
-				this.SEName[nPlayer] = TJAPlayer3.tCreateTexture(this.Font.DrawText(TJAPlayer3.Skin.SENames[TJAPlayer3.Skin.NowSENum[nPlayer]], Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio));
+				this.NameMoving[nPlayer] = this.SEName[nPlayer];
+				this.SEName[nPlayer] = this.SENameList[TJAPlayer3.Skin.NowSENum[nPlayer]];
 			}
 		}
 
@@ -322,7 +324,7 @@ namespace TJAPlayer3
 		private CSound[,] donglist;
 		private CTexture[] SEName;
 		private CTexture[] NameMoving;
-		private CCachedFontRenderer Font;
+		private CTexture[] SENameList;
         #endregion
     }
 }
