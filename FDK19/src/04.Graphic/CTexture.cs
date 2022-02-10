@@ -52,7 +52,6 @@ namespace FDK
 		}
 		private IntPtr? texture;
 		public Vector3 vcScaling;
-		private Vector3 vcS;
 		private string filename;
 
 		// コンストラクタ
@@ -64,8 +63,7 @@ namespace FDK
 			this.texture = null;
 			this.bTextureDisposed = true;
 			this.fRotation = 0f;
-			this.vcScaling = new System.Numerics.Vector3(1f, 1f, 1f);
-			this.vcS = new Vector3(1f, 1f, 1f);
+			this.vcScaling = new Vector3(1f, 1f, 1f);
 			this.filename = "";
 		}
 

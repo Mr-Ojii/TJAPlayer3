@@ -79,13 +79,15 @@ namespace TJAPlayer3
 			};
 			int lang = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
 			if ( !base.b活性化してない) {
-				this.pf = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 28);
-				texttexture[0] = this.文字テクスチャを生成する(str[0, lang], Color.White, Color.SaddleBrown);
-				texttexture[1] = this.文字テクスチャを生成する(str[1, lang], Color.White, Color.SaddleBrown);
-				texttexture[2] = this.文字テクスチャを生成する(str[2, lang], Color.White, Color.SaddleBrown);
-				texttexture[3] = this.文字テクスチャを生成する(str[0, lang], Color.White, Color.Black);
-				texttexture[4] = this.文字テクスチャを生成する(str[1, lang], Color.White, Color.Black);
-				texttexture[5] = this.文字テクスチャを生成する(str[2, lang], Color.White, Color.Black);
+				using (var pf = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, 28))
+				{
+					texttexture[0] = this.文字テクスチャを生成する(str[0, lang], Color.White, Color.SaddleBrown, pf);
+					texttexture[1] = this.文字テクスチャを生成する(str[1, lang], Color.White, Color.SaddleBrown, pf);
+					texttexture[2] = this.文字テクスチャを生成する(str[2, lang], Color.White, Color.SaddleBrown, pf);
+					texttexture[3] = this.文字テクスチャを生成する(str[0, lang], Color.White, Color.Black, pf);
+					texttexture[4] = this.文字テクスチャを生成する(str[1, lang], Color.White, Color.Black, pf);
+					texttexture[5] = this.文字テクスチャを生成する(str[2, lang], Color.White, Color.Black, pf);
+				}
 				base.OnManagedリソースの作成();
 			}
 		}
@@ -94,7 +96,6 @@ namespace TJAPlayer3
 			if( !base.b活性化してない )
 			{
 				TJAPlayer3.t安全にDisposeする(ref texttexture);
-				TJAPlayer3.t安全にDisposeする(ref this.pf);
 				base.OnManagedリソースの解放();
 			}
 		}
@@ -308,7 +309,7 @@ namespace TJAPlayer3
 
 		#region [ private ]
 		//-----------------
-		private CTexture 文字テクスチャを生成する(string str文字, Color forecolor, Color backcolor) {
+		private CTexture 文字テクスチャを生成する(string str文字, Color forecolor, Color backcolor, CFontRenderer pf) {
 			using (var bmp = pf.DrawText_V(str文字, forecolor, backcolor, TJAPlayer3.Skin.Font_Edge_Ratio_Vertical)) {
 				return TJAPlayer3.tCreateTexture(bmp);
 			}
@@ -322,7 +323,6 @@ namespace TJAPlayer3
 		//縦スタイル用
 		private readonly int[] MENU_XT = {300,640,980 };
 		private const int MENU_YT = 100;
-		private CCachedFontRenderer pf = null;
 		//------------------------------------
 		private int n現在のカーソル行;
 	

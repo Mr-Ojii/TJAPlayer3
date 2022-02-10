@@ -7,11 +7,12 @@ using System.Diagnostics;
 using System.Drawing;
 using FDK;
 using DiscordRPC;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace TJAPlayer3
 {
-    class CStageMaintenance : CStage
-    {
+	class CStageMaintenance : CStage
+	{
 		// コンストラクタ
 
 		public CStageMaintenance()
@@ -71,13 +72,16 @@ namespace TJAPlayer3
 				don = TJAPlayer3.ColorTexture("#ff4000", Width, Height);
 				ka = TJAPlayer3.ColorTexture("#00c8ff", Width, Height);
 				string[] txt = new string[4] { "左ふち", "左面", "右面", "右ふち" };
-				for (int ind = 0; ind < 4; ind++)
+				using (var pf = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, fontsize))
 				{
-					str[ind] = TJAPlayer3.tCreateTexture(new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, fontsize).DrawText(txt[ind], Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio));
-				}
-				base.OnManagedリソースの作成();
-			}
-
+					for (int ind = 0; ind < 4; ind++)
+					{
+						using (SixLabors.ImageSharp.Image<Rgba32> bmp = pf.DrawText(txt[ind], Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio))
+							str[ind] = TJAPlayer3.tCreateTexture(bmp);
+					}
+                }
+            }
+			base.OnManagedリソースの作成();
 		}
 		public override void OnManagedリソースの解放()
 		{

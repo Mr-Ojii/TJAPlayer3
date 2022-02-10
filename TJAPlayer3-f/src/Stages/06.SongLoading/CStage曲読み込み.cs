@@ -345,7 +345,7 @@ namespace TJAPlayer3
 								{
 									if (!string.IsNullOrEmpty(TJAPlayer3.DTX[0].List_DanSongs[i].Title))
 									{
-										using (CCachedFontRenderer pfTitle = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 32))
+										using (var pfTitle = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, 32))
 										{
 											using (var bmpSongTitle = pfTitle.DrawText(TJAPlayer3.DTX[0].List_DanSongs[i].Title, TJAPlayer3.Skin.Game_DanC_Title_ForeColor, TJAPlayer3.Skin.Game_DanC_Title_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio))
 											{
@@ -357,7 +357,7 @@ namespace TJAPlayer3
 
 									if (!string.IsNullOrEmpty(TJAPlayer3.DTX[0].List_DanSongs[i].SubTitle))
 									{
-										using (CCachedFontRenderer pfSubTitle = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 19))
+										using (var pfSubTitle = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, 19))
 										{
 											using (var bmpSongSubTitle = pfSubTitle.DrawText(TJAPlayer3.DTX[0].List_DanSongs[i].SubTitle, TJAPlayer3.Skin.Game_DanC_SubTitle_ForeColor, TJAPlayer3.Skin.Game_DanC_SubTitle_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio)) 
 											{

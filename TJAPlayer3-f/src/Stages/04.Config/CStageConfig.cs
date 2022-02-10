@@ -120,7 +120,7 @@ namespace TJAPlayer3
 			{
 				string[] strMenuItem = {"System", "Drums", "Exit"};
 				txMenuItemLeft = new CTexture[strMenuItem.Length, 2];
-				using (var prvFont = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 20))
+				using (var prvFont = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, 20))
 				{
 					for (int i = 0; i < strMenuItem.Length; i++)
 					{
