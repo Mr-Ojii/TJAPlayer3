@@ -5815,7 +5815,7 @@ namespace TJAPlayer3
 				this.listLyric2.Clear();
 			}
 			if(this.pf歌詞フォント != null)
-            {
+			{
 				this.pf歌詞フォント.Dispose();
 			}
 
