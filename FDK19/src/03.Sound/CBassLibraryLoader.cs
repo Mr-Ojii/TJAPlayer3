@@ -14,24 +14,54 @@ namespace FDK
     //    https://github.com/ManagedBass/ManagedBass/issues/48
     internal class CBassLibraryLoader : IDisposable
     {
-        [DllImport("libdl.so")]
-        static extern IntPtr dlopen(string fileName, int flags);
+        private static class libdl
+        {
+            [DllImport("libdl.so")]
+            public static extern IntPtr dlopen(string fileName, int flags);
 
-        [DllImport("libdl.so")]
-        static extern int dlclose(IntPtr libraryHandle);
+            [DllImport("libdl.so")]
+            public static extern int dlclose(IntPtr libraryHandle);
+        }
+
+        private static class libdl2
+        {
+            [DllImport("libdl.so.2")]
+            public static extern IntPtr dlopen(string fileName, int flags);
+
+            [DllImport("libdl.so.2")]
+            public static extern int dlclose(IntPtr libraryHandle);
+        }
 
         IntPtr libraryHandle;
 
         public CBassLibraryLoader()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                this.libraryHandle = dlopen(AppContext.BaseDirectory + "libbass.so", 0x101);
+            {
+                try
+                {
+                    this.libraryHandle = libdl.dlopen(AppContext.BaseDirectory + "libbass.so", 0x101);
+                }
+                catch
+                {
+                    this.libraryHandle = libdl2.dlopen(AppContext.BaseDirectory + "libbass.so", 0x101);
+                }
+            }
         }
 
         public void Dispose()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                dlclose(this.libraryHandle);
+            {
+                try
+                {
+                    libdl.dlclose(this.libraryHandle);
+                }
+                catch
+                {
+                    libdl2.dlclose(this.libraryHandle);
+                }
+            }
         }
     }
 }
