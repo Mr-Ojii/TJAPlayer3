@@ -20,8 +20,38 @@ namespace FDK
             : base("TJAPlayer3-f")
         {
             Instance = this;
-            string osplatform = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "win" : (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? "osx" : "linux");
-            string platform = Environment.Is64BitProcess ? "x64" : "x86";
+
+            string osplatform = "";
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                osplatform = "win";
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                osplatform = "osx";
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                osplatform = "linux";
+            }
+            else
+            {
+                throw new PlatformNotSupportedException("TJAPlayer3-f does not support this OS.");
+            }
+
+            string platform = "";
+
+            switch (RuntimeInformation.ProcessArchitecture)
+            {
+                case Architecture.X64:
+                    platform = "x64";
+                    break;
+                case Architecture.X86:
+                    platform = "x86";
+                    break;
+                default:
+                    throw new PlatformNotSupportedException($"TJAPlayer3-f does not support this Architecture. ({RuntimeInformation.ProcessArchitecture})");
+            }
 
             FFmpeg.AutoGen.ffmpeg.RootPath = AppContext.BaseDirectory + @"ffmpeg/" + osplatform + "-" + platform + "/";
 
