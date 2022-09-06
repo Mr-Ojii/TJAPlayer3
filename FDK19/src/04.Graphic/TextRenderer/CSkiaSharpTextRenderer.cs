@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SixLabors.Fonts.Exceptions;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
@@ -49,7 +50,12 @@ namespace FDK
                     slant = SKFontStyleSlant.Italic;
                     break;
             }
+
+            if (!SkiaSharp.SKFontManager.Default.FontFamilies.Contains(fontpath))
+                throw new FontFamilyNotFoundException(fontpath);
+
             paint.Typeface = SKTypeface.FromFamilyName(fontpath, weight, width, slant);
+
             paint.TextSize = (pt * 1.3f);
             paint.IsAntialias = true;
         }
