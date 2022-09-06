@@ -95,9 +95,11 @@ namespace FDK
                         new SKColor(gradationBottomColor.R, gradationBottomColor.G, gradationBottomColor.B) },
                     new float[] { 0, 1 },
                     SKShaderTileMode.Clamp);
+                paint.Color = new SKColor(0xffffffff);
             }
             else
             {
+                paint.Shader = null;
                 paint.Color = new SKColor(fontColor.R, fontColor.G, fontColor.B);
             }
 
