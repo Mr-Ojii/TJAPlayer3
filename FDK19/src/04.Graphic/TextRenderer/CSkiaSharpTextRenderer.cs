@@ -94,8 +94,8 @@ namespace FDK
             {
                 //https://docs.microsoft.com/ja-jp/xamarin/xamarin-forms/user-interface/graphics/skiasharp/effects/shaders/linear-gradient
                 paint.Shader = SKShader.CreateLinearGradient(
-                    new SKPoint(0, paint.FontMetrics.Ascent),
-                    new SKPoint(0, paint.FontMetrics.Descent),
+                    new SKPoint(0, 25),
+                    new SKPoint(0, height - 25),
                     new SKColor[] {
                         new SKColor(gradationTopColor.R, gradationTopColor.G, gradationTopColor.B),
                         new SKColor(gradationBottomColor.R, gradationBottomColor.G, gradationBottomColor.B) },
