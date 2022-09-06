@@ -149,8 +149,8 @@ namespace FDK
 				}
 			}
 
-			bool bEdge = ((drawmode & CFontRenderer.DrawMode.Edge) == CFontRenderer.DrawMode.Edge);
-			bool bGradation = ((drawmode & CFontRenderer.DrawMode.Gradation) == CFontRenderer.DrawMode.Gradation);
+			bool bEdge = drawmode.HasFlag(CFontRenderer.DrawMode.Edge);
+			bool bGradation = drawmode.HasFlag(CFontRenderer.DrawMode.Gradation);
 
 			// 縁取りの縁のサイズは、とりあえずフォントの大きさの(1/SkinConfig)とする
 			int nEdgePt = (bEdge) ? (10 * _pt / edge_Ratio) : 0; //SkinConfigにて設定可能に(rhimm)
