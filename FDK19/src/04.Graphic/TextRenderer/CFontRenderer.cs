@@ -56,8 +56,7 @@ namespace FDK
 		{
 			Normal,
 			Edge,
-			Gradation,
-			Vertical
+			Gradation
 		}
 
 		public static string DefaultFontName
@@ -100,6 +99,17 @@ namespace FDK
 				Trace.TraceWarning("SixLabors.Fontsでのフォント生成に失敗しました。" + e.ToString());
 				this.textRenderer?.Dispose();
 			}
+
+			try
+			{
+				this.textRenderer = new CSkiaSharpTextRenderer(fontpath, pt, style);
+				return;
+			}
+			catch(Exception e)
+            {
+                Trace.TraceWarning("SkiaSharpでのフォント生成に失敗しました。" + e.ToString());
+                this.textRenderer?.Dispose();
+            }
 
 			try
 			{
