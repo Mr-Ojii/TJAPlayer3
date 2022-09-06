@@ -114,11 +114,11 @@ namespace FDK
 					w = bitmap.Width,
 					h = bitmap.Height
 				};
-				if(bitmap.TryGetSinglePixelSpan(out Span<Rgba32> span))
+				if(bitmap.DangerousTryGetSinglePixelMemory(out Memory<Rgba32> mem))
                 {
                     unsafe
                     {
-						fixed(Rgba32* ptr = span)
+						fixed(Rgba32* ptr = mem.Span)
                         {
 							SDL.SDL_UpdateTexture((IntPtr)this.texture, ref rect, (IntPtr)ptr, bitmap.Width * 4);
 						}

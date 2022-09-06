@@ -41,9 +41,9 @@ namespace FDK
 
 			if (File.Exists(fontpath))
 			{
-				this.fontFamily = new FontCollection().Install(fontpath);
+				this.fontFamily = new FontCollection().Add(fontpath);
 			}
-			else if (SystemFonts.TryFind(fontpath, out this.fontFamily))
+			else if (SystemFonts.TryGet(fontpath, out this.fontFamily))
 			{
 				//システムフォント
 			}
@@ -59,7 +59,7 @@ namespace FDK
 			this.pt = (pt * 1.3f);
 			this.fontStyle = style;
 
-			this.fontFamily = new FontCollection().Install(fontStream);
+			this.fontFamily = new FontCollection().Add(fontStream);
 			this.font = this.fontFamily.CreateFont(this.pt, this.fontStyle);
 		}
 
@@ -71,8 +71,8 @@ namespace FDK
 				return new Image<Rgba32>(1, 1);
 			}
 
-			RendererOptions roption = new RendererOptions(this.font);
-			FontRectangle size = TextMeasurer.Measure(drawstr, roption);
+			TextOptions toption = new TextOptions(this.font);
+			FontRectangle size = TextMeasurer.Measure(drawstr, toption);
 
 			//ちょっと大きめにとる
 			//(後で定数じゃなくても済む方法を考えましょう。)
@@ -99,9 +99,10 @@ namespace FDK
 			SixLabors.ImageSharp.Color back = (SixLabors.ImageSharp.Color)image[0, 0].ToVector4();
 
 			if (drawmode.HasFlag(CFontRenderer.DrawMode.Edge))
-			{
-				DrawingOptions doption = new DrawingOptions();
-				IPathCollection pathc = TextBuilder.GenerateGlyphs(drawstr, new PointF(25, 25), roption);
+            {
+				toption.Origin = new System.Numerics.Vector2(25, 25);
+                DrawingOptions doption = new DrawingOptions();
+				IPathCollection pathc = TextBuilder.GenerateGlyphs(drawstr, toption);
 				image.Mutate(ctx => ctx.Draw(doption, new Pen(edgeColorL, this.pt * 8 / edge_Ratio), pathc));
 
 				//どちらを使いましょう？
