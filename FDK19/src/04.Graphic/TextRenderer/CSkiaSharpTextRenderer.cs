@@ -56,6 +56,12 @@ namespace FDK
 
         public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> DrawText(string drawstr, CFontRenderer.DrawMode drawMode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
         {
+            if (string.IsNullOrEmpty(drawstr))
+            {
+                //nullか""だったら、1x1を返す
+                return new Image<Rgba32>(1, 1);
+            }
+
             SKRect bounds = new SKRect();
             int width = (int)Math.Ceiling(paint.MeasureText(drawstr, ref bounds)) + 50;
             int height = (int)Math.Ceiling(paint.FontMetrics.Descent - paint.FontMetrics.Ascent) + 50;
