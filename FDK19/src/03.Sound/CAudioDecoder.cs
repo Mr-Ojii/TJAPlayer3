@@ -79,10 +79,10 @@ namespace FDK
 						bw.Write(new byte[] { 0x66, 0x6D, 0x74, 0x20 });        // 'fmt '
 						bw.Write((UInt32)(16));  // fmtチャンクのサイズ[byte]
 						bw.Write((UInt16)1);					             // フォーマットID（リニアPCMなら1）
-						bw.Write((UInt16)codec_context->channels);                     // チャンネル数
+						bw.Write((UInt16)codec_context->ch_layout.nb_channels);                     // チャンネル数
 						bw.Write((UInt32)codec_context->sample_rate);                   // サンプリングレート
-						bw.Write((UInt32)(16 / 8 * codec_context->channels * codec_context->sample_rate));            // データ速度
-						bw.Write((UInt16)(codec_context->channels * 16 / 8));                   // ブロックサイズ
+						bw.Write((UInt32)(16 / 8 * codec_context->ch_layout.nb_channels * codec_context->sample_rate));            // データ速度
+						bw.Write((UInt16)(codec_context->ch_layout.nb_channels * 16 / 8));                   // ブロックサイズ
 						bw.Write((UInt16)16);                    // サンプルあたりのビット数
 						bw.Write(new byte[] { 0x64, 0x61, 0x74, 0x61 });        // 'data'
 						pos = (int)ms.Position;
@@ -124,8 +124,8 @@ namespace FDK
 											Trace.TraceError("swr_alloc error.\n");
 											break;
 										}
-										ffmpeg.av_opt_set_int(swr, "in_channel_layout", (long)frame->channel_layout, 0);
-										ffmpeg.av_opt_set_int(swr, "out_channel_layout", (long)frame->channel_layout, 0);
+										ffmpeg.av_opt_set_chlayout(swr, "in_chlayout", &frame->ch_layout, 0);
+                                        ffmpeg.av_opt_set_chlayout(swr, "out_chlayout", &frame->ch_layout, 0);
 										ffmpeg.av_opt_set_int(swr, "in_sample_rate", frame->sample_rate, 0);
 										ffmpeg.av_opt_set_int(swr, "out_sample_rate", frame->sample_rate, 0);
 										ffmpeg.av_opt_set_sample_fmt(swr, "in_sample_fmt", (AVSampleFormat)frame->format, 0);
@@ -136,19 +136,19 @@ namespace FDK
 											Trace.TraceError("swr_init error.\n");
 											break;
 										}
-										swr_buf_len = ffmpeg.av_samples_get_buffer_size(null, frame->channels, frame->sample_rate, AVSampleFormat.AV_SAMPLE_FMT_S16, 1);
+										swr_buf_len = ffmpeg.av_samples_get_buffer_size(null, frame->ch_layout.nb_channels, frame->sample_rate, AVSampleFormat.AV_SAMPLE_FMT_S16, 1);
 										swr_buf = (byte*)ffmpeg.av_malloc((ulong)swr_buf_len);
 									}
 
 									ret = ffmpeg.swr_convert(swr, &swr_buf, frame->nb_samples, frame->extended_data, frame->nb_samples);
-									for (int index = 0; index < frame->nb_samples * (16 / 8) * frame->channels; index++)
+									for (int index = 0; index < frame->nb_samples * (16 / 8) * frame->ch_layout.nb_channels; index++)
 									{
 										bw.Write(swr_buf[index]);
 									}
 								}
 								else 
 								{
-									for (int index = 0; index < frame->nb_samples * (16 / 8) * frame->channels; index++)
+									for (int index = 0; index < frame->nb_samples * (16 / 8) * frame->ch_layout.nb_channels; index++)
 									{
 										bw.Write((*(frame->extended_data))[index]);
 									}

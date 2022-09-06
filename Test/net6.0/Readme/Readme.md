@@ -79,6 +79,7 @@ MITライセンスのルールのもと、改造・再配布を行うことは自由ですが、**全て自己責任*
 
 #### CPU
 * マルチスレッド対応
+* x86,x64の場合、SSE対応(BASS)
 
 #### GPU
 * OpenGL対応
@@ -116,8 +117,7 @@ chmod +x TJAPlayer3-f.AppImage
 
 ## 開発環境(動作確認環境)
 #### OS
-* Windows 10(Ver.21H1) (x64)
-* Linux Mint 20.2(Xfce) (x64)
+* Windows 11(Ver.21H2) (x64)
 
 #### Editor
 * Visual Studio Community 2022
@@ -212,40 +212,40 @@ Fork元より使用しているライブラリ
 
 ## FFmpegについて
 `TJAPlayer3-f`と同じフォルダに`ffmpeg`フォルダを作成し、  
-OSとTJAPlayer3-fのビット数に対応したフォルダを作成し、
-`TJAPlayer3-f`のビット数に対応したFFmpegバイナリ(Shared)を置くことにより、
+その中にOSとTJAPlayer3-fのアーキテクチャに対応したフォルダを作成し、
+`TJAPlayer3-f`のアーキテクチャに対応したFFmpegバイナリ(Shared)を置くことにより、
 
-+ FFmpegが対応している動画ファイル再生
-+ FFmpegが対応している音声ファイル再生
++ FFmpegが対応している動画ファイルの再生
++ FFmpegが対応している音声ファイルの再生
 
 ができるようになります。
 
-バージョン5.0を推奨しています。(2022/02/09現在)
+バージョン5.1を推奨しています。(2022/09/06現在)
 
-### OSとTJAPlayer3-fのビット数に対応したフォルダ名
+### OSとTJAPlayer3-fのアーキテクチャ数に対応したフォルダ名
 + Windows
-  - 32bit : `win-x86`
-  - 64bit : `win-x64`
+  - x86 : `win-x86`
+  - x64 : `win-x64`
 + macOS
-  - 64bit : `osx-x64`
+  - x64 : `osx-x64`
 + Linux
-  - 32bit : `linux-x86`
-  - 64bit : `linux-x64`
+  - x86 : `linux-x86`
+  - x64 : `linux-x64`
 
 
 ## BASSについて
 このリポジトリにはあらかじめBASSライブラリが同梱されています。  
 
 ### 各種バージョン
-|Module     |  Version |
-|:----------|:--------:|
-|BASS       | 2.4.16.7 |
-|BASSmix    | 2.4.11.2 |
-|BASS FX    | 2.4.12.6 |
-|BASSWASAPI | 2.4.3.1  |
-|BASSASIO   |  1.4.1   |
+|Module     | Version |
+|:----------|:--------|
+|BASS       |2.4.16.7 |
+|BASSmix    |2.4.12   |
+|BASS FX    |2.4.12.6 |
+|BASSWASAPI |2.4.3.1  |
+|BASSASIO   |1.4.1    |
 
-(2022/02/09現在)
+(2022/09/06現在)
 
 
 ## 謝辞
