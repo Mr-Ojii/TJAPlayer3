@@ -28,9 +28,57 @@ namespace TJAPlayer3
 			mutex = new Mutex(false, "TJAPlayer3-f-Ver." + Assembly.GetExecutingAssembly().GetName().Version.ToString());
 
 			if (mutex.WaitOne(0, false))
-			{
+            {
 
-				Trace.WriteLine("Current Directory: " + Environment.CurrentDirectory);
+                string osplatform = "";
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    osplatform = "win";
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    osplatform = "osx";
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    osplatform = "linux";
+                }
+                else
+                {
+                    throw new PlatformNotSupportedException("TJAPlayer3-f does not support this OS.");
+                }
+
+                string platform = "";
+
+                switch (RuntimeInformation.ProcessArchitecture)
+                {
+                    case Architecture.X64:
+                        platform = "x64";
+                        break;
+                    case Architecture.X86:
+                        platform = "x86";
+                        break;
+					case Architecture.Arm:
+						platform = "arm";
+						break;
+					case Architecture.Arm64:
+						platform = "arm64";
+						break;
+                    default:
+                        throw new PlatformNotSupportedException($"TJAPlayer3-f does not support this Architecture. ({RuntimeInformation.ProcessArchitecture})");
+                }
+
+                FFmpeg.AutoGen.ffmpeg.RootPath = AppContext.BaseDirectory + @"ffmpeg/" + osplatform + "-" + platform + "/";
+
+                DirectoryInfo info = new DirectoryInfo(AppContext.BaseDirectory + @"dll/" + osplatform + "-" + platform + "/");
+
+                //exeの階層にdllをコピー
+                foreach (FileInfo fileinfo in info.GetFiles())
+                {
+                    fileinfo.CopyTo(AppContext.BaseDirectory + fileinfo.Name, true);
+                }
+
+                Trace.WriteLine("Current Directory: " + Environment.CurrentDirectory);
 				Trace.WriteLine("EXEのあるフォルダ: " + AppContext.BaseDirectory);
 
 				Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
