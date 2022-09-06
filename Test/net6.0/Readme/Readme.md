@@ -91,20 +91,20 @@ MITライセンスのルールのもと、改造・再配布を行うことは自由ですが、**全て自己責任*
 
 ### Linux環境
 各種パッケージマネージャー  
-* apt  
+* apt
   ```sh
-  sudo apt install freeglut3-dev libgdiplus
+  sudo apt install freeglut3-dev
   ```
 * dnf
   ```sh
-  dnf install freeglut-devel libgdiplus
+  dnf install freeglut-devel
   ```
 * pacman
   ```sh
-  pacman -S freeglut libgdiplus
+  pacman -S freeglut
   ```
 で、必要なパッケージをインストールしておき、　　
-(ここに記載がないパッケージマネージャーは自身で調べて、freeglut3とlibgdiplusをインストールしてください。)
+(ここに記載がないパッケージマネージャーは自身で調べて、freeglut3をインストールしてください。)
 
 TJAPlayer3-fのダウンロードごとに、Zipファイルを解凍し、  
 TJAPlayer3-fが存在するディレクトリをカレントディレクトリとしたターミナルで  

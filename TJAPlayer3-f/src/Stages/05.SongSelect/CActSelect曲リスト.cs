@@ -483,8 +483,6 @@ namespace TJAPlayer3
 			// フォント作成。
 			// 曲リスト文字は２倍（面積４倍）でテクスチャに描画してから縮小表示するので、フォントサイズは２倍とする。
 
-			FontStyle regular = FontStyle.Regular;
-
 			// 現在選択中の曲がない（＝はじめての活性化）なら、現在選択中の曲をルートの先頭ノードに設定する。
 
 			if ((this.r現在選択中の曲 == null) && (TJAPlayer3.SongsManager.list曲ルート.Count > 0))

@@ -111,17 +111,6 @@ namespace FDK
                 this.textRenderer?.Dispose();
             }
 
-			try
-			{
-				this.textRenderer = new CGDIPlusTextRenderer(fontpath, pt, style);
-				return;
-			}
-			catch (Exception e)
-			{
-				Trace.TraceWarning("GDI+でのフォント生成に失敗しました。" + e.ToString());
-				this.textRenderer?.Dispose();
-			}
-
 			try 
 			{
 				this.textRenderer = new CSixLaborsTextRenderer(Assembly.GetExecutingAssembly().GetManifestResourceStream(@"FDK.mplus-1p-medium.ttf"), pt, style);
