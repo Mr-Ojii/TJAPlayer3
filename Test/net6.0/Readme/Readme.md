@@ -204,6 +204,7 @@ Fork元より使用しているライブラリ
 * [M+ FONTS](https://osdn.net/projects/mplus-fonts/)
 * [managed-midi](https://github.com/atsushieno/managed-midi)
 * [ManagedBass](https://github.com/ManagedBass/Home)
+* [SkiaSharp](https://github.com/mono/SkiaSharp)
 
 また、フレームワークに[.NET](https://dotnet.microsoft.com/)を使用しています。
 

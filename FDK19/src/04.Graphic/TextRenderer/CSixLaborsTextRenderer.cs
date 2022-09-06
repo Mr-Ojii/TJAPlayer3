@@ -101,7 +101,7 @@ namespace FDK
 			if (drawmode.HasFlag(CFontRenderer.DrawMode.Edge))
 			{
 				DrawingOptions doption = new DrawingOptions();
-				IPathCollection pathc = TextBuilder.GenerateGlyphs(drawstr, new PointF(10, 10), roption);
+				IPathCollection pathc = TextBuilder.GenerateGlyphs(drawstr, new PointF(25, 25), roption);
 				image.Mutate(ctx => ctx.Draw(doption, new Pen(edgeColorL, this.pt * 8 / edge_Ratio), pathc));
 
 				//どちらを使いましょう？
@@ -121,7 +121,7 @@ namespace FDK
 			else 
 			{
 				image.Dispose();
-				return new Image<Rgba32>((int)size.Width, 1);
+				return new Image<Rgba32>((int)this.pt, 1);
 			}
 
 			return image;
