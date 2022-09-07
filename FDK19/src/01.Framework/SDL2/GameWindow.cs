@@ -177,7 +177,8 @@ namespace FDK.Windowing
                 if(SDL.SDL_GetRenderDriverInfo(i, out info) == 0) {
                     if(Marshal.PtrToStringAnsi(info.name).Contains("opengl")) {
                         _renderer_handle = SDL.SDL_CreateRenderer(_window_handle, i, SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED | SDL.SDL_RendererFlags.SDL_RENDERER_PRESENTVSYNC);
-                        break;
+                        if(_renderer_handle != IntPtr.Zero)
+                            break;
                     }
                 }
             }
