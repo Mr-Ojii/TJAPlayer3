@@ -52,7 +52,7 @@ namespace TJAPlayer3
 			{
 				this.n現在のメニュー番号 = 0;                                                    //
 
-				this.privatefont = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 14, SixLabors.Fonts.FontStyle.Bold);
+				this.privatefont = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 14, CFontRenderer.FontStyle.Bold);
 
 				for( int i = 0; i < 4; i++ )													//
 				{																				//

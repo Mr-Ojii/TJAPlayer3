@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using SixLabors.Fonts;
 
 using Color = System.Drawing.Color;
 
@@ -59,6 +58,14 @@ namespace FDK
 			Gradation
 		}
 
+		[Flags]
+		public enum FontStyle
+		{
+			Regular = 0,
+			Bold,
+			Italic
+		}
+
 		public static string DefaultFontName
 		{
 			get
@@ -73,13 +80,13 @@ namespace FDK
 		}
 
 		#region [ コンストラクタ ]
-		public CFontRenderer(string fontpath, int pt, SixLabors.Fonts.FontStyle style)
+		public CFontRenderer(string fontpath, int pt, FontStyle style)
 		{
 			Initialize(fontpath, pt, style);
 		}
 		public CFontRenderer(string fontpath, int pt)
 		{
-			Initialize(fontpath, pt, SixLabors.Fonts.FontStyle.Regular);
+			Initialize(fontpath, pt, FontStyle.Regular);
 		}
 		public CFontRenderer()
 		{

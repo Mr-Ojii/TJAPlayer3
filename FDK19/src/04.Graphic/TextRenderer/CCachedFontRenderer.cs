@@ -15,13 +15,13 @@ namespace FDK
 	public class CCachedFontRenderer : CFontRenderer
 	{
 		#region [ コンストラクタ ]
-		public CCachedFontRenderer( string fontpath, int pt, SixLabors.Fonts.FontStyle style )
+		public CCachedFontRenderer( string fontpath, int pt, CFontRenderer.FontStyle style )
 		{
 			Initialize( fontpath, pt, style );
 		}
 		public CCachedFontRenderer( string fontpath, int pt )
 		{
-			Initialize( fontpath, pt, SixLabors.Fonts.FontStyle.Regular );
+			Initialize( fontpath, pt, CFontRenderer.FontStyle.Regular );
 		}
 		public CCachedFontRenderer()
 		{
@@ -29,7 +29,7 @@ namespace FDK
 		}
 		#endregion
 		#region [ コンストラクタから呼ばれる初期化処理 ]
-		protected new void Initialize( string fontpath, int pt, SixLabors.Fonts.FontStyle style )
+		protected new void Initialize( string fontpath, int pt, CFontRenderer.FontStyle style )
 		{
 			this.bDisposed_CCachedFontRenderer = false;
 			this.listFontCache = new List<FontCache>();

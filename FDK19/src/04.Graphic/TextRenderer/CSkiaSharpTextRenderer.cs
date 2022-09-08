@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
@@ -21,20 +20,20 @@ namespace FDK
         //https://monobook.org/wiki/SkiaSharp%E3%81%A7%E6%97%A5%E6%9C%AC%E8%AA%9E%E6%96%87%E5%AD%97%E5%88%97%E3%82%92%E6%8F%8F%E7%94%BB%E3%81%99%E3%82%8B
         public CSkiaSharpTextRenderer(string fontpath, int pt)
         {
-            Initialize(fontpath, pt, SixLabors.Fonts.FontStyle.Regular);
+            Initialize(fontpath, pt, CFontRenderer.FontStyle.Regular);
         }
 
-        public CSkiaSharpTextRenderer(string fontpath, int pt, SixLabors.Fonts.FontStyle style)
+        public CSkiaSharpTextRenderer(string fontpath, int pt, CFontRenderer.FontStyle style)
         {
             Initialize(fontpath, pt, style);
         }
 
-        public CSkiaSharpTextRenderer(Stream fontstream, int pt, SixLabors.Fonts.FontStyle style)
+        public CSkiaSharpTextRenderer(Stream fontstream, int pt, CFontRenderer.FontStyle style)
         {
             Initialize(fontstream, pt, style);
         }
 
-        protected void Initialize(Stream fontstream, int pt, SixLabors.Fonts.FontStyle style)
+        protected void Initialize(Stream fontstream, int pt, CFontRenderer.FontStyle style)
         {
             paint = new SKPaint();
 
@@ -45,7 +44,7 @@ namespace FDK
             paint.IsAntialias = true;
         }
 
-        protected void Initialize(string fontpath, int pt, SixLabors.Fonts.FontStyle style)
+        protected void Initialize(string fontpath, int pt, CFontRenderer.FontStyle style)
         {
             paint = new SKPaint();
 
@@ -53,18 +52,13 @@ namespace FDK
             SKFontStyleWidth width = SKFontStyleWidth.Normal;
             SKFontStyleSlant slant = SKFontStyleSlant.Upright;
 
-            switch (style)
+            if (style.HasFlag(CFontRenderer.FontStyle.Bold))
             {
-                case SixLabors.Fonts.FontStyle.Bold:
-                    weight = SKFontStyleWeight.Bold;
-                    break;
-                case SixLabors.Fonts.FontStyle.Italic:
-                    slant = SKFontStyleSlant.Italic;
-                    break;
-                case SixLabors.Fonts.FontStyle.BoldItalic:
-                    weight = SKFontStyleWeight.Bold;
-                    slant = SKFontStyleSlant.Italic;
-                    break;
+                weight = SKFontStyleWeight.Bold;
+            }
+            if (style.HasFlag(CFontRenderer.FontStyle.Italic))
+            {
+                slant = SKFontStyleSlant.Italic;
             }
 
             if (SKFontManager.Default.FontFamilies.Contains(fontpath))
@@ -75,7 +69,7 @@ namespace FDK
                 paint.Typeface = SKTypeface.FromFile(fontpath, 0);
 
             if (paint.Typeface == null)
-                throw new FontFamilyNotFoundException(fontpath);
+                throw new FileNotFoundException(fontpath);
 
             paint.TextSize = (pt * 1.3f);
             paint.IsAntialias = true;

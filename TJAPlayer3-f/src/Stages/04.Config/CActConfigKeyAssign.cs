@@ -97,7 +97,7 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				this.fontRenderer = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 16, SixLabors.Fonts.FontStyle.Italic);
+				this.fontRenderer = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 16, CFontRenderer.FontStyle.Italic);
 				base.OnManagedリソースの作成();
 			}
 		}
