@@ -83,67 +83,92 @@ namespace FDK
                 return new Image<Rgba32>(1, 1);
             }
 
-            SKRect bounds = new SKRect();
-            int width = (int)Math.Ceiling(paint.MeasureText(drawstr, ref bounds)) + 50;
-            int height = (int)Math.Ceiling(paint.FontMetrics.Descent - paint.FontMetrics.Ascent) + 50;
+            string[] strs = drawstr.Split("\n");
+            Image<Rgba32>[] images = new Image<Rgba32>[strs.Length];
 
-            //少し大きめにとる(定数じゃない方法を考えましょう)
-            SKBitmap bitmap = new SKBitmap(width, height, false);
-            SKCanvas canvas = new SKCanvas(bitmap);
+            for (int i = 0; i < strs.Length; i++) {
+                SKRect bounds = new SKRect();
+                int width = (int)Math.Ceiling(paint.MeasureText(drawstr, ref bounds)) + 50;
+                int height = (int)Math.Ceiling(paint.FontMetrics.Descent - paint.FontMetrics.Ascent) + 50;
 
-            if (drawMode.HasFlag(CFontRenderer.DrawMode.Edge))
-            {
-                SKPaint edgePaint = new SKPaint();
-                SKPath path = paint.GetTextPath(drawstr, 25, -paint.FontMetrics.Ascent + 25);
-                edgePaint.StrokeWidth = paint.TextSize * 8 / edge_Ratio;
-                //https://docs.microsoft.com/ja-jp/xamarin/xamarin-forms/user-interface/graphics/skiasharp/paths/paths
-                edgePaint.StrokeJoin = SKStrokeJoin.Round;
-                edgePaint.Color = new SKColor(edgeColor.R, edgeColor.G, edgeColor.B);
-                edgePaint.Style = SKPaintStyle.Stroke;
-                edgePaint.IsAntialias = true;
+                //少し大きめにとる(定数じゃない方法を考えましょう)
+                SKBitmap bitmap = new SKBitmap(width, height, false);
+                SKCanvas canvas = new SKCanvas(bitmap);
 
-                canvas.DrawPath(path, edgePaint);
-            }
+                if (drawMode.HasFlag(CFontRenderer.DrawMode.Edge))
+                {
+                    SKPaint edgePaint = new SKPaint();
+                    SKPath path = paint.GetTextPath(strs[i], 25, -paint.FontMetrics.Ascent + 25);
+                    edgePaint.StrokeWidth = paint.TextSize * 8 / edge_Ratio;
+                    //https://docs.microsoft.com/ja-jp/xamarin/xamarin-forms/user-interface/graphics/skiasharp/paths/paths
+                    edgePaint.StrokeJoin = SKStrokeJoin.Round;
+                    edgePaint.Color = new SKColor(edgeColor.R, edgeColor.G, edgeColor.B);
+                    edgePaint.Style = SKPaintStyle.Stroke;
+                    edgePaint.IsAntialias = true;
 
-            if (drawMode.HasFlag(CFontRenderer.DrawMode.Gradation))
-            {
-                //https://docs.microsoft.com/ja-jp/xamarin/xamarin-forms/user-interface/graphics/skiasharp/effects/shaders/linear-gradient
-                paint.Shader = SKShader.CreateLinearGradient(
-                    new SKPoint(0, 25),
-                    new SKPoint(0, height - 25),
-                    new SKColor[] {
+                    canvas.DrawPath(path, edgePaint);
+                }
+
+                if (drawMode.HasFlag(CFontRenderer.DrawMode.Gradation))
+                {
+                    //https://docs.microsoft.com/ja-jp/xamarin/xamarin-forms/user-interface/graphics/skiasharp/effects/shaders/linear-gradient
+                    paint.Shader = SKShader.CreateLinearGradient(
+                        new SKPoint(0, 25),
+                        new SKPoint(0, height - 25),
+                        new SKColor[] {
                         new SKColor(gradationTopColor.R, gradationTopColor.G, gradationTopColor.B),
                         new SKColor(gradationBottomColor.R, gradationBottomColor.G, gradationBottomColor.B) },
-                    new float[] { 0, 1 },
-                    SKShaderTileMode.Clamp);
-                paint.Color = new SKColor(0xffffffff);
+                        new float[] { 0, 1 },
+                        SKShaderTileMode.Clamp);
+                    paint.Color = new SKColor(0xffffffff);
+                }
+                else
+                {
+                    paint.Shader = null;
+                    paint.Color = new SKColor(fontColor.R, fontColor.G, fontColor.B);
+                }
+
+                canvas.DrawText(strs[i], 25, -paint.FontMetrics.Ascent + 25, paint);
+                canvas.Flush();
+
+                Stream stream = new MemoryStream();
+                SixLabors.ImageSharp.Image.LoadPixelData<SixLabors.ImageSharp.PixelFormats.Bgra32>(bitmap.Bytes, width, height).Save(stream, new SixLabors.ImageSharp.Formats.Png.PngEncoder());
+                stream.Seek(0, SeekOrigin.Begin);
+                var image = SixLabors.ImageSharp.Image.Load<SixLabors.ImageSharp.PixelFormats.Rgba32>(stream);
+                SixLabors.ImageSharp.Rectangle rect = CCommon.MeasureForegroundArea(image, SixLabors.ImageSharp.Color.Transparent);
+
+                //無だった場合は、スペースと判断する(縦書きレンダリングに転用したいがための愚策)
+                if (rect != SixLabors.ImageSharp.Rectangle.Empty)
+                {
+                    image.Mutate(ctx => ctx.Crop(rect));
+                    images[i] = image;
+                }
+                else
+                {
+                    image.Dispose();
+                    images[i] = new Image<Rgba32>((int)paint.TextSize, (int)Math.Ceiling(paint.FontMetrics.Descent - paint.FontMetrics.Ascent));
+                }
             }
-            else
+
+            int ret_width = 0;
+            int ret_height = 0;
+            for(int i = 0; i < images.Length; i++)
             {
-                paint.Shader = null;
-                paint.Color = new SKColor(fontColor.R, fontColor.G, fontColor.B);
+                ret_width = Math.Max(ret_width, images[i].Width);
+                ret_height += images[i].Height;
             }
+            
+            Image<Rgba32> ret = new Image<Rgba32>(ret_width, ret_height);
 
-            canvas.DrawText(drawstr, 25, -paint.FontMetrics.Ascent + 25, paint);
-            canvas.Flush();
-
-            Stream stream = new MemoryStream();
-            SixLabors.ImageSharp.Image.LoadPixelData<SixLabors.ImageSharp.PixelFormats.Bgra32>(bitmap.Bytes, width, height).Save(stream, new SixLabors.ImageSharp.Formats.Png.PngEncoder());
-            stream.Seek(0, SeekOrigin.Begin);
-            var image = SixLabors.ImageSharp.Image.Load<SixLabors.ImageSharp.PixelFormats.Rgba32>(stream);
-            SixLabors.ImageSharp.Rectangle rect = CCommon.MeasureForegroundArea(image, SixLabors.ImageSharp.Color.Transparent);
-
-            //無だった場合は、スペースと判断する(縦書きレンダリングに転用したいがための愚策)
-            if (rect != SixLabors.ImageSharp.Rectangle.Empty)
-                image.Mutate(ctx => ctx.Crop(rect));
-            else
+            int height_i = 0;
+            for (int i = 0; i < images.Length; i++) 
             {
-                image.Dispose();
-                return new Image<Rgba32>((int)paint.TextSize, 1);
+                ret.Mutate(ctx => ctx.DrawImage(images[i], new Point(0, height_i), 1));
+                height_i += images[i].Height;
+                images[i].Dispose();
             }
 
-            return image;
-
+            return ret;
         }
 
         public void Dispose()
