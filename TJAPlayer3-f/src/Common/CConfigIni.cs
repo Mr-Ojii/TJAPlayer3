@@ -455,7 +455,7 @@ namespace TJAPlayer3
 		public CConfigIni()
 		{
 			this.strDTXManiaのバージョン = "Unknown";
-			this.str曲データ検索パス = @"./";
+			this.str曲データ検索パス = @"./Songs/";
 			this.b全画面モード = false;
 			this.b垂直帰線待ちを行う = true;
 			this.n初期ウィンドウ開始位置X = 0; // #30675 2013.02.04 ikanick add
