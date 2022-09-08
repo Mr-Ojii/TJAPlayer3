@@ -199,7 +199,6 @@ Fork元より使用しているライブラリ
 * [ppy/SDL2-CS](https://github.com/ppy/SDL2-CS)
 * [discord-rpc-csharp](https://github.com/Lachee/discord-rpc-csharp)
 * [SixLabors.ImageSharp](https://github.com/SixLabors/ImageSharp)
-* [SixLabors.ImageSharp.Drawing](https://github.com/SixLabors/ImageSharp.Drawing)
 * [SixLabors.Fonts](https://github.com/SixLabors/Fonts)
 * [M+ FONTS](https://osdn.net/projects/mplus-fonts/)
 * [managed-midi](https://github.com/atsushieno/managed-midi)

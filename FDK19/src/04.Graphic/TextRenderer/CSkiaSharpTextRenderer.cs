@@ -29,7 +29,23 @@ namespace FDK
             Initialize(fontpath, pt, style);
         }
 
-        protected void Initialize(string fontpath, int pt, SixLabors.Fonts.FontStyle stylel)
+        public CSkiaSharpTextRenderer(Stream fontstream, int pt, SixLabors.Fonts.FontStyle style)
+        {
+            Initialize(fontstream, pt, style);
+        }
+
+        protected void Initialize(Stream fontstream, int pt, SixLabors.Fonts.FontStyle style)
+        {
+            paint = new SKPaint();
+
+            //stream・filepathから生成した場合に、style設定をどうすればいいのかがわからない
+            paint.Typeface = SKFontManager.Default.CreateTypeface(fontstream);
+
+            paint.TextSize = (pt * 1.3f);
+            paint.IsAntialias = true;
+        }
+
+        protected void Initialize(string fontpath, int pt, SixLabors.Fonts.FontStyle style)
         {
             paint = new SKPaint();
 
@@ -37,7 +53,7 @@ namespace FDK
             SKFontStyleWidth width = SKFontStyleWidth.Normal;
             SKFontStyleSlant slant = SKFontStyleSlant.Upright;
 
-            switch (stylel)
+            switch (style)
             {
                 case SixLabors.Fonts.FontStyle.Bold:
                     weight = SKFontStyleWeight.Bold;
@@ -51,10 +67,15 @@ namespace FDK
                     break;
             }
 
-            if (!SkiaSharp.SKFontManager.Default.FontFamilies.Contains(fontpath))
-                throw new FontFamilyNotFoundException(fontpath);
+            if (SKFontManager.Default.FontFamilies.Contains(fontpath))
+                paint.Typeface = SKTypeface.FromFamilyName(fontpath, weight, width, slant);
 
-            paint.Typeface = SKTypeface.FromFamilyName(fontpath, weight, width, slant);
+            //stream・filepathから生成した場合に、style設定をどうすればいいのかがわからない
+            if (File.Exists(fontpath))
+                paint.Typeface = SKTypeface.FromFile(fontpath, 0);
+
+            if (paint.Typeface == null)
+                throw new FontFamilyNotFoundException(fontpath);
 
             paint.TextSize = (pt * 1.3f);
             paint.IsAntialias = true;

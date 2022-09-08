@@ -91,17 +91,6 @@ namespace FDK
 		{
 			try
 			{
-				this.textRenderer = new CSixLaborsTextRenderer(fontpath, pt, style);
-				return;
-			}
-			catch (Exception e)
-			{
-				Trace.TraceWarning("SixLabors.Fontsでのフォント生成に失敗しました。" + e.ToString());
-				this.textRenderer?.Dispose();
-			}
-
-			try
-			{
 				this.textRenderer = new CSkiaSharpTextRenderer(fontpath, pt, style);
 				return;
 			}
@@ -113,7 +102,7 @@ namespace FDK
 
 			try 
 			{
-				this.textRenderer = new CSixLaborsTextRenderer(Assembly.GetExecutingAssembly().GetManifestResourceStream(@"FDK.mplus-1p-medium.ttf"), pt, style);
+				this.textRenderer = new CSkiaSharpTextRenderer(Assembly.GetExecutingAssembly().GetManifestResourceStream(@"FDK.mplus-1p-medium.ttf"), pt, style);
 			}
 			catch (Exception e)
 			{
