@@ -114,20 +114,18 @@ namespace FDK
 					w = bitmap.Width,
 					h = bitmap.Height
 				};
-				if(bitmap.DangerousTryGetSinglePixelMemory(out Memory<Rgba32> mem))
+
+				Rgba32[] mem = new Rgba32[bitmap.Width * bitmap.Height];
+
+				bitmap.CopyPixelDataTo(mem);
+
+                unsafe
                 {
-                    unsafe
+					fixed(Rgba32* ptr = mem)
                     {
-						fixed(Rgba32* ptr = mem.Span)
-                        {
-							SDL.SDL_UpdateTexture((IntPtr)this.texture, ref rect, (IntPtr)ptr, bitmap.Width * 4);
-						}
-                    }
+						SDL.SDL_UpdateTexture((IntPtr)this.texture, ref rect, (IntPtr)ptr, bitmap.Width * 4);
+					}
                 }
-                else
-                {
-					throw new CTextureCreateFailedException("GetPixelData failed");
-				}
 
 				SDL.SDL_SetTextureBlendMode((IntPtr)this.texture, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
 
