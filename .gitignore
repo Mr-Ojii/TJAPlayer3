@@ -16,6 +16,7 @@
 *.score.ini
 *.DotSettings.user
 *.bs1770gain.xml
+.DS_Store
 /packages
 /Test/*/songlist.json
 /Test/*/Capture_img
@@ -24,6 +25,7 @@
 /Test/*/FDK*
 /Test/*/*.dll
 /Test/*/*.so
+/Test/*/*.dylib
 /Test/*/*.html
 /Test/*/TJAPlayer3*
 /Test/*/runtimes/
