@@ -265,6 +265,7 @@ namespace FDK.Windowing
 
         public void Dispose()
         {
+            SDL.SDL_DestroyRenderer(_renderer_handle);
             SDL.SDL_DestroyWindow(_window_handle);
             SDL.SDL_Quit();
         }
