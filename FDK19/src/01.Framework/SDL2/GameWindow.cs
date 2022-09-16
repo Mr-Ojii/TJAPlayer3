@@ -220,15 +220,6 @@ namespace FDK.Windowing
                                 if(poll_event.window.windowID == _window_id)
                                     switch (poll_event.window.windowEvent)
                                     {
-                                        case SDL.SDL_WindowEventID.SDL_WINDOWEVENT_CLOSE:
-                                            CancelEventArgs cancelEventArgs = new CancelEventArgs();
-                                            this.OnClosing(cancelEventArgs);
-                                            if (!cancelEventArgs.Cancel)
-                                            {
-                                                poll_event.type = SDL.SDL_EventType.SDL_QUIT;
-                                                SDL.SDL_PushEvent(ref poll_event);
-                                            }
-                                            break;
                                         case SDL.SDL_WindowEventID.SDL_WINDOWEVENT_MOVED:
                                             this.Move(_window_handle, new EventArgs());
                                             break;
@@ -249,7 +240,12 @@ namespace FDK.Windowing
                             break;
 
                         case SDL.SDL_EventType.SDL_QUIT:
-                            _quit = true;
+                            CancelEventArgs cancelEventArgs = new CancelEventArgs();
+                            this.OnClosing(cancelEventArgs);
+                            if (!cancelEventArgs.Cancel)
+                            {
+                                _quit = true;
+                            }
                             break;
                     }
                 }
