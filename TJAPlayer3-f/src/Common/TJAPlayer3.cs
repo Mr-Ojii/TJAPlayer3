@@ -882,7 +882,7 @@ namespace TJAPlayer3
 						string strFullPath =
 						   Path.Combine(TJAPlayer3.strEXEのあるフォルダ, "Capture_img");
 						strFullPath = Path.Combine(strFullPath, DateTime.Now.ToString("yyyyMMddHHmmss") + ".bmp");
-						CSaveScreen.CSaveFromDevice(TJAPlayer3.app.Device, strFullPath);
+						this.SaveScreen(strFullPath);
 					}
 				if (ConfigIni.KeyAssign.FullScreen[i].Code > 0)
 					if (InputManager.Keyboard.bIsKeyPressed((int)ConfigIni.KeyAssign.FullScreen[i].Code))

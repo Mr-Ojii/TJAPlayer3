@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Drawing;
+using System.Diagnostics;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using SDL2;
@@ -257,6 +258,42 @@ namespace FDK.Windowing
         protected void Render()
         {
             SDL.SDL_RenderPresent(_renderer_handle);
+        }
+
+        public bool SaveScreen(string strFullPath)
+        {
+            string strSavePath = Path.GetDirectoryName(strFullPath);
+            if (!Directory.Exists(strSavePath))
+            {
+                try
+                {
+                    Directory.CreateDirectory(strSavePath);
+                }
+                catch (Exception e)
+                {
+                    Trace.TraceError(e.ToString());
+                    Trace.TraceError("An exception has occurred, but processing continues.");
+                    return false;
+                }
+            }
+
+            unsafe
+            {
+                SDL.SDL_GetWindowSize(this._window_handle, out int width, out int height);
+                SDL.SDL_Surface* sshot = (SDL.SDL_Surface*)SDL.SDL_CreateRGBSurface(0, width, height, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
+                SDL.SDL_Rect rect = new SDL.SDL_Rect()
+                {
+                    x = 0,
+                    y = 0,
+                    w = sshot->w,
+                    h = sshot->h,
+                };
+                SDL.SDL_RenderReadPixels(this._renderer_handle, ref rect, SDL.SDL_PIXELFORMAT_ARGB8888, sshot->pixels, sshot->pitch);
+                SDL.SDL_SaveBMP((IntPtr)sshot, strFullPath);
+                SDL.SDL_FreeSurface((IntPtr)sshot);
+            }
+
+            return true;
         }
 
         public void Dispose()
