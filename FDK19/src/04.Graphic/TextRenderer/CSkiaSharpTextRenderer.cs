@@ -92,7 +92,7 @@ namespace FDK
                 int height = (int)Math.Ceiling(paint.FontMetrics.Descent - paint.FontMetrics.Ascent) + 50;
 
                 //少し大きめにとる(定数じゃない方法を考えましょう)
-                SKBitmap bitmap = new SKBitmap(width, height, false);
+                SKBitmap bitmap = new SKBitmap(width, height, SKColorType.Rgba8888, SKAlphaType.Premul);
                 SKCanvas canvas = new SKCanvas(bitmap);
 
                 if (drawMode.HasFlag(CFontRenderer.DrawMode.Edge))
@@ -102,7 +102,7 @@ namespace FDK
                     edgePaint.StrokeWidth = paint.TextSize * 8 / edge_Ratio;
                     //https://docs.microsoft.com/ja-jp/xamarin/xamarin-forms/user-interface/graphics/skiasharp/paths/paths
                     edgePaint.StrokeJoin = SKStrokeJoin.Round;
-                    edgePaint.Color = new SKColor(edgeColor.R, edgeColor.G, edgeColor.B);
+                    edgePaint.Color = new SKColor(edgeColor.R, edgeColor.G, edgeColor.B, edgeColor.A);
                     edgePaint.Style = SKPaintStyle.Stroke;
                     edgePaint.IsAntialias = true;
 
@@ -116,8 +116,8 @@ namespace FDK
                         new SKPoint(0, 25),
                         new SKPoint(0, height - 25),
                         new SKColor[] {
-                        new SKColor(gradationTopColor.R, gradationTopColor.G, gradationTopColor.B),
-                        new SKColor(gradationBottomColor.R, gradationBottomColor.G, gradationBottomColor.B) },
+                        new SKColor(gradationTopColor.R, gradationTopColor.G, gradationTopColor.B, gradationTopColor.A),
+                        new SKColor(gradationBottomColor.R, gradationBottomColor.G, gradationBottomColor.B, gradationBottomColor.A) },
                         new float[] { 0, 1 },
                         SKShaderTileMode.Clamp);
                     paint.Color = new SKColor(0xffffffff);
@@ -131,10 +131,7 @@ namespace FDK
                 canvas.DrawText(strs[i], 25, -paint.FontMetrics.Ascent + 25, paint);
                 canvas.Flush();
 
-                Stream stream = new MemoryStream();
-                SixLabors.ImageSharp.Image.LoadPixelData<SixLabors.ImageSharp.PixelFormats.Bgra32>(bitmap.Bytes, width, height).Save(stream, new SixLabors.ImageSharp.Formats.Png.PngEncoder());
-                stream.Seek(0, SeekOrigin.Begin);
-                var image = SixLabors.ImageSharp.Image.Load<SixLabors.ImageSharp.PixelFormats.Rgba32>(stream);
+                var image = SixLabors.ImageSharp.Image.LoadPixelData<SixLabors.ImageSharp.PixelFormats.Rgba32>(bitmap.Bytes, width, height);
                 SixLabors.ImageSharp.Rectangle rect = CCommon.MeasureForegroundArea(image, SixLabors.ImageSharp.Color.Transparent);
 
                 //無だった場合は、スペースと判断する(縦書きレンダリングに転用したいがための愚策)
