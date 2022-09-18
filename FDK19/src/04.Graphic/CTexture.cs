@@ -107,14 +107,6 @@ namespace FDK
 
                 this.texture = SDL.SDL_CreateTexture(device.renderer, SDL.SDL_PIXELFORMAT_ABGR8888, (int)SDL.SDL_TextureAccess.SDL_TEXTUREACCESS_TARGET, bitmap.Width, bitmap.Height);
                 
-                SDL.SDL_Rect rect = new SDL.SDL_Rect()
-                {
-                    x = 0,
-                    y = 0,
-                    w = bitmap.Width,
-                    h = bitmap.Height
-                };
-
                 Rgba32[] mem = new Rgba32[bitmap.Width * bitmap.Height];
 
                 bitmap.CopyPixelDataTo(mem);
@@ -123,7 +115,7 @@ namespace FDK
                 {
 					fixed(Rgba32* ptr = mem)
                     {
-						SDL.SDL_UpdateTexture((IntPtr)this.texture, ref rect, (IntPtr)ptr, bitmap.Width * 4);
+						SDL.SDL_UpdateTexture((IntPtr)this.texture, IntPtr.Zero, (IntPtr)ptr, bitmap.Width * 4);
 					}
                 }
 
