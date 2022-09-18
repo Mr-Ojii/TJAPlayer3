@@ -279,8 +279,8 @@ namespace FDK.Windowing
 
             unsafe
             {
-                SDL.SDL_GetWindowSize(this._window_handle, out int width, out int height);
-                SDL.SDL_Surface* sshot = (SDL.SDL_Surface*)SDL.SDL_CreateRGBSurface(0, width, height, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
+                SDL.SDL_GetRendererOutputSize(this._renderer_handle, out int width, out int height);
+                SDL.SDL_Surface* sshot = (SDL.SDL_Surface*)SDL.SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL.SDL_PIXELFORMAT_ARGB8888);
                 SDL.SDL_Rect rect = new SDL.SDL_Rect()
                 {
                     x = 0,
