@@ -176,7 +176,7 @@ namespace FDK.Windowing
             for(int i = 0; i < render_num; i++) {
                 SDL.SDL_RendererInfo info;
                 if(SDL.SDL_GetRenderDriverInfo(i, out info) == 0) {
-                    if(Marshal.PtrToStringAnsi(info.name).Contains("opengl")) {
+                    if(Marshal.PtrToStringUTF8(info.name).Contains("opengl")) {
                         _renderer_handle = SDL.SDL_CreateRenderer(_window_handle, i, SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED | SDL.SDL_RendererFlags.SDL_RENDERER_PRESENTVSYNC);
                         if(_renderer_handle != IntPtr.Zero)
                             break;
