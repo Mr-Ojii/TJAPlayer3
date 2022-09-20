@@ -16,8 +16,8 @@ namespace FDK
     {
         internal static Game Instance = null;
 
-        public Game()
-            : base("TJAPlayer3-f")
+        public Game(string title)
+            : base(title)
         {
             Instance = this;
 

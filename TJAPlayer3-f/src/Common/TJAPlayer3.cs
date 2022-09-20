@@ -277,6 +277,7 @@ namespace TJAPlayer3
 		// コンストラクタ
 
 		public TJAPlayer3()
+			: base("TJAPlayer3-f")
 		{
 			TJAPlayer3.app = this;
 			this.t起動処理();
