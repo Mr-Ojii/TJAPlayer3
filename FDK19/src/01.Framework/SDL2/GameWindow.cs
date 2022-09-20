@@ -162,10 +162,10 @@ namespace FDK.Windowing
             _quit = true;
         }
 
-        public GameWindow(string title)
+        public GameWindow(string title, int width, int height)
         {
             SDL.SDL_Init(SDL.SDL_INIT_VIDEO | SDL.SDL_INIT_JOYSTICK);
-            _window_handle = SDL.SDL_CreateWindow(title, SDL.SDL_WINDOWPOS_UNDEFINED, SDL.SDL_WINDOWPOS_UNDEFINED, GameWindowSize.Width, GameWindowSize.Height, SDL.SDL_WindowFlags.SDL_WINDOW_ALLOW_HIGHDPI | SDL.SDL_WindowFlags.SDL_WINDOW_HIDDEN | SDL.SDL_WindowFlags.SDL_WINDOW_RESIZABLE);
+            _window_handle = SDL.SDL_CreateWindow(title, SDL.SDL_WINDOWPOS_UNDEFINED, SDL.SDL_WINDOWPOS_UNDEFINED, width, height, SDL.SDL_WindowFlags.SDL_WINDOW_ALLOW_HIGHDPI | SDL.SDL_WindowFlags.SDL_WINDOW_HIDDEN | SDL.SDL_WindowFlags.SDL_WINDOW_RESIZABLE);
             if (_window_handle == IntPtr.Zero)
                 throw new Exception("Failed to create window.");
 
@@ -194,7 +194,7 @@ namespace FDK.Windowing
             }
             this.Device = new Device(_window_handle, _renderer_handle);
             SDL.SDL_SetHint(SDL.SDL_HINT_RENDER_SCALE_QUALITY, "linear");
-            SDL.SDL_RenderSetLogicalSize(_renderer_handle, GameWindowSize.Width, GameWindowSize.Height);
+            SDL.SDL_RenderSetLogicalSize(_renderer_handle, width, height);
         }
 
         public void Run()

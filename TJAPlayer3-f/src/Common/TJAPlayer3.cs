@@ -277,7 +277,7 @@ namespace TJAPlayer3
 		// コンストラクタ
 
 		public TJAPlayer3()
-			: base("TJAPlayer3-f")
+			: base("TJAPlayer3-f", GameWindowSize.Width, GameWindowSize.Height)
 		{
 			TJAPlayer3.app = this;
 			this.t起動処理();

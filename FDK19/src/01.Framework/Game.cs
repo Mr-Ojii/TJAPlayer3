@@ -14,8 +14,8 @@ namespace FDK
     /// </summary>
     public abstract class Game : GameWindow
     {
-        public Game(string title)
-            : base(title)
+        public Game(string title, int width, int height)
+            : base(title, width, height)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);//CP932用
         }

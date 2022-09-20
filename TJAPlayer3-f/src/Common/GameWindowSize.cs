@@ -1,6 +1,6 @@
 using System;
 
-namespace FDK
+namespace TJAPlayer3
 {
 	public static class GameWindowSize
 	{
