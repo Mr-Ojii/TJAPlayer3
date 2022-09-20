@@ -14,13 +14,9 @@ namespace FDK
     /// </summary>
     public abstract class Game : GameWindow
     {
-        internal static Game Instance = null;
-
         public Game(string title)
             : base(title)
         {
-            Instance = this;
-
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);//CP932用
         }
     }
