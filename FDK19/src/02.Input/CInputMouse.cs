@@ -100,19 +100,19 @@ namespace FDK
 
 		public bool bIsKeyPressed(int nButton)
 		{
-			return ((0 <= nButton) && (nButton < 0) && this.bMousePushDown[nButton]);
+			return ((0 <= nButton) && (nButton < this.bMousePushDown.Length) && this.bMousePushDown[nButton]);
 		}
 		public bool bIsKeyDown(int nButton)
 		{
-			return ((0 <= nButton) && (nButton < 0) && this.bMouseState[nButton]);
+			return ((0 <= nButton) && (nButton < this.bMouseState.Length) && this.bMouseState[nButton]);
 		}
 		public bool bIsKeyReleased(int nButton)
 		{
-			return ((0 <= nButton) && (nButton < 0) && this.bMousePullUp[nButton]);
+			return ((0 <= nButton) && (nButton < this.bMousePullUp.Length) && this.bMousePullUp[nButton]);
 		}
 		public bool bIsKeyUp(int nButton)
 		{
-			return ((0 <= nButton) && (nButton < 0) && !this.bMouseState[nButton]);
+			return ((0 <= nButton) && (nButton < this.bMouseState.Length) && !this.bMouseState[nButton]);
 		}
 		//-----------------
 		#endregion
