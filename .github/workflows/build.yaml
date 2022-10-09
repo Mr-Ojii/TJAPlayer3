@@ -94,12 +94,6 @@ jobs:
       run: |
         cd ${{ github.workspace }}
         mv "Test/net6.0/TJAPlayer3-f" "Test/net6.0/TJAPlayer3-f.AppImage"
-    
-    - name: Rename App File (osx)
-      if: matrix.platform == 'osx-x64'
-      run: |
-        cd ${{ github.workspace }}
-        mv "Test/net6.0/TJAPlayer3-f" "Test/net6.0/TJAPlayer3-f.app"
         
     - name: Create Archive
       run: |
