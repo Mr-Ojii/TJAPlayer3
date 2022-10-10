@@ -361,7 +361,6 @@ namespace TJAPlayer3
 			public int n内部番号;
 			public int n表記上の番号;
 			public CSound[] rSound = new CSound[TJAPlayer3.ConfigIni.nPoliphonicSounds];     // 4
-			public string strコメント文 = "";
 			public string strFilename = "";
 			public bool bIsBassSound = false;
 			public bool bIsGuitarSound = false;
@@ -382,7 +381,7 @@ namespace TJAPlayer3
 					sb.Append(string.Format("CWAV{0}(内部{1}): ", CDTX.tZZ(this.n表記上の番号), this.n内部番号));
 				}
 				sb.Append(
-					$"{nameof(SongVol)}:{this.SongVol}, {nameof(LoudnessMetadata.Integrated)}:{this.SongLoudnessMetadata?.Integrated}, {nameof(LoudnessMetadata.TruePeak)}:{this.SongLoudnessMetadata?.TruePeak}, File:{this.strFilename}, Comment:{this.strコメント文}");
+					$"{nameof(SongVol)}:{this.SongVol}, {nameof(LoudnessMetadata.Integrated)}:{this.SongLoudnessMetadata?.Integrated}, {nameof(LoudnessMetadata.TruePeak)}:{this.SongLoudnessMetadata?.TruePeak}, File:{this.strFilename}");
 
 				return sb.ToString();
 			}
@@ -408,7 +407,7 @@ namespace TJAPlayer3
 						this.rSound[i] = null;
 
 						if ((i == 0) && TJAPlayer3.ConfigIni.bLog作成解放ログ出力)
-							Trace.TraceInformation("サウンドを解放しました。({0})({1})", this.strコメント文, this.strFilename);
+							Trace.TraceInformation("サウンドを解放しました。({0})", this.strFilename);
 					}
 				}
 
@@ -849,20 +848,20 @@ namespace TJAPlayer3
 
 						if (TJAPlayer3.ConfigIni.bLog作成解放ログ出力)
 						{
-							Trace.TraceInformation("サウンドを作成しました。({2})({0})({1})", cwav.strコメント文, str, "OnMemory");
+							Trace.TraceInformation("サウンドを作成しました。({1})({0})", str, "OnMemory");
 						}
 					}
 					catch (Exception e)
 					{
 						cwav.rSound[i] = null;
-						Trace.TraceError("サウンドの作成に失敗しました。({0})({1})", cwav.strコメント文, str);
+						Trace.TraceError("サウンドの作成に失敗しました。({0})", str);
 						Trace.TraceError(e.ToString());
 					}
 				}
 			}
 			catch (Exception exception)
 			{
-				Trace.TraceError("サウンドの生成に失敗しました。({0})({1})", cwav.strコメント文, str);
+				Trace.TraceError("サウンドの生成に失敗しました。({0})", str);
 				Trace.TraceError(exception.ToString());
 
 				for (int j = 0; j < nPolyphonicSounds; j++)
@@ -1916,7 +1915,6 @@ namespace TJAPlayer3
 							SongVol = this.SongVol,
 							SongLoudnessMetadata = this.SongLoudnessMetadata,
 							strFilename = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strFilename, dansongs.FileName),
-							strコメント文 = "TJA BGM"
 						};
 						dansongs.Wave.SongLoudnessMetadata = LoudnessMetadataScanner.LoadForAudioPath(dansongs.Wave.strFilename);
 						List_DanSongs.Add(dansongs);
@@ -1990,7 +1988,6 @@ namespace TJAPlayer3
 						SongVol = this.SongVol,
 						SongLoudnessMetadata = this.SongLoudnessMetadata,
 						strFilename = this.strBGM_PATH,
-						strコメント文 = "TJA BGM",
 					};
 
 					this.listWAV.Add(this.n内部番号WAV1to, wav);
@@ -2193,7 +2190,6 @@ namespace TJAPlayer3
 						SongVol = this.SongVol,
 						SongLoudnessMetadata = this.SongLoudnessMetadata,
 						strFilename = this.strBGM_PATH,
-						strコメント文 = "TJA BGM",
 					};
 
 					this.listWAV.Add(this.n内部番号WAV1to, wav);
@@ -4007,7 +4003,6 @@ namespace TJAPlayer3
 					SongVol = this.SongVol,
 					SongLoudnessMetadata = this.SongLoudnessMetadata,
 					strFilename = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strFilename, dansongs.FileName),
-					strコメント文 = "TJA BGM"
 				};
 				dansongs.Wave.SongLoudnessMetadata = LoudnessMetadataScanner.LoadForAudioPath(dansongs.Wave.strFilename);
 				List_DanSongs.Add(dansongs);
@@ -4856,7 +4851,6 @@ namespace TJAPlayer3
 							SongVol = this.SongVol,
 							SongLoudnessMetadata = this.SongLoudnessMetadata,
 							strFilename = this.strBGM_PATH,
-							strコメント文 = "TJA BGM",
 						};
 
 						this.listWAV.Add(this.n内部番号WAV1to, wav);
