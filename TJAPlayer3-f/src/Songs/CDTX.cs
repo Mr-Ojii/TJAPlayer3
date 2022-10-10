@@ -364,7 +364,6 @@ namespace TJAPlayer3
 			public string strFilename = "";
 			public bool bIsBassSound = false;
 			public bool bIsGuitarSound = false;
-			public bool bIsDrumsSound = false;
 			public bool bIsSESound = false;
 			public bool bIsBGMSound = false;
 
@@ -1618,8 +1617,6 @@ namespace TJAPlayer3
 						int c = chip.nチャンネル番号 >> 4;
 						switch (c)
 						{
-							case 0x01:
-								cwav.bIsDrumsSound = true; break;
 							case 0x02:
 								cwav.bIsGuitarSound = true; break;
 							case 0x0A:
