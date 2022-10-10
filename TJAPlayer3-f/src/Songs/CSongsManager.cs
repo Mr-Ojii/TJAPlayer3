@@ -132,7 +132,6 @@ namespace TJAPlayer3
 
 					c曲リストノード.arスコア.譜面情報.Title = dtx.TITLE;
 					c曲リストノード.arスコア.譜面情報.Genre = dtx.GENRE;
-					c曲リストノード.arスコア.譜面情報.Backgound = ((dtx.BACKGROUND != null) && (dtx.BACKGROUND.Length > 0)) ? dtx.BACKGROUND : "";
 					c曲リストノード.arスコア.譜面情報.Bpm = dtx.BPM;
 					c曲リストノード.arスコア.譜面情報.Duration = 0;   //  (cdtx.listChip == null)? 0 : cdtx.listChip[ cdtx.listChip.Count - 1 ].n発声時刻ms;
 					c曲リストノード.arスコア.譜面情報.strBGMファイル名 = dtx.strBGM_PATH == null ? "" : dtx.strBGM_PATH;

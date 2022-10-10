@@ -542,7 +542,6 @@ namespace TJAPlayer3
 		public int nPlayerSide; //2017.08.14 kairera0467 引数で指定する
 		public bool bSession譜面を読み込む;
 
-		public string BACKGROUND;
 		public double BASEBPM;
 		public double BPM;
 		public bool bHasBranchChip;
@@ -685,7 +684,6 @@ namespace TJAPlayer3
 			this.SUBTITLEDisp = false;
 			this.GENRE = "";
 			this.bLyrics = false;
-			this.BACKGROUND = "";
 			this.PATH_WAV = "";
 			this.BPM = 120.0;
 			this.bHIDDENBRANCH = false;

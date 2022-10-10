@@ -52,7 +52,6 @@ namespace TJAPlayer3
 		{
 			public string Title;
 			public string Genre;
-			public string Backgound;
 			public int 演奏回数;
 			public STHISTORY 演奏履歴;
 			public double Bpm;
@@ -158,7 +157,6 @@ namespace TJAPlayer3
 			this.譜面情報 = new ST譜面情報();
 			this.譜面情報.Title = "";
 			this.譜面情報.Genre = "";
-			this.譜面情報.Backgound = "";
 			this.譜面情報.演奏回数 = new int();
 			this.譜面情報.演奏履歴 = new ST譜面情報.STHISTORY();
 			this.譜面情報.演奏履歴.行1 = "";
