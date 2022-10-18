@@ -67,9 +67,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: '6.0.x'
     - name: Build
       run: dotnet publish TJAPlayer3-f -o Test/net6.0 -r ${{matrix.platform}} -p:MyOption=PUBLISH -p:PublishSingleFile=true --configuration Release --self-contained true
 
