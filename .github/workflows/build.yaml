@@ -15,7 +15,7 @@ jobs:
       rev_list_count: ${{ steps.rev.outputs.REV_LIST_COUNT }}
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
     - name: Set REV_LIST_COUNT
@@ -65,7 +65,7 @@ jobs:
         platform: [win-x86, win-x64, linux-x64, osx-x64]
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
@@ -74,7 +74,7 @@ jobs:
       run: dotnet publish TJAPlayer3-f -o Test/net6.0 -r ${{matrix.platform}} -p:MyOption=PUBLISH -p:PublishSingleFile=true --configuration Release --self-contained true
 
     - name: Remove Folder
-      uses: JesseTG/rm@v1.0.0
+      uses: JesseTG/rm@v1.0.3
       with:
         path: Test/net6.0/${{matrix.platform}}
 
