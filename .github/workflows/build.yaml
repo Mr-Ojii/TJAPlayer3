@@ -23,7 +23,7 @@ jobs:
       run: |
         cd ${{ github.workspace }}
         REVCOUNT=`git rev-list --count HEAD`
-        echo "::set-output name=REV_LIST_COUNT::${REVCOUNT}"
+        echo "REV_LIST_COUNT=${REVCOUNT}" >> $GITHUB_OUTPUT
     
   create_release:
     name: Create release
