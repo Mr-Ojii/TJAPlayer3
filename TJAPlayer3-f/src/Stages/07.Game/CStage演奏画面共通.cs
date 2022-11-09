@@ -330,7 +330,7 @@ namespace TJAPlayer3
 
 			TJAPlayer3.Skin.tRemoveMixerAll();	// 効果音のストリームをミキサーから解除しておく
 
-			queueMixerSound = new Queue<stmixer>( 64 );
+			queueMixerSound = new Queue<STMixer>( 64 );
 			this.bPAUSE = false;
 			
 			db再生速度 = ( (double) TJAPlayer3.ConfigIni.n演奏速度 ) / 20.0;
@@ -825,7 +825,7 @@ namespace TJAPlayer3
 			}
 		}
 
-		protected struct stmixer
+		protected struct STMixer
 		{
 			internal bool bIsAdd;
 			internal CSound csound;
@@ -916,7 +916,7 @@ namespace TJAPlayer3
 		public CHITCOUNTOFRANK[] nヒット数_Auto含む = new CHITCOUNTOFRANK[2];
 		public int n現在のトップChip = -1;
 
-		protected volatile Queue<stmixer> queueMixerSound;		// #24820 2013.1.21 yyagi まずは単純にAdd/Removeを1個のキューでまとめて管理するやり方で設計する
+		protected volatile Queue<STMixer> queueMixerSound;		// #24820 2013.1.21 yyagi まずは単純にAdd/Removeを1個のキューでまとめて管理するやり方で設計する
 		protected DateTime dtLastQueueOperation;				//
 		protected double db再生速度;
 
@@ -968,7 +968,7 @@ namespace TJAPlayer3
 
 		public void AddMixer( CSound cs, bool _b演奏終了後も再生が続くチップである )
 		{
-			stmixer stm = new stmixer()
+			STMixer stm = new STMixer()
 			{
 				bIsAdd = true,
 				csound = cs,
@@ -979,7 +979,7 @@ namespace TJAPlayer3
 		}
 		public void RemoveMixer( CSound cs )
 		{
-			stmixer stm = new stmixer()
+			STMixer stm = new STMixer()
 			{
 				bIsAdd = false,
 				csound = cs,
@@ -1001,7 +1001,7 @@ namespace TJAPlayer3
 					for ( int i = 0; i < 2 && queueMixerSound.Count > 0; i++ )
 					{
 						dtLastQueueOperation = dtnow;
-						stmixer stm = queueMixerSound.Dequeue();
+						STMixer stm = queueMixerSound.Dequeue();
 						if ( stm.bIsAdd )
 						{
 							TJAPlayer3.SoundManager.AddMixer( stm.csound, db再生速度, stm.b演奏終了後も再生が続くチップである );
