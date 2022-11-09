@@ -457,8 +457,6 @@ namespace TJAPlayer3
 						TJAPlayer3.Tx.GameMode_Timer_Frame.t2D描画( TJAPlayer3.app.Device, 230, 84 );
 					this.st叩ききりまショー.ct針アニメ.t進行Loop();
 
-					int nCenterX = 230;
-					int nCerterY = 84;
 					float fRotate = -CConvert.DegreeToRadian( 360.0f * ( this.st叩ききりまショー.ct針アニメ.n現在の値 / 1000.0f ) );
 					if( this.st叩ききりまショー.b加算アニメ中 == true )
 						fRotate = CConvert.DegreeToRadian( 360.0f * ( this.st叩ききりまショー.ct針アニメ.n現在の値 / (float)this.st叩ききりまショー.n延長アニメ速度 ) );

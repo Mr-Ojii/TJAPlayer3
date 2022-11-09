@@ -193,8 +193,6 @@ namespace TJAPlayer3
 			{
 				if (!this.st状態[j].ct進行.b停止中 && TJAPlayer3.Tx.Judge != null)
 				{
-					int baseX = 370;
-					//int baseY = 135;
 					int baseY = TJAPlayer3.Skin.nScrollFieldY[this.st状態[j].nPlayer] - 53;
 					int x = TJAPlayer3.Skin.nScrollFieldX[this.st状態[j].nPlayer] - TJAPlayer3.Tx.Judge.szTextureSize.Width / 2;
 					int y = (baseY + this.st状態[j].n相対Y座標);

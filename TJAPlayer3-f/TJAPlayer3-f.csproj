@@ -13,7 +13,6 @@
     <FileAlignment>512</FileAlignment>
     <SignAssembly>false</SignAssembly>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <NoWarn>0219</NoWarn>
     <LangVersion>7.3</LangVersion>
     <Platforms>AnyCPU</Platforms>
     <ApplicationIcon>TJAPlayer3-f.ico</ApplicationIcon>

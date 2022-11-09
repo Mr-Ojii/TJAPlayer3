@@ -3083,8 +3083,6 @@ namespace TJAPlayer3
 		/// <returns>1小節内の文字数</returns>
 		private void t1小節の文字数をカウントしてリストに追加する(string InputText)
 		{
-			int nCount = 0;
-
 			if (InputText.StartsWith("#BRANCHSTART"))
 			{
 				this.nLineCountTemp = this.n現在の小節数;
@@ -3763,7 +3761,6 @@ namespace TJAPlayer3
 				#region [ 一小節前の分岐開始Chip ]
 				//16分前に戻す計算なんか当てにしちゃだめよ。。(by Akasoko)
 				var c小節前の小節線情報 = c一小節前の小節線情報を返す(listChip, n条件);
-				CChip c小節前の連打開始位置 = null;
 
 				var chip = new CChip();
 
@@ -5294,8 +5291,6 @@ namespace TJAPlayer3
 			list普通譜面のみのリスト = new List<CChip>();
 			list玄人譜面のみのリスト = new List<CChip>();
 			list達人譜面のみのリスト = new List<CChip>();
-			int nCount = 0;
-			int dkdkCount = 0;
 
 			foreach (CChip chip in this.listChip)
 			{
