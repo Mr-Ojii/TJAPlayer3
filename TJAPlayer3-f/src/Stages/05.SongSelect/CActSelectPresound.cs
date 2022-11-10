@@ -21,7 +21,7 @@ namespace TJAPlayer3
 			Cスコア cスコア = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア;
 
 			this.tサウンドの停止MT();
-			if ((cスコア != null) && ((!(cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.strBGMファイル名).Equals(this.str現在のファイル名) || (this.sound == null)) || !this.sound.bPlaying))
+			if ((cスコア != null) && ((!(cスコア.FileInfo.DirAbsolutePath + cスコア.譜面情報.strBGMファイル名).Equals(this.str現在のファイル名) || (this.sound == null)) || !this.sound.bPlaying))
 			{
 				this.tBGMFadeIn開始();
 				this.long再生位置 = -1;
@@ -142,7 +142,7 @@ namespace TJAPlayer3
 			Cスコア cスコア = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア;
 			if ((cスコア != null) && !string.IsNullOrEmpty(cスコア.譜面情報.strBGMファイル名) && TJAPlayer3.stage選曲.eフェーズID != CStage.Eフェーズ.選曲_NowLoading画面へのFadeOut)
 			{
-				string strPreviewFilename = cスコア.ファイル情報.フォルダの絶対パス + cスコア.譜面情報.strBGMファイル名;
+				string strPreviewFilename = cスコア.FileInfo.DirAbsolutePath + cスコア.譜面情報.strBGMファイル名;
 				try
 				{
 					// 2020.06.15 Mr-Ojii TJAP2fPCより拝借-----------

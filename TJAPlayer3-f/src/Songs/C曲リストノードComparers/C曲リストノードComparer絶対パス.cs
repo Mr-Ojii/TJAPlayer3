@@ -15,7 +15,7 @@ namespace TJAPlayer3.C曲リストノードComparers
 		{
 			if( ( n1.eNodeType == C曲リストノード.ENodeType.BOX ) && ( n2.eNodeType == C曲リストノード.ENodeType.BOX ) )
 			{
-				return _order * n1.arスコア.ファイル情報.フォルダの絶対パス.CompareTo( n2.arスコア.ファイル情報.フォルダの絶対パス );
+				return _order * n1.arスコア.FileInfo.DirAbsolutePath.CompareTo( n2.arスコア.FileInfo.DirAbsolutePath );
 			}
 
 			var str = strファイルの絶対パス(n1);
@@ -30,7 +30,7 @@ namespace TJAPlayer3.C曲リストノードComparers
 			{
 				if (c曲リストノード.arスコア.譜面情報.b譜面が存在する[i] != false)
 				{
-					return c曲リストノード.arスコア.ファイル情報.ファイルの絶対パス ?? "";
+					return c曲リストノード.arスコア.FileInfo.FileAbsolutePath ?? "";
 				}
 			}
 

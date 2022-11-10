@@ -4881,7 +4881,7 @@ namespace TJAPlayer3
 			try
 			{
 				if (!String.IsNullOrEmpty(TJAPlayer3.DTX[0].strBGIMAGE_PATH))
-					this.tx背景 = TJAPlayer3.tCreateTexture(TJAPlayer3.stage選曲.r確定されたスコア.ファイル情報.フォルダの絶対パス + TJAPlayer3.DTX[0].strBGIMAGE_PATH);
+					this.tx背景 = TJAPlayer3.tCreateTexture(TJAPlayer3.stage選曲.r確定されたスコア.FileInfo.DirAbsolutePath + TJAPlayer3.DTX[0].strBGIMAGE_PATH);
 				else
 					this.tx背景 = TJAPlayer3.tCreateTexture(CSkin.Path(@"Graphics/5_Game/5_Background/0/Background.png"));
 			}

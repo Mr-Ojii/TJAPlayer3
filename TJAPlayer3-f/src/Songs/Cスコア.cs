@@ -11,37 +11,37 @@ namespace TJAPlayer3
 	{
 		// プロパティ
 
-		public STScoreIni情報 ScoreIni情報;
+		public STScoreIniInfo ScoreIniInfo;
 		[Serializable]
 		[StructLayout( LayoutKind.Sequential )]
-		public struct STScoreIni情報
+		public struct STScoreIniInfo
 		{
-			public DateTime 最終更新日時;
-			public long ファイルサイズ;
+			public DateTime LastWriteTime;
+			public long FileSize;
 
-			public STScoreIni情報( DateTime 最終更新日時, long ファイルサイズ )
+			public STScoreIniInfo( DateTime LastWriteTime, long FileSize )
 			{
-				this.最終更新日時 = 最終更新日時;
-				this.ファイルサイズ = ファイルサイズ;
+				this.LastWriteTime = LastWriteTime;
+				this.FileSize = FileSize;
 			}
 		}
 
-		public STファイル情報 ファイル情報;
+		public STFileInfo FileInfo;
 		[Serializable]
 		[StructLayout( LayoutKind.Sequential )]
-		public struct STファイル情報
+		public struct STFileInfo
 		{
-			public string ファイルの絶対パス;
-			public string フォルダの絶対パス;
-			public DateTime 最終更新日時;
-			public long ファイルサイズ;
+			public string FileAbsolutePath;
+			public string DirAbsolutePath;
+			public DateTime LastWriteTime;
+			public long FileSize;
 
-			public STファイル情報( string ファイルの絶対パス, string フォルダの絶対パス, DateTime 最終更新日時, long ファイルサイズ )
+			public STFileInfo( string FileAbsolutePath, string DirAbsolutePath, DateTime LastWriteTime, long FileSize )
 			{
-				this.ファイルの絶対パス = ファイルの絶対パス;
-				this.フォルダの絶対パス = フォルダの絶対パス;
-				this.最終更新日時 = 最終更新日時;
-				this.ファイルサイズ = ファイルサイズ;
+				this.FileAbsolutePath = FileAbsolutePath;
+				this.DirAbsolutePath = DirAbsolutePath;
+				this.LastWriteTime = LastWriteTime;
+				this.FileSize = FileSize;
 			}
 		}
 
@@ -152,8 +152,8 @@ namespace TJAPlayer3
 
 		public Cスコア()
 		{
-			this.ScoreIni情報 = new STScoreIni情報( DateTime.MinValue, 0L );
-			this.ファイル情報 = new STファイル情報( "", "", DateTime.MinValue, 0L );
+			this.ScoreIniInfo = new STScoreIniInfo( DateTime.MinValue, 0L );
+			this.FileInfo = new STFileInfo( "", "", DateTime.MinValue, 0L );
 			this.譜面情報 = new ST譜面情報();
 			this.譜面情報.Title = "";
 			this.譜面情報.Genre = "";

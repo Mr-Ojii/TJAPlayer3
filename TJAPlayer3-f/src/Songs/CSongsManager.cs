@@ -118,16 +118,16 @@ namespace TJAPlayer3
 					bool b = false;
 
 					c曲リストノード.arスコア = new Cスコア();
-					c曲リストノード.arスコア.ファイル情報.ファイルの絶対パス = str基点フォルダ + fileinfo.Name;
-					c曲リストノード.arスコア.ファイル情報.フォルダの絶対パス = str基点フォルダ;
-					c曲リストノード.arスコア.ファイル情報.ファイルサイズ = fileinfo.Length;
-					c曲リストノード.arスコア.ファイル情報.最終更新日時 = fileinfo.LastWriteTime;
-					string strFileNameScoreIni = c曲リストノード.arスコア.ファイル情報.ファイルの絶対パス + ".score.ini";
+					c曲リストノード.arスコア.FileInfo.FileAbsolutePath = str基点フォルダ + fileinfo.Name;
+					c曲リストノード.arスコア.FileInfo.DirAbsolutePath = str基点フォルダ;
+					c曲リストノード.arスコア.FileInfo.FileSize = fileinfo.Length;
+					c曲リストノード.arスコア.FileInfo.LastWriteTime = fileinfo.LastWriteTime;
+					string strFileNameScoreIni = c曲リストノード.arスコア.FileInfo.FileAbsolutePath + ".score.ini";
 					if (File.Exists(strFileNameScoreIni))
 					{
 						FileInfo infoScoreIni = new FileInfo(strFileNameScoreIni);
-						c曲リストノード.arスコア.ScoreIni情報.ファイルサイズ = infoScoreIni.Length;
-						c曲リストノード.arスコア.ScoreIni情報.最終更新日時 = infoScoreIni.LastWriteTime;
+						c曲リストノード.arスコア.ScoreIniInfo.FileSize = infoScoreIni.Length;
+						c曲リストノード.arスコア.ScoreIniInfo.LastWriteTime = infoScoreIni.LastWriteTime;
 					}
 
 					c曲リストノード.arスコア.譜面情報.Title = dtx.TITLE;
@@ -180,12 +180,12 @@ namespace TJAPlayer3
 
 					try
 					{
-						var scoreIniPath = c曲リストノード.arスコア.ファイル情報.ファイルの絶対パス + ".score.ini";
+						var scoreIniPath = c曲リストノード.arスコア.FileInfo.FileAbsolutePath + ".score.ini";
 						if (File.Exists(scoreIniPath))
 							this.tScoreIniを読み込んで譜面情報を設定する(scoreIniPath, c曲リストノード.arスコア);
 						else
 						{
-							string[] dtxscoreini = Directory.GetFiles(c曲リストノード.arスコア.ファイル情報.フォルダの絶対パス, "*.dtx.score.ini");
+							string[] dtxscoreini = Directory.GetFiles(c曲リストノード.arスコア.FileInfo.DirAbsolutePath, "*.dtx.score.ini");
 							if (dtxscoreini.Length != 0 && File.Exists(dtxscoreini[0]))
 							{
 								this.tScoreIniを読み込んで譜面情報を設定する(dtxscoreini[0], c曲リストノード.arスコア);
@@ -225,7 +225,7 @@ namespace TJAPlayer3
 
 					c曲リストノード.nスコア数 = 1;
 					c曲リストノード.arスコア = new Cスコア();
-					c曲リストノード.arスコア.ファイル情報.フォルダの絶対パス = infoDir.FullName + @"/";
+					c曲リストノード.arスコア.FileInfo.DirAbsolutePath = infoDir.FullName + @"/";
 					c曲リストノード.arスコア.譜面情報.Title = boxdef.Title;
 					c曲リストノード.arスコア.譜面情報.Genre = boxdef.Genre;
 					c曲リストノード.r親ノード = node親;
@@ -333,7 +333,7 @@ namespace TJAPlayer3
 							itemBack.strTitle : itemBack.r親ノード.strBreadcrumbs + " > " + itemBack.strTitle;
 
 						itemBack.arスコア = new Cスコア();
-						itemBack.arスコア.ファイル情報.フォルダの絶対パス = "";
+						itemBack.arスコア.FileInfo.DirAbsolutePath = "";
 						itemBack.arスコア.譜面情報.Title = itemBack.strTitle;
 						c曲リストノード.arスコア.譜面情報.b譜面が存在する[0] = true;
 						c曲リストノード.list子リスト.Insert(Math.Min(index * (TJAPlayer3.ConfigIni.n閉じる差し込み間隔 + 1), c曲リストノード.list子リスト.Count), itemBack);

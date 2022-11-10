@@ -311,7 +311,7 @@ namespace TJAPlayer3
 				case CStage.Eフェーズ.NOWLOADING_DTXファイルを読み込む:
 					{
 						timeBeginLoad = DateTime.Now;
-						string str = TJAPlayer3.stage選曲.r確定されたスコア.ファイル情報.ファイルの絶対パス;
+						string str = TJAPlayer3.stage選曲.r確定されたスコア.FileInfo.FileAbsolutePath;
 
 
 						CScoreIni ini = new CScoreIni( str + ".score.ini" );
