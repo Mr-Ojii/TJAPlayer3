@@ -53,7 +53,7 @@ namespace FDK
 		[Flags]
 		public enum DrawMode
 		{
-			Normal,
+			Normal = 0,
 			Edge,
 			Gradation
 		}
