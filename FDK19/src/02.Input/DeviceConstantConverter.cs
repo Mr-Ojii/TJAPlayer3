@@ -17,15 +17,10 @@ namespace FDK
 		/// </returns>
 		public static SlimDXKey SDLKToKey(SDLKey sdl_key)
         {
-
-			if (_SDLKtoKey.ContainsKey(sdl_key))
-			{
-				return _SDLKtoKey[sdl_key];
-			}
+			if (_SDLKtoKey.TryGetValue(sdl_key, out var key))
+				return key;
 			else
-			{
 				return SlimDXKey.Unknown;
-			}
 		}
 
 		/// <summary>
