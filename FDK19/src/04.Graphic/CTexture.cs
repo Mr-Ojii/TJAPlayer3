@@ -21,7 +21,6 @@ namespace FDK
     public class CTexture : IDisposable
     {
         // プロパティ
-        public EBlendMode eBlendMode = EBlendMode.Normal;
 
         public float fRotation;
         public int Opacity
@@ -33,6 +32,18 @@ namespace FDK
             set
             {
                 this._opacity = value.Clamp(0, 0xff);
+                SDL.SDL_SetTextureAlphaMod((IntPtr)this.texture, (byte)this._opacity);
+            }
+        }
+        public Color color
+        {
+            get 
+            {
+                return this._color;
+            }
+            set
+            {
+                this._color = value;
             }
         }
         public Size szTextureSize
@@ -42,9 +53,27 @@ namespace FDK
                 return this.rcImageRect.Size;
             }
         }
-        private IntPtr? texture;
+        public EBlendMode eBlendMode
+        {
+            get
+            {
+                return this._eBlendMode;
+            }
+            set
+            {
+                this._eBlendMode = value;
+                switch (value)
+                {
+                    case EBlendMode.Addition:
+                        SDL.SDL_SetTextureBlendMode((IntPtr)this.texture, SDL.SDL_BlendMode.SDL_BLENDMODE_ADD);
+                        break;
+                    default:
+                        SDL.SDL_SetTextureBlendMode((IntPtr)this.texture, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
+                        break;
+                }
+            }
+        }
         public Vector3 vcScaling;
-        private string filename;
 
         // コンストラクタ
 
@@ -109,7 +138,9 @@ namespace FDK
 					}
                 }
 
-                SDL.SDL_SetTextureBlendMode((IntPtr)this.texture, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
+                this.color = Color.FromArgb(255, 255, 255, 255);
+                this.eBlendMode = EBlendMode.Normal;
+                this.Opacity = 255;
 
                 this.bTextureDisposed = false;
             }
@@ -285,11 +316,6 @@ namespace FDK
             if (this.texture == null)
                 return;
 
-            this.tSetBlendMode(device);
-
-            SDL.SDL_SetTextureAlphaMod((IntPtr)this.texture, (byte)this._opacity);
-            SDL.SDL_SetTextureColorMod((IntPtr)this.texture, (byte)this.color.R, (byte)this.color.G, (byte)this.color.B);
-
             dstrect.x = (int)x;
             dstrect.y = (int)y;
             dstrect.w = (int)(rc画像内の描画領域.Width * this.vcScaling.X);
@@ -308,11 +334,6 @@ namespace FDK
         {
             if (this.texture == null)
                 return;
-
-            this.tSetBlendMode(device);
-
-            SDL.SDL_SetTextureAlphaMod((IntPtr)this.texture, (byte)this._opacity);
-            SDL.SDL_SetTextureColorMod((IntPtr)this.texture, (byte)this.color.R, (byte)this.color.G, (byte)this.color.B);
 
             dstrect.x = (int)x;
             dstrect.y = (int)y;
@@ -340,11 +361,6 @@ namespace FDK
             if (this.texture == null)
                 throw new InvalidOperationException("Texture is not generated. ");
 
-            this.tSetBlendMode(device);
-
-            SDL.SDL_SetTextureAlphaMod((IntPtr)this.texture, (byte)this._opacity);
-            SDL.SDL_SetTextureColorMod((IntPtr)this.texture, (byte)this.color.R, (byte)this.color.G, (byte)this.color.B);
-
             dstrect.x = (int)x;
             dstrect.y = (int)y;
             dstrect.w = (int)(rc画像内の描画領域.Width * this.vcScaling.X);
@@ -370,11 +386,6 @@ namespace FDK
         {
             if (this.texture == null)
                 throw new InvalidOperationException("Texture is not generated. ");
-
-            this.tSetBlendMode(device);
-
-            SDL.SDL_SetTextureAlphaMod((IntPtr)this.texture, (byte)this._opacity);
-            SDL.SDL_SetTextureColorMod((IntPtr)this.texture, (byte)this.color.R, (byte)this.color.G, (byte)this.color.B);
 
             dstrect.x = (int)x;
             dstrect.y = (int)y;
@@ -441,26 +452,6 @@ namespace FDK
         }
 
         #region [ private ]
-        //-----------------
-        private int _opacity;
-        private bool bDisposed, bTextureDisposed;
-
-        /// <summary>
-        /// どれか一つが有効になります。
-        /// </summary>
-        /// <param name="device">Direct3Dのデバイス</param>
-        private void tSetBlendMode(Device device)
-        {
-            switch (this.eBlendMode) 
-            {
-                case EBlendMode.Addition:
-                    SDL.SDL_SetTextureBlendMode((IntPtr)this.texture, SDL.SDL_BlendMode.SDL_BLENDMODE_ADD);
-                    break;
-                default:
-                    SDL.SDL_SetTextureBlendMode((IntPtr)this.texture, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
-                    break;
-            }
-        }
 
         private enum MakeType
         {
@@ -471,8 +462,13 @@ namespace FDK
 
         // 2012.3.21 さらなる new の省略作戦
 
+        private IntPtr? texture;
+        private string filename;
         protected Rectangle rcImageRect;                              // テクスチャ作ったらあとは不変
-        public Color color = Color.FromArgb(255, 255, 255, 255);
+        private int _opacity;
+        private bool bDisposed, bTextureDisposed;
+        private EBlendMode _eBlendMode;
+        private Color _color;
         private MakeType maketype = MakeType.bytearray;
         private SDL.SDL_Rect srcrect;
         private SDL.SDL_Rect dstrect;
