@@ -39,13 +39,13 @@ namespace TJAPlayer3
 				keyboard.bIsKeyDown((int)SlimDXKeys.Key.RightControl))
 			{
 				soundGroup = ESoundGroup.SoundEffect;
-				システムサウンド = skin.sound決定音;
+				システムサウンド = skin.SystemSounds[Eシステムサウンド.SOUND決定音];
 			}
 			else if (keyboard.bIsKeyDown((int)SlimDXKeys.Key.LeftShift) ||
 					 keyboard.bIsKeyDown((int)SlimDXKeys.Key.RightShift))
 			{
 				soundGroup = ESoundGroup.Voice;
-				システムサウンド = skin.soundゲーム開始音;
+				システムサウンド = skin.SystemSounds[Eシステムサウンド.SOUNDゲーム開始音];
 			}
 			else if (isSongPreview)
 			{

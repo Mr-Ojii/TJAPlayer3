@@ -196,7 +196,7 @@ namespace TJAPlayer3
 
 				try
 				{
-					TJAPlayer3.Skin.bgm起動画面.t再生する();
+					TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.BGM起動画面].t再生する();
 					for ( int i = 0; i < TJAPlayer3.Skin.nシステムサウンド数; i++ )
 					{
 						if ( !TJAPlayer3.Skin[ i ].b排他 )	// BGM系以外のみ読み込む。(BGM系は必要になったときに読み込む)

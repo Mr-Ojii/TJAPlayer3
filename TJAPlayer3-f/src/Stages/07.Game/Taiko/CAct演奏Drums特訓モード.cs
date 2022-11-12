@@ -121,13 +121,13 @@ namespace TJAPlayer3
 				{
 					if (this.b特訓PAUSE)
 					{
-						TJAPlayer3.Skin.sound特訓再生音.t再生する();
+						TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND特訓再生].t再生する();
 						this.t演奏を再開する();
 					}
 					else
-					{
-						TJAPlayer3.Skin.sound特訓停止音.t再生する();
-						this.t演奏を停止する();
+                    {
+                        TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND特訓停止].t再生する();
+                        this.t演奏を停止する();
 					}
 				}
 				if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.bPressed(EPad.LBlue))
@@ -140,7 +140,7 @@ namespace TJAPlayer3
 							TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0] = this.n現在の小節線;
 
 							this.t譜面の表示位置を合わせる(true);
-							TJAPlayer3.Skin.sound特訓スクロール音.t再生する();
+                            TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND特訓スクロール].t再生する();
 						}
 						if (t配列の値interval以下か(ref this.LBlue, CSoundManager.rc演奏用タイマ.nシステム時刻ms, TJAPlayer3.ConfigIni.TokkunMashInterval))
 						{
@@ -168,8 +168,8 @@ namespace TJAPlayer3
 						TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0] = this.n現在の小節線;
 
 						this.t譜面の表示位置を合わせる(true);
-						TJAPlayer3.Skin.sound特訓スクロール音.t再生する();
-					}
+                        TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND特訓スクロール].t再生する();
+                    }
 				}
 				if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.bPressed(EPad.RBlue))
 				{
@@ -181,8 +181,8 @@ namespace TJAPlayer3
 							TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0] = this.n現在の小節線;
 
 							this.t譜面の表示位置を合わせる(true);
-							TJAPlayer3.Skin.sound特訓スクロール音.t再生する();
-						}
+                            TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND特訓スクロール].t再生する();
+                        }
 						if (t配列の値interval以下か(ref this.RBlue, CSoundManager.rc演奏用タイマ.nシステム時刻ms, TJAPlayer3.ConfigIni.TokkunMashInterval))
 						{
 							for (int index = 0; index < this.JumpPointList.Count; index++)
@@ -210,8 +210,8 @@ namespace TJAPlayer3
 						TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0] = this.n現在の小節線;
 
 						this.t譜面の表示位置を合わせる(true);
-						TJAPlayer3.Skin.sound特訓スクロール音.t再生する();
-					}
+                        TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND特訓スクロール].t再生する();
+                    }
 				}
 				if (TJAPlayer3.Pad.bPressed(EPad.LBlue2P))
 				{
@@ -244,8 +244,8 @@ namespace TJAPlayer3
 							TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0] = this.n現在の小節線;
 
 							this.t譜面の表示位置を合わせる(true);
-							TJAPlayer3.Skin.sound特訓スクロール音.t再生する();
-						}
+                            TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND特訓スクロール].t再生する();
+                        }
 					}
 				}
 				if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.End))
@@ -258,8 +258,8 @@ namespace TJAPlayer3
 							TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0] = this.n現在の小節線;
 
 							this.t譜面の表示位置を合わせる(true);
-							TJAPlayer3.Skin.sound特訓スクロール音.t再生する();
-						}
+                            TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND特訓スクロール].t再生する();
+                        }
 					}
 				}
 				if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.A))

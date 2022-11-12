@@ -298,17 +298,17 @@ namespace TJAPlayer3
 				if (base.eフェーズID == CStage.Eフェーズ.共通_通常状態)
 				{
 					if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
-					{
-						TJAPlayer3.Skin.sound取消音.t再生する();
-						this.actFO.tFadeOut開始();
+                    {
+                        TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
+                        this.actFO.tFadeOut開始();
 						base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
 						this.eFadeOut完了時の戻り値 = E戻り値.完了;
 					}
 					if ((TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && this.bアニメが完了)
-					{
-						TJAPlayer3.Skin.sound取消音.t再生する();
-						//							this.actFO.tFadeOut開始();
-						base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
+                    {
+                        TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
+                        //							this.actFO.tFadeOut開始();
+                        base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
 						this.eFadeOut完了時の戻り値 = E戻り値.完了;
 					}
 				}

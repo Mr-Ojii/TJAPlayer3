@@ -449,11 +449,10 @@ namespace TJAPlayer3
 				bool IsDigit = false;
 
 				if (ephase == phase && !this.ToNextPhase[nPlayer] && index == this.n表示された桁数[nPlayer])
-				{
-					if (TJAPlayer3.Skin.sound回転音 != null)
-						if (!TJAPlayer3.Skin.sound回転音.b再生中)
-							TJAPlayer3.Skin.sound回転音.t再生する();
-					Num = this.ct文字アニメ用[nPlayer].n現在の値 % 10;
+                {
+                    if (TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND回転音] != null && !TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND回転音].b再生中)
+                        TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND回転音].t再生する();
+                    Num = this.ct文字アニメ用[nPlayer].n現在の値 % 10;
 					IsDigit = true;
 				}
 
@@ -488,9 +487,9 @@ namespace TJAPlayer3
 						this.n表示された桁数[nPlayer]++;
 						this.ct文字アニメ用[nPlayer].n現在の値 = 0;
 						if (this.n表示された桁数[nPlayer] == n.ToString().Length)
-						{
-							TJAPlayer3.Skin.sound決定音?.t再生する();
-							this.n表示された桁数[nPlayer] = 0;
+                        {
+                            TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
+                            this.n表示された桁数[nPlayer] = 0;
 							this.ToNextPhase[nPlayer] = true;
 						}
 					}

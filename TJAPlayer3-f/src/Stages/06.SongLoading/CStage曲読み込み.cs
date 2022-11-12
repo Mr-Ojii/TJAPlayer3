@@ -148,9 +148,9 @@ namespace TJAPlayer3
 			{
 				if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan)
 				{
-					TJAPlayer3.Skin.sound曲読込開始音.t再生する();
+                    TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND曲読込開始音].t再生する();
 					this.nBGM再生開始時刻 = CSoundManager.rc演奏用タイマ.n現在時刻ms;
-					this.nBGMの総再生時間ms = TJAPlayer3.Skin.sound曲読込開始音.n長さ_現在のサウンド;
+					this.nBGMの総再生時間ms = TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND曲読込開始音].n長さ_現在のサウンド;
 				}
 				//this.actFI.tFadeIn開始();							// #27787 2012.3.10 yyagi 曲読み込み画面のFadeInの省略
 				base.eフェーズID = CStage.Eフェーズ.共通_FadeIn;

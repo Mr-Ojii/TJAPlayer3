@@ -966,7 +966,7 @@ namespace TJAPlayer3
 				}
 				if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
 				{
-					TJAPlayer3.Skin.sound取消音.t再生する();
+                    TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
 					TJAPlayer3.stage選曲.eFadeOut完了時の戻り値 = CStage選曲.E戻り値.タイトルに戻る;
 					TJAPlayer3.stage選曲.actFIFO.tFadeOut開始();
 					TJAPlayer3.stage選曲.eフェーズID = CStage.Eフェーズ.共通_FadeOut;

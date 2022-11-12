@@ -745,9 +745,9 @@ namespace TJAPlayer3
 			// これ以外なら何もしない
 		}
 		public void tPushedEnter()
-		{
-			TJAPlayer3.Skin.sound決定音.t再生する();
-			if( this.b要素値にフォーカス中 )
+        {
+            TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
+            if ( this.b要素値にフォーカス中 )
 			{
 				this.b要素値にフォーカス中 = false;
 			}
@@ -971,9 +971,9 @@ namespace TJAPlayer3
 		}
 #endregion
 		public void t次に移動()
-		{
-			TJAPlayer3.Skin.soundカーソル移動音.t再生する();
-			if( this.b要素値にフォーカス中 )
+        {
+            TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
+            if ( this.b要素値にフォーカス中 )
 			{
 				this.list項目リスト[ this.n現在の選択項目 ].tMoveItemValueToForward();
 				t要素値を上下に変更中の処理();
@@ -984,9 +984,9 @@ namespace TJAPlayer3
 			}
 		}
 		public void t前に移動()
-		{
-			TJAPlayer3.Skin.soundカーソル移動音.t再生する();
-			if( this.b要素値にフォーカス中 )
+        {
+            TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
+            if ( this.b要素値にフォーカス中 )
 			{
 				this.list項目リスト[ this.n現在の選択項目 ].tMoveItemValueToNext();
 				t要素値を上下に変更中の処理();

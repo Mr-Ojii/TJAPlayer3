@@ -86,7 +86,7 @@ namespace TJAPlayer3
 					this.ct難易度拡大用[nPlayer].n現在の値 = 0;
 					this.ct難易度拡大用[nPlayer].t時間Reset();
 				}
-				TJAPlayer3.Skin.sound難易度選択音?.t再生する();
+				TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND難易度選択]?.t再生する();
 				b開いた直後 = false;
 			}
 			//-----------------

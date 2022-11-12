@@ -164,15 +164,15 @@ namespace TJAPlayer3
 
 					if (((TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return)) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2))
 					{
-						if ((this.n現在のカーソル行 == (int)E戻り値.GAMESTART - 1) && TJAPlayer3.Skin.soundゲーム開始音.b読み込み成功)
+						if ((this.n現在のカーソル行 == (int)E戻り値.GAMESTART - 1) && TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDゲーム開始音].b読み込み成功)
 						{
 							if (!((TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.LeftControl) || TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.RightControl)) && TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.A)))
-								TJAPlayer3.Skin.soundゲーム開始音.t再生する();
+                                TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDゲーム開始音].t再生する();
 						}
 						else
-						{
-							TJAPlayer3.Skin.sound決定音.t再生する();
-						}
+                        {
+                            TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
+                        }
 						if (this.n現在のカーソル行 == (int)E戻り値.EXIT - 1)
 						{
 							return (int)E戻り値.EXIT;
@@ -255,7 +255,7 @@ namespace TJAPlayer3
 					case CStage.Eフェーズ.共通_FadeIn:
 						if (this.actFI.On進行描画() != 0)
 						{
-							TJAPlayer3.Skin.soundタイトル音.t再生する();
+							TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDタイトル音].t再生する();
 							base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
 						}
 						break;
@@ -285,9 +285,9 @@ namespace TJAPlayer3
 
 					case CStage.Eフェーズ.タイトル_起動画面からのFadeIn:
 						if (this.actFI.On進行描画() != 0)
-						{
-							TJAPlayer3.Skin.soundタイトル音.t再生する();
-							base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
+                        {
+                            TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDタイトル音].t再生する();
+                            base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
 						}
 						break;
 				}
@@ -330,7 +330,7 @@ namespace TJAPlayer3
 		{
 			if ( this.n現在のカーソル行 != (int) E戻り値.EXIT - 1 )
 			{
-				TJAPlayer3.Skin.soundカーソル移動音.t再生する();
+				TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
 				this.n現在のカーソル行++;
 				this.ct下移動用.t開始( 0, 100, 1, TJAPlayer3.Timer );
 				if( this.ct上移動用.b進行中 )
@@ -343,9 +343,9 @@ namespace TJAPlayer3
 		private void tカーソルを上へ移動する()
 		{
 			if ( this.n現在のカーソル行 != (int) E戻り値.GAMESTART - 1 )
-			{
-				TJAPlayer3.Skin.soundカーソル移動音.t再生する();
-				this.n現在のカーソル行--;
+            {
+                TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
+                this.n現在のカーソル行--;
 				this.ct上移動用.t開始( 0, 100, 1, TJAPlayer3.Timer );
 				if( this.ct下移動用.b進行中 )
 				{

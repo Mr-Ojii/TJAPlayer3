@@ -277,122 +277,64 @@ namespace TJAPlayer3
 			#endregion
 		}
 
+		private struct SystemSoundInfo
+		{
+			public SystemSoundInfo(string strFilePath, bool bLoop, bool bExclusive, ESoundGroup eSoundGroup)
+			{
+				this.strFilePath = strFilePath;
+				this.bLoop = bLoop;
+				this.bExclusive = bExclusive;
+				this.eSoundGroup = eSoundGroup;
+			}
+			public readonly string strFilePath;
+			public readonly bool bLoop;
+			public readonly bool bExclusive;
+			public readonly ESoundGroup eSoundGroup;
+		}
 
 		// プロパティ
-
-		public Cシステムサウンド bgmコンフィグ画面 = null;
-		public Cシステムサウンド bgm起動画面 = null;
-		public Cシステムサウンド bgm選曲画面 = null;
-		public Cシステムサウンド soundSTAGEFAILED音 = null;
-		public Cシステムサウンド soundカーソル移動音 = null;
-		public Cシステムサウンド soundゲーム開始音 = null;
-		public Cシステムサウンド soundゲーム終了音 = null;
-		public Cシステムサウンド soundタイトル音 = null;
-		public Cシステムサウンド sound曲読込開始音 = null;
-		public Cシステムサウンド sound決定音 = null;
-		public Cシステムサウンド sound取消音 = null;
-		public Cシステムサウンド sound変更音 = null;
-		//add
-		public Cシステムサウンド bgmリザルト = null;
-		public Cシステムサウンド bgmリザルトループ = null;
-		public Cシステムサウンド sound曲決定音 = null;
-		public Cシステムサウンド sound成績発表 = null;
-		public Cシステムサウンド soundDanするカッ = null;
-		public Cシステムサウンド sound特訓再生音 = null;
-		public Cシステムサウンド sound特訓停止音 = null;
-		public Cシステムサウンド sound特訓スクロール音 = null;
-		public Cシステムサウンド sound選曲スキップ音 = null;
-		public Cシステムサウンド sound音色選択音 = null;
-		public Cシステムサウンド sound難易度選択音 = null;
-		public Cシステムサウンド sound自己ベスト更新音 = null;
-		public Cシステムサウンド sound回転音 = null;
-
-		//public Cシステムサウンド soundRed = null;
-		//public Cシステムサウンド soundBlue = null;
-		public Cシステムサウンド soundBalloon = null;
-
+		public Dictionary<Eシステムサウンド, Cシステムサウンド> SystemSounds = new Dictionary<Eシステムサウンド, Cシステムサウンド>();
+		private readonly Dictionary<Eシステムサウンド, SystemSoundInfo> SystemSoundsInfo = new Dictionary<Eシステムサウンド, SystemSoundInfo>()
+		{
+			{ Eシステムサウンド.SOUNDカーソル移動音, new SystemSoundInfo(@"Sounds/Move.ogg", false, false, ESoundGroup.SoundEffect) },
+			{ Eシステムサウンド.SOUND決定音, new SystemSoundInfo(@"Sounds/Decide.ogg", false, false, ESoundGroup.SoundEffect) },
+			{ Eシステムサウンド.SOUND変更音, new SystemSoundInfo(@"Sounds/Change.ogg", false, false, ESoundGroup.SoundEffect) },
+			{ Eシステムサウンド.SOUND取消音, new SystemSoundInfo(@"Sounds/Cancel.ogg", false, false, ESoundGroup.SoundEffect) },
+			{ Eシステムサウンド.SOUNDステージ失敗音, new SystemSoundInfo(@"Sounds/Stage failed.ogg", false, true, ESoundGroup.Voice) },
+			{ Eシステムサウンド.SOUNDゲーム開始音, new SystemSoundInfo(@"Sounds/Game start.ogg", false, false, ESoundGroup.Voice) },
+			{ Eシステムサウンド.SOUNDゲーム終了音, new SystemSoundInfo(@"Sounds/Game end.ogg", false, true, ESoundGroup.Voice) },
+			{ Eシステムサウンド.SOUND曲読込開始音, new SystemSoundInfo(@"Sounds/Now loading.ogg", false, true, ESoundGroup.Unknown) },
+			{ Eシステムサウンド.SOUNDタイトル音, new SystemSoundInfo(@"Sounds/Title.ogg", false, true, ESoundGroup.SongPlayback) },
+			{ Eシステムサウンド.BGM起動画面, new SystemSoundInfo(@"Sounds/Setup BGM.ogg", true, true, ESoundGroup.SongPlayback) },
+			{ Eシステムサウンド.BGMコンフィグ画面, new SystemSoundInfo(@"Sounds/Config BGM.ogg", true, true, ESoundGroup.SongPlayback) },
+			{ Eシステムサウンド.BGM選曲画面, new SystemSoundInfo(@"Sounds/Select BGM.ogg", true, true, ESoundGroup.SongPreview) },
+			{ Eシステムサウンド.SOUND風船, new SystemSoundInfo(@"Sounds/balloon.ogg", false, false, ESoundGroup.SoundEffect) },
+			{ Eシステムサウンド.SOUND曲決定音, new SystemSoundInfo(@"Sounds/SongDecide.ogg", false, false, ESoundGroup.Voice) },
+			{ Eシステムサウンド.SOUND成績発表, new SystemSoundInfo(@"Sounds/ResultIn.ogg", false, false, ESoundGroup.Voice) },
+			{ Eシステムサウンド.SOUNDDANするカッ, new SystemSoundInfo(@"Sounds/Dan_Select.ogg", false, false, ESoundGroup.SoundEffect) },
+			{ Eシステムサウンド.SOUND特訓再生, new SystemSoundInfo(@"Sounds/Resume.ogg", false, false, ESoundGroup.SoundEffect) },
+			{ Eシステムサウンド.SOUND特訓停止, new SystemSoundInfo(@"Sounds/Pause.ogg", false, false, ESoundGroup.SoundEffect) },
+			{ Eシステムサウンド.SOUND特訓スクロール, new SystemSoundInfo(@"Sounds/Scroll.ogg", false, false, ESoundGroup.SoundEffect) },
+			{ Eシステムサウンド.SOUND選曲スキップ, new SystemSoundInfo(@"Sounds/Skip.ogg", false, false, ESoundGroup.SoundEffect) },
+			{ Eシステムサウンド.SOUND音色選択, new SystemSoundInfo(@"Sounds/Timbre.ogg", false, false, ESoundGroup.SoundEffect) },
+			{ Eシステムサウンド.SOUND難易度選択, new SystemSoundInfo(@"Sounds/DifficultySelect.ogg", false, false, ESoundGroup.SoundEffect) },
+			{ Eシステムサウンド.SOUND自己ベスト更新, new SystemSoundInfo(@"Sounds/NewRecord.ogg", false, false, ESoundGroup.Voice) },
+			{ Eシステムサウンド.SOUND回転音, new SystemSoundInfo(@"Sounds/Rotate.ogg", false, false, ESoundGroup.SoundEffect) },
+		};
 
 		public readonly int nシステムサウンド数 = (int)Eシステムサウンド.Count;
 		public Cシステムサウンド this[int index]
 		{
 			get
 			{
-				switch (index)
-				{
-					case (int)Eシステムサウンド.SOUNDカーソル移動音:
-						return this.soundカーソル移動音;
-
-					case (int)Eシステムサウンド.SOUND決定音:
-						return this.sound決定音;
-
-					case (int)Eシステムサウンド.SOUND変更音:
-						return this.sound変更音;
-
-					case (int)Eシステムサウンド.SOUND取消音:
-						return this.sound取消音;
-
-					case (int)Eシステムサウンド.SOUNDステージ失敗音:
-						return this.soundSTAGEFAILED音;
-
-					case (int)Eシステムサウンド.SOUNDゲーム開始音:
-						return this.soundゲーム開始音;
-
-					case (int)Eシステムサウンド.SOUNDゲーム終了音:
-						return this.soundゲーム終了音;
-
-					case (int)Eシステムサウンド.SOUND曲読込開始音:
-						return this.sound曲読込開始音;
-
-					case (int)Eシステムサウンド.SOUNDタイトル音:
-						return this.soundタイトル音;
-
-					case (int)Eシステムサウンド.BGM起動画面:
-						return this.bgm起動画面;
-
-					case (int)Eシステムサウンド.BGMコンフィグ画面:
-						return this.bgmコンフィグ画面;
-
-					case (int)Eシステムサウンド.BGM選曲画面:
-						return this.bgm選曲画面;
-
-					case (int)Eシステムサウンド.SOUND風船:
-						return this.soundBalloon;
-
-					case (int)Eシステムサウンド.SOUND曲決定音:
-						return this.sound曲決定音;
-
-					case (int)Eシステムサウンド.SOUND成績発表:
-						return this.sound成績発表;
-
-					case (int)Eシステムサウンド.SOUNDDANするカッ:
-						return this.soundDanするカッ;
-
-					case (int)Eシステムサウンド.SOUND特訓再生:
-						return this.sound特訓再生音;
-
-					case (int)Eシステムサウンド.SOUND特訓停止:
-						return this.sound特訓停止音;
-
-					case (int)Eシステムサウンド.SOUND特訓スクロール:
-						return this.sound特訓スクロール音;
-
-					case (int)Eシステムサウンド.SOUND選曲スキップ:
-						return this.sound選曲スキップ音;
-
-					case (int)Eシステムサウンド.SOUND音色選択:
-						return this.sound音色選択音;
-
-					case (int)Eシステムサウンド.SOUND難易度選択:
-						return this.sound難易度選択音;
-
-					case (int)Eシステムサウンド.SOUND自己ベスト更新:
-						return this.sound自己ベスト更新音;
-
-					case (int)Eシステムサウンド.SOUND回転音:
-						return this.sound回転音;
-				}
-				throw new IndexOutOfRangeException();
+				if (SystemSounds.TryGetValue((Eシステムサウンド)index, out var cSystemSound))
+					return cSystemSound;
+				return null;
 			}
+			private set
+			{
+				SystemSounds[(Eシステムサウンド)index] = value;
+            }
 		}
 
 
@@ -607,32 +549,11 @@ namespace TJAPlayer3
 					this[i].Dispose();
 				}
 			}
-			this.soundカーソル移動音 = new Cシステムサウンド(@"Sounds/Move.ogg", false, false, ESoundGroup.SoundEffect);
-			this.sound決定音 = new Cシステムサウンド(@"Sounds/Decide.ogg", false, false, ESoundGroup.SoundEffect);
-			this.sound変更音 = new Cシステムサウンド(@"Sounds/Change.ogg", false, false, ESoundGroup.SoundEffect);
-			this.sound取消音 = new Cシステムサウンド(@"Sounds/Cancel.ogg", false, false, ESoundGroup.SoundEffect);
-			this.soundSTAGEFAILED音 = new Cシステムサウンド(@"Sounds/Stage failed.ogg", false, true, ESoundGroup.Voice);
-			this.soundゲーム開始音 = new Cシステムサウンド(@"Sounds/Game start.ogg", false, false, ESoundGroup.Voice);
-			this.soundゲーム終了音 = new Cシステムサウンド(@"Sounds/Game end.ogg", false, true, ESoundGroup.Voice);
-			this.sound曲読込開始音 = new Cシステムサウンド(@"Sounds/Now loading.ogg", false, true, ESoundGroup.Unknown);
-			this.soundタイトル音 = new Cシステムサウンド(@"Sounds/Title.ogg", false, true, ESoundGroup.SongPlayback);
-			this.bgm起動画面 = new Cシステムサウンド(@"Sounds/Setup BGM.ogg", true, true, ESoundGroup.SongPlayback);
-			this.bgmコンフィグ画面 = new Cシステムサウンド(@"Sounds/Config BGM.ogg", true, true, ESoundGroup.SongPlayback);
-			this.bgm選曲画面 = new Cシステムサウンド(@"Sounds/Select BGM.ogg", true, true, ESoundGroup.SongPreview);
-
-			this.soundBalloon = new Cシステムサウンド(@"Sounds/balloon.ogg", false, false, ESoundGroup.SoundEffect);
-			this.sound曲決定音 = new Cシステムサウンド(@"Sounds/SongDecide.ogg", false, false, ESoundGroup.Voice);
-			this.sound成績発表 = new Cシステムサウンド(@"Sounds/ResultIn.ogg", false, false, ESoundGroup.Voice);
-			this.soundDanするカッ = new Cシステムサウンド(@"Sounds/Dan_Select.ogg", false, false, ESoundGroup.SoundEffect);
-
-			this.sound特訓再生音 = new Cシステムサウンド(@"Sounds/Resume.ogg", false, false, ESoundGroup.SoundEffect);
-			this.sound特訓停止音 = new Cシステムサウンド(@"Sounds/Pause.ogg", false, false, ESoundGroup.SoundEffect);
-			this.sound特訓スクロール音 = new Cシステムサウンド(@"Sounds/Scroll.ogg", false, false, ESoundGroup.SoundEffect);
-			this.sound選曲スキップ音 = new Cシステムサウンド(@"Sounds/Skip.ogg", false, false, ESoundGroup.SoundEffect);
-			this.sound音色選択音 = new Cシステムサウンド(@"Sounds/Timbre.ogg", false, false, ESoundGroup.SoundEffect);
-			this.sound難易度選択音 = new Cシステムサウンド(@"Sounds/DifficultySelect.ogg", false, false, ESoundGroup.SoundEffect);
-			this.sound自己ベスト更新音 = new Cシステムサウンド(@"Sounds/NewRecord.ogg", false, false, ESoundGroup.Voice);
-			this.sound回転音 = new Cシステムサウンド(@"Sounds/Rotate.ogg", false, false, ESoundGroup.SoundEffect);
+			for(int i = 0; i < nシステムサウンド数; i++)
+			{
+				SystemSoundInfo info = SystemSoundsInfo[(Eシステムサウンド)i];
+				this[i] = new Cシステムサウンド(info.strFilePath, info.bLoop, info.bExclusive, info.eSoundGroup);
+            }
 
 			ReloadSkin();
 			tReadSkinConfig();

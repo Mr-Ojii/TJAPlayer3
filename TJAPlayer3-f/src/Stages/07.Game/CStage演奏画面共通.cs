@@ -709,7 +709,7 @@ namespace TJAPlayer3
 				{
 					if (TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
 					{
-						TJAPlayer3.Skin.sound特訓停止音.t再生する();
+						TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND特訓停止].t再生する();
 						actTraining.t演奏を停止する();
 
 						actTraining.n現在の小節線 = TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0];
@@ -1233,7 +1233,7 @@ namespace TJAPlayer3
 				if ( pChip.nBalloon == pChip.nRollCount )
 				{
 					//ﾊﾟｧｰﾝ
-					TJAPlayer3.Skin.soundBalloon.t再生する();
+					TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND風船].t再生する();
 					//CDTXMania.stage演奏ドラム画面.actChipFireTaiko.Start( 3, nPlayer ); //ここで飛ばす。飛ばされるのは大音符のみ。
 					TJAPlayer3.stage演奏ドラム画面.FlyingNotes.Start(3, nPlayer);
 					TJAPlayer3.stage演奏ドラム画面.Rainbow.Start( nPlayer );
@@ -2717,7 +2717,7 @@ namespace TJAPlayer3
 			{
 				if (!this.actPauseMenu.bIsActivePopupMenu && this.bPAUSE == false)
 				{
-					TJAPlayer3.Skin.sound変更音.t再生する();
+					TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND変更音].t再生する();
 
 					CSoundManager.rc演奏用タイマ.t一時停止();
 					TJAPlayer3.Timer.t一時停止();

@@ -85,8 +85,8 @@ namespace TJAPlayer3
 			if( !base.b活性化してない )
 			{
 				if( base.b初めての進行描画 )
-				{
-					TJAPlayer3.Skin.soundゲーム終了音.t再生する();
+                {
+                    TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDゲーム終了音].t再生する();
 					base.b初めての進行描画 = false;
 				}
 				this.ctAnimation.t進行();
@@ -126,7 +126,7 @@ namespace TJAPlayer3
 					TJAPlayer3.Tx.Exit_Text.t2D描画(TJAPlayer3.app.Device, 0, y);
 				}
 
-				if (this.ctAnimation.b終了値に達した && !TJAPlayer3.Skin.soundゲーム終了音.b再生中)
+				if (this.ctAnimation.b終了値に達した && !TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDゲーム終了音].b再生中)
 				{
 					return 1;
 				}

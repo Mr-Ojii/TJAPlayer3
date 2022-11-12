@@ -268,7 +268,7 @@ namespace TJAPlayer3
 				case CStage.Eフェーズ.共通_FadeIn:
 					if( this.actFIFO.On進行描画() != 0 )
 					{
-						TJAPlayer3.Skin.bgmコンフィグ画面.t再生する();
+						TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.BGMコンフィグ画面].t再生する();
 						base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
 					}
 					break;
@@ -297,9 +297,9 @@ namespace TJAPlayer3
 			if ( !TJAPlayer3.EnumSongs.IsEnumerating || TJAPlayer3.actEnumSongs.bコマンドでの曲データ取得 != true )
 			{
 				if ( ( TJAPlayer3.InputManager.Keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.Escape )))
-				{
-					TJAPlayer3.Skin.sound取消音.t再生する();
-					if ( !this.bメニューにフォーカス中 )
+                {
+                    TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
+                    if ( !this.bメニューにフォーカス中 )
 					{
 						if ( this.eItemPanelモード == EItemPanelモード.KeyCode一覧 )
 						{
@@ -322,15 +322,15 @@ namespace TJAPlayer3
 				else if (TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.Return ) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2)
 				{
 					if ( this.n現在のメニュー番号 == 2 )
-					{
-						TJAPlayer3.Skin.sound決定音.t再生する();
-						this.actFIFO.tFadeOut開始();
+                    {
+                        TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
+                        this.actFIFO.tFadeOut開始();
 						base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
 					}
 					else if ( this.bメニューにフォーカス中 )
-					{
-						TJAPlayer3.Skin.sound決定音.t再生する();
-						this.bメニューにフォーカス中 = false;
+                    {
+                        TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
+                        this.bメニューにフォーカス中 = false;
 						this.t説明文パネルに現在選択されている項目の説明を描画する();
 					}
 					else
@@ -485,9 +485,9 @@ namespace TJAPlayer3
 				}
 			}
 			else
-			{
-				TJAPlayer3.Skin.soundカーソル移動音.t再生する();
-				this.n現在のメニュー番号 = ( this.n現在のメニュー番号 + 1 ) % 3;
+            {
+                TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
+                this.n現在のメニュー番号 = ( this.n現在のメニュー番号 + 1 ) % 3;
 				switch( this.n現在のメニュー番号 )
 				{
 					case 0:
@@ -521,9 +521,9 @@ namespace TJAPlayer3
 				}
 			}
 			else
-			{
-				TJAPlayer3.Skin.soundカーソル移動音.t再生する();
-				this.n現在のメニュー番号 = ( (this.n現在のメニュー番号 - 1 )+ 3) % 3;
+            {
+                TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
+                this.n現在のメニュー番号 = ( (this.n現在のメニュー番号 - 1 )+ 3) % 3;
 				switch( this.n現在のメニュー番号 )
 				{
 					case 0:

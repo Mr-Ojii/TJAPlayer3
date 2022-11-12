@@ -90,7 +90,7 @@ namespace TJAPlayer3
 		{
 			if ( this.bキー入力待ち )
 			{
-				TJAPlayer3.Skin.sound決定音.t再生する();
+				TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音].t再生する();
 
 				if ( this.n現在の選択行 != lciMenuItems.Length - 1 )
 				{
@@ -136,9 +136,9 @@ namespace TJAPlayer3
 		public void t次に移動()
 		{
 			if ( this.bキー入力待ち )
-			{
-				TJAPlayer3.Skin.soundカーソル移動音.t再生する();
-				if ( bIsSelectingIntItem )
+            {
+                TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
+                if ( bIsSelectingIntItem )
 				{
 					 lciMenuItems[ n現在の選択行 ].cItem.tMoveItemValueToForward();		// 項目移動と数値上下は方向が逆になるので注意
 				}
@@ -154,9 +154,9 @@ namespace TJAPlayer3
 		public void t前に移動()
 		{
 			if ( this.bキー入力待ち )
-			{
-				TJAPlayer3.Skin.soundカーソル移動音.t再生する();
-				if ( bIsSelectingIntItem )
+            {
+                TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
+                if ( bIsSelectingIntItem )
 				{
 					lciMenuItems[ n現在の選択行 ].cItem.tMoveItemValueToNext();		// 項目移動と数値上下は方向が逆になるので注意
 				}
@@ -234,7 +234,7 @@ namespace TJAPlayer3
 					if ( ( TJAPlayer3.InputManager.Keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.Escape ))
 						&& this.bEsc有効 )
 					{	// キャンセル
-						TJAPlayer3.Skin.sound取消音.t再生する();
+						TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
 						tCancel();
 						this.bIsActivePopupMenu = false;
 					}
