@@ -216,9 +216,7 @@ namespace FDK
 				while (true)
 				{
 					if (cts.IsCancellationRequested || close)
-					{
 						return;
-					}
 
 					//2020/10/27 Mr-Ojii 閾値フレームごとにパケット生成するのは無駄だと感じたので、ループに入ったら、パケット生成し、シークによるキャンセルまたは、EOFまで無限ループ
 					if (decodedframes.Count < framelist.Length - 1)//-1をして、余裕を持たせておく。
@@ -319,7 +317,7 @@ namespace FDK
 		#region[private]
 		//for read & decode
 		private bool close = false;
-		private double _dbPlaySpeed = 1.0f;
+		private double _dbPlaySpeed = 1.0;
 		private static AVFormatContext* format_context;
 		private AVStream* video_stream;
 		private AVCodecContext* codec_context;

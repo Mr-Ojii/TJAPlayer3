@@ -198,7 +198,7 @@ namespace FDK
 					{
 						this.listInputDevices.Remove(device);
 						device.Dispose();
-						Trace.TraceError("tClearEventLisr時に例外発生。該当deviceをポーリング対象からRemoveしました。");
+						Trace.TraceError("tClearEventList時に例外発生。該当deviceをポーリング対象からRemoveしました。");
 						Trace.TraceError(e.ToString());
 					}
 				}
