@@ -3126,27 +3126,13 @@ namespace TJAPlayer3
 		/// <param name="strInput"></param>
 		/// <param name="nMode"></param>
 		/// <returns></returns>
-		private object str改行文字を削除する(string strInput, int nMode)
+		private string[] str改行文字を削除する(string strInput)
 		{
-			string str = "";
-			str = strInput.Replace(Environment.NewLine, "\n");
-			str = str.Replace('\t', ' ');
+			string str = strInput.Replace(Environment.NewLine, "\n").Replace('\t', ' ');
 
-			if (nMode == 0)
-			{
-				str = str.Replace("\n", " ");
-			}
-			else if (nMode == 1)
-			{
-				str = str + "\n";
+			str = str + "\n";
 
-				string[] strArray;
-				strArray = str.Split(this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries);
-
-				return strArray;
-			}
-
-			return str;
+			return str.Split(this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries);
 		}
 
 		/// <summary>
@@ -3226,7 +3212,7 @@ namespace TJAPlayer3
 				strInput = strInputHeader + "\n" + strInput;
 
 				//どうせ使わないので先にSplitしてコメントを削除。
-				var strSplitした譜面 = (string[])this.str改行文字を削除する(strInput, 1);
+				var strSplitした譜面 = this.str改行文字を削除する(strInput);
 				for (int i = 0; strSplitした譜面.Length > i; i++)
 				{
 					strSplitした譜面[i] = this.tコメントを削除する(strSplitした譜面[i]);
