@@ -67,7 +67,6 @@ namespace FDK
 			try
 			{
 				cinputkeyboard = new CInputKeyboard();
-				cinputmouse = new CInputMouse();
 			}
 			catch (Exception e)
 			{
@@ -76,6 +75,14 @@ namespace FDK
 			if (cinputkeyboard != null)
 			{
 				this.listInputDevices.Add(cinputkeyboard);
+			}
+			try
+			{
+				cinputmouse = new CInputMouse();
+			}
+			catch (Exception e)
+			{
+				Trace.WriteLine(e.ToString());
 			}
 			if (cinputmouse != null)
 			{

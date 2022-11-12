@@ -9,6 +9,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SDL2;
+using FDK.ExtensionMethods;
 
 using Rectangle = System.Drawing.Rectangle;
 using Point = System.Drawing.Point;
@@ -31,18 +32,7 @@ namespace FDK
             }
             set
             {
-                if (value < 0)
-                {
-                    this._opacity = 0;
-                }
-                else if (value > 0xff)
-                {
-                    this._opacity = 0xff;
-                }
-                else
-                {
-                    this._opacity = value;
-                }
+                this._opacity = value.Clamp(0, 0xff);
             }
         }
         public Size szTextureSize
@@ -299,7 +289,6 @@ namespace FDK
 
             SDL.SDL_SetTextureAlphaMod((IntPtr)this.texture, (byte)this._opacity);
             SDL.SDL_SetTextureColorMod((IntPtr)this.texture, (byte)this.color.R, (byte)this.color.G, (byte)this.color.B);
-
 
             dstrect.x = (int)x;
             dstrect.y = (int)y;

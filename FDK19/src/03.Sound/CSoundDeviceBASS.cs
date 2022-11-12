@@ -47,14 +47,7 @@ namespace FDK
 			protected set;
 		}
 
-		public float CPUUsage
-		{
-			get
-			{
-				return (float)Bass.CPUUsage;
-			}
-		}
-
+		public float CPUUsage => (float)Bass.CPUUsage;
 
 		// マスターボリュームの制御コードは、WASAPI/ASIOで全く同じ。
 		public int nMasterVolume

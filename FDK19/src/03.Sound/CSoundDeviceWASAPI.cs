@@ -46,14 +46,7 @@ namespace FDK
 			protected set;
 		}
 
-
-		public float CPUUsage
-		{
-			get
-			{
-				return (float)BassWasapi.CPUUsage;
-			}
-		}
+		public float CPUUsage => (float)BassWasapi.CPUUsage;
 
 		public enum EWASAPIMode { Exclusive, Shared }
 

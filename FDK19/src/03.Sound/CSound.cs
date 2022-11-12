@@ -18,7 +18,6 @@ namespace FDK
 
 	public class CSound : IDisposable
 	{
-		public const ushort PCM = 1;
 		public const int MinimumSongVol = 0;
 		public const int MaximumSongVol = 200; // support an approximate doubling in volume.
 		public const int DefaultSongVol = 100;
@@ -76,8 +75,6 @@ namespace FDK
 					if (CSoundManager.bIsTimeStretch)
 					{
 						Bass.ChannelSetAttribute(this.hBassStream, ChannelAttribute.Tempo, (float)(_dbPlaySpeed * 100 - 100));
-						//double seconds = Bass.BASS_ChannelBytes2Seconds( this.hTempoStream, nBytes );
-						//this.n総演奏時間ms = (int) ( seconds * 1000 );
 					}
 					else
 					{
@@ -89,9 +86,7 @@ namespace FDK
 		#endregion
 		public bool b演奏終了後も再生が続くチップである = false;	// これがtrueなら、本サウンドの再生終了のコールバック時に自動でミキサーから削除する
 
-		//private STREAMPROC _cbStreamXA;		// make it global, so that the GC can not remove it
 		private SyncProcedure _cbEndofStream;	// ストリームの終端まで再生されたときに呼び出されるコールバック
-//		private WaitCallback _cbRemoveMixerChannel;
 
 		/// <summary>
 		/// Gain is applied "first" to the audio data, much as in a physical or
@@ -266,7 +261,6 @@ namespace FDK
 			SoundGroup = soundGroup;
 			this.nPanning = 0;
 			this._dbPlaySpeed = 1.0;
-//			this._cbRemoveMixerChannel = new WaitCallback( RemoveMixerChannelLater );
 			this._hBassStream = -1;
 			this._hTempoStream = 0;
 		}
@@ -330,14 +324,12 @@ namespace FDK
 		public void t再生を一時停止する()
 		{
 			tサウンドを停止する(true);
-			this.n一時停止回数++;
 		}
-		public void t再生を再開する( long t )	// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+		public void t再生を再開する( long t )
 		{
 			Debug.WriteLine( "t再生を再開する(long " + t + ")" );
 			t再生位置を変更する( t );
 			tサウンドを再生する();
-			this.n一時停止回数--;
 		}
 		public bool b一時停止中
 		{
@@ -392,25 +384,14 @@ namespace FDK
 			{
 				//Debug.WriteLine( "再生しようとしたが、Mixerに登録されていなかった: " + Path.GetFileName( this.strFilename ) + ", stream#=" + this.hBassStream + ", ErrCode=" + Bass.BASS_ErrorGetCode() );
 
-				bool bb = tBASSサウンドをミキサーに追加する();
-				if (!bb)
+				if (!tBASSサウンドをミキサーに追加する())
 				{
 					Debug.WriteLine("Mixerへの登録に失敗: " + Path.GetFileName(this.strFilename) + ", ErrCode=" + Bass.LastError);
 				}
-				else
-				{
-					//Debug.WriteLine( "Mixerへの登録に成功: " + Path.GetFileName( this.strFilename ) + ": " + Bass.BASS_ErrorGetCode() );
-				}
-				//this.t再生位置を先頭に戻す();
 
-				bool bbb = BassMixExtensions.ChannelPlay(this.hBassStream);
-				if (!bbb)
+				if (!BassMixExtensions.ChannelPlay(this.hBassStream))
 				{
 					Debug.WriteLine("更に再生に失敗: " + Path.GetFileName(this.strFilename) + ", ErrCode=" + Bass.LastError);
-				}
-				else
-				{
-					//Debug.WriteLine("再生成功(ミキサー追加後): " + Path.GetFileName(this.strFilename));
 				}
 			}
 			else
@@ -430,7 +411,6 @@ namespace FDK
 		public void tサウンドを停止する(bool pause)
 		{
 			BassMixExtensions.ChannelPause(this.hBassStream);
-			this.n一時停止回数 = 0;
 		}
 
 		public void t再生位置を先頭に戻す()
@@ -493,17 +473,17 @@ namespace FDK
 
 			for( int i = 0; i < sounds.Length; i++ )
 			{
-				switch (sounds[i].e作成方法)
+				switch (sounds[i].eMakeType)
 				{
 					#region [ ファイルから ]
-					case E作成方法.ファイルから:
+					case EMakeType.File:
 						string strFilename = sounds[i].strFilename;
 						sounds[i].Dispose(true, false);
 						device.tCreateSound(strFilename, sounds[i]);
 						break;
 					#endregion
 					#region [ WAVファイルイメージから ]
-					case E作成方法.WAVファイルイメージから:
+					case EMakeType.WAVFileImage:
 						byte[] byArrWaveファイルイメージ = sounds[i].byArrWAVファイルイメージ;
 						sounds[i].Dispose(true, false);
 						device.tCreateSound(byArrWaveファイルイメージ, sounds[i]);
@@ -539,7 +519,7 @@ namespace FDK
 
 			if (bManagedも解放する)
 			{
-				if (this.e作成方法 == E作成方法.WAVファイルイメージから)
+				if (this.eMakeType == EMakeType.WAVFileImage)
 				{
 					if (this.hGC.IsAllocated)
 					{
@@ -582,8 +562,8 @@ namespace FDK
 
 		#region [ protected ]
 		//-----------------
-		protected enum E作成方法 { ファイルから, WAVファイルイメージから, Unknown }
-		protected E作成方法 e作成方法 = E作成方法.Unknown;
+		protected enum EMakeType { File, WAVFileImage, Unknown }
+		protected EMakeType eMakeType = EMakeType.Unknown;
 		protected ESoundDeviceType eSoundDeviceType = ESoundDeviceType.Unknown;
 		public string strFilename = null;
 		protected byte[] byArrWAVファイルイメージ = null;	// WAVファイルイメージ、もしくはchunkのDATA部のみ
@@ -594,23 +574,6 @@ namespace FDK
 															// tBASSサウンドを作成する_ストリーム生成後の共通処理()のタイミングと、
 															// PlaySpeedを変更したタイミングでのみ、
 															// hBassStreamを更新するようにした。
-		//{
-		//    get
-		//    {
-		//        if ( _hTempoStream != 0 && !this.bIs1倍速再生 )	// PlaySpeedがx1.000のときは、TempoStreamを用いないようにして高速化する
-		//        {
-		//            return _hTempoStream;
-		//        }
-		//        else
-		//        {
-		//            return _hBassStream;
-		//        }
-		//    }
-		//    set
-		//    {
-		//        _hBassStream = value;
-		//    }
-		//}
 		protected int hMixer = -1;	// 設計壊してゴメン Mixerに後で登録するときに使う
 		//-----------------
 		#endregion
@@ -622,14 +585,13 @@ namespace FDK
 		private int _automationLevel = DefaultAutomationLevel;
 		private int _groupLevel = DefaultGroupLevel;
 		private long nBytes = 0;
-		private int n一時停止回数 = 0;
 		private int nFrequency = 0;
 		private double _dbPlaySpeed = 1.0;
 		private bool bIs1倍速再生 = true;
 
 		private void tBASSサウンドを作成する( string strFilename, int hMixer, BassFlags flags )
 		{
-			this.e作成方法 = E作成方法.ファイルから;
+			this.eMakeType = EMakeType.File;
 			this.strFilename = strFilename;
 
 			// BASSファイルストリームを作成。
@@ -649,7 +611,7 @@ namespace FDK
 		}
 		private void tBASSサウンドを作成する( byte[] byArrWAVファイルイメージ, int hMixer, BassFlags flags )
 		{
-			this.e作成方法 = E作成方法.WAVファイルイメージから;
+			this.eMakeType = EMakeType.WAVFileImage;
 			this.byArrWAVファイルイメージ = byArrWAVファイルイメージ;
 			this.hGC = GCHandle.Alloc( byArrWAVファイルイメージ, GCHandleType.Pinned );		// byte[] をピン留め
 
