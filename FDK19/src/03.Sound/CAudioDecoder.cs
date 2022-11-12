@@ -7,7 +7,7 @@ using FFmpeg.AutoGen;
 
 namespace FDK
 {
-	public unsafe class CAudioDecoder
+	public unsafe static class CAudioDecoder
 	{
 		public static int AudioDecode(string filename, out byte[] buffer,
 			out int nPCMDataIndex, out int totalPCMSize, bool enablechunk)
