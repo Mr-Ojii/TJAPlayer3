@@ -104,19 +104,14 @@ namespace FDK
 		{
 			get
 			{
-				float f音量 = 0.0f;
-				bool b = Bass.ChannelGetAttribute( this.hMixer, ChannelAttribute.Volume, out f音量 );
+				float fVolume = 0.0f;
+				bool b = Bass.ChannelGetAttribute( this.hMixer, ChannelAttribute.Volume, out fVolume );
 				if ( !b )
 				{
 					Errors be = Bass.LastError;
 					Trace.TraceInformation( "ASIO Master Volume Get Error: " + be.ToString() );
 				}
-				else
-				{
-					//Trace.TraceInformation( "ASIO Master Volume Get Success: " + (f音量 * 100) );
-
-				}
-				return (int) ( f音量 * 100 );
+				return (int) ( fVolume * 100 );
 			}
 			set
 			{
@@ -164,13 +159,12 @@ namespace FDK
 			// BASS の初期化。
 
 			int nデバイス = 0;		// 0:"no device" … BASS からはデバイスへアクセスさせない。アクセスは BASSASIO アドオンから行う。
-			int n周波数 = 44100;	// 仮決め。最終的な周波数はデバイス（≠ドライバ）が決める。
-			if( !Bass.Init( nデバイス, n周波数, DeviceInitFlags.Default, IntPtr.Zero ) )
+			int nFreq = 44100;	// 仮決め。最終的な周波数はデバイス（≠ドライバ）が決める。
+			if( !Bass.Init( nデバイス, nFreq, DeviceInitFlags.Default, IntPtr.Zero ) )
 				throw new Exception( string.Format( "BASS の初期化に失敗しました。(BASS_Init)[{0}]", Bass.LastError.ToString() ) );
 
 		    Bass.Configure(Configuration.LogarithmicVolumeCurve, true);
 
-//Debug.WriteLine( "BASS_Init()完了。" );
 			#region [ デバッグ用: ASIOデバイスのenumerateと、ログ出力 ]
 //			CEnumerateAllAsioDevices.GetAllASIODevices();
 //Debug.WriteLine( "BassAsio.BASS_ASIO_GetDeviceInfo():" );
@@ -193,7 +187,7 @@ namespace FDK
 				BassAsio.GetInfo(out asioInfo);
 				this.n出力チャンネル数 = asioInfo.Outputs;
 				this.db周波数 = BassAsio.Rate;
-				this.fmtASIOデバイスフォーマット = BassAsio.ChannelGetFormat( false, 0 );
+				this.fmtASIODeviceFormat = BassAsio.ChannelGetFormat( false, 0 );
 
 				Trace.TraceInformation( "BASS を初期化しました。(ASIO, デバイス:\"{0}\", 入力{1}, 出力{2}, {3}Hz, バッファ{4}～{6}sample ({5:0.###}～{7:0.###}ms), デバイスフォーマット:{8})",
 					asioInfo.Name,
@@ -202,7 +196,7 @@ namespace FDK
 					this.db周波数.ToString( "0.###" ),
 					asioInfo.MinBufferLength, asioInfo.MinBufferLength * 1000 / this.db周波数,
 					asioInfo.MaxBufferLength, asioInfo.MaxBufferLength * 1000 / this.db周波数,
-					this.fmtASIOデバイスフォーマット.ToString()
+					this.fmtASIODeviceFormat.ToString()
 					);
 				this.bIsBASSSoundFree = false;
 				#region [ debug: channel format ]
@@ -265,7 +259,7 @@ namespace FDK
 					#endregion
 				}
 			}
-			if ( !BassAsio.ChannelSetFormat( false, 0, this.fmtASIOチャンネルフォーマット ) )	// 出力チャンネル0のフォーマット
+			if ( !BassAsio.ChannelSetFormat( false, 0, this.fmtASIOChannelFormat ) )	// 出力チャンネル0のフォーマット
 			{
 				#region [ ASIO 出力チャンネルの初期化に失敗。]
 				//-----------------
@@ -280,7 +274,7 @@ namespace FDK
 			// ASIO 出力と同じフォーマットを持つ BASS ミキサーを作成。
 
 			var flag = BassFlags.MixerNonStop | BassFlags.Decode;	// デコードのみ＝発声しない。ASIO に出力されるだけ。
-			if( this.fmtASIOデバイスフォーマット == AsioSampleFormat.Float )
+			if( this.fmtASIODeviceFormat == AsioSampleFormat.Float )
 				flag |= BassFlags.Float;
 			this.hMixer = BassMix.CreateMixerStream( (int) this.db周波数, this.n出力チャンネル数, flag );
 
@@ -296,17 +290,16 @@ namespace FDK
 			// BASS ミキサーの1秒あたりのバイト数を算出。
 
 			var mixerInfo = Bass.ChannelGetInfo( this.hMixer );
-			int nサンプルサイズbyte = 0;
-			switch( this.fmtASIOチャンネルフォーマット )
+			int nBytesPerSample = 0;
+			switch( this.fmtASIOChannelFormat )
 			{
-				case AsioSampleFormat.Bit16: nサンプルサイズbyte = 2; break;
-				case AsioSampleFormat.Bit24: nサンプルサイズbyte = 3; break;
-				case AsioSampleFormat.Bit32: nサンプルサイズbyte = 4; break;
-				case AsioSampleFormat.Float: nサンプルサイズbyte = 4; break;
+				case AsioSampleFormat.Bit16: nBytesPerSample = 2; break;
+				case AsioSampleFormat.Bit24: nBytesPerSample = 3; break;
+				case AsioSampleFormat.Bit32: nBytesPerSample = 4; break;
+				case AsioSampleFormat.Float: nBytesPerSample = 4; break;
 			}
-			//long nミキサーの1サンプルあたりのバイト数 = /*mixerInfo.chans*/ 2 * nサンプルサイズbyte;
-			long nミキサーの1サンプルあたりのバイト数 = mixerInfo.Channels * nサンプルサイズbyte;
-			this.nミキサーの1秒あたりのバイト数 = nミキサーの1サンプルあたりのバイト数 * mixerInfo.Frequency;
+			long nMixer_BlockAlign = mixerInfo.Channels * nBytesPerSample;
+			this.nMixer_BytesPerSec = nMixer_BlockAlign * mixerInfo.Frequency;
 
 
 			// 単純に、hMixerの音量をMasterVolumeとして制御しても、
@@ -369,9 +362,9 @@ namespace FDK
 		{
 			sound.tASIOサウンドを作成する( strFilename, this.hMixer );
 		}
-		public void tCreateSound( byte[] byArrWAVファイルイメージ, CSound sound )
+		public void tCreateSound( byte[] byArrWAVFileImage, CSound sound )
 		{
-			sound.tASIOサウンドを作成する( byArrWAVファイルイメージ, this.hMixer );
+			sound.tASIOサウンドを作成する( byArrWAVFileImage, this.hMixer );
 		}
 		#endregion
 
@@ -415,9 +408,8 @@ namespace FDK
 		protected int n出力チャンネル数 = 0;
 		protected double db周波数 = 0.0;
 		protected int nバッファサイズsample = 0;
-		protected AsioSampleFormat fmtASIOデバイスフォーマット = AsioSampleFormat.Unknown;
-		protected AsioSampleFormat fmtASIOチャンネルフォーマット = AsioSampleFormat.Bit16;		// 16bit 固定
-		//protected BASSASIOFormat fmtASIOチャンネルフォーマット = BASSASIOFormat.BASS_ASIO_FORMAT_32BIT;// 16bit 固定
+		protected AsioSampleFormat fmtASIODeviceFormat = AsioSampleFormat.Unknown;
+		protected AsioSampleFormat fmtASIOChannelFormat = AsioSampleFormat.Bit16;		// 16bit 固定
 		protected AsioProcedure tAsioProc = null;
 
 		protected int tAsio処理( bool input, int channel, IntPtr buffer, int length, IntPtr user )
@@ -435,18 +427,18 @@ namespace FDK
 			// 経過時間を更新。
 			// データの転送差分ではなく累積転送バイト数から算出する。
 
-			this.nElapsedTimems = ( this.n累積転送バイト数 * 1000 / this.nミキサーの1秒あたりのバイト数 ) - this.nOutPutDelayms;
+			this.nElapsedTimems = ( this.nTotalByteCount * 1000 / this.nMixer_BytesPerSec ) - this.nOutPutDelayms;
 			this.SystemTimemsWhenUpdatingElapsedTime  = this.tmSystemTimer.nシステム時刻ms;
 
 
 			// 経過時間を更新後に、今回分の累積転送バイト数を反映。
 
-			this.n累積転送バイト数 += num;
+			this.nTotalByteCount += num;
 			return num;
 		}
 
-		private long nミキサーの1秒あたりのバイト数 = 0;
-		private long n累積転送バイト数 = 0;
+		private long nMixer_BytesPerSec = 0;
+		private long nTotalByteCount = 0;
 		private bool bIsBASSSoundFree = true;
 	}
 }

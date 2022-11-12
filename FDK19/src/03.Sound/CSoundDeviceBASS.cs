@@ -61,19 +61,14 @@ namespace FDK
 		{
 			get
 			{
-				float f音量 = 0.0f;
-				bool b = Bass.ChannelGetAttribute(this.hMixer, ChannelAttribute.Volume, out f音量);
+				float fVolume = 0.0f;
+				bool b = Bass.ChannelGetAttribute(this.hMixer, ChannelAttribute.Volume, out fVolume);
 				if (!b)
 				{
 					Errors be = Bass.LastError;
-					Trace.TraceInformation("ASIO Master Volume Get Error: " + be.ToString());
+					Trace.TraceInformation("BASS Master Volume Get Error: " + be.ToString());
 				}
-				else
-				{
-					//Trace.TraceInformation( "ASIO Master Volume Get Success: " + (f音量 * 100) );
-
-				}
-				return (int)(f音量 * 100);
+				return (int)(fVolume * 100);
 			}
 			set
 			{
@@ -81,19 +76,14 @@ namespace FDK
 				if (!b)
 				{
 					Errors be = Bass.LastError;
-					Trace.TraceInformation("ASIO Master Volume Set Error: " + be.ToString());
-				}
-				else
-				{
-					// int n = this.nMasterVolume;	
-					// Trace.TraceInformation( "ASIO Master Volume Set Success: " + value );
+					Trace.TraceInformation("BASS Master Volume Set Error: " + be.ToString());
 				}
 			}
 		}
 
 		public CSoundDeviceBASS(int UpdatePeriod, int BufferSizems)
 		{
-			Trace.TraceInformation("BASS の初期化を開始します。");
+			Trace.TraceInformation("Start initialization of BASS");
 			this.eOutputDevice = ESoundDeviceType.Unknown;
 			this.nOutPutDelayms = 0;
 			this.nElapsedTimems = 0;
@@ -106,8 +96,8 @@ namespace FDK
 
 			// BASS の初期化。
 
-			int n周波数 = 44100;
-			if (!Bass.Init(-1, n周波数, DeviceInitFlags.Default, IntPtr.Zero))
+			int nFreq = 44100;
+			if (!Bass.Init(-1, nFreq, DeviceInitFlags.Default, IntPtr.Zero))
 				throw new Exception(string.Format("BASS の初期化に失敗しました。(BASS_Init)[{0}]", Bass.LastError.ToString()));
 			
 			if (!Bass.Configure(Configuration.UpdatePeriod, UpdatePeriod))
@@ -122,11 +112,11 @@ namespace FDK
 			Bass.Configure(Configuration.PlaybackBufferLength, BufferSizems);
 			Bass.Configure(Configuration.LogarithmicVolumeCurve, true);
 
-			this.tSTREAMPROC = new StreamProcedure(Stream処理);
-			this.hMainStream = Bass.CreateStream(n周波数, 2, BassFlags.Default, this.tSTREAMPROC, IntPtr.Zero);
+			this.tSTREAMPROC = new StreamProcedure(StreamProc);
+			this.hMainStream = Bass.CreateStream(nFreq, 2, BassFlags.Default, this.tSTREAMPROC, IntPtr.Zero);
 
 			var flag = BassFlags.MixerNonStop| BassFlags.Decode;   // デコードのみ＝発声しない。
-			this.hMixer = BassMix.CreateMixerStream(n周波数, 2, flag);
+			this.hMixer = BassMix.CreateMixerStream(nFreq, 2, flag);
 
 			if (this.hMixer == 0)
 			{
@@ -141,17 +131,16 @@ namespace FDK
 			this.bIsBASSSoundFree = false;
 
 			var mixerInfo = Bass.ChannelGetInfo(this.hMixer);
-			int nサンプルサイズbyte = 2;
-			//long nミキサーの1サンプルあたりのバイト数 = /*mixerInfo.chans*/ 2 * nサンプルサイズbyte;
-			long nミキサーの1サンプルあたりのバイト数 = mixerInfo.Channels * nサンプルサイズbyte;
-			this.nミキサーの1秒あたりのバイト数 = nミキサーの1サンプルあたりのバイト数 * mixerInfo.Frequency;
+			int nBytesPerSample = 2;
+			long nMixer_BlockAlign = mixerInfo.Channels * nBytesPerSample;
+			this.nMixer_BytesPerSec = nMixer_BlockAlign * mixerInfo.Frequency;
 
 			// 単純に、hMixerの音量をMasterVolumeとして制御しても、
 			// ChannelGetData()の内容には反映されない。
 			// そのため、もう一段mixerを噛ませて、一段先のmixerからChannelGetData()することで、
 			// hMixerの音量制御を反映させる。
 			this.hMixer_DeviceOut = BassMix.CreateMixerStream(
-				n周波数, 2, flag);
+				nFreq, 2, flag);
 			if (this.hMixer_DeviceOut == 0)
 			{
 				Errors errcode = Bass.LastError;
@@ -206,9 +195,9 @@ namespace FDK
 		{
 			sound.tBASSサウンドを作成する(strFilename, this.hMixer);
 		}
-		public void tCreateSound(byte[] byArrWAVファイルイメージ, CSound sound)
+		public void tCreateSound(byte[] byArrWAVFileImage, CSound sound)
 		{
-			sound.tBASSサウンドを作成する(byArrWAVファイルイメージ, this.hMixer);
+			sound.tBASSサウンドを作成する(byArrWAVFileImage, this.hMixer);
 		}
 		#endregion
 
@@ -252,7 +241,7 @@ namespace FDK
 		//-----------------
 		#endregion
 
-		public int Stream処理(int handle, IntPtr buffer, int length, IntPtr user)
+		public int StreamProc(int handle, IntPtr buffer, int length, IntPtr user)
 		{
 			// BASSミキサからの出力データをそのまま ASIO buffer へ丸投げ。
 
@@ -263,17 +252,17 @@ namespace FDK
 			// 経過時間を更新。
 			// データの転送差分ではなく累積転送バイト数から算出する。
 
-			this.nElapsedTimems = (this.n累積転送バイト数 * 1000 / this.nミキサーの1秒あたりのバイト数) - this.nOutPutDelayms;
+			this.nElapsedTimems = (this.nTotalByteCount * 1000 / this.nMixer_BytesPerSec) - this.nOutPutDelayms;
 			this.SystemTimemsWhenUpdatingElapsedTime = this.tmSystemTimer.nシステム時刻ms;
 
 
 			// 経過時間を更新後に、今回分の累積転送バイト数を反映。
 
-			this.n累積転送バイト数 += num;
+			this.nTotalByteCount += num;
 			return num;
 		}
-		private long nミキサーの1秒あたりのバイト数 = 0;
-		private long n累積転送バイト数 = 0;
+		private long nMixer_BytesPerSec = 0;
+		private long nTotalByteCount = 0;
 
 		protected int hMainStream = -1;
 		protected int hMixer = -1;

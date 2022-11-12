@@ -18,6 +18,6 @@ namespace FDK
 
 		CSound tCreateSound( string strFilename, ESoundGroup soundGroup );
 		void tCreateSound( string strFilename, CSound sound );
-		void tCreateSound( byte[] byArrWAVファイルイメージ, CSound sound );
+		void tCreateSound( byte[] byArrWAVFileImage, CSound sound );
 	}
 }

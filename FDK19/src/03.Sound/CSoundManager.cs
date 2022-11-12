@@ -212,11 +212,11 @@ namespace FDK
 			switch (SoundDeviceType)
 			{
 				case ESoundDeviceType.ExclusiveWASAPI:
-					SoundDevice = new CSoundDeviceWASAPI(CSoundDeviceWASAPI.Eデバイスモード.Exclusive, SoundDelayExclusiveWASAPI, SoundUpdatePeriodExclusiveWASAPI);
+					SoundDevice = new CSoundDeviceWASAPI(CSoundDeviceWASAPI.EWASAPIMode.Exclusive, SoundDelayExclusiveWASAPI, SoundUpdatePeriodExclusiveWASAPI);
 					break;
 
 				case ESoundDeviceType.SharedWASAPI:
-					SoundDevice = new CSoundDeviceWASAPI(CSoundDeviceWASAPI.Eデバイスモード.Shared, SoundDelaySharedWASAPI, SoundUpdatePeriodSharedWASAPI);
+					SoundDevice = new CSoundDeviceWASAPI(CSoundDeviceWASAPI.EWASAPIMode.Shared, SoundDelaySharedWASAPI, SoundUpdatePeriodSharedWASAPI);
 					break;
 
 				case ESoundDeviceType.ASIO:

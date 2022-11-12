@@ -82,11 +82,11 @@ namespace FDK
             filename = strFilename;
             MakeTexture(device, strFilename);
         }
-        public CTexture(Device device, Image<Rgba32> image, bool b黒を透過する)
+        public CTexture(Device device, Image<Rgba32> image, bool bTransparentBlack)
             : this()
         {
             maketype = MakeType.bitmap;
-            MakeTexture(device, image, b黒を透過する);
+            MakeTexture(device, image, bTransparentBlack);
         }
 
         public void MakeTexture(Device device, string strFilename)
@@ -97,9 +97,9 @@ namespace FDK
             using (SixLabors.ImageSharp.Image<Rgba32> image = SixLabors.ImageSharp.Image.Load<Rgba32>(strFilename))
                 MakeTexture(device, image, false);
         }
-        public void MakeTexture(Device device, SixLabors.ImageSharp.Image<Rgba32> bitmap, bool b黒を透過する)
+        public void MakeTexture(Device device, SixLabors.ImageSharp.Image<Rgba32> bitmap, bool bTransparentBlack)
         {
-            if (b黒を透過する)
+            if (bTransparentBlack)
                 bitmap.Mutate(c => c.BackgroundColor(SixLabors.ImageSharp.Color.Transparent));
             try
             {
