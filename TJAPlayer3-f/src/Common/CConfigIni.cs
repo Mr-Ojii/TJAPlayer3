@@ -238,7 +238,7 @@ namespace TJAPlayer3
 			get => _keyboardSoundLevelIncrement;
 			set => SetProperty(
 				ref _keyboardSoundLevelIncrement,
-				value.Clamp(MinimumKeyboardSoundLevelIncrement, MaximumKeyboardSoundLevelIncrement),
+				Math.Clamp(value, MinimumKeyboardSoundLevelIncrement, MaximumKeyboardSoundLevelIncrement),
 				nameof(KeyboardSoundLevelIncrement));
 		}
 

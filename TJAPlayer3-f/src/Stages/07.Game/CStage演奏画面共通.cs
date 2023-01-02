@@ -2198,7 +2198,7 @@ namespace TJAPlayer3
 		{
 			int offset = (keyboard.bIsKeyDown((int)SlimDXKeys.Key.LeftControl) || keyboard.bIsKeyDown((int)SlimDXKeys.Key.RightControl)) ? plusminus : plusminus * 10;
 
-			TJAPlayer3.ConfigIni.nInputAdjustTimeMs = (TJAPlayer3.ConfigIni.nInputAdjustTimeMs + offset).Clamp(-99, 99);
+			TJAPlayer3.ConfigIni.nInputAdjustTimeMs = Math.Clamp(TJAPlayer3.ConfigIni.nInputAdjustTimeMs + offset, -99, 99);
 		}
 
 		protected bool tドラムヒット処理(long nHitTime, EPad type, CDTX.CChip pChip, bool b両手入力, int nPlayer)

@@ -4942,7 +4942,7 @@ namespace TJAPlayer3
 			#endregion
 			else if (strCommandName.Equals("SONGVOL") && !string.IsNullOrEmpty(strCommandParam))
 			{
-				this.SongVol = Convert.ToInt32(strCommandParam).Clamp(CSound.MinimumSongVol, CSound.MaximumSongVol);
+				this.SongVol = Math.Clamp(Convert.ToInt32(strCommandParam), CSound.MinimumSongVol, CSound.MaximumSongVol);
 
 				foreach (var kvp in this.listWAV)
 				{

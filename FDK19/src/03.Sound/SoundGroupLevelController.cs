@@ -57,7 +57,7 @@ namespace FDK
 
 		public void SetLevel(ESoundGroup soundGroup, int level)
 		{
-			var clampedLevel = level.Clamp(CSound.MinimumGroupLevel, CSound.MaximumGroupLevel);
+			var clampedLevel = Math.Clamp(level, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel);
 
 			if (_levelBySoundGroup[soundGroup] == clampedLevel)
 			{

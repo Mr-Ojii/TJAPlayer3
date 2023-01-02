@@ -31,7 +31,7 @@ namespace FDK
             }
             set
             {
-                this._opacity = value.Clamp(0, 0xff);
+                this._opacity = Math.Clamp(value, 0, 0xff);
                 SDL.SDL_SetTextureAlphaMod((IntPtr)this.texture, (byte)this._opacity);
             }
         }

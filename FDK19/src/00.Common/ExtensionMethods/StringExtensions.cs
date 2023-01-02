@@ -12,7 +12,7 @@ namespace FDK.ExtensionMethods
         public static double ToDouble(this string str, double min, double max, double def)
         {
             if (double.TryParse(str, out double num))
-                return num.Clamp(min, max);
+                return Math.Clamp(num, min, max);
 
             return def;
         }
@@ -20,7 +20,7 @@ namespace FDK.ExtensionMethods
         {
             // 1 と違って範囲外の場合ちゃんと丸めて返します。
             if (int.TryParse(str, out int num))
-                return num.Clamp(min, max);
+                return Math.Clamp(num, min, max);
                 
             return def;
         }
