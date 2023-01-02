@@ -75,7 +75,7 @@ jobs:
 
     - name: Remove Folder
       run: |
-        cd ${{ github.workspace }}/publish/dll
+        cd ${{ github.workspace }}/publish/Libs
         for filename in *
         do
           if [ ${filename} != ${{matrix.platform}} ] ; then

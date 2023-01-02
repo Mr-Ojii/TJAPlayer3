@@ -68,11 +68,11 @@ namespace TJAPlayer3
                         throw new PlatformNotSupportedException($"TJAPlayer3-f does not support this Architecture. ({RuntimeInformation.ProcessArchitecture})");
                 }
 
-                FFmpeg.AutoGen.ffmpeg.RootPath = AppContext.BaseDirectory + @"ffmpeg/" + osplatform + "-" + platform + "/";
+                FFmpeg.AutoGen.ffmpeg.RootPath = AppContext.BaseDirectory + @"FFmpeg/" + osplatform + "-" + platform + "/";
 
-                DirectoryInfo info = new DirectoryInfo(AppContext.BaseDirectory + @"dll/" + osplatform + "-" + platform + "/");
+                DirectoryInfo info = new DirectoryInfo(AppContext.BaseDirectory + @"Libs/" + osplatform + "-" + platform + "/");
 
-                //exeの階層にdllをコピー
+                //実行ファイルの階層にライブラリをコピー
                 foreach (FileInfo fileinfo in info.GetFiles())
                 {
                     fileinfo.CopyTo(AppContext.BaseDirectory + fileinfo.Name, true);

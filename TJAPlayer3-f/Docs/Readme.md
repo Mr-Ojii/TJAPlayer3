@@ -215,7 +215,7 @@ Fork元より使用しているライブラリ
 
 
 ## FFmpegについて
-`TJAPlayer3-f`と同じフォルダに`ffmpeg`フォルダを作成し、  
+`TJAPlayer3-f`と同じフォルダに`FFmpeg`フォルダを作成し、  
 その中にOSとTJAPlayer3-fのアーキテクチャに対応したフォルダを作成し、
 `TJAPlayer3-f`のアーキテクチャに対応したFFmpeg 5.1バイナリ(Shared)を置くことにより、
 
