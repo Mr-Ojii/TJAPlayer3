@@ -51,6 +51,7 @@
     <None Include="ThirdPartyLicenses/**" CopyToOutputDirectory="PreserveNewest" />
     <None Include="Songs/**" CopyToOutputDirectory="PreserveNewest" />
     <None Include="System/**" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Docs/**" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <PropertyGroup>
