@@ -76,7 +76,7 @@ MITライセンスのルールのもと、改造・再配布を行うことは自由ですが、**全て自己責任*
 #### OS
 * Windows 8.1以降のWindows (x86,x64)
 * macOS 10.15 "Catalina"以降のmacOS (x64)
-* デスクトップ環境構築済みの Linux ディストリビューション 最新安定版 (x64)
+* デスクトップ環境構築済みの Linux ディストリビューション 最新安定版 (x64, arm64)
 
 #### CPU
 * マルチスレッド対応
@@ -94,22 +94,6 @@ MITライセンスのルールのもと、改造・再配布を行うことは自由ですが、**全て自己責任*
 ダウンロード後、zipファイルを解凍し、フォルダ内に入っているTJAPlayer3-fを実行してください。
 
 ### Linux環境
-各種パッケージマネージャー  
-* apt
-  ```sh
-  sudo apt install freeglut3-dev
-  ```
-* dnf
-  ```sh
-  dnf install freeglut-devel
-  ```
-* pacman
-  ```sh
-  pacman -S freeglut
-  ```
-で、必要なパッケージをインストールしておき、　　
-(ここに記載がないパッケージマネージャーは自身で調べて、freeglut3をインストールしてください。)
-
 TJAPlayer3-fのダウンロードごとに、zipファイルを解凍し、  
 TJAPlayer3-fが存在するディレクトリをカレントディレクトリとしたターミナルで  
 ```sh
@@ -122,6 +106,7 @@ chmod +x TJAPlayer3-f.AppImage
 ## 開発環境(動作確認環境)
 #### OS
 * Windows 11(Ver.22H2) (x64)
+* macOS 12.6.2 (arm64)
 
 #### Editor
 * Visual Studio Community 2022
@@ -199,7 +184,6 @@ Fork元より使用しているライブラリ
 
 以下のライブラリを追加いたしました。
 * [ReadJEnc](https://github.com/hnx8/ReadJEnc)
-* [Json.NET](https://www.newtonsoft.com/json)
 * [FFmpeg.AutoGen](https://github.com/Ruslan-B/FFmpeg.AutoGen)
 * [SDL2](https://www.libsdl.org/)
 * [ppy/SDL2-CS](https://github.com/ppy/SDL2-CS)
