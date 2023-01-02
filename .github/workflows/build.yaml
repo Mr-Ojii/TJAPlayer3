@@ -85,7 +85,7 @@ jobs:
         done
         
     - name: Rename App File (linux)
-      if: matrix.platform == 'linux-x64'
+      if: startsWith(matrix.platform, 'linux')
       run: |
         cd ${{ github.workspace }}
         mv "publish/TJAPlayer3-f" "publish/TJAPlayer3-f.AppImage"
