@@ -49,6 +49,8 @@
   <ItemGroup>
     <Content Include="dll/**" CopyToOutputDirectory="PreserveNewest" />
     <None Include="ThirdPartyLicenses/**" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Songs/**" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="System/**" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <PropertyGroup>
