@@ -30,24 +30,15 @@ namespace TJAPlayer3
 
 			if (mutex.WaitOne(0, false))
             {
-
                 string osplatform = "";
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                {
+                if (OperatingSystem.IsWindows())
                     osplatform = "win";
-                }
-                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                {
+                else if (OperatingSystem.IsMacOS())
                     osplatform = "osx";
-                }
-                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                {
+                else if (OperatingSystem.IsLinux())
                     osplatform = "linux";
-                }
                 else
-                {
                     throw new PlatformNotSupportedException("TJAPlayer3-f does not support this OS.");
-                }
 
                 string platform = "";
 
