@@ -80,7 +80,6 @@ namespace TJAPlayer3
         public class C演奏記録
         {
             public bool bDrums有効;
-            public bool bSTAGEFAILED有効;
             public bool bTight;
             public bool b演奏にMIDIInputを使用した;
             public bool b演奏にKeyBoardを使用した;
@@ -134,7 +133,6 @@ namespace TJAPlayer3
                 this.n演奏速度分子 = 20;
                 this.n演奏速度分母 = 20;
                 this.bDrums有効 = true;
-                this.bSTAGEFAILED有効 = true;
                 this.nPerfectになる範囲ms = 34;
                 this.nGreatになる範囲ms = 67;
                 this.nGoodになる範囲ms = 84;
@@ -502,12 +500,6 @@ namespace TJAPlayer3
                                             c演奏記録.bDrums有効 = para[0].ToBool();
                                         }
                                         #endregion
-                                        #region [ StageFailed ]
-                                        else if (item.Equals("StageFailed"))
-                                        {
-                                            c演奏記録.bSTAGEFAILED有効 = para[0].ToBool();
-                                        }
-                                        #endregion
                                         else
                                         {
                                             if (item.Equals("UseKeyboard"))
@@ -811,7 +803,6 @@ namespace TJAPlayer3
                 writer.WriteLine("ScrollSpeedDrums={0}", this.stセクション[i].f譜面スクロール速度);
                 writer.WriteLine("PlaySpeed={0}/{1}", this.stセクション[i].n演奏速度分子, this.stセクション[i].n演奏速度分母);
                 writer.WriteLine("Drums={0}", this.stセクション[i].bDrums有効 ? 1 : 0);
-                writer.WriteLine("StageFailed={0}", this.stセクション[i].bSTAGEFAILED有効 ? 1 : 0);
                 writer.WriteLine("UseKeyboard={0}", this.stセクション[i].b演奏にKeyBoardを使用した ? 1 : 0);
                 writer.WriteLine("UseMIDIIN={0}", this.stセクション[i].b演奏にMIDIInputを使用した ? 1 : 0);
                 writer.WriteLine("UseJoypad={0}", this.stセクション[i].b演奏にJoypadを使用した ? 1 : 0);

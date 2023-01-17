@@ -154,7 +154,6 @@ namespace TJAPlayer3
 		public bool bLog作成解放ログ出力;
 
 		public bool bScoreIniを出力する;
-		public bool bSTAGEFAILED有効;
 		public bool bTight;
 		public bool bWave再生位置自動調整機能有効;
 		public bool bランダムセレクトで子BOXを検索対象とする;
@@ -459,7 +458,6 @@ namespace TJAPlayer3
 			this.nフレーム毎スリープms = -1;			// #xxxxx 2011.11.27 yyagi add
 			this.n非フォーカス時スリープms = 1;			// #23568 2010.11.04 ikanick add
 			this.nBGAlpha = 100;
-			this.bSTAGEFAILED有効 = true;
 			this.bAVI有効 = false;
 			this.bBGA有効 = true;
 			//this.bWave再生位置自動調整機能有効 = true;
@@ -774,9 +772,6 @@ namespace TJAPlayer3
 			sw.WriteLine( "; 背景画像の半透明割合(0:透明～255:不透明)" );
 			sw.WriteLine( "; Transparency for background image in playing screen.(0:tranaparent - 255:no transparent)" );
 			sw.WriteLine( "BGAlpha={0}", this.nBGAlpha );
-			sw.WriteLine();
-			sw.WriteLine( "; ゲージゼロでSTAGE FAILED (0:OFF, 1:ON)" );
-			sw.WriteLine( "StageFailed={0}", this.bSTAGEFAILED有効 ? 1 : 0 );
 			sw.WriteLine();
 			#region [ AVI/BGA ]
 			sw.WriteLine( "; AVIの表示(0:OFF, 1:ON)" );
@@ -1350,10 +1345,6 @@ namespace TJAPlayer3
 											else if( str3.Equals( "BGAlpha" ) )
 											{
 												this.n背景の透過度 = str4.ToInt32(0, 0xff, this.n背景の透過度);
-											}
-											else if ( str3.Equals( "StageFailed" ) )
-											{
-												this.bSTAGEFAILED有効 = str4[0].ToBool();
 											}
 #region [ AVI/BGA ]
 											else if( str3.Equals( "AVI" ) )

@@ -143,10 +143,6 @@ namespace TJAPlayer3
 				"画面モード設定：\nON で全画面モード、OFF でウィンド\nウモードになります。",
 				"Fullscreen mode or window mode." );
 			this.list項目リスト.Add( this.iSystemFullscreen );
-			this.iSystemStageFailed = new CItemToggle( "StageFailed", TJAPlayer3.ConfigIni.bSTAGEFAILED有効,
-				"STAGE FAILED 有効：\nON にすると、ゲージがなくなった時\nに STAGE FAILED となり演奏が中断\nされます。OFF の場合は、ゲージが\nなくなっても最後まで演奏できます。",
-				"Turn OFF if you don't want to encount\n GAME OVER." );
-			this.list項目リスト.Add( this.iSystemStageFailed );
 			this.iSystemRandomFromSubBox = new CItemToggle( "RandSubBox", TJAPlayer3.ConfigIni.bランダムセレクトで子BOXを検索対象とする,
 				"子BOXをRANDOMの対象とする：\nON にすると、RANDOM SELECT 時\nに子BOXも選択対象とします。",
 				"Turn ON to use child BOX (subfolders)\n at RANDOM SELECT." );
@@ -1517,7 +1513,6 @@ namespace TJAPlayer3
 		private CItemToggle iSystemRandomFromSubBox;
 		private CItemBase iSystemReturnToMenu;
 		private CItemToggle iSystemSaveScore;
-		private CItemToggle iSystemStageFailed;
 		private CItemToggle iSystemVSyncWait;
 		private CItemToggle SendDiscordPlayingInformation;
 		private CItemInteger iSystemRisky;					// #23559 2011.7.27 yyagi
@@ -1642,7 +1637,6 @@ namespace TJAPlayer3
 			TJAPlayer3.ConfigIni.n演奏速度 = this.iCommonPlaySpeed.nValue;
 
 			TJAPlayer3.ConfigIni.b全画面モード = this.iSystemFullscreen.bON;
-			TJAPlayer3.ConfigIni.bSTAGEFAILED有効 = this.iSystemStageFailed.bON;
 			TJAPlayer3.ConfigIni.bランダムセレクトで子BOXを検索対象とする = this.iSystemRandomFromSubBox.bON;
 
 			//CDTXMania.ConfigIni.bWave再生位置自動調整機能有効 = this.iSystemAdjustWaves.bON;

@@ -140,7 +140,6 @@ namespace TJAPlayer3
 				Drums.f譜面スクロール速度 = ( (float) ( TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer] + 1 ) ) * 0.1f;
 				Drums.n演奏速度分子 = TJAPlayer3.ConfigIni.n演奏速度;
 				Drums.n演奏速度分母 = 20;
-				Drums.bSTAGEFAILED有効 = TJAPlayer3.ConfigIni.bSTAGEFAILED有効;
 				Drums.b演奏にKeyBoardを使用した = this.b演奏にKeyBoardを使った;
 				Drums.b演奏にMIDIInputを使用した = this.b演奏にMIDIInputを使った;
 				Drums.b演奏にJoypadを使用した = this.b演奏にJoypadを使った;
