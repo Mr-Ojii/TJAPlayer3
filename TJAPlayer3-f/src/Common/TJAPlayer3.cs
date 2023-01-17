@@ -188,7 +188,7 @@ namespace TJAPlayer3
 			get;
 			private set;
 		}
-		public static CStage曲読み込み stage曲読み込み
+		public static CStageSongLoading stageSongLoading
 		{
 			get;
 			private set;
@@ -589,9 +589,9 @@ namespace TJAPlayer3
 								r現在のステージ.On非活性化();
 								Trace.TraceInformation("----------------------");
 								Trace.TraceInformation("■ 曲読み込み");
-								stage曲読み込み.On活性化();
+								stageSongLoading.On活性化();
 								r直前のステージ = r現在のステージ;
-								r現在のステージ = stage曲読み込み;
+								r現在のステージ = stageSongLoading;
 
 								this.tガベージコレクションを実行する();
 								break;
@@ -691,9 +691,9 @@ namespace TJAPlayer3
 								DTX[0].t全チップの再生停止();
 								DTX[0].On非活性化();
 								r現在のステージ.On非活性化();
-								stage曲読み込み.On活性化();
+								stageSongLoading.On活性化();
 								r直前のステージ = r現在のステージ;
-								r現在のステージ = stage曲読み込み;
+								r現在のステージ = stageSongLoading;
 								this.tガベージコレクションを実行する();
 								break;
 							#endregion
@@ -1428,7 +1428,7 @@ namespace TJAPlayer3
 			//			stageオプション = new CStageオプション();
 			stageConfig = new CStageConfig();
 			stage選曲 = new CStage選曲();
-			stage曲読み込み = new CStage曲読み込み();
+			stageSongLoading = new CStageSongLoading();
 			stage演奏ドラム画面 = new CStage演奏画面共通();
 			stageResult = new CStageResult();
 			stageChangeSkin = new CStageChangeSkin();
@@ -1442,7 +1442,7 @@ namespace TJAPlayer3
 			//			this.listトップレベルActivities.Add( stageオプション );
 			this.listトップレベルActivities.Add(stageConfig);
 			this.listトップレベルActivities.Add(stage選曲);
-			this.listトップレベルActivities.Add(stage曲読み込み);
+			this.listトップレベルActivities.Add(stageSongLoading);
 			this.listトップレベルActivities.Add(stage演奏ドラム画面);
 			this.listトップレベルActivities.Add(stageResult);
 			this.listトップレベルActivities.Add(stageChangeSkin);
