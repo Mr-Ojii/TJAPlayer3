@@ -1500,14 +1500,6 @@ namespace TJAPlayer3
 			base.Title = asmApp.Name + " Ver." + VERSION + " (" + SoundManager.GetCurrentSoundDeviceType() + delay + ")";
 		}
 
-		public void ChangeWindowTitle(string Name, bool StringInitialize = true, bool Concat = true) {
-			if(StringInitialize)
-				this.ShowWindowTitleWithSoundType();
-			if (Concat)
-				Name = base.Title + Name;
-			base.Title = Name;
-		}
-
 		private void t終了処理()
 		{
 			if( !this.b終了処理完了済み )
