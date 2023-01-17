@@ -11,6 +11,7 @@ using System.IO;
 using System.Reflection;
 using System.Net.Http;
 using FDK;
+using SDL2;
 
 namespace TJAPlayer3
 {
@@ -180,8 +181,9 @@ namespace TJAPlayer3
 			}
 			else 
 			{
-				Console.WriteLine($"TJAPlayer3-f(Ver.{Assembly.GetExecutingAssembly().GetName().Version}) is already running.");
-				Thread.Sleep(2000);
+				string msg = $"TJAPlayer3-f(Ver.{Assembly.GetExecutingAssembly().GetName().Version}) is already running.";
+				if(SDL.SDL_ShowSimpleMessageBox(SDL.SDL_MessageBoxFlags.SDL_MESSAGEBOX_WARNING, "TJAPlayer3-f", msg, 0) != 0)
+					Console.WriteLine(msg);
 			}
 		}
 
