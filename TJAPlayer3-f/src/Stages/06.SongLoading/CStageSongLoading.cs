@@ -93,6 +93,9 @@ namespace TJAPlayer3
 						? "Please play as accurately as possible."
 						: this.strSubTitle;
 
+					this.txTitle = null;
+					this.txSubTitle = null;
+
 					if( !string.IsNullOrEmpty(タイトル) )
 					{
 						using (CFontRenderer pfTITLE = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.SongLoading_Title_FontSize))
@@ -104,18 +107,16 @@ namespace TJAPlayer3
 							}
 						}
 
-						using (CFontRenderer pfSUBTITLE = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.SongLoading_SubTitle_FontSize))
+						if( !string.IsNullOrEmpty(サブタイトル) )
 						{
-							using (var bmpSongSubTitle = pfSUBTITLE.DrawText(サブタイトル, TJAPlayer3.Skin.SongLoading_SubTitle_ForeColor, TJAPlayer3.Skin.SongLoading_SubTitle_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio))
+							using (CFontRenderer pfSUBTITLE = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.SongLoading_SubTitle_FontSize))
 							{
-								this.txSubTitle = TJAPlayer3.tCreateTexture(bmpSongSubTitle);
+								using (var bmpSongSubTitle = pfSUBTITLE.DrawText(サブタイトル, TJAPlayer3.Skin.SongLoading_SubTitle_ForeColor, TJAPlayer3.Skin.SongLoading_SubTitle_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio))
+								{
+									this.txSubTitle = TJAPlayer3.tCreateTexture(bmpSongSubTitle);
+								}
 							}
 						}
-					}
-					else
-					{
-						this.txTitle = null;
-						this.txSubTitle = null;
 					}
 
 				}
