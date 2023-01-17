@@ -25,7 +25,7 @@ namespace TJAPlayer3
 		[STAThread]
 		private static void Main()
 		{
-			mutex = new Mutex(false, "TJAPlayer3-f-Ver." + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+			mutex = new Mutex(false, "Global\\TJAPlayer3-f-Ver." + Assembly.GetExecutingAssembly().GetName().Version.ToString());
 
 			if (mutex.WaitOne(0, false))
             {
