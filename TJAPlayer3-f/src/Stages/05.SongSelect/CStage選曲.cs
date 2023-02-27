@@ -533,7 +533,7 @@ namespace TJAPlayer3
 							#region [ F3 1PオートON/OFF ]
 							if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.F3))
 							{
-								TJAPlayer3.Skin.sound変更音.t再生する();
+								TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND変更音].t再生する();
 								TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] = !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0];
 							}
 							#endregion
@@ -542,7 +542,7 @@ namespace TJAPlayer3
 							{
 								if (TJAPlayer3.ConfigIni.nPlayerCount > 1)
 								{
-									TJAPlayer3.Skin.sound変更音.t再生する();
+									TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND変更音].t再生する();
 									TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] = !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1];
 								}
 							}
@@ -832,7 +832,7 @@ namespace TJAPlayer3
 							#region [ F3 1PオートON/OFF ]
 							if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.F3))
 							{
-								TJAPlayer3.Skin.sound変更音.t再生する();
+								TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND変更音].t再生する();
 								TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] = !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0];
 							}
 							#endregion
@@ -841,7 +841,7 @@ namespace TJAPlayer3
 							{
 								if (TJAPlayer3.ConfigIni.nPlayerCount > 1)
 								{
-									TJAPlayer3.Skin.sound変更音.t再生する();
+									TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND変更音].t再生する();
 									TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] = !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1];
 								}
 							}
