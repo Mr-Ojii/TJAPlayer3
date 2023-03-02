@@ -19,37 +19,29 @@ namespace TJAPlayer3
 
 		public void Start(int Player, bool IsMiss, CDTX.CChip pChip)
 		{
-			if (TJAPlayer3.Tx.Runner != null)
+			if (TJAPlayer3.Tx.Runner == null)
+				return;
+				
+			if (pChip.nチャンネル番号 < 0x15 || (pChip.nチャンネル番号 >= 0x1A))
 			{
-				while (stRunners[Index].b使用中)
+				for (int i = 0; i < 128; i++)
 				{
-					Index += 1;
-					if(Index >= 128)
+					if (!stRunners[i].b使用中)
 					{
-						Index = 0;
-						break; // 2018.6.15 IMARER 無限ループが発生するので修正
-					}
-				}
-				if (pChip.nチャンネル番号 < 0x15 || (pChip.nチャンネル番号 >= 0x1A))
-				{
-					if (!stRunners[Index].b使用中)
-					{
-						stRunners[Index].b使用中 = true;
-						stRunners[Index].nPlayer = Player;
-						if (IsMiss == true)
-						{
-							stRunners[Index].nType = 0;
-						}
-						else
-						{
-							stRunners[Index].nType = random.Next(1, Type + 1);
-						}
-						stRunners[Index].ct進行 = new CCounter(0, 1280, TJAPlayer3.Skin.Game_Runner_Timer, TJAPlayer3.Timer);
-						stRunners[Index].nOldValue = 0;
-						stRunners[Index].nNowPtn = 0;
-						stRunners[Index].fX = 0;
-					}
+						stRunners[i].b使用中 = true;
+						stRunners[i].nPlayer = Player;
 
+						if (IsMiss)
+							stRunners[i].nType = 0;
+						else
+							stRunners[i].nType = random.Next(1, Type + 1);
+
+						stRunners[i].ct進行 = new CCounter(0, 1280, TJAPlayer3.Skin.Game_Runner_Timer, TJAPlayer3.Timer);
+						stRunners[i].nOldValue = 0;
+						stRunners[i].nNowPtn = 0;
+						stRunners[i].fX = 0;
+						break;
+					}
 				}
 			}
 		}
@@ -115,13 +107,9 @@ namespace TJAPlayer3
 					if (TJAPlayer3.Tx.Runner != null)
 					{
 						if (stRunners[i].nPlayer == 0)
-						{
 							TJAPlayer3.Tx.Runner.t2D描画(TJAPlayer3.app.Device, (int)(StartPoint_X[0] + stRunners[i].fX), StartPoint_Y[0], new Rectangle(stRunners[i].nNowPtn * Size[0], stRunners[i].nType * Size[1], Size[0], Size[1]));
-						}
 						else
-						{
 							TJAPlayer3.Tx.Runner.t2D描画(TJAPlayer3.app.Device, (int)(StartPoint_X[1] + stRunners[i].fX), StartPoint_Y[1], new Rectangle(stRunners[i].nNowPtn * Size[0], stRunners[i].nType * Size[1], Size[0], Size[1]));
-						}
 					}
 				}
 			}
@@ -143,7 +131,6 @@ namespace TJAPlayer3
 		}
 		private STRunner[] stRunners = new STRunner[128];
 		Random random = new Random();
-		int Index = 0;
 
 		// ランナー画像のサイズ。 X, Y
 		private int[] Size;

@@ -20,18 +20,18 @@ namespace TJAPlayer3
 		// メソッド
 		public virtual void Start(int nPlayer, int Lane)
 		{
-			if(TJAPlayer3.Tx.Gauge_Soul_Explosion != null)
+			if(TJAPlayer3.Tx.Gauge_Soul_Explosion == null)
+				return;
+
+			for (int i = 0; i < 128; i++)
 			{
-				for (int i = 0; i < 128; i++)
+				if(!st[i].b使用中)
 				{
-					if(!st[i].b使用中)
-					{
-						st[i].b使用中 = true;
-						st[i].ct進行 = new CCounter(0, TJAPlayer3.Skin.Game_Effect_NotesFlash[2], TJAPlayer3.Skin.Game_Effect_NotesFlash_Timer, TJAPlayer3.Timer);
-						st[i].nプレイヤー = nPlayer;
-						st[i].Lane = Lane;
-						break;
-					}
+					st[i].b使用中 = true;
+					st[i].ct進行 = new CCounter(0, TJAPlayer3.Skin.Game_Effect_NotesFlash[2], TJAPlayer3.Skin.Game_Effect_NotesFlash_Timer, TJAPlayer3.Timer);
+					st[i].nプレイヤー = nPlayer;
+					st[i].Lane = Lane;
+					break;
 				}
 			}
 		}
@@ -63,36 +63,36 @@ namespace TJAPlayer3
 		{
 			for (int i = 0; i < 128; i++)
 			{
-				if (st[i].b使用中)
+				if (!st[i].b使用中)
+					continue;
+
+				st[i].ct進行.t進行();
+				if (st[i].ct進行.b終了値に達した)
 				{
-					st[i].ct進行.t進行();
-					if (st[i].ct進行.b終了値に達した)
-					{
-						st[i].ct進行.t停止();
-						st[i].b使用中 = false;
-					}
-					TJAPlayer3.Tx.Notes.Opacity = 255 - (int)Math.Min((500.0 * (st[i].ct進行.n現在の値 / (double)st[i].ct進行.n終了値)), 255.0);
-					if(TJAPlayer3.Tx.Notes_White!=null)
-						TJAPlayer3.Tx.Notes_White.Opacity = (int)Math.Min((500.0 * (st[i].ct進行.n現在の値 / (double)st[i].ct進行.n終了値)), 255.0);//2020.05.15 Mr-Ojii ノーツを白くするために追加。 
-					switch (st[i].nプレイヤー)
-					{
-						case 0:
-							if (TJAPlayer3.Tx.Gauge_Soul_Explosion[0] != null)
-								TJAPlayer3.Tx.Gauge_Soul_Explosion[0].t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_X[0], TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_Y[0], new Rectangle(st[i].ct進行.n現在の値 * TJAPlayer3.Skin.Game_Effect_NotesFlash[0], 0, TJAPlayer3.Skin.Game_Effect_NotesFlash[0], TJAPlayer3.Skin.Game_Effect_NotesFlash[1]));
-							TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_X[0], TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_Y[0], new Rectangle(st[i].Lane * 130, 0, 130, 130));
-							if (TJAPlayer3.Tx.Notes_White != null)
-								TJAPlayer3.Tx.Notes_White.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_X[0], TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_Y[0], new Rectangle(st[i].Lane * 130, 0, 130, 130));
-							break;
-						case 1:
-							if (TJAPlayer3.Tx.Gauge_Soul_Explosion[1] != null)
-								TJAPlayer3.Tx.Gauge_Soul_Explosion[1].t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_X[1], TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_Y[1], new Rectangle(st[i].ct進行.n現在の値 * TJAPlayer3.Skin.Game_Effect_NotesFlash[0], 0, TJAPlayer3.Skin.Game_Effect_NotesFlash[0], TJAPlayer3.Skin.Game_Effect_NotesFlash[1]));
-							TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_X[1], TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_Y[1], new Rectangle(st[i].Lane * 130, 0, 130, 130));
-							if (TJAPlayer3.Tx.Notes_White != null)
-								TJAPlayer3.Tx.Notes_White.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_X[1], TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_Y[1], new Rectangle(st[i].Lane * 130, 0, 130, 130));
-							break;
-					}
-					TJAPlayer3.Tx.Notes.Opacity = 255;//2020.05.15 Mr-Ojii これ書いとかないと、流れるノーツも半透明化されてしまう。
+					st[i].ct進行.t停止();
+					st[i].b使用中 = false;
 				}
+				TJAPlayer3.Tx.Notes.Opacity = 255 - (int)Math.Min((500.0 * (st[i].ct進行.n現在の値 / (double)st[i].ct進行.n終了値)), 255.0);
+				if(TJAPlayer3.Tx.Notes_White != null)
+					TJAPlayer3.Tx.Notes_White.Opacity = (int)Math.Min((500.0 * (st[i].ct進行.n現在の値 / (double)st[i].ct進行.n終了値)), 255.0);//2020.05.15 Mr-Ojii ノーツを白くするために追加。 
+				switch (st[i].nプレイヤー)
+				{
+					case 0:
+						if (TJAPlayer3.Tx.Gauge_Soul_Explosion[0] != null)
+							TJAPlayer3.Tx.Gauge_Soul_Explosion[0].t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_X[0], TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_Y[0], new Rectangle(st[i].ct進行.n現在の値 * TJAPlayer3.Skin.Game_Effect_NotesFlash[0], 0, TJAPlayer3.Skin.Game_Effect_NotesFlash[0], TJAPlayer3.Skin.Game_Effect_NotesFlash[1]));
+						TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_X[0], TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_Y[0], new Rectangle(st[i].Lane * 130, 0, 130, 130));
+						if (TJAPlayer3.Tx.Notes_White != null)
+							TJAPlayer3.Tx.Notes_White.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_X[0], TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_Y[0], new Rectangle(st[i].Lane * 130, 0, 130, 130));
+						break;
+					case 1:
+						if (TJAPlayer3.Tx.Gauge_Soul_Explosion[1] != null)
+							TJAPlayer3.Tx.Gauge_Soul_Explosion[1].t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_X[1], TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_Y[1], new Rectangle(st[i].ct進行.n現在の値 * TJAPlayer3.Skin.Game_Effect_NotesFlash[0], 0, TJAPlayer3.Skin.Game_Effect_NotesFlash[0], TJAPlayer3.Skin.Game_Effect_NotesFlash[1]));
+						TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_X[1], TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_Y[1], new Rectangle(st[i].Lane * 130, 0, 130, 130));
+						if (TJAPlayer3.Tx.Notes_White != null)
+							TJAPlayer3.Tx.Notes_White.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_X[1], TJAPlayer3.Skin.Game_Effect_FlyingNotes_EndPoint_Y[1], new Rectangle(st[i].Lane * 130, 0, 130, 130));
+						break;
+				}
+				TJAPlayer3.Tx.Notes.Opacity = 255;//2020.05.15 Mr-Ojii これ書いとかないと、流れるノーツも半透明化されてしまう。
 			}
 			return 0;
 		}
