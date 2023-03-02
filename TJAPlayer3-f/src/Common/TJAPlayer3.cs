@@ -119,11 +119,6 @@ namespace TJAPlayer3
 			get;
 			private set;
 		}
-		public static Random Random
-		{
-			get;
-			private set;
-		}
 		public static CSkin Skin
 		{
 			get;
@@ -1412,11 +1407,6 @@ namespace TJAPlayer3
 			{
 				Trace.Unindent();
 			}
-			//---------------------
-#endregion
-#region [ Random の初期化 ]
-			//---------------------
-			Random = new Random((int)Timer.nシステム時刻ms);
 			//---------------------
 #endregion
 #region [ ステージの初期化 ]

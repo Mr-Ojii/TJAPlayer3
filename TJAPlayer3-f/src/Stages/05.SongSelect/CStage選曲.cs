@@ -1275,7 +1275,7 @@ namespace TJAPlayer3
 		private void t曲をランダム選択する()
 		{
 			List<C曲リストノード> list = this.t指定された曲が存在する場所の曲を列挙する_子リスト含む( this.act曲リスト.r現在選択中の曲 );
-			this.act曲リスト.RandomSelect(list[TJAPlayer3.Random.Next(0,list.Count - 1)]);
+			this.act曲リスト.RandomSelect(list[Random.Shared.Next(0,list.Count - 1)]);
 
 		}
 		private void t曲を選択する()

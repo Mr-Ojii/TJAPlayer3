@@ -159,8 +159,8 @@ namespace TJAPlayer3
 					}
 					if (this.ct進行.n現在の値 <= 250)
 					{
-						int num2 = TJAPlayer3.Random.Next(5) - 2;
-						int y = TJAPlayer3.Random.Next(5) - 2;
+						int num2 = Random.Shared.Next(5) - 2;
+						int y = Random.Shared.Next(5) - 2;
 						if (TJAPlayer3.Tx.Failed_Stage != null)
 						{
 							TJAPlayer3.Tx.Failed_Stage.t2D描画(TJAPlayer3.app.Device, num2, y);

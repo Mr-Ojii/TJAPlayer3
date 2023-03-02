@@ -884,8 +884,6 @@ namespace TJAPlayer3
 		{
 			//2016.02.11 kairera0467
 			//なんだよこのクソ実装は(怒)
-			
-			Random rnd = TJAPlayer3.Random;
 
 			if (eRandom != ERandomMode.OFF)
 			{
@@ -922,7 +920,7 @@ namespace TJAPlayer3
 
 				foreach (var chip in this.listChip)
 				{
-					int n = rnd.Next(RandNum);
+					int n = Random.Shared.Next(RandNum);
 
 					if (n >= nMin && n <= nMax)
 					{
