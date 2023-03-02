@@ -66,7 +66,7 @@ namespace TJAPlayer3
 				y += 15;
 				TJAPlayer3.act文字コンソール.tPrint(x, y, C文字コンソール.EFontType.白, string.Format("BGM/Taiko Adj: {0:####0}/{1:####0} ms", TJAPlayer3.DTX[0].nBGMAdjust, TJAPlayer3.ConfigIni.nInputAdjustTimeMs));
 				y += 15;
-				TJAPlayer3.act文字コンソール.tPrint( x, y, C文字コンソール.EFontType.白, string.Format( "Sound CPU :    {0:####0.00}%", TJAPlayer3.SoundManager.GetCPUusage() ) );
+				TJAPlayer3.act文字コンソール.tPrint( x, y, C文字コンソール.EFontType.白, string.Format( "Sound CPU :    {0:####0.00}%", TJAPlayer3.SoundManager.CPUUsage ) );
 
 			}
 		}
