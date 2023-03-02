@@ -847,7 +847,7 @@ namespace TJAPlayer3
 
 		public void t判定枠戻し(int n移動px, int nPlayer)
 		{
-			this.n移動開始時刻[nPlayer] =　-1;
+			this.n移動開始時刻[nPlayer] = -1;
 
 			int	judgeposition = TJAPlayer3.Skin.nScrollFieldX[nPlayer] - n移動px;
 

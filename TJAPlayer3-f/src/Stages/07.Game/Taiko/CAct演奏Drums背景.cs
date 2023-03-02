@@ -377,4 +377,3 @@ namespace TJAPlayer3
 		#endregion
 	}
 }
-　

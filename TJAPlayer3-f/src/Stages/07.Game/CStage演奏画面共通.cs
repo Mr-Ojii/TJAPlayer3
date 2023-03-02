@@ -4474,7 +4474,7 @@ namespace TJAPlayer3
 						nノート末端座標 = 0;
 					}
 				}
-				//2020.05.06 Mr-Ojii ここらへんから349って書いてあったところを　TJAPlayer3.Skin.nScrollFieldX[nPlayer] - 55に置き換えた。
+				//2020.05.06 Mr-Ojii ここらへんから349って書いてあったところを、TJAPlayer3.Skin.nScrollFieldX[nPlayer] - 55に置き換えた。
 				int x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからの距離dot - 55;
 				int x末端 = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot - 55;
 				int y = TJAPlayer3.Skin.nScrollFieldY[nPlayer];
