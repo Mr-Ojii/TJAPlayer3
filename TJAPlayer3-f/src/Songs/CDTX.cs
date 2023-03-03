@@ -885,83 +885,69 @@ namespace TJAPlayer3
 			//2016.02.11 kairera0467
 			//なんだよこのクソ実装は(怒)
 
-			if (eRandom != ERandomMode.OFF)
+			if (eRandom == ERandomMode.OFF)
+				return;
+				
+			int nPercent = -1;
+
+			switch (eRandom)
 			{
-				int nMin = -1;
-				int nMax = -1;
-				int RandNum = 100;
-
-				switch (eRandom)
-				{
-					case ERandomMode.MIRROR://100%
-						nMin = 0;
-						nMax = 100;
-						RandNum = 100;
-						break;
-					case ERandomMode.RANDOM://10%
-						nMin = 5;
-						nMax = 10;
-						RandNum = 50;
-						break;
-					case ERandomMode.SUPERRANDOM://50%
-						nMin = 3;
-						nMax = 43;
-						RandNum = 80;
-						break;
-					case ERandomMode.HYPERRANDOM://60%
-						nMin = 20;
-						nMax = 80;
-						RandNum = 100;
-						break;
-					case ERandomMode.OFF:
-					default:
-						break;
-				}
-
-				foreach (var chip in this.listChip)
-				{
-					int n = Random.Shared.Next(RandNum);
-
-					if (n >= nMin && n <= nMax)
-					{
-						switch (chip.nチャンネル番号)
-						{
-							case 0x11:
-								chip.nチャンネル番号 = 0x12;
-								break;
-							case 0x12:
-								chip.nチャンネル番号 = 0x11;
-								break;
-							case 0x13:
-								chip.nチャンネル番号 = 0x14;
-								chip.nSenote = 6;
-								break;
-							case 0x14:
-								chip.nチャンネル番号 = 0x13;
-								chip.nSenote = 5;
-								break;
-						}
-					}
-				}
-				#region[ list作成 ]
-				//ひとまずチップだけのリストを作成しておく。
-				List<CDTX.CChip> list音符のみのリスト;
-				list音符のみのリスト = new List<CChip>();
-
-				foreach (CChip chip in this.listChip)
-				{
-					if (chip.nチャンネル番号 >= 0x11 && chip.nチャンネル番号 < 0x18)
-					{
-						list音符のみのリスト.Add(chip);
-					}
-				}
-				#endregion
-
-				this.tSenotes_Core_V2(list音符のみのリスト);
-
+				case ERandomMode.MIRROR://100%
+					nPercent = 100;
+					break;
+				case ERandomMode.RANDOM://10%
+					nPercent = 10;
+					break;
+				case ERandomMode.SUPERRANDOM://50%
+					nPercent = 50;
+					break;
+				case ERandomMode.HYPERRANDOM://60%
+					nPercent = 60;
+					break;
+				default:
+					break;
 			}
 
+			foreach (var chip in this.listChip)
+			{
+				int n = Random.Shared.Next(100);
 
+				if (n < nPercent)
+				{
+					switch (chip.nチャンネル番号)
+					{
+						case 0x11:
+							chip.nチャンネル番号 = 0x12;
+							break;
+						case 0x12:
+							chip.nチャンネル番号 = 0x11;
+							break;
+						case 0x13:
+							chip.nチャンネル番号 = 0x14;
+							chip.nSenote = 6;
+							break;
+						case 0x14:
+							chip.nチャンネル番号 = 0x13;
+							chip.nSenote = 5;
+							break;
+					}
+				}
+			}
+			#region[ list作成 ]
+			//ひとまずチップだけのリストを作成しておく。
+			List<CDTX.CChip> list音符のみのリスト;
+			list音符のみのリスト = new List<CChip>();
+
+			foreach (CChip chip in this.listChip)
+			{
+				if (chip.nチャンネル番号 >= 0x11 && chip.nチャンネル番号 < 0x18)
+				{
+					list音符のみのリスト.Add(chip);
+				}
+			}
+			#endregion
+
+			this.tSenotes_Core_V2(list音符のみのリスト);
 		}
 
 		#region [ チップの再生と停止 ]
