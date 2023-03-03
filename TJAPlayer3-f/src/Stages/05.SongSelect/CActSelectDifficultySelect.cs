@@ -108,7 +108,7 @@ namespace TJAPlayer3
 					if (TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]] != null)
 					{
 						TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].Opacity = 100;
-						TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].vcScaling = new Vector3(0.75f);
+						TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].vcScaling = new Vector2(0.75f);
 						TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, i * 1075 - 30, TJAPlayer3.Skin.Difficulty_Mark_Y);
 					}
 				}else if (現在の選択行[i] >= 3)
@@ -118,7 +118,7 @@ namespace TJAPlayer3
 						if (TJAPlayer3.Tx.Difficulty_Mark[4] != null)
 						{
 							TJAPlayer3.Tx.Difficulty_Mark[4].Opacity = 100;
-							TJAPlayer3.Tx.Difficulty_Mark[4].vcScaling = new Vector3(0.75f);
+							TJAPlayer3.Tx.Difficulty_Mark[4].vcScaling.X = 0.75f;
 							TJAPlayer3.Tx.Difficulty_Mark[4].vcScaling.Y = 0.75f * (float)(1 + Math.Sin(ct難易度拡大用[i].n現在の値 * Math.PI / 180) * 0.25);
 							TJAPlayer3.Tx.Difficulty_Mark[4].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, i * 1075 - 30, TJAPlayer3.Skin.Difficulty_Mark_Y);
 						}
@@ -128,7 +128,7 @@ namespace TJAPlayer3
 						if (TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3] != null)
 						{
 							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].Opacity = 100;
-							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].vcScaling = new Vector3(0.75f);
+							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].vcScaling.X = 0.75f;
 							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].vcScaling.Y = 0.75f * (float)(1 + Math.Sin(ct難易度拡大用[i].n現在の値 * Math.PI / 180) * 0.25);
 							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, i * 1075 - 30, TJAPlayer3.Skin.Difficulty_Mark_Y);
 						}
@@ -308,7 +308,7 @@ namespace TJAPlayer3
 			if (TJAPlayer3.Tx.Crown_t != null)//王冠テクスチャがないなら、通す必要なし！
 			{
 				TJAPlayer3.Tx.Crown_t.Opacity = 255;
-				TJAPlayer3.Tx.Crown_t.vcScaling = new Vector3(0.35f);
+				TJAPlayer3.Tx.Crown_t.vcScaling = new Vector2(0.35f);
 				for (int i = 0; i < 4; i++)
 				{
 					if (裏表示 && i == 3)

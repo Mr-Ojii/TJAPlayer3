@@ -184,13 +184,13 @@ namespace TJAPlayer3
 					{
 						//レベルアップ
 						TJAPlayer3.Tx.Taiko_LevelUp.Opacity = nAlpha;
-						TJAPlayer3.Tx.Taiko_LevelUp.vcScaling = new Vector3( fScale, fScale, 1.0f );
+						TJAPlayer3.Tx.Taiko_LevelUp.vcScaling = new Vector2( fScale, fScale );
 						TJAPlayer3.Tx.Taiko_LevelUp.t2D拡大率考慮描画( TJAPlayer3.app.Device, CTexture.RefPnt.Center, -329 + GameWindowSize.Width / 2, fY[ i ] + GameWindowSize.Height / 2);
 					}
 					else
 					{
 						TJAPlayer3.Tx.Taiko_LevelDown.Opacity = nAlpha;
-						TJAPlayer3.Tx.Taiko_LevelDown.vcScaling = new Vector3(fScale, fScale, 1.0f);
+						TJAPlayer3.Tx.Taiko_LevelDown.vcScaling = new Vector2( fScale, fScale );
 						TJAPlayer3.Tx.Taiko_LevelDown.t2D拡大率考慮描画( TJAPlayer3.app.Device, CTexture.RefPnt.Center, -329 + GameWindowSize.Width / 2, fY[ i ] + GameWindowSize.Height / 2 );
 					}
 				}

@@ -61,9 +61,8 @@ namespace FDK
 				if (_dbPlaySpeed != value)
 				{
 					_dbPlaySpeed = value;
-					bIs1倍速再生 = (_dbPlaySpeed == 1.000f);
 
-					if (_hTempoStream != 0 && !this.bIs1倍速再生)   // PlaySpeedがx1.000のときは、TempoStreamを用いないようにして高速化する
+					if (_hTempoStream != 0 && _dbPlaySpeed != 1.000f)   // PlaySpeedがx1.000のときは、TempoStreamを用いないようにして高速化する
 					{
 						this.hBassStream = _hTempoStream;
 					}
@@ -587,7 +586,6 @@ namespace FDK
 		private long nBytes = 0;
 		private int nFrequency = 0;
 		private double _dbPlaySpeed = 1.0;
-		private bool bIs1倍速再生 = true;
 
 		private void tBASSサウンドを作成する( string strFilename, int hMixer, BassFlags flags )
 		{
@@ -647,7 +645,7 @@ namespace FDK
 				}
 			}
 
-			if ( _hTempoStream != 0 && !this.bIs1倍速再生 )	// PlaySpeedがx1.000のときは、TempoStreamを用いないようにして高速化する
+			if ( _hTempoStream != 0 && _dbPlaySpeed != 1.000f )	// PlaySpeedがx1.000のときは、TempoStreamを用いないようにして高速化する
 			{
 				this.hBassStream = _hTempoStream;
 			}

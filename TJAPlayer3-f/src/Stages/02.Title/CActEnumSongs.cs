@@ -7,6 +7,7 @@ using System.IO;
 using System.Drawing;
 using System.Threading;
 using System.Globalization;
+using System.Numerics;
 using FDK;
 
 namespace TJAPlayer3
@@ -76,7 +77,7 @@ namespace TJAPlayer3
 					using (CFontRenderer pffont = new CFontRenderer(CFontRenderer.DefaultFontName, 32, CFontRenderer.FontStyle.Bold))
 					{
 						this.txMessage = TJAPlayer3.tCreateTexture(pffont.DrawText(strMessage[ci], Color.White), true);
-						this.txMessage.vcScaling = new System.Numerics.Vector3(0.5f, 0.5f, 1f);
+						this.txMessage.vcScaling = new Vector2(0.5f);
 					}
 				}
 				else
