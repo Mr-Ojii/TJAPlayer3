@@ -8,6 +8,22 @@ namespace TJAPlayer3
 {
 	internal class C文字コンソール : CActivity
 	{
+		public C文字コンソール()
+		{
+			this.rc文字の矩形領域 = new Rectangle[3, str表記可能文字.Length ];
+			for( int i = 0; i < 3; i++ )
+			{
+				for (int j = 0; j < str表記可能文字.Length; j++)
+				{
+					const int regionX = 128, regionY = 16;
+					this.rc文字の矩形領域[ i, j ].X = ( ( i / 2 ) * regionX ) + ( ( j % regionY ) * nFontWidth );
+					this.rc文字の矩形領域[ i, j ].Y = ( ( i % 2 ) * regionX ) + ( ( j / regionY ) * nFontHeight );
+					this.rc文字の矩形領域[ i, j ].Width = nFontWidth;
+					this.rc文字の矩形領域[ i, j ].Height = nFontHeight;
+				}
+			}
+		}
+
 		// 定数
 
 		public enum EFontType
@@ -49,29 +65,6 @@ namespace TJAPlayer3
 
 		// CActivity 実装
 
-		public override void On活性化()
-		{
-			this.rc文字の矩形領域 = new Rectangle[3, str表記可能文字.Length ];
-			for( int i = 0; i < 3; i++ )
-			{
-				for (int j = 0; j < str表記可能文字.Length; j++)
-				{
-					const int regionX = 128, regionY = 16;
-					this.rc文字の矩形領域[ i, j ].X = ( ( i / 2 ) * regionX ) + ( ( j % regionY ) * nFontWidth );
-					this.rc文字の矩形領域[ i, j ].Y = ( ( i % 2 ) * regionX ) + ( ( j / regionY ) * nFontHeight );
-					this.rc文字の矩形領域[ i, j ].Width = nFontWidth;
-					this.rc文字の矩形領域[ i, j ].Height = nFontHeight;
-				}
-			}
-			base.On活性化();
-		}
-		public override void On非活性化()
-		{
-			if( this.rc文字の矩形領域 != null )
-				this.rc文字の矩形領域 = null;
-
-			base.On非活性化();
-		}
 		public override void OnManagedリソースの作成()
 		{
 			if( !base.b活性化してない )
@@ -102,7 +95,7 @@ namespace TJAPlayer3
 
 		#region [ private ]
 		//-----------------
-		private Rectangle[,] rc文字の矩形領域;
+		private readonly Rectangle[,] rc文字の矩形領域;
 		private const string str表記可能文字 = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~ ";
 		private const int nFontWidth = 8, nFontHeight = 16;
 		private CTexture[] txフォント8x16 = new CTexture[ 2 ];
