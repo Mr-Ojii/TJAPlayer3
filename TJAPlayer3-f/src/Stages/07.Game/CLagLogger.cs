@@ -60,7 +60,7 @@ namespace TJAPlayer3
 			var hitChipCountsIndexedByOffsetLag = new int[1 + MaximumLag + 1 + MaximumLag + 1];
 			foreach (var pChipNLag in LagValues)
 			{
-				hitChipCountsIndexedByOffsetLag[pChipNLag.Clamp(MinimumLag - 1, MaximumLag + 1) + Offset]++;
+				hitChipCountsIndexedByOffsetLag[Math.Clamp(pChipNLag, MinimumLag - 1, MaximumLag + 1) + Offset]++;
 			}
 
 			var sbHeader = new StringBuilder();

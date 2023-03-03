@@ -154,7 +154,6 @@ namespace TJAPlayer3
 		public bool bLog作成解放ログ出力;
 
 		public bool bScoreIniを出力する;
-		public bool bSTAGEFAILED有効;
 		public bool bTight;
 		public bool bWave再生位置自動調整機能有効;
 		public bool bランダムセレクトで子BOXを検索対象とする;
@@ -162,10 +161,7 @@ namespace TJAPlayer3
 		public bool b演奏情報を表示する;
 		public bool b垂直帰線待ちを行う;
 		public bool b全画面モード;
-		public int n初期ウィンドウ開始位置X; // #30675 2013.02.04 ikanick add
-		public int n初期ウィンドウ開始位置Y;  
-		public int nウインドウwidth;				// #23510 2010.10.31 yyagi add
-		public int nウインドウheight;				// #23510 2010.10.31 yyagi add
+		public Rectangle rcWindowPos;
 		public Dictionary<int, string> dicJoystick;
 		public ERandomMode[] eRandom;
 		public CKeyAssign KeyAssign;
@@ -238,7 +234,7 @@ namespace TJAPlayer3
 			get => _keyboardSoundLevelIncrement;
 			set => SetProperty(
 				ref _keyboardSoundLevelIncrement,
-				value.Clamp(MinimumKeyboardSoundLevelIncrement, MaximumKeyboardSoundLevelIncrement),
+				Math.Clamp(value, MinimumKeyboardSoundLevelIncrement, MaximumKeyboardSoundLevelIncrement),
 				nameof(KeyboardSoundLevelIncrement));
 		}
 
@@ -458,14 +454,10 @@ namespace TJAPlayer3
 			this.str曲データ検索パス = @"./Songs/";
 			this.b全画面モード = false;
 			this.b垂直帰線待ちを行う = true;
-			this.n初期ウィンドウ開始位置X = 0; // #30675 2013.02.04 ikanick add
-			this.n初期ウィンドウ開始位置Y = 0;  
-			this.nウインドウwidth = GameWindowSize.Width;			// #23510 2010.10.31 yyagi add
-			this.nウインドウheight = GameWindowSize.Height;			// 
+			this.rcWindowPos = new Rectangle(0, 0, GameWindowSize.Width, GameWindowSize.Height);
 			this.nフレーム毎スリープms = -1;			// #xxxxx 2011.11.27 yyagi add
 			this.n非フォーカス時スリープms = 1;			// #23568 2010.11.04 ikanick add
 			this.nBGAlpha = 100;
-			this.bSTAGEFAILED有効 = true;
 			this.bAVI有効 = false;
 			this.bBGA有効 = true;
 			//this.bWave再生位置自動調整機能有効 = true;
@@ -544,7 +536,7 @@ namespace TJAPlayer3
 			this.bTight = false;                        // #29500 2012.9.11 kairera0467 TIGHTモード
 			#region [ WASAPI/ASIO ]
 			// #31927 2013.8.25 yyagi OSにより初期値変更
-			this.nSoundDeviceType = (int)(COS.bIsWin10OrLater() ? ESoundDeviceTypeForConfig.WASAPI_Shared : ESoundDeviceTypeForConfig.WASAPI_Exclusive);
+			this.nSoundDeviceType = (int)(OperatingSystem.IsWindows() ? (COS.bIsWin10OrLater() ? ESoundDeviceTypeForConfig.WASAPI_Shared : ESoundDeviceTypeForConfig.WASAPI_Exclusive) : ESoundDeviceTypeForConfig.BASS);
 
 			this.nWASAPIBufferSizeMs = 2;				// #24820 2013.1.15 yyagi 初期値は50(0で自動設定)
 			this.nASIODevice = 0;                       // #24820 2013.1.17 yyagi
@@ -672,19 +664,19 @@ namespace TJAPlayer3
 			sw.WriteLine();
 			sw.WriteLine("; ウインドウモード時の画面幅");				// #23510 2010.10.31 yyagi add
 			sw.WriteLine("; A width size in the window mode.");			//
-			sw.WriteLine("WindowWidth={0}", this.nウインドウwidth);		//
+			sw.WriteLine("WindowWidth={0}", this.rcWindowPos.Width);		//
 			sw.WriteLine();												//
 			sw.WriteLine("; ウインドウモード時の画面高さ");				//
 			sw.WriteLine("; A height size in the window mode.");		//
-			sw.WriteLine("WindowHeight={0}", this.nウインドウheight);	//
+			sw.WriteLine("WindowHeight={0}", this.rcWindowPos.Height);	//
 			sw.WriteLine();												//
 			sw.WriteLine( "; ウィンドウモード時の位置X" );				            // #30675 2013.02.04 ikanick add
 			sw.WriteLine( "; X position in the window mode." );			            //
-			sw.WriteLine( "WindowX={0}", this.n初期ウィンドウ開始位置X );			//
+			sw.WriteLine( "WindowX={0}", this.rcWindowPos.X );			//
 			sw.WriteLine();											            	//
 			sw.WriteLine( "; ウィンドウモード時の位置Y" );			            	//
 			sw.WriteLine( "; Y position in the window mode." );	            	    //
-			sw.WriteLine( "WindowY={0}", this.n初期ウィンドウ開始位置Y );   		//
+			sw.WriteLine( "WindowY={0}", this.rcWindowPos.Y );   		//
 			sw.WriteLine();												            //
 			sw.WriteLine( "; 非フォーカス時のsleep値[ms]" );	    			    // #23568 2011.11.04 ikanick add
 			sw.WriteLine( "; A sleep time[ms] while the window is inactive." );	//
@@ -780,9 +772,6 @@ namespace TJAPlayer3
 			sw.WriteLine( "; 背景画像の半透明割合(0:透明～255:不透明)" );
 			sw.WriteLine( "; Transparency for background image in playing screen.(0:tranaparent - 255:no transparent)" );
 			sw.WriteLine( "BGAlpha={0}", this.nBGAlpha );
-			sw.WriteLine();
-			sw.WriteLine( "; ゲージゼロでSTAGE FAILED (0:OFF, 1:ON)" );
-			sw.WriteLine( "StageFailed={0}", this.bSTAGEFAILED有効 ? 1 : 0 );
 			sw.WriteLine();
 			#region [ AVI/BGA ]
 			sw.WriteLine( "; AVIの表示(0:OFF, 1:ON)" );
@@ -1274,28 +1263,26 @@ namespace TJAPlayer3
 											else if ( str3.Equals( "WindowX" ) )        // #30675 2013.02.04 ikanick add
 											{
 												if (int.TryParse(str4, out int num))
-													this.n初期ウィンドウ開始位置X = num;
+													this.rcWindowPos.X = num;
 											}
 											else if ( str3.Equals( "WindowY" ) )        // #30675 2013.02.04 ikanick add
 											{
 												if (int.TryParse(str4, out int num))
-													this.n初期ウィンドウ開始位置Y = num;
+													this.rcWindowPos.Y = num;
 											}
 											else if ( str3.Equals( "WindowWidth" ) )		// #23510 2010.10.31 yyagi add
 											{
-												this.nウインドウwidth = str4.ToInt32(1, 65535, this.nウインドウwidth);
-												if( this.nウインドウwidth <= 0 )
-												{
-													this.nウインドウwidth = GameWindowSize.Width;
-												}
+												if (int.TryParse(str4, out int num))
+													this.rcWindowPos.Width = num;
+												if( this.rcWindowPos.Width <= 0 )
+													this.rcWindowPos.Width = GameWindowSize.Width;
 											}
 											else if( str3.Equals( "WindowHeight" ) )		// #23510 2010.10.31 yyagi add
 											{
-												this.nウインドウheight = str4.ToInt32(1, 65535, this.nウインドウheight);
-												if( this.nウインドウheight <= 0 )
-												{
-													this.nウインドウheight = GameWindowSize.Height;
-												}
+												if (int.TryParse(str4, out int num))
+													this.rcWindowPos.Height = num;
+												if( this.rcWindowPos.Height <= 0 )
+													this.rcWindowPos.Height = GameWindowSize.Height;
 											}
 											else if ( str3.Equals( "BackSleep" ) )				// #23568 2010.11.04 ikanick add
 											{
@@ -1358,10 +1345,6 @@ namespace TJAPlayer3
 											else if( str3.Equals( "BGAlpha" ) )
 											{
 												this.n背景の透過度 = str4.ToInt32(0, 0xff, this.n背景の透過度);
-											}
-											else if ( str3.Equals( "StageFailed" ) )
-											{
-												this.bSTAGEFAILED有効 = str4[0].ToBool();
 											}
 #region [ AVI/BGA ]
 											else if( str3.Equals( "AVI" ) )

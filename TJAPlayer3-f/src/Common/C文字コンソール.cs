@@ -38,18 +38,9 @@ namespace TJAPlayer3
 					else
 					{
 						int index = str表記可能文字.IndexOf( ch );
-						if( index < 0 )
-						{
-							x += nFontWidth;
-						}
-						else
-						{
-							if( this.txフォント8x16[ (int) ( (int) font / (int) EFontType.白細 ) ] != null )
-							{
-								this.txフォント8x16[ (int) ( (int) font / (int) EFontType.白細 ) ].t2D描画( TJAPlayer3.app.Device, x, y, this.rc文字の矩形領域[ (int) ( (int) font % (int) EFontType.白細 ), index ] );
-							}
-							x += nFontWidth;
-						}
+						if( index >= 0 )
+							this.txフォント8x16[ (int) ( (int) font / (int) EFontType.白細 ) ]?.t2D描画( TJAPlayer3.app.Device, x, y, this.rc文字の矩形領域[ (int) ( (int) font % (int) EFontType.白細 ), index ] );
+						x += nFontWidth;
 					}
 				}
 			}

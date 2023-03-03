@@ -226,7 +226,7 @@ namespace FDK
 		{
 			set
 			{
-				var dbVolume = ((value.ToDouble() / 100.0) + 1.0).Clamp(0, 1);
+				var dbVolume = Math.Clamp((value.ToDouble() / 100.0) + 1.0, 0, 1);
 				Bass.ChannelSetAttribute(this.hBassStream, ChannelAttribute.Volume, (float)dbVolume);
 			}
 		}

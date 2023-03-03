@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
+using System.Buffers;
 using System.IO;
 using System.Diagnostics;
 using System.Numerics;
@@ -31,7 +32,7 @@ namespace FDK
             }
             set
             {
-                this._opacity = value.Clamp(0, 0xff);
+                this._opacity = Math.Clamp(value, 0, 0xff);
                 SDL.SDL_SetTextureAlphaMod((IntPtr)this.texture, (byte)this._opacity);
             }
         }
@@ -126,7 +127,7 @@ namespace FDK
 
                 this.texture = SDL.SDL_CreateTexture(device.renderer, SDL.SDL_PIXELFORMAT_ABGR8888, (int)SDL.SDL_TextureAccess.SDL_TEXTUREACCESS_TARGET, bitmap.Width, bitmap.Height);
                 
-                Rgba32[] mem = new Rgba32[bitmap.Width * bitmap.Height];
+                Rgba32[] mem = ArrayPool<Rgba32>.Shared.Rent(bitmap.Width * bitmap.Height);
 
                 bitmap.CopyPixelDataTo(mem);
 
@@ -137,6 +138,8 @@ namespace FDK
 						SDL.SDL_UpdateTexture((IntPtr)this.texture, IntPtr.Zero, (IntPtr)ptr, bitmap.Width * 4);
 					}
                 }
+
+                ArrayPool<Rgba32>.Shared.Return(mem);
 
                 this.color = Color.FromArgb(255, 255, 255, 255);
                 this.eBlendMode = EBlendMode.Normal;

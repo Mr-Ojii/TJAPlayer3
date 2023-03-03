@@ -140,7 +140,6 @@ namespace TJAPlayer3
 				Drums.f譜面スクロール速度 = ( (float) ( TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer] + 1 ) ) * 0.1f;
 				Drums.n演奏速度分子 = TJAPlayer3.ConfigIni.n演奏速度;
 				Drums.n演奏速度分母 = 20;
-				Drums.bSTAGEFAILED有効 = TJAPlayer3.ConfigIni.bSTAGEFAILED有効;
 				Drums.b演奏にKeyBoardを使用した = this.b演奏にKeyBoardを使った;
 				Drums.b演奏にMIDIInputを使用した = this.b演奏にMIDIInputを使った;
 				Drums.b演奏にJoypadを使用した = this.b演奏にJoypadを使った;
@@ -2198,7 +2197,7 @@ namespace TJAPlayer3
 		{
 			int offset = (keyboard.bIsKeyDown((int)SlimDXKeys.Key.LeftControl) || keyboard.bIsKeyDown((int)SlimDXKeys.Key.RightControl)) ? plusminus : plusminus * 10;
 
-			TJAPlayer3.ConfigIni.nInputAdjustTimeMs = (TJAPlayer3.ConfigIni.nInputAdjustTimeMs + offset).Clamp(-99, 99);
+			TJAPlayer3.ConfigIni.nInputAdjustTimeMs = Math.Clamp(TJAPlayer3.ConfigIni.nInputAdjustTimeMs + offset, -99, 99);
 		}
 
 		protected bool tドラムヒット処理(long nHitTime, EPad type, CDTX.CChip pChip, bool b両手入力, int nPlayer)
@@ -4475,7 +4474,7 @@ namespace TJAPlayer3
 						nノート末端座標 = 0;
 					}
 				}
-				//2020.05.06 Mr-Ojii ここらへんから349って書いてあったところを　TJAPlayer3.Skin.nScrollFieldX[nPlayer] - 55に置き換えた。
+				//2020.05.06 Mr-Ojii ここらへんから349って書いてあったところを、TJAPlayer3.Skin.nScrollFieldX[nPlayer] - 55に置き換えた。
 				int x = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからの距離dot - 55;
 				int x末端 = TJAPlayer3.Skin.nScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot - 55;
 				int y = TJAPlayer3.Skin.nScrollFieldY[nPlayer];

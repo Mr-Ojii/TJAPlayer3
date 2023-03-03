@@ -48,49 +48,48 @@ namespace TJAPlayer3
 			// すべての入力デバイスについて…
 			foreach( IInputDevice device in this.rInputManager.listInputDevices )
 			{
-				if( ( device.listInputEvents != null ) && ( device.listInputEvents.Count != 0 ) )
+				if( ( device.listInputEvents == null ) || ( device.listInputEvents.Count == 0 ) )
+					continue;
+
+				foreach( STInputEvent event2 in device.listInputEvents )
 				{
-					foreach( STInputEvent event2 in device.listInputEvents )
+					for( int i = 0; i < stkeyassignArray.Length; i++ )
 					{
-						for( int i = 0; i < stkeyassignArray.Length; i++ )
+						switch( stkeyassignArray[ i ].入力デバイス )
 						{
-							switch( stkeyassignArray[ i ].入力デバイス )
-							{
-								case EInputDevice.KeyBoard:
-									if( ( device.eInputDeviceType == EInputDeviceType.Keyboard ) && ( event2.nKey == stkeyassignArray[ i ].Code ) )
-									{
-										list.Add( event2 );
-										this.stDetectedDevices.Keyboard = true;
-									}
-									break;
+							case EInputDevice.KeyBoard:
+								if( ( device.eInputDeviceType == EInputDeviceType.Keyboard ) && ( event2.nKey == stkeyassignArray[ i ].Code ) )
+								{
+									list.Add( event2 );
+									this.stDetectedDevices.Keyboard = true;
+								}
+								break;
 
-								case EInputDevice.MIDIInput:
-									if( ( ( device.eInputDeviceType == EInputDeviceType.MidiIn ) && ( device.ID == stkeyassignArray[ i ].ID ) ) && ( event2.nKey == stkeyassignArray[ i ].Code ) )
-									{
-										list.Add( event2 );
-										this.stDetectedDevices.MIDIIN = true;
-									}
-									break;
+							case EInputDevice.MIDIInput:
+								if( ( ( device.eInputDeviceType == EInputDeviceType.MidiIn ) && ( device.ID == stkeyassignArray[ i ].ID ) ) && ( event2.nKey == stkeyassignArray[ i ].Code ) )
+								{
+									list.Add( event2 );
+									this.stDetectedDevices.MIDIIN = true;
+								}
+								break;
 
-								case EInputDevice.Joypad:
-									if( ( ( device.eInputDeviceType == EInputDeviceType.Joystick ) && ( device.ID == stkeyassignArray[ i ].ID ) ) && ( event2.nKey == stkeyassignArray[ i ].Code ) )
-									{
-										list.Add( event2 );
-										this.stDetectedDevices.Joypad = true;
-									}
-									break;
+							case EInputDevice.Joypad:
+								if( ( ( device.eInputDeviceType == EInputDeviceType.Joystick ) && ( device.ID == stkeyassignArray[ i ].ID ) ) && ( event2.nKey == stkeyassignArray[ i ].Code ) )
+								{
+									list.Add( event2 );
+									this.stDetectedDevices.Joypad = true;
+								}
+								break;
 
-								case EInputDevice.Mouse:
-									if( ( device.eInputDeviceType == EInputDeviceType.Mouse ) && ( event2.nKey == stkeyassignArray[ i ].Code ) )
-									{
-										list.Add( event2 );
-										this.stDetectedDevices.Mouse = true;
-									}
-									break;
-							}
+							case EInputDevice.Mouse:
+								if( ( device.eInputDeviceType == EInputDeviceType.Mouse ) && ( event2.nKey == stkeyassignArray[ i ].Code ) )
+								{
+									list.Add( event2 );
+									this.stDetectedDevices.Mouse = true;
+								}
+								break;
 						}
 					}
-					continue;
 				}
 			}
 			return list;

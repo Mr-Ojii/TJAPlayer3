@@ -884,8 +884,6 @@ namespace TJAPlayer3
 		{
 			//2016.02.11 kairera0467
 			//なんだよこのクソ実装は(怒)
-			
-			Random rnd = TJAPlayer3.Random;
 
 			if (eRandom != ERandomMode.OFF)
 			{
@@ -922,7 +920,7 @@ namespace TJAPlayer3
 
 				foreach (var chip in this.listChip)
 				{
-					int n = rnd.Next(RandNum);
+					int n = Random.Shared.Next(RandNum);
 
 					if (n >= nMin && n <= nMax)
 					{
@@ -4928,7 +4926,7 @@ namespace TJAPlayer3
 			#endregion
 			else if (strCommandName.Equals("SONGVOL") && !string.IsNullOrEmpty(strCommandParam))
 			{
-				this.SongVol = Convert.ToInt32(strCommandParam).Clamp(CSound.MinimumSongVol, CSound.MaximumSongVol);
+				this.SongVol = Math.Clamp(Convert.ToInt32(strCommandParam), CSound.MinimumSongVol, CSound.MaximumSongVol);
 
 				foreach (var kvp in this.listWAV)
 				{

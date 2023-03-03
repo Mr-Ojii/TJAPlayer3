@@ -11,6 +11,7 @@ using System.IO;
 using System.Reflection;
 using System.Net.Http;
 using FDK;
+using SDL2;
 
 namespace TJAPlayer3
 {
@@ -25,28 +26,19 @@ namespace TJAPlayer3
 		[STAThread]
 		private static void Main()
 		{
-			mutex = new Mutex(false, "TJAPlayer3-f-Ver." + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+			mutex = new Mutex(false, "Global\\TJAPlayer3-f-Ver." + Assembly.GetExecutingAssembly().GetName().Version.ToString());
 
 			if (mutex.WaitOne(0, false))
             {
-
                 string osplatform = "";
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                {
+                if (OperatingSystem.IsWindows())
                     osplatform = "win";
-                }
-                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                {
+                else if (OperatingSystem.IsMacOS())
                     osplatform = "osx";
-                }
-                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                {
+                else if (OperatingSystem.IsLinux())
                     osplatform = "linux";
-                }
                 else
-                {
                     throw new PlatformNotSupportedException("TJAPlayer3-f does not support this OS.");
-                }
 
                 string platform = "";
 
@@ -68,11 +60,11 @@ namespace TJAPlayer3
                         throw new PlatformNotSupportedException($"TJAPlayer3-f does not support this Architecture. ({RuntimeInformation.ProcessArchitecture})");
                 }
 
-                FFmpeg.AutoGen.ffmpeg.RootPath = AppContext.BaseDirectory + @"ffmpeg/" + osplatform + "-" + platform + "/";
+                FFmpeg.AutoGen.ffmpeg.RootPath = AppContext.BaseDirectory + @"FFmpeg/" + osplatform + "-" + platform + "/";
 
-                DirectoryInfo info = new DirectoryInfo(AppContext.BaseDirectory + @"dll/" + osplatform + "-" + platform + "/");
+                DirectoryInfo info = new DirectoryInfo(AppContext.BaseDirectory + @"Libs/" + osplatform + "-" + platform + "/");
 
-                //exeの階層にdllをコピー
+                //実行ファイルの階層にライブラリをコピー
                 foreach (FileInfo fileinfo in info.GetFiles())
                 {
                     fileinfo.CopyTo(AppContext.BaseDirectory + fileinfo.Name, true);
@@ -180,8 +172,9 @@ namespace TJAPlayer3
 			}
 			else 
 			{
-				Console.WriteLine($"TJAPlayer3-f(Ver.{Assembly.GetExecutingAssembly().GetName().Version}) is already running.");
-				Thread.Sleep(2000);
+				string msg = $"TJAPlayer3-f(Ver.{Assembly.GetExecutingAssembly().GetName().Version}) is already running.";
+				if(SDL.SDL_ShowSimpleMessageBox(SDL.SDL_MessageBoxFlags.SDL_MESSAGEBOX_WARNING, "TJAPlayer3-f", msg, 0) != 0)
+					Console.WriteLine(msg);
 			}
 		}
 

@@ -55,38 +55,34 @@ namespace FDK
 		/// <para>WASAPI 排他モード出力における再生遅延[ms]（の希望値）。最終的にはこの数値を基にドライバが決定する）。</para>
 		/// <para>0以下の値を指定すると、この数値はWASAPI初期化時に自動設定する。正数を指定すると、その値を設定しようと試みる。</para>
 		/// </summary>
-		public static int SoundDelayExclusiveWASAPI = 0;        // SSTでは、50ms
+		private static int SoundDelayExclusiveWASAPI = 0;        // SSTでは、50ms
 		/// <summary>
 		/// <para>WASAPI 共有モード出力における再生遅延[ms]。ユーザが決定する。</para>
 		/// </summary>
-		public static int SoundDelaySharedWASAPI = 100;
+		private static int SoundDelaySharedWASAPI = 100;
 		/// <summary>
 		/// <para>排他WASAPIバッファの更新間隔。出力間隔ではないので注意。</para>
 		/// <para>→ 自動設定されるのでSoundDelay よりも小さい値であること。（小さすぎる場合はBASSによって自動修正される。）</para>
 		/// </summary>
-		public static int SoundUpdatePeriodExclusiveWASAPI = 6;
+		private static int SoundUpdatePeriodExclusiveWASAPI = 6;
 		/// <summary>
 		/// <para>共有WASAPIバッファの更新間隔。出力間隔ではないので注意。</para>
 		/// <para>SoundDelay よりも小さい値であること。（小さすぎる場合はBASSによって自動修正される。）</para>
 		/// </summary>
-		public static int SoundUpdatePeriodSharedWASAPI = 6;
+		private static int SoundUpdatePeriodSharedWASAPI = 6;
 		/// <summary>
 		/// <para>WASAPI BASS出力における再生遅延[ms]。ユーザが決定する。</para>
 		/// </summary>
-		public static int SoundDelayBASS = 15;
+		private static int SoundDelayBASS = 15;
 		/// <para>BASSバッファの更新間隔。出力間隔ではないので注意。</para>
 		/// <para>SoundDelay よりも小さい値であること。（小さすぎる場合はBASSによって自動修正される。）</para>
 		/// </summary>
-		public static int SoundUpdatePeriodBASS = 1;
-		///// <summary>
-		///// <para>ASIO 出力における再生遅延[ms]（の希望値）。最終的にはこの数値を基にドライバが決定する）。</para>
-		///// </summary>
-		//public static int SoundDelayASIO = 0;					// SSTでは50ms。0にすると、デバイスの設定値をそのまま使う。
+		private static int SoundUpdatePeriodBASS = 1;
 		/// <summary>
 		/// <para>ASIO 出力におけるバッファサイズ。</para>
 		/// </summary>
-		public static int SoundDelayASIO = 0;                       // 0にすると、デバイスの設定値をそのまま使う。
-		public static int ASIODevice = 0;
+		private static int SoundDelayASIO = 0;                       // 0にすると、デバイスの設定値をそのまま使う。
+		private static int ASIODevice = 0;
 
 		public long GetSoundDelay()
 		{
@@ -99,6 +95,8 @@ namespace FDK
 				return -1;
 			}
 		}
+
+		public float CPUUsage => (SoundDevice != null ? SoundDevice.CPUUsage : 0);
 
 		#endregion
 
@@ -142,25 +140,10 @@ namespace FDK
 				ESoundDeviceType.Unknown
 			};
 
-			int n初期デバイス;
-			switch (soundDeviceType)
-			{
-				case ESoundDeviceType.SharedWASAPI:
-					n初期デバイス = 0;
-					break;
-				case ESoundDeviceType.ExclusiveWASAPI:
-					n初期デバイス = 1;
-					break;
-				case ESoundDeviceType.ASIO:
-					n初期デバイス = 2;
-					break;
-				case ESoundDeviceType.BASS:
-					n初期デバイス = 3;
-					break;
-				default:
-					n初期デバイス = 4;
-					break;
-			}
+			int n初期デバイス = Array.IndexOf(ESoundDeviceTypes, soundDeviceType);
+			if(n初期デバイス < 0 || n初期デバイス > ESoundDeviceTypes.Length - 1)
+				n初期デバイス = ESoundDeviceTypes.Length - 1;
+
 			for (SoundDeviceType = ESoundDeviceTypes[n初期デバイス]; ; SoundDeviceType = ESoundDeviceTypes[++n初期デバイス])
 			{
 				try
@@ -255,11 +238,6 @@ namespace FDK
 				throw new Exception(string.Format("未対応の SoundDeviceType です。[{0}]", SoundDeviceType.ToString()));
 			}
 			return SoundDevice.tCreateSound(filename, soundGroup);
-		}
-
-		public float GetCPUusage()
-		{
-			return SoundDevice.CPUUsage;
 		}
 
 		public string GetCurrentSoundDeviceType()

@@ -143,10 +143,6 @@ namespace TJAPlayer3
 				"画面モード設定：\nON で全画面モード、OFF でウィンド\nウモードになります。",
 				"Fullscreen mode or window mode." );
 			this.list項目リスト.Add( this.iSystemFullscreen );
-			this.iSystemStageFailed = new CItemToggle( "StageFailed", TJAPlayer3.ConfigIni.bSTAGEFAILED有効,
-				"STAGE FAILED 有効：\nON にすると、ゲージがなくなった時\nに STAGE FAILED となり演奏が中断\nされます。OFF の場合は、ゲージが\nなくなっても最後まで演奏できます。",
-				"Turn OFF if you don't want to encount\n GAME OVER." );
-			this.list項目リスト.Add( this.iSystemStageFailed );
 			this.iSystemRandomFromSubBox = new CItemToggle( "RandSubBox", TJAPlayer3.ConfigIni.bランダムセレクトで子BOXを検索対象とする,
 				"子BOXをRANDOMの対象とする：\nON にすると、RANDOM SELECT 時\nに子BOXも選択対象とします。",
 				"Turn ON to use child BOX (subfolders)\n at RANDOM SELECT." );
@@ -1046,10 +1042,10 @@ namespace TJAPlayer3
 			this.ct三角矢印アニメ = new CCounter();
 
 			this.iSystemSoundType_initial			= this.iSystemSoundType.n現在選択されている項目番号;	// CONFIGに入ったときの値を保持しておく
-			 this.iSystemWASAPIBufferSizeMs_initial	= this.iSystemWASAPIBufferSizeMs.n現在の値;				// CONFIG脱出時にこの値から変更されているようなら
+			 this.iSystemWASAPIBufferSizeMs_initial	= this.iSystemWASAPIBufferSizeMs.nValue;				// CONFIG脱出時にこの値から変更されているようなら
 			// this.iSystemASIOBufferSizeMs_initial	= this.iSystemASIOBufferSizeMs.n現在の値;				// サウンドデバイスを再構築する
 			this.iSystemASIODevice_initial			= this.iSystemASIODevice.n現在選択されている項目番号;    //
-			this.iSystemBASSBufferSizeMs_initial = this.iSystemBASSBufferSizeMs.n現在の値;              // CONFIG脱出時にこの値から変更されているようなら
+			this.iSystemBASSBufferSizeMs_initial = this.iSystemBASSBufferSizeMs.nValue;              // CONFIG脱出時にこの値から変更されているようなら
 			this.iSystemSoundTimerType_initial      = this.iSystemSoundTimerType.GetIndex();				//
 			base.On活性化();
 		}
@@ -1075,10 +1071,10 @@ namespace TJAPlayer3
 			// #33689 2014.6.17 yyagi CONFIGでSoundTimerTypeの設定を変更した場合も、サウンドデバイスを再構築する。
 #region [ サウンドデバイス変更 ]
 			if ( this.iSystemSoundType_initial != this.iSystemSoundType.n現在選択されている項目番号 ||
-				 this.iSystemWASAPIBufferSizeMs_initial != this.iSystemWASAPIBufferSizeMs.n現在の値 ||
+				 this.iSystemWASAPIBufferSizeMs_initial != this.iSystemWASAPIBufferSizeMs.nValue ||
 				// this.iSystemASIOBufferSizeMs_initial != this.iSystemASIOBufferSizeMs.n現在の値 ||
 				this.iSystemASIODevice_initial != this.iSystemASIODevice.n現在選択されている項目番号 ||
-				 this.iSystemBASSBufferSizeMs_initial != this.iSystemBASSBufferSizeMs.n現在の値 ||
+				 this.iSystemBASSBufferSizeMs_initial != this.iSystemBASSBufferSizeMs.nValue ||
 				this.iSystemSoundTimerType_initial != this.iSystemSoundTimerType.GetIndex() )
 			{
 				ESoundDeviceType soundDeviceType;
@@ -1101,11 +1097,11 @@ namespace TJAPlayer3
 						break;
 				}
 				TJAPlayer3.SoundManager.tInitialize( soundDeviceType,
-										this.iSystemWASAPIBufferSizeMs.n現在の値,
+										this.iSystemWASAPIBufferSizeMs.nValue,
 										0,
-										// this.iSystemASIOBufferSizeMs.n現在の値,
+										// this.iSystemASIOBufferSizeMs.nValue,
 										this.iSystemASIODevice.n現在選択されている項目番号,
-										this.iSystemBASSBufferSizeMs.n現在の値,
+										this.iSystemBASSBufferSizeMs.nValue,
 										this.iSystemSoundTimerType.bON );
 				TJAPlayer3.app.ShowWindowTitleWithSoundType();
 				TJAPlayer3.Skin.ReloadSkin();//2020.07.07 Mr-Ojii 音声の再読み込みをすることによって、音量の初期化を防ぐ
@@ -1347,20 +1343,20 @@ namespace TJAPlayer3
 						//-----------------
 						if ( this.list項目リスト[ nItem ] == this.iCommonPlaySpeed )
 						{
-							double d = ( (double) ( (CItemInteger) this.list項目リスト[ nItem ] ).n現在の値 ) / 20.0;
+							double d = ( (double) ( (CItemInteger) this.list項目リスト[ nItem ] ).nValue ) / 20.0;
 							//CDTXMania.stageConfig.actFont.t文字列描画( x + 210, y + 12, d.ToString( "0.000" ), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
 							strParam = d.ToString( "0.000" );
 						}
 						else if ( this.list項目リスト[ nItem ] == this.iDrumsScrollSpeed1P || this.list項目リスト[nItem] == this.iDrumsScrollSpeed2P)
 						{
-							float f = ( ( (CItemInteger) this.list項目リスト[ nItem ] ).n現在の値 + 1 ) * 0.1f;
+							float f = ( ( (CItemInteger) this.list項目リスト[ nItem ] ).nValue + 1 ) * 0.1f;
 							//CDTXMania.stageConfig.actFont.t文字列描画( x + 210, y + 12, f.ToString( "x0.0" ), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
 							strParam = f.ToString( "x0.0" );
 						}
 						else
 						{
 							//CDTXMania.stageConfig.actFont.t文字列描画( x + 210, y + 12, ( (CItemInteger) this.list項目リスト[ nItem ] ).n現在の値.ToString(), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
-							strParam = ( (CItemInteger) this.list項目リスト[ nItem ] ).n現在の値.ToString();
+							strParam = ( (CItemInteger) this.list項目リスト[ nItem ] ).nValue.ToString();
 						}
 						b強調 = ( n行番号 == 0 ) && this.b要素値にフォーカス中;
 						break;
@@ -1517,7 +1513,6 @@ namespace TJAPlayer3
 		private CItemToggle iSystemRandomFromSubBox;
 		private CItemBase iSystemReturnToMenu;
 		private CItemToggle iSystemSaveScore;
-		private CItemToggle iSystemStageFailed;
 		private CItemToggle iSystemVSyncWait;
 		private CItemToggle SendDiscordPlayingInformation;
 		private CItemInteger iSystemRisky;					// #23559 2011.7.27 yyagi
@@ -1639,10 +1634,9 @@ namespace TJAPlayer3
 		private void tConfigIniへ記録する_System()
 		{
 			//CDTXMania.ConfigIni.eDark = (Eダークモード) this.iCommonDark.n現在選択されている項目番号;
-			TJAPlayer3.ConfigIni.n演奏速度 = this.iCommonPlaySpeed.n現在の値;
+			TJAPlayer3.ConfigIni.n演奏速度 = this.iCommonPlaySpeed.nValue;
 
 			TJAPlayer3.ConfigIni.b全画面モード = this.iSystemFullscreen.bON;
-			TJAPlayer3.ConfigIni.bSTAGEFAILED有効 = this.iSystemStageFailed.bON;
 			TJAPlayer3.ConfigIni.bランダムセレクトで子BOXを検索対象とする = this.iSystemRandomFromSubBox.bON;
 
 			//CDTXMania.ConfigIni.bWave再生位置自動調整機能有効 = this.iSystemAdjustWaves.bON;
@@ -1651,21 +1645,21 @@ namespace TJAPlayer3
 			TJAPlayer3.ConfigIni.bBGA有効 = this.iSystemBGA.bON;
 //			CDTXMania.ConfigIni.bGraph有効 = this.iSystemGraph.bON;#24074 2011.01.23 comment-out ikanick オプション(Drums)へ移行
 			TJAPlayer3.ConfigIni.b演奏情報を表示する = this.iSystemDebugInfo.bON;
-			TJAPlayer3.ConfigIni.n背景の透過度 = this.iSystemBGAlpha.n現在の値;
+			TJAPlayer3.ConfigIni.n背景の透過度 = this.iSystemBGAlpha.nValue;
 			TJAPlayer3.ConfigIni.bBGM音を発声する = this.iSystemBGMSound.bON;
 			//CDTXMania.ConfigIni.b歓声を発声する = this.iSystemAudienceSound.bON;
 			//CDTXMania.ConfigIni.eダメージレベル = (Eダメージレベル) this.iSystemDamageLevel.n現在選択されている項目番号;
 			TJAPlayer3.ConfigIni.bScoreIniを出力する = this.iSystemSaveScore.bON;
 
 			TJAPlayer3.ConfigIni.ApplyLoudnessMetadata = this.iSystemApplyLoudnessMetadata.bON;
-			TJAPlayer3.ConfigIni.TargetLoudness = this.iSystemTargetLoudness.n現在の値 / 10.0;
+			TJAPlayer3.ConfigIni.TargetLoudness = this.iSystemTargetLoudness.nValue / 10.0;
 			TJAPlayer3.ConfigIni.ApplySongVol = this.iSystemApplySongVol.bON;
-			TJAPlayer3.ConfigIni.SoundEffectLevel = this.iSystemSoundEffectLevel.n現在の値;
-			TJAPlayer3.ConfigIni.VoiceLevel = this.iSystemVoiceLevel.n現在の値;
-			TJAPlayer3.ConfigIni.SongPreviewLevel = this.iSystemSongPreviewLevel.n現在の値;
-			TJAPlayer3.ConfigIni.SongPlaybackLevel = this.iSystemSongPlaybackLevel.n現在の値;
-			TJAPlayer3.ConfigIni.KeyboardSoundLevelIncrement = this.iSystemKeyboardSoundLevelIncrement.n現在の値;
-			TJAPlayer3.ConfigIni.MusicPreTimeMs = this.MusicPreTimeMs.n現在の値;
+			TJAPlayer3.ConfigIni.SoundEffectLevel = this.iSystemSoundEffectLevel.nValue;
+			TJAPlayer3.ConfigIni.VoiceLevel = this.iSystemVoiceLevel.nValue;
+			TJAPlayer3.ConfigIni.SongPreviewLevel = this.iSystemSongPreviewLevel.nValue;
+			TJAPlayer3.ConfigIni.SongPlaybackLevel = this.iSystemSongPlaybackLevel.nValue;
+			TJAPlayer3.ConfigIni.KeyboardSoundLevelIncrement = this.iSystemKeyboardSoundLevelIncrement.nValue;
+			TJAPlayer3.ConfigIni.MusicPreTimeMs = this.MusicPreTimeMs.nValue;
 
 		TJAPlayer3.ConfigIni.bログ出力 = this.iLogOutputLog.bON;
 			//CDTXMania.ConfigIni.bストイックモード = this.iSystemStoicMode.bON;
@@ -1673,23 +1667,23 @@ namespace TJAPlayer3
 			//CDTXMania.ConfigIni.nShowLagType = this.iSystemShowLag.n現在選択されている項目番号;				// #25370 2011.6.3 yyagi
 			TJAPlayer3.ConfigIni.SendDiscordPlayingInformation = this.SendDiscordPlayingInformation.bON;
 
-			TJAPlayer3.ConfigIni.nRisky = this.iSystemRisky.n現在の値;										// #23559 2011.7.27 yyagi
+			TJAPlayer3.ConfigIni.nRisky = this.iSystemRisky.nValue;										// #23559 2011.7.27 yyagi
 
 			TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName = skinSubFolders[ nSkinIndex ];				// #28195 2012.5.2 yyagi
 			TJAPlayer3.Skin.SetCurrentSkinSubfolderFullName( TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName, true );
 
 			TJAPlayer3.ConfigIni.nSoundDeviceType = this.iSystemSoundType.n現在選択されている項目番号;		// #24820 2013.1.3 yyagi
-			TJAPlayer3.ConfigIni.nWASAPIBufferSizeMs = this.iSystemWASAPIBufferSizeMs.n現在の値;				// #24820 2013.1.15 yyagi
-//			CDTXMania.ConfigIni.nASIOBufferSizeMs = this.iSystemASIOBufferSizeMs.n現在の値;					// #24820 2013.1.3 yyagi
+			TJAPlayer3.ConfigIni.nWASAPIBufferSizeMs = this.iSystemWASAPIBufferSizeMs.nValue;				// #24820 2013.1.15 yyagi
+//			CDTXMania.ConfigIni.nASIOBufferSizeMs = this.iSystemASIOBufferSizeMs.nValue;					// #24820 2013.1.3 yyagi
 			TJAPlayer3.ConfigIni.nASIODevice = this.iSystemASIODevice.n現在選択されている項目番号;           // #24820 2013.1.17 yyagi
-			TJAPlayer3.ConfigIni.nBASSBufferSizeMs = this.iSystemBASSBufferSizeMs.n現在の値;                // 2021.3.18 Mr-Ojii
+			TJAPlayer3.ConfigIni.nBASSBufferSizeMs = this.iSystemBASSBufferSizeMs.nValue;                // 2021.3.18 Mr-Ojii
 			TJAPlayer3.ConfigIni.bUseOSTimer = this.iSystemSoundTimerType.bON;								// #33689 2014.6.17 yyagi
 
 			TJAPlayer3.ConfigIni.bTimeStretch = this.iSystemTimeStretch.bON;                                    // #23664 2013.2.24 yyagi
 			//Trace.TraceInformation( "saved" );
 			//Trace.TraceInformation( "Skin現在Current : " + CDTXMania.Skin.GetCurrentSkinSubfolderFullName(true) );
 			//Trace.TraceInformation( "Skin現在System  : " + CSkin.strSystemSkinSubfolderFullName );
-			//CDTXMania.ConfigIni.nMasterVolume = this.iSystemMasterVolume.n現在の値;							// #33700 2014.4.26 yyagi
+			//CDTXMania.ConfigIni.nMasterVolume = this.iSystemMasterVolume.nValue;							// #33700 2014.4.26 yyagi
 			//CDTXMania.ConfigIni.e判定表示優先度 = (EJudge表示優先度) this.iSystemJudgeDispPriority.n現在選択されている項目番号;
 			TJAPlayer3.ConfigIni.RandomPresence = this.iRandomPresence.bON;
 			TJAPlayer3.ConfigIni.ShowChara = this.ShowChara.bON;
@@ -1698,7 +1692,7 @@ namespace TJAPlayer3
 			TJAPlayer3.ConfigIni.ShowMob = this.ShowMob.bON;
 			TJAPlayer3.ConfigIni.ShowFooter = this.ShowFooter.bON;
 			TJAPlayer3.ConfigIni.ShowPuchiChara = this.ShowPuchiChara.bON;
-			TJAPlayer3.ConfigIni.nPlayerCount = this.iTaikoPlayerCount.n現在の値;
+			TJAPlayer3.ConfigIni.nPlayerCount = this.iTaikoPlayerCount.nValue;
 		}
 		private void tConfigIniへ記録する_Drums()
 		{
@@ -1708,8 +1702,8 @@ namespace TJAPlayer3
 #endif
 			TJAPlayer3.ConfigIni.bAuto先生の連打 = this.iTaikoAutoRoll.bON;
 
-			TJAPlayer3.ConfigIni.n譜面スクロール速度[0] = this.iDrumsScrollSpeed1P.n現在の値;
-			TJAPlayer3.ConfigIni.n譜面スクロール速度[1] = this.iDrumsScrollSpeed2P.n現在の値;
+			TJAPlayer3.ConfigIni.n譜面スクロール速度[0] = this.iDrumsScrollSpeed1P.nValue;
+			TJAPlayer3.ConfigIni.n譜面スクロール速度[1] = this.iDrumsScrollSpeed2P.nValue;
 			//CDTXMania.ConfigIni.bドラムコンボ表示 = this.iDrumsComboDisp.bON;
 			// "Sudden" || "Sud+Hid"
 			//CDTXMania.ConfigIni.bSudden.Drums = ( this.iDrumsSudHid.n現在選択されている項目番号 == 1 || this.iDrumsSudHid.n現在選択されている項目番号 == 3 ) ? true : false;
@@ -1722,10 +1716,10 @@ namespace TJAPlayer3
 			//CDTXMania.ConfigIni.判定文字表示位置.Drums = (EJudge文字表示位置) this.iDrumsPosition.n現在選択されている項目番号;
 			TJAPlayer3.ConfigIni.bTight = this.iDrumsTight.bON;
 
-			TJAPlayer3.ConfigIni.nInputAdjustTimeMs = this.iInputAdjustTimeMs.n現在の値;
+			TJAPlayer3.ConfigIni.nInputAdjustTimeMs = this.iInputAdjustTimeMs.nValue;
 
-			TJAPlayer3.ConfigIni.n表示可能な最小コンボ数 = this.iSystemMinComboDrums.n現在の値;
-			TJAPlayer3.ConfigIni.nRisky = this.iSystemRisky.n現在の値;						// #23559 2911.7.27 yyagi
+			TJAPlayer3.ConfigIni.n表示可能な最小コンボ数 = this.iSystemMinComboDrums.nValue;
+			TJAPlayer3.ConfigIni.nRisky = this.iSystemRisky.nValue;						// #23559 2911.7.27 yyagi
 			//CDTXMania.ConfigIni.e判定表示優先度.Drums = (EJudge表示優先度) this.iDrumsJudgeDispPriority.n現在選択されている項目番号;
 
 			TJAPlayer3.ConfigIni.bBranchGuide = this.iTaikoBranchGuide.bON;

@@ -1,5 +1,5 @@
 # TJAPlayer3-f
-最終更新日:2021/08/05(Mr-Ojii)
+最終更新日:2023/01/03(Mr-Ojii)
 
 このReadmeはTJAPlayer3のReadmeを基に作成いたしました。
 
@@ -35,7 +35,7 @@ TJAPlayer3-fを動画共有サイトやライブ配信サービス、ウェブサイトやブログ等でご利用
 ## TJAPlayer3-fの改造・再配布(二次配布)を行う場合について
 TJAPlayer3-f、デフォルトスキンはMITライセンスで制作されています。  
 MITライセンスのルールのもと、改造・再配布を行うことは自由ですが、**全て自己責任**でお願いします。  
-また、使用しているライブラリのライセンス上、**必ず**「Licenses」フォルダを同梱の上、改造・再配布をお願いします。  
+また、使用しているライブラリのライセンス上、**必ず**「ThirdPartyLicenses」フォルダを同梱の上、改造・再配布をお願いします。  
 外部スキンや、譜面パッケージを同梱する場合は、それぞれの制作者のルールや規約を守ってください。  
 これらにTJAPlayer3-fのライセンスは適用されません。
 
@@ -74,16 +74,13 @@ MITライセンスのルールのもと、改造・再配布を行うことは自由ですが、**全て自己責任*
 
 ## 推奨動作環境
 #### OS
-* Windows 8.1以降のWindows (x86,x64)
+* Windows 10以降のWindows (x86,x64)
 * macOS 10.15 "Catalina"以降のmacOS (x64)
-* デスクトップ環境構築済みの Linux ディストリビューション 最新安定版 (x64)
+* デスクトップ環境構築済みの Linux ディストリビューション 最新安定版 (x64, arm64)
 
 #### CPU
 * マルチスレッド対応
 * x86,x64の場合、SSE対応(BASS)
-
-#### GPU
-* OpenGL対応
 
 
 ## 実行方法
@@ -94,22 +91,6 @@ MITライセンスのルールのもと、改造・再配布を行うことは自由ですが、**全て自己責任*
 ダウンロード後、zipファイルを解凍し、フォルダ内に入っているTJAPlayer3-fを実行してください。
 
 ### Linux環境
-各種パッケージマネージャー  
-* apt
-  ```sh
-  sudo apt install freeglut3-dev
-  ```
-* dnf
-  ```sh
-  dnf install freeglut-devel
-  ```
-* pacman
-  ```sh
-  pacman -S freeglut
-  ```
-で、必要なパッケージをインストールしておき、　　
-(ここに記載がないパッケージマネージャーは自身で調べて、freeglut3をインストールしてください。)
-
 TJAPlayer3-fのダウンロードごとに、zipファイルを解凍し、  
 TJAPlayer3-fが存在するディレクトリをカレントディレクトリとしたターミナルで  
 ```sh
@@ -122,11 +103,11 @@ chmod +x TJAPlayer3-f.AppImage
 ## 開発環境(動作確認環境)
 #### OS
 * Windows 11(Ver.22H2) (x64)
+* macOS 12.6.2 (arm64)
 
 #### Editor
 * Visual Studio Community 2022
 * Visual Studio Code
-* Vim
 
 
 ## 開発体制について
@@ -164,6 +145,7 @@ masterブランチでほぼすべての開発を行います。
 |Ver.1.7.1.5|2021-07-29|使用する.NET用 BASSラッパーをManagedBassに変更                                          |
 |Ver.1.7.2.0|2021-11-12|.NET 6にフレームワークをアップデート                                                    |
 |Ver.1.8.0.0|2022-09-08|画面レンダラーをSDL2に変更,テキストレンダラーをSkiaSharpに変更                          |
+|Ver.1.8.1.0|2023-01-03|.NET 7にフレームワークをアップデート                                                    |
 
 
 ## デフォルトスキンについて
@@ -198,7 +180,6 @@ Fork元より使用しているライブラリ
 
 以下のライブラリを追加いたしました。
 * [ReadJEnc](https://github.com/hnx8/ReadJEnc)
-* [Json.NET](https://www.newtonsoft.com/json)
 * [FFmpeg.AutoGen](https://github.com/Ruslan-B/FFmpeg.AutoGen)
 * [SDL2](https://www.libsdl.org/)
 * [ppy/SDL2-CS](https://github.com/ppy/SDL2-CS)
@@ -215,7 +196,7 @@ Fork元より使用しているライブラリ
 
 
 ## FFmpegについて
-`TJAPlayer3-f`と同じフォルダに`ffmpeg`フォルダを作成し、  
+`TJAPlayer3-f`と同じフォルダに`FFmpeg`フォルダを作成し、  
 その中にOSとTJAPlayer3-fのアーキテクチャに対応したフォルダを作成し、
 `TJAPlayer3-f`のアーキテクチャに対応したFFmpeg 5.1バイナリ(Shared)を置くことにより、
 

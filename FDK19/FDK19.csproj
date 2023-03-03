@@ -1,11 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{BCD40908-F3E2-4707-BFAA-1DD99DF6357D}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <UseWindowsForms>false</UseWindowsForms>
 
     <AssemblyName>FDK</AssemblyName>
@@ -37,18 +37,18 @@
 
   <ItemGroup>
     <PackageReference Include="FFmpeg.AutoGen" Version="5.1.1" />
-    <PackageReference Include="managed-midi" Version="1.9.14" />
+    <PackageReference Include="managed-midi" Version="1.10.1" />
     <PackageReference Include="ManagedBass" Version="3.1.1" />
     <PackageReference Include="ManagedBass.Asio" Version="3.1.1" />
     <PackageReference Include="ManagedBass.Fx" Version="3.1.1" />
     <PackageReference Include="ManagedBass.Mix" Version="3.1.1" />
     <PackageReference Include="ManagedBass.Wasapi" Version="3.1.1" />
-    <PackageReference Include="ppy.SDL2-CS" Version="1.0.596-alpha" />
+    <PackageReference Include="ppy.SDL2-CS" Version="1.0.630-alpha" />
     <PackageReference Include="ReadJEnc" Version="1.3.1.2" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="2.1.3" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.0.0" />
     <PackageReference Include="SkiaSharp" Version="2.88.3" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.3" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup Label="Resources">
     <EmbeddedResource Include="mplus-1p-medium.ttf" />

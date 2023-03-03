@@ -156,16 +156,12 @@ namespace TJAPlayer3
 		{
 			List<C曲リストノード> songList = GetSongListWithinMe(this.r現在選択中の曲);
 			if (songList == null)
-			{
-				// 何もしない;
-			}
-			else
-			{
-				//				CDTXMania.SongsManager.t曲リストのソート3_演奏回数の多い順( songList, eInst, order );
-				sf(songList, order, p);
-				//				this.r現在選択中の曲 = CDTXMania
-				this.t現在選択中の曲を元に曲バーを再構成する();
-			}
+				return;
+
+			//				CDTXMania.SongsManager.t曲リストのソート3_演奏回数の多い順( songList, eInst, order );
+			sf(songList, order, p);
+			//				this.r現在選択中の曲 = CDTXMania
+			this.t現在選択中の曲を元に曲バーを再構成する();
 		}
 
 		public void RandomSelect(C曲リストノード c曲) {
@@ -217,7 +213,7 @@ namespace TJAPlayer3
 				for (int index = 0; index < list.Count; index++) {
 					if (this.r現在選択中の曲.list子リスト.Contains(list[index]))
 					{
-						list.RemoveAt(index); 
+						list.RemoveAt(index);
 						index--;
 					}
 

@@ -470,7 +470,5 @@ namespace TJAPlayer3
 		protected CCounter ct炎;
 		protected CCounter ct虹アニメ;
 		protected CCounter ct虹透明度;
-		protected CTexture[] txゲージ虹 = new CTexture[ 12 ];
-		protected CTexture[] txゲージ虹2P = new CTexture[ 12 ];
 	}
-}　
+}

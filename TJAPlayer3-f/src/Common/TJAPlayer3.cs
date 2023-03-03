@@ -119,11 +119,6 @@ namespace TJAPlayer3
 			get;
 			private set;
 		}
-		public static Random Random
-		{
-			get;
-			private set;
-		}
 		public static CSkin Skin
 		{
 			get;
@@ -188,7 +183,7 @@ namespace TJAPlayer3
 			get;
 			private set;
 		}
-		public static CStage曲読み込み stage曲読み込み
+		public static CStageSongLoading stageSongLoading
 		{
 			get;
 			private set;
@@ -292,8 +287,8 @@ namespace TJAPlayer3
 				if (ConfigIni.bウィンドウモード == false)   // #23510 2010.10.27 yyagi: backup current window size before going fullscreen mode
 				{
 					currentClientSize = this.ClientSize;
-					ConfigIni.nウインドウwidth = this.ClientSize.Width;
-					ConfigIni.nウインドウheight = this.ClientSize.Height;
+					ConfigIni.rcWindowPos.Width = this.ClientSize.Width;
+					ConfigIni.rcWindowPos.Height = this.ClientSize.Height;
 					//					FDK.CTaskBar.ShowTaskBar( false );
 				}
 				this.WindowState = ConfigIni.bウィンドウモード ? FDK.Windowing.WindowState.Normal : FDK.Windowing.WindowState.FullScreen_Desktop;
@@ -589,9 +584,9 @@ namespace TJAPlayer3
 								r現在のステージ.On非活性化();
 								Trace.TraceInformation("----------------------");
 								Trace.TraceInformation("■ 曲読み込み");
-								stage曲読み込み.On活性化();
+								stageSongLoading.On活性化();
 								r直前のステージ = r現在のステージ;
-								r現在のステージ = stage曲読み込み;
+								r現在のステージ = stageSongLoading;
 
 								this.tガベージコレクションを実行する();
 								break;
@@ -691,9 +686,9 @@ namespace TJAPlayer3
 								DTX[0].t全チップの再生停止();
 								DTX[0].On非活性化();
 								r現在のステージ.On非活性化();
-								stage曲読み込み.On活性化();
+								stageSongLoading.On活性化();
 								r直前のステージ = r現在のステージ;
-								r現在のステージ = stage曲読み込み;
+								r現在のステージ = stageSongLoading;
 								this.tガベージコレクションを実行する();
 								break;
 							#endregion
@@ -1158,16 +1153,16 @@ namespace TJAPlayer3
 
 #region [ ウィンドウ初期化 ]
 			//---------------------
-			base.Location = new Point(ConfigIni.n初期ウィンドウ開始位置X, ConfigIni.n初期ウィンドウ開始位置Y);   // #30675 2013.02.04 ikanick add
+			base.Location = new Point(ConfigIni.rcWindowPos.X, ConfigIni.rcWindowPos.Y);   // #30675 2013.02.04 ikanick add
 
 
 			base.Title = "";
 
-			base.ClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);   // #34510 yyagi 2010.10.31 to change window size got from Config.ini
+			base.ClientSize = new Size(ConfigIni.rcWindowPos.Width, ConfigIni.rcWindowPos.Height);   // #34510 yyagi 2010.10.31 to change window size got from Config.ini
 
 			if (!ConfigIni.bウィンドウモード)                       // #23510 2010.11.02 yyagi: add; to recover window size in case bootup with fullscreen mode
 			{                                                       // #30666 2013.02.02 yyagi: currentClientSize should be always made
-				currentClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);
+				currentClientSize = new Size(ConfigIni.rcWindowPos.Width, ConfigIni.rcWindowPos.Height);
 			}
 
 			base.Icon = Assembly.GetExecutingAssembly().GetManifestResourceStream("TJAPlayer3.TJAPlayer3-f.ico");
@@ -1180,7 +1175,7 @@ namespace TJAPlayer3
 			//---------------------
 			this.WindowState = ConfigIni.bウィンドウモード ? FDK.Windowing.WindowState.Normal : FDK.Windowing.WindowState.FullScreen;
 			this.VSync = ConfigIni.b垂直帰線待ちを行う;
-			base.ClientSize = new Size(ConfigIni.nウインドウwidth, ConfigIni.nウインドウheight);   // #23510 2010.10.31 yyagi: to recover window size. width and height are able to get from Config.ini.
+			base.ClientSize = new Size(ConfigIni.rcWindowPos.Width, ConfigIni.rcWindowPos.Height);   // #23510 2010.10.31 yyagi: to recover window size. width and height are able to get from Config.ini.
 			//---------------------
 #endregion
 
@@ -1414,11 +1409,6 @@ namespace TJAPlayer3
 			}
 			//---------------------
 #endregion
-#region [ Random の初期化 ]
-			//---------------------
-			Random = new Random((int)Timer.nシステム時刻ms);
-			//---------------------
-#endregion
 #region [ ステージの初期化 ]
 			//---------------------
 			r現在のステージ = null;
@@ -1428,7 +1418,7 @@ namespace TJAPlayer3
 			//			stageオプション = new CStageオプション();
 			stageConfig = new CStageConfig();
 			stage選曲 = new CStage選曲();
-			stage曲読み込み = new CStage曲読み込み();
+			stageSongLoading = new CStageSongLoading();
 			stage演奏ドラム画面 = new CStage演奏画面共通();
 			stageResult = new CStageResult();
 			stageChangeSkin = new CStageChangeSkin();
@@ -1442,7 +1432,7 @@ namespace TJAPlayer3
 			//			this.listトップレベルActivities.Add( stageオプション );
 			this.listトップレベルActivities.Add(stageConfig);
 			this.listトップレベルActivities.Add(stage選曲);
-			this.listトップレベルActivities.Add(stage曲読み込み);
+			this.listトップレベルActivities.Add(stageSongLoading);
 			this.listトップレベルActivities.Add(stage演奏ドラム画面);
 			this.listトップレベルActivities.Add(stageResult);
 			this.listトップレベルActivities.Add(stageChangeSkin);
@@ -1498,14 +1488,6 @@ namespace TJAPlayer3
 			string delay = "(" + SoundManager.GetSoundDelay() + "ms)";
 			AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
 			base.Title = asmApp.Name + " Ver." + VERSION + " (" + SoundManager.GetCurrentSoundDeviceType() + delay + ")";
-		}
-
-		public void ChangeWindowTitle(string Name, bool StringInitialize = true, bool Concat = true) {
-			if(StringInitialize)
-				this.ShowWindowTitleWithSoundType();
-			if (Concat)
-				Name = base.Title + Name;
-			base.Title = Name;
 		}
 
 		private void t終了処理()
@@ -1864,12 +1846,12 @@ namespace TJAPlayer3
 		{
 			if (ConfigIni.bウィンドウモード)
 			{
-				ConfigIni.n初期ウィンドウ開始位置X = this.X;   // #30675 2013.02.04 ikanick add
-				ConfigIni.n初期ウィンドウ開始位置Y = this.Y;   //
+				ConfigIni.rcWindowPos.X = this.X;   // #30675 2013.02.04 ikanick add
+				ConfigIni.rcWindowPos.Y = this.Y;   //
 			}
 
-			ConfigIni.nウインドウwidth = (ConfigIni.bウィンドウモード) ? this.ClientWidth : currentClientSize.Width;    // #23510 2010.10.31 yyagi add
-			ConfigIni.nウインドウheight = (ConfigIni.bウィンドウモード) ? this.ClientHeight : currentClientSize.Height;
+			ConfigIni.rcWindowPos.Width = (ConfigIni.bウィンドウモード) ? this.ClientWidth : currentClientSize.Width;    // #23510 2010.10.31 yyagi add
+			ConfigIni.rcWindowPos.Height = (ConfigIni.bウィンドウモード) ? this.ClientHeight : currentClientSize.Height;
 		}
 
 #endregion

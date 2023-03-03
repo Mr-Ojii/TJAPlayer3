@@ -11,8 +11,8 @@ namespace TJAPlayer3
 	{
 		// プロパティ
 
-		public int n現在の値;
-		public bool b値がフォーカスされている;
+		public int nValue;
+		public bool bIsFocused;
 
 
 		// コンストラクタ
@@ -22,8 +22,8 @@ namespace TJAPlayer3
 			base.eItemType = CItemBase.EItemType.Integer;
 			this.nMin = 0;
 			this.nMax = 0;
-			this.n現在の値 = 0;
-			this.b値がフォーカスされている = false;
+			this.nValue = 0;
+			this.bIsFocused = false;
 		}
 		public CItemInteger( string strName, int nMin, int nMax, int nDefaultNum )
 			: this()
@@ -43,20 +43,20 @@ namespace TJAPlayer3
 
 		public override void tPushedEnter()
 		{
-			this.b値がフォーカスされている = !this.b値がフォーカスされている;
+			this.bIsFocused = !this.bIsFocused;
 		}
 		public override void tMoveItemValueToNext()
 		{
-			if( ++this.n現在の値 > this.nMax )
+			if( ++this.nValue > this.nMax )
 			{
-				this.n現在の値 = this.nMax;
+				this.nValue = this.nMax;
 			}
 		}
 		public override void tMoveItemValueToForward()
 		{
-			if( --this.n現在の値 < this.nMin )
+			if( --this.nValue < this.nMin )
 			{
-				this.n現在の値 = this.nMin;
+				this.nValue = this.nMin;
 			}
 		}
 	
@@ -71,20 +71,20 @@ namespace TJAPlayer3
 			base.tInitialize(strName, strDescriptionJP, strDescriptionEN);
 			this.nMin = nMin;
 			this.nMax = nMax;
-			this.n現在の値 = nDefaultNum;
-			this.b値がフォーカスされている = false;
+			this.nValue = nDefaultNum;
+			this.bIsFocused = false;
 		}
 		public override object objValue()
 		{
-			return this.n現在の値;
+			return this.nValue;
 		}
 		public override int GetIndex()
 		{
-			return this.n現在の値;
+			return this.nValue;
 		}
 		public override void SetIndex( int index )
 		{
-			this.n現在の値 = index;
+			this.nValue = index;
 		}
 		// その他
 

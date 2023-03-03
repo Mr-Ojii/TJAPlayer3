@@ -516,16 +516,12 @@ namespace TJAPlayer3
 			}
 		}
 
-		public int nStrジャンルtoNum(string strジャンル)
+		public int nStrジャンルtoNum(string strGenre)
 		{
-			if (this.GenreKeyPairs.ContainsKey(strジャンル))
-			{
-				return (this.GenreKeyPairs[strジャンル] + 1);
-			}
+			if (this.GenreKeyPairs.TryGetValue(strGenre, out int num))
+				return (num + 1);
 			else
-			{
 				return 0;
-			}
 		}
 
 		/// <summary>
