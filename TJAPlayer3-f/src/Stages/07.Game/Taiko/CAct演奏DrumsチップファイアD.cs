@@ -165,7 +165,7 @@ namespace TJAPlayer3
 										float f倍率 = 0.5f + ( (this.st状態_大[ i ].ct進行.n現在の値 * 0.5f) / 10.0f);
 
 										TJAPlayer3.Tx.Effects_Hit_Explosion_Big.Opacity = 255;
-										TJAPlayer3.Tx.Effects_Hit_Explosion_Big.vcScaling = new Vector3( f倍率 );
+										TJAPlayer3.Tx.Effects_Hit_Explosion_Big.vcScaling = new Vector2( f倍率 );
 										TJAPlayer3.Tx.Effects_Hit_Explosion_Big.t2D拡大率考慮描画( TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.nScrollFieldX[this.st状態_大[i].nPlayer], TJAPlayer3.Skin.nJudgePointY[this.st状態[i].nPlayer] );
 									}
 									break;

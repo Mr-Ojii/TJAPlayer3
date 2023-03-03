@@ -74,7 +74,7 @@ namespace FDK
                 }
             }
         }
-        public Vector3 vcScaling;
+        public Vector2 vcScaling;
 
         // コンストラクタ
 
@@ -84,7 +84,7 @@ namespace FDK
             this.texture = null;
             this.bTextureDisposed = true;
             this.fRotation = 0f;
-            this.vcScaling = new Vector3(1f, 1f, 1f);
+            this.vcScaling = new Vector2(1f, 1f);
             this.filename = "";
         }
 
