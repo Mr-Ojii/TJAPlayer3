@@ -1151,672 +1151,636 @@ namespace TJAPlayer3
 			foreach ( string s in strSingleLine )
 			{
 				string str = s.Replace( '\t', ' ' ).TrimStart( new char[] { '\t', ' ' } );
-				if ( ( str.Length != 0 ) && ( str[ 0 ] != ';' ) )
+				if (str.Length == 0 || str[0] == ';')
+					continue;
+
+				try
 				{
-					try
+					string str3;
+					string str4;
+					if ( str[ 0 ] == '[' )
 					{
-						string str3;
-						string str4;
-						if ( str[ 0 ] == '[' )
-						{
 #region [ セクションの変更 ]
-							//-----------------------------
-							StringBuilder builder = new StringBuilder( 0x20 );
-							int num = 1;
-							while ( ( num < str.Length ) && ( str[ num ] != ']' ) )
-							{
-								builder.Append( str[ num++ ] );
-							}
-							string str2 = builder.ToString();
-							if ( str2.Equals( "System" ) )
-							{
-								unknown = Eセクション種別.System;
-							}
-							else if (str2.Equals("AutoPlay"))
-							{
-								unknown = Eセクション種別.AutoPlay;
-							}
-							else if (str2.Equals("HitRange"))
-							{
-								unknown = Eセクション種別.HitRange;
-							}
-							else if ( str2.Equals( "Log" ) )
-							{
-								unknown = Eセクション種別.Log;
-							}
-							else if ( str2.Equals( "PlayOption" ) )
-							{
-								unknown = Eセクション種別.PlayOption;
-							}
-							else if ( str2.Equals( "GUID" ) )
-							{
-								unknown = Eセクション種別.GUID;
-							}
-							else if ( str2.Equals( "DrumsKeyAssign" ) )
-							{
-								unknown = Eセクション種別.DrumsKeyAssign;
-							}
-							else if ( str2.Equals( "SystemKeyAssign" ) )
-							{
-								unknown = Eセクション種別.SystemKeyAssign;
-							}
-							else if( str2.Equals( "Temp" ) )
-							{
-								unknown = Eセクション種別.Temp;
-							}
-							else
-							{
-								unknown = Eセクション種別.Unknown;
-							}
-							//-----------------------------
-#endregion
-						}
+						//-----------------------------
+						int index = str.IndexOf(']');
+						string str2;
+						if (index >= 0)
+							str2 = str.Substring(1, index - 1);
 						else
+							str2 = str.Substring(1);
+
+						if ( Enum.TryParse(typeof(Eセクション種別), str2, out var eType) )
+							unknown = (Eセクション種別)eType;
+						else
+							unknown = Eセクション種別.Unknown;
+						//-----------------------------
+#endregion
+					}
+					else
+					{
+						string[] strArray = str.Split( new char[] { '=' } );
+						if( strArray.Length == 2 )
 						{
-							string[] strArray = str.Split( new char[] { '=' } );
-							if( strArray.Length == 2 )
+							str3 = strArray[ 0 ].Trim();
+							str4 = strArray[ 1 ].Trim();
+							switch( unknown )
 							{
-								str3 = strArray[ 0 ].Trim();
-								str4 = strArray[ 1 ].Trim();
-								switch( unknown )
-								{
 #region [ [System] ]
-									//-----------------------------
-									case Eセクション種別.System:
-										{
+								//-----------------------------
+								case Eセクション種別.System:
+									{
 #region [ Version ]
-											if ( str3.Equals( "Version" ) )
-											{
-												this.strDTXManiaのバージョン = str4;
-											}
+										if ( str3.Equals( "Version" ) )
+										{
+											this.strDTXManiaのバージョン = str4;
+										}
 #endregion
 #region [ TJAPath ]
-											else if( str3.Equals( "TJAPath" ) )
-											{
-												this.str曲データ検索パス = str4;
-											}
+										else if( str3.Equals( "TJAPath" ) )
+										{
+											this.str曲データ検索パス = str4;
+										}
 #endregion
 #region [ skin関係 ]
-											else if ( str3.Equals( "SkinPath" ) )
+										else if ( str3.Equals( "SkinPath" ) )
+										{
+											string absSkinPath = str4;
+											if ( !System.IO.Path.IsPathRooted( str4 ) )
 											{
-												string absSkinPath = str4;
-												if ( !System.IO.Path.IsPathRooted( str4 ) )
-												{
-													absSkinPath = System.IO.Path.Combine( TJAPlayer3.strEXEのあるフォルダ, "System" );
-													absSkinPath = System.IO.Path.Combine( absSkinPath, str4 );
-													Uri u = new Uri( absSkinPath );
-													absSkinPath = u.AbsolutePath.ToString();	// str4内に相対パスがある場合に備える
-													absSkinPath = System.Web.HttpUtility.UrlDecode( absSkinPath );						// デコードする
-												}
-												if ( absSkinPath[ absSkinPath.Length - 1 ] != '/' )	// フォルダ名末尾に\を必ずつけて、CSkin側と表記を統一する
-												{
-													absSkinPath += '/';
-												}
-												this.strSystemSkinSubfolderFullName = absSkinPath;
+												absSkinPath = System.IO.Path.Combine( TJAPlayer3.strEXEのあるフォルダ, "System" );
+												absSkinPath = System.IO.Path.Combine( absSkinPath, str4 );
+												Uri u = new Uri( absSkinPath );
+												absSkinPath = u.AbsolutePath.ToString();	// str4内に相対パスがある場合に備える
+												absSkinPath = System.Web.HttpUtility.UrlDecode( absSkinPath );						// デコードする
 											}
+											if ( absSkinPath[ absSkinPath.Length - 1 ] != '/' )	// フォルダ名末尾に\を必ずつけて、CSkin側と表記を統一する
+											{
+												absSkinPath += '/';
+											}
+											this.strSystemSkinSubfolderFullName = absSkinPath;
+										}
 #endregion
 #region [ Window関係 ]
-											else if (str3.Equals("FullScreen"))
-											{
-												this.b全画面モード = str4[0].ToBool();
-											}
-											else if ( str3.Equals( "WindowX" ) )        // #30675 2013.02.04 ikanick add
-											{
-												if (int.TryParse(str4, out int num))
-													this.rcWindowPos.X = num;
-											}
-											else if ( str3.Equals( "WindowY" ) )        // #30675 2013.02.04 ikanick add
-											{
-												if (int.TryParse(str4, out int num))
-													this.rcWindowPos.Y = num;
-											}
-											else if ( str3.Equals( "WindowWidth" ) )		// #23510 2010.10.31 yyagi add
-											{
-												if (int.TryParse(str4, out int num))
-													this.rcWindowPos.Width = num;
-												if( this.rcWindowPos.Width <= 0 )
-													this.rcWindowPos.Width = GameWindowSize.Width;
-											}
-											else if( str3.Equals( "WindowHeight" ) )		// #23510 2010.10.31 yyagi add
-											{
-												if (int.TryParse(str4, out int num))
-													this.rcWindowPos.Height = num;
-												if( this.rcWindowPos.Height <= 0 )
-													this.rcWindowPos.Height = GameWindowSize.Height;
-											}
-											else if ( str3.Equals( "BackSleep" ) )				// #23568 2010.11.04 ikanick add
-											{
-												this.n非フォーカス時スリープms = str4.ToInt32(0, 50, this.n非フォーカス時スリープms);
-											}
+										else if (str3.Equals("FullScreen"))
+										{
+											this.b全画面モード = str4[0].ToBool();
+										}
+										else if ( str3.Equals( "WindowX" ) )        // #30675 2013.02.04 ikanick add
+										{
+											if (int.TryParse(str4, out int num))
+												this.rcWindowPos.X = num;
+										}
+										else if ( str3.Equals( "WindowY" ) )        // #30675 2013.02.04 ikanick add
+										{
+											if (int.TryParse(str4, out int num))
+												this.rcWindowPos.Y = num;
+										}
+										else if ( str3.Equals( "WindowWidth" ) )		// #23510 2010.10.31 yyagi add
+										{
+											if (int.TryParse(str4, out int num))
+												this.rcWindowPos.Width = num;
+											if( this.rcWindowPos.Width <= 0 )
+												this.rcWindowPos.Width = GameWindowSize.Width;
+										}
+										else if( str3.Equals( "WindowHeight" ) )		// #23510 2010.10.31 yyagi add
+										{
+											if (int.TryParse(str4, out int num))
+												this.rcWindowPos.Height = num;
+											if( this.rcWindowPos.Height <= 0 )
+												this.rcWindowPos.Height = GameWindowSize.Height;
+										}
+										else if ( str3.Equals( "BackSleep" ) )				// #23568 2010.11.04 ikanick add
+										{
+											this.n非フォーカス時スリープms = str4.ToInt32(0, 50, this.n非フォーカス時スリープms);
+										}
 #endregion
 
 #region [ WASAPI/ASIO関係 ]
-											else if ( str3.Equals( "SoundDeviceType" ) )
-											{
-												this.nSoundDeviceType = str4.ToInt32(0, 3, this.nSoundDeviceType);
-											}
-											else if ( str3.Equals( "WASAPIBufferSizeMs" ) )
-											{
-												this.nWASAPIBufferSizeMs = str4.ToInt32(0, 9999, this.nWASAPIBufferSizeMs);
-											}
-											else if ( str3.Equals( "ASIODevice" ) )
-											{
-												string[] asiodev = CEnumerateAllAsioDevices.GetAllASIODevices();
-												this.nASIODevice = str4.ToInt32(0, asiodev.Length - 1, this.nASIODevice);
-											}
-											//else if ( str3.Equals( "ASIOBufferSizeMs" ) )
-											//{
-											//    this.nASIOBufferSizeMs = CConvert.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, 0, 9999, this.nASIOBufferSizeMs );
-											//}
-											//else if ( str3.Equals( "DynamicBassMixerManagement" ) )
-											//{
-											//    this.bDynamicBassMixerManagement = str4[0].ToBool();
-											//}
-											else if (str3.Equals("BASSBufferSizeMs"))
-											{
-												this.nBASSBufferSizeMs = str4.ToInt32(0, 9999, this.nBASSBufferSizeMs);
-											}
-											else if ( str3.Equals( "SoundTimerType" ) )			// #33689 2014.6.6 yyagi
-											{
-												this.bUseOSTimer = str4[0].ToBool();
-											}
-											//else if ( str3.Equals( "MasterVolume" ) )
-											//{
-											//    this.nMasterVolume = CConvert.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, 0, 100, this.nMasterVolume );
-											//}
+										else if ( str3.Equals( "SoundDeviceType" ) )
+										{
+											this.nSoundDeviceType = str4.ToInt32(0, 3, this.nSoundDeviceType);
+										}
+										else if ( str3.Equals( "WASAPIBufferSizeMs" ) )
+										{
+											this.nWASAPIBufferSizeMs = str4.ToInt32(0, 9999, this.nWASAPIBufferSizeMs);
+										}
+										else if ( str3.Equals( "ASIODevice" ) )
+										{
+											string[] asiodev = CEnumerateAllAsioDevices.GetAllASIODevices();
+											this.nASIODevice = str4.ToInt32(0, asiodev.Length - 1, this.nASIODevice);
+										}
+										//else if ( str3.Equals( "ASIOBufferSizeMs" ) )
+										//{
+										//    this.nASIOBufferSizeMs = CConvert.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, 0, 9999, this.nASIOBufferSizeMs );
+										//}
+										//else if ( str3.Equals( "DynamicBassMixerManagement" ) )
+										//{
+										//    this.bDynamicBassMixerManagement = str4[0].ToBool();
+										//}
+										else if (str3.Equals("BASSBufferSizeMs"))
+										{
+											this.nBASSBufferSizeMs = str4.ToInt32(0, 9999, this.nBASSBufferSizeMs);
+										}
+										else if ( str3.Equals( "SoundTimerType" ) )			// #33689 2014.6.6 yyagi
+										{
+											this.bUseOSTimer = str4[0].ToBool();
+										}
+										//else if ( str3.Equals( "MasterVolume" ) )
+										//{
+										//    this.nMasterVolume = CConvert.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, 0, 100, this.nMasterVolume );
+										//}
 #endregion
 
 #region [ フォント ]
-											else if (str3.Equals("FontName"))
-											{
-												this.FontName = str4;
-												this.FontNamed = str4;
-											}
-#endregion
-
-											else if ( str3.Equals( "VSyncWait" ) )
-											{
-												this.b垂直帰線待ちを行う = str4[0].ToBool();
-											}
-											else if( str3.Equals( "SleepTimePerFrame" ) )		// #23568 2011.11.27 yyagi
-											{
-												this.nフレーム毎スリープms = str4.ToInt32(-1, 50, this.nフレーム毎スリープms);
-											}
-											else if( str3.Equals( "BGAlpha" ) )
-											{
-												this.n背景の透過度 = str4.ToInt32(0, 0xff, this.n背景の透過度);
-											}
-#region [ AVI/BGA ]
-											else if( str3.Equals( "AVI" ) )
-											{
-												this.bAVI有効 = str4[0].ToBool();
-											}
-											else if( str3.Equals( "BGA" ) )
-											{
-												this.bBGA有効 = str4[0].ToBool();
-											}
-											else if( str3.Equals( "ClipDispType" ) )
-											{
-												this.eClipDispType = (EClipDispType)str4.ToInt32(0, 3, (int) this.eClipDispType);
-											}
-#endregion
-											//else if( str3.Equals( "AdjustWaves" ) )
-											//{
-											//	this.bWave再生位置自動調整機能有効 = str4[0].ToBool();
-											//}
-#region [ BGM/ドラムのヒット音 ]
-											else if( str3.Equals( "BGMSound" ) )
-											{
-												this.bBGM音を発声する = str4[0].ToBool();
-											}
-#endregion
-											else if( str3.Equals( "SaveScoreIni" ) )
-											{
-												this.bScoreIniを出力する = str4[0].ToBool();
-											}
-											else if( str3.Equals( "RandomFromSubBox" ) )
-											{
-												this.bランダムセレクトで子BOXを検索対象とする = str4[0].ToBool();
-											}
-#region [ コンボ数 ]
-											else if( str3.Equals( "MinComboDrums" ) )
-											{
-												this.n表示可能な最小コンボ数 = str4.ToInt32(1, 0x1869f, this.n表示可能な最小コンボ数);
-											}
-#endregion
-											else if( str3.Equals( "ShowDebugStatus" ) )
-											{
-												this.b演奏情報を表示する = str4[0].ToBool();
-											}
-											else if( str3.Equals( nameof(ApplyLoudnessMetadata) ) )
-											{
-												this.ApplyLoudnessMetadata = str4[0].ToBool();
-											}
-											else if( str3.Equals( nameof(TargetLoudness) ) )
-											{
-												this.TargetLoudness = str4.ToDouble(CSound.MinimumLufs.ToDouble(), CSound.MaximumLufs.ToDouble(), this.TargetLoudness);
-											}
-											else if( str3.Equals( nameof(ApplySongVol) ) )
-											{
-												this.ApplySongVol = str4[0].ToBool();
-											}
-											else if( str3.Equals( nameof(SoundEffectLevel) ) )
-											{
-												this.SoundEffectLevel = str4.ToInt32(CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SoundEffectLevel);
-											}
-											else if( str3.Equals( nameof(VoiceLevel) ) )
-											{
-												this.VoiceLevel = str4.ToInt32(CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.VoiceLevel);
-											}
-											else if( str3.Equals( nameof(SongPreviewLevel) ) )
-											{
-												this.SongPreviewLevel = str4.ToInt32(CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SongPreviewLevel);
-											}
-											else if( str3.Equals( nameof(SongPlaybackLevel) ) )
-											{
-												this.SongPlaybackLevel = str4.ToInt32(CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SongPlaybackLevel);
-											}
-											else if( str3.Equals( nameof(KeyboardSoundLevelIncrement) ) )
-											{
-												this.KeyboardSoundLevelIncrement = str4.ToInt32(MinimumKeyboardSoundLevelIncrement, MaximumKeyboardSoundLevelIncrement, this.KeyboardSoundLevelIncrement);
-											}
-											else if (str3.Equals("UsePanning"))
-											{
-												this.b2P演奏時のSEの左右 = str4[0].ToBool();
-											}
-											else if( str3.Equals(nameof(MusicPreTimeMs)))
-											{
-												MusicPreTimeMs = int.Parse(str4);
-											}
-											else if (str3.Equals(nameof(SendDiscordPlayingInformation)))
-											{
-												SendDiscordPlayingInformation = str4[0].ToBool();
-											}
-											else if ( str3.Equals( "TimeStretch" ) )				// #23664 2013.2.24 yyagi
-											{
-												this.bTimeStretch = str4[0].ToBool();
-											}
-#region [ AdjustTime ]
-											else if( str3.Equals( "InputAdjustTime" ) )
-											{
-												this.nInputAdjustTimeMs = str4.ToInt32(-99, 99, this.nInputAdjustTimeMs);
-											}
-#endregion
-											else if ( str3.Equals( "PolyphonicSounds" ) )		// #28228 2012.5.1 yyagi
-											{
-												this.nPoliphonicSounds = str4.ToInt32(1, 8, this.nPoliphonicSounds);
-											}
-											//else if ( str3.Equals( "NoMP3Streaming" ) )
-											//{
-											//    this.bNoMP3Streaming = str4[0].ToBool();
-											//}
-											else if( str3.Equals( "EndingAnime" ) )
-											{
-												this.eEndingAnime = (EEndingAnime)str4.ToInt32(0, 2, (int)this.eEndingAnime);
-											}
-
-											continue;
+										else if (str3.Equals("FontName"))
+										{
+											this.FontName = str4;
+											this.FontNamed = str4;
 										}
-									//-----------------------------
+#endregion
+
+										else if ( str3.Equals( "VSyncWait" ) )
+										{
+											this.b垂直帰線待ちを行う = str4[0].ToBool();
+										}
+										else if( str3.Equals( "SleepTimePerFrame" ) )		// #23568 2011.11.27 yyagi
+										{
+											this.nフレーム毎スリープms = str4.ToInt32(-1, 50, this.nフレーム毎スリープms);
+										}
+										else if( str3.Equals( "BGAlpha" ) )
+										{
+											this.n背景の透過度 = str4.ToInt32(0, 0xff, this.n背景の透過度);
+										}
+#region [ AVI/BGA ]
+										else if( str3.Equals( "AVI" ) )
+										{
+											this.bAVI有効 = str4[0].ToBool();
+										}
+										else if( str3.Equals( "BGA" ) )
+										{
+											this.bBGA有効 = str4[0].ToBool();
+										}
+										else if( str3.Equals( "ClipDispType" ) )
+										{
+											this.eClipDispType = (EClipDispType)str4.ToInt32(0, 3, (int) this.eClipDispType);
+										}
+#endregion
+										//else if( str3.Equals( "AdjustWaves" ) )
+										//{
+										//	this.bWave再生位置自動調整機能有効 = str4[0].ToBool();
+										//}
+#region [ BGM/ドラムのヒット音 ]
+										else if( str3.Equals( "BGMSound" ) )
+										{
+											this.bBGM音を発声する = str4[0].ToBool();
+										}
+#endregion
+										else if( str3.Equals( "SaveScoreIni" ) )
+										{
+											this.bScoreIniを出力する = str4[0].ToBool();
+										}
+										else if( str3.Equals( "RandomFromSubBox" ) )
+										{
+											this.bランダムセレクトで子BOXを検索対象とする = str4[0].ToBool();
+										}
+#region [ コンボ数 ]
+										else if( str3.Equals( "MinComboDrums" ) )
+										{
+											this.n表示可能な最小コンボ数 = str4.ToInt32(1, 0x1869f, this.n表示可能な最小コンボ数);
+										}
+#endregion
+										else if( str3.Equals( "ShowDebugStatus" ) )
+										{
+											this.b演奏情報を表示する = str4[0].ToBool();
+										}
+										else if( str3.Equals( nameof(ApplyLoudnessMetadata) ) )
+										{
+											this.ApplyLoudnessMetadata = str4[0].ToBool();
+										}
+										else if( str3.Equals( nameof(TargetLoudness) ) )
+										{
+											this.TargetLoudness = str4.ToDouble(CSound.MinimumLufs.ToDouble(), CSound.MaximumLufs.ToDouble(), this.TargetLoudness);
+										}
+										else if( str3.Equals( nameof(ApplySongVol) ) )
+										{
+											this.ApplySongVol = str4[0].ToBool();
+										}
+										else if( str3.Equals( nameof(SoundEffectLevel) ) )
+										{
+											this.SoundEffectLevel = str4.ToInt32(CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SoundEffectLevel);
+										}
+										else if( str3.Equals( nameof(VoiceLevel) ) )
+										{
+											this.VoiceLevel = str4.ToInt32(CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.VoiceLevel);
+										}
+										else if( str3.Equals( nameof(SongPreviewLevel) ) )
+										{
+											this.SongPreviewLevel = str4.ToInt32(CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SongPreviewLevel);
+										}
+										else if( str3.Equals( nameof(SongPlaybackLevel) ) )
+										{
+											this.SongPlaybackLevel = str4.ToInt32(CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, this.SongPlaybackLevel);
+										}
+										else if( str3.Equals( nameof(KeyboardSoundLevelIncrement) ) )
+										{
+											this.KeyboardSoundLevelIncrement = str4.ToInt32(MinimumKeyboardSoundLevelIncrement, MaximumKeyboardSoundLevelIncrement, this.KeyboardSoundLevelIncrement);
+										}
+										else if (str3.Equals("UsePanning"))
+										{
+											this.b2P演奏時のSEの左右 = str4[0].ToBool();
+										}
+										else if( str3.Equals(nameof(MusicPreTimeMs)))
+										{
+											MusicPreTimeMs = int.Parse(str4);
+										}
+										else if (str3.Equals(nameof(SendDiscordPlayingInformation)))
+										{
+											SendDiscordPlayingInformation = str4[0].ToBool();
+										}
+										else if ( str3.Equals( "TimeStretch" ) )				// #23664 2013.2.24 yyagi
+										{
+											this.bTimeStretch = str4[0].ToBool();
+										}
+#region [ AdjustTime ]
+										else if( str3.Equals( "InputAdjustTime" ) )
+										{
+											this.nInputAdjustTimeMs = str4.ToInt32(-99, 99, this.nInputAdjustTimeMs);
+										}
+#endregion
+										else if ( str3.Equals( "PolyphonicSounds" ) )		// #28228 2012.5.1 yyagi
+										{
+											this.nPoliphonicSounds = str4.ToInt32(1, 8, this.nPoliphonicSounds);
+										}
+										//else if ( str3.Equals( "NoMP3Streaming" ) )
+										//{
+										//    this.bNoMP3Streaming = str4[0].ToBool();
+										//}
+										else if( str3.Equals( "EndingAnime" ) )
+										{
+											this.eEndingAnime = (EEndingAnime)str4.ToInt32(0, 2, (int)this.eEndingAnime);
+										}
+
+										continue;
+									}
+								//-----------------------------
 #endregion
 
 #region [ [AutoPlay] ]
-									//-----------------------------
-									case Eセクション種別.AutoPlay:
+								//-----------------------------
+								case Eセクション種別.AutoPlay:
 #if PLAYABLE
-										if (str3.Equals("Taiko"))
-										{
-											this.b太鼓パートAutoPlay[0] = str4[0].ToBool();
-										}
-										else if (str3.Equals("Taiko2P"))
-										{
-											this.b太鼓パートAutoPlay[1] = str4[0].ToBool();
-										}
+									if (str3.Equals("Taiko"))
+									{
+										this.b太鼓パートAutoPlay[0] = str4[0].ToBool();
+									}
+									else if (str3.Equals("Taiko2P"))
+									{
+										this.b太鼓パートAutoPlay[1] = str4[0].ToBool();
+									}
 #endif
-										if (str3.Equals("TaikoAutoRoll"))
-										{
-											this.bAuto先生の連打 = str4[0].ToBool();
-										}
-										else if (str3.Equals("TaikoAutoRollSpeed"))
-										{
-											this.nAuto先生の連打速度 = str4.ToInt32(1, 9999, this.nAuto先生の連打速度);
-										}
-										continue;
-									//-----------------------------
+									if (str3.Equals("TaikoAutoRoll"))
+									{
+										this.bAuto先生の連打 = str4[0].ToBool();
+									}
+									else if (str3.Equals("TaikoAutoRollSpeed"))
+									{
+										this.nAuto先生の連打速度 = str4.ToInt32(1, 9999, this.nAuto先生の連打速度);
+									}
+									continue;
+								//-----------------------------
 #endregion
 
 #region [ [HitRange] ]
-									//-----------------------------
-									case Eセクション種別.HitRange:
-										if (str3.Equals("Perfect"))
-										{
-											this.nヒット範囲ms.Perfect = str4.ToInt32(0, 0x3e7, this.nヒット範囲ms.Perfect);
-										}
-										else if (str3.Equals("Great"))
-										{
-											this.nヒット範囲ms.Great = str4.ToInt32(0, 0x3e7, this.nヒット範囲ms.Great);
-										}
-										else if (str3.Equals("Good"))
-										{
-											this.nヒット範囲ms.Good = str4.ToInt32(0, 0x3e7, this.nヒット範囲ms.Good);
-										}
-										else if (str3.Equals("Poor"))
-										{
-											this.nヒット範囲ms.Poor = str4.ToInt32(0, 0x3e7, this.nヒット範囲ms.Poor);
-										}
-										continue;
-									//-----------------------------
+								//-----------------------------
+								case Eセクション種別.HitRange:
+									if (str3.Equals("Perfect"))
+									{
+										this.nヒット範囲ms.Perfect = str4.ToInt32(0, 0x3e7, this.nヒット範囲ms.Perfect);
+									}
+									else if (str3.Equals("Great"))
+									{
+										this.nヒット範囲ms.Great = str4.ToInt32(0, 0x3e7, this.nヒット範囲ms.Great);
+									}
+									else if (str3.Equals("Good"))
+									{
+										this.nヒット範囲ms.Good = str4.ToInt32(0, 0x3e7, this.nヒット範囲ms.Good);
+									}
+									else if (str3.Equals("Poor"))
+									{
+										this.nヒット範囲ms.Poor = str4.ToInt32(0, 0x3e7, this.nヒット範囲ms.Poor);
+									}
+									continue;
+								//-----------------------------
 #endregion
 
 
 
 #region [ [Log] ]
-									//-----------------------------
-									case Eセクション種別.Log:
+								//-----------------------------
+								case Eセクション種別.Log:
+									{
+										if( str3.Equals( "OutputLog" ) )
 										{
-											if( str3.Equals( "OutputLog" ) )
-											{
-												this.bログ出力 = str4[0].ToBool();
-											}
-											else if( str3.Equals( "TraceCreatedDisposed" ) )
-											{
-												this.bLog作成解放ログ出力 = str4[0].ToBool();
-											}
-											else if( str3.Equals( "TraceDTXDetails" ) )
-											{
-												this.bLogDTX詳細ログ出力 = str4[0].ToBool();
-											}
-											else if( str3.Equals( "TraceSongSearch" ) )
-											{
-												this.bLog曲検索ログ出力 = str4[0].ToBool();
-											}
-											continue;
+											this.bログ出力 = str4[0].ToBool();
 										}
-									//-----------------------------
+										else if( str3.Equals( "TraceCreatedDisposed" ) )
+										{
+											this.bLog作成解放ログ出力 = str4[0].ToBool();
+										}
+										else if( str3.Equals( "TraceDTXDetails" ) )
+										{
+											this.bLogDTX詳細ログ出力 = str4[0].ToBool();
+										}
+										else if( str3.Equals( "TraceSongSearch" ) )
+										{
+											this.bLog曲検索ログ出力 = str4[0].ToBool();
+										}
+										continue;
+									}
+								//-----------------------------
 #endregion
 
 #region [ [PlayOption] ]
-									//-----------------------------
-									case Eセクション種別.PlayOption:
+								//-----------------------------
+								case Eセクション種別.PlayOption:
+									{
+										if (str3.Equals("EnableRandomSongSelect"))
 										{
-											if (str3.Equals("EnableRandomSongSelect"))
-											{
-												this.RandomPresence = str4[0].ToBool();
-											}
-											else if (str3.Equals("EnableOpenOneSide"))
-											{
-												this.OpenOneSide = str4[0].ToBool();
-											}
-											else if (str3.Equals("EnableCountDownTimer"))
-											{
-												this.bEnableCountdownTimer = str4[0].ToBool();
-											}
-											else if (str3.Equals("TCClikeStyle"))
-											{
-												this.bTCClikeStyle = str4[0].ToBool();
-											}
-											else if (str3.Equals("EnableMouseWheel"))
-											{
-												this.bEnableMouseWheel = str4[0].ToBool();
-											}
-											else if (str3.Equals("SongSelectSkipCount"))
-											{
-												this.SongSelectSkipCount = str4.ToInt32(1, 9999, this.SongSelectSkipCount);
-											}
-											else if (str3.Equals("BackBoxInterval"))
-											{
-												this.n閉じる差し込み間隔 = str4.ToInt32(1, 9999, this.n閉じる差し込み間隔);
-											}
-											else if (str3.Equals("1PPlayerName"))
-											{
-												this.strPlayerName[0] = str4;
-											}
-											else if (str3.Equals("2PPlayerName"))
-											{
-												this.strPlayerName[1] = str4;
-											}
-											else if (str3.Equals("ShowChara"))
-											{
-												ShowChara = str4[0].ToBool();
-											}
-											else if( str3.Equals("ShowDancer"))
-											{
-												ShowDancer = str4[0].ToBool();
-											}
-											else if (str3.Equals("ShowRunner"))
-											{
-												ShowRunner = str4[0].ToBool();
-											}
-											else if (str3.Equals("ShowMob"))
-											{
-												ShowMob = str4[0].ToBool();
-											}
-											else if (str3.Equals("ShowFooter"))
-											{
-												ShowFooter = str4[0].ToBool();
-											}
-											else if (str3.Equals("ShowPuchiChara"))
-											{
-												ShowPuchiChara = str4[0].ToBool();
-											}
-											else if (str3.Equals("SubtitleDispMode"))
-											{
-												this.eSubtitleDispMode = (ESubtitleDispMode)str4.ToInt32(0, 2, (int)this.eSubtitleDispMode);
-											}
-											else if( str3.Equals( "ScrollMode" ) )
-											{
-												this.eScrollMode = (EScrollMode)str4.ToInt32(0, 2, 0);
-											}
-#region [ Invisible ]
-											//else if ( str3.Equals( "DrumsInvisible" ) )
-											//{
-											//	this.eInvisible = (EInvisible) CConvert.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, 0, 2, (int) this.eInvisible );
-											//}
-											//else if ( str3.Equals( "InvisibleDisplayTimeMs" ) )
-											//{
-											//    this.nDisplayTimesMs = CConvert.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, 0, 9999999, (int) this.nDisplayTimesMs );
-											//}
-											//else if ( str3.Equals( "InvisibleFadeoutTimeMs" ) )
-											//{
-											//    this.nFadeoutTimeMs = CConvert.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, 0, 9999999, (int) this.nFadeoutTimeMs );
-											//}
-#endregion
-											else if( str3.Equals( "1PDrumsScrollSpeed" ) )
-											{
-												this.n譜面スクロール速度[0] = str4.ToInt32(0, 0x7cf, this.n譜面スクロール速度[0]);
-											}
-											else if (str3.Equals( "2PDrumsScrollSpeed" ) )
-											{
-												this.n譜面スクロール速度[1] = str4.ToInt32(0, 0x7cf, this.n譜面スクロール速度[1]);
-											}
-											else if( str3.Equals( "PlaySpeed" ) )
-											{
-												this.n演奏速度 = str4.ToInt32(5, 400, this.n演奏速度);
-											}
-											else if (str3.Equals("PlaySpeedNotEqualOneNoSound"))
-											{
-												this.b演奏速度が一倍速であるとき以外音声を再生しない = str4[0].ToBool();
-											}
-											else if ( str3.Equals( "Risky" ) )					// #23559 2011.6.23  yyagi
-											{
-												this.nRisky = str4.ToInt32(0, 10, this.nRisky);
-											}
-											else if ( str3.Equals( "DrumsTight" ) )
-											{
-												this.bTight = str4[0].ToBool();
-											}
-											else if ( str3.Equals( "BranchGuide" ) )
-											{
-												this.bBranchGuide = str4[0].ToBool();
-											}
-											else if ( str3.Equals( "DefaultCourse" ) ) //2017.01.30 DD
-											{
-												this.nDefaultCourse = str4.ToInt32(0, 4, this.nDefaultCourse);
-											}
-											else if ( str3.Equals( "ScoreMode" ) )
-											{
-												this.nScoreMode = str4.ToInt32(0, 3, this.nScoreMode);
-											}
-											else if ( str3.Equals( "HispeedRandom" ) )
-											{
-												this.bHispeedRandom = str4[0].ToBool();
-											}
-											else if (str3.Equals("BigNotesJudgeFrame"))
-											{
-												this.b両手判定待ち時間中に大音符を判定枠に合わせるか = str4[0].ToBool();
-											}
-											else if ( str3.Equals( "BigNotesWaitTime" ) )
-											{
-												this.n両手判定の待ち時間 = str4.ToInt32(1, 100, this.n両手判定の待ち時間);
-											}
-											else if ( str3.Equals( "BigNotesJudge" ) )
-											{
-												this.b大音符判定 = str4[0].ToBool();
-											}
-											else if ( str3.Equals( "BranchAnime" ) )
-											{
-												this.nBranchAnime = str4.ToInt32(0, 1, this.nBranchAnime);
-											}
-											else if ( str3.Equals( "NoInfo" ) )
-											{
-												this.bNoInfo = str4[0].ToBool();
-											}
-											else if ( str3.Equals( "DefaultSongSort" ) )
-											{
-												this.nDefaultSongSort = str4.ToInt32(0, 1, this.nDefaultSongSort);
-											}
-											else if( str3.Equals( "1PTaikoRandom" ) )
-											{
-												this.eRandom[0] = (ERandomMode) str4.ToInt32(0, 4, (int) this.eRandom[0]);
-											}
-											else if (str3.Equals("2PTaikoRandom"))
-											{
-												this.eRandom[1] = (ERandomMode) str4.ToInt32(0, 4, (int) this.eRandom[1]);
-											}
-											else if( str3.Equals( "1PTaikoStealth" ) )
-											{
-												this.eSTEALTH[0] = (EStealthMode) str4.ToInt32(0, 3, (int) this.eSTEALTH[0]);
-											}
-											else if (str3.Equals("2PTaikoStealth"))
-											{
-												this.eSTEALTH[1] = (EStealthMode)str4.ToInt32(0, 3, (int)this.eSTEALTH[1]);
-											}
-											else if( str3.Equals( "GameMode" ) )
-											{
-												this.eGameMode = (EGame)str4.ToInt32(0, 3, (int) this.eGameMode);
-											}
-											else if (str3.Equals("TokkunSkipMeasures"))
-											{
-												this.TokkunSkipMeasures = str4.ToInt32(0, 9999, this.TokkunSkipMeasures);
-											}
-											else if (str3.Equals(nameof(TokkunMashInterval)))
-											{
-												this.TokkunMashInterval = str4.ToInt32(0, 9999, this.TokkunMashInterval);
-											}
-											else if( str3.Equals( "JudgeCountDisplay" ) )
-											{
-												this.bJudgeCountDisplay = str4[0].ToBool();
-											}
-											else if( str3.Equals( "Just" ) )
-											{
-												this.bJust = str4[0].ToBool();
-											}
-											else if( str3.Equals( "PlayerCount" ) )
-											{
-												this.nPlayerCount = str4.ToInt32(1, 2, this.nPlayerCount);
-											}
-											else if(str3.Equals("1PShinuchiMode"))
-											{
-												ShinuchiMode[0] = str4[0].ToBool();
-											}
-											else if (str3.Equals("2PShinuchiMode"))
-											{
-												ShinuchiMode[1] = str4[0].ToBool();
-											}
-											continue;
+											this.RandomPresence = str4[0].ToBool();
 										}
-									//-----------------------------
+										else if (str3.Equals("EnableOpenOneSide"))
+										{
+											this.OpenOneSide = str4[0].ToBool();
+										}
+										else if (str3.Equals("EnableCountDownTimer"))
+										{
+											this.bEnableCountdownTimer = str4[0].ToBool();
+										}
+										else if (str3.Equals("TCClikeStyle"))
+										{
+											this.bTCClikeStyle = str4[0].ToBool();
+										}
+										else if (str3.Equals("EnableMouseWheel"))
+										{
+											this.bEnableMouseWheel = str4[0].ToBool();
+										}
+										else if (str3.Equals("SongSelectSkipCount"))
+										{
+											this.SongSelectSkipCount = str4.ToInt32(1, 9999, this.SongSelectSkipCount);
+										}
+										else if (str3.Equals("BackBoxInterval"))
+										{
+											this.n閉じる差し込み間隔 = str4.ToInt32(1, 9999, this.n閉じる差し込み間隔);
+										}
+										else if (str3.Equals("1PPlayerName"))
+										{
+											this.strPlayerName[0] = str4;
+										}
+										else if (str3.Equals("2PPlayerName"))
+										{
+											this.strPlayerName[1] = str4;
+										}
+										else if (str3.Equals("ShowChara"))
+										{
+											ShowChara = str4[0].ToBool();
+										}
+										else if( str3.Equals("ShowDancer"))
+										{
+											ShowDancer = str4[0].ToBool();
+										}
+										else if (str3.Equals("ShowRunner"))
+										{
+											ShowRunner = str4[0].ToBool();
+										}
+										else if (str3.Equals("ShowMob"))
+										{
+											ShowMob = str4[0].ToBool();
+										}
+										else if (str3.Equals("ShowFooter"))
+										{
+											ShowFooter = str4[0].ToBool();
+										}
+										else if (str3.Equals("ShowPuchiChara"))
+										{
+											ShowPuchiChara = str4[0].ToBool();
+										}
+										else if (str3.Equals("SubtitleDispMode"))
+										{
+											this.eSubtitleDispMode = (ESubtitleDispMode)str4.ToInt32(0, 2, (int)this.eSubtitleDispMode);
+										}
+										else if( str3.Equals( "ScrollMode" ) )
+										{
+											this.eScrollMode = (EScrollMode)str4.ToInt32(0, 2, 0);
+										}
+#region [ Invisible ]
+										//else if ( str3.Equals( "DrumsInvisible" ) )
+										//{
+										//	this.eInvisible = (EInvisible) CConvert.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, 0, 2, (int) this.eInvisible );
+										//}
+										//else if ( str3.Equals( "InvisibleDisplayTimeMs" ) )
+										//{
+										//    this.nDisplayTimesMs = CConvert.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, 0, 9999999, (int) this.nDisplayTimesMs );
+										//}
+										//else if ( str3.Equals( "InvisibleFadeoutTimeMs" ) )
+										//{
+										//    this.nFadeoutTimeMs = CConvert.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, 0, 9999999, (int) this.nFadeoutTimeMs );
+										//}
+#endregion
+										else if( str3.Equals( "1PDrumsScrollSpeed" ) )
+										{
+											this.n譜面スクロール速度[0] = str4.ToInt32(0, 0x7cf, this.n譜面スクロール速度[0]);
+										}
+										else if (str3.Equals( "2PDrumsScrollSpeed" ) )
+										{
+											this.n譜面スクロール速度[1] = str4.ToInt32(0, 0x7cf, this.n譜面スクロール速度[1]);
+										}
+										else if( str3.Equals( "PlaySpeed" ) )
+										{
+											this.n演奏速度 = str4.ToInt32(5, 400, this.n演奏速度);
+										}
+										else if (str3.Equals("PlaySpeedNotEqualOneNoSound"))
+										{
+											this.b演奏速度が一倍速であるとき以外音声を再生しない = str4[0].ToBool();
+										}
+										else if ( str3.Equals( "Risky" ) )					// #23559 2011.6.23  yyagi
+										{
+											this.nRisky = str4.ToInt32(0, 10, this.nRisky);
+										}
+										else if ( str3.Equals( "DrumsTight" ) )
+										{
+											this.bTight = str4[0].ToBool();
+										}
+										else if ( str3.Equals( "BranchGuide" ) )
+										{
+											this.bBranchGuide = str4[0].ToBool();
+										}
+										else if ( str3.Equals( "DefaultCourse" ) ) //2017.01.30 DD
+										{
+											this.nDefaultCourse = str4.ToInt32(0, 4, this.nDefaultCourse);
+										}
+										else if ( str3.Equals( "ScoreMode" ) )
+										{
+											this.nScoreMode = str4.ToInt32(0, 3, this.nScoreMode);
+										}
+										else if ( str3.Equals( "HispeedRandom" ) )
+										{
+											this.bHispeedRandom = str4[0].ToBool();
+										}
+										else if (str3.Equals("BigNotesJudgeFrame"))
+										{
+											this.b両手判定待ち時間中に大音符を判定枠に合わせるか = str4[0].ToBool();
+										}
+										else if ( str3.Equals( "BigNotesWaitTime" ) )
+										{
+											this.n両手判定の待ち時間 = str4.ToInt32(1, 100, this.n両手判定の待ち時間);
+										}
+										else if ( str3.Equals( "BigNotesJudge" ) )
+										{
+											this.b大音符判定 = str4[0].ToBool();
+										}
+										else if ( str3.Equals( "BranchAnime" ) )
+										{
+											this.nBranchAnime = str4.ToInt32(0, 1, this.nBranchAnime);
+										}
+										else if ( str3.Equals( "NoInfo" ) )
+										{
+											this.bNoInfo = str4[0].ToBool();
+										}
+										else if ( str3.Equals( "DefaultSongSort" ) )
+										{
+											this.nDefaultSongSort = str4.ToInt32(0, 1, this.nDefaultSongSort);
+										}
+										else if( str3.Equals( "1PTaikoRandom" ) )
+										{
+											this.eRandom[0] = (ERandomMode) str4.ToInt32(0, 4, (int) this.eRandom[0]);
+										}
+										else if (str3.Equals("2PTaikoRandom"))
+										{
+											this.eRandom[1] = (ERandomMode) str4.ToInt32(0, 4, (int) this.eRandom[1]);
+										}
+										else if( str3.Equals( "1PTaikoStealth" ) )
+										{
+											this.eSTEALTH[0] = (EStealthMode) str4.ToInt32(0, 3, (int) this.eSTEALTH[0]);
+										}
+										else if (str3.Equals("2PTaikoStealth"))
+										{
+											this.eSTEALTH[1] = (EStealthMode)str4.ToInt32(0, 3, (int)this.eSTEALTH[1]);
+										}
+										else if( str3.Equals( "GameMode" ) )
+										{
+											this.eGameMode = (EGame)str4.ToInt32(0, 3, (int) this.eGameMode);
+										}
+										else if (str3.Equals("TokkunSkipMeasures"))
+										{
+											this.TokkunSkipMeasures = str4.ToInt32(0, 9999, this.TokkunSkipMeasures);
+										}
+										else if (str3.Equals(nameof(TokkunMashInterval)))
+										{
+											this.TokkunMashInterval = str4.ToInt32(0, 9999, this.TokkunMashInterval);
+										}
+										else if( str3.Equals( "JudgeCountDisplay" ) )
+										{
+											this.bJudgeCountDisplay = str4[0].ToBool();
+										}
+										else if( str3.Equals( "Just" ) )
+										{
+											this.bJust = str4[0].ToBool();
+										}
+										else if( str3.Equals( "PlayerCount" ) )
+										{
+											this.nPlayerCount = str4.ToInt32(1, 2, this.nPlayerCount);
+										}
+										else if(str3.Equals("1PShinuchiMode"))
+										{
+											ShinuchiMode[0] = str4[0].ToBool();
+										}
+										else if (str3.Equals("2PShinuchiMode"))
+										{
+											ShinuchiMode[1] = str4[0].ToBool();
+										}
+										continue;
+									}
+								//-----------------------------
 #endregion
 
 #region [ [GUID] ]
-									//-----------------------------
-									case Eセクション種別.GUID:
-										if( str3.Equals( "JoystickID" ) )
-										{
-											this.tJoystickIDの取得( str4 );
-										}
-										continue;
-									//-----------------------------
+								//-----------------------------
+								case Eセクション種別.GUID:
+									if( str3.Equals( "JoystickID" ) )
+									{
+										this.tJoystickIDの取得( str4 );
+									}
+									continue;
+								//-----------------------------
 #endregion
 
 #region [ [DrumsKeyAssign] ]
-									//-----------------------------
-									case Eセクション種別.DrumsKeyAssign:
+								//-----------------------------
+								case Eセクション種別.DrumsKeyAssign:
+									{
+										if( str3.Equals( "LeftRed" ) )
 										{
-											if( str3.Equals( "LeftRed" ) )
-											{
-												this.tキーの読み出しと設定( str4, this.KeyAssign.LeftRed );
-											}
-											else if( str3.Equals( "RightRed" ) )
-											{
-												this.tキーの読み出しと設定( str4, this.KeyAssign.RightRed );
-											}
-											else if( str3.Equals( "LeftBlue" ) )										// #27029 2012.1.4 from
-											{																	//
-												this.tキーの読み出しと設定( str4, this.KeyAssign.LeftBlue );	//
-											}																	//
-											else if( str3.Equals( "RightBlue" ) )										// #27029 2012.1.4 from
-											{																	//
-												this.tキーの読み出しと設定( str4, this.KeyAssign.RightBlue );	//
-											}
-
-											else if( str3.Equals( "LeftRed2P" ) )
-											{
-												this.tキーの読み出しと設定( str4, this.KeyAssign.LeftRed2P );
-											}
-											else if( str3.Equals( "RightRed2P" ) )
-											{
-												this.tキーの読み出しと設定( str4, this.KeyAssign.RightRed2P );
-											}
-											else if( str3.Equals( "LeftBlue2P" ) )										// #27029 2012.1.4 from
-											{																	//
-												this.tキーの読み出しと設定( str4, this.KeyAssign.LeftBlue2P );	//
-											}																	//
-											else if( str3.Equals( "RightBlue2P" ) )										// #27029 2012.1.4 from
-											{																	//
-												this.tキーの読み出しと設定( str4, this.KeyAssign.RightBlue2P );	//
-											}
-
-											continue;
+											this.tキーの読み出しと設定( str4, this.KeyAssign.LeftRed );
 										}
-									//-----------------------------
+										else if( str3.Equals( "RightRed" ) )
+										{
+											this.tキーの読み出しと設定( str4, this.KeyAssign.RightRed );
+										}
+										else if( str3.Equals( "LeftBlue" ) )										// #27029 2012.1.4 from
+										{																	//
+											this.tキーの読み出しと設定( str4, this.KeyAssign.LeftBlue );	//
+										}																	//
+										else if( str3.Equals( "RightBlue" ) )										// #27029 2012.1.4 from
+										{																	//
+											this.tキーの読み出しと設定( str4, this.KeyAssign.RightBlue );	//
+										}
+
+										else if( str3.Equals( "LeftRed2P" ) )
+										{
+											this.tキーの読み出しと設定( str4, this.KeyAssign.LeftRed2P );
+										}
+										else if( str3.Equals( "RightRed2P" ) )
+										{
+											this.tキーの読み出しと設定( str4, this.KeyAssign.RightRed2P );
+										}
+										else if( str3.Equals( "LeftBlue2P" ) )										// #27029 2012.1.4 from
+										{																	//
+											this.tキーの読み出しと設定( str4, this.KeyAssign.LeftBlue2P );	//
+										}																	//
+										else if( str3.Equals( "RightBlue2P" ) )										// #27029 2012.1.4 from
+										{																	//
+											this.tキーの読み出しと設定( str4, this.KeyAssign.RightBlue2P );	//
+										}
+
+										continue;
+									}
+								//-----------------------------
 #endregion
 
 #region [ [SystemKeyAssign] ]
-									//-----------------------------
-									case Eセクション種別.SystemKeyAssign:
-										if( str3.Equals( "Capture" ) )
-										{
-											this.tキーの読み出しと設定( str4, this.KeyAssign.Capture );
-										}
-										else if (str3.Equals("FullScreen"))
-										{
-											this.tキーの読み出しと設定(str4, this.KeyAssign.FullScreen);
-										}
-										continue;
-									//-----------------------------
+								//-----------------------------
+								case Eセクション種別.SystemKeyAssign:
+									if( str3.Equals( "Capture" ) )
+									{
+										this.tキーの読み出しと設定( str4, this.KeyAssign.Capture );
+									}
+									else if (str3.Equals("FullScreen"))
+									{
+										this.tキーの読み出しと設定(str4, this.KeyAssign.FullScreen);
+									}
+									continue;
+								//-----------------------------
 #endregion
-								}
 							}
 						}
-						continue;
 					}
-					catch ( Exception exception )
-					{
-						Trace.TraceError( exception.ToString() );
-						Trace.TraceError( "An exception has occurred, but processing continues." );
-						continue;
-					}
+					continue;
+				}
+				catch ( Exception exception )
+				{
+					Trace.TraceError( exception.ToString() );
+					Trace.TraceError( "An exception has occurred, but processing continues." );
+					continue;
 				}
 			}
 		}
