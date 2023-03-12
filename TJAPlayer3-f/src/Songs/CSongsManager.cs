@@ -122,14 +122,6 @@ namespace TJAPlayer3
 					c曲リストノード.arスコア.FileInfo.DirAbsolutePath = str基点フォルダ;
 					c曲リストノード.arスコア.FileInfo.FileSize = fileinfo.Length;
 					c曲リストノード.arスコア.FileInfo.LastWriteTime = fileinfo.LastWriteTime;
-					string strFileNameScoreIni = c曲リストノード.arスコア.FileInfo.FileAbsolutePath + ".score.ini";
-					if (File.Exists(strFileNameScoreIni))
-					{
-						FileInfo infoScoreIni = new FileInfo(strFileNameScoreIni);
-						c曲リストノード.arスコア.ScoreIniInfo.FileSize = infoScoreIni.Length;
-						c曲リストノード.arスコア.ScoreIniInfo.LastWriteTime = infoScoreIni.LastWriteTime;
-					}
-
 					c曲リストノード.arスコア.譜面情報.Title = dtx.TITLE;
 					c曲リストノード.arスコア.譜面情報.Genre = dtx.GENRE;
 					c曲リストノード.arスコア.譜面情報.Bpm = dtx.BPM;

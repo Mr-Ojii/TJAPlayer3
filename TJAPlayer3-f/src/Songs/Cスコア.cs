@@ -11,21 +11,6 @@ namespace TJAPlayer3
 	{
 		// プロパティ
 
-		public STScoreIniInfo ScoreIniInfo;
-		[Serializable]
-		[StructLayout( LayoutKind.Sequential )]
-		public struct STScoreIniInfo
-		{
-			public DateTime LastWriteTime;
-			public long FileSize;
-
-			public STScoreIniInfo( DateTime LastWriteTime, long FileSize )
-			{
-				this.LastWriteTime = LastWriteTime;
-				this.FileSize = FileSize;
-			}
-		}
-
 		public STFileInfo FileInfo;
 		[Serializable]
 		[StructLayout( LayoutKind.Sequential )]
@@ -79,7 +64,6 @@ namespace TJAPlayer3
 
 		public Cスコア()
 		{
-			this.ScoreIniInfo = new STScoreIniInfo( DateTime.MinValue, 0L );
 			this.FileInfo = new STFileInfo( "", "", DateTime.MinValue, 0L );
 			this.譜面情報 = new ST譜面情報();
 			this.譜面情報.Title = "";
