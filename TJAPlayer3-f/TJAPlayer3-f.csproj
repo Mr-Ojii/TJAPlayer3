@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <ProductVersion>9.0.21022</ProductVersion>
@@ -56,7 +56,7 @@
 
   <PropertyGroup>
     <PackageId>TJAPlayer3-f</PackageId>
-    <Version>1.8.1.0</Version>
+    <Version>1.8.2.0</Version>
     <Authors>Mr-Ojii</Authors>
     <NeutralLanguage>ja-JP</NeutralLanguage>
     <RepositoryUrl>https://github.com/Mr-Ojii/TJAPlayer3-f</RepositoryUrl>
