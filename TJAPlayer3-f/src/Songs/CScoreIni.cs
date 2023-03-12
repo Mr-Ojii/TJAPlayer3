@@ -163,16 +163,6 @@ namespace TJAPlayer3
         }
 
         /// <summary>
-        /// <para>.score.ini の存在するフォルダ（絶対パス；末尾に '\' はついていない）。</para>
-        /// <para>未保存などでファイル名がない場合は null。</para>
-        /// </summary>
-        public string iniファイルのあるフォルダ名
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// <para>.score.ini のファイル名（絶対パス）。</para>
         /// <para>未保存などでファイル名がない場合は null。</para>
         /// </summary>
@@ -187,7 +177,6 @@ namespace TJAPlayer3
 
         public CScoreIni()
         {
-            this.iniファイルのあるフォルダ名 = null;
             this.iniファイル名 = null;
             this.stファイル = new STファイル();
             stファイル.Title = "";
@@ -215,7 +204,6 @@ namespace TJAPlayer3
         /// <param name="iniファイル名">読み込む .score.ini ファイルを指定します（絶対パスが安全）。</param>
         public void tLoad( string iniファイル名 )
         {
-            this.iniファイルのあるフォルダ名 = Path.GetDirectoryName( iniファイル名 );
             this.iniファイル名 = Path.GetFileName( iniファイル名 );
 
             Eセクション種別 section = Eセクション種別.Unknown;
@@ -766,7 +754,6 @@ namespace TJAPlayer3
         }
         internal void t書き出し( string iniファイル名 )
         {
-            this.iniファイルのあるフォルダ名 = Path.GetDirectoryName( iniファイル名 );
             this.iniファイル名 = Path.GetFileName( iniファイル名 );
 
             StreamWriter writer = new StreamWriter( iniファイル名, false, new UTF8Encoding(false));
