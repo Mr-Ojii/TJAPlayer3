@@ -69,7 +69,7 @@ namespace TJAPlayer3
 			this.譜面情報.Title = "";
 			this.譜面情報.Genre = "";
 			this.譜面情報.演奏回数 = new int();
-			this.譜面情報.演奏履歴 = new string[7];
+			this.譜面情報.演奏履歴 = new string[7] { "", "", "", "", "", "", "" };
 			this.譜面情報.Bpm = 120.0;
 			this.譜面情報.Duration = 0;
 			this.譜面情報.strBGMファイル名 = "";
