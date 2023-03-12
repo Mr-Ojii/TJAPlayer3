@@ -121,7 +121,7 @@ namespace TJAPlayer3
             public string[] strHiScorerName = new string[(int)Difficulty.Total];
             public string[] strSecondScorerName = new string[(int)Difficulty.Total];
             public string[] strThirdScorerName = new string[(int)Difficulty.Total];
-            public int[] n王冠 = new int[(int)Difficulty.Total];
+            public int[] nCrown = new int[(int)Difficulty.Total];
             public Dan_C[] Dan_C;
             public Dan_C Dan_C_Gauge;
 
@@ -700,31 +700,31 @@ namespace TJAPlayer3
                                             }
                                             else if (item.Equals("Crown1"))
                                             {
-                                                c演奏記録.n王冠[0] = int.Parse(para);
+                                                c演奏記録.nCrown[0] = int.Parse(para);
                                             }
                                             else if (item.Equals("Crown2"))
                                             {
-                                                c演奏記録.n王冠[1] = int.Parse(para);
+                                                c演奏記録.nCrown[1] = int.Parse(para);
                                             }
                                             else if (item.Equals("Crown3"))
                                             {
-                                                c演奏記録.n王冠[2] = int.Parse(para);
+                                                c演奏記録.nCrown[2] = int.Parse(para);
                                             }
                                             else if (item.Equals("Crown4"))
                                             {
-                                                c演奏記録.n王冠[3] = int.Parse(para);
+                                                c演奏記録.nCrown[3] = int.Parse(para);
                                             }
                                             else if (item.Equals("Crown5"))
                                             {
-                                                c演奏記録.n王冠[4] = int.Parse(para);
+                                                c演奏記録.nCrown[4] = int.Parse(para);
                                             }
                                             else if (item.Equals("Crown6"))
                                             {
-                                                c演奏記録.n王冠[5] = int.Parse(para);
+                                                c演奏記録.nCrown[5] = int.Parse(para);
                                             }
                                             else if (item.Equals("Crown7"))
                                             {
-                                                c演奏記録.n王冠[6] = int.Parse(para);
+                                                c演奏記録.nCrown[6] = int.Parse(para);
                                             }
                                         }
                                     }
@@ -813,7 +813,7 @@ namespace TJAPlayer3
                 for (int j = 0; j < (int)Difficulty.Total; j++)
                     writer.WriteLine($"ThirdScorerName{j + 1}={this.stセクション[i].strThirdScorerName[j]}");
                 for (int j = 0; j < (int)Difficulty.Total; j++)
-                    writer.WriteLine($"Crown{j + 1}={this.stセクション[i].n王冠[j]}");
+                    writer.WriteLine($"Crown{j + 1}={this.stセクション[i].nCrown[j]}");
             }
 
             writer.Close();

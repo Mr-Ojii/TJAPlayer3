@@ -314,12 +314,12 @@ namespace TJAPlayer3
 					if (裏表示 && i == 3)
 					{
 						if(TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[4])
-							TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, i * TJAPlayer3.Skin.Difficulty_Bar_Padding + TJAPlayer3.Skin.Difficulty_Bar_XY[0] + 35, TJAPlayer3.Skin.Difficulty_Bar_XY[1] - 30, new Rectangle(TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.n王冠[4] * 100, 0, 100, 100));
+							TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, i * TJAPlayer3.Skin.Difficulty_Bar_Padding + TJAPlayer3.Skin.Difficulty_Bar_XY[0] + 35, TJAPlayer3.Skin.Difficulty_Bar_XY[1] - 30, new Rectangle(TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.nCrown[4] * 100, 0, 100, 100));
 					}
 					else
 					{
 						if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[i])
-							TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, i * TJAPlayer3.Skin.Difficulty_Bar_Padding + TJAPlayer3.Skin.Difficulty_Bar_XY[0] + 35, TJAPlayer3.Skin.Difficulty_Bar_XY[1] - 30, new Rectangle(TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.n王冠[i] * 100, 0, 100, 100));
+							TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, i * TJAPlayer3.Skin.Difficulty_Bar_Padding + TJAPlayer3.Skin.Difficulty_Bar_XY[0] + 35, TJAPlayer3.Skin.Difficulty_Bar_XY[1] - 30, new Rectangle(TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.nCrown[i] * 100, 0, 100, 100));
 					}
 				}
 			}

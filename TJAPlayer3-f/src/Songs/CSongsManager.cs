@@ -500,7 +500,7 @@ namespace TJAPlayer3
 						score.譜面情報.strHiScorerName[i] = ini.stセクション.HiScore.strHiScorerName[i];
 						score.譜面情報.strSecondScorerName[i] = ini.stセクション.HiScore.strSecondScorerName[i];
 						score.譜面情報.strThirdScorerName[i] = ini.stセクション.HiScore.strThirdScorerName[i];
-						score.譜面情報.n王冠[i] = (int)ini.stセクション.HiScore.n王冠[i];
+						score.譜面情報.nCrown[i] = (int)ini.stセクション.HiScore.nCrown[i];
 					}
 				}
 				score.譜面情報.演奏回数 = ini.stファイル.PlayCountDrums;

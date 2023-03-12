@@ -190,49 +190,49 @@ namespace TJAPlayer3
 					}
 					Drums.Dan_C_Gauge = TJAPlayer3.stage演奏ドラム画面.actDan.GetGaugeExam();
 
-					Drums.n王冠 = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠;
+					Drums.nCrown = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown;
 
 					if (TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer] != (int)Difficulty.Dan)
 					{
 						if (Drums.fゲージ < 80)
 						{
-							if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 0)
-								Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 0;
+							if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 0)
+								Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 0;
 						}
 						else if (Drums.nMiss数_Auto含まない != 0)
 						{
-							if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 1)
-								Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 1;
+							if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 1)
+								Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 1;
 						}
 						else if (Drums.nGreat数_Auto含まない != 0)
 						{
-							if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 2)
-								Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 2;
+							if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 2)
+								Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 2;
 						}
 						else
 						{
-							if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 3)
-								Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 3;
+							if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 3)
+								Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 3;
 						}
 					}
 					else {
 						switch (TJAPlayer3.stage演奏ドラム画面.actDan.GetExamStatus(Drums.Dan_C, Drums.Dan_C_Gauge))
 						{
 							case Exam.Status.Failure:
-								if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 0)
-									Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 0;
+								if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 0)
+									Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 0;
 								break;
 							case Exam.Status.Success:
-								if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 1)
-									Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 1;
+								if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 1)
+									Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 1;
 								break;
 							case Exam.Status.Better_Success:
-								if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 2)
-									Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 2;
+								if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 2)
+									Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 2;
 								break;
 							default:
-								if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 0)
-									Drums.n王冠[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 0;
+								if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 0)
+									Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 0;
 								break;
 						}
 					}

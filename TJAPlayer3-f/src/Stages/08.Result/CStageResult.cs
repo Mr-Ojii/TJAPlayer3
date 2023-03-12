@@ -99,7 +99,7 @@ namespace TJAPlayer3
 
 					if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == false && this.st演奏記録[0].b途中でAutoを切り替えたか == false)
 					{
-						cスコア.譜面情報.n王冠 = st演奏記録[0].n王冠;//2020.05.22 Mr-Ojii データが保存されない問題の解決策。
+						cスコア.譜面情報.nCrown = st演奏記録[0].nCrown;//2020.05.22 Mr-Ojii データが保存されない問題の解決策。
 						cスコア.譜面情報.nハイスコア = st演奏記録[0].nハイスコア;
 						cスコア.譜面情報.nSecondScore = st演奏記録[0].nSecondScore;
 						cスコア.譜面情報.nThirdScore = st演奏記録[0].nThirdScore;
