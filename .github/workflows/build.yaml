@@ -125,11 +125,12 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         cd ${{ github.workspace }}/artifacts
-        RELEASE_NAME=${{ github.ref }}
-        TAG_NAME=${{ github.ref }}
+        VERSION=$(echo ${{ github.ref }} | sed -e "s#refs/tags/##g")
+        RELEASE_NAME=${VERSION}
+        TAG_NAME=${VERSION}
         assets=()
         for asset in ${{ github.workspace }}/artifacts/*.zip; do
           assets+=("-a" "$asset")
         done
-        hub release create "${assets[@]}" -p -m "$RELEASE_NAME" "$TAG_NAME"
+        hub release create "${assets[@]}" -m "$RELEASE_NAME" "$TAG_NAME"
 
