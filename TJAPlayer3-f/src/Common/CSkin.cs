@@ -334,7 +334,7 @@ namespace TJAPlayer3
 			private set
 			{
 				SystemSounds[(Eシステムサウンド)index] = value;
-            }
+			}
 		}
 
 
@@ -350,7 +350,7 @@ namespace TJAPlayer3
 		/// <returns></returns>
 		public string GetCurrentSkinSubfolderFullName(bool bFromUserConfig)
 		{
-			return strSystemSkinSubfolderFullName;	
+			return strSystemSkinSubfolderFullName;
 		}
 		/// <summary>
 		/// スキンパス名をフルパスで設定する
@@ -474,44 +474,44 @@ namespace TJAPlayer3
 			string strFileName = Path(@"SortConfig.ini");
 			if (File.Exists(strFileName))
 			{
-				List<string> strlist = new List<string>();
-				List<Dictionary<string, int>> Diclist = new List<Dictionary<string, int>>();
-
 				string str = CJudgeTextEncoding.ReadTextFile(strFileName);
 				string[] splitstr = str.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-				Dictionary<string, int> Dictmp = null;
+                Dictionary<string, Dictionary<string, int>> tmpSortList = new();
+
+                Dictionary<string, int> tmpDic = null;
+				string tmpSectionName = null;
 
 				foreach (string sstr in splitstr)
 				{
-					if ((sstr.Length != 0) && (sstr[0] != ';'))
-					{
-						if (sstr[0] == '[')//セクション
-						{
-							if (Dictmp != null && Dictmp.Count != 0)
-								Diclist.Add(Dictmp);
-							Dictmp = new Dictionary<string, int>();
-							strlist.Add(sstr.Substring(1, sstr.Length - 2));//最初と最後の2文字を消す。
-						}
-						else 
-						{
-							if (Dictmp != null && sstr.IndexOf('=') != -1)
-							{
-								string key = sstr.Substring(0, sstr.IndexOf('='));
-								string value = sstr.Substring(sstr.IndexOf('=') + 1, sstr.Length - sstr.IndexOf('=') - 1);
-								Dictmp.Add(key, int.Parse(value));
-							}
-						
-						}
-					}
-				}
-				if (Dictmp != null && Dictmp.Count != 0)
-					Diclist.Add(Dictmp);
+					if (sstr.Length == 0 || sstr[0] == ';')
+						continue;
 
-				if (strlist.Count != 0 && strlist.Count == Diclist.Count)
+					if (sstr[0] == '[')//セクション
+					{
+						if (!string.IsNullOrEmpty(tmpSectionName) && tmpDic != null && tmpDic.Count != 0)
+							tmpSortList.Add(tmpSectionName, tmpDic);
+						tmpDic = new Dictionary<string, int>();
+						tmpSectionName = sstr.Substring(1, sstr.Length - 2); //最初と最後の2文字を消す。
+					}
+					else
+					{
+						if (tmpDic != null && sstr.IndexOf('=') != -1)
+						{
+                            string sKey = sstr.Substring(0, sstr.IndexOf('='));
+                            string sValue = sstr.Substring(sstr.IndexOf('=') + 1, sstr.Length - sstr.IndexOf('=') - 1);
+							if(int.TryParse(sValue, out int nValue))
+								tmpDic.Add(sKey, nValue);
+                        }
+
+					}
+                }
+                if (!string.IsNullOrEmpty(tmpSectionName) && tmpDic != null && tmpDic.Count != 0)
+                    tmpSortList.Add(tmpSectionName, tmpDic);
+
+				if (tmpSortList.Count != 0)
 				{
-					this.GenreDicTitle = strlist.ToArray();
-					this.DictionaryList = Diclist.ToArray();
+					this.SortList = tmpSortList;
 				}
 			}
 		}
@@ -534,7 +534,7 @@ namespace TJAPlayer3
 		public void PrepareReloadSkin()
 		{
 			Trace.TraceInformation("SkinPath設定: {0}",
-				strSystemSkinSubfolderFullName 
+				strSystemSkinSubfolderFullName
 			);
 
 			for (int i = 0; i < nシステムサウンド数; i++)
@@ -545,11 +545,11 @@ namespace TJAPlayer3
 					this[i].Dispose();
 				}
 			}
-			for(int i = 0; i < nシステムサウンド数; i++)
+			for (int i = 0; i < nシステムサウンド数; i++)
 			{
 				SystemSoundInfo info = SystemSoundsInfo[(Eシステムサウンド)i];
 				this[i] = new Cシステムサウンド(info.strFilePath, info.bLoop, info.bExclusive, info.eSoundGroup);
-            }
+			}
 
 			ReloadSkin();
 			tReadSkinConfig();
@@ -659,7 +659,7 @@ namespace TJAPlayer3
 
 		public static string Path(string strファイルの相対パス)
 		{
-			return System.IO.Path.Combine(strSystemSkinSubfolderFullName, strファイルの相対パス);	
+			return System.IO.Path.Combine(strSystemSkinSubfolderFullName, strファイルの相対パス);
 		}
 
 		/// <summary>
@@ -2030,14 +2030,14 @@ namespace TJAPlayer3
 				this.bDisposed済み = true;
 			}
 		}
-        //-----------------
-        #endregion
+		//-----------------
+		#endregion
 
 
-        // その他
+		// その他
 
-        #region[ Genre ]
-        public Dictionary<string, int> GenreKeyPairs = new Dictionary<string, int>
+		#region[ Genre ]
+		public Dictionary<string, int> GenreKeyPairs = new Dictionary<string, int>
 		{
 			{ "J-POP", 0 },
 			{ "アニメ", 1 },
@@ -2053,37 +2053,36 @@ namespace TJAPlayer3
 		public int MaxKeyNum = 7;
 
 
-		public Dictionary<string, int>[] DictionaryList = new Dictionary<string, int>[]
+		public Dictionary<string, Dictionary<string, int>> SortList = new Dictionary<string, Dictionary<string, int>>
 		{
-			//AC15
-			new Dictionary<string, int>
-			{
-				{ "J-POP",0 },
-				{ "アニメ",1 },
-				{ "ボーカロイド",2 },
-				{ "VOCALOID",2 },
-				{ "どうよう",3 },
-				{ "バラエティ",4 },
-				{ "クラシック",5 },
-				{ "ゲームミュージック",6 },
-				{ "ナムコオリジナル",7 },
+			{ "AC15", new Dictionary<string, int>
+                {
+					{ "J-POP", 0 },
+					{ "アニメ", 1 },
+					{ "ボーカロイド", 2 },
+					{ "VOCALOID", 2 },
+					{ "どうよう", 3 },
+					{ "バラエティ", 4 },
+					{ "クラシック", 5 },
+					{ "ゲームミュージック", 6 },
+					{ "ナムコオリジナル", 7 },
+                }
 			},
-			//AC8_14
-			new Dictionary<string, int>
-			{
-				{ "アニメ",0 },
-				{ "J-POP",1 },
-				{ "ゲームミュージック",2 },
-				{ "ナムコオリジナル",3 },
-				{ "クラシック",4 },
-				{ "どうよう",5 },
-				{ "バラエティ",6 },
-				{ "ボーカロイド",7 },
-				{ "VOCALOID",7 },
-			},
-		};
+            { "AC8-14", new Dictionary<string, int>
+                {
+					{ "アニメ", 0 },
+					{ "J-POP", 1 },
+					{ "ゲームミュージック", 2 },
+					{ "ナムコオリジナル", 3 },
+					{ "クラシック", 4 },
+					{ "どうよう", 5 },
+					{ "バラエティ", 6 },
+					{ "ボーカロイド", 7 },
+					{ "VOCALOID", 7 },
+                }
+            },
+        };
 
-		public string[] GenreDicTitle = new string[] { "AC15", "AC8-14" };
         #endregion
 
         #region [ private ]

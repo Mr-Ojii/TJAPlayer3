@@ -8,7 +8,7 @@ namespace TJAPlayer3
 	{
 		internal static int Genre(string strGenre, int order)
 		{
-			Dictionary<string, int> Dic = TJAPlayer3.Skin.DictionaryList[order];
+			Dictionary<string, int> Dic = TJAPlayer3.Skin.SortList.ElementAt(order).Value;
 
             int maxValue = Dic.Count != 0 ? Dic.Values.Max() : -1;
 

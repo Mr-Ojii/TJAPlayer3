@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace TJAPlayer3
 {
@@ -12,7 +13,7 @@ namespace TJAPlayer3
 			List<CItemBase> lci = new List<CItemBase>();
 			lci.Add( new CItemList( "絶対パス", 0, "", "", new string[] { "Z,Y,X,...",		"A,B,C,..." } ) );
 			lci.Add( new CItemList( "曲名", 0, "", "", new string[] { "Z,Y,X,...",		"A,B,C,..." } ) );
-			lci.Add( new CItemList( "ジャンル", 0, "", "", TJAPlayer3.Skin.GenreDicTitle ) );
+			lci.Add( new CItemList( "ジャンル", 0, "", "", TJAPlayer3.Skin.SortList.Keys.ToArray() ) );
 			lci.Add( new CItemList( "戻る", 0, "", "", new string[] { "", 				"" } ) );
 			
 			base.Initialize( lci, false, "SORT MENU" , 0 );
