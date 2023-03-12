@@ -79,14 +79,14 @@ jobs:
       if: (startsWith(github.ref, 'refs/tags/Ver'))
       run: |
         cd ${{ github.workspace }}
-        zip "TJAPlayer3-f-${{matrix.platform}}-${{ github.ref }}" -r publish
+        zip "TJAPlayer3-f-${{matrix.platform}}" -r publish
 
     - name: Upload Artifact
       if: (startsWith(github.ref, 'refs/tags/Ver'))
       uses: actions/upload-artifact@v3
       with:
         name: TJAPlayer3-f
-        path: ${{ github.workspace }}/TJAPlayer3-f-${{matrix.platform}}-${{ github.ref }}.zip
+        path: ${{ github.workspace }}/TJAPlayer3-f-${{matrix.platform}}.zip
 
 
   create_release:
