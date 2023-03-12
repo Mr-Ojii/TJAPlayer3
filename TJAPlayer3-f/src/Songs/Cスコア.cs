@@ -53,7 +53,7 @@ namespace TJAPlayer3
 			public string Title;
 			public string Genre;
 			public int 演奏回数;
-			public STHISTORY 演奏履歴;
+			public string[] 演奏履歴;
 			public double Bpm;
 			public int Duration;
 			public string strBGMファイル名;
@@ -73,79 +73,6 @@ namespace TJAPlayer3
 			public int[] nCrown;
 			public string strSubTitle;
 			public int[] nレベル;
-
-			[Serializable]
-			[StructLayout( LayoutKind.Sequential )]
-			public struct STHISTORY
-			{
-				public string 行1;
-				public string 行2;
-				public string 行3;
-				public string 行4;
-				public string 行5;
-				public string 行6;
-				public string 行7;
-				public string this[ int index ]
-				{
-					get
-					{
-						switch( index )
-						{
-							case 0:
-								return this.行1;
-
-							case 1:
-								return this.行2;
-
-							case 2:
-								return this.行3;
-
-							case 3:
-								return this.行4;
-
-							case 4:
-								return this.行5;
-							case 5:
-								return this.行6;
-							case 6:
-								return this.行7;
-						}
-						throw new IndexOutOfRangeException();
-					}
-					set
-					{
-						switch( index )
-						{
-							case 0:
-								this.行1 = value;
-								return;
-
-							case 1:
-								this.行2 = value;
-								return;
-
-							case 2:
-								this.行3 = value;
-								return;
-
-							case 3:
-								this.行4 = value;
-								return;
-
-							case 4:
-								this.行5 = value;
-								return;
-							case 5:
-								this.行6 = value;
-								return;
-							case 6:
-								this.行7 = value;
-								return;
-						}
-						throw new IndexOutOfRangeException();
-					}
-				}
-			}
 		}
 
 		// コンストラクタ
@@ -158,14 +85,7 @@ namespace TJAPlayer3
 			this.譜面情報.Title = "";
 			this.譜面情報.Genre = "";
 			this.譜面情報.演奏回数 = new int();
-			this.譜面情報.演奏履歴 = new ST譜面情報.STHISTORY();
-			this.譜面情報.演奏履歴.行1 = "";
-			this.譜面情報.演奏履歴.行2 = "";
-			this.譜面情報.演奏履歴.行3 = "";
-			this.譜面情報.演奏履歴.行4 = "";
-			this.譜面情報.演奏履歴.行5 = "";
-			this.譜面情報.演奏履歴.行6 = "";
-			this.譜面情報.演奏履歴.行7 = "";
+			this.譜面情報.演奏履歴 = new string[7];
 			this.譜面情報.Bpm = 120.0;
 			this.譜面情報.Duration = 0;
 			this.譜面情報.strBGMファイル名 = "";
