@@ -1038,73 +1038,6 @@ namespace TJAPlayer3
 								Game_Lyric_BackColor = ColorTranslator.FromHtml(strParam);
 							}
 							#endregion
-							#region Chara
-							else if (strCommand == nameof(Game_Chara_X))
-							{
-								Game_Chara_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Chara_Y))
-							{
-								Game_Chara_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Chara_Balloon_X))
-							{
-								Game_Chara_Balloon_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Chara_Balloon_Y))
-							{
-								Game_Chara_Balloon_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Chara_Balloon_Timer))
-							{
-								Game_Chara_Balloon_Timer = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Chara_Balloon_Delay))
-							{
-								Game_Chara_Balloon_Delay = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Chara_Balloon_FadeOut))
-							{
-								Game_Chara_Balloon_FadeOut = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							// パターン数の設定はTextureLoader.csで反映されます。
-							else if (strCommand == nameof(Game_Chara_Motion_Normal))
-							{
-								Game_Chara_Motion_Normal[0] = strParam;
-							}
-							else if (strCommand == nameof(Game_Chara_Motion_Clear))
-							{
-								Game_Chara_Motion_Clear[0] = strParam;
-							}
-							else if (strCommand == nameof(Game_Chara_Motion_GoGo))
-							{
-								Game_Chara_Motion_GoGo[0] = strParam;
-							}
-							else if (strCommand == "Game_Chara_Motion_Normal_2P")
-							{
-								Game_Chara_Motion_Normal[1] = strParam;
-							}
-							else if (strCommand == "Game_Chara_Motion_Clear_2P")
-							{
-								Game_Chara_Motion_Clear[1] = strParam;
-							}
-							else if (strCommand == "Game_Chara_Motion_GoGo_2P")
-							{
-								Game_Chara_Motion_GoGo[1] = strParam;
-							}
-							else if (strCommand == nameof(Game_Chara_Beat_Normal))
-							{
-								Game_Chara_Beat_Normal = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Chara_Beat_Clear))
-							{
-								Game_Chara_Beat_Clear = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Chara_Beat_GoGo))
-							{
-								Game_Chara_Beat_GoGo = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							#endregion
 							#region Dancer
 							else if (strCommand == nameof(Game_Dancer_X))
 							{
@@ -1985,6 +1918,23 @@ namespace TJAPlayer3
 			{
 				public bool NotesAnime { get; set; } = false;
 				public string StageText { get; set; } = "1曲目";
+				public CChara Chara { get; set; } = new();
+				public class CChara
+				{
+					public int[] X { get; set; } = new int[] { 0, 0 };
+					public int[] Y { get; set; } = new int[] { 0, 537 };
+					public int[] BalloonX { get; set; } = new int[] { 240, 240, 0, 0 };
+					public int[] BalloonY { get; set; } = new int[] { 0, 297, 0, 0 };
+					public int[] BalloonTimer { get; set; } = new int[] { 28, 28 };
+					public int[] BalloonDelay { get; set; } = new int[] { 500, 500 };
+					public int[] BalloonFadeOut { get; set; } = new int[] { 84, 84 };
+					public int[] BeatNormal { get; set; } = new int[] { 1, 1 };
+					public int[] BeatClear { get; set; } = new int[] { 2, 2 };
+					public int[] BeatGoGo { get; set; } = new int[] { 2, 2 };
+					public int[][] MotionNormal { get; set; } = new int[][] { new int[] { 0 }, new int[] { 0 }};
+					public int[][] MotionClear { get; set; } = new int[][] { new int[] { 0 }, new int[] { 0 }};
+					public int[][] MotionGoGo { get; set; } = new int[][] { new int[] { 0 }, new int[] { 0 }};
+				}
 			}
 			public CResult Result { get; set; } = new();
 			public class CResult
@@ -2130,10 +2080,6 @@ namespace TJAPlayer3
 		public RollColorMode Game_RollColorMode = RollColorMode.All;
 		public bool Game_JudgeFrame_AddBlend = true;
 		#region Chara
-		public int[] Game_Chara_X = new int[] { 0, 0 };
-		public int[] Game_Chara_Y = new int[] { 0, 537 };
-		public int[] Game_Chara_Balloon_X = new int[] { 240, 240, 0, 0 };
-		public int[] Game_Chara_Balloon_Y = new int[] { 0, 297, 0, 0 };
 		public int[] Game_Chara_Ptn_Normal = new int[2],
 			Game_Chara_Ptn_GoGo = new int[2],
 			Game_Chara_Ptn_Clear = new int[2],
@@ -2146,15 +2092,7 @@ namespace TJAPlayer3
 			Game_Chara_Ptn_Balloon_Breaking = new int[2],
 			Game_Chara_Ptn_Balloon_Broke = new int[2],
 			Game_Chara_Ptn_Balloon_Miss = new int[2];
-		public string[] Game_Chara_Motion_Normal = { "0", "0" },
-			Game_Chara_Motion_Clear = { "0", "0" },
-			Game_Chara_Motion_GoGo = { "0", "0" };
-		public int[] Game_Chara_Beat_Normal = { 1, 1 };
-		public int[] Game_Chara_Beat_Clear = { 2, 2 };
-		public int[] Game_Chara_Beat_GoGo = { 2, 2 };
-		public int[] Game_Chara_Balloon_Timer = { 28, 28 };
-		public int[] Game_Chara_Balloon_Delay = { 500, 500 };
-		public int[] Game_Chara_Balloon_FadeOut = { 84, 84 };
+
 		#endregion
 		#region Dancer
 		public int[] Game_Dancer_X = new int[] { 640, 430, 856, 215, 1070 };
