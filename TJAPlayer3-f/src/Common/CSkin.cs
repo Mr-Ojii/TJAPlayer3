@@ -2039,10 +2039,10 @@ namespace TJAPlayer3
 			public class CSongSelect
 			{
 				public int OverallY { get; set; } = 123;
-				public int[] NamePlateX = new int[2] { 60, 950 };
-				public int[] NamePlateY = new int[2] { 650, 650 };
-				public int[] NamePlateAutoX = new int[2] { 60, 950 };
-				public int[] NamePlateAutoY = new int[2] { 650, 650 };
+				public int[] NamePlateX { get; set; } = new int[2] { 60, 950 };
+				public int[] NamePlateY { get; set; } = new int[2] { 650, 650 };
+				public int[] NamePlateAutoX { get; set; } = new int[2] { 60, 950 };
+				public int[] NamePlateAutoY { get; set; } = new int[2] { 650, 650 };
 			}
 			public CSongLoading SongLoading { get; set; } = new();
 			public class CSongLoading
