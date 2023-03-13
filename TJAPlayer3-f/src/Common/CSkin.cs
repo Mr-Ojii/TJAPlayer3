@@ -860,12 +860,6 @@ namespace TJAPlayer3
 							{
 								SongSelect_BackColor = strParam.Split(',').Select(ColorTranslator.FromHtml).ToArray();
 							}
-							#region Difficulty
-							else if (strCommand == nameof(Difficulty_Bar_Center_X_WH_WH_Y_Y))
-							{
-								Difficulty_Bar_Center_X_WH_WH_Y_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							#endregion
 
 							#endregion
 							#region SongLoading
@@ -1972,6 +1966,13 @@ namespace TJAPlayer3
 					public int[] AncEtcY { get; set; } = new int[] { 0, 0, 0 };
 					public int[] AncBoxEtcX { get; set; } = new int[] { 210, 285, 360 };
 					public int[] AncBoxEtcY { get; set; } = new int[] { 105, 105, 105 };
+					public int BarCenterX { get; set; } = 643;
+					public int BarCenterNormalW { get; set; } = 387;
+					public int BarCenterNormalH { get; set; } = 439;
+					public int BarCenterNormalY { get; set; } = 125;
+					public int BarCenterExpandW { get; set; } = 880;
+					public int BarCenterExpandH { get; set; } = 540;
+					public int BarCenterExpandY { get; set; } = 25;
 				}
 			}
 			public CSongLoading SongLoading { get; set; } = new();
@@ -2112,9 +2113,6 @@ namespace TJAPlayer3
 		public Color[] SongSelect_ForeColor = new Color[] { Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White };
 		public Color[] SongSelect_BackColor = new Color[] { Color.Black, ColorTranslator.FromHtml("#01455B"), ColorTranslator.FromHtml("#9D3800"), ColorTranslator.FromHtml("#412080"), ColorTranslator.FromHtml("#980E00"), ColorTranslator.FromHtml("#875600"), ColorTranslator.FromHtml("#366600"), ColorTranslator.FromHtml("#99001F"), ColorTranslator.FromHtml("#5B6278") };
 
-		#region[Difficulty]
-		public int[] Difficulty_Bar_Center_X_WH_WH_Y_Y = new int[7] { 643, 387, 439, 880, 540, 125, 25 };
-		#endregion
 		#endregion
 		#region SongLoading
 		public ReferencePoint SongLoading_Plate_ReferencePoint = ReferencePoint.Center;

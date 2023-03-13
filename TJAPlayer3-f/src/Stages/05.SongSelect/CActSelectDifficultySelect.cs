@@ -139,11 +139,11 @@ namespace TJAPlayer3
 			#region[難易度選択裏バー描画]
 			if (TJAPlayer3.Tx.Difficulty_Center_Bar != null)
 			{
-				int width = TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[3];
-				int height = TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[4];
+				int width = TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarCenterExpandW;
+				int height = TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarCenterExpandH;
 
-				int xdiff = TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[0] - TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[3] / 2;
-				int ydiff = TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[6];
+				int xdiff = TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarCenterX - width / 2;
+				int ydiff = TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarCenterExpandY;
 
 
 				int wh = Math.Min(TJAPlayer3.Tx.Difficulty_Center_Bar.szTextureSize.Width / 3, TJAPlayer3.Tx.Difficulty_Center_Bar.szTextureSize.Height / 3);

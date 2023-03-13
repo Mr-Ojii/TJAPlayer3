@@ -247,17 +247,18 @@ namespace TJAPlayer3
 					{
 						//Bar_Centerの拡大アニメーション
 						int width = Math.Max(Math.Min(
-							TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[1] +
-							(int)((TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[3] - TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[1]) * (((double)ctDifficultySelectINバー拡大用タイマー.n現在の値 * 3) / ctDifficultySelectINバー拡大用タイマー.n終了値)),
-							TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[3]), TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[1]);
+							TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarCenterNormalW +
+							(int)((TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarCenterExpandW - TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarCenterNormalW) * (((double)ctDifficultySelectINバー拡大用タイマー.n現在の値 * 3) / ctDifficultySelectINバー拡大用タイマー.n終了値)),
+							TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarCenterExpandW), TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarCenterNormalW);
 
 						int height = Math.Max(Math.Min(
-							TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[2] + (int)((TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[4] - TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[2]) * (((double)ctDifficultySelectINバー拡大用タイマー.n現在の値 * 2 - ctDifficultySelectINバー拡大用タイマー.n終了値 / 2) / ctDifficultySelectINバー拡大用タイマー.n終了値)),
-							TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[4]), TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[2]);
+							TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarCenterNormalH +
+							(int)((TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarCenterExpandH - TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarCenterNormalH) * (((double)ctDifficultySelectINバー拡大用タイマー.n現在の値 * 2 - ctDifficultySelectINバー拡大用タイマー.n終了値 / 2) / ctDifficultySelectINバー拡大用タイマー.n終了値)),
+							TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarCenterExpandH), TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarCenterNormalH);
 
-						int ydiff = Math.Min(Math.Max(TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[5] + (int)((TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[6] - TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[5]) * (((double)ctDifficultySelectINバー拡大用タイマー.n現在の値 * 2 - ctDifficultySelectINバー拡大用タイマー.n終了値 / 2) / ctDifficultySelectINバー拡大用タイマー.n終了値)), TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[6]), TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[5]);
+						int ydiff = Math.Min(Math.Max(TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarCenterNormalY + (int)((TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarCenterExpandY - TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarCenterNormalY) * (((double)ctDifficultySelectINバー拡大用タイマー.n現在の値 * 2 - ctDifficultySelectINバー拡大用タイマー.n終了値 / 2) / ctDifficultySelectINバー拡大用タイマー.n終了値)), TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarCenterExpandY), TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarCenterNormalY);
 
-						int xdiff = TJAPlayer3.Skin.Difficulty_Bar_Center_X_WH_WH_Y_Y[0] - width / 2;
+						int xdiff = TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarCenterX - width / 2;
 
 						int wh = Math.Min(TJAPlayer3.Tx.Difficulty_Center_Bar.szTextureSize.Width / 3, TJAPlayer3.Tx.Difficulty_Center_Bar.szTextureSize.Height / 3);
 
