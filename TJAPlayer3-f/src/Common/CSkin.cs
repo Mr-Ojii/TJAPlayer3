@@ -746,6 +746,10 @@ namespace TJAPlayer3
 			Program.SkinCreator = this.SkinConfig.General.Creator;
 			Program.SkinVersion = this.SkinConfig.General.Version;
 			CFontRenderer.SetRotate_Chara_List_Vertical(this.SkinConfig.SongSelect.RotateChara);
+			CFontRenderer.SetTextCorrectionX_Chara_List_Vertical(this.SkinConfig.SongSelect.CorrectionXChara);
+			CFontRenderer.SetTextCorrectionY_Chara_List_Vertical(this.SkinConfig.SongSelect.CorrectionYChara);
+			CFontRenderer.SetTextCorrectionX_Chara_List_Value_Vertical(this.SkinConfig.SongSelect.CorrectionXCharaValue);
+			CFontRenderer.SetTextCorrectionY_Chara_List_Value_Vertical(this.SkinConfig.SongSelect.CorrectionYCharaValue);
 
 			void LoadSkinConfigFromFile(string path, ref string work)
 			{
@@ -855,26 +859,6 @@ namespace TJAPlayer3
 							else if (strCommand == nameof(SongSelect_BackColor))
 							{
 								SongSelect_BackColor = strParam.Split(',').Select(ColorTranslator.FromHtml).ToArray();
-							}
-							else if (strCommand == nameof(SongSelect_CorrectionX_Chara))
-							{
-								SongSelect_CorrectionX_Chara = strParam.Split(',').ToArray();
-								CFontRenderer.SetTextCorrectionX_Chara_List_Vertical(SongSelect_CorrectionX_Chara);
-							}
-							else if (strCommand == nameof(SongSelect_CorrectionY_Chara))
-							{
-								SongSelect_CorrectionY_Chara = strParam.Split(',').ToArray();
-								CFontRenderer.SetTextCorrectionY_Chara_List_Vertical(SongSelect_CorrectionY_Chara);
-							}
-							else if (strCommand == nameof(SongSelect_CorrectionX_Chara_Value))
-							{
-								SongSelect_CorrectionX_Chara_Value = strParam.Split(',').Select(int.Parse).ToArray();
-								CFontRenderer.SetTextCorrectionX_Chara_List_Value_Vertical(SongSelect_CorrectionX_Chara_Value);
-							}
-							else if (strCommand == nameof(SongSelect_CorrectionY_Chara_Value))
-							{
-								SongSelect_CorrectionY_Chara_Value = strParam.Split(',').Select(int.Parse).ToArray();
-								CFontRenderer.SetTextCorrectionY_Chara_List_Value_Vertical(SongSelect_CorrectionY_Chara_Value);
 							}
 							#region Difficulty
 							else if (strCommand == nameof(Difficulty_Bar_Center_X_WH_WH_Y_Y))
@@ -2039,6 +2023,10 @@ namespace TJAPlayer3
 				public int BackBoxTextCorrectionY { get; set; } = 0;
 				public int BoxHeaderCorrectionY { get; set; }= 0;
 				public string[] RotateChara { get; set; } = new string[] { };
+				public string[] CorrectionXChara { get; set; } = new string[] { };
+				public string[] CorrectionYChara { get; set; } = new string[] { };
+				public int[] CorrectionXCharaValue { get; set; } = new int[] { };
+				public int[] CorrectionYCharaValue { get; set; } = new int[] { };
 			}
 			public CSongLoading SongLoading { get; set; } = new();
 			public class CSongLoading
@@ -2177,10 +2165,6 @@ namespace TJAPlayer3
 		#region SongSelect
 		public Color[] SongSelect_ForeColor = new Color[] { Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White };
 		public Color[] SongSelect_BackColor = new Color[] { Color.Black, ColorTranslator.FromHtml("#01455B"), ColorTranslator.FromHtml("#9D3800"), ColorTranslator.FromHtml("#412080"), ColorTranslator.FromHtml("#980E00"), ColorTranslator.FromHtml("#875600"), ColorTranslator.FromHtml("#366600"), ColorTranslator.FromHtml("#99001F"), ColorTranslator.FromHtml("#5B6278") };
-		public string[] SongSelect_CorrectionX_Chara = { "ここにX座標を補正したい文字をカンマで区切って記入" };
-		public string[] SongSelect_CorrectionY_Chara = { "ここにY座標を補正したい文字をカンマで区切って記入" };
-		public int[] SongSelect_CorrectionX_Chara_Value;
-		public int[] SongSelect_CorrectionY_Chara_Value;
 
 		#region[Difficulty]
 		public int[] Difficulty_Bar_Center_X_WH_WH_Y_Y = new int[7] { 643, 387, 439, 880, 540, 125, 25 };
