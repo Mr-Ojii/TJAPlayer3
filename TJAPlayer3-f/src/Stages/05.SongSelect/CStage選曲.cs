@@ -310,15 +310,15 @@ namespace TJAPlayer3
 
 					if (this.act曲リスト.ttk選択している曲のサブタイトル != null)
 					{
-						this.act曲リスト.サブタイトルtmp.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 707 + (this.act曲リスト.サブタイトルtmp.szTextureSize.Width / 2) + xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y + 430 - yAnime);
+						this.act曲リスト.サブタイトルtmp.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 707 + (this.act曲リスト.サブタイトルtmp.szTextureSize.Width / 2) + xAnime, TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY + 430 - yAnime);
 						if (this.act曲リスト.ttk選択している曲の曲名 != null)
 						{
-							this.act曲リスト.タイトルtmp.t2D描画(TJAPlayer3.app.Device, 750 + xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y + 23 - yAnime);
+							this.act曲リスト.タイトルtmp.t2D描画(TJAPlayer3.app.Device, 750 + xAnime, TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY + 23 - yAnime);
 						}
 					}
 					else if (this.act曲リスト.ttk選択している曲の曲名 != null)
 					{
-						this.act曲リスト.タイトルtmp.t2D描画(TJAPlayer3.app.Device, 750 + xAnime, TJAPlayer3.Skin.SongSelect_Overall_Y + 23 - yAnime);
+						this.act曲リスト.タイトルtmp.t2D描画(TJAPlayer3.app.Device, 750 + xAnime, TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY + 23 - yAnime);
 					}
 
 				}
@@ -360,23 +360,22 @@ namespace TJAPlayer3
 				{
 					if (TJAPlayer3.Tx.NamePlate[i] != null)
 					{
-						TJAPlayer3.Tx.NamePlate[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SongSelect_NamePlate_X[i], TJAPlayer3.Skin.SongSelect_NamePlate_Y[i]);
+						TJAPlayer3.Tx.NamePlate[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.SongSelect.NamePlateX[i], TJAPlayer3.Skin.SkinConfig.SongSelect.NamePlateY[i]);
+					}
+				}
+				if (TJAPlayer3.Tx.SongSelect_Auto != null)
+				{
+					for(int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
+					{
+						if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[i])
+						{
+							TJAPlayer3.Tx.SongSelect_Auto.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.SongSelect.NamePlateAutoX[i], TJAPlayer3.Skin.SkinConfig.SongSelect.NamePlateAutoY[i]);
+						}
 					}
 				}
 				#endregion
 
 				#region[ 下部テキスト ]
-				if (TJAPlayer3.Tx.SongSelect_Auto != null)
-				{
-					if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0])
-					{
-						TJAPlayer3.Tx.SongSelect_Auto.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SongSelect_Auto_X[0], TJAPlayer3.Skin.SongSelect_Auto_Y[0]);
-					}
-					if (TJAPlayer3.ConfigIni.nPlayerCount > 1 && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1])
-					{
-						TJAPlayer3.Tx.SongSelect_Auto.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SongSelect_Auto_X[1], TJAPlayer3.Skin.SongSelect_Auto_Y[1]);
-					}
-				}
 				if (TJAPlayer3.ConfigIni.eGameMode == EGame.完走叩ききりまショー)
 					TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, "GAME: SURVIVAL");
 				if (TJAPlayer3.ConfigIni.eGameMode == EGame.完走叩ききりまショー激辛)

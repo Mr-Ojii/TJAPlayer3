@@ -789,26 +789,10 @@ namespace TJAPlayer3
 									Trace.TraceWarning($"SkinConfigの値 {strCommand} は整数値である必要があります。現在の値: {strParam}");
 								}
 							}
-
-							if (strCommand == nameof(Name))
-							{
-								this.Name = strParam;
-								Program.SkinName = strParam;
-							}
-							else if (strCommand == nameof(Version))
-							{
-								this.Version = strParam;
-								Program.SkinVersion = strParam;
-							}
-							else if (strCommand == nameof(Creator))
-							{
-								this.Creator = strParam;
-								Program.SkinCreator = strParam;
-							}
 							#endregion
 
 							#region 背景(スクロール)
-							else if (strCommand == nameof(Background_Scroll_Y))
+							if (strCommand == nameof(Background_Scroll_Y))
 							{
 								this.Background_Scroll_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
@@ -849,37 +833,7 @@ namespace TJAPlayer3
 							#endregion
 
 							#region 新・SkinConfig
-							#region Config
-							else if (strCommand == nameof(Config_ItemText_Correction_X))
-							{
-								Config_ItemText_Correction_X = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Config_ItemText_Correction_Y))
-							{
-								Config_ItemText_Correction_Y = int.Parse(strParam);
-							}
-							#endregion
 							#region SongSelect
-							else if (strCommand == nameof(SongSelect_Overall_Y))
-							{
-								SongSelect_Overall_Y = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(SongSelect_NamePlate_X))
-							{
-								SongSelect_NamePlate_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(SongSelect_NamePlate_Y))
-							{
-								SongSelect_NamePlate_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(SongSelect_Auto_X))
-							{
-								SongSelect_Auto_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(SongSelect_Auto_Y))
-							{
-								SongSelect_Auto_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
 							else if (strCommand == nameof(SongSelect_ForeColor))
 							{
 								SongSelect_ForeColor = strParam.Split(',').Select(ColorTranslator.FromHtml).ToArray();
@@ -2016,6 +1970,9 @@ namespace TJAPlayer3
 					}
 				}
 			}
+			Program.SkinName = this.SkinConfig.General.Name;
+			Program.SkinCreator = this.SkinConfig.General.Creator;
+			Program.SkinVersion = this.SkinConfig.General.Version;
 		}
 
 		#region [ IDisposable 実装 ]
@@ -2090,6 +2047,58 @@ namespace TJAPlayer3
         private bool bDisposed済み;
 		//-----------------
 		#endregion
+
+		public CSkinConfig SkinConfig = new();
+		public class CSkinConfig
+		{
+			public CGeneral General { get; set; }
+			public class CGeneral
+			{
+				public string Name { get; set; } = "Unknown";
+				public string Version { get; set; } = "Unknown";
+				public string Creator { get; set; } = "Unknown";
+			}
+			public CTitle Title { get; set; }
+			public class CTitle
+			{
+
+			}
+			public CConfig Config { get; set; }
+			public class CConfig
+			{
+				public int ItemTextCorrectionX { get; set; } = 0;
+				public int ItemTextCorrectionY { get; set; } = 0;
+			}
+			public CSongSelect SongSelect { get; set; }
+			public class CSongSelect
+			{
+				public int OverallY { get; set; } = 123;
+				public int[] NamePlateX = new int[2] { 60, 950 };
+				public int[] NamePlateY = new int[2] { 650, 650 };
+				public int[] NamePlateAutoX = new int[2] { 60, 950 };
+				public int[] NamePlateAutoY = new int[2] { 650, 650 };
+			}
+			public CSongLoading SongLoading { get; set; }
+			public class CSongLoading
+			{
+
+			}
+			public CGame Game { get; set; }
+			public class CGame
+			{
+
+			}
+			public CResult Result { get; set; }
+			public class CResult
+			{
+
+			}
+			public CEnding Ending { get; set; }
+			public class CEnding
+			{
+
+			}
+		}
 
 		#region 背景(スクロール)
 		public int[] Background_Scroll_Y = new int[] { 0, 536 };
@@ -2195,21 +2204,7 @@ namespace TJAPlayer3
 		}
 
 		#region 新・SkinConfig
-		#region General
-		public string Name = "Unknown";
-		public string Version = "Unknown";
-		public string Creator = "Unknown";
-		#endregion
-		#region Config
-		public int Config_ItemText_Correction_X = 0;
-		public int Config_ItemText_Correction_Y = 0;
-		#endregion
 		#region SongSelect
-		public int SongSelect_Overall_Y = 123;
-		public int[] SongSelect_NamePlate_X = new int[] { 60, 950 };
-		public int[] SongSelect_NamePlate_Y = new int[] { 650, 650 };
-		public int[] SongSelect_Auto_X = new int[] { 60, 950 };
-		public int[] SongSelect_Auto_Y = new int[] { 650, 650 };
 		public Color[] SongSelect_ForeColor = new Color[] { Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White };
 		public Color[] SongSelect_BackColor = new Color[] { Color.Black, ColorTranslator.FromHtml("#01455B"), ColorTranslator.FromHtml("#9D3800"), ColorTranslator.FromHtml("#412080"), ColorTranslator.FromHtml("#980E00"), ColorTranslator.FromHtml("#875600"), ColorTranslator.FromHtml("#366600"), ColorTranslator.FromHtml("#99001F"), ColorTranslator.FromHtml("#5B6278") };
 		public string[] SongSelect_CorrectionX_Chara = { "ここにX座標を補正したい文字をカンマで区切って記入" };
