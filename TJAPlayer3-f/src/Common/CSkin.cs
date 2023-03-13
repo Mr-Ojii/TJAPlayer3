@@ -973,40 +973,6 @@ namespace TJAPlayer3
 
 							#endregion
 							#region SongLoading
-							else if (strCommand == nameof(SongLoading_Plate_X))
-							{
-								SongLoading_Plate_X = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_Plate_Y))
-							{
-								SongLoading_Plate_Y = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_Title_X))
-							{
-								SongLoading_Title_X = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_Title_Y))
-							{
-								SongLoading_Title_Y = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_SubTitle_X))
-							{
-								SongLoading_SubTitle_X = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_SubTitle_Y))
-							{
-								SongLoading_SubTitle_Y = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_Title_FontSize))
-							{
-								if (int.Parse(strParam) > 0)
-									SongLoading_Title_FontSize = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_SubTitle_FontSize))
-							{
-								if (int.Parse(strParam) > 0)
-									SongLoading_SubTitle_FontSize = int.Parse(strParam);
-							}
 							else if (strCommand == nameof(SongLoading_Plate_ReferencePoint))
 							{
 								SongLoading_Plate_ReferencePoint = (ReferencePoint)int.Parse(strParam);
@@ -2051,25 +2017,25 @@ namespace TJAPlayer3
 		public CSkinConfig SkinConfig = new();
 		public class CSkinConfig
 		{
-			public CGeneral General { get; set; }
+			public CGeneral General { get; set; } = new();
 			public class CGeneral
 			{
 				public string Name { get; set; } = "Unknown";
 				public string Version { get; set; } = "Unknown";
 				public string Creator { get; set; } = "Unknown";
 			}
-			public CTitle Title { get; set; }
+			public CTitle Title { get; set; } = new();
 			public class CTitle
 			{
 
 			}
-			public CConfig Config { get; set; }
+			public CConfig Config { get; set; } = new();
 			public class CConfig
 			{
 				public int ItemTextCorrectionX { get; set; } = 0;
 				public int ItemTextCorrectionY { get; set; } = 0;
 			}
-			public CSongSelect SongSelect { get; set; }
+			public CSongSelect SongSelect { get; set; } = new();
 			public class CSongSelect
 			{
 				public int OverallY { get; set; } = 123;
@@ -2078,22 +2044,29 @@ namespace TJAPlayer3
 				public int[] NamePlateAutoX = new int[2] { 60, 950 };
 				public int[] NamePlateAutoY = new int[2] { 650, 650 };
 			}
-			public CSongLoading SongLoading { get; set; }
+			public CSongLoading SongLoading { get; set; } = new();
 			public class CSongLoading
 			{
-
+				public int PlateX { get; set; } = 640;
+				public int PlateY { get; set; } = 360;
+				public int TitleX { get; set; } = 640;
+				public int TitleY { get; set; } = 340;
+				public int SubTitleX { get; set; } = 640;
+				public int SubTitleY { get; set; } = 390;
+				public int TitleFontSize { get; set; } = 30;
+				public int SubTitleFontSize { get; set; } = 22;	
 			}
-			public CGame Game { get; set; }
+			public CGame Game { get; set; } = new();
 			public class CGame
 			{
 
 			}
-			public CResult Result { get; set; }
+			public CResult Result { get; set; } = new();
 			public class CResult
 			{
 
 			}
-			public CEnding Ending { get; set; }
+			public CEnding Ending { get; set; } = new();
 			public class CEnding
 			{
 
@@ -2247,14 +2220,6 @@ namespace TJAPlayer3
 		#endregion
 		#endregion
 		#region SongLoading
-		public int SongLoading_Plate_X = 640;
-		public int SongLoading_Plate_Y = 360;
-		public int SongLoading_Title_X = 640;
-		public int SongLoading_Title_Y = 340;
-		public int SongLoading_SubTitle_X = 640;
-		public int SongLoading_SubTitle_Y = 390;
-		public int SongLoading_Title_FontSize = 30;
-		public int SongLoading_SubTitle_FontSize = 22;
 		public ReferencePoint SongLoading_Plate_ReferencePoint = ReferencePoint.Center;
 		public ReferencePoint SongLoading_Title_ReferencePoint = ReferencePoint.Center;
 		public ReferencePoint SongLoading_SubTitle_ReferencePoint = ReferencePoint.Center;

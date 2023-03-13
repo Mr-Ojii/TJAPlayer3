@@ -98,7 +98,7 @@ namespace TJAPlayer3
 
 					if( !string.IsNullOrEmpty(タイトル) )
 					{
-						using (CFontRenderer pfTITLE = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.SongLoading_Title_FontSize))
+						using (CFontRenderer pfTITLE = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.SkinConfig.SongLoading.TitleFontSize))
 						{
 							using (var bmpSongTitle = pfTITLE.DrawText(タイトル, TJAPlayer3.Skin.SongLoading_Title_ForeColor, TJAPlayer3.Skin.SongLoading_Title_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio))
 							{
@@ -109,7 +109,7 @@ namespace TJAPlayer3
 
 						if( !string.IsNullOrEmpty(サブタイトル) )
 						{
-							using (CFontRenderer pfSUBTITLE = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.SongLoading_SubTitle_FontSize))
+							using (CFontRenderer pfSUBTITLE = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.SkinConfig.SongLoading.SubTitleFontSize))
 							{
 								using (var bmpSongSubTitle = pfSUBTITLE.DrawText(サブタイトル, TJAPlayer3.Skin.SongLoading_SubTitle_ForeColor, TJAPlayer3.Skin.SongLoading_SubTitle_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio))
 								{
@@ -249,15 +249,15 @@ namespace TJAPlayer3
 						TJAPlayer3.Tx.SongLoading_Plate.Opacity = CConvert.nParsentTo255((this.ct曲名表示.n現在の値 / 30.0));
 						if (TJAPlayer3.Skin.SongLoading_Plate_ReferencePoint == CSkin.ReferencePoint.Left)
 						{
-							TJAPlayer3.Tx.SongLoading_Plate.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SongLoading_Plate_X, TJAPlayer3.Skin.SongLoading_Plate_Y - (TJAPlayer3.Tx.SongLoading_Plate.szTextureSize.Height / 2));
+							TJAPlayer3.Tx.SongLoading_Plate.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.SongLoading.PlateX, TJAPlayer3.Skin.SkinConfig.SongLoading.PlateY - (TJAPlayer3.Tx.SongLoading_Plate.szTextureSize.Height / 2));
 						}
 						else if (TJAPlayer3.Skin.SongLoading_Plate_ReferencePoint == CSkin.ReferencePoint.Right)
 						{
-							TJAPlayer3.Tx.SongLoading_Plate.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SongLoading_Plate_X - TJAPlayer3.Tx.SongLoading_Plate.szTextureSize.Width, TJAPlayer3.Skin.SongLoading_Plate_Y - (TJAPlayer3.Tx.SongLoading_Plate.szTextureSize.Height / 2));
+							TJAPlayer3.Tx.SongLoading_Plate.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.SongLoading.PlateX - TJAPlayer3.Tx.SongLoading_Plate.szTextureSize.Width, TJAPlayer3.Skin.SkinConfig.SongLoading.PlateY - (TJAPlayer3.Tx.SongLoading_Plate.szTextureSize.Height / 2));
 						}
 						else
 						{
-							TJAPlayer3.Tx.SongLoading_Plate.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SongLoading_Plate_X - (TJAPlayer3.Tx.SongLoading_Plate.szTextureSize.Width / 2), TJAPlayer3.Skin.SongLoading_Plate_Y - (TJAPlayer3.Tx.SongLoading_Plate.szTextureSize.Height / 2));
+							TJAPlayer3.Tx.SongLoading_Plate.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.SongLoading.PlateX - (TJAPlayer3.Tx.SongLoading_Plate.szTextureSize.Width / 2), TJAPlayer3.Skin.SkinConfig.SongLoading.PlateY - (TJAPlayer3.Tx.SongLoading_Plate.szTextureSize.Height / 2));
 						}
 					}
 
@@ -268,15 +268,15 @@ namespace TJAPlayer3
 						this.txTitle.Opacity = CConvert.nParsentTo255((this.ct曲名表示.n現在の値 / 30.0));
 						if (TJAPlayer3.Skin.SongLoading_Title_ReferencePoint == CSkin.ReferencePoint.Left)
 						{
-							this.txTitle.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SongLoading_Title_X, TJAPlayer3.Skin.SongLoading_Title_Y - (this.txTitle.szTextureSize.Height / 2) + nサブタイトル補正);
+							this.txTitle.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.SongLoading.TitleX, TJAPlayer3.Skin.SkinConfig.SongLoading.TitleY - (this.txTitle.szTextureSize.Height / 2) + nサブタイトル補正);
 						}
 						else if (TJAPlayer3.Skin.SongLoading_Title_ReferencePoint == CSkin.ReferencePoint.Right)
 						{
-							this.txTitle.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SongLoading_Title_X - (this.txTitle.szTextureSize.Width * txTitle.vcScaling.X), TJAPlayer3.Skin.SongLoading_Title_Y - (this.txTitle.szTextureSize.Height / 2) + nサブタイトル補正);
+							this.txTitle.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.SongLoading.TitleX - (this.txTitle.szTextureSize.Width * txTitle.vcScaling.X), TJAPlayer3.Skin.SkinConfig.SongLoading.TitleY - (this.txTitle.szTextureSize.Height / 2) + nサブタイトル補正);
 						}
 						else
 						{
-							this.txTitle.t2D描画(TJAPlayer3.app.Device, (TJAPlayer3.Skin.SongLoading_Title_X - ((this.txTitle.szTextureSize.Width * txTitle.vcScaling.X) / 2)), TJAPlayer3.Skin.SongLoading_Title_Y - (this.txTitle.szTextureSize.Height / 2) + nサブタイトル補正);
+							this.txTitle.t2D描画(TJAPlayer3.app.Device, (TJAPlayer3.Skin.SkinConfig.SongLoading.TitleX - ((this.txTitle.szTextureSize.Width * txTitle.vcScaling.X) / 2)), TJAPlayer3.Skin.SkinConfig.SongLoading.TitleY - (this.txTitle.szTextureSize.Height / 2) + nサブタイトル補正);
 						}
 					}
 					if (this.txSubTitle != null)
@@ -284,15 +284,15 @@ namespace TJAPlayer3
 						this.txSubTitle.Opacity = CConvert.nParsentTo255((this.ct曲名表示.n現在の値 / 30.0));
 						if (TJAPlayer3.Skin.SongLoading_SubTitle_ReferencePoint == CSkin.ReferencePoint.Left)
 						{
-							this.txSubTitle.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SongLoading_SubTitle_X, TJAPlayer3.Skin.SongLoading_SubTitle_Y - (this.txSubTitle.szTextureSize.Height / 2));
+							this.txSubTitle.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.SongLoading.SubTitleX, TJAPlayer3.Skin.SkinConfig.SongLoading.SubTitleY - (this.txSubTitle.szTextureSize.Height / 2));
 						}
 						else if (TJAPlayer3.Skin.SongLoading_SubTitle_ReferencePoint == CSkin.ReferencePoint.Right)
 						{
-							this.txSubTitle.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SongLoading_SubTitle_X - (this.txSubTitle.szTextureSize.Width * txSubTitle.vcScaling.X), TJAPlayer3.Skin.SongLoading_SubTitle_Y - (this.txSubTitle.szTextureSize.Height / 2));
+							this.txSubTitle.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.SongLoading.SubTitleX - (this.txSubTitle.szTextureSize.Width * txSubTitle.vcScaling.X), TJAPlayer3.Skin.SkinConfig.SongLoading.SubTitleY - (this.txSubTitle.szTextureSize.Height / 2));
 						}
 						else
 						{
-							this.txSubTitle.t2D描画(TJAPlayer3.app.Device, (TJAPlayer3.Skin.SongLoading_SubTitle_X - ((this.txSubTitle.szTextureSize.Width * txSubTitle.vcScaling.X) / 2)), TJAPlayer3.Skin.SongLoading_SubTitle_Y - (this.txSubTitle.szTextureSize.Height / 2));
+							this.txSubTitle.t2D描画(TJAPlayer3.app.Device, (TJAPlayer3.Skin.SkinConfig.SongLoading.SubTitleX - ((this.txSubTitle.szTextureSize.Width * txSubTitle.vcScaling.X) / 2)), TJAPlayer3.Skin.SkinConfig.SongLoading.SubTitleY - (this.txSubTitle.szTextureSize.Height / 2));
 						}
 					}
 				}
