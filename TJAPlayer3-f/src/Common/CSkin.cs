@@ -742,6 +742,9 @@ namespace TJAPlayer3
 			};
 			CSkinConfig cSC = Toml.ToModel<CSkinConfig>(strToml, null, tomlModelOptions);
 			this.SkinConfig = cSC;
+			Program.SkinName = this.SkinConfig.General.Name;
+			Program.SkinCreator = this.SkinConfig.General.Creator;
+			Program.SkinVersion = this.SkinConfig.General.Version;
 
 			void LoadSkinConfigFromFile(string path, ref string work)
 			{
@@ -1921,14 +1924,14 @@ namespace TJAPlayer3
 					}
 				}
 			}
-			Program.SkinName = this.SkinConfig.General.Name;
-			Program.SkinCreator = this.SkinConfig.General.Creator;
-			Program.SkinVersion = this.SkinConfig.General.Version;
+#if DEBUG
 			Tomlyn.TomlModelOptions tm = new()
 			{
 				ConvertPropertyName = (x) => x,
+				ConvertFieldName = (x) => x,
 			};
 			Console.WriteLine(Tomlyn.Toml.FromModel(this.SkinConfig, tm));
+#endif
 		}
 
 		#region [ IDisposable 実装 ]
@@ -2505,10 +2508,8 @@ namespace TJAPlayer3
 
 		public Color Result_MusicName_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
 		public Color Result_StageText_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
-		//public Color Result_StageText_ForeColor_Red = ColorTranslator.FromHtml("#FFFFFF");
 		public Color Result_MusicName_BackColor = ColorTranslator.FromHtml("#000000");
 		public Color Result_StageText_BackColor = ColorTranslator.FromHtml("#000000");
-		//public Color Result_StageText_BackColor_Red = ColorTranslator.FromHtml("#FF0000");
 
 		public int[] Result_NamePlate_X = new int[] { 260, 260 };
 		public int[] Result_NamePlate_Y = new int[] { 96, 390 };
