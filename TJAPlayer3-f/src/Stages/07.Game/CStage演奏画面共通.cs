@@ -3247,10 +3247,10 @@ namespace TJAPlayer3
 									{
 										this.actDancer.ct踊り子モーション = new CCounter();
 									}
-									if (TJAPlayer3.Skin.Game_Mob_Ptn != 0 && TJAPlayer3.Skin.Game_Mob_Beat > 0 ) //2018.6.15 Game_Mob_Beatが0のままCCounter生成をされて無限ループが発生しないよう対策
+									if (TJAPlayer3.Skin.Game_Mob_Ptn != 0 && TJAPlayer3.Skin.SkinConfig.Game.Mob.Beat > 0 ) //2018.6.15 Game_Mob_Beatが0のままCCounter生成をされて無限ループが発生しないよう対策
 									{
-										this.actMob.ctMob = new CCounter(1, 180, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.Game_Mob_Beat / 180 / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSoundManager.rc演奏用タイマ);
-										this.actMob.ctMobPtn = new CCounter(0, TJAPlayer3.Skin.Game_Mob_Ptn - 1, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.Game_Mob_Ptn_Beat / TJAPlayer3.Skin.Game_Mob_Ptn / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSoundManager.rc演奏用タイマ);
+										this.actMob.ctMob = new CCounter(1, 180, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.SkinConfig.Game.Mob.Beat / 180 / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSoundManager.rc演奏用タイマ);
+										this.actMob.ctMobPtn = new CCounter(0, TJAPlayer3.Skin.Game_Mob_Ptn - 1, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.SkinConfig.Game.Mob.PtnBeat / TJAPlayer3.Skin.Game_Mob_Ptn / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSoundManager.rc演奏用タイマ);
 									}
 									else
 									{
@@ -3442,12 +3442,12 @@ namespace TJAPlayer3
 								if (TJAPlayer3.Skin.Game_Mob_Ptn != 0)
 								{
 									double db値 = this.actMob.ctMob.db現在の値;
-									this.actMob.ctMob = new CCounter(1, 180, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.Game_Mob_Beat / 180 / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSoundManager.rc演奏用タイマ);
+									this.actMob.ctMob = new CCounter(1, 180, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.SkinConfig.Game.Mob.Beat / 180 / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSoundManager.rc演奏用タイマ);
 									this.actMob.ctMob.t時間Resetdb();
 									this.actMob.ctMob.db現在の値 = db値;
 
 									db値 = this.actMob.ctMobPtn.db現在の値;
-									this.actMob.ctMobPtn = new CCounter(0, TJAPlayer3.Skin.Game_Mob_Ptn - 1, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.Game_Mob_Ptn_Beat / TJAPlayer3.Skin.Game_Mob_Ptn / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSoundManager.rc演奏用タイマ);
+									this.actMob.ctMobPtn = new CCounter(0, TJAPlayer3.Skin.Game_Mob_Ptn - 1, 60.0 / TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * TJAPlayer3.Skin.SkinConfig.Game.Mob.PtnBeat / TJAPlayer3.Skin.Game_Mob_Ptn / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0), CSoundManager.rc演奏用タイマ);
 									this.actMob.ctMobPtn.t時間Resetdb();
 									this.actMob.ctMobPtn.db現在の値 = db値;
 								} else

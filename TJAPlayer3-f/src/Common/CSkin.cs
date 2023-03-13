@@ -1038,16 +1038,6 @@ namespace TJAPlayer3
 								Game_Lyric_BackColor = ColorTranslator.FromHtml(strParam);
 							}
 							#endregion
-							#region Mob
-							else if (strCommand == nameof(Game_Mob_Beat))
-							{
-								ParseInt32(value => Game_Mob_Beat = value);
-							}
-							else if (strCommand == nameof(Game_Mob_Ptn_Beat))
-							{
-								ParseInt32(value => Game_Mob_Ptn_Beat = value);
-							}
-							#endregion
 							#region Score
 							else if (strCommand == nameof(Game_Score_X))
 							{
@@ -1921,6 +1911,12 @@ namespace TJAPlayer3
 					public int Beat { get; set; } = 8;
 					public int[] Gauge { get; set; } = new int[] { 0, 20, 40, 60, 80 };
 				}
+				public CMob Mob { get; set; } = new();
+				public class CMob
+				{
+					public int Beat { get; set; } = 1;
+					public int PtnBeat { get; set; } = 1;
+				}
 			}
 			public CResult Result { get; set; } = new();
 			public class CResult
@@ -2085,8 +2081,6 @@ namespace TJAPlayer3
 		#endregion
 		#region Mob
 		public int Game_Mob_Ptn = 0;
-		public int Game_Mob_Beat,
-			Game_Mob_Ptn_Beat = 1;
 		#endregion
 		#region CourseSymbol
 		public int[] Game_CourseSymbol_X = new int[] { 64, 64 };
