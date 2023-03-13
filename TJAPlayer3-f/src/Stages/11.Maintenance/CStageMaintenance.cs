@@ -76,7 +76,7 @@ namespace TJAPlayer3
 				{
 					for (int ind = 0; ind < 4; ind++)
 					{
-						using (SixLabors.ImageSharp.Image<Rgba32> bmp = pf.DrawText(txt[ind], Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio))
+						using (SixLabors.ImageSharp.Image<Rgba32> bmp = pf.DrawText(txt[ind], Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
 							str[ind] = TJAPlayer3.tCreateTexture(bmp);
 					}
                 }

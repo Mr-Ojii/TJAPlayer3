@@ -58,7 +58,7 @@ namespace TJAPlayer3
 			stqMenuTitle = new stQuickMenuItem();
 			stqMenuTitle.cItem = new CItemBase();
 			stqMenuTitle.cItem.strName = title;
-			using (var bitmap = prvFont.DrawText( title, Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio))
+			using (var bitmap = prvFont.DrawText( title, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
 			{
 				stqMenuTitle.txName = TJAPlayer3.tCreateTexture( bitmap );
 			}
@@ -67,7 +67,7 @@ namespace TJAPlayer3
 			{
 				stQuickMenuItem stqm = new stQuickMenuItem();
 				stqm.cItem = menulist[ i ];
-				using (var bitmap = prvFont.DrawText( menulist[ i ].strName, Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio))
+				using (var bitmap = prvFont.DrawText( menulist[ i ].strName, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
 				{
 					stqm.txName = TJAPlayer3.tCreateTexture( bitmap );
 				}
@@ -330,8 +330,8 @@ namespace TJAPlayer3
 								break;
 						}
 						using (var bmpStr = bValueBold ?
-							prvFont.DrawText(s, Color.White, Color.Black, Color.Yellow, Color.OrangeRed, TJAPlayer3.Skin.Font_Edge_Ratio) :
-							prvFont.DrawText(s, Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio))
+							prvFont.DrawText(s, Color.White, Color.Black, Color.Yellow, Color.OrangeRed, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio) :
+							prvFont.DrawText(s, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
 						{
 							using (var ctStr = TJAPlayer3.tCreateTexture(bmpStr))
 							{

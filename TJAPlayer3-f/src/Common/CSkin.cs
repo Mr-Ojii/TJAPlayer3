@@ -1792,19 +1792,6 @@ namespace TJAPlayer3
 								if (int.Parse(strParam) != 0)
 									Result_RotateInterval = int.Parse(strParam);
 							}
-
-							#endregion
-							#region Font
-							else if (strCommand == nameof(Font_Edge_Ratio)) //Config画面や簡易メニューのフォントについて(rhimm)
-							{
-								if (int.Parse(strParam) > 0)
-									Font_Edge_Ratio = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Font_Edge_Ratio_Vertical)) //TITLEやSUBTITLEなど、縦に書かれることのあるフォントについて(rhimm)
-							{
-								if (int.Parse(strParam) > 0)
-									Font_Edge_Ratio_Vertical = int.Parse(strParam);
-							}
 							#endregion
 							#endregion
 						}
@@ -1910,6 +1897,12 @@ namespace TJAPlayer3
 				public string Name { get; set; } = "Unknown";
 				public string Version { get; set; } = "Unknown";
 				public string Creator { get; set; } = "Unknown";
+			}
+			public CFont Font { get; set; } = new();
+			public class CFont
+			{
+				public int EdgeRatio { get; set; } = 30;
+				public int EdgeRatioVertical { get; set; } = 30;
 			}
 			public CTitle Title { get; set; } = new();
 			public class CTitle
@@ -2427,12 +2420,6 @@ namespace TJAPlayer3
 
 		public int[] Result_v2_Crown_X = new int[] { 270, 910 };
 		public int[] Result_v2_Crown_Y = new int[] { 340, 340 };
-		#endregion
-		#region Font
-		public int Font_Edge_Ratio = 30;
-		public int Font_Edge_Ratio_Vertical = 30;
-		public int Text_Correction_X = 0;
-		public int Text_Correction_Y = 0;
 		#endregion
 		public int SECount = 0;
 		public int[] NowSENum = { 0, 0 };

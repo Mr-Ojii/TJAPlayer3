@@ -3841,7 +3841,7 @@ namespace TJAPlayer3
 			}
 			else if (command == "#LYRIC")
 			{
-				this.listLyric.Add(this.pf歌詞フォント.DrawText(argument, TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio));
+				this.listLyric.Add(this.pf歌詞フォント.DrawText(argument, TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio));
 
 				var chip = new CChip();
 
@@ -5176,7 +5176,7 @@ namespace TJAPlayer3
 						{
 							STLYRIC stlrc;
 							stlrc.Text = strSplit後[i];
-							stlrc.TextTex = this.pf歌詞フォント.DrawText(strSplit後[i], TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio);
+							stlrc.TextTex = this.pf歌詞フォント.DrawText(strSplit後[i], TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio);
 							stlrc.Time = list[listindex];
 							stlrc.index = ordnumber;
 							this.listLyric2.Add(stlrc);

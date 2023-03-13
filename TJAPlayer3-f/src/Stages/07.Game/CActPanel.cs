@@ -38,7 +38,7 @@ namespace TJAPlayer3
 					{
 						TJAPlayer3.t安全にDisposeする(ref txMusicName);
 						TJAPlayer3.t安全にDisposeする(ref txSubTitleName);
-						using (var bmpSongTitle = pfMusicName.DrawText(songName, TJAPlayer3.Skin.Game_MusicName_ForeColor, TJAPlayer3.Skin.Game_MusicName_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio))
+						using (var bmpSongTitle = pfMusicName.DrawText(songName, TJAPlayer3.Skin.Game_MusicName_ForeColor, TJAPlayer3.Skin.Game_MusicName_BackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
 						{
 							this.txMusicName = TJAPlayer3.tCreateTexture( bmpSongTitle );
 						}
@@ -48,7 +48,7 @@ namespace TJAPlayer3
 						}
 						if (!string.IsNullOrEmpty(subtitle))
 						{
-							using (var bmpSubTitle = pfSubTitleName.DrawText(subtitle, TJAPlayer3.Skin.Game_MusicName_ForeColor, TJAPlayer3.Skin.Game_MusicName_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio))
+							using (var bmpSubTitle = pfSubTitleName.DrawText(subtitle, TJAPlayer3.Skin.Game_MusicName_ForeColor, TJAPlayer3.Skin.Game_MusicName_BackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
 							{
 								this.txSubTitleName = TJAPlayer3.tCreateTexture(bmpSubTitle);
 							}
@@ -58,7 +58,7 @@ namespace TJAPlayer3
 							}
 						}
 
-						using (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> bmpDiff = pfMusicName.DrawText(stageText, TJAPlayer3.Skin.Game_StageText_ForeColor, TJAPlayer3.Skin.Game_StageText_BackColor, TJAPlayer3.Skin.Font_Edge_Ratio))
+						using (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> bmpDiff = pfMusicName.DrawText(stageText, TJAPlayer3.Skin.Game_StageText_ForeColor, TJAPlayer3.Skin.Game_StageText_BackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
 						{
 							this.tx難易度とステージ数 = TJAPlayer3.tCreateTexture( bmpDiff );
 						}

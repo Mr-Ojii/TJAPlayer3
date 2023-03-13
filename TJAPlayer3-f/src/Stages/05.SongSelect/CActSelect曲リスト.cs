@@ -1636,7 +1636,7 @@ namespace TJAPlayer3
 		private static CTexture GenerateTitleTexture(TitleTextureKey titleTextureKey)
 		{
 			using (var bmp = titleTextureKey.CCachedFontRenderer.DrawText_V(
-				titleTextureKey.str文字, titleTextureKey.forecolor, titleTextureKey.backcolor, TJAPlayer3.Skin.Font_Edge_Ratio_Vertical))
+				titleTextureKey.str文字, titleTextureKey.forecolor, titleTextureKey.backcolor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatioVertical))
 			{
 				CTexture tx文字テクスチャ = TJAPlayer3.tCreateTexture(bmp);
 				if (tx文字テクスチャ.szTextureSize.Height > titleTextureKey.maxHeight)

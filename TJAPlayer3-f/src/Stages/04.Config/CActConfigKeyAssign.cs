@@ -396,7 +396,7 @@ namespace TJAPlayer3
 		private void tDrawText(int x, int y, string str, bool b強調, float fScale)
 		{
 			Color fontcol = b強調 ? Color.Cyan : Color.White;
-			using (CTexture fonttex = TJAPlayer3.tCreateTexture(this.fontRenderer.DrawText(str, fontcol, Color.DarkCyan, TJAPlayer3.Skin.Font_Edge_Ratio))) 
+			using (CTexture fonttex = TJAPlayer3.tCreateTexture(this.fontRenderer.DrawText(str, fontcol, Color.DarkCyan, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))) 
 			{
 				fonttex.vcScaling.X = fScale;
 				fonttex.vcScaling.Y = fScale;

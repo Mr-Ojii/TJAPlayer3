@@ -310,7 +310,7 @@ namespace TJAPlayer3
 		#region [ private ]
 		//-----------------
 		private CTexture 文字テクスチャを生成する(string str文字, Color forecolor, Color backcolor, CFontRenderer pf) {
-			using (var bmp = pf.DrawText_V(str文字, forecolor, backcolor, TJAPlayer3.Skin.Font_Edge_Ratio_Vertical)) {
+			using (var bmp = pf.DrawText_V(str文字, forecolor, backcolor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatioVertical)) {
 				return TJAPlayer3.tCreateTexture(bmp);
 			}
 		}
