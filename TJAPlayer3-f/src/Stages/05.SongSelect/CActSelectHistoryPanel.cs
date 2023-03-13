@@ -67,8 +67,8 @@ namespace TJAPlayer3
 					base.b初めての進行描画 = false;
 				}
 				this.ct登場アニメ用.t進行();
-				int[] x = TJAPlayer3.Skin.SongSelect_ScoreWindow_X;
-				int[] y = TJAPlayer3.Skin.SongSelect_ScoreWindow_Y;
+				int[] x = TJAPlayer3.Skin.SkinConfig.SongSelect.ScoreWindowX;
+				int[] y = TJAPlayer3.Skin.SkinConfig.SongSelect.ScoreWindowY;
 				int xdiff = 170;
 				for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++) {
 					if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア != null && this.ct登場アニメ用.b終了値に達した && TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.eNodeType == C曲リストノード.ENodeType.SCORE)

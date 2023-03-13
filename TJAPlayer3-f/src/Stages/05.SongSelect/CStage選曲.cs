@@ -400,7 +400,7 @@ namespace TJAPlayer3
 						dotinum = 0;
 					TJAPlayer3.Tx.SongSelect_Counter_Back[dotinum].t2D描画(TJAPlayer3.app.Device, 880, 0);
 					for (int countdig = 0; countdig < This_counter.ToString().Length; countdig++)
-						TJAPlayer3.Tx.SongSelect_Counter_Num[dotinum].t2D描画(TJAPlayer3.app.Device, (int)(((countdig + (This_counter.ToString().Length - 1) / 2.0) - (This_counter.ToString().Length - 1)) * 48.0) + TJAPlayer3.Skin.SongSelect_Counter_XY[0], TJAPlayer3.Skin.SongSelect_Counter_XY[1], new Rectangle((TJAPlayer3.Tx.SongSelect_Counter_Num[dotinum].szTextureSize.Width / 10) * (This_counter / (int)Math.Pow(10, This_counter.ToString().Length - countdig - 1) % 10 ), 0, TJAPlayer3.Tx.SongSelect_Counter_Num[dotinum].szTextureSize.Width / 10, TJAPlayer3.Tx.SongSelect_Counter_Num[dotinum].szTextureSize.Height));
+						TJAPlayer3.Tx.SongSelect_Counter_Num[dotinum].t2D描画(TJAPlayer3.app.Device, (int)(((countdig + (This_counter.ToString().Length - 1) / 2.0) - (This_counter.ToString().Length - 1)) * 48.0) + TJAPlayer3.Skin.SkinConfig.SongSelect.CounterX, TJAPlayer3.Skin.SkinConfig.SongSelect.CounterY, new Rectangle((TJAPlayer3.Tx.SongSelect_Counter_Num[dotinum].szTextureSize.Width / 10) * (This_counter / (int)Math.Pow(10, This_counter.ToString().Length - countdig - 1) % 10 ), 0, TJAPlayer3.Tx.SongSelect_Counter_Num[dotinum].szTextureSize.Width / 10, TJAPlayer3.Tx.SongSelect_Counter_Num[dotinum].szTextureSize.Height));
 				}
 
 				if (this.act曲リスト.n現在選択中の曲の難易度レベル[0] != (int)Difficulty.Dan)

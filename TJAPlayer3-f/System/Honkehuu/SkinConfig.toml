@@ -1,0 +1,11 @@
+[General]
+Name = "Default"
+Version = "0.9"
+Creator = "Mr-Ojii"
+
+[SongSelect]
+BackBoxTextCorrectionY = 40
+
+[Game]
+NotesAnime = true
+StageText = "n曲目"

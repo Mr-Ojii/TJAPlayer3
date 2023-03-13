@@ -7,6 +7,7 @@ using FDK;
 using FDK.ExtensionMethods;
 using System.Drawing;
 using System.Linq;
+using Tomlyn;
 
 namespace TJAPlayer3
 {
@@ -732,6 +733,15 @@ namespace TJAPlayer3
 			var str = "";
 			LoadSkinConfigFromFile(Path(@"SkinConfig.ini"), ref str);
 			this.t文字列から読み込み(str);
+			
+			string strToml =  CJudgeTextEncoding.ReadTextFile(Path(@"SkinConfig.toml"));
+			TomlModelOptions tomlModelOptions = new()
+			{
+				ConvertPropertyName = (x) => x,
+				ConvertFieldName = (x) => x,
+			};
+			CSkinConfig cSC = Toml.ToModel<CSkinConfig>(strToml, null, tomlModelOptions);
+			this.SkinConfig = cSC;
 
 			void LoadSkinConfigFromFile(string path, ref string work)
 			{
@@ -867,23 +877,6 @@ namespace TJAPlayer3
 								SongSelect_Rotate_Chara = strParam.Split(',').ToArray();
 								CFontRenderer.SetRotate_Chara_List_Vertical(SongSelect_Rotate_Chara);
 							}
-							else if (strCommand == nameof(SongSelect_BackBoxText_Y_Diff))
-							{
-								SongSelect_BackBoxText_Y_Diff = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(SongSelect_Box_Center_Header_Y_Diff))
-							{
-								SongSelect_Box_Center_Header_Y_Diff = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(SongSelect_ScoreWindow_X))
-							{
-								SongSelect_ScoreWindow_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(SongSelect_ScoreWindow_Y))
-							{
-								SongSelect_ScoreWindow_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-
 							#region Difficulty
 							else if (strCommand == nameof(Difficulty_Bar_Center_X_WH_WH_Y_Y))
 							{
@@ -1039,14 +1032,6 @@ namespace TJAPlayer3
 							}
 							#endregion
 							#region Game
-							else if (strCommand == nameof(Game_Notes_Anime))
-							{
-								Game_Notes_Anime = strParam[0].ToBool();
-							}
-							else if (strCommand == nameof(Game_StageText))
-							{
-								Game_StageText = strParam;
-							}
 							else if (strCommand == nameof(Game_RollColorMode))
 							{
 								Game_RollColorMode = (RollColorMode)int.Parse(strParam);
@@ -1939,6 +1924,11 @@ namespace TJAPlayer3
 			Program.SkinName = this.SkinConfig.General.Name;
 			Program.SkinCreator = this.SkinConfig.General.Creator;
 			Program.SkinVersion = this.SkinConfig.General.Version;
+			Tomlyn.TomlModelOptions tm = new()
+			{
+				ConvertPropertyName = (x) => x,
+			};
+			Console.WriteLine(Tomlyn.Toml.FromModel(this.SkinConfig, tm));
 		}
 
 		#region [ IDisposable 実装 ]
@@ -2043,6 +2033,12 @@ namespace TJAPlayer3
 				public int[] NamePlateY { get; set; } = new int[2] { 650, 650 };
 				public int[] NamePlateAutoX { get; set; } = new int[2] { 60, 950 };
 				public int[] NamePlateAutoY { get; set; } = new int[2] { 650, 650 };
+				public int CounterX { get; set; } = 1145;
+				public int CounterY { get; set; } = 55;
+				public int[] ScoreWindowX { get; set; } = { 0, 1030 };
+				public int[] ScoreWindowY { get; set; }= { 160, 160 };
+				public int BackBoxTextCorrectionY { get; set; } = 0;
+				public int BoxHeaderCorrectionY { get; set; }= 0;
 			}
 			public CSongLoading SongLoading { get; set; } = new();
 			public class CSongLoading
@@ -2059,7 +2055,8 @@ namespace TJAPlayer3
 			public CGame Game { get; set; } = new();
 			public class CGame
 			{
-
+				public bool NotesAnime { get; set; } = false;
+				public string StageText { get; set; } = "1曲目";
 			}
 			public CResult Result { get; set; } = new();
 			public class CResult
@@ -2185,11 +2182,6 @@ namespace TJAPlayer3
 		public int[] SongSelect_CorrectionX_Chara_Value;
 		public int[] SongSelect_CorrectionY_Chara_Value;
 		public string[] SongSelect_Rotate_Chara = { "ここに90℃回転させたい文字をカンマで区切って記入" };
-		public int SongSelect_BackBoxText_Y_Diff = 0;
-		public int SongSelect_Box_Center_Header_Y_Diff = 0;
-		public int[] SongSelect_Counter_XY = { 1145, 55 };
-		public int[] SongSelect_ScoreWindow_X = { 0, 1030 };
-		public int[] SongSelect_ScoreWindow_Y = { 160, 160 };
 
 		#region[Difficulty]
 		public int[] Difficulty_Bar_Center_X_WH_WH_Y_Y = new int[7] { 643, 387, 439, 880, 540, 125, 25 };
@@ -2239,8 +2231,6 @@ namespace TJAPlayer3
 
 		#endregion
 		#region Game
-		public bool Game_Notes_Anime = false;
-		public string Game_StageText = "1曲目";
 		public RollColorMode Game_RollColorMode = RollColorMode.All;
 		public bool Game_JudgeFrame_AddBlend = true;
 		#region Chara

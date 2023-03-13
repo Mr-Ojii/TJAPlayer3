@@ -2928,7 +2928,7 @@ namespace TJAPlayer3
 
 			string subtitle = (TJAPlayer3.ConfigIni.eSubtitleDispMode == ESubtitleDispMode.On || (TJAPlayer3.ConfigIni.eSubtitleDispMode==ESubtitleDispMode.Compliant && TJAPlayer3.DTX[0].SUBTITLEDisp)) ? TJAPlayer3.DTX[0].SUBTITLE : null;
 
-			this.actPanel.SetPanelString(panelString, subtitle, TJAPlayer3.stage選曲.str確定された曲のジャンル, TJAPlayer3.Skin.Game_StageText);
+			this.actPanel.SetPanelString(panelString, subtitle, TJAPlayer3.stage選曲.str確定された曲のジャンル, TJAPlayer3.Skin.SkinConfig.Game.StageText);
 		}
 
 
@@ -4804,7 +4804,7 @@ namespace TJAPlayer3
 				ctChipAnime[i].t進行LoopDb();
 				ctChipAnimeLag[i].t進行();
 
-				if (TJAPlayer3.Skin.Game_Notes_Anime)
+				if (TJAPlayer3.Skin.SkinConfig.Game.NotesAnime)
 				{
 					if (this.actCombo.n現在のコンボ数[i] >= 300 && ctChipAnimeLag[i].b終了値に達した)
 					{
