@@ -913,38 +913,6 @@ namespace TJAPlayer3
 							{
 								Difficulty_Anc_Padding = int.Parse(strParam);
 							}
-							else if (strCommand == nameof(Difficulty_Mark_Y))
-							{
-								Difficulty_Mark_Y = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(ChangeSE_Box_X))
-							{
-								ChangeSE_Box_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(ChangeSE_Box_Y))
-							{
-								ChangeSE_Box_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(PlayOption_Box_X))
-							{
-								PlayOption_Box_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(PlayOption_Box_Y))
-							{
-								PlayOption_Box_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(PlayOption_Box_Section_Y))
-							{
-								PlayOption_Box_Section_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(PlayOption_Name_XY_Diff))
-							{
-								PlayOption_Name_XY_Diff = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(PlayOption_List_XY_Diff))
-							{
-								PlayOption_List_XY_Diff = strParam.Split(',').Select(int.Parse).ToArray();
-							}
 							#endregion
 
 							#endregion
@@ -2027,6 +1995,20 @@ namespace TJAPlayer3
 				public string[] CorrectionYChara { get; set; } = new string[] { };
 				public int[] CorrectionXCharaValue { get; set; } = new int[] { };
 				public int[] CorrectionYCharaValue { get; set; } = new int[] { };
+				public CDifficultySelect Difficulty { get; set; } = new();
+				public class CDifficultySelect
+				{
+					public int MarkY { get; set; } = 600;
+					public int[] ChangeSEBoxX { get; set; } = new int[] { 220, 1050 };
+					public int[] ChangeSEBoxY { get; set; } = new int[] { 740, 740 };
+					public int[] PlayOptionBoxX { get; set; } = { 220, 1050 };
+					public int[] PlayOptionBoxY { get; set; } = { 750, 750 };
+					public int[] PlayOptionBoxSectionY { get; set; } = { 0, 72, 118 };
+					public int PlayOptionNameCorrectionX { get; set; } = -150;
+					public int PlayOptionNameCorrectionY { get; set; } = -2;
+					public int PlayOptionListCorrectionX { get; set; } = 90;
+					public int PlayOptionListCorrectionY { get; set; } = -2;
+				}
 			}
 			public CSongLoading SongLoading { get; set; } = new();
 			public class CSongLoading
@@ -2182,16 +2164,6 @@ namespace TJAPlayer3
 		public int Difficulty_AncEtc_Padding = 75;
 		public int[] Difficulty_AncBoxEtc_XY = new int[2] { 210, 105 };
 		public int Difficulty_AncBoxEtc_Padding = 75;
-
-		public int Difficulty_Mark_Y = 600;
-
-		public int[] ChangeSE_Box_X = { 220, 1050 };
-		public int[] ChangeSE_Box_Y = { 740, 740 };
-		public int[] PlayOption_Box_X = { 220, 1050 };
-		public int[] PlayOption_Box_Y = { 750, 750 };
-		public int[] PlayOption_Box_Section_Y = { 0, 72, 118 };
-		public int[] PlayOption_Name_XY_Diff = { -150, -2 };
-		public int[] PlayOption_List_XY_Diff = { 90, -2 };
 		#endregion
 		#endregion
 		#region SongLoading

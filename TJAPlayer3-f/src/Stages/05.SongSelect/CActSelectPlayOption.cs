@@ -246,20 +246,20 @@ namespace TJAPlayer3
 				this.ct登場退場アニメ用[nPlayer].t進行();
 				if (this.ePhase[nPlayer] == EChangeSEPhase.Active)
 				{
-					this.tDrawBox(TJAPlayer3.Skin.PlayOption_Box_X[nPlayer], TJAPlayer3.Skin.PlayOption_Box_Y[nPlayer], nPlayer);
+					this.tDrawBox(TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxX[nPlayer], TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxY[nPlayer], nPlayer);
 				}
 				else if (this.ePhase[nPlayer] == EChangeSEPhase.AnimationIn)
 				{
-					int y = (int)((TJAPlayer3.Skin.PlayOption_Box_Y[nPlayer]) + (float)((Math.Sin(this.ct登場退場アニメ用[nPlayer].n現在の値 / 100.0) - 0.95) * -500f));
-					this.tDrawBox(TJAPlayer3.Skin.PlayOption_Box_X[nPlayer], y, nPlayer);
+					int y = (int)((TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxY[nPlayer]) + (float)((Math.Sin(this.ct登場退場アニメ用[nPlayer].n現在の値 / 100.0) - 0.95) * -500f));
+					this.tDrawBox(TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxX[nPlayer], y, nPlayer);
 
 					if (this.ct登場退場アニメ用[nPlayer].b終了値に達した)
 						this.ePhase[nPlayer] = EChangeSEPhase.Active;
 				}
 				else if (this.ePhase[nPlayer] == EChangeSEPhase.AnimationOut)
 				{
-					int y = (int)((TJAPlayer3.Skin.PlayOption_Box_Y[nPlayer]) + (float)((Math.Sin((this.ct登場退場アニメ用[nPlayer].n終了値 - this.ct登場退場アニメ用[nPlayer].n現在の値) / 100.0) - 0.95) * -500f));
-					this.tDrawBox(TJAPlayer3.Skin.PlayOption_Box_X[nPlayer], y, nPlayer);
+					int y = (int)((TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxY[nPlayer]) + (float)((Math.Sin((this.ct登場退場アニメ用[nPlayer].n終了値 - this.ct登場退場アニメ用[nPlayer].n現在の値) / 100.0) - 0.95) * -500f));
+					this.tDrawBox(TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxX[nPlayer], y, nPlayer);
 
 					if (this.ct登場退場アニメ用[nPlayer].b終了値に達した)
 						this.ePhase[nPlayer] = EChangeSEPhase.Inactive;
@@ -360,8 +360,8 @@ namespace TJAPlayer3
 		{
 			if (TJAPlayer3.Tx.PlayOption_List != null && TJAPlayer3.Tx.PlayOption_Active != null)
 			{
-				TJAPlayer3.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.Skin.PlayOption_Box_Section_Y[2], TJAPlayer3.Tx.PlayOption_List.szTextureSize.Width, TJAPlayer3.Tx.PlayOption_List.szTextureSize.Height - TJAPlayer3.Skin.PlayOption_Box_Section_Y[2]));//下部
-				y -= TJAPlayer3.Tx.PlayOption_List.szTextureSize.Height - TJAPlayer3.Skin.PlayOption_Box_Section_Y[2];
+				TJAPlayer3.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2], TJAPlayer3.Tx.PlayOption_List.szTextureSize.Width, TJAPlayer3.Tx.PlayOption_List.szTextureSize.Height - TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2]));//下部
+				y -= TJAPlayer3.Tx.PlayOption_List.szTextureSize.Height - TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2];
 			}
 			else
 			{
@@ -372,45 +372,45 @@ namespace TJAPlayer3
 			{
 				if (TJAPlayer3.Tx.PlayOption_List != null && TJAPlayer3.Tx.PlayOption_Active != null)
 				{
-					TJAPlayer3.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.Skin.PlayOption_Box_Section_Y[1], TJAPlayer3.Tx.PlayOption_List.szTextureSize.Width, TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]));//リスト本体
+					TJAPlayer3.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1], TJAPlayer3.Tx.PlayOption_List.szTextureSize.Width, TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2] - TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1]));//リスト本体
 					if (lci[nPlayer].Count - i == NowRow[nPlayer] + 1)
 						TJAPlayer3.Tx.PlayOption_Active.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y);
 				}
 
-				this.NameTexture[nPlayer][lci[nPlayer].Count - i - 1].ItemNameTexture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.PlayOption_Name_XY_Diff[0], y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_Name_XY_Diff[1]);
+				this.NameTexture[nPlayer][lci[nPlayer].Count - i - 1].ItemNameTexture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionNameCorrectionX, y - (TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2] - TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1]) + TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionListCorrectionY);
 
 				if (lci[nPlayer][lci[nPlayer].Count - i - 1].strName.Equals("ばいそく"))
 				{
 					using (CTexture texture = TJAPlayer3.tCreateTexture(this.Font.DrawText(((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex() + 1) * 0.1).ToString("0.0"), Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio)))
 					{
-						texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.PlayOption_List_XY_Diff[0] - texture.szTextureSize.Width / 2, y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_List_XY_Diff[1]);
+						texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionListCorrectionX - texture.szTextureSize.Width / 2, y - (TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2] - TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1]) + TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionListCorrectionY);
 					}
 				}
 				else if (lci[nPlayer][lci[nPlayer].Count - i - 1].strName.Equals("演奏速度"))
 				{
 					using (CTexture texture = TJAPlayer3.tCreateTexture(this.Font.DrawText((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex() * 0.05).ToString("0.00"), Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio)))
 					{
-						texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.PlayOption_List_XY_Diff[0] - texture.szTextureSize.Width / 2, y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_List_XY_Diff[1]);
+						texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionListCorrectionX - texture.szTextureSize.Width / 2, y - (TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2] - TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1]) + TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionListCorrectionY);
 					}
 				}
 				else if (lci[nPlayer][lci[nPlayer].Count - i - 1].eItemType == CItemBase.EItemType.Integer)
 				{
 					using (CTexture texture = TJAPlayer3.tCreateTexture(this.Font.DrawText((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex()).ToString(), Color.White, Color.Black, TJAPlayer3.Skin.Font_Edge_Ratio)))
 					{
-						texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.PlayOption_List_XY_Diff[0] - texture.szTextureSize.Width / 2, y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_List_XY_Diff[1]);
+						texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionListCorrectionX - texture.szTextureSize.Width / 2, y - (TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2] - TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1]) + TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionListCorrectionY);
 					}
 				}
 				else if (lci[nPlayer][lci[nPlayer].Count - i - 1].eItemType == CItemBase.EItemType.List)
 				{
-					this.NameTexture[nPlayer][lci[nPlayer].Count - i - 1].ItemListTexture[lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex()].t2D描画(TJAPlayer3.app.Device, x + 90 - this.NameTexture[nPlayer][lci[nPlayer].Count - i - 1].ItemListTexture[lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex()].szTextureSize.Width / 2, y - (TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1]) + TJAPlayer3.Skin.PlayOption_List_XY_Diff[1]);
+					this.NameTexture[nPlayer][lci[nPlayer].Count - i - 1].ItemListTexture[lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex()].t2D描画(TJAPlayer3.app.Device, x + 90 - this.NameTexture[nPlayer][lci[nPlayer].Count - i - 1].ItemListTexture[lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex()].szTextureSize.Width / 2, y - (TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2] - TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1]) + TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionListCorrectionY);
 				}
 
-				y -= TJAPlayer3.Skin.PlayOption_Box_Section_Y[2] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[1];
+				y -= TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2] - TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1];
 			}
 
 			if (TJAPlayer3.Tx.PlayOption_List != null && TJAPlayer3.Tx.PlayOption_Active != null)
 			{
-				TJAPlayer3.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.Skin.PlayOption_Box_Section_Y[0], TJAPlayer3.Tx.PlayOption_List.szTextureSize.Width, TJAPlayer3.Skin.PlayOption_Box_Section_Y[1] - TJAPlayer3.Skin.PlayOption_Box_Section_Y[0]));//上部
+				TJAPlayer3.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[0], TJAPlayer3.Tx.PlayOption_List.szTextureSize.Width, TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1] - TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[0]));//上部
 			}
 
 		}

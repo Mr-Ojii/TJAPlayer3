@@ -104,20 +104,20 @@ namespace TJAPlayer3
 				this.ct登場退場アニメ用[nPlayer].t進行();
 				if (this.ePhase[nPlayer] == EChangeSEPhase.Active)
 				{
-					this.boxたちの描画(TJAPlayer3.Skin.ChangeSE_Box_X[nPlayer], TJAPlayer3.Skin.ChangeSE_Box_Y[nPlayer], nPlayer);	
+					this.boxたちの描画(TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxX[nPlayer], TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxY[nPlayer], nPlayer);	
 				}
 				else if (this.ePhase[nPlayer] == EChangeSEPhase.AnimationIn)
 				{
-					int y = (int)((TJAPlayer3.Skin.ChangeSE_Box_Y[nPlayer]) + (float)((Math.Sin(this.ct登場退場アニメ用[nPlayer].n現在の値 / 100.0) - 0.9) * -500f));
-					this.boxたちの描画(TJAPlayer3.Skin.ChangeSE_Box_X[nPlayer], y, nPlayer);
+					int y = (int)((TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxY[nPlayer]) + (float)((Math.Sin(this.ct登場退場アニメ用[nPlayer].n現在の値 / 100.0) - 0.9) * -500f));
+					this.boxたちの描画(TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxX[nPlayer], y, nPlayer);
 
 					if (this.ct登場退場アニメ用[nPlayer].b終了値に達した)
 						this.ePhase[nPlayer] = EChangeSEPhase.Active;
 				}
 				else if (this.ePhase[nPlayer] == EChangeSEPhase.AnimationOut)
 				{
-					int y = (int)((TJAPlayer3.Skin.ChangeSE_Box_Y[nPlayer]) + (float)((Math.Sin((this.ct登場退場アニメ用[nPlayer].n終了値 - this.ct登場退場アニメ用[nPlayer].n現在の値) / 100.0) - 0.9) * -500f));
-					this.boxたちの描画(TJAPlayer3.Skin.ChangeSE_Box_X[nPlayer], y, nPlayer);
+					int y = (int)((TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxY[nPlayer]) + (float)((Math.Sin((this.ct登場退場アニメ用[nPlayer].n終了値 - this.ct登場退場アニメ用[nPlayer].n現在の値) / 100.0) - 0.9) * -500f));
+					this.boxたちの描画(TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxX[nPlayer], y, nPlayer);
 
 					if (this.ct登場退場アニメ用[nPlayer].b終了値に達した)
 						this.ePhase[nPlayer] = EChangeSEPhase.Inactive;

@@ -109,7 +109,7 @@ namespace TJAPlayer3
 					{
 						TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].Opacity = 100;
 						TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].vcScaling = new Vector2(0.75f);
-						TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, i * 1075 - 30, TJAPlayer3.Skin.Difficulty_Mark_Y);
+						TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, i * 1075 - 30, TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.MarkY);
 					}
 				}else if (現在の選択行[i] >= 3)
                 {
@@ -120,7 +120,7 @@ namespace TJAPlayer3
 							TJAPlayer3.Tx.Difficulty_Mark[4].Opacity = 100;
 							TJAPlayer3.Tx.Difficulty_Mark[4].vcScaling.X = 0.75f;
 							TJAPlayer3.Tx.Difficulty_Mark[4].vcScaling.Y = 0.75f * (float)(1 + Math.Sin(ct難易度拡大用[i].n現在の値 * Math.PI / 180) * 0.25);
-							TJAPlayer3.Tx.Difficulty_Mark[4].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, i * 1075 - 30, TJAPlayer3.Skin.Difficulty_Mark_Y);
+							TJAPlayer3.Tx.Difficulty_Mark[4].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, i * 1075 - 30, TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.MarkY);
 						}
 					}
 					else
@@ -130,7 +130,7 @@ namespace TJAPlayer3
 							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].Opacity = 100;
 							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].vcScaling.X = 0.75f;
 							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].vcScaling.Y = 0.75f * (float)(1 + Math.Sin(ct難易度拡大用[i].n現在の値 * Math.PI / 180) * 0.25);
-							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, i * 1075 - 30, TJAPlayer3.Skin.Difficulty_Mark_Y);
+							TJAPlayer3.Tx.Difficulty_Mark[現在の選択行[i] - 3].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, i * 1075 - 30, TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.MarkY);
 						}
 					}
 				}
