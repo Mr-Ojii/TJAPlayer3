@@ -745,6 +745,7 @@ namespace TJAPlayer3
 			Program.SkinName = this.SkinConfig.General.Name;
 			Program.SkinCreator = this.SkinConfig.General.Creator;
 			Program.SkinVersion = this.SkinConfig.General.Version;
+			CFontRenderer.SetRotate_Chara_List_Vertical(this.SkinConfig.SongSelect.RotateChara);
 
 			void LoadSkinConfigFromFile(string path, ref string work)
 			{
@@ -874,11 +875,6 @@ namespace TJAPlayer3
 							{
 								SongSelect_CorrectionY_Chara_Value = strParam.Split(',').Select(int.Parse).ToArray();
 								CFontRenderer.SetTextCorrectionY_Chara_List_Value_Vertical(SongSelect_CorrectionY_Chara_Value);
-							}
-							else if (strCommand == nameof(SongSelect_Rotate_Chara))
-							{
-								SongSelect_Rotate_Chara = strParam.Split(',').ToArray();
-								CFontRenderer.SetRotate_Chara_List_Vertical(SongSelect_Rotate_Chara);
 							}
 							#region Difficulty
 							else if (strCommand == nameof(Difficulty_Bar_Center_X_WH_WH_Y_Y))
@@ -2042,6 +2038,7 @@ namespace TJAPlayer3
 				public int[] ScoreWindowY { get; set; }= { 160, 160 };
 				public int BackBoxTextCorrectionY { get; set; } = 0;
 				public int BoxHeaderCorrectionY { get; set; }= 0;
+				public string[] RotateChara { get; set; } = new string[] { };
 			}
 			public CSongLoading SongLoading { get; set; } = new();
 			public class CSongLoading
@@ -2184,7 +2181,6 @@ namespace TJAPlayer3
 		public string[] SongSelect_CorrectionY_Chara = { "ここにY座標を補正したい文字をカンマで区切って記入" };
 		public int[] SongSelect_CorrectionX_Chara_Value;
 		public int[] SongSelect_CorrectionY_Chara_Value;
-		public string[] SongSelect_Rotate_Chara = { "ここに90℃回転させたい文字をカンマで区切って記入" };
 
 		#region[Difficulty]
 		public int[] Difficulty_Bar_Center_X_WH_WH_Y_Y = new int[7] { 643, 387, 439, 880, 540, 125, 25 };

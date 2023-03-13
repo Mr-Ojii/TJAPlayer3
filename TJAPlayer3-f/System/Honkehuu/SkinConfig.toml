@@ -5,6 +5,7 @@ Creator = "Mr-Ojii"
 
 [SongSelect]
 BackBoxTextCorrectionY = 40
+RotateChara = [ "≠", "【", "】", ":", "ー", "-", "~", "～", "<", ">", "(", ")", "[", "]", "「", "」", "（", "）", "＜", "＞", " ", "　", "『", "』" ]
 
 [Game]
 NotesAnime = true
