@@ -865,54 +865,6 @@ namespace TJAPlayer3
 							{
 								Difficulty_Bar_Center_X_WH_WH_Y_Y = strParam.Split(',').Select(int.Parse).ToArray();
 							}
-							else if (strCommand == nameof(Difficulty_Bar_XY))
-							{
-								Difficulty_Bar_XY = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Difficulty_Bar_Padding))
-							{
-								Difficulty_Bar_Padding = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Difficulty_BarEtc_XY))
-							{
-								Difficulty_BarEtc_XY = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Difficulty_BarEtc_Padding))
-							{
-								Difficulty_BarEtc_Padding = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Difficulty_Anc_XY))
-							{
-								Difficulty_Anc_XY = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Difficulty_AncEtc_XY))
-							{
-								Difficulty_AncEtc_XY = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Difficulty_AncBox_XY))
-							{
-								Difficulty_AncBox_XY = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Difficulty_AncBoxEtc_XY))
-							{
-								Difficulty_AncBoxEtc_XY = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Difficulty_Anc_Padding))
-							{
-								Difficulty_Anc_Padding = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Difficulty_AncEtc_Padding))
-							{
-								Difficulty_Anc_Padding = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Difficulty_AncBox_Padding))
-							{
-								Difficulty_Anc_Padding = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Difficulty_AncBoxEtc_Padding))
-							{
-								Difficulty_Anc_Padding = int.Parse(strParam);
-							}
 							#endregion
 
 							#endregion
@@ -2001,13 +1953,25 @@ namespace TJAPlayer3
 					public int MarkY { get; set; } = 600;
 					public int[] ChangeSEBoxX { get; set; } = new int[] { 220, 1050 };
 					public int[] ChangeSEBoxY { get; set; } = new int[] { 740, 740 };
-					public int[] PlayOptionBoxX { get; set; } = { 220, 1050 };
-					public int[] PlayOptionBoxY { get; set; } = { 750, 750 };
-					public int[] PlayOptionBoxSectionY { get; set; } = { 0, 72, 118 };
+					public int[] PlayOptionBoxX { get; set; } = new int[] { 220, 1050 };
+					public int[] PlayOptionBoxY { get; set; } = new int[] { 750, 750 };
+					public int[] PlayOptionBoxSectionY { get; set; } = new int[] { 0, 72, 118 };
 					public int PlayOptionNameCorrectionX { get; set; } = -150;
 					public int PlayOptionNameCorrectionY { get; set; } = -2;
 					public int PlayOptionListCorrectionX { get; set; } = 90;
 					public int PlayOptionListCorrectionY { get; set; } = -2;
+					public int[] BarX { get; set; } = new int[] { 440, 540, 640, 740 };
+					public int[] BarY { get; set; } = new int[] { 90, 90, 90, 90 };
+					public int[] BarEtcX { get; set; } = new int[] { 225, 300, 375 };
+					public int[] BarEtcY { get; set; } = new int[] { 150, 150, 150 };
+					public int[] AncX { get; set; } = new int[] { 441, 541, 641, 741 };
+					public int[] AncY { get; set; } = new int[] { -10, -10, -10, -10 };
+					public int[] AncBoxX { get; set; } = new int[] { 441, 541, 641, 741 };
+					public int[] AncBoxY { get; set; } = new int[] { 138, 138, 138, 138 };
+					public int[] AncEtcX { get; set; } = new int[] { 210, 285, 360 };
+					public int[] AncEtcY { get; set; } = new int[] { 0, 0, 0 };
+					public int[] AncBoxEtcX { get; set; } = new int[] { 210, 285, 360 };
+					public int[] AncBoxEtcY { get; set; } = new int[] { 105, 105, 105 };
 				}
 			}
 			public CSongLoading SongLoading { get; set; } = new();
@@ -2150,20 +2114,6 @@ namespace TJAPlayer3
 
 		#region[Difficulty]
 		public int[] Difficulty_Bar_Center_X_WH_WH_Y_Y = new int[7] { 643, 387, 439, 880, 540, 125, 25 };
-		public int[] Difficulty_Bar_XY = new int[2] { 440, 90 };
-		public int Difficulty_Bar_Padding = 100;
-		public int[] Difficulty_BarEtc_XY = new int[2] { 225, 150 };
-		public int Difficulty_BarEtc_Padding = 75;
-
-		public int[] Difficulty_Anc_XY = new int[2] { 441, -10 };
-		public int Difficulty_Anc_Padding = 100;
-		public int[] Difficulty_AncBox_XY = new int[2] { 441, 138 };
-		public int Difficulty_AncBox_Padding = 100;
-
-		public int[] Difficulty_AncEtc_XY = new int[2] { 210, 0 };
-		public int Difficulty_AncEtc_Padding = 75;
-		public int[] Difficulty_AncBoxEtc_XY = new int[2] { 210, 105 };
-		public int Difficulty_AncBoxEtc_Padding = 75;
 		#endregion
 		#endregion
 		#region SongLoading
