@@ -2095,17 +2095,17 @@ namespace TJAPlayer3
 		public int[] nResultV2GaugeBodyY = { 130, 130 };
 		#endregion
 
-		public enum RollColorMode
+		public enum RollColorMode : int
 		{
-			None, // PS4, Switchなど
-			All, // 旧筐体(旧作含む)
-			WithoutStart // 新筐体
+			None = 0, // PS4, Switchなど
+			All = 1, // 旧筐体(旧作含む)
+			WithoutStart = 2, // 新筐体
 		}
-		public enum ReferencePoint //テクスチャ描画の基準点を変更可能にするための値(rhimm)
+		public enum ReferencePoint : int //テクスチャ描画の基準点を変更可能にするための値(rhimm)
 		{
-			Center,
-			Left,
-			Right
+			Center = 0,
+			Left = 1,
+			Right = 2,
 		}
 
 		#region 新・SkinConfig
