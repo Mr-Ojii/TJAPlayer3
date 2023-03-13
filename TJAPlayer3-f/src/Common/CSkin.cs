@@ -1038,29 +1038,6 @@ namespace TJAPlayer3
 								Game_Lyric_BackColor = ColorTranslator.FromHtml(strParam);
 							}
 							#endregion
-							#region Dancer
-							else if (strCommand == nameof(Game_Dancer_X))
-							{
-								this.Game_Dancer_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Dancer_Y))
-							{
-								this.Game_Dancer_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Dancer_Motion))
-							{
-								Game_Dancer_Motion = strParam;
-							}
-							// Game_Dancer_PtnはTextrueLoader.csで反映されます。
-							else if (strCommand == nameof(Game_Dancer_Beat))
-							{
-								ParseInt32(value => Game_Dancer_Beat = value);
-							}
-							else if (strCommand == nameof(Game_Dancer_Gauge))
-							{
-								this.Game_Dancer_Gauge = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							#endregion
 							#region Mob
 							else if (strCommand == nameof(Game_Mob_Beat))
 							{
@@ -1935,6 +1912,15 @@ namespace TJAPlayer3
 					public int[][] MotionClear { get; set; } = new int[][] { new int[] { 0 }, new int[] { 0 }};
 					public int[][] MotionGoGo { get; set; } = new int[][] { new int[] { 0 }, new int[] { 0 }};
 				}
+				public CDancer Dancer { get; set; } = new();
+				public class CDancer
+				{
+					public int[] X { get; set; } = new int[] { 640, 430, 856, 215, 1070 };
+					public int[] Y { get; set; } = new int[] { 500, 500, 500, 500, 500 };
+					public int[] Motion { get; set; } = new int[] { 0 };
+					public int Beat { get; set; } = 8;
+					public int[] Gauge { get; set; } = new int[] { 0, 20, 40, 60, 80 };
+				}
 			}
 			public CResult Result { get; set; } = new();
 			public class CResult
@@ -2095,12 +2081,7 @@ namespace TJAPlayer3
 
 		#endregion
 		#region Dancer
-		public int[] Game_Dancer_X = new int[] { 640, 430, 856, 215, 1070 };
-		public int[] Game_Dancer_Y = new int[] { 500, 500, 500, 500, 500 };
-		public string Game_Dancer_Motion = "0";
 		public int Game_Dancer_Ptn = 0;
-		public int Game_Dancer_Beat = 8;
-		public int[] Game_Dancer_Gauge = new int[] { 0, 20, 40, 60, 80 };
 		#endregion
 		#region Mob
 		public int Game_Mob_Ptn = 0;

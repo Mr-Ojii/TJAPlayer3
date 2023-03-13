@@ -32,7 +32,7 @@ namespace TJAPlayer3
 
 		public override void OnManagedリソースの作成()
 		{
-			this.ar踊り子モーション番号 = TJAPlayer3.Skin.Game_Dancer_Motion.CommaSeparatedStringToInt32Array();
+			this.ar踊り子モーション番号 = TJAPlayer3.Skin.SkinConfig.Game.Dancer.Motion;
 			if(this.ar踊り子モーション番号 == null) ar踊り子モーション番号 = "0,0".CommaSeparatedStringToInt32Array();
 			this.ct踊り子モーション = new CCounter(0, this.ar踊り子モーション番号.Length - 1, 0.01, CSoundManager.rc演奏用タイマ);
 			base.OnManagedリソースの作成();
@@ -58,8 +58,8 @@ namespace TJAPlayer3
 				{
 					if (TJAPlayer3.Tx.Dancer[i][this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]] != null)
 					{
-						if ((int)TJAPlayer3.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= TJAPlayer3.Skin.Game_Dancer_Gauge[i])
-							TJAPlayer3.Tx.Dancer[i][this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Game_Dancer_X[i], TJAPlayer3.Skin.Game_Dancer_Y[i]);
+						if ((int)TJAPlayer3.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= TJAPlayer3.Skin.SkinConfig.Game.Dancer.Gauge[i])
+							TJAPlayer3.Tx.Dancer[i][this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.SkinConfig.Game.Dancer.X[i], TJAPlayer3.Skin.SkinConfig.Game.Dancer.Y[i]);
 					}
 				}
 			}

@@ -413,7 +413,7 @@ namespace TJAPlayer3
 			if (this.actDancer.ct踊り子モーション != null)
 			{
 				double dbUnit_dancer = (((60 / (TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM))) / this.actDancer.ar踊り子モーション番号.Length);
-				this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * TJAPlayer3.Skin.Game_Dancer_Beat, CSoundManager.rc演奏用タイマ);
+				this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * TJAPlayer3.Skin.SkinConfig.Game.Dancer.Beat, CSoundManager.rc演奏用タイマ);
 			}
 			else
 			{
@@ -3241,7 +3241,7 @@ namespace TJAPlayer3
 									if (TJAPlayer3.Skin.Game_Dancer_Ptn != 0)
 									{
 										double dbUnit_dancer = (((60 / (TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM))) / this.actDancer.ar踊り子モーション番号.Length) / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0);
-										this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * TJAPlayer3.Skin.Game_Dancer_Beat, CSoundManager.rc演奏用タイマ);
+										this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * TJAPlayer3.Skin.SkinConfig.Game.Dancer.Beat, CSoundManager.rc演奏用タイマ);
 									}
 									else
 									{
@@ -3431,7 +3431,7 @@ namespace TJAPlayer3
 								{
 									double dbUnit_dancer = (((60 / (TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM))) / this.actDancer.ar踊り子モーション番号.Length) / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0);
 									double db値 = this.actDancer.ct踊り子モーション.db現在の値;
-									this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * TJAPlayer3.Skin.Game_Dancer_Beat, CSoundManager.rc演奏用タイマ);
+									this.actDancer.ct踊り子モーション = new CCounter(0, this.actDancer.ar踊り子モーション番号.Length - 1, dbUnit_dancer * TJAPlayer3.Skin.SkinConfig.Game.Dancer.Beat, CSoundManager.rc演奏用タイマ);
 									this.actDancer.ct踊り子モーション.t時間Resetdb();
 									this.actDancer.ct踊り子モーション.db現在の値 = db値;
 								}
