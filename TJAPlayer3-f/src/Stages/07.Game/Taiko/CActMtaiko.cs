@@ -201,8 +201,8 @@ namespace TJAPlayer3
 				if (TJAPlayer3.Tx.Couse_Symbol[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] != null)
 				{
 					TJAPlayer3.Tx.Couse_Symbol[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]].t2D描画(TJAPlayer3.app.Device,
-						TJAPlayer3.Skin.Game_CourseSymbol_X[nPlayer],
-						TJAPlayer3.Skin.Game_CourseSymbol_Y[nPlayer]
+						TJAPlayer3.Skin.SkinConfig.Game.CourseSymbol.X[nPlayer],
+						TJAPlayer3.Skin.SkinConfig.Game.CourseSymbol.Y[nPlayer]
 						);
 				}
 
@@ -211,8 +211,8 @@ namespace TJAPlayer3
 					if (TJAPlayer3.Tx.Couse_Symbol[(int)Difficulty.Total] != null)
 					{
 						TJAPlayer3.Tx.Couse_Symbol[(int)Difficulty.Total].t2D描画(TJAPlayer3.app.Device,
-							TJAPlayer3.Skin.Game_CourseSymbol_X[nPlayer],
-							TJAPlayer3.Skin.Game_CourseSymbol_Y[nPlayer]
+							TJAPlayer3.Skin.SkinConfig.Game.CourseSymbol.X[nPlayer],
+							TJAPlayer3.Skin.SkinConfig.Game.CourseSymbol.Y[nPlayer]
 							);
 					}
 

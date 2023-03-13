@@ -937,17 +937,6 @@ namespace TJAPlayer3
 							{
 								Game_JudgeFrame_AddBlend = strParam[0].ToBool();
 							}
-
-							#region CourseSymbol
-							else if (strCommand == nameof(Game_CourseSymbol_X))
-							{
-								Game_CourseSymbol_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_CourseSymbol_Y))
-							{
-								Game_CourseSymbol_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							#endregion
 							#region PanelFont
 							else if (strCommand == nameof(Game_MusicName_X))
 							{
@@ -1917,6 +1906,12 @@ namespace TJAPlayer3
 					public int Beat { get; set; } = 1;
 					public int PtnBeat { get; set; } = 1;
 				}
+				public CCourseSymbol CourseSymbol { get; set; } = new();
+				public class CCourseSymbol
+				{
+					public int[] X { get; set; } = new int[] { 64, 64 };
+					public int[] Y { get; set; } = new int[] { 232, 432 };
+				}
 			}
 			public CResult Result { get; set; } = new();
 			public class CResult
@@ -2074,17 +2069,12 @@ namespace TJAPlayer3
 			Game_Chara_Ptn_Balloon_Breaking = new int[2],
 			Game_Chara_Ptn_Balloon_Broke = new int[2],
 			Game_Chara_Ptn_Balloon_Miss = new int[2];
-
 		#endregion
 		#region Dancer
 		public int Game_Dancer_Ptn = 0;
 		#endregion
 		#region Mob
 		public int Game_Mob_Ptn = 0;
-		#endregion
-		#region CourseSymbol
-		public int[] Game_CourseSymbol_X = new int[] { 64, 64 };
-		public int[] Game_CourseSymbol_Y = new int[] { 232, 432 };
 		#endregion
 		#region PanelFont
 		public int Game_MusicName_X = 1254;
