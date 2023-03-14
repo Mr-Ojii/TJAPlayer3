@@ -863,88 +863,6 @@ namespace TJAPlayer3
 							{
 								Game_JudgeFrame_AddBlend = strParam[0].ToBool();
 							}
-							#region Taiko
-							else if (strCommand == nameof(Game_Taiko_NamePlate_X))
-							{
-								this.Game_Taiko_NamePlate_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Taiko_NamePlate_Y))
-							{
-								this.Game_Taiko_NamePlate_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Taiko_PlayerNumber_X))
-							{
-								this.Game_Taiko_PlayerNumber_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Taiko_PlayerNumber_Y))
-							{
-								this.Game_Taiko_PlayerNumber_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Taiko_X))
-							{
-								this.Game_Taiko_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Taiko_Y))
-							{
-								this.Game_Taiko_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Taiko_Combo_X))
-							{
-								this.Game_Taiko_Combo_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Taiko_Combo_Y))
-							{
-								this.Game_Taiko_Combo_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Taiko_Combo_Ex_X))
-							{
-								this.Game_Taiko_Combo_Ex_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Taiko_Combo_Ex_Y))
-							{
-								this.Game_Taiko_Combo_Ex_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Taiko_Combo_Ex4_X))
-							{
-								this.Game_Taiko_Combo_Ex4_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Taiko_Combo_Ex4_Y))
-							{
-								this.Game_Taiko_Combo_Ex4_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Taiko_Combo_Padding))
-							{
-								this.Game_Taiko_Combo_Padding = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Taiko_Combo_Size))
-							{
-								this.Game_Taiko_Combo_Size = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Taiko_Combo_Size_Ex))
-							{
-								this.Game_Taiko_Combo_Size_Ex = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Taiko_Combo_Scale))
-							{
-								this.Game_Taiko_Combo_Scale = strParam.Split(',').Select(float.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Taiko_Combo_Text_X))
-							{
-								this.Game_Taiko_Combo_Text_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Taiko_Combo_Text_Y))
-							{
-								this.Game_Taiko_Combo_Text_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Taiko_Combo_Text_Size))
-							{
-								this.Game_Taiko_Combo_Text_Size = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Taiko_Combo_Ex_IsJumping))
-							{
-								Game_Taiko_Combo_Ex_IsJumping = strParam[0].ToBool();
-							}
-							#endregion
 							#region Gauge
 							else if (strCommand == nameof(Game_Gauge_Rainbow_Timer))
 							{
@@ -1807,6 +1725,30 @@ namespace TJAPlayer3
 					public int Padding { get; set; } = 20;
 					public int[] Size { get; set; } = new int[] { 24, 40 };
 				}
+				public CTaiko Taiko { get; set; } = new();
+				public class CTaiko
+				{
+					public int[] NamePlateX { get; set; } = new int[] { 0, 0 };
+					public int[] NamePlateY { get; set; } = new int[] { 288, 368 };
+					public int[] PlayerNumberX { get; set; } = new int[] { 4, 4 };
+					public int[] PlayerNumberY { get; set; } = new int[] { 233, 435 };
+					public int[] X { get; set; } = new int[] { 190, 190 };
+					public int[] Y { get; set; } = new int[] { 190, 366 };
+					public int[] ComboX { get; set; } = new int[] { 268, 268 };
+					public int[] ComboY { get; set; } = new int[] { 270, 448 };
+					public int[] ComboExX { get; set; } = new int[] { 268, 268 };
+					public int[] ComboExY { get; set; } = new int[] { 270, 448 };
+					public int[] ComboEx4X { get; set; } = new int[] { 268, 268 };
+					public int[] ComboEx4Y { get; set; } = new int[] { 270, 448 };
+					public int[] ComboPadding { get; set; } = new int[] { 28, 30, 24 };
+					public int[] ComboSize { get; set; } = new int[] { 42, 48 };
+					public int[] ComboSizeEx { get; set; } = new int[] { 42, 56 };
+					public float[] ComboScale { get; set; } = new float[] { 1.0f, 1.0f, 0.8f };
+					public int[] ComboTextX { get; set; } = new int[] { 268, 268 };
+					public int[] ComboTextY { get; set; } = new int[] { 295, 472 };
+					public int[] ComboTextSize { get; set; } = new int[] { 100, 50 };
+					public bool ComboExIsJumping { get; set; } = true;
+				}
 			}
 			public CResult Result { get; set; } = new();
 			public class CResult
@@ -1946,28 +1888,6 @@ namespace TJAPlayer3
 		#endregion
 		#region Mob
 		public int Game_Mob_Ptn = 0;
-		#endregion
-		#region Taiko
-		public int[] Game_Taiko_NamePlate_X = new int[] { 0, 0 };
-		public int[] Game_Taiko_NamePlate_Y = new int[] { 288, 368 };
-		public int[] Game_Taiko_PlayerNumber_X = new int[] { 4, 4 };
-		public int[] Game_Taiko_PlayerNumber_Y = new int[] { 233, 435 };
-		public int[] Game_Taiko_X = new int[] { 190, 190 };
-		public int[] Game_Taiko_Y = new int[] { 190, 366 };
-		public int[] Game_Taiko_Combo_X = new int[] { 268, 268 };
-		public int[] Game_Taiko_Combo_Y = new int[] { 270, 448 };
-		public int[] Game_Taiko_Combo_Ex_X = new int[] { 268, 268 };
-		public int[] Game_Taiko_Combo_Ex_Y = new int[] { 270, 448 };
-		public int[] Game_Taiko_Combo_Ex4_X = new int[] { 268, 268 };
-		public int[] Game_Taiko_Combo_Ex4_Y = new int[] { 270, 448 };
-		public int[] Game_Taiko_Combo_Padding = new int[] { 28, 30, 24 };
-		public int[] Game_Taiko_Combo_Size = new int[] { 42, 48 };
-		public int[] Game_Taiko_Combo_Size_Ex = new int[] { 42, 56 };
-		public float[] Game_Taiko_Combo_Scale = new float[] { 1.0f, 1.0f, 0.8f };
-		public int[] Game_Taiko_Combo_Text_X = new int[] { 268, 268 };
-		public int[] Game_Taiko_Combo_Text_Y = new int[] { 295, 472 };
-		public int[] Game_Taiko_Combo_Text_Size = new int[] { 100, 50 };
-		public bool Game_Taiko_Combo_Ex_IsJumping = true;
 		#endregion
 		#region Gauge
 		public int Game_Gauge_Rainbow_Ptn;
