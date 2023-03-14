@@ -7,6 +7,7 @@ using FDK;
 using FDK.ExtensionMethods;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Serialization;
 using Tomlyn;
 
 namespace TJAPlayer3
@@ -851,17 +852,6 @@ namespace TJAPlayer3
 							#endregion
 
 							#region 新・SkinConfig
-							#region SongSelect
-							else if (strCommand == nameof(SongSelect_ForeColor))
-							{
-								SongSelect_ForeColor = strParam.Split(',').Select(ColorTranslator.FromHtml).ToArray();
-							}
-							else if (strCommand == nameof(SongSelect_BackColor))
-							{
-								SongSelect_BackColor = strParam.Split(',').Select(ColorTranslator.FromHtml).ToArray();
-							}
-
-							#endregion
 							#region SongLoading
 							else if (strCommand == nameof(SongLoading_Plate_ReferencePoint))
 							{
@@ -1823,6 +1813,12 @@ namespace TJAPlayer3
 				public string[] CorrectionYChara { get; set; } = new string[] { };
 				public int[] CorrectionXCharaValue { get; set; } = new int[] { };
 				public int[] CorrectionYCharaValue { get; set; } = new int[] { };
+				public string[] ForeColor { get{ return this._ForeColor.Select(ColorTranslator.ToHtml).ToArray(); } set{ this._ForeColor = value.Select(ColorTranslator.FromHtml).ToArray(); } }
+				public string[] BackColor { get{ return this._BackColor.Select(ColorTranslator.ToHtml).ToArray(); } set{ this._BackColor = value.Select(ColorTranslator.FromHtml).ToArray(); } }
+				[IgnoreDataMember]
+				public Color[] _ForeColor { get; set; } = new Color[] { Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White };
+				[IgnoreDataMember]
+				public Color[] _BackColor { get; set; } = new Color[] { Color.Black, ColorTranslator.FromHtml("#01455B"), ColorTranslator.FromHtml("#9D3800"), ColorTranslator.FromHtml("#412080"), ColorTranslator.FromHtml("#980E00"), ColorTranslator.FromHtml("#875600"), ColorTranslator.FromHtml("#366600"), ColorTranslator.FromHtml("#99001F"), ColorTranslator.FromHtml("#5B6278") };
 				public CDifficultySelect Difficulty { get; set; } = new();
 				public class CDifficultySelect
 				{
@@ -2029,11 +2025,6 @@ namespace TJAPlayer3
 		}
 
 		#region 新・SkinConfig
-		#region SongSelect
-		public Color[] SongSelect_ForeColor = new Color[] { Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White };
-		public Color[] SongSelect_BackColor = new Color[] { Color.Black, ColorTranslator.FromHtml("#01455B"), ColorTranslator.FromHtml("#9D3800"), ColorTranslator.FromHtml("#412080"), ColorTranslator.FromHtml("#980E00"), ColorTranslator.FromHtml("#875600"), ColorTranslator.FromHtml("#366600"), ColorTranslator.FromHtml("#99001F"), ColorTranslator.FromHtml("#5B6278") };
-
-		#endregion
 		#region SongLoading
 		public ReferencePoint SongLoading_Plate_ReferencePoint = ReferencePoint.Center;
 		public ReferencePoint SongLoading_Title_ReferencePoint = ReferencePoint.Center;
