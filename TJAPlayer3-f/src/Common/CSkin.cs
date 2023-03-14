@@ -741,6 +741,9 @@ namespace TJAPlayer3
 				ConvertPropertyName = (x) => x,
 				ConvertFieldName = (x) => x,
 			};
+#if DEBUG
+			Console.WriteLine(Tomlyn.Toml.FromModel(this.SkinConfig, tomlModelOptions));
+#endif
 			this.SkinConfig = Toml.ToModel<CSkinConfig>(strToml, null, tomlModelOptions);
 			Program.SkinName = this.SkinConfig.General.Name;
 			Program.SkinCreator = this.SkinConfig.General.Creator;
@@ -1527,14 +1530,6 @@ namespace TJAPlayer3
 					}
 				}
 			}
-#if DEBUG
-			Tomlyn.TomlModelOptions tm = new()
-			{
-				ConvertPropertyName = (x) => x,
-				ConvertFieldName = (x) => x,
-			};
-			Console.WriteLine(Tomlyn.Toml.FromModel(this.SkinConfig, tm));
-#endif
 		}
 
 		#region [ IDisposable 実装 ]
