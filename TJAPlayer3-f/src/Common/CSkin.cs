@@ -1009,33 +1009,6 @@ namespace TJAPlayer3
 								Game_Effect_FireWorks_Timing = int.Parse(strParam);
 							}
 							#endregion
-							#region Runner
-							else if (strCommand == nameof(this.Game_Runner_Size))
-							{
-								this.Game_Runner_Size = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Runner_Ptn))
-							{
-								ParseInt32(value => Game_Runner_Ptn = value);
-							}
-							else if (strCommand == nameof(Game_Runner_Type))
-							{
-								ParseInt32(value => Game_Runner_Type = value);
-							}
-							else if (strCommand == nameof(Game_Runner_StartPoint_X))
-							{
-								this.Game_Runner_StartPoint_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Runner_StartPoint_Y))
-							{
-								this.Game_Runner_StartPoint_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Runner_Timer))
-							{
-								if (int.Parse(strParam) != 0)
-									Game_Runner_Timer = int.Parse(strParam);
-							}
-							#endregion
 							#region Dan_C
 							else if (strCommand == nameof(Game_DanC_Title_ForeColor))
 							{
@@ -1675,6 +1648,21 @@ namespace TJAPlayer3
 					public float RollNumberScale { get; set; } = 1.000f;
 					public float BalloonNumberScale { get; set; } = 0.879f;
 				}
+				public CEffect Effect { get; set; } = new();
+				public class CEffect
+				{
+
+				}
+				public CRunner Runner { get; set; } = new();
+				public class CRunner
+				{
+					public int[] Size { get; set; } = new int[] { 60, 125 };
+					public int Ptn { get; set; } = 48;
+					public int Type { get; set; } = 4;
+					public int[] StartPointX { get; set; } = new int[] { 175, 175 };
+					public int[] StartPointY { get; set; } = new int[] { 40, 560 };
+					public int Timer { get; set; } = 16;
+				}
 			}
 			public CResult Result { get; set; } = new();
 			public class CResult
@@ -1860,14 +1848,6 @@ namespace TJAPlayer3
 		public bool Game_Effect_Fire_AddBlend = true;
 		public bool Game_Effect_GoGoSplash_AddBlend = true;
 		public int Game_Effect_FireWorks_Timing = 8;
-		#endregion
-		#region Runner
-		public int[] Game_Runner_Size = new int[] { 60, 125 };
-		public int Game_Runner_Ptn = 48;
-		public int Game_Runner_Type = 4;
-		public int[] Game_Runner_StartPoint_X = new int[] { 175, 175 };
-		public int[] Game_Runner_StartPoint_Y = new int[] { 40, 560 };
-		public int Game_Runner_Timer = 16;
 		#endregion
 		#region PuchiChara
 		public int[] Game_PuchiChara_X = new int[] { 100, 100 };

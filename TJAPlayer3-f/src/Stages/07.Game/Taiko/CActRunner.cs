@@ -36,7 +36,7 @@ namespace TJAPlayer3
 						else
 							stRunners[i].nType = random.Next(1, Type + 1);
 
-						stRunners[i].ct進行 = new CCounter(0, 1280, TJAPlayer3.Skin.Game_Runner_Timer, TJAPlayer3.Timer);
+						stRunners[i].ct進行 = new CCounter(0, 1280, TJAPlayer3.Skin.SkinConfig.Game.Runner.Timer, TJAPlayer3.Timer);
 						stRunners[i].nOldValue = 0;
 						stRunners[i].nNowPtn = 0;
 						stRunners[i].fX = 0;
@@ -56,11 +56,11 @@ namespace TJAPlayer3
 			}
 
 			// フィールド上で代入してたためこちらへ移動。
-			Size = TJAPlayer3.Skin.Game_Runner_Size;
-			Ptn = TJAPlayer3.Skin.Game_Runner_Ptn;
-			Type = TJAPlayer3.Skin.Game_Runner_Type;
-			StartPoint_X = TJAPlayer3.Skin.Game_Runner_StartPoint_X;
-			StartPoint_Y = TJAPlayer3.Skin.Game_Runner_StartPoint_Y;
+			Size = TJAPlayer3.Skin.SkinConfig.Game.Runner.Size;
+			Ptn = TJAPlayer3.Skin.SkinConfig.Game.Runner.Ptn;
+			Type = TJAPlayer3.Skin.SkinConfig.Game.Runner.Type;
+			StartPoint_X = TJAPlayer3.Skin.SkinConfig.Game.Runner.StartPointX;
+			StartPoint_Y = TJAPlayer3.Skin.SkinConfig.Game.Runner.StartPointY;
 			base.On活性化();
 		}
 
