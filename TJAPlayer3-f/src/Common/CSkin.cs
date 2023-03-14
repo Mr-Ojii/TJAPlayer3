@@ -863,107 +863,6 @@ namespace TJAPlayer3
 							{
 								Game_JudgeFrame_AddBlend = strParam[0].ToBool();
 							}
-							#region Balloon
-							else if (strCommand == nameof(Game_Balloon_Combo_X))
-							{
-								this.Game_Balloon_Combo_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Balloon_Combo_Y))
-							{
-								this.Game_Balloon_Combo_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Balloon_Combo_Number_X))
-							{
-								this.Game_Balloon_Combo_Number_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Balloon_Combo_Number_Y))
-							{
-								this.Game_Balloon_Combo_Number_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Balloon_Combo_Number_Ex_X))
-							{
-								this.Game_Balloon_Combo_Number_Ex_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Balloon_Combo_Number_Ex_Y))
-							{
-								this.Game_Balloon_Combo_Number_Ex_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Balloon_Combo_Text_X))
-							{
-								this.Game_Balloon_Combo_Text_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Balloon_Combo_Text_Y))
-							{
-								this.Game_Balloon_Combo_Text_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Balloon_Combo_Text_Ex_X))
-							{
-								this.Game_Balloon_Combo_Text_Ex_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Balloon_Combo_Text_Ex_Y))
-							{
-								this.Game_Balloon_Combo_Text_Ex_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-
-							else if (strCommand == nameof(Game_Balloon_Balloon_X))
-							{
-								this.Game_Balloon_Balloon_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Balloon_Balloon_Y))
-							{
-								this.Game_Balloon_Balloon_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Balloon_Balloon_Frame_X))
-							{
-								this.Game_Balloon_Balloon_Frame_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Balloon_Balloon_Frame_Y))
-							{
-								this.Game_Balloon_Balloon_Frame_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Balloon_Balloon_Number_X))
-							{
-								this.Game_Balloon_Balloon_Number_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Balloon_Balloon_Number_Y))
-							{
-								this.Game_Balloon_Balloon_Number_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-
-							else if (strCommand == nameof(Game_Balloon_Roll_Frame_X))
-							{
-								this.Game_Balloon_Roll_Frame_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Balloon_Roll_Frame_Y))
-							{
-								this.Game_Balloon_Roll_Frame_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Balloon_Roll_Number_X))
-							{
-								this.Game_Balloon_Roll_Number_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Balloon_Roll_Number_Y))
-							{
-								this.Game_Balloon_Roll_Number_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Balloon_Number_Size))
-							{
-								this.Game_Balloon_Number_Size = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Balloon_Number_Padding))
-							{
-								ParseInt32(value => Game_Balloon_Number_Padding = value);
-							}
-							else if (strCommand == nameof(Game_Balloon_Roll_Number_Scale))
-							{
-								ParseInt32(value => Game_Balloon_Roll_Number_Scale = value);
-							}
-							else if (strCommand == nameof(Game_Balloon_Balloon_Number_Scale))
-							{
-								ParseInt32(value => Game_Balloon_Balloon_Number_Scale = value);
-							}
-
-							#endregion
 							#region Effects
 							else if (strCommand == nameof(Game_Effect_Roll_StartPoint_X))
 							{
@@ -1747,6 +1646,35 @@ namespace TJAPlayer3
 				{
 					public int RainbowTimer { get; set; } = 50;
 				}
+				public CBalloon Balloon { get; set; } = new();
+				public class CBalloon
+				{
+					public int[] ComboX { get; set; } = new int[] { 253, 253 };
+					public int[] ComboY { get; set; }= new int[] { -11, 498 };
+					public int[] ComboNumberX { get; set; } = new int[] { 312, 312 };
+					public int[] ComboNumberY { get; set; } = new int[] { 34, 540 };
+					public int[] ComboNumberExX { get; set; } = new int[] { 335, 335 };
+					public int[] ComboNumberExY { get; set; } = new int[] { 34, 540 };
+					public int[] ComboTextX { get; set; } = new int[] { 471, 471 };
+					public int[] ComboTextY { get; set; } = new int[] { 55, 561 };
+					public int[] ComboTextExX { get; set; } = new int[] { 491, 491 };
+					public int[] ComboTextExY { get; set; } = new int[] { 55, 561 };
+
+					public int[] BalloonX { get; set; } = new int[] { 382, 382 };
+					public int[] BalloonY { get; set; } = new int[] { 115, 290 };
+					public int[] BalloonFrameX { get; set; } = new int[] { 382, 382 };
+					public int[] BalloonFrameY { get; set; } = new int[] { 80, 260 };
+					public int[] BalloonNumberX { get; set; } = new int[] { 486, 486 };
+					public int[] BalloonNumberY { get; set; } = new int[] { 187, 373 };
+					public int[] RollFrameX { get; set; } = new int[] { 218, 218 };
+					public int[] RollFrameY { get; set; } = new int[] { -3, 514 };
+					public int[] RollNumberX { get; set; } = new int[] { 392, 392 };
+					public int[] RollNumberY { get; set; } = new int[] { 128, 639 };
+					public int[] NumberSize { get; set; } = new int[] { 62, 80 };
+					public int NumberPadding { get; set; } = 60;
+					public float RollNumberScale { get; set; } = 1.000f;
+					public float BalloonNumberScale { get; set; } = 0.879f;
+				}
 			}
 			public CResult Result { get; set; } = new();
 			public class CResult
@@ -1890,33 +1818,6 @@ namespace TJAPlayer3
 		#region Gauge
 		public int Game_Gauge_Rainbow_Ptn;
 		public int Game_Gauge_Rainbow_Danc_Ptn;
-		#endregion
-		#region Balloon
-		public int[] Game_Balloon_Combo_X = new int[] { 253, 253 };
-		public int[] Game_Balloon_Combo_Y = new int[] { -11, 498 };
-		public int[] Game_Balloon_Combo_Number_X = new int[] { 312, 312 };
-		public int[] Game_Balloon_Combo_Number_Y = new int[] { 34, 540 };
-		public int[] Game_Balloon_Combo_Number_Ex_X = new int[] { 335, 335 };
-		public int[] Game_Balloon_Combo_Number_Ex_Y = new int[] { 34, 540 };
-		public int[] Game_Balloon_Combo_Text_X = new int[] { 471, 471 };
-		public int[] Game_Balloon_Combo_Text_Y = new int[] { 55, 561 };
-		public int[] Game_Balloon_Combo_Text_Ex_X = new int[] { 491, 491 };
-		public int[] Game_Balloon_Combo_Text_Ex_Y = new int[] { 55, 561 };
-
-		public int[] Game_Balloon_Balloon_X = new int[] { 382, 382 };
-		public int[] Game_Balloon_Balloon_Y = new int[] { 115, 290 };
-		public int[] Game_Balloon_Balloon_Frame_X = new int[] { 382, 382 };
-		public int[] Game_Balloon_Balloon_Frame_Y = new int[] { 80, 260 };
-		public int[] Game_Balloon_Balloon_Number_X = new int[] { 486, 486 };
-		public int[] Game_Balloon_Balloon_Number_Y = new int[] { 187, 373 };
-		public int[] Game_Balloon_Roll_Frame_X = new int[] { 218, 218 };
-		public int[] Game_Balloon_Roll_Frame_Y = new int[] { -3, 514 };
-		public int[] Game_Balloon_Roll_Number_X = new int[] { 392, 392 };
-		public int[] Game_Balloon_Roll_Number_Y = new int[] { 128, 639 };
-		public int[] Game_Balloon_Number_Size = new int[] { 62, 80 };
-		public int Game_Balloon_Number_Padding = 60;
-		public float Game_Balloon_Roll_Number_Scale = 1.000f;
-		public float Game_Balloon_Balloon_Number_Scale = 0.879f;
 		#endregion
 		#region Effects
 		public int[] Game_Effect_Roll_StartPoint_X = new int[] { 56, -10, 200, 345, 100, 451, 600, 260, -30, 534, 156, 363 };

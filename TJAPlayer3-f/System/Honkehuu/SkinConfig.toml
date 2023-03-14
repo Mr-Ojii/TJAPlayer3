@@ -41,3 +41,13 @@ Beat = 1
 [Game.Mob]
 Beat = 1
 PtnBeat = 1
+
+[Game.Balloon]
+ComboNumberX = [ 312, 312 ]
+ComboNumberY = [ 34, 580 ]
+ComboNumberExX = [ 335, 335 ]
+ComboNumberExY = [ 34, 580 ]
+ComboTextX = [ 473, 473 ]
+ComboTextY = [ 55, 601 ]
+ComboTextExX = [ 498, 498 ]
+ComboTextExY = [ 55, 601 ]
