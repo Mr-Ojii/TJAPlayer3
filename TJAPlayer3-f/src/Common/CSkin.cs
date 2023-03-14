@@ -741,8 +741,7 @@ namespace TJAPlayer3
 				ConvertPropertyName = (x) => x,
 				ConvertFieldName = (x) => x,
 			};
-			CSkinConfig cSC = Toml.ToModel<CSkinConfig>(strToml, null, tomlModelOptions);
-			this.SkinConfig = cSC;
+			this.SkinConfig = Toml.ToModel<CSkinConfig>(strToml, null, tomlModelOptions);
 			Program.SkinName = this.SkinConfig.General.Name;
 			Program.SkinCreator = this.SkinConfig.General.Creator;
 			Program.SkinVersion = this.SkinConfig.General.Version;
