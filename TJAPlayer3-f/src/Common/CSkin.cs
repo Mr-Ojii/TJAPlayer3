@@ -863,13 +863,6 @@ namespace TJAPlayer3
 							{
 								Game_JudgeFrame_AddBlend = strParam[0].ToBool();
 							}
-							#region Gauge
-							else if (strCommand == nameof(Game_Gauge_Rainbow_Timer))
-							{
-								if (int.Parse(strParam) != 0)
-									Game_Gauge_Rainbow_Timer = int.Parse(strParam);
-							}
-							#endregion
 							#region Balloon
 							else if (strCommand == nameof(Game_Balloon_Combo_X))
 							{
@@ -1749,6 +1742,11 @@ namespace TJAPlayer3
 					public int[] ComboTextSize { get; set; } = new int[] { 100, 50 };
 					public bool ComboExIsJumping { get; set; } = true;
 				}
+				public CGauge Gauge { get; set; } = new();
+				public class CGauge
+				{
+					public int RainbowTimer { get; set; } = 50;
+				}
 			}
 			public CResult Result { get; set; } = new();
 			public class CResult
@@ -1892,7 +1890,6 @@ namespace TJAPlayer3
 		#region Gauge
 		public int Game_Gauge_Rainbow_Ptn;
 		public int Game_Gauge_Rainbow_Danc_Ptn;
-		public int Game_Gauge_Rainbow_Timer = 50;
 		#endregion
 		#region Balloon
 		public int[] Game_Balloon_Combo_X = new int[] { 253, 253 };

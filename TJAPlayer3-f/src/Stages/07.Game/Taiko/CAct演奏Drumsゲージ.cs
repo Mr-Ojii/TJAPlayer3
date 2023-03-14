@@ -59,12 +59,12 @@ namespace TJAPlayer3
 		{
 			if( !base.b活性化してない )
 			{
-				if(TJAPlayer3.Skin.Game_Gauge_Rainbow_Timer <= 1)
+				if(TJAPlayer3.Skin.SkinConfig.Game.Gauge.RainbowTimer <= 1)
 				{
-					throw new DivideByZeroException("SkinConfigの設定\"Game_Gauge_Rainbow_Timer\"を1以下にすることは出来ません。");
+					throw new DivideByZeroException("SkinConfigの設定\"Game.Gauge.RainbowTimer\"を1以下にすることは出来ません。");
 				}
-				this.ct虹アニメ = new CCounter( 0, TJAPlayer3.Skin.Game_Gauge_Rainbow_Ptn -1, TJAPlayer3.Skin.Game_Gauge_Rainbow_Timer, TJAPlayer3.Timer );
-				this.ct虹透明度 = new CCounter(0, TJAPlayer3.Skin.Game_Gauge_Rainbow_Timer-1, 1, TJAPlayer3.Timer);
+				this.ct虹アニメ = new CCounter( 0, TJAPlayer3.Skin.Game_Gauge_Rainbow_Ptn - 1, TJAPlayer3.Skin.SkinConfig.Game.Gauge.RainbowTimer, TJAPlayer3.Timer );
+				this.ct虹透明度 = new CCounter(0, TJAPlayer3.Skin.SkinConfig.Game.Gauge.RainbowTimer - 1, 1, TJAPlayer3.Timer);
 				base.OnManagedリソースの作成();
 			}
 		}
