@@ -863,40 +863,6 @@ namespace TJAPlayer3
 							{
 								Game_JudgeFrame_AddBlend = strParam[0].ToBool();
 							}
-							#region Score
-							else if (strCommand == nameof(Game_Score_X))
-							{
-								this.Game_Score_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Score_Y))
-							{
-								this.Game_Score_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Score_Add_X))
-							{
-								this.Game_Score_Add_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Score_Add_Y))
-							{
-								this.Game_Score_Add_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Score_AddBonus_X))
-							{
-								this.Game_Score_AddBonus_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Score_AddBonus_Y))
-							{
-								this.Game_Score_AddBonus_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Score_Padding))
-							{
-								ParseInt32(value => Game_Score_Padding = value);
-							}
-							else if (strCommand == nameof(Game_Score_Size))
-							{
-								this.Game_Score_Size = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							#endregion
 							#region Taiko
 							else if (strCommand == nameof(Game_Taiko_NamePlate_X))
 							{
@@ -1829,6 +1795,18 @@ namespace TJAPlayer3
 					[IgnoreDataMember]
 					public Color _LyricBackColor { get; set; } = ColorTranslator.FromHtml("#0000FF");
 				}
+				public CScore Score { get; set; } = new();
+				public class CScore
+				{
+					public int[] X { get; set; } = new int[] { 20, 20, 0, 0 };
+					public int[] Y { get; set; } = new int[] { 226, 530, 0, 0 };
+					public int[] AddX { get; set; } = new int[] { 20, 20, 0, 0 };
+					public int[] AddY { get; set; } = new int[] { 186, 570, 0, 0 };
+					public int[] AddBonusX { get; set; } = new int[] { 20, 20, 0, 0 };
+					public int[] AddBonusY { get; set; }= new int[] { 136, 626, 0, 0 };
+					public int Padding { get; set; } = 20;
+					public int[] Size { get; set; } = new int[] { 24, 40 };
+				}
 			}
 			public CResult Result { get; set; } = new();
 			public class CResult
@@ -1968,16 +1946,6 @@ namespace TJAPlayer3
 		#endregion
 		#region Mob
 		public int Game_Mob_Ptn = 0;
-		#endregion
-		#region Score
-		public int[] Game_Score_X = new int[] { 20, 20, 0, 0 };
-		public int[] Game_Score_Y = new int[] { 226, 530, 0, 0 };
-		public int[] Game_Score_Add_X = new int[] { 20, 20, 0, 0 };
-		public int[] Game_Score_Add_Y = new int[] { 186, 570, 0, 0 };
-		public int[] Game_Score_AddBonus_X = new int[] { 20, 20, 0, 0 };
-		public int[] Game_Score_AddBonus_Y = new int[] { 136, 626, 0, 0 };
-		public int Game_Score_Padding = 20;
-		public int[] Game_Score_Size = new int[] { 24, 40 };
 		#endregion
 		#region Taiko
 		public int[] Game_Taiko_NamePlate_X = new int[] { 0, 0 };

@@ -288,8 +288,8 @@ namespace TJAPlayer3
 					}
 				}
 
-				this.t小文字表示(TJAPlayer3.Skin.Game_Score_X[0], TJAPlayer3.Skin.Game_Score_Y[0], string.Format("{0,7:######0}", this.n現在表示中のスコア[0]), 0, 256, 0);
-				if (TJAPlayer3.stage演奏ドラム画面.bDoublePlay) this.t小文字表示(TJAPlayer3.Skin.Game_Score_X[1], TJAPlayer3.Skin.Game_Score_Y[1], string.Format("{0,7:######0}", this.n現在表示中のスコア[1]), 0, 256, 1);
+				this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Game.Score.X[0], TJAPlayer3.Skin.SkinConfig.Game.Score.Y[0], string.Format("{0,7:######0}", this.n現在表示中のスコア[0]), 0, 256, 0);
+				if (TJAPlayer3.stage演奏ドラム画面.bDoublePlay) this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Game.Score.X[1], TJAPlayer3.Skin.SkinConfig.Game.Score.Y[1], string.Format("{0,7:######0}", this.n現在表示中のスコア[1]), 0, 256, 1);
 
 				for (int i = 0; i < 256; i++)
 				{
@@ -418,9 +418,9 @@ namespace TJAPlayer3
 
 
 							if (this.n現在表示中のAddScore < 10 && this.stScore[i].bBonusScore == false)
-								this.t小文字表示(TJAPlayer3.Skin.Game_Score_Add_X[this.stScore[i].nPlayer] + xAdd, this.stScore[i].nPlayer == 0 ? TJAPlayer3.Skin.Game_Score_Add_Y[this.stScore[i].nPlayer] + yAdd : TJAPlayer3.Skin.Game_Score_Add_Y[this.stScore[i].nPlayer] - yAdd, string.Format("{0,7:######0}", this.stScore[i].nAddScore), this.stScore[i].nPlayer + 1, alpha, stScore[i].nPlayer);
+								this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Game.Score.AddX[this.stScore[i].nPlayer] + xAdd, this.stScore[i].nPlayer == 0 ? TJAPlayer3.Skin.SkinConfig.Game.Score.AddY[this.stScore[i].nPlayer] + yAdd : TJAPlayer3.Skin.SkinConfig.Game.Score.AddY[this.stScore[i].nPlayer] - yAdd, string.Format("{0,7:######0}", this.stScore[i].nAddScore), this.stScore[i].nPlayer + 1, alpha, stScore[i].nPlayer);
 							if (this.n現在表示中のAddScore < 10 && this.stScore[i].bBonusScore == true)
-								this.t小文字表示(TJAPlayer3.Skin.Game_Score_AddBonus_X[this.stScore[i].nPlayer] + xAdd, TJAPlayer3.Skin.Game_Score_AddBonus_Y[this.stScore[i].nPlayer], string.Format("{0,7:######0}", this.stScore[i].nAddScore), this.stScore[i].nPlayer + 1, alpha, stScore[i].nPlayer);
+								this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Game.Score.AddBonusX[this.stScore[i].nPlayer] + xAdd, TJAPlayer3.Skin.SkinConfig.Game.Score.AddBonusY[this.stScore[i].nPlayer], string.Format("{0,7:######0}", this.stScore[i].nAddScore), this.stScore[i].nPlayer + 1, alpha, stScore[i].nPlayer);
 							else
 							{
 								this.n現在表示中のAddScore--;
@@ -441,7 +441,7 @@ namespace TJAPlayer3
 				{
 					if( this.stFont[ i ].ch == ch )
 					{
-						Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.Game_Score_Size[0] * i, 0, TJAPlayer3.Skin.Game_Score_Size[0], TJAPlayer3.Skin.Game_Score_Size[1]);
+						Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.SkinConfig.Game.Score.Size[0] * i, 0, TJAPlayer3.Skin.SkinConfig.Game.Score.Size[0], TJAPlayer3.Skin.SkinConfig.Game.Score.Size[1]);
 						switch( mode )
 						{
 							case 0:
@@ -473,7 +473,7 @@ namespace TJAPlayer3
 						break;
 					}
 				}
-				x += TJAPlayer3.Skin.Game_Score_Padding;
+				x += TJAPlayer3.Skin.SkinConfig.Game.Score.Padding;
 			}
 		}
 	}

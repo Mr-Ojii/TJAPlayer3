@@ -863,7 +863,7 @@ namespace TJAPlayer3
 				{
 					if( cFont[ i ] == ch )
 					{
-						Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.Game_Score_Size[0] * i, 0, TJAPlayer3.Skin.Game_Score_Size[0], TJAPlayer3.Skin.Game_Score_Size[1]);
+						Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.SkinConfig.Game.Score.Size[0] * i, 0, TJAPlayer3.Skin.SkinConfig.Game.Score.Size[0], TJAPlayer3.Skin.SkinConfig.Game.Score.Size[1]);
 						if (TJAPlayer3.Tx.Taiko_Score[0] != null )
 						{
 							TJAPlayer3.Tx.Taiko_Score[0].vcScaling.Y = 1f;
