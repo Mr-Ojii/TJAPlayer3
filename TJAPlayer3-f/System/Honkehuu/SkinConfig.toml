@@ -51,3 +51,14 @@ ComboTextX = [ 473, 473 ]
 ComboTextY = [ 55, 601 ]
 ComboTextExX = [ 498, 498 ]
 ComboTextExY = [ 55, 601 ]
+
+[Game.PuchiChara]
+Width = 250
+Height = 250
+Ptn = 2
+Scale = [ 0.5, 0.5 ]
+Timer = 4000
+X = [ 110, 110 ]
+Y = [ 160, 697 ]
+BalloonX = [ 310, 310 ]
+BalloonY = [ 260, 500 ]

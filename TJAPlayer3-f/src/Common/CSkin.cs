@@ -1087,44 +1087,6 @@ namespace TJAPlayer3
 							}
 
 							#endregion
-							#region PuchiChara
-							else if (strCommand == nameof(Game_PuchiChara_X))
-							{
-								Game_PuchiChara_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_PuchiChara_Y))
-							{
-								Game_PuchiChara_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_PuchiChara_BalloonX))
-							{
-								Game_PuchiChara_BalloonX = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_PuchiChara_BalloonY))
-							{
-								Game_PuchiChara_BalloonY = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_PuchiChara_Scale))
-							{
-								Game_PuchiChara_Scale = strParam.Split(',').Select(float.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_PuchiChara))
-							{
-								Game_PuchiChara = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_PuchiChara_Sine))
-							{
-								ParseInt32(value => Game_PuchiChara_Sine = value);
-							}
-							else if (strCommand == nameof(Game_PuchiChara_Timer))
-							{
-								ParseInt32(value => Game_PuchiChara_Timer = value);
-							}
-							else if (strCommand == nameof(Game_PuchiChara_SineTimer))
-							{
-								Game_PuchiChara_SineTimer = double.Parse(strParam);
-							}
-							#endregion
 							#region Training
 							else if (strCommand == nameof(Game_Training_ScrollTime))
 							{
@@ -1663,6 +1625,21 @@ namespace TJAPlayer3
 					public int[] StartPointY { get; set; } = new int[] { 40, 560 };
 					public int Timer { get; set; } = 16;
 				}
+				public CPuchiChara PuchiChara { get; set; } = new();
+				public class CPuchiChara
+				{
+					public int[] X { get; set; } = new int[] { 100, 100 };
+					public int[] Y { get; set; } = new int[] { 140, 600 };
+					public int[] BalloonX { get; set; } = new int[] { 300, 300 };
+					public int[] BalloonY { get; set; } = new int[] { 240, 500 };
+					public float[] Scale { get; set; } = new float[] { 0.7f, 1.0f }; // 通常時、 ふうせん連打時
+					public int Width { get; set; } = 180;
+					public int Height { get; set; } = 180;
+					public int Ptn { get; set; } = 2;
+					public int Sine { get; set; } = 20;
+					public int Timer { get; set; } = 4800;
+					public double SineTimer { get; set; } = 2;
+				}
 			}
 			public CResult Result { get; set; } = new();
 			public class CResult
@@ -1848,17 +1825,6 @@ namespace TJAPlayer3
 		public bool Game_Effect_Fire_AddBlend = true;
 		public bool Game_Effect_GoGoSplash_AddBlend = true;
 		public int Game_Effect_FireWorks_Timing = 8;
-		#endregion
-		#region PuchiChara
-		public int[] Game_PuchiChara_X = new int[] { 100, 100 };
-		public int[] Game_PuchiChara_Y = new int[] { 140, 600 };
-		public int[] Game_PuchiChara_BalloonX = new int[] { 300, 300 };
-		public int[] Game_PuchiChara_BalloonY = new int[] { 240, 500 };
-		public float[] Game_PuchiChara_Scale = new float[] { 0.7f, 1.0f }; // 通常時、 ふうせん連打時
-		public int[] Game_PuchiChara = new int[] { 180, 180, 2}; // Width, Height, Ptn
-		public int Game_PuchiChara_Sine = 20;
-		public int Game_PuchiChara_Timer = 4800;
-		public double Game_PuchiChara_SineTimer = 2;
 		#endregion
 		#region Dan-C
 		public Color Game_DanC_Title_ForeColor = ColorTranslator.FromHtml("#FFFFFF");

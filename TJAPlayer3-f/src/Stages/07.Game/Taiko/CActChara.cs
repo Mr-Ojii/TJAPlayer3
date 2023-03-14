@@ -272,7 +272,7 @@ namespace TJAPlayer3
 				}
 				if (this.b風船連打中[nPlayer] != true && CharaAction_Balloon_Delay[nPlayer].b終了値に達した)
 				{
-					TJAPlayer3.stage演奏ドラム画面.PuchiChara.On進行描画(TJAPlayer3.Skin.Game_PuchiChara_X[nPlayer], TJAPlayer3.Skin.Game_PuchiChara_Y[nPlayer], TJAPlayer3.stage演奏ドラム画面.bIsAlreadyMaxed[nPlayer], nPlayer);
+					TJAPlayer3.stage演奏ドラム画面.PuchiChara.On進行描画(TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.X[nPlayer], TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Y[nPlayer], TJAPlayer3.stage演奏ドラム画面.bIsAlreadyMaxed[nPlayer], nPlayer);
 				}
 			}
 			return base.On進行描画();
@@ -312,7 +312,7 @@ namespace TJAPlayer3
 							TJAPlayer3.Tx.Chara_Balloon_Broke[nPlayer][CharaAction_Balloon_Broke[nPlayer].n現在の値].Opacity = nowOpacity;
 							TJAPlayer3.Tx.Chara_Balloon_Broke[nPlayer][CharaAction_Balloon_Broke[nPlayer].n現在の値].t2D描画(TJAPlayer3.app.Device, (TJAPlayer3.Skin.nScrollFieldX[nPlayer] - TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.nDefaultJudgePos[nPlayer, 0]) + TJAPlayer3.Skin.SkinConfig.Game.Chara.BalloonX[nPlayer], TJAPlayer3.Skin.SkinConfig.Game.Chara.BalloonY[nPlayer]);
 						}
-						TJAPlayer3.stage演奏ドラム画面.PuchiChara.On進行描画((TJAPlayer3.Skin.nScrollFieldX[nPlayer] - TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.nDefaultJudgePos[nPlayer, 0]) + TJAPlayer3.Skin.Game_PuchiChara_BalloonX[nPlayer], TJAPlayer3.Skin.Game_PuchiChara_BalloonY[nPlayer], false, nPlayer, nowOpacity, true);
+						TJAPlayer3.stage演奏ドラム画面.PuchiChara.On進行描画((TJAPlayer3.Skin.nScrollFieldX[nPlayer] - TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.nDefaultJudgePos[nPlayer, 0]) + TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.BalloonX[nPlayer], TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.BalloonY[nPlayer], false, nPlayer, nowOpacity, true);
 						if (CharaAction_Balloon_Broke[nPlayer].b終了値に達した)
 						{
 							CharaAction_Balloon_Broke[nPlayer].t停止();
@@ -331,7 +331,7 @@ namespace TJAPlayer3
 							TJAPlayer3.Tx.Chara_Balloon_Miss[nPlayer][CharaAction_Balloon_Miss[nPlayer].n現在の値].Opacity = nowOpacity;
 							TJAPlayer3.Tx.Chara_Balloon_Miss[nPlayer][CharaAction_Balloon_Miss[nPlayer].n現在の値].t2D描画(TJAPlayer3.app.Device, (TJAPlayer3.Skin.nScrollFieldX[nPlayer] - TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.nDefaultJudgePos[nPlayer, 0]) + TJAPlayer3.Skin.SkinConfig.Game.Chara.BalloonX[nPlayer], TJAPlayer3.Skin.SkinConfig.Game.Chara.BalloonY[nPlayer]);
 						}
-						TJAPlayer3.stage演奏ドラム画面.PuchiChara.On進行描画((TJAPlayer3.Skin.nScrollFieldX[nPlayer] - TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.nDefaultJudgePos[nPlayer, 0]) + TJAPlayer3.Skin.Game_PuchiChara_BalloonX[nPlayer], TJAPlayer3.Skin.Game_PuchiChara_BalloonY[nPlayer], false, nPlayer, nowOpacity, true);
+						TJAPlayer3.stage演奏ドラム画面.PuchiChara.On進行描画((TJAPlayer3.Skin.nScrollFieldX[nPlayer] - TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.nDefaultJudgePos[nPlayer, 0]) + TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.BalloonX[nPlayer], TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.BalloonY[nPlayer], false, nPlayer, nowOpacity, true);
 						if (CharaAction_Balloon_Miss[nPlayer].b終了値に達した)
 						{
 							CharaAction_Balloon_Miss[nPlayer].t停止();
@@ -342,7 +342,7 @@ namespace TJAPlayer3
 					else if (CharaAction_Balloon_Breaking[nPlayer]?.b進行中 == true && TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Breaking[nPlayer] != 0)
 					{
 						TJAPlayer3.Tx.Chara_Balloon_Breaking[nPlayer][CharaAction_Balloon_Breaking[nPlayer].n現在の値]?.t2D描画(TJAPlayer3.app.Device, (TJAPlayer3.Skin.nScrollFieldX[nPlayer] - TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.nDefaultJudgePos[nPlayer, 0]) + TJAPlayer3.Skin.SkinConfig.Game.Chara.BalloonX[nPlayer], TJAPlayer3.Skin.SkinConfig.Game.Chara.BalloonY[nPlayer]);
-						TJAPlayer3.stage演奏ドラム画面.PuchiChara.On進行描画((TJAPlayer3.Skin.nScrollFieldX[nPlayer] - TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.nDefaultJudgePos[nPlayer, 0]) + TJAPlayer3.Skin.Game_PuchiChara_BalloonX[nPlayer], TJAPlayer3.Skin.Game_PuchiChara_BalloonY[nPlayer], false, nPlayer, 255, true);
+						TJAPlayer3.stage演奏ドラム画面.PuchiChara.On進行描画((TJAPlayer3.Skin.nScrollFieldX[nPlayer] - TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.nDefaultJudgePos[nPlayer, 0]) + TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.BalloonX[nPlayer], TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.BalloonY[nPlayer], false, nPlayer, 255, true);
 					}
 				}
 			}
