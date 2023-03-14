@@ -852,72 +852,6 @@ namespace TJAPlayer3
 							#endregion
 
 							#region 新・SkinConfig
-							#region SongLoading
-							else if (strCommand == nameof(SongLoading_Plate_ReferencePoint))
-							{
-								SongLoading_Plate_ReferencePoint = (ReferencePoint)int.Parse(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_Title_ReferencePoint))
-							{
-								SongLoading_Title_ReferencePoint = (ReferencePoint)int.Parse(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_SubTitle_ReferencePoint))
-							{
-								SongLoading_SubTitle_ReferencePoint = (ReferencePoint)int.Parse(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_Title_ForeColor))
-							{
-								SongLoading_Title_ForeColor = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_Title_BackColor))
-							{
-								SongLoading_Title_BackColor = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_SubTitle_ForeColor))
-							{
-								SongLoading_SubTitle_ForeColor = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_SubTitle_BackColor))
-							{
-								SongLoading_SubTitle_BackColor = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_v2_Plate_X))
-							{
-								SongLoading_v2_Plate_X = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_v2_Plate_Y))
-							{
-								SongLoading_v2_Plate_Y = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_v2_Title_X))
-							{
-								SongLoading_v2_Title_X = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_v2_Title_Y))
-							{
-								SongLoading_v2_Title_Y = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_v2_SubTitle_X))
-							{
-								SongLoading_v2_SubTitle_X = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_v2_SubTitle_Y))
-							{
-								SongLoading_v2_SubTitle_Y = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_v2_Plate_ReferencePoint))
-							{
-								SongLoading_v2_Plate_ReferencePoint = (ReferencePoint)int.Parse(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_v2_Title_ReferencePoint))
-							{
-								SongLoading_v2_Title_ReferencePoint = (ReferencePoint)int.Parse(strParam);
-							}
-							else if (strCommand == nameof(SongLoading_v2_SubTitle_ReferencePoint))
-							{
-								SongLoading_v2_SubTitle_ReferencePoint = (ReferencePoint)int.Parse(strParam);
-							}
-							#endregion
 							#region Game
 							else if (strCommand == nameof(Game_RollColorMode))
 							{
@@ -1863,7 +1797,44 @@ namespace TJAPlayer3
 				public int SubTitleX { get; set; } = 640;
 				public int SubTitleY { get; set; } = 390;
 				public int TitleFontSize { get; set; } = 30;
-				public int SubTitleFontSize { get; set; } = 22;	
+				public int SubTitleFontSize { get; set; } = 22;
+				public int PlateReferencePoint { get{ return (int)this._PlateReferencePoint; } set{ this._PlateReferencePoint = (ReferencePoint)value; } }
+				public int TitleReferencePoint { get{ return (int)this._TitleReferencePoint; } set{ this._TitleReferencePoint = (ReferencePoint)value; } }
+				public int SubTitleReferencePoint { get{ return (int)this._SubTitleReferencePoint; } set{ this._SubTitleReferencePoint = (ReferencePoint)value; } }
+				[IgnoreDataMember]
+				public ReferencePoint _PlateReferencePoint { get; set; } = ReferencePoint.Center;
+				[IgnoreDataMember]
+				public ReferencePoint _TitleReferencePoint { get; set; } = ReferencePoint.Center;
+				[IgnoreDataMember]
+				public ReferencePoint _SubTitleReferencePoint { get; set; } = ReferencePoint.Center;
+				public string TitleForeColor { get{ return ColorTranslator.ToHtml(this._TitleForeColor); } set{ this._TitleForeColor = ColorTranslator.FromHtml(value); } }
+				public string TitleBackColor { get{ return ColorTranslator.ToHtml(this._TitleBackColor); } set{ this._TitleBackColor = ColorTranslator.FromHtml(value); } }
+				public string SubTitleForeColor { get{ return ColorTranslator.ToHtml(this._SubTitleForeColor); } set{ this._SubTitleForeColor = ColorTranslator.FromHtml(value); } }
+				public string SubTitleBackColor { get{ return ColorTranslator.ToHtml(this._SubTitleBackColor); } set{ this._SubTitleBackColor = ColorTranslator.FromHtml(value); } }
+				[IgnoreDataMember]
+				public Color _TitleForeColor { get; set; } = ColorTranslator.FromHtml("#FFFFFF");
+				[IgnoreDataMember]
+				public Color _TitleBackColor { get; set; } = ColorTranslator.FromHtml("#000000");
+				[IgnoreDataMember]
+				public Color _SubTitleForeColor { get; set; } = ColorTranslator.FromHtml("#FFFFFF");
+				[IgnoreDataMember]
+				public Color _SubTitleBackColor { get; set; } = ColorTranslator.FromHtml("#000000");
+
+				public int v2PlateX { get; set; } = 640;
+				public int v2PlateY { get; set; } = 200;
+				public int v2TitleX { get; set; } = 640;
+				public int v2TitleY { get; set; } = 180;
+				public int v2SubTitleX { get; set; } = 640;
+				public int v2SubTitleY { get; set; } = 230;
+				public int v2PlateReferencePoint { get{ return (int)this._v2PlateReferencePoint; } set{ this._v2PlateReferencePoint = (ReferencePoint)value; } }
+				public int v2TitleReferencePoint { get{ return (int)this._v2TitleReferencePoint; } set{ this._v2TitleReferencePoint = (ReferencePoint)value; } }
+				public int v2SubTitleReferencePoint { get{ return (int)this._v2SubTitleReferencePoint; } set{ this._v2SubTitleReferencePoint = (ReferencePoint)value; } }
+				[IgnoreDataMember]
+				public ReferencePoint _v2PlateReferencePoint { get; set; } = ReferencePoint.Center;
+				[IgnoreDataMember]
+				public ReferencePoint _v2TitleReferencePoint { get; set; } = ReferencePoint.Center;
+				[IgnoreDataMember]
+				public ReferencePoint _v2SubTitleReferencePoint { get; set; } = ReferencePoint.Center;
 			}
 			public CGame Game { get; set; } = new();
 			public class CGame
@@ -2025,25 +1996,6 @@ namespace TJAPlayer3
 		}
 
 		#region 新・SkinConfig
-		#region SongLoading
-		public ReferencePoint SongLoading_Plate_ReferencePoint = ReferencePoint.Center;
-		public ReferencePoint SongLoading_Title_ReferencePoint = ReferencePoint.Center;
-		public ReferencePoint SongLoading_SubTitle_ReferencePoint = ReferencePoint.Center;
-		public Color SongLoading_Title_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
-		public Color SongLoading_Title_BackColor = ColorTranslator.FromHtml("#000000");
-		public Color SongLoading_SubTitle_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
-		public Color SongLoading_SubTitle_BackColor = ColorTranslator.FromHtml("#000000");
-		public int SongLoading_v2_Plate_X = 640;
-		public int SongLoading_v2_Plate_Y = 200;
-		public int SongLoading_v2_Title_X = 640;
-		public int SongLoading_v2_Title_Y = 180;
-		public int SongLoading_v2_SubTitle_X = 640;
-		public int SongLoading_v2_SubTitle_Y = 230;
-		public ReferencePoint SongLoading_v2_Plate_ReferencePoint = ReferencePoint.Center;
-		public ReferencePoint SongLoading_v2_Title_ReferencePoint = ReferencePoint.Center;
-		public ReferencePoint SongLoading_v2_SubTitle_ReferencePoint = ReferencePoint.Center;
-
-		#endregion
 		#region Game
 		public RollColorMode Game_RollColorMode = RollColorMode.All;
 		public bool Game_JudgeFrame_AddBlend = true;
