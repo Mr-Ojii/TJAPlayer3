@@ -860,96 +860,6 @@ namespace TJAPlayer3
 							{
 								Game_JudgeFrame_AddBlend = strParam[0].ToBool();
 							}
-							#region PanelFont
-							else if (strCommand == nameof(Game_MusicName_X))
-							{
-								Game_MusicName_X = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_MusicName_Y))
-							{
-								Game_MusicName_Y = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_MusicName_FontSize))
-							{
-								if (int.Parse(strParam) > 0)
-									Game_MusicName_FontSize = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_MusicName_ReferencePoint))
-							{
-								Game_MusicName_ReferencePoint = (ReferencePoint)int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_SubTitleName_X))
-							{
-								Game_SubTitleName_X = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_SubTitleName_Y))
-							{
-								Game_SubTitleName_Y = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_SubTitleName_FontSize))
-							{
-								if (int.Parse(strParam) > 0)
-									Game_SubTitleName_FontSize = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_MusicName_ReferencePoint))
-							{
-								Game_SubTitleName_ReferencePoint = (ReferencePoint)int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_Genre_X))
-							{
-								Game_Genre_X = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_Genre_Y))
-							{
-								Game_Genre_Y = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_Lyric_X))
-							{
-								Game_Lyric_X = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_Lyric_Y))
-							{
-								Game_Lyric_Y = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_Lyric_FontName))
-							{
-								Game_Lyric_FontName = strParam;
-							}
-							else if (strCommand == nameof(Game_Lyric_FontSize))
-							{
-								if (int.Parse(strParam) > 0)
-									Game_Lyric_FontSize = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_Lyric_ReferencePoint))
-							{
-								Game_Lyric_ReferencePoint = (ReferencePoint)int.Parse(strParam);
-							}
-
-							else if (strCommand == nameof(Game_MusicName_ForeColor))
-							{
-								Game_MusicName_ForeColor = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(Game_StageText_ForeColor))
-							{
-								Game_StageText_ForeColor = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(Game_Lyric_ForeColor))
-							{
-								Game_Lyric_ForeColor = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(Game_MusicName_BackColor))
-							{
-								Game_MusicName_BackColor = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(Game_StageText_BackColor))
-							{
-								Game_StageText_BackColor = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(Game_Lyric_BackColor))
-							{
-								Game_Lyric_BackColor = ColorTranslator.FromHtml(strParam);
-							}
-							#endregion
 							#region Score
 							else if (strCommand == nameof(Game_Score_X))
 							{
@@ -1878,6 +1788,52 @@ namespace TJAPlayer3
 					public int[] X { get; set; } = new int[] { 64, 64 };
 					public int[] Y { get; set; } = new int[] { 232, 432 };
 				}
+				public CPanelFont PanelFont { get; set; } = new();
+				public class CPanelFont
+				{
+					public int MusicNameX { get; set; } = 1254;
+					public int MusicNameY { get; set; } = 14;
+					public int MusicNameFontSize { get; set; } = 30;
+					public int MusicNameReferencePoint { get{ return (int)this._MusicNameReferencePoint; } set{ this._MusicNameReferencePoint = (ReferencePoint)value; } }
+					[IgnoreDataMember]
+					public ReferencePoint _MusicNameReferencePoint { get; set; } = ReferencePoint.Right;
+					
+					public int SubTitleNameX { get; set; } = 1114;
+					public int SubTitleNameY { get; set; }= 70;
+					public int SubTitleNameFontSize { get; set; } = 15;
+					public int SubTitleNameReferencePoint { get{ return (int)this._SubTitleNameReferencePoint; } set{ this._SubTitleNameReferencePoint = (ReferencePoint)value; } }
+					[IgnoreDataMember]
+					public ReferencePoint _SubTitleNameReferencePoint { get; set; } = ReferencePoint.Right;
+
+					public int GenreX { get; set; } = 1114;
+					public int GenreY { get; set; } = 74;
+					public int LyricX { get; set; } = 640;
+					public int LyricY { get; set; } = 630;
+					public string LyricFontName { get; set; } = CFontRenderer.DefaultFontName;
+					public int LyricFontSize { get; set; } = 38;
+					public int LyricReferencePoint { get{ return (int)this._LyricReferencePoint; } set{ this._LyricReferencePoint = (ReferencePoint)value; } }
+					[IgnoreDataMember]
+					public ReferencePoint _LyricReferencePoint { get; set; } = ReferencePoint.Center;
+
+					public string MusicNameForeColor { get{ return ColorTranslator.ToHtml(this._MusicNameForeColor); } set{ this._MusicNameForeColor = ColorTranslator.FromHtml(value); } }
+					public string StageTextForeColor { get{ return ColorTranslator.ToHtml(this._StageTextForeColor); } set{ this._StageTextForeColor = ColorTranslator.FromHtml(value); } }
+					public string LyricForeColor { get{ return ColorTranslator.ToHtml(this._LyricForeColor); } set{ this._LyricForeColor = ColorTranslator.FromHtml(value); } }
+					public string MusicNameBackColor { get{ return ColorTranslator.ToHtml(this._MusicNameBackColor); } set{ this._MusicNameBackColor = ColorTranslator.FromHtml(value); } }
+					public string StageTextBackColor { get{ return ColorTranslator.ToHtml(this._StageTextBackColor); } set{ this._StageTextBackColor = ColorTranslator.FromHtml(value); } }
+					public string LyricBackColor { get{ return ColorTranslator.ToHtml(this._LyricBackColor); } set{ this._LyricBackColor = ColorTranslator.FromHtml(value); } }
+					[IgnoreDataMember]
+					public Color _MusicNameForeColor { get; set; } = ColorTranslator.FromHtml("#FFFFFF");
+					[IgnoreDataMember]
+					public Color _StageTextForeColor { get; set; } = ColorTranslator.FromHtml("#FFFFFF");
+					[IgnoreDataMember]
+					public Color _LyricForeColor { get; set; } = ColorTranslator.FromHtml("#FFFFFF");
+					[IgnoreDataMember]
+					public Color _MusicNameBackColor { get; set; } = ColorTranslator.FromHtml("#000000");
+					[IgnoreDataMember]
+					public Color _StageTextBackColor { get; set; } = ColorTranslator.FromHtml("#000000");
+					[IgnoreDataMember]
+					public Color _LyricBackColor { get; set; } = ColorTranslator.FromHtml("#0000FF");
+				}
 			}
 			public CResult Result { get; set; } = new();
 			public class CResult
@@ -2017,31 +1973,6 @@ namespace TJAPlayer3
 		#endregion
 		#region Mob
 		public int Game_Mob_Ptn = 0;
-		#endregion
-		#region PanelFont
-		public int Game_MusicName_X = 1254;
-		public int Game_MusicName_Y = 14;
-		public int Game_MusicName_FontSize = 30;
-		public ReferencePoint Game_MusicName_ReferencePoint = ReferencePoint.Right;
-		public int Game_SubTitleName_X = 1114;
-		public int Game_SubTitleName_Y = 70;
-		public int Game_SubTitleName_FontSize = 15;
-		public ReferencePoint Game_SubTitleName_ReferencePoint = ReferencePoint.Right;
-		public int Game_Genre_X = 1114;
-		public int Game_Genre_Y = 74;
-		public int Game_Lyric_X = 640;
-		public int Game_Lyric_Y = 630;
-		public string Game_Lyric_FontName = CFontRenderer.DefaultFontName;
-		public int Game_Lyric_FontSize = 38;
-		public ReferencePoint Game_Lyric_ReferencePoint = ReferencePoint.Center;
-
-		public Color Game_MusicName_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
-		public Color Game_StageText_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
-		public Color Game_Lyric_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
-		public Color Game_MusicName_BackColor = ColorTranslator.FromHtml("#000000");
-		public Color Game_StageText_BackColor = ColorTranslator.FromHtml("#000000");
-		public Color Game_Lyric_BackColor = ColorTranslator.FromHtml("#0000FF");
-
 		#endregion
 		#region Score
 		public int[] Game_Score_X = new int[] { 20, 20, 0, 0 };

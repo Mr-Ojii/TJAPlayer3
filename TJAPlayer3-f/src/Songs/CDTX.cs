@@ -3841,7 +3841,7 @@ namespace TJAPlayer3
 			}
 			else if (command == "#LYRIC")
 			{
-				this.listLyric.Add(this.pf歌詞フォント.DrawText(argument, TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio));
+				this.listLyric.Add(this.pf歌詞フォント.DrawText(argument, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._LyricForeColor, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._LyricBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio));
 
 				var chip = new CChip();
 
@@ -5176,7 +5176,7 @@ namespace TJAPlayer3
 						{
 							STLYRIC stlrc;
 							stlrc.Text = strSplit後[i];
-							stlrc.TextTex = this.pf歌詞フォント.DrawText(strSplit後[i], TJAPlayer3.Skin.Game_Lyric_ForeColor, TJAPlayer3.Skin.Game_Lyric_BackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio);
+							stlrc.TextTex = this.pf歌詞フォント.DrawText(strSplit後[i], TJAPlayer3.Skin.SkinConfig.Game.PanelFont._LyricForeColor, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._LyricBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio);
 							stlrc.Time = list[listindex];
 							stlrc.index = ordnumber;
 							this.listLyric2.Add(stlrc);
@@ -5677,7 +5677,7 @@ namespace TJAPlayer3
 		private CCachedFontRenderer pf歌詞フォント;
 		public override void On活性化()
 		{
-			this.pf歌詞フォント = new CCachedFontRenderer(TJAPlayer3.Skin.Game_Lyric_FontName, TJAPlayer3.Skin.Game_Lyric_FontSize);
+			this.pf歌詞フォント = new CCachedFontRenderer(TJAPlayer3.Skin.SkinConfig.Game.PanelFont.LyricFontName, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.LyricFontSize);
 
 			this.listWAV = new Dictionary<int, CWAV>();
 			this.listBPM = new Dictionary<int, CBPM>();
