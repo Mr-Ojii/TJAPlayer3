@@ -269,7 +269,7 @@ namespace TJAPlayer3
 				{
 					if (TJAPlayer3.Tx.NamePlate[i] != null)
 					{
-						TJAPlayer3.Tx.NamePlate[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.ConfigIni.bEnableSkinV2 ? TJAPlayer3.Skin.SkinConfig.Result.v2NamePlateX[i] : TJAPlayer3.Skin.Result_NamePlate_X[i], TJAPlayer3.ConfigIni.bEnableSkinV2 ? TJAPlayer3.Skin.SkinConfig.Result.v2NamePlateY[i] : TJAPlayer3.Skin.Result_NamePlate_Y[i]);
+						TJAPlayer3.Tx.NamePlate[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.ConfigIni.bEnableSkinV2 ? TJAPlayer3.Skin.SkinConfig.Result.v2NamePlateX[i] : TJAPlayer3.Skin.SkinConfig.Result.NamePlateX[i], TJAPlayer3.ConfigIni.bEnableSkinV2 ? TJAPlayer3.Skin.SkinConfig.Result.v2NamePlateY[i] : TJAPlayer3.Skin.SkinConfig.Result.NamePlateY[i]);
 					}
 				}
 				#endregion

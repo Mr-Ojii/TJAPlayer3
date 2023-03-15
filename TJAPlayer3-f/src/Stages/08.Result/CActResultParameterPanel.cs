@@ -192,9 +192,9 @@ namespace TJAPlayer3
 					{
 						TJAPlayer3.stage演奏ドラム画面.actDan.DrawExam(TJAPlayer3.stageResult.st演奏記録[i].Dan_C);
 
-						TJAPlayer3.Tx.Result_Dan?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_Dan_XY[0], TJAPlayer3.Skin.Result_Dan_XY[1], new Rectangle(TJAPlayer3.Skin.Result_Dan[0] * CrownState[i], 0, TJAPlayer3.Skin.Result_Dan[0], TJAPlayer3.Skin.Result_Dan[1]));
+						TJAPlayer3.Tx.Result_Dan?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.DanXY[0], TJAPlayer3.Skin.SkinConfig.Result.DanXY[1], new Rectangle(TJAPlayer3.Skin.SkinConfig.Result.DanWH[0] * CrownState[i], 0, TJAPlayer3.Skin.SkinConfig.Result.DanWH[0], TJAPlayer3.Skin.SkinConfig.Result.DanWH[1]));
 						// Dan_Plate
-						Dan_Plate?.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Result_Dan_Plate_XY[0], TJAPlayer3.Skin.Result_Dan_Plate_XY[1]);
+						Dan_Plate?.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.SkinConfig.Result.DanPlateXY[0], TJAPlayer3.Skin.SkinConfig.Result.DanPlateXY[1]);
 					}
 					else
 					{
@@ -400,9 +400,9 @@ namespace TJAPlayer3
 					{
 						TJAPlayer3.stage演奏ドラム画面.actDan.DrawExam(TJAPlayer3.stageResult.st演奏記録[i].Dan_C);
 						
-						TJAPlayer3.Tx.Result_Dan?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_Dan_XY[0], TJAPlayer3.Skin.Result_Dan_XY[1], new Rectangle(TJAPlayer3.Skin.Result_Dan[0] * CrownState[i], 0, TJAPlayer3.Skin.Result_Dan[0], TJAPlayer3.Skin.Result_Dan[1]));
+						TJAPlayer3.Tx.Result_Dan?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.DanXY[0], TJAPlayer3.Skin.SkinConfig.Result.DanXY[1], new Rectangle(TJAPlayer3.Skin.SkinConfig.Result.DanWH[0] * CrownState[i], 0, TJAPlayer3.Skin.SkinConfig.Result.DanWH[0], TJAPlayer3.Skin.SkinConfig.Result.DanWH[1]));
 						// Dan_Plate
-						Dan_Plate?.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Result_Dan_Plate_XY[0], TJAPlayer3.Skin.Result_Dan_Plate_XY[1]);
+						Dan_Plate?.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.SkinConfig.Result.DanPlateXY[0], TJAPlayer3.Skin.SkinConfig.Result.DanPlateXY[1]);
 					}
 					else
 					{
@@ -411,7 +411,7 @@ namespace TJAPlayer3
 							TJAPlayer3.Tx.Crown_t.Opacity = this.ctCrown用.n現在の値;
 							TJAPlayer3.Tx.Crown_t.vcScaling.X = ((this.ctCrown用.n終了値 - this.ctCrown用.n現在の値) / 255f) * 2f + 1.0f;
 							TJAPlayer3.Tx.Crown_t.vcScaling.Y = ((this.ctCrown用.n終了値 - this.ctCrown用.n現在の値) / 255f) * 2f + 1.0f;
-							TJAPlayer3.Tx.Crown_t.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Result_Crown_X[i], TJAPlayer3.Skin.Result_Crown_Y[i], new Rectangle(CrownState[i] * 100, 0, 100, 100));
+							TJAPlayer3.Tx.Crown_t.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.SkinConfig.Result.CrownX[i], TJAPlayer3.Skin.SkinConfig.Result.CrownY[i], new Rectangle(CrownState[i] * 100, 0, 100, 100));
 						}
 					}
 					#endregion

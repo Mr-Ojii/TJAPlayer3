@@ -739,7 +739,7 @@ namespace TJAPlayer3
 			if(!File.Exists(skinConfigPath))
 				return;
 
-			string strToml =  CJudgeTextEncoding.ReadTextFile(skinConfigPath);
+			string strToml = CJudgeTextEncoding.ReadTextFile(skinConfigPath);
 			TomlModelOptions tomlModelOptions = new()
 			{
 				ConvertPropertyName = (x) => x,
@@ -840,94 +840,6 @@ namespace TJAPlayer3
 							else if (strCommand == nameof(Game_JudgeFrame_AddBlend))
 							{
 								Game_JudgeFrame_AddBlend = strParam[0].ToBool();
-							}
-							#endregion
-							#region Result
-							else if (strCommand == nameof(Result_MusicName_X))
-							{
-								Result_MusicName_X = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Result_MusicName_Y))
-							{
-								Result_MusicName_Y = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Result_MusicName_FontSize))
-							{
-								if (int.Parse(strParam) > 0)
-									Result_MusicName_FontSize = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Result_MusicName_ReferencePoint))
-							{
-								Result_MusicName_ReferencePoint = (ReferencePoint)int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Result_StageText_X))
-							{
-								Result_StageText_X = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Result_StageText_Y))
-							{
-								Result_StageText_Y = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Result_StageText_FontSize))
-							{
-								if (int.Parse(strParam) > 0)
-									Result_StageText_FontSize = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Result_StageText_ReferencePoint))
-							{
-								Result_StageText_ReferencePoint = (ReferencePoint)int.Parse(strParam);
-							}
-
-							else if (strCommand == nameof(Result_MusicName_ForeColor))
-							{
-								Result_MusicName_ForeColor = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(Result_StageText_ForeColor))
-							{
-								Result_StageText_ForeColor = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(Result_MusicName_BackColor))
-							{
-								Result_MusicName_BackColor = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(Result_StageText_BackColor))
-							{
-								Result_StageText_BackColor = ColorTranslator.FromHtml(strParam);
-							}
-
-							else if (strCommand == nameof(Result_NamePlate_X))
-							{
-								Result_NamePlate_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Result_NamePlate_Y))
-							{
-								Result_NamePlate_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-
-							else if (strCommand == nameof(Result_Dan))
-							{
-								Result_Dan = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Result_Dan_XY))
-							{
-								Result_Dan_XY = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Result_Dan_Plate_XY))
-							{
-								Result_Dan_Plate_XY = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Result_Crown_X))
-							{
-								Result_Crown_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Result_Crown_Y))
-							{
-								Result_Crown_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Result_RotateInterval))
-							{
-								if (int.Parse(strParam) != 0)
-									Result_RotateInterval = int.Parse(strParam);
 							}
 							#endregion
 							#endregion
@@ -1510,6 +1422,38 @@ namespace TJAPlayer3
 				public int[] GaugeBaseY { get; set; } = { 122, 416 };
 				public int[] GaugeBodyX { get; set; } = { 559, 559 };
 				public int[] GaugeBodyY { get; set; } = { 125, 419 };
+				public int MusicNameX { get; set; } = 1254;
+				public int MusicNameY { get; set; } = 6;
+				public int MusicNameFontSize { get; set; } = 30;
+				public int MusicNameReferencePoint { get{ return (int)this._MusicNameReferencePoint; } set{ this._MusicNameReferencePoint = (ReferencePoint)value; } }
+				[IgnoreDataMember]
+				public ReferencePoint _MusicNameReferencePoint { get; set; } = ReferencePoint.Right;
+				public int StageTextX { get; set; } = 230;
+				public int StageTextY { get; set; } = 6;
+				public int StageTextFontSize { get; set; } = 30;
+				public int StageTextReferencePoint { get{ return (int)this._StageTextReferencePoint; } set{ this._StageTextReferencePoint = (ReferencePoint)value; } }
+				[IgnoreDataMember]
+				public ReferencePoint _StageTextReferencePoint { get; set; } = ReferencePoint.Left;
+				public string MusicNameForeColor { get{ return ColorTranslator.ToHtml(this._MusicNameForeColor); } set{ this._MusicNameForeColor = ColorTranslator.FromHtml(value); } }
+				public string MusicNameBackColor { get{ return ColorTranslator.ToHtml(this._MusicNameBackColor); } set{ this._MusicNameBackColor = ColorTranslator.FromHtml(value); } }
+				public string StageTextForeColor { get{ return ColorTranslator.ToHtml(this._StageTextForeColor); } set{ this._StageTextForeColor = ColorTranslator.FromHtml(value); } }
+				public string StageTextBackColor { get{ return ColorTranslator.ToHtml(this._StageTextBackColor); } set{ this._StageTextBackColor = ColorTranslator.FromHtml(value); } }
+				[IgnoreDataMember]
+				public Color _MusicNameForeColor { get; set; } = ColorTranslator.FromHtml("#FFFFFF");
+				[IgnoreDataMember]
+				public Color _MusicNameBackColor { get; set; } = ColorTranslator.FromHtml("#000000");
+				[IgnoreDataMember]
+				public Color _StageTextForeColor { get; set; } = ColorTranslator.FromHtml("#FFFFFF");
+				[IgnoreDataMember]
+				public Color _StageTextBackColor { get; set; } = ColorTranslator.FromHtml("#000000");
+				public int[] NamePlateX { get; set; } = new int[] { 260, 260 };
+				public int[] NamePlateY { get; set; } = new int[] { 96, 390 };
+				public int[] DanXY { get; set; } = new int[] { 100, 0 };
+				public int[] DanWH { get; set; } = new int[] { 500, 500 };
+				public int[] DanPlateXY { get; set; } = new int[] { 149, 416 };
+				public int[] CrownX { get; set; } = new int[] { 400, 400 };
+				public int[] CrownY { get; set; } = new int[] { 250, 544 };
+				public int RotateInterval { get; set; } = 50;
 
 
 				public int[] v2PanelX { get; set; } = { 0, 640 };
@@ -1616,31 +1560,6 @@ namespace TJAPlayer3
 		#region Effects
 		public int Game_Effect_Roll_Ptn;
 		#endregion
-		#endregion
-		#region Result
-		public int Result_MusicName_X = 1254;
-		public int Result_MusicName_Y = 6;
-		public int Result_MusicName_FontSize = 30;
-		public ReferencePoint Result_MusicName_ReferencePoint = ReferencePoint.Right;
-		public int Result_StageText_X = 230;
-		public int Result_StageText_Y = 6;
-		public int Result_StageText_FontSize = 30;
-		public ReferencePoint Result_StageText_ReferencePoint = ReferencePoint.Left;
-		public Color Result_MusicName_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
-		public Color Result_StageText_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
-		public Color Result_MusicName_BackColor = ColorTranslator.FromHtml("#000000");
-		public Color Result_StageText_BackColor = ColorTranslator.FromHtml("#000000");
-
-		public int[] Result_NamePlate_X = new int[] { 260, 260 };
-		public int[] Result_NamePlate_Y = new int[] { 96, 390 };
-
-		public int[] Result_Dan = new int[] { 500, 500 };
-		public int[] Result_Dan_XY = new int[] { 100, 0 };
-		public int[] Result_Dan_Plate_XY = new int[] { 149, 416 };
-
-		public int[] Result_Crown_X = new int[] { 400, 400 };
-		public int[] Result_Crown_Y = new int[] { 250, 544 };
-		public int Result_RotateInterval = 50;
 		#endregion
 		public int SECount = 0;
 		public int[] NowSENum = { 0, 0 };
