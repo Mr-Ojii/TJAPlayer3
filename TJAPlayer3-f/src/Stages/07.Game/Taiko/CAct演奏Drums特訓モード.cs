@@ -298,13 +298,13 @@ namespace TJAPlayer3
 			var currentWhite = (double)(this.n最終演奏位置ms);
 			var percentageWhite = currentWhite / length;
 
-			if (TJAPlayer3.Tx.Tokkun_ProgressBarWhite != null) TJAPlayer3.Tx.Tokkun_ProgressBarWhite.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Training_ProgressBar_XY[0], TJAPlayer3.Skin.Game_Training_ProgressBar_XY[1], new Rectangle(1, 1, (int)(TJAPlayer3.Tx.Tokkun_ProgressBarWhite.szTextureSize.Width * percentageWhite), TJAPlayer3.Tx.Tokkun_ProgressBarWhite.szTextureSize.Height));
-			if (TJAPlayer3.Tx.Tokkun_ProgressBar != null) TJAPlayer3.Tx.Tokkun_ProgressBar.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Training_ProgressBar_XY[0], TJAPlayer3.Skin.Game_Training_ProgressBar_XY[1], new Rectangle(1, 1, (int)(TJAPlayer3.Tx.Tokkun_ProgressBar.szTextureSize.Width * percentage), TJAPlayer3.Tx.Tokkun_ProgressBar.szTextureSize.Height));
+			if (TJAPlayer3.Tx.Tokkun_ProgressBarWhite != null) TJAPlayer3.Tx.Tokkun_ProgressBarWhite.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Training.ProgressBarXY[0], TJAPlayer3.Skin.SkinConfig.Game.Training.ProgressBarXY[1], new Rectangle(1, 1, (int)(TJAPlayer3.Tx.Tokkun_ProgressBarWhite.szTextureSize.Width * percentageWhite), TJAPlayer3.Tx.Tokkun_ProgressBarWhite.szTextureSize.Height));
+			if (TJAPlayer3.Tx.Tokkun_ProgressBar != null) TJAPlayer3.Tx.Tokkun_ProgressBar.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Training.ProgressBarXY[0], TJAPlayer3.Skin.SkinConfig.Game.Training.ProgressBarXY[1], new Rectangle(1, 1, (int)(TJAPlayer3.Tx.Tokkun_ProgressBar.szTextureSize.Width * percentage), TJAPlayer3.Tx.Tokkun_ProgressBar.szTextureSize.Height));
 			if (TJAPlayer3.Tx.Tokkun_GoGoPoint != null)
 			{
 				foreach (int xpos in gogoXList)
 				{
-					TJAPlayer3.Tx.Tokkun_GoGoPoint.t2D描画(TJAPlayer3.app.Device, xpos + TJAPlayer3.Skin.Game_Training_ProgressBar_XY[0] - (TJAPlayer3.Tx.Tokkun_GoGoPoint.szTextureSize.Width / 2), TJAPlayer3.Skin.Game_Training_GoGoPoint_Y);
+					TJAPlayer3.Tx.Tokkun_GoGoPoint.t2D描画(TJAPlayer3.app.Device, xpos + TJAPlayer3.Skin.SkinConfig.Game.Training.ProgressBarXY[0] - (TJAPlayer3.Tx.Tokkun_GoGoPoint.szTextureSize.Width / 2), TJAPlayer3.Skin.SkinConfig.Game.Training.GoGoPointY);
 				}
 			}
 
@@ -316,7 +316,7 @@ namespace TJAPlayer3
 					if (TJAPlayer3.Tx.Tokkun_ProgressBar != null) width = TJAPlayer3.Tx.Tokkun_ProgressBar.szTextureSize.Width;
 
 					int x = (int)((double)width * ((double)xpos.Time / (double)length));
-					TJAPlayer3.Tx.Tokkun_JumpPoint.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.Game_Training_ProgressBar_XY[0] - (TJAPlayer3.Tx.Tokkun_JumpPoint.szTextureSize.Width / 2), TJAPlayer3.Skin.Game_Training_JumpPoint_Y);
+					TJAPlayer3.Tx.Tokkun_JumpPoint.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.SkinConfig.Game.Training.ProgressBarXY[0] - (TJAPlayer3.Tx.Tokkun_JumpPoint.szTextureSize.Width / 2), TJAPlayer3.Skin.SkinConfig.Game.Training.JumpPointY);
 				}
 			}
 
@@ -353,25 +353,25 @@ namespace TJAPlayer3
 			var measureStr = TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0].ToString();
 			if (TJAPlayer3.Tx.Tokkun_SmallNumber != null)
 			{
-				var x = TJAPlayer3.Skin.Game_Training_MaxMeasureCount_XY[0];
+				var x = TJAPlayer3.Skin.SkinConfig.Game.Training.MaxMeasureCountXY[0];
 				foreach (char c in maxMeasureStr)
 				{
 					var currentNum = int.Parse(c.ToString());
-					TJAPlayer3.Tx.Tokkun_SmallNumber.t2D描画(TJAPlayer3.app.Device, x, TJAPlayer3.Skin.Game_Training_MaxMeasureCount_XY[1], new Rectangle(TJAPlayer3.Skin.Game_Training_SmallNumber_Width * currentNum, 0, TJAPlayer3.Skin.Game_Training_SmallNumber_Width, TJAPlayer3.Tx.Tokkun_SmallNumber.szTextureSize.Height));
-					x += TJAPlayer3.Skin.Game_Training_SmallNumber_Width - 2;
+					TJAPlayer3.Tx.Tokkun_SmallNumber.t2D描画(TJAPlayer3.app.Device, x, TJAPlayer3.Skin.SkinConfig.Game.Training.MaxMeasureCountXY[1], new Rectangle(TJAPlayer3.Skin.SkinConfig.Game.Training.SmallNumberWidth * currentNum, 0, TJAPlayer3.Skin.SkinConfig.Game.Training.SmallNumberWidth, TJAPlayer3.Tx.Tokkun_SmallNumber.szTextureSize.Height));
+					x += TJAPlayer3.Skin.SkinConfig.Game.Training.SmallNumberWidth - 2;
 				}
 			}
 
-			var subtractVal = (TJAPlayer3.Skin.Game_Training_BigNumber_Width - 2) * (measureStr.Length - 1);
+			var subtractVal = (TJAPlayer3.Skin.SkinConfig.Game.Training.BigNumberWidth - 2) * (measureStr.Length - 1);
 
 			if (TJAPlayer3.Tx.Tokkun_BigNumber != null)
 			{
-				var x = TJAPlayer3.Skin.Game_Training_CurrentMeasureCount_XY[0];
+				var x = TJAPlayer3.Skin.SkinConfig.Game.Training.CurrentMeasureCountXY[0];
 				foreach (char c in measureStr)
 				{
 					var currentNum = int.Parse(c.ToString());
-					TJAPlayer3.Tx.Tokkun_BigNumber.t2D描画(TJAPlayer3.app.Device, x - subtractVal, TJAPlayer3.Skin.Game_Training_CurrentMeasureCount_XY[1], new Rectangle(TJAPlayer3.Skin.Game_Training_BigNumber_Width * currentNum, 0, TJAPlayer3.Skin.Game_Training_BigNumber_Width, TJAPlayer3.Tx.Tokkun_BigNumber.szTextureSize.Height));
-					x += TJAPlayer3.Skin.Game_Training_BigNumber_Width - 2;
+					TJAPlayer3.Tx.Tokkun_BigNumber.t2D描画(TJAPlayer3.app.Device, x - subtractVal, TJAPlayer3.Skin.SkinConfig.Game.Training.CurrentMeasureCountXY[1], new Rectangle(TJAPlayer3.Skin.SkinConfig.Game.Training.BigNumberWidth * currentNum, 0, TJAPlayer3.Skin.SkinConfig.Game.Training.BigNumberWidth, TJAPlayer3.Tx.Tokkun_BigNumber.szTextureSize.Height));
+					x += TJAPlayer3.Skin.SkinConfig.Game.Training.BigNumberWidth - 2;
 				}
 
 				var PlaySpdtmp = TJAPlayer3.ConfigIni.n演奏速度 / 20.0d * 10.0d;
@@ -382,17 +382,17 @@ namespace TJAPlayer3
 				var playSpdStr = Decimal.Round((decimal)playSpdI, 1, MidpointRounding.AwayFromZero).ToString();
 				var decimalStr = (playSpdStr == "0") ? "0" : playSpdStr[2].ToString();
 
-				TJAPlayer3.Tx.Tokkun_BigNumber.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Game_Training_SpeedDisplay_XY[0], TJAPlayer3.Skin.Game_Training_SpeedDisplay_XY[1], new Rectangle(TJAPlayer3.Skin.Game_Training_BigNumber_Width * int.Parse(decimalStr), 0, TJAPlayer3.Skin.Game_Training_BigNumber_Width, TJAPlayer3.Tx.Tokkun_BigNumber.szTextureSize.Height));
+				TJAPlayer3.Tx.Tokkun_BigNumber.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Training.SpeedDisplayXY[0], TJAPlayer3.Skin.SkinConfig.Game.Training.SpeedDisplayXY[1], new Rectangle(TJAPlayer3.Skin.SkinConfig.Game.Training.BigNumberWidth * int.Parse(decimalStr), 0, TJAPlayer3.Skin.SkinConfig.Game.Training.BigNumberWidth, TJAPlayer3.Tx.Tokkun_BigNumber.szTextureSize.Height));
 
-				x = TJAPlayer3.Skin.Game_Training_SpeedDisplay_XY[0] - 25;
+				x = TJAPlayer3.Skin.SkinConfig.Game.Training.SpeedDisplayXY[0] - 25;
 
-				subtractVal = TJAPlayer3.Skin.Game_Training_BigNumber_Width * (((int)playSpd).ToString().Length - 1);
+				subtractVal = TJAPlayer3.Skin.SkinConfig.Game.Training.BigNumberWidth * (((int)playSpd).ToString().Length - 1);
 
 				foreach (char c in ((int)playSpd).ToString())
 				{
 					var currentNum = int.Parse(c.ToString());
-					TJAPlayer3.Tx.Tokkun_BigNumber.t2D描画(TJAPlayer3.app.Device, x - subtractVal, TJAPlayer3.Skin.Game_Training_SpeedDisplay_XY[1], new Rectangle(TJAPlayer3.Skin.Game_Training_BigNumber_Width * currentNum, 0, TJAPlayer3.Skin.Game_Training_BigNumber_Width, TJAPlayer3.Tx.Tokkun_BigNumber.szTextureSize.Height));
-					x += TJAPlayer3.Skin.Game_Training_BigNumber_Width - 2;
+					TJAPlayer3.Tx.Tokkun_BigNumber.t2D描画(TJAPlayer3.app.Device, x - subtractVal, TJAPlayer3.Skin.SkinConfig.Game.Training.SpeedDisplayXY[1], new Rectangle(TJAPlayer3.Skin.SkinConfig.Game.Training.BigNumberWidth * currentNum, 0, TJAPlayer3.Skin.SkinConfig.Game.Training.BigNumberWidth, TJAPlayer3.Tx.Tokkun_BigNumber.szTextureSize.Height));
+					x += TJAPlayer3.Skin.SkinConfig.Game.Training.BigNumberWidth - 2;
 				}
 			}
 		}
@@ -515,7 +515,7 @@ namespace TJAPlayer3
 				this.nスクロール後ms = (long)(dTX.listChip[TJAPlayer3.stage演奏ドラム画面.n現在のトップChip].n発声時刻ms / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
 				this.bスクロール中 = true;
 
-				this.ctスクロールカウンター = new CCounter(0, TJAPlayer3.Skin.Game_Training_ScrollTime, 1, TJAPlayer3.Timer);
+				this.ctスクロールカウンター = new CCounter(0, TJAPlayer3.Skin.SkinConfig.Game.Training.ScrollTime, 1, TJAPlayer3.Timer);
 			}
 			else
 			{

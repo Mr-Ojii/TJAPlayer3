@@ -1076,44 +1076,6 @@ namespace TJAPlayer3
 							}
 
 							#endregion
-							#region Training
-							else if (strCommand == nameof(Game_Training_ScrollTime))
-							{
-								Game_Training_ScrollTime = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_Training_ProgressBar_XY))
-							{
-								Game_Training_ProgressBar_XY = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Training_GoGoPoint_Y))
-							{
-								Game_Training_GoGoPoint_Y = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_Training_JumpPoint_Y))
-							{
-								Game_Training_JumpPoint_Y = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_Training_MaxMeasureCount_XY))
-							{
-								Game_Training_MaxMeasureCount_XY = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Training_CurrentMeasureCount_XY))
-							{
-								Game_Training_CurrentMeasureCount_XY = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Training_SpeedDisplay_XY))
-							{
-								Game_Training_CurrentMeasureCount_XY = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Training_SmallNumber_Width))
-							{
-								Game_Training_SmallNumber_Width = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_Training_BigNumber_Width))
-							{
-								Game_Training_BigNumber_Width = int.Parse(strParam);
-							}
-							#endregion
 							#endregion
 							#region Result
 							else if (strCommand == nameof(Result_MusicName_X))
@@ -1619,8 +1581,26 @@ namespace TJAPlayer3
 				public CBackground Background { get; set; } = new();
 				public class CBackground
 				{
-					public int[] ScrollY = new int[] { 0, 536 };
-					public int[] ScrollPattern = new int[] { 0, 0 };
+					public int[] ScrollY { get; set; } = new int[] { 0, 536 };
+					public int[] ScrollPattern { get; set; } = new int[] { 0, 0 };
+				}
+				public CDanC DanC { get; set; } = new();
+				public class CDanC
+				{
+
+				}
+				public CTraining Training { get; set; } = new();
+				public class CTraining
+				{
+					public int ScrollTime { get; set; } = 350;
+					public int[] ProgressBarXY { get; set; } = { 333, 378 };
+					public int GoGoPointY { get; set; } = 396;
+					public int JumpPointY { get; set; } = 375;
+					public int[] MaxMeasureCountXY { get; set; } = { 284, 377 };
+					public int[] CurrentMeasureCountXY { get; set; } = { 254, 370 };
+					public int[] SpeedDisplayXY { get; set; } = { 110, 370 };
+					public int SmallNumberWidth { get; set; } = 17;
+					public int BigNumberWidth { get; set; } = 20;
 				}
 			}
 			public CResult Result { get; set; } = new();
@@ -1832,17 +1812,6 @@ namespace TJAPlayer3
 		public int Game_DanC_v2_SmallGauge_Offset_Y_Padding = 32;
 
 		public float Game_DanC_v2_Number_Small_Scale = 0.5f;
-		#endregion
-		#region Training
-		public int Game_Training_ScrollTime = 350;
-		public int[] Game_Training_ProgressBar_XY = { 333, 378 };
-		public int Game_Training_GoGoPoint_Y = 396;
-		public int Game_Training_JumpPoint_Y = 375;
-		public int[] Game_Training_MaxMeasureCount_XY = { 284, 377 };
-		public int[] Game_Training_CurrentMeasureCount_XY = { 254, 370 };
-		public int[] Game_Training_SpeedDisplay_XY = { 110, 370 };
-		public int Game_Training_SmallNumber_Width = 17;
-		public int Game_Training_BigNumber_Width = 20;
 		#endregion
 		#endregion
 		#region Result
