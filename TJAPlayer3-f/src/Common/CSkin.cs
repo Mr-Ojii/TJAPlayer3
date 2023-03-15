@@ -734,8 +734,12 @@ namespace TJAPlayer3
 			var str = "";
 			LoadSkinConfigFromFile(Path(@"SkinConfig.ini"), ref str);
 			this.t文字列から読み込み(str);
-			
-			string strToml =  CJudgeTextEncoding.ReadTextFile(Path(@"SkinConfig.toml"));
+
+			var skinConfigPath = Path(@"SkinConfig.toml");
+			if(!File.Exists(skinConfigPath))
+				return;
+
+			string strToml =  CJudgeTextEncoding.ReadTextFile(skinConfigPath);
 			TomlModelOptions tomlModelOptions = new()
 			{
 				ConvertPropertyName = (x) => x,
@@ -897,34 +901,6 @@ namespace TJAPlayer3
 							else if (strCommand == nameof(Game_Effect_Fire))
 							{
 								Game_Effect_Fire = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_FlyingNotes_StartPoint_X))
-							{
-								Game_Effect_FlyingNotes_StartPoint_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_FlyingNotes_StartPoint_Y))
-							{
-								Game_Effect_FlyingNotes_StartPoint_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_FlyingNotes_EndPoint_X))
-							{
-								Game_Effect_FlyingNotes_EndPoint_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_FlyingNotes_EndPoint_Y))
-							{
-								Game_Effect_FlyingNotes_EndPoint_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_FlyingNotes_Sine))
-							{
-								Game_Effect_FlyingNotes_Sine = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_Effect_FlyingNotes_IsUsingEasing))
-							{
-								Game_Effect_FlyingNotes_IsUsingEasing = strParam[0].ToBool();
-							}
-							else if (strCommand == nameof(Game_Effect_FlyingNotes_Timer))
-							{
-								Game_Effect_FlyingNotes_Timer = int.Parse(strParam);
 							}
 							else if (strCommand == nameof(Game_Effect_FireWorks))
 							{
@@ -1450,16 +1426,23 @@ namespace TJAPlayer3
 						public int Width { get; set; } = 300;
 						public int Height { get; set; } = 400;
 						public int Ptn { get; set; } = 10;
-						public int[] X = new int[] { 120, 300, 520, 760, 980, 1160 };
-						public int[] Y = new int[] { 740, 730, 720, 720, 730, 740 };
-						public bool Rotate = true;
-						public int Timer = 25;
-						public bool AddBlend = true;
+						public int[] X { get; set; } = new int[] { 120, 300, 520, 760, 980, 1160 };
+						public int[] Y { get; set; } = new int[] { 740, 730, 720, 720, 730, 740 };
+						public bool Rotate { get; set; } = true;
+						public int Timer { get; set; } = 25;
+						public bool AddBlend { get; set; } = true;
 					}
 					public CFlyingNotes FlyingNotes { get; set; } = new();
 					public class CFlyingNotes
 					{
-
+						// super-flying-notes AioiLight
+						public int[] StartPointX { get; set; } = new int[] { 414, 414 };
+						public int[] StartPointY { get; set; } = new int[] { 260, 434 };
+						public int[] EndPointX { get; set; } = new int[] { 1222, 1222 };
+						public int[] EndPointY { get; set; } = new int[] { 164, 554 };
+						public int Sine { get; set; } = 220;
+						public bool IsUsingEasing { get; set; } = true;
+						public int Timer { get; set; } = 3;
 					}
 				}
 				public CRunner Runner { get; set; } = new();
@@ -1696,15 +1679,7 @@ namespace TJAPlayer3
 		public int[] Game_Effect_NotesFlash = new int[] { 180, 180, 12 }; // Width, Height, Ptn
 		public int Game_Effect_NotesFlash_Timer = 20;
 		public int[] Game_Effect_Fire = new int[] { 230, 230, 8 };
-		// super-flying-notes AioiLight
-		public int[] Game_Effect_FlyingNotes_StartPoint_X = new int[] { 414, 414 };
-		public int[] Game_Effect_FlyingNotes_StartPoint_Y = new int[] { 260, 434 };
-		public int[] Game_Effect_FlyingNotes_EndPoint_X = new int[] { 1222, 1222 }; // 1P, 2P
-		public int[] Game_Effect_FlyingNotes_EndPoint_Y = new int[] { 164, 554 };
 
-		public int Game_Effect_FlyingNotes_Sine = 220;
-		public bool Game_Effect_FlyingNotes_IsUsingEasing = true;
-		public int Game_Effect_FlyingNotes_Timer = 3;
 		public int[] Game_Effect_FireWorks = new int[] { 180, 180, 10 };
 		public int Game_Effect_FireWorks_Timer = 5;
 		public int Game_Effect_Rainbow_Timer = 7;

@@ -71,3 +71,6 @@ ScrollPattern = [ 0, 0 ]
 [Game.DanC]
 NumberPadding = 41
 NumberSmallPadding = 23
+
+[Game.Effect.FlyingNotes]
+IsUsingEasing = false

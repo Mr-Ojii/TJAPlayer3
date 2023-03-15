@@ -533,7 +533,7 @@ namespace TJAPlayer3
 			Effects_Rainbow = TxC(GAME + EFFECTS + @"Rainbow.png");
 
 			Effects_GoGoSplash = TxC(GAME + EFFECTS + @"GoGoSplash.png");
-			if (Effects_GoGoSplash != null) Effects_GoGoSplash.eBlendMode = TJAPlayer3.Skin.Game_Effect_GoGoSplash_AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
+			if (Effects_GoGoSplash != null) Effects_GoGoSplash.eBlendMode = TJAPlayer3.Skin.SkinConfig.Game.Effect.GoGoSplash.AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
 			Effects_Hit_Great = new CTexture[15];
 			Effects_Hit_Great_Big = new CTexture[15];
 			Effects_Hit_Good = new CTexture[15];
