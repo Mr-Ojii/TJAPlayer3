@@ -348,7 +348,7 @@ namespace TJAPlayer3
 									{
 										using (var pfTitle = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, 32))
 										{
-											using (var bmpSongTitle = pfTitle.DrawText(TJAPlayer3.DTX[0].List_DanSongs[i].Title, TJAPlayer3.Skin.Game_DanC_Title_ForeColor, TJAPlayer3.Skin.Game_DanC_Title_BackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+											using (var bmpSongTitle = pfTitle.DrawText(TJAPlayer3.DTX[0].List_DanSongs[i].Title, TJAPlayer3.Skin.SkinConfig.Game.DanC._TitleForeColor, TJAPlayer3.Skin.SkinConfig.Game.DanC._TitleBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
 											{
 												TJAPlayer3.DTX[0].List_DanSongs[i].TitleTex = TJAPlayer3.tCreateTexture(bmpSongTitle);
 												TJAPlayer3.DTX[0].List_DanSongs[i].TitleTex.vcScaling.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX[0].List_DanSongs[i].TitleTex, 710);
@@ -360,7 +360,7 @@ namespace TJAPlayer3
 									{
 										using (var pfSubTitle = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, 19))
 										{
-											using (var bmpSongSubTitle = pfSubTitle.DrawText(TJAPlayer3.DTX[0].List_DanSongs[i].SubTitle, TJAPlayer3.Skin.Game_DanC_SubTitle_ForeColor, TJAPlayer3.Skin.Game_DanC_SubTitle_BackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio)) 
+											using (var bmpSongSubTitle = pfSubTitle.DrawText(TJAPlayer3.DTX[0].List_DanSongs[i].SubTitle, TJAPlayer3.Skin.SkinConfig.Game.DanC._SubTitleForeColor, TJAPlayer3.Skin.SkinConfig.Game.DanC._SubTitleBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio)) 
 											{
 												TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex = TJAPlayer3.tCreateTexture(bmpSongSubTitle);
 												TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex.vcScaling.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex, 710);

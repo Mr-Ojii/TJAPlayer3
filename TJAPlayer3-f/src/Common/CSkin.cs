@@ -797,21 +797,6 @@ namespace TJAPlayer3
 							strCommand = strArray[0].Trim();
 							strParam = strArray[1].Trim();
 
-							#region スキン設定
-
-							void ParseInt32(Action<int> setValue)
-							{
-								if (int.TryParse(strParam, out var unparsedValue))
-								{
-									setValue(unparsedValue);
-								}
-								else
-								{
-									Trace.TraceWarning($"SkinConfigの値 {strCommand} は整数値である必要があります。現在の値: {strParam}");
-								}
-							}
-							#endregion
-
 							#region[ 演奏 ]
 							//-----------------------------
 							if (strCommand == "ScrollFieldP1Y")
@@ -997,84 +982,6 @@ namespace TJAPlayer3
 							{
 								Game_Effect_FireWorks_Timing = int.Parse(strParam);
 							}
-							#endregion
-							#region Dan_C
-							else if (strCommand == nameof(Game_DanC_Title_ForeColor))
-							{
-								Game_DanC_Title_ForeColor = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(Game_DanC_Title_BackColor))
-							{
-								Game_DanC_Title_BackColor = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(Game_DanC_SubTitle_ForeColor))
-							{
-								Game_DanC_SubTitle_ForeColor = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(Game_DanC_SubTitle_BackColor))
-							{
-								Game_DanC_SubTitle_BackColor = ColorTranslator.FromHtml(strParam);
-							}
-							else if (strCommand == nameof(Game_DanC_X))
-							{
-								Game_DanC_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_DanC_Y))
-							{
-								Game_DanC_Y = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_DanC_Y_Padding))
-							{
-								ParseInt32(value => Game_DanC_Y_Padding = value);
-							}
-							else if (strCommand == nameof(Game_DanC_Offset))
-							{
-								Game_DanC_Offset = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_DanC_Number_Padding))
-							{
-								ParseInt32(value => Game_DanC_Number_Padding = value);
-							}
-
-							else if (strCommand == nameof(Game_DanC_Number_Small_Scale))
-							{
-								Game_DanC_Number_Small_Scale = float.Parse(strParam);
-							}
-
-							else if (strCommand == nameof(Game_DanC_Number_Small_Padding))
-							{
-								ParseInt32(value => Game_DanC_Number_Small_Padding = value);
-							}
-
-							else if (strCommand == nameof(Game_DanC_Number_XY))
-							{
-								Game_DanC_Number_XY = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_DanC_Number_Small_Number_Offset))
-							{
-								Game_DanC_Number_Small_Number_Offset = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_DanC_ExamType_Size))
-							{
-								Game_DanC_ExamType_Size = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_DanC_Percent_Hit_Score_Padding))
-							{
-								Game_DanC_Percent_Hit_Score_Padding = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_DanC_ExamUnit_Size))
-							{
-								Game_DanC_ExamUnit_Size = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_DanC_Exam_Offset))
-							{
-								Game_DanC_Exam_Offset = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_DanC_Dan_Plate))
-							{
-								Game_DanC_Dan_Plate = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-
 							#endregion
 							#endregion
 							#region Result
@@ -1587,7 +1494,54 @@ namespace TJAPlayer3
 				public CDanC DanC { get; set; } = new();
 				public class CDanC
 				{
+					public string TitleForeColor { get{ return ColorTranslator.ToHtml(this._TitleForeColor); } set{ this._TitleForeColor = ColorTranslator.FromHtml(value); } }
+					public string TitleBackColor { get{ return ColorTranslator.ToHtml(this._TitleBackColor); } set{ this._TitleBackColor = ColorTranslator.FromHtml(value); } }
+					public string SubTitleForeColor { get{ return ColorTranslator.ToHtml(this._SubTitleForeColor); } set{ this._SubTitleForeColor = ColorTranslator.FromHtml(value); } }
+					public string SubTitleBackColor { get{ return ColorTranslator.ToHtml(this._SubTitleBackColor); } set{ this._SubTitleBackColor = ColorTranslator.FromHtml(value); } }
+					[IgnoreDataMember]
+					public Color _TitleForeColor { get; set; } = ColorTranslator.FromHtml("#FFFFFF");
+					[IgnoreDataMember]
+					public Color _TitleBackColor { get; set; } = ColorTranslator.FromHtml("#000000");
+					[IgnoreDataMember]
+					public Color _SubTitleForeColor { get; set; } = ColorTranslator.FromHtml("#FFFFFF");
+					[IgnoreDataMember]
+					public Color _SubTitleBackColor { get; set; } = ColorTranslator.FromHtml("#000000");
+					
+					public int[] X { get; set; } = new int[] { 302, 302, 302 };
+					public int Y { get; set; } = 520;
+					public int YPadding { get; set; } = 100;
+					public int[] Offset { get; set; } = new int[] { 15, 10 };
+					public int NumberPadding { get; set; } = 50;
+					public int[] NumberXY { get; set; } = new int[] { 250, 550 };
+					public float NumberSmallScale { get; set; } = 0.5f;
+					public int NumberSmallPadding { get; set; } = 26;
+					public int[] NumberSmallOffset { get; set; } = new int[] { 178, -15 };
+					public int[] DanPlateXY { get; set; } = new int[] { 149, 416 };
+					public int[] ExamTypeSize { get; set; } = new int[] { 100, 36 };
+					public int[] ExamUnitSize { get; set; } = new int[] { 60, 36 };
+					public int[] PercentHitScorePadding { get; set; } = new int[] { 20, 20, 20, 20 };
+					public int[] ExamOffset { get; set; } = new int[] { 932, -40 };
 
+					public int[] v2PanelX { get; set; } = new int[] { 90, 90, 90 };
+					public int[] v2PanelY { get; set; } = new int[] { 385, 495, 605 };
+					public int[] v2BaseOffset { get; set; } = new int[] { 260, 17 };
+					public int[] v2GaugeOffset { get; set; } = new int[] { 5, 5 };
+					public int[] v2AmountOffset { get; set; } = new int[] { 0, 0 };
+					public float v2AmountScale { get; set; } = 1f;
+					public int[] v2ExamTypeOffset { get; set; } = new int[] { 122, 10 };
+					public int[] v2ExamTypeSize { get; set; } = new int[] { 100, 25 };
+					public int[] v2ExamRangeOffset { get; set; } = new int[] { 180, 30 };
+					public int[] v2ExamRangeNumOffset { get; set; } = new int[] { -15, 3 };
+					public int[] v2DanPlateXY { get; set; } = new int[] { 1000, 416 };
+					public int[] v2SoulGaugeBoxX { get; set; } = new int[] { 110, 800 };//0%,100%のX座標
+					public int v2SoulGaugeBoxY { get; set; } = 70;
+					public int v2SoulGaugeBoxPersentWidth { get; set; } = 25;
+					public int[] v2SoulGaugeBoxExamTypeOffset { get; set; } = new int[] { 65, 55 };
+					public float v2SoulGaugeBoxExamTypeBoxXRatio { get; set; } = 0.7f;
+					public int[] v2SoulGaugeBoxExamRangeOffset { get; set; } = new int[] { 300, 50 };
+					public int[] v2SmallGaugeOffset { get; set; } = new int[] { 487, 2 };
+					public int v2SmallGaugeOffsetYPadding { get; set; } = 32;
+					public float v2NumberSmallScale { get; set; } = 0.5f;
 				}
 				public CTraining Training { get; set; } = new();
 				public class CTraining
@@ -1764,54 +1718,6 @@ namespace TJAPlayer3
 		public bool Game_Effect_Fire_AddBlend = true;
 		public bool Game_Effect_GoGoSplash_AddBlend = true;
 		public int Game_Effect_FireWorks_Timing = 8;
-		#endregion
-		#region Dan-C
-		public Color Game_DanC_Title_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
-		public Color Game_DanC_Title_BackColor = ColorTranslator.FromHtml("#000000");
-		public Color Game_DanC_SubTitle_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
-		public Color Game_DanC_SubTitle_BackColor = ColorTranslator.FromHtml("#000000");
-
-
-		public int[] Game_DanC_X = new int[] { 302, 302, 302 };
-		public int Game_DanC_Y = 520;//変更
-		public int Game_DanC_Y_Padding = 100;
-		public int[] Game_DanC_Offset = new int[] { 15, 10 };
-		public int Game_DanC_Number_Padding = 50;
-		public int[] Game_DanC_Number_XY = new int[] { 250, 550 };
-		public float Game_DanC_Number_Small_Scale = 0.5f;
-		public int Game_DanC_Number_Small_Padding = 26;
-		public int[] Game_DanC_Dan_Plate = new int[] { 149, 416 };
-		public int[] Game_DanC_ExamType_Size = new int[] { 100, 36 };
-		public int[] Game_DanC_ExamUnit_Size = new int[] { 60, 36 };
-		public int[] Game_DanC_Number_Small_Number_Offset = new int[] { 178, -15 };
-		public int[] Game_DanC_Percent_Hit_Score_Padding = new int[] { 20, 20, 20, 20 };
-		public int[] Game_DanC_Exam_Offset = new int[] { 932, -40 };
-
-
-		public int[] Game_DanC_v2_Panel_X = new int[] { 90, 90, 90 };
-		public int[] Game_DanC_v2_Panel_Y = new int[] { 385, 495, 605 };
-		public int[] Game_DanC_v2_Base_Offset = new int[] { 260, 17 };
-		public int[] Game_DanC_v2_Gauge_Offset = new int[] { 5, 5 };
-		public int[] Game_DanC_v2_Amount_Offset = new int[] { 0, 0 };
-		public float Game_DanC_v2_Amount_Scale = 1f;
-		public int[] Game_DanC_v2_ExamType_Offset = new int[] { 122, 10 };
-		public int[] Game_DanC_v2_ExamType_Size = new int[] { 100, 25 };
-		public int[] Game_DanC_v2_ExamRange_Offset = new int[] { 180, 30 };
-		public int[] Game_DanC_v2_ExamRangeNum_Offset = new int[] { -15, 3 };
-		public int[] Game_DanC_v2_Dan_Plate = new int[] { 1000, 416 };
-
-		public int[] Game_DanC_v2_SoulGauge_Box_X = new int[] { 110, 800 };//0%,100%のX座標
-		public int Game_DanC_v2_SoulGauge_Box_Y = 70;
-		public int Game_DanC_v2_SoulGauge_Box_Persent_Width = 25;
-		public int[] Game_DanC_v2_SoulGauge_Box_ExamType_Offset = new int[] { 65, 55 };
-		public float Game_DanC_v2_SoulGauge_Box_ExamType_Box_XRatio = 0.7f;
-		public int[] Game_DanC_v2_SoulGauge_Box_ExamRange_Offset = new int[] { 300, 50 };
-
-
-		public int[] Game_DanC_v2_SmallGauge_Offset = new int[] { 487, 2 };
-		public int Game_DanC_v2_SmallGauge_Offset_Y_Padding = 32;
-
-		public float Game_DanC_v2_Number_Small_Scale = 0.5f;
 		#endregion
 		#endregion
 		#region Result
