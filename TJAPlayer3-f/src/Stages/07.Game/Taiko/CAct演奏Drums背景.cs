@@ -63,7 +63,7 @@ namespace TJAPlayer3
 				{
 					this.ct上背景スクロール用タイマー[i] = new CCounter(1, TJAPlayer3.Tx.Background_Up[i].szTextureSize.Width, 16, TJAPlayer3.Timer);
 
-					switch (TJAPlayer3.Skin.Background_Scroll_PatternY[i])
+					switch (TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollPattern[i])
 					{
 						case 0:
 						this.ct上背景上下用タイマー[i] = new CCounter(1, 100, 30, TJAPlayer3.Timer);
@@ -144,10 +144,10 @@ namespace TJAPlayer3
 						// 1280をテクスチャサイズで割ったものを切り上げて、プラス+1足す。
 						int ForLoop = (int)Math.Ceiling(TexSize) + 1;
 						//int nループ幅 = 328;
-						TJAPlayer3.Tx.Background_Up[i].t2D描画(TJAPlayer3.app.Device, 0 - this.ct上背景スクロール用タイマー[i].n現在の値, TJAPlayer3.Skin.Background_Scroll_Y[i]);
+						TJAPlayer3.Tx.Background_Up[i].t2D描画(TJAPlayer3.app.Device, 0 - this.ct上背景スクロール用タイマー[i].n現在の値, TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollY[i]);
 						for (int l = 1; l < ForLoop + 1; l++)
 						{
-							TJAPlayer3.Tx.Background_Up[i].t2D描画(TJAPlayer3.app.Device, +(l * TJAPlayer3.Tx.Background_Up[i].szTextureSize.Width) - this.ct上背景スクロール用タイマー[i].n現在の値, TJAPlayer3.Skin.Background_Scroll_Y[i]);
+							TJAPlayer3.Tx.Background_Up[i].t2D描画(TJAPlayer3.app.Device, +(l * TJAPlayer3.Tx.Background_Up[i].szTextureSize.Width) - this.ct上背景スクロール用タイマー[i].n現在の値, TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollY[i]);
 						}
 					}
 					if (TJAPlayer3.Tx.Background_Up_Clear[i] != null)
@@ -161,10 +161,10 @@ namespace TJAPlayer3
 						// 1280をテクスチャサイズで割ったものを切り上げて、プラス+1足す。
 						int ForLoop = (int)Math.Ceiling(TexSize) + 1;
 
-						TJAPlayer3.Tx.Background_Up_Clear[i].t2D描画(TJAPlayer3.app.Device, 0 - this.ct上背景スクロール用タイマー[i].n現在の値, TJAPlayer3.Skin.Background_Scroll_Y[i]);
+						TJAPlayer3.Tx.Background_Up_Clear[i].t2D描画(TJAPlayer3.app.Device, 0 - this.ct上背景スクロール用タイマー[i].n現在の値, TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollY[i]);
 						for (int l = 1; l < ForLoop + 1; l++)
 						{
-							TJAPlayer3.Tx.Background_Up_Clear[i].t2D描画(TJAPlayer3.app.Device, (l * TJAPlayer3.Tx.Background_Up_Clear[i].szTextureSize.Width) - this.ct上背景スクロール用タイマー[i].n現在の値, TJAPlayer3.Skin.Background_Scroll_Y[i]);
+							TJAPlayer3.Tx.Background_Up_Clear[i].t2D描画(TJAPlayer3.app.Device, (l * TJAPlayer3.Tx.Background_Up_Clear[i].szTextureSize.Width) - this.ct上背景スクロール用タイマー[i].n現在の値, TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollY[i]);
 						}
 					}
 					if (this.ct上背景桜用タイマー[i] != null && this.ct上背景桜スクロール用タイマー[i] != null) {
@@ -176,10 +176,10 @@ namespace TJAPlayer3
 							// 1280をテクスチャサイズで割ったものを切り上げて、プラス+1足す。
 							int ForLoop = (int)Math.Ceiling(TexSize) + 1;
 							//int nループ幅 = 328;
-							TJAPlayer3.Tx.Background_Up_Sakura[i].t2D描画(TJAPlayer3.app.Device, 0 - this.ct上背景桜スクロール用タイマー[i].n現在の値 - xy, TJAPlayer3.Skin.Background_Scroll_Y[i] + xy);
+							TJAPlayer3.Tx.Background_Up_Sakura[i].t2D描画(TJAPlayer3.app.Device, 0 - this.ct上背景桜スクロール用タイマー[i].n現在の値 - xy, TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollY[i] + xy);
 							for (int l = 1; l < ForLoop + 1; l++)
 							{
-								TJAPlayer3.Tx.Background_Up_Sakura[i].t2D描画(TJAPlayer3.app.Device, +(l * TJAPlayer3.Tx.Background_Up_Sakura[i].szTextureSize.Width) - this.ct上背景桜スクロール用タイマー[i].n現在の値 - xy, TJAPlayer3.Skin.Background_Scroll_Y[i] + xy);
+								TJAPlayer3.Tx.Background_Up_Sakura[i].t2D描画(TJAPlayer3.app.Device, +(l * TJAPlayer3.Tx.Background_Up_Sakura[i].szTextureSize.Width) - this.ct上背景桜スクロール用タイマー[i].n現在の値 - xy, TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollY[i] + xy);
 							}
 						}
 						if (TJAPlayer3.Tx.Background_Up_Sakura_Clear[i] != null)
@@ -195,10 +195,10 @@ namespace TJAPlayer3
 							// 1280をテクスチャサイズで割ったものを切り上げて、プラス+1足す。
 							int ForLoop = (int)Math.Ceiling(TexSize) + 1;
 							//int nループ幅 = 328;
-							TJAPlayer3.Tx.Background_Up_Sakura_Clear[i].t2D描画(TJAPlayer3.app.Device, 0 - this.ct上背景桜スクロール用タイマー[i].n現在の値 - xy, TJAPlayer3.Skin.Background_Scroll_Y[i] + xy);
+							TJAPlayer3.Tx.Background_Up_Sakura_Clear[i].t2D描画(TJAPlayer3.app.Device, 0 - this.ct上背景桜スクロール用タイマー[i].n現在の値 - xy, TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollY[i] + xy);
 							for (int l = 1; l < ForLoop + 1; l++)
 							{
-								TJAPlayer3.Tx.Background_Up_Sakura_Clear[i].t2D描画(TJAPlayer3.app.Device, +(l * TJAPlayer3.Tx.Background_Up_Sakura_Clear[i].szTextureSize.Width) - this.ct上背景桜スクロール用タイマー[i].n現在の値 - xy, TJAPlayer3.Skin.Background_Scroll_Y[i] + xy);
+								TJAPlayer3.Tx.Background_Up_Sakura_Clear[i].t2D描画(TJAPlayer3.app.Device, +(l * TJAPlayer3.Tx.Background_Up_Sakura_Clear[i].szTextureSize.Width) - this.ct上背景桜スクロール用タイマー[i].n現在の値 - xy, TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollY[i] + xy);
 							}
 						}
 					}
@@ -208,7 +208,7 @@ namespace TJAPlayer3
 							int ym;
 							int xm;
 
-							switch (TJAPlayer3.Skin.Background_Scroll_PatternY[i]) 
+							switch (TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollPattern[i]) 
 							{
 								case 0:
 									if (ct上背景上下用タイマー[i].n現在の値 <= ct上背景上下用タイマー[i].n終了値 * 0.5)
@@ -252,10 +252,10 @@ namespace TJAPlayer3
 							// 1280をテクスチャサイズで割ったものを切り上げて、プラス+2足す。
 							int ForLoop = (int)Math.Ceiling(TexSize) + 2;
 							//int nループ幅 = 328;
-							TJAPlayer3.Tx.Background_Up_YMove[i].t2D描画(TJAPlayer3.app.Device, 0 - xm, TJAPlayer3.Skin.Background_Scroll_Y[i] + ym);
+							TJAPlayer3.Tx.Background_Up_YMove[i].t2D描画(TJAPlayer3.app.Device, 0 - xm, TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollY[i] + ym);
 							for (int l = 1; l < ForLoop + 1; l++)
 							{
-								TJAPlayer3.Tx.Background_Up_YMove[i].t2D描画(TJAPlayer3.app.Device, +(l * TJAPlayer3.Tx.Background_Up_YMove[i].szTextureSize.Width) - xm, TJAPlayer3.Skin.Background_Scroll_Y[i] + ym);
+								TJAPlayer3.Tx.Background_Up_YMove[i].t2D描画(TJAPlayer3.app.Device, +(l * TJAPlayer3.Tx.Background_Up_YMove[i].szTextureSize.Width) - xm, TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollY[i] + ym);
 							}
 						}
 						if (TJAPlayer3.Tx.Background_Up_YMove_Clear[i] != null)
@@ -263,7 +263,7 @@ namespace TJAPlayer3
 							int ym;
 							int xm;
 
-							switch (TJAPlayer3.Skin.Background_Scroll_PatternY[i])
+							switch (TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollPattern[i])
 							{
 								case 0:
 									if (ct上背景上下用タイマー[i].n現在の値 <= ct上背景上下用タイマー[i].n終了値 * 0.5)
@@ -311,10 +311,10 @@ namespace TJAPlayer3
 							// 1280をテクスチャサイズで割ったものを切り上げて、プラス+2足す。
 							int ForLoop = (int)Math.Ceiling(TexSize) + 2;
 							//int nループ幅 = 328;
-							TJAPlayer3.Tx.Background_Up_YMove_Clear[i].t2D描画(TJAPlayer3.app.Device, 0 - xm, TJAPlayer3.Skin.Background_Scroll_Y[i] + ym);
+							TJAPlayer3.Tx.Background_Up_YMove_Clear[i].t2D描画(TJAPlayer3.app.Device, 0 - xm, TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollY[i] + ym);
 							for (int l = 1; l < ForLoop + 1; l++)
 							{
-								TJAPlayer3.Tx.Background_Up_YMove_Clear[i].t2D描画(TJAPlayer3.app.Device, +(l * TJAPlayer3.Tx.Background_Up_YMove_Clear[i].szTextureSize.Width) - xm, TJAPlayer3.Skin.Background_Scroll_Y[i] + ym);
+								TJAPlayer3.Tx.Background_Up_YMove_Clear[i].t2D描画(TJAPlayer3.app.Device, +(l * TJAPlayer3.Tx.Background_Up_YMove_Clear[i].szTextureSize.Width) - xm, TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollY[i] + ym);
 							}
 						}
 					}

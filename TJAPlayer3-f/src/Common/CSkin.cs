@@ -812,16 +812,9 @@ namespace TJAPlayer3
 							}
 							#endregion
 
-							#region 背景(スクロール)
-							if (strCommand == nameof(Background_Scroll_Y))
-							{
-								this.Background_Scroll_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							#endregion
-
 							#region[ 演奏 ]
 							//-----------------------------
-							else if (strCommand == "ScrollFieldP1Y")
+							if (strCommand == "ScrollFieldP1Y")
 							{
 								this.nScrollFieldY[0] = int.Parse(strParam);
 							}
@@ -1125,13 +1118,6 @@ namespace TJAPlayer3
 								Game_Training_BigNumber_Width = int.Parse(strParam);
 							}
 							#endregion
-							#region Background
-
-							else if (strCommand == nameof(this.Background_Scroll_PatternY))
-							{
-								this.Background_Scroll_PatternY = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							#endregion
 							#endregion
 							#region Result
 							else if (strCommand == nameof(Result_MusicName_X))
@@ -1177,10 +1163,6 @@ namespace TJAPlayer3
 							{
 								Result_StageText_ForeColor = ColorTranslator.FromHtml(strParam);
 							}
-							//else if (strCommand == nameof(Result_StageText_ForeColor_Red))
-							//{
-							//    Result_StageText_ForeColor_Red = ColorTranslator.FromHtml(strParam);
-							//}
 							else if (strCommand == nameof(Result_MusicName_BackColor))
 							{
 								Result_MusicName_BackColor = ColorTranslator.FromHtml(strParam);
@@ -1189,10 +1171,6 @@ namespace TJAPlayer3
 							{
 								Result_StageText_BackColor = ColorTranslator.FromHtml(strParam);
 							}
-							//else if (strCommand == nameof(Result_StageText_BackColor_Red))
-							//{
-							//    Result_StageText_BackColor_Red = ColorTranslator.FromHtml(strParam);
-							//}
 
 							else if (strCommand == nameof(Result_NamePlate_X))
 							{
@@ -1640,6 +1618,12 @@ namespace TJAPlayer3
 					public int Timer { get; set; } = 4800;
 					public double SineTimer { get; set; } = 2;
 				}
+				public CBackground Background { get; set; } = new();
+				public class CBackground
+				{
+					public int[] ScrollY = new int[] { 0, 536 };
+					public int[] ScrollPattern = new int[] { 0, 0 };
+				}
 			}
 			public CResult Result { get; set; } = new();
 			public class CResult
@@ -1652,11 +1636,6 @@ namespace TJAPlayer3
 
 			}
 		}
-
-		#region 背景(スクロール)
-		public int[] Background_Scroll_Y = new int[] { 0, 536 };
-		#endregion
-
 
 		#region[ 座標 ]
 		//2017.08.11 kairera0467 DP実用化に向けてint配列に変更
@@ -1884,9 +1863,6 @@ namespace TJAPlayer3
 		public int[] Game_Training_SpeedDisplay_XY = { 110, 370 };
 		public int Game_Training_SmallNumber_Width = 17;
 		public int Game_Training_BigNumber_Width = 20;
-		#endregion
-		#region Background
-		public int[] Background_Scroll_PatternY = new int[] { 0, 0 };
 		#endregion
 		#endregion
 		#region Result
