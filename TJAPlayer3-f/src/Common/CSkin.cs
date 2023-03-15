@@ -842,54 +842,6 @@ namespace TJAPlayer3
 								Game_JudgeFrame_AddBlend = strParam[0].ToBool();
 							}
 							#region Effects
-							else if (strCommand == nameof(Game_Effect_Roll_StartPoint_X))
-							{
-								Game_Effect_Roll_StartPoint_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_Roll_StartPoint_Y))
-							{
-								Game_Effect_Roll_StartPoint_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_Roll_StartPoint_1P_X))
-							{
-								Game_Effect_Roll_StartPoint_1P_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_Roll_StartPoint_1P_Y))
-							{
-								Game_Effect_Roll_StartPoint_1P_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_Roll_StartPoint_2P_X))
-							{
-								Game_Effect_Roll_StartPoint_2P_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_Roll_StartPoint_2P_Y))
-							{
-								Game_Effect_Roll_StartPoint_2P_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_Roll_Speed_X))
-							{
-								Game_Effect_Roll_Speed_X = strParam.Split(',').Select(float.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_Roll_Speed_Y))
-							{
-								Game_Effect_Roll_Speed_Y = strParam.Split(',').Select(float.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_Roll_Speed_1P_X))
-							{
-								Game_Effect_Roll_Speed_1P_X = strParam.Split(',').Select(float.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_Roll_Speed_1P_Y))
-							{
-								Game_Effect_Roll_Speed_1P_Y = strParam.Split(',').Select(float.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_Roll_Speed_2P_X))
-							{
-								Game_Effect_Roll_Speed_2P_X = strParam.Split(',').Select(float.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_Roll_Speed_2P_Y))
-							{
-								Game_Effect_Roll_Speed_2P_Y = strParam.Split(',').Select(float.Parse).ToArray();
-							}
 							else if (strCommand == nameof(Game_Effect_NotesFlash))
 							{
 								Game_Effect_NotesFlash = strParam.Split(',').Select(int.Parse).ToArray();
@@ -1413,7 +1365,14 @@ namespace TJAPlayer3
 					public CRoll Roll { get; set; } = new();
 					public class CRoll
 					{
-
+						public int[] StartPointX { get; set; } = new int[] { 56, -10, 200, 345, 100, 451, 600, 260, -30, 534, 156, 363 };
+						public int[] StartPointY { get; set; } = new int[] { 720 };
+						public int[][] StartPointMultiX { get; set; } = new int[][] { new int[] { 56, -10, 200, 345, 100, 451, 600, 260, -30, 534, 156, 363 }, new int[] { 56, -10, 200, 345, 100, 451, 600, 260, -30, 534, 156, 363 } };
+						public int[][] StartPointMultiY { get; set; } = new int[][] { new int[] { 240 }, new int[] { 360 } };
+						public float[] SpeedX { get; set; } = new float[] { 0.6f };
+						public float[] SpeedY { get; set; } = new float[] { -0.6f };
+						public float[][] SpeedMultiX { get; set; } = new float[][] { new float[] { 0.6f }, new float[] { 0.6f } };
+						public float[][] SpeedMultiY { get; set; } = new float[][] { new float[] { -0.6f }, new float[] { 0.6f } };
 					}
 					public CFireWorks FireWorks { get; set; } = new();
 					public class CFireWorks
@@ -1663,32 +1622,22 @@ namespace TJAPlayer3
 		public int Game_Gauge_Rainbow_Danc_Ptn;
 		#endregion
 		#region Effects
-		public int[] Game_Effect_Roll_StartPoint_X = new int[] { 56, -10, 200, 345, 100, 451, 600, 260, -30, 534, 156, 363 };
-		public int[] Game_Effect_Roll_StartPoint_Y = new int[] { 720 };
-		public int[] Game_Effect_Roll_StartPoint_1P_X = new int[] { 56, -10, 200, 345, 100, 451, 600, 260, -30, 534, 156, 363 };
-		public int[] Game_Effect_Roll_StartPoint_1P_Y = new int[] { 240 };
-		public int[] Game_Effect_Roll_StartPoint_2P_X = new int[] { 56, -10, 200, 345, 100, 451, 600, 260, -30, 534, 156, 363 };
-		public int[] Game_Effect_Roll_StartPoint_2P_Y = new int[] { 360 };
-		public float[] Game_Effect_Roll_Speed_X = new float[] { 0.6f };
-		public float[] Game_Effect_Roll_Speed_Y = new float[] { -0.6f };
-		public float[] Game_Effect_Roll_Speed_1P_X = new float[] { 0.6f };
-		public float[] Game_Effect_Roll_Speed_1P_Y = new float[] { -0.6f };
-		public float[] Game_Effect_Roll_Speed_2P_X = new float[] { 0.6f };
-		public float[] Game_Effect_Roll_Speed_2P_Y = new float[] { 0.6f };
 		public int Game_Effect_Roll_Ptn;
+
 		public int[] Game_Effect_NotesFlash = new int[] { 180, 180, 12 }; // Width, Height, Ptn
 		public int Game_Effect_NotesFlash_Timer = 20;
-		public int[] Game_Effect_Fire = new int[] { 230, 230, 8 };
 
 		public int[] Game_Effect_FireWorks = new int[] { 180, 180, 10 };
 		public int Game_Effect_FireWorks_Timer = 5;
+		public bool Game_Effect_FireWorks_AddBlend = true;
+		public int Game_Effect_FireWorks_Timing = 8;
+
 		public int Game_Effect_Rainbow_Timer = 7;
 
 		public bool Game_Effect_HitExplosion_AddBlend = true;
 		public bool Game_Effect_HitExplosionBig_AddBlend = true;
-		public bool Game_Effect_FireWorks_AddBlend = true;
+		public int[] Game_Effect_Fire = new int[] { 230, 230, 8 };
 		public bool Game_Effect_Fire_AddBlend = true;
-		public int Game_Effect_FireWorks_Timing = 8;
 		#endregion
 		#endregion
 		#region Result
