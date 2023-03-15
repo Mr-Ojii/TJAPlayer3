@@ -376,15 +376,6 @@ namespace TJAPlayer3
 			GenreLoader();
 			SortLoader();
 		}
-		public CSkin()
-		{
-			InitializeSkinPathRoot();
-			ReloadSkinPaths();
-			PrepareReloadSkin();
-			SEloader();
-			GenreLoader();
-			SortLoader();
-		}
 		private string InitializeSkinPathRoot()
 		{
 			strSystemSkinRoot = System.IO.Path.Combine(TJAPlayer3.strEXEのあるフォルダ, "System/");
