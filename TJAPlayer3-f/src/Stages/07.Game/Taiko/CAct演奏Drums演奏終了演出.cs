@@ -702,7 +702,7 @@ namespace TJAPlayer3
 									{
 										TJAPlayer3.Tx.End_DonderFullCombo_Lane.Opacity = 255;
 									}
-									TJAPlayer3.Tx.End_DonderFullCombo_Lane.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldBGX[i], TJAPlayer3.Skin.nScrollFieldY[i]);
+									TJAPlayer3.Tx.End_DonderFullCombo_Lane.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldY[i]);
 								}
 								#endregion
 								#region[ 文字 ]

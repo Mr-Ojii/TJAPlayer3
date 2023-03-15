@@ -731,10 +731,6 @@ namespace TJAPlayer3
 
 		public void tReadSkinConfig()
 		{
-			var str = "";
-			LoadSkinConfigFromFile(Path(@"SkinConfig.ini"), ref str);
-			this.t文字列から読み込み(str);
-
 			var skinConfigPath = Path(@"SkinConfig.toml");
 			if(!File.Exists(skinConfigPath))
 				return;
@@ -757,89 +753,6 @@ namespace TJAPlayer3
 			CFontRenderer.SetTextCorrectionY_Chara_List_Vertical(this.SkinConfig.SongSelect.CorrectionYChara);
 			CFontRenderer.SetTextCorrectionX_Chara_List_Value_Vertical(this.SkinConfig.SongSelect.CorrectionXCharaValue);
 			CFontRenderer.SetTextCorrectionY_Chara_List_Value_Vertical(this.SkinConfig.SongSelect.CorrectionYCharaValue);
-
-			void LoadSkinConfigFromFile(string path, ref string work)
-			{
-				if (!File.Exists(Path(path))) return;
-				Encoding enc = CJudgeTextEncoding.JudgeFileEncoding(Path(path));
-				using (var streamReader = new StreamReader(Path(path), enc))
-				{
-					while (streamReader.Peek() > -1) // 一行ずつ読み込む。
-					{
-						var nowLine = streamReader.ReadLine();
-						if (nowLine.StartsWith("#include"))
-						{
-							// #include hogehoge.iniにぶち当たった
-							var includePath = nowLine.Substring("#include ".Length).Trim();
-							LoadSkinConfigFromFile(includePath, ref work); // 再帰的に読み込む
-						}
-						else
-						{
-							work += nowLine + "\n";
-						}
-					}
-				}
-			}
-		}
-
-		private void t文字列から読み込み(string strAllSettings)  // 2011.4.13 yyagi; refactored to make initial KeyConfig easier.
-		{
-			string[] delimiter = { "\n" };
-			string[] strSingleLine = strAllSettings.Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
-			foreach (string s in strSingleLine)
-			{
-				string str = s.Replace('\t', ' ').TrimStart(new char[] { '\t', ' ' });
-				if ((str.Length != 0) && (str[0] != ';'))
-				{
-					try
-					{
-						string strCommand;
-						string strParam;
-						string[] strArray = str.Split(new char[] { '=' });
-						if (strArray.Length == 2)
-						{
-							strCommand = strArray[0].Trim();
-							strParam = strArray[1].Trim();
-
-							#region[ 演奏 ]
-							//-----------------------------
-							if (strCommand == "ScrollFieldP1Y")
-							{
-								this.nScrollFieldY[0] = int.Parse(strParam);
-							}
-							else if (strCommand == "ScrollFieldP2Y")
-							{
-								this.nScrollFieldY[1] = int.Parse(strParam);
-							}
-							else if (strCommand == "SENotesP1Y")
-							{
-								this.nSENotesY[0] = int.Parse(strParam);
-							}
-							else if (strCommand == "SENotesP2Y")
-							{
-								this.nSENotesY[1] = int.Parse(strParam);
-							}
-							else if (strCommand == "JudgePointP1Y")
-							{
-								this.nJudgePointY[0] = int.Parse(strParam);
-							}
-							else if (strCommand == "JudgePointP2Y")
-							{
-								this.nJudgePointY[1] = int.Parse(strParam);
-							}
-							//-----------------------------
-							#endregion
-						}
-						continue;
-					}
-					catch (Exception exception)
-					{
-						Trace.TraceError(exception.ToString());
-						Trace.TraceError("An exception has occurred, but processing continues.");
-						continue;
-					}
-				}
-			}
 		}
 
 		#region [ IDisposable 実装 ]
@@ -1057,6 +970,25 @@ namespace TJAPlayer3
 				[IgnoreDataMember]
 				public ERollColorMode _RollColorMode { get; set; } = ERollColorMode.All;
 				public bool JudgeFrameAddBlend { get; set; } = true;
+
+				public int[] SENotesOffsetY { get; set; } = new int[] { 131, 131 };
+
+				//フィールド位置　Xは判定枠部分の位置。Yはフィールドの最上部の座標。
+				//現時点ではノーツ画像、Senotes画像、判定枠が連動する。
+				//Xは中央基準描画、Yは左上基準描画
+				public int[] ScrollFieldX { get; set; } = new int[] { 414, 414 };
+				public int[] ScrollFieldY { get; set; } = new int[] { 192, 368 };
+
+				//中心座標指定
+				public int[] JudgePointX { get; set; } = new int[] { 413, 413, 413, 413 };
+				public int[] JudgePointY { get; set; } = new int[] { 256, 433, 0, 0 };
+
+				//フィールド背景画像
+				//ScrollField座標への追従設定が可能。
+				//分岐背景、ゴーゴー背景が連動する。(全て同じ大きさ、位置で作成すること。)
+				//左上基準描画
+				public int[] ScrollFieldBGX { get; set; } = new int[] { 333, 333, 333, 333 };
+				public int[] ScrollFieldBGY { get; set; } = new int[] { 192, 368, 0, 0 };
 
 				public bool NotesAnime { get; set; } = false;
 				public CChara Chara { get; set; } = new();
@@ -1289,8 +1221,8 @@ namespace TJAPlayer3
 					public CHitExplosion HitExplosion { get; set; } = new();
 					public class CHitExplosion
 					{
-						public bool AddBlend = true;
-						public bool BigAddBlend = true;
+						public bool AddBlend { get; set; } = true;
+						public bool BigAddBlend { get; set; } = true;
 					}
 				}
 				public CRunner Runner { get; set; } = new();
@@ -1481,31 +1413,6 @@ namespace TJAPlayer3
 
 			}
 		}
-
-		#region[ 座標 ]
-		//2017.08.11 kairera0467 DP実用化に向けてint配列に変更
-
-		//フィールド位置　Xは判定枠部分の位置。Yはフィールドの最上部の座標。
-		//現時点ではノーツ画像、Senotes画像、判定枠が連動する。
-		//Xは中央基準描画、Yは左上基準描画
-		public int[] nScrollFieldX = new int[] { 414, 414 };
-		public int[] nScrollFieldY = new int[] { 192, 368 };
-
-		//中心座標指定
-		public int[] nJudgePointX = new int[] { 413, 413, 413, 413 };
-		public int[] nJudgePointY = new int[] { 256, 433, 0, 0 };
-
-		//フィールド背景画像
-		//ScrollField座標への追従設定が可能。
-		//分岐背景、ゴーゴー背景が連動する。(全て同じ大きさ、位置で作成すること。)
-		//左上基準描画
-		public int[] nScrollFieldBGX = new int[] { 333, 333, 333, 333 };
-		public int[] nScrollFieldBGY = new int[] { 192, 368, 0, 0 };
-
-		//SEnotes
-		//音符座標に加算
-		public int[] nSENotesY = new int[] { 131, 131 };
-		#endregion
 
 		public enum ERollColorMode : int
 		{

@@ -81,14 +81,14 @@ namespace TJAPlayer3
 					if (n残り打数[j] < n連打数)
 					{
 						if (TJAPlayer3.Tx.Balloon_Breaking[j] != null)
-							TJAPlayer3.Tx.Balloon_Breaking[j].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Balloon.BalloonX[nPlayer] + (this.ct風船ふきだしアニメ.n現在の値 == 1 ? 3 : 0) + TJAPlayer3.Skin.nScrollFieldX[nPlayer] - 414, TJAPlayer3.Skin.SkinConfig.Game.Balloon.BalloonY[nPlayer]);
+							TJAPlayer3.Tx.Balloon_Breaking[j].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Balloon.BalloonX[nPlayer] + (this.ct風船ふきだしアニメ.n現在の値 == 1 ? 3 : 0) + TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] - 414, TJAPlayer3.Skin.SkinConfig.Game.Balloon.BalloonY[nPlayer]);
 						break;
 					}
 				}
 				//1P:31 2P:329
 				if (TJAPlayer3.Tx.Balloon_Balloon != null)
-					TJAPlayer3.Tx.Balloon_Balloon.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Balloon.BalloonFrameX[nPlayer] + TJAPlayer3.Skin.nScrollFieldX[nPlayer] - 414, TJAPlayer3.Skin.SkinConfig.Game.Balloon.BalloonFrameY[nPlayer]);
-				this.t文字表示(TJAPlayer3.Skin.SkinConfig.Game.Balloon.BalloonNumberX[nPlayer] + TJAPlayer3.Skin.nScrollFieldX[nPlayer] - 414, TJAPlayer3.Skin.SkinConfig.Game.Balloon.BalloonNumberY[nPlayer], n連打数, nPlayer);
+					TJAPlayer3.Tx.Balloon_Balloon.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Balloon.BalloonFrameX[nPlayer] + TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] - 414, TJAPlayer3.Skin.SkinConfig.Game.Balloon.BalloonFrameY[nPlayer]);
+				this.t文字表示(TJAPlayer3.Skin.SkinConfig.Game.Balloon.BalloonNumberX[nPlayer] + TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] - 414, TJAPlayer3.Skin.SkinConfig.Game.Balloon.BalloonNumberY[nPlayer], n連打数, nPlayer);
 				//CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.EFontType.白, n連打数.ToString() );
 			}
 			if (n連打数 == 0 && TJAPlayer3.stage演奏ドラム画面.actChara.b風船連打中[nPlayer])

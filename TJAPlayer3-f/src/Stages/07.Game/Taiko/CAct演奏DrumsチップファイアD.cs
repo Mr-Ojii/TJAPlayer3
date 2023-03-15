@@ -115,8 +115,8 @@ namespace TJAPlayer3
 							if( TJAPlayer3.Tx.Effects_Hit_Explosion != null && !TJAPlayer3.IsPerformingCalibration )
 							{
 								int n = this.st状態[ i ].nIsBig == 1 ? 520 : 0;
-								int nX = ( TJAPlayer3.Skin.nScrollFieldX[ this.st状態[ i ].nPlayer ] ) - ( (TJAPlayer3.Tx.Effects_Hit_Explosion.szTextureSize.Width / 7 ) / 2 );
-								int nY = ( TJAPlayer3.Skin.nJudgePointY[ this.st状態[ i ].nPlayer ] ) - ( (TJAPlayer3.Tx.Effects_Hit_Explosion.szTextureSize.Height / 4 ) / 2 );
+								int nX = ( TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[ this.st状態[ i ].nPlayer ] ) - ( (TJAPlayer3.Tx.Effects_Hit_Explosion.szTextureSize.Width / 7 ) / 2 );
+								int nY = ( TJAPlayer3.Skin.SkinConfig.Game.JudgePointY[ this.st状態[ i ].nPlayer ] ) - ( (TJAPlayer3.Tx.Effects_Hit_Explosion.szTextureSize.Height / 4 ) / 2 );
 
 								switch( st状態[ i ].judge )
 								{
@@ -166,7 +166,7 @@ namespace TJAPlayer3
 
 										TJAPlayer3.Tx.Effects_Hit_Explosion_Big.Opacity = 255;
 										TJAPlayer3.Tx.Effects_Hit_Explosion_Big.vcScaling = new Vector2( f倍率 );
-										TJAPlayer3.Tx.Effects_Hit_Explosion_Big.t2D拡大率考慮描画( TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.nScrollFieldX[this.st状態_大[i].nPlayer], TJAPlayer3.Skin.nJudgePointY[this.st状態[i].nPlayer] );
+										TJAPlayer3.Tx.Effects_Hit_Explosion_Big.t2D拡大率考慮描画( TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[this.st状態_大[i].nPlayer], TJAPlayer3.Skin.SkinConfig.Game.JudgePointY[this.st状態[i].nPlayer] );
 									}
 									break;
 									
