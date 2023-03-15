@@ -38,11 +38,7 @@ namespace TJAPlayer3
 				{
 					for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)
 					{
-						if (File.Exists(CSkin.Path(@"Sounds/Taiko/" + i.ToString() + @"/dong.ogg")))
-							this.donglist[nPlayer, i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Taiko/" + i.ToString() + @"/dong.ogg"), ESoundGroup.SoundEffect);
-						else
-							this.donglist[nPlayer, i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Taiko/dong.ogg"), ESoundGroup.SoundEffect);
-
+						this.donglist[nPlayer, i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Taiko/" + i.ToString() + @"/dong.ogg"), ESoundGroup.SoundEffect);
 						if (TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.ConfigIni.b2P演奏時のSEの左右 && donglist[nPlayer, i] != null)
 						{
 							this.donglist[nPlayer, i].nPanning = (nPlayer * 200) - 100;
@@ -57,7 +53,7 @@ namespace TJAPlayer3
 				using (var font = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, 30))
 					for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)
 					{
-						string SEName = "無名";
+						string SEName = "Untitled";
 						if(i < TJAPlayer3.Skin.SkinConfig.Sound.SENames.Length)
 							SEName = TJAPlayer3.Skin.SkinConfig.Sound.SENames[i];
 						using (var bmp = font.DrawText(SEName, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
@@ -75,12 +71,8 @@ namespace TJAPlayer3
 			if (!base.b活性化してない)
 			{
 				for (int nPlayer = 0; nPlayer < 2; nPlayer++)
-				{
 					for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)
-					{
-						this.donglist[nPlayer, i].t解放する();
-					}
-				}
+						this.donglist[nPlayer, i]?.t解放する();
 
 				//Classは参照渡しであるため、ListをDisposeするだけでよい
 				TJAPlayer3.t安全にDisposeする(ref this.SENameList);
