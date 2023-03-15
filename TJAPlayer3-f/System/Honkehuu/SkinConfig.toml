@@ -65,3 +65,5 @@ BalloonY = [ 260, 500 ]
 [Game.PanelFont]
 StageText = "n曲目"
 
+[Game.Background]
+ScrollPattern = [ 0, 0 ]
