@@ -37,10 +37,7 @@ namespace TJAPlayer3
 		{
 			public string Title;
 			public string Genre;
-			public int 演奏回数;
-			public string[] 演奏履歴;
 			public double Bpm;
-			public int Duration;
 			public string strBGMファイル名;
 			public int SongVol;
 			public LoudnessMetadata? SongLoudnessMetadata;
@@ -68,10 +65,7 @@ namespace TJAPlayer3
 			this.譜面情報 = new ST譜面情報();
 			this.譜面情報.Title = "";
 			this.譜面情報.Genre = "";
-			this.譜面情報.演奏回数 = new int();
-			this.譜面情報.演奏履歴 = new string[7] { "", "", "", "", "", "", "" };
 			this.譜面情報.Bpm = 120.0;
-			this.譜面情報.Duration = 0;
 			this.譜面情報.strBGMファイル名 = "";
 			this.譜面情報.SongVol = CSound.DefaultSongVol;
 			this.譜面情報.SongLoudnessMetadata = null;

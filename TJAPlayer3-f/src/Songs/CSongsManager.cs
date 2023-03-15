@@ -125,7 +125,6 @@ namespace TJAPlayer3
 					c曲リストノード.arスコア.譜面情報.Title = dtx.TITLE;
 					c曲リストノード.arスコア.譜面情報.Genre = dtx.GENRE;
 					c曲リストノード.arスコア.譜面情報.Bpm = dtx.BPM;
-					c曲リストノード.arスコア.譜面情報.Duration = 0;   //  (cdtx.listChip == null)? 0 : cdtx.listChip[ cdtx.listChip.Count - 1 ].n発声時刻ms;
 					c曲リストノード.arスコア.譜面情報.strBGMファイル名 = dtx.strBGM_PATH == null ? "" : dtx.strBGM_PATH;
 					c曲リストノード.arスコア.譜面情報.SongVol = dtx.SongVol;
 					c曲リストノード.arスコア.譜面情報.SongLoudnessMetadata = dtx.SongLoudnessMetadata;
@@ -495,9 +494,6 @@ namespace TJAPlayer3
 						score.譜面情報.nCrown[i] = (int)ini.stセクション.HiScore.nCrown[i];
 					}
 				}
-				score.譜面情報.演奏回数 = ini.stファイル.PlayCountDrums;
-				//for( int i = 0; i < (int)Difficulty.Total; i++ )
-				//	score.譜面情報.演奏履歴[ i ] = ini.stファイル.History[ i ];//2020.04.18 Mr-Ojii ここで例外処理起こすしなぜこのコードが必要かがわからなかったので、コメントアウト化
 			}
 			catch (Exception e)
 			{

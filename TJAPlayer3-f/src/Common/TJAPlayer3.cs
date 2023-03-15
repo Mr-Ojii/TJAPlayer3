@@ -1797,13 +1797,6 @@ namespace TJAPlayer3
 			}
 			ini.tヒストリを追加する( str新ヒストリ行 );
 			
-			stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.演奏回数 = ini.stファイル.PlayCountDrums;
-			for (int j = 0; j < ini.stファイル.History.Length; j++)
-			{
-				stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.演奏履歴[j] = ini.stファイル.History[j];
-
-			}
-			
 			if( ConfigIni.bScoreIniを出力する )
 			{
 				ini.t書き出し( strFilename );
