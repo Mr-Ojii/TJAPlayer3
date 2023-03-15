@@ -50,7 +50,7 @@ namespace TJAPlayer3
 
 			using (var pfStageText = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.Result_StageText_FontSize))
 			{
-				using (var bmpStageText = pfStageText.DrawText(TJAPlayer3.Skin.SkinConfig.Game.StageText, TJAPlayer3.Skin.Result_StageText_ForeColor, TJAPlayer3.Skin.Result_StageText_BackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+				using (var bmpStageText = pfStageText.DrawText(TJAPlayer3.Skin.SkinConfig.Game.PanelFont.StageText, TJAPlayer3.Skin.Result_StageText_ForeColor, TJAPlayer3.Skin.Result_StageText_BackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
 				{
 					this.txStageText = TJAPlayer3.tCreateTexture(bmpStageText);
 				}

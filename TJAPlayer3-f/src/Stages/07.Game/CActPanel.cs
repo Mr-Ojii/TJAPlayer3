@@ -182,7 +182,7 @@ namespace TJAPlayer3
 				if( this.txGENRE != null )
 					this.txGENRE.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.GenreX, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.GenreY );
 
-				if (TJAPlayer3.Skin.b現在のステージ数を表示しない)
+				if (!TJAPlayer3.Skin.SkinConfig.Game.PanelFont.StageTextDisp)
 				{
 					if (this.txMusicName != null)
 					{

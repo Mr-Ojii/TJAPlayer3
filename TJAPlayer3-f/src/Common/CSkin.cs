@@ -838,10 +838,6 @@ namespace TJAPlayer3
 							{
 								this.nJudgePointY[1] = int.Parse(strParam);
 							}
-							else if (strCommand == "NowStageDisp")
-							{
-								this.b現在のステージ数を表示しない = strParam[0].ToBool();
-							}
 
 							//-----------------------------
 							#endregion
@@ -1433,7 +1429,6 @@ namespace TJAPlayer3
 			public class CGame
 			{
 				public bool NotesAnime { get; set; } = false;
-				public string StageText { get; set; } = "1曲目";
 				public CChara Chara { get; set; } = new();
 				public class CChara
 				{
@@ -1498,6 +1493,9 @@ namespace TJAPlayer3
 					public int LyricReferencePoint { get{ return (int)this._LyricReferencePoint; } set{ this._LyricReferencePoint = (ReferencePoint)value; } }
 					[IgnoreDataMember]
 					public ReferencePoint _LyricReferencePoint { get; set; } = ReferencePoint.Center;
+					
+					public string StageText { get; set; } = "1曲目";
+					public bool StageTextDisp { get; set; } = true;
 
 					public string MusicNameForeColor { get{ return ColorTranslator.ToHtml(this._MusicNameForeColor); } set{ this._MusicNameForeColor = ColorTranslator.FromHtml(value); } }
 					public string StageTextForeColor { get{ return ColorTranslator.ToHtml(this._StageTextForeColor); } set{ this._StageTextForeColor = ColorTranslator.FromHtml(value); } }
@@ -1660,24 +1658,6 @@ namespace TJAPlayer3
 		//SEnotes
 		//音符座標に加算
 		public int[] nSENotesY = new int[] { 131, 131 };
-
-		//光る太鼓部分
-		public int nMtaikoBackgroundX = 0;
-		public int nMtaikoBackgroundY = 184;
-		public int nMtaikoFieldX = 0;
-		public int nMtaikoFieldY = 184;
-		public int nMtaikoMainX = 0;
-		public int nMtaikoMainY = 0;
-
-		//コンボ
-		public int[] nComboNumberX = new int[] { 0, 0, 0, 0 };
-		public int[] nComboNumberY = new int[] { 212, 388, 0, 0 };
-		public int[] nComboNumberTextY = new int[] { 271, 447, 0, 0 };
-		public int[] nComboNumberTextLargeY = new int[] { 270, 446, 0, 0 };
-		public float fComboNumberSpacing = 0;
-		public float fComboNumberSpacing_l = 0;
-
-		public bool b現在のステージ数を表示しない = false;
 
 		//リザルト画面
 		//現在のデフォルト値はダミーです。

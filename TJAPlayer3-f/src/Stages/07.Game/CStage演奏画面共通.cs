@@ -2928,7 +2928,7 @@ namespace TJAPlayer3
 
 			string subtitle = (TJAPlayer3.ConfigIni.eSubtitleDispMode == ESubtitleDispMode.On || (TJAPlayer3.ConfigIni.eSubtitleDispMode==ESubtitleDispMode.Compliant && TJAPlayer3.DTX[0].SUBTITLEDisp)) ? TJAPlayer3.DTX[0].SUBTITLE : null;
 
-			this.actPanel.SetPanelString(panelString, subtitle, TJAPlayer3.stage選曲.str確定された曲のジャンル, TJAPlayer3.Skin.SkinConfig.Game.StageText);
+			this.actPanel.SetPanelString(panelString, subtitle, TJAPlayer3.stage選曲.str確定された曲のジャンル, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.StageText);
 		}
 
 
