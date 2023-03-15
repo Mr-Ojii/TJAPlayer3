@@ -894,26 +894,6 @@ namespace TJAPlayer3
 							{
 								Game_Effect_NotesFlash_Timer = int.Parse(strParam);
 							}
-							else if (strCommand == nameof(Game_Effect_GoGoSplash))
-							{
-								Game_Effect_GoGoSplash = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_GoGoSplash_X))
-							{
-								Game_Effect_GoGoSplash_X = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_GoGoSplash_Y))
-							{
-								Game_Effect_GoGoSplash_Y = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_GoGoSplash_Rotate))
-							{
-								Game_Effect_GoGoSplash_Rotate = strParam[0].ToBool();
-							}
-							else if (strCommand == nameof(Game_Effect_GoGoSplash_Timer))
-							{
-								Game_Effect_GoGoSplash_Timer = int.Parse(strParam);
-							}
 							else if (strCommand == nameof(Game_Effect_Fire))
 							{
 								Game_Effect_Fire = strParam.Split(',').Select(int.Parse).ToArray();
@@ -973,10 +953,6 @@ namespace TJAPlayer3
 							else if (strCommand == nameof(Game_Effect_Fire_AddBlend))
 							{
 								Game_Effect_Fire_AddBlend = strParam[0].ToBool();
-							}
-							else if (strCommand == nameof(Game_Effect_GoGoSplash_AddBlend))
-							{
-								Game_Effect_GoGoSplash_AddBlend = strParam[0].ToBool();
 							}
 							else if (strCommand == nameof(Game_Effect_FireWorks_Timing))
 							{
@@ -1458,7 +1434,33 @@ namespace TJAPlayer3
 				public CEffect Effect { get; set; } = new();
 				public class CEffect
 				{
+					public CRoll Roll { get; set; } = new();
+					public class CRoll
+					{
 
+					}
+					public CFireWorks FireWorks { get; set; } = new();
+					public class CFireWorks
+					{
+
+					}
+					public CGoGoSplash GoGoSplash { get; set; } = new();
+					public class CGoGoSplash
+					{
+						public int Width { get; set; } = 300;
+						public int Height { get; set; } = 400;
+						public int Ptn { get; set; } = 10;
+						public int[] X = new int[] { 120, 300, 520, 760, 980, 1160 };
+						public int[] Y = new int[] { 740, 730, 720, 720, 730, 740 };
+						public bool Rotate = true;
+						public int Timer = 25;
+						public bool AddBlend = true;
+					}
+					public CFlyingNotes FlyingNotes { get; set; } = new();
+					public class CFlyingNotes
+					{
+
+					}
 				}
 				public CRunner Runner { get; set; } = new();
 				public class CRunner
@@ -1693,11 +1695,6 @@ namespace TJAPlayer3
 		public int Game_Effect_Roll_Ptn;
 		public int[] Game_Effect_NotesFlash = new int[] { 180, 180, 12 }; // Width, Height, Ptn
 		public int Game_Effect_NotesFlash_Timer = 20;
-		public int[] Game_Effect_GoGoSplash = new int[] { 300, 400, 10 };
-		public int[] Game_Effect_GoGoSplash_X = new int[] { 120, 300, 520, 760, 980, 1160 };
-		public int[] Game_Effect_GoGoSplash_Y = new int[] { 740, 730, 720, 720, 730, 740 };
-		public bool Game_Effect_GoGoSplash_Rotate = true;
-		public int Game_Effect_GoGoSplash_Timer = 25;
 		public int[] Game_Effect_Fire = new int[] { 230, 230, 8 };
 		// super-flying-notes AioiLight
 		public int[] Game_Effect_FlyingNotes_StartPoint_X = new int[] { 414, 414 };
@@ -1716,7 +1713,6 @@ namespace TJAPlayer3
 		public bool Game_Effect_HitExplosionBig_AddBlend = true;
 		public bool Game_Effect_FireWorks_AddBlend = true;
 		public bool Game_Effect_Fire_AddBlend = true;
-		public bool Game_Effect_GoGoSplash_AddBlend = true;
 		public int Game_Effect_FireWorks_Timing = 8;
 		#endregion
 		#endregion
