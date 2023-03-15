@@ -1,5 +1,5 @@
 # TJAPlayer3-f
-最終更新日:2023/01/03(Mr-Ojii)
+最終更新日:2023/03/15(Mr-Ojii)
 
 このReadmeはTJAPlayer3のReadmeを基に作成いたしました。
 
@@ -66,10 +66,6 @@ MITライセンスのルールのもと、改造・再配布を行うことは自由ですが、**全て自己責任*
 
 ## 追加命令について
 「About_additional_and_modified_functions.md」で説明いたします。
-
-
-## SkinConfigについて
-「About_SkinConfig.ini.txt」で説明いたします。
 
 
 ## 推奨動作環境
