@@ -165,27 +165,27 @@ namespace TJAPlayer3
 					if (TJAPlayer3.Tx.Result_v2_Panel != null)
 					{
 						if (TJAPlayer3.Tx.Result_v2_Panel[i] != null) 
-							TJAPlayer3.Tx.Result_v2_Panel[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nResultV2PanelX[i], TJAPlayer3.Skin.nResultV2PanelY[i]);
+							TJAPlayer3.Tx.Result_v2_Panel[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.v2PanelX[i], TJAPlayer3.Skin.SkinConfig.Result.v2PanelY[i]);
 					}
 					if (TJAPlayer3.Tx.Result_v2_GaugeBack != null)
 					{
-						TJAPlayer3.Tx.Result_v2_GaugeBack.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nResultV2GaugeBackX[i], TJAPlayer3.Skin.nResultV2GaugeBackY[i]);
+						TJAPlayer3.Tx.Result_v2_GaugeBack.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.v2GaugeBackX[i], TJAPlayer3.Skin.SkinConfig.Result.v2GaugeBackY[i]);
 					}
 					if (TJAPlayer3.Tx.Result_v2_GaugeBase != null&& TJAPlayer3.Tx.Result_v2_Gauge != null)
 					{
 						int width = (int)(TJAPlayer3.Tx.Result_v2_Gauge.szTextureSize.Width * (Math.Min((TJAPlayer3.stageResult.st演奏記録[i].fゲージ / 100f), this.ctGauge.n現在の値 / 100f))) / (TJAPlayer3.Tx.Result_v2_Gauge.szTextureSize.Width / 50) * (TJAPlayer3.Tx.Result_v2_Gauge.szTextureSize.Width / 50);// 2020/10/13 Mr-Ojii 最後の意味が無いように見える乗算、除算には意味があります。消さないで。
 						Rectangle rec = new Rectangle(0, 0, width, TJAPlayer3.Tx.Result_v2_Gauge.szTextureSize.Height);
-						TJAPlayer3.Tx.Result_v2_GaugeBase.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nResultV2GaugeBodyX[i], TJAPlayer3.Skin.nResultV2GaugeBodyY[i]);
-						TJAPlayer3.Tx.Result_v2_Gauge.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nResultV2GaugeBodyX[i], TJAPlayer3.Skin.nResultV2GaugeBodyY[i], rec);
+						TJAPlayer3.Tx.Result_v2_GaugeBase.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.v2GaugeBodyX[i], TJAPlayer3.Skin.SkinConfig.Result.v2GaugeBodyY[i]);
+						TJAPlayer3.Tx.Result_v2_Gauge.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.v2GaugeBodyX[i], TJAPlayer3.Skin.SkinConfig.Result.v2GaugeBodyY[i], rec);
 					}
 
-					this.t小文字表示V2(TJAPlayer3.Skin.nResultV2GreatX[i], TJAPlayer3.Skin.nResultV2GreatY[i], TJAPlayer3.stageResult.st演奏記録[i].nPerfect数, false, EPhaseV2.Perfect, i);
-					this.t小文字表示V2(TJAPlayer3.Skin.nResultV2GoodX[i], TJAPlayer3.Skin.nResultV2GoodY[i], TJAPlayer3.stageResult.st演奏記録[i].nGreat数, false, EPhaseV2.Good, i);
-					this.t小文字表示V2(TJAPlayer3.Skin.nResultV2BadX[i], TJAPlayer3.Skin.nResultV2BadY[i], TJAPlayer3.stageResult.st演奏記録[i].nMiss数, false, EPhaseV2.Poor, i);
-					this.t小文字表示V2(TJAPlayer3.Skin.nResultV2RollX[i], TJAPlayer3.Skin.nResultV2RollY[i], TJAPlayer3.stageResult.st演奏記録[i].n連打数, false, EPhaseV2.Roll, i);
-					this.t小文字表示V2(TJAPlayer3.Skin.nResultV2ComboX[i], TJAPlayer3.Skin.nResultV2ComboY[i], TJAPlayer3.stageResult.st演奏記録[i].n最大コンボ数, false, EPhaseV2.Combo, i);
+					this.t小文字表示V2(TJAPlayer3.Skin.SkinConfig.Result.v2GreatX[i], TJAPlayer3.Skin.SkinConfig.Result.v2GreatY[i], TJAPlayer3.stageResult.st演奏記録[i].nPerfect数, false, EPhaseV2.Perfect, i);
+					this.t小文字表示V2(TJAPlayer3.Skin.SkinConfig.Result.v2GoodX[i], TJAPlayer3.Skin.SkinConfig.Result.v2GoodY[i], TJAPlayer3.stageResult.st演奏記録[i].nGreat数, false, EPhaseV2.Good, i);
+					this.t小文字表示V2(TJAPlayer3.Skin.SkinConfig.Result.v2BadX[i], TJAPlayer3.Skin.SkinConfig.Result.v2BadY[i], TJAPlayer3.stageResult.st演奏記録[i].nMiss数, false, EPhaseV2.Poor, i);
+					this.t小文字表示V2(TJAPlayer3.Skin.SkinConfig.Result.v2RollX[i], TJAPlayer3.Skin.SkinConfig.Result.v2RollY[i], TJAPlayer3.stageResult.st演奏記録[i].n連打数, false, EPhaseV2.Roll, i);
+					this.t小文字表示V2(TJAPlayer3.Skin.SkinConfig.Result.v2ComboX[i], TJAPlayer3.Skin.SkinConfig.Result.v2ComboY[i], TJAPlayer3.stageResult.st演奏記録[i].n最大コンボ数, false, EPhaseV2.Combo, i);
 
-					this.t小文字表示V2(TJAPlayer3.Skin.nResultV2ScoreX[i], TJAPlayer3.Skin.nResultV2ScoreY[i], TJAPlayer3.stageResult.st演奏記録[i].nスコア, true, EPhaseV2.Score, i);
+					this.t小文字表示V2(TJAPlayer3.Skin.SkinConfig.Result.v2ScoreX[i], TJAPlayer3.Skin.SkinConfig.Result.v2ScoreY[i], TJAPlayer3.stageResult.st演奏記録[i].nスコア, true, EPhaseV2.Score, i);
 
 					#region 段位認定モード用+王冠
 					if (TJAPlayer3.stage選曲.n確定された曲の難易度[i] == (int)Difficulty.Dan)
@@ -203,7 +203,7 @@ namespace TJAPlayer3
 							TJAPlayer3.Tx.Crown_t.Opacity = this.ctCrown用.n現在の値;
 							TJAPlayer3.Tx.Crown_t.vcScaling.X = ((this.ctCrown用.n終了値 - this.ctCrown用.n現在の値) / 255f) * 2f + 1.0f;
 							TJAPlayer3.Tx.Crown_t.vcScaling.Y = ((this.ctCrown用.n終了値 - this.ctCrown用.n現在の値) / 255f) * 2f + 1.0f;
-							TJAPlayer3.Tx.Crown_t.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.Result_v2_Crown_X[i], TJAPlayer3.Skin.Result_v2_Crown_Y[i], new Rectangle(CrownState[i] * 100, 0, 100, 100));
+							TJAPlayer3.Tx.Crown_t.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.SkinConfig.Result.v2CrownX[i], TJAPlayer3.Skin.SkinConfig.Result.v2CrownY[i], new Rectangle(CrownState[i] * 100, 0, 100, 100));
 						}
 					}
 					#endregion
@@ -256,7 +256,7 @@ namespace TJAPlayer3
 				{
 					if (TJAPlayer3.Tx.Result_Panel != null)
 					{
-						TJAPlayer3.Tx.Result_Panel.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nResultPanelX[i], TJAPlayer3.Skin.nResultPanelY[i]);
+						TJAPlayer3.Tx.Result_Panel.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.PanelX[i], TJAPlayer3.Skin.SkinConfig.Result.PanelY[i]);
 					}
 					if (TJAPlayer3.Tx.Result_Score_Text != null)
 					{
@@ -265,12 +265,12 @@ namespace TJAPlayer3
 					}
 					if (TJAPlayer3.Tx.Result_Judge != null)
 					{
-						TJAPlayer3.Tx.Result_Judge.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nResultJudge_X[i], TJAPlayer3.Skin.nResultJudge_Y[i]);
+						TJAPlayer3.Tx.Result_Judge.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.JudgeX[i], TJAPlayer3.Skin.SkinConfig.Result.JudgeY[i]);
 					}
 					if (TJAPlayer3.Tx.Result_Gauge_Base != null && TJAPlayer3.Tx.Result_Gauge != null)
 					{
 						double Rate = TJAPlayer3.stageResult.st演奏記録[i].fゲージ;
-						TJAPlayer3.Tx.Result_Gauge_Base.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nResultGaugeBaseX[i], TJAPlayer3.Skin.nResultGaugeBaseY[i], new Rectangle(0, 0, 691, 47));
+						TJAPlayer3.Tx.Result_Gauge_Base.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.GaugeBaseX[i], TJAPlayer3.Skin.SkinConfig.Result.GaugeBaseY[i], new Rectangle(0, 0, 691, 47));
 						#region[ ゲージ本体 ]
 						int[] y_tmp = { 145, 439 };
 						int y = y_tmp[i];
@@ -387,13 +387,13 @@ namespace TJAPlayer3
 						TJAPlayer3.Tx.Gauge_Soul.t2D描画(TJAPlayer3.app.Device, 1174, y_Soul[i], new Rectangle(0, 0, 80, 80));
 					}
 					//演奏中のやつ使いまわせなかった。ファック。
-					this.t小文字表示(TJAPlayer3.Skin.nResultScoreX[i], TJAPlayer3.Skin.nResultScoreY[i], TJAPlayer3.stageResult.st演奏記録[i].nスコア, true, EPhase.Score, i);
-					this.t小文字表示(TJAPlayer3.Skin.nResultGreatX[i], TJAPlayer3.Skin.nResultGreatY[i], TJAPlayer3.stageResult.st演奏記録[i].nPerfect数, false, EPhase.Perfect, i);
-					this.t小文字表示(TJAPlayer3.Skin.nResultGoodX[i], TJAPlayer3.Skin.nResultGoodY[i], TJAPlayer3.stageResult.st演奏記録[i].nGreat数, false, EPhase.Good, i);
-					this.t小文字表示(TJAPlayer3.Skin.nResultBadX[i], TJAPlayer3.Skin.nResultBadY[i], TJAPlayer3.stageResult.st演奏記録[i].nMiss数, false, EPhase.Poor, i);
+					this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Result.ScoreX[i], TJAPlayer3.Skin.SkinConfig.Result.ScoreY[i], TJAPlayer3.stageResult.st演奏記録[i].nスコア, true, EPhase.Score, i);
+					this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Result.GreatX[i], TJAPlayer3.Skin.SkinConfig.Result.GreatY[i], TJAPlayer3.stageResult.st演奏記録[i].nPerfect数, false, EPhase.Perfect, i);
+					this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Result.GoodX[i], TJAPlayer3.Skin.SkinConfig.Result.GoodY[i], TJAPlayer3.stageResult.st演奏記録[i].nGreat数, false, EPhase.Good, i);
+					this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Result.BadX[i], TJAPlayer3.Skin.SkinConfig.Result.BadY[i], TJAPlayer3.stageResult.st演奏記録[i].nMiss数, false, EPhase.Poor, i);
 
-					this.t小文字表示(TJAPlayer3.Skin.nResultComboX[i], TJAPlayer3.Skin.nResultComboY[i], TJAPlayer3.stageResult.st演奏記録[i].n最大コンボ数, false, EPhase.Combo, i);
-					this.t小文字表示(TJAPlayer3.Skin.nResultRollX[i], TJAPlayer3.Skin.nResultRollY[i], TJAPlayer3.stageResult.st演奏記録[i].n連打数, false, EPhase.Roll, i);
+					this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Result.ComboX[i], TJAPlayer3.Skin.SkinConfig.Result.ComboY[i], TJAPlayer3.stageResult.st演奏記録[i].n最大コンボ数, false, EPhase.Combo, i);
+					this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Result.RollX[i], TJAPlayer3.Skin.SkinConfig.Result.RollY[i], TJAPlayer3.stageResult.st演奏記録[i].n連打数, false, EPhase.Roll, i);
 
 					#region 段位認定モード用+王冠
 					if (TJAPlayer3.stage選曲.n確定された曲の難易度[i] == (int)Difficulty.Dan)

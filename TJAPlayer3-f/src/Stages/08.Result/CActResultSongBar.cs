@@ -98,17 +98,17 @@ namespace TJAPlayer3
 
 			if (TJAPlayer3.ConfigIni.bEnableSkinV2)
 			{
-				if (TJAPlayer3.Skin.Result_v2_MusicName_ReferencePoint == CSkin.ReferencePoint.Center)
+				if (TJAPlayer3.Skin.SkinConfig.Result._v2MusicNameReferencePoint == CSkin.ReferencePoint.Center)
 				{
-					this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_v2_MusicName_X - ((this.txMusicName.szTextureSize.Width * txMusicName.vcScaling.X) / 2), TJAPlayer3.Skin.Result_v2_MusicName_Y);
+					this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.v2MusicNameX - ((this.txMusicName.szTextureSize.Width * txMusicName.vcScaling.X) / 2), TJAPlayer3.Skin.SkinConfig.Result.v2MusicNameY);
 				}
-				else if (TJAPlayer3.Skin.Result_v2_MusicName_ReferencePoint == CSkin.ReferencePoint.Left)
+				else if (TJAPlayer3.Skin.SkinConfig.Result._v2MusicNameReferencePoint == CSkin.ReferencePoint.Left)
 				{
-					this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_v2_MusicName_X, TJAPlayer3.Skin.Result_v2_MusicName_Y);
+					this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.v2MusicNameX, TJAPlayer3.Skin.SkinConfig.Result.v2MusicNameY);
 				}
 				else
 				{
-					this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.Result_v2_MusicName_X - this.txMusicName.szTextureSize.Width * txMusicName.vcScaling.X, TJAPlayer3.Skin.Result_v2_MusicName_Y);
+					this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.v2MusicNameX - this.txMusicName.szTextureSize.Width * txMusicName.vcScaling.X, TJAPlayer3.Skin.SkinConfig.Result.v2MusicNameY);
 				}
 			}
 			else

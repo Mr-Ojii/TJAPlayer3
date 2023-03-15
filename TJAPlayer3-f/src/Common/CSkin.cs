@@ -1490,7 +1490,55 @@ namespace TJAPlayer3
 			public CResult Result { get; set; } = new();
 			public class CResult
 			{
+				public int[] PanelX { get; set; } = { 515, 515 };
+				public int[] PanelY { get; set; } = { 75, 369 };
+				public int[] ScoreX { get; set; } = { 730, 730 };
+				public int[] ScoreY { get; set; } = { 252, 546 };
+				public int[] JudgeX { get; set; } = { 815, 815 };
+				public int[] JudgeY { get; set; } = { 182, 476 };
+				public int[] GreatX { get; set; } = { 960, 960 };
+				public int[] GreatY { get; set; } = { 188, 482 };
+				public int[] GoodX { get; set; } = { 960, 960 };
+				public int[] GoodY { get; set; } = { 226, 520 };
+				public int[] BadX { get; set; } = { 960, 960 };
+				public int[] BadY { get; set; } = { 266, 560 };
+				public int[] ComboX { get; set; } = { 1225, 1225 };
+				public int[] ComboY { get; set; } = { 188, 482 };
+				public int[] RollX { get; set; } = { 1225, 1225 };
+				public int[] RollY { get; set; } = { 226, 520 };
+				public int[] GaugeBaseX { get; set; } = { 555, 555 };
+				public int[] GaugeBaseY { get; set; } = { 122, 416 };
+				public int[] GaugeBodyX { get; set; } = { 559, 559 };
+				public int[] GaugeBodyY { get; set; } = { 125, 419 };
 
+
+				public int[] v2PanelX { get; set; } = { 0, 640 };
+				public int[] v2PanelY { get; set; } = { 0, 0 };
+				public int[] v2ScoreX { get; set; } = { 300, 940 };
+				public int[] v2ScoreY { get; set; } = { 240, 240 };
+				public int[] v2GreatX { get; set; } = { 560, 1200 };
+				public int[] v2GreatY { get; set; } = { 206, 206 };
+				public int[] v2GoodX { get; set; } = { 560, 1200 };
+				public int[] v2GoodY { get; set; } = { 248, 248 };
+				public int[] v2BadX { get; set; } = { 560, 1200 };
+				public int[] v2BadY { get; set; } = { 290, 290 };
+				public int[] v2RollX { get; set; } = { 560, 1200 };
+				public int[] v2RollY { get; set; } = { 332, 332 };
+				public int[] v2ComboX { get; set; } = { 560, 1200 };
+				public int[] v2ComboY { get; set; } = { 374, 374 };
+				public int[] v2GaugeBackX { get; set; } = { 3, 643 };
+				public int[] v2GaugeBackY { get; set; } = { 122, 122 };
+				public int[] v2GaugeBodyX { get; set; } = { 60, 700 };
+				public int[] v2GaugeBodyY { get; set; } = { 130, 130 };
+				public int v2MusicNameX { get; set; } = 640;
+				public int v2MusicNameY { get; set; } = 6;
+				public int v2MusicNameReferencePoint { get{ return (int)this._v2MusicNameReferencePoint; } set{ this._v2MusicNameReferencePoint = (ReferencePoint)value; } }
+				[IgnoreDataMember]
+				public ReferencePoint _v2MusicNameReferencePoint { get; set; } = ReferencePoint.Center;
+				public int[] v2NamePlateX { get; set; } = new int[] { 20, 1000 };
+				public int[] v2NamePlateY { get; set; } = new int[] { 610, 610 };
+				public int[] v2CrownX { get; set; } = new int[] { 270, 910 };
+				public int[] v2CrownY { get; set; } = new int[] { 340, 340 };
 			}
 			public CEnding Ending { get; set; } = new();
 			public class CEnding
@@ -1522,48 +1570,6 @@ namespace TJAPlayer3
 		//SEnotes
 		//音符座標に加算
 		public int[] nSENotesY = new int[] { 131, 131 };
-
-		//リザルト画面
-		//現在のデフォルト値はダミーです。
-		public int[] nResultPanelX = { 515, 515 };
-		public int[] nResultPanelY = { 75, 369 };
-		public int[] nResultScoreX = { 730, 730 };
-		public int[] nResultScoreY = { 252, 546 };
-		public int[] nResultJudge_X = { 815, 815 };
-		public int[] nResultJudge_Y = { 182, 476 };
-		public int[] nResultGreatX = { 960, 960 };
-		public int[] nResultGreatY = { 188, 482 };
-		public int[] nResultGoodX = { 960, 960 };
-		public int[] nResultGoodY = { 226, 520 };
-		public int[] nResultBadX = { 960, 960 };
-		public int[] nResultBadY = { 266, 560 };
-		public int[] nResultComboX = { 1225, 1225 };
-		public int[] nResultComboY = { 188, 482 };
-		public int[] nResultRollX = { 1225, 1225 };
-		public int[] nResultRollY = { 226, 520 };
-		public int[] nResultGaugeBaseX = { 555, 555 };
-		public int[] nResultGaugeBaseY = { 122, 416 };
-		public int[] nResultGaugeBodyX = { 559, 559 };
-		public int[] nResultGaugeBodyY = { 125, 419 };
-
-		public int[] nResultV2PanelX = { 0, 640 };
-		public int[] nResultV2PanelY = { 0, 0 };
-		public int[] nResultV2ScoreX = { 300, 940 };
-		public int[] nResultV2ScoreY = { 240, 240 };
-		public int[] nResultV2GreatX = { 560, 1200 };
-		public int[] nResultV2GreatY = { 206, 206 };
-		public int[] nResultV2GoodX = { 560, 1200 };
-		public int[] nResultV2GoodY = { 248, 248 };
-		public int[] nResultV2BadX = { 560, 1200 };
-		public int[] nResultV2BadY = { 290, 290 };
-		public int[] nResultV2RollX = { 560, 1200 };
-		public int[] nResultV2RollY = { 332, 332 };
-		public int[] nResultV2ComboX = { 560, 1200 };
-		public int[] nResultV2ComboY = { 374, 374 };
-		public int[] nResultV2GaugeBackX = { 3, 643 };
-		public int[] nResultV2GaugeBackY = { 122, 122 };
-		public int[] nResultV2GaugeBodyX = { 60, 700 };
-		public int[] nResultV2GaugeBodyY = { 130, 130 };
 		#endregion
 
 		public enum RollColorMode : int
@@ -1620,10 +1626,6 @@ namespace TJAPlayer3
 		public int Result_StageText_Y = 6;
 		public int Result_StageText_FontSize = 30;
 		public ReferencePoint Result_StageText_ReferencePoint = ReferencePoint.Left;
-		public int Result_v2_MusicName_X = 640;
-		public int Result_v2_MusicName_Y = 6;
-		public ReferencePoint Result_v2_MusicName_ReferencePoint = ReferencePoint.Center;
-
 		public Color Result_MusicName_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
 		public Color Result_StageText_ForeColor = ColorTranslator.FromHtml("#FFFFFF");
 		public Color Result_MusicName_BackColor = ColorTranslator.FromHtml("#000000");
@@ -1639,12 +1641,6 @@ namespace TJAPlayer3
 		public int[] Result_Crown_X = new int[] { 400, 400 };
 		public int[] Result_Crown_Y = new int[] { 250, 544 };
 		public int Result_RotateInterval = 50;
-
-		public int[] Result_v2_NamePlate_X = new int[] { 20, 1000 };
-		public int[] Result_v2_NamePlate_Y = new int[] { 610, 610 };
-
-		public int[] Result_v2_Crown_X = new int[] { 270, 910 };
-		public int[] Result_v2_Crown_Y = new int[] { 340, 340 };
 		#endregion
 		public int SECount = 0;
 		public int[] NowSENum = { 0, 0 };
