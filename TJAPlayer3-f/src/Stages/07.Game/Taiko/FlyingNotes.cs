@@ -116,7 +116,7 @@ namespace TJAPlayer3
 								Flying[i].X += Flying[i].IncreaseX;
 							}
 
-							if (n % TJAPlayer3.Skin.Game_Effect_FireWorks_Timing == 0 && !Flying[i].IsRoll && Flying[i].Counter.n現在の値 > 18)
+							if (n % TJAPlayer3.Skin.SkinConfig.Game.Effect.FireWorks.Timing == 0 && !Flying[i].IsRoll && Flying[i].Counter.n現在の値 > 18)
 							{
 								if (Flying[i].Lane == 3 || Flying[i].Lane == 4)
 								{

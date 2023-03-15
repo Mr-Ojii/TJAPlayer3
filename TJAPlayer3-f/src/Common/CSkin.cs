@@ -841,52 +841,6 @@ namespace TJAPlayer3
 							{
 								Game_JudgeFrame_AddBlend = strParam[0].ToBool();
 							}
-							#region Effects
-							else if (strCommand == nameof(Game_Effect_NotesFlash))
-							{
-								Game_Effect_NotesFlash = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_NotesFlash_Timer))
-							{
-								Game_Effect_NotesFlash_Timer = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_Effect_Fire))
-							{
-								Game_Effect_Fire = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_FireWorks))
-							{
-								Game_Effect_FireWorks = strParam.Split(',').Select(int.Parse).ToArray();
-							}
-							else if (strCommand == nameof(Game_Effect_FireWorks_Timer))
-							{
-								Game_Effect_FireWorks_Timer = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_Effect_Rainbow_Timer))
-							{
-								Game_Effect_Rainbow_Timer = int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_Effect_HitExplosion_AddBlend))
-							{
-								Game_Effect_HitExplosion_AddBlend = strParam[0].ToBool();
-							}
-							else if (strCommand == nameof(Game_Effect_HitExplosionBig_AddBlend))
-							{
-								Game_Effect_HitExplosionBig_AddBlend = strParam[0].ToBool();
-							}
-							else if (strCommand == nameof(Game_Effect_FireWorks_AddBlend))
-							{
-								Game_Effect_FireWorks_AddBlend = strParam[0].ToBool();
-							}
-							else if (strCommand == nameof(Game_Effect_Fire_AddBlend))
-							{
-								Game_Effect_Fire_AddBlend = strParam[0].ToBool();
-							}
-							else if (strCommand == nameof(Game_Effect_FireWorks_Timing))
-							{
-								Game_Effect_FireWorks_Timing = int.Parse(strParam);
-							}
-							#endregion
 							#endregion
 							#region Result
 							else if (strCommand == nameof(Result_MusicName_X))
@@ -1377,7 +1331,12 @@ namespace TJAPlayer3
 					public CFireWorks FireWorks { get; set; } = new();
 					public class CFireWorks
 					{
-
+						public int Width { get; set; } = 180;
+						public int Height { get; set; } = 180;
+						public int Ptn { get; set; } = 10;
+						public int Timer { get; set; } = 5;
+						public bool AddBlend { get; set; } = true;
+						public int Timing { get; set; } = 8;
 					}
 					public CGoGoSplash GoGoSplash { get; set; } = new();
 					public class CGoGoSplash
@@ -1402,6 +1361,33 @@ namespace TJAPlayer3
 						public int Sine { get; set; } = 220;
 						public bool IsUsingEasing { get; set; } = true;
 						public int Timer { get; set; } = 3;
+					}
+					public CNotesFlash NotesFlash { get; set; } = new();
+					public class CNotesFlash
+					{
+						public int Width { get; set; } = 180;
+						public int Height { get; set; } = 180;
+						public int Ptn { get; set; } = 12;
+						public int Timer { get; set; } = 20;
+					}
+					public CFire Fire { get; set; } = new();
+					public class CFire
+					{
+						public int Width { get; set; } = 230;
+						public int Height { get; set; } = 230;
+						public int Ptn { get; set; } = 8;
+						public bool AddBlend { get; set; } = true;
+					}
+					public CRainbow Rainbow { get; set; } = new();
+					public class CRainbow
+					{
+						public int Timer { get; set; } = 7;
+					}
+					public CHitExplosion HitExplosion { get; set; } = new();
+					public class CHitExplosion
+					{
+						public bool AddBlend = true;
+						public bool BigAddBlend = true;
 					}
 				}
 				public CRunner Runner { get; set; } = new();
@@ -1623,21 +1609,6 @@ namespace TJAPlayer3
 		#endregion
 		#region Effects
 		public int Game_Effect_Roll_Ptn;
-
-		public int[] Game_Effect_NotesFlash = new int[] { 180, 180, 12 }; // Width, Height, Ptn
-		public int Game_Effect_NotesFlash_Timer = 20;
-
-		public int[] Game_Effect_FireWorks = new int[] { 180, 180, 10 };
-		public int Game_Effect_FireWorks_Timer = 5;
-		public bool Game_Effect_FireWorks_AddBlend = true;
-		public int Game_Effect_FireWorks_Timing = 8;
-
-		public int Game_Effect_Rainbow_Timer = 7;
-
-		public bool Game_Effect_HitExplosion_AddBlend = true;
-		public bool Game_Effect_HitExplosionBig_AddBlend = true;
-		public int[] Game_Effect_Fire = new int[] { 230, 230, 8 };
-		public bool Game_Effect_Fire_AddBlend = true;
 		#endregion
 		#endregion
 		#region Result

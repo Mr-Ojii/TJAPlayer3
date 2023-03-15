@@ -43,7 +43,7 @@ namespace TJAPlayer3
 			this.nDefaultJudgePos[0,1] = TJAPlayer3.Skin.nScrollFieldY[0];
 			this.nDefaultJudgePos[1,0] = TJAPlayer3.Skin.nScrollFieldX[1];
 			this.nDefaultJudgePos[1,1] = TJAPlayer3.Skin.nScrollFieldY[1];
-			this.ctゴーゴー炎 = new CCounter(0, TJAPlayer3.Skin.Game_Effect_Fire[2], 50, TJAPlayer3.Timer);
+			this.ctゴーゴー炎 = new CCounter(0, TJAPlayer3.Skin.SkinConfig.Game.Effect.Fire.Ptn, 50, TJAPlayer3.Timer);
 			base.On活性化();
 		}
 
@@ -715,12 +715,12 @@ namespace TJAPlayer3
 						if (this.ctゴーゴー.b終了値に達した)
 						{
 							TJAPlayer3.Tx.Effects_Fire.vcScaling = Vector2.One;
-							TJAPlayer3.Tx.Effects_Fire.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[i] - (TJAPlayer3.Skin.Game_Effect_Fire[0] / 2), TJAPlayer3.Skin.nJudgePointY[i] - (TJAPlayer3.Skin.Game_Effect_Fire[1] / 2), new Rectangle(TJAPlayer3.Skin.Game_Effect_Fire[0] * (this.ctゴーゴー炎.n現在の値), 0, TJAPlayer3.Skin.Game_Effect_Fire[0], TJAPlayer3.Skin.Game_Effect_Fire[1]));
+							TJAPlayer3.Tx.Effects_Fire.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.nScrollFieldX[i] - (TJAPlayer3.Skin.SkinConfig.Game.Effect.Fire.Width / 2), TJAPlayer3.Skin.nJudgePointY[i] - (TJAPlayer3.Skin.SkinConfig.Game.Effect.Fire.Height / 2), new Rectangle(TJAPlayer3.Skin.SkinConfig.Game.Effect.Fire.Width * (this.ctゴーゴー炎.n現在の値), 0, TJAPlayer3.Skin.SkinConfig.Game.Effect.Fire.Width, TJAPlayer3.Skin.SkinConfig.Game.Effect.Fire.Height));
 						}
 						else
 						{
 							TJAPlayer3.Tx.Effects_Fire.vcScaling = new Vector2( f倍率 );
-							TJAPlayer3.Tx.Effects_Fire.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.nScrollFieldX[i], TJAPlayer3.Skin.nJudgePointY[i], new Rectangle(TJAPlayer3.Skin.Game_Effect_Fire[0] * (this.ctゴーゴー炎.n現在の値), 0, TJAPlayer3.Skin.Game_Effect_Fire[0], TJAPlayer3.Skin.Game_Effect_Fire[1]));
+							TJAPlayer3.Tx.Effects_Fire.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.nScrollFieldX[i], TJAPlayer3.Skin.nJudgePointY[i], new Rectangle(TJAPlayer3.Skin.SkinConfig.Game.Effect.Fire.Width * (this.ctゴーゴー炎.n現在の値), 0, TJAPlayer3.Skin.SkinConfig.Game.Effect.Fire.Width, TJAPlayer3.Skin.SkinConfig.Game.Effect.Fire.Height));
 						}
 					}
 				}

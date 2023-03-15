@@ -25,14 +25,14 @@ namespace TJAPlayer3
 					if (!this.Rainbow1P[i].IsUsing && player == 0)
 					{
 						this.Rainbow1P[i].IsUsing = true;
-						this.Rainbow1P[i].Counter = new CCounter(0, 164, TJAPlayer3.Skin.Game_Effect_Rainbow_Timer, TJAPlayer3.Timer); // カウンタ
+						this.Rainbow1P[i].Counter = new CCounter(0, 164, TJAPlayer3.Skin.SkinConfig.Game.Effect.Rainbow.Timer, TJAPlayer3.Timer); // カウンタ
 						this.Rainbow1P[i].Player = player;
 						break;
 					}
 					if (!this.Rainbow2P[i].IsUsing && player == 1)
 					{
 						this.Rainbow2P[i].IsUsing = true;
-						this.Rainbow2P[i].Counter = new CCounter(0, 164, TJAPlayer3.Skin.Game_Effect_Rainbow_Timer, TJAPlayer3.Timer); // カウンタ
+						this.Rainbow2P[i].Counter = new CCounter(0, 164, TJAPlayer3.Skin.SkinConfig.Game.Effect.Rainbow.Timer, TJAPlayer3.Timer); // カウンタ
 						this.Rainbow2P[i].Player = player;
 						break;
 					}

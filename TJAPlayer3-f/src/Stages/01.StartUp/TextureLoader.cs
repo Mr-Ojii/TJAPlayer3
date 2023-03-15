@@ -520,15 +520,15 @@ namespace TJAPlayer3
 			#endregion
 			#region エフェクト
 			Effects_Hit_Explosion = TxC(GAME + EFFECTS + @"Hit/Explosion.png");
-			if (Effects_Hit_Explosion != null) Effects_Hit_Explosion.eBlendMode = TJAPlayer3.Skin.Game_Effect_HitExplosion_AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
+			if (Effects_Hit_Explosion != null) Effects_Hit_Explosion.eBlendMode = TJAPlayer3.Skin.SkinConfig.Game.Effect.HitExplosion.AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
 			Effects_Hit_Explosion_Big = TxC(GAME + EFFECTS + @"Hit/Explosion_Big.png");
-			if (Effects_Hit_Explosion_Big != null) Effects_Hit_Explosion_Big.eBlendMode = TJAPlayer3.Skin.Game_Effect_HitExplosionBig_AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
+			if (Effects_Hit_Explosion_Big != null) Effects_Hit_Explosion_Big.eBlendMode = TJAPlayer3.Skin.SkinConfig.Game.Effect.HitExplosion.BigAddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
 			Effects_Hit_FireWorks = TxC(GAME + EFFECTS + @"Hit/FireWorks.png");
-			if (Effects_Hit_FireWorks != null) Effects_Hit_FireWorks.eBlendMode = TJAPlayer3.Skin.Game_Effect_FireWorks_AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
+			if (Effects_Hit_FireWorks != null) Effects_Hit_FireWorks.eBlendMode = TJAPlayer3.Skin.SkinConfig.Game.Effect.FireWorks.AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
 
 
 			Effects_Fire = TxC(GAME + EFFECTS + @"Fire.png");
-			if (Effects_Fire != null) Effects_Fire.eBlendMode = TJAPlayer3.Skin.Game_Effect_Fire_AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
+			if (Effects_Fire != null) Effects_Fire.eBlendMode = TJAPlayer3.Skin.SkinConfig.Game.Effect.Fire.AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
 
 			Effects_Rainbow = TxC(GAME + EFFECTS + @"Rainbow.png");
 
