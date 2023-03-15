@@ -3,6 +3,9 @@ Name = "Default"
 Version = "0.9"
 Creator = "Mr-Ojii"
 
+[Sound]
+SENames = [ "太鼓", "クイーカ", "ウッドブロック" ]
+
 [SongSelect]
 BackBoxTextCorrectionY = 40
 RotateChara = [ "≠", "【", "】", ":", "ー", "-", "~", "～", "<", ">", "(", ")", "[", "]", "「", "」", "（", "）", "＜", "＞", " ", "　", "『", "』" ]

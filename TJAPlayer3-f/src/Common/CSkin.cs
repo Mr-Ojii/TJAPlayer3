@@ -382,48 +382,12 @@ namespace TJAPlayer3
 			return strSystemSkinRoot;
 		}
 
-
 		/// <summary>
 		/// 音色用文字列の読み込み用
 		/// </summary>
 		public void SEloader()
 		{
 			this.SECount = TJAPlayer3.t連番フォルダの個数を数える(CSkin.Path(@"Sounds/Taiko/"));
-			string strFilename = CSkin.Path(@"Sounds/Taiko/SElist.csv");
-
-			if (!File.Exists(strFilename))
-			{
-				string[] splitstr = new string[this.SECount];
-				for (int i = 0; i < this.SECount; i++)
-					splitstr[i] = "無名";
-				this.SENames = splitstr;
-			}
-			else
-			{
-				string str = CJudgeTextEncoding.ReadTextFile(strFilename);
-				str = str.Replace(CJudgeTextEncoding.JudgeNewLine(str), "\n");
-				str = str.Replace(',', '\n');
-				string[] splitstr = str.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-
-				if (splitstr.Length < this.SECount)//SEの数より配列数が少なかったとき
-				{
-					string[] splitstrtmp = new string[this.SECount];
-
-					for (int i = 0; i < splitstrtmp.Length; i++)
-					{
-						if (i < splitstr.Length)
-						{
-							splitstrtmp[i] = splitstr[i];
-						}
-						else
-						{
-							splitstrtmp[i] = "無名";
-						}
-					}
-					splitstr = splitstrtmp;
-				}
-				this.SENames = splitstr;
-			}
 		}
 
 		/// <summary>
@@ -834,6 +798,11 @@ namespace TJAPlayer3
 			{
 				public int EdgeRatio { get; set; } = 30;
 				public int EdgeRatioVertical { get; set; } = 30;
+			}
+			public CSound Sound { get; set; } = new();
+			public class CSound
+			{
+				public string[] SENames { get; set; } = new string[] {};
 			}
 			public CTitle Title { get; set; } = new();
 			public class CTitle
@@ -1438,7 +1407,6 @@ namespace TJAPlayer3
 
 		public int SECount = 0;
 		public int[] NowSENum = { 0, 0 };
-		public string[] SENames;
 
 	}
 }

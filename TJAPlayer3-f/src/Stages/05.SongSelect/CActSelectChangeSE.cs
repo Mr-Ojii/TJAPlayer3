@@ -57,7 +57,10 @@ namespace TJAPlayer3
 				using (var font = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, 30))
 					for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)
 					{
-						using (var bmp = font.DrawText(TJAPlayer3.Skin.SENames[i], Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+						string SEName = "無名";
+						if(i < TJAPlayer3.Skin.SkinConfig.Sound.SENames.Length)
+							SEName = TJAPlayer3.Skin.SkinConfig.Sound.SENames[i];
+						using (var bmp = font.DrawText(SEName, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
 							this.SENameList[i] = TJAPlayer3.tCreateTexture(bmp);
 					}
 
