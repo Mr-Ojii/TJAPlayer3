@@ -98,11 +98,11 @@ namespace TJAPlayer3
 
 			if (TJAPlayer3.ConfigIni.bEnableSkinV2)
 			{
-				if (TJAPlayer3.Skin.SkinConfig.Result._v2MusicNameReferencePoint == CSkin.ReferencePoint.Center)
+				if (TJAPlayer3.Skin.SkinConfig.Result._v2MusicNameReferencePoint == CSkin.EReferencePoint.Center)
 				{
 					this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.v2MusicNameX - ((this.txMusicName.szTextureSize.Width * txMusicName.vcScaling.X) / 2), TJAPlayer3.Skin.SkinConfig.Result.v2MusicNameY);
 				}
-				else if (TJAPlayer3.Skin.SkinConfig.Result._v2MusicNameReferencePoint == CSkin.ReferencePoint.Left)
+				else if (TJAPlayer3.Skin.SkinConfig.Result._v2MusicNameReferencePoint == CSkin.EReferencePoint.Left)
 				{
 					this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.v2MusicNameX, TJAPlayer3.Skin.SkinConfig.Result.v2MusicNameY);
 				}
@@ -113,11 +113,11 @@ namespace TJAPlayer3
 			}
 			else
 			{
-				if (TJAPlayer3.Skin.SkinConfig.Result._MusicNameReferencePoint == CSkin.ReferencePoint.Center)
+				if (TJAPlayer3.Skin.SkinConfig.Result._MusicNameReferencePoint == CSkin.EReferencePoint.Center)
 				{
 					this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.MusicNameX - ((this.txMusicName.szTextureSize.Width * txMusicName.vcScaling.X) / 2), TJAPlayer3.Skin.SkinConfig.Result.MusicNameY);
 				}
-				else if (TJAPlayer3.Skin.SkinConfig.Result._MusicNameReferencePoint == CSkin.ReferencePoint.Left)
+				else if (TJAPlayer3.Skin.SkinConfig.Result._MusicNameReferencePoint == CSkin.EReferencePoint.Left)
 				{
 					this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.MusicNameX, TJAPlayer3.Skin.SkinConfig.Result.MusicNameY);
 				}
@@ -128,11 +128,11 @@ namespace TJAPlayer3
 
 				if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan)
 				{
-					if (TJAPlayer3.Skin.SkinConfig.Result._StageTextReferencePoint == CSkin.ReferencePoint.Center)
+					if (TJAPlayer3.Skin.SkinConfig.Result._StageTextReferencePoint == CSkin.EReferencePoint.Center)
 					{
 						this.txStageText.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.StageTextX - ((this.txStageText.szTextureSize.Width * txStageText.vcScaling.X) / 2), TJAPlayer3.Skin.SkinConfig.Result.StageTextY);
 					}
-					else if (TJAPlayer3.Skin.SkinConfig.Result._StageTextReferencePoint == CSkin.ReferencePoint.Right)
+					else if (TJAPlayer3.Skin.SkinConfig.Result._StageTextReferencePoint == CSkin.EReferencePoint.Right)
 					{
 						this.txStageText.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.StageTextX - this.txStageText.szTextureSize.Width, TJAPlayer3.Skin.SkinConfig.Result.StageTextY);
 					}

@@ -4533,7 +4533,7 @@ namespace TJAPlayer3
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
 								{
 #region[末端をテクスチャ側でつなげる場合の方式]
-									if (TJAPlayer3.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
+									if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode != CSkin.ERollColorMode.None)
 										TJAPlayer3.Tx.Notes.color = effectedColor;
 									else
 										TJAPlayer3.Tx.Notes.color = normalColor;
@@ -4545,7 +4545,7 @@ namespace TJAPlayer3
 
 									TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(910, num9, 130, 130));
 
-									if (TJAPlayer3.Skin.Game_RollColorMode == CSkin.RollColorMode.All)
+									if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode == CSkin.ERollColorMode.All)
 										TJAPlayer3.Tx.Notes.color = effectedColor;
 									else
 										TJAPlayer3.Tx.Notes.color = normalColor;
@@ -4569,7 +4569,7 @@ namespace TJAPlayer3
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
 								{
 #region[末端をテクスチャ側でつなげる場合の方式]
-									if (TJAPlayer3.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
+									if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode != CSkin.ERollColorMode.None)
 										TJAPlayer3.Tx.Notes.color = effectedColor;
 									else
 										TJAPlayer3.Tx.Notes.color = normalColor;
@@ -4581,7 +4581,7 @@ namespace TJAPlayer3
 
 									TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 - 130 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(910, num9, 130, 130));
 
-									if (TJAPlayer3.Skin.Game_RollColorMode == CSkin.RollColorMode.All)
+									if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode == CSkin.ERollColorMode.All)
 										TJAPlayer3.Tx.Notes.color = effectedColor;
 									else
 										TJAPlayer3.Tx.Notes.color = normalColor;
@@ -4609,7 +4609,7 @@ namespace TJAPlayer3
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
 								{
 #region[末端をテクスチャ側でつなげる場合の方式]
-									if (TJAPlayer3.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
+									if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode != CSkin.ERollColorMode.None)
 										TJAPlayer3.Tx.Notes.color = effectedColor;
 									else
 										TJAPlayer3.Tx.Notes.color = normalColor;
@@ -4621,7 +4621,7 @@ namespace TJAPlayer3
 									TJAPlayer3.Tx.Notes.vcScaling.X = 1.0f;
 									TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(1300, num9, 130, 130));
 
-									if (TJAPlayer3.Skin.Game_RollColorMode == CSkin.RollColorMode.All)
+									if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode == CSkin.ERollColorMode.All)
 										TJAPlayer3.Tx.Notes.color = effectedColor;
 									else
 										TJAPlayer3.Tx.Notes.color = normalColor;
@@ -4645,7 +4645,7 @@ namespace TJAPlayer3
 								if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
 								{
 #region[末端をテクスチャ側でつなげる場合の方式]
-									if (TJAPlayer3.Skin.Game_RollColorMode != CSkin.RollColorMode.None)
+									if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode != CSkin.ERollColorMode.None)
 										TJAPlayer3.Tx.Notes.color = effectedColor;
 									else
 										TJAPlayer3.Tx.Notes.color = normalColor;
@@ -4657,7 +4657,7 @@ namespace TJAPlayer3
 									TJAPlayer3.Tx.Notes.vcScaling.X = 1.0f;
 									TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 - 130 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(1300, num9, 130, 130));
 
-									if (TJAPlayer3.Skin.Game_RollColorMode == CSkin.RollColorMode.All)
+									if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode == CSkin.ERollColorMode.All)
 										TJAPlayer3.Tx.Notes.color = effectedColor;
 									else
 										TJAPlayer3.Tx.Notes.color = normalColor;

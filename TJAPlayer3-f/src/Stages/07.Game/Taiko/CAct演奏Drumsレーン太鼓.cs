@@ -689,7 +689,7 @@ namespace TJAPlayer3
 				{
 					int nJudgeX = TJAPlayer3.Skin.nScrollFieldX[i] - 65; //元の値は349なんだけど...
 					int nJudgeY = TJAPlayer3.Skin.nScrollFieldY[i];
-					TJAPlayer3.Tx.Judge_Frame.eBlendMode = TJAPlayer3.Skin.Game_JudgeFrame_AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
+					TJAPlayer3.Tx.Judge_Frame.eBlendMode = TJAPlayer3.Skin.SkinConfig.Game.JudgeFrameAddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
 					TJAPlayer3.Tx.Judge_Frame.t2D描画(TJAPlayer3.app.Device, nJudgeX, nJudgeY, new Rectangle(0, 0, 130, 130));
 				}
 			}

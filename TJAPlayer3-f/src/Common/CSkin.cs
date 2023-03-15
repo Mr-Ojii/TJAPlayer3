@@ -827,21 +827,7 @@ namespace TJAPlayer3
 							{
 								this.nJudgePointY[1] = int.Parse(strParam);
 							}
-
 							//-----------------------------
-							#endregion
-
-							#region 新・SkinConfig
-							#region Game
-							else if (strCommand == nameof(Game_RollColorMode))
-							{
-								Game_RollColorMode = (RollColorMode)int.Parse(strParam);
-							}
-							else if (strCommand == nameof(Game_JudgeFrame_AddBlend))
-							{
-								Game_JudgeFrame_AddBlend = strParam[0].ToBool();
-							}
-							#endregion
 							#endregion
 						}
 						continue;
@@ -1026,15 +1012,15 @@ namespace TJAPlayer3
 				public int SubTitleY { get; set; } = 390;
 				public int TitleFontSize { get; set; } = 30;
 				public int SubTitleFontSize { get; set; } = 22;
-				public int PlateReferencePoint { get{ return (int)this._PlateReferencePoint; } set{ this._PlateReferencePoint = (ReferencePoint)value; } }
-				public int TitleReferencePoint { get{ return (int)this._TitleReferencePoint; } set{ this._TitleReferencePoint = (ReferencePoint)value; } }
-				public int SubTitleReferencePoint { get{ return (int)this._SubTitleReferencePoint; } set{ this._SubTitleReferencePoint = (ReferencePoint)value; } }
+				public int PlateReferencePoint { get{ return (int)this._PlateReferencePoint; } set{ this._PlateReferencePoint = (EReferencePoint)value; } }
+				public int TitleReferencePoint { get{ return (int)this._TitleReferencePoint; } set{ this._TitleReferencePoint = (EReferencePoint)value; } }
+				public int SubTitleReferencePoint { get{ return (int)this._SubTitleReferencePoint; } set{ this._SubTitleReferencePoint = (EReferencePoint)value; } }
 				[IgnoreDataMember]
-				public ReferencePoint _PlateReferencePoint { get; set; } = ReferencePoint.Center;
+				public EReferencePoint _PlateReferencePoint { get; set; } = EReferencePoint.Center;
 				[IgnoreDataMember]
-				public ReferencePoint _TitleReferencePoint { get; set; } = ReferencePoint.Center;
+				public EReferencePoint _TitleReferencePoint { get; set; } = EReferencePoint.Center;
 				[IgnoreDataMember]
-				public ReferencePoint _SubTitleReferencePoint { get; set; } = ReferencePoint.Center;
+				public EReferencePoint _SubTitleReferencePoint { get; set; } = EReferencePoint.Center;
 				public string TitleForeColor { get{ return ColorTranslator.ToHtml(this._TitleForeColor); } set{ this._TitleForeColor = ColorTranslator.FromHtml(value); } }
 				public string TitleBackColor { get{ return ColorTranslator.ToHtml(this._TitleBackColor); } set{ this._TitleBackColor = ColorTranslator.FromHtml(value); } }
 				public string SubTitleForeColor { get{ return ColorTranslator.ToHtml(this._SubTitleForeColor); } set{ this._SubTitleForeColor = ColorTranslator.FromHtml(value); } }
@@ -1054,19 +1040,24 @@ namespace TJAPlayer3
 				public int v2TitleY { get; set; } = 180;
 				public int v2SubTitleX { get; set; } = 640;
 				public int v2SubTitleY { get; set; } = 230;
-				public int v2PlateReferencePoint { get{ return (int)this._v2PlateReferencePoint; } set{ this._v2PlateReferencePoint = (ReferencePoint)value; } }
-				public int v2TitleReferencePoint { get{ return (int)this._v2TitleReferencePoint; } set{ this._v2TitleReferencePoint = (ReferencePoint)value; } }
-				public int v2SubTitleReferencePoint { get{ return (int)this._v2SubTitleReferencePoint; } set{ this._v2SubTitleReferencePoint = (ReferencePoint)value; } }
+				public int v2PlateReferencePoint { get{ return (int)this._v2PlateReferencePoint; } set{ this._v2PlateReferencePoint = (EReferencePoint)value; } }
+				public int v2TitleReferencePoint { get{ return (int)this._v2TitleReferencePoint; } set{ this._v2TitleReferencePoint = (EReferencePoint)value; } }
+				public int v2SubTitleReferencePoint { get{ return (int)this._v2SubTitleReferencePoint; } set{ this._v2SubTitleReferencePoint = (EReferencePoint)value; } }
 				[IgnoreDataMember]
-				public ReferencePoint _v2PlateReferencePoint { get; set; } = ReferencePoint.Center;
+				public EReferencePoint _v2PlateReferencePoint { get; set; } = EReferencePoint.Center;
 				[IgnoreDataMember]
-				public ReferencePoint _v2TitleReferencePoint { get; set; } = ReferencePoint.Center;
+				public EReferencePoint _v2TitleReferencePoint { get; set; } = EReferencePoint.Center;
 				[IgnoreDataMember]
-				public ReferencePoint _v2SubTitleReferencePoint { get; set; } = ReferencePoint.Center;
+				public EReferencePoint _v2SubTitleReferencePoint { get; set; } = EReferencePoint.Center;
 			}
 			public CGame Game { get; set; } = new();
 			public class CGame
 			{
+				public int RollColorMode { get{ return (int)this._RollColorMode; } set{ this._RollColorMode = (ERollColorMode)value; } }
+				[IgnoreDataMember]
+				public ERollColorMode _RollColorMode { get; set; } = ERollColorMode.All;
+				public bool JudgeFrameAddBlend { get; set; } = true;
+
 				public bool NotesAnime { get; set; } = false;
 				public CChara Chara { get; set; } = new();
 				public class CChara
@@ -1112,16 +1103,16 @@ namespace TJAPlayer3
 					public int MusicNameX { get; set; } = 1254;
 					public int MusicNameY { get; set; } = 14;
 					public int MusicNameFontSize { get; set; } = 30;
-					public int MusicNameReferencePoint { get{ return (int)this._MusicNameReferencePoint; } set{ this._MusicNameReferencePoint = (ReferencePoint)value; } }
+					public int MusicNameReferencePoint { get{ return (int)this._MusicNameReferencePoint; } set{ this._MusicNameReferencePoint = (EReferencePoint)value; } }
 					[IgnoreDataMember]
-					public ReferencePoint _MusicNameReferencePoint { get; set; } = ReferencePoint.Right;
+					public EReferencePoint _MusicNameReferencePoint { get; set; } = EReferencePoint.Right;
 					
 					public int SubTitleNameX { get; set; } = 1114;
 					public int SubTitleNameY { get; set; }= 70;
 					public int SubTitleNameFontSize { get; set; } = 15;
-					public int SubTitleNameReferencePoint { get{ return (int)this._SubTitleNameReferencePoint; } set{ this._SubTitleNameReferencePoint = (ReferencePoint)value; } }
+					public int SubTitleNameReferencePoint { get{ return (int)this._SubTitleNameReferencePoint; } set{ this._SubTitleNameReferencePoint = (EReferencePoint)value; } }
 					[IgnoreDataMember]
-					public ReferencePoint _SubTitleNameReferencePoint { get; set; } = ReferencePoint.Right;
+					public EReferencePoint _SubTitleNameReferencePoint { get; set; } = EReferencePoint.Right;
 
 					public int GenreX { get; set; } = 1114;
 					public int GenreY { get; set; } = 74;
@@ -1129,9 +1120,9 @@ namespace TJAPlayer3
 					public int LyricY { get; set; } = 630;
 					public string LyricFontName { get; set; } = CFontRenderer.DefaultFontName;
 					public int LyricFontSize { get; set; } = 38;
-					public int LyricReferencePoint { get{ return (int)this._LyricReferencePoint; } set{ this._LyricReferencePoint = (ReferencePoint)value; } }
+					public int LyricReferencePoint { get{ return (int)this._LyricReferencePoint; } set{ this._LyricReferencePoint = (EReferencePoint)value; } }
 					[IgnoreDataMember]
-					public ReferencePoint _LyricReferencePoint { get; set; } = ReferencePoint.Center;
+					public EReferencePoint _LyricReferencePoint { get; set; } = EReferencePoint.Center;
 					
 					public string StageText { get; set; } = "1曲目";
 					public bool StageTextDisp { get; set; } = true;
@@ -1425,15 +1416,15 @@ namespace TJAPlayer3
 				public int MusicNameX { get; set; } = 1254;
 				public int MusicNameY { get; set; } = 6;
 				public int MusicNameFontSize { get; set; } = 30;
-				public int MusicNameReferencePoint { get{ return (int)this._MusicNameReferencePoint; } set{ this._MusicNameReferencePoint = (ReferencePoint)value; } }
+				public int MusicNameReferencePoint { get{ return (int)this._MusicNameReferencePoint; } set{ this._MusicNameReferencePoint = (EReferencePoint)value; } }
 				[IgnoreDataMember]
-				public ReferencePoint _MusicNameReferencePoint { get; set; } = ReferencePoint.Right;
+				public EReferencePoint _MusicNameReferencePoint { get; set; } = EReferencePoint.Right;
 				public int StageTextX { get; set; } = 230;
 				public int StageTextY { get; set; } = 6;
 				public int StageTextFontSize { get; set; } = 30;
-				public int StageTextReferencePoint { get{ return (int)this._StageTextReferencePoint; } set{ this._StageTextReferencePoint = (ReferencePoint)value; } }
+				public int StageTextReferencePoint { get{ return (int)this._StageTextReferencePoint; } set{ this._StageTextReferencePoint = (EReferencePoint)value; } }
 				[IgnoreDataMember]
-				public ReferencePoint _StageTextReferencePoint { get; set; } = ReferencePoint.Left;
+				public EReferencePoint _StageTextReferencePoint { get; set; } = EReferencePoint.Left;
 				public string MusicNameForeColor { get{ return ColorTranslator.ToHtml(this._MusicNameForeColor); } set{ this._MusicNameForeColor = ColorTranslator.FromHtml(value); } }
 				public string MusicNameBackColor { get{ return ColorTranslator.ToHtml(this._MusicNameBackColor); } set{ this._MusicNameBackColor = ColorTranslator.FromHtml(value); } }
 				public string StageTextForeColor { get{ return ColorTranslator.ToHtml(this._StageTextForeColor); } set{ this._StageTextForeColor = ColorTranslator.FromHtml(value); } }
@@ -1476,9 +1467,9 @@ namespace TJAPlayer3
 				public int[] v2GaugeBodyY { get; set; } = { 130, 130 };
 				public int v2MusicNameX { get; set; } = 640;
 				public int v2MusicNameY { get; set; } = 6;
-				public int v2MusicNameReferencePoint { get{ return (int)this._v2MusicNameReferencePoint; } set{ this._v2MusicNameReferencePoint = (ReferencePoint)value; } }
+				public int v2MusicNameReferencePoint { get{ return (int)this._v2MusicNameReferencePoint; } set{ this._v2MusicNameReferencePoint = (EReferencePoint)value; } }
 				[IgnoreDataMember]
-				public ReferencePoint _v2MusicNameReferencePoint { get; set; } = ReferencePoint.Center;
+				public EReferencePoint _v2MusicNameReferencePoint { get; set; } = EReferencePoint.Center;
 				public int[] v2NamePlateX { get; set; } = new int[] { 20, 1000 };
 				public int[] v2NamePlateY { get; set; } = new int[] { 610, 610 };
 				public int[] v2CrownX { get; set; } = new int[] { 270, 910 };
@@ -1516,24 +1507,19 @@ namespace TJAPlayer3
 		public int[] nSENotesY = new int[] { 131, 131 };
 		#endregion
 
-		public enum RollColorMode : int
+		public enum ERollColorMode : int
 		{
 			None = 0, // PS4, Switchなど
 			All = 1, // 旧筐体(旧作含む)
 			WithoutStart = 2, // 新筐体
 		}
-		public enum ReferencePoint : int //テクスチャ描画の基準点を変更可能にするための値(rhimm)
+		public enum EReferencePoint : int //テクスチャ描画の基準点を変更可能にするための値(rhimm)
 		{
 			Center = 0,
 			Left = 1,
 			Right = 2,
 		}
 
-		#region 新・SkinConfig
-		#region Game
-		public RollColorMode Game_RollColorMode = RollColorMode.All;
-		public bool Game_JudgeFrame_AddBlend = true;
-		#region Chara
 		public int[] Game_Chara_Ptn_Normal = new int[2],
 			Game_Chara_Ptn_GoGo = new int[2],
 			Game_Chara_Ptn_Clear = new int[2],
@@ -1546,25 +1532,15 @@ namespace TJAPlayer3
 			Game_Chara_Ptn_Balloon_Breaking = new int[2],
 			Game_Chara_Ptn_Balloon_Broke = new int[2],
 			Game_Chara_Ptn_Balloon_Miss = new int[2];
-		#endregion
-		#region Dancer
 		public int Game_Dancer_Ptn = 0;
-		#endregion
-		#region Mob
 		public int Game_Mob_Ptn = 0;
-		#endregion
-		#region Gauge
 		public int Game_Gauge_Rainbow_Ptn;
 		public int Game_Gauge_Rainbow_Danc_Ptn;
-		#endregion
-		#region Effects
 		public int Game_Effect_Roll_Ptn;
-		#endregion
-		#endregion
+
 		public int SECount = 0;
 		public int[] NowSENum = { 0, 0 };
 		public string[] SENames;
-		#endregion
 
 	}
 }
