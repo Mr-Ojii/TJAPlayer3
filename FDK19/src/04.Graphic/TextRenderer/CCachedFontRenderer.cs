@@ -15,25 +15,15 @@ namespace FDK
 	public class CCachedFontRenderer : CFontRenderer
 	{
 		#region [ コンストラクタ ]
-		public CCachedFontRenderer( string fontpath, int pt, CFontRenderer.FontStyle style )
-		{
-			Initialize( fontpath, pt, style );
-		}
 		public CCachedFontRenderer( string fontpath, int pt )
+			: this(fontpath, pt, CFontRenderer.FontStyle.Regular)
 		{
-			Initialize( fontpath, pt, CFontRenderer.FontStyle.Regular );
 		}
-		public CCachedFontRenderer()
-		{
-			throw new ArgumentException("CCachedFontRenderer: 引数があるコンストラクタを使用してください。");
-		}
-		#endregion
-		#region [ コンストラクタから呼ばれる初期化処理 ]
-		protected new void Initialize( string fontpath, int pt, CFontRenderer.FontStyle style )
+		public CCachedFontRenderer( string fontpath, int pt, CFontRenderer.FontStyle style )
+			: base(fontpath, pt, style)
 		{
 			this.bDisposed_CCachedFontRenderer = false;
 			this.listFontCache = new List<FontCache>();
-			base.Initialize( fontpath, pt, style );
 		}
 		#endregion
 

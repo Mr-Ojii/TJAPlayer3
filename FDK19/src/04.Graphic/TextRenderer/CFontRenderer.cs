@@ -80,21 +80,11 @@ namespace FDK
 		}
 
 		#region [ コンストラクタ ]
-		public CFontRenderer(string fontpath, int pt, FontStyle style)
-		{
-			Initialize(fontpath, pt, style);
-		}
 		public CFontRenderer(string fontpath, int pt)
+			: this(fontpath, pt, FontStyle.Regular)
 		{
-			Initialize(fontpath, pt, FontStyle.Regular);
 		}
-		public CFontRenderer()
-		{
-			//throw new ArgumentException("CFontRenderer: 引数があるコンストラクタを使用してください。");
-		}
-		#endregion
-
-		protected void Initialize(string fontpath, int pt, FontStyle style)
+		public CFontRenderer(string fontpath, int pt, FontStyle style)
 		{
 			try
 			{
@@ -118,6 +108,7 @@ namespace FDK
 				throw;
 			}
 		}
+		#endregion
 
 		public Image<Rgba32> DrawText(string drawstr, Color fontColor)
 		{
