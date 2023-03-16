@@ -21,6 +21,19 @@ namespace FDK.Windowing
             private set;
         }
 
+        public Size LogicalSize
+        {
+            get
+            {
+                SDL.SDL_RenderGetLogicalSize(_renderer_handle, out int width, out int height);
+                return new Size(width, height);
+            }
+            set
+            {
+                SDL.SDL_RenderSetLogicalSize(_renderer_handle, value.Width, value.Height);
+            }
+        }
+
         public Size ClientSize
         {
             get
