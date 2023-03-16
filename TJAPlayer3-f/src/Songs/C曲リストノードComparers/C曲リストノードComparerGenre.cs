@@ -14,7 +14,7 @@ namespace TJAPlayer3.C曲リストノードComparers
 
 		public int Compare(C曲リストノード n1, C曲リストノード n2)
 		{
-			return CStrGenreToNum.Genre(n1.strGenre, order).CompareTo(CStrGenreToNum.Genre(n2.strGenre, order));
+			return TJAPlayer3.Skin.nStrGenreToNumForSort(n1.strGenre, order).CompareTo(TJAPlayer3.Skin.nStrGenreToNumForSort(n2.strGenre, order));
 		}
 
 		private readonly int order;

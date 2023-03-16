@@ -415,12 +415,7 @@ namespace TJAPlayer3
 					this.GenreKeyPairs = tmp;
 			}
 
-			int max = -1;
-			foreach (KeyValuePair<string, int> i in GenreKeyPairs)
-			{
-				max = Math.Max(i.Value, max);
-			}
-			this.MaxKeyNum = max;
+			this.MaxKeyNum = this.GenreKeyPairs.Count != 0 ? this.GenreKeyPairs.Values.Max() : -1;
 		}
 
 		/// <summary>
@@ -479,6 +474,18 @@ namespace TJAPlayer3
 				return (num + 1);
 			else
 				return 0;
+		}
+
+		public int nStrGenreToNumForSort(string strGenre, int order)
+		{
+			Dictionary<string, int> Dic = this.SortList.ElementAt(order).Value;
+
+            int maxValue = Dic.Count != 0 ? Dic.Values.Max() : -1;
+
+			if (Dic.TryGetValue(strGenre, out var value))
+				return value;
+			else
+				return maxValue + 1;
 		}
 
 		/// <summary>
