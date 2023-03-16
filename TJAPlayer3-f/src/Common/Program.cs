@@ -21,12 +21,11 @@ namespace TJAPlayer3
 		internal static string SkinVersion = "Unknown";
 		internal static string SkinCreator = "Unknown";
 		internal static string Renderer = "Unknown";
-		private static Mutex mutex;
 
 		[STAThread]
 		private static void Main()
 		{
-			mutex = new Mutex(false, "Global\\TJAPlayer3-f-Ver." + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+			Mutex mutex = new Mutex(false, "Global\\TJAPlayer3-f-Ver." + Assembly.GetExecutingAssembly().GetName().Version.ToString());
 
 			if (mutex.WaitOne(0, false))
             {
