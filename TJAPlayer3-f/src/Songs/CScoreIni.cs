@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
-using System.Drawing;
 using System.Diagnostics;
 using System.IO;
-using System.Security.Cryptography;
-using FDK;
 using FDK.ExtensionMethods;
 
 namespace TJAPlayer3
@@ -79,7 +75,6 @@ namespace TJAPlayer3
         }
         public class C演奏記録
         {
-            public bool bDrums有効;
             public bool bTight;
             public bool b演奏にMIDIInputを使用した;
             public bool b演奏にKeyBoardを使用した;
@@ -132,7 +127,6 @@ namespace TJAPlayer3
                 this.f譜面スクロール速度 = 1f;
                 this.n演奏速度分子 = 20;
                 this.n演奏速度分母 = 20;
-                this.bDrums有効 = true;
                 this.nPerfectになる範囲ms = 34;
                 this.nGreatになる範囲ms = 67;
                 this.nGoodになる範囲ms = 84;
@@ -482,250 +476,241 @@ namespace TJAPlayer3
                                     #endregion
                                     else
                                     {
-                                        #region [ Drums ]
-                                        if (item.Equals("Drums"))
+                                        if (item.Equals("UseKeyboard"))
                                         {
-                                            c演奏記録.bDrums有効 = para[0].ToBool();
+                                            c演奏記録.b演奏にKeyBoardを使用した = para[0].ToBool();
                                         }
-                                        #endregion
-                                        else
+                                        else if (item.Equals("UseMIDIIN"))
                                         {
-                                            if (item.Equals("UseKeyboard"))
-                                            {
-                                                c演奏記録.b演奏にKeyBoardを使用した = para[0].ToBool();
-                                            }
-                                            else if (item.Equals("UseMIDIIN"))
-                                            {
-                                                c演奏記録.b演奏にMIDIInputを使用した = para[0].ToBool();
-                                            }
-                                            else if (item.Equals("UseJoypad"))
-                                            {
-                                                c演奏記録.b演奏にJoypadを使用した = para[0].ToBool();
-                                            }
-                                            else if (item.Equals("UseMouse"))
-                                            {
-                                                c演奏記録.b演奏にMouseを使用した = para[0].ToBool();
-                                            }
-                                            else if (item.Equals("PerfectRange"))
-                                            {
-                                                c演奏記録.nPerfectになる範囲ms = int.Parse(para);
-                                            }
-                                            else if (item.Equals("GreatRange"))
-                                            {
-                                                c演奏記録.nGreatになる範囲ms = int.Parse(para);
-                                            }
-                                            else if (item.Equals("GoodRange"))
-                                            {
-                                                c演奏記録.nGoodになる範囲ms = int.Parse(para);
-                                            }
-                                            else if (item.Equals("PoorRange"))
-                                            {
-                                                c演奏記録.nPoorになる範囲ms = int.Parse(para);
-                                            }
-                                            else if (item.Equals("DTXManiaVersion"))
-                                            {
-                                                c演奏記録.strDTXManiaのバージョン = para;
-                                            }
-                                            else if (item.Equals("DateTime"))
-                                            {
-                                                c演奏記録.最終更新日時 = para;
-                                            }
-                                            else if (item.Equals("HiScore1"))
-                                            {
-                                                c演奏記録.nハイスコア[0] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("HiScore2"))
-                                            {
-                                                c演奏記録.nハイスコア[1] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("HiScore3"))
-                                            {
-                                                c演奏記録.nハイスコア[2] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("HiScore4"))
-                                            {
-                                                c演奏記録.nハイスコア[3] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("HiScore5"))
-                                            {
-                                                c演奏記録.nハイスコア[4] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("HiScore6"))
-                                            {
-                                                c演奏記録.nハイスコア[5] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("HiScore7"))
-                                            {
-                                                c演奏記録.nハイスコア[6] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("SecondScore1"))
-                                            {
-                                                c演奏記録.nSecondScore[0] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("SecondScore2"))
-                                            {
-                                                c演奏記録.nSecondScore[1] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("SecondScore3"))
-                                            {
-                                                c演奏記録.nSecondScore[2] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("SecondScore4"))
-                                            {
-                                                c演奏記録.nSecondScore[3] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("SecondScore5"))
-                                            {
-                                                c演奏記録.nSecondScore[4] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("SecondScore6"))
-                                            {
-                                                c演奏記録.nSecondScore[5] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("SecondScore7"))
-                                            {
-                                                c演奏記録.nSecondScore[6] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("ThirdScore1"))
-                                            {
-                                                c演奏記録.nThirdScore[0] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("ThirdScore2"))
-                                            {
-                                                c演奏記録.nThirdScore[1] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("ThirdScore3"))
-                                            {
-                                                c演奏記録.nThirdScore[2] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("ThirdScore4"))
-                                            {
-                                                c演奏記録.nThirdScore[3] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("ThirdScore5"))
-                                            {
-                                                c演奏記録.nThirdScore[4] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("ThirdScore6"))
-                                            {
-                                                c演奏記録.nThirdScore[5] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("ThirdScore7"))
-                                            {
-                                                c演奏記録.nThirdScore[6] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("HiScorerName1"))
-                                            {
-                                                c演奏記録.strHiScorerName[0] = para;
-                                            }
-                                            else if (item.Equals("HiScorerName2"))
-                                            {
-                                                c演奏記録.strHiScorerName[1] = para;
-                                            }
-                                            else if (item.Equals("HiScorerName3"))
-                                            {
-                                                c演奏記録.strHiScorerName[2] = para;
-                                            }
-                                            else if (item.Equals("HiScorerName4"))
-                                            {
-                                                c演奏記録.strHiScorerName[3] = para;
-                                            }
-                                            else if (item.Equals("HiScorerName5"))
-                                            {
-                                                c演奏記録.strHiScorerName[4] = para;
-                                            }
-                                            else if (item.Equals("HiScorerName6"))
-                                            {
-                                                c演奏記録.strHiScorerName[5] = para;
-                                            }
-                                            else if (item.Equals("HiScorerName7"))
-                                            {
-                                                c演奏記録.strHiScorerName[6] = para;
-                                            }
-                                            else if (item.Equals("SecondScorerName1"))
-                                            {
-                                                c演奏記録.strSecondScorerName[0] = para;
-                                            }
-                                            else if (item.Equals("SecondScorerName2"))
-                                            {
-                                                c演奏記録.strSecondScorerName[1] = para;
-                                            }
-                                            else if (item.Equals("SecondScorerName3"))
-                                            {
-                                                c演奏記録.strSecondScorerName[2] = para;
-                                            }
-                                            else if (item.Equals("SecondScorerName4"))
-                                            {
-                                                c演奏記録.strSecondScorerName[3] = para;
-                                            }
-                                            else if (item.Equals("SecondScorerName5"))
-                                            {
-                                                c演奏記録.strSecondScorerName[4] = para;
-                                            }
-                                            else if (item.Equals("SecondScorerName6"))
-                                            {
-                                                c演奏記録.strSecondScorerName[5] = para;
-                                            }
-                                            else if (item.Equals("SecondScorerName7"))
-                                            {
-                                                c演奏記録.strSecondScorerName[6] = para;
-                                            }
-                                            else if (item.Equals("ThirdScorerName1"))
-                                            {
-                                                c演奏記録.strThirdScorerName[0] = para;
-                                            }
-                                            else if (item.Equals("ThirdScorerName2"))
-                                            {
-                                                c演奏記録.strThirdScorerName[1] = para;
-                                            }
-                                            else if (item.Equals("ThirdScorerName3"))
-                                            {
-                                                c演奏記録.strThirdScorerName[2] = para;
-                                            }
-                                            else if (item.Equals("ThirdScorerName4"))
-                                            {
-                                                c演奏記録.strThirdScorerName[3] = para;
-                                            }
-                                            else if (item.Equals("ThirdScorerName5"))
-                                            {
-                                                c演奏記録.strThirdScorerName[4] = para;
-                                            }
-                                            else if (item.Equals("ThirdScorerName6"))
-                                            {
-                                                c演奏記録.strThirdScorerName[5] = para;
-                                            }
-                                            else if (item.Equals("ThirdScorerName7"))
-                                            {
-                                                c演奏記録.strThirdScorerName[6] = para;
-                                            }
-                                            else if (item.Equals("Crown1"))
-                                            {
-                                                c演奏記録.nCrown[0] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("Crown2"))
-                                            {
-                                                c演奏記録.nCrown[1] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("Crown3"))
-                                            {
-                                                c演奏記録.nCrown[2] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("Crown4"))
-                                            {
-                                                c演奏記録.nCrown[3] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("Crown5"))
-                                            {
-                                                c演奏記録.nCrown[4] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("Crown6"))
-                                            {
-                                                c演奏記録.nCrown[5] = int.Parse(para);
-                                            }
-                                            else if (item.Equals("Crown7"))
-                                            {
-                                                c演奏記録.nCrown[6] = int.Parse(para);
-                                            }
+                                            c演奏記録.b演奏にMIDIInputを使用した = para[0].ToBool();
+                                        }
+                                        else if (item.Equals("UseJoypad"))
+                                        {
+                                            c演奏記録.b演奏にJoypadを使用した = para[0].ToBool();
+                                        }
+                                        else if (item.Equals("UseMouse"))
+                                        {
+                                            c演奏記録.b演奏にMouseを使用した = para[0].ToBool();
+                                        }
+                                        else if (item.Equals("PerfectRange"))
+                                        {
+                                            c演奏記録.nPerfectになる範囲ms = int.Parse(para);
+                                        }
+                                        else if (item.Equals("GreatRange"))
+                                        {
+                                            c演奏記録.nGreatになる範囲ms = int.Parse(para);
+                                        }
+                                        else if (item.Equals("GoodRange"))
+                                        {
+                                            c演奏記録.nGoodになる範囲ms = int.Parse(para);
+                                        }
+                                        else if (item.Equals("PoorRange"))
+                                        {
+                                            c演奏記録.nPoorになる範囲ms = int.Parse(para);
+                                        }
+                                        else if (item.Equals("DTXManiaVersion"))
+                                        {
+                                            c演奏記録.strDTXManiaのバージョン = para;
+                                        }
+                                        else if (item.Equals("DateTime"))
+                                        {
+                                            c演奏記録.最終更新日時 = para;
+                                        }
+                                        else if (item.Equals("HiScore1"))
+                                        {
+                                            c演奏記録.nハイスコア[0] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("HiScore2"))
+                                        {
+                                            c演奏記録.nハイスコア[1] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("HiScore3"))
+                                        {
+                                            c演奏記録.nハイスコア[2] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("HiScore4"))
+                                        {
+                                            c演奏記録.nハイスコア[3] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("HiScore5"))
+                                        {
+                                            c演奏記録.nハイスコア[4] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("HiScore6"))
+                                        {
+                                            c演奏記録.nハイスコア[5] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("HiScore7"))
+                                        {
+                                            c演奏記録.nハイスコア[6] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("SecondScore1"))
+                                        {
+                                            c演奏記録.nSecondScore[0] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("SecondScore2"))
+                                        {
+                                            c演奏記録.nSecondScore[1] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("SecondScore3"))
+                                        {
+                                            c演奏記録.nSecondScore[2] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("SecondScore4"))
+                                        {
+                                            c演奏記録.nSecondScore[3] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("SecondScore5"))
+                                        {
+                                            c演奏記録.nSecondScore[4] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("SecondScore6"))
+                                        {
+                                            c演奏記録.nSecondScore[5] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("SecondScore7"))
+                                        {
+                                            c演奏記録.nSecondScore[6] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("ThirdScore1"))
+                                        {
+                                            c演奏記録.nThirdScore[0] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("ThirdScore2"))
+                                        {
+                                            c演奏記録.nThirdScore[1] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("ThirdScore3"))
+                                        {
+                                            c演奏記録.nThirdScore[2] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("ThirdScore4"))
+                                        {
+                                            c演奏記録.nThirdScore[3] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("ThirdScore5"))
+                                        {
+                                            c演奏記録.nThirdScore[4] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("ThirdScore6"))
+                                        {
+                                            c演奏記録.nThirdScore[5] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("ThirdScore7"))
+                                        {
+                                            c演奏記録.nThirdScore[6] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("HiScorerName1"))
+                                        {
+                                            c演奏記録.strHiScorerName[0] = para;
+                                        }
+                                        else if (item.Equals("HiScorerName2"))
+                                        {
+                                            c演奏記録.strHiScorerName[1] = para;
+                                        }
+                                        else if (item.Equals("HiScorerName3"))
+                                        {
+                                            c演奏記録.strHiScorerName[2] = para;
+                                        }
+                                        else if (item.Equals("HiScorerName4"))
+                                        {
+                                            c演奏記録.strHiScorerName[3] = para;
+                                        }
+                                        else if (item.Equals("HiScorerName5"))
+                                        {
+                                            c演奏記録.strHiScorerName[4] = para;
+                                        }
+                                        else if (item.Equals("HiScorerName6"))
+                                        {
+                                            c演奏記録.strHiScorerName[5] = para;
+                                        }
+                                        else if (item.Equals("HiScorerName7"))
+                                        {
+                                            c演奏記録.strHiScorerName[6] = para;
+                                        }
+                                        else if (item.Equals("SecondScorerName1"))
+                                        {
+                                            c演奏記録.strSecondScorerName[0] = para;
+                                        }
+                                        else if (item.Equals("SecondScorerName2"))
+                                        {
+                                            c演奏記録.strSecondScorerName[1] = para;
+                                        }
+                                        else if (item.Equals("SecondScorerName3"))
+                                        {
+                                            c演奏記録.strSecondScorerName[2] = para;
+                                        }
+                                        else if (item.Equals("SecondScorerName4"))
+                                        {
+                                            c演奏記録.strSecondScorerName[3] = para;
+                                        }
+                                        else if (item.Equals("SecondScorerName5"))
+                                        {
+                                            c演奏記録.strSecondScorerName[4] = para;
+                                        }
+                                        else if (item.Equals("SecondScorerName6"))
+                                        {
+                                            c演奏記録.strSecondScorerName[5] = para;
+                                        }
+                                        else if (item.Equals("SecondScorerName7"))
+                                        {
+                                            c演奏記録.strSecondScorerName[6] = para;
+                                        }
+                                        else if (item.Equals("ThirdScorerName1"))
+                                        {
+                                            c演奏記録.strThirdScorerName[0] = para;
+                                        }
+                                        else if (item.Equals("ThirdScorerName2"))
+                                        {
+                                            c演奏記録.strThirdScorerName[1] = para;
+                                        }
+                                        else if (item.Equals("ThirdScorerName3"))
+                                        {
+                                            c演奏記録.strThirdScorerName[2] = para;
+                                        }
+                                        else if (item.Equals("ThirdScorerName4"))
+                                        {
+                                            c演奏記録.strThirdScorerName[3] = para;
+                                        }
+                                        else if (item.Equals("ThirdScorerName5"))
+                                        {
+                                            c演奏記録.strThirdScorerName[4] = para;
+                                        }
+                                        else if (item.Equals("ThirdScorerName6"))
+                                        {
+                                            c演奏記録.strThirdScorerName[5] = para;
+                                        }
+                                        else if (item.Equals("ThirdScorerName7"))
+                                        {
+                                            c演奏記録.strThirdScorerName[6] = para;
+                                        }
+                                        else if (item.Equals("Crown1"))
+                                        {
+                                            c演奏記録.nCrown[0] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("Crown2"))
+                                        {
+                                            c演奏記録.nCrown[1] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("Crown3"))
+                                        {
+                                            c演奏記録.nCrown[2] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("Crown4"))
+                                        {
+                                            c演奏記録.nCrown[3] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("Crown5"))
+                                        {
+                                            c演奏記録.nCrown[4] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("Crown6"))
+                                        {
+                                            c演奏記録.nCrown[5] = int.Parse(para);
+                                        }
+                                        else if (item.Equals("Crown7"))
+                                        {
+                                            c演奏記録.nCrown[6] = int.Parse(para);
                                         }
                                     }
 
@@ -789,7 +774,6 @@ namespace TJAPlayer3
                 writer.WriteLine("RandomDrums={0}", (int)this.stセクション[i].eRandom);
                 writer.WriteLine("ScrollSpeedDrums={0}", this.stセクション[i].f譜面スクロール速度);
                 writer.WriteLine("PlaySpeed={0}/{1}", this.stセクション[i].n演奏速度分子, this.stセクション[i].n演奏速度分母);
-                writer.WriteLine("Drums={0}", this.stセクション[i].bDrums有効 ? 1 : 0);
                 writer.WriteLine("UseKeyboard={0}", this.stセクション[i].b演奏にKeyBoardを使用した ? 1 : 0);
                 writer.WriteLine("UseMIDIIN={0}", this.stセクション[i].b演奏にMIDIInputを使用した ? 1 : 0);
                 writer.WriteLine("UseJoypad={0}", this.stセクション[i].b演奏にJoypadを使用した ? 1 : 0);
