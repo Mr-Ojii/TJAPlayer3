@@ -10,13 +10,13 @@ namespace TJAPlayer3
 	/// </summary>
 	public enum Difficulty
 	{
-		Easy,
-		Normal,
-		Hard,
-		Oni,
-		Edit,
-		Tower,
-		Dan,
+		Easy = 0,
+		Normal = 1,
+		Hard = 2,
+		Oni = 3,
+		Edit = 4,
+		Tower = 5,
+		Dan = 6,
 		Total
 	}
 
