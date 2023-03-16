@@ -73,7 +73,7 @@ namespace TJAPlayer3
 					if (TJAPlayer3.Tx.SongLoading_BG != null)
 					{
 						int y = this.counter.n現在の値 >= 840 ? 840 : this.counter.n現在の値;
-						TJAPlayer3.Tx.SongLoading_BG.t2D描画(TJAPlayer3.app.Device, 0, GameWindowSize.Height - y);
+						TJAPlayer3.Tx.SongLoading_BG.t2D描画(TJAPlayer3.app.Device, 0, TJAPlayer3.app.LogicalSize.Height - y);
 					}
 				}
 				else
@@ -81,7 +81,7 @@ namespace TJAPlayer3
 					if (TJAPlayer3.Tx.SongLoading_BG != null)
 					{
 						int y = this.counter.n現在の値;
-						int sa = (TJAPlayer3.Tx.SongLoading_BG.szTextureSize.Height - GameWindowSize.Height) / 2;
+						int sa = (TJAPlayer3.Tx.SongLoading_BG.szTextureSize.Height - TJAPlayer3.app.LogicalSize.Height) / 2;
 						TJAPlayer3.Tx.SongLoading_BG.t2D描画(TJAPlayer3.app.Device, 0, -sa - y);
 					}
 				}

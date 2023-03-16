@@ -571,10 +571,10 @@ namespace TJAPlayer3
 				{
 					if (this.tx背景 != null)
 					{
-						float ratio = Math.Min((GameWindowSize.Width / (float)this.tx背景.szTextureSize.Width), (GameWindowSize.Height / (float)this.tx背景.szTextureSize.Height));
+						float ratio = Math.Min((TJAPlayer3.app.LogicalSize.Width / (float)this.tx背景.szTextureSize.Width), (TJAPlayer3.app.LogicalSize.Height / (float)this.tx背景.szTextureSize.Height));
 						this.tx背景.vcScaling.X = ratio;
 						this.tx背景.vcScaling.Y = ratio;
-						this.tx背景.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, GameWindowSize.Width / 2, GameWindowSize.Height / 2);
+						this.tx背景.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.app.LogicalSize.Width / 2, TJAPlayer3.app.LogicalSize.Height / 2);
 					}
 				}
 

@@ -454,7 +454,7 @@ namespace TJAPlayer3
 			this.str曲データ検索パス = @"./Songs/";
 			this.b全画面モード = false;
 			this.b垂直帰線待ちを行う = true;
-			this.rcWindowPos = new Rectangle(0, 0, GameWindowSize.Width, GameWindowSize.Height);
+			this.rcWindowPos = new Rectangle(0, 0, TJAPlayer3.app.LogicalSize.Width, TJAPlayer3.app.LogicalSize.Height);
 			this.nフレーム毎スリープms = -1;			// #xxxxx 2011.11.27 yyagi add
 			this.n非フォーカス時スリープms = 1;			// #23568 2010.11.04 ikanick add
 			this.nBGAlpha = 100;
@@ -1240,14 +1240,14 @@ namespace TJAPlayer3
 											if (int.TryParse(str4, out int num))
 												this.rcWindowPos.Width = num;
 											if( this.rcWindowPos.Width <= 0 )
-												this.rcWindowPos.Width = GameWindowSize.Width;
+												this.rcWindowPos.Width = TJAPlayer3.app.LogicalSize.Width;
 										}
 										else if( str3.Equals( "WindowHeight" ) )		// #23510 2010.10.31 yyagi add
 										{
 											if (int.TryParse(str4, out int num))
 												this.rcWindowPos.Height = num;
 											if( this.rcWindowPos.Height <= 0 )
-												this.rcWindowPos.Height = GameWindowSize.Height;
+												this.rcWindowPos.Height = TJAPlayer3.app.LogicalSize.Height;
 										}
 										else if ( str3.Equals( "BackSleep" ) )				// #23568 2010.11.04 ikanick add
 										{

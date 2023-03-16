@@ -25,7 +25,7 @@ namespace TJAPlayer3
 				this.rVD = rVD;
 				if (this.rVD != null)
 				{
-					this.ratio1 = Math.Min((float)GameWindowSize.Height / ((float)this.rVD.FrameSize.Height), (float)GameWindowSize.Width / ((float)this.rVD.FrameSize.Height));
+					this.ratio1 = Math.Min((float)TJAPlayer3.app.LogicalSize.Height / ((float)this.rVD.FrameSize.Height), (float)TJAPlayer3.app.LogicalSize.Width / ((float)this.rVD.FrameSize.Height));
 					
 					this.rVD.Start();
 				}
@@ -51,7 +51,7 @@ namespace TJAPlayer3
 
 				if (TJAPlayer3.ConfigIni.eClipDispType.HasFlag(EClipDispType.Background))
 				{
-					this.tx描画用.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, GameWindowSize.Width / 2, GameWindowSize.Height / 2);
+					this.tx描画用.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.app.LogicalSize.Width / 2, TJAPlayer3.app.LogicalSize.Height / 2);
 				}
 			}
 			return 0;
@@ -68,7 +68,7 @@ namespace TJAPlayer3
 			this.tx描画用.vcScaling.X = ratio;
 			this.tx描画用.vcScaling.Y = ratio;
 
-			this.tx描画用.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, GameWindowSize.Width / 2, GameWindowSize.Height);
+			this.tx描画用.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, TJAPlayer3.app.LogicalSize.Width / 2, TJAPlayer3.app.LogicalSize.Height);
 		}
 
 		// CActivity 実装

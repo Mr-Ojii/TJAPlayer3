@@ -272,7 +272,7 @@ namespace TJAPlayer3
 		// コンストラクタ
 
 		public TJAPlayer3()
-			: base("TJAPlayer3-f", GameWindowSize.Width, GameWindowSize.Height)
+			: base("TJAPlayer3-f", 1280, 720)
 		{
 			TJAPlayer3.app = this;
 			this.t起動処理();
@@ -859,7 +859,7 @@ namespace TJAPlayer3
 							}
 						});
 					}
-					TJAPlayer3.Tx.Network_Connection.t2D描画(app.Device, GameWindowSize.Width - (TJAPlayer3.Tx.Network_Connection.szTextureSize.Width / 2), GameWindowSize.Height - TJAPlayer3.Tx.Network_Connection.szTextureSize.Height, new Rectangle((TJAPlayer3.Tx.Network_Connection.szTextureSize.Width / 2) * (this.bネットワークに接続中 ? 0 : 1), 0, TJAPlayer3.Tx.Network_Connection.szTextureSize.Width / 2, TJAPlayer3.Tx.Network_Connection.szTextureSize.Height));
+					TJAPlayer3.Tx.Network_Connection.t2D描画(app.Device, this.LogicalSize.Width - (TJAPlayer3.Tx.Network_Connection.szTextureSize.Width / 2), this.LogicalSize.Height - TJAPlayer3.Tx.Network_Connection.szTextureSize.Height, new Rectangle((TJAPlayer3.Tx.Network_Connection.szTextureSize.Width / 2) * (this.bネットワークに接続中 ? 0 : 1), 0, TJAPlayer3.Tx.Network_Connection.szTextureSize.Width / 2, TJAPlayer3.Tx.Network_Connection.szTextureSize.Height));
 				}
 				// オーバレイを描画する(テクスチャの生成されていない起動ステージは例外
 				if (r現在のステージ != null && r現在のステージ.eStageID != CStage.EStage.StartUp && TJAPlayer3.Tx.Overlay != null)
