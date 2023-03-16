@@ -212,8 +212,6 @@ namespace FDK.Windowing
 
         public void Run()
         {
-            this.OnLoad(new EventArgs());
-
             SDL.SDL_ShowWindow(_window_handle);
 
             SDL.SDL_Event poll_event;
@@ -264,8 +262,6 @@ namespace FDK.Windowing
                     }
                 }
             }
-
-            this.OnUnload(new EventArgs());
         }
 
         protected void Render()
@@ -314,16 +310,6 @@ namespace FDK.Windowing
             SDL.SDL_DestroyRenderer(_renderer_handle);
             SDL.SDL_DestroyWindow(_window_handle);
             SDL.SDL_Quit();
-        }
-
-        protected virtual void OnLoad(EventArgs e)
-        {
-
-        }
-
-        protected virtual void OnUnload(EventArgs e)
-        {
-
         }
 
         protected virtual void OnClosing(CancelEventArgs e)

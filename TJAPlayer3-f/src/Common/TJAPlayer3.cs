@@ -302,24 +302,6 @@ namespace TJAPlayer3
 
 		// Game 実装
 
-		protected override void OnLoad(EventArgs e)
-		{
-			if (this.listトップレベルActivities != null)
-			{
-				foreach (CActivity activity in this.listトップレベルActivities)
-					activity.OnUnmanagedリソースの作成();
-			}
-			base.OnLoad(e);
-		}
-		protected override void OnUnload(EventArgs e)
-		{
-			if (this.listトップレベルActivities != null)
-			{
-				foreach (CActivity activity in this.listトップレベルActivities)
-					activity.OnUnmanagedリソースの解放();
-			}
-			base.OnUnload(e);
-		}
 		protected override void OnClosing(CancelEventArgs e)
 		{
 			if (ConfigIni.eEndingAnime == EEndingAnime.Force && (r現在のステージ.eStageID != CStage.EStage.Ending))

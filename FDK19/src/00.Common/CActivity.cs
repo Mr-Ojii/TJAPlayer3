@@ -54,7 +54,6 @@ namespace FDK
 
 			// 自身のリソースを作成する。
 			this.OnManagedリソースの作成();
-			this.OnUnmanagedリソースの作成();
 
 			// すべての子 Activity を活性化する。
 			foreach( CActivity activity in this.list子Activities )
@@ -70,7 +69,6 @@ namespace FDK
 				return;
 
 			// 自身のリソースを解放する。
-			this.OnUnmanagedリソースの解放();
 			this.OnManagedリソースの解放();
 
 			// すべての 子Activity を非活性化する。
@@ -88,33 +86,6 @@ namespace FDK
 		/// いつ何時呼び出されても問題無いようにコーディングしておくこと。</para>
 		/// </summary>
 		public virtual void OnManagedリソースの作成()
-		{
-			// 活性化してないなら何もしない。
-			if( this.b活性化してない )
-				return;
-		}
-
-		/// <summary>
-		/// <para>Unmanaged リソースの作成を行う。</para>
-		/// <para>Direct3D デバイスが作成またはリセットされた直後に呼び出されるので、自分が活性化している時に限り、
-		/// Unmanaged リソースを作成（または再構築）すること。</para>
-		/// <para>いつどのタイミングで呼び出されるか（いつDirect3Dが再作成またはリセットされるか）分からないので、
-		/// いつ何時呼び出されても問題無いようにコーディングしておくこと。</para>
-		/// </summary>
-		public virtual void OnUnmanagedリソースの作成()
-		{
-			// 活性化してないなら何もしない。
-			if( this.b活性化してない )
-				return;
-		}
-		
-		/// <summary>
-		/// <para>Unmanaged リソースの解放を行う。</para>
-		/// <para>Direct3D デバイスの解放直前またはリセット直前に呼び出される。</para>
-		/// <para>いつどのタイミングで呼び出されるか（いつDirect3Dが解放またはリセットされるか）分からないので、
-		/// いつ何時呼び出されても問題無いようにコーディングしておくこと。</para>
-		/// </summary>
-		public virtual void OnUnmanagedリソースの解放()
 		{
 			// 活性化してないなら何もしない。
 			if( this.b活性化してない )
