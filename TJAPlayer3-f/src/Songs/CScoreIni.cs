@@ -818,24 +818,5 @@ namespace TJAPlayer3
 
             writer.Close();
         }
-
-        // その他
-
-        #region [ private ]
-        //-----------------
-        private bool ONorOFF( char c )
-        {
-            return ( c != '0' );
-        }
-        private static char boolToChar( bool b )
-        {
-            if( !b )
-            {
-                return '0';
-            }
-            return '1';
-        }
-        //-----------------
-        #endregion
     }
 }

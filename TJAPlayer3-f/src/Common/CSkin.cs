@@ -4,7 +4,6 @@ using System.Text;
 using System.IO;
 using System.Diagnostics;
 using FDK;
-using FDK.ExtensionMethods;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.Serialization;

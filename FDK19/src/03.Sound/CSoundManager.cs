@@ -41,13 +41,6 @@ namespace FDK
 			}
 		}
 
-		///// <summary>
-		///// BASS時、mp3をストリーミング再生せずに、デコードしたraw wavをオンメモリ再生する場合はtrueにする。
-		///// 特殊なmp3を使用時はシークが乱れるので、必要に応じてtrueにすること。(Config.iniのNoMP3Streamingで設定可能。)
-		///// ただし、trueにすると、その分再生開始までの時間が長くなる。
-		///// </summary>
-		//public static bool bIsMP3DecodeByWindowsCodec = false;
-
 		public static int nMixing = 0;
 		public static int nStreams = 0;
 		#region [ WASAPI/ASIO/BASS設定値 ]

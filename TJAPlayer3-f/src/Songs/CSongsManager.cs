@@ -481,18 +481,15 @@ namespace TJAPlayer3
 			{
 				var ini = new CScoreIni(strScoreIniファイルパス);
 
-				for (int n楽器番号 = 0; n楽器番号 < 1; n楽器番号++)
+				for (int i = 0; i < (int)Difficulty.Total; i++)
 				{
-					for (int i = 0; i < (int)Difficulty.Total; i++)
-					{
-						score.譜面情報.nハイスコア[i] = (int)ini.stセクション.HiScore.nハイスコア[i];
-						score.譜面情報.nSecondScore[i] = (int)ini.stセクション.HiScore.nSecondScore[i];
-						score.譜面情報.nThirdScore[i] = (int)ini.stセクション.HiScore.nThirdScore[i];
-						score.譜面情報.strHiScorerName[i] = ini.stセクション.HiScore.strHiScorerName[i];
-						score.譜面情報.strSecondScorerName[i] = ini.stセクション.HiScore.strSecondScorerName[i];
-						score.譜面情報.strThirdScorerName[i] = ini.stセクション.HiScore.strThirdScorerName[i];
-						score.譜面情報.nCrown[i] = (int)ini.stセクション.HiScore.nCrown[i];
-					}
+					score.譜面情報.nハイスコア[i] = (int)ini.stセクション.HiScore.nハイスコア[i];
+					score.譜面情報.nSecondScore[i] = (int)ini.stセクション.HiScore.nSecondScore[i];
+					score.譜面情報.nThirdScore[i] = (int)ini.stセクション.HiScore.nThirdScore[i];
+					score.譜面情報.strHiScorerName[i] = ini.stセクション.HiScore.strHiScorerName[i];
+					score.譜面情報.strSecondScorerName[i] = ini.stセクション.HiScore.strSecondScorerName[i];
+					score.譜面情報.strThirdScorerName[i] = ini.stセクション.HiScore.strThirdScorerName[i];
+					score.譜面情報.nCrown[i] = (int)ini.stセクション.HiScore.nCrown[i];
 				}
 			}
 			catch (Exception e)
