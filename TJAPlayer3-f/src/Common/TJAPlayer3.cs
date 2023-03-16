@@ -742,22 +742,17 @@ namespace TJAPlayer3
 								#region [ 演奏クリア ]
 								//-----------------------------
 								CScoreIni.C演奏記録[] c演奏記録_Drums = new CScoreIni.C演奏記録[4];
-								stage演奏ドラム画面.t演奏結果を格納する(out c演奏記録_Drums[0], 0);
-								if (ConfigIni.nPlayerCount == 2)
-								{
-									stage演奏ドラム画面.t演奏結果を格納する(out c演奏記録_Drums[1], 1);
-								}
+								for(int i = 0; i < ConfigIni.nPlayerCount; i++)
+									stage演奏ドラム画面.t演奏結果を格納する(out c演奏記録_Drums[i], i);
 
 								scoreIni = this.tScoreIniへBGMAdjustとHistoryとPlayCountを更新("Cleared (" + c演奏記録_Drums[0].nスコア.ToString() + ")");
 
 								r現在のステージ.On非活性化();
 								Trace.TraceInformation("----------------------");
 								Trace.TraceInformation("■ Result");
-								stageResult.st演奏記録[0] = c演奏記録_Drums[0];
-								if (ConfigIni.nPlayerCount == 2)
-								{
-									stageResult.st演奏記録[1] = c演奏記録_Drums[1];
-								}
+								for(int i = 0; i < ConfigIni.nPlayerCount; i++)
+									stageResult.st演奏記録[i] = c演奏記録_Drums[i];
+
 								stageResult.On活性化();
 								r直前のステージ = r現在のステージ;
 								r現在のステージ = stageResult;
