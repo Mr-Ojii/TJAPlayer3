@@ -199,7 +199,7 @@ namespace TJAPlayer3
 				TJAPlayer3.act文字コンソール.tPrint(4, 4, C文字コンソール.EFontType.白, asmApp.Name + " Ver." + TJAPlayer3.VERSION + " (" + strCreator + ")");
 				TJAPlayer3.act文字コンソール.tPrint(4, 24, C文字コンソール.EFontType.白, "Skin:" + TJAPlayer3.Skin.SkinConfig.General.Name + " Ver." + TJAPlayer3.Skin.SkinConfig.General.Version + " (" + TJAPlayer3.Skin.SkinConfig.General.Creator + ")");
 				//CDTXMania.act文字コンソール.tPrint(4, 24, C文字コンソール.EFontType.白, strSubTitle);
-				TJAPlayer3.act文字コンソール.tPrint(4, (720 - 24), C文字コンソール.EFontType.白, "TJAPlayer3-f forked TJAPlayer3(AioiLight) forked TJAPlayer2 forPC(kairera0467)");
+				TJAPlayer3.act文字コンソール.tPrint(4, (TJAPlayer3.app.LogicalSize.Height - 24), C文字コンソール.EFontType.白, "TJAPlayer3-f forked TJAPlayer3(AioiLight) forked TJAPlayer2 forPC(kairera0467)");
 				#endregion
 
 
@@ -240,8 +240,8 @@ namespace TJAPlayer3
 				// point.X、point.Yは負の値になることもある。
 				SDL2.SDL.SDL_GetMouseState(out int x, out int y);
 				var point = new Point(x, y);
-				// クライアント領域の横幅を取得して、1280で割る。もちろんdouble型。
-				var scaling = 1.000 * TJAPlayer3.app.ClientSize.Width / 1280;
+				// クライアント領域の横幅を取得して、LogicalWidthで割る。もちろんdouble型。
+				var scaling = 1.000 * TJAPlayer3.app.ClientSize.Width / TJAPlayer3.app.LogicalSize.Width;
 				if (TJAPlayer3.InputManager.Mouse.bIsKeyPressed((int)SlimDXKeys.Mouse.Left))
 				{
 					if (point.X >= 180 * scaling && point.X <= 490 * scaling && point.Y >= 0 && point.Y <= 20 * scaling)

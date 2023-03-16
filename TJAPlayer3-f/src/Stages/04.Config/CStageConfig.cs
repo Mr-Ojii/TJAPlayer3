@@ -244,23 +244,6 @@ namespace TJAPlayer3
 			}
 			//---------------------
 			#endregion
-			//#region [ 上部パネル ]
-			////---------------------
-			//if( this.tx上部パネル != null )
-			//	this.tx上部パネル.t2D描画( CDTXMania.app.Device, 0, 0 );
-			////---------------------
-			//#endregion
-			//#region [ 下部パネル ]
-			////---------------------
-			//if( this.tx下部パネル != null )
-			//	this.tx下部パネル.t2D描画( CDTXMania.app.Device, 0, 720 - this.tx下部パネル.szTextureSize.Height );
-			////---------------------
-			//#endregion
-			#region [ オプションパネル ]
-			//---------------------
-			//this.actオプションパネル.On進行描画();
-			//---------------------
-			#endregion
 			#region [ FadeIn_アウト ]
 			//---------------------
 			switch( base.eフェーズID )

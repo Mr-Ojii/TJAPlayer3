@@ -227,7 +227,7 @@ namespace TJAPlayer3
 							{
 								TJAPlayer3.Tx.Result_v2_Mountain[1].vcScaling.Y = (float)Math.Sin((this.ctMountainAndClear.n現在の値 - 1155) / 500f * Math.PI) * 0.3f + 1f;
 							}
-							TJAPlayer3.Tx.Result_v2_Mountain[1].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640, 720);
+							TJAPlayer3.Tx.Result_v2_Mountain[1].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, TJAPlayer3.app.LogicalSize.Width / 2, TJAPlayer3.app.LogicalSize.Height);
 						}
 					}
 					if (TJAPlayer3.Tx.Result_v2_Header != null)

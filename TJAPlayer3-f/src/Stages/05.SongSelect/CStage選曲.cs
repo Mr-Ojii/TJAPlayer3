@@ -208,7 +208,7 @@ namespace TJAPlayer3
 					}
 					if (TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack] != null )
 					{
-						for (int i = 0; i < (1280 / TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack].szTextureSize.Width) + 2; i++)
+						for (int i = 0; i < (TJAPlayer3.app.LogicalSize.Width / TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack].szTextureSize.Width) + 2; i++)
 						{
 							if ( TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack] != null&& ct背景スクロール用タイマー != null)
 							{
@@ -354,7 +354,7 @@ namespace TJAPlayer3
 					TJAPlayer3.Tx.SongSelect_Header.t2D描画( TJAPlayer3.app.Device, 0, 0 );
 
 				if( TJAPlayer3.Tx.SongSelect_Footer != null )
-					TJAPlayer3.Tx.SongSelect_Footer.t2D描画( TJAPlayer3.app.Device, 0, 720 - TJAPlayer3.Tx.SongSelect_Footer.szTextureSize.Height );
+					TJAPlayer3.Tx.SongSelect_Footer.t2D描画( TJAPlayer3.app.Device, 0, TJAPlayer3.app.LogicalSize.Height - TJAPlayer3.Tx.SongSelect_Footer.szTextureSize.Height );
 
 				#region ネームプレート
 				for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)

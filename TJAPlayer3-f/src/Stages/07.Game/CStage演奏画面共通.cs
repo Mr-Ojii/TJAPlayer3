@@ -599,7 +599,7 @@ namespace TJAPlayer3
 				}
 
 				if (!(TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listVD.Count > 0) && !bDoublePlay && TJAPlayer3.ConfigIni.ShowFooter && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード && TJAPlayer3.Tx.Mob_Footer != null)
-					TJAPlayer3.Tx.Mob_Footer.t2D描画(TJAPlayer3.app.Device, 0, 720 - TJAPlayer3.Tx.Mob_Footer.szTextureSize.Height);
+					TJAPlayer3.Tx.Mob_Footer.t2D描画(TJAPlayer3.app.Device, 0, TJAPlayer3.app.LogicalSize.Height - TJAPlayer3.Tx.Mob_Footer.szTextureSize.Height);
 
 				if (!(TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listVD.Count > 0) && TJAPlayer3.ConfigIni.ShowChara)
 					this.actChara.On進行描画();

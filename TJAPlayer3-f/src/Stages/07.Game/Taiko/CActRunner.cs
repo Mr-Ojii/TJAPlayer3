@@ -36,7 +36,7 @@ namespace TJAPlayer3
 						else
 							stRunners[i].nType = random.Next(1, Type + 1);
 
-						stRunners[i].ct進行 = new CCounter(0, 1280, TJAPlayer3.Skin.SkinConfig.Game.Runner.Timer, TJAPlayer3.Timer);
+						stRunners[i].ct進行 = new CCounter(0, TJAPlayer3.app.LogicalSize.Width, TJAPlayer3.Skin.SkinConfig.Game.Runner.Timer, TJAPlayer3.Timer);
 						stRunners[i].nOldValue = 0;
 						stRunners[i].nNowPtn = 0;
 						stRunners[i].fX = 0;
@@ -91,7 +91,7 @@ namespace TJAPlayer3
 				{
 					stRunners[i].nOldValue = stRunners[i].ct進行.n現在の値;
 					stRunners[i].ct進行.t進行();
-					if (stRunners[i].ct進行.b終了値に達した || stRunners[i].fX > 1280)
+					if (stRunners[i].ct進行.b終了値に達した || stRunners[i].fX > TJAPlayer3.app.LogicalSize.Width)
 					{
 						stRunners[i].ct進行.t停止();
 						stRunners[i].b使用中 = false;
@@ -101,7 +101,7 @@ namespace TJAPlayer3
 						//AkasokoPullyou様のソースコードを参考にして、ランナーの逆流を防止
 						double dbBPM = TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM >= 0 ? TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM : TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * -1;
 						stRunners[i].fX += (float)dbBPM / 18;
-						int Width = 1280 / Ptn;
+						int Width = TJAPlayer3.app.LogicalSize.Width / Ptn;
 						stRunners[i].nNowPtn = (int)stRunners[i].fX / Width;
 					}
 					if (TJAPlayer3.Tx.Runner != null)

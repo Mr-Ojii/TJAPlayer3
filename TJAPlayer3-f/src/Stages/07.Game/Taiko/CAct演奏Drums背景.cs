@@ -140,8 +140,8 @@ namespace TJAPlayer3
 				{
 					if (TJAPlayer3.Tx.Background_Up[i] != null)
 					{
-						double TexSize = 1280 / TJAPlayer3.Tx.Background_Up[i].szTextureSize.Width;
-						// 1280をテクスチャサイズで割ったものを切り上げて、プラス+1足す。
+						double TexSize = TJAPlayer3.app.LogicalSize.Width / TJAPlayer3.Tx.Background_Up[i].szTextureSize.Width;
+						// LogicalWidthをテクスチャサイズで割ったものを切り上げて、プラス+1足す。
 						int ForLoop = (int)Math.Ceiling(TexSize) + 1;
 						//int nループ幅 = 328;
 						TJAPlayer3.Tx.Background_Up[i].t2D描画(TJAPlayer3.app.Device, 0 - this.ct上背景スクロール用タイマー[i].n現在の値, TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollY[i]);
@@ -157,8 +157,8 @@ namespace TJAPlayer3
 						else
 							TJAPlayer3.Tx.Background_Up_Clear[i].Opacity = 0;
 
-						double TexSize = 1280 / TJAPlayer3.Tx.Background_Up_Clear[i].szTextureSize.Width;
-						// 1280をテクスチャサイズで割ったものを切り上げて、プラス+1足す。
+						double TexSize = TJAPlayer3.app.LogicalSize.Width / TJAPlayer3.Tx.Background_Up_Clear[i].szTextureSize.Width;
+						// LogicalWidthをテクスチャサイズで割ったものを切り上げて、プラス+1足す。
 						int ForLoop = (int)Math.Ceiling(TexSize) + 1;
 
 						TJAPlayer3.Tx.Background_Up_Clear[i].t2D描画(TJAPlayer3.app.Device, 0 - this.ct上背景スクロール用タイマー[i].n現在の値, TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollY[i]);
@@ -172,8 +172,8 @@ namespace TJAPlayer3
 						{
 							int xy = (int)(this.ct上背景桜用タイマー[i].n現在の値 - (this.ct上背景桜用タイマー[i].n終了値 / 2.0));
 
-							double TexSize = 1280 / TJAPlayer3.Tx.Background_Up_Sakura[i].szTextureSize.Width;
-							// 1280をテクスチャサイズで割ったものを切り上げて、プラス+1足す。
+							double TexSize = TJAPlayer3.app.LogicalSize.Width / TJAPlayer3.Tx.Background_Up_Sakura[i].szTextureSize.Width;
+							// LogicalWidthをテクスチャサイズで割ったものを切り上げて、プラス+1足す。
 							int ForLoop = (int)Math.Ceiling(TexSize) + 1;
 							//int nループ幅 = 328;
 							TJAPlayer3.Tx.Background_Up_Sakura[i].t2D描画(TJAPlayer3.app.Device, 0 - this.ct上背景桜スクロール用タイマー[i].n現在の値 - xy, TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollY[i] + xy);
@@ -191,8 +191,8 @@ namespace TJAPlayer3
 
 							int xy = (int)(this.ct上背景桜用タイマー[i].n現在の値 - this.ct上背景桜用タイマー[i].n終了値 / 2.0);
 
-							double TexSize = 1280 / TJAPlayer3.Tx.Background_Up_Sakura_Clear[i].szTextureSize.Width;
-							// 1280をテクスチャサイズで割ったものを切り上げて、プラス+1足す。
+							double TexSize = TJAPlayer3.app.LogicalSize.Width / TJAPlayer3.Tx.Background_Up_Sakura_Clear[i].szTextureSize.Width;
+							// LogicalWidthをテクスチャサイズで割ったものを切り上げて、プラス+1足す。
 							int ForLoop = (int)Math.Ceiling(TexSize) + 1;
 							//int nループ幅 = 328;
 							TJAPlayer3.Tx.Background_Up_Sakura_Clear[i].t2D描画(TJAPlayer3.app.Device, 0 - this.ct上背景桜スクロール用タイマー[i].n現在の値 - xy, TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollY[i] + xy);
@@ -248,8 +248,8 @@ namespace TJAPlayer3
 							}
 
 
-							double TexSize = 1280 / TJAPlayer3.Tx.Background_Up_YMove[i].szTextureSize.Width;
-							// 1280をテクスチャサイズで割ったものを切り上げて、プラス+2足す。
+							double TexSize = TJAPlayer3.app.LogicalSize.Width / TJAPlayer3.Tx.Background_Up_YMove[i].szTextureSize.Width;
+							// LogicalWidthをテクスチャサイズで割ったものを切り上げて、プラス+2足す。
 							int ForLoop = (int)Math.Ceiling(TexSize) + 2;
 							//int nループ幅 = 328;
 							TJAPlayer3.Tx.Background_Up_YMove[i].t2D描画(TJAPlayer3.app.Device, 0 - xm, TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollY[i] + ym);
@@ -307,8 +307,8 @@ namespace TJAPlayer3
 							else
 								TJAPlayer3.Tx.Background_Up_YMove_Clear[i].Opacity = 0;
 
-							double TexSize = 1280 / TJAPlayer3.Tx.Background_Up_YMove_Clear[i].szTextureSize.Width;
-							// 1280をテクスチャサイズで割ったものを切り上げて、プラス+2足す。
+							double TexSize = TJAPlayer3.app.LogicalSize.Width / TJAPlayer3.Tx.Background_Up_YMove_Clear[i].szTextureSize.Width;
+							// LogicalWidthをテクスチャサイズで割ったものを切り上げて、プラス+2足す。
 							int ForLoop = (int)Math.Ceiling(TexSize) + 2;
 							//int nループ幅 = 328;
 							TJAPlayer3.Tx.Background_Up_YMove_Clear[i].t2D描画(TJAPlayer3.app.Device, 0 - xm, TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollY[i] + ym);
@@ -341,8 +341,8 @@ namespace TJAPlayer3
 						//int nループ幅 = 1257;
 						//CDTXMania.Tx.Background_Down_Scroll.t2D描画( CDTXMania.app.Device, 0 - this.ct下背景スクロール用タイマー1.n現在の値, 360 );
 						//CDTXMania.Tx.Background_Down_Scroll.t2D描画(CDTXMania.app.Device, (1 * nループ幅) - this.ct下背景スクロール用タイマー1.n現在の値, 360);
-						double TexSize = 1280 / TJAPlayer3.Tx.Background_Down_Scroll.szTextureSize.Width;
-						// 1280をテクスチャサイズで割ったものを切り上げて、プラス+1足す。
+						double TexSize = TJAPlayer3.app.LogicalSize.Width / TJAPlayer3.Tx.Background_Down_Scroll.szTextureSize.Width;
+						// LogicalWidthをテクスチャサイズで割ったものを切り上げて、プラス+1足す。
 						int ForLoop = (int)Math.Ceiling(TexSize) + 1;
 
 						//int nループ幅 = 328;
