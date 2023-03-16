@@ -5,10 +5,6 @@ namespace FDK.ExtensionMethods
 {
     public static class StringExtensions
     {
-        public static int[] CommaSeparatedStringToInt32Array(this string str)
-        {
-            return str.Split(',').Select(int.Parse).ToArray();
-        }
         public static double ToDouble(this string str, double min, double max, double def)
         {
             if (double.TryParse(str, out double num))

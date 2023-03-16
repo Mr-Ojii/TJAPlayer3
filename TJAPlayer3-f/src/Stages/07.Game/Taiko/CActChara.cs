@@ -84,9 +84,9 @@ namespace TJAPlayer3
 				this.arモーション番号[nPlayer] = TJAPlayer3.Skin.SkinConfig.Game.Chara.MotionNormal[nPlayer];
 				this.arゴーゴーモーション番号[nPlayer] = TJAPlayer3.Skin.SkinConfig.Game.Chara.MotionGoGo[nPlayer];
 				this.arクリアモーション番号[nPlayer] = TJAPlayer3.Skin.SkinConfig.Game.Chara.MotionClear[nPlayer];
-				if (arモーション番号[nPlayer] == null) this.arモーション番号[nPlayer] = "0,0".CommaSeparatedStringToInt32Array();
-				if (arゴーゴーモーション番号[nPlayer] == null) this.arゴーゴーモーション番号[nPlayer] = "0,0".CommaSeparatedStringToInt32Array();
-				if (arクリアモーション番号[nPlayer] == null) this.arクリアモーション番号[nPlayer] = "0,0".CommaSeparatedStringToInt32Array();
+				if (arモーション番号[nPlayer] == null) this.arモーション番号[nPlayer] = new int[] { 0, 0 };
+				if (arゴーゴーモーション番号[nPlayer] == null) this.arゴーゴーモーション番号[nPlayer] = new int[] { 0, 0 };
+				if (arクリアモーション番号[nPlayer] == null) this.arクリアモーション番号[nPlayer] = new int[] { 0, 0 };
 
 				ctChara_Normal[nPlayer] = new CCounter();
 				ctChara_GoGo[nPlayer] = new CCounter();

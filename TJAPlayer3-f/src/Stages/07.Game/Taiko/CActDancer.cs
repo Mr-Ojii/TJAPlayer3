@@ -33,7 +33,7 @@ namespace TJAPlayer3
 		public override void OnManagedリソースの作成()
 		{
 			this.ar踊り子モーション番号 = TJAPlayer3.Skin.SkinConfig.Game.Dancer.Motion;
-			if(this.ar踊り子モーション番号 == null) ar踊り子モーション番号 = "0,0".CommaSeparatedStringToInt32Array();
+			if(this.ar踊り子モーション番号 == null) ar踊り子モーション番号 = new int[] { 0, 0 };
 			this.ct踊り子モーション = new CCounter(0, this.ar踊り子モーション番号.Length - 1, 0.01, CSoundManager.rc演奏用タイマ);
 			base.OnManagedリソースの作成();
 		}
