@@ -1130,31 +1130,30 @@ namespace TJAPlayer3
                     #endregion
 
                     #region [王冠を描画。]
-                    bool DanJudge = false;
 					if (TJAPlayer3.Tx.Crown_t != null && TJAPlayer3.Tx.DanC_Crown_t != null && (n見た目の行番号 != 6 || !ctバー展開ディレイ用タイマー.b終了値に達した) && this.stバー情報[nパネル番号].eNodeType == C曲リストノード.ENodeType.SCORE)
 					{
 						if (this.stバー情報[nパネル番号].nCrown[(int)Difficulty.Dan] != 0)
 						{
 							TJAPlayer3.Tx.DanC_Crown_t.vcScaling = new Vector2(0.75f);
 							TJAPlayer3.Tx.DanC_Crown_t.t2D描画(TJAPlayer3.app.Device, xAnime + 30, TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY - 30, new Rectangle((this.stバー情報[nパネル番号].nCrown[(int)Difficulty.Dan] - 1) * 50, 0, 50, 100));
-							DanJudge = true;
 						}
-						TJAPlayer3.Tx.Crown_t.vcScaling.X = 0.5f;
-						TJAPlayer3.Tx.Crown_t.vcScaling.Y = 0.5f;
-						for (int j = 4; j >= 0; j--)
+						else
 						{
-							if (DanJudge)//2020.05.25 Mr-Ojii 汚いかもしれないけど、gotoを使わないでやるにはこうするしか思いつかなかった。
-								break;
-							if (this.stバー情報[nパネル番号].nCrown[j] != 0)
+							TJAPlayer3.Tx.Crown_t.vcScaling.X = 0.5f;
+							TJAPlayer3.Tx.Crown_t.vcScaling.Y = 0.5f;
+							for (int j = 4; j >= 0; j--)
 							{
-								TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, xAnime + 25, TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY - 23, new Rectangle(this.stバー情報[nパネル番号].nCrown[j] * 100, 0, 100, 100));
-								if (TJAPlayer3.Tx.Difficulty_Icons != null)
+								if (this.stバー情報[nパネル番号].nCrown[j] != 0)
 								{
-									TJAPlayer3.Tx.Difficulty_Icons.vcScaling.X = 0.4f;
-									TJAPlayer3.Tx.Difficulty_Icons.vcScaling.Y = 0.4f;
-									TJAPlayer3.Tx.Difficulty_Icons.t2D描画(TJAPlayer3.app.Device, xAnime + 40,TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY - 15, new Rectangle(j * 100, 0, 100, 100));
+									TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, xAnime + 25, TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY - 23, new Rectangle(this.stバー情報[nパネル番号].nCrown[j] * 100, 0, 100, 100));
+									if (TJAPlayer3.Tx.Difficulty_Icons != null)
+									{
+										TJAPlayer3.Tx.Difficulty_Icons.vcScaling.X = 0.4f;
+										TJAPlayer3.Tx.Difficulty_Icons.vcScaling.Y = 0.4f;
+										TJAPlayer3.Tx.Difficulty_Icons.t2D描画(TJAPlayer3.app.Device, xAnime + 40,TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY - 15, new Rectangle(j * 100, 0, 100, 100));
+									}
+									break;
 								}
-								break;
 							}
 						}
 					}
