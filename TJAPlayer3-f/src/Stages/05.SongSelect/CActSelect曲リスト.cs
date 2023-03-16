@@ -829,24 +829,9 @@ namespace TJAPlayer3
 						this.stバー情報[index].nCrown = song.arスコア.譜面情報.nCrown;
 						this.stバー情報[index].ForeColor = song.ForeColor;
 						this.stバー情報[index].BackColor = song.BackColor;
+						this.stバー情報[index].eNodeType = song.eNodeType;
 						this.stバー情報[index].song = song;
-
-
-						// stバー情報[] の内容を1行ずつずらす。
-
-						C曲リストノード song2 = this.r現在選択中の曲;
-						for (int i = 0; i < 6; i++)
-							song2 = this.r前の曲(song2);
-
-						for (int i = 0; i < 13; i++)
-						{
-							int n = (((this.n現在の選択行 - 6) + i) + 13) % 13;
-							this.stバー情報[n].song = song2;
-							this.stバー情報[n].eNodeType = song2.eNodeType;
-							song2 = this.r次の曲(song2);
-							this.stバー情報[i].ttkタイトル = this.ttk曲名テクスチャを生成する(this.stバー情報[i].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
-
-						}
+						this.stバー情報[index].ttkタイトル = this.ttk曲名テクスチャを生成する(song.strTitle, song.ForeColor, song.BackColor);
 
 						// 1行(100カウント)移動完了。
 
@@ -890,22 +875,9 @@ namespace TJAPlayer3
 						this.stバー情報[index].nCrown = song.arスコア.譜面情報.nCrown;
 						this.stバー情報[index].ForeColor = song.ForeColor;
 						this.stバー情報[index].BackColor = song.BackColor;
+						this.stバー情報[index].eNodeType = song.eNodeType;
 						this.stバー情報[index].song = song;
-
-						// stバー情報[] の内容を1行ずつずらす。
-
-						C曲リストノード song2 = this.r現在選択中の曲;
-						for (int i = 0; i < 6; i++)
-							song2 = this.r前の曲(song2);
-
-						for (int i = 0; i < 13; i++)
-						{
-							int n = (((this.n現在の選択行 - 6) + i) + 13) % 13;
-							this.stバー情報[n].song = song2;
-							this.stバー情報[n].eNodeType = song2.eNodeType;
-							song2 = this.r次の曲(song2);
-							this.stバー情報[i].ttkタイトル = this.ttk曲名テクスチャを生成する(this.stバー情報[i].strタイトル文字列, this.stバー情報[i].ForeColor, this.stバー情報[i].BackColor);
-						}
+						this.stバー情報[index].ttkタイトル = this.ttk曲名テクスチャを生成する(song.strTitle, song.ForeColor, song.BackColor);
 
 						// 1行(100カウント)移動完了。
 
