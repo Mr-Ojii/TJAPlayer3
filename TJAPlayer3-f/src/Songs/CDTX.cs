@@ -15,7 +15,7 @@ using FDK.ExtensionMethods;
 
 namespace TJAPlayer3
 {
-	internal class CDTX : ChartLoader
+	internal class CDTX : CActivity
 	{
 		// 定数
 
