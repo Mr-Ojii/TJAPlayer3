@@ -329,6 +329,7 @@ namespace FDK
             srcrect.w = rc画像内の描画領域.Width;
             srcrect.h = rc画像内の描画領域.Height;
 
+            SDL.SDL_SetTextureColorMod((IntPtr)this.texture, color.R, color.G, color.B);
             SDL.SDL_RenderCopyEx(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect, -(this.fRotation * 180 / Math.PI), IntPtr.Zero, SDL.SDL_RendererFlip.SDL_FLIP_NONE);
         }
 
@@ -348,6 +349,7 @@ namespace FDK
             srcrect.w = rc画像内の描画領域.Width;
             srcrect.h = rc画像内の描画領域.Height;
 
+            SDL.SDL_SetTextureColorMod((IntPtr)this.texture, color.R, color.G, color.B);
             SDL.SDL_RenderCopy(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect);
         }
 
@@ -374,6 +376,7 @@ namespace FDK
             srcrect.w = rc画像内の描画領域.Width;
             srcrect.h = rc画像内の描画領域.Height;
 
+            SDL.SDL_SetTextureColorMod((IntPtr)this.texture, color.R, color.G, color.B);
             SDL.SDL_RenderCopyEx(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect, 0, IntPtr.Zero, SDL.SDL_RendererFlip.SDL_FLIP_VERTICAL);
         }
 
@@ -400,6 +403,7 @@ namespace FDK
             srcrect.w = rc画像内の描画領域.Width;
             srcrect.h = rc画像内の描画領域.Height;
 
+            SDL.SDL_SetTextureColorMod((IntPtr)this.texture, color.R, color.G, color.B);
             SDL.SDL_RenderCopyEx(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect, 0, IntPtr.Zero, SDL.SDL_RendererFlip.SDL_FLIP_HORIZONTAL);
         }
 
