@@ -372,7 +372,6 @@ internal class CSkin : IDisposable
 		ReloadSkinPaths();
 		PrepareReloadSkin();
 		SEloader();
-		GenreLoader();
 		SortLoader();
 	}
 	private string InitializeSkinPathRoot()
@@ -387,34 +386,6 @@ internal class CSkin : IDisposable
 	public void SEloader()
 	{
 		this.SECount = TJAPlayer3.t連番フォルダの個数を数える(CSkin.Path(@"Sounds/Taiko/"));
-	}
-
-	/// <summary>
-	/// ジャンルファイルの読み込み
-	/// </summary>
-	public void GenreLoader()
-	{
-		string strFileName = Path(@"GenreConfig.csv");
-		if (File.Exists(strFileName))
-		{
-			Dictionary<string, int> tmp = new Dictionary<string, int>();
-			string str = CJudgeTextEncoding.ReadTextFile(strFileName);
-			string[] splitstr = str.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-
-			for (int i = 0; i < splitstr.Length; i++)
-			{
-				string[] genres = splitstr[i].Split(',');
-				for (int j = 0; j < genres.Length; j++)
-				{
-					tmp.Add(genres[j], i);
-				}
-			}
-
-			if (tmp.Count != 0)
-				this.GenreKeyPairs = tmp;
-		}
-
-		this.MaxKeyNum = this.GenreKeyPairs.Count != 0 ? this.GenreKeyPairs.Values.Max() : -1;
 	}
 
 	/// <summary>
@@ -469,8 +440,8 @@ internal class CSkin : IDisposable
 
 	public int nStrジャンルtoNum(string strGenre)
 	{
-		if (this.GenreKeyPairs.TryGetValue(strGenre, out int num))
-			return (num + 1);
+		if (this.SkinConfig.Genre.TryGetValue(strGenre, out int num))
+			return num;
 		else
 			return 0;
 	}
@@ -735,22 +706,6 @@ internal class CSkin : IDisposable
 	// その他
 
 	#region[ Genre ]
-	public Dictionary<string, int> GenreKeyPairs = new Dictionary<string, int>
-	{
-		{ "J-POP", 0 },
-		{ "アニメ", 1 },
-		{ "ゲームミュージック", 2 },
-		{ "ナムコオリジナル", 3 },
-		{ "クラシック", 4 },
-		{ "バラエティ", 5 },
-		{ "どうよう", 6 },
-		{ "ボーカロイド", 7 },
-		{ "VOCALOID", 7 },
-	};
-
-	public int MaxKeyNum = 7;
-
-
 	public Dictionary<string, Dictionary<string, int>> SortList = new Dictionary<string, Dictionary<string, int>>
 	{
 		{ "AC15", new Dictionary<string, int>
@@ -801,6 +756,17 @@ internal class CSkin : IDisposable
 			public int Width { get; set; } = 1280;
 			public int Height { get; set; } = 720;
 		}
+		public Dictionary<string, int> Genre { get; set; } = new() {
+			{ "J-POP", 1 },
+			{ "アニメ", 2 },
+			{ "ゲームミュージック", 3 },
+			{ "ナムコオリジナル", 4 },
+			{ "クラシック", 5 },
+			{ "バラエティ", 6 },
+			{ "どうよう", 7 },
+			{ "ボーカロイド", 8 },
+			{ "VOCALOID", 8 },
+		};
 		public CFont Font { get; set; } = new();
 		public class CFont
 		{

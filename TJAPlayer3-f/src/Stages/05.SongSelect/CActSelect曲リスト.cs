@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
+using System.Linq;
 
 using Rectangle = System.Drawing.Rectangle;
 using Point = System.Drawing.Point;
@@ -1141,7 +1142,7 @@ internal class CActSelect曲リスト : CActivity
 				int genretextureindex = TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strGenre);
 				if (TJAPlayer3.Tx.SongSelect_GenreText != null)
 				{
-					TJAPlayer3.Tx.SongSelect_GenreText.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, BoxCenterx, TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY - 25, new Rectangle(0, genretextureindex * (TJAPlayer3.Tx.SongSelect_GenreText.szTextureSize.Height / (TJAPlayer3.Skin.MaxKeyNum + 2)), TJAPlayer3.Tx.SongSelect_GenreText.szTextureSize.Width, (TJAPlayer3.Tx.SongSelect_GenreText.szTextureSize.Height / (TJAPlayer3.Skin.MaxKeyNum + 2))));
+					TJAPlayer3.Tx.SongSelect_GenreText.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, BoxCenterx, TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY - 25, new Rectangle(0, genretextureindex * (TJAPlayer3.Tx.SongSelect_GenreText.szTextureSize.Height / (TJAPlayer3.Skin.SkinConfig.Genre.Values.Max() + 2)), TJAPlayer3.Tx.SongSelect_GenreText.szTextureSize.Width, (TJAPlayer3.Tx.SongSelect_GenreText.szTextureSize.Height / (TJAPlayer3.Skin.SkinConfig.Genre.Values.Max() + 2))));
 				}
 			}
 			switch (r現在選択中の曲.eNodeType)
@@ -1406,7 +1407,7 @@ internal class CActSelect曲リスト : CActivity
 			int genretextureindex = (this.r現在選択中の曲.r親ノード != null) ? TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.r親ノード.strGenre) : TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.strGenre);
 			if (TJAPlayer3.Tx.SongSelect_GenreText != null)
 			{
-				TJAPlayer3.Tx.SongSelect_GenreText.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, BoxCenterx, TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY - 25, new Rectangle(0, genretextureindex * (TJAPlayer3.Tx.SongSelect_GenreText.szTextureSize.Height / (TJAPlayer3.Skin.MaxKeyNum + 2)), TJAPlayer3.Tx.SongSelect_GenreText.szTextureSize.Width, (TJAPlayer3.Tx.SongSelect_GenreText.szTextureSize.Height / (TJAPlayer3.Skin.MaxKeyNum + 2))));
+				TJAPlayer3.Tx.SongSelect_GenreText.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, BoxCenterx, TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY - 25, new Rectangle(0, genretextureindex * (TJAPlayer3.Tx.SongSelect_GenreText.szTextureSize.Height / (TJAPlayer3.Skin.SkinConfig.Genre.Values.Max() + 2)), TJAPlayer3.Tx.SongSelect_GenreText.szTextureSize.Width, (TJAPlayer3.Tx.SongSelect_GenreText.szTextureSize.Height / (TJAPlayer3.Skin.SkinConfig.Genre.Values.Max() + 2))));
 			}
 		}
 		return 0;
