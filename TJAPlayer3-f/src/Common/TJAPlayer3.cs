@@ -1167,6 +1167,7 @@ internal class TJAPlayer3 : Game
 		{
 			Skin = new CSkin(TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName);
 			TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName = TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(true);    // 旧指定のSkinフォルダが消滅していた場合に備える
+			this.LogicalSize = new Size(Skin.SkinConfig.General.Width, Skin.SkinConfig.General.Height);
 			Trace.TraceInformation("スキンの初期化を完了しました。");
 		}
 		catch

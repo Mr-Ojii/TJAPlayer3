@@ -798,6 +798,8 @@ internal class CSkin : IDisposable
 			public string Name { get; set; } = "Unknown";
 			public string Version { get; set; } = "Unknown";
 			public string Creator { get; set; } = "Unknown";
+			public int Width { get; set; } = 1280;
+			public int Height { get; set; } = 720;
 		}
 		public CFont Font { get; set; } = new();
 		public class CFont
