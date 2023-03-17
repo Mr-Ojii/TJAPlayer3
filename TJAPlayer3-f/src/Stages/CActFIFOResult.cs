@@ -4,112 +4,111 @@ using System.Text;
 using System.Drawing;
 using FDK;
 
-namespace TJAPlayer3
+namespace TJAPlayer3;
+
+internal class CActFIFOResult : CActivity
 {
-	internal class CActFIFOResult : CActivity
+	// メソッド
+
+	public void tFadeOut開始()
 	{
-		// メソッド
+		this.mode = EFIFOMode.FadeOut;
+		this.counter = new CCounter( 0, 500, 2, TJAPlayer3.Timer );
+		if (TJAPlayer3.Tx.Result_FadeIn != null)
+			TJAPlayer3.Tx.Result_FadeIn.Opacity = 255;
+	}
+	public void tFadeIn開始()
+	{
+		this.mode = EFIFOMode.FadeIn;
+		this.counter = new CCounter( 0, 100, 5, TJAPlayer3.Timer );
+		if (TJAPlayer3.Tx.Result_FadeIn != null)
+			TJAPlayer3.Tx.Result_FadeIn.Opacity = 255;
+	}
+	public void tFadeIn完了()		// #25406 2011.6.9 yyagi
+	{
+		this.counter.n現在の値 = this.counter.n終了値;
+	}
 
-		public void tFadeOut開始()
-		{
-			this.mode = EFIFOMode.FadeOut;
-			this.counter = new CCounter( 0, 500, 2, TJAPlayer3.Timer );
-			if (TJAPlayer3.Tx.Result_FadeIn != null)
-				TJAPlayer3.Tx.Result_FadeIn.Opacity = 255;
-		}
-		public void tFadeIn開始()
-		{
-			this.mode = EFIFOMode.FadeIn;
-			this.counter = new CCounter( 0, 100, 5, TJAPlayer3.Timer );
-			if (TJAPlayer3.Tx.Result_FadeIn != null)
-				TJAPlayer3.Tx.Result_FadeIn.Opacity = 255;
-		}
-		public void tFadeIn完了()		// #25406 2011.6.9 yyagi
-		{
-			this.counter.n現在の値 = this.counter.n終了値;
-		}
+	// CActivity 実装
 
-		// CActivity 実装
-
-		public override void On非活性化()
+	public override void On非活性化()
+	{
+		if( !base.b活性化してない )
 		{
-			if( !base.b活性化してない )
+			base.On非活性化();
+		}
+	}
+	public override void OnManagedリソースの作成()
+	{
+		if( !base.b活性化してない )
+		{
+			base.OnManagedリソースの作成();
+		}
+	}
+	public override int On進行描画()
+	{
+		if( base.b活性化してない || ( this.counter == null ) )
+		{
+			return 0;
+		}
+		this.counter.t進行();
+
+		if (TJAPlayer3.ConfigIni.bEnableSkinV2)
+		{
+			if (TJAPlayer3.Tx.Tile_Black != null)
 			{
-				base.On非活性化();
+				TJAPlayer3.Tx.Tile_Black.Opacity = (this.mode == EFIFOMode.FadeIn) ? (((100 - this.counter.n現在の値) * 0xff) / 100) : ((this.counter.n現在の値 * 0xff) / 500);
+				for (int i = 0; i <= (TJAPlayer3.app.LogicalSize.Width / 64); i++)      // #23510 2010.10.31 yyagi: change "clientSize.Width" to "640" to fix FIFO drawing size
+				{
+					for (int j = 0; j <= (TJAPlayer3.app.LogicalSize.Height / 64); j++) // #23510 2010.10.31 yyagi: change "clientSize.Height" to "480" to fix FIFO drawing size
+					{
+						TJAPlayer3.Tx.Tile_Black.t2D描画(TJAPlayer3.app.Device, i * 64, j * 64);
+					}
+				}
 			}
 		}
-		public override void OnManagedリソースの作成()
+		else
 		{
-			if( !base.b活性化してない )
+			if (TJAPlayer3.Tx.Result_FadeIn != null)
 			{
-				base.OnManagedリソースの作成();
+				if (this.mode == EFIFOMode.FadeOut)
+				{
+					int y = Math.Min(360, this.counter.n現在の値);
+					TJAPlayer3.Tx.Result_FadeIn.t2D描画(TJAPlayer3.app.Device, 0, -360 + y, new Rectangle(0, 0, 1280, 380));
+					TJAPlayer3.Tx.Result_FadeIn.t2D描画(TJAPlayer3.app.Device, 0, 720 - y, new Rectangle(0, 380, 1280, 360));
+				}
+				else
+				{
+					TJAPlayer3.Tx.Result_FadeIn.Opacity = (((100 - this.counter.n現在の値) * 0xff) / 100);
+					TJAPlayer3.Tx.Result_FadeIn.t2D描画(TJAPlayer3.app.Device, 0, 0, new Rectangle(0, 0, 1280, 360));
+					TJAPlayer3.Tx.Result_FadeIn.t2D描画(TJAPlayer3.app.Device, 0, 360, new Rectangle(0, 380, 1280, 360));
+				}
 			}
 		}
-		public override int On進行描画()
+		if( this.mode == EFIFOMode.FadeOut )
 		{
-			if( base.b活性化してない || ( this.counter == null ) )
+			if( this.counter.n現在の値 != 500 )
 			{
 				return 0;
 			}
-			this.counter.t進行();
-
-			if (TJAPlayer3.ConfigIni.bEnableSkinV2)
-			{
-				if (TJAPlayer3.Tx.Tile_Black != null)
-				{
-					TJAPlayer3.Tx.Tile_Black.Opacity = (this.mode == EFIFOMode.FadeIn) ? (((100 - this.counter.n現在の値) * 0xff) / 100) : ((this.counter.n現在の値 * 0xff) / 500);
-					for (int i = 0; i <= (TJAPlayer3.app.LogicalSize.Width / 64); i++)      // #23510 2010.10.31 yyagi: change "clientSize.Width" to "640" to fix FIFO drawing size
-					{
-						for (int j = 0; j <= (TJAPlayer3.app.LogicalSize.Height / 64); j++) // #23510 2010.10.31 yyagi: change "clientSize.Height" to "480" to fix FIFO drawing size
-						{
-							TJAPlayer3.Tx.Tile_Black.t2D描画(TJAPlayer3.app.Device, i * 64, j * 64);
-						}
-					}
-				}
-			}
-			else
-			{
-				if (TJAPlayer3.Tx.Result_FadeIn != null)
-				{
-					if (this.mode == EFIFOMode.FadeOut)
-					{
-						int y = Math.Min(360, this.counter.n現在の値);
-						TJAPlayer3.Tx.Result_FadeIn.t2D描画(TJAPlayer3.app.Device, 0, -360 + y, new Rectangle(0, 0, 1280, 380));
-						TJAPlayer3.Tx.Result_FadeIn.t2D描画(TJAPlayer3.app.Device, 0, 720 - y, new Rectangle(0, 380, 1280, 360));
-					}
-					else
-					{
-						TJAPlayer3.Tx.Result_FadeIn.Opacity = (((100 - this.counter.n現在の値) * 0xff) / 100);
-						TJAPlayer3.Tx.Result_FadeIn.t2D描画(TJAPlayer3.app.Device, 0, 0, new Rectangle(0, 0, 1280, 360));
-						TJAPlayer3.Tx.Result_FadeIn.t2D描画(TJAPlayer3.app.Device, 0, 360, new Rectangle(0, 380, 1280, 360));
-					}
-				}
-			}
-			if( this.mode == EFIFOMode.FadeOut )
-			{
-				if( this.counter.n現在の値 != 500 )
-				{
-					return 0;
-				}
-			}
-			else if( this.mode == EFIFOMode.FadeIn )
-			{
-				if( this.counter.n現在の値 != 100 )
-				{
-					return 0;
-				}
-			}
-			return 1;
 		}
-
-
-		// その他
-
-		#region [ private ]
-		//-----------------
-		private CCounter counter;
-		private EFIFOMode mode;
-		//-----------------
-		#endregion
+		else if( this.mode == EFIFOMode.FadeIn )
+		{
+			if( this.counter.n現在の値 != 100 )
+			{
+				return 0;
+			}
+		}
+		return 1;
 	}
+
+
+	// その他
+
+	#region [ private ]
+	//-----------------
+	private CCounter counter;
+	private EFIFOMode mode;
+	//-----------------
+	#endregion
 }

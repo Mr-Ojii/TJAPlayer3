@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FDK
+namespace FDK;
+
+public enum ESoundDeviceType
 {
-	public enum ESoundDeviceType
-	{
-		ExclusiveWASAPI,
-		SharedWASAPI,
-		ASIO,
-		BASS,
-		Unknown,
-	}
+	ExclusiveWASAPI,
+	SharedWASAPI,
+	ASIO,
+	BASS,
+	Unknown,
 }

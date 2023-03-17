@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FDK
-{
-	// 定数
+namespace FDK;
 
-	public enum EInputDeviceType
-	{
-		Keyboard,
-		Mouse,
-		Joystick,
-		MidiIn,
-		Unknown
-	}
+// 定数
+public enum EInputDeviceType
+{
+	Keyboard,
+	Mouse,
+	Joystick,
+	MidiIn,
+	Unknown
 }

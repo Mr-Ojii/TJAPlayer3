@@ -5,10 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using FDK;
 
-namespace TJAPlayer3
-{
-	public abstract class ChartLoader : CActivity 
-	{ 
+namespace TJAPlayer3;
 
-	}
+public abstract class ChartLoader : CActivity 
+{ 
+
 }

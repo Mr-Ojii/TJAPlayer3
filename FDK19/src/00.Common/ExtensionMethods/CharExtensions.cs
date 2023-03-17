@@ -1,13 +1,12 @@
 using System;
 using System.Linq;
 
-namespace FDK.ExtensionMethods
+namespace FDK.ExtensionMethods;
+
+public static class CharExtensions
 {
-    public static class CharExtensions
+    public static bool ToBool(this char c)
     {
-        public static bool ToBool(this char c)
-        {
-			return ( c != '0' );
-        }
+        return ( c != '0' );
     }
 }

@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FDK.Windowing
+namespace FDK.Windowing;
+
+public enum WindowState
 {
-    public enum WindowState
-    {
-        Normal,
-        FullScreen,
-        FullScreen_Desktop
-    }
+    Normal,
+    FullScreen,
+    FullScreen_Desktop
 }
