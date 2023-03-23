@@ -395,7 +395,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
 				if( !this.st叩ききりまショー.ct残り時間.b停止中 || this.st叩ききりまショー.b加算アニメ中 == true )
 				{
 					this.st叩ききりまショー.ct残り時間.t進行();
-					if( !TJAPlayer3.stage演奏ドラム画面.r検索範囲内にチップがあるか調べる((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), 0, 5000, 0 ) || this.st叩ききりまショー.b加算アニメ中 == true )
+					if( !TJAPlayer3.stage演奏ドラム画面.r検索範囲内にチップがあるか調べる((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), 5000, 0 ) || this.st叩ききりまショー.b加算アニメ中 == true )
 					{
 						this.st叩ききりまショー.bタイマー使用中 = false;
 						this.st叩ききりまショー.ct残り時間.t停止();
@@ -405,7 +405,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
 
 			if( !this.st叩ききりまショー.bタイマー使用中 && this.st叩ききりまショー.b加算アニメ中 == false )
 			{
-				if ((this.st叩ききりまショー.b最初のチップが叩かれた == true && ( TJAPlayer3.stage演奏ドラム画面.r検索範囲内にチップがあるか調べる(CSoundManager.rc演奏用タイマ.n現在時刻ms, 0, 2000, 0 ) ) ) )
+				if ((this.st叩ききりまショー.b最初のチップが叩かれた == true && ( TJAPlayer3.stage演奏ドラム画面.r検索範囲内にチップがあるか調べる(CSoundManager.rc演奏用タイマ.n現在時刻ms, 2000, 0 ) ) ) )
 				{
 					this.st叩ききりまショー.bタイマー使用中 = true;
 					int nCount = this.st叩ききりまショー.ct残り時間.n現在の値;

@@ -2159,10 +2159,8 @@ internal class CStage演奏画面共通 : CStage
 		return nearestChip;
 	}
 
-	public bool r検索範囲内にチップがあるか調べる( long nTime, int nInputAdjustTime, int n検索範囲時間ms, int nPlayer )
+	public bool r検索範囲内にチップがあるか調べる( long nTime, int n検索範囲時間ms, int nPlayer )
 	{
-		nTime += nInputAdjustTime;
-
 		for ( int i = 0; i < TJAPlayer3.DTX[nPlayer].listChip.Count; i++ )
 		{
 			CDTX.CChip chip = TJAPlayer3.DTX[nPlayer].listChip[ i ];
