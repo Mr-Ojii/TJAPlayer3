@@ -13,11 +13,6 @@ internal class CStageResult : CStage
 {
 	// プロパティ
 
-	public float fPerfect率;
-	public float fGreat率;
-	public float fGood率;
-	public float fPoor率;
-	public float fMiss率;
 	public CScoreIni.C演奏記録[] st演奏記録;
 
 
@@ -47,15 +42,6 @@ internal class CStageResult : CStage
 			//---------------------
 			this.eFadeOut完了時の戻り値 = E戻り値.継続;
 			this.bアニメが完了 = false;
-			//---------------------
-			#endregion
-
-			#region [ 結果の計算 ]
-			//---------------------
-			for( int i = 0; i < 1; i++ )
-			{
-				this.fPerfect率 = this.fGreat率 = this.fGood率 = this.fPoor率 = this.fMiss率 = 0.0f;	// #28500 2011.5.24 yyagi
-			}
 			//---------------------
 			#endregion
 
