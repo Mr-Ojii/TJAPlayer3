@@ -348,8 +348,6 @@ internal class TJAPlayer3 : Game
 		{
 			this.n進行描画の戻り値 = (r現在のステージ != null) ? r現在のステージ.On進行描画() : 0;
 
-			CScoreIni scoreIni = null;
-
 			#region [ 曲検索スレッドの起動/終了 ]					// ここに"Enumerating Songs..."表示を集約
 			actEnumSongs.On進行描画();                          // "Enumerating Songs..."アイコンの描画
 			switch (r現在のステージ.eStageID)
@@ -681,7 +679,7 @@ internal class TJAPlayer3 : Game
 						case (int)E演奏画面の戻り値.演奏中断:
 							#region [ 演奏キャンセル ]
 							//-----------------------------
-							scoreIni = this.tScoreIniへBGMAdjustとHistoryとPlayCountを更新("Play canceled");
+							this.tScoreIniへBGMAdjustとHistoryとPlayCountを更新("Play canceled");
 
 
 							DTX[0].t全チップの再生停止();
@@ -703,7 +701,7 @@ internal class TJAPlayer3 : Game
 						case (int)E演奏画面の戻り値.ステージ失敗:
 							#region [ 演奏失敗(StageFailed) ]
 							//-----------------------------
-							scoreIni = this.tScoreIniへBGMAdjustとHistoryとPlayCountを更新("Stage failed");
+							this.tScoreIniへBGMAdjustとHistoryとPlayCountを更新("Stage failed");
 
 							DTX[0].t全チップの再生停止();
 							DTX[0].On非活性化();
@@ -727,7 +725,7 @@ internal class TJAPlayer3 : Game
 							for(int i = 0; i < ConfigIni.nPlayerCount; i++)
 								stage演奏ドラム画面.t演奏結果を格納する(out c演奏記録_Drums[i], i);
 
-							scoreIni = this.tScoreIniへBGMAdjustとHistoryとPlayCountを更新("Cleared (" + c演奏記録_Drums[0].nスコア.ToString() + ")");
+							this.tScoreIniへBGMAdjustとHistoryとPlayCountを更新("Cleared (" + c演奏記録_Drums[0].nスコア.ToString() + ")");
 
 							r現在のステージ.On非活性化();
 							Trace.TraceInformation("----------------------");
@@ -1751,7 +1749,7 @@ internal class TJAPlayer3 : Game
 			this.b終了処理完了済み = true;
 		}
 	}
-	private CScoreIni tScoreIniへBGMAdjustとHistoryとPlayCountを更新(string str新ヒストリ行)
+	private void tScoreIniへBGMAdjustとHistoryとPlayCountを更新(string str新ヒストリ行)
 	{
 		string strFilename = DTX[0].strFilenameの絶対パス + ".score.ini";
 		CScoreIni ini = new CScoreIni( strFilename );
@@ -1779,8 +1777,6 @@ internal class TJAPlayer3 : Game
 		{
 			ini.t書き出し( strFilename );
 		}
-
-		return ini;
 	}
 	private void tガベージコレクションを実行する()
 	{
