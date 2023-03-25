@@ -383,52 +383,8 @@ internal class CConfigIni : INotifyPropertyChanged
 	public struct STRANGE
 	{
 		public int Perfect;
-		public int Great;
 		public int Good;
 		public int Poor;
-		public int this[ int index ]
-		{
-			get
-			{
-				switch( index )
-				{
-					case 0:
-						return this.Perfect;
-
-					case 1:
-						return this.Great;
-
-					case 2:
-						return this.Good;
-
-					case 3:
-						return this.Poor;
-				}
-				throw new IndexOutOfRangeException();
-			}
-			set
-			{
-				switch( index )
-				{
-					case 0:
-						this.Perfect = value;
-						return;
-
-					case 1:
-						this.Great = value;
-						return;
-
-					case 2:
-						this.Good = value;
-						return;
-
-					case 3:
-						this.Poor = value;
-						return;
-				}
-				throw new IndexOutOfRangeException();
-			}
-		}
 	}
 	#endregion
 
@@ -519,7 +475,6 @@ internal class CConfigIni : INotifyPropertyChanged
 		#endregion
 		this.nヒット範囲ms = new STRANGE();
 		this.nヒット範囲ms.Perfect = 25; //そこらへんから拾ってきた判定の値
-		this.nヒット範囲ms.Great = -1; //使用しません。
 		this.nヒット範囲ms.Good = 75;
 		this.nヒット範囲ms.Poor = 108;
 		this.ConfigIniファイル名 = "";
@@ -1453,10 +1408,6 @@ internal class CConfigIni : INotifyPropertyChanged
 								if (str3.Equals("Perfect"))
 								{
 									this.nヒット範囲ms.Perfect = str4.ToInt32(0, 0x3e7, this.nヒット範囲ms.Perfect);
-								}
-								else if (str3.Equals("Great"))
-								{
-									this.nヒット範囲ms.Great = str4.ToInt32(0, 0x3e7, this.nヒット範囲ms.Great);
 								}
 								else if (str3.Equals("Good"))
 								{

@@ -92,13 +92,6 @@ internal class TJAPlayer3 : Game
 			return ConfigIni.nヒット範囲ms.Perfect;
 		}
 	}
-	public static int nGreat範囲ms
-	{
-		get
-		{
-			return ConfigIni.nヒット範囲ms.Great;
-		}
-	}
 	public static int nGood範囲ms
 	{
 		get
@@ -1760,7 +1753,6 @@ internal class TJAPlayer3 : Game
 			for( int i = 0; i < 2; i++ )
 			{
 				ini.stセクション[i].nPerfectになる範囲ms = nPerfect範囲ms;
-				ini.stセクション[i].nGreatになる範囲ms = nGreat範囲ms;
 				ini.stセクション[i].nGoodになる範囲ms = nGood範囲ms;
 				ini.stセクション[i].nPoorになる範囲ms = nPoor範囲ms;
 			}

@@ -145,7 +145,6 @@ internal class CStage演奏画面共通 : CStage
 			Drums.b演奏にJoypadを使用した = this.b演奏にJoypadを使った;
 			Drums.b演奏にMouseを使用した = this.b演奏にMouseを使った;
 			Drums.nPerfectになる範囲ms = TJAPlayer3.nPerfect範囲ms;
-			Drums.nGreatになる範囲ms = TJAPlayer3.nGreat範囲ms;
 			Drums.nGoodになる範囲ms = TJAPlayer3.nGood範囲ms;
 			Drums.nPoorになる範囲ms = TJAPlayer3.nPoor範囲ms;
 			Drums.strDTXManiaのバージョン = TJAPlayer3.VERSION;

@@ -85,7 +85,6 @@ public class CScoreIni
         public float f譜面スクロール速度;
         public int nGoodになる範囲ms;
         public int nGood数;
-        public int nGreatになる範囲ms;
         public int nGreat数;
         public int nMiss数;
         public int nPerfectになる範囲ms;
@@ -129,7 +128,6 @@ public class CScoreIni
             this.n演奏速度分子 = 20;
             this.n演奏速度分母 = 20;
             this.nPerfectになる範囲ms = 34;
-            this.nGreatになる範囲ms = 67;
             this.nGoodになる範囲ms = 84;
             this.nPoorになる範囲ms = 117;
             this.strDTXManiaのバージョン = "Unknown";
@@ -487,10 +485,6 @@ public class CScoreIni
                             {
                                 c演奏記録.nPerfectになる範囲ms = int.Parse(para);
                             }
-                            else if (item.Equals("GreatRange"))
-                            {
-                                c演奏記録.nGreatになる範囲ms = int.Parse(para);
-                            }
                             else if (item.Equals("GoodRange"))
                             {
                                 c演奏記録.nGoodになる範囲ms = int.Parse(para);
@@ -768,7 +762,6 @@ public class CScoreIni
             writer.WriteLine("UseJoypad={0}", this.stセクション[i].b演奏にJoypadを使用した ? 1 : 0);
             writer.WriteLine("UseMouse={0}", this.stセクション[i].b演奏にMouseを使用した ? 1 : 0);
             writer.WriteLine("PerfectRange={0}", this.stセクション[i].nPerfectになる範囲ms);
-            writer.WriteLine("GreatRange={0}", this.stセクション[i].nGreatになる範囲ms);
             writer.WriteLine("GoodRange={0}", this.stセクション[i].nGoodになる範囲ms);
             writer.WriteLine("PoorRange={0}", this.stセクション[i].nPoorになる範囲ms);
             writer.WriteLine("DTXManiaVersion={0}", this.stセクション[i].strDTXManiaのバージョン);
