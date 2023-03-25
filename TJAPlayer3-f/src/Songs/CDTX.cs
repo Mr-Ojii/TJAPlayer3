@@ -1253,7 +1253,6 @@ internal class CDTX : CActivity
 				else if (chip.nチャンネル番号 == 0x54) { }
 				else if (chip.nチャンネル番号 == 0x08) { }
 				else if (chip.nチャンネル番号 == 0xF1) { }
-				else if (chip.nチャンネル番号 == 0xF2) { }
 				else if (chip.nチャンネル番号 == 0xFF) { }
 				else if (chip.nチャンネル番号 == 0xDD) { chip.n発声時刻ms = ms + ((int)(((625 * (chip.n発声位置 - n発声位置)) * this.dbBarLength) / bpm)); }
 				else if (chip.nチャンネル番号 == 0xDF) { chip.n発声時刻ms = ms + ((int)(((625 * (chip.n発声位置 - n発声位置)) * this.dbBarLength) / bpm)); }
@@ -1540,15 +1539,6 @@ internal class CDTX : CActivity
 						}
 					case 0xE0:
 						{
-							//if (this.bOFFSETの値がマイナスである)
-							//    chip.n発声時刻ms += this.nOFFSET;
-
-							//chip.dbBPM = this.dbNowBPM;
-							//chip.dbSCROLL = this.dbNowSCROLL;
-							//if( chip.n整数値_内部番号 == 1 )
-							//    this.bBarLine = false;
-							//else
-							//    this.bBarLine = true;
 							continue;
 						}
 					default:
@@ -3483,7 +3473,6 @@ internal class CDTX : CActivity
 
 			chip.nチャンネル番号 = 0xFF;
 			chip.n発声位置 = ((this.n現在の小節数 + 2) * 384);
-			//chip.n発声時刻ms = (int)( this.dbNowTime + ((15000.0 / this.dbNowBPM * ( 4.0 / 4.0 )) * 16.0) * 2  );
 			chip.n発声時刻ms = (int)(this.dbNowTime + 1000); //2016.07.16 kairera0467 終了時から1秒後に設置するよう変更。
 			chip.n整数値 = 0xFF;
 			chip.n整数値_内部番号 = 1;
@@ -3816,29 +3805,11 @@ internal class CDTX : CActivity
 		}
 		else if (command == "#BARLINEOFF")
 		{
-			var chip = new CChip();
-
-			chip.nチャンネル番号 = 0xE0;
-			chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
-			chip.n発声時刻ms = (int)this.dbNowTime + 1;
-			chip.n整数値_内部番号 = 1;
-			chip.nコース = this.n現在のコース;
 			this.bBARLINECUE[0] = 1;
-
-			this.listChip.Add(chip);
 		}
 		else if (command == "#BARLINEON")
 		{
-			var chip = new CChip();
-
-			chip.nチャンネル番号 = 0xE0;
-			chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
-			chip.n発声時刻ms = (int)this.dbNowTime + 1;
-			chip.n整数値_内部番号 = 2;
-			chip.nコース = this.n現在のコース;
 			this.bBARLINECUE[0] = 0;
-
-			this.listChip.Add(chip);
 		}
 		else if (command == "#LYRIC")
 		{
@@ -3861,20 +3832,6 @@ internal class CDTX : CActivity
 		{
 			double dbSCROLL = Convert.ToDouble(argument);
 			this.nスクロール方向 = (int)dbSCROLL;
-
-			//チップ追加して割り込んでみる。
-			var chip = new CChip();
-
-			chip.nチャンネル番号 = 0xF2;
-			chip.n発声位置 = ((this.n現在の小節数) * 384) - 1;
-			chip.n発声時刻ms = (int)this.dbNowTime;
-			chip.n整数値_内部番号 = 0;
-			chip.nスクロール方向 = (int)dbSCROLL;
-			chip.nコース = this.n現在のコース;
-
-			// チップを配置。
-
-			this.listChip.Add(chip);
 		}
 		else if (command == "#SUDDEN")
 		{

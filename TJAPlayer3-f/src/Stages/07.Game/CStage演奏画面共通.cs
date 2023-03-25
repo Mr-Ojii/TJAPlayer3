@@ -3519,7 +3519,6 @@ internal class CStage演奏画面共通 : CStage
 				case 0xd7:
 				case 0xd8:
 				case 0xd9:
-				//case 0xe0:
 					if ( !pChip.bHit && ( pChip.TimeSpan < 0 ) )
 					{
 						pChip.bHit = true;
@@ -3616,11 +3615,8 @@ internal class CStage演奏画面共通 : CStage
 
 					break;
 				case 0xE0:
-					//if( !pChip.bHit && ( pChip.nバーからの距離dot.Drums < 0 ) )
-					//{
-						//#BARLINEONと#BARLINEOFF
-						//演奏中は使用しません。
-					//}
+					//#BARLINEONと#BARLINEOFFだったとこ
+					//演奏中は使用しません。
 					break;
 				case 0xE1:
 					if( !pChip.bHit && ( pChip.TimeSpan < 0 ))
