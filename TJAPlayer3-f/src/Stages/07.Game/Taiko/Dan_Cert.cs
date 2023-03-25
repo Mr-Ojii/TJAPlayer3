@@ -26,7 +26,6 @@ internal class Dan_Cert : CActivity
 	Dan_C[] Challenge;
 	Dan_C Gauge;
 	private bool IsVer2 = false;
-	private Dictionary<int, STDan_CResult> STDan_CResults = new Dictionary<int, STDan_CResult>();
 	//
 
 	public void Start(int number)
@@ -43,14 +42,6 @@ internal class Dan_Cert : CActivity
 			if (Gauge.IsEnable)
 				Gauge.SetNowSongNum(number);
 
-		if (STDan_CResults.ContainsKey(number))//もともと入ってた場合、消す
-			STDan_CResults.Remove(number);
-		STDan_CResults.Add(number, new STDan_CResult()
-		{
-			ヒット数 = TJAPlayer3.stage演奏ドラム画面.nヒット数,
-			Roll = new int[] { TJAPlayer3.stage演奏ドラム画面.GetRoll(0), TJAPlayer3.stage演奏ドラム画面.GetRoll(1) }
-		});
-
 		Counter_In = new CCounter(0, 999, 1, TJAPlayer3.Timer);
 		ScreenPoint = new double[] { TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldBGX[0] - (TJAPlayer3.Tx.DanC_Screen?.szTextureSize.Width ?? 1280) / 2, 1280 }; //2020.06.06 Mr-Ojii twopointzero氏のソースコードをもとに改良
 		TJAPlayer3.stage演奏ドラム画面.ReSetScore(TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].ScoreInit, TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].ScoreDiff, 0);
@@ -65,7 +56,6 @@ internal class Dan_Cert : CActivity
 	public override void On活性化()
 	{
 		NowShowingNumber = 0;
-		STDan_CResults.Clear();
 		Challenge = new Dan_C[3];
 		Gauge = new Dan_C();
 		for (int i = 0; i < 3; i++)
@@ -932,12 +922,6 @@ internal class Dan_Cert : CActivity
 		public CCounter Timer_Gauge;
 		public CCounter Timer_Amount;
 		public CCounter Timer_Failed;
-	}
-
-	struct STDan_CResult
-	{
-		public CStage演奏画面共通.CHITCOUNTOFRANK[] ヒット数;
-		public int[] Roll;
 	}
 
 	#region[ private ]
