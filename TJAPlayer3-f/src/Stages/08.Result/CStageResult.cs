@@ -70,10 +70,7 @@ internal class CStageResult : CStage
 				}
 				//---------------------------------------------------------------------/
 			}
-			if (TJAPlayer3.ConfigIni.bScoreIniを出力する)
-			{
-				ini.t書き出し(str);
-			}
+			ini.t書き出し(str);
 			//---------------------
 			#endregion
 

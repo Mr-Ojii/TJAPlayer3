@@ -153,7 +153,6 @@ internal class CConfigIni : INotifyPropertyChanged
 	public bool bLog曲検索ログ出力;
 	public bool bLog作成解放ログ出力;
 
-	public bool bScoreIniを出力する;
 	public bool bTight;
 	public bool bWave再生位置自動調整機能有効;
 	public bool bランダムセレクトで子BOXを検索対象とする;
@@ -418,7 +417,6 @@ internal class CConfigIni : INotifyPropertyChanged
 		//this.bWave再生位置自動調整機能有効 = true;
 		this.bWave再生位置自動調整機能有効 = false;
 		this.bBGM音を発声する = true;
-		this.bScoreIniを出力する = true;
 		this.bランダムセレクトで子BOXを検索対象とする = true;
 		this.n表示可能な最小コンボ数 = new int();
 		this.n表示可能な最小コンボ数 = 3;
@@ -742,9 +740,6 @@ internal class CConfigIni : INotifyPropertyChanged
 		sw.WriteLine( "BGMSound={0}", this.bBGM音を発声する ? 1 : 0 );
 		sw.WriteLine();
 		#endregion
-		sw.WriteLine( "; 演奏記録（～.score.ini）の出力 (0:OFF, 1:ON)" );
-		sw.WriteLine( "SaveScoreIni={0}", this.bScoreIniを出力する ? 1 : 0 );
-		sw.WriteLine();
 		sw.WriteLine("; 最小表示コンボ数");
 		sw.WriteLine("MinComboDrums={0}", this.n表示可能な最小コンボ数);
 		sw.WriteLine();
@@ -1287,10 +1282,6 @@ internal class CConfigIni : INotifyPropertyChanged
 										this.bBGM音を発声する = str4[0].ToBool();
 									}
 #endregion
-									else if( str3.Equals( "SaveScoreIni" ) )
-									{
-										this.bScoreIniを出力する = str4[0].ToBool();
-									}
 									else if( str3.Equals( "RandomFromSubBox" ) )
 									{
 										this.bランダムセレクトで子BOXを検索対象とする = str4[0].ToBool();

@@ -180,10 +180,6 @@ internal class CActConfigList : CActivity
 		//    "Damage level at missing (and\n recovering level) at playing.\nThis setting is ignored when Risky >= 1.",
 		//    new string[] { "Small", "Normal", "Large" } );
 		//this.list項目リスト.Add( this.iSystemDamageLevel );
-		this.iSystemSaveScore = new CItemToggle( "SaveScore", TJAPlayer3.ConfigIni.bScoreIniを出力する,
-			"演奏記録の保存：\nON で演奏記録を ～.score.ini ファイ\nルに保存します。\n",
-			"To save high-scores/skills, turn it ON.\nTurn OFF in case your song data are\n in read-only media (CD-ROM etc).\nNote that the score files also contain\n 'BGM Adjust' parameter. So if you\n want to keep adjusting parameter,\n you need to set SaveScore=ON." );
-		this.list項目リスト.Add( this.iSystemSaveScore );
 
 		this.iSystemApplyLoudnessMetadata = new CItemToggle( "Apply Loudness Metadata", TJAPlayer3.ConfigIni.ApplyLoudnessMetadata,
 			"BS1770GAIN によるラウドネスメータの測量を適用します。\n利用するにはBS1770GAINが必要です。", 
@@ -1488,7 +1484,6 @@ internal class CActConfigList : CActivity
 	private CItemInteger iSystemMinComboDrums;
 	private CItemToggle iSystemRandomFromSubBox;
 	private CItemBase iSystemReturnToMenu;
-	private CItemToggle iSystemSaveScore;
 	private CItemToggle iSystemVSyncWait;
 	private CItemToggle SendDiscordPlayingInformation;
 	private CItemInteger iSystemRisky;					// #23559 2011.7.27 yyagi
@@ -1625,7 +1620,6 @@ internal class CActConfigList : CActivity
 		TJAPlayer3.ConfigIni.bBGM音を発声する = this.iSystemBGMSound.bON;
 		//CDTXMania.ConfigIni.b歓声を発声する = this.iSystemAudienceSound.bON;
 		//CDTXMania.ConfigIni.eダメージレベル = (Eダメージレベル) this.iSystemDamageLevel.n現在選択されている項目番号;
-		TJAPlayer3.ConfigIni.bScoreIniを出力する = this.iSystemSaveScore.bON;
 
 		TJAPlayer3.ConfigIni.ApplyLoudnessMetadata = this.iSystemApplyLoudnessMetadata.bON;
 		TJAPlayer3.ConfigIni.TargetLoudness = this.iSystemTargetLoudness.nValue / 10.0;

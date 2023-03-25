@@ -1765,10 +1765,7 @@ internal class TJAPlayer3 : Game
 		}
 		ini.tヒストリを追加する( str新ヒストリ行 );
 		
-		if( ConfigIni.bScoreIniを出力する )
-		{
-			ini.t書き出し( strFilename );
-		}
+		ini.t書き出し( strFilename );
 	}
 	private void tガベージコレクションを実行する()
 	{
