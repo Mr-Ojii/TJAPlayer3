@@ -71,12 +71,12 @@ internal class CActResultParameterPanel : CActivity
 				{
 					this.CrownState[index] = 0;
 				}
-				else if (TJAPlayer3.stageResult.st演奏記録[index].nMiss数_Auto含まない != 0)
+				else if (TJAPlayer3.stageResult.st演奏記録[index].nMiss数 != 0)
 				{
 					this.CrownState[index] = 1;
 					this.AllPlayerCannotGetCrown = false;
 				}
-				else if (TJAPlayer3.stageResult.st演奏記録[index].nGood数_Auto含まない != 0)
+				else if (TJAPlayer3.stageResult.st演奏記録[index].nGood数 != 0)
 				{
 					this.CrownState[index] = 2;
 					this.AllPlayerCannotGetCrown = false;

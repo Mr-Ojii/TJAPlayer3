@@ -121,14 +121,10 @@ internal class CStage演奏画面共通 : CStage
 		//if (  )
 		{
 			Drums.nスコア = (long) this.actScore.Get( nPlayer );
-			Drums.nPerfect数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] ? this.nヒット数_Auto含む[nPlayer].Perfect : this.nヒット数_Auto含まない[nPlayer].Perfect;
-			Drums.nGood数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] ? this.nヒット数_Auto含む[nPlayer].Good : this.nヒット数_Auto含まない[nPlayer].Good;
-			Drums.nBad数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] ? this.nヒット数_Auto含む[nPlayer].Bad : this.nヒット数_Auto含まない[nPlayer].Bad;
-			Drums.nMiss数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] ? this.nヒット数_Auto含む[nPlayer].Miss : this.nヒット数_Auto含まない[nPlayer].Miss;
-			Drums.nPerfect数_Auto含まない = this.nヒット数_Auto含まない[nPlayer].Perfect;
-			Drums.nGood数_Auto含まない = this.nヒット数_Auto含まない[nPlayer].Good;
-			Drums.nBad数_Auto含まない = this.nヒット数_Auto含まない[nPlayer].Bad;
-			Drums.nMiss数_Auto含まない = this.nヒット数_Auto含まない[nPlayer].Miss;
+			Drums.nPerfect数 = this.nヒット数[nPlayer].Perfect;
+			Drums.nGood数 = this.nヒット数[nPlayer].Good;
+			Drums.nBad数 = this.nヒット数[nPlayer].Bad;
+			Drums.nMiss数 = this.nヒット数[nPlayer].Miss;
 			Drums.n連打数 = this.n合計連打数[ nPlayer ];
 			Drums.n最大コンボ数 = this.actCombo.n現在のコンボ数.最高値[nPlayer];
 			Drums.n全チップ数 = TJAPlayer3.DTX[0].n可視チップ数.Drums;
@@ -196,12 +192,12 @@ internal class CStage演奏画面共通 : CStage
 						if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 0)
 							Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 0;
 					}
-					else if (Drums.nMiss数_Auto含まない != 0)
+					else if (Drums.nMiss数 != 0)
 					{
 						if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 1)
 							Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 1;
 					}
-					else if (Drums.nGood数_Auto含まない != 0)
+					else if (Drums.nGood数 != 0)
 					{
 						if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 2)
 							Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 2;
@@ -270,10 +266,8 @@ internal class CStage演奏画面共通 : CStage
 		this.eFadeOut完了時の戻り値 = E演奏画面の戻り値.継続;
 		this.n現在のトップChip = ( TJAPlayer3.DTX[0].listChip.Count > 0 ) ? 0 : -1;
 
-		this.nヒット数_Auto含まない[0] = new CHITCOUNTOFRANK();
-		this.nヒット数_Auto含まない[1] = new CHITCOUNTOFRANK();
-		this.nヒット数_Auto含む[0] = new CHITCOUNTOFRANK();
-		this.nヒット数_Auto含む[1] = new CHITCOUNTOFRANK();
+		this.nヒット数[0] = new CHITCOUNTOFRANK();
+		this.nヒット数[1] = new CHITCOUNTOFRANK();
 
 		this.b演奏にKeyBoardを使った = false;
 		this.b演奏にJoypadを使った = false;
@@ -889,8 +883,7 @@ internal class CStage演奏画面共通 : CStage
 
 	protected E演奏画面の戻り値 eFadeOut完了時の戻り値;
 
-	public CHITCOUNTOFRANK[] nヒット数_Auto含まない = new CHITCOUNTOFRANK[2];
-	public CHITCOUNTOFRANK[] nヒット数_Auto含む = new CHITCOUNTOFRANK[2];
+	public CHITCOUNTOFRANK[] nヒット数 = new CHITCOUNTOFRANK[2];
 	public int n現在のトップChip = -1;
 
 	protected volatile Queue<STMixer> queueMixerSound;		// #24820 2013.1.21 yyagi まずは単純にAdd/Removeを1個のキューでまとめて管理するやり方で設計する
@@ -1459,106 +1452,53 @@ internal class CStage演奏画面共通 : CStage
 
 		if (pChip.nチャンネル番号 != 0x15 && pChip.nチャンネル番号 != 0x16 && pChip.nチャンネル番号 != 0x17 && pChip.nチャンネル番号 != 0x18)
 		{
-			if (!bAutoPlay)
+			switch (eJudgeResult)
 			{
-				switch (eJudgeResult)
-				{
-					case EJudge.Perfect:
+				case EJudge.Perfect:
+					{
+						this.CBranchScore[nPlayer].nPerfect++;
+						this.nヒット数[nPlayer].Perfect++;
+						this.actCombo.n現在のコンボ数[nPlayer]++;
+						if (this.actCombo.ctコンボ加算[nPlayer].b終了値に達してない)
 						{
-							this.CBranchScore[nPlayer].nPerfect++;
-							this.nヒット数_Auto含まない[nPlayer].Perfect++;
-							this.actCombo.n現在のコンボ数[nPlayer]++;
-							if (this.actCombo.ctコンボ加算[nPlayer].b終了値に達してない)
-							{
-								this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 1;
-							}
-							else
-							{
-								this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 0;
-							}
+							this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 1;
 						}
-						break;
-					case EJudge.Good:
+						else
 						{
-							this.CBranchScore[nPlayer].nGood++;
-							this.nヒット数_Auto含まない[nPlayer].Good++;
-							this.actCombo.n現在のコンボ数[nPlayer]++;
-							if (this.actCombo.ctコンボ加算[nPlayer].b終了値に達してない)
-							{
-								this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 1;
-							}
-							else
-							{
-								this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 0;
-							}
+							this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 0;
+						}
+					}
+					break;
+				case EJudge.Good:
+					{
+						this.CBranchScore[nPlayer].nGood++;
+						this.nヒット数[nPlayer].Good++;
+						this.actCombo.n現在のコンボ数[nPlayer]++;
+						if (this.actCombo.ctコンボ加算[nPlayer].b終了値に達してない)
+						{
+							this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 1;
+						}
+						else
+						{
+							this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 0;
+						}
 
-						}
-						break;
-					case EJudge.Bad:
-					case EJudge.Miss:
-						{
-							if (pChip.nチャンネル番号 == 0x1F)
-								break;
-							this.CBranchScore[nPlayer].nMiss++;
-							this.nヒット数_Auto含まない[nPlayer].Miss++;
-							this.actCombo.n現在のコンボ数[nPlayer] = 0;
-							this.actComboVoice.tReset(nPlayer);
-						}
-						break;
-					default:
-						this.nヒット数_Auto含む[nPlayer][(int)eJudgeResult]++;
-						break;
-				}
-			}
-			else
-			{
-
-
-				switch (eJudgeResult)
-				{
-					case EJudge.Perfect:
-						{
-							this.CBranchScore[nPlayer].nPerfect++;
-							this.nヒット数_Auto含む[nPlayer].Perfect++;
-							this.actCombo.n現在のコンボ数[nPlayer]++;
-							if (this.actCombo.ctコンボ加算[nPlayer].b終了値に達してない)
-							{
-								this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 1;
-							}
-							else
-							{
-								this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 0;
-							}
-						}
-						break;
-
-					case EJudge.Good:
-						{
-							this.CBranchScore[nPlayer].nGood++;
-							this.nヒット数_Auto含む[nPlayer].Good++;
-							this.actCombo.n現在のコンボ数[nPlayer]++;
-							if (this.actCombo.ctコンボ加算[nPlayer].b終了値に達してない)
-							{
-								this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 1;
-							}
-							else
-							{
-								this.actCombo.ctコンボ加算[nPlayer].n現在の値 = 0;
-							}
-						}
-						break;
-					default:
-						{
-							if (pChip.nチャンネル番号 != 0x1F)
-							{
-								this.nヒット数_Auto含む[nPlayer].Miss++;
-								this.CBranchScore[nPlayer].nMiss++;
-								this.actCombo.n現在のコンボ数[nPlayer] = 0;
-								this.actComboVoice.tReset(nPlayer);
-							}
-						}
-						break;
-				}
+					}
+					break;
+				case EJudge.Bad:
+				case EJudge.Miss:
+					{
+						if (pChip.nチャンネル番号 == 0x1F)
+							break;
+						this.CBranchScore[nPlayer].nMiss++;
+						this.nヒット数[nPlayer].Miss++;
+						this.actCombo.n現在のコンボ数[nPlayer] = 0;
+						this.actComboVoice.tReset(nPlayer);
+					}
+					break;
+				default:
+					this.nヒット数[nPlayer][(int)eJudgeResult]++;
+					break;
 			}
 		}
 
@@ -3939,15 +3879,10 @@ internal class CStage演奏画面共通 : CStage
 		{
 			for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
 			{
-				this.nヒット数_Auto含む[i].Perfect = 0;
-				this.nヒット数_Auto含む[i].Good = 0;
-				this.nヒット数_Auto含む[i].Bad = 0;
-				this.nヒット数_Auto含む[i].Miss = 0;
-
-				this.nヒット数_Auto含まない[i].Perfect = 0;
-				this.nヒット数_Auto含まない[i].Good = 0;
-				this.nヒット数_Auto含まない[i].Bad = 0;
-				this.nヒット数_Auto含まない[i].Miss = 0;
+				this.nヒット数[i].Perfect = 0;
+				this.nヒット数[i].Good = 0;
+				this.nヒット数[i].Bad = 0;
+				this.nヒット数[i].Miss = 0;
 			}
 
 			this.actCombo.On活性化();
@@ -4843,23 +4778,23 @@ internal class CStage演奏画面共通 : CStage
 
 	protected void t進行描画_リアルタイム判定数表示()
 	{
-		if (TJAPlayer3.ConfigIni.nPlayerCount == 1 && TJAPlayer3.ConfigIni.bJudgeCountDisplay && !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] || TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
+		if (TJAPlayer3.ConfigIni.nPlayerCount == 1 && TJAPlayer3.ConfigIni.bJudgeCountDisplay || TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
 		{
 			//ボードの横幅は333px
 			//数字フォントの小さいほうはリザルトのものと同じ。
 			if (TJAPlayer3.Tx.Judge_Meter != null)
 				TJAPlayer3.Tx.Judge_Meter.t2D描画(TJAPlayer3.app.Device, 0, 360);
 
-			this.t小文字表示(102, 494, string.Format("{0,4:###0}", this.nヒット数_Auto含まない[0].Perfect.ToString()));
-			this.t小文字表示(102, 532, string.Format("{0,4:###0}", this.nヒット数_Auto含まない[0].Good.ToString()));
-			this.t小文字表示(102, 570, string.Format("{0,4:###0}", this.nヒット数_Auto含まない[0].Miss.ToString()));
+			this.t小文字表示(102, 494, string.Format("{0,4:###0}", this.nヒット数[0].Perfect.ToString()));
+			this.t小文字表示(102, 532, string.Format("{0,4:###0}", this.nヒット数[0].Good.ToString()));
+			this.t小文字表示(102, 570, string.Format("{0,4:###0}", this.nヒット数[0].Miss.ToString()));
 			this.t小文字表示(102, 634, string.Format("{0,4:###0}", GetRoll(0)));
 
-			int nNowTotal = this.nヒット数_Auto含まない[0].Perfect + this.nヒット数_Auto含まない[0].Good + this.nヒット数_Auto含まない[0].Miss;
-			double dbたたけた率 = Math.Round((100.0 * (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Perfect + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Good)) / (double)nNowTotal);
-			double dbPERFECT率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Perfect) / (double)nNowTotal);
-			double dbGOOD率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Good / (double)nNowTotal));
-			double dbMISS率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Miss / (double)nNowTotal));
+			int nNowTotal = this.nヒット数[0].Perfect + this.nヒット数[0].Good + this.nヒット数[0].Miss;
+			double dbたたけた率 = Math.Round((100.0 * (TJAPlayer3.stage演奏ドラム画面.nヒット数[0].Perfect + TJAPlayer3.stage演奏ドラム画面.nヒット数[0].Good)) / (double)nNowTotal);
+			double dbPERFECT率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数[0].Perfect) / (double)nNowTotal);
+			double dbGOOD率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数[0].Good / (double)nNowTotal));
+			double dbMISS率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数[0].Miss / (double)nNowTotal));
 
 			if (double.IsNaN(dbたたけた率))
 				dbたたけた率 = 0;

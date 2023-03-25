@@ -90,10 +90,6 @@ public class CScoreIni
         public int nPerfect数;
         public int nBadになる範囲ms;
         public int nBad数;
-        public int nPerfect数_Auto含まない;
-        public int nGood数_Auto含まない;
-        public int nBad数_Auto含まない;
-        public int nMiss数_Auto含まない;
         public long nスコア;
         public int n連打数;
         public int n演奏速度分子;

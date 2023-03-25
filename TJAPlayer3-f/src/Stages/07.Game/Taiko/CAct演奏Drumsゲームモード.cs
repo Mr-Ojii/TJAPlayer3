@@ -575,9 +575,9 @@ internal class CAct演奏Drumsゲームモード : CActivity
 				}
 			}
 			#region[ 全体 ]
-			if( TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Perfect != 0 || TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Good != 0 )
+			if( TJAPlayer3.stage演奏ドラム画面.nヒット数[0].Perfect != 0 || TJAPlayer3.stage演奏ドラム画面.nヒット数[0].Good != 0 )
 			{
-				double db全体精度 = ( (double) ( TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Perfect + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Good ) / this.st叩ききりまショー.n区間ノート数 ) * 100.0;
+				double db全体精度 = ( (double) ( TJAPlayer3.stage演奏ドラム画面.nヒット数[0].Perfect + TJAPlayer3.stage演奏ドラム画面.nヒット数[0].Good ) / this.st叩ききりまショー.n区間ノート数 ) * 100.0;
 				for( int i = 0; i < this.n全体精度ボーナス.Length; i++ )
 				{
 					if( db全体精度 >= this.n全体精度ボーナス[ i ].ret )
@@ -615,7 +615,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
 				}
 			}
 
-			double db全体ミス率 = ( ( (double)TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Bad + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Miss ) / this.st叩ききりまショー.n現在通過したノート数 ) * 100.0;
+			double db全体ミス率 = ( ( (double)TJAPlayer3.stage演奏ドラム画面.nヒット数[0].Bad + TJAPlayer3.stage演奏ドラム画面.nヒット数[0].Miss ) / this.st叩ききりまショー.n現在通過したノート数 ) * 100.0;
 			for( int i = 0; i < this.n全体ミス率ボーナス.Length; i++ )
 			{
 				if( db全体ミス率 >= this.n全体ミス率ボーナス[ i ].ret )
