@@ -262,6 +262,7 @@ public class GameWindow : IDisposable
                 }
             }
         }
+        OnClosed(new EventArgs());
     }
 
     protected void Render()
@@ -313,6 +314,11 @@ public class GameWindow : IDisposable
     }
 
     protected virtual void OnClosing(CancelEventArgs e)
+    {
+
+    }
+
+    protected virtual void OnClosed(EventArgs e)
     {
 
     }

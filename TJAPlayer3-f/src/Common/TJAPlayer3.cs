@@ -308,11 +308,11 @@ internal class TJAPlayer3 : Game
 			r現在のステージ = stageEnding;
 			this.tガベージコレクションを実行する();
 		}
-		else
-		{
-			this.t終了処理();
-		}
 		base.OnClosing(e);
+	}
+	protected override void OnClosed(EventArgs e)
+	{
+		this.t終了処理();
 	}
 
 	protected override void OnRenderFrame(EventArgs e)
