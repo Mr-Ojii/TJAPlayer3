@@ -2331,18 +2331,14 @@ internal class CStage演奏画面共通 : CStage
 						nHand = 0;
 						nChannel = 0x11;
 						if (b太鼓音再生フラグ)
-						{
 							this.soundRed[0]?.t再生を開始する();
-						}
 						break;
 					case (int)EPad.RRed:
 						nLane = 0;
 						nHand = 1;
 						nChannel = 0x11;
 						if (b太鼓音再生フラグ)
-						{
 							this.soundRed[0]?.t再生を開始する();
-						}
 						break;
 					case (int)EPad.LBlue:
 						nLane = 1;
@@ -2364,18 +2360,14 @@ internal class CStage演奏画面共通 : CStage
 						nHand = 0;
 						nChannel = 0x11;
 						if (b太鼓音再生フラグ)
-						{
 							this.soundRed[1]?.t再生を開始する();
-						}
 						break;
 					case (int)EPad.RRed2P:
 						nLane = 0;
 						nHand = 1;
 						nChannel = 0x11;
 						if (b太鼓音再生フラグ)
-						{
 							this.soundRed[1]?.t再生を開始する();
-						}
 						break;
 					case (int)EPad.LBlue2P:
 						nLane = 1;
