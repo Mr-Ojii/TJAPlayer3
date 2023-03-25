@@ -2928,19 +2928,12 @@ internal class CStage演奏画面共通 : CStage
 			this.bUseBranch[ nPlayer ] = dTX.bHIDDENBRANCH ? false : dTX.bHasBranchChip;
 		}
 
-
-		//CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.灰, this.nLoopCount_Clear.ToString()  );
-
-
 		float play_bpm_time = this.GetNowPBMTime( dTX );
-		//for ( int nCurrentTopChip = this.n現在のトップChip; nCurrentTopChip < dTX.listChip.Count; nCurrentTopChip++ )
 		for ( int nCurrentTopChip = dTX.listChip.Count - 1; nCurrentTopChip > 0; nCurrentTopChip-- )
 		{
 			CDTX.CChip pChip = dTX.listChip[ nCurrentTopChip ];
-//Debug.WriteLine( "nCurrentTopChip=" + nCurrentTopChip + ", ch=" + pChip.nチャンネル番号.ToString("x2") + ", 発音位置=" + pChip.n発声位置 + ", 発声時刻ms=" + pChip.n発声時刻ms );
-			var time = pChip.n発声時刻ms - n現在時刻ms;
-			pChip.TimeSpan = (int) ( time );
-			pChip.nバーからの距離dot = (int) ( time * pChip.dbBPM * pChip.dbSCROLL * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0 );//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
+			pChip.TimeSpan = (int) ( pChip.n発声時刻ms - n現在時刻ms );
+			pChip.nバーからの距離dot = (int) ( pChip.TimeSpan * pChip.dbBPM * pChip.dbSCROLL * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0 );//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
 			if( pChip.nノーツ終了時刻ms != 0 )
 				pChip.nバーからのノーツ末端距離dot = (int) (  ( pChip.nノーツ終了時刻ms - n現在時刻ms) * pChip.db末端BPM * pChip.db末端SCROLL * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 
@@ -2966,7 +2959,7 @@ internal class CStage演奏画面共通 : CStage
 			}
 			else if(TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.REGULSPEED) 
 			{
-				pChip.nバーからの距離dot = (int)(time * TJAPlayer3.ConfigIni.nRegSpeedBPM * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0) / 502.8594 / 5.0);//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
+				pChip.nバーからの距離dot = (int)(pChip.TimeSpan * TJAPlayer3.ConfigIni.nRegSpeedBPM * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0) / 502.8594 / 5.0);//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
 				if (pChip.nノーツ終了時刻ms != 0)
 					pChip.nバーからのノーツ末端距離dot = (int)((pChip.nノーツ終了時刻ms - n現在時刻ms) * TJAPlayer3.ConfigIni.nRegSpeedBPM * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0) / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 			}
@@ -2976,7 +2969,7 @@ internal class CStage演奏画面共通 : CStage
 				if (pChip.nチャンネル番号 >= 0x11 && pChip.nチャンネル番号 <= 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B)//|| pChip.nチャンネル番号 == 0x9A )
 				{
 					//こっちのほうが適格と考えたためフラグを変更.2020.04.20 Akasoko26
-					if (time <= 0)
+					if (pChip.TimeSpan <= 0)
 					{
 						if (this.e指定時刻からChipのJUDGEを返す(n現在時刻ms, pChip) == EJudge.Miss)
 						{
