@@ -2932,6 +2932,7 @@ internal class CStage演奏画面共通 : CStage
 		//CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.灰, this.nLoopCount_Clear.ToString()  );
 
 
+		float play_bpm_time = this.GetNowPBMTime( dTX );
 		//for ( int nCurrentTopChip = this.n現在のトップChip; nCurrentTopChip < dTX.listChip.Count; nCurrentTopChip++ )
 		for ( int nCurrentTopChip = dTX.listChip.Count - 1; nCurrentTopChip > 0; nCurrentTopChip-- )
 		{
@@ -2948,8 +2949,6 @@ internal class CStage演奏画面共通 : CStage
 
 			if ( TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL || TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.HBSCROLL )
 			{
-				float play_bpm_time = this.GetNowPBMTime( dTX );
-
 				var dbSCROLL = TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.dbSCROLL;
 				var db末端SCROLL = TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.db末端SCROLL;
 
@@ -3896,46 +3895,16 @@ internal class CStage演奏画面共通 : CStage
 
 	protected float GetNowPBMTime( CDTX tja )
 	{
-		float play_time = 0;
+		float play_time = CSoundManager.rc演奏用タイマ.n現在時刻ms * (((float)TJAPlayer3.ConfigIni.n演奏速度) / 20.0f) - tja.nOFFSET;;
 		float bpm_time = 0;
-		int last_input = 0;
-		float last_bpm_change_time;
-		play_time = CSoundManager.rc演奏用タイマ.n現在時刻ms * (((float)TJAPlayer3.ConfigIni.n演奏速度) / 20.0f) - tja.nOFFSET;
 
-		for (int i = 1; ; i++)
+		for (int i = tja.listBPM.Count - 1; i >= 0; i--)
 		{
-			//BPMCHANGEの数越えた
-			if( i >= tja.listBPM.Count )
+			CDTX.CBPM cBPM = tja.listBPM[ i ];
+			if((cBPM.bpm_change_time == 0 || cBPM.bpm_change_course == this.n現在のコース[0]) && tja.listBPM[ i ].bpm_change_time < play_time)
 			{
-				CDTX.CBPM cBPM = tja.listBPM[ last_input ];
 				bpm_time = (float)cBPM.bpm_change_bmscroll_time + ( ( play_time - (float)cBPM.bpm_change_time ) * (float)cBPM.dbBPM値 / 15000.0f );
-				last_bpm_change_time = (float)cBPM.bpm_change_time;
 				break;
-			}
-			for( ; i < tja.listBPM.Count; i++ )
-			{
-				CDTX.CBPM cBPM = tja.listBPM[ i ];
-				if (cBPM.bpm_change_time == 0 || cBPM.bpm_change_course == this.n現在のコース[ 0 ] )
-				{
-					break;
-				}
-			}
-			if( i == tja.listBPM.Count )
-			{
-				i = tja.listBPM.Count - 1;
-				continue;
-			}
-
-			if( play_time < tja.listBPM[ i ].bpm_change_time )
-			{
-				CDTX.CBPM cBPM = tja.listBPM[ last_input ];
-				bpm_time = (float)cBPM.bpm_change_bmscroll_time + ( ( play_time - (float)cBPM.bpm_change_time ) * (float)cBPM.dbBPM値 / 15000.0f );
-				last_bpm_change_time = (float)cBPM.bpm_change_time;
-				break;
-			}
-			else
-			{
-				last_input = i;
 			}
 		}
 
