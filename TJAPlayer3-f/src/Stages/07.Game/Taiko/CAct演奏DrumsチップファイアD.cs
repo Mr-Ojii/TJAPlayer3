@@ -121,7 +121,6 @@ internal class CAct演奏DrumsチップファイアD : CActivity
 							switch( st状態[ i ].judge )
 							{
 								case EJudge.Perfect:
-								case EJudge.Great:
 								case EJudge.AutoPerfect:
 									if (!this.st状態_大[i].ct進行.b停止中 && TJAPlayer3.Tx.Effects_Hit_Explosion_Big != null && this.st状態_大[i].nIsBig == 1)  
 											TJAPlayer3.Tx.Effects_Hit_Explosion.t2D描画(TJAPlayer3.app.Device, nX, nY, new Rectangle(this.st状態[i].ct進行.n現在の値 * 260, n + 520, 260, 260));
@@ -158,7 +157,6 @@ internal class CAct演奏DrumsチップファイアD : CActivity
 						switch( st状態_大[ i ].judge )
 						{
 							case EJudge.Perfect:
-							case EJudge.Great:
 							case EJudge.AutoPerfect:
 								if( this.st状態_大[ i ].nIsBig == 1 )
 								{

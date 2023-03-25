@@ -230,35 +230,11 @@ internal class CActConfigList : CActivity
 			"Blank time before music source to play. (ms)\n");
 		this.list項目リスト.Add(this.MusicPreTimeMs);
 
-		//this.iSystemStoicMode = new CItemToggle( "StoicMode", CDTXMania.ConfigIni.bストイックモード,
-		//    "ストイック（禁欲）モード：\n以下をまとめて表示ON/OFFします。\n_プレビュー画像/動画\n_リザルト画像/動画\n_NowLoading画像\n_演奏画面の背景画像\n_BGA 画像 / AVI 動画\n_グラフ画像\n",
-		//    "Turn ON to disable drawing\n * preview image / movie\n * result image / movie\n * nowloading image\n * wallpaper (in playing screen)\n * BGA / AVI (in playing screen)" );
-		//this.list項目リスト.Add( this.iSystemStoicMode );
-		//this.iSystemShowLag = new CItemList( "ShowLagTime", CItemBase.Eパネル種別.通常, CDTXMania.ConfigIni.nShowLagType,
-		//    "ズレ時間表示：\nジャストタイミングからのズレ時間(ms)\nを表示します。\n  OFF: ズレ時間を表示しません。\n  ON: ズレ時間を表示します。\n  GREAT-: PERFECT以外の時のみ\n表示します。",
-		//    "About displaying the lag from\n the \"just timing\".\n  OFF: Don't show it.\n  ON: Show it.\n  GREAT-: Show it except you've\n  gotten PERFECT.",
-		//    new string[] { "OFF", "ON", "GREAT-" } );
-		//this.list項目リスト.Add( this.iSystemShowLag );
-
 		SendDiscordPlayingInformation = new CItemToggle(nameof(SendDiscordPlayingInformation),
 			TJAPlayer3.ConfigIni.SendDiscordPlayingInformation,
 			"Discordに再生中の譜面情報を送信する",
 			"Share Playing .tja file infomation on Discord.");
 		list項目リスト.Add(SendDiscordPlayingInformation);
-
-		//this.iSystemJudgeDispPriority = new CItemList( "JudgePriority", CItemBase.Eパネル種別.通常, (int) CDTXMania.ConfigIni.e判定表示優先度,
-		//    "判定文字列とコンボ表示の優先順位を\n" +
-		//    "指定します。\n" +
-		//    "\n" +
-		//    " Under: チップの下に表示します。\n" +
-		//    " Over:  チップの上に表示します。",
-		//    "The display prioity between chips\n" +
-		//    " and judge mark/combo.\n" +
-		//    "\n" +
-		//    " Under: Show them under the chips.\n" +
-		//    " Over:  Show them over the chips.",
-		//    new string[] { "Under", "Over" } );
-		//this.list項目リスト.Add( this.iSystemJudgeDispPriority );	
 
 		this.iLogOutputLog = new CItemToggle( "TraceLog", TJAPlayer3.ConfigIni.bログ出力,
 			"Traceログ出力：\nTJAPlayer3-f.log にログを出力します。\n変更した場合は、TJAPlayer3-f の再起動\n後に有効となります。",

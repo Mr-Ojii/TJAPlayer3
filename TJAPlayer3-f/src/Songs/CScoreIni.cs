@@ -85,14 +85,12 @@ public class CScoreIni
         public float f譜面スクロール速度;
         public int nGoodになる範囲ms;
         public int nGood数;
-        public int nGreat数;
         public int nMiss数;
         public int nPerfectになる範囲ms;
         public int nPerfect数;
         public int nPoorになる範囲ms;
         public int nPoor数;
         public int nPerfect数_Auto含まない;
-        public int nGreat数_Auto含まない;
         public int nGood数_Auto含まない;
         public int nPoor数_Auto含まない;
         public int nMiss数_Auto含まない;
@@ -150,7 +148,7 @@ public class CScoreIni
         {
             get
             {
-                return (this.n全チップ数 - this.nPerfect数_Auto含まない - this.nGreat数_Auto含まない - this.nGood数_Auto含まない - this.nPoor数_Auto含まない - this.nMiss数_Auto含まない) == this.n全チップ数;
+                return (this.n全チップ数 - this.nPerfect数_Auto含まない - this.nGood数_Auto含まない - this.nPoor数_Auto含まない - this.nMiss数_Auto含まない) == this.n全チップ数;
             }
         }
     }
@@ -406,10 +404,6 @@ public class CScoreIni
                     else if (item.Equals("Perfect"))
                     {
                         c演奏記録.nPerfect数 = int.Parse(para);
-                    }
-                    else if (item.Equals("Great"))
-                    {
-                        c演奏記録.nGreat数 = int.Parse(para);
                     }
                     else if (item.Equals("Good"))
                     {
@@ -745,7 +739,6 @@ public class CScoreIni
             writer.WriteLine("[{0}]", strArray[i]);
             writer.WriteLine("Score={0}", this.stセクション[i].nスコア);
             writer.WriteLine("Perfect={0}", this.stセクション[i].nPerfect数);
-            writer.WriteLine("Great={0}", this.stセクション[i].nGreat数);
             writer.WriteLine("Good={0}", this.stセクション[i].nGood数);
             writer.WriteLine("Poor={0}", this.stセクション[i].nPoor数);
             writer.WriteLine("Miss={0}", this.stセクション[i].nMiss数);

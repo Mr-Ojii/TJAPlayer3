@@ -743,7 +743,6 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 					switch (st状態[i].judge)
 					{
 						case EJudge.Perfect:
-						case EJudge.Great:
 						case EJudge.AutoPerfect:
 							//this.txアタックエフェクトLower.t2D描画( CDTXMania.app.Device, 285, 127, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n, 260, 260 ) );
 							if (this.st状態[i].nIsBig == 1 && TJAPlayer3.Tx.Effects_Hit_Great_Big[this.st状態[i].ct進行.n現在の値] != null)

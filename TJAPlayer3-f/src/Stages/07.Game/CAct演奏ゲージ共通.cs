@@ -592,7 +592,6 @@ internal class CAct演奏ゲージ共通 : CActivity
 		switch ( e今回の判定 )
 		{
 			case EJudge.Perfect:
-			case EJudge.Great:
 				{
 					if( TJAPlayer3.DTX[nPlayer].bHasBranchChip )
 					{

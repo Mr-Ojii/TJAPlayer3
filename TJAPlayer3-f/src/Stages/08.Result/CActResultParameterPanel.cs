@@ -76,7 +76,7 @@ internal class CActResultParameterPanel : CActivity
 					this.CrownState[index] = 1;
 					this.AllPlayerCannotGetCrown = false;
 				}
-				else if (TJAPlayer3.stageResult.st演奏記録[index].nGreat数_Auto含まない != 0)
+				else if (TJAPlayer3.stageResult.st演奏記録[index].nGood数_Auto含まない != 0)
 				{
 					this.CrownState[index] = 2;
 					this.AllPlayerCannotGetCrown = false;
@@ -180,7 +180,7 @@ internal class CActResultParameterPanel : CActivity
 				}
 
 				this.t小文字表示V2(TJAPlayer3.Skin.SkinConfig.Result.v2GreatX[i], TJAPlayer3.Skin.SkinConfig.Result.v2GreatY[i], TJAPlayer3.stageResult.st演奏記録[i].nPerfect数, false, EPhaseV2.Perfect, i);
-				this.t小文字表示V2(TJAPlayer3.Skin.SkinConfig.Result.v2GoodX[i], TJAPlayer3.Skin.SkinConfig.Result.v2GoodY[i], TJAPlayer3.stageResult.st演奏記録[i].nGreat数, false, EPhaseV2.Good, i);
+				this.t小文字表示V2(TJAPlayer3.Skin.SkinConfig.Result.v2GoodX[i], TJAPlayer3.Skin.SkinConfig.Result.v2GoodY[i], TJAPlayer3.stageResult.st演奏記録[i].nGood数, false, EPhaseV2.Good, i);
 				this.t小文字表示V2(TJAPlayer3.Skin.SkinConfig.Result.v2BadX[i], TJAPlayer3.Skin.SkinConfig.Result.v2BadY[i], TJAPlayer3.stageResult.st演奏記録[i].nMiss数, false, EPhaseV2.Poor, i);
 				this.t小文字表示V2(TJAPlayer3.Skin.SkinConfig.Result.v2RollX[i], TJAPlayer3.Skin.SkinConfig.Result.v2RollY[i], TJAPlayer3.stageResult.st演奏記録[i].n連打数, false, EPhaseV2.Roll, i);
 				this.t小文字表示V2(TJAPlayer3.Skin.SkinConfig.Result.v2ComboX[i], TJAPlayer3.Skin.SkinConfig.Result.v2ComboY[i], TJAPlayer3.stageResult.st演奏記録[i].n最大コンボ数, false, EPhaseV2.Combo, i);
@@ -389,7 +389,7 @@ internal class CActResultParameterPanel : CActivity
 				//演奏中のやつ使いまわせなかった。ファック。
 				this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Result.ScoreX[i], TJAPlayer3.Skin.SkinConfig.Result.ScoreY[i], TJAPlayer3.stageResult.st演奏記録[i].nスコア, true, EPhase.Score, i);
 				this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Result.GreatX[i], TJAPlayer3.Skin.SkinConfig.Result.GreatY[i], TJAPlayer3.stageResult.st演奏記録[i].nPerfect数, false, EPhase.Perfect, i);
-				this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Result.GoodX[i], TJAPlayer3.Skin.SkinConfig.Result.GoodY[i], TJAPlayer3.stageResult.st演奏記録[i].nGreat数, false, EPhase.Good, i);
+				this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Result.GoodX[i], TJAPlayer3.Skin.SkinConfig.Result.GoodY[i], TJAPlayer3.stageResult.st演奏記録[i].nGood数, false, EPhase.Good, i);
 				this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Result.BadX[i], TJAPlayer3.Skin.SkinConfig.Result.BadY[i], TJAPlayer3.stageResult.st演奏記録[i].nMiss数, false, EPhase.Poor, i);
 
 				this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Result.ComboX[i], TJAPlayer3.Skin.SkinConfig.Result.ComboY[i], TJAPlayer3.stageResult.st演奏記録[i].n最大コンボ数, false, EPhase.Combo, i);

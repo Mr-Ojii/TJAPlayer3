@@ -122,12 +122,10 @@ internal class CStage演奏画面共通 : CStage
 		{
 			Drums.nスコア = (long) this.actScore.Get( nPlayer );
 			Drums.nPerfect数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] ? this.nヒット数_Auto含む[nPlayer].Perfect : this.nヒット数_Auto含まない[nPlayer].Perfect;
-			Drums.nGreat数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] ? this.nヒット数_Auto含む[nPlayer].Great : this.nヒット数_Auto含まない[nPlayer].Great;
 			Drums.nGood数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] ? this.nヒット数_Auto含む[nPlayer].Good : this.nヒット数_Auto含まない[nPlayer].Good;
 			Drums.nPoor数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] ? this.nヒット数_Auto含む[nPlayer].Poor : this.nヒット数_Auto含まない[nPlayer].Poor;
 			Drums.nMiss数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] ? this.nヒット数_Auto含む[nPlayer].Miss : this.nヒット数_Auto含まない[nPlayer].Miss;
 			Drums.nPerfect数_Auto含まない = this.nヒット数_Auto含まない[nPlayer].Perfect;
-			Drums.nGreat数_Auto含まない = this.nヒット数_Auto含まない[nPlayer].Great;
 			Drums.nGood数_Auto含まない = this.nヒット数_Auto含まない[nPlayer].Good;
 			Drums.nPoor数_Auto含まない = this.nヒット数_Auto含まない[nPlayer].Poor;
 			Drums.nMiss数_Auto含まない = this.nヒット数_Auto含まない[nPlayer].Miss;
@@ -203,7 +201,7 @@ internal class CStage演奏画面共通 : CStage
 						if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 1)
 							Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 1;
 					}
-					else if (Drums.nGreat数_Auto含まない != 0)
+					else if (Drums.nGood数_Auto含まない != 0)
 					{
 						if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 2)
 							Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 2;
@@ -754,7 +752,6 @@ internal class CStage演奏画面共通 : CStage
 	{
 		// Fields
 		public int Good;
-		public int Great;
 		public int Miss;
 		public int Perfect;
 		public int Poor;
@@ -770,15 +767,12 @@ internal class CStage演奏画面共通 : CStage
 						return this.Perfect;
 
 					case 1:
-						return this.Great;
-
-					case 2:
 						return this.Good;
 
-					case 3:
+					case 2:
 						return this.Poor;
 
-					case 4:
+					case 3:
 						return this.Miss;
 				}
 				throw new IndexOutOfRangeException();
@@ -792,18 +786,14 @@ internal class CStage演奏画面共通 : CStage
 						return;
 
 					case 1:
-						this.Great = value;
-						return;
-
-					case 2:
 						this.Good = value;
 						return;
 
-					case 3:
+					case 2:
 						this.Poor = value;
 						return;
 
-					case 4:
+					case 3:
 						this.Miss = value;
 						return;
 				}
@@ -827,7 +817,7 @@ internal class CStage演奏画面共通 : CStage
 	{
 		public CBRANCHSCORE cBigNotes;//大音符分岐時の情報をまとめるため
 		public int nRoll;
-		public int nGreat;
+		public int nPerfect;
 		public int nGood;
 		public int nMiss;
 		public int nScore;
@@ -1475,7 +1465,7 @@ internal class CStage演奏画面共通 : CStage
 				{
 					case EJudge.Perfect:
 						{
-							this.CBranchScore[nPlayer].nGreat++;
+							this.CBranchScore[nPlayer].nPerfect++;
 							this.nヒット数_Auto含まない[nPlayer].Perfect++;
 							this.actCombo.n現在のコンボ数[nPlayer]++;
 							if (this.actCombo.ctコンボ加算[nPlayer].b終了値に達してない)
@@ -1488,11 +1478,10 @@ internal class CStage演奏画面共通 : CStage
 							}
 						}
 						break;
-					case EJudge.Great:
 					case EJudge.Good:
 						{
 							this.CBranchScore[nPlayer].nGood++;
-							this.nヒット数_Auto含まない[nPlayer].Great++;
+							this.nヒット数_Auto含まない[nPlayer].Good++;
 							this.actCombo.n現在のコンボ数[nPlayer]++;
 							if (this.actCombo.ctコンボ加算[nPlayer].b終了値に達してない)
 							{
@@ -1529,7 +1518,7 @@ internal class CStage演奏画面共通 : CStage
 				{
 					case EJudge.Perfect:
 						{
-							this.CBranchScore[nPlayer].nGreat++;
+							this.CBranchScore[nPlayer].nPerfect++;
 							this.nヒット数_Auto含む[nPlayer].Perfect++;
 							this.actCombo.n現在のコンボ数[nPlayer]++;
 							if (this.actCombo.ctコンボ加算[nPlayer].b終了値に達してない)
@@ -1543,11 +1532,10 @@ internal class CStage演奏画面共通 : CStage
 						}
 						break;
 
-					case EJudge.Great:
 					case EJudge.Good:
 						{
 							this.CBranchScore[nPlayer].nGood++;
-							this.nヒット数_Auto含む[nPlayer].Great++;
+							this.nヒット数_Auto含む[nPlayer].Good++;
 							this.actCombo.n現在のコンボ数[nPlayer]++;
 							if (this.actCombo.ctコンボ加算[nPlayer].b終了値に達してない)
 							{
@@ -1653,7 +1641,7 @@ internal class CStage演奏画面共通 : CStage
 						//int test = ( 1000000 - ( ( nBallonCount - nBallonNoteCount * 300 ) + ( nBallonNoteCount * 5000 ) ) ) / ( CDTXMania.DTX.nノーツ数[ 2 ] + CDTXMania.DTX.nノーツ数[ 3 ] );
 					}
 
-					if (eJudgeResult == EJudge.Great || eJudgeResult == EJudge.Good)
+					if (eJudgeResult == EJudge.Good)
 					{
 						nAddScore = nAddScore / 2;
 					}
@@ -1669,7 +1657,7 @@ internal class CStage演奏画面共通 : CStage
 			else if ( TJAPlayer3.DTX[nPlayer].nScoreModeTmp == 3 )
 			{
 				nAddScore = this.nScore[nPlayer, 0];
-				if (eJudgeResult == EJudge.Great || eJudgeResult == EJudge.Good)
+				if (eJudgeResult == EJudge.Good)
 				{
 					nAddScore = nAddScore / 2;
 				}
@@ -1698,7 +1686,7 @@ internal class CStage演奏画面共通 : CStage
 					nAddScore = this.nScore[nPlayer, 4 ];
 				}
 
-				if (eJudgeResult == EJudge.Great || eJudgeResult == EJudge.Good)
+				if (eJudgeResult == EJudge.Good)
 				{
 					nAddScore = nAddScore / 2;
 				}
@@ -1791,7 +1779,7 @@ internal class CStage演奏画面共通 : CStage
 					nAddScore = this.nScore[nPlayer, 10 ];
 				}
 
-				if (eJudgeResult == EJudge.Great || eJudgeResult == EJudge.Good)
+				if (eJudgeResult == EJudge.Good)
 				{
 					nAddScore = nAddScore / 2;
 				}
@@ -1822,7 +1810,7 @@ internal class CStage演奏画面共通 : CStage
 					nAddScore = 2000;
 				}
 				
-				if (eJudgeResult == EJudge.Great || eJudgeResult == EJudge.Good)
+				if (eJudgeResult == EJudge.Good)
 					nAddScore = nAddScore / 2;
 
 				if (pChip.bGOGOTIME) //2018.03.11 kairera0467 チップに埋め込んだフラグから読み取る
@@ -3745,12 +3733,12 @@ internal class CStage演奏画面共通 : CStage
 
 	public void tBranchReset(int player)
 	{
-		this.CBranchScore[player].cBigNotes.nGreat = 0;
+		this.CBranchScore[player].cBigNotes.nPerfect = 0;
 		this.CBranchScore[player].cBigNotes.nGood = 0;
 		this.CBranchScore[player].cBigNotes.nMiss = 0;
 		this.CBranchScore[player].cBigNotes.nRoll = 0;
 
-		this.CBranchScore[player].nGreat = 0;
+		this.CBranchScore[player].nPerfect = 0;
 		this.CBranchScore[player].nGood = 0;
 		this.CBranchScore[player].nMiss = 0;
 		this.CBranchScore[player].nRoll = 0;
@@ -3764,7 +3752,7 @@ internal class CStage演奏画面共通 : CStage
 		int n種類 = cBranch.n分岐の種類;
 
 		double dbRate = 0;
-		int n良 = cBRANCHSCORE.nGreat, n可 = cBRANCHSCORE.nGood, n不可 = cBRANCHSCORE.nMiss;
+		int n良 = cBRANCHSCORE.nPerfect, n可 = cBRANCHSCORE.nGood, n不可 = cBRANCHSCORE.nMiss;
 
 		if (n種類 == 0)
 		{
@@ -3782,7 +3770,7 @@ internal class CStage演奏画面共通 : CStage
 			dbRate = cBRANCHSCORE.nRoll;
 		}
 		else if (n種類 == 3) {
-			dbRate = cBRANCHSCOREBIG.nGreat;
+			dbRate = cBRANCHSCOREBIG.nPerfect;
 		}
 		Debug.Print("dbRate=" + dbRate.ToString());
 		Debug.Print("nPlayer=" + nPlayer.ToString());
@@ -3992,13 +3980,11 @@ internal class CStage演奏画面共通 : CStage
 			for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
 			{
 				this.nヒット数_Auto含む[i].Perfect = 0;
-				this.nヒット数_Auto含む[i].Great = 0;
 				this.nヒット数_Auto含む[i].Good = 0;
 				this.nヒット数_Auto含む[i].Poor = 0;
 				this.nヒット数_Auto含む[i].Miss = 0;
 
 				this.nヒット数_Auto含まない[i].Perfect = 0;
-				this.nヒット数_Auto含まない[i].Great = 0;
 				this.nヒット数_Auto含まない[i].Good = 0;
 				this.nヒット数_Auto含まない[i].Poor = 0;
 				this.nヒット数_Auto含まない[i].Miss = 0;
@@ -4917,28 +4903,28 @@ internal class CStage演奏画面共通 : CStage
 				TJAPlayer3.Tx.Judge_Meter.t2D描画(TJAPlayer3.app.Device, 0, 360);
 
 			this.t小文字表示(102, 494, string.Format("{0,4:###0}", this.nヒット数_Auto含まない[0].Perfect.ToString()));
-			this.t小文字表示(102, 532, string.Format("{0,4:###0}", this.nヒット数_Auto含まない[0].Great.ToString()));
+			this.t小文字表示(102, 532, string.Format("{0,4:###0}", this.nヒット数_Auto含まない[0].Good.ToString()));
 			this.t小文字表示(102, 570, string.Format("{0,4:###0}", this.nヒット数_Auto含まない[0].Miss.ToString()));
 			this.t小文字表示(102, 634, string.Format("{0,4:###0}", GetRoll(0)));
 
-			int nNowTotal = this.nヒット数_Auto含まない[0].Perfect + this.nヒット数_Auto含まない[0].Great + this.nヒット数_Auto含まない[0].Miss;
-			double dbたたけた率 = Math.Round((100.0 * (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Perfect + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Great)) / (double)nNowTotal);
+			int nNowTotal = this.nヒット数_Auto含まない[0].Perfect + this.nヒット数_Auto含まない[0].Good + this.nヒット数_Auto含まない[0].Miss;
+			double dbたたけた率 = Math.Round((100.0 * (TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Perfect + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Good)) / (double)nNowTotal);
 			double dbPERFECT率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Perfect) / (double)nNowTotal);
-			double dbGREAT率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Great / (double)nNowTotal));
+			double dbGOOD率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Good / (double)nNowTotal));
 			double dbMISS率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Miss / (double)nNowTotal));
 
 			if (double.IsNaN(dbたたけた率))
 				dbたたけた率 = 0;
 			if (double.IsNaN(dbPERFECT率))
 				dbPERFECT率 = 0;
-			if (double.IsNaN(dbGREAT率))
-				dbGREAT率 = 0;
+			if (double.IsNaN(dbGOOD率))
+				dbGOOD率 = 0;
 			if (double.IsNaN(dbMISS率))
 				dbMISS率 = 0;
 
 			this.t大文字表示(202, 436, string.Format("{0,3:##0}%", dbたたけた率));
 			this.t小文字表示(206, 494, string.Format("{0,3:##0}%", dbPERFECT率));
-			this.t小文字表示(206, 532, string.Format("{0,3:##0}%", dbGREAT率));
+			this.t小文字表示(206, 532, string.Format("{0,3:##0}%", dbGOOD率));
 			this.t小文字表示(206, 570, string.Format("{0,3:##0}%", dbMISS率));
 		}
 	}

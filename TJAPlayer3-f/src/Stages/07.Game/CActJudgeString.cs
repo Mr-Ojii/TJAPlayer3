@@ -32,11 +32,9 @@ internal class CActJudgeString : CActivity
 	{
 		this.st判定文字列 = new Rectangle[] {
 			new Rectangle( 0, 0,    90, 60 ),		// Perfect
-			new Rectangle( 0, 0,    90, 60 ),		// Great
 			new Rectangle( 0, 60,   90, 60 ),		// Good
 			new Rectangle( 0, 120,   90, 60 ),		// Poor
 			new Rectangle( 0, 120,   90, 60 ),		// Miss
-			new Rectangle( 0, 180,   90, 60 ),		// Bad
 			new Rectangle( 0, 0,    90, 60 )		// Auto
 		};
 		base.b活性化してない = true;
@@ -130,7 +128,7 @@ internal class CActJudgeString : CActivity
 					this.st状態[i].b使用中 = false;
 				}
 				int num2 = this.st状態[i].ct進行.n現在の値;
-				if (this.st状態[i].judge != EJudge.Great)
+				if (this.st状態[i].judge != EJudge.Good)
 				{
 					this.st状態[i].n相対X座標 = 0;
 					this.st状態[i].n相対Y座標 = 15;

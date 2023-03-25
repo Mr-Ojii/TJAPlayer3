@@ -82,13 +82,12 @@ public enum EJudge
 {
 	//良
 	Perfect	= 0,
-	Great	= 1,
 	//可
-	Good	= 2,
+	Good	= 1,
 	//不可
-	Poor	= 3,
-	Miss	= 4,
-	AutoPerfect = 5,
+	Poor	= 2,
+	Miss	= 3,
+	AutoPerfect = 4,
 }
 internal enum EFIFOMode
 {
