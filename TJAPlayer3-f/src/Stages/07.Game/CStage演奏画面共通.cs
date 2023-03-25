@@ -1388,7 +1388,7 @@ internal class CStage演奏画面共通 : CStage
 		{
 			if (eJudgeResult != EJudge.AutoPerfect && eJudgeResult != EJudge.Miss)
 			{
-				this.actJudgeString.Start(EJudge.Bad, pChip.nLag, pChip, nPlayer);
+				this.actJudgeString.Start(EJudge.Poor, pChip.nLag, pChip, nPlayer);
 				TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.Start(0x11, eJudgeResult, true, nPlayer);
 				TJAPlayer3.stage演奏ドラム画面.actChipFireD.Start(0x11, eJudgeResult, nPlayer);
 			}
@@ -1406,7 +1406,7 @@ internal class CStage演奏画面共通 : CStage
 				TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.Start(pChip.nチャンネル番号, eJudgeResult, true, nPlayer);
 				TJAPlayer3.stage演奏ドラム画面.actChipFireD.Start(pChip.nチャンネル番号, eJudgeResult, nPlayer);
 			}
-			else if (eJudgeResult != EJudge.Poor && eJudgeResult != EJudge.Bad)
+			else if (eJudgeResult != EJudge.Poor)
 			{
 				//this.actJudgeString.Start( 0,bAutoPlay ? EJudge.Auto : eJudgeResult, pChip.nLag, pChip, nPlayer );
 			}
@@ -1451,7 +1451,7 @@ internal class CStage演奏画面共通 : CStage
 			}
 		}
 
-		if ( eJudgeResult == EJudge.Poor || eJudgeResult == EJudge.Miss || eJudgeResult == EJudge.Bad )
+		if ( eJudgeResult == EJudge.Poor || eJudgeResult == EJudge.Miss )
 		{
 			// ランナー(みすったやつ)
 			this.actRunner.Start(nPlayer, true, pChip);
@@ -1507,7 +1507,6 @@ internal class CStage演奏画面共通 : CStage
 						break;
 					case EJudge.Poor:
 					case EJudge.Miss:
-					case EJudge.Bad:
 						{
 							if (pChip.nチャンネル番号 == 0x1F)
 								break;
@@ -1631,7 +1630,7 @@ internal class CStage演奏画面共通 : CStage
 		#endregion
 		
 		actDan.Update();
-		if ( ( eJudgeResult != EJudge.Miss ) && ( eJudgeResult != EJudge.Bad ) && ( eJudgeResult != EJudge.Poor ) && ( pChip.nチャンネル番号 <= 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B ) )
+		if ( ( eJudgeResult != EJudge.Miss ) && ( eJudgeResult != EJudge.Poor ) && ( pChip.nチャンネル番号 <= 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B ) )
 		{
 			int nCombos = this.actCombo.n現在のコンボ数[ nPlayer ];
 			long nAddScore = 0;

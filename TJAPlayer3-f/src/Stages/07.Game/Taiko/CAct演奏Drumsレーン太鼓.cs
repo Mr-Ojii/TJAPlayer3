@@ -761,7 +761,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 							break;
 
 						case EJudge.Miss:
-						case EJudge.Bad:
+						case EJudge.Poor:
 							break;
 					}
 				}

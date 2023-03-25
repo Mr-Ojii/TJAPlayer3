@@ -136,7 +136,7 @@ internal class CActJudgeString : CActivity
 					this.st状態[i].n相対Y座標 = 15;
 					this.st状態[i].n透明度 = 0xff;
 				}
-				if ((this.st状態[i].judge != EJudge.Miss) && (this.st状態[i].judge != EJudge.Bad))
+				if ((this.st状態[i].judge != EJudge.Miss) && (this.st状態[i].judge != EJudge.Poor))
 				{
 					if (num2 < 20)
 					{

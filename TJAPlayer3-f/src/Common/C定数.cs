@@ -80,15 +80,15 @@ internal enum EInputDevice
 }
 public enum EJudge
 {
+	//良
 	Perfect	= 0,
 	Great	= 1,
+	//可
 	Good	= 2,
+	//不可
 	Poor	= 3,
 	Miss	= 4,
-	Bad		= 5,
-	AutoPerfect = 6,
-	AutoGreat   = 7,
-	AutoGood    = 8,
+	AutoPerfect = 5,
 }
 internal enum EFIFOMode
 {
