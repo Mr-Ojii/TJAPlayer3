@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
+using System.Collections.Concurrent;
 
 namespace FDK;
 
@@ -10,15 +9,15 @@ public class CInputMIDI : IInputDevice, IDisposable
 	// プロパティ
 
 	public IntPtr hMidiIn;
-	public List<STInputEvent> listEventBuffer;
+	public ConcurrentQueue<STInputEvent> listEventBuffer;
 
 	// コンストラクタ
 
 	public CInputMIDI(uint nID)
 	{
 		this.hMidiIn = IntPtr.Zero;
-		this.listEventBuffer = new List<STInputEvent>(32);
-		this.listInputEvents = new List<STInputEvent>(32);
+		this.listEventBuffer = new ConcurrentQueue<STInputEvent>();
+		this.listInputEvents = new List<STInputEvent>();
 		this.eInputDeviceType = EInputDeviceType.MidiIn;
 		this.GUID = "";
 		this.ID = (int)nID;
@@ -41,7 +40,7 @@ public class CInputMIDI : IInputDevice, IDisposable
 				item.nKey = nPara1;
 				item.bPressed = true;
 				item.nTimeStamp = time;
-				this.listEventBuffer.Add(item);
+				this.listEventBuffer.Enqueue(item);
 			}
 		}
 	}
@@ -63,10 +62,8 @@ public class CInputMIDI : IInputDevice, IDisposable
 	{
 		this.listInputEvents.Clear();            // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
 
-		for (int i = 0; i < this.listEventBuffer.Count; i++)
-			this.listInputEvents.Add(this.listEventBuffer[i]);
-
-		this.listEventBuffer.Clear();
+		while(this.listEventBuffer.TryDequeue(out var InputEvent))
+			this.listInputEvents.Add(InputEvent);
 	}
 
 	public bool bIsKeyPressed(int nKey)

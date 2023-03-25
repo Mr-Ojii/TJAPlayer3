@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
+using System.Collections.Concurrent;
 using SDL2;
 
 namespace FDK;
@@ -19,7 +18,7 @@ public class CInputMouse : IInputDevice, IDisposable
 		for (int i = 0; i < this.bMouseState.Length; i++)
 			this.bMouseState[i] = false;
 		this.listInputEvents = new List<STInputEvent>();
-		this.listtmpInputEvents = new List<STInputEvent>();
+		this.listEventBuffer = new ConcurrentQueue<STInputEvent>();
 	}
 
 	// メソッド
@@ -50,7 +49,7 @@ public class CInputMouse : IInputDevice, IDisposable
 							bReleased = false,
 							nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 						};
-						this.listtmpInputEvents.Add(ev);
+						this.listEventBuffer.Enqueue(ev);
 
 						this.btmpMouseState[j] = true;
 						this.btmpMousePushDown[j] = true;
@@ -64,7 +63,7 @@ public class CInputMouse : IInputDevice, IDisposable
 							bReleased = true,
 							nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 						};
-						this.listtmpInputEvents.Add(ev);
+						this.listEventBuffer.Enqueue(ev);
 
 						this.btmpMouseState[j] = false;
 						this.btmpMousePullUp[j] = true;
@@ -91,11 +90,8 @@ public class CInputMouse : IInputDevice, IDisposable
 			this.btmpMousePushDown[i] = false;
 			this.btmpMousePullUp[i] = false;
 		}
-		for (int i = 0; i < this.listtmpInputEvents.Count; i++)
-		{
-			this.listInputEvents.Add(this.listtmpInputEvents[i]);
-		}
-		this.listtmpInputEvents.Clear();            // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
+		while(this.listEventBuffer.TryDequeue(out var InputEvent))
+			this.listInputEvents.Add(InputEvent);
 	}
 
 	public bool bIsKeyPressed(int nButton)
@@ -145,7 +141,7 @@ public class CInputMouse : IInputDevice, IDisposable
 	private bool[] btmpMousePullUp = new bool[Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length];
 	private bool[] btmpMousePushDown = new bool[Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length];
 	private bool[] btmpMouseState = new bool[Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length];
-	public List<STInputEvent> listtmpInputEvents;
+	public ConcurrentQueue<STInputEvent> listEventBuffer;
 
 	private uint[] masklist = new uint[] 
 	{

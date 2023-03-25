@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
+using System.Collections.Concurrent;
 using SDL2;
 
 using SlimDXKey = SlimDXKeys.Key;
@@ -22,7 +21,7 @@ public class CInputKeyboard : IInputDevice, IDisposable
 			this.bKeyState[i] = false;
 
 		this.listInputEvents = new List<STInputEvent>();
-		this.listtmpInputEvents = new List<STInputEvent>();
+		this.listEventBuffer = new ConcurrentQueue<STInputEvent>();
 	}
 
 	// メソッド
@@ -61,7 +60,7 @@ public class CInputKeyboard : IInputDevice, IDisposable
 								bReleased = false,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listtmpInputEvents.Add(ev);
+							this.listEventBuffer.Enqueue(ev);
 
 							this.btmpKeyState[(int)key] = true;
 							this.btmpKeyPushDown[(int)key] = true;
@@ -83,7 +82,7 @@ public class CInputKeyboard : IInputDevice, IDisposable
 								bReleased = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listtmpInputEvents.Add(ev);
+							this.listEventBuffer.Enqueue(ev);
 
 							this.btmpKeyState[(int)key] = false;
 							this.btmpKeyPullUp[(int)key] = true;
@@ -108,11 +107,8 @@ public class CInputKeyboard : IInputDevice, IDisposable
 			this.btmpKeyPushDown[i] = false;
 			this.btmpKeyPullUp[i] = false;
 		}
-		for (int i = 0; i < this.listtmpInputEvents.Count; i++)
-		{
-			this.listInputEvents.Add(this.listtmpInputEvents[i]);
-		}
-		this.listtmpInputEvents.Clear();            // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
+		while(listEventBuffer.TryDequeue(out var InputEvent))
+			this.listInputEvents.Add(InputEvent);
 	}
 
 
@@ -178,7 +174,7 @@ public class CInputKeyboard : IInputDevice, IDisposable
 	private bool[] btmpKeyPullUp = new bool[256];
 	private bool[] btmpKeyPushDown = new bool[256];
 	private bool[] btmpKeyState = new bool[256];
-	private List<STInputEvent> listtmpInputEvents;
+	private ConcurrentQueue<STInputEvent> listEventBuffer;
 	//-----------------
 	#endregion
 }

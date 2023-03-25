@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
+using System.Collections.Concurrent;
 using SDL2;
 
 namespace FDK;
@@ -21,7 +20,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 			this.bButtonState[i] = false;
 
 		this.listInputEvents = new List<STInputEvent>();
-		this.listtmpInputEvents = new List<STInputEvent>();
+		this.listEventBuffer = new ConcurrentQueue<STInputEvent>();
 	}
 
 
@@ -69,7 +68,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 							bPressed = true,
 							nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 						};
-						this.listtmpInputEvents.Add(ev);
+						this.listEventBuffer.Enqueue(ev);
 
 						this.btmpButtonState[0] = true;
 						this.btmpButtonPushDown[0] = true;
@@ -85,7 +84,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 							bPressed = false,
 							nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 						};
-						this.listtmpInputEvents.Add(ev);
+						this.listEventBuffer.Enqueue(ev);
 
 						this.btmpButtonState[0] = false;
 						this.btmpButtonPullUp[0] = true;
@@ -105,7 +104,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 							bPressed = true,
 							nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 						};
-						this.listtmpInputEvents.Add(ev);
+						this.listEventBuffer.Enqueue(ev);
 
 						this.btmpButtonState[1] = true;
 						this.btmpButtonPushDown[1] = true;
@@ -121,7 +120,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 							bPressed = false,
 							nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 						};
-						this.listtmpInputEvents.Add(event7);
+						this.listEventBuffer.Enqueue(event7);
 
 						this.btmpButtonState[1] = false;
 						this.btmpButtonPullUp[1] = true;
@@ -141,7 +140,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 							bPressed = true,
 							nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 						};
-						this.listtmpInputEvents.Add(ev);
+						this.listEventBuffer.Enqueue(ev);
 
 						this.btmpButtonState[2] = true;
 						this.btmpButtonPushDown[2] = true;
@@ -157,7 +156,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 							bPressed = false,
 							nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 						};
-						this.listtmpInputEvents.Add(ev);
+						this.listEventBuffer.Enqueue(ev);
 
 						this.btmpButtonState[2] = false;
 						this.btmpButtonPullUp[2] = true;
@@ -177,7 +176,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 							bPressed = true,
 							nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 						};
-						this.listtmpInputEvents.Add(ev);
+						this.listEventBuffer.Enqueue(ev);
 
 						this.btmpButtonState[3] = true;
 						this.btmpButtonPushDown[3] = true;
@@ -193,7 +192,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 							bPressed = false,
 							nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 						};
-						this.listtmpInputEvents.Add(ev);
+						this.listEventBuffer.Enqueue(ev);
 
 						this.btmpButtonState[3] = false;
 						this.btmpButtonPullUp[3] = true;
@@ -213,7 +212,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 							bPressed = true,
 							nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 						};
-						this.listtmpInputEvents.Add(ev);
+						this.listEventBuffer.Enqueue(ev);
 
 						this.btmpButtonState[4] = true;
 						this.btmpButtonPushDown[4] = true;
@@ -229,7 +228,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 							bPressed = false,
 							nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 						};
-						this.listtmpInputEvents.Add(ev);
+						this.listEventBuffer.Enqueue(ev);
 
 						this.btmpButtonState[4] = false;
 						this.btmpButtonPullUp[4] = true;
@@ -249,7 +248,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 							bPressed = true,
 							nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 						};
-						this.listtmpInputEvents.Add(ev);
+						this.listEventBuffer.Enqueue(ev);
 
 						this.btmpButtonState[5] = true;
 						this.btmpButtonPushDown[5] = true;
@@ -265,7 +264,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 							bPressed = false,
 							nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 						};
-						this.listtmpInputEvents.Add(event15);
+						this.listEventBuffer.Enqueue(event15);
 
 						this.btmpButtonState[5] = false;
 						this.btmpButtonPullUp[5] = true;
@@ -285,7 +284,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 							bPressed = true,
 							nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 						};
-						this.listtmpInputEvents.Add(ev);
+						this.listEventBuffer.Enqueue(ev);
 
 						this.btmpButtonState[6] = true;
 						this.btmpButtonPushDown[6] = true;
@@ -301,7 +300,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 							bPressed = false,
 							nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 						};
-						this.listtmpInputEvents.Add(ev);
+						this.listEventBuffer.Enqueue(ev);
 
 						this.btmpButtonState[6] = false;
 						this.btmpButtonPullUp[6] = true;
@@ -321,7 +320,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 							bPressed = true,
 							nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 						};
-						this.listtmpInputEvents.Add(ev);
+						this.listEventBuffer.Enqueue(ev);
 
 						this.btmpButtonState[7] = true;
 						this.btmpButtonPushDown[7] = true;
@@ -337,7 +336,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 							bPressed = false,
 							nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 						};
-						this.listtmpInputEvents.Add(event15);
+						this.listEventBuffer.Enqueue(event15);
 
 						this.btmpButtonState[7] = false;
 						this.btmpButtonPullUp[7] = true;
@@ -359,7 +358,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 							bPressed = true,
 							nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 						};
-						this.listtmpInputEvents.Add(item);
+						this.listEventBuffer.Enqueue(item);
 
 						this.btmpButtonState[8 + j] = true;
 						this.btmpButtonPushDown[8 + j] = true;
@@ -373,7 +372,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 							bPressed = false,
 							nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 						};
-						this.listtmpInputEvents.Add(item);
+						this.listEventBuffer.Enqueue(item);
 
 						this.btmpButtonState[8 + j] = false;
 						this.btmpButtonPullUp[8 + j] = true;
@@ -398,7 +397,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 								bPressed = true,
 								nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 							};
-							this.listtmpInputEvents.Add(stevent);
+							this.listEventBuffer.Enqueue(stevent);
 
 							this.btmpButtonState[stevent.nKey] = true;
 							this.btmpButtonPushDown[stevent.nKey] = true;
@@ -425,7 +424,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 							bPressed = false,
 							nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 						};
-						this.listtmpInputEvents.Add(stevent);
+						this.listEventBuffer.Enqueue(stevent);
 
 						this.btmpButtonState[nWay] = false;
 						this.btmpButtonPullUp[nWay] = true;
@@ -452,11 +451,8 @@ public class CInputJoystick : IInputDevice, IDisposable
 			this.btmpButtonPushDown[i] = false;
 			this.btmpButtonPullUp[i] = false;
 		}
-		for (int i = 0; i < this.listtmpInputEvents.Count; i++)
-		{
-			this.listInputEvents.Add(this.listtmpInputEvents[i]);
-		}
-		this.listtmpInputEvents.Clear();            // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
+		while(this.listEventBuffer.TryDequeue(out var InputEvent))
+			this.listInputEvents.Add(InputEvent);
 	}
 
 	public bool bIsKeyPressed(int nButton)
@@ -509,7 +505,7 @@ public class CInputJoystick : IInputDevice, IDisposable
 	private bool[] btmpButtonPullUp = new bool[0x100];
 	private bool[] btmpButtonPushDown = new bool[0x100];
 	private bool[] btmpButtonState = new bool[0x100];      // 0-5: XYZ, 6 - 0x128+5: buttons, 0x128+6 - 0x128+6+8: POV/HAT
-	private List<STInputEvent> listtmpInputEvents;
+	private ConcurrentQueue<STInputEvent> listEventBuffer;
 	private bool bDisposed;
 
 	private IntPtr joystick_handle;
