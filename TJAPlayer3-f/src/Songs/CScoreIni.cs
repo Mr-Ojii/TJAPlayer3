@@ -104,7 +104,7 @@ public class CScoreIni
         public int nRisky;		// #23559 2011.6.20 yyagi 0=OFF, 1-10=Risky
         public string 最終更新日時;
         public float fゲージ;
-        public bool b途中でAutoを切り替えたか;
+        public bool bAuto;
         public int[] n良 = new int[(int)Difficulty.Total];
         public int[] n可 = new int[(int)Difficulty.Total];
         public int[] n不可 = new int[(int)Difficulty.Total];
@@ -132,24 +132,9 @@ public class CScoreIni
             this.最終更新日時 = "";
             this.nRisky = 0;									// #23559 2011.6.20 yyagi
             this.fゲージ = 0.0f;
-            this.b途中でAutoを切り替えたか = false;
+            this.bAuto = false;
             Dan_C = new Dan_C[3];
             Dan_C_Gauge = new Dan_C();
-        }
-
-        public bool b全AUTOじゃない
-        {
-            get
-            {
-                return !b全AUTOである;
-            }
-        }
-        public bool b全AUTOである
-        {
-            get
-            {
-                return (this.n全チップ数 - this.nPerfect数_Auto含まない - this.nGood数_Auto含まない - this.nBad数_Auto含まない - this.nMiss数_Auto含まない) == this.n全チップ数;
-            }
         }
     }
 

@@ -53,18 +53,18 @@ internal class CStageResult : CStage
 
 			for( int i = 0; i < 1; i++ )
 			{
-				if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == false && this.st演奏記録[0].b途中でAutoを切り替えたか == false)
+				if (this.st演奏記録[0].bAuto == false)
 				ini.stセクション.HiScore = this.st演奏記録[0];
 
 				// ラストプレイ #23595 2011.1.9 ikanick
 				// オートじゃなければプレイ結果を書き込む
-				if( TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == false ) {
+				if(this.st演奏記録[0].bAuto == false) {
 					ini.stセクション.LastPlay = this.st演奏記録[0];
 				}
 
 				// #23596 10.11.16 add ikanick オートじゃないならクリア回数を1増やす
 				//        11.02.05 bオート to t更新条件を取得する use      ikanick
-				if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == false)
+				if (this.st演奏記録[0].bAuto == false)
 				{	
 					ini.stファイル.ClearCountDrums++;
 				}
@@ -83,7 +83,7 @@ internal class CStageResult : CStage
 			{ 
 				Cスコア cスコア = TJAPlayer3.stage選曲.r確定されたスコア;
 
-				if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == false && this.st演奏記録[0].b途中でAutoを切り替えたか == false)
+				if (this.st演奏記録[0].bAuto == false)
 				{
 					cスコア.譜面情報.nCrown = st演奏記録[0].nCrown;//2020.05.22 Mr-Ojii データが保存されない問題の解決策。
 					cスコア.譜面情報.nハイスコア = st演奏記録[0].nハイスコア;

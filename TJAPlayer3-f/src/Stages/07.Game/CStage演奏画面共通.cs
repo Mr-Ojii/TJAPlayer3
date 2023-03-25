@@ -148,8 +148,8 @@ internal class CStage演奏画面共通 : CStage
 			Drums.strDTXManiaのバージョン = TJAPlayer3.VERSION;
 			Drums.最終更新日時 = DateTime.Now.ToString();
 			Drums.fゲージ = (float)this.actGauge.db現在のゲージ値[ nPlayer ];
-			Drums.b途中でAutoを切り替えたか = this.b途中でAutoを切り替えたか[nPlayer];
-			if( !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] )
+			Drums.bAuto = this.b途中でAutoを切り替えたか[nPlayer] || TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer];
+			if( !Drums.bAuto )
 			{
 				Drums.nハイスコア = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nハイスコア; //2015.06.16 kairera0467 他難易度の上書き防止。
 				Drums.nSecondScore = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nSecondScore;
