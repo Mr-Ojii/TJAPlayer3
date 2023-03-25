@@ -88,11 +88,11 @@ public class CScoreIni
         public int nMiss数;
         public int nPerfectになる範囲ms;
         public int nPerfect数;
-        public int nPoorになる範囲ms;
-        public int nPoor数;
+        public int nBadになる範囲ms;
+        public int nBad数;
         public int nPerfect数_Auto含まない;
         public int nGood数_Auto含まない;
-        public int nPoor数_Auto含まない;
+        public int nBad数_Auto含まない;
         public int nMiss数_Auto含まない;
         public long nスコア;
         public int n連打数;
@@ -127,7 +127,7 @@ public class CScoreIni
             this.n演奏速度分母 = 20;
             this.nPerfectになる範囲ms = 34;
             this.nGoodになる範囲ms = 84;
-            this.nPoorになる範囲ms = 117;
+            this.nBadになる範囲ms = 117;
             this.strDTXManiaのバージョン = "Unknown";
             this.最終更新日時 = "";
             this.nRisky = 0;									// #23559 2011.6.20 yyagi
@@ -148,7 +148,7 @@ public class CScoreIni
         {
             get
             {
-                return (this.n全チップ数 - this.nPerfect数_Auto含まない - this.nGood数_Auto含まない - this.nPoor数_Auto含まない - this.nMiss数_Auto含まない) == this.n全チップ数;
+                return (this.n全チップ数 - this.nPerfect数_Auto含まない - this.nGood数_Auto含まない - this.nBad数_Auto含まない - this.nMiss数_Auto含まない) == this.n全チップ数;
             }
         }
     }
@@ -409,9 +409,9 @@ public class CScoreIni
                     {
                         c演奏記録.nGood数 = int.Parse(para);
                     }
-                    else if (item.Equals("Poor"))
+                    else if (item.Equals("Bad"))
                     {
-                        c演奏記録.nPoor数 = int.Parse(para);
+                        c演奏記録.nBad数 = int.Parse(para);
                     }
                     else if (item.Equals("Miss"))
                     {
@@ -483,9 +483,9 @@ public class CScoreIni
                             {
                                 c演奏記録.nGoodになる範囲ms = int.Parse(para);
                             }
-                            else if (item.Equals("PoorRange"))
+                            else if (item.Equals("BadRange"))
                             {
-                                c演奏記録.nPoorになる範囲ms = int.Parse(para);
+                                c演奏記録.nBadになる範囲ms = int.Parse(para);
                             }
                             else if (item.Equals("DTXManiaVersion"))
                             {
@@ -740,7 +740,7 @@ public class CScoreIni
             writer.WriteLine("Score={0}", this.stセクション[i].nスコア);
             writer.WriteLine("Perfect={0}", this.stセクション[i].nPerfect数);
             writer.WriteLine("Good={0}", this.stセクション[i].nGood数);
-            writer.WriteLine("Poor={0}", this.stセクション[i].nPoor数);
+            writer.WriteLine("Bad={0}", this.stセクション[i].nBad数);
             writer.WriteLine("Miss={0}", this.stセクション[i].nMiss数);
             writer.WriteLine("MaxCombo={0}", this.stセクション[i].n最大コンボ数);
             writer.WriteLine("TotalChips={0}", this.stセクション[i].n全チップ数);
@@ -756,7 +756,7 @@ public class CScoreIni
             writer.WriteLine("UseMouse={0}", this.stセクション[i].b演奏にMouseを使用した ? 1 : 0);
             writer.WriteLine("PerfectRange={0}", this.stセクション[i].nPerfectになる範囲ms);
             writer.WriteLine("GoodRange={0}", this.stセクション[i].nGoodになる範囲ms);
-            writer.WriteLine("PoorRange={0}", this.stセクション[i].nPoorになる範囲ms);
+            writer.WriteLine("BadRange={0}", this.stセクション[i].nBadになる範囲ms);
             writer.WriteLine("DTXManiaVersion={0}", this.stセクション[i].strDTXManiaのバージョン);
             writer.WriteLine("DateTime={0}", this.stセクション[i].最終更新日時);
             for (int j = 0; j < (int)Difficulty.Total; j++)

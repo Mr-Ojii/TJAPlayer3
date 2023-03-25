@@ -99,11 +99,11 @@ internal class TJAPlayer3 : Game
 			return ConfigIni.nヒット範囲ms.Good;
 		}
 	}
-	public static int nPoor範囲ms
+	public static int nBad範囲ms
 	{
 		get
 		{
-			return ConfigIni.nヒット範囲ms.Poor;
+			return ConfigIni.nヒット範囲ms.Bad;
 		}
 	}
 	#endregion
@@ -1754,7 +1754,7 @@ internal class TJAPlayer3 : Game
 			{
 				ini.stセクション[i].nPerfectになる範囲ms = nPerfect範囲ms;
 				ini.stセクション[i].nGoodになる範囲ms = nGood範囲ms;
-				ini.stセクション[i].nPoorになる範囲ms = nPoor範囲ms;
+				ini.stセクション[i].nBadになる範囲ms = nBad範囲ms;
 			}
 		}
 		ini.stファイル.BGMAdjust = DTX[0].nBGMAdjust;

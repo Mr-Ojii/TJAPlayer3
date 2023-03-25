@@ -611,7 +611,7 @@ internal class CAct演奏ゲージ共通 : CActivity
 						fDamage = this.dbゲージ増加量[nPlayer, 1 ];
 				}
 				break;
-			case EJudge.Poor:
+			case EJudge.Bad:
 			case EJudge.Miss:
 				{
 					if( TJAPlayer3.DTX[nPlayer].bHasBranchChip )

@@ -33,7 +33,7 @@ internal class CActJudgeString : CActivity
 		this.st判定文字列 = new Rectangle[] {
 			new Rectangle( 0, 0,    90, 60 ),		// Perfect
 			new Rectangle( 0, 60,   90, 60 ),		// Good
-			new Rectangle( 0, 120,   90, 60 ),		// Poor
+			new Rectangle( 0, 120,   90, 60 ),		// Bad
 			new Rectangle( 0, 120,   90, 60 ),		// Miss
 			new Rectangle( 0, 0,    90, 60 )		// Auto
 		};
@@ -134,7 +134,7 @@ internal class CActJudgeString : CActivity
 					this.st状態[i].n相対Y座標 = 15;
 					this.st状態[i].n透明度 = 0xff;
 				}
-				if ((this.st状態[i].judge != EJudge.Miss) && (this.st状態[i].judge != EJudge.Poor))
+				if ((this.st状態[i].judge != EJudge.Miss) && (this.st状態[i].judge != EJudge.Bad))
 				{
 					if (num2 < 20)
 					{

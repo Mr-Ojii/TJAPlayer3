@@ -46,7 +46,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
 		public bool b加算アニメ中;
 		public int nヒット数_PERFECT;
 		public int nヒット数_GOOD;
-		public int nヒット数_POOR;
+		public int nヒット数_BAD;
 		public int nヒット数_MISS;
 		public int n最大コンボ;
 		public int n現在のコンボ;
@@ -103,7 +103,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
 
 		this.st叩ききりまショー.nヒット数_PERFECT = 0;
 		this.st叩ききりまショー.nヒット数_GOOD = 0;
-		this.st叩ききりまショー.nヒット数_POOR = 0;
+		this.st叩ききりまショー.nヒット数_BAD = 0;
 		this.st叩ききりまショー.nヒット数_MISS = 0;
 		this.st叩ききりまショー.n区間ノート数 = 0;
 		this.st叩ききりまショー.n現在のコンボ = 0;
@@ -565,7 +565,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
 				}
 			}
 
-			double db区間内ミス率 = ( ( (double)this.st叩ききりまショー.nヒット数_POOR + this.st叩ききりまショー.nヒット数_MISS ) / this.st叩ききりまショー.n区間ノート数 ) * 100.0;
+			double db区間内ミス率 = ( ( (double)this.st叩ききりまショー.nヒット数_BAD + this.st叩ききりまショー.nヒット数_MISS ) / this.st叩ききりまショー.n区間ノート数 ) * 100.0;
 			for( int i = 0; i < this.nミス率ボーナス.Length; i++ )
 			{
 				if( db区間内ミス率 >= this.nミス率ボーナス[ i ].ret )
@@ -615,7 +615,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
 				}
 			}
 
-			double db全体ミス率 = ( ( (double)TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Poor + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Miss ) / this.st叩ききりまショー.n現在通過したノート数 ) * 100.0;
+			double db全体ミス率 = ( ( (double)TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Bad + TJAPlayer3.stage演奏ドラム画面.nヒット数_Auto含まない[0].Miss ) / this.st叩ききりまショー.n現在通過したノート数 ) * 100.0;
 			for( int i = 0; i < this.n全体ミス率ボーナス.Length; i++ )
 			{
 				if( db全体ミス率 >= this.n全体ミス率ボーナス[ i ].ret )
@@ -636,7 +636,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
 			//各数値を初期化
 			this.st叩ききりまショー.nヒット数_PERFECT = 0;
 			this.st叩ききりまショー.nヒット数_GOOD = 0;
-			this.st叩ききりまショー.nヒット数_POOR = 0;
+			this.st叩ききりまショー.nヒット数_BAD = 0;
 			this.st叩ききりまショー.nヒット数_MISS = 0;
 			this.st叩ききりまショー.n区間ノート数 = 0;
 			this.st叩ききりまショー.n現在のコンボ = 0;
@@ -657,7 +657,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
 		{
 			if( this.st叩ききりまショー.nおまけ加算が発生した回数 > 3 )
 				return;
-			if (this.st叩ききりまショー.b超激辛 && (((double)this.st叩ききりまショー.nヒット数_POOR + this.st叩ききりまショー.nヒット数_MISS) > 0))
+			if (this.st叩ききりまショー.b超激辛 && (((double)this.st叩ききりまショー.nヒット数_BAD + this.st叩ききりまショー.nヒット数_MISS) > 0))
 				return; //ミスが出るようでは上達しませんよ。お兄様。
 			if( TJAPlayer3.ConfigIni.bSuperHard )
 				return; //スーパーハード時はボーナス加点無し。
@@ -690,7 +690,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
 				}
 			}
 			#endregion
-			double db区間内ミス率 = ( ( (double)this.st叩ききりまショー.nヒット数_POOR + this.st叩ききりまショー.nヒット数_MISS ) / this.st叩ききりまショー.n区間ノート数 ) * 100.0;
+			double db区間内ミス率 = ( ( (double)this.st叩ききりまショー.nヒット数_BAD + this.st叩ききりまショー.nヒット数_MISS ) / this.st叩ききりまショー.n区間ノート数 ) * 100.0;
 			if( db区間内ミス率 >= 5.0 )
 			{
 				n延長する時間 -= 2;
@@ -704,7 +704,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
 			//各数値を初期化
 			this.st叩ききりまショー.nヒット数_PERFECT = 0;
 			this.st叩ききりまショー.nヒット数_GOOD = 0;
-			this.st叩ききりまショー.nヒット数_POOR = 0;
+			this.st叩ききりまショー.nヒット数_BAD = 0;
 			this.st叩ききりまショー.nヒット数_MISS = 0;
 			this.st叩ききりまショー.n区間ノート数 = 0;
 			this.st叩ききりまショー.n現在のコンボ = 0;
@@ -744,8 +744,8 @@ internal class CAct演奏Drumsゲームモード : CActivity
 			case EJudge.Good:
 				this.st叩ききりまショー.nヒット数_GOOD++;
 				break;
-			case EJudge.Poor:
-				this.st叩ききりまショー.nヒット数_POOR++;
+			case EJudge.Bad:
+				this.st叩ききりまショー.nヒット数_BAD++;
 				break;
 			case EJudge.Miss:
 				this.st叩ききりまショー.nヒット数_MISS++;

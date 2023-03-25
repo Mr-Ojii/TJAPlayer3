@@ -384,7 +384,7 @@ internal class CConfigIni : INotifyPropertyChanged
 	{
 		public int Perfect;
 		public int Good;
-		public int Poor;
+		public int Bad;
 	}
 	#endregion
 
@@ -476,7 +476,7 @@ internal class CConfigIni : INotifyPropertyChanged
 		this.nヒット範囲ms = new STRANGE();
 		this.nヒット範囲ms.Perfect = 25; //そこらへんから拾ってきた判定の値
 		this.nヒット範囲ms.Good = 75;
-		this.nヒット範囲ms.Poor = 108;
+		this.nヒット範囲ms.Bad = 108;
 		this.ConfigIniファイル名 = "";
 		this.dicJoystick = new Dictionary<int, string>( 10 );
 		this.tデフォルトのキーアサインに設定する();
@@ -837,10 +837,10 @@ internal class CConfigIni : INotifyPropertyChanged
 #region [ HitRange ]
 		sw.WriteLine("[HitRange]");
 		sw.WriteLine();
-		sw.WriteLine("; Perfect～Poor とみなされる範囲[ms]");
+		sw.WriteLine("; Perfect～Bad とみなされる範囲[ms]");
 		sw.WriteLine("Perfect={0}", this.nヒット範囲ms.Perfect);
 		sw.WriteLine("Good={0}", this.nヒット範囲ms.Good);
-		sw.WriteLine("Poor={0}", this.nヒット範囲ms.Poor);
+		sw.WriteLine("Bad={0}", this.nヒット範囲ms.Bad);
 		sw.WriteLine();
 		sw.WriteLine(";-------------------");
 #endregion
@@ -1413,9 +1413,9 @@ internal class CConfigIni : INotifyPropertyChanged
 								{
 									this.nヒット範囲ms.Good = str4.ToInt32(0, 0x3e7, this.nヒット範囲ms.Good);
 								}
-								else if (str3.Equals("Poor"))
+								else if (str3.Equals("Bad"))
 								{
-									this.nヒット範囲ms.Poor = str4.ToInt32(0, 0x3e7, this.nヒット範囲ms.Poor);
+									this.nヒット範囲ms.Bad = str4.ToInt32(0, 0x3e7, this.nヒット範囲ms.Bad);
 								}
 								continue;
 							//-----------------------------

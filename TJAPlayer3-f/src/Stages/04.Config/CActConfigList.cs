@@ -96,8 +96,8 @@ internal class CActConfigList : CActivity
 		this.list項目リスト.Add( this.iTaikoPlayerCount );
 
 		this.iSystemRisky = new CItemInteger( "Risky", 0, 10, TJAPlayer3.ConfigIni.nRisky,
-			"Riskyモードの設定:\n1以上の値にすると、その回数分の\nPoor/MissでFAILEDとなります。\n0にすると無効になり、\nDamageLevelに従ったゲージ増減と\nなります。\nStageFailedの設定と併用できます。",
-			"Risky mode:\nSet over 1, in case you'd like to specify\n the number of Poor/Miss times to be\n FAILED.\nSet 0 to disable Risky mode." );
+			"Riskyモードの設定:\n1以上の値にすると、その回数分の\nBad/MissでFAILEDとなります。\n0にすると無効になり、\nDamageLevelに従ったゲージ増減と\nなります。\nStageFailedの設定と併用できます。",
+			"Risky mode:\nSet over 1, in case you'd like to specify\n the number of Bad/Miss times to be\n FAILED.\nSet 0 to disable Risky mode." );
 		this.list項目リスト.Add( this.iSystemRisky );
 
 		this.iCommonPlaySpeed = new CItemInteger("再生速度", 5, 400, TJAPlayer3.ConfigIni.n演奏速度,
@@ -532,7 +532,7 @@ internal class CActConfigList : CActivity
 			"",
 			"Risky mode:\n" +
 			"Set over 1, in case you'd like to specify\n" +
-			" the number of Poor/Miss times to be\n" +
+			" the number of Bad/Miss times to be\n" +
 			" FAILED.\n" +
 			"Set 0 to disable Risky mode." );
 		this.list項目リスト.Add( this.iSystemRisky );

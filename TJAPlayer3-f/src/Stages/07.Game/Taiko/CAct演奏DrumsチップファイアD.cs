@@ -134,7 +134,7 @@ internal class CAct演奏DrumsチップファイアD : CActivity
 										TJAPlayer3.Tx.Effects_Hit_Explosion.t2D描画(TJAPlayer3.app.Device, nX, nY, new Rectangle(this.st状態[i].ct進行.n現在の値 * 260, n + 260, 260, 260));
 									break;
 								case EJudge.Miss:
-								case EJudge.Poor:
+								case EJudge.Bad:
 									break;
 							}
 						}
@@ -172,7 +172,7 @@ internal class CAct演奏DrumsチップファイアD : CActivity
 								break;
 
 							case EJudge.Miss:
-							case EJudge.Poor:
+							case EJudge.Bad:
 								break;
 						}
 					}

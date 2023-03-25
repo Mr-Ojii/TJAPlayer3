@@ -123,11 +123,11 @@ internal class CStage演奏画面共通 : CStage
 			Drums.nスコア = (long) this.actScore.Get( nPlayer );
 			Drums.nPerfect数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] ? this.nヒット数_Auto含む[nPlayer].Perfect : this.nヒット数_Auto含まない[nPlayer].Perfect;
 			Drums.nGood数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] ? this.nヒット数_Auto含む[nPlayer].Good : this.nヒット数_Auto含まない[nPlayer].Good;
-			Drums.nPoor数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] ? this.nヒット数_Auto含む[nPlayer].Poor : this.nヒット数_Auto含まない[nPlayer].Poor;
+			Drums.nBad数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] ? this.nヒット数_Auto含む[nPlayer].Bad : this.nヒット数_Auto含まない[nPlayer].Bad;
 			Drums.nMiss数 = TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] ? this.nヒット数_Auto含む[nPlayer].Miss : this.nヒット数_Auto含まない[nPlayer].Miss;
 			Drums.nPerfect数_Auto含まない = this.nヒット数_Auto含まない[nPlayer].Perfect;
 			Drums.nGood数_Auto含まない = this.nヒット数_Auto含まない[nPlayer].Good;
-			Drums.nPoor数_Auto含まない = this.nヒット数_Auto含まない[nPlayer].Poor;
+			Drums.nBad数_Auto含まない = this.nヒット数_Auto含まない[nPlayer].Bad;
 			Drums.nMiss数_Auto含まない = this.nヒット数_Auto含まない[nPlayer].Miss;
 			Drums.n連打数 = this.n合計連打数[ nPlayer ];
 			Drums.n最大コンボ数 = this.actCombo.n現在のコンボ数.最高値[nPlayer];
@@ -144,7 +144,7 @@ internal class CStage演奏画面共通 : CStage
 			Drums.b演奏にMouseを使用した = this.b演奏にMouseを使った;
 			Drums.nPerfectになる範囲ms = TJAPlayer3.nPerfect範囲ms;
 			Drums.nGoodになる範囲ms = TJAPlayer3.nGood範囲ms;
-			Drums.nPoorになる範囲ms = TJAPlayer3.nPoor範囲ms;
+			Drums.nBadになる範囲ms = TJAPlayer3.nBad範囲ms;
 			Drums.strDTXManiaのバージョン = TJAPlayer3.VERSION;
 			Drums.最終更新日時 = DateTime.Now.ToString();
 			Drums.fゲージ = (float)this.actGauge.db現在のゲージ値[ nPlayer ];
@@ -752,9 +752,9 @@ internal class CStage演奏画面共通 : CStage
 	{
 		// Fields
 		public int Good;
-		public int Miss;
 		public int Perfect;
-		public int Poor;
+		public int Bad;
+		public int Miss;
 
 		// Properties
 		public int this[ int index ]
@@ -770,7 +770,7 @@ internal class CStage演奏画面共通 : CStage
 						return this.Good;
 
 					case 2:
-						return this.Poor;
+						return this.Bad;
 
 					case 3:
 						return this.Miss;
@@ -790,7 +790,7 @@ internal class CStage演奏画面共通 : CStage
 						return;
 
 					case 2:
-						this.Poor = value;
+						this.Bad = value;
 						return;
 
 					case 3:
@@ -1045,12 +1045,12 @@ internal class CStage演奏画面共通 : CStage
 			if ( nDeltaTime <= TJAPlayer3.nGood範囲ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))
 			{
 				if( TJAPlayer3.ConfigIni.bJust )
-					return EJudge.Poor;
+					return EJudge.Bad;
 				return EJudge.Good;
 			}
-			if ( nDeltaTime <= TJAPlayer3.nPoor範囲ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))
+			if ( nDeltaTime <= TJAPlayer3.nBad範囲ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))
 			{
-				return EJudge.Poor;
+				return EJudge.Bad;
 			}
 		}
 		return EJudge.Miss;
@@ -1378,7 +1378,7 @@ internal class CStage演奏画面共通 : CStage
 		{
 			if (eJudgeResult != EJudge.AutoPerfect && eJudgeResult != EJudge.Miss)
 			{
-				this.actJudgeString.Start(EJudge.Poor, pChip.nLag, pChip, nPlayer);
+				this.actJudgeString.Start(EJudge.Bad, pChip.nLag, pChip, nPlayer);
 				TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.Start(0x11, eJudgeResult, true, nPlayer);
 				TJAPlayer3.stage演奏ドラム画面.actChipFireD.Start(0x11, eJudgeResult, nPlayer);
 			}
@@ -1396,7 +1396,7 @@ internal class CStage演奏画面共通 : CStage
 				TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.Start(pChip.nチャンネル番号, eJudgeResult, true, nPlayer);
 				TJAPlayer3.stage演奏ドラム画面.actChipFireD.Start(pChip.nチャンネル番号, eJudgeResult, nPlayer);
 			}
-			else if (eJudgeResult != EJudge.Poor)
+			else if (eJudgeResult != EJudge.Bad)
 			{
 				//this.actJudgeString.Start( 0,bAutoPlay ? EJudge.Auto : eJudgeResult, pChip.nLag, pChip, nPlayer );
 			}
@@ -1407,7 +1407,7 @@ internal class CStage演奏画面共通 : CStage
 			actGauge.Damage(pChip.nコース, eJudgeResult, nPlayer);
 		}
 
-		if ( eJudgeResult != EJudge.Poor && eJudgeResult != EJudge.Miss )
+		if ( eJudgeResult != EJudge.Bad && eJudgeResult != EJudge.Miss )
 		{
 			double dbUnit = (((60.0 / (TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM))));
 
@@ -1441,7 +1441,7 @@ internal class CStage演奏画面共通 : CStage
 			}
 		}
 
-		if ( eJudgeResult == EJudge.Poor || eJudgeResult == EJudge.Miss )
+		if ( eJudgeResult == EJudge.Bad || eJudgeResult == EJudge.Miss )
 		{
 			// ランナー(みすったやつ)
 			this.actRunner.Start(nPlayer, true, pChip);
@@ -1494,7 +1494,7 @@ internal class CStage演奏画面共通 : CStage
 
 						}
 						break;
-					case EJudge.Poor:
+					case EJudge.Bad:
 					case EJudge.Miss:
 						{
 							if (pChip.nチャンネル番号 == 0x1F)
@@ -1618,7 +1618,7 @@ internal class CStage演奏画面共通 : CStage
 		#endregion
 		
 		actDan.Update();
-		if ( ( eJudgeResult != EJudge.Miss ) && ( eJudgeResult != EJudge.Poor ) && ( pChip.nチャンネル番号 <= 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B ) )
+		if ( ( eJudgeResult != EJudge.Miss ) && ( eJudgeResult != EJudge.Bad ) && ( pChip.nチャンネル番号 <= 0x14 || pChip.nチャンネル番号 == 0x1A || pChip.nチャンネル番号 == 0x1B ) )
 		{
 			int nCombos = this.actCombo.n現在のコンボ数[ nPlayer ];
 			long nAddScore = 0;
@@ -1960,7 +1960,7 @@ internal class CStage演奏画面共通 : CStage
 		#endregion
 
 		#region 過去のノーツが見つかったらそれを返却、そうでなければ未来のノーツを返却
-		if ((pastJudge == EJudge.Miss || pastJudge == EJudge.Poor) && (pastJudge != EJudge.Miss && pastJudge != EJudge.Poor))
+		if ((pastJudge == EJudge.Miss || pastJudge == EJudge.Bad) && (pastJudge != EJudge.Miss && pastJudge != EJudge.Bad))
 		{
 			// 過去の判定が不可で、未来の判定が可以上なら未来を返却。
 			nearestChip = futureChip;
@@ -2111,7 +2111,7 @@ internal class CStage演奏画面共通 : CStage
 		#endregion
 
 		#region 過去のノーツが見つかったらそれを返却、そうでなければ未来のノーツを返却
-		if ((pastJudge == EJudge.Miss || pastJudge == EJudge.Poor) && (pastJudge != EJudge.Miss && pastJudge != EJudge.Poor))
+		if ((pastJudge == EJudge.Miss || pastJudge == EJudge.Bad) && (pastJudge != EJudge.Miss && pastJudge != EJudge.Bad))
 		{
 			// 過去の判定が不可で、未来の判定が可以上なら未来を返却。
 			nearestChip = futureChip;
@@ -2218,7 +2218,7 @@ internal class CStage演奏画面共通 : CStage
 			return false;
 		}
 		this.tチップのヒット処理(nHitTime, pChip, true, nInput, nPlayer);
-		if ((e判定 != EJudge.Poor) && (e判定 != EJudge.Miss))
+		if ((e判定 != EJudge.Bad) && (e判定 != EJudge.Miss))
 		{
 			TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.Start(pChip.nチャンネル番号, e判定, b両手入力, nPlayer);
 
@@ -2429,7 +2429,7 @@ internal class CStage演奏画面共通 : CStage
 							}
 							if (e判定 != EJudge.Miss && (chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x1A) && TJAPlayer3.ConfigIni.b大音符判定)
 							{
-								if (e判定 == EJudge.Poor)
+								if (e判定 == EJudge.Bad)
 								{
 									this.tドラムヒット処理(nTime, EPad.LRed, chipNoHit, true, nUsePlayer);
 									bHitted = true;
@@ -2489,7 +2489,7 @@ internal class CStage演奏画面共通 : CStage
 							}
 							if (e判定 != EJudge.Miss && (chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x1A) && TJAPlayer3.ConfigIni.b大音符判定)
 							{
-								if (e判定 == EJudge.Poor)
+								if (e判定 == EJudge.Bad)
 								{
 									this.tドラムヒット処理(nTime, EPad.LRed, chipNoHit, true, nUsePlayer);
 									bHitted = true;
@@ -2551,7 +2551,7 @@ internal class CStage演奏画面共通 : CStage
 							}
 							if (e判定 != EJudge.Miss && (chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1B) && TJAPlayer3.ConfigIni.b大音符判定)
 							{
-								if (e判定 == EJudge.Poor)
+								if (e判定 == EJudge.Bad)
 								{
 									this.tドラムヒット処理(nTime, EPad.LRed, chipNoHit, true, nUsePlayer);
 									bHitted = true;
@@ -2611,7 +2611,7 @@ internal class CStage演奏画面共通 : CStage
 							}
 							if (e判定 != EJudge.Miss && (chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1B) && TJAPlayer3.ConfigIni.b大音符判定)
 							{
-								if (e判定 == EJudge.Poor)
+								if (e判定 == EJudge.Bad)
 								{
 									this.tドラムヒット処理(nTime, EPad.LRed, chipNoHit, true, nUsePlayer);
 									bHitted = true;
@@ -3981,12 +3981,12 @@ internal class CStage演奏画面共通 : CStage
 			{
 				this.nヒット数_Auto含む[i].Perfect = 0;
 				this.nヒット数_Auto含む[i].Good = 0;
-				this.nヒット数_Auto含む[i].Poor = 0;
+				this.nヒット数_Auto含む[i].Bad = 0;
 				this.nヒット数_Auto含む[i].Miss = 0;
 
 				this.nヒット数_Auto含まない[i].Perfect = 0;
 				this.nヒット数_Auto含まない[i].Good = 0;
-				this.nヒット数_Auto含まない[i].Poor = 0;
+				this.nヒット数_Auto含まない[i].Bad = 0;
 				this.nヒット数_Auto含まない[i].Miss = 0;
 			}
 
