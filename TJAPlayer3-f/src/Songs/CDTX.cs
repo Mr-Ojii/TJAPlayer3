@@ -140,6 +140,7 @@ internal class CDTX : CActivity
 		public ENoteState eNoteState;
 		public int nチャンネル番号;
 		public int TimeSpan;
+		public int nバーからの距離dot_Y;
 		public int nバーからの距離dot;
 		public int nバーからのノーツ末端距離dot;
 		public int n整数値;

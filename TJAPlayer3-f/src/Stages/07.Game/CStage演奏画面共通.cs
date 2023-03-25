@@ -2943,6 +2943,9 @@ internal class CStage演奏画面共通 : CStage
 			if( pChip.nノーツ終了時刻ms != 0 )
 				pChip.nバーからのノーツ末端距離dot = (int) (  ( pChip.nノーツ終了時刻ms - n現在時刻ms) * pChip.db末端BPM * pChip.db末端SCROLL * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 
+			if(pChip.dbSCROLL_Y != 0)
+				pChip.nバーからの距離dot_Y = (int)(((pChip.n発声時刻ms - ((CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))) * pChip.dbBPM * pChip.dbSCROLL_Y * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0); // 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+
 			if ( TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL || TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.HBSCROLL )
 			{
 				float play_bpm_time = this.GetNowPBMTime( dTX );
@@ -2954,6 +2957,13 @@ internal class CStage演奏画面共通 : CStage
 
 				if ( pChip.nノーツ終了時刻ms != 0 )
 					pChip.nバーからのノーツ末端距離dot = (int)( 3 * 0.8335 *( ( pChip.fBMSCROLLTime_end * NOTE_GAP) - ( play_bpm_time * NOTE_GAP ) ) * db末端SCROLL * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0 ) / 2 /5.0);// 2020.04.20 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+
+				if(pChip.dbSCROLL_Y != 0)
+				{
+					var dbSCROLL_Y = TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.dbSCROLL_Y;
+					pChip.nバーからの距離dot_Y = (int)(3 * 0.8335 * ((pChip.fBMSCROLLTime * NOTE_GAP) - (play_bpm_time * NOTE_GAP)) * dbSCROLL_Y * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0) / 2 / 5.0);
+				}
+
 			}
 			else if(TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.REGULSPEED) 
 			{
@@ -4281,19 +4291,7 @@ internal class CStage演奏画面共通 : CStage
 #endregion
 
 			if (pChip.dbSCROLL_Y != 0.0)
-			{
-				y = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldY[nPlayer];
-				if (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.Normal)
-					y += (int)(((pChip.n発声時刻ms - ((CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))) * pChip.dbBPM * pChip.dbSCROLL_Y * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0); // 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
-				else if (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL || TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.HBSCROLL)
-				{
-					float play_bpm_time = this.GetNowPBMTime(dTX);
-
-					var dbSCROLL_Y = TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.dbSCROLL_Y;
-
-					y += (int)(3 * 0.8335 * ((pChip.fBMSCROLLTime * NOTE_GAP) - (play_bpm_time * NOTE_GAP)) * dbSCROLL_Y * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0) / 2 / 5.0);
-				}
-			}
+				y = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldY[nPlayer] + pChip.nバーからの距離dot_Y;
 
 			if (pChip.TimeSpan < 0)
 			{
