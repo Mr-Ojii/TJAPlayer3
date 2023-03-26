@@ -14,6 +14,7 @@
 *.dms
 *.ust
 *.score.ini
+*.score.json
 *.DotSettings.user
 *.bs1770gain.xml
 .DS_Store

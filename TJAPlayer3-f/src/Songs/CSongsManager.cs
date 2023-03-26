@@ -171,17 +171,9 @@ internal class CSongsManager
 
 				try
 				{
-					var scoreIniPath = c曲リストノード.arスコア.FileInfo.FileAbsolutePath + ".score.ini";
-					if (File.Exists(scoreIniPath))
-						this.tScoreIniを読み込んで譜面情報を設定する(scoreIniPath, c曲リストノード.arスコア);
-					else
-					{
-						string[] dtxscoreini = Directory.GetFiles(c曲リストノード.arスコア.FileInfo.DirAbsolutePath, "*.dtx.score.ini");
-						if (dtxscoreini.Length != 0 && File.Exists(dtxscoreini[0]))
-						{
-							this.tScoreIniを読み込んで譜面情報を設定する(dtxscoreini[0], c曲リストノード.arスコア);
-						}
-					}
+					var scoreJsonPath = c曲リストノード.arスコア.FileInfo.FileAbsolutePath + ".score.json";
+					if (File.Exists(scoreJsonPath))
+						this.tLoadScoreJsonAndSetScoreInfo(scoreJsonPath, c曲リストノード.arスコア);
 				}
 				catch (Exception e)
 				{
@@ -470,31 +462,30 @@ internal class CSongsManager
 
 	//-----------------
 	#endregion
-	#region [ .score.ini を読み込んで Cスコア.譜面情報に設定する ]
+	#region [ .score.json を読み込んで Cスコア.譜面情報に設定する ]
 	//-----------------
-	public void tScoreIniを読み込んで譜面情報を設定する(string strScoreIniファイルパス, Cスコア score)
+	public void tLoadScoreJsonAndSetScoreInfo(string ScoreJsonPath, Cスコア score)
 	{
-		if (!File.Exists(strScoreIniファイルパス))
+		if (!File.Exists(ScoreJsonPath))
 			return;
 
 		try
 		{
-			var ini = new CScoreIni(strScoreIniファイルパス);
+			var json = CScoreJson.Load(ScoreJsonPath);
 
 			for (int i = 0; i < (int)Difficulty.Total; i++)
 			{
-				score.譜面情報.nハイスコア[i] = (int)ini.stセクション.HiScore.nハイスコア[i];
-				score.譜面情報.nSecondScore[i] = (int)ini.stセクション.HiScore.nSecondScore[i];
-				score.譜面情報.nThirdScore[i] = (int)ini.stセクション.HiScore.nThirdScore[i];
-				score.譜面情報.strHiScorerName[i] = ini.stセクション.HiScore.strHiScorerName[i];
-				score.譜面情報.strSecondScorerName[i] = ini.stセクション.HiScore.strSecondScorerName[i];
-				score.譜面情報.strThirdScorerName[i] = ini.stセクション.HiScore.strThirdScorerName[i];
-				score.譜面情報.nCrown[i] = (int)ini.stセクション.HiScore.nCrown[i];
+				for(int j = 0; j < json.Records[i].HiScore.Count; j++)
+				{
+					score.譜面情報.nHiScore[i][j] = (int)json.Records[i].HiScore[j].Score;
+					score.譜面情報.strHiScorerName[i][j] = json.Records[i].HiScore[j].PlayerName;
+				}
+				score.譜面情報.nCrown[i] = json.Records[i].Crown;
 			}
 		}
 		catch (Exception e)
 		{
-			Trace.TraceError("演奏記録ファイルの読み込みに失敗しました。[{0}]", strScoreIniファイルパス);
+			Trace.TraceError("演奏記録ファイルの読み込みに失敗しました。[{0}]", ScoreJsonPath);
 			Trace.TraceError(e.ToString());
 			Trace.TraceError("An exception has occurred, but processing continues. (801f823d-a952-4809-a1bb-cf6a56194f5c)");
 		}

@@ -13,14 +13,14 @@ internal class CStageResult : CStage
 {
 	// プロパティ
 
-	public CScoreIni.C演奏記録[] st演奏記録;
+	public CScoreJson.CRecord[] cRecords;
 
 
 	// コンストラクタ
 
 	public CStageResult()
 	{
-		this.st演奏記録 = new CScoreIni.C演奏記録[2];
+		this.cRecords = new CScoreJson.CRecord[2];
 		base.eStageID = CStage.EStage.Result;
 		base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
 		base.b活性化してない = true;
@@ -45,57 +45,77 @@ internal class CStageResult : CStage
 			//---------------------
 			#endregion
 
-			#region [ .score.ini の作成と出力 ]
-			//---------------------
-			string str = TJAPlayer3.DTX[0].strFilenameの絶対パス + ".score.ini";
-			CScoreIni ini = new CScoreIni( str );
-
+			string str = TJAPlayer3.DTX[0].strFilenameの絶対パス + ".score.json";
+			CScoreJson json = CScoreJson.Load(str);
 
 			for( int i = 0; i < 1; i++ )
 			{
-				if (this.st演奏記録[0].bAuto == false)
-				ini.stセクション.HiScore = this.st演奏記録[0];
-
-				// ラストプレイ #23595 2011.1.9 ikanick
-				// オートじゃなければプレイ結果を書き込む
-				if(this.st演奏記録[0].bAuto == false) {
-					ini.stセクション.LastPlay = this.st演奏記録[0];
-				}
-
-				// #23596 10.11.16 add ikanick オートじゃないならクリア回数を1増やす
-				//        11.02.05 bオート to t更新条件を取得する use      ikanick
-				if (this.st演奏記録[0].bAuto == false)
-				{	
-					ini.stファイル.ClearCountDrums++;
-				}
-				//---------------------------------------------------------------------/
-			}
-			ini.t書き出し(str);
-			//---------------------
-			#endregion
-
-			#region [ 選曲画面の譜面情報の更新 ]
-			//---------------------
-
-			{ 
-				Cスコア cスコア = TJAPlayer3.stage選曲.r確定されたスコア;
-
-				if (this.st演奏記録[0].bAuto == false)
+				if(!this.cRecords[i].Auto)
 				{
-					cスコア.譜面情報.nCrown = st演奏記録[0].nCrown;//2020.05.22 Mr-Ojii データが保存されない問題の解決策。
-					cスコア.譜面情報.nハイスコア = st演奏記録[0].nハイスコア;
-					cスコア.譜面情報.nSecondScore = st演奏記録[0].nSecondScore;
-					cスコア.譜面情報.nThirdScore = st演奏記録[0].nThirdScore;
+					#region [ .score.json の作成と出力 ]
+					//王冠の更新
+					if (TJAPlayer3.stage選曲.n確定された曲の難易度[i] != (int)Difficulty.Dan)
+					{
+						if (this.cRecords[i].Gauge < 80)
+							json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].Crown = Math.Max(json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].Crown, 0);
+						else if (this.cRecords[i].MissCount != 0 && this.cRecords[i].BadCount != 0)
+							json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].Crown = Math.Max(json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].Crown, 1);
+						else if (this.cRecords[i].GoodCount != 0)
+							json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].Crown = Math.Max(json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].Crown, 2);
+						else
+							json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].Crown = Math.Max(json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].Crown, 3);
+					}
+					else {
+						switch (TJAPlayer3.stage演奏ドラム画面.actDan.GetExamStatus(this.cRecords[i].DanC, this.cRecords[i].DanCGauge))
+						{
+							case Exam.Status.Success:
+								json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].Crown = Math.Max(json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].Crown, 1);
+								break;
+							case Exam.Status.Better_Success:
+								json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].Crown = Math.Max(json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].Crown, 2);
+								break;
+							default:
+								json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].Crown = Math.Max(json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].Crown, 0);
+								break;
+						}
+					}
 
-					cスコア.譜面情報.strHiScorerName = st演奏記録[0].strHiScorerName;
-					cスコア.譜面情報.strSecondScorerName = st演奏記録[0].strSecondScorerName;
-					cスコア.譜面情報.strThirdScorerName = st演奏記録[0].strThirdScorerName;
+					//LastPlayの更新
+					json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].LastPlay = this.cRecords[i];
+
+					//HiScoreの更新
+					int j;
+					for(j = 0; j < json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore.Count; j++)
+						if (this.cRecords[i].Score >= json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore[j].Score)
+							break;
+
+					json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore.Insert(j, this.cRecords[i]);
+
+					//3個以上だった場合、3個に丸める
+					while(json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore.Count > 3)
+						json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore.RemoveAt(3);
+
+					//クリアしていた場合、クリアのカウントを増やす
+					if (this.cRecords[i].Gauge >= 80)
+						json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].ClearCount++;
+
+					//書き出し
+					json.Save(str);
+					#endregion
+
+					#region [ 選曲画面の譜面情報の更新 ]
+					Cスコア cスコア = TJAPlayer3.stage選曲.r確定されたスコア;
+					cスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[i]] = json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].Crown;
+					for(int k = 0; k < json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore.Count; k++)
+					{
+						cスコア.譜面情報.nHiScore[TJAPlayer3.stage選曲.n確定された曲の難易度[i]][j] = (int)json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore[j].Score;
+						cスコア.譜面情報.strHiScorerName[TJAPlayer3.stage選曲.n確定された曲の難易度[i]][j] = json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore[j].PlayerName;
+					}
+					TJAPlayer3.stage選曲.r確定されたスコア = cスコア;
+					#endregion
+
 				}
-				
-				TJAPlayer3.stage選曲.r確定されたスコア = cスコア;
 			}
-			//---------------------
-			#endregion
 
 			string Details = TJAPlayer3.DTX[0].TITLE + TJAPlayer3.DTX[0].EXTENSION;
 
@@ -178,7 +198,7 @@ internal class CStageResult : CStage
 						TJAPlayer3.Tx.Result_v2_Background[0].t2D描画(TJAPlayer3.app.Device, 0, 0);
 					for (int ind = 0; ind < TJAPlayer3.ConfigIni.nPlayerCount; ind++)
 					{
-						if (this.st演奏記録[ind].fゲージ >= 80.0 && TJAPlayer3.Tx.Result_v2_Background[1] != null)
+						if (this.cRecords[ind].Gauge >= 80.0 && TJAPlayer3.Tx.Result_v2_Background[1] != null)
 						{
 							TJAPlayer3.Tx.Result_v2_Background[1].Opacity = Math.Min(this.ctMountainAndClear.n現在の値, 255);
 							TJAPlayer3.Tx.Result_v2_Background[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.ConfigIni.nPlayerCount * ind, 0, new Rectangle(TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.ConfigIni.nPlayerCount * ind, 0, TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.ConfigIni.nPlayerCount, TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Height));
@@ -188,9 +208,9 @@ internal class CStageResult : CStage
 				if (TJAPlayer3.Tx.Result_v2_Mountain != null && TJAPlayer3.ConfigIni.nPlayerCount == 1)
 				{
 					if (TJAPlayer3.Tx.Result_v2_Mountain[0] != null)
-						if (this.ctMountainAndClear.n現在の値 <= 255 || this.st演奏記録[0].fゲージ < 80.0)
+						if (this.ctMountainAndClear.n現在の値 <= 255 || this.cRecords[0].Gauge < 80.0)
 							TJAPlayer3.Tx.Result_v2_Mountain[0].t2D描画(TJAPlayer3.app.Device, 0, 0);
-					if (this.st演奏記録[0].fゲージ >= 80.0 && TJAPlayer3.Tx.Result_v2_Mountain[1] != null)
+					if (this.cRecords[0].Gauge >= 80.0 && TJAPlayer3.Tx.Result_v2_Mountain[1] != null)
 					{
 						TJAPlayer3.Tx.Result_v2_Mountain[1].Opacity = Math.Min(this.ctMountainAndClear.n現在の値, 255);
 						if (this.ctMountainAndClear.n現在の値 <= 255 || this.ctMountainAndClear.n現在の値 == this.ctMountainAndClear.n終了値)

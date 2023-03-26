@@ -113,125 +113,41 @@ internal class CStage演奏画面共通 : CStage
 		#endregion
 	}
 
-	#region [ t演奏結果を格納する() ]
-	public void t演奏結果を格納する( out CScoreIni.C演奏記録 Drums , int nPlayer)
+	#region [ tSaveToCRecord ]
+	public void tSaveToCRecord ( out CScoreJson.CRecord Record , int nPlayer)
 	{
-		Drums = new CScoreIni.C演奏記録();
+		Record = new();
 
-		//if (  )
+		Record.Version = TJAPlayer3.VERSION;
+		Record.DateTime = DateTime.Now;
+		Record.Tight = TJAPlayer3.ConfigIni.bTight;
+		Record.Risky = TJAPlayer3.ConfigIni.nRisky;
+		Record.InputMIDI = this.b演奏にMIDIInputを使った;
+		Record.InputKeyboard = this.b演奏にKeyBoardを使った;
+		Record.InputJoystick = this.b演奏にJoypadを使った;
+		Record.InputMouse = this.b演奏にMouseを使った;
+		Record.Random = TJAPlayer3.ConfigIni.eRandom[nPlayer];
+		Record.ScrollSpeed = (TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer] + 1) * 0.1;
+		Record.PlaySpeed = TJAPlayer3.ConfigIni.n演奏速度 / 20.0;
+		Record.PerfectRange = TJAPlayer3.nPerfect範囲ms;
+		Record.GoodRange = TJAPlayer3.nGood範囲ms;
+		Record.BadRange = TJAPlayer3.nBad範囲ms;
+		Record.PerfectCount = this.nヒット数[nPlayer].Perfect;
+		Record.GoodCount = this.nヒット数[nPlayer].Good;
+		Record.BadCount = this.nヒット数[nPlayer].Bad;
+		Record.MissCount = this.nヒット数[nPlayer].Miss;
+		Record.RollCount = this.n合計連打数[nPlayer];
+		Record.Score = (long)this.actScore.Get( nPlayer );
+		Record.MaxCombo = this.actCombo.n現在のコンボ数.最高値[nPlayer];
+		Record.Gauge = this.actGauge.db現在のゲージ値[nPlayer];
+		Record.Auto = this.b途中でAutoを切り替えたか[nPlayer] || TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer];
+		Record.PlayerName = TJAPlayer3.ConfigIni.strPlayerName[nPlayer];
+		var danC = TJAPlayer3.stage演奏ドラム画面.actDan.GetExam();
+		for (int i = 0; i < danC.Length; i++)
 		{
-			Drums.nスコア = (long) this.actScore.Get( nPlayer );
-			Drums.nPerfect数 = this.nヒット数[nPlayer].Perfect;
-			Drums.nGood数 = this.nヒット数[nPlayer].Good;
-			Drums.nBad数 = this.nヒット数[nPlayer].Bad;
-			Drums.nMiss数 = this.nヒット数[nPlayer].Miss;
-			Drums.n連打数 = this.n合計連打数[ nPlayer ];
-			Drums.n最大コンボ数 = this.actCombo.n現在のコンボ数.最高値[nPlayer];
-			Drums.n全チップ数 = TJAPlayer3.DTX[0].n可視チップ数.Drums;
-			Drums.bTight = TJAPlayer3.ConfigIni.bTight;
-			Drums.eRandom = TJAPlayer3.ConfigIni.eRandom[0];
-			//Drums.eInvisible = TJAPlayer3.ConfigIni.eInvisible;
-			Drums.f譜面スクロール速度 = ( (float) ( TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer] + 1 ) ) * 0.1f;
-			Drums.n演奏速度分子 = TJAPlayer3.ConfigIni.n演奏速度;
-			Drums.n演奏速度分母 = 20;
-			Drums.b演奏にKeyBoardを使用した = this.b演奏にKeyBoardを使った;
-			Drums.b演奏にMIDIInputを使用した = this.b演奏にMIDIInputを使った;
-			Drums.b演奏にJoypadを使用した = this.b演奏にJoypadを使った;
-			Drums.b演奏にMouseを使用した = this.b演奏にMouseを使った;
-			Drums.nPerfectになる範囲ms = TJAPlayer3.nPerfect範囲ms;
-			Drums.nGoodになる範囲ms = TJAPlayer3.nGood範囲ms;
-			Drums.nBadになる範囲ms = TJAPlayer3.nBad範囲ms;
-			Drums.strDTXManiaのバージョン = TJAPlayer3.VERSION;
-			Drums.最終更新日時 = DateTime.Now.ToString();
-			Drums.fゲージ = (float)this.actGauge.db現在のゲージ値[ nPlayer ];
-			Drums.bAuto = this.b途中でAutoを切り替えたか[nPlayer] || TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer];
-			if( !Drums.bAuto )
-			{
-				Drums.nハイスコア = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nハイスコア; //2015.06.16 kairera0467 他難易度の上書き防止。
-				Drums.nSecondScore = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nSecondScore;
-				Drums.nThirdScore = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nThirdScore;
-				Drums.strHiScorerName = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.strHiScorerName;
-				Drums.strSecondScorerName = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.strSecondScorerName;
-				Drums.strThirdScorerName = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.strThirdScorerName;
-
-				if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < (int)this.actScore.Get(nPlayer))
-				{
-					Drums.nThirdScore[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = Drums.nSecondScore[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]];
-					Drums.nSecondScore[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = Drums.nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]];
-					Drums.nハイスコア[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = (int)this.actScore.Get(nPlayer);
-					Drums.strThirdScorerName[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = Drums.strSecondScorerName[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]];
-					Drums.strSecondScorerName[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = Drums.strHiScorerName[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]];
-					Drums.strHiScorerName[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = TJAPlayer3.ConfigIni.strPlayerName[nPlayer];
-				}
-				else if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nSecondScore[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < (int)this.actScore.Get(nPlayer)) 
-				{
-					Drums.nThirdScore[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = Drums.nSecondScore[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]];
-					Drums.nSecondScore[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = (int)this.actScore.Get(nPlayer);
-					Drums.strThirdScorerName[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = Drums.strSecondScorerName[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]];
-					Drums.strSecondScorerName[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = TJAPlayer3.ConfigIni.strPlayerName[nPlayer];
-				}
-				else if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nThirdScore[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < (int)this.actScore.Get(nPlayer))
-				{
-					Drums.strThirdScorerName[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = TJAPlayer3.ConfigIni.strPlayerName[nPlayer];
-					Drums.nThirdScore[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = (int)this.actScore.Get(nPlayer);
-				}
-
-				var danC = TJAPlayer3.stage演奏ドラム画面.actDan.GetExam();
-				for (int i = 0; i < danC.Length; i++)
-				{
-					Drums.Dan_C[i] = danC[i];
-				}
-				Drums.Dan_C_Gauge = TJAPlayer3.stage演奏ドラム画面.actDan.GetGaugeExam();
-
-				Drums.nCrown = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown;
-
-				if (TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer] != (int)Difficulty.Dan)
-				{
-					if (Drums.fゲージ < 80)
-					{
-						if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 0)
-							Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 0;
-					}
-					else if (Drums.nMiss数 != 0 && Drums.nBad数 != 0)
-					{
-						if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 1)
-							Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 1;
-					}
-					else if (Drums.nGood数 != 0)
-					{
-						if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 2)
-							Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 2;
-					}
-					else
-					{
-						if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 3)
-							Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 3;
-					}
-				}
-				else {
-					switch (TJAPlayer3.stage演奏ドラム画面.actDan.GetExamStatus(Drums.Dan_C, Drums.Dan_C_Gauge))
-					{
-						case Exam.Status.Failure:
-							if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 0)
-								Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 0;
-							break;
-						case Exam.Status.Success:
-							if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 1)
-								Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 1;
-							break;
-						case Exam.Status.Better_Success:
-							if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 2)
-								Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 2;
-							break;
-						default:
-							if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 0)
-								Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 0;
-							break;
-					}
-				}
-
-			}
+			Record.DanC[i] = danC[i];
 		}
+		Record.DanCGauge = TJAPlayer3.stage演奏ドラム画面.actDan.GetGaugeExam();
 	}
 	#endregion
 

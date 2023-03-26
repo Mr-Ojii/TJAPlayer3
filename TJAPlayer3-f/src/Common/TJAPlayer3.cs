@@ -672,7 +672,7 @@ internal class TJAPlayer3 : Game
 						case (int)E演奏画面の戻り値.演奏中断:
 							#region [ 演奏キャンセル ]
 							//-----------------------------
-							this.tScoreIniへBGMAdjustとHistoryとPlayCountを更新("Play canceled");
+							this.tUpdateScoreJson();
 
 
 							DTX[0].t全チップの再生停止();
@@ -694,7 +694,7 @@ internal class TJAPlayer3 : Game
 						case (int)E演奏画面の戻り値.ステージ失敗:
 							#region [ 演奏失敗(StageFailed) ]
 							//-----------------------------
-							this.tScoreIniへBGMAdjustとHistoryとPlayCountを更新("Stage failed");
+							this.tUpdateScoreJson();
 
 							DTX[0].t全チップの再生停止();
 							DTX[0].On非活性化();
@@ -714,17 +714,17 @@ internal class TJAPlayer3 : Game
 						case (int)E演奏画面の戻り値.ステージクリア:
 							#region [ 演奏クリア ]
 							//-----------------------------
-							CScoreIni.C演奏記録[] c演奏記録_Drums = new CScoreIni.C演奏記録[4];
+							CScoreJson.CRecord[] cRecords = new CScoreJson.CRecord[4];
 							for(int i = 0; i < ConfigIni.nPlayerCount; i++)
-								stage演奏ドラム画面.t演奏結果を格納する(out c演奏記録_Drums[i], i);
+								stage演奏ドラム画面.tSaveToCRecord(out cRecords[i], i);
 
-							this.tScoreIniへBGMAdjustとHistoryとPlayCountを更新("Cleared (" + c演奏記録_Drums[0].nスコア.ToString() + ")");
+							this.tUpdateScoreJson();
 
 							r現在のステージ.On非活性化();
 							Trace.TraceInformation("----------------------");
 							Trace.TraceInformation("■ Result");
 							for(int i = 0; i < ConfigIni.nPlayerCount; i++)
-								stageResult.st演奏記録[i] = c演奏記録_Drums[i];
+								stageResult.cRecords[i] = cRecords[i];
 
 							stageResult.On活性化();
 							r直前のステージ = r現在のステージ;
@@ -1742,30 +1742,21 @@ internal class TJAPlayer3 : Game
 			this.b終了処理完了済み = true;
 		}
 	}
-	private void tScoreIniへBGMAdjustとHistoryとPlayCountを更新(string str新ヒストリ行)
+	private void tUpdateScoreJson()
 	{
-		string strFilename = DTX[0].strFilenameの絶対パス + ".score.ini";
-		CScoreIni ini = new CScoreIni( strFilename );
+		string strFilename = DTX[0].strFilenameの絶対パス + ".score.json";
+		CScoreJson json = CScoreJson.Load(strFilename);
 		if( !File.Exists( strFilename ) )
 		{
-			ini.stファイル.Title = DTX[0].TITLE;
-			ini.stファイル.Name = DTX[0].strFilename;
-			for( int i = 0; i < 2; i++ )
-			{
-				ini.stセクション[i].nPerfectになる範囲ms = nPerfect範囲ms;
-				ini.stセクション[i].nGoodになる範囲ms = nGood範囲ms;
-				ini.stセクション[i].nBadになる範囲ms = nBad範囲ms;
-			}
+			json.Title = DTX[0].TITLE;
+			json.Name = DTX[0].strFilename;
 		}
-		ini.stファイル.BGMAdjust = DTX[0].nBGMAdjust;
+		json.BGMAdjust = DTX[0].nBGMAdjust;
 		
 		if(TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == false)
-		{
-			ini.stファイル.PlayCountDrums++;
-		}
-		ini.tヒストリを追加する( str新ヒストリ行 );
+			json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[0]].PlayCount++;
 		
-		ini.t書き出し( strFilename );
+		json.Save(strFilename);
 	}
 	private void tガベージコレクションを実行する()
 	{

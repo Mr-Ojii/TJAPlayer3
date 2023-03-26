@@ -46,9 +46,9 @@ internal class CActSelectHistoryPanel : CActivity
 	{
 		if( !base.b活性化してない )
 		{
-			TJAPlayer3.t安全にDisposeする(ref this.First);
-			TJAPlayer3.t安全にDisposeする(ref this.Second);
-			TJAPlayer3.t安全にDisposeする(ref this.Third);
+			for(int i = 0; i < (int)Difficulty.Total; i++)
+				for(int j = 0; j < 3; j++)
+					TJAPlayer3.t安全にDisposeする(ref this.Names[i, j]);
 			if (Font != null)
 			{
 				Font.Dispose();
@@ -76,19 +76,13 @@ internal class CActSelectHistoryPanel : CActivity
 					//CDTXMania.Tx.SongSelect_ScoreWindow_Text.n透明度 = ct登場アニメ用.n現在の値 - 1745;
 					if (TJAPlayer3.Tx.SongSelect_ScoreWindow[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]] != null)
 					{
-						//CDTXMania.Tx.SongSelect_ScoreWindow[CDTXMania.stage選曲.n現在選択中の曲の難易度].n透明度 = ct登場アニメ用.n現在の値 - 1745;
 						TJAPlayer3.Tx.SongSelect_ScoreWindow[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]].t2D描画(TJAPlayer3.app.Device, x[i], y[i]);
-						this.First[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]]?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.UpRight, x[i] + xdiff + 50, y[i] + 90 - 25);
-						this.t小文字表示(x[i] + xdiff, y[i] + 90, TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.nハイスコア[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]]);
-						TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.t2D描画(TJAPlayer3.app.Device, x[i] + xdiff + 15, y[i] + 95, new Rectangle(0, 36, 32, 30));
-
-						this.Second[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]]?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.UpRight, x[i] + xdiff + 50, y[i] + 90 + 45);
-						this.t小文字表示(x[i] + xdiff, y[i] + 90 + 70, TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.nSecondScore[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]]);
-						TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.t2D描画(TJAPlayer3.app.Device, x[i] + xdiff + 15, y[i] + 95 + 70, new Rectangle(0, 36, 32, 30));
-
-						this.Third[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]]?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.UpRight, x[i] + xdiff + 50, y[i] + 90 + 115);
-						this.t小文字表示(x[i] + xdiff, y[i] + 90 + 140, TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.nThirdScore[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]]);
-						TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.t2D描画(TJAPlayer3.app.Device, x[i] + xdiff + 15, y[i] + 95 + 140, new Rectangle(0, 36, 32, 30));
+						for(int j = 0; j < 3; j++)
+						{
+							this.Names[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i], j]?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.UpRight, x[i] + xdiff + 50, y[i] + 65 + j * 70);
+							this.t小文字表示(x[i] + xdiff, y[i] + 90 + j * 70, TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.nHiScore[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]][j]);
+							TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.t2D描画(TJAPlayer3.app.Device, x[i] + xdiff + 15, y[i] + 95 + j * 70, new Rectangle(0, 36, 32, 30));
+						}
 					}
 				} 
 			}
@@ -101,9 +95,7 @@ internal class CActSelectHistoryPanel : CActivity
 	#region [ private ]
 	//-----------------
 	private CCounter ct登場アニメ用;
-	private CTexture[] First = new CTexture[(int)Difficulty.Total];
-	private CTexture[] Second = new CTexture[(int)Difficulty.Total];
-	private CTexture[] Third = new CTexture[(int)Difficulty.Total];
+	private CTexture[,] Names = new CTexture[(int)Difficulty.Total, 3];
 	private CCachedFontRenderer Font;
 	//-----------------
 
@@ -125,34 +117,23 @@ internal class CActSelectHistoryPanel : CActivity
 		this.ct登場アニメ用 = new CCounter( 0, 2000, 1, TJAPlayer3.Timer );
 
 		//Dispose
-		TJAPlayer3.t安全にDisposeする(ref this.First);
-		TJAPlayer3.t安全にDisposeする(ref this.Second);
-		TJAPlayer3.t安全にDisposeする(ref this.Third);
+		for(int i = 0; i < (int)Difficulty.Total; i++)
+			for(int j = 0; j < 3; j++)
+				TJAPlayer3.t安全にDisposeする(ref this.Names[i, j]);
 
 		if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア != null)
 		{
-			string[] First = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.strHiScorerName;
-			string[] Second = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.strSecondScorerName;
-			string[] Third = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.strThirdScorerName;
+			string[][] Names = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.strHiScorerName;
 
 			if (Font != null)
 				for (int index = 0; index < (int)Difficulty.Total; index++)
 				{
-					if (!string.IsNullOrEmpty(First[index]))
-					{
-						this.First[index] = TJAPlayer3.tCreateTexture(Font.DrawText(First[index], Color.Black));
-						this.First[index].vcScaling = new Vector2(0.5f);
-					}
-					if (!string.IsNullOrEmpty(Second[index]))
-					{
-						this.Second[index] = TJAPlayer3.tCreateTexture(Font.DrawText(Second[index], Color.Black));
-						this.Second[index].vcScaling = new Vector2(0.5f);
-					}
-					if (!string.IsNullOrEmpty(Third[index]))
-					{
-						this.Third[index] = TJAPlayer3.tCreateTexture(Font.DrawText(Third[index], Color.Black));
-						this.Third[index].vcScaling = new Vector2(0.5f);
-					}
+					for(int j = 0; j < 3; j++)
+						if (!string.IsNullOrEmpty(Names[index][j]))
+						{
+							this.Names[index, j] = TJAPlayer3.tCreateTexture(Font.DrawText(Names[index][j], Color.Black));
+							this.Names[index, j].vcScaling = new Vector2(0.5f);
+						}
 				}
 		}
 	}

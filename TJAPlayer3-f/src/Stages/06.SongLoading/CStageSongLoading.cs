@@ -314,17 +314,16 @@ internal class CStageSongLoading : CStage
 					timeBeginLoad = DateTime.Now;
 					string str = TJAPlayer3.stage選曲.r確定されたスコア.FileInfo.FileAbsolutePath;
 
-
-					CScoreIni ini = new CScoreIni( str + ".score.ini" );
+					CScoreJson json = CScoreJson.Load(str + ".score.json");
 
 					if( ( TJAPlayer3.DTX[0] != null ) && TJAPlayer3.DTX[0].b活性化してる )
 						TJAPlayer3.DTX[0].On非活性化();
 
 					//if( CDTXMania.DTX == null )
 					{
-						TJAPlayer3.DTX[0] = new CDTX( str, false, ini.stファイル.BGMAdjust, 0, TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] == TJAPlayer3.stage選曲.n確定された曲の難易度[1]);
+						TJAPlayer3.DTX[0] = new CDTX( str, false, json.BGMAdjust, 0, TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] == TJAPlayer3.stage選曲.n確定された曲の難易度[1]);
 						if( TJAPlayer3.ConfigIni.nPlayerCount == 2 )
-							TJAPlayer3.DTX[1] = new CDTX( str, false, ini.stファイル.BGMAdjust, 1, TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] == TJAPlayer3.stage選曲.n確定された曲の難易度[1]);
+							TJAPlayer3.DTX[1] = new CDTX( str, false, json.BGMAdjust, 1, TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] == TJAPlayer3.stage選曲.n確定された曲の難易度[1]);
 
 						if ( TJAPlayer3.ConfigIni.bスクロールモードを上書き == false)
 						{
