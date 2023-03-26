@@ -256,7 +256,7 @@ internal class CDTX : CActivity
 				}
 				else
 				{
-					nDuration = (wc.rSound[0] == null) ? 0 : wc.rSound[0].nDurationms;
+					nDuration = (wc.rSound == null) ? 0 : wc.rSound.nDurationms;
 				}
 			}
 			else if (this.nチャンネル番号 == 0x54) 
@@ -349,14 +349,13 @@ internal class CDTX : CActivity
 	public class CWAV : IDisposable
 	{
 		public bool bUse = false;
-		public long[] n一時停止時刻 = new long[TJAPlayer3.ConfigIni.nPoliphonicSounds];    // 4
+		public long n一時停止時刻 = 0;
 		public int SongVol = CSound.DefaultSongVol;
 		public LoudnessMetadata? SongLoudnessMetadata = null;
-		public int n現在再生中のサウンド番号;
-		public long[] n再生開始時刻 = new long[TJAPlayer3.ConfigIni.nPoliphonicSounds];    // 4
+		public long n再生開始時刻 = 0;
 		public int n内部番号;
 		public int n表記上の番号;
-		public CSound[] rSound = new CSound[TJAPlayer3.ConfigIni.nPoliphonicSounds];     // 4
+		public CSound rSound = null;
 		public string strFilename = "";
 		public bool bIsBGMSound = false;
 
@@ -392,15 +391,12 @@ internal class CDTX : CActivity
 
 			if (bManagedリソースの解放も行う)
 			{
-				for (int i = 0; i < TJAPlayer3.ConfigIni.nPoliphonicSounds; i++) // 4
-				{
-					if (this.rSound[i] != null)
-						this.rSound[i].t解放する();
-					this.rSound[i] = null;
+				if (this.rSound != null)
+					this.rSound.t解放する();
+				this.rSound = null;
 
-					if ((i == 0) && TJAPlayer3.ConfigIni.bLog作成解放ログ出力)
-						Trace.TraceInformation("サウンドを解放しました。({0})", this.strFilename);
-				}
+				if (TJAPlayer3.ConfigIni.bLog作成解放ログ出力)
+					Trace.TraceInformation("サウンドを解放しました。({0})", this.strFilename);
 			}
 
 			this.bDisposed済み = true;
@@ -677,7 +673,6 @@ internal class CDTX : CActivity
 		this.nBRANCH現在番号 = 0;
 
 		this.nBGMAdjust = 0;
-		this.nPolyphonicSounds = TJAPlayer3.ConfigIni.nPoliphonicSounds;
 
 		//this.nScoreModeTmp = 1;
 		for (int y = 0; y < (int)Difficulty.Total; y++)
@@ -735,33 +730,30 @@ internal class CDTX : CActivity
 	}
 	public void tWave再生位置自動補正(CWAV wc)
 	{
-		if (wc.rSound[0] != null && wc.rSound[0].nDurationms >= 5000)
+		if (wc.rSound != null && wc.rSound.nDurationms >= 5000)
 		{
-			for (int i = 0; i < nPolyphonicSounds; i++)
+			if ((wc.rSound != null) && (wc.rSound.bPlaying))
 			{
-				if ((wc.rSound[i] != null) && (wc.rSound[i].bPlaying))
+				long nCurrentTime = CSoundManager.rc演奏用タイマ.nシステム時刻ms;
+				if (nCurrentTime > wc.n再生開始時刻)
 				{
-					long nCurrentTime = CSoundManager.rc演奏用タイマ.nシステム時刻ms;
-					if (nCurrentTime > wc.n再生開始時刻[i])
-					{
-						long nAbsTimeFromStartPlaying = nCurrentTime - wc.n再生開始時刻[i];
-						//Trace.TraceInformation( "再生位置自動補正: {0}, seek先={1}ms, 全音長={2}ms",
-						//    Path.GetFileName( wc.rSound[ 0 ].strFilename ),
-						//    nAbsTimeFromStartPlaying,
-						//    wc.rSound[ 0 ].n総演奏時間ms
-						//);
-						// wc.rSound[ i ].t再生位置を変更する( wc.rSound[ i ].t時刻から位置を返す( nAbsTimeFromStartPlaying ) );
+					long nAbsTimeFromStartPlaying = nCurrentTime - wc.n再生開始時刻;
+					//Trace.TraceInformation( "再生位置自動補正: {0}, seek先={1}ms, 全音長={2}ms",
+					//    Path.GetFileName( wc.rSound[ 0 ].strFilename ),
+					//    nAbsTimeFromStartPlaying,
+					//    wc.rSound[ 0 ].n総演奏時間ms
+					//);
+					// wc.rSound[ i ].t再生位置を変更する( wc.rSound[ i ].t時刻から位置を返す( nAbsTimeFromStartPlaying ) );
 
-						// WASAPI/ASIO用↓
-						if (!TJAPlayer3.stage演奏ドラム画面.bPAUSE)
-						{
-							if (wc.rSound[i].b一時停止中) wc.rSound[i].t再生を再開する(nAbsTimeFromStartPlaying);
-							else wc.rSound[i].t再生位置を変更する(nAbsTimeFromStartPlaying);
-						}
-						else
-						{
-							wc.rSound[i].t再生を一時停止する();
-						}
+					// WASAPI/ASIO用↓
+					if (!TJAPlayer3.stage演奏ドラム画面.bPAUSE)
+					{
+						if (wc.rSound.b一時停止中) wc.rSound.t再生を再開する(nAbsTimeFromStartPlaying);
+						else wc.rSound.t再生位置を変更する(nAbsTimeFromStartPlaying);
+					}
+					else
+					{
+						wc.rSound.t再生を一時停止する();
 					}
 				}
 			}
@@ -775,18 +767,15 @@ internal class CDTX : CActivity
 	{
 		if (this.listWAV.TryGetValue(nWaveの内部番号, out CWAV cwav))
 		{
-			for (int i = 0; i < nPolyphonicSounds; i++)
+			if (cwav.rSound != null && cwav.rSound.bPlaying)
 			{
-				if (cwav.rSound[i] != null && cwav.rSound[i].bPlaying)
+				if (bミキサーからも削除する)
 				{
-					if (bミキサーからも削除する)
-					{
-						cwav.rSound[i].tサウンドを停止してMixerからも削除する();
-					}
-					else
-					{
-						cwav.rSound[i].t再生を停止する();
-					}
+					cwav.rSound.tサウンドを停止してMixerからも削除する();
+				}
+				else
+				{
+					cwav.rSound.t再生を停止する();
 				}
 			}
 		}
@@ -798,36 +787,25 @@ internal class CDTX : CActivity
 
 		try
 		{
-			#region [ 同時発音数を、チャンネルによって変える ]
-
-			int nPoly = nPolyphonicSounds;
-			
-			if (cwav.bIsBGMSound) nPoly = 1;
-
-			#endregion
-
-			for (int i = 0; i < nPoly; i++)
+			try
 			{
-				try
-				{
-					cwav.rSound[i] = TJAPlayer3.SoundManager.tCreateSound(str, ESoundGroup.SongPlayback);
+				cwav.rSound = TJAPlayer3.SoundManager.tCreateSound(str, ESoundGroup.SongPlayback);
 
-					if (!TJAPlayer3.ConfigIni.bDynamicBassMixerManagement)
-					{
-						cwav.rSound[i].tBASSサウンドをミキサーに追加する();
-					}
-
-					if (TJAPlayer3.ConfigIni.bLog作成解放ログ出力)
-					{
-						Trace.TraceInformation("サウンドを作成しました。({1})({0})", str, "OnMemory");
-					}
-				}
-				catch (Exception e)
+				if (!TJAPlayer3.ConfigIni.bDynamicBassMixerManagement)
 				{
-					cwav.rSound[i] = null;
-					Trace.TraceError("サウンドの作成に失敗しました。({0})", str);
-					Trace.TraceError(e.ToString());
+					cwav.rSound.tBASSサウンドをミキサーに追加する();
 				}
+
+				if (TJAPlayer3.ConfigIni.bLog作成解放ログ出力)
+				{
+					Trace.TraceInformation("サウンドを作成しました。({1})({0})", str, "OnMemory");
+				}
+			}
+			catch (Exception e)
+			{
+				cwav.rSound = null;
+				Trace.TraceError("サウンドの作成に失敗しました。({0})", str);
+				Trace.TraceError(e.ToString());
 			}
 		}
 		catch (Exception exception)
@@ -835,10 +813,7 @@ internal class CDTX : CActivity
 			Trace.TraceError("サウンドの生成に失敗しました。({0})", str);
 			Trace.TraceError(exception.ToString());
 
-			for (int j = 0; j < nPolyphonicSounds; j++)
-			{
-				cwav.rSound[j] = null;
-			}
+			cwav.rSound = null;
 
 			//continue;
 		}
@@ -934,13 +909,7 @@ internal class CDTX : CActivity
 		{
 			if (this.listWAV.TryGetValue(pChip.n整数値_内部番号, out CWAV wc))
 			{
-				int index = wc.n現在再生中のサウンド番号 = (wc.n現在再生中のサウンド番号 + 1) % nPolyphonicSounds;
-				if ((wc.rSound[0] != null) &&
-					(wc.rSound[index] == null))
-				{
-					index = wc.n現在再生中のサウンド番号 = 0;
-				}
-				CSound sound = wc.rSound[index];
+				CSound sound = wc.rSound;
 				if (sound != null)
 				{
 					sound.dbPlaySpeed = ((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0;
@@ -954,7 +923,7 @@ internal class CDTX : CActivity
 					sound.nPanning = 0;
 					sound.t再生を開始する();
 				}
-				wc.n再生開始時刻[wc.n現在再生中のサウンド番号] = n再生開始システム時刻ms;
+				wc.n再生開始時刻 = n再生開始システム時刻ms;
 				this.tWave再生位置自動補正(wc);
 			}
 		}
@@ -979,12 +948,9 @@ internal class CDTX : CActivity
 		}
 		foreach (CWAV cwav in this.listWAV.Values)
 		{
-			for (int j = 0; j < nPolyphonicSounds; j++)
+			if ((cwav.rSound != null) && cwav.rSound.bPlaying)
 			{
-				if ((cwav.rSound[j] != null) && cwav.rSound[j].bPlaying)
-				{
-					cwav.n再生開始時刻[j] += nBGMAdjustの増減値;
-				}
+				cwav.n再生開始時刻 += nBGMAdjustの増減値;
 			}
 		}
 	}
@@ -992,13 +958,10 @@ internal class CDTX : CActivity
 	{
 		foreach (CWAV cwav in this.listWAV.Values)
 		{
-			for (int i = 0; i < nPolyphonicSounds; i++)
+			if ((cwav.rSound != null) && cwav.rSound.bPlaying)
 			{
-				if ((cwav.rSound[i] != null) && cwav.rSound[i].bPlaying)
-				{
-					cwav.rSound[i].t再生を一時停止する();
-					cwav.n一時停止時刻[i] = CSoundManager.rc演奏用タイマ.nシステム時刻ms;
-				}
+				cwav.rSound.t再生を一時停止する();
+				cwav.n一時停止時刻 = CSoundManager.rc演奏用タイマ.nシステム時刻ms;
 			}
 		}
 	}
@@ -1006,15 +969,10 @@ internal class CDTX : CActivity
 	{
 		foreach (CWAV cwav in this.listWAV.Values)
 		{
-			for (int i = 0; i < nPolyphonicSounds; i++)
+			if ((cwav.rSound != null) && cwav.rSound.b一時停止中)
 			{
-				if ((cwav.rSound[i] != null) && cwav.rSound[i].b一時停止中)
-				{
-					//long num1 = cwav.n一時停止時刻[ i ];
-					//long num2 = cwav.n再生開始時刻[ i ];
-					cwav.rSound[i].t再生を再開する(cwav.n一時停止時刻[i] - cwav.n再生開始時刻[i]);
-					cwav.n再生開始時刻[i] += CSoundManager.rc演奏用タイマ.nシステム時刻ms - cwav.n一時停止時刻[i];
-				}
+				cwav.rSound.t再生を再開する(cwav.n一時停止時刻 - cwav.n再生開始時刻);
+				cwav.n再生開始時刻 += CSoundManager.rc演奏用タイマ.nシステム時刻ms - cwav.n一時停止時刻;
 			}
 		}
 	}
@@ -5498,7 +5456,7 @@ internal class CDTX : CActivity
 					int duration = 0;
 					if (listWAV.TryGetValue(pChip.n整数値_内部番号, out CDTX.CWAV wc))
 					{
-						duration = (wc.rSound[0] == null) ? 0 : (int)wc.rSound[0].nDurationms; // #23664 durationに再生速度が加味されておらず、低速再生でBGMが途切れる問題を修正 (発声時刻msは、DTX読み込み時に再生速度加味済)
+						duration = (wc.rSound == null) ? 0 : (int)wc.rSound.nDurationms; // #23664 durationに再生速度が加味されておらず、低速再生でBGMが途切れる問題を修正 (発声時刻msは、DTX読み込み時に再生速度加味済)
 					}
 					//Debug.WriteLine("duration=" + duration );
 					int n新RemoveMixer時刻ms, n新RemoveMixer位置;
@@ -5751,8 +5709,6 @@ internal class CDTX : CActivity
 	//-----------------
 
 	private bool bヘッダのみ;
-
-	private int nPolyphonicSounds = 4;                          // #28228 2012.5.1 yyagi
 
 	private int n内部番号BPM1to;
 	private int n内部番号JSCROLL1to;

@@ -232,7 +232,6 @@ internal class CStage演奏画面共通 : CStage
 
 		//			this.nRisky = CDTXMania.ConfigIni.nRisky;											// #23559 2011.7.28 yyagi
 		actGauge.Init( TJAPlayer3.ConfigIni.nRisky );									// #23559 2011.7.28 yyagi
-		this.nPolyphonicSounds = TJAPlayer3.ConfigIni.nPoliphonicSounds;
 
 		TJAPlayer3.Skin.tRemoveMixerAll();	// 効果音のストリームをミキサーから解除しておく
 
@@ -253,13 +252,9 @@ internal class CStage演奏画面共通 : CStage
 //						Trace.TraceInformation( "first [DA] BAR=" + pChip.n発声位置 / 384 + " ch=" + pChip.nチャンネル番号.ToString( "x2" ) + ", wav=" + pChip.n整数値 + ", time=" + pChip.n発声時刻ms );
 					if ( TJAPlayer3.DTX[0].listWAV.TryGetValue( pChip.n整数値_内部番号, out CDTX.CWAV wc ) )
 					{
-						for ( int i = 0; i < nPolyphonicSounds; i++ )
+						if ( wc.rSound != null )
 						{
-							if ( wc.rSound[ i ] != null )
-							{
-								TJAPlayer3.SoundManager.AddMixer( wc.rSound[ i ], db再生速度, pChip.b演奏終了後も再生が続くチップである );
-								//AddMixer( wc.rSound[ i ] );		// 最初はqueueを介さず直接ミキサー登録する
-							}
+							TJAPlayer3.SoundManager.AddMixer( wc.rSound, db再生速度, pChip.b演奏終了後も再生が続くチップである );
 						}
 					}
 				}
@@ -807,9 +802,6 @@ internal class CStage演奏画面共通 : CStage
 	protected double db再生速度;
 
 	protected CTexture tx背景;
-
-//		protected int nRisky_InitialVar, nRiskyTime;		// #23559 2011.7.28 yyagi → CAct演奏ゲージ共通クラスに隠蔽
-	protected int nPolyphonicSounds;
 
 	public CBRANCHSCORE[] CBranchScore = new CBRANCHSCORE[6];
 	public bool[] bIsGOGOTIME = new bool[ 4 ];
@@ -3382,13 +3374,10 @@ internal class CStage演奏画面共通 : CStage
 						pChip.bHit = true;
 						if ( TJAPlayer3.DTX[0].listWAV.TryGetValue( pChip.n整数値_内部番号, out CDTX.CWAV wc ) )	// 参照が遠いので後日最適化する
 						{
-							for ( int i = 0; i < nPolyphonicSounds; i++ )
+							if ( wc.rSound != null )
 							{
-								if ( wc.rSound[ i ] != null )
-								{
-									//CDTXMania.SoundManager.AddMixer( wc.rSound[ i ] );
-									AddMixer( wc.rSound[ i ], pChip.b演奏終了後も再生が続くチップである );
-								}
+								//CDTXMania.SoundManager.AddMixer( wc.rSound[ i ] );
+								AddMixer( wc.rSound, pChip.b演奏終了後も再生が続くチップである );
 							}
 						}
 					}
@@ -3402,16 +3391,13 @@ internal class CStage演奏画面共通 : CStage
 						pChip.bHit = true;
 						if ( TJAPlayer3.DTX[0].listWAV.TryGetValue( pChip.n整数値_内部番号, out CDTX.CWAV wc ) )	// 参照が遠いので後日最適化する
 						{
-							for ( int i = 0; i < nPolyphonicSounds; i++ )
+							if ( wc.rSound != null )
 							{
-								if ( wc.rSound[ i ] != null )
-								{
-									//CDTXMania.SoundManager.RemoveMixer( wc.rSound[ i ] );
-									if ( !wc.rSound[ i ].b演奏終了後も再生が続くチップである )	// #32248 2013.10.16 yyagi
-									{															// DTX終了後も再生が続くチップの0xDB登録をなくすことはできず。
-										RemoveMixer( wc.rSound[ i ] );							// (ミキサー解除のタイミングが遅延する場合の対応が面倒なので。)
-									}															// そこで、代わりにフラグをチェックしてミキサー削除ロジックへの遷移をカットする。
-								}
+								//CDTXMania.SoundManager.RemoveMixer( wc.rSound[ i ] );
+								if ( !wc.rSound.b演奏終了後も再生が続くチップである )	// #32248 2013.10.16 yyagi
+								{															// DTX終了後も再生が続くチップの0xDB登録をなくすことはできず。
+									RemoveMixer( wc.rSound );							// (ミキサー解除のタイミングが遅延する場合の対応が面倒なので。)
+								}															// そこで、代わりにフラグをチェックしてミキサー削除ロジックへの遷移をカットする。
 							}
 						}
 					}
@@ -3921,12 +3907,11 @@ internal class CStage演奏画面共通 : CStage
 					{
 						TJAPlayer3.DTX[0].tチップの再生(pChip, (long)(CSoundManager.rc演奏用タイマ.n前回リセットした時のシステム時刻ms) + (long)(n発声時刻ms));
 #region [ PAUSEする ]
-						int j = wc.n現在再生中のサウンド番号;
-						if (wc.rSound[j] != null)
+						if (wc.rSound != null)
 						{
-							wc.rSound[j].t再生を一時停止する();
-							wc.rSound[j].t再生位置を変更する(nStartTime - n発声時刻ms);
-							pausedCSound.Add(wc.rSound[j]);
+							wc.rSound.t再生を一時停止する();
+							wc.rSound.t再生位置を変更する(nStartTime - n発声時刻ms);
+							pausedCSound.Add(wc.rSound);
 						}
 #endregion
 					}
@@ -4171,7 +4156,7 @@ internal class CStage演奏画面共通 : CStage
 	{
 		if (pChip.nチャンネル番号 < 0x15 || pChip.nチャンネル番号 > 0x17)
 			return;
-			
+
 		int nSenotesY = TJAPlayer3.Skin.SkinConfig.Game.SENotesOffsetY[nPlayer];
 		int nノート座標 = 0;
 		int nノート末端座標 = 0;

@@ -296,7 +296,6 @@ internal class CConfigIni : INotifyPropertyChanged
 	public EEndingAnime eEndingAnime = EEndingAnime.Off;
 
 	public int nInputAdjustTimeMs;
-	public int nPoliphonicSounds;				// #28228 2012.5.1 yyagi レーン毎の最大同時発音数
 	public string strSystemSkinSubfolderFullName;	// #28195 2012.5.2 yyagi Skin切替用 System/以下のサブフォルダ名
 	public bool bConfigIniがないかDTXManiaのバージョンが異なる
 	{
@@ -480,9 +479,6 @@ internal class CConfigIni : INotifyPropertyChanged
 		this.tデフォルトのキーアサインに設定する();
 		this.nRisky = 0;							// #23539 2011.7.26 yyagi RISKYモード
 
-		this.nPoliphonicSounds = 4;					// #28228 2012.5.1 yyagi レーン毎の最大同時発音数
-													// #24820 2013.1.15 yyagi 初期値を4から2に変更。BASS.net使用時の負荷軽減のため。
-													// #24820 2013.1.17 yyagi 初期値を4に戻した。動的なミキサー制御がうまく動作しているため。
 		this.strSystemSkinSubfolderFullName = "";	// #28195 2012.5.2 yyagi 使用中のSkinサブフォルダ名
 		this.bTight = false;                        // #29500 2012.9.11 kairera0467 TIGHTモード
 		#region [ WASAPI/ASIO ]
@@ -1350,14 +1346,6 @@ internal class CConfigIni : INotifyPropertyChanged
 										this.nInputAdjustTimeMs = str4.ToInt32(-99, 99, this.nInputAdjustTimeMs);
 									}
 #endregion
-									else if ( str3.Equals( "PolyphonicSounds" ) )		// #28228 2012.5.1 yyagi
-									{
-										this.nPoliphonicSounds = str4.ToInt32(1, 8, this.nPoliphonicSounds);
-									}
-									//else if ( str3.Equals( "NoMP3Streaming" ) )
-									//{
-									//    this.bNoMP3Streaming = str4[0].ToBool();
-									//}
 									else if( str3.Equals( "EndingAnime" ) )
 									{
 										this.eEndingAnime = (EEndingAnime)str4.ToInt32(0, 2, (int)this.eEndingAnime);
