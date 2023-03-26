@@ -390,7 +390,7 @@ internal class CStageSongLoading : CStage
 					int looptime = (TJAPlayer3.ConfigIni.VSyncWait)? 3 : 1;	// VSyncWait=ON時は1frame(1/60s)あたり3つ読むようにする
 					for ( int i = 0; i < looptime && nWAVcount <= TJAPlayer3.DTX[0].listWAV.Count; i++ )
 					{
-						if ( TJAPlayer3.DTX[0].listWAV[ nWAVcount ].listこのWAVを使用するチャンネル番号の集合.Count > 0 )	// #28674 2012.5.8 yyagi
+						if ( TJAPlayer3.DTX[0].listWAV[ nWAVcount ].bUse )	// #28674 2012.5.8 yyagi
 						{
 							TJAPlayer3.DTX[0].tWAVの読み込み( TJAPlayer3.DTX[0].listWAV[ nWAVcount ] );
 						}

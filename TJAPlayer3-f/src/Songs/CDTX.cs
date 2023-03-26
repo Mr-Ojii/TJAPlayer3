@@ -348,7 +348,7 @@ internal class CDTX : CActivity
 	}
 	public class CWAV : IDisposable
 	{
-		public List<int> listこのWAVを使用するチャンネル番号の集合 = new List<int>(16);
+		public bool bUse = false;
 		public long[] n一時停止時刻 = new long[TJAPlayer3.ConfigIni.nPoliphonicSounds];    // 4
 		public int SongVol = CSound.DefaultSongVol;
 		public LoudnessMetadata? SongLoudnessMetadata = null;
@@ -358,9 +358,6 @@ internal class CDTX : CActivity
 		public int n表記上の番号;
 		public CSound[] rSound = new CSound[TJAPlayer3.ConfigIni.nPoliphonicSounds];     // 4
 		public string strFilename = "";
-		public bool bIsBassSound = false;
-		public bool bIsGuitarSound = false;
-		public bool bIsSESound = false;
 		public bool bIsBGMSound = false;
 
 		public override string ToString()
@@ -805,12 +802,6 @@ internal class CDTX : CActivity
 
 			int nPoly = nPolyphonicSounds;
 			
-			if (cwav.bIsBassSound) nPoly = (nPolyphonicSounds >= 2) ? 2 : 1;
-			else if (cwav.bIsGuitarSound) nPoly = (nPolyphonicSounds >= 2) ? 2 : 1;
-			else if (cwav.bIsSESound) nPoly = 1;
-			else if (cwav.bIsBGMSound) nPoly = 1;
-			
-
 			if (cwav.bIsBGMSound) nPoly = 1;
 
 			#endregion
@@ -1563,29 +1554,10 @@ internal class CDTX : CActivity
 			#region [ チップの種類を分類し、対応するフラグを立てる ]
 			foreach (CChip chip in this.listChip)
 			{
-				if ((chip.nチャンネル番号 == 0x01 && this.listWAV.TryGetValue(chip.n整数値_内部番号, out CWAV cwav)) && !cwav.listこのWAVを使用するチャンネル番号の集合.Contains(chip.nチャンネル番号))
+				if ((chip.nチャンネル番号 == 0x01 && this.listWAV.TryGetValue(chip.n整数値_内部番号, out CWAV cwav)) && !cwav.bUse)
 				{
-					cwav.listこのWAVを使用するチャンネル番号の集合.Add(chip.nチャンネル番号);
-
-					int c = chip.nチャンネル番号 >> 4;
-					switch (c)
-					{
-						case 0x02:
-							cwav.bIsGuitarSound = true; break;
-						case 0x0A:
-							cwav.bIsBassSound = true; break;
-						case 0x06:
-						case 0x07:
-						case 0x08:
-						case 0x09:
-							cwav.bIsSESound = true; break;
-						case 0x00:
-							if (chip.nチャンネル番号 == 0x01)
-							{
-								cwav.bIsBGMSound = true; break;
-							}
-							break;
-					}
+					cwav.bUse = true;
+					cwav.bIsBGMSound = true;
 				}
 			}
 			#endregion
