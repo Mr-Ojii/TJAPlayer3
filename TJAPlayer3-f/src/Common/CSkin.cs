@@ -393,47 +393,21 @@ internal class CSkin : IDisposable
 	/// </summary>
 	public void SortLoader()
 	{
-		string strFileName = Path(@"SortConfig.ini");
+		string strFileName = Path(@"SortConfig.toml");
 		if (File.Exists(strFileName))
 		{
-			string str = CJudgeTextEncoding.ReadTextFile(strFileName);
-			string[] splitstr = str.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-
-			Dictionary<string, Dictionary<string, int>> tmpSortList = new();
-
-			Dictionary<string, int> tmpDic = null;
-			string tmpSectionName = null;
-
-			foreach (string sstr in splitstr)
+			try
 			{
-				if (sstr.Length == 0 || sstr[0] == ';')
-					continue;
+				string str = CJudgeTextEncoding.ReadTextFile(strFileName);
 
-				if (sstr[0] == '[')//セクション
-				{
-					if (!string.IsNullOrEmpty(tmpSectionName) && tmpDic != null && tmpDic.Count != 0)
-						tmpSortList.Add(tmpSectionName, tmpDic);
-					tmpDic = new Dictionary<string, int>();
-					tmpSectionName = sstr.Substring(1, sstr.Length - 2); //最初と最後の2文字を消す。
-				}
-				else
-				{
-					if (tmpDic != null && sstr.IndexOf('=') != -1)
-					{
-						string sKey = sstr.Substring(0, sstr.IndexOf('='));
-						string sValue = sstr.Substring(sstr.IndexOf('=') + 1, sstr.Length - sstr.IndexOf('=') - 1);
-						if(int.TryParse(sValue, out int nValue))
-							tmpDic.Add(sKey, nValue);
-					}
+				var tmpSortList = Toml.ToModel<Dictionary<string, Dictionary<string, int>>>(str);
 
-				}
+				if (tmpSortList.Count != 0)
+					this.SortList = tmpSortList;
 			}
-			if (!string.IsNullOrEmpty(tmpSectionName) && tmpDic != null && tmpDic.Count != 0)
-				tmpSortList.Add(tmpSectionName, tmpDic);
-
-			if (tmpSortList.Count != 0)
+			catch(Exception e)
 			{
-				this.SortList = tmpSortList;
+				Trace.TraceWarning(e.ToString());
 			}
 		}
 	}
