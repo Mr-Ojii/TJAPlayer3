@@ -192,7 +192,7 @@ internal class CStage演奏画面共通 : CStage
 						if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 0)
 							Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 0;
 					}
-					else if (Drums.nMiss数 != 0)
+					else if (Drums.nMiss数 != 0 && Drums.nBad数 != 0)
 					{
 						if (TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] < 1)
 							Drums.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] = 1;
@@ -1491,7 +1491,7 @@ internal class CStage演奏画面共通 : CStage
 						if (pChip.nチャンネル番号 == 0x1F)
 							break;
 						this.CBranchScore[nPlayer].nMiss++;
-						this.nヒット数[nPlayer].Miss++;
+						this.nヒット数[nPlayer][(int)eJudgeResult]++;
 						this.actCombo.n現在のコンボ数[nPlayer] = 0;
 						this.actComboVoice.tReset(nPlayer);
 					}
@@ -4787,14 +4787,14 @@ internal class CStage演奏画面共通 : CStage
 
 			this.t小文字表示(102, 494, string.Format("{0,4:###0}", this.nヒット数[0].Perfect.ToString()));
 			this.t小文字表示(102, 532, string.Format("{0,4:###0}", this.nヒット数[0].Good.ToString()));
-			this.t小文字表示(102, 570, string.Format("{0,4:###0}", this.nヒット数[0].Miss.ToString()));
+			this.t小文字表示(102, 570, string.Format("{0,4:###0}", (this.nヒット数[0].Miss + this.nヒット数[0].Bad).ToString()));
 			this.t小文字表示(102, 634, string.Format("{0,4:###0}", GetRoll(0)));
 
-			int nNowTotal = this.nヒット数[0].Perfect + this.nヒット数[0].Good + this.nヒット数[0].Miss;
-			double dbたたけた率 = Math.Round((100.0 * (TJAPlayer3.stage演奏ドラム画面.nヒット数[0].Perfect + TJAPlayer3.stage演奏ドラム画面.nヒット数[0].Good)) / (double)nNowTotal);
-			double dbPERFECT率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数[0].Perfect) / (double)nNowTotal);
-			double dbGOOD率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数[0].Good / (double)nNowTotal));
-			double dbMISS率 = Math.Round((100.0 * TJAPlayer3.stage演奏ドラム画面.nヒット数[0].Miss / (double)nNowTotal));
+			int nNowTotal = this.nヒット数[0].Perfect + this.nヒット数[0].Good + this.nヒット数[0].Bad + this.nヒット数[0].Miss;
+			double dbたたけた率 = Math.Round((100.0 * (this.nヒット数[0].Perfect + this.nヒット数[0].Good)) / (double)nNowTotal);
+			double dbPERFECT率 = Math.Round((100.0 * this.nヒット数[0].Perfect) / (double)nNowTotal);
+			double dbGOOD率 = Math.Round((100.0 * this.nヒット数[0].Good / (double)nNowTotal));
+			double dbMISS率 = Math.Round((100.0 * (this.nヒット数[0].Miss + this.nヒット数[0].Bad) / (double)nNowTotal));
 
 			if (double.IsNaN(dbたたけた率))
 				dbたたけた率 = 0;
