@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Drawing;
 using System.Diagnostics;
@@ -2832,13 +2833,6 @@ internal class CDTX : CActivity
 
 	}
 
-	private string tコメントを削除する(string input)
-	{
-		string strOutput = Regex.Replace(input, @" *//.*", ""); //2017.01.28 DD コメント前のスペースも削除するように修正
-
-		return strOutput;
-	}
-
 	private string[] tコマンド行を削除したTJAを返す(string[] input)
 	{
 		return this.tコマンド行を削除したTJAを返す(input, 0);
@@ -2907,43 +2901,6 @@ internal class CDTX : CActivity
 		return strOutput;
 	}
 
-	private string[] t空のstring配列を詰めたstring配列を返す(string[] input)
-	{
-		var sb = new StringBuilder();
-
-		for (int n = 0; n < input.Length; n++)
-		{
-			if (input[n].Contains("\n"))
-			{
-				Debug.Print("");
-			}
-			if (!string.IsNullOrEmpty(input[n]))
-			{
-				sb.Append(input[n] + "\n");
-			}
-		}
-
-		string[] strOutput = sb.ToString().Split(this.dlmtEnter, StringSplitOptions.None);
-
-		return strOutput;
-	}
-
-	private string StringArrayToString(string[] input)
-	{
-		return this.StringArrayToString(input, "");
-	}
-	private string StringArrayToString(string[] input, string strデリミタ文字)
-	{
-		var sb = new StringBuilder();
-
-		for (int n = 0; n < input.Length; n++)
-		{
-			sb.Append(input[n] + strデリミタ文字);
-		}
-
-		return sb.ToString();
-	}
-
 	/// <summary>
 	/// 
 	/// </summary>
@@ -2995,22 +2952,6 @@ internal class CDTX : CActivity
 
 		this.n現在の小節数++;
 
-	}
-
-	/// <summary>
-	/// 0:改行文字を削除して、デリミタとしてスペースを入れる。(返り値:string)
-	/// 1:改行文字を削除、さらにSplitして返す(返り値:string[n])
-	/// </summary>
-	/// <param name="strInput"></param>
-	/// <param name="nMode"></param>
-	/// <returns></returns>
-	private string[] str改行文字を削除する(string strInput)
-	{
-		string str = strInput.Replace(Environment.NewLine, "\n").Replace('\t', ' ');
-
-		str = str + "\n";
-
-		return str.Split(this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries);
 	}
 
 	/// <summary>
@@ -3073,179 +3014,176 @@ internal class CDTX : CActivity
 	/// <param name="strInput">譜面のデータ</param>
 	private void t入力_V4(string strInput)
 	{
-		if (!String.IsNullOrEmpty(strInput)) //空なら通さない
+		if (string.IsNullOrEmpty(strInput))
+			return;
+
+		//2017.01.31 DD カンマのみの行を0,に置き換え
+		strInput = regexForPrefixingCommaStartingLinesWithZero.Replace(strInput, "0,");
+
+		//2017.02.03 DD ヘッダ内にある命令以外の文字列を削除
+		var startIndex = strInput.IndexOf("#START");
+		if (startIndex < 0)
 		{
-			//2017.01.31 DD カンマのみの行を0,に置き換え
-			strInput = regexForPrefixingCommaStartingLinesWithZero.Replace(strInput, "0,");
+			Trace.TraceWarning($"#START命令が少なくとも1つは必要です。 ({strFilenameの絶対パス})");
+		}
+		string strInputHeader = strInput.Remove(startIndex);
+		strInput = strInput.Remove(0, startIndex);
+		strInputHeader = regexForStrippingHeadingLines.Replace(strInputHeader, "");
+		strInput = strInputHeader + "\n" + strInput;
 
-			//2017.02.03 DD ヘッダ内にある命令以外の文字列を削除
-			var startIndex = strInput.IndexOf("#START");
-			if (startIndex < 0)
+		//どうせ使わないので先にSplitしてコメントを削除。
+		var strSplited = strInput
+			.Replace('\t', ' ') //タブをスペースに
+			.Split(this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries) //改行でSplit
+			.Select(s => Regex.Replace(s, @" *//.*", "")) //コメントの削除 //2017.01.28 DD コメント前のスペースも削除するように修正
+			.Where(s => !string.IsNullOrEmpty(s)); //空要素の削除
+
+		#region[ヘッダ]
+
+		//2015.05.21 kairera0467
+		//ヘッダの読み込みは譜面全体から該当する命令を探す。
+		//少し処理が遅くなる可能性はあるが、ここは正確性を重視する。
+		//点数などの指定は後から各コースで行うので問題は無いだろう。
+
+		//SplitしたヘッダのLengthの回数だけ、forで回して各種情報を読み取っていく。
+		foreach (var s in strSplited)
+			this.t入力_行解析ヘッダ(s);
+			
+		#endregion
+
+		#region[譜面]
+
+		int n読み込むコース = 3;
+		int n譜面数 = 0; //2017.07.22 kairera0467 tjaに含まれる譜面の数
+
+
+		//まずはコースごとに譜面を分割。
+		var strSplitした譜面 = this.tコースで譜面を分割する(string.Join("\n", strSplited));
+
+		//存在するかのフラグ作成。
+		for (int i = 0; i < strSplitした譜面.Length; i++)
+		{
+			if (!String.IsNullOrEmpty(strSplitした譜面[i]))
 			{
-				Trace.TraceWarning($"#START命令が少なくとも1つは必要です。 ({strFilenameの絶対パス})");
+				this.b譜面が存在する[i] = true;
+				n譜面数++;
 			}
-			string strInputHeader = strInput.Remove(startIndex);
-			strInput = strInput.Remove(0, startIndex);
-			strInputHeader = regexForStrippingHeadingLines.Replace(strInputHeader, "");
-			strInput = strInputHeader + "\n" + strInput;
-
-			//どうせ使わないので先にSplitしてコメントを削除。
-			var strSplitした譜面 = this.str改行文字を削除する(strInput);
-			for (int i = 0; strSplitした譜面.Length > i; i++)
+			else
+				this.b譜面が存在する[i] = false;
+		}
+		#region[ 読み込ませるコースを決定 ]
+		if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongLoading)//2020.05.12 Mr-Ojii 起動直後の曲読み込みでエラーを吐くので対策
+			n読み込むコース = TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayerSide];
+		if (this.b譜面が存在する[n読み込むコース] == false)
+		{
+			n読み込むコース++;
+			for (int n = 1; n < (int)Difficulty.Total; n++)
 			{
-				strSplitした譜面[i] = this.tコメントを削除する(strSplitした譜面[i]);
-			}
-			//空のstring配列を詰める
-			strSplitした譜面 = this.t空のstring配列を詰めたstring配列を返す(strSplitした譜面);
-
-			#region[ヘッダ]
-
-			//2015.05.21 kairera0467
-			//ヘッダの読み込みは譜面全体から該当する命令を探す。
-			//少し処理が遅くなる可能性はあるが、ここは正確性を重視する。
-			//点数などの指定は後から各コースで行うので問題は無いだろう。
-
-			//SplitしたヘッダのLengthの回数だけ、forで回して各種情報を読み取っていく。
-			for (int i = 0; strSplitした譜面.Length > i; i++)
-			{
-				this.t入力_行解析ヘッダ(strSplitした譜面[i]);
-			}
-			#endregion
-
-			#region[譜面]
-
-			int n読み込むコース = 3;
-			int n譜面数 = 0; //2017.07.22 kairera0467 tjaに含まれる譜面の数
-
-
-			//まずはコースごとに譜面を分割。
-			strSplitした譜面 = this.tコースで譜面を分割する(this.StringArrayToString(strSplitした譜面, "\n"));
-
-			//存在するかのフラグ作成。
-			for (int i = 0; i < strSplitした譜面.Length; i++)
-			{
-				if (!String.IsNullOrEmpty(strSplitした譜面[i]))
+				if (this.b譜面が存在する[n読み込むコース] == false)
 				{
-					this.b譜面が存在する[i] = true;
-					n譜面数++;
+					n読み込むコース++;
+					if (n読み込むコース > (int)Difficulty.Total - 1)
+						n読み込むコース = 0;
 				}
 				else
-					this.b譜面が存在する[i] = false;
+					break;
 			}
-			#region[ 読み込ませるコースを決定 ]
-			if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongLoading)//2020.05.12 Mr-Ojii 起動直後の曲読み込みでエラーを吐くので対策
-				n読み込むコース = TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayerSide];
-			if (this.b譜面が存在する[n読み込むコース] == false)
+		}
+		#endregion
+
+		//Seseragi255様のプルリクより変更
+
+		//多難易度選択が可能になったので、セッション譜面は同じ難易度再生の時以外はお預けにしておく
+		int n読み込むセッション譜面パート = 0;
+		if (this.bSession譜面を読み込む)
+			n読み込むセッション譜面パート = nPlayerSide + 1;
+
+		//指定したコースの譜面の命令を消去する。
+		strSplitした譜面[n読み込むコース] = CDTXStyleExtractor.tセッション譜面がある(
+			strSplitした譜面[n読み込むコース],
+			n読み込むセッション譜面パート,
+			this.strFilenameの絶対パス);
+
+		//------
+
+		//命令をすべて消去した譜面
+		var str命令消去譜面 = strSplitした譜面[n読み込むコース].Split(this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries);
+		str命令消去譜面 = this.tコマンド行を削除したTJAを返す(str命令消去譜面, 2);
+
+
+		//ここで1行の文字数をカウント。配列にして返す。
+		var strSplit読み込むコース = strSplitした譜面[n読み込むコース].Split(this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries);
+		string str = "";
+		try
+		{
+			if (n譜面数 > 1)
 			{
-				n読み込むコース++;
-				for (int n = 1; n < (int)Difficulty.Total; n++)
+				//2017.07.22 kairera0467 譜面が2つ以上ある場合はCOURSE以下のBALLOON命令を使う
+				this.listBalloon_Normal.Clear();
+				this.listBalloon_Expert.Clear();
+				this.listBalloon_Master.Clear();
+				this.listBalloon_Normal_数値管理 = 0;
+				this.listBalloon_Expert_数値管理 = 0;
+				this.listBalloon_Master_数値管理 = 0;
+			}
+
+			for (int i = 0; i < strSplit読み込むコース.Length; i++)
+			{
+				if (!String.IsNullOrEmpty(strSplit読み込むコース[i]))
 				{
-					if (this.b譜面が存在する[n読み込むコース] == false)
-					{
-						n読み込むコース++;
-						if (n読み込むコース > (int)Difficulty.Total - 1)
-							n読み込むコース = 0;
-					}
-					else
-						break;
+					this.t難易度別ヘッダ(strSplit読み込むコース[i]);
 				}
 			}
-			#endregion
-
-			//Seseragi255様のプルリクより変更
-
-			//多難易度選択が可能になったので、セッション譜面は同じ難易度再生の時以外はお預けにしておく
-			int n読み込むセッション譜面パート = 0;
-			if (this.bSession譜面を読み込む)
-				n読み込むセッション譜面パート = nPlayerSide + 1;
-
-			//指定したコースの譜面の命令を消去する。
-			strSplitした譜面[n読み込むコース] = CDTXStyleExtractor.tセッション譜面がある(
-				strSplitした譜面[n読み込むコース],
-				n読み込むセッション譜面パート,
-				this.strFilenameの絶対パス);
-
-			//------
-
-			//命令をすべて消去した譜面
-			var str命令消去譜面 = strSplitした譜面[n読み込むコース].Split(this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries);
-			str命令消去譜面 = this.tコマンド行を削除したTJAを返す(str命令消去譜面, 2);
-
-
-			//ここで1行の文字数をカウント。配列にして返す。
-			var strSplit読み込むコース = strSplitした譜面[n読み込むコース].Split(this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries);
-			string str = "";
-			try
+			for (int i = 0; i < str命令消去譜面.Length; i++)
 			{
-				if (n譜面数 > 1)
+				if (str命令消去譜面[i].IndexOf(',', 0) == -1 && !String.IsNullOrEmpty(str命令消去譜面[i]))
 				{
-					//2017.07.22 kairera0467 譜面が2つ以上ある場合はCOURSE以下のBALLOON命令を使う
-					this.listBalloon_Normal.Clear();
-					this.listBalloon_Expert.Clear();
-					this.listBalloon_Master.Clear();
-					this.listBalloon_Normal_数値管理 = 0;
-					this.listBalloon_Expert_数値管理 = 0;
-					this.listBalloon_Master_数値管理 = 0;
-				}
-
-				for (int i = 0; i < strSplit読み込むコース.Length; i++)
-				{
-					if (!String.IsNullOrEmpty(strSplit読み込むコース[i]))
-					{
-						this.t難易度別ヘッダ(strSplit読み込むコース[i]);
-					}
-				}
-				for (int i = 0; i < str命令消去譜面.Length; i++)
-				{
-					if (str命令消去譜面[i].IndexOf(',', 0) == -1 && !String.IsNullOrEmpty(str命令消去譜面[i]))
-					{
-						if (str命令消去譜面[i].Substring(0, 1) == "#")
-						{
-							this.t1小節の文字数をカウントしてリストに追加する(str + str命令消去譜面[i]);
-						}
-
-						if (this.CharConvertNote(str命令消去譜面[i].Substring(0, 1)) != -1)
-							str += str命令消去譜面[i];
-					}
-					else
+					if (str命令消去譜面[i].Substring(0, 1) == "#")
 					{
 						this.t1小節の文字数をカウントしてリストに追加する(str + str命令消去譜面[i]);
-						str = "";
 					}
+
+					if (this.CharConvertNote(str命令消去譜面[i].Substring(0, 1)) != -1)
+						str += str命令消去譜面[i];
 				}
-			}
-			catch (Exception ex)
-			{
-				Trace.TraceError(ex.ToString());
-				Trace.TraceError("An exception has occurred, but processing continues. (9e401212-0b78-4073-88d0-f7e791f36a91)");
-			}
-
-			//読み込み部分本体に渡す譜面を作成。
-			//0:ヘッダー情報 1:#START以降 となる。個数の定義は後からされるため、ここでは省略。
-			var strSplitした後の譜面 = strSplit読み込むコース; //strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries );
-			strSplitした後の譜面 = this.tコマンド行を削除したTJAを返す(strSplitした後の譜面, 1);
-
-			this.n現在の小節数 = 1;
-			try
-			{
-				#region[ 最初の処理 ]
-				//1小節の時間を挿入して開始時間を調節。
-				this.dbNowTime += ((15000.0 / 120.0 * (4.0 / 4.0)) * 16.0);
-
-				#endregion
-				for (int i = 0; strSplitした後の譜面.Length > i; i++)
+				else
 				{
-					str = strSplitした後の譜面[i];
-					this.t入力_行解析譜面_V4(str);
+					this.t1小節の文字数をカウントしてリストに追加する(str + str命令消去譜面[i]);
+					str = "";
 				}
 			}
-			catch (Exception ex)
-			{
-				Trace.TraceError(ex.ToString());
-				Trace.TraceError("An exception has occurred, but processing continues. (2da1e880-6b63-4e82-b018-bf18c3568335)");
-			}
-			#endregion
 		}
+		catch (Exception ex)
+		{
+			Trace.TraceError(ex.ToString());
+			Trace.TraceError("An exception has occurred, but processing continues. (9e401212-0b78-4073-88d0-f7e791f36a91)");
+		}
+
+		//読み込み部分本体に渡す譜面を作成。
+		//0:ヘッダー情報 1:#START以降 となる。個数の定義は後からされるため、ここでは省略。
+		var strSplitした後の譜面 = strSplit読み込むコース; //strSplitした譜面[ n読み込むコース ].Split( this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries );
+		strSplitした後の譜面 = this.tコマンド行を削除したTJAを返す(strSplitした後の譜面, 1);
+
+		this.n現在の小節数 = 1;
+		try
+		{
+			#region[ 最初の処理 ]
+			//1小節の時間を挿入して開始時間を調節。
+			this.dbNowTime += ((15000.0 / 120.0 * (4.0 / 4.0)) * 16.0);
+
+			#endregion
+			for (int i = 0; strSplitした後の譜面.Length > i; i++)
+			{
+				str = strSplitした後の譜面[i];
+				this.t入力_行解析譜面_V4(str);
+			}
+		}
+		catch (Exception ex)
+		{
+			Trace.TraceError(ex.ToString());
+			Trace.TraceError("An exception has occurred, but processing continues. (2da1e880-6b63-4e82-b018-bf18c3568335)");
+		}
+		#endregion
 	}
 
 	//現在、以下のような行には対応できていません。
