@@ -935,14 +935,14 @@ internal class CStage演奏画面共通 : CStage
 			//Debug.WriteLine("nAbsTime=" + (nTime - pChip.n発声時刻ms) + ", nDeltaTime=" + (nTime + nInputAdjustTime - pChip.n発声時刻ms));
 			if( pChip.nチャンネル番号 == 0x15 || pChip.nチャンネル番号 == 0x16 )
 			{
-				if ((CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) > pChip.n発声時刻ms && (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.nノーツ終了時刻ms)
+				if ((CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) > pChip.n発声時刻ms && (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.cEndChip.n発声時刻ms)
 				{
 					return EJudge.Perfect;
 				}
 			}
 			else if( pChip.nチャンネル番号 == 0x17 )
 			{
-				if ((CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.n発声時刻ms - 17 && (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.nノーツ終了時刻ms)
+				if ((CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.n発声時刻ms - 17 && (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.cEndChip.n発声時刻ms)
 				{
 					return EJudge.Perfect;
 				}
@@ -986,7 +986,7 @@ internal class CStage演奏画面共通 : CStage
 
 	protected bool tRollProcess( CDTX.CChip pChip, double dbProcess_time, int num, int sort, int Input, int nPlayer )
 	{
-		if ( dbProcess_time >= pChip.n発声時刻ms && dbProcess_time < pChip.nノーツ終了時刻ms )
+		if ( dbProcess_time >= pChip.n発声時刻ms && dbProcess_time < pChip.cEndChip.n発声時刻ms )
 		{
 			if( pChip.nRollCount == 0 )
 			{
@@ -1085,7 +1085,7 @@ internal class CStage演奏画面共通 : CStage
 
 	protected bool tBalloonProcess( CDTX.CChip pChip, int nPlayer )
 	{
-		if ((int)(long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.n発声時刻ms && (int)(long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) <= pChip.nノーツ終了時刻ms)
+		if ((int)(long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.n発声時刻ms && (int)(long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) <= pChip.cEndChip.n発声時刻ms)
 		{
 			if( pChip.nRollCount == 0 )
 			{
@@ -1256,7 +1256,7 @@ internal class CStage演奏画面共通 : CStage
 			{
 				if (pChip.nBalloon != 0)
 				{
-					if ((CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) > (pChip.n発声時刻ms + ((pChip.nノーツ終了時刻ms - pChip.n発声時刻ms) / pChip.nBalloon) * pChip.nRollCount))
+					if ((CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) > (pChip.n発声時刻ms + ((pChip.cEndChip.n発声時刻ms - pChip.n発声時刻ms) / pChip.nBalloon) * pChip.nRollCount))
 					{
 						this.nHand[nPlayer] = (this.nHand[nPlayer] + 1) % 2;
 
@@ -1275,7 +1275,7 @@ internal class CStage演奏画面共通 : CStage
 		}
 		else if (pChip.nチャンネル番号 == 0x18)
 		{
-			if (pChip.nノーツ終了時刻ms <= (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
+			if (pChip.cEndChip.n発声時刻ms <= (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
 			{
 				this.b連打中[nPlayer] = false;
 				//this.actChara.b風船連打中 = false;
@@ -1768,7 +1768,7 @@ internal class CStage演奏画面共通 : CStage
 			{
 				if ((0x15 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x17))
 				{
-					if (processingChip.nノーツ終了時刻ms > nowTime)
+					if (processingChip.cEndChip.n発声時刻ms > nowTime)
 					{
 						pastChip = processingChip;
 						break;
@@ -1922,7 +1922,7 @@ internal class CStage演奏画面共通 : CStage
 			{
 				if ((0x15 <= processingChip.nチャンネル番号) && (processingChip.nチャンネル番号 <= 0x17))
 				{
-					if (processingChip.nノーツ終了時刻ms > nowTime)
+					if (processingChip.cEndChip.n発声時刻ms > nowTime)
 					{
 						pastChip = processingChip;
 						break;
@@ -2790,8 +2790,6 @@ internal class CStage演奏画面共通 : CStage
 			CDTX.CChip pChip = dTX.listChip[ nCurrentTopChip ];
 			pChip.TimeSpan = (int) ( pChip.n発声時刻ms - n現在時刻ms );
 			pChip.nバーからの距離dot = (int) ( pChip.TimeSpan * pChip.dbBPM * pChip.dbSCROLL * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0 );//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
-			if( pChip.nノーツ終了時刻ms != 0 )
-				pChip.nバーからのノーツ末端距離dot = (int) (  ( pChip.nノーツ終了時刻ms - n現在時刻ms) * pChip.db末端BPM * pChip.db末端SCROLL * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0 )  / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 
 			if(pChip.dbSCROLL_Y != 0)
 				pChip.nバーからの距離dot_Y = (int)(((pChip.n発声時刻ms - ((CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))) * pChip.dbBPM * pChip.dbSCROLL_Y * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0); // 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
@@ -2799,12 +2797,8 @@ internal class CStage演奏画面共通 : CStage
 			if ( TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL || TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.HBSCROLL )
 			{
 				var dbSCROLL = TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.dbSCROLL;
-				var db末端SCROLL = TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.db末端SCROLL;
 
 				pChip.nバーからの距離dot = (int)(3 * 0.8335 * ( ( pChip.fBMSCROLLTime * NOTE_GAP ) - ( play_bpm_time * NOTE_GAP ) ) * dbSCROLL * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0 ) / 2  / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
-
-				if ( pChip.nノーツ終了時刻ms != 0 )
-					pChip.nバーからのノーツ末端距離dot = (int)( 3 * 0.8335 *( ( pChip.fBMSCROLLTime_end * NOTE_GAP) - ( play_bpm_time * NOTE_GAP ) ) * db末端SCROLL * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0 ) / 2 /5.0);// 2020.04.20 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 
 				if(pChip.dbSCROLL_Y != 0)
 				{
@@ -2816,8 +2810,6 @@ internal class CStage演奏画面共通 : CStage
 			else if(TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.REGULSPEED) 
 			{
 				pChip.nバーからの距離dot = (int)(pChip.TimeSpan * TJAPlayer3.ConfigIni.nRegSpeedBPM * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0) / 502.8594 / 5.0);//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
-				if (pChip.nノーツ終了時刻ms != 0)
-					pChip.nバーからのノーツ末端距離dot = (int)((pChip.nノーツ終了時刻ms - n現在時刻ms) * TJAPlayer3.ConfigIni.nRegSpeedBPM * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0) / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 			}
 
 			if (!pChip.IsMissed && !pChip.bHit)//2020.04.25 Mr-Ojii akasoko26さんのコードをもとに変更
@@ -2852,7 +2844,7 @@ internal class CStage演奏画面共通 : CStage
 			{
 				if( cChipCurrentlyInProcess.nチャンネル番号 >= 0x13 && cChipCurrentlyInProcess.nチャンネル番号 <= 0x15 )//|| pChip.nチャンネル番号 == 0x9A )
 				{
-					if ( ( ( cChipCurrentlyInProcess.nバーからの距離dot < -500 ) && ( cChipCurrentlyInProcess.n発声時刻ms <= n現在時刻ms && cChipCurrentlyInProcess.nノーツ終了時刻ms >= n現在時刻ms ) ) )
+					if ( ( ( cChipCurrentlyInProcess.nバーからの距離dot < -500 ) && ( cChipCurrentlyInProcess.n発声時刻ms <= n現在時刻ms && cChipCurrentlyInProcess.cEndChip.n発声時刻ms >= n現在時刻ms ) ) )
 						//( ( chip現在処理中の連打チップ.nバーからのノーツ末端距離dot.Taiko < -500 ) && ( chip現在処理中の連打チップ.n発声時刻ms <= CSoundManager.rc演奏用タイマ.n現在時刻ms && chip現在処理中の連打チップ.nノーツ終了時刻ms >= CSoundManager.rc演奏用タイマ.n現在時刻ms ) ) )
 						//( ( pChip.n発声時刻ms <= CSoundManager.rc演奏用タイマ.n現在時刻ms && pChip.nノーツ終了時刻ms >= CSoundManager.rc演奏用タイマ.n現在時刻ms ) ) )
 					{
@@ -2929,7 +2921,7 @@ internal class CStage演奏画面共通 : CStage
 						//常時実行メソッドに渡したら対応できた!?
 						//if ((!pChip.bHit && (pChip.nバーからの距離dot.Drums < 0)))
 						{
-							if( ( pChip.n発声時刻ms <= (int)n現在時刻ms && pChip.nノーツ終了時刻ms >= (int)n現在時刻ms ) )
+							if( ( pChip.n発声時刻ms <= (int)n現在時刻ms && pChip.cEndChip.n発声時刻ms >= (int)n現在時刻ms ) )
 							{
 								//if( this.n現在のコース == pChip.nコース )
 								if( pChip.b可視 )
@@ -4177,48 +4169,45 @@ internal class CStage演奏画面共通 : CStage
 	}
 	protected void t進行描画_チップ_Taiko連打(ref CDTX dTX, ref CDTX.CChip pChip, int nPlayer)
 	{
+		if (pChip.nチャンネル番号 < 0x15 || pChip.nチャンネル番号 > 0x17)
+			return;
+			
 		int nSenotesY = TJAPlayer3.Skin.SkinConfig.Game.SENotesOffsetY[nPlayer];
 		int nノート座標 = 0;
 		int nノート末端座標 = 0;
 
 #region[ 作り直したもの ]
-		if (pChip.b可視)
+		if (pChip.b可視 && TJAPlayer3.Tx.Notes != null )
 		{
-			if (pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x17)
-			{
-				if (pChip.nノーツ出現時刻ms != 0 && ((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.n発声時刻ms - pChip.nノーツ出現時刻ms))
-					pChip.bShow = false;
-				else if (pChip.nノーツ出現時刻ms != 0 && pChip.nノーツ移動開始時刻ms != 0)
-					pChip.bShow = true;
+			if (pChip.nノーツ出現時刻ms != 0 && ((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.n発声時刻ms - pChip.nノーツ出現時刻ms))
+				pChip.bShow = false;
+			else if (pChip.nノーツ出現時刻ms != 0 && pChip.nノーツ移動開始時刻ms != 0)
+				pChip.bShow = true;
 
-				if (pChip.nノーツ移動開始時刻ms != 0 && ((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms))
-				{
-					nノート座標 = (int)((((pChip.n発声時刻ms) - (pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms)) * pChip.dbBPM * pChip.dbSCROLL * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
-					nノート末端座標 = (int)(((pChip.nノーツ終了時刻ms - (pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms)) * pChip.db末端BPM * pChip.db末端SCROLL * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
-				}
-				else
-				{
-					nノート座標 = 0;
-					nノート末端座標 = 0;
-				}
+			if (pChip.nノーツ移動開始時刻ms != 0 && ((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms))
+			{
+				nノート座標 = (int)((((pChip.n発声時刻ms) - (pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms)) * pChip.dbBPM * pChip.dbSCROLL * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+				nノート末端座標 = (int)(((pChip.cEndChip.n発声時刻ms - (pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms)) * pChip.cEndChip.dbBPM * pChip.cEndChip.dbSCROLL * (this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] + 1.0)) / 502.8594 / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+			}
+			else
+			{
+				nノート座標 = 0;
+				nノート末端座標 = 0;
 			}
 			//2020.05.06 Mr-Ojii ここらへんから349って書いてあったところを、TJAPlayer3.Skin.nScrollFieldX[nPlayer] - 55に置き換えた。
 			int x = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] + pChip.nバーからの距離dot - 55;
-			int x末端 = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot - 55;
+			int x末端 = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] + pChip.cEndChip.nバーからの距離dot - 55;
 			int y = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldY[nPlayer];
 
-			if (pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x17)
+			if (pChip.nノーツ移動開始時刻ms != 0 && ((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms))
 			{
-				if (pChip.nノーツ移動開始時刻ms != 0 && ((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms))
-				{
-					x = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] + nノート座標;
-					x末端 = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] + nノート末端座標;
-				}
-				else
-				{
-					x = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] + pChip.nバーからの距離dot - 55;
-					x末端 = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot - 55;
-				}
+				x = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] + nノート座標;
+				x末端 = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] + nノート末端座標;
+			}
+			else
+			{
+				x = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] + pChip.nバーからの距離dot - 55;
+				x末端 = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] + pChip.cEndChip.nバーからの距離dot - 55;
 			}
 
 			x -= 10;
@@ -4226,207 +4215,200 @@ internal class CStage演奏画面共通 : CStage
 
 			if (1400 > Math.Min(x, x末端))
 			{
-				if (TJAPlayer3.Tx.Notes != null)
+				int num9 = this.n顔座標[nPlayer];
+
+				//kairera0467氏 の TJAPlayer2forPC のコードを参考にし、打数に応じて色を変える(打数の変更以外はほとんどそのまんま) ろみゅ～？ 2018/8/20
+				pChip.RollInputTime?.t進行();
+				pChip.RollDelay?.t進行();
+
+				if (pChip.RollInputTime != null && pChip.RollInputTime.b終了値に達した)
 				{
-					int num9 = this.n顔座標[nPlayer];
+					pChip.RollInputTime.t停止();
+					pChip.RollInputTime.n現在の値 = 0;
+					pChip.RollDelay = new CCounter(0, 1, 1, TJAPlayer3.Timer);
+				}
 
-					//kairera0467氏 の TJAPlayer2forPC のコードを参考にし、打数に応じて色を変える(打数の変更以外はほとんどそのまんま) ろみゅ～？ 2018/8/20
-					pChip.RollInputTime?.t進行();
-					pChip.RollDelay?.t進行();
+				if (pChip.RollDelay != null && pChip.RollDelay.b終了値に達した && pChip.RollEffectLevel > 0)
+				{
+					pChip.RollEffectLevel--;
+					pChip.RollDelay = new CCounter(0, 1, 1, TJAPlayer3.Timer);
+					pChip.RollDelay.n現在の値 = 0;
+				}
 
-					if (pChip.RollInputTime != null && pChip.RollInputTime.b終了値に達した)
+				int f減少するカラー = (int)(255 - ((242.0 / 100.0) * pChip.RollEffectLevel));
+				Color effectedColor = Color.FromArgb(255, 255, f減少するカラー, f減少するカラー);
+				Color normalColor = Color.FromArgb(255, 255, 255, 255);
+				float f末端ノーツのテクスチャ位置調整 = 65f;
+
+				if (pChip.nチャンネル番号 == 0x15 && pChip.bShow) //連打(小)
+				{
+					int index = Math.Abs(x末端 - x); //連打の距離
+					if (x末端 > x)
 					{
-						pChip.RollInputTime.t停止();
-						pChip.RollInputTime.n現在の値 = 0;
-						pChip.RollDelay = new CCounter(0, 1, 1, TJAPlayer3.Timer);
-					}
-
-					if (pChip.RollDelay != null && pChip.RollDelay.b終了値に達した && pChip.RollEffectLevel > 0)
-					{
-						pChip.RollEffectLevel--;
-						pChip.RollDelay = new CCounter(0, 1, 1, TJAPlayer3.Timer);
-						pChip.RollDelay.n現在の値 = 0;
-					}
-
-					int f減少するカラー = (int)(255 - ((242.0 / 100.0) * pChip.RollEffectLevel));
-					Color effectedColor = Color.FromArgb(255, 255, f減少するカラー, f減少するカラー);
-					Color normalColor = Color.FromArgb(255, 255, 255, 255);
-					float f末端ノーツのテクスチャ位置調整 = 65f;
-
-					if (pChip.nチャンネル番号 == 0x15 && pChip.bShow) //連打(小)
-					{
-						int index = Math.Abs(x末端 - x); //連打の距離
-						if (x末端 > x)
-						{
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
-							{
-#region[末端をテクスチャ側でつなげる場合の方式]
-								if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode != CSkin.ERollColorMode.None)
-									TJAPlayer3.Tx.Notes.color = effectedColor;
-								else
-									TJAPlayer3.Tx.Notes.color = normalColor;
-								TJAPlayer3.Tx.Notes.vcScaling.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整 + 1) / 128.0f;
-
-								TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x + 64, y, new Rectangle(781, 0, 128, 130));
-
-								TJAPlayer3.Tx.Notes.vcScaling.X = 1.0f;
-
-								TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(910, num9, 130, 130));
-
-								if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode == CSkin.ERollColorMode.All)
-									TJAPlayer3.Tx.Notes.color = effectedColor;
-								else
-									TJAPlayer3.Tx.Notes.color = normalColor;
-
-								TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x, y, 0, new Rectangle(650, num9, 130, 130));
-								TJAPlayer3.Tx.Notes.color = normalColor;
-#endregion
-							}
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
-							{
-								TJAPlayer3.Tx.SENotes.vcScaling.X = index - 44;
-								TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
-								TJAPlayer3.Tx.SENotes.vcScaling.X = 1.0f;
-								TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
-								TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
-								TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x末端 + 46, y + nSenotesY, new Rectangle(58, 270, 78, 30));
-							}
-						}
-						else //マイナス
-						{
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
-							{
-#region[末端をテクスチャ側でつなげる場合の方式]
-								if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode != CSkin.ERollColorMode.None)
-									TJAPlayer3.Tx.Notes.color = effectedColor;
-								else
-									TJAPlayer3.Tx.Notes.color = normalColor;
-								TJAPlayer3.Tx.Notes.vcScaling.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整 + 1) / 128.0f;
-
-								TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 64, y, new Rectangle(781, 0, 128, 130));
-
-								TJAPlayer3.Tx.Notes.vcScaling.X = 1.0f;
-
-								TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 - 130 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(910, num9, 130, 130));
-
-								if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode == CSkin.ERollColorMode.All)
-									TJAPlayer3.Tx.Notes.color = effectedColor;
-								else
-									TJAPlayer3.Tx.Notes.color = normalColor;
-
-								TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x, y, 0, new Rectangle(650, num9, 130, 130));
-								TJAPlayer3.Tx.Notes.color = normalColor;
-#endregion
-							}
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
-							{
-								TJAPlayer3.Tx.SENotes.vcScaling.X = index - 44;
-								TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
-								TJAPlayer3.Tx.SENotes.vcScaling.X = 1.0f;
-								TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
-								TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
-								TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 46 - 30, y + nSenotesY, new Rectangle(58, 270, 78, 30));
-							}
-						}
-					}
-					if (pChip.nチャンネル番号 == 0x16 && pChip.bShow)
-					{
-						int index = Math.Abs(x末端 - x); //連打の距離
-						if (x末端 > x)
-						{
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
-							{
-#region[末端をテクスチャ側でつなげる場合の方式]
-								if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode != CSkin.ERollColorMode.None)
-									TJAPlayer3.Tx.Notes.color = effectedColor;
-								else
-									TJAPlayer3.Tx.Notes.color = normalColor;
-
-								TJAPlayer3.Tx.Notes.vcScaling.X = (index - 65 + f末端ノーツのテクスチャ位置調整 + 1) / 128f;
-
-								TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x + 64, y, new Rectangle(1171, 0, 128, 130));
-
-								TJAPlayer3.Tx.Notes.vcScaling.X = 1.0f;
-								TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(1300, num9, 130, 130));
-
-								if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode == CSkin.ERollColorMode.All)
-									TJAPlayer3.Tx.Notes.color = effectedColor;
-								else
-									TJAPlayer3.Tx.Notes.color = normalColor;
-
-								TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x, y, new Rectangle(1040, num9, 130, 130));
-								TJAPlayer3.Tx.Notes.color = normalColor;
-#endregion
-							}
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
-							{
-								TJAPlayer3.Tx.SENotes.vcScaling.X = index - 44;
-								TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
-								TJAPlayer3.Tx.SENotes.vcScaling.X = 1.0f;
-								TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
-								TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
-								TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x末端 + 46, y + nSenotesY, new Rectangle(58, 270, 78, 30));
-							}
-						}
-						else //マイナス
-						{
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
-							{
-#region[末端をテクスチャ側でつなげる場合の方式]
-								if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode != CSkin.ERollColorMode.None)
-									TJAPlayer3.Tx.Notes.color = effectedColor;
-								else
-									TJAPlayer3.Tx.Notes.color = normalColor;
-
-								TJAPlayer3.Tx.Notes.vcScaling.X = (index - 65 + f末端ノーツのテクスチャ位置調整 + 1) / 128f;
-
-								TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 64, y, new Rectangle(1171, 0, 128, 130));
-
-								TJAPlayer3.Tx.Notes.vcScaling.X = 1.0f;
-								TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 - 130 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(1300, num9, 130, 130));
-
-								if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode == CSkin.ERollColorMode.All)
-									TJAPlayer3.Tx.Notes.color = effectedColor;
-								else
-									TJAPlayer3.Tx.Notes.color = normalColor;
-
-								TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x, y, new Rectangle(1040, num9, 130, 130));
-								TJAPlayer3.Tx.Notes.color = normalColor;
-#endregion
-							}
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
-							{
-								TJAPlayer3.Tx.SENotes.vcScaling.X = index - 44;
-								TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
-								TJAPlayer3.Tx.SENotes.vcScaling.X = 1.0f;
-								TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
-								TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
-								TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 46 - 30, y + nSenotesY, new Rectangle(58, 270, 78, 30));
-							}
-						}
-					}
-					if (pChip.nチャンネル番号 == 0x17 && pChip.bShow)
-					{
-						if ((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.n発声時刻ms && (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.nノーツ終了時刻ms)
-							x = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] - 55;
-						else if ((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.nノーツ終了時刻ms)
-							x = (TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] + pChip.nバーからのノーツ末端距離dot - 55);
-
 						if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
-							TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x, y, new Rectangle(1430, num9, 260, 130));
+						{
+#region[末端をテクスチャ側でつなげる場合の方式]
+							if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode != CSkin.ERollColorMode.None)
+								TJAPlayer3.Tx.Notes.color = effectedColor;
+							else
+								TJAPlayer3.Tx.Notes.color = normalColor;
+							TJAPlayer3.Tx.Notes.vcScaling.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整 + 1) / 128.0f;
 
+							TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x + 64, y, new Rectangle(781, 0, 128, 130));
+
+							TJAPlayer3.Tx.Notes.vcScaling.X = 1.0f;
+
+							TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(910, num9, 130, 130));
+
+							if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode == CSkin.ERollColorMode.All)
+								TJAPlayer3.Tx.Notes.color = effectedColor;
+							else
+								TJAPlayer3.Tx.Notes.color = normalColor;
+
+							TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x, y, 0, new Rectangle(650, num9, 130, 130));
+							TJAPlayer3.Tx.Notes.color = normalColor;
+#endregion
+						}
 						if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
-							TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+						{
+							TJAPlayer3.Tx.SENotes.vcScaling.X = index - 44;
+							TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
+							TJAPlayer3.Tx.SENotes.vcScaling.X = 1.0f;
+							TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
+							TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+							TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x末端 + 46, y + nSenotesY, new Rectangle(58, 270, 78, 30));
+						}
 					}
+					else //マイナス
+					{
+						if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
+						{
+#region[末端をテクスチャ側でつなげる場合の方式]
+							if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode != CSkin.ERollColorMode.None)
+								TJAPlayer3.Tx.Notes.color = effectedColor;
+							else
+								TJAPlayer3.Tx.Notes.color = normalColor;
+							TJAPlayer3.Tx.Notes.vcScaling.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整 + 1) / 128.0f;
+
+							TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 64, y, new Rectangle(781, 0, 128, 130));
+
+							TJAPlayer3.Tx.Notes.vcScaling.X = 1.0f;
+
+							TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 - 130 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(910, num9, 130, 130));
+
+							if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode == CSkin.ERollColorMode.All)
+								TJAPlayer3.Tx.Notes.color = effectedColor;
+							else
+								TJAPlayer3.Tx.Notes.color = normalColor;
+
+							TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x, y, 0, new Rectangle(650, num9, 130, 130));
+							TJAPlayer3.Tx.Notes.color = normalColor;
+#endregion
+						}
+						if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
+						{
+							TJAPlayer3.Tx.SENotes.vcScaling.X = index - 44;
+							TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
+							TJAPlayer3.Tx.SENotes.vcScaling.X = 1.0f;
+							TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
+							TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+							TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 46 - 30, y + nSenotesY, new Rectangle(58, 270, 78, 30));
+						}
+					}
+				}
+				if (pChip.nチャンネル番号 == 0x16 && pChip.bShow)
+				{
+					int index = Math.Abs(x末端 - x); //連打の距離
+					if (x末端 > x)
+					{
+						if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
+						{
+#region[末端をテクスチャ側でつなげる場合の方式]
+							if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode != CSkin.ERollColorMode.None)
+								TJAPlayer3.Tx.Notes.color = effectedColor;
+							else
+								TJAPlayer3.Tx.Notes.color = normalColor;
+
+							TJAPlayer3.Tx.Notes.vcScaling.X = (index - 65 + f末端ノーツのテクスチャ位置調整 + 1) / 128f;
+
+							TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x + 64, y, new Rectangle(1171, 0, 128, 130));
+
+							TJAPlayer3.Tx.Notes.vcScaling.X = 1.0f;
+							TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(1300, num9, 130, 130));
+
+							if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode == CSkin.ERollColorMode.All)
+								TJAPlayer3.Tx.Notes.color = effectedColor;
+							else
+								TJAPlayer3.Tx.Notes.color = normalColor;
+
+							TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x, y, new Rectangle(1040, num9, 130, 130));
+							TJAPlayer3.Tx.Notes.color = normalColor;
+#endregion
+						}
+						if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
+						{
+							TJAPlayer3.Tx.SENotes.vcScaling.X = index - 44;
+							TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
+							TJAPlayer3.Tx.SENotes.vcScaling.X = 1.0f;
+							TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
+							TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+							TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x末端 + 46, y + nSenotesY, new Rectangle(58, 270, 78, 30));
+						}
+					}
+					else //マイナス
+					{
+						if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
+						{
+#region[末端をテクスチャ側でつなげる場合の方式]
+							if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode != CSkin.ERollColorMode.None)
+								TJAPlayer3.Tx.Notes.color = effectedColor;
+							else
+								TJAPlayer3.Tx.Notes.color = normalColor;
+
+							TJAPlayer3.Tx.Notes.vcScaling.X = (index - 65 + f末端ノーツのテクスチャ位置調整 + 1) / 128f;
+
+							TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 64, y, new Rectangle(1171, 0, 128, 130));
+
+							TJAPlayer3.Tx.Notes.vcScaling.X = 1.0f;
+							TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 - 130 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(1300, num9, 130, 130));
+
+							if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode == CSkin.ERollColorMode.All)
+								TJAPlayer3.Tx.Notes.color = effectedColor;
+							else
+								TJAPlayer3.Tx.Notes.color = normalColor;
+
+							TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x, y, new Rectangle(1040, num9, 130, 130));
+							TJAPlayer3.Tx.Notes.color = normalColor;
+#endregion
+						}
+						if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
+						{
+							TJAPlayer3.Tx.SENotes.vcScaling.X = index - 44;
+							TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
+							TJAPlayer3.Tx.SENotes.vcScaling.X = 1.0f;
+							TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
+							TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+							TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 46 - 30, y + nSenotesY, new Rectangle(58, 270, 78, 30));
+						}
+					}
+				}
+				if (pChip.nチャンネル番号 == 0x17 && pChip.bShow)
+				{
+					if ((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.n発声時刻ms && (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) < pChip.cEndChip.n発声時刻ms)
+						x = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] - 55;
+					else if ((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= pChip.cEndChip.n発声時刻ms)
+						x = (TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] + pChip.cEndChip.nバーからの距離dot - 55);
+
+					if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
+						TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x, y, new Rectangle(1430, num9, 260, 130));
+
+					if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
+						TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
 				}
 			}
 		}
-		if (pChip.n発声時刻ms < (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) && pChip.nノーツ終了時刻ms > (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
-		{
-			//時間内でかつ0x9Aじゃないならならヒット処理
-			if (pChip.nチャンネル番号 != 0x18 && TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer])
-				this.tチップのヒット処理(pChip.n発声時刻ms, pChip, false, 0, nPlayer);
-		}
+		if (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] && pChip.n発声時刻ms < (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) && pChip.cEndChip.n発声時刻ms > (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
+			this.tチップのヒット処理(pChip.n発声時刻ms, pChip, false, 0, nPlayer);
 #endregion
 	}
 
@@ -4490,7 +4472,7 @@ internal class CStage演奏画面共通 : CStage
 				if (this.chip現在処理中の連打チップ[i].nチャンネル番号 == 0x17 && this.b連打中[i] == true)
 				{
 					//if (this.chip現在処理中の連打チップ.n発声時刻ms <= (int)CSoundManager.rc演奏用タイマ.n現在時刻ms && this.chip現在処理中の連打チップ.nノーツ終了時刻ms >= (int)CSoundManager.rc演奏用タイマ.n現在時刻ms)
-					if (this.chip現在処理中の連打チップ[i].n発声時刻ms <= time && this.chip現在処理中の連打チップ[i].nノーツ終了時刻ms + 500 >= time)
+					if (this.chip現在処理中の連打チップ[i].n発声時刻ms <= time && this.chip現在処理中の連打チップ[i].cEndChip.n発声時刻ms + 500 >= time)
 					{
 						this.chip現在処理中の連打チップ[i].bShow = false;
 						this.actBalloon.On進行描画(this.chip現在処理中の連打チップ[i].nBalloon, this.n風船残り[i], i);

@@ -126,11 +126,9 @@ internal class CDTX : CActivity
 		public bool bBranch = false;
 		public double db実数値;
 		public double dbBPM;
-		public double db末端BPM = 120.0;
 		public bool IsEndedBranching = false; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加//分岐が終わった時の連打譜面が非可視化になってしまうためフラグを追加.2020.04.21.akasoko26
 		public double dbSCROLL;
 		public double dbSCROLL_Y;
-		public double db末端SCROLL = 1.0;
 		public int nコース;
 		public int nSenote;
 		public int nRollCount;
@@ -141,16 +139,14 @@ internal class CDTX : CActivity
 		public int TimeSpan;
 		public int nバーからの距離dot_Y;
 		public int nバーからの距離dot;
-		public int nバーからのノーツ末端距離dot;
+		public CChip cEndChip = null;
 		public int n整数値;
 		public int n整数値_内部番号;
 		public int n発声位置;
 		public double db発声位置;  // 発声時刻を格納していた変数のうちの１つをfloat型からdouble型に変更。(kairera0467)
 		public double fBMSCROLLTime;
-		public double fBMSCROLLTime_end;
 		public int n発声時刻ms;
 		public double db発声時刻ms;
-		public int nノーツ終了時刻ms;
 		public int nノーツ出現時刻ms;
 		public int nノーツ移動開始時刻ms;
 		public int nLag;                // 2011.2.1 yyagi
@@ -1312,7 +1308,6 @@ internal class CDTX : CActivity
 							if (this.bOFFSETの値がマイナスである)
 							{
 								chip.n発声時刻ms += this.nOFFSET;
-								chip.nノーツ終了時刻ms += this.nOFFSET;
 							}
 
 							this.nNowRoll = this.nNowRollCount - 1;
@@ -1384,7 +1379,6 @@ internal class CDTX : CActivity
 							if (this.bOFFSETの値がマイナスである)
 							{
 								chip.n発声時刻ms += this.nOFFSET;
-								chip.nノーツ終了時刻ms += this.nOFFSET;
 							}
 
 							//chip.dbBPM = this.dbNowBPM;
@@ -2671,16 +2665,10 @@ internal class CDTX : CActivity
 					}
 					if (nObjectNum == 8)
 					{
-						chip.nノーツ終了時刻ms = (int)this.dbNowTime;
-						chip.fBMSCROLLTime_end = (float)this.dbNowBMScollTime;
-
 						chip.nノーツ出現時刻ms = listChip[nNowRollCount + i].nノーツ出現時刻ms;
 						chip.nノーツ移動開始時刻ms = listChip[nNowRollCount + i].nノーツ移動開始時刻ms;
 
-						listChip[nNowRollCount + i].nノーツ終了時刻ms = (int)this.dbNowTime;
-						listChip[nNowRollCount + i].fBMSCROLLTime_end = (int)this.dbNowBMScollTime;
-						listChip[nNowRollCount + i].db末端BPM = dbNowBPM;
-						listChip[nNowRollCount + i].db末端SCROLL = this.dbNowScroll;
+						listChip[nNowRollCount + i].cEndChip = chip;
 						nNowRoll = 0;
 						//continue;
 					}
@@ -4308,16 +4296,10 @@ internal class CDTX : CActivity
 							}
 							if (nObjectNum == 8)
 							{
-								chip.nノーツ終了時刻ms = (int)this.dbNowTime;
-								chip.fBMSCROLLTime_end = (float)this.dbNowBMScollTime;
-
 								chip.nノーツ出現時刻ms = listChip[nNowRollCount + i].nノーツ出現時刻ms;
 								chip.nノーツ移動開始時刻ms = listChip[nNowRollCount + i].nノーツ移動開始時刻ms;
 
-								listChip[nNowRollCount + i].nノーツ終了時刻ms = (int)this.dbNowTime;
-								listChip[nNowRollCount + i].fBMSCROLLTime_end = (int)this.dbNowBMScollTime;
-								listChip[nNowRollCount + i].db末端BPM = dbNowBPM;
-								listChip[nNowRollCount + i].db末端SCROLL = this.dbNowScroll;
+								listChip[nNowRollCount + i].cEndChip = chip;
 								nNowRoll = 0;
 								//continue;
 							}
