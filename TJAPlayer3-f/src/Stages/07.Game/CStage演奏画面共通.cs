@@ -4048,49 +4048,7 @@ internal class CStage演奏画面共通 : CStage
 				x = pChip.nバーからの距離dot;
 			}
 
-			int xTemp = 0;
-			int yTemp = 0;
-
-#region[ スクロール方向変更 ]
-			if (pChip.nスクロール方向 != 0)
-			{
-				xTemp = x;
-				yTemp = y;
-			}
-			switch (pChip.nスクロール方向)
-			{
-				case 0:
-					x += (TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer]);
-					break;
-				case 1:
-					x = (TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer]);
-					y = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldY[nPlayer] - xTemp;
-					break;
-				case 2:
-					x = (TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] + 3);
-					y = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldY[nPlayer] + xTemp;
-					break;
-				case 3:
-					x += (TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer]);
-					y = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldY[nPlayer] - xTemp;
-					break;
-				case 4:
-					x += (TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer]);
-					y = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldY[nPlayer] + xTemp;
-					break;
-				case 5:
-					x = (TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] + 10) - xTemp;
-					break;
-				case 6:
-					x = (TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer]) - xTemp;
-					y = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldY[nPlayer] - xTemp;
-					break;
-				case 7:
-					x = (TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer]) - xTemp;
-					y = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldY[nPlayer] + xTemp;
-					break;
-			}
-#endregion
+			x += (TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer]);
 
 #region[ 両手待ち時 ]
 			if ((pChip.eNoteState == ENoteState.waitleft || pChip.eNoteState == ENoteState.waitright) && TJAPlayer3.ConfigIni.b両手判定待ち時間中に大音符を判定枠に合わせるか)

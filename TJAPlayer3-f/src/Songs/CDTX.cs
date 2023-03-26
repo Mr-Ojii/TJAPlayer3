@@ -136,7 +136,6 @@ internal class CDTX : CActivity
 		public int nRollCount;
 		public int nBalloon;
 		public int nProcessTime;
-		public int nスクロール方向;
 		public ENoteState eNoteState;
 		public int nチャンネル番号;
 		public int TimeSpan;
@@ -637,19 +636,6 @@ internal class CDTX : CActivity
 	private string[] dlmtSpace = { " " };
 	private string[] dlmtEnter = { "\n" };
 	private string[] dlmtCOURSE = { "COURSE:" };
-
-	private int nスクロール方向 = 0;
-	//2015.09.18 kairera0467
-	//バタフライスライドみたいなアレをやりたいがために実装。
-	//次郎2みたいな複素数とかは意味不明なので、方向を指定してスクロールさせることにした。
-	//0:通常
-	//1:上
-	//2:下
-	//3:右上
-	//4:右下
-	//5:左
-	//6:左上
-	//7:左下
 
 	public string strBGIMAGE_PATH;
 	public string strBGVIDEO_PATH;
@@ -2607,7 +2593,6 @@ internal class CDTX : CActivity
 					chip.dbBPM = this.dbNowBPM;
 					chip.dbSCROLL = this.dbNowScroll;
 					chip.dbSCROLL_Y = this.dbNowScrollY;
-					chip.nスクロール方向 = this.nスクロール方向;
 					if (IsEndedBranching)
 						chip.nコース = i;
 					else
@@ -3830,8 +3815,58 @@ internal class CDTX : CActivity
 		}
 		else if (command == "#DIRECTION")
 		{
-			double dbSCROLL = Convert.ToDouble(argument);
-			this.nスクロール方向 = (int)dbSCROLL;
+			int nDIRECTION = Convert.ToInt32(argument);
+			//勝手に#SCROLLに変換
+			switch(nDIRECTION)
+			{
+				case 1: //上
+					this.dbNowScroll = 0;
+					this.dbNowScrollY = -1;
+					break;
+				case 2: //下
+					this.dbNowScroll = 0;
+					this.dbNowScrollY = 1;
+					break;
+				case 3: //右上
+					this.dbNowScroll = 1;
+					this.dbNowScrollY = -1;
+					break;
+				case 4: //右下
+					this.dbNowScroll = 1;
+					this.dbNowScrollY = 1;
+					break;
+				case 5: //左
+					this.dbNowScroll = -1;
+					this.dbNowScrollY = 0;
+					break;
+				case 6: //左上
+					this.dbNowScroll = -1;
+					this.dbNowScrollY = -1;
+					break;
+				case 7: //左下
+					this.dbNowScroll = -1;
+					this.dbNowScrollY = 1;
+					break;
+				default: //通常
+					this.dbNowScroll = 1;
+					this.dbNowScrollY = 0;
+					break;
+			}
+			switch (this.n現在のコース)
+			{
+				case 1:
+					this.dbNowSCROLL_Expert[0] = this.dbNowScroll;
+					this.dbNowSCROLL_Expert[1] = this.dbNowScrollY;
+					break;
+				case 2:
+					this.dbNowSCROLL_Master[0] = this.dbNowScroll;
+					this.dbNowSCROLL_Master[1] = this.dbNowScrollY;
+					break;
+				default:
+					this.dbNowSCROLL_Normal[0] = this.dbNowScroll;
+					this.dbNowSCROLL_Normal[1] = this.dbNowScrollY;
+					break;
+			}
 		}
 		else if (command == "#SUDDEN")
 		{
@@ -4195,7 +4230,6 @@ internal class CDTX : CActivity
 							chip.dbBPM = this.dbNowBPM;
 							chip.dbSCROLL = this.dbNowScroll;
 							chip.dbSCROLL_Y = this.dbNowScrollY;
-							chip.nスクロール方向 = this.nスクロール方向;
 							if (IsEndedBranching)
 								chip.nコース = i;
 							else
