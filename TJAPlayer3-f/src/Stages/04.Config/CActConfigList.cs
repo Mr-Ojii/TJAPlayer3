@@ -139,7 +139,7 @@ internal class CActConfigList : CActivity
 		this.list項目リスト.Add( this.iSystemTimeStretch );
 
 
-		this.iSystemFullscreen = new CItemToggle( "Fullscreen", TJAPlayer3.ConfigIni.b全画面モード,
+		this.iSystemFullscreen = new CItemToggle( "Fullscreen", TJAPlayer3.ConfigIni.FullScreen,
 			"画面モード設定：\nON で全画面モード、OFF でウィンド\nウモードになります。",
 			"Fullscreen mode or window mode." );
 		this.list項目リスト.Add( this.iSystemFullscreen );
@@ -147,7 +147,7 @@ internal class CActConfigList : CActivity
 			"子BOXをRANDOMの対象とする：\nON にすると、RANDOM SELECT 時\nに子BOXも選択対象とします。",
 			"Turn ON to use child BOX (subfolders)\n at RANDOM SELECT." );
 		this.list項目リスト.Add( this.iSystemRandomFromSubBox );
-		this.iSystemVSyncWait = new CItemToggle( "VSyncWait", TJAPlayer3.ConfigIni.b垂直帰線待ちを行う,
+		this.iSystemVSyncWait = new CItemToggle( "VSyncWait", TJAPlayer3.ConfigIni.VSyncWait,
 			"垂直帰線同期：\n画面の描画をディスプレイの垂直帰\n線中に行なう場合には ON を指定し\nます。ON にすると、ガタつきのない\n滑らかな画面描画が実現されます。",
 			"Turn ON to wait VSync (Vertical\n Synchronizing signal) at every\n drawings. (so FPS becomes 60)\nIf you have enough CPU/GPU power,\n the scroll would become smooth." );
 		this.list項目リスト.Add( this.iSystemVSyncWait );
@@ -159,7 +159,7 @@ internal class CActConfigList : CActivity
 			"BGAの使用：\n画像(BGA)を表示可能にする場合に\nON にします。BGA の再生には、それ\nなりのマシンパワーが必要とされます。",
 			"To draw BGA (back ground animations)\n or not." );
 		this.list項目リスト.Add( this.iSystemBGA );
-		this.iSystemDebugInfo = new CItemToggle( "Debug Info", TJAPlayer3.ConfigIni.b演奏情報を表示する,
+		this.iSystemDebugInfo = new CItemToggle( "Debug Info", TJAPlayer3.ConfigIni.ShowDebugStatus,
 			"演奏情報の表示：\n演奏中、BGA領域の下部に演奏情報\n（FPS、BPM、演奏時間など）を表示し\nます。\nまた、小節線の横に小節番号が表示\nされるようになります。",
 			"To show song informations on playing\n BGA area. (FPS, BPM, total time etc)\nYou can ON/OFF the indications\n by pushing [Del] while playing drums" );
 		this.list項目リスト.Add( this.iSystemDebugInfo );
@@ -797,7 +797,7 @@ internal class CActConfigList : CActivity
 			}
 			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iSystemVSyncWait )
 			{
-				TJAPlayer3.ConfigIni.b垂直帰線待ちを行う = this.iSystemVSyncWait.bON;
+				TJAPlayer3.ConfigIni.VSyncWait = this.iSystemVSyncWait.bON;
 				TJAPlayer3.app.b次のタイミングで垂直帰線同期切り替えを行う = true;
 			}
 #region [ キーアサインへの遷移と脱出 ]
@@ -1607,15 +1607,15 @@ internal class CActConfigList : CActivity
 		//CDTXMania.ConfigIni.eDark = (Eダークモード) this.iCommonDark.n現在選択されている項目番号;
 		TJAPlayer3.ConfigIni.n演奏速度 = this.iCommonPlaySpeed.nValue;
 
-		TJAPlayer3.ConfigIni.b全画面モード = this.iSystemFullscreen.bON;
+		TJAPlayer3.ConfigIni.FullScreen = this.iSystemFullscreen.bON;
 		TJAPlayer3.ConfigIni.bランダムセレクトで子BOXを検索対象とする = this.iSystemRandomFromSubBox.bON;
 
 		//CDTXMania.ConfigIni.bWave再生位置自動調整機能有効 = this.iSystemAdjustWaves.bON;
-		TJAPlayer3.ConfigIni.b垂直帰線待ちを行う = this.iSystemVSyncWait.bON;
+		TJAPlayer3.ConfigIni.VSyncWait = this.iSystemVSyncWait.bON;
 		TJAPlayer3.ConfigIni.bAVI有効 = this.iSystemAVI.bON;
 		TJAPlayer3.ConfigIni.bBGA有効 = this.iSystemBGA.bON;
 //			CDTXMania.ConfigIni.bGraph有効 = this.iSystemGraph.bON;#24074 2011.01.23 comment-out ikanick オプション(Drums)へ移行
-		TJAPlayer3.ConfigIni.b演奏情報を表示する = this.iSystemDebugInfo.bON;
+		TJAPlayer3.ConfigIni.ShowDebugStatus = this.iSystemDebugInfo.bON;
 		TJAPlayer3.ConfigIni.n背景の透過度 = this.iSystemBGAlpha.nValue;
 		TJAPlayer3.ConfigIni.bBGM音を発声する = this.iSystemBGMSound.bON;
 		//CDTXMania.ConfigIni.b歓声を発声する = this.iSystemAudienceSound.bON;

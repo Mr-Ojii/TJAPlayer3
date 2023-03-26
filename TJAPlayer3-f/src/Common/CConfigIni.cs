@@ -157,9 +157,9 @@ internal class CConfigIni : INotifyPropertyChanged
 	public bool bWave再生位置自動調整機能有効;
 	public bool bランダムセレクトで子BOXを検索対象とする;
 	public bool bログ出力;
-	public bool b演奏情報を表示する;
-	public bool b垂直帰線待ちを行う;
-	public bool b全画面モード;
+	public bool ShowDebugStatus;
+	public bool VSyncWait;
+	public bool FullScreen;
 	public Rectangle rcWindowPos;
 	public Dictionary<int, string> dicJoystick;
 	public ERandomMode[] eRandom;
@@ -239,8 +239,8 @@ internal class CConfigIni : INotifyPropertyChanged
 
 	public int n表示可能な最小コンボ数;
 	public int[] n譜面スクロール速度;
-	public string strDTXManiaのバージョン;
-	public string str曲データ検索パス;
+	public string Version;
+	public string TJAPath;
 	public string FontName;
 	public bool bBranchGuide;
 	public int nScoreMode;
@@ -302,7 +302,7 @@ internal class CConfigIni : INotifyPropertyChanged
 	{
 		get
 		{
-			return ( !this.bConfigIniが存在している || !TJAPlayer3.VERSION.Equals( this.strDTXManiaのバージョン ) );
+			return ( !this.bConfigIniが存在している || !TJAPlayer3.VERSION.Equals( this.Version ) );
 		}
 	}
 	public bool bEnterがキー割り当てのどこにも使用されていない
@@ -327,11 +327,11 @@ internal class CConfigIni : INotifyPropertyChanged
 	{
 		get
 		{
-			return !this.b全画面モード;
+			return !this.FullScreen;
 		}
 		set
 		{
-			this.b全画面モード = !value;
+			this.FullScreen = !value;
 		}
 	}
 	public int n背景の透過度
@@ -404,10 +404,10 @@ internal class CConfigIni : INotifyPropertyChanged
 
 	public CConfigIni()
 	{
-		this.strDTXManiaのバージョン = "Unknown";
-		this.str曲データ検索パス = @"./Songs/";
-		this.b全画面モード = false;
-		this.b垂直帰線待ちを行う = true;
+		this.Version = "Unknown";
+		this.TJAPath = @"./Songs/";
+		this.FullScreen = false;
+		this.VSyncWait = true;
 		this.rcWindowPos = new Rectangle(0, 0, 1280, 720);
 		this.nフレーム毎スリープms = -1;			// #xxxxx 2011.11.27 yyagi add
 		this.n非フォーカス時スリープms = 1;			// #23568 2010.11.04 ikanick add
@@ -585,7 +585,7 @@ internal class CConfigIni : INotifyPropertyChanged
 		sw.WriteLine( @"; セミコロン(;)で区切ることにより複数のパスを指定できます。（例: d:/tja/;e:/tja2/）" );
 		sw.WriteLine( "; Pathes for TJA data." );
 		sw.WriteLine( @"; You can specify many pathes separated with semicolon(;). (e.g. d:/tja/;e:/tja2/)" );
-		sw.WriteLine( "TJAPath={0}", this.str曲データ検索パス );
+		sw.WriteLine( "TJAPath={0}", this.TJAPath );
 		sw.WriteLine();
 		#endregion
 		#region [ スキン関連 ]
@@ -611,7 +611,7 @@ internal class CConfigIni : INotifyPropertyChanged
 		#region [ Window関連 ]
 		sw.WriteLine( "; 画面モード(0:ウィンドウ, 1:全画面)" );
 		sw.WriteLine( "; Screen mode. (0:Window, 1:Fullscreen)" );
-		sw.WriteLine( "FullScreen={0}", this.b全画面モード ? 1 : 0 );
+		sw.WriteLine( "FullScreen={0}", this.FullScreen ? 1 : 0 );
 		sw.WriteLine();
 		sw.WriteLine("; ウインドウモード時の画面幅");				// #23510 2010.10.31 yyagi add
 		sw.WriteLine("; A width size in the window mode.");			//
@@ -642,7 +642,7 @@ internal class CConfigIni : INotifyPropertyChanged
 		#endregion
 		#region [ フレーム処理関連(VSync, フレーム毎のsleep) ]
 		sw.WriteLine("; 垂直帰線同期(0:OFF,1:ON)");
-		sw.WriteLine( "VSyncWait={0}", this.b垂直帰線待ちを行う ? 1 : 0 );
+		sw.WriteLine( "VSyncWait={0}", this.VSyncWait ? 1 : 0 );
 		sw.WriteLine();
 		sw.WriteLine( "; フレーム毎のsleep値[ms] (-1でスリープ無し, 0以上で毎フレームスリープ。動画キャプチャ等で活用下さい)" );	// #xxxxx 2011.11.27 yyagi add
 		sw.WriteLine( "; A sleep time[ms] per frame." );							//
@@ -748,7 +748,7 @@ internal class CConfigIni : INotifyPropertyChanged
 		sw.WriteLine();
 		sw.WriteLine( "; 演奏情報を表示する (0:OFF, 1:ON)" );
 		sw.WriteLine( "; Showing playing info on the playing screen. (0:OFF, 1:ON)" );
-		sw.WriteLine( "ShowDebugStatus={0}", this.b演奏情報を表示する ? 1 : 0 );
+		sw.WriteLine( "ShowDebugStatus={0}", this.ShowDebugStatus ? 1 : 0 );
 		sw.WriteLine();
 		sw.WriteLine("; BS1770GAIN によるラウドネスメータの測量を適用する (0:OFF, 1:ON)");
 		sw.WriteLine( "; Apply BS1770GAIN loudness metadata (0:OFF, 1:ON)" );
@@ -1140,13 +1140,13 @@ internal class CConfigIni : INotifyPropertyChanged
 #region [ Version ]
 									if ( str3.Equals( "Version" ) )
 									{
-										this.strDTXManiaのバージョン = str4;
+										this.Version = str4;
 									}
 #endregion
 #region [ TJAPath ]
 									else if( str3.Equals( "TJAPath" ) )
 									{
-										this.str曲データ検索パス = str4;
+										this.TJAPath = str4;
 									}
 #endregion
 #region [ skin関係 ]
@@ -1171,7 +1171,7 @@ internal class CConfigIni : INotifyPropertyChanged
 #region [ Window関係 ]
 									else if (str3.Equals("FullScreen"))
 									{
-										this.b全画面モード = str4[0].ToBool();
+										this.FullScreen = str4[0].ToBool();
 									}
 									else if ( str3.Equals( "WindowX" ) )        // #30675 2013.02.04 ikanick add
 									{
@@ -1248,7 +1248,7 @@ internal class CConfigIni : INotifyPropertyChanged
 
 									else if ( str3.Equals( "VSyncWait" ) )
 									{
-										this.b垂直帰線待ちを行う = str4[0].ToBool();
+										this.VSyncWait = str4[0].ToBool();
 									}
 									else if( str3.Equals( "SleepTimePerFrame" ) )		// #23568 2011.11.27 yyagi
 									{
@@ -1294,7 +1294,7 @@ internal class CConfigIni : INotifyPropertyChanged
 #endregion
 									else if( str3.Equals( "ShowDebugStatus" ) )
 									{
-										this.b演奏情報を表示する = str4[0].ToBool();
+										this.ShowDebugStatus = str4[0].ToBool();
 									}
 									else if( str3.Equals( nameof(ApplyLoudnessMetadata) ) )
 									{

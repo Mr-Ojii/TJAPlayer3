@@ -313,9 +313,9 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
 
 			try
 			{
-				if ( !string.IsNullOrEmpty( TJAPlayer3.ConfigIni.str曲データ検索パス ) )
+				if ( !string.IsNullOrEmpty( TJAPlayer3.ConfigIni.TJAPath ) )
 				{
-					string[] strArray = TJAPlayer3.ConfigIni.str曲データ検索パス.Split( new char[] { ';' } );
+					string[] strArray = TJAPlayer3.ConfigIni.TJAPath.Split( new char[] { ';' } );
 					if ( strArray.Length > 0 )
 					{
 						// 全パスについて…

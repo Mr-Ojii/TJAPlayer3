@@ -873,7 +873,7 @@ internal class TJAPlayer3 : Game
 		#region [ 全画面_ウインドウ切り替え ]
 		if (this.b次のタイミングで全画面_ウィンドウ切り替えを行う)
 		{
-			ConfigIni.b全画面モード = !ConfigIni.b全画面モード;
+			ConfigIni.FullScreen = !ConfigIni.FullScreen;
 			app.t全画面_ウィンドウモード切り替え();
 			this.b次のタイミングで全画面_ウィンドウ切り替えを行う = false;
 		}
@@ -884,7 +884,7 @@ internal class TJAPlayer3 : Game
 		{
 			currentClientSize = this.ClientSize;                                             // #23510 2010.11.3 yyagi: to backup current window size before changing VSyncWait
 
-			this.VSync = ConfigIni.b垂直帰線待ちを行う;
+			this.VSync = ConfigIni.VSyncWait;
 			this.b次のタイミングで垂直帰線同期切り替えを行う = false;
 			base.ClientSize = new Size(currentClientSize.Width, currentClientSize.Height);   // #23510 2010.11.3 yyagi: to resume window size after changing VSyncWait
 		}
@@ -1142,7 +1142,7 @@ internal class TJAPlayer3 : Game
 #region [ Direct3D9 デバイスの生成 ]
 		//---------------------
 		this.WindowState = ConfigIni.bウィンドウモード ? FDK.Windowing.WindowState.Normal : FDK.Windowing.WindowState.FullScreen;
-		this.VSync = ConfigIni.b垂直帰線待ちを行う;
+		this.VSync = ConfigIni.VSyncWait;
 		base.ClientSize = new Size(ConfigIni.rcWindowPos.Width, ConfigIni.rcWindowPos.Height);   // #23510 2010.10.31 yyagi: to recover window size. width and height are able to get from Config.ini.
 		//---------------------
 #endregion

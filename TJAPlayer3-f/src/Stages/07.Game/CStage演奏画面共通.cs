@@ -577,7 +577,7 @@ internal class CStage演奏画面共通 : CStage
 			if (!TJAPlayer3.ConfigIni.bNoInfo)
 				this.t進行描画_パネル文字列();
 
-			if (TJAPlayer3.ConfigIni.b演奏情報を表示する)
+			if (TJAPlayer3.ConfigIni.ShowDebugStatus)
 				this.actPlayInfo.t進行描画(1000, 400);
 
 			if (TJAPlayer3.DTX[0].listLyric2.Count > ShownLyric2 && TJAPlayer3.DTX[0].listLyric2[ShownLyric2].Time + TJAPlayer3.DTX[0].nBGMAdjust < (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)))
@@ -2578,7 +2578,7 @@ internal class CStage演奏画面共通 : CStage
 			}
 			else if (keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Delete))
 			{   // del (debug info)
-				TJAPlayer3.ConfigIni.b演奏情報を表示する = !TJAPlayer3.ConfigIni.b演奏情報を表示する;
+				TJAPlayer3.ConfigIni.ShowDebugStatus = !TJAPlayer3.ConfigIni.ShowDebugStatus;
 			}
 			else if (keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftArrow))      // #24243 2011.1.16 yyagi UI for InputAdjustTime in playing screen.
 			{
@@ -2677,7 +2677,7 @@ internal class CStage演奏画面共通 : CStage
 		{
 			if ( keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.Delete ) )
 			{	// del (debug info)
-				TJAPlayer3.ConfigIni.b演奏情報を表示する = !TJAPlayer3.ConfigIni.b演奏情報を表示する;
+				TJAPlayer3.ConfigIni.ShowDebugStatus = !TJAPlayer3.ConfigIni.ShowDebugStatus;
 			}
 			else if ((keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape)))
 			{   // escape (exit)
@@ -4492,7 +4492,7 @@ internal class CStage演奏画面共通 : CStage
 				dTX.tWave再生位置自動補正();
 			}
 		}
-		if (TJAPlayer3.ConfigIni.b演奏情報を表示する || TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
+		if (TJAPlayer3.ConfigIni.ShowDebugStatus || TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
 		{
 			if (x >= 310)
 			{

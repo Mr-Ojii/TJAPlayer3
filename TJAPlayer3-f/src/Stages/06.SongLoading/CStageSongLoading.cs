@@ -387,7 +387,7 @@ internal class CStageSongLoading : CStage
 
 			case CStage.Eフェーズ.NOWLOADING_WAVファイルを読み込む:
 				{
-					int looptime = (TJAPlayer3.ConfigIni.b垂直帰線待ちを行う)? 3 : 1;	// VSyncWait=ON時は1frame(1/60s)あたり3つ読むようにする
+					int looptime = (TJAPlayer3.ConfigIni.VSyncWait)? 3 : 1;	// VSyncWait=ON時は1frame(1/60s)あたり3つ読むようにする
 					for ( int i = 0; i < looptime && nWAVcount <= TJAPlayer3.DTX[0].listWAV.Count; i++ )
 					{
 						if ( TJAPlayer3.DTX[0].listWAV[ nWAVcount ].listこのWAVを使用するチャンネル番号の集合.Count > 0 )	// #28674 2012.5.8 yyagi
