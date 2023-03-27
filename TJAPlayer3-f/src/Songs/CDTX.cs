@@ -3053,7 +3053,6 @@ internal class CDTX : CActivity
 
 		#region[譜面]
 
-		int n読み込むコース = 3;
 		int n譜面数 = 0; //2017.07.22 kairera0467 tjaに含まれる譜面の数
 
 
@@ -3072,6 +3071,7 @@ internal class CDTX : CActivity
 				this.b譜面が存在する[i] = false;
 		}
 		#region[ 読み込ませるコースを決定 ]
+		int n読み込むコース = 3;
 		if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongLoading)//2020.05.12 Mr-Ojii 起動直後の曲読み込みでエラーを吐くので対策
 			n読み込むコース = TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayerSide];
 		if (this.b譜面が存在する[n読み込むコース] == false)
@@ -4516,8 +4516,6 @@ internal class CDTX : CActivity
 	}
 	private void t入力_行解析ヘッダ(string InputText)
 	{
-		//やべー。先頭にコメント行あったらやばいやん。
-		string[] strArray = InputText.Split(new char[] { ':' });
 		string strCommandName = "";
 		string strCommandParam = "";
 
@@ -4535,41 +4533,12 @@ internal class CDTX : CActivity
 			this.bPapaMamaSupport[this.n参照中の難易度] = true;
 		}
 
-		//まずは「:」でSplitして割り当てる。
-		if (strArray.Length == 2)
+		//2023.03.27 Mr-Ojii
+		//Splitだと':'が複数含まれていた場合、Length>2になってしまうため、自力でSplit
+		if (InputText.IndexOf(':') != -1)
 		{
-			strCommandName = strArray[0].Trim();
-			strCommandParam = strArray[1].Trim();
-		}
-		else if (strArray.Length > 2)
-		{
-			//strArrayが2じゃない場合、ヘッダのSplitを通していない可能性がある。
-			//この処理自体は「t入力」を改造したもの。STARTでSplitしていない等、一部の処理が異なる。
-
-			#region[ヘッダ]
-			InputText = InputText.Replace(Environment.NewLine, "\n"); //改行文字を別の文字列に差し替え。
-			InputText = InputText.Replace('\t', ' '); //何の文字か知らないけどスペースに差し替え。
-			InputText = InputText + "\n";
-
-			string[] strDelimiter = { "#START" };
-			strArray = InputText.Split(strDelimiter, StringSplitOptions.RemoveEmptyEntries);
-
-			string[] strDelimiter2 = { "\n" };
-			strArray = InputText.Split(strDelimiter2, StringSplitOptions.RemoveEmptyEntries);
-
-
-			strArray = strArray[0].Split(new char[] { ':' });
-
-			if (InputText.IndexOf(':') != -1)
-			{
-				strArray[0] = InputText.Substring(0, InputText.IndexOf(':'));//タイトル・サブタイトルに「:」が含まれている場合の対応
-				strArray[1] = InputText.Substring(InputText.IndexOf(':') + 1, InputText.Length - InputText.IndexOf(':') - 1);
-			}
-
-			strCommandName = strArray[0].Trim();
-			strCommandParam = strArray[1].Trim();
-
-			#endregion
+			strCommandName = InputText.Remove(InputText.IndexOf(':')).Trim();
+			strCommandParam = InputText.Remove(0, InputText.IndexOf(':') + 1).Trim(); //':'も含めてRemove
 		}
 
 		void ParseOptionalInt16(Action<short> setValue)
