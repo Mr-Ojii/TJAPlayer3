@@ -1239,8 +1239,8 @@ internal class CSkin : IDisposable
 			public int[] ScoreY { get; set; } = { 252, 546 };
 			public int[] JudgeX { get; set; } = { 815, 815 };
 			public int[] JudgeY { get; set; } = { 182, 476 };
-			public int[] GreatX { get; set; } = { 960, 960 };
-			public int[] GreatY { get; set; } = { 188, 482 };
+			public int[] PerfectX { get; set; } = { 960, 960 };
+			public int[] PerfectY { get; set; } = { 188, 482 };
 			public int[] GoodX { get; set; } = { 960, 960 };
 			public int[] GoodY { get; set; } = { 226, 520 };
 			public int[] BadX { get; set; } = { 960, 960 };
@@ -1291,8 +1291,8 @@ internal class CSkin : IDisposable
 			public int[] v2PanelY { get; set; } = { 0, 0 };
 			public int[] v2ScoreX { get; set; } = { 300, 940 };
 			public int[] v2ScoreY { get; set; } = { 240, 240 };
-			public int[] v2GreatX { get; set; } = { 560, 1200 };
-			public int[] v2GreatY { get; set; } = { 206, 206 };
+			public int[] v2PerfectX { get; set; } = { 560, 1200 };
+			public int[] v2PerfectY { get; set; } = { 206, 206 };
 			public int[] v2GoodX { get; set; } = { 560, 1200 };
 			public int[] v2GoodY { get; set; } = { 248, 248 };
 			public int[] v2BadX { get; set; } = { 560, 1200 };

@@ -536,14 +536,14 @@ class TextureLoader
 
 		Effects_GoGoSplash = TxC(GAME + EFFECTS + @"GoGoSplash.png");
 		if (Effects_GoGoSplash != null) Effects_GoGoSplash.eBlendMode = TJAPlayer3.Skin.SkinConfig.Game.Effect.GoGoSplash.AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
-		Effects_Hit_Great = new CTexture[15];
-		Effects_Hit_Great_Big = new CTexture[15];
+		Effects_Hit_Perfect = new CTexture[15];
+		Effects_Hit_Perfect_Big = new CTexture[15];
 		Effects_Hit_Good = new CTexture[15];
 		Effects_Hit_Good_Big = new CTexture[15];
 		for (int i = 0; i < 15; i++)
 		{
-			Effects_Hit_Great[i] = TxC(GAME + EFFECTS + @"Hit/" + @"Great/" + i.ToString() + ".png");
-			Effects_Hit_Great_Big[i] = TxC(GAME + EFFECTS + @"Hit/" + @"Great_Big/" + i.ToString() + ".png");
+			Effects_Hit_Perfect[i] = TxC(GAME + EFFECTS + @"Hit/" + @"Perfect/" + i.ToString() + ".png");
+			Effects_Hit_Perfect_Big[i] = TxC(GAME + EFFECTS + @"Hit/" + @"Perfect_Big/" + i.ToString() + ".png");
 			Effects_Hit_Good[i] = TxC(GAME + EFFECTS + @"Hit/" + @"Good/" + i.ToString() + ".png");
 			Effects_Hit_Good_Big[i] = TxC(GAME + EFFECTS + @"Hit/" + @"Good_Big/" + i.ToString() + ".png");
 		}
@@ -917,8 +917,8 @@ class TextureLoader
 		TJAPlayer3.t安全にDisposeする(ref Effects_Fire);
 		TJAPlayer3.t安全にDisposeする(ref Effects_Rainbow);
 		TJAPlayer3.t安全にDisposeする(ref Effects_GoGoSplash);
-		TJAPlayer3.t安全にDisposeする(ref Effects_Hit_Great);
-		TJAPlayer3.t安全にDisposeする(ref Effects_Hit_Great_Big);
+		TJAPlayer3.t安全にDisposeする(ref Effects_Hit_Perfect);
+		TJAPlayer3.t安全にDisposeする(ref Effects_Hit_Perfect_Big);
 		TJAPlayer3.t安全にDisposeする(ref Effects_Hit_Good);
 		TJAPlayer3.t安全にDisposeする(ref Effects_Hit_Good_Big);
 		TJAPlayer3.t安全にDisposeする(ref Effects_Roll);
@@ -1221,9 +1221,9 @@ class TextureLoader
 		Effects_Rainbow,
 		Effects_GoGoSplash,
 		Effects_Hit_FireWorks;
-	public CTexture[] Effects_Hit_Great,
+	public CTexture[] Effects_Hit_Perfect,
 		Effects_Hit_Good,
-		Effects_Hit_Great_Big,
+		Effects_Hit_Perfect_Big,
 		Effects_Hit_Good_Big;
 	public CTexture[] Effects_Roll;
 	#endregion

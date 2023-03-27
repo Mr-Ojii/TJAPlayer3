@@ -179,7 +179,7 @@ internal class CActResultParameterPanel : CActivity
 					TJAPlayer3.Tx.Result_v2_Gauge.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.v2GaugeBodyX[i], TJAPlayer3.Skin.SkinConfig.Result.v2GaugeBodyY[i], rec);
 				}
 
-				this.t小文字表示V2(TJAPlayer3.Skin.SkinConfig.Result.v2GreatX[i], TJAPlayer3.Skin.SkinConfig.Result.v2GreatY[i], TJAPlayer3.stageResult.cRecords[i].PerfectCount, false, EPhaseV2.Perfect, i);
+				this.t小文字表示V2(TJAPlayer3.Skin.SkinConfig.Result.v2PerfectX[i], TJAPlayer3.Skin.SkinConfig.Result.v2PerfectY[i], TJAPlayer3.stageResult.cRecords[i].PerfectCount, false, EPhaseV2.Perfect, i);
 				this.t小文字表示V2(TJAPlayer3.Skin.SkinConfig.Result.v2GoodX[i], TJAPlayer3.Skin.SkinConfig.Result.v2GoodY[i], TJAPlayer3.stageResult.cRecords[i].GoodCount, false, EPhaseV2.Good, i);
 				this.t小文字表示V2(TJAPlayer3.Skin.SkinConfig.Result.v2BadX[i], TJAPlayer3.Skin.SkinConfig.Result.v2BadY[i], TJAPlayer3.stageResult.cRecords[i].MissCount + TJAPlayer3.stageResult.cRecords[i].BadCount, false, EPhaseV2.Bad, i);
 				this.t小文字表示V2(TJAPlayer3.Skin.SkinConfig.Result.v2RollX[i], TJAPlayer3.Skin.SkinConfig.Result.v2RollY[i], TJAPlayer3.stageResult.cRecords[i].RollCount, false, EPhaseV2.Roll, i);
@@ -388,7 +388,7 @@ internal class CActResultParameterPanel : CActivity
 				}
 				//演奏中のやつ使いまわせなかった。ファック。
 				this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Result.ScoreX[i], TJAPlayer3.Skin.SkinConfig.Result.ScoreY[i], TJAPlayer3.stageResult.cRecords[i].Score, true, EPhase.Score, i);
-				this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Result.GreatX[i], TJAPlayer3.Skin.SkinConfig.Result.GreatY[i], TJAPlayer3.stageResult.cRecords[i].PerfectCount, false, EPhase.Perfect, i);
+				this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Result.PerfectX[i], TJAPlayer3.Skin.SkinConfig.Result.PerfectY[i], TJAPlayer3.stageResult.cRecords[i].PerfectCount, false, EPhase.Perfect, i);
 				this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Result.GoodX[i], TJAPlayer3.Skin.SkinConfig.Result.GoodY[i], TJAPlayer3.stageResult.cRecords[i].GoodCount, false, EPhase.Good, i);
 				this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Result.BadX[i], TJAPlayer3.Skin.SkinConfig.Result.BadY[i], TJAPlayer3.stageResult.cRecords[i].MissCount + TJAPlayer3.stageResult.cRecords[i].BadCount, false, EPhase.Bad, i);
 

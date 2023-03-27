@@ -745,10 +745,10 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 						case EJudge.Perfect:
 						case EJudge.AutoPerfect:
 							//this.txアタックエフェクトLower.t2D描画( CDTXMania.app.Device, 285, 127, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n, 260, 260 ) );
-							if (this.st状態[i].nIsBig == 1 && TJAPlayer3.Tx.Effects_Hit_Great_Big[this.st状態[i].ct進行.n現在の値] != null)
-								TJAPlayer3.Tx.Effects_Hit_Great_Big[this.st状態[i].ct進行.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[i] - TJAPlayer3.Tx.Effects_Hit_Great_Big[0].szTextureSize.Width / 2, TJAPlayer3.Skin.SkinConfig.Game.JudgePointY[i] - TJAPlayer3.Tx.Effects_Hit_Great_Big[0].szTextureSize.Width / 2);
-							else if (TJAPlayer3.Tx.Effects_Hit_Great[this.st状態[i].ct進行.n現在の値] != null)
-								TJAPlayer3.Tx.Effects_Hit_Great[this.st状態[i].ct進行.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[i] - TJAPlayer3.Tx.Effects_Hit_Great[0].szTextureSize.Width / 2, TJAPlayer3.Skin.SkinConfig.Game.JudgePointY[i] - TJAPlayer3.Tx.Effects_Hit_Great[0].szTextureSize.Width / 2);
+							if (this.st状態[i].nIsBig == 1 && TJAPlayer3.Tx.Effects_Hit_Perfect_Big[this.st状態[i].ct進行.n現在の値] != null)
+								TJAPlayer3.Tx.Effects_Hit_Perfect_Big[this.st状態[i].ct進行.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[i] - TJAPlayer3.Tx.Effects_Hit_Perfect_Big[0].szTextureSize.Width / 2, TJAPlayer3.Skin.SkinConfig.Game.JudgePointY[i] - TJAPlayer3.Tx.Effects_Hit_Perfect_Big[0].szTextureSize.Width / 2);
+							else if (TJAPlayer3.Tx.Effects_Hit_Perfect[this.st状態[i].ct進行.n現在の値] != null)
+								TJAPlayer3.Tx.Effects_Hit_Perfect[this.st状態[i].ct進行.n現在の値].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[i] - TJAPlayer3.Tx.Effects_Hit_Perfect[0].szTextureSize.Width / 2, TJAPlayer3.Skin.SkinConfig.Game.JudgePointY[i] - TJAPlayer3.Tx.Effects_Hit_Perfect[0].szTextureSize.Width / 2);
 							break;
 
 						case EJudge.Good:
