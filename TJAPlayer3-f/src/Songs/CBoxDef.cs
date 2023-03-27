@@ -12,23 +12,14 @@ internal class CBoxDef
 {
 	// プロパティ
 
-	public string Genre;
-	public string Title;
-	public Color ForeColor;
-	public Color BackColor;
+	public string Genre = "";
+	public string Title = "";
+	public Color ForeColor = Color.White;
+	public Color BackColor = Color.Black;
 
 	// コンストラクタ
 
-	public CBoxDef()
-	{
-		this.Title = "";
-		this.Genre = "";
-		ForeColor = Color.White;
-		BackColor = Color.Black;
-	}
-
 	public CBoxDef( string boxdefFileName )
-		: this()
 	{
 		Encoding boxdefEnc = CJudgeTextEncoding.JudgeFileEncoding(boxdefFileName);
 		using (StreamReader reader = new StreamReader(boxdefFileName, boxdefEnc))
