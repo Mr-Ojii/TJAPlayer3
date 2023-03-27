@@ -1076,7 +1076,6 @@ internal class CDTX : CActivity
 		if (!this.bヘッダのみ)
 		{
 			#region [ BPM/BMP初期化 ]
-			int ch;
 			CBPM cbpm = null;
 			foreach (CBPM cbpm2 in this.listBPM.Values)
 			{
@@ -1176,7 +1175,6 @@ internal class CDTX : CActivity
 			foreach (CChip chip in this.listChip)
 			{
 				if (chip.nチャンネル番号 == 0x02) { }
-				//else if( chip.nチャンネル番号 == 0x03 ){}
 				else if (chip.nチャンネル番号 == 0x01) { }
 				else if (chip.nチャンネル番号 == 0x08) { }
 				else if (chip.nチャンネル番号 >= 0x11 && chip.nチャンネル番号 <= 0x1F) { }
@@ -1186,21 +1184,20 @@ internal class CDTX : CActivity
 				else if (chip.nチャンネル番号 == 0x08) { }
 				else if (chip.nチャンネル番号 == 0xF1) { }
 				else if (chip.nチャンネル番号 == 0xFF) { }
-				else if (chip.nチャンネル番号 == 0xDD) { chip.n発声時刻ms = ms + ((int)(((625 * (chip.n発声位置 - n発声位置)) * this.dbBarLength) / bpm)); }
-				else if (chip.nチャンネル番号 == 0xDF) { chip.n発声時刻ms = ms + ((int)(((625 * (chip.n発声位置 - n発声位置)) * this.dbBarLength) / bpm)); }
+				else if (chip.nチャンネル番号 == 0xDD)
+					chip.n発声時刻ms = ms + ((int)(((625 * (chip.n発声位置 - n発声位置)) * this.dbBarLength) / bpm));
+				else if (chip.nチャンネル番号 == 0xDF)
+					chip.n発声時刻ms = ms + ((int)(((625 * (chip.n発声位置 - n発声位置)) * this.dbBarLength) / bpm));
 				else if (chip.nチャンネル番号 < 0x93)
 					chip.n発声時刻ms = ms + ((int)(((625 * (chip.n発声位置 - n発声位置)) * this.dbBarLength) / bpm));
 				else if ((chip.nチャンネル番号 > 0x9F && chip.nチャンネル番号 < 0xA0) || (chip.nチャンネル番号 >= 0xF0 && chip.nチャンネル番号 < 0xFE))
 					chip.n発声時刻ms = ms + ((int)(((625 * (chip.n発声位置 - n発声位置)) * this.dbBarLength) / bpm));
 				nBar = chip.n発声位置 / 384;
-				ch = chip.nチャンネル番号;
 
 				nCount++;
 				this.nNowRollCount++;
 
-
-
-				switch (ch)
+				switch (chip.nチャンネル番号)
 				{
 					case 0x01:  // BGM
 						{
@@ -1331,107 +1328,26 @@ internal class CDTX : CActivity
 								chip.n発声時刻ms += this.nOFFSET;
 							}
 
-							//chip.dbBPM = this.dbNowBPM;
-							//chip.dbSCROLL = this.dbNowSCROLL;
 							this.nNowRoll = this.nNowRollCount - 1;
-
-							//chip.nノーツ終了時刻ms = ms + ( (int) ( ( ( 0x271 * ( chip.nノーツ終了位置 - n発声位置 ) ) * dbBarLength ) / bpm ) );
-
-							#region[チップ番号を記録]
-							//switch(chip.nコース)
-							//{
-							//    case 0:
-							//        this.n連打チップ_temp[0] = this.nNowRoll;
-							//        this.dbSCROLL_temp[0] = this.dbNowSCROLL;
-							//        break;
-							//    case 1:
-							//        this.n連打チップ_temp[1] = this.nNowRoll;
-							//        this.dbSCROLL_temp[1] = this.dbNowSCROLL;
-							//        break;
-							//    case 2:
-							//        this.n連打チップ_temp[2] = this.nNowRoll;
-							//        this.dbSCROLL_temp[2] = this.dbNowSCROLL;
-							//        break;
-							//}
-
-							#endregion
 
 							continue;
 						}
 					case 0x9A:
 						{
-
 							if (this.bOFFSETの値がマイナスである)
 							{
 								chip.n発声時刻ms += this.nOFFSET;
 							}
-							//chip.n発声時刻ms += this.nDELAY;
-							//chip.dbBPM = this.dbNowBPM;
-							//chip.dbSCROLL = this.dbNowSCROLL;
-
-							#region[チップ番号を記録]
-							//風船は現時点では未実装のため処理しない。
-
-
-							//switch (chip.nコース)
-							//{
-							//    case 0:
-							//        if (this.listChip[this.n連打チップ_temp[0]].nチャンネル番号 == 0x99) break;
-							//        this.listChip[this.n連打チップ_temp[0]].nノーツ終了時刻ms = chip.n発声時刻ms;
-							//        this.listChip[this.n連打チップ_temp[0]].dbSCROLL = this.dbSCROLL_temp[0];
-							//        break;
-							//    case 1:
-							//        if (this.listChip[this.n連打チップ_temp[1]].nチャンネル番号 == 0x99) break;
-							//        this.listChip[this.n連打チップ_temp[1]].nノーツ終了時刻ms = chip.n発声時刻ms;
-							//        this.listChip[this.n連打チップ_temp[1]].dbSCROLL = this.dbSCROLL_temp[1];
-							//        break;
-							//    case 2:
-							//        if (this.listChip[this.n連打チップ_temp[2]].nチャンネル番号 == 0x99) break;
-							//        this.listChip[this.n連打チップ_temp[2]].nノーツ終了時刻ms = chip.n発声時刻ms;
-							//        this.listChip[this.n連打チップ_temp[2]].dbSCROLL = this.dbSCROLL_temp[2];
-							//        break;
-							//}
-
-							#endregion
-
-							//this.listChip[this.nNowRoll].nノーツ終了時刻ms = chip.n発声時刻ms;
-							//this.listChip[this.nNowRoll].dbSCROLL = this.dbNowSCROLL;
-							//this.listChip[this.nNowRoll].dbBPM = this.dbNowBPM;
 							continue;
 						}
 					case 0x9D:
 						{
-							//if ( this.listSCROLL.ContainsKey( chip.n整数値_内部番号 ) )
-							//{
-							//this.dbNowSCROLL = ( ( this.listSCROLL[ chip.n整数値_内部番号 ].n表記上の番号 == 0 ) ? 0.0 : 1.0 ) + this.listSCROLL[ chip.n整数値_内部番号 ].dbSCROLL値;
-							//}
-
-							//switch (chip.nコース)
-							//{
-							//    case 0:
-							//        this.dbNowSCROLL_Normal = this.dbNowSCROLL;
-							//        this.n現在のコース = 0;
-							//        break;
-							//    case 1:
-							//        this.dbNowSCROLL_Expert = this.dbNowSCROLL;
-							//        this.n現在のコース = 1;
-							//        break;
-							//    case 2:
-							//        this.dbNowSCROLL_Master = this.dbNowSCROLL;
-							//        this.n現在のコース = 2;
-							//        break;
-							//}
-
 							continue;
 						}
 					case 0xDC:
 						{
 							if (this.bOFFSETの値がマイナスである)
 								chip.n発声時刻ms += this.nOFFSET;
-							//if ( this.listDELAY.ContainsKey( chip.n整数値_内部番号 ) )
-							//{
-							//    this.nDELAY = ( ( this.listDELAY[ chip.n整数値_内部番号 ].n表記上の番号 == 0 ) ? 0 : 0 ) + this.listDELAY[ chip.n整数値_内部番号 ].nDELAY値;
-							//}
 							continue;
 						}
 					case 0xDE:
@@ -1460,11 +1376,6 @@ internal class CDTX : CActivity
 						{
 							if (this.bOFFSETの値がマイナスである)
 								chip.n発声時刻ms += this.nOFFSET;
-							//if ( this.listBRANCH.ContainsKey( chip.n整数値_内部番号 ) )
-							//{
-							//this.listBRANCH[chip.n整数値_内部番号].db分岐時間ms = chip.n発声時刻ms + ( this.bOFFSETの値がマイナスである ? this.nOFFSET : 0 );
-							//}
-
 							continue;
 						}
 					case 0xE0:
@@ -1475,9 +1386,7 @@ internal class CDTX : CActivity
 						{
 							if (this.bOFFSETの値がマイナスである)
 								chip.n発声時刻ms += this.nOFFSET;
-							//chip.n発声時刻ms += this.nDELAY;
 							chip.dbBPM = this.dbNowBPM;
-							//chip.dbSCROLL = this.dbNowSCROLL;
 							continue;
 						}
 				}

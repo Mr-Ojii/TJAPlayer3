@@ -2837,19 +2837,12 @@ internal class CStage演奏画面共通 : CStage
 				if( cChipCurrentlyInProcess.nチャンネル番号 >= 0x13 && cChipCurrentlyInProcess.nチャンネル番号 <= 0x15 )//|| pChip.nチャンネル番号 == 0x9A )
 				{
 					if ( ( ( cChipCurrentlyInProcess.nバーからの距離dot < -500 ) && ( cChipCurrentlyInProcess.n発声時刻ms <= n現在時刻ms && cChipCurrentlyInProcess.cEndChip.n発声時刻ms >= n現在時刻ms ) ) )
-						//( ( chip現在処理中の連打チップ.nバーからのノーツ末端距離dot.Taiko < -500 ) && ( chip現在処理中の連打チップ.n発声時刻ms <= CSoundManager.rc演奏用タイマ.n現在時刻ms && chip現在処理中の連打チップ.nノーツ終了時刻ms >= CSoundManager.rc演奏用タイマ.n現在時刻ms ) ) )
-						//( ( pChip.n発声時刻ms <= CSoundManager.rc演奏用タイマ.n現在時刻ms && pChip.nノーツ終了時刻ms >= CSoundManager.rc演奏用タイマ.n現在時刻ms ) ) )
 					{
 						if(TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer])
 							this.tチップのヒット処理( n現在時刻ms, cChipCurrentlyInProcess, false, 0, nPlayer );
 					}
 				}
 			}
-
-			//if((!pChip.bHit || pChip.bShow) && (pChip.nバーからの距離dot.Drums < 0))
-			//{
-			//    NowProcessingChip[pChip.nPlayerSide] = nCurrentTopChip;
-			//}
 
 			if(pChip.nPlayerSide == nPlayer && pChip.n発声時刻ms >= n現在時刻ms)
 			{
@@ -3082,10 +3075,6 @@ internal class CStage演奏画面共通 : CStage
 					{
 						pChip.bHit = true;
 					}
-					//太鼓では拍線を使わない。
-					//this.txチップ.t2D描画( CDTXMania.app.Device, 295, configIni.bReverse.Drums ? ( ( 0x38 + pChip.nバーからの距離dot.Drums ) - 1 ) : ( ( 567 - pChip.nバーからの距離dot.Drums ) - 1 ), new Rectangle( 0, 772, 559, 2 ) );
-
-					//this.t進行描画_チップ_小節線( configIni, ref dTX, ref pChip );
 					break;
 #endregion
 #region [ 54: 動画再生 ]
