@@ -31,7 +31,7 @@
 
 ## SkinConfig
 フェーズの追加や仕様変更により、SkinConfigにも変更点があります。  
-詳しくは``About_SkinConfig.ini.toml``で説明いたします。
+詳しくは``About_SkinConfig.toml``で説明いたします。
 
 ## SortConfig
 ジャンルソートの種類を記述します。  
