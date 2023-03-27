@@ -2993,25 +2993,6 @@ internal class CDTX : CActivity
 		#endregion
 	}
 
-	//現在、以下のような行には対応できていません。
-	//_パラメータを持つ命令がある
-	//_行の途中に命令がある
-	private int t文字数解析(string InputText)
-	{
-		int n文字数 = 0;
-
-		for (int i = 0; i < InputText.Length; i++)
-		{
-			if (this.CharConvertNote(InputText.Substring(i, 1)) != -1)
-			{
-				n文字数++;
-			}
-		}
-
-
-		return n文字数;
-	}
-
 	private static readonly Regex CommandAndArgumentRegex =
 		new Regex(@"^(#[A-Z]+)(?:\s?)(.+?)?$", RegexOptions.Compiled);
 
