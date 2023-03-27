@@ -84,29 +84,6 @@ internal class TJAPlayer3 : Game
 		get;
 		private set;
 	}
-	#region [ 入力範囲ms ]
-	public static int nPerfect範囲ms
-	{
-		get
-		{
-			return ConfigIni.nヒット範囲ms.Perfect;
-		}
-	}
-	public static int nGood範囲ms
-	{
-		get
-		{
-			return ConfigIni.nヒット範囲ms.Good;
-		}
-	}
-	public static int nBad範囲ms
-	{
-		get
-		{
-			return ConfigIni.nヒット範囲ms.Bad;
-		}
-	}
-	#endregion
 	public static CPad Pad
 	{
 		get;

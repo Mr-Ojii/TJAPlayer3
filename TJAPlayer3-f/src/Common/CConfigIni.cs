@@ -376,7 +376,7 @@ internal class CConfigIni : INotifyPropertyChanged
 	public bool SendDiscordPlayingInformation;
 
 	#region [ STRANGE ]
-	public STRANGE nヒット範囲ms;
+	public STRANGE HitRange;
 	[StructLayout( LayoutKind.Sequential )]
 	public struct STRANGE
 	{
@@ -470,10 +470,10 @@ internal class CConfigIni : INotifyPropertyChanged
 		this.bAuto先生の連打 = true;
 		this.nAuto先生の連打速度 = 67;
 		#endregion
-		this.nヒット範囲ms = new STRANGE();
-		this.nヒット範囲ms.Perfect = 25; //そこらへんから拾ってきた判定の値
-		this.nヒット範囲ms.Good = 75;
-		this.nヒット範囲ms.Bad = 108;
+		this.HitRange = new STRANGE();
+		this.HitRange.Perfect = 25; //そこらへんから拾ってきた判定の値
+		this.HitRange.Good = 75;
+		this.HitRange.Bad = 108;
 		this.ConfigIniファイル名 = "";
 		this.dicJoystick = new Dictionary<int, string>( 10 );
 		this.tデフォルトのキーアサインに設定する();
@@ -829,9 +829,9 @@ internal class CConfigIni : INotifyPropertyChanged
 		sw.WriteLine("[HitRange]");
 		sw.WriteLine();
 		sw.WriteLine("; Perfect～Bad とみなされる範囲[ms]");
-		sw.WriteLine("Perfect={0}", this.nヒット範囲ms.Perfect);
-		sw.WriteLine("Good={0}", this.nヒット範囲ms.Good);
-		sw.WriteLine("Bad={0}", this.nヒット範囲ms.Bad);
+		sw.WriteLine("Perfect={0}", this.HitRange.Perfect);
+		sw.WriteLine("Good={0}", this.HitRange.Good);
+		sw.WriteLine("Bad={0}", this.HitRange.Bad);
 		sw.WriteLine();
 		sw.WriteLine(";-------------------");
 #endregion
@@ -1386,15 +1386,15 @@ internal class CConfigIni : INotifyPropertyChanged
 							case Eセクション種別.HitRange:
 								if (str3.Equals("Perfect"))
 								{
-									this.nヒット範囲ms.Perfect = str4.ToInt32(0, 0x3e7, this.nヒット範囲ms.Perfect);
+									this.HitRange.Perfect = str4.ToInt32(0, 0x3e7, this.HitRange.Perfect);
 								}
 								else if (str3.Equals("Good"))
 								{
-									this.nヒット範囲ms.Good = str4.ToInt32(0, 0x3e7, this.nヒット範囲ms.Good);
+									this.HitRange.Good = str4.ToInt32(0, 0x3e7, this.HitRange.Good);
 								}
 								else if (str3.Equals("Bad"))
 								{
-									this.nヒット範囲ms.Bad = str4.ToInt32(0, 0x3e7, this.nヒット範囲ms.Bad);
+									this.HitRange.Bad = str4.ToInt32(0, 0x3e7, this.HitRange.Bad);
 								}
 								continue;
 							//-----------------------------
@@ -1499,20 +1499,6 @@ internal class CConfigIni : INotifyPropertyChanged
 									{
 										this.eScrollMode = (EScrollMode)str4.ToInt32(0, 2, 0);
 									}
-#region [ Invisible ]
-									//else if ( str3.Equals( "DrumsInvisible" ) )
-									//{
-									//	this.eInvisible = (EInvisible) CConvert.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, 0, 2, (int) this.eInvisible );
-									//}
-									//else if ( str3.Equals( "InvisibleDisplayTimeMs" ) )
-									//{
-									//    this.nDisplayTimesMs = CConvert.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, 0, 9999999, (int) this.nDisplayTimesMs );
-									//}
-									//else if ( str3.Equals( "InvisibleFadeoutTimeMs" ) )
-									//{
-									//    this.nFadeoutTimeMs = CConvert.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, 0, 9999999, (int) this.nFadeoutTimeMs );
-									//}
-#endregion
 									else if( str3.Equals( "1PDrumsScrollSpeed" ) )
 									{
 										this.n譜面スクロール速度[0] = str4.ToInt32(0, 0x7cf, this.n譜面スクロール速度[0]);

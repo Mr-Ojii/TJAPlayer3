@@ -129,9 +129,9 @@ internal class CStage演奏画面共通 : CStage
 		Record.Random = TJAPlayer3.ConfigIni.eRandom[nPlayer];
 		Record.ScrollSpeed = (TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer] + 1) * 0.1;
 		Record.PlaySpeed = TJAPlayer3.ConfigIni.n演奏速度 / 20.0;
-		Record.PerfectRange = TJAPlayer3.nPerfect範囲ms;
-		Record.GoodRange = TJAPlayer3.nGood範囲ms;
-		Record.BadRange = TJAPlayer3.nBad範囲ms;
+		Record.PerfectRange = TJAPlayer3.ConfigIni.HitRange.Perfect;
+		Record.GoodRange = TJAPlayer3.ConfigIni.HitRange.Good;
+		Record.BadRange = TJAPlayer3.ConfigIni.HitRange.Bad;
 		Record.PerfectCount = this.nヒット数[nPlayer].Perfect;
 		Record.GoodCount = this.nヒット数[nPlayer].Good;
 		Record.BadCount = this.nヒット数[nPlayer].Bad;
@@ -939,17 +939,17 @@ internal class CStage演奏画面共通 : CStage
 					return EJudge.Perfect;
 				}
 			}
-			if ( nDeltaTime <= TJAPlayer3.nPerfect範囲ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))
+			if ( nDeltaTime <= TJAPlayer3.ConfigIni.HitRange.Perfect * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))
 			{
 				return EJudge.Perfect;
 			}
-			if ( nDeltaTime <= TJAPlayer3.nGood範囲ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))
+			if ( nDeltaTime <= TJAPlayer3.ConfigIni.HitRange.Good * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))
 			{
 				if( TJAPlayer3.ConfigIni.bJust )
 					return EJudge.Bad;
 				return EJudge.Good;
 			}
-			if ( nDeltaTime <= TJAPlayer3.nBad範囲ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))
+			if ( nDeltaTime <= TJAPlayer3.ConfigIni.HitRange.Bad * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))
 			{
 				return EJudge.Bad;
 			}
