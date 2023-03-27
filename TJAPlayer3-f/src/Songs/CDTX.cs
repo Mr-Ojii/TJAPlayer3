@@ -358,7 +358,6 @@ internal class CDTX : CActivity
 		public int n表記上の番号;
 		public CSound rSound = null;
 		public string strFilename = "";
-		public bool bIsBGMSound = false;
 
 		public override string ToString()
 		{
@@ -1425,7 +1424,6 @@ internal class CDTX : CActivity
 				if ((chip.nチャンネル番号 == 0x01 && this.listWAV.TryGetValue(chip.n整数値_内部番号, out CWAV cwav)) && !cwav.bUse)
 				{
 					cwav.bUse = true;
-					cwav.bIsBGMSound = true;
 				}
 			}
 			#endregion

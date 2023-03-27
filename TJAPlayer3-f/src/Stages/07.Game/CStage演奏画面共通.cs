@@ -3892,7 +3892,7 @@ internal class CStage演奏画面共通 : CStage
 					bool b = dTX.listWAV.TryGetValue(pChip.n整数値_内部番号, out wc);
 					if (!b) continue;
 
-					if ((wc.bIsBGMSound && TJAPlayer3.ConfigIni.bBGM音を発声する) || (!wc.bIsBGMSound))
+					if ((wc.bUse && TJAPlayer3.ConfigIni.bBGM音を発声する))
 					{
 						TJAPlayer3.DTX[0].tチップの再生(pChip, (long)(CSoundManager.rc演奏用タイマ.n前回リセットした時のシステム時刻ms) + (long)(n発声時刻ms));
 #region [ PAUSEする ]
