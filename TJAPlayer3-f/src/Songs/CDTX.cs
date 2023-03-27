@@ -146,7 +146,6 @@ internal class CDTX : CActivity
 		public int n整数値;
 		public int n整数値_内部番号;
 		public int n発声位置;
-		public double db発声位置;  // 発声時刻を格納していた変数のうちの１つをfloat型からdouble型に変更。(kairera0467)
 		public double fBMSCROLLTime;
 		public int n発声時刻ms;
 		public double db発声時刻ms;
@@ -251,29 +250,13 @@ internal class CDTX : CActivity
 
 			if (this.nチャンネル番号 == 0x01)       // WAV
 			{
-				CDTX.CWAV wc;
-				TJAPlayer3.DTX[0].listWAV.TryGetValue(this.n整数値_内部番号, out wc);
-				if (wc == null)
-				{
-					nDuration = 0;
-				}
-				else
-				{
+				if (TJAPlayer3.DTX[0].listWAV.TryGetValue(this.n整数値_内部番号, out var wc))
 					nDuration = (wc.rSound == null) ? 0 : wc.rSound.nDurationms;
-				}
 			}
 			else if (this.nチャンネル番号 == 0x54) 
 			{
-				CVideoDecoder wc;
-				TJAPlayer3.DTX[0].listVD.TryGetValue(this.n整数値_内部番号, out wc);
-				if (wc == null)
-				{
-					nDuration = 0;
-				}
-				else
-				{
+				if (TJAPlayer3.DTX[0].listVD.TryGetValue(this.n整数値_内部番号, out var wc))
 					nDuration = (int)(wc.Duration * 1000);
-				}
 			}
 
 			return (int)nDuration;
@@ -442,56 +425,6 @@ internal class CDTX : CActivity
 		public Image<Rgba32> TextTex;
 		public string Text;
 		public int index;
-	}
-
-	// 構造体
-
-	public struct STLANEINT
-	{
-		public int Taiko_Red;
-		public int Taiko_Blue;
-
-		public int Drums
-		{
-			get
-			{
-				return this.Taiko_Red + this.Taiko_Blue;
-			}
-		}
-
-		public int this[int index]
-		{
-			get
-			{
-				switch (index)
-				{
-					case 0:
-						return this.Taiko_Red;
-
-					case 1:
-						return this.Taiko_Blue;
-				}
-				throw new IndexOutOfRangeException();
-			}
-			set
-			{
-				if (value < 0)
-				{
-					throw new ArgumentOutOfRangeException();
-				}
-				switch (index)
-				{
-					case 0:
-						this.Taiko_Red = value;
-						return;
-
-					case 1:
-						this.Taiko_Blue = value;
-						return;
-				}
-				throw new IndexOutOfRangeException();
-			}
-		}
 	}
 
 	public class CLine
@@ -1061,380 +994,377 @@ internal class CDTX : CActivity
 
 	private void チップについての共通部分(int nBGMAdjust)
 	{
-		#region[コピペ]
-		if (!this.bヘッダのみ)
+		if (this.bヘッダのみ)
+			return;
+
+		#region [ BPM/BMP初期化 ]
+		CBPM cbpm = null;
+		foreach (CBPM cbpm2 in this.listBPM.Values)
 		{
-			#region [ BPM/BMP初期化 ]
-			CBPM cbpm = null;
-			foreach (CBPM cbpm2 in this.listBPM.Values)
+			if (cbpm2.n表記上の番号 == 0)
 			{
-				if (cbpm2.n表記上の番号 == 0)
-				{
-					cbpm = cbpm2;
-					break;
-				}
+				cbpm = cbpm2;
+				break;
 			}
-			if (cbpm == null)
-			{
-				cbpm = new CBPM();
-				cbpm.n内部番号 = this.n内部番号BPM1to++;
-				cbpm.n表記上の番号 = 0;
-				cbpm.dbBPM値 = 120.0;
-				this.listBPM.Add(cbpm.n内部番号, cbpm);
-				CChip chip = new CChip();
-				chip.n発声位置 = 0;
-				chip.nチャンネル番号 = 8;      // 拡張BPM
-				chip.n整数値 = 0;
-				chip.n整数値_内部番号 = cbpm.n内部番号;
-				this.listChip.Insert(0, chip);
-			}
-			else
-			{
-				CChip chip = new CChip();
-				chip.n発声位置 = 0;
-				chip.nチャンネル番号 = 8;      // 拡張BPM
-				chip.n整数値 = 0;
-				chip.n整数値_内部番号 = cbpm.n内部番号;
-				this.listChip.Insert(0, chip);
-			}
-			#endregion
-
-			#region [ 拍子_拍線の挿入 ]
-			if (this.listChip.Count > 0)
-			{
-				this.listChip.Sort();       // 高速化のためにはこれを削りたいが、listChipの最後がn発声位置の終端である必要があるので、
-											// 保守性確保を優先してここでのソートは残しておく
-											// なお、093時点では、このソートを削除しても動作するようにはしてある。
-											// (ここまでの一部チップ登録を、listChip.Add(c)から同Insert(0,c)に変更してある)
-											// これにより、数ms程度ながらここでのソートも高速化されている。
-			}
-			#endregion
-
-			#region [ C2 [拍線_小節線表示指定] の処理 ]		// #28145 2012.4.21 yyagi; 2重ループをほぼ1重にして高速化
-			bool bShowBeatBarLine = true;
-			for (int i = 0; i < this.listChip.Count; i++)
-			{
-				bool bChangedBeatBarStatus = false;
-				if ((this.listChip[i].nチャンネル番号 == 0xc2))
-				{
-					if (this.listChip[i].n整数値 == 1)             // BAR/BEAT LINE = ON
-					{
-						bShowBeatBarLine = true;
-						bChangedBeatBarStatus = true;
-					}
-					else if (this.listChip[i].n整数値 == 2)            // BAR/BEAT LINE = OFF
-					{
-						bShowBeatBarLine = false;
-						bChangedBeatBarStatus = true;
-					}
-				}
-				int startIndex = i;
-				if (bChangedBeatBarStatus)                          // C2チップの前に50/51チップが来ている可能性に配慮
-				{
-					while (startIndex > 0 && this.listChip[startIndex].n発声位置 == this.listChip[i].n発声位置)
-					{
-						startIndex--;
-					}
-					startIndex++;   // 1つ小さく過ぎているので、戻す
-				}
-				for (int j = startIndex; j <= i; j++)
-				{
-					if (((this.listChip[j].nチャンネル番号 == 0x50) || (this.listChip[j].nチャンネル番号 == 0x51)) &&
-						(this.listChip[j].n整数値 == (36 * 36 - 1)))
-					{
-						this.listChip[j].b可視 = bShowBeatBarLine;
-					}
-				}
-			}
-			#endregion
-
-			this.n内部番号JSCROLL1to = 0;
-			#region [ 発声時刻の計算 ]
-			double bpm = 120.0;
-			//double dbBarLength = 1.0;
-			int n発声位置 = 0;
-			int ms = 0;
-			int nBar = 0;
-			int nCount = 0;
-			this.nNowRollCount = 0;
-
-			List<STLYRIC> tmplistlyric = new List<STLYRIC>();
-			int BGM番号 = 0;
-
-			foreach (CChip chip in this.listChip)
-			{
-				if (chip.nチャンネル番号 == 0x02) { }
-				else if (chip.nチャンネル番号 == 0x01) { }
-				else if (chip.nチャンネル番号 == 0x08) { }
-				else if (chip.nチャンネル番号 >= 0x11 && chip.nチャンネル番号 <= 0x1F) { }
-				else if (chip.nチャンネル番号 == 0x50) { }
-				else if (chip.nチャンネル番号 == 0x51) { }
-				else if (chip.nチャンネル番号 == 0x54) { }
-				else if (chip.nチャンネル番号 == 0x08) { }
-				else if (chip.nチャンネル番号 == 0xF1) { }
-				else if (chip.nチャンネル番号 == 0xFF) { }
-				else if (chip.nチャンネル番号 == 0xDD)
-					chip.n発声時刻ms = ms + ((int)(((625 * (chip.n発声位置 - n発声位置)) * this.dbBarLength) / bpm));
-				else if (chip.nチャンネル番号 == 0xDF)
-					chip.n発声時刻ms = ms + ((int)(((625 * (chip.n発声位置 - n発声位置)) * this.dbBarLength) / bpm));
-				else if (chip.nチャンネル番号 < 0x93)
-					chip.n発声時刻ms = ms + ((int)(((625 * (chip.n発声位置 - n発声位置)) * this.dbBarLength) / bpm));
-				else if ((chip.nチャンネル番号 > 0x9F && chip.nチャンネル番号 < 0xA0) || (chip.nチャンネル番号 >= 0xF0 && chip.nチャンネル番号 < 0xFE))
-					chip.n発声時刻ms = ms + ((int)(((625 * (chip.n発声位置 - n発声位置)) * this.dbBarLength) / bpm));
-				nBar = chip.n発声位置 / 384;
-
-				nCount++;
-				this.nNowRollCount++;
-
-				switch (chip.nチャンネル番号)
-				{
-					case 0x01:  // BGM
-						{
-							n発声位置 = chip.n発声位置;
-
-							if (this.bOFFSETの値がマイナスである == false)
-								chip.n発声時刻ms += this.nOFFSET;
-							ms = chip.n発声時刻ms;
-
-							#region[listlyric2の時間合わせ]
-							for (int ind = 0; ind < listLyric2.Count; ind++)
-							{
-								if (listLyric2[ind].index == BGM番号)
-								{
-									STLYRIC lyrictmp = this.listLyric2[ind];
-
-									lyrictmp.Time += chip.n発声時刻ms;
-
-									tmplistlyric.Add(lyrictmp);
-								}
-							}
-
-
-							BGM番号++;
-							#endregion
-							continue;
-						}
-					case 0x02:  // BarLength
-						{
-							n発声位置 = chip.n発声位置;
-							if (this.bOFFSETの値がマイナスである == false)
-								chip.n発声時刻ms += this.nOFFSET;
-							ms = chip.n発声時刻ms;
-							dbBarLength = chip.db実数値;
-							continue;
-						}
-					case 0x03:  // BPM
-						{
-							n発声位置 = chip.n発声位置;
-							if (this.bOFFSETの値がマイナスである == false)
-								chip.n発声時刻ms += this.nOFFSET;
-							ms = chip.n発声時刻ms;
-							bpm = this.BASEBPM + chip.n整数値;
-							this.dbNowBPM = bpm;
-							continue;
-						}
-					case 0x04:  // BGA (レイヤBGA1)
-					case 0x07:  // レイヤBGA2
-						break;
-
-					case 0x15:
-					case 0x16:
-					case 0x17:
-						{
-							if (this.bOFFSETの値がマイナスである)
-							{
-								chip.n発声時刻ms += this.nOFFSET;
-							}
-
-							this.nNowRoll = this.nNowRollCount - 1;
-							continue;
-						}
-					case 0x18:
-						{
-							if (this.bOFFSETの値がマイナスである)
-							{
-								chip.n発声時刻ms += this.nOFFSET;
-							}
-							continue;
-						}
-
-					case 0x55:
-					case 0x56:
-					case 0x57:
-					case 0x58:
-					case 0x59:
-					case 0x60:
-						break;
-
-					case 0x50:
-						{
-							if (this.bOFFSETの値がマイナスである)
-								chip.n発声時刻ms += this.nOFFSET;
-
-							continue;
-						}
-
-					case 0x05:  // Extended Object (非対応)
-					case 0x06:  // Missアニメ (非対応)
-					case 0x5A:  // 未定義
-					case 0x5b:  // 未定義
-					case 0x5c:  // 未定義
-					case 0x5d:  // 未定義
-					case 0x5e:  // 未定義
-					case 0x5f:  // 未定義
-						{
-							continue;
-						}
-					case 0x08:  // 拡張BPM
-						{
-							n発声位置 = chip.n発声位置;
-							if (this.bOFFSETの値がマイナスである == false)
-								chip.n発声時刻ms += this.nOFFSET;
-							ms = chip.n発声時刻ms;
-							if (this.listBPM.TryGetValue(chip.n整数値_内部番号, out CBPM cBPM))
-							{
-								bpm = (cBPM.n表記上の番号 == 0 ? 0.0 : this.BASEBPM) + cBPM.dbBPM値;
-								this.dbNowBPM = bpm;
-							}
-							continue;
-						}
-					case 0x54:  // 動画再生
-						{
-							if (this.bOFFSETの値がマイナスである == false)
-								chip.n発声時刻ms += this.nOFFSET;
-							if (this.bMOVIEOFFSETの値がマイナスである == false)
-								chip.n発声時刻ms += this.nMOVIEOFFSET;
-							else
-								chip.n発声時刻ms -= this.nMOVIEOFFSET;
-							continue;
-						}
-					case 0x97:
-					case 0x98:
-					case 0x99:
-						{
-							if (this.bOFFSETの値がマイナスである)
-							{
-								chip.n発声時刻ms += this.nOFFSET;
-							}
-
-							this.nNowRoll = this.nNowRollCount - 1;
-
-							continue;
-						}
-					case 0x9A:
-						{
-							if (this.bOFFSETの値がマイナスである)
-							{
-								chip.n発声時刻ms += this.nOFFSET;
-							}
-							continue;
-						}
-					case 0x9D:
-						{
-							continue;
-						}
-					case 0xDC:
-						{
-							if (this.bOFFSETの値がマイナスである)
-								chip.n発声時刻ms += this.nOFFSET;
-							continue;
-						}
-					case 0xDE:
-						{
-							if (this.bOFFSETの値がマイナスである)
-							{
-								chip.n発声時刻ms += this.nOFFSET;
-								if (this.listBRANCH.ContainsKey(chip.n整数値_内部番号))
-								{
-									this.listBRANCH[chip.n整数値_内部番号].db分岐時刻ms += this.nOFFSET; 
-								}
-							}
-							this.n現在のコース = chip.nコース;
-							continue;
-						}
-					case 0x52: //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
-						{
-							if (this.bOFFSETの値がマイナスである)
-							{
-								chip.n発声時刻ms += this.nOFFSET;
-							}
-							this.n現在のコース = chip.nコース;
-							continue;
-						}
-					case 0xDF:
-						{
-							if (this.bOFFSETの値がマイナスである)
-								chip.n発声時刻ms += this.nOFFSET;
-							continue;
-						}
-					case 0xE0:
-						{
-							continue;
-						}
-					default:
-						{
-							if (this.bOFFSETの値がマイナスである)
-								chip.n発声時刻ms += this.nOFFSET;
-							chip.dbBPM = this.dbNowBPM;
-							continue;
-						}
-				}
-			}
-			#endregion
-
-			#region[listlyricを時間順に並び替え。]
-			this.listLyric2 = tmplistlyric;
-			this.listLyric2.Sort((a, b) => a.Time.CompareTo(b.Time));
-			#endregion
-
-			this.nBGMAdjust = 0;
-			this.t各自動再生音チップの再生時刻を変更する(nBGMAdjust);
-
-			#region [ チップの種類を分類し、対応するフラグを立てる ]
-			foreach (CChip chip in this.listChip)
-			{
-				if ((chip.nチャンネル番号 == 0x01 && this.listWAV.TryGetValue(chip.n整数値_内部番号, out CWAV cwav)) && !cwav.bUse)
-				{
-					cwav.bUse = true;
-				}
-			}
-			#endregion
-
-			#region[ seNotes計算 ]
-			if (this.listBRANCH.Count != 0)
-				this.tSetSenotes_branch();
-			else
-				this.tSetSenotes();
-
-			#endregion
-			#region [ bLogDTX詳細ログ出力 ]
-			if (TJAPlayer3.ConfigIni.bLogDTX詳細ログ出力)
-			{
-				foreach (CWAV cwav in this.listWAV.Values)
-				{
-					Trace.TraceInformation(cwav.ToString());
-				}
-				foreach (CBPM cbpm3 in this.listBPM.Values)
-				{
-					Trace.TraceInformation(cbpm3.ToString());
-				}
-				foreach (CChip chip in this.listChip)
-				{
-					Trace.TraceInformation(chip.ToString());
-				}
-			}
-			#endregion
-
-			int n整数値管理 = 0;
-			foreach (CChip chip in this.listChip)
-			{
-				if (chip.nチャンネル番号 != 0x54)
-					chip.n整数値 = n整数値管理;
-				n整数値管理++;
-			}
-
+		}
+		if (cbpm == null)
+		{
+			cbpm = new CBPM();
+			cbpm.n内部番号 = this.n内部番号BPM1to++;
+			cbpm.n表記上の番号 = 0;
+			cbpm.dbBPM値 = 120.0;
+			this.listBPM.Add(cbpm.n内部番号, cbpm);
+			CChip chip = new CChip();
+			chip.n発声位置 = 0;
+			chip.nチャンネル番号 = 8;      // 拡張BPM
+			chip.n整数値 = 0;
+			chip.n整数値_内部番号 = cbpm.n内部番号;
+			this.listChip.Insert(0, chip);
+		}
+		else
+		{
+			CChip chip = new CChip();
+			chip.n発声位置 = 0;
+			chip.nチャンネル番号 = 8;      // 拡張BPM
+			chip.n整数値 = 0;
+			chip.n整数値_内部番号 = cbpm.n内部番号;
+			this.listChip.Insert(0, chip);
 		}
 		#endregion
+
+		#region [ 拍子_拍線の挿入 ]
+		if (this.listChip.Count > 0)
+		{
+			this.listChip.Sort();       // 高速化のためにはこれを削りたいが、listChipの最後がn発声位置の終端である必要があるので、
+										// 保守性確保を優先してここでのソートは残しておく
+										// なお、093時点では、このソートを削除しても動作するようにはしてある。
+										// (ここまでの一部チップ登録を、listChip.Add(c)から同Insert(0,c)に変更してある)
+										// これにより、数ms程度ながらここでのソートも高速化されている。
+		}
+		#endregion
+
+		#region [ C2 [拍線_小節線表示指定] の処理 ]		// #28145 2012.4.21 yyagi; 2重ループをほぼ1重にして高速化
+		bool bShowBeatBarLine = true;
+		for (int i = 0; i < this.listChip.Count; i++)
+		{
+			bool bChangedBeatBarStatus = false;
+			if ((this.listChip[i].nチャンネル番号 == 0xc2))
+			{
+				if (this.listChip[i].n整数値 == 1)             // BAR/BEAT LINE = ON
+				{
+					bShowBeatBarLine = true;
+					bChangedBeatBarStatus = true;
+				}
+				else if (this.listChip[i].n整数値 == 2)            // BAR/BEAT LINE = OFF
+				{
+					bShowBeatBarLine = false;
+					bChangedBeatBarStatus = true;
+				}
+			}
+			int startIndex = i;
+			if (bChangedBeatBarStatus)                          // C2チップの前に50/51チップが来ている可能性に配慮
+			{
+				while (startIndex > 0 && this.listChip[startIndex].n発声位置 == this.listChip[i].n発声位置)
+				{
+					startIndex--;
+				}
+				startIndex++;   // 1つ小さく過ぎているので、戻す
+			}
+			for (int j = startIndex; j <= i; j++)
+			{
+				if (((this.listChip[j].nチャンネル番号 == 0x50) || (this.listChip[j].nチャンネル番号 == 0x51)) &&
+					(this.listChip[j].n整数値 == (36 * 36 - 1)))
+				{
+					this.listChip[j].b可視 = bShowBeatBarLine;
+				}
+			}
+		}
+		#endregion
+
+		this.n内部番号JSCROLL1to = 0;
+		#region [ 発声時刻の計算 ]
+		double bpm = 120.0;
+		//double dbBarLength = 1.0;
+		int n発声位置 = 0;
+		int ms = 0;
+		int nBar = 0;
+		int nCount = 0;
+		this.nNowRollCount = 0;
+
+		List<STLYRIC> tmplistlyric = new List<STLYRIC>();
+		int BGM番号 = 0;
+
+		foreach (CChip chip in this.listChip)
+		{
+			if (chip.nチャンネル番号 == 0x02) { }
+			else if (chip.nチャンネル番号 == 0x01) { }
+			else if (chip.nチャンネル番号 == 0x08) { }
+			else if (chip.nチャンネル番号 >= 0x11 && chip.nチャンネル番号 <= 0x1F) { }
+			else if (chip.nチャンネル番号 == 0x50) { }
+			else if (chip.nチャンネル番号 == 0x51) { }
+			else if (chip.nチャンネル番号 == 0x54) { }
+			else if (chip.nチャンネル番号 == 0x08) { }
+			else if (chip.nチャンネル番号 == 0xF1) { }
+			else if (chip.nチャンネル番号 == 0xFF) { }
+			else if (chip.nチャンネル番号 == 0xDD)
+				chip.n発声時刻ms = ms + ((int)(((625 * (chip.n発声位置 - n発声位置)) * this.dbBarLength) / bpm));
+			else if (chip.nチャンネル番号 == 0xDF)
+				chip.n発声時刻ms = ms + ((int)(((625 * (chip.n発声位置 - n発声位置)) * this.dbBarLength) / bpm));
+			else if (chip.nチャンネル番号 < 0x93)
+				chip.n発声時刻ms = ms + ((int)(((625 * (chip.n発声位置 - n発声位置)) * this.dbBarLength) / bpm));
+			else if ((chip.nチャンネル番号 > 0x9F && chip.nチャンネル番号 < 0xA0) || (chip.nチャンネル番号 >= 0xF0 && chip.nチャンネル番号 < 0xFE))
+				chip.n発声時刻ms = ms + ((int)(((625 * (chip.n発声位置 - n発声位置)) * this.dbBarLength) / bpm));
+			nBar = chip.n発声位置 / 384;
+
+			nCount++;
+			this.nNowRollCount++;
+
+			switch (chip.nチャンネル番号)
+			{
+				case 0x01:  // BGM
+					{
+						n発声位置 = chip.n発声位置;
+
+						if (this.bOFFSETの値がマイナスである == false)
+							chip.n発声時刻ms += this.nOFFSET;
+						ms = chip.n発声時刻ms;
+
+						#region[listlyric2の時間合わせ]
+						for (int ind = 0; ind < listLyric2.Count; ind++)
+						{
+							if (listLyric2[ind].index == BGM番号)
+							{
+								STLYRIC lyrictmp = this.listLyric2[ind];
+
+								lyrictmp.Time += chip.n発声時刻ms;
+
+								tmplistlyric.Add(lyrictmp);
+							}
+						}
+
+
+						BGM番号++;
+						#endregion
+						continue;
+					}
+				case 0x02:  // BarLength
+					{
+						n発声位置 = chip.n発声位置;
+						if (this.bOFFSETの値がマイナスである == false)
+							chip.n発声時刻ms += this.nOFFSET;
+						ms = chip.n発声時刻ms;
+						dbBarLength = chip.db実数値;
+						continue;
+					}
+				case 0x03:  // BPM
+					{
+						n発声位置 = chip.n発声位置;
+						if (this.bOFFSETの値がマイナスである == false)
+							chip.n発声時刻ms += this.nOFFSET;
+						ms = chip.n発声時刻ms;
+						bpm = this.BASEBPM + chip.n整数値;
+						this.dbNowBPM = bpm;
+						continue;
+					}
+				case 0x04:  // BGA (レイヤBGA1)
+				case 0x07:  // レイヤBGA2
+					break;
+
+				case 0x15:
+				case 0x16:
+				case 0x17:
+					{
+						if (this.bOFFSETの値がマイナスである)
+						{
+							chip.n発声時刻ms += this.nOFFSET;
+						}
+
+						this.nNowRoll = this.nNowRollCount - 1;
+						continue;
+					}
+				case 0x18:
+					{
+						if (this.bOFFSETの値がマイナスである)
+						{
+							chip.n発声時刻ms += this.nOFFSET;
+						}
+						continue;
+					}
+
+				case 0x55:
+				case 0x56:
+				case 0x57:
+				case 0x58:
+				case 0x59:
+				case 0x60:
+					break;
+
+				case 0x50:
+					{
+						if (this.bOFFSETの値がマイナスである)
+							chip.n発声時刻ms += this.nOFFSET;
+
+						continue;
+					}
+
+				case 0x05:  // Extended Object (非対応)
+				case 0x06:  // Missアニメ (非対応)
+				case 0x5A:  // 未定義
+				case 0x5b:  // 未定義
+				case 0x5c:  // 未定義
+				case 0x5d:  // 未定義
+				case 0x5e:  // 未定義
+				case 0x5f:  // 未定義
+					{
+						continue;
+					}
+				case 0x08:  // 拡張BPM
+					{
+						n発声位置 = chip.n発声位置;
+						if (this.bOFFSETの値がマイナスである == false)
+							chip.n発声時刻ms += this.nOFFSET;
+						ms = chip.n発声時刻ms;
+						if (this.listBPM.TryGetValue(chip.n整数値_内部番号, out CBPM cBPM))
+						{
+							bpm = (cBPM.n表記上の番号 == 0 ? 0.0 : this.BASEBPM) + cBPM.dbBPM値;
+							this.dbNowBPM = bpm;
+						}
+						continue;
+					}
+				case 0x54:  // 動画再生
+					{
+						if (this.bOFFSETの値がマイナスである == false)
+							chip.n発声時刻ms += this.nOFFSET;
+						if (this.bMOVIEOFFSETの値がマイナスである == false)
+							chip.n発声時刻ms += this.nMOVIEOFFSET;
+						else
+							chip.n発声時刻ms -= this.nMOVIEOFFSET;
+						continue;
+					}
+				case 0x97:
+				case 0x98:
+				case 0x99:
+					{
+						if (this.bOFFSETの値がマイナスである)
+						{
+							chip.n発声時刻ms += this.nOFFSET;
+						}
+
+						this.nNowRoll = this.nNowRollCount - 1;
+
+						continue;
+					}
+				case 0x9A:
+					{
+						if (this.bOFFSETの値がマイナスである)
+						{
+							chip.n発声時刻ms += this.nOFFSET;
+						}
+						continue;
+					}
+				case 0x9D:
+					{
+						continue;
+					}
+				case 0xDC:
+					{
+						if (this.bOFFSETの値がマイナスである)
+							chip.n発声時刻ms += this.nOFFSET;
+						continue;
+					}
+				case 0xDE:
+					{
+						if (this.bOFFSETの値がマイナスである)
+						{
+							chip.n発声時刻ms += this.nOFFSET;
+							if (this.listBRANCH.ContainsKey(chip.n整数値_内部番号))
+							{
+								this.listBRANCH[chip.n整数値_内部番号].db分岐時刻ms += this.nOFFSET; 
+							}
+						}
+						this.n現在のコース = chip.nコース;
+						continue;
+					}
+				case 0x52: //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
+					{
+						if (this.bOFFSETの値がマイナスである)
+						{
+							chip.n発声時刻ms += this.nOFFSET;
+						}
+						this.n現在のコース = chip.nコース;
+						continue;
+					}
+				case 0xDF:
+					{
+						if (this.bOFFSETの値がマイナスである)
+							chip.n発声時刻ms += this.nOFFSET;
+						continue;
+					}
+				case 0xE0:
+					{
+						continue;
+					}
+				default:
+					{
+						if (this.bOFFSETの値がマイナスである)
+							chip.n発声時刻ms += this.nOFFSET;
+						chip.dbBPM = this.dbNowBPM;
+						continue;
+					}
+			}
+		}
+		#endregion
+
+		#region[listlyricを時間順に並び替え。]
+		this.listLyric2 = tmplistlyric;
+		this.listLyric2.Sort((a, b) => a.Time.CompareTo(b.Time));
+		#endregion
+
+		this.nBGMAdjust = 0;
+		this.t各自動再生音チップの再生時刻を変更する(nBGMAdjust);
+
+		#region [ チップの種類を分類し、対応するフラグを立てる ]
+		foreach (CChip chip in this.listChip)
+		{
+			if ((chip.nチャンネル番号 == 0x01 && this.listWAV.TryGetValue(chip.n整数値_内部番号, out CWAV cwav)) && !cwav.bUse)
+			{
+				cwav.bUse = true;
+			}
+		}
+		#endregion
+
+		#region[ seNotes計算 ]
+		if (this.listBRANCH.Count != 0)
+			this.tSetSenotes_branch();
+		else
+			this.tSetSenotes();
+
+		#endregion
+		#region [ bLogDTX詳細ログ出力 ]
+		if (TJAPlayer3.ConfigIni.bLogDTX詳細ログ出力)
+		{
+			foreach (CWAV cwav in this.listWAV.Values)
+			{
+				Trace.TraceInformation(cwav.ToString());
+			}
+			foreach (CBPM cbpm3 in this.listBPM.Values)
+			{
+				Trace.TraceInformation(cbpm3.ToString());
+			}
+			foreach (CChip chip in this.listChip)
+			{
+				Trace.TraceInformation(chip.ToString());
+			}
+		}
+		#endregion
+
+		int n整数値管理 = 0;
+		foreach (CChip chip in this.listChip)
+		{
+			if (chip.nチャンネル番号 != 0x54)
+				chip.n整数値 = n整数値管理;
+			n整数値管理++;
+		}
 	}
 
 	private void t入力tcm(string 入力文字列, int nBGMAdjust)
@@ -2387,7 +2317,6 @@ internal class CDTX : CActivity
 					chip.nチャンネル番号 = 0x10 + nObjectNum;
 					//chip.n発声位置 = (this.n現在の小節数 * 384) + ((384 * n) / n文字数);
 					chip.n発声位置 = (int)((this.n現在の小節数 * 384.0) + ((384.0 * n) / n文字数));
-					chip.db発声位置 = this.dbNowTime;
 					chip.n発声時刻ms = (int)this.dbNowTime;
 					//chip.fBMSCROLLTime = (float)(( this.dbBarLength ) * (16.0f / this.n各小節の文字数[this.n現在の小節数]));
 					chip.fBMSCROLLTime = (float)this.dbNowBMScollTime;
@@ -3954,7 +3883,6 @@ internal class CDTX : CActivity
 							chip.nチャンネル番号 = 0x10 + nObjectNum;
 							//chip.n発声位置 = (this.n現在の小節数 * 384) + ((384 * n) / n文字数);
 							chip.n発声位置 = (int)((this.n現在の小節数 * 384.0) + ((384.0 * n) / n文字数));
-							chip.db発声位置 = this.dbNowTime;
 							chip.n発声時刻ms = (int)this.dbNowTime;
 							//chip.fBMSCROLLTime = (float)(( this.dbBarLength ) * (16.0f / this.n各小節の文字数[this.n現在の小節数]));
 							chip.fBMSCROLLTime = (float)this.dbNowBMScollTime;
@@ -4373,23 +4301,13 @@ internal class CDTX : CActivity
 		string[] strParam = strCommandParam.Split(',');
 		for (int n = 0; n < strParam.Length; n++)
 		{
-			int n打数;
-			try
-			{
-				if (strParam[n] == null || strParam[n] == "")
-					break;
-
-				n打数 = Convert.ToInt32(strParam[n]);
-			}
-			catch (Exception ex)
-			{
-				Trace.TraceError($"おや?エラーが出たようです。お兄様。 ({strFilenameの絶対パス})");
-				Trace.TraceError(ex.ToString());
-				Trace.TraceError("An exception has occurred, but processing continues. (95327158-4e83-4fa9-b5e9-ad3c3d4c2a22)");
+			if (string.IsNullOrEmpty(strParam[n]))
 				break;
-			}
 
-			listBalloon.Add(n打数);
+			if (int.TryParse(strParam[n], out var nCount))
+				listBalloon.Add(nCount);
+			else
+				break;
 		}
 	}
 
