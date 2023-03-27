@@ -13,6 +13,8 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using FDK;
 using FDK.ExtensionMethods;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace TJAPlayer3;
 
@@ -437,7 +439,7 @@ internal class CDTX : CActivity
 	public struct STLYRIC
 	{
 		public long Time;
-		public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> TextTex;
+		public Image<Rgba32> TextTex;
 		public string Text;
 		public int index;
 	}
@@ -611,7 +613,7 @@ internal class CDTX : CActivity
 	private List<int> listBalloon_Expert;
 	private List<int> listBalloon_Master;
 
-	public List<SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>> listLyric; //2020.05.13 Mr-Ojii 曲読み込み時にテクスチャを生成するために変更
+	public List<Image<Rgba32>> listLyric; //2020.05.13 Mr-Ojii 曲読み込み時にテクスチャを生成するために変更
 	public List<STLYRIC> listLyric2;
 
 	private int listBalloon_Normal_数値管理;
@@ -738,12 +740,6 @@ internal class CDTX : CActivity
 				if (nCurrentTime > wc.n再生開始時刻)
 				{
 					long nAbsTimeFromStartPlaying = nCurrentTime - wc.n再生開始時刻;
-					//Trace.TraceInformation( "再生位置自動補正: {0}, seek先={1}ms, 全音長={2}ms",
-					//    Path.GetFileName( wc.rSound[ 0 ].strFilename ),
-					//    nAbsTimeFromStartPlaying,
-					//    wc.rSound[ 0 ].n総演奏時間ms
-					//);
-					// wc.rSound[ i ].t再生位置を変更する( wc.rSound[ i ].t時刻から位置を返す( nAbsTimeFromStartPlaying ) );
 
 					// WASAPI/ASIO用↓
 					if (!TJAPlayer3.stage演奏ドラム画面.bPAUSE)
@@ -3790,7 +3786,7 @@ internal class CDTX : CActivity
 
 		int? nReturnChip = null;
 
-		//--して取得しないとだめよ～ダメダメ💛
+		//--して取得しないとだめよ～ダメダメ
 		for (int i = listChips.Count - 1; i >= 0; i--)
 		{
 			if (b分岐前の連打開始)
@@ -5408,7 +5404,7 @@ internal class CDTX : CActivity
 		this.listBalloon_Expert = new List<int>();
 		this.listBalloon_Master = new List<int>();
 		this.listLine = new List<CLine>();
-		this.listLyric = new List<SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>>();
+		this.listLyric = new List<Image<Rgba32>>();
 		this.listLyric2 = new List<STLYRIC>();
 		this.List_DanSongs = new List<DanSongs>();
 		base.On活性化();
