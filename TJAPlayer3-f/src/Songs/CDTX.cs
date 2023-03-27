@@ -786,11 +786,6 @@ internal class CDTX : CActivity
 			{
 				cwav.rSound = TJAPlayer3.SoundManager.tCreateSound(str, ESoundGroup.SongPlayback);
 
-				if (!TJAPlayer3.ConfigIni.bDynamicBassMixerManagement)
-				{
-					cwav.rSound.tBASSサウンドをミキサーに追加する();
-				}
-
 				if (TJAPlayer3.ConfigIni.bLog作成解放ログ出力)
 				{
 					Trace.TraceInformation("サウンドを作成しました。({1})({0})", str, "OnMemory");

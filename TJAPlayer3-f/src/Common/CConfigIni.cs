@@ -363,7 +363,6 @@ internal class CConfigIni : INotifyPropertyChanged
 	public int nASIODevice;                     // #24820 2013.1.17 yyagi ASIOデバイス
 	public int nBASSBufferSizeMs;             // 2021.3.18 Mr-Ojii BASSのバッファサイズ
 	public bool bUseOSTimer;					// #33689 2014.6.6 yyagi 演奏タイマーの種類
-	public bool bDynamicBassMixerManagement;	// #24820
 	public bool bTimeStretch;					// #23664 2013.2.24 yyagi ピッチ変更無しで再生速度を変更するかどうか
 
 	//public bool bNoMP3Streaming;				// 2014.4.14 yyagi; mp3のシーク位置がおかしくなる場合は、これをtrueにすることで、wavにデコードしてからオンメモリ再生する
@@ -491,7 +490,6 @@ internal class CConfigIni : INotifyPropertyChanged
 		this.nBASSBufferSizeMs = 15;
 		#endregion
 		this.bUseOSTimer = false;					// #33689 2014.6.6 yyagi 初期値はfalse (FDKのタイマー。ＦＲＯＭ氏考案の独自タイマー)
-		this.bDynamicBassMixerManagement = true;	//
 		this.bTimeStretch = false;					// #23664 2013.2.24 yyagi 初期値はfalse (再生速度変更を、ピッチ変更にて行う)
 		
 		this.bBranchGuide = false;

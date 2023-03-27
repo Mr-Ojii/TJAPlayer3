@@ -402,10 +402,7 @@ internal class CStageSongLoading : CStage
 						Trace.TraceInformation( "WAV読込所要時間({0,4}):     {1}", TJAPlayer3.DTX[0].listWAV.Count, span.ToString() );
 						timeBeginLoadWAV = DateTime.Now;
 
-						if ( TJAPlayer3.ConfigIni.bDynamicBassMixerManagement )
-						{
-							TJAPlayer3.DTX[0].PlanToAddMixerChannel();
-						}
+						TJAPlayer3.DTX[0].PlanToAddMixerChannel();
 
 						for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++)
 						{
