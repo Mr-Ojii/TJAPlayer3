@@ -553,7 +553,6 @@ internal class CDTX : CActivity
 
 	public Dictionary<int, CDELAY> listDELAY;
 	public Dictionary<int, CBRANCH> listBRANCH;
-	public STLANEINT n可視チップ数;
 	public string PATH_WAV;
 	public string strFilename;
 	public string strFilenameの絶対パス;
@@ -1395,24 +1394,6 @@ internal class CDTX : CActivity
 
 			this.nBGMAdjust = 0;
 			this.t各自動再生音チップの再生時刻を変更する(nBGMAdjust);
-
-			#region [ 可視チップ数カウント ]
-			for (int n = 0; n < 2; n++)
-			{
-				this.n可視チップ数[n] = 0;
-			}
-			foreach (CChip chip in this.listChip)
-			{
-				int c = chip.nチャンネル番号;
-				if ((0x11 <= c) && (c <= 0x14))
-				{
-					if (c == 0x11 || c == 0x13)
-						this.n可視チップ数.Taiko_Red++;
-					else if (c == 0x12 || c == 0x14)
-						this.n可視チップ数.Taiko_Blue++;
-				}
-			}
-			#endregion
 
 			#region [ チップの種類を分類し、対応するフラグを立てる ]
 			foreach (CChip chip in this.listChip)
