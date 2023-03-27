@@ -187,6 +187,7 @@ Fork元より使用しているライブラリ
 * [managed-midi](https://github.com/atsushieno/managed-midi)
 * [ManagedBass](https://github.com/ManagedBass/Home)
 * [SkiaSharp](https://github.com/mono/SkiaSharp)
+* [Tomlyn](https://github.com/xoofx/Tomlyn)
 
 また、フレームワークに[.NET](https://dotnet.microsoft.com/)を使用しています。
 
