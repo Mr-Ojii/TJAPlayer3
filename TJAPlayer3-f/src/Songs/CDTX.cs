@@ -2949,8 +2949,7 @@ internal class CDTX : CActivity
 		//点数などの指定は後から各コースで行うので問題は無いだろう。
 
 		//SplitしたヘッダのLengthの回数だけ、forで回して各種情報を読み取っていく。
-		foreach (var s in strSplited)
-			this.t入力_行解析ヘッダ(s);
+		this.tParseHeader(strSplited);
 			
 		#endregion
 
@@ -4417,44 +4416,18 @@ internal class CDTX : CActivity
 			listBalloon.Add(n打数);
 		}
 	}
-	private void t入力_行解析ヘッダ(string InputText)
+
+	//ちゃんとHeaderだけのやつ
+	private void tSetHeader(IReadOnlyDictionary<string, string> HeaderDict)
 	{
-		string strCommandName = "";
-		string strCommandParam = "";
+		//一番最初にCOURSE
+		if (HeaderDict.TryGetValue("COURSE", out var strCommandParam))
+			this.n参照中の難易度 = this.strConvertCourse(strCommandParam);
 
-		if (InputText.StartsWith("#BRANCHSTART"))
-		{
-			//2015.08.18 kairera0467
-			//本来はヘッダ命令ではありませんが、難易度ごとに違う項目なのでここで読み込ませます。
-			//Lengthのチェックをされる前ににif文を入れています。
-			this.bHasBranch[this.n参照中の難易度] = true;
-		}
-		else if (InputText.StartsWith("#PAPAMAMA")) 
-		{
-			//2020.09.24 Mr-Ojii
-			//こちらもヘッダ命令ではないが、ここで読み込ませます。
-			this.bPapaMamaSupport[this.n参照中の難易度] = true;
-		}
-
-		//2023.03.27 Mr-Ojii
-		//Splitだと':'が複数含まれていた場合、Length>2になってしまうため、自力でSplit
-		if (InputText.IndexOf(':') != -1)
-		{
-			strCommandName = InputText.Remove(InputText.IndexOf(':')).Trim();
-			strCommandParam = InputText.Remove(0, InputText.IndexOf(':') + 1).Trim(); //':'も含めてRemove
-		}
-
-		void ParseOptionalInt16(Action<short> setValue)
-		{
-			this.ParseOptionalInt16(strCommandName, strCommandParam, setValue);
-		}
-
-		//パラメータを分別、そこから割り当てていきます。
-		if (strCommandName.Equals("TITLE"))
-		{
+		if (HeaderDict.TryGetValue("TITLE", out strCommandParam))
 			this.TITLE = strCommandParam;
-		}
-		if (strCommandName.Equals("SUBTITLE"))
+
+		if (HeaderDict.TryGetValue("SUBTITLE", out strCommandParam))
 		{
 			if (strCommandParam.StartsWith("--"))
 			{
@@ -4471,12 +4444,12 @@ internal class CDTX : CActivity
 				this.SUBTITLE = strCommandParam;
 			}
 		}
-		else if (strCommandName.Equals("LEVEL"))
-		{
-			var level = (int)Convert.ToDouble(strCommandParam);
-			this.LEVELtaiko[this.n参照中の難易度] = level;
-		}
-		else if (strCommandName.Equals("BPM"))
+
+		if (HeaderDict.TryGetValue("LEVEL", out strCommandParam))
+			if (double.TryParse(strCommandParam, out var level))
+				this.LEVELtaiko[this.n参照中の難易度] = (int)level;
+
+		if (HeaderDict.TryGetValue("BPM", out strCommandParam))
 		{
 			if (strCommandParam.IndexOf(",") != -1)
 				strCommandParam = strCommandParam.Replace(',', '.');
@@ -4489,7 +4462,6 @@ internal class CDTX : CActivity
 			this.listBPM.Add(this.n内部番号BPM1to - 1, new CBPM() { n内部番号 = this.n内部番号BPM1to - 1, n表記上の番号 = this.n内部番号BPM1to - 1, dbBPM値 = dbBPM, });
 			this.n内部番号BPM1to++;
 
-
 			//チップ追加して割り込んでみる。
 			var chip = new CChip();
 
@@ -4499,9 +4471,9 @@ internal class CDTX : CActivity
 			chip.n整数値_内部番号 = 1;
 
 			this.listChip.Add(chip);
-			//tbBPM.Text = strCommandParam;
 		}
-		else if (strCommandName.Equals("WAVE"))
+
+		if (HeaderDict.TryGetValue("WAVE", out strCommandParam))
 		{
 			if (strBGM_PATH != null)
 			{
@@ -4534,158 +4506,109 @@ internal class CDTX : CActivity
 				}
 			}
 		}
-		else if (strCommandName.Equals("OFFSET") && !string.IsNullOrEmpty(strCommandParam))
-		{
-			this.nOFFSET = (int)(Convert.ToDouble(strCommandParam) * 1000);
-			this.bOFFSETの値がマイナスである = this.nOFFSET < 0 ? true : false;
 
-			this.listBPM[0].bpm_change_bmscroll_time = -2000 * this.dbNowBPM / 15000;
-			if (this.bOFFSETの値がマイナスである == true)
-				this.nOFFSET = this.nOFFSET * -1; //OFFSETは秒を加算するので、必ず正の数にすること。
-			//tbOFFSET.Text = strCommandParam;
-		}
-		else if (strCommandName.Equals("MOVIEOFFSET"))
-		{
-			this.nMOVIEOFFSET = (int)(Convert.ToDouble(strCommandParam) * 1000);
-			this.bMOVIEOFFSETの値がマイナスである = this.nMOVIEOFFSET < 0 ? true : false;
+		if (HeaderDict.TryGetValue("OFFSET", out strCommandParam))
+			if (double.TryParse(strCommandParam, out var offset))
+			{
+				this.nOFFSET = (int)(offset * 1000);
+				this.bOFFSETの値がマイナスである = this.nOFFSET < 0 ? true : false;
 
-			if (this.bMOVIEOFFSETの値がマイナスである == true)
-				this.nMOVIEOFFSET = this.nMOVIEOFFSET * -1; //OFFSETは秒を加算するので、必ず正の数にすること。
-			//tbOFFSET.Text = strCommandParam;
-		}
-		#region[移動→不具合が起こるのでここも一応復活させておく]
-		else if (strCommandName.Equals("BALLOON") || strCommandName.Equals("BALLOONNOR"))
-		{
+				this.listBPM[0].bpm_change_bmscroll_time = -2000 * this.dbNowBPM / 15000;
+				if (this.bOFFSETの値がマイナスである == true)
+					this.nOFFSET = this.nOFFSET * -1; //OFFSETは秒を加算するので、必ず正の数にすること。
+			}
+
+		if (HeaderDict.TryGetValue("MOVIEOFFSET", out strCommandParam))
+			if (double.TryParse(strCommandParam, out var offset))
+			{
+				this.nMOVIEOFFSET = (int)(offset * 1000);
+				this.bMOVIEOFFSETの値がマイナスである = this.nMOVIEOFFSET < 0 ? true : false;
+
+				if (this.bMOVIEOFFSETの値がマイナスである == true)
+					this.nMOVIEOFFSET = this.nMOVIEOFFSET * -1; //OFFSETは秒を加算するので、必ず正の数にすること。
+			}
+
+		if (HeaderDict.TryGetValue("BALLOON", out strCommandParam) || HeaderDict.TryGetValue("BALLOONNOR", out strCommandParam))
 			ParseBalloon(strCommandParam, this.listBalloon_Normal);
-		}
-		else if (strCommandName.Equals("BALLOONEXP"))
-		{
+
+		if (HeaderDict.TryGetValue("BALLOONEXP", out strCommandParam))
 			ParseBalloon(strCommandParam, this.listBalloon_Expert);
-			//tbBALLOON.Text = strCommandParam;
-		}
-		else if (strCommandName.Equals("BALLOONMAS"))
-		{
+
+		if (HeaderDict.TryGetValue("BALLOONMAS", out strCommandParam))
 			ParseBalloon(strCommandParam, this.listBalloon_Master);
-			//tbBALLOON.Text = strCommandParam;
-		}
-		else if (strCommandName.Equals("SCOREMODE"))
+
+		if (HeaderDict.TryGetValue("SCOREMODE", out strCommandParam))
+			if (short.TryParse(strCommandParam, out var mode))
+				this.nScoreModeTmp = mode;
+
+		if (HeaderDict.TryGetValue("SCOREINIT", out strCommandParam))
 		{
-			ParseOptionalInt16(value => this.nScoreModeTmp = value);
-		}
-		else if (strCommandName.Equals("SCOREINIT"))
-		{
-			if (!string.IsNullOrEmpty(strCommandParam))
+			string[] scoreinit = strCommandParam.Split(',');
+
+			if (short.TryParse(scoreinit[0], out var score))
+				this.nScoreInit[0, this.n参照中の難易度] = score;
+
+			if (scoreinit.Length >= 2)
 			{
-				string[] scoreinit = strCommandParam.Split(',');
+				if (short.TryParse(scoreinit[1], out score))
+					this.nScoreInit[1, this.n参照中の難易度] = score;
+			}
+		}
 
-				this.ParseOptionalInt16("SCOREINIT first value", scoreinit[0], value =>
-				{
-					this.nScoreInit[0, this.n参照中の難易度] = value;
-				});
+		if (HeaderDict.TryGetValue("GAUGEINCR", out strCommandParam))
+			switch (strCommandParam.ToLower())
+			{
+				case "normal":
+					GaugeIncreaseMode = GaugeIncreaseMode.Normal;
+					break;
+				case "floor":
+					GaugeIncreaseMode = GaugeIncreaseMode.Floor;
+					break;
+				case "round":
+					GaugeIncreaseMode = GaugeIncreaseMode.Round;
+					break;
+				case "ceiling":
+					GaugeIncreaseMode = GaugeIncreaseMode.Ceiling;
+					break;
+				case "notfix":
+					GaugeIncreaseMode = GaugeIncreaseMode.NotFix;
+					break;
+				default:
+					GaugeIncreaseMode = GaugeIncreaseMode.Normal;
+					break;
+			}
 
-				if (scoreinit.Length == 2)
+		if (HeaderDict.TryGetValue("SCOREDIFF", out strCommandParam))
+			if (short.TryParse(strCommandParam, out var scorediff))
+				this.nScoreDiff[this.n参照中の難易度] = scorediff;
+
+		if (HeaderDict.TryGetValue("SONGVOL", out strCommandParam))
+			if (int.TryParse(strCommandParam, out var vol))
+			{
+				this.SongVol = Math.Clamp(vol, CSound.MinimumSongVol, CSound.MaximumSongVol);
+
+				foreach (var kvp in this.listWAV)
 				{
-					this.ParseOptionalInt16("SCOREINIT second value", scoreinit[1], value =>
-					{
-						this.nScoreInit[1, this.n参照中の難易度] = value;
-					});
+					kvp.Value.SongVol = this.SongVol;
 				}
 			}
-		}
-		else if (strCommandName.Equals("GAUGEINCR"))
-		{
-			if (!string.IsNullOrEmpty(strCommandParam))
-			{
-				switch (strCommandParam.ToLower())
-				{
-					case "normal":
-						GaugeIncreaseMode = GaugeIncreaseMode.Normal;
-						break;
-					case "floor":
-						GaugeIncreaseMode = GaugeIncreaseMode.Floor;
-						break;
-					case "round":
-						GaugeIncreaseMode = GaugeIncreaseMode.Round;
-						break;
-					case "ceiling":
-						GaugeIncreaseMode = GaugeIncreaseMode.Ceiling;
-						break;
-					case "notfix":
-						GaugeIncreaseMode = GaugeIncreaseMode.NotFix;
-						break;
-					default:
-						GaugeIncreaseMode = GaugeIncreaseMode.Normal;
-						break;
-				}
-			}
-		}
-		else if (strCommandName.Equals("SCOREDIFF"))
-		{
-			ParseOptionalInt16(value => this.nScoreDiff[this.n参照中の難易度] = value);
-		}
-		#endregion
-		else if (strCommandName.Equals("SONGVOL") && !string.IsNullOrEmpty(strCommandParam))
-		{
-			this.SongVol = Math.Clamp(Convert.ToInt32(strCommandParam), CSound.MinimumSongVol, CSound.MaximumSongVol);
 
-			foreach (var kvp in this.listWAV)
+		if (HeaderDict.TryGetValue("SEVOL", out strCommandParam))
+			if (int.TryParse(strCommandParam, out var vol))
 			{
-				kvp.Value.SongVol = this.SongVol;
+				//Todo
 			}
-		}
-		else if (strCommandName.Equals("SEVOL"))
-		{
-			//tbSeVol.Text = strCommandParam;
-		}
-		else if (strCommandName.Equals("COURSE"))
-		{
-			if (!string.IsNullOrEmpty(strCommandParam))
-			{
-				//this.n参照中の難易度 = Convert.ToInt16( strCommandParam );
-				this.n参照中の難易度 = this.strConvertCourse(strCommandParam);
-			}
-		}
-		else if (strCommandName.Equals("GENRE"))
-		{
-			//2015.03.28 kairera0467
-			//ジャンルの定義。DTXから入力もできるが、tjaからも入力できるようにする。
-			//日本語名だと選曲画面でバグが出るので、そこもどうにかしていく予定。
 
-			if (!string.IsNullOrEmpty(strCommandParam))
-			{
-				this.GENRE = strCommandParam;
-			}
-		}
-		else if (strCommandName.Equals("DEMOSTART"))
+		if (HeaderDict.TryGetValue("GENRE", out strCommandParam))
+			this.GENRE = strCommandParam;
+
+		if (HeaderDict.TryGetValue("DEMOSTART", out strCommandParam))
+			if (double.TryParse(strCommandParam, out var offset))
+				this.nデモBGMオフセット = (int)(offset * 1000.0);
+
+		if (HeaderDict.TryGetValue("BGMOVIE", out strCommandParam))
 		{
-			//2015.04.10 kairera0467
-
-			if (!string.IsNullOrEmpty(strCommandParam))
-			{
-				int nOFFSETms;
-				try
-				{
-					nOFFSETms = (int)(Convert.ToDouble(strCommandParam) * 1000.0);
-				}
-				catch
-				{
-					nOFFSETms = 0;
-				}
-
-
-				this.nデモBGMオフセット = nOFFSETms;
-			}
-		}
-		else if (strCommandName.Equals("BGMOVIE"))
-		{
-			//2016.02.02 kairera0467
-			//背景動画の定義。DTXから入力もできるが、tjaからも入力できるようにする。
-
-			if (!string.IsNullOrEmpty(strCommandParam))
-			{
-				this.strBGVIDEO_PATH =
-					CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strFilename, strCommandParam);
-			}
+			this.strBGVIDEO_PATH = CDTXCompanionFileFinder.FindFileName(this.strフォルダ名, strFilename, strCommandParam);
 
 			string strVideoFilename;
 			if (!string.IsNullOrEmpty(this.PATH_WAV))
@@ -4710,25 +4633,14 @@ internal class CDTX : CActivity
 					this.listVD.Remove(1);
 			}
 		}
-		else if (strCommandName.Equals("BGIMAGE"))
-		{
-			//2016.02.02 kairera0467
-			if (!string.IsNullOrEmpty(strCommandParam))
-			{
-				this.strBGIMAGE_PATH = strCommandParam;
-			}
-		}
-		else if (strCommandName.Equals("HIDDENBRANCH"))
-		{
-			//2016.04.01 kairera0467 パラメーターは
-			if (!string.IsNullOrEmpty(strCommandParam))
-			{
-				this.bHIDDENBRANCH = true;
-			}
-		}
-		else if (strCommandName.Equals("LYRICFILE"))
-		{
-			if (!string.IsNullOrEmpty(strCommandParam))
+
+		if (HeaderDict.TryGetValue("BGIMAGE", out strCommandParam))
+			this.strBGIMAGE_PATH = strCommandParam;
+
+		if (HeaderDict.TryGetValue("HIDDENBRANCH", out strCommandParam))
+			this.bHIDDENBRANCH = true;
+
+		if (HeaderDict.TryGetValue("LYRICFILE", out strCommandParam))
 			{
 				string[] strFiles = SplitComma(strCommandParam);
 				string[] strFilePath = new string[strFiles.Length];
@@ -4750,11 +4662,48 @@ internal class CDTX : CActivity
 					}
 				}
 			}
-		}
-		if (this.nScoreModeTmp == 99)
+	}
+
+	//#STARTとCOURSEが存在すること
+	private void tParseHeader(IEnumerable<string> SplitedText)
+	{
+		Dictionary<string, string> HeaderDict = new();
+		foreach(var InputText in SplitedText)
 		{
-			//2017.01.28 DD 
-			this.nScoreModeTmp = TJAPlayer3.ConfigIni.nScoreMode;
+			if (InputText.StartsWith("#BRANCHSTART"))
+			{
+				this.bHasBranch[this.n参照中の難易度] = true;
+			}
+			else if (InputText.StartsWith("#PAPAMAMA")) 
+			{
+				//2020.09.24 Mr-Ojii
+				//こちらもヘッダ命令ではないが、ここで読み込ませます。
+				this.bPapaMamaSupport[this.n参照中の難易度] = true;
+			}
+			else if (InputText.StartsWith("#START"))
+			{
+				//STARTが来たら、ヘッダを適用する
+				//COURSEより上にLEVELなどが記載されていた場合に対応するため
+				tSetHeader(HeaderDict);
+				HeaderDict.Clear();
+			}
+
+			//2023.03.27 Mr-Ojii
+			//Splitだと':'が複数含まれていた場合、Length>2になってしまうため、自力でSplit
+			if (InputText.IndexOf(':') != -1)
+			{
+				string strCommandName = InputText.Remove(InputText.IndexOf(':')).Trim();
+				string strCommandParam = InputText.Remove(0, InputText.IndexOf(':') + 1).Trim(); //':'も含めてRemove
+				if(!string.IsNullOrEmpty(strCommandName) && !string.IsNullOrEmpty(strCommandParam))
+					HeaderDict.Add(strCommandName, strCommandParam);
+			}
+
+
+			if (this.nScoreModeTmp == 99)
+			{
+				//2017.01.28 DD 
+				this.nScoreModeTmp = TJAPlayer3.ConfigIni.nScoreMode;
+			}
 		}
 	}
 
