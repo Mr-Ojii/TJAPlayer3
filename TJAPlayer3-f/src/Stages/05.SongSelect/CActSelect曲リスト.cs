@@ -317,7 +317,7 @@ internal class CActSelect曲リスト : CActivity
 
 		for (int i = 0; i < (int)Difficulty.Total; i++)
 		{
-			this.n現在のアンカ難易度レベル[nPlayer] = (this.n現在のアンカ難易度レベル[nPlayer] + 1) % (int)Difficulty.Total;  // ５以上になったら０に戻る。
+			this.n現在のアンカ難易度レベル[nPlayer] = (this.n現在のアンカ難易度レベル[nPlayer] + 1) % (int)Difficulty.Total;  // total以上になったら0に戻る。
 			if (this.r現在選択中の曲.arスコア.譜面情報.b譜面が存在する[this.n現在のアンカ難易度レベル[nPlayer]] != false)    // 曲が存在してるならここで終了。存在してないなら次のレベルへGo。
 				break;
 		}
@@ -335,33 +335,12 @@ internal class CActSelect曲リスト : CActivity
 
 		this.n現在のアンカ難易度レベル[nPlayer] = this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(this.r現在選択中の曲, nPlayer);
 
-		this.n現在のアンカ難易度レベル[nPlayer]--;
-		if (this.n現在のアンカ難易度レベル[nPlayer] < 0) // 0より下になったら4に戻す。
-		{
-			this.n現在のアンカ難易度レベル[nPlayer] = 4;
-		}
 
-		//2016.08.13 kairera0467 かんたん譜面が無い譜面(ふつう、むずかしいのみ)で、難易度を最上位に戻せない不具合の修正。
-		bool bLabel0NotFound = true;
-		for (int i = this.n現在のアンカ難易度レベル[nPlayer]; i >= 0; i--)
+		for (int i = 0; i < (int)Difficulty.Total; i++)
 		{
-			if (this.r現在選択中の曲.arスコア.譜面情報.b譜面が存在する[i] != false)
-			{
-				this.n現在のアンカ難易度レベル[nPlayer] = i;
-				bLabel0NotFound = false;
+			this.n現在のアンカ難易度レベル[nPlayer] = ((this.n現在のアンカ難易度レベル[nPlayer] - 1) + (int)Difficulty.Total) % (int)Difficulty.Total;  // 0以下になったらtotal-1に戻る。
+			if (this.r現在選択中の曲.arスコア.譜面情報.b譜面が存在する[this.n現在のアンカ難易度レベル[nPlayer]] != false)    // 曲が存在してるならここで終了。存在してないなら次のレベルへGo。
 				break;
-			}
-		}
-		if (bLabel0NotFound)
-		{
-			for (int i = 4; i >= 0; i--)
-			{
-				if (this.r現在選択中の曲.arスコア.譜面情報.b譜面が存在する[i] != false)
-				{
-					this.n現在のアンカ難易度レベル[nPlayer] = i;
-					break;
-				}
-			}
 		}
 	}
 

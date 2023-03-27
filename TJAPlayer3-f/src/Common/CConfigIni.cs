@@ -322,28 +322,6 @@ internal class CConfigIni : INotifyPropertyChanged
 			return true;
 		}
 	}
-	public int n背景の透過度
-	{
-		get
-		{
-			return this.nBGAlpha;
-		}
-		set
-		{
-			if( value < 0 )
-			{
-				this.nBGAlpha = 0;
-			}
-			else if( value > 0xff )
-			{
-				this.nBGAlpha = 0xff;
-			}
-			else
-			{
-				this.nBGAlpha = value;
-			}
-		}
-	}
 	public bool b2P演奏時のSEの左右;
 	public int nRisky;						// #23559 2011.6.20 yyagi Riskyでの残ミス数。0で閉店
 	public int nSoundDeviceType;				// #24820 2012.12.23 yyagi 出力サウンドデバイス(0=BASS, 1=ASIO, 2=WASAPI(Exclusive), 3=WASAPI(Shared))
@@ -1239,7 +1217,7 @@ internal class CConfigIni : INotifyPropertyChanged
 									}
 									else if( str3.Equals( "BGAlpha" ) )
 									{
-										this.n背景の透過度 = str4.ToInt32(0, 0xff, this.n背景の透過度);
+										this.nBGAlpha = str4.ToInt32(0, 0xff, this.nBGAlpha);
 									}
 #region [ AVI/BGA ]
 									else if( str3.Equals( "AVI" ) )

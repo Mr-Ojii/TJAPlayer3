@@ -163,7 +163,7 @@ internal class CActConfigList : CActivity
 			"演奏情報の表示：\n演奏中、BGA領域の下部に演奏情報\n（FPS、BPM、演奏時間など）を表示し\nます。\nまた、小節線の横に小節番号が表示\nされるようになります。",
 			"To show song informations on playing\n BGA area. (FPS, BPM, total time etc)\nYou can ON/OFF the indications\n by pushing [Del] while playing drums" );
 		this.list項目リスト.Add( this.iSystemDebugInfo );
-		this.iSystemBGAlpha = new CItemInteger( "BG Alpha", 0, 0xff, TJAPlayer3.ConfigIni.n背景の透過度,
+		this.iSystemBGAlpha = new CItemInteger( "BG Alpha", 0, 0xff, TJAPlayer3.ConfigIni.nBGAlpha,
 			"背景画像の半透明割合：\n背景画像をDTXManiaのフレーム画像\nと合成する際の、背景画像の透明度\nを指定します。\n0 が完全透明で、255 が完全不透明\nとなります。",
 			"The degree for transparing playing\n screen and wallpaper.\n\n0=completely transparent,\n255=no transparency" );
 		this.list項目リスト.Add( this.iSystemBGAlpha );
@@ -1616,7 +1616,7 @@ internal class CActConfigList : CActivity
 		TJAPlayer3.ConfigIni.bBGA有効 = this.iSystemBGA.bON;
 //			CDTXMania.ConfigIni.bGraph有効 = this.iSystemGraph.bON;#24074 2011.01.23 comment-out ikanick オプション(Drums)へ移行
 		TJAPlayer3.ConfigIni.ShowDebugStatus = this.iSystemDebugInfo.bON;
-		TJAPlayer3.ConfigIni.n背景の透過度 = this.iSystemBGAlpha.nValue;
+		TJAPlayer3.ConfigIni.nBGAlpha = this.iSystemBGAlpha.nValue;
 		TJAPlayer3.ConfigIni.bBGM音を発声する = this.iSystemBGMSound.bON;
 		//CDTXMania.ConfigIni.b歓声を発声する = this.iSystemAudienceSound.bON;
 		//CDTXMania.ConfigIni.eダメージレベル = (Eダメージレベル) this.iSystemDamageLevel.n現在選択されている項目番号;

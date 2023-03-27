@@ -20,16 +20,6 @@ internal class CStage選曲 : CStage
 		get;
 		private set;
 	}
-	public string str確定された曲のジャンル
-	{
-		get
-		{
-			if (this.r確定された曲 == null)
-				return null;
-
-			return this.r確定された曲.strGenre;
-		}
-	}
 	public Cスコア r確定されたスコア
 	{
 		get;
