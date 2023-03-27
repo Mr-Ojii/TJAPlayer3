@@ -278,38 +278,6 @@ internal class CAct演奏ゲージ共通 : CActivity
 		return ( this.db現在のゲージ値[ nPlayer ] <= GAUGE_DANGER );
 	}
 
-	public double dbゲージ値	// Drums専用
-	{
-		get
-		{
-			return this.db現在のゲージ値[ 0 ];
-		}
-		set
-		{
-			this.db現在のゲージ値[ 0 ] = value;
-			if ( this.db現在のゲージ値[ 0 ] > GAUGE_MAX )
-			{
-				this.db現在のゲージ値[ 0 ] = GAUGE_MAX;
-			}
-		}
-	}
-
-	public double dbゲージ値2P	// Drums専用
-	{
-		get
-		{
-			return this.db現在のゲージ値[ 1 ];
-		}
-		set
-		{
-			this.db現在のゲージ値[ 1 ] = value;
-			if ( this.db現在のゲージ値[ 1 ] > GAUGE_MAX )
-			{
-				this.db現在のゲージ値[ 1 ] = GAUGE_MAX;
-			}
-		}
-	}
-
 	/// <summary>
 	/// ゲージの初期化
 	/// </summary>
@@ -322,9 +290,6 @@ internal class CAct演奏ゲージ共通 : CActivity
 		{
 			this.db現在のゲージ値[ i ] = 0;
 		}
-
-		this.dbゲージ値 = 0;
-		this.dbゲージ値2P = 0;
 
 		//ゲージのMAXまでの最低コンボ数を計算
 		float[] dbGaugeMaxComboValue = new float[2] { 0 , 0};
@@ -665,8 +630,8 @@ internal class CAct演奏ゲージ共通 : CActivity
 	//-----------------
 	#endregion
 
-	public double[] db現在のゲージ値 = new double[ 4 ];
-	protected CCounter ct炎;
-	protected CCounter ct虹アニメ;
-	protected CCounter ct虹透明度;
+	public double[] db現在のゲージ値 { get; private set; } = new double[ 4 ];
+	private CCounter ct炎;
+	private CCounter ct虹アニメ;
+	private CCounter ct虹透明度;
 }
