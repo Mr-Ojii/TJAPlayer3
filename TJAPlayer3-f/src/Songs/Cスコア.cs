@@ -36,6 +36,7 @@ internal class Cスコア
 	public struct ST譜面情報
 	{
 		public string Title;
+		public string SubTitle;
 		public string Genre;
 		public double Bpm;
 		public string strBGMファイル名;
@@ -49,8 +50,7 @@ internal class Cスコア
 		public int[][] nHiScore;
 		public string[][] strHiScorerName;
 		public int[] nCrown;
-		public string strSubTitle;
-		public int[] nレベル;
+		public int[] Level;
 	}
 
 	// コンストラクタ
@@ -60,6 +60,7 @@ internal class Cスコア
 		this.FileInfo = new STFileInfo( "", "", DateTime.MinValue, 0L );
 		this.譜面情報 = new ST譜面情報();
 		this.譜面情報.Title = "";
+		this.譜面情報.SubTitle = "";
 		this.譜面情報.Genre = "";
 		this.譜面情報.Bpm = 120.0;
 		this.譜面情報.strBGMファイル名 = "";
@@ -73,7 +74,6 @@ internal class Cスコア
 		this.譜面情報.nHiScore = new int[(int)Difficulty.Total][] { new int[]{ 0, 0, 0 }, new int[]{ 0, 0, 0 }, new int[]{ 0, 0, 0 }, new int[]{ 0, 0, 0 }, new int[]{ 0, 0, 0 }, new int[]{ 0, 0, 0 }, new int[]{ 0, 0, 0 } };
 		this.譜面情報.strHiScorerName = new string[(int)Difficulty.Total][] { new string[] { "", "", "" }, new string[] { "", "", "" }, new string[] { "", "", "" }, new string[] { "", "", "" }, new string[] { "", "", "" }, new string[] { "", "", "" }, new string[] { "", "", "" } };
 		this.譜面情報.nCrown = new int[(int)Difficulty.Total];
-		this.譜面情報.strSubTitle = "";
-		this.譜面情報.nレベル = new int[(int)Difficulty.Total] { -1, -1, -1, -1, -1, -1, -1};
+		this.譜面情報.Level = new int[(int)Difficulty.Total] { -1, -1, -1, -1, -1, -1, -1};
 	}
 }

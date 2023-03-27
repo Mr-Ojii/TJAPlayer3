@@ -37,7 +37,7 @@ internal class CStageSongLoading : CStage
 
 			var 譜面情報 = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報;
 			this.strTitle = 譜面情報.Title;
-			this.strSubTitle = 譜面情報.strSubTitle;
+			this.strSubTitle = 譜面情報.SubTitle;
 			
 			
 
@@ -163,10 +163,8 @@ internal class CStageSongLoading : CStage
 		#endregion
 		this.ct待機.t進行();
 
-
-
 		#region [ ESC押下時は選曲画面に戻る ]
-		if ( tキー入力() )
+		if ( TJAPlayer3.InputManager.Keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.Escape ) )
 		{
 			return (int) E曲読込画面の戻り値.読込中止;
 		}
@@ -209,7 +207,7 @@ internal class CStageSongLoading : CStage
 
 				if (this.txTitle != null)
 				{
-					int nサブタイトル補正 = string.IsNullOrEmpty(TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.strSubTitle) ? 15 : 0;
+					int nサブタイトル補正 = string.IsNullOrEmpty(TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.SubTitle) ? 15 : 0;
 
 					this.txTitle.Opacity = CConvert.nParsentTo255((this.ct曲名表示.n現在の値 / 30.0));
 					if (TJAPlayer3.Skin.SkinConfig.SongLoading._v2TitleReferencePoint == CSkin.EReferencePoint.Left)
@@ -263,7 +261,7 @@ internal class CStageSongLoading : CStage
 
 				if (this.txTitle != null)
 				{
-					int nサブタイトル補正 = string.IsNullOrEmpty(TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.strSubTitle) ? 15 : 0;
+					int nサブタイトル補正 = string.IsNullOrEmpty(TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.SubTitle) ? 15 : 0;
 
 					this.txTitle.Opacity = CConvert.nParsentTo255((this.ct曲名表示.n現在の値 / 30.0));
 					if (TJAPlayer3.Skin.SkinConfig.SongLoading._TitleReferencePoint == CSkin.EReferencePoint.Left)
@@ -457,20 +455,6 @@ internal class CStageSongLoading : CStage
 				return (int) E曲読込画面の戻り値.読込完了;
 		}
 		return (int) E曲読込画面の戻り値.継続;
-	}
-
-	/// <summary>
-	/// ESC押下時、trueを返す
-	/// </summary>
-	/// <returns></returns>
-	protected bool tキー入力()
-	{
-		IInputDevice keyboard = TJAPlayer3.InputManager.Keyboard;
-		if 	( keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.Escape ) )		// escape (exit)
-		{
-			return true;
-		}
-		return false;
 	}
 
 	// その他

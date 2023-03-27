@@ -1207,7 +1207,7 @@ internal class CActSelect曲リスト : CActivity
 							{
 								for (int i = 0; i < (int)Difficulty.Edit + 1; i++)
 								{
-									for (int n = 0; n < this.r現在選択中のスコア.譜面情報.nレベル[i]; n++)
+									for (int n = 0; n < this.r現在選択中のスコア.譜面情報.Level[i]; n++)
 									{
 										// 星11以上はループ終了
 										//if (n > 9) break;
@@ -1226,7 +1226,7 @@ internal class CActSelect曲リスト : CActivity
 							}
 							else
 							{
-								for (int i = 0; i < this.r現在選択中のスコア.譜面情報.nレベル[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0]]; i++)
+								for (int i = 0; i < this.r現在選択中のスコア.譜面情報.Level[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0]]; i++)
 								{
 									TJAPlayer3.Tx.SongSelect_Level.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 494, TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY + 413 - (i * 17), new Rectangle(32 * TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0], 0, 32, 32));
 								}
@@ -1365,8 +1365,8 @@ internal class CActSelect曲リスト : CActivity
 				//-----------------
 				if (this.stバー情報[nパネル番号].song.strTitle != "" && this.ttk選択している曲の曲名 == null)
 					this.ttk選択している曲の曲名 = this.ttk曲名テクスチャを生成する(this.stバー情報[nパネル番号].song.strTitle, Color.White, Color.Black);
-				if (this.stバー情報[nパネル番号].song.arスコア.譜面情報.strSubTitle != "" && this.ttk選択している曲のサブタイトル == null)
-					this.ttk選択している曲のサブタイトル = this.ttkサブタイトルテクスチャを生成する(this.stバー情報[nパネル番号].song.arスコア.譜面情報.strSubTitle);
+				if (this.stバー情報[nパネル番号].song.arスコア.譜面情報.SubTitle != "" && this.ttk選択している曲のサブタイトル == null)
+					this.ttk選択している曲のサブタイトル = this.ttkサブタイトルテクスチャを生成する(this.stバー情報[nパネル番号].song.arスコア.譜面情報.SubTitle);
 
 
 				if (TJAPlayer3.Tx.SongSelect_Box_Center_Genre[nnGenreBack] != null && TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[nnGenreBack] != null)

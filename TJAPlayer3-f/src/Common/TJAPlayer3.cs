@@ -252,17 +252,16 @@ internal class TJAPlayer3 : Game
 
 	public void t全画面_ウィンドウモード切り替え()
 	{
-		if ((ConfigIni != null) && (ConfigIni.bウィンドウモード != (this.WindowState == FDK.Windowing.WindowState.Normal)))
+		if ((ConfigIni != null) && (ConfigIni.FullScreen != (this.WindowState == FDK.Windowing.WindowState.FullScreen)))
 		{
-			if (ConfigIni.bウィンドウモード == false)   // #23510 2010.10.27 yyagi: backup current window size before going fullscreen mode
+			if (ConfigIni.FullScreen)   // #23510 2010.10.27 yyagi: backup current window size before going fullscreen mode
 			{
 				currentClientSize = this.ClientSize;
 				ConfigIni.rcWindowPos.Width = this.ClientSize.Width;
 				ConfigIni.rcWindowPos.Height = this.ClientSize.Height;
-				//					FDK.CTaskBar.ShowTaskBar( false );
 			}
-			this.WindowState = ConfigIni.bウィンドウモード ? FDK.Windowing.WindowState.Normal : FDK.Windowing.WindowState.FullScreen_Desktop;
-			if (ConfigIni.bウィンドウモード == true)    // #23510 2010.10.27 yyagi: to resume window size from backuped value
+			this.WindowState = ConfigIni.FullScreen ? FDK.Windowing.WindowState.FullScreen : FDK.Windowing.WindowState.Normal;
+			if (!ConfigIni.FullScreen)    // #23510 2010.10.27 yyagi: to resume window size from backuped value
 			{
 				base.ClientSize =
 					new Size(currentClientSize.Width, currentClientSize.Height);
@@ -830,7 +829,7 @@ internal class TJAPlayer3 : Game
 				{
 					if (ConfigIni != null)
 					{
-						ConfigIni.bウィンドウモード = !ConfigIni.bウィンドウモード;
+						ConfigIni.FullScreen = !ConfigIni.FullScreen;
 						this.t全画面_ウィンドウモード切り替え();
 					}
 				}
@@ -839,7 +838,7 @@ internal class TJAPlayer3 : Game
 		{
 			if (ConfigIni != null)
 			{
-				ConfigIni.bウィンドウモード = !ConfigIni.bウィンドウモード;
+				ConfigIni.FullScreen = !ConfigIni.FullScreen;
 				this.t全画面_ウィンドウモード切り替え();
 			}
 		}
@@ -1105,7 +1104,7 @@ internal class TJAPlayer3 : Game
 
 		base.ClientSize = new Size(ConfigIni.rcWindowPos.Width, ConfigIni.rcWindowPos.Height);   // #34510 yyagi 2010.10.31 to change window size got from Config.ini
 
-		if (!ConfigIni.bウィンドウモード)                       // #23510 2010.11.02 yyagi: add; to recover window size in case bootup with fullscreen mode
+		if (ConfigIni.FullScreen)                       // #23510 2010.11.02 yyagi: add; to recover window size in case bootup with fullscreen mode
 		{                                                       // #30666 2013.02.02 yyagi: currentClientSize should be always made
 			currentClientSize = new Size(ConfigIni.rcWindowPos.Width, ConfigIni.rcWindowPos.Height);
 		}
@@ -1118,7 +1117,7 @@ internal class TJAPlayer3 : Game
 		#endregion
 #region [ Direct3D9 デバイスの生成 ]
 		//---------------------
-		this.WindowState = ConfigIni.bウィンドウモード ? FDK.Windowing.WindowState.Normal : FDK.Windowing.WindowState.FullScreen;
+		this.WindowState = ConfigIni.FullScreen ? FDK.Windowing.WindowState.FullScreen : FDK.Windowing.WindowState.Normal;
 		this.VSync = ConfigIni.VSyncWait;
 		base.ClientSize = new Size(ConfigIni.rcWindowPos.Width, ConfigIni.rcWindowPos.Height);   // #23510 2010.10.31 yyagi: to recover window size. width and height are able to get from Config.ini.
 		//---------------------
@@ -1207,7 +1206,7 @@ internal class TJAPlayer3 : Game
 #endregion
 #region [ InputManager の初期化 ]
 		//---------------------
-		Trace.TraceInformation("DirectInput, MIDIInputの初期化を行います。");
+		Trace.TraceInformation("InputManagerの初期化を行います。");
 		Trace.Indent();
 		try
 		{
@@ -1226,11 +1225,11 @@ internal class TJAPlayer3 : Game
 			}
 			InputCTS = new CancellationTokenSource();
 			Task.Factory.StartNew(() => InputLoop());
-			Trace.TraceInformation("DirectInput の初期化を完了しました。");
+			Trace.TraceInformation("InputManagerの初期化を完了しました。");
 		}
 		catch
 		{
-			Trace.TraceError("DirectInput, MIDIInputの初期化に失敗しました。");
+			Trace.TraceError("InputManagerの初期化に失敗しました。");
 			throw;
 		}
 		finally
@@ -1584,23 +1583,23 @@ internal class TJAPlayer3 : Game
 			}
 			//---------------------
 #endregion
-#region [ DirectInput, MIDIInputの終了処理 ]
+#region [ InputManagerの終了処理 ]
 			//---------------------
 			if (InputManager != null)
 			{
-				Trace.TraceInformation( "DirectInput, MIDIInputの終了処理を行います。" );
+				Trace.TraceInformation( "InputManagerの終了処理を行います。" );
 				Trace.Indent();
 				try
 				{
 					InputCTS.Cancel();
 					InputManager.Dispose();
 					InputManager = null;
-					Trace.TraceInformation( "DirectInput, MIDIInputの終了処理を完了しました。" );
+					Trace.TraceInformation( "InputManagerの終了処理を完了しました。" );
 				}
 				catch( Exception exception5 )
 				{
 					Trace.TraceError( exception5.ToString() );
-					Trace.TraceError( "DirectInput, MIDIInputの終了処理に失敗しました。" );
+					Trace.TraceError( "InputManagerの終了処理に失敗しました。" );
 				}
 				finally
 				{
@@ -1768,14 +1767,14 @@ internal class TJAPlayer3 : Game
 
 	private void Window_ResizeOrMove(object sender, EventArgs e)               // #23510 2010.11.20 yyagi: to get resized window size
 	{
-		if (ConfigIni.bウィンドウモード)
+		if (!ConfigIni.FullScreen)
 		{
 			ConfigIni.rcWindowPos.X = this.X;   // #30675 2013.02.04 ikanick add
 			ConfigIni.rcWindowPos.Y = this.Y;   //
 		}
 
-		ConfigIni.rcWindowPos.Width = (ConfigIni.bウィンドウモード) ? this.ClientWidth : currentClientSize.Width;    // #23510 2010.10.31 yyagi add
-		ConfigIni.rcWindowPos.Height = (ConfigIni.bウィンドウモード) ? this.ClientHeight : currentClientSize.Height;
+		ConfigIni.rcWindowPos.Width = (ConfigIni.FullScreen) ? currentClientSize.Width : this.ClientWidth;    // #23510 2010.10.31 yyagi add
+		ConfigIni.rcWindowPos.Height = (ConfigIni.FullScreen) ? currentClientSize.Height : this.ClientHeight;
 	}
 
 #endregion

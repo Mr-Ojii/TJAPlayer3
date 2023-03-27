@@ -123,6 +123,7 @@ internal class CSongsManager
 				c曲リストノード.arスコア.FileInfo.FileSize = fileinfo.Length;
 				c曲リストノード.arスコア.FileInfo.LastWriteTime = fileinfo.LastWriteTime;
 				c曲リストノード.arスコア.譜面情報.Title = dtx.TITLE;
+				c曲リストノード.arスコア.譜面情報.SubTitle = dtx.SUBTITLE;
 				c曲リストノード.arスコア.譜面情報.Genre = dtx.GENRE;
 				c曲リストノード.arスコア.譜面情報.Bpm = dtx.BPM;
 				c曲リストノード.arスコア.譜面情報.strBGMファイル名 = dtx.strBGM_PATH == null ? "" : dtx.strBGM_PATH;
@@ -143,14 +144,13 @@ internal class CSongsManager
 				c曲リストノード.arスコア.譜面情報.bPapaMamaSupport[4] = dtx.bPapaMamaSupport[4];
 				c曲リストノード.arスコア.譜面情報.bPapaMamaSupport[5] = dtx.bPapaMamaSupport[5];
 				c曲リストノード.arスコア.譜面情報.bPapaMamaSupport[6] = dtx.bPapaMamaSupport[6];
-				c曲リストノード.arスコア.譜面情報.strSubTitle = dtx.SUBTITLE;
-				c曲リストノード.arスコア.譜面情報.nレベル[0] = dtx.LEVELtaiko[0];
-				c曲リストノード.arスコア.譜面情報.nレベル[1] = dtx.LEVELtaiko[1];
-				c曲リストノード.arスコア.譜面情報.nレベル[2] = dtx.LEVELtaiko[2];
-				c曲リストノード.arスコア.譜面情報.nレベル[3] = dtx.LEVELtaiko[3];
-				c曲リストノード.arスコア.譜面情報.nレベル[4] = dtx.LEVELtaiko[4];
-				c曲リストノード.arスコア.譜面情報.nレベル[5] = dtx.LEVELtaiko[5];
-				c曲リストノード.arスコア.譜面情報.nレベル[6] = dtx.LEVELtaiko[6];
+				c曲リストノード.arスコア.譜面情報.Level[0] = dtx.LEVELtaiko[0];
+				c曲リストノード.arスコア.譜面情報.Level[1] = dtx.LEVELtaiko[1];
+				c曲リストノード.arスコア.譜面情報.Level[2] = dtx.LEVELtaiko[2];
+				c曲リストノード.arスコア.譜面情報.Level[3] = dtx.LEVELtaiko[3];
+				c曲リストノード.arスコア.譜面情報.Level[4] = dtx.LEVELtaiko[4];
+				c曲リストノード.arスコア.譜面情報.Level[5] = dtx.LEVELtaiko[5];
+				c曲リストノード.arスコア.譜面情報.Level[6] = dtx.LEVELtaiko[6];
 				c曲リストノード.arスコア.譜面情報.b歌詞あり = dtx.bLyrics;
 				for (int n = 0; n < (int)Difficulty.Total; n++)
 				{

@@ -251,14 +251,14 @@ internal class CActSelectDifficultySelect : CActivity
 			{
 				if (裏表示 && i == 3)
 				{
-					for (int j = 0; j < TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.nレベル[4]; j++)
+					for (int j = 0; j < TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.Level[4]; j++)
 					{
 						TJAPlayer3.Tx.Difficulty_Star.t2D描画(TJAPlayer3.app.Device, i * 100 + 475, 483 - (j * 20), new Rectangle(TJAPlayer3.Tx.Difficulty_Star.szTextureSize.Width / 2, 0, TJAPlayer3.Tx.Difficulty_Star.szTextureSize.Width / 2, TJAPlayer3.Tx.Difficulty_Star.szTextureSize.Height));
 					}
 				}
 				else
 				{
-					for (int j = 0; j < TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.nレベル[i]; j++)
+					for (int j = 0; j < TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.Level[i]; j++)
 					{
 						TJAPlayer3.Tx.Difficulty_Star.t2D描画(TJAPlayer3.app.Device, i * 100 + 475, 483 - (j * 20), new Rectangle(0, 0, TJAPlayer3.Tx.Difficulty_Star.szTextureSize.Width / 2, TJAPlayer3.Tx.Difficulty_Star.szTextureSize.Height));
 					}

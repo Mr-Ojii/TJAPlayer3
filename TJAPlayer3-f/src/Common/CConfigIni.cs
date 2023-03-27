@@ -322,17 +322,6 @@ internal class CConfigIni : INotifyPropertyChanged
 			return true;
 		}
 	}
-	public bool bウィンドウモード
-	{
-		get
-		{
-			return !this.FullScreen;
-		}
-		set
-		{
-			this.FullScreen = !value;
-		}
-	}
 	public int n背景の透過度
 	{
 		get
