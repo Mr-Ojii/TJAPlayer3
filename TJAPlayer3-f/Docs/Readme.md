@@ -1,102 +1,102 @@
 # TJAPlayer3-f
-�ŏI�X�V��:2023/03/15(Mr-Ojii)
+最終更新日:2023/03/15(Mr-Ojii)
 
-����Readme��TJAPlayer3��Readme����ɍ쐬�������܂����B
+このReadmeはTJAPlayer3のReadmeを基に作成いたしました。
 
-## �͂��߂�
-���̃\�t�g�E�F�A�́A�A�[�P�[�h/�ƒ�p�Q�[���u���ۂ̒B�l�v�V���[�Y�p�A���ʃr���[�A�[�ł��B  
-���̃\�t�g�E�F�A�́AMr-Ojii��TJAPlayer3�Ƃ����V�~�����[�^�[�������������̂ł��B  
+## はじめに
+このソフトウェアは、アーケード/家庭用ゲーム「太鼓の達人」シリーズ用、譜面ビューアーです。  
+このソフトウェアは、Mr-OjiiがTJAPlayer3というシミュレーターを改造したものです。  
 
-* ���ۂ��񎟘Y�ETJAPlayer���Ŏg���Ă���.tja�t�@�C��
-* Koioto���Ɏg���Ă���.tcc .tcm .tci�t�@�C��
+* 太鼓さん次郎・TJAPlayer等で使われている.tjaファイル
+* Koioto等に使われている.tcc .tcm .tciファイル
 
-��ǂݍ��݁A�Đ����邱�Ƃ��ł��܂��B  
-(���ׂĂ̑Ή��t�@�C�����ǂݍ��߂�킯�ł͂���܂���B)  
+を読み込み、再生することができます。  
+(すべての対応ファイルが読み込めるわけではありません。)  
 
-**���Ƃ��Ƃ̓V�~�����[�^�[�Ƃ��ĊJ�����Ă��܂������A���݂́A���ʃr���[�A�[�Ƃ��ĊJ���𑱍s���Ă��܂��B**  
-
-
-## �g�p��̒���
-* TJAPlayer3-f�̓I�[�v���\�[�X�\�t�g�E�F�A�ł��B���̃\�t�g�E�F�A�E�X�L���͂��ׂ�MIT���C�Z���X�ɏ������܂��B
-* �v���O�����̐����(Mr-Ojii)�́ATJAPlayer3-f�{��(GitHub����̃_�E�����[�h)�ƃf�t�H���g�̃X�L���̃T�|�[�g�̂ݍs���܂��B
-* ���ׂĂ̊��œ���m�F�͂ł��Ȃ��̂ŁA��������^�������A���x�ł��肢���܂��B
-* �펞60fps��ۂĂȂ�PC�ł̓���͊��҂ł��܂���B
-* ���̃v���O�������g�p�����������A�����Ȃ�s��E�����ɑ΂��Ă��A��؂̐ӔC�𕉂��܂���B  
-  ���̃\�t�g�E�F�A���g�p����ꍇ�́A**�S�Ď��ȐӔC**�ł��肢���܂��B
+**もともとはシミュレーターとして開発していましたが、現在は、譜面ビューアーとして開発を続行しています。**  
 
 
-## ����A�z�M���ł̂����p�ɂ���
-TJAPlayer3-f�𓮉拤�L�T�C�g�⃉�C�u�z�M�T�[�r�X�A�E�F�u�T�C�g��u���O���ł����p�ɂȂ���ꍇ�A  
-�o���_�C�i���R�G���^�[�e�C�������g�����̂��̂łȂ����ƁA���̃\�t�g�E�F�A�ƍ������Ȃ��悤�z�������肢�������܂��B  
-�܂��A�^�O�@�\�̂���T�C�g�̏ꍇ�A�uTJAPlayer3-f�v�uTJAP3-f�v�Ƃ������^�O��t���邱�ƂŁA  
-���̃\�t�g�E�F�A�Ƃ̌����h���ƂƂ��ɁA�֘A����Ƃ��ďo�₷���Ȃ郁���b�g�����邽�߁A�������܂��B 
+## 使用上の注意
+* TJAPlayer3-fはオープンソースソフトウェアです。このソフトウェア・スキンはすべてMITライセンスに準拠します。
+* プログラムの制作者(Mr-Ojii)は、TJAPlayer3-f本体(GitHubからのダウンロード)とデフォルトのスキンのサポートのみ行います。
+* すべての環境で動作確認はできないので、動いたら運がいい、程度でお願いします。
+* 常時60fpsを保てないPCでの動作は期待できません。
+* このプログラムを使用し発生した、いかなる不具合・損失に対しても、一切の責任を負いません。  
+  このソフトウェアを使用する場合は、**全て自己責任**でお願いします。
 
 
-## TJAPlayer3-f�̉����E�Ĕz�z(�񎟔z�z)���s���ꍇ�ɂ���
-TJAPlayer3-f�A�f�t�H���g�X�L����MIT���C�Z���X�Ő��삳��Ă��܂��B  
-MIT���C�Z���X�̃��[���̂��ƁA�����E�Ĕz�z���s�����Ƃ͎��R�ł����A**�S�Ď��ȐӔC**�ł��肢���܂��B  
-�܂��A�g�p���Ă��郉�C�u�����̃��C�Z���X��A**�K��**�uThirdPartyLicenses�v�t�H���_�𓯍��̏�A�����E�Ĕz�z�����肢���܂��B  
-�O���X�L����A���ʃp�b�P�[�W�𓯍�����ꍇ�́A���ꂼ��̐���҂̃��[����K�������Ă��������B  
-������TJAPlayer3-f�̃��C�Z���X�͓K�p����܂���B
+## 動画、配信等でのご利用について
+TJAPlayer3-fを動画共有サイトやライブ配信サービス、ウェブサイトやブログ等でご利用になられる場合、  
+バンダイナムコエンターテインメント公式のものでないこと、他のソフトウェアと混同しないよう配慮をお願いいたします。  
+また、タグ機能のあるサイトの場合、「TJAPlayer3-f」「TJAP3-f」といったタグを付けることで、  
+他のソフトウェアとの誤解を防ぐとともに、関連動画として出やすくなるメリットがあるため、推奨します。 
 
 
-## ���������O��
-���������O�ɁA
-
-1. ���ׂ�O�ɍl����
-2. �l�ɕ����O�ɒ��ׂ�
-3. �ߋ��ɓ����悤�Ȏ��₪�Ȃ����������ׂ�
-4. �g�p���Ă���p�\�R���̊��A�ǂ����������������s����N���������̉ߒ�����Y���ĘA������
-
-����4�̃��[��������Ă���������΍K���ł��B�ǂ�����낵�����˂������܂��B
+## TJAPlayer3-fの改造・再配布(二次配布)を行う場合について
+TJAPlayer3-f、デフォルトスキンはMITライセンスで制作されています。  
+MITライセンスのルールのもと、改造・再配布を行うことは自由ですが、**全て自己責任**でお願いします。  
+また、使用しているライブラリのライセンス上、**必ず**「ThirdPartyLicenses」フォルダを同梱の上、改造・再配布をお願いします。  
+外部スキンや、譜面パッケージを同梱する場合は、それぞれの制作者のルールや規約を守ってください。  
+これらにTJAPlayer3-fのライセンスは適用されません。
 
 
-## �o�O�񍐂̂��肢
-�J����:[@Mr_Ojii](https://twitter.com/Mr_Ojii)��C#��2020�N3��16���ɏ��߂ĐG��܂����B  
-���̉��������Ȃ���AC#��׋����Ă��邽�߁A�����ȗʂ̃o�O���܂܂�Ă���Ǝv���܂��B  
-�o�O���������ꍇ�ADiscord�T�[�o�[�܂��́AGitHub Issues�ŕ񍐂��Ă���������ƁA�����̊w�K���͂��ǂ�̂ł�낵�����肢���܂��B  
-�܂��A�v���O������������悤�ȃG���[�ł���ꍇ�A�����J���҂ɑ��M����悤�Ȏd�l�ɂȂ��Ă���܂��B���������������B
+## 質問をする前に
+質問をする前に、
+
+1. 調べる前に考える
+2. 人に聞く前に調べる
+3. 過去に同じような質問がなかったか調べる
+4. 使用しているパソコンの環境、どういう動作をしたら不具合を起こしたかの過程等を添えて連絡する
+
+この4つのルールを守っていただければ幸いです。どうかよろしくおねがいします。
 
 
-## �����v�]�ɂ���
-�������Ăق������̂������GitHub��Issues�܂���Discord�I�܂ŁB  
-����x�̉����Ȃ̂Ŏ��Ԃ͂�����܂����A�����v�]�����������̂́A�Ȃ�ׂ������������ƍl���Ă��܂��B  
-��ł�����A�C������Ŏ���������̂ŁA�o�O�񍐂��Ȃ���Ă���񂵂ɂ���\��������܂��B���݂܂���B
+## バグ報告のお願い
+開発者:[@Mr_Ojii](https://twitter.com/Mr_Ojii)はC#を2020年3月16日に初めて触りました。  
+この改造をしながら、C#を勉強しているため、相当な量のバグが含まれていると思われます。  
+バグを見つけた場合、Discordサーバーまたは、GitHub Issuesで報告していただけると、自分の学習もはかどるのでよろしくお願いします。  
+また、プログラムが落ちるようなエラーである場合、情報を開発者に送信するような仕様になっております。ご了承ください。
 
 
-## �ǉ����߂ɂ���
-�uAbout_additional_and_modified_functions.md�v�Ő����������܂��B
+## 実装要望について
+実装してほしいものがあればGitHubのIssuesまたはDiscord鯖まで。  
+趣味程度の改造なので時間はかかりますが、実装要望があったものは、なるべく実装したいと考えています。  
+趣味ですから、気分次第で実装をするので、バグ報告がなされても後回しにする可能性があります。すみません。
 
 
-## ���������
+## 追加命令について
+「About_additional_and_modified_functions.md」で説明いたします。
+
+
+## 推奨動作環境
 #### OS
-* Windows 10�ȍ~��Windows (x86,x64)
-* macOS 10.15 "Catalina"�ȍ~��macOS (x64)
-* �f�X�N�g�b�v���\�z�ς݂� Linux �f�B�X�g���r���[�V���� �ŐV����� (x64, arm64)
+* Windows 10以降のWindows (x86,x64)
+* macOS 10.15 "Catalina"以降のmacOS (x64)
+* デスクトップ環境構築済みの Linux ディストリビューション 最新安定版 (x64, arm64)
 
 #### CPU
-* �}���`�X���b�h�Ή�
-* x86,x64�̏ꍇ�ASSE�Ή�(BASS)
+* マルチスレッド対応
+* x86,x64の場合、SSE対応(BASS)
 
 
-## ���s���@
-### Windows��  
-�_�E�����[�h��Azip�t�@�C�����𓀂��A�t�H���_���ɓ����Ă���TJAPlayer3-f.exe�����s���Ă��������B
+## 実行方法
+### Windows環境  
+ダウンロード後、zipファイルを解凍し、フォルダ内に入っているTJAPlayer3-f.exeを実行してください。
 
-### macOS��
-�_�E�����[�h��Azip�t�@�C�����𓀂��A�t�H���_���ɓ����Ă���TJAPlayer3-f�����s���Ă��������B
+### macOS環境
+ダウンロード後、zipファイルを解凍し、フォルダ内に入っているTJAPlayer3-fを実行してください。
 
-### Linux��
-TJAPlayer3-f�̃_�E�����[�h���ƂɁAzip�t�@�C�����𓀂��A  
-TJAPlayer3-f�����݂���f�B���N�g�����J�����g�f�B���N�g���Ƃ����^�[�~�i����  
+### Linux環境
+TJAPlayer3-fのダウンロードごとに、zipファイルを解凍し、  
+TJAPlayer3-fが存在するディレクトリをカレントディレクトリとしたターミナルで  
 ```sh
 chmod +x TJAPlayer3-f.AppImage
 ```
 
-�����Ă���ATJAPlayer3-f.AppImage�����s���Ă��������B
+をしてから、TJAPlayer3-f.AppImageを実行してください。
 
 
-## �J����(����m�F��)
+## 開発環境(動作確認環境)
 #### OS
 * Windows 11(Ver.22H2) (x64)
 * macOS 12.6.2 (arm64)
@@ -106,53 +106,53 @@ chmod +x TJAPlayer3-f.AppImage
 * Visual Studio Code
 
 
-## �J���̐��ɂ���
-master�u�����`�łقڂ��ׂĂ̊J�����s���܂��B  
-(��{�I�Ȃ��̂͂ł��B��K�͂ȃe�X�g�����Ȃǂ́A�ʂ̃u�����`�Ɉڍs���邩������܂���B)
+## 開発体制について
+masterブランチでほぼすべての開発を行います。  
+(基本的なものはです。大規模なテスト実装などは、別のブランチに移行するかもしれません。)
 
 
-## �J����
-|�o�[�W���� |���t(JST) |                                        �������e                                        |
+## 開発状況
+|バージョン |日付(JST) |                                        実装内容                                        |
 |:---------:|:--------:|:---------------------------------------------------------------------------------------|
-|Ver.1.5.8.0|2020-03-25|���{�Ƃ��ۂ��B                                                                        |
-|Ver.1.5.8.1|2020-04-16|�����@�\�̓���(���񂽂�`���� & Edit(�������S))                                         |
-|Ver.1.5.8.2|2020-04-17|.NET Framework 4.0�Ƀt���[�����[�N���A�b�v�f�[�g                                        |
-|Ver.1.5.8.3|2020-05-06|���ʕ���ɂ��āEJPOSSCROLL�̘A�łɂ��Ă̊��m�̃o�O���C��                            |
-|Ver.1.5.9.0|2020-05-08|�����̕����R�[�h�ɑΉ�                                                                  |
-|Ver.1.5.9.1|2020-05-09|WASAPI���L�ɑΉ�                                                                        |
-|Ver.1.5.9.2|2020-05-12|.NET Framework 4.8�Ƀt���[�����[�N���A�b�v�f�[�g                                        |
-|Ver.1.5.9.3|2020-05-22|�X�R�A���ۑ�����Ȃ��o�O���C�� & songs.db���y�ʉ�                                       |
-|Ver.1.6.0.0|2020-06-04|��Փx�I����ʁ������e���[�h�ǉ�(�^�C�g����ʂ�Ctrl+A�������Ȃ���A���t�Q�[����I��)    |
-|Ver.1.6.0.1|2020-06-07|Open Taiko Chart�ւ̑Ή�(��)                                                             |
-|Ver.1.6.0.2|2020-06-15|�ЊJ��(��)����                                                                          |
-|Ver.1.6.0.3|2020-07-11|���P���[�h(��)����                                                                      |
-|Ver.1.6.0.4|2020-08-30|���F�@�\�̎����E���t�I�v�V�����\�����@�̕ύX                                            |
-|Ver.1.6.0.5|2020-09-03|FFmpeg API���g�p���Ẳ����f�R�[�h�@�\��ǉ�                                            |
-|Ver.1.6.1.0|2020-09-13|FFmpeg API���g�p���Ă̓���f�R�[�h�@�\��ǉ�                                            |
-|Ver.1.6.2.0|2020-10-06|.NET Core 3.1�Ƀt���[�����[�N���A�b�v�f�[�g                                             |
-|Ver.1.6.3.0|2021-01-03|.NET 5�Ƀt���[�����[�N���A�b�v�f�[�g                                                    |
-|Ver.1.6.4.0|2021-01-06|OpenGL�`��ɑΉ�                                                                        |
-|Ver.1.7.0.0|2021-03-16|Ubuntu�n��Linux Distribution�ɑΉ�                                                      |
-|Ver.1.7.1.0|2021-03-22|�`��o�O�̏C��                                                                          |
-|Ver.1.7.1.1|2021-03-31|�X�N���[���V���b�g�̃o�O���C��                                                          |
-|Ver.1.7.1.2|2021-04-19|Linux����Midi���͂��ł��Ȃ����̏C��                                                 |
-|Ver.1.7.1.3|2021-04-22|����Đ����̃������g�p�ʂ̕ϓ����傫�����̏C��(�܂��A����Đ����̕��׌y��)            |
-|Ver.1.7.1.4|2021-05-12|���������[�N�̏C�� & �G���[�������̎擾���̒ǉ�                                       |
-|Ver.1.7.1.5|2021-07-29|�g�p����.NET�p BASS���b�p�[��ManagedBass�ɕύX                                          |
-|Ver.1.7.2.0|2021-11-12|.NET 6�Ƀt���[�����[�N���A�b�v�f�[�g                                                    |
-|Ver.1.8.0.0|2022-09-08|��ʃ����_���[��SDL2�ɕύX,�e�L�X�g�����_���[��SkiaSharp�ɕύX                          |
-|Ver.1.8.1.0|2023-01-03|.NET 7�Ƀt���[�����[�N���A�b�v�f�[�g                                                    |
-|Ver.1.8.2.0|2023-03-13|�e�N�X�`�����[�h���̃p�t�H�[�}���X���P & Linux(arm64)�ɑΉ�                             |
-|Ver.1.8.2.1|2023-03-17|���ʂ����݂��Ȃ��ꍇ��A���[�����̐F�̕ύX���@�\���Ă��Ȃ��������̏C��                |
+|Ver.1.5.8.0|2020-03-25|より本家っぽく。                                                                        |
+|Ver.1.5.8.1|2020-04-16|王冠機能の搭載(かんたん～おに & Edit(実質裏鬼))                                         |
+|Ver.1.5.8.2|2020-04-17|.NET Framework 4.0にフレームワークをアップデート                                        |
+|Ver.1.5.8.3|2020-05-06|譜面分岐について・JPOSSCROLLの連打についての既知のバグを修正                            |
+|Ver.1.5.9.0|2020-05-08|複数の文字コードに対応                                                                  |
+|Ver.1.5.9.1|2020-05-09|WASAPI共有に対応                                                                        |
+|Ver.1.5.9.2|2020-05-12|.NET Framework 4.8にフレームワークをアップデート                                        |
+|Ver.1.5.9.3|2020-05-22|スコアが保存されないバグを修正 & songs.dbを軽量化                                       |
+|Ver.1.6.0.0|2020-06-04|難易度選択画面＆メンテモード追加(タイトル画面でCtrl+Aを押しながら、演奏ゲームを選択)    |
+|Ver.1.6.0.1|2020-06-07|Open Taiko Chartへの対応(β)                                                             |
+|Ver.1.6.0.2|2020-06-15|片開き(仮)実装                                                                          |
+|Ver.1.6.0.3|2020-07-11|特訓モード(仮)実装                                                                      |
+|Ver.1.6.0.4|2020-08-30|音色機能の実装・演奏オプション表示方法の変更                                            |
+|Ver.1.6.0.5|2020-09-03|FFmpeg APIを使用しての音声デコード機能を追加                                            |
+|Ver.1.6.1.0|2020-09-13|FFmpeg APIを使用しての動画デコード機能を追加                                            |
+|Ver.1.6.2.0|2020-10-06|.NET Core 3.1にフレームワークをアップデート                                             |
+|Ver.1.6.3.0|2021-01-03|.NET 5にフレームワークをアップデート                                                    |
+|Ver.1.6.4.0|2021-01-06|OpenGL描画に対応                                                                        |
+|Ver.1.7.0.0|2021-03-16|Ubuntu系のLinux Distributionに対応                                                      |
+|Ver.1.7.1.0|2021-03-22|描画バグの修正                                                                          |
+|Ver.1.7.1.1|2021-03-31|スクリーンショットのバグを修正                                                          |
+|Ver.1.7.1.2|2021-04-19|Linux環境でMidi入力ができない問題の修正                                                 |
+|Ver.1.7.1.3|2021-04-22|動画再生時のメモリ使用量の変動が大きい問題の修正(また、動画再生時の負荷軽減)            |
+|Ver.1.7.1.4|2021-05-12|メモリリークの修正 & エラー発生時の取得情報の追加                                       |
+|Ver.1.7.1.5|2021-07-29|使用する.NET用 BASSラッパーをManagedBassに変更                                          |
+|Ver.1.7.2.0|2021-11-12|.NET 6にフレームワークをアップデート                                                    |
+|Ver.1.8.0.0|2022-09-08|画面レンダラーをSDL2に変更,テキストレンダラーをSkiaSharpに変更                          |
+|Ver.1.8.1.0|2023-01-03|.NET 7にフレームワークをアップデート                                                    |
+|Ver.1.8.2.0|2023-03-13|テクスチャロード時のパフォーマンス改善 & Linux(arm64)に対応                             |
+|Ver.1.8.2.1|2023-03-17|譜面が存在しない場合や、ロール時の色の変更が機能していなかった問題の修正                |
 
 
-## �f�t�H���g�X�L���ɂ���
-�ꕔ�摜�́ATJAPlayer3�̃f�t�H���g�X�L�����痬�p���Ă��܂��B
+## デフォルトスキンについて
+一部画像は、TJAPlayer3のデフォルトスキンから流用しています。
 
-�X�L���̃T�E���h�ɂ��Ă͏��X�Ɏ���ɂ���ւ��Ă����܂��B  
-���R�s�ł��Ȃ��̂ŁADomino & Softalk���œK���ɍ���������ނɂȂ�Ǝv���܂��B
+スキンのサウンドについては徐々に自作にすり替えていきます。  
+耳コピできないので、Domino & Softalk等で適当に作った音声類になると思います。
 
-�X�L���쐬�c�[��
+スキン作成ツール
 * AviUtl
 * Blender
 * FFmpeg
@@ -162,21 +162,21 @@ master�u�����`�łقڂ��ׂĂ̊J�����s���܂��B
 * SofTalk
 * UTAU
 
-&���ꂼ��̃\�t�g�̃v���O�C��/�X�N���v�g�Ȃ�
+&それぞれのソフトのプラグイン/スクリプトなど
 
 
 ## Discord Server
-����Ă������̂��Ǝv���Ȃ���A���J�I������Ă݂��������̂ō���Ă��܂��܂����B  
-�Q�������ꍇ�A#readme������ǂ��������B��낵�����肢�������܂��B  
+作っていいものかと思いながら、公開鯖を作ってみたかったので作ってしまいました。  
+参加した場合、#readmeをご一読ください。よろしくお願いいたします。  
 [https://discord.gg/Wg9bD5jTHZ](https://discord.gg/Wg9bD5jTHZ)
 
 
-## ���C�Z���X�֌W
-Fork�����g�p���Ă��郉�C�u����
+## ライセンス関係
+Fork元より使用しているライブラリ
 * [bass](https://www.un4seen.com/bass.html)
-* FDK21(�������Ă���̂ŁAFDK�Ƃ͌ĂׂȂ����C�u�����Ɖ����Ă��܂�)
+* FDK21(改造しているので、FDKとは呼べないライブラリと化しています)
 
-�ȉ��̃��C�u������ǉ��������܂����B
+以下のライブラリを追加いたしました。
 * [ReadJEnc](https://github.com/hnx8/ReadJEnc)
 * [FFmpeg.AutoGen](https://github.com/Ruslan-B/FFmpeg.AutoGen)
 * [SDL2](https://www.libsdl.org/)
@@ -189,22 +189,22 @@ Fork�����g�p���Ă��郉�C�u����
 * [SkiaSharp](https://github.com/mono/SkiaSharp)
 * [Tomlyn](https://github.com/xoofx/Tomlyn)
 
-�܂��A�t���[�����[�N��[.NET](https://dotnet.microsoft.com/)���g�p���Ă��܂��B
+また、フレームワークに[.NET](https://dotnet.microsoft.com/)を使用しています。
 
-���C�Z���X�́uLicenses�v�ɒǉ��������܂����B
+ライセンスは「Licenses」に追加いたしました。
 
 
-## FFmpeg�ɂ���
-`TJAPlayer3-f`�Ɠ����t�H���_��`FFmpeg`�t�H���_���쐬���A  
-���̒���OS��TJAPlayer3-f�̃A�[�L�e�N�`���ɑΉ������t�H���_���쐬���A
-`TJAPlayer3-f`�̃A�[�L�e�N�`���ɑΉ�����FFmpeg 5.1�o�C�i��(Shared)��u�����Ƃɂ��A
+## FFmpegについて
+`TJAPlayer3-f`と同じフォルダに`FFmpeg`フォルダを作成し、  
+その中にOSとTJAPlayer3-fのアーキテクチャに対応したフォルダを作成し、
+`TJAPlayer3-f`のアーキテクチャに対応したFFmpeg 5.1バイナリ(Shared)を置くことにより、
 
-+ FFmpeg���Ή����Ă��铮��t�@�C���̍Đ�
-+ FFmpeg���Ή����Ă��鉹���t�@�C���̍Đ�
++ FFmpegが対応している動画ファイルの再生
++ FFmpegが対応している音声ファイルの再生
 
-���ł���悤�ɂȂ�܂��B
+ができるようになります。
 
-### OS��TJAPlayer3-f�̃A�[�L�e�N�`�����ɑΉ������t�H���_��
+### OSとTJAPlayer3-fのアーキテクチャ数に対応したフォルダ名
 + Windows
   - x86 : `win-x86`
   - x64 : `win-x64`
@@ -215,10 +215,10 @@ Fork�����g�p���Ă��郉�C�u����
   - x64 : `linux-x64`
 
 
-## BASS�ɂ���
-���̃��|�W�g���ɂ͂��炩����BASS���C�u��������������Ă��܂��B  
+## BASSについて
+このリポジトリにはあらかじめBASSライブラリが同梱されています。  
 
-### �e��o�[�W����
+### 各種バージョン
 |Module     | Version |
 |:----------|:--------|
 |BASS       |2.4.16.7 |
@@ -227,17 +227,17 @@ Fork�����g�p���Ă��郉�C�u����
 |BASSWASAPI |2.4.3.1  |
 |BASSASIO   |1.4.1    |
 
-(2022/09/06����)
+(2022/09/06現在)
 
 
-## �ӎ�
-����TJAPlayer3-f�̂��ƂƂȂ�\�t�g�E�F�A���쐬�E�����e�i���X���Ă������ł�  
-��v�ȕ��X�Ɋ��ӂ̈ӂ�\���A�����O���グ�����Ă������������Ǝv���܂��B
+## 謝辞
+このTJAPlayer3-fのもととなるソフトウェアを作成・メンテナンスしてきた中でも  
+主要な方々に感謝の意を表し、お名前を上げさせていただきたいと思います。
 
-- �e�q�n�l�l
-- yyagi�l
-- kairera0467�l
-- AioiLight�l
+- ＦＲＯＭ様
+- yyagi様
+- kairera0467様
+- AioiLight様
 
-�܂��A����TJAPlayer�֌W�̃\�[�X�R�[�h���Q�l�ɂ����Ă��������Ă���ӏ����������܂��B  
-���肪�Ƃ��������܂��B
+また、他のTJAPlayer関係のソースコードを参考にさせていただいている箇所がございます。  
+ありがとうございます。

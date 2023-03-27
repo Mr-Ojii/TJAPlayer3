@@ -1,94 +1,94 @@
-## �����e���[�h
-�^�C�g����ʂŁA�uCtrl+A�v�������Ȃ���A���t���[�h��I������ƁA���w�i�ɕ������\������Ă����ʂɂȂ�܂��B  
-���ꂪ�A�����e���[�h(��)�ł��B�����m�F�ł��BEsc�Ŕ�����܂��B
+## メンテモード
+タイトル画面で、「Ctrl+A」を押しながら、演奏モードを選択すると、黒背景に文字が表示されている画面になります。  
+それが、メンテモード(仮)です。反応確認です。Escで抜けれます。
 
-## ���F��ς���
-���F�̕ύX���ł���悤�ɂ��܂����B
+## 音色を変える
+音色の変更をできるようにしました。
 
-``Sounds/Taiko``�t�H���_�̒��ɘA�Ԃ̃t�H���_�����A  
-���̃t�H���_���Ɂudong.ogg�v�uka.ogg�v�uAdlib.ogg�v�����A  
-``SkinConfig.toml``��``Sound.SENames = [ "���F�̃��X�g���L�q" ]``  
-���̉��F�̐������L�ڂ��邱�ƂŒǉ����\�ƂȂ�܂��B  
+``Sounds/Taiko``フォルダの中に連番のフォルダを作り、  
+そのフォルダ内に「dong.ogg」「ka.ogg」「Adlib.ogg」を入れ、  
+``SkinConfig.toml``に``Sound.SENames = [ "音色のリストを記述" ]``  
+その音色の説明を記載することで追加が可能となります。  
 
-#### ���ӓ_
-* �t�H���_���ɉ����t�@�C�������݂��Ȃ��ꍇ�ł��A1���F�Ƃ��ăJ�E���g����܂��B
-* �����t�@�C���������Ă���ꍇ�A�����ƂȂ�܂��B
-* SkinConfig�ł̗v�f��������Ȃ��ꍇ�A�uUntitled�v�Ƃ��������ɂȂ�܂��B
-* �A�ԃt�H���_���S���Ȃ���Ԃł́A�u���F��������v�t�F�[�Y�͖���������܂��B
+#### 注意点
+* フォルダ内に音声ファイルが存在しない場合でも、1音色としてカウントされます。
+* 音声ファイルが欠けている場合、無音となります。
+* SkinConfigでの要素数が足りない場合、「Untitled」という説明になります。
+* 連番フォルダが全くない状態では、「音色をかえる」フェーズは無効化されます。
 
-## ���P���[�h
-#### ������@(��~��)
+## 特訓モード
+#### 操作方法(停止時)
 
-|     �L�[       |          ����           |
+|     キー       |          動作           |
 | :------------: | :---------------------: |
-|     Space      |        ���ʂ̍Đ�       |
-| 1P��/PgUp/PgDn |        ���ʂ̈ړ�       |
-|      2P��      |      �Đ����x�̕ύX     |
-|       A        |  �W�����v�|�C���g�̒ǉ� |
+|     Space      |        譜面の再生       |
+| 1P縁/PgUp/PgDn |        譜面の移動       |
+|      2P縁      |      再生速度の変更     |
+|       A        |  ジャンプポイントの追加 |
 
-���Đ�����Space�ŕ��ʂ̒�~���ł��邱�ƈȊO���i�ʂ�̃L�[����ƂȂ�܂��B  
-�@�W�����v�|�C���g�Ɉړ�����ۂ�Config.ini�L�ڂ̎��ԓ���``1P��``��5��A�ł��Ă��������B
+※再生時はSpaceで譜面の停止ができること以外普段通りのキー操作となります。  
+　ジャンプポイントに移動する際はConfig.ini記載の時間内で``1P縁``を5回連打してください。
 
 ## SkinConfig
-�t�F�[�Y�̒ǉ���d�l�ύX�ɂ��ASkinConfig�ɂ��ύX�_������܂��B  
-�ڂ�����``About_SkinConfig.ini.toml``�Ő����������܂��B
+フェーズの追加や仕様変更により、SkinConfigにも変更点があります。  
+詳しくは``About_SkinConfig.ini.toml``で説明いたします。
 
 ## SortConfig
-�W�������\�[�g�̎�ނ��L�q���܂��B  
-�L�q���@��ini�`���ł��B  
-�Z�N�V���������\�[�g���ƂȂ�A  
-�u=�v�̍���(Name)���W���������A�u=�v�̉E��(Value)���\�[�g�̂��߂̐���  
-�ƂȂ�܂��B  
-�K���w�肳�ꂽ�����̏����Ń\�[�g����܂��B  
-�u�~�����ق����I�v�Ƃ������́A�����g�Ő�����M��A�쐬���Ă��������B
+ジャンルソートの種類を記述します。  
+記述方法はini形式です。  
+セクション名がソート名となり、  
+「=」の左側(Name)がジャンル名、「=」の右側(Value)がソートのための数字  
+となります。  
+必ず指定された数字の昇順でソートされます。  
+「降順もほしい！」という方は、ご自身で数字を弄り、作成してください。
 
-## �ǉ��w�b�_
+## 追加ヘッダ
 ### LYRICFILE
-�O��LYRIC�t�@�C�����w��ł��܂��B
+外部LYRICファイルを指定できます。
 
-#### ��  
+#### 例  
 LYRICFILE:hoge1.lrc,hoge2.lrc,hoge3.lrc
 
-#### ����  
-* #NEXTSONG���g�p�����ꍇ�A��L�̂悤�ɃJ���}��؂�ŕ����t�@�C�����w��ł��܂����A
+#### 注意  
+* #NEXTSONGを使用した場合、上記のようにカンマ区切りで複数ファイルを指定できますが、
 
 |      hoge1.lrc      |           hoge2.lrc           |           hoge3.lrc           |
 | :-----------------: | :---------------------------: | :---------------------------: |
-| #START�ɑ΂��Ă�lrc | 1�߂�#NEXTSONG�ɑ΂��Ă�lrc | 2�߂�#NEXTSONG�ɑ΂��Ă�lrc |
+| #STARTに対してのlrc | 1つめの#NEXTSONGに対してのlrc | 2つめの#NEXTSONGに対してのlrc |
 
-�ƂȂ邽�߁A#START�����#NEXTSONG���g�p����ꍇ�Ahoge1.lrc�̕����͋�(�X�y�[�X�Ȃ�)�ɂ���K�v������܂��B
+となるため、#START直後に#NEXTSONGを使用する場合、hoge1.lrcの部分は空白(スペースなし)にする必要があります。
 
-* �t�@�C������`,`(�J���})���܂܂�Ă���ꍇ�A`\,`�ƕ\�L����΁A�t�@�C�����̈ꕔ�Ƃ��Ĉ����܂��B
-* (#LYRIC�ƕ��p�����ꍇ�A�����������ςɂȂ�܂�)
+* ファイル名に`,`(カンマ)が含まれている場合、`\,`と表記すれば、ファイル名の一部として扱われます。
+* (#LYRICと併用した場合、字幕挙動が変になります)
 
 ### MOVIEOFFSET
-TJAP2fPC,TJAP3�̋���������Ƃ͌����Ȃ���Ԃł��邽�߁A�C�����܂����B  
-OFFSET�w�b�_�Ɠ��������ɂȂ��Ă��܂��B
+TJAP2fPC,TJAP3の挙動が正常とは言えない状態であるため、修正しました。  
+OFFSETヘッダと同じ挙動になっています。
 
 ### SCOREMODE:3
-�j�W�C���z�_�ɂȂ�܂��B(�����v�Z�͂��܂���)
+ニジイロ配点になります。(自動計算はしません)
 
 ### EXAMGAUGE
-�i�ʓ���̃Q�[�W������ǉ��ł��܂��B  
-(���t��ʂł̓j�W�C���i�ʗp�X�L���ɋ����ύX)
+段位道場のゲージ条件を追加できます。  
+(演奏画面ではニジイロ段位用スキンに強制変更)
 
-#### ��  
+#### 例  
 EXAMGAUGE:94,97,m  
-�ԏ���94%,������97%,臒l�ȏ�ł���ꍇ
+赤条件94%,金条件97%,閾値以上である場合
 
-### EXAM[1,2,3],Type,S1R,S1G,S2R,S2G,�c,Range
-�i�ʓ���̋ȕʏ�����ǉ��ł��܂��B(���܂ł�EXAM[1,2,3]���g�������w�b�_�ł��B)  
-(���t��ʂł̓j�W�C���i�ʗp�X�L���ɋ����ύX)
+### EXAM[1,2,3],Type,S1R,S1G,S2R,S2G,…,Range
+段位道場の曲別条件を追加できます。(今までのEXAM[1,2,3]を拡張したヘッダです。)  
+(演奏画面ではニジイロ段位用スキンに強制変更)
 
-#### ��  
+#### 例  
 EXAM1:jg,10,5,20,10,l  
-1�Ȗ� �ԏ��� ��10,������ ��5  
-2�Ȗ� �ԏ��� ��20,������ ��10  
-臒l�����ł���ꍇ
+1曲目 赤条件 可10,金条件 可5  
+2曲目 赤条件 可20,金条件 可10  
+閾値未満である場合
 
-## �ǉ�����
+## 追加命令
 
 ### #PAPAMAMA
-�p�p�}�}�T�|�[�g�����̕���(��Փx��)�ɓK�p�ł��܂��B  
-#HBSCROLL��#BMSCROLL�̗v�̂ł��g�����������B
+パパママサポートをその譜面(難易度別)に適用できます。  
+#HBSCROLLや#BMSCROLLの要領でお使いください。
 
