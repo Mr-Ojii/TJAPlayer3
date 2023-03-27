@@ -138,7 +138,7 @@ internal class CStage演奏画面共通 : CStage
 		Record.MissCount = this.nヒット数[nPlayer].Miss;
 		Record.RollCount = this.n合計連打数[nPlayer];
 		Record.Score = (long)this.actScore.Get( nPlayer );
-		Record.MaxCombo = this.actCombo.n現在のコンボ数.最高値[nPlayer];
+		Record.MaxCombo = this.actCombo.n現在のコンボ数.Max[nPlayer];
 		Record.Gauge = this.actGauge.db現在のゲージ値[nPlayer];
 		Record.Auto = this.b途中でAutoを切り替えたか[nPlayer] || TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer];
 		Record.PlayerName = TJAPlayer3.ConfigIni.strPlayerName[nPlayer];

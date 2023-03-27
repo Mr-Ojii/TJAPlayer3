@@ -138,7 +138,7 @@ internal class Dan_Cert : CActivity
 					isChangedAmount = Challenge[i].Update((int)(TJAPlayer3.stage演奏ドラム画面.nヒット数[0].Perfect + TJAPlayer3.stage演奏ドラム画面.nヒット数[0].Good + TJAPlayer3.stage演奏ドラム画面.GetRoll(0)));
 					break;
 				case Exam.Type.Combo:
-					isChangedAmount = Challenge[i].Update((int)TJAPlayer3.stage演奏ドラム画面.actCombo.n現在のコンボ数.最高値[0]);
+					isChangedAmount = Challenge[i].Update((int)TJAPlayer3.stage演奏ドラム画面.actCombo.n現在のコンボ数.Max[0]);
 					break;
 				default:
 					break;
@@ -192,7 +192,7 @@ internal class Dan_Cert : CActivity
 						if (notesRemain < (Challenge[i].GetValue(false) - Challenge[i].GetAmount())) Challenge[i].SetReached(true);
 						break;
 					case Exam.Type.Combo:
-						if (notesRemain + TJAPlayer3.stage演奏ドラム画面.actCombo.n現在のコンボ数.P1 < ((Challenge[i].GetValue(false))) && TJAPlayer3.stage演奏ドラム画面.actCombo.n現在のコンボ数.最高値[0] < (Challenge[i].GetValue(false))) Challenge[i].SetReached(true);
+						if (notesRemain + TJAPlayer3.stage演奏ドラム画面.actCombo.n現在のコンボ数[0] < ((Challenge[i].GetValue(false))) && TJAPlayer3.stage演奏ドラム画面.actCombo.n現在のコンボ数.Max[0] < (Challenge[i].GetValue(false))) Challenge[i].SetReached(true);
 						break;
 					default:
 						break;

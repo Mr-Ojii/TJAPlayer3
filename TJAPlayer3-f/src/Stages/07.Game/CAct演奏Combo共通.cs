@@ -14,125 +14,32 @@ internal class CAct演奏Combo共通 : CActivity
 	public STCOMBO n現在のコンボ数;
 	public struct STCOMBO
 	{
+		public STCOMBO()
+		{
+			Max = new int[4];
+			Combo = new int[4];
+		}
 		public CAct演奏Combo共通 act;
 
 		public int this[ int index ]
 		{
 			get
 			{
-				switch( index )
-				{
-					case 0:
-						return this.P1;
-
-					case 1:
-						return this.P2;
-
-					case 2:
-						return this.P3;
-
-					case 3:
-						return this.P4;
-				}
-				throw new IndexOutOfRangeException();
+				return this.Combo[index];
 			}
 			set
 			{
-				switch( index )
+				this.Combo[index] = value;
+				if( this.Combo[index] > this.Max[index] )
 				{
-					case 0:
-						this.P1 = value;
-						return;
-
-					case 1:
-						this.P2 = value;
-						return;
-
-					case 2:
-						this.P3 = value;
-						return;
-
-					case 3:
-						this.P4 = value;
-						return;
+					this.Max[index] = this.Combo[index];
 				}
-				throw new IndexOutOfRangeException();
+				this.act.status[index].nCOMBO値 = this.Combo[index];
+				this.act.status[index].n最高COMBO値 = this.Max[index];
 			}
 		}
-		public int P1
-		{
-			get
-			{
-				return this.p1;
-			}
-			set
-			{
-				this.p1 = value;
-				if( this.p1 > this.最高値[0] )
-				{
-					this.最高値[0] = this.p1;
-				}
-				this.act.status.P1.nCOMBO値 = this.p1;
-				this.act.status.P1.n最高COMBO値 = this.最高値[0];
-			}
-		}
-		public int P2
-		{
-			get
-			{
-				return this.p2;
-			}
-			set
-			{
-				this.p2 = value;
-				if( this.p2 > this.最高値[1])
-				{
-					this.最高値[1] = this.p2;
-				}
-				this.act.status.P2.nCOMBO値 = this.p2;
-				this.act.status.P2.n最高COMBO値 = this.最高値[1];
-			}
-		}
-		public int P3
-		{
-			get
-			{
-				return this.p3;
-			}
-			set
-			{
-				this.p3 = value;
-				if( this.p3 > this.最高値[2] )
-				{
-					this.最高値[2] = this.p3;
-				}
-				this.act.status.P3.nCOMBO値 = this.p3;
-				this.act.status.P3.n最高COMBO値 = this.最高値[2];
-			}
-		}
-		public int P4
-		{
-			get
-			{
-				return this.p4;
-			}
-			set
-			{
-				this.p4 = value;
-				if( this.p4 > this.最高値[3])
-				{
-					this.最高値[3] = this.p4;
-				}
-				this.act.status.P4.nCOMBO値 = this.p4;
-				this.act.status.P4.n最高COMBO値 = this.最高値[3];
-			}
-		}
-		public int[] 最高値 { get; set; }
-
-		private int p1;
-		private int p2;
-		private int p3;
-		private int p4;
+		public int[] Max { get; private set; }
+		private int[] Combo { get; set; }
 	}
 
 	protected enum EEvent { 非表示, 数値更新, 同一数値, ミス通知 }
@@ -178,51 +85,16 @@ internal class CAct演奏Combo共通 : CActivity
 
 	protected class CSTATUS
 	{
-		public CSTAT P1 = new CSTAT();
-		public CSTAT P2 = new CSTAT();
-		public CSTAT P3 = new CSTAT();
-		public CSTAT P4 = new CSTAT();
+		private CSTAT[] status = new CSTAT[4] { new(), new(), new(), new() };
 		public CSTAT this[ int index ]
 		{
 			get
 			{
-				switch( index )
-				{
-					case 0:
-						return this.P1;
-
-					case 1:
-						return this.P2;
-
-					case 2:
-						return this.P3;
-
-					case 3:
-						return this.P4;
-				}
-				throw new IndexOutOfRangeException();
+				return this.status[index];
 			}
 			set
 			{
-				switch( index )
-				{
-					case 0:
-						this.P1 = value;
-						return;
-
-					case 1:
-						this.P2 = value;
-						return;
-
-					case 2:
-						this.P3 = value;
-						return;
-
-					case 3:
-						this.P4 = value;
-						return;
-				}
-				throw new IndexOutOfRangeException();
+				this.status[index] = value;
 			}
 		}
 
@@ -478,7 +350,6 @@ internal class CAct演奏Combo共通 : CActivity
 	public override void On活性化()
 	{
 		this.n現在のコンボ数 = new STCOMBO() { act = this };
-		this.n現在のコンボ数.最高値 = new int[4];
 		this.status = new CSTATUS();
 		this.ctコンボ加算 = new CCounter[ 4 ];
 		for( int i = 0; i < 4; i++ )
