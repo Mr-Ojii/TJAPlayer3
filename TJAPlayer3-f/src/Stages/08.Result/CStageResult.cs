@@ -190,7 +190,7 @@ internal class CStageResult : CStage
 			}
 
 			// 描画
-			if (TJAPlayer3.ConfigIni.bEnableSkinV2)
+			if (TJAPlayer3.ConfigToml.EnableSkinV2)
 			{
 				if (TJAPlayer3.Tx.Result_v2_Background != null)
 				{
@@ -272,7 +272,7 @@ internal class CStageResult : CStage
 			{
 				if (TJAPlayer3.Tx.NamePlate[i] != null)
 				{
-					TJAPlayer3.Tx.NamePlate[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.ConfigIni.bEnableSkinV2 ? TJAPlayer3.Skin.SkinConfig.Result.v2NamePlateX[i] : TJAPlayer3.Skin.SkinConfig.Result.NamePlateX[i], TJAPlayer3.ConfigIni.bEnableSkinV2 ? TJAPlayer3.Skin.SkinConfig.Result.v2NamePlateY[i] : TJAPlayer3.Skin.SkinConfig.Result.NamePlateY[i]);
+					TJAPlayer3.Tx.NamePlate[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.ConfigToml.EnableSkinV2 ? TJAPlayer3.Skin.SkinConfig.Result.v2NamePlateX[i] : TJAPlayer3.Skin.SkinConfig.Result.NamePlateX[i], TJAPlayer3.ConfigToml.EnableSkinV2 ? TJAPlayer3.Skin.SkinConfig.Result.v2NamePlateY[i] : TJAPlayer3.Skin.SkinConfig.Result.NamePlateY[i]);
 				}
 			}
 			#endregion

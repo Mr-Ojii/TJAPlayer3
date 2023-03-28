@@ -120,7 +120,7 @@ internal class CActResultParameterPanel : CActivity
 		{
 			base.b初めての進行描画 = false;
 		}
-		if (TJAPlayer3.ConfigIni.bEnableSkinV2)
+		if (TJAPlayer3.ConfigToml.EnableSkinV2)
 		{
 			this.ct文字V2用.t進行();
 

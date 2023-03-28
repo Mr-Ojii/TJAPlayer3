@@ -44,7 +44,7 @@ internal class CActSelectPlayOption : CActivity
 
 		#endregion
 		#region [ 個別 Sud/Hid ]
-			l.Add(new CItemList("ゲーム", (int)TJAPlayer3.ConfigIni.eGameMode,
+			l.Add(new CItemList("ゲーム", (int)TJAPlayer3.ConfigToml.PlayOption._GameMode,
 				"ゲームモード\n" +
 				"TYPE-A: 完走!叩ききりまショー!\n" +
 				"TYPE-B: 完走!叩ききりまショー!(激辛)\n" +
@@ -59,7 +59,7 @@ internal class CActSelectPlayOption : CActivity
 			"いわゆるランダム。\n  RANDOM: ちょっと変わる\n  MIRROR: あべこべ \n  SUPER: そこそこヤバい\n  HYPER: 結構ヤバい\nなお、実装は適当な模様",
 			"Drums chips come randomly.\n\n Part: swapping lanes randomly for each\n  measures.\n Super: swapping chip randomly\n Hyper: swapping randomly\n  (number of lanes also changes)",
 			new string[] { "しない", "ちょこっと", "あべこべ", "きまぐれ", "でたらめ" }));
-		l.Add(new CItemList("ドロン", (int)TJAPlayer3.ConfigIni.eSTEALTH[nPlayer],
+		l.Add(new CItemList("ドロン", (int)TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer],
 			"",
 			new string[] { "しない", "ドロン", "ステルス" }));
 
@@ -110,13 +110,13 @@ internal class CActSelectPlayOption : CActivity
 					TJAPlayer3.ConfigToml.PlayOption.PlaySpeed = lci[nPlayer][(int)EItemList1P.PlaySpeed].GetIndex();
 					break;
 				case (int)EItemList1P.GameMode:
-					TJAPlayer3.ConfigIni.eGameMode = (EGame)lci[nPlayer][(int)EItemList1P.GameMode].GetIndex();
+					TJAPlayer3.ConfigToml.PlayOption._GameMode = (EGame)lci[nPlayer][(int)EItemList1P.GameMode].GetIndex();
 					break;
 				case (int)EItemList1P.Random:
 					TJAPlayer3.ConfigToml.PlayOption._Random[nPlayer] = (ERandomMode)lci[nPlayer][(int)EItemList1P.Random].GetIndex();
 					break;
 				case (int)EItemList1P.Stealth:
-					TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] = (EStealthMode)lci[nPlayer][(int)EItemList1P.Stealth].GetIndex();
+					TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] = (EStealthMode)lci[nPlayer][(int)EItemList1P.Stealth].GetIndex();
 					break;
 				case (int)EItemList1P.Shinuchi:
 					TJAPlayer3.ConfigToml.PlayOption.Shinuchi[nPlayer] = lci[nPlayer][(int)EItemList1P.Shinuchi].GetIndex() == 1;
@@ -142,7 +142,7 @@ internal class CActSelectPlayOption : CActivity
 					TJAPlayer3.ConfigToml.PlayOption._Random[nPlayer] = (ERandomMode)lci[nPlayer][(int)EItemList2P.Random].GetIndex();
 					break;
 				case (int)EItemList2P.Stealth:
-					TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] = (EStealthMode)lci[nPlayer][(int)EItemList2P.Stealth].GetIndex();
+					TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] = (EStealthMode)lci[nPlayer][(int)EItemList2P.Stealth].GetIndex();
 					break;
 				case (int)EItemList2P.Shinuchi:
 					TJAPlayer3.ConfigToml.PlayOption.Shinuchi[nPlayer] = lci[nPlayer][(int)EItemList2P.Shinuchi].GetIndex() == 1;

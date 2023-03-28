@@ -71,7 +71,7 @@ internal class CActStageFailed : CActivity
 	{
 		this.dbFailedTime = TJAPlayer3.Timer.n現在時刻ms;
 		this.ct進行 = new CCounter( 0, 1000, 2, TJAPlayer3.Timer );
-		if( TJAPlayer3.ConfigIni.eGameMode != EGame.OFF )
+		if( TJAPlayer3.ConfigToml.PlayOption._GameMode != EGame.OFF )
 		{
 			this.ct進行 = new CCounter( 0, 4000, 2, TJAPlayer3.Timer );
 		}
@@ -117,7 +117,7 @@ internal class CActStageFailed : CActivity
 		}
 		this.ct進行.t進行();
 
-		if (TJAPlayer3.ConfigIni.eGameMode == EGame.完走叩ききりまショー || TJAPlayer3.ConfigIni.eGameMode == EGame.完走叩ききりまショー激辛)
+		if (TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー || TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー激辛)
 		{
 			if (TJAPlayer3.Tx.Tile_Black != null)
 			{

@@ -27,7 +27,7 @@ internal class TJAPlayer3 : Game
 {
 	// プロパティ
 	#region [ properties ]
-	public static readonly string VERSION = Assembly.GetExecutingAssembly().GetName().Version.ToString().Substring(0, Assembly.GetExecutingAssembly().GetName().Version.ToString().Length - 2);
+	public static readonly string VERSION = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
 	public static TJAPlayer3 app
 	{
@@ -1138,8 +1138,8 @@ internal class TJAPlayer3 : Game
 		Trace.Indent();
 		try
 		{
-			Skin = new CSkin(TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName);
-			TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName = TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(true);    // 旧指定のSkinフォルダが消滅していた場合に備える
+			Skin = new CSkin(TJAPlayer3.ConfigToml.General.SkinPath);
+			TJAPlayer3.ConfigToml.General.SkinPath = TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(true);    // 旧指定のSkinフォルダが消滅していた場合に備える
 			this.LogicalSize = new Size(Skin.SkinConfig.General.Width, Skin.SkinConfig.General.Height);
 			Trace.TraceInformation("スキンの初期化を完了しました。");
 		}
@@ -1219,14 +1219,14 @@ internal class TJAPlayer3 : Game
 			InputManager = new CInputManager();
 			foreach (IInputDevice device in InputManager.listInputDevices)
 			{
-				if ((device.eInputDeviceType == EInputDeviceType.Joystick) && !ConfigIni.dicJoystick.ContainsValue(device.GUID))
+				if ((device.eInputDeviceType == EInputDeviceType.Joystick) && !ConfigToml.JoystickGUID.ContainsValue(device.GUID))
 				{
 					int key = 0;
-					while (ConfigIni.dicJoystick.ContainsKey(key))
+					while (ConfigToml.JoystickGUID.ContainsKey(key))
 					{
 						key++;
 					}
-					ConfigIni.dicJoystick.Add(key, device.GUID);
+					ConfigToml.JoystickGUID.Add(key, device.GUID);
 				}
 			}
 			InputCTS = new CancellationTokenSource();
@@ -1250,7 +1250,7 @@ internal class TJAPlayer3 : Game
 		Trace.Indent();
 		try
 		{
-			Pad = new CPad(ConfigIni, InputManager);
+			Pad = new CPad(ConfigIni, ConfigToml, InputManager);
 			Trace.TraceInformation("パッドの初期化を完了しました。");
 		}
 		catch (Exception exception3)
@@ -1309,10 +1309,10 @@ internal class TJAPlayer3 : Game
 				LoudnessMetadataScanner.StartBackgroundScanning();
 
 				SongGainController = new SongGainController();
-				ConfigIniToSongGainControllerBinder.Bind(ConfigIni, SongGainController);
+				ConfigIniToSongGainControllerBinder.Bind(ConfigToml, SongGainController);
 
 				SoundGroupLevelController = new SoundGroupLevelController(CSound.listインスタンス);
-				ConfigIniToSoundGroupLevelControllerBinder.Bind(ConfigIni, SoundGroupLevelController);
+				ConfigIniToSoundGroupLevelControllerBinder.Bind(ConfigToml, SoundGroupLevelController);
 			}
 			finally
 			{
@@ -1321,8 +1321,8 @@ internal class TJAPlayer3 : Game
 			}
 
 			ShowWindowTitleWithSoundType();
-			CSoundManager.bIsTimeStretch = TJAPlayer3.ConfigIni.bTimeStretch;
-			SoundManager.nMasterVolume = TJAPlayer3.ConfigIni.nMasterVolume;
+			CSoundManager.bIsTimeStretch = TJAPlayer3.ConfigToml.PlayOption.TimeStretch;
+			SoundManager.nMasterVolume = TJAPlayer3.ConfigToml.MasterVolume;
 			//FDK.CSoundManager.bIsMP3DecodeByWindowsCodec = CDTXMania.ConfigIni.bNoMP3Streaming;
 			Trace.TraceInformation("サウンドデバイスの初期化を完了しました。");
 		}
@@ -1758,7 +1758,7 @@ internal class TJAPlayer3 : Game
 
 		TJAPlayer3.Skin.Dispose();
 		TJAPlayer3.Skin = null;
-		TJAPlayer3.Skin = new CSkin(TJAPlayer3.ConfigIni.strSystemSkinSubfolderFullName);
+		TJAPlayer3.Skin = new CSkin(TJAPlayer3.ConfigToml.General.SkinPath);
 
 
 		TJAPlayer3.Tx.DisposeTexture();

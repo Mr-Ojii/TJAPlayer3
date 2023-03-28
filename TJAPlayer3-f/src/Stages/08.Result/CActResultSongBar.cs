@@ -96,7 +96,7 @@ internal class CActResultSongBar : CActivity
 		}
 		this.ct登場用.t進行();
 
-		if (TJAPlayer3.ConfigIni.bEnableSkinV2)
+		if (TJAPlayer3.ConfigToml.EnableSkinV2)
 		{
 			if (TJAPlayer3.Skin.SkinConfig.Result._v2MusicNameReferencePoint == CSkin.EReferencePoint.Center)
 			{

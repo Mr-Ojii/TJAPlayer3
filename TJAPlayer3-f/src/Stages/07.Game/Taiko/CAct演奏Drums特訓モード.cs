@@ -142,7 +142,7 @@ class CAct演奏Drums特訓モード : CActivity
 						this.t譜面の表示位置を合わせる(true);
 						TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND特訓スクロール].t再生する();
 					}
-					if (t配列の値interval以下か(ref this.LBlue, CSoundManager.rc演奏用タイマ.nシステム時刻ms, TJAPlayer3.ConfigIni.TokkunMashInterval))
+					if (t配列の値interval以下か(ref this.LBlue, CSoundManager.rc演奏用タイマ.nシステム時刻ms, TJAPlayer3.ConfigToml.PlayOption.TrainingJumpInterval))
 					{
 						for (int index = this.JumpPointList.Count - 1; index >= 0; index--)
 						{
@@ -157,20 +157,6 @@ class CAct演奏Drums特訓モード : CActivity
 					}
 				}
 			}
-			if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.PageDown))
-			{
-				if (this.b特訓PAUSE)
-				{
-					this.n現在の小節線 -= TJAPlayer3.ConfigIni.TokkunSkipMeasures;
-					if (this.n現在の小節線 <= 0)
-						this.n現在の小節線 = 1;
-
-					TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0] = this.n現在の小節線;
-
-					this.t譜面の表示位置を合わせる(true);
-					TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND特訓スクロール].t再生する();
-				}
-			}
 			if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.bPressed(EPad.RBlue))
 			{
 				if (this.b特訓PAUSE)
@@ -183,7 +169,7 @@ class CAct演奏Drums特訓モード : CActivity
 						this.t譜面の表示位置を合わせる(true);
 						TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND特訓スクロール].t再生する();
 					}
-					if (t配列の値interval以下か(ref this.RBlue, CSoundManager.rc演奏用タイマ.nシステム時刻ms, TJAPlayer3.ConfigIni.TokkunMashInterval))
+					if (t配列の値interval以下か(ref this.RBlue, CSoundManager.rc演奏用タイマ.nシステム時刻ms, TJAPlayer3.ConfigToml.PlayOption.TrainingJumpInterval))
 					{
 						for (int index = 0; index < this.JumpPointList.Count; index++)
 						{
@@ -199,13 +185,25 @@ class CAct演奏Drums特訓モード : CActivity
 
 				}
 			}
+			if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.PageDown))
+			{
+				if (this.b特訓PAUSE)
+				{
+					this.n現在の小節線 -= TJAPlayer3.ConfigToml.PlayOption.TrainingSkipMeasures;
+					this.n現在の小節線 = Math.Clamp(this.n現在の小節線, 1, this.n小節の総数);
+
+					TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0] = this.n現在の小節線;
+
+					this.t譜面の表示位置を合わせる(true);
+					TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND特訓スクロール].t再生する();
+				}
+			}
 			if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.PageUp))
 			{
 				if (this.b特訓PAUSE)
 				{
-					this.n現在の小節線 += TJAPlayer3.ConfigIni.TokkunSkipMeasures;
-					if (this.n現在の小節線 > this.n小節の総数)
-						this.n現在の小節線 = this.n小節の総数;
+					this.n現在の小節線 += TJAPlayer3.ConfigToml.PlayOption.TrainingSkipMeasures;
+					this.n現在の小節線 = Math.Clamp(this.n現在の小節線, 1, this.n小節の総数);
 
 					TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0] = this.n現在の小節線;
 

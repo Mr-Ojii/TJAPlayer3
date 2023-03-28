@@ -47,7 +47,7 @@ internal class Dan_Cert : CActivity
 		TJAPlayer3.stage演奏ドラム画面.ReSetScore(TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].ScoreInit, TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].ScoreDiff, 0);
 		IsAnimating = true;
 
-		string subtitle = (TJAPlayer3.ConfigIni.eSubtitleDispMode == ESubtitleDispMode.On || (TJAPlayer3.ConfigIni.eSubtitleDispMode == ESubtitleDispMode.Compliant && TJAPlayer3.DTX[0].SUBTITLEDisp)) ? TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].SubTitle : null;
+		string subtitle = (TJAPlayer3.ConfigToml.Game._SubtitleDispMode == ESubtitleDispMode.On || (TJAPlayer3.ConfigToml.Game._SubtitleDispMode == ESubtitleDispMode.Compliant && TJAPlayer3.DTX[0].SUBTITLEDisp)) ? TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].SubTitle : null;
 
 		TJAPlayer3.stage演奏ドラム画面.actPanel.SetPanelString(TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].Title, subtitle, TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].Genre, 1 + NowShowingNumber + "曲目");
 		Sound_Section?.t再生を開始する();
@@ -330,7 +330,7 @@ internal class Dan_Cert : CActivity
 		}
 
 
-		if (TJAPlayer3.ConfigIni.bEnableSkinV2 || this.IsVer2)
+		if (TJAPlayer3.ConfigToml.EnableSkinV2 || this.IsVer2)
 		{
 			// 背景を描画する。
 			TJAPlayer3.Tx.DanC_V2_Background?.t2D描画(TJAPlayer3.app.Device, 0, 0);

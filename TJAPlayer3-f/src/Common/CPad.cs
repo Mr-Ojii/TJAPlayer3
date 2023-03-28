@@ -30,9 +30,10 @@ public class CPad
 
 	// コンストラクタ
 
-	internal CPad( CConfigIni configIni, CInputManager mgrInput )
+	internal CPad( CConfigIni configIni, CConfigToml configToml, CInputManager mgrInput )
 	{
 		this.rConfigIni = configIni;
+		this.rConfigToml = configToml;
 		this.rInputManager = mgrInput;
 		this.stDetectedDevices.Clear();
 	}
@@ -119,7 +120,7 @@ public class CPad
 					}
 				case EInputDevice.Joypad:
 					{
-						if (!this.rConfigIni.dicJoystick.ContainsKey(stkeyassignArray[i].ID))
+						if (!this.rConfigToml.JoystickGUID.ContainsKey(stkeyassignArray[i].ID))
 							break;
 
 						IInputDevice device = this.rInputManager.Joystick(stkeyassignArray[i].ID);
@@ -157,7 +158,7 @@ public class CPad
 
 				case EInputDevice.Joypad:
 					{
-						if (!this.rConfigIni.dicJoystick.ContainsKey(stkeyassignArray[i].ID))
+						if (!this.rConfigToml.JoystickGUID.ContainsKey(stkeyassignArray[i].ID))
 						{
 							break;
 						}
@@ -187,6 +188,7 @@ public class CPad
 	#region [ private ]
 	//-----------------
 	private CConfigIni rConfigIni;
+	private CConfigToml rConfigToml;
 	private CInputManager rInputManager;
 	//-----------------
 	#endregion

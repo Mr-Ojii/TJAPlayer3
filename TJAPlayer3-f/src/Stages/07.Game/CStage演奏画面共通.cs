@@ -328,7 +328,7 @@ internal class CStage演奏画面共通 : CStage
 		// Discord Presence の更新
 		var difficultyName = ((Difficulty)TJAPlayer3.stage選曲.n確定された曲の難易度[0]).ToString();
 
-		string Details = TJAPlayer3.ConfigIni.SendDiscordPlayingInformation ? TJAPlayer3.DTX[0].TITLE + TJAPlayer3.DTX[0].EXTENSION : "";
+		string Details = TJAPlayer3.ConfigToml.Game.SendDiscordPlayingInformation ? TJAPlayer3.DTX[0].TITLE + TJAPlayer3.DTX[0].EXTENSION : "";
 
 		TJAPlayer3.DiscordClient?.SetPresence(new RichPresence()
 		{
@@ -337,8 +337,8 @@ internal class CStage演奏画面共通 : CStage
 			Timestamps = new Timestamps(DateTime.UtcNow, DateTime.UtcNow.AddMilliseconds(TJAPlayer3.DTX[0].listChip[TJAPlayer3.DTX[0].listChip.Count - 1].n発声時刻ms / (TJAPlayer3.ConfigToml.PlayOption.PlaySpeed / 20.0))),
 			Assets = new Assets()
 			{
-				SmallImageKey = TJAPlayer3.ConfigIni.SendDiscordPlayingInformation ? difficultyName.ToLower() : "",
-				SmallImageText = TJAPlayer3.ConfigIni.SendDiscordPlayingInformation ? String.Format("COURSE:{0} ({1})", difficultyName, TJAPlayer3.stage選曲.n確定された曲の難易度[0]) : "",
+				SmallImageKey = TJAPlayer3.ConfigToml.Game.SendDiscordPlayingInformation ? difficultyName.ToLower() : "",
+				SmallImageText = TJAPlayer3.ConfigToml.Game.SendDiscordPlayingInformation ? String.Format("COURSE:{0} ({1})", difficultyName, TJAPlayer3.stage選曲.n確定された曲の難易度[0]) : "",
 				LargeImageKey = TJAPlayer3.LargeImageKey,
 				LargeImageText = TJAPlayer3.LargeImageText,
 			}
@@ -397,7 +397,7 @@ internal class CStage演奏画面共通 : CStage
 					this.soundAdlib[i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/Adlib.ogg"), ESoundGroup.SoundEffect);
 				}
 
-				if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.ConfigIni.b2P演奏時のSEの左右)//2020.05.06 Mr-Ojii 左右に出したかったから、追加。
+				if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.ConfigToml.PlayOption.UsePanning)//2020.05.06 Mr-Ojii 左右に出したかったから、追加。
 				{
 					if (this.soundRed[0] != null)
 						this.soundRed[0].nPanning = -100;
@@ -481,42 +481,42 @@ internal class CStage演奏画面共通 : CStage
 				}
 			}
 
-			if (TJAPlayer3.ConfigToml.Game.Background.Movie && TJAPlayer3.DTX[0].listVD.Count > 0 && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
+			if (TJAPlayer3.ConfigToml.Game.Background.Movie && TJAPlayer3.DTX[0].listVD.Count > 0 && TJAPlayer3.ConfigToml.PlayOption._GameMode != EGame.特訓モード)
 			{
 				this.t進行描画_AVI();
 			}
 			else if (TJAPlayer3.ConfigToml.Game.Background.BGA)
 			{
-				if (TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード) actTraining.On進行描画_背景();
+				if (TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.特訓モード) actTraining.On進行描画_背景();
 				else actBackground.On進行描画();
 			}
 
-			if (!(TJAPlayer3.ConfigToml.Game.Background.Movie && TJAPlayer3.DTX[0].listVD.Count > 0) && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
+			if (!(TJAPlayer3.ConfigToml.Game.Background.Movie && TJAPlayer3.DTX[0].listVD.Count > 0) && TJAPlayer3.ConfigToml.PlayOption._GameMode != EGame.特訓モード)
 			{
 				actRollChara.On進行描画();
 			}
 
-			if (!(TJAPlayer3.ConfigToml.Game.Background.Movie && TJAPlayer3.DTX[0].listVD.Count > 0) && !bDoublePlay && TJAPlayer3.ConfigIni.ShowDancer && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
+			if (!(TJAPlayer3.ConfigToml.Game.Background.Movie && TJAPlayer3.DTX[0].listVD.Count > 0) && !bDoublePlay && TJAPlayer3.ConfigToml.Game.ShowDancer && TJAPlayer3.ConfigToml.PlayOption._GameMode != EGame.特訓モード)
 			{
 				actDancer.On進行描画();
 			}
 
-			if (!(TJAPlayer3.ConfigToml.Game.Background.Movie && TJAPlayer3.DTX[0].listVD.Count > 0) && !bDoublePlay && TJAPlayer3.ConfigIni.ShowFooter && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード && TJAPlayer3.Tx.Mob_Footer != null)
+			if (!(TJAPlayer3.ConfigToml.Game.Background.Movie && TJAPlayer3.DTX[0].listVD.Count > 0) && !bDoublePlay && TJAPlayer3.ConfigToml.Game.ShowFooter && TJAPlayer3.ConfigToml.PlayOption._GameMode != EGame.特訓モード && TJAPlayer3.Tx.Mob_Footer != null)
 				TJAPlayer3.Tx.Mob_Footer.t2D描画(TJAPlayer3.app.Device, 0, TJAPlayer3.app.LogicalSize.Height - TJAPlayer3.Tx.Mob_Footer.szTextureSize.Height);
 
-			if (!(TJAPlayer3.ConfigToml.Game.Background.Movie && TJAPlayer3.DTX[0].listVD.Count > 0) && TJAPlayer3.ConfigIni.ShowChara)
+			if (!(TJAPlayer3.ConfigToml.Game.Background.Movie && TJAPlayer3.DTX[0].listVD.Count > 0) && TJAPlayer3.ConfigToml.Game.ShowChara)
 				this.actChara.On進行描画();
 
-			if (TJAPlayer3.ConfigIni.ShowMob && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
+			if (TJAPlayer3.ConfigToml.Game.ShowMob && TJAPlayer3.ConfigToml.PlayOption._GameMode != EGame.特訓モード)
 				this.actMob.On進行描画();
 
-			if (TJAPlayer3.ConfigIni.eGameMode != EGame.OFF)
+			if (TJAPlayer3.ConfigToml.PlayOption._GameMode != EGame.OFF)
 				this.actGame.On進行描画();
 
 			this.actScrollSpeed.On進行描画();
 			this.t進行描画_チップアニメ();
 
-			if (TJAPlayer3.ConfigIni.ShowRunner)
+			if (TJAPlayer3.ConfigToml.Game.ShowRunner)
 				this.actRunner.On進行描画();
 
 			this.actLaneTaiko.On進行描画();
@@ -524,7 +524,7 @@ internal class CStage演奏画面共通 : CStage
 			if (TJAPlayer3.ConfigToml.Game.Background._ClipDispType.HasFlag(EClipDispType.Window) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount == 1)
 				this.actAVI.t窓表示();
 
-			if (!TJAPlayer3.ConfigIni.bNoInfo && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
+			if (!TJAPlayer3.ConfigToml.Game.NoInfo && TJAPlayer3.ConfigToml.PlayOption._GameMode != EGame.特訓モード)
 				this.t進行描画_ゲージ();
 
 			this.actLaneTaiko.ゴーゴー炎();
@@ -543,15 +543,15 @@ internal class CStage演奏画面共通 : CStage
 
 			this.GoGoSplash.On進行描画();
 			this.t進行描画_リアルタイム判定数表示();
-			if (TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
+			if (TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.特訓モード)
 				this.actTraining.On進行描画_小節_速度();
 
-			if (!TJAPlayer3.ConfigIni.bNoInfo)
+			if (!TJAPlayer3.ConfigToml.Game.NoInfo)
 				this.actCombo.On進行描画();
-			if (!TJAPlayer3.ConfigIni.bNoInfo && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
+			if (!TJAPlayer3.ConfigToml.Game.NoInfo && TJAPlayer3.ConfigToml.PlayOption._GameMode != EGame.特訓モード)
 				this.actScore.On進行描画();
 
-			if (TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
+			if (TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.特訓モード)
 				actTraining.On進行描画();
 
 			this.Rainbow.On進行描画();
@@ -567,10 +567,10 @@ internal class CStage演奏画面共通 : CStage
 				this.actRoll.On進行描画(this.n現在の連打数[i], i);
 			}
 
-			if (!TJAPlayer3.ConfigIni.bNoInfo)
+			if (!TJAPlayer3.ConfigToml.Game.NoInfo)
 				this.actJudgeString.t進行描画();
 
-			if (!TJAPlayer3.ConfigIni.bNoInfo)
+			if (!TJAPlayer3.ConfigToml.Game.NoInfo)
 				this.t進行描画_パネル文字列();
 
 			if (TJAPlayer3.ConfigToml.Game.ShowDebugStatus)
@@ -583,7 +583,7 @@ internal class CStage演奏画面共通 : CStage
 
 			this.actPanel.t歌詞テクスチャを描画する();
 
-			if (TJAPlayer3.ConfigIni.ShowChara)
+			if (TJAPlayer3.ConfigToml.Game.ShowChara)
 				actChara.OnDraw_Balloon();
 
 			this.t全体制御メソッド();
@@ -598,7 +598,7 @@ internal class CStage演奏画面共通 : CStage
 			//演奏終了→演出表示→FadeOut
 			if (bIsFinishedPlaying && base.eフェーズID == CStage.Eフェーズ.共通_通常状態)
 			{
-				if (TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
+				if (TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.特訓モード)
 				{
 					TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND特訓停止].t再生する();
 					actTraining.t演奏を停止する();
@@ -1234,7 +1234,7 @@ internal class CStage演奏画面共通 : CStage
 			{
 				this.tRollProcess(pChip, (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0)), 1, nNowInput, 0, nPlayer);
 			}
-			if (TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM < 0 && (TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.HBSCROLL))
+			if (TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM < 0 && (TJAPlayer3.ConfigToml.ScrollMode == EScrollMode.HBSCROLL))
 				pChip.fBMSCROLLTime -= TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * -0.05;
 			//---------------------------
 			#endregion
@@ -2262,13 +2262,13 @@ internal class CStage演奏画面共通 : CStage
 								this.tドラムヒット処理(nTime, EPad.LRed, chipNoHit, false, nUsePlayer);
 								bHitted = true;
 							}
-							if (e判定 != EJudge.Miss && (chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x1A) && !TJAPlayer3.ConfigIni.b大音符判定)
+							if (e判定 != EJudge.Miss && (chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x1A) && !TJAPlayer3.ConfigToml.PlayOption.BigNotesJudge)
 							{
 								this.tドラムヒット処理(nTime, EPad.LRed, chipNoHit, true, nUsePlayer);
 								bHitted = true;
 								break;
 							}
-							if (e判定 != EJudge.Miss && (chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x1A) && TJAPlayer3.ConfigIni.b大音符判定)
+							if (e判定 != EJudge.Miss && (chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x1A) && TJAPlayer3.ConfigToml.PlayOption.BigNotesJudge)
 							{
 								if (e判定 == EJudge.Bad)
 								{
@@ -2287,7 +2287,7 @@ internal class CStage演奏画面共通 : CStage
 								else if (chipNoHit.eNoteState == ENoteState.waitright)
 								{
 									float time = chipNoHit.n発声時刻ms - (float)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
-									int nWaitTime = TJAPlayer3.ConfigIni.n両手判定の待ち時間;
+									int nWaitTime = TJAPlayer3.ConfigToml.PlayOption.BigNotesWaitTime;
 									if (time <= 110 && chipNoHit.nProcessTime + nWaitTime > (int)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0)))
 									{
 										this.tドラムヒット処理(nTime, EPad.LRed, chipNoHit, true, nUsePlayer);
@@ -2322,13 +2322,13 @@ internal class CStage演奏画面共通 : CStage
 								this.tドラムヒット処理(nTime, EPad.RRed, chipNoHit, false, nUsePlayer);
 								bHitted = true;
 							}
-							if (e判定 != EJudge.Miss && (chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x1A) && !TJAPlayer3.ConfigIni.b大音符判定)
+							if (e判定 != EJudge.Miss && (chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x1A) && !TJAPlayer3.ConfigToml.PlayOption.BigNotesJudge)
 							{
 								this.tドラムヒット処理(nTime, EPad.RRed, chipNoHit, true, nUsePlayer);
 								bHitted = true;
 								break;
 							}
-							if (e判定 != EJudge.Miss && (chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x1A) && TJAPlayer3.ConfigIni.b大音符判定)
+							if (e判定 != EJudge.Miss && (chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x1A) && TJAPlayer3.ConfigToml.PlayOption.BigNotesJudge)
 							{
 								if (e判定 == EJudge.Bad)
 								{
@@ -2347,7 +2347,7 @@ internal class CStage演奏画面共通 : CStage
 								else if (chipNoHit.eNoteState == ENoteState.waitleft)
 								{
 									float time = chipNoHit.n発声時刻ms - (float)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
-									int nWaitTime = TJAPlayer3.ConfigIni.n両手判定の待ち時間;
+									int nWaitTime = TJAPlayer3.ConfigToml.PlayOption.BigNotesWaitTime;
 									if (time <= 110 && chipNoHit.nProcessTime + nWaitTime > (int)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0)))
 									{
 										this.tドラムヒット処理(nTime, EPad.RRed, chipNoHit, true, nUsePlayer);
@@ -2384,13 +2384,13 @@ internal class CStage演奏画面共通 : CStage
 								this.tドラムヒット処理(nTime, EPad.LBlue, chipNoHit, false, nUsePlayer);
 								bHitted = true;
 							}
-							if (e判定 != EJudge.Miss && (chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1B) && !TJAPlayer3.ConfigIni.b大音符判定)
+							if (e判定 != EJudge.Miss && (chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1B) && !TJAPlayer3.ConfigToml.PlayOption.BigNotesJudge)
 							{
 								this.tドラムヒット処理(nTime, EPad.LBlue, chipNoHit, true, nUsePlayer);
 								bHitted = true;
 								break;
 							}
-							if (e判定 != EJudge.Miss && (chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1B) && TJAPlayer3.ConfigIni.b大音符判定)
+							if (e判定 != EJudge.Miss && (chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1B) && TJAPlayer3.ConfigToml.PlayOption.BigNotesJudge)
 							{
 								if (e判定 == EJudge.Bad)
 								{
@@ -2409,7 +2409,7 @@ internal class CStage演奏画面共通 : CStage
 								else if (chipNoHit.eNoteState == ENoteState.waitright)
 								{
 									float time = chipNoHit.n発声時刻ms - (float)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
-									int nWaitTime = TJAPlayer3.ConfigIni.n両手判定の待ち時間;
+									int nWaitTime = TJAPlayer3.ConfigToml.PlayOption.BigNotesWaitTime;
 									if (time <= 110 && chipNoHit.nProcessTime + nWaitTime > (int)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0)))
 									{
 										this.tドラムヒット処理(nTime, EPad.LBlue, chipNoHit, true, nUsePlayer);
@@ -2444,13 +2444,13 @@ internal class CStage演奏画面共通 : CStage
 								this.tドラムヒット処理(nTime, EPad.RBlue, chipNoHit, false, nUsePlayer);
 								bHitted = true;
 							}
-							if (e判定 != EJudge.Miss && (chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1B) && !TJAPlayer3.ConfigIni.b大音符判定)
+							if (e判定 != EJudge.Miss && (chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1B) && !TJAPlayer3.ConfigToml.PlayOption.BigNotesJudge)
 							{
 								this.tドラムヒット処理(nTime, EPad.RBlue, chipNoHit, true, nUsePlayer);
 								bHitted = true;
 								break;
 							}
-							if (e判定 != EJudge.Miss && (chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1B) && TJAPlayer3.ConfigIni.b大音符判定)
+							if (e判定 != EJudge.Miss && (chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1B) && TJAPlayer3.ConfigToml.PlayOption.BigNotesJudge)
 							{
 								if (e判定 == EJudge.Bad)
 								{
@@ -2469,7 +2469,7 @@ internal class CStage演奏画面共通 : CStage
 								else if (chipNoHit.eNoteState == ENoteState.waitleft)
 								{
 									float time = chipNoHit.n発声時刻ms - (float)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
-									int nWaitTime = TJAPlayer3.ConfigIni.n両手判定の待ち時間;
+									int nWaitTime = TJAPlayer3.ConfigToml.PlayOption.BigNotesWaitTime;
 									if (time <= 110 && chipNoHit.nProcessTime + nWaitTime > (int)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0)))
 									{
 										this.tドラムヒット処理(nTime, EPad.RBlue, chipNoHit, true, nUsePlayer);
@@ -2647,7 +2647,7 @@ internal class CStage演奏画面共通 : CStage
 			}
 			if ( keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.F4 ) )
 			{
-				TJAPlayer3.ConfigIni.bJudgeCountDisplay = !TJAPlayer3.ConfigIni.bJudgeCountDisplay;
+				TJAPlayer3.ConfigToml.Game.ShowJudgeCountDisplay = !TJAPlayer3.ConfigToml.Game.ShowJudgeCountDisplay;
 			}
 			else if ( keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.F5 ) )
 			{
@@ -2740,7 +2740,7 @@ internal class CStage演奏画面共通 : CStage
 			? "Calibrating input..."
 			: TJAPlayer3.DTX[0].TITLE;
 
-		string subtitle = (TJAPlayer3.ConfigIni.eSubtitleDispMode == ESubtitleDispMode.On || (TJAPlayer3.ConfigIni.eSubtitleDispMode==ESubtitleDispMode.Compliant && TJAPlayer3.DTX[0].SUBTITLEDisp)) ? TJAPlayer3.DTX[0].SUBTITLE : null;
+		string subtitle = (TJAPlayer3.ConfigToml.Game._SubtitleDispMode == ESubtitleDispMode.On || (TJAPlayer3.ConfigToml.Game._SubtitleDispMode == ESubtitleDispMode.Compliant && TJAPlayer3.DTX[0].SUBTITLEDisp)) ? TJAPlayer3.DTX[0].SUBTITLE : null;
 
 		this.actPanel.SetPanelString(panelString, subtitle, TJAPlayer3.stage選曲.r確定された曲.strGenre, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.StageText);
 	}
@@ -2787,22 +2787,22 @@ internal class CStage演奏画面共通 : CStage
 			if(pChip.dbSCROLL_Y != 0)
 				pChip.nバーからの距離dot_Y = (int)(((pChip.n発声時刻ms - ((CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0)) * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0))) * pChip.dbBPM * pChip.dbSCROLL_Y * this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer]) / 502.8594 / 5.0); // 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 
-			if ( TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL || TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.HBSCROLL )
+			if ( TJAPlayer3.ConfigToml.ScrollMode == EScrollMode.BMSCROLL || TJAPlayer3.ConfigToml.ScrollMode == EScrollMode.HBSCROLL )
 			{
-				var dbSCROLL = TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.dbSCROLL;
+				var dbSCROLL = TJAPlayer3.ConfigToml.ScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.dbSCROLL;
 
 				pChip.nバーからの距離dot = (int)(3 * 0.8335 * ( ( pChip.fBMSCROLLTime * NOTE_GAP ) - ( play_bpm_time * NOTE_GAP ) ) * dbSCROLL * this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] / 2  / 5.0);// 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
 
 				if(pChip.dbSCROLL_Y != 0)
 				{
-					var dbSCROLL_Y = TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.dbSCROLL_Y;
+					var dbSCROLL_Y = TJAPlayer3.ConfigToml.ScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.dbSCROLL_Y;
 					pChip.nバーからの距離dot_Y = (int)(3 * 0.8335 * ((pChip.fBMSCROLLTime * NOTE_GAP) - (play_bpm_time * NOTE_GAP)) * dbSCROLL_Y * this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] / 2 / 5.0);
 				}
 
 			}
-			else if(TJAPlayer3.ConfigIni.eScrollMode == EScrollMode.REGULSPEED) 
+			else if(TJAPlayer3.ConfigToml.ScrollMode == EScrollMode.REGULSPEED) 
 			{
-				pChip.nバーからの距離dot = (int)(pChip.TimeSpan * TJAPlayer3.ConfigIni.nRegSpeedBPM * this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] / 502.8594 / 5.0);//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
+				pChip.nバーからの距離dot = (int)(pChip.TimeSpan * TJAPlayer3.ConfigToml.RegSpeedBPM * this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] / 502.8594 / 5.0);//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
 			}
 
 			if (!pChip.IsMissed && !pChip.bHit)//2020.04.25 Mr-Ojii akasoko26さんのコードをもとに変更
@@ -2857,7 +2857,7 @@ internal class CStage演奏画面共通 : CStage
 					if ( !pChip.bHit && ( pChip.TimeSpan < 0 ) )
 					{
 						pChip.bHit = true;
-						if ( TJAPlayer3.ConfigToml.Game.BGMSound )
+						if ( TJAPlayer3.ConfigToml.PlayOption.BGMSound )
 						{
 							dTX.tチップの再生( pChip, CSoundManager.rc演奏用タイマ.n前回リセットした時のシステム時刻ms + (long)(pChip.n発声時刻ms / (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0)));
 						}
@@ -3893,7 +3893,7 @@ internal class CStage演奏画面共通 : CStage
 					bool b = dTX.listWAV.TryGetValue(pChip.n整数値_内部番号, out wc);
 					if (!b) continue;
 
-					if ((wc.bUse && TJAPlayer3.ConfigToml.Game.BGMSound))
+					if ((wc.bUse && TJAPlayer3.ConfigToml.PlayOption.BGMSound))
 					{
 						TJAPlayer3.DTX[0].tチップの再生(pChip, (long)(CSoundManager.rc演奏用タイマ.n前回リセットした時のシステム時刻ms) + (long)(n発声時刻ms));
 #region [ PAUSEする ]
@@ -3929,7 +3929,7 @@ internal class CStage演奏画面共通 : CStage
 #endregion
 #region [ PAUSEしていたサウンドを一斉に再生再開する(ただしタイマを止めているので、ここではまだ再生開始しない) ]
 
-		if (!(TJAPlayer3.ConfigIni.b演奏速度が一倍速であるとき以外音声を再生しない && TJAPlayer3.ConfigToml.PlayOption.PlaySpeed != 20))
+		if (!(TJAPlayer3.ConfigToml.PlayOption.PlayBGMOnlyPlaySpeedEqualsOne && TJAPlayer3.ConfigToml.PlayOption.PlaySpeed != 20))
 			foreach (CSound cs in pausedCSound)
 			{
 				cs.tサウンドを再生する();
@@ -4018,7 +4018,7 @@ internal class CStage演奏画面共通 : CStage
 			x += (TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer]);
 
 #region[ 両手待ち時 ]
-			if ((pChip.eNoteState == ENoteState.waitleft || pChip.eNoteState == ENoteState.waitright) && TJAPlayer3.ConfigIni.b両手判定待ち時間中に大音符を判定枠に合わせるか)
+			if ((pChip.eNoteState == ENoteState.waitleft || pChip.eNoteState == ENoteState.waitright) && TJAPlayer3.ConfigToml.Game.BigNotesJudgeFrame)
 			{
 				x = (TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[pChip.nPlayerSide]);
 			}
@@ -4050,9 +4050,9 @@ internal class CStage演奏画面共通 : CStage
 					case 0x11:
 						if (TJAPlayer3.Tx.Notes != null && pChip.bShow)
 						{
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
+							if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
 								TJAPlayer3.Tx.Notes.t2D描画(device, x, y, new Rectangle(130, num9, 130, 130));
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
+							if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
 								TJAPlayer3.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
 						}
 						break;
@@ -4060,9 +4060,9 @@ internal class CStage演奏画面共通 : CStage
 					case 0x12:
 						if (TJAPlayer3.Tx.Notes != null && pChip.bShow)
 						{
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
+							if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
 								TJAPlayer3.Tx.Notes.t2D描画(device, x, y, new Rectangle(260, num9, 130, 130));
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
+							if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
 								TJAPlayer3.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
 						}
 						break;
@@ -4070,19 +4070,19 @@ internal class CStage演奏画面共通 : CStage
 					case 0x13:
 						if (TJAPlayer3.Tx.Notes != null && pChip.bShow)
 						{
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
+							if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
 								TJAPlayer3.Tx.Notes.t2D描画(device, x, y, new Rectangle(390, num9, 130, 130));
 
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
+							if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
 								TJAPlayer3.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
 						}
 						break;
 					case 0x14:
 						if (TJAPlayer3.Tx.Notes != null && pChip.bShow)
 						{
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
+							if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
 								TJAPlayer3.Tx.Notes.t2D描画(device, x, y, new Rectangle(520, num9, 130, 130));
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
+							if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
 								TJAPlayer3.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
 						}
 						break;
@@ -4090,7 +4090,7 @@ internal class CStage演奏画面共通 : CStage
 					case 0x1A:
 						if (TJAPlayer3.Tx.Notes != null)
 						{
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
+							if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
 							{
 								if (nPlayer == 0)
 								{
@@ -4104,7 +4104,7 @@ internal class CStage演奏画面共通 : CStage
 								}
 								TJAPlayer3.Tx.Notes.t2D描画(device, x, y, new Rectangle(1690, num9, 130, 130));
 							}
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
+							if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
 								TJAPlayer3.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 390, 136, 30));
 						}
 						break;
@@ -4112,7 +4112,7 @@ internal class CStage演奏画面共通 : CStage
 					case 0x1B:
 						if (TJAPlayer3.Tx.Notes != null)
 						{
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
+							if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
 							{
 								if (nPlayer == 0)
 								{
@@ -4126,7 +4126,7 @@ internal class CStage演奏画面共通 : CStage
 								}
 								TJAPlayer3.Tx.Notes.t2D描画(device, x, y, new Rectangle(1820, num9, 130, 130));
 							}
-							if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
+							if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
 								TJAPlayer3.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 420, 136, 30));
 						}
 						break;
@@ -4220,7 +4220,7 @@ internal class CStage演奏画面共通 : CStage
 					int index = Math.Abs(x末端 - x); //連打の距離
 					if (x末端 > x)
 					{
-						if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
+						if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
 						{
 #region[末端をテクスチャ側でつなげる場合の方式]
 							if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode != CSkin.ERollColorMode.None)
@@ -4244,7 +4244,7 @@ internal class CStage演奏画面共通 : CStage
 							TJAPlayer3.Tx.Notes.color = normalColor;
 #endregion
 						}
-						if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
+						if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
 						{
 							TJAPlayer3.Tx.SENotes.vcScaling.X = index - 44;
 							TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
@@ -4256,7 +4256,7 @@ internal class CStage演奏画面共通 : CStage
 					}
 					else //マイナス
 					{
-						if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
+						if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
 						{
 #region[末端をテクスチャ側でつなげる場合の方式]
 							if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode != CSkin.ERollColorMode.None)
@@ -4280,7 +4280,7 @@ internal class CStage演奏画面共通 : CStage
 							TJAPlayer3.Tx.Notes.color = normalColor;
 #endregion
 						}
-						if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
+						if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
 						{
 							TJAPlayer3.Tx.SENotes.vcScaling.X = index - 44;
 							TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
@@ -4296,7 +4296,7 @@ internal class CStage演奏画面共通 : CStage
 					int index = Math.Abs(x末端 - x); //連打の距離
 					if (x末端 > x)
 					{
-						if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
+						if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
 						{
 #region[末端をテクスチャ側でつなげる場合の方式]
 							if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode != CSkin.ERollColorMode.None)
@@ -4320,7 +4320,7 @@ internal class CStage演奏画面共通 : CStage
 							TJAPlayer3.Tx.Notes.color = normalColor;
 #endregion
 						}
-						if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
+						if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
 						{
 							TJAPlayer3.Tx.SENotes.vcScaling.X = index - 44;
 							TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
@@ -4332,7 +4332,7 @@ internal class CStage演奏画面共通 : CStage
 					}
 					else //マイナス
 					{
-						if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
+						if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
 						{
 #region[末端をテクスチャ側でつなげる場合の方式]
 							if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode != CSkin.ERollColorMode.None)
@@ -4356,7 +4356,7 @@ internal class CStage演奏画面共通 : CStage
 							TJAPlayer3.Tx.Notes.color = normalColor;
 #endregion
 						}
-						if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
+						if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
 						{
 							TJAPlayer3.Tx.SENotes.vcScaling.X = index - 44;
 							TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
@@ -4374,10 +4374,10 @@ internal class CStage演奏画面共通 : CStage
 					else if ((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0)) >= pChip.cEndChip.n発声時刻ms)
 						x = (TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] + pChip.cEndChip.nバーからの距離dot - 55);
 
-					if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] == EStealthMode.OFF)
+					if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
 						TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x, y, new Rectangle(1430, num9, 260, 130));
 
-					if (TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] != EStealthMode.STEALTH)
+					if (TJAPlayer3.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
 						TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
 				}
 			}
@@ -4400,14 +4400,7 @@ internal class CStage演奏画面共通 : CStage
 			y += (int)(((pChip.n発声時刻ms - (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0))) * pChip.dbBPM * pChip.dbSCROLL_Y * this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer]) / 502.8594 / 5.0);
 		}
 
-		if (!pChip.bHit && pChip.n発声時刻ms > CSoundManager.rc演奏用タイマ.n現在時刻ms * ((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0)
-		{
-			if (TJAPlayer3.ConfigIni.bWave再生位置自動調整機能有効 && TJAPlayer3.ConfigToml.SoundDevice.UseOSTimer)
-			{
-				dTX.tWave再生位置自動補正();
-			}
-		}
-		if (TJAPlayer3.ConfigToml.Game.ShowDebugStatus || TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
+		if (TJAPlayer3.ConfigToml.Game.ShowDebugStatus || TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.特訓モード)
 		{
 			if (x >= 310)
 			{
@@ -4469,7 +4462,7 @@ internal class CStage演奏画面共通 : CStage
 			if (chipNoHit != null && (chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1A || chipNoHit.nチャンネル番号 == 0x1B))
 			{
 				float timeC = chipNoHit.n発声時刻ms - (float)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
-				int nWaitTime = TJAPlayer3.ConfigIni.n両手判定の待ち時間;
+				int nWaitTime = TJAPlayer3.ConfigToml.PlayOption.BigNotesWaitTime;
 				if ((chipNoHit.eNoteState == ENoteState.waitleft || chipNoHit.eNoteState == ENoteState.waitright) && timeC <= 110 && chipNoHit.nProcessTime + nWaitTime <= (int)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0)))
 				{
 					this.tドラムヒット処理(chipNoHit.nProcessTime, EPad.RRed, chipNoHit, false, i);
@@ -4609,7 +4602,7 @@ internal class CStage演奏画面共通 : CStage
 
 	protected void t進行描画_リアルタイム判定数表示()
 	{
-		if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount == 1 && TJAPlayer3.ConfigIni.bJudgeCountDisplay || TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード)
+		if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount == 1 && TJAPlayer3.ConfigToml.Game.ShowJudgeCountDisplay || TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.特訓モード)
 		{
 			//ボードの横幅は333px
 			//数字フォントの小さいほうはリザルトのものと同じ。

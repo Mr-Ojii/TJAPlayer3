@@ -173,7 +173,7 @@ internal class CStageSongLoading : CStage
 		#region [ 背景、音符＋タイトル表示 ]
 		//-----------------------------
 		this.ct曲名表示.t進行();
-		if (TJAPlayer3.ConfigIni.bEnableSkinV2)
+		if (TJAPlayer3.ConfigToml.EnableSkinV2)
 		{
 			if (TJAPlayer3.Tx.SongLoading_v2_BG != null)
 				TJAPlayer3.Tx.SongLoading_v2_BG.t2D描画(TJAPlayer3.app.Device, 0, 0);
@@ -186,7 +186,7 @@ internal class CStageSongLoading : CStage
 
 		if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan)
 		{
-			if (TJAPlayer3.ConfigIni.bEnableSkinV2) 
+			if (TJAPlayer3.ConfigToml.EnableSkinV2) 
 			{
 				if (TJAPlayer3.Tx.SongLoading_v2_Plate != null)
 				{
@@ -323,9 +323,9 @@ internal class CStageSongLoading : CStage
 						if( TJAPlayer3.ConfigToml.PlayOption.PlayerCount == 2 )
 							TJAPlayer3.DTX[1] = new CDTX( str, false, json.BGMAdjust, 1, TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] == TJAPlayer3.stage選曲.n確定された曲の難易度[1]);
 
-						if ( TJAPlayer3.ConfigIni.bスクロールモードを上書き == false)
+						if ( TJAPlayer3.ConfigToml.OverrideScrollMode == false)
 						{
-							TJAPlayer3.ConfigIni.eScrollMode = TJAPlayer3.DTX[0].eScrollMode;
+							TJAPlayer3.ConfigToml.ScrollMode = TJAPlayer3.DTX[0].eScrollMode;
 						}
 
 						Trace.TraceInformation( "----曲情報-----------------" );

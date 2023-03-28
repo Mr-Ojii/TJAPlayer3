@@ -12,24 +12,24 @@ namespace TJAPlayer3;
 /// </summary>
 internal static class ConfigIniToSongGainControllerBinder
 {
-	internal static void Bind(CConfigIni configIni, SongGainController songGainController)
+	internal static void Bind(CConfigToml configToml, SongGainController songGainController)
 	{
-		songGainController.ApplyLoudnessMetadata = configIni.ApplyLoudnessMetadata;
-		songGainController.TargetLoudness = new Lufs(configIni.TargetLoudness);
-		songGainController.ApplySongVol = configIni.ApplySongVol;
+		songGainController.ApplyLoudnessMetadata = configToml.Sound.ApplyLoudnessMetadata;
+		songGainController.TargetLoudness = new Lufs(configToml.Sound.TargetLoudness);
+		songGainController.ApplySongVol = configToml.Sound.ApplySongVol;
 
-		configIni.PropertyChanged += (sender, args) =>
+		configToml.Sound.PropertyChanged += (sender, args) =>
 		{
 			switch (args.PropertyName)
 			{
-				case nameof(CConfigIni.ApplyLoudnessMetadata):
-					songGainController.ApplyLoudnessMetadata = configIni.ApplyLoudnessMetadata;
+				case nameof(CConfigToml.CSoundConf.ApplyLoudnessMetadata):
+					songGainController.ApplyLoudnessMetadata = configToml.Sound.ApplyLoudnessMetadata;
 					break;
-				case nameof(CConfigIni.TargetLoudness):
-					songGainController.TargetLoudness = new Lufs(configIni.TargetLoudness);
+				case nameof(CConfigToml.CSoundConf.TargetLoudness):
+					songGainController.TargetLoudness = new Lufs(configToml.Sound.TargetLoudness);
 					break;
-				case nameof(CConfigIni.ApplySongVol):
-					songGainController.ApplySongVol = configIni.ApplySongVol;
+				case nameof(CConfigToml.CSoundConf.ApplySongVol):
+					songGainController.ApplySongVol = configToml.Sound.ApplySongVol;
 					break;
 			}
 		};

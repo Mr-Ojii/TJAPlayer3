@@ -825,7 +825,7 @@ internal class CDTX : CActivity
 	#region [ チップの再生と停止 ]
 	public void tチップの再生(CChip pChip, long n再生開始システム時刻ms)
 	{
-		if (TJAPlayer3.ConfigIni.b演奏速度が一倍速であるとき以外音声を再生しない && TJAPlayer3.ConfigToml.PlayOption.PlaySpeed != 20)
+		if (TJAPlayer3.ConfigToml.PlayOption.PlayBGMOnlyPlaySpeedEqualsOne && TJAPlayer3.ConfigToml.PlayOption.PlaySpeed != 20)
 			return;
 
 		if (pChip.n整数値_内部番号 >= 0)
@@ -4255,7 +4255,7 @@ internal class CDTX : CActivity
 		}
 		if (this.nScoreModeTmp == 99) //2017.01.28 DD SCOREMODEを入力していない場合のみConfigで設定したモードにする
 		{
-			this.nScoreModeTmp = TJAPlayer3.ConfigIni.nScoreMode;
+			this.nScoreModeTmp = TJAPlayer3.ConfigToml.PlayOption.DefaultScoreMode;
 		}
 	}
 
@@ -4577,7 +4577,7 @@ internal class CDTX : CActivity
 			if (this.nScoreModeTmp == 99)
 			{
 				//2017.01.28 DD 
-				this.nScoreModeTmp = TJAPlayer3.ConfigIni.nScoreMode;
+				this.nScoreModeTmp = TJAPlayer3.ConfigToml.PlayOption.DefaultScoreMode;
 			}
 		}
 	}
@@ -5436,8 +5436,8 @@ internal class CDTX : CActivity
 	/// </summary>
 	private void AddMusicPreTimeMs()
 	{
-		this.dbNowTime += TJAPlayer3.ConfigIni.MusicPreTimeMs;
-		this.dbNowBMScollTime += TJAPlayer3.ConfigIni.MusicPreTimeMs * this.dbNowBPM / 15000;
+		this.dbNowTime += TJAPlayer3.ConfigToml.PlayOption.MusicPreTimeMs;
+		this.dbNowBMScollTime += TJAPlayer3.ConfigToml.PlayOption.MusicPreTimeMs * this.dbNowBPM / 15000;
 	}
 	//-----------------
 	#endregion

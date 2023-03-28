@@ -45,7 +45,7 @@ internal class CActPlayInfo : CActivity
 
 		string[] infoList = new string[]
 		{
-			string.Format("SCROLLMODE:    {0:####0}", Enum.GetName(typeof(EScrollMode), TJAPlayer3.ConfigIni.eScrollMode)),
+			string.Format("SCROLLMODE:    {0:####0}", Enum.GetName(typeof(EScrollMode), TJAPlayer3.ConfigToml.ScrollMode)),
 			string.Format("SCOREMODE:     {0:####0}", TJAPlayer3.DTX[0].nScoreModeTmp),
 			string.Format("SCROLL:        {0:####0.00}/{1:####0.00}", TJAPlayer3.ConfigToml.PlayOption.ScrollSpeed[0] * 0.1, TJAPlayer3.ConfigToml.PlayOption.ScrollSpeed[1] * 0.1),
 			string.Format("NoteC:         {0:####0}", TJAPlayer3.DTX[0].nノーツ数[3]),

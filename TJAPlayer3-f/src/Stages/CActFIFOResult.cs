@@ -53,7 +53,7 @@ internal class CActFIFOResult : CActivity
 		}
 		this.counter.t進行();
 
-		if (TJAPlayer3.ConfigIni.bEnableSkinV2)
+		if (TJAPlayer3.ConfigToml.EnableSkinV2)
 		{
 			if (TJAPlayer3.Tx.Tile_Black != null)
 			{

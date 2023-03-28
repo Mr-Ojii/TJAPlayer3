@@ -12,32 +12,32 @@ namespace TJAPlayer3;
 /// </summary>
 internal static class ConfigIniToSoundGroupLevelControllerBinder
 {
-	internal static void Bind(CConfigIni configIni, SoundGroupLevelController soundGroupLevelController)
+	internal static void Bind(CConfigToml configToml, SoundGroupLevelController soundGroupLevelController)
 	{
-		soundGroupLevelController.SetLevel(ESoundGroup.SoundEffect, configIni.SoundEffectLevel);
-		soundGroupLevelController.SetLevel(ESoundGroup.Voice, configIni.VoiceLevel);
-		soundGroupLevelController.SetLevel(ESoundGroup.SongPreview, configIni.SongPreviewLevel);
-		soundGroupLevelController.SetLevel(ESoundGroup.SongPlayback, configIni.SongPlaybackLevel);
-		soundGroupLevelController.SetKeyboardSoundLevelIncrement(configIni.KeyboardSoundLevelIncrement);
+		soundGroupLevelController.SetLevel(ESoundGroup.SoundEffect, configToml.Sound.SoundEffectLevel);
+		soundGroupLevelController.SetLevel(ESoundGroup.Voice, configToml.Sound.VoiceLevel);
+		soundGroupLevelController.SetLevel(ESoundGroup.SongPreview, configToml.Sound.SongPreviewLevel);
+		soundGroupLevelController.SetLevel(ESoundGroup.SongPlayback, configToml.Sound.SongPlaybackLevel);
+		soundGroupLevelController.SetKeyboardSoundLevelIncrement(configToml.Sound.KeyboardSoundLevelIncrement);
 
-		configIni.PropertyChanged += (sender, args) =>
+		configToml.Sound.PropertyChanged += (sender, args) =>
 		{
 			switch (args.PropertyName)
 			{
-				case nameof(CConfigIni.SoundEffectLevel):
-					soundGroupLevelController.SetLevel(ESoundGroup.SoundEffect, configIni.SoundEffectLevel);
+				case nameof(CConfigToml.Sound.SoundEffectLevel):
+					soundGroupLevelController.SetLevel(ESoundGroup.SoundEffect, configToml.Sound.SoundEffectLevel);
 					break;
-				case nameof(CConfigIni.VoiceLevel):
-					soundGroupLevelController.SetLevel(ESoundGroup.Voice, configIni.VoiceLevel);
+				case nameof(CConfigToml.Sound.VoiceLevel):
+					soundGroupLevelController.SetLevel(ESoundGroup.Voice, configToml.Sound.VoiceLevel);
 					break;
-				case nameof(CConfigIni.SongPreviewLevel):
-					soundGroupLevelController.SetLevel(ESoundGroup.SongPreview, configIni.SongPreviewLevel);
+				case nameof(CConfigToml.Sound.SongPreviewLevel):
+					soundGroupLevelController.SetLevel(ESoundGroup.SongPreview, configToml.Sound.SongPreviewLevel);
 					break;
-				case nameof(CConfigIni.SongPlaybackLevel):
-					soundGroupLevelController.SetLevel(ESoundGroup.SongPlayback, configIni.SongPlaybackLevel);
+				case nameof(CConfigToml.Sound.SongPlaybackLevel):
+					soundGroupLevelController.SetLevel(ESoundGroup.SongPlayback, configToml.Sound.SongPlaybackLevel);
 					break;
-				case nameof(CConfigIni.KeyboardSoundLevelIncrement):
-					soundGroupLevelController.SetKeyboardSoundLevelIncrement(configIni.KeyboardSoundLevelIncrement);
+				case nameof(CConfigToml.Sound.KeyboardSoundLevelIncrement):
+					soundGroupLevelController.SetKeyboardSoundLevelIncrement(configToml.Sound.KeyboardSoundLevelIncrement);
 					break;
 			}
 		};
@@ -47,16 +47,16 @@ internal static class ConfigIniToSoundGroupLevelControllerBinder
 			switch (args.SoundGroup)
 			{
 				case ESoundGroup.SoundEffect:
-					configIni.SoundEffectLevel = args.Level;
+					configToml.Sound.SoundEffectLevel = args.Level;
 					break;
 				case ESoundGroup.Voice:
-					configIni.VoiceLevel = args.Level;
+					configToml.Sound.VoiceLevel = args.Level;
 					break;
 				case ESoundGroup.SongPreview:
-					configIni.SongPreviewLevel = args.Level;
+					configToml.Sound.SongPreviewLevel = args.Level;
 					break;
 				case ESoundGroup.SongPlayback:
-					configIni.SongPlaybackLevel = args.Level;
+					configToml.Sound.SongPlaybackLevel = args.Level;
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();

@@ -399,7 +399,7 @@ internal class CActSelectDifficultySelect : CActivity
 
 	#region [ private ]
 	//-----------------
-	internal int[] 現在の選択行 = new int[2] { TJAPlayer3.ConfigIni.nDefaultCourse + 3, TJAPlayer3.ConfigIni.nDefaultCourse + 3 };
+	internal int[] 現在の選択行 = new int[2] { TJAPlayer3.ConfigToml.PlayOption.DefaultCourse + 3, TJAPlayer3.ConfigToml.PlayOption.DefaultCourse + 3 };
 	internal bool[] 選択済み = new bool[2];
 	internal int[] 確定された難易度 = new int[2];
 	internal int[] 裏カウント = new int[2];

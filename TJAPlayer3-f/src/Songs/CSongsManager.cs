@@ -372,11 +372,11 @@ internal class CSongsManager
 
 		#region [ ノードをソートする ]
 		//-----------------------------
-		if (TJAPlayer3.ConfigIni.nDefaultSongSort == 0)
+		if (TJAPlayer3.ConfigToml.SongSelect.DefaultSongSort == 0)
 		{
 			t曲リストのソート1_絶対パス順(ノードリスト);
 		}
-		else if (TJAPlayer3.ConfigIni.nDefaultSongSort == 1)
+		else if (TJAPlayer3.ConfigToml.SongSelect.DefaultSongSort == 1)
 		{
 			t曲リストのソート9_ジャンル順(ノードリスト, 0, 0);
 		}

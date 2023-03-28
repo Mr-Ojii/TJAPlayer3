@@ -72,7 +72,7 @@ internal class CActSelect曲リスト : CActivity
 		this.r現在選択中の曲 = null;
 		n現在のアンカ難易度レベル = new int[2];
 		for (int nPlayer = 0; nPlayer < 2; nPlayer++)
-			this.n現在のアンカ難易度レベル[nPlayer] = TJAPlayer3.ConfigIni.nDefaultCourse;
+			this.n現在のアンカ難易度レベル[nPlayer] = TJAPlayer3.ConfigToml.PlayOption.DefaultCourse;
 		base.b活性化してない = true;
 		this.bIsEnumeratingSongs = false;
 	}

@@ -163,7 +163,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 				}
 				#endregion
 
-				if (TJAPlayer3.ConfigIni.nBranchAnime == 1)
+				if (TJAPlayer3.ConfigToml.Game.BranchAnime == 1)
 				{
 					#region[ AC7～14風の背後レイヤー ]
 					if (this.stBranch[i].ct分岐アニメ進行.b進行中)
@@ -238,7 +238,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 					}
 					#endregion
 				}
-				else if (TJAPlayer3.ConfigIni.nBranchAnime == 0)
+				else if (TJAPlayer3.ConfigToml.Game.BranchAnime == 0)
 				{
 					TJAPlayer3.stage演奏ドラム画面.actLane.On進行描画();
 				}
@@ -288,7 +288,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 		{
 			if (TJAPlayer3.stage演奏ドラム画面.bUseBranch[i] == true)
 			{
-				if (TJAPlayer3.ConfigIni.nBranchAnime == 0)
+				if (TJAPlayer3.ConfigToml.Game.BranchAnime == 0)
 				{
 					if (!this.stBranch[i].ct分岐アニメ進行.b進行中)
 					{

@@ -71,7 +71,7 @@ internal class CActComboVoice : CActivity
 						comboVoice.nPlayer = i;
 						comboVoice.strFilePath = item;
 						comboVoice.soundComboVoice = TJAPlayer3.SoundManager.tCreateSound(item, ESoundGroup.Voice);
-						if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.ConfigIni.b2P演奏時のSEの左右) //2020.05.06 Mr-Ojii 左右に出したかったから追加。
+						if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.ConfigToml.PlayOption.UsePanning) //2020.05.06 Mr-Ojii 左右に出したかったから追加。
 						{
 							if (i == 0)
 								comboVoice.soundComboVoice.nPanning = -100;

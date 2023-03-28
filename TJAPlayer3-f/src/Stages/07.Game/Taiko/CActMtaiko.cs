@@ -137,7 +137,7 @@ internal class CActMtaiko : CActivity
 				}
 			}
 
-			if( ( this.ctレベルアップダウン[ i ].b進行中 && ( TJAPlayer3.Tx.Taiko_LevelUp != null && TJAPlayer3.Tx.Taiko_LevelDown != null ) ) && !TJAPlayer3.ConfigIni.bNoInfo )
+			if( ( this.ctレベルアップダウン[ i ].b進行中 && ( TJAPlayer3.Tx.Taiko_LevelUp != null && TJAPlayer3.Tx.Taiko_LevelDown != null ) ) && !TJAPlayer3.ConfigToml.Game.NoInfo )
 			{
 				//this.ctレベルアップダウン[ i ].n現在の値 = 110;
 

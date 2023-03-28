@@ -59,7 +59,7 @@ class PuchiChara : CActivity
 	/// <returns></returns>
 	public int On進行描画(int x, int y, bool isGrowing, int nPlayer, int alpha = 255, bool isBalloon = false)
 	{
-		if (!TJAPlayer3.ConfigIni.ShowPuchiChara) return base.On進行描画();
+		if (!TJAPlayer3.ConfigToml.Game.ShowPuchiChara) return base.On進行描画();
 		if (Counter == null || SineCounter == null || TJAPlayer3.Tx.PuchiChara[nPlayer] == null) return base.On進行描画();
 		Counter.t進行Loop();
 		SineCounter.t進行LoopDb();

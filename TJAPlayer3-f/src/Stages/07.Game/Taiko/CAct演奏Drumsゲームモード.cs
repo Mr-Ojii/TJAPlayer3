@@ -124,7 +124,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
 	public void t叩ききりまショー_判定項目と難易度を決める()
 	{
 		//まず通常、激辛時でわける。
-		if( TJAPlayer3.ConfigIni.eGameMode == EGame.完走叩ききりまショー )
+		if( TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー )
 		{
 			#region[ 通常 ]
 			//通常の査定
@@ -189,7 +189,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
 			};
 			#endregion
 		}
-		else if( TJAPlayer3.ConfigIni.eGameMode == EGame.完走叩ききりまショー激辛 )
+		else if( TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー激辛 )
 		{
 			#region[ 激辛 ]
 			//激ムズの査定
@@ -302,7 +302,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
 				#endregion
 			}
 
-			if( TJAPlayer3.ConfigIni.bSuperHard )
+			if( TJAPlayer3.ConfigToml.SuperHard )
 			{
 				#region[ 超激辛 ]
 				this.st叩ききりまショー.b超激辛 = true;
@@ -376,7 +376,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
 
 	public override int On進行描画()
 	{
-		if( TJAPlayer3.ConfigIni.eGameMode == EGame.完走叩ききりまショー || TJAPlayer3.ConfigIni.eGameMode == EGame.完走叩ききりまショー激辛 )
+		if( TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー || TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー激辛 )
 		{
 			//if( this.st叩ききりまショー.b最初のチップが叩かれた == true )//&&
 				//CDTXMania.stage演奏ドラム画面.r検索範囲内にチップがあるか調べる( CSoundManager.rc演奏用タイマ.n現在時刻ms, 0, 3000 ) )
@@ -659,7 +659,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
 				return;
 			if (this.st叩ききりまショー.b超激辛 && (((double)this.st叩ききりまショー.nヒット数_BAD + this.st叩ききりまショー.nヒット数_MISS) > 0))
 				return; //ミスが出るようでは上達しませんよ。お兄様。
-			if( TJAPlayer3.ConfigIni.bSuperHard )
+			if( TJAPlayer3.ConfigToml.SuperHard )
 				return; //スーパーハード時はボーナス加点無し。
 
 

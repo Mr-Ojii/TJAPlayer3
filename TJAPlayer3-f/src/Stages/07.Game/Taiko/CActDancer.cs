@@ -52,7 +52,7 @@ internal class CActDancer : CActivity
 
 		if (this.ct踊り子モーション != null || TJAPlayer3.Skin.Game_Dancer_Ptn != 0) this.ct踊り子モーション.t進行LoopDb();
 
-		if (TJAPlayer3.ConfigIni.ShowDancer && this.ct踊り子モーション != null && TJAPlayer3.Skin.Game_Dancer_Ptn != 0)
+		if (TJAPlayer3.ConfigToml.Game.ShowDancer && this.ct踊り子モーション != null && TJAPlayer3.Skin.Game_Dancer_Ptn != 0)
 		{
 			for (int i = 0; i < TJAPlayer3.Tx.Dancer.Length; i++)
 			{
