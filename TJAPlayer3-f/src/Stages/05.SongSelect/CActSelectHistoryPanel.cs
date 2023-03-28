@@ -37,7 +37,7 @@ internal class CActSelectHistoryPanel : CActivity
 	{
 		if( !base.b活性化してない )
 		{
-			this.Font = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 40);
+			this.Font = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 40);
 			base.OnManagedリソースの作成();
 			tSongChange();
 		}

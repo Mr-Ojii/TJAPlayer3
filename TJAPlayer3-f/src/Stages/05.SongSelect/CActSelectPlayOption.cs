@@ -195,7 +195,7 @@ internal class CActSelectPlayOption : CActivity
 
 	public override void On活性化()
 	{
-		this.Font = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 20);
+		this.Font = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 20);
 		lci = new List<CItemBase>[2];
 		for (int nPlayer = 0; nPlayer < 2; nPlayer++)
 		{

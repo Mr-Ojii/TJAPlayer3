@@ -380,7 +380,7 @@ internal class CDTX : CActivity
 					this.rSound.t解放する();
 				this.rSound = null;
 
-				if (TJAPlayer3.ConfigIni.bLog作成解放ログ出力)
+				if (TJAPlayer3.ConfigToml.Log.CreatedDisposed)
 					Trace.TraceInformation("サウンドを解放しました。({0})", this.strFilename);
 			}
 
@@ -719,7 +719,7 @@ internal class CDTX : CActivity
 			{
 				cwav.rSound = TJAPlayer3.SoundManager.tCreateSound(str, ESoundGroup.SongPlayback);
 
-				if (TJAPlayer3.ConfigIni.bLog作成解放ログ出力)
+				if (TJAPlayer3.ConfigToml.Log.CreatedDisposed)
 				{
 					Trace.TraceInformation("サウンドを作成しました。({1})({0})", str, "OnMemory");
 				}
@@ -1341,7 +1341,7 @@ internal class CDTX : CActivity
 
 		#endregion
 		#region [ bLogDTX詳細ログ出力 ]
-		if (TJAPlayer3.ConfigIni.bLogDTX詳細ログ出力)
+		if (TJAPlayer3.ConfigToml.Log.ChartDetails)
 		{
 			foreach (CWAV cwav in this.listWAV.Values)
 			{

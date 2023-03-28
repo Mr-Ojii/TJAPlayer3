@@ -98,7 +98,7 @@ internal class CStageSongLoading : CStage
 
 				if( !string.IsNullOrEmpty(タイトル) )
 				{
-					using (CFontRenderer pfTITLE = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.SkinConfig.SongLoading.TitleFontSize))
+					using (CFontRenderer pfTITLE = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, TJAPlayer3.Skin.SkinConfig.SongLoading.TitleFontSize))
 					{
 						using (var bmpSongTitle = pfTITLE.DrawText(タイトル, TJAPlayer3.Skin.SkinConfig.SongLoading._TitleForeColor, TJAPlayer3.Skin.SkinConfig.SongLoading._TitleBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
 						{
@@ -109,7 +109,7 @@ internal class CStageSongLoading : CStage
 
 					if( !string.IsNullOrEmpty(サブタイトル) )
 					{
-						using (CFontRenderer pfSUBTITLE = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.SkinConfig.SongLoading.SubTitleFontSize))
+						using (CFontRenderer pfSUBTITLE = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, TJAPlayer3.Skin.SkinConfig.SongLoading.SubTitleFontSize))
 						{
 							using (var bmpSongSubTitle = pfSUBTITLE.DrawText(サブタイトル, TJAPlayer3.Skin.SkinConfig.SongLoading._SubTitleForeColor, TJAPlayer3.Skin.SkinConfig.SongLoading._SubTitleBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
 							{
@@ -343,7 +343,7 @@ internal class CStageSongLoading : CStage
 							{
 								if (!string.IsNullOrEmpty(TJAPlayer3.DTX[0].List_DanSongs[i].Title))
 								{
-									using (var pfTitle = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, 32))
+									using (var pfTitle = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 32))
 									{
 										using (var bmpSongTitle = pfTitle.DrawText(TJAPlayer3.DTX[0].List_DanSongs[i].Title, TJAPlayer3.Skin.SkinConfig.Game.DanC._TitleForeColor, TJAPlayer3.Skin.SkinConfig.Game.DanC._TitleBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
 										{
@@ -355,7 +355,7 @@ internal class CStageSongLoading : CStage
 
 								if (!string.IsNullOrEmpty(TJAPlayer3.DTX[0].List_DanSongs[i].SubTitle))
 								{
-									using (var pfSubTitle = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, 19))
+									using (var pfSubTitle = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 19))
 									{
 										using (var bmpSongSubTitle = pfSubTitle.DrawText(TJAPlayer3.DTX[0].List_DanSongs[i].SubTitle, TJAPlayer3.Skin.SkinConfig.Game.DanC._SubTitleForeColor, TJAPlayer3.Skin.SkinConfig.Game.DanC._SubTitleBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio)) 
 										{
@@ -385,7 +385,7 @@ internal class CStageSongLoading : CStage
 
 			case CStage.Eフェーズ.NOWLOADING_WAVファイルを読み込む:
 				{
-					int looptime = (TJAPlayer3.ConfigIni.VSyncWait)? 3 : 1;	// VSyncWait=ON時は1frame(1/60s)あたり3つ読むようにする
+					int looptime = (TJAPlayer3.ConfigToml.Window.VSyncWait)? 3 : 1;	// VSyncWait=ON時は1frame(1/60s)あたり3つ読むようにする
 					for ( int i = 0; i < looptime && nWAVcount <= TJAPlayer3.DTX[0].listWAV.Count; i++ )
 					{
 						if ( TJAPlayer3.DTX[0].listWAV[ nWAVcount ].bUse )	// #28674 2012.5.8 yyagi
@@ -421,7 +421,7 @@ internal class CStageSongLoading : CStage
 					TimeSpan span;
 					DateTime timeBeginLoadBMPAVI = DateTime.Now;
 
-					if ( TJAPlayer3.ConfigIni.bAVI有効 )
+					if ( TJAPlayer3.ConfigToml.Game.Background.Movie )
 						TJAPlayer3.DTX[0].tAVIの読み込み();
 					span = ( TimeSpan ) ( DateTime.Now - timeBeginLoadBMPAVI );
 

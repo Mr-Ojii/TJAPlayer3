@@ -71,7 +71,7 @@ internal class CSongsManager
 
 		DirectoryInfo info = new DirectoryInfo(str基点フォルダ);
 
-		if (TJAPlayer3.ConfigIni.bLog曲検索ログ出力)
+		if (TJAPlayer3.ConfigToml.Log.SongSearch)
 			Trace.TraceInformation("基点フォルダ: " + str基点フォルダ);
 
 		#region [ 個別ファイルからノード作成 ]
@@ -273,7 +273,7 @@ internal class CSongsManager
 
 			#region [ ログ出力 ]
 			//-----------------------------
-			if (TJAPlayer3.ConfigIni.bLog曲検索ログ出力)
+			if (TJAPlayer3.ConfigToml.Log.SongSearch)
 			{
 				StringBuilder sb = new StringBuilder(0x100);
 				sb.Append(string.Format("nID#{0:D3}", itemRandom.nID));
@@ -324,7 +324,7 @@ internal class CSongsManager
 
 					#region [ ログ出力 ]
 					//-----------------------------
-					if (TJAPlayer3.ConfigIni.bLog曲検索ログ出力)
+					if (TJAPlayer3.ConfigToml.Log.SongSearch)
 					{
 						StringBuilder sb = new StringBuilder(0x100);
 						sb.Append(string.Format("nID#{0:D3}", itemBack.nID));
@@ -359,7 +359,7 @@ internal class CSongsManager
 					{
 						c曲リストノード.strTitle = c曲リストノード.arスコア.譜面情報.Title;
 
-						if (TJAPlayer3.ConfigIni.bLog曲検索ログ出力)
+						if (TJAPlayer3.ConfigToml.Log.SongSearch)
 							Trace.TraceInformation("タイトルを設定しました。(nID#{0:D3}, title={1})", c曲リストノード.nID, c曲リストノード.strTitle);
 
 						break;

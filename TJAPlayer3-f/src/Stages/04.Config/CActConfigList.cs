@@ -139,7 +139,7 @@ internal class CActConfigList : CActivity
 		this.list項目リスト.Add( this.iSystemTimeStretch );
 
 
-		this.iSystemFullscreen = new CItemToggle( "Fullscreen", TJAPlayer3.ConfigIni.FullScreen,
+		this.iSystemFullscreen = new CItemToggle( "Fullscreen", TJAPlayer3.ConfigToml.Window.FullScreen,
 			"画面モード設定：\nON で全画面モード、OFF でウィンド\nウモードになります。",
 			"Fullscreen mode or window mode." );
 		this.list項目リスト.Add( this.iSystemFullscreen );
@@ -147,15 +147,15 @@ internal class CActConfigList : CActivity
 			"子BOXをRANDOMの対象とする：\nON にすると、RANDOM SELECT 時\nに子BOXも選択対象とします。",
 			"Turn ON to use child BOX (subfolders)\n at RANDOM SELECT." );
 		this.list項目リスト.Add( this.iSystemRandomFromSubBox );
-		this.iSystemVSyncWait = new CItemToggle( "VSyncWait", TJAPlayer3.ConfigIni.VSyncWait,
+		this.iSystemVSyncWait = new CItemToggle( "VSyncWait", TJAPlayer3.ConfigToml.Window.VSyncWait,
 			"垂直帰線同期：\n画面の描画をディスプレイの垂直帰\n線中に行なう場合には ON を指定し\nます。ON にすると、ガタつきのない\n滑らかな画面描画が実現されます。",
 			"Turn ON to wait VSync (Vertical\n Synchronizing signal) at every\n drawings. (so FPS becomes 60)\nIf you have enough CPU/GPU power,\n the scroll would become smooth." );
 		this.list項目リスト.Add( this.iSystemVSyncWait );
-		this.iSystemAVI = new CItemToggle( "AVI", TJAPlayer3.ConfigIni.bAVI有効,
-			"AVIの使用：\n動画(AVI)を再生可能にする場合に\nON にします。AVI の再生には、それ\nなりのマシンパワーが必要とされます。",
-			"To use AVI playback or not." );
+		this.iSystemAVI = new CItemToggle( "Movie", TJAPlayer3.ConfigToml.Game.Background.Movie,
+			"Movieの使用：\n動画を再生可能にする場合に\nON にします。動画の再生には、それ\nなりのマシンパワーが必要とされます。",
+			"To use Movie playback or not." );
 		this.list項目リスト.Add( this.iSystemAVI );
-		this.iSystemBGA = new CItemToggle( "BGA", TJAPlayer3.ConfigIni.bBGA有効,
+		this.iSystemBGA = new CItemToggle( "BGA", TJAPlayer3.ConfigToml.Game.Background.BGA,
 			"BGAの使用：\n画像(BGA)を表示可能にする場合に\nON にします。BGA の再生には、それ\nなりのマシンパワーが必要とされます。",
 			"To draw BGA (back ground animations)\n or not." );
 		this.list項目リスト.Add( this.iSystemBGA );
@@ -163,11 +163,11 @@ internal class CActConfigList : CActivity
 			"演奏情報の表示：\n演奏中、BGA領域の下部に演奏情報\n（FPS、BPM、演奏時間など）を表示し\nます。\nまた、小節線の横に小節番号が表示\nされるようになります。",
 			"To show song informations on playing\n BGA area. (FPS, BPM, total time etc)\nYou can ON/OFF the indications\n by pushing [Del] while playing drums" );
 		this.list項目リスト.Add( this.iSystemDebugInfo );
-		this.iSystemBGAlpha = new CItemInteger( "BG Alpha", 0, 0xff, TJAPlayer3.ConfigIni.nBGAlpha,
-			"背景画像の半透明割合：\n背景画像をDTXManiaのフレーム画像\nと合成する際の、背景画像の透明度\nを指定します。\n0 が完全透明で、255 が完全不透明\nとなります。",
+		this.iSystemBGAlpha = new CItemInteger( "BG Alpha", 0, 0xff, TJAPlayer3.ConfigToml.Game.Background.BGAlpha,
+			"背景画像の半透明割合：\n背景画像をTJAP3-fのフレーム画像\nと合成する際の、背景画像の透明度\nを指定します。\n0 が完全透明で、255 が完全不透明\nとなります。",
 			"The degree for transparing playing\n screen and wallpaper.\n\n0=completely transparent,\n255=no transparency" );
 		this.list項目リスト.Add( this.iSystemBGAlpha );
-		this.iSystemBGMSound = new CItemToggle( "BGM Sound", TJAPlayer3.ConfigIni.bBGM音を発声する,
+		this.iSystemBGMSound = new CItemToggle( "BGM Sound", TJAPlayer3.ConfigToml.Game.BGMSound,
 			"BGMの再生：\nこれをOFFにすると、BGM を再生しな\nくなります。",
 			"Turn OFF if you don't want to play\n BGM." );
 		this.list項目リスト.Add( this.iSystemBGMSound );
@@ -231,11 +231,6 @@ internal class CActConfigList : CActivity
 			"Discordに再生中の譜面情報を送信する",
 			"Share Playing .tja file infomation on Discord.");
 		list項目リスト.Add(SendDiscordPlayingInformation);
-
-		this.iLogOutputLog = new CItemToggle( "TraceLog", TJAPlayer3.ConfigIni.bログ出力,
-			"Traceログ出力：\nTJAPlayer3-f.log にログを出力します。\n変更した場合は、TJAPlayer3-f の再起動\n後に有効となります。",
-			"Turn ON to put debug log to\n TJAPlayer3-f.log\nTo take it effective, you need to\n re-open TJAPlayer3-f.");
-		this.list項目リスト.Add( this.iLogOutputLog );
 
 		// #24820 2013.1.3 yyagi
 		this.iSystemSoundType = new CItemList("SoundType", TJAPlayer3.ConfigIni.nSoundDeviceType,
@@ -797,7 +792,7 @@ internal class CActConfigList : CActivity
 			}
 			else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iSystemVSyncWait )
 			{
-				TJAPlayer3.ConfigIni.VSyncWait = this.iSystemVSyncWait.bON;
+				TJAPlayer3.ConfigToml.Window.VSyncWait = this.iSystemVSyncWait.bON;
 				TJAPlayer3.app.b次のタイミングで垂直帰線同期切り替えを行う = true;
 			}
 #region [ キーアサインへの遷移と脱出 ]
@@ -1001,7 +996,7 @@ internal class CActConfigList : CActivity
 		nSkinSampleIndex = -1;
 #endregion
 
-		this.prvFont = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 20 );	// t項目リストの設定 の前に必要
+		this.prvFont = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 20 );	// t項目リストの設定 の前に必要
 
 		//			this.listMenu = new List<stMenuItemRight>();
 
@@ -1466,7 +1461,6 @@ internal class CActConfigList : CActivity
 	private CItemBase iKeyAssignTaikoRBlue2P;
 
 #endregion
-	private CItemToggle iLogOutputLog;
 	private CItemToggle iSystemApplyLoudnessMetadata;
 	private CItemInteger iSystemTargetLoudness;
 	private CItemToggle iSystemApplySongVol;
@@ -1607,17 +1601,17 @@ internal class CActConfigList : CActivity
 		//CDTXMania.ConfigIni.eDark = (Eダークモード) this.iCommonDark.n現在選択されている項目番号;
 		TJAPlayer3.ConfigIni.n演奏速度 = this.iCommonPlaySpeed.nValue;
 
-		TJAPlayer3.ConfigIni.FullScreen = this.iSystemFullscreen.bON;
+		TJAPlayer3.ConfigToml.Window.FullScreen = this.iSystemFullscreen.bON;
 		TJAPlayer3.ConfigIni.bランダムセレクトで子BOXを検索対象とする = this.iSystemRandomFromSubBox.bON;
 
 		//CDTXMania.ConfigIni.bWave再生位置自動調整機能有効 = this.iSystemAdjustWaves.bON;
-		TJAPlayer3.ConfigIni.VSyncWait = this.iSystemVSyncWait.bON;
-		TJAPlayer3.ConfigIni.bAVI有効 = this.iSystemAVI.bON;
-		TJAPlayer3.ConfigIni.bBGA有効 = this.iSystemBGA.bON;
+		TJAPlayer3.ConfigToml.Window.VSyncWait = this.iSystemVSyncWait.bON;
+		TJAPlayer3.ConfigToml.Game.Background.Movie = this.iSystemAVI.bON;
+		TJAPlayer3.ConfigToml.Game.Background.BGA = this.iSystemBGA.bON;
 //			CDTXMania.ConfigIni.bGraph有効 = this.iSystemGraph.bON;#24074 2011.01.23 comment-out ikanick オプション(Drums)へ移行
 		TJAPlayer3.ConfigIni.ShowDebugStatus = this.iSystemDebugInfo.bON;
-		TJAPlayer3.ConfigIni.nBGAlpha = this.iSystemBGAlpha.nValue;
-		TJAPlayer3.ConfigIni.bBGM音を発声する = this.iSystemBGMSound.bON;
+		TJAPlayer3.ConfigToml.Game.Background.BGAlpha = this.iSystemBGAlpha.nValue;
+		TJAPlayer3.ConfigToml.Game.BGMSound = this.iSystemBGMSound.bON;
 		//CDTXMania.ConfigIni.b歓声を発声する = this.iSystemAudienceSound.bON;
 		//CDTXMania.ConfigIni.eダメージレベル = (Eダメージレベル) this.iSystemDamageLevel.n現在選択されている項目番号;
 
@@ -1631,7 +1625,6 @@ internal class CActConfigList : CActivity
 		TJAPlayer3.ConfigIni.KeyboardSoundLevelIncrement = this.iSystemKeyboardSoundLevelIncrement.nValue;
 		TJAPlayer3.ConfigIni.MusicPreTimeMs = this.MusicPreTimeMs.nValue;
 
-	TJAPlayer3.ConfigIni.bログ出力 = this.iLogOutputLog.bON;
 		//CDTXMania.ConfigIni.bストイックモード = this.iSystemStoicMode.bON;
 
 		//CDTXMania.ConfigIni.nShowLagType = this.iSystemShowLag.n現在選択されている項目番号;				// #25370 2011.6.3 yyagi

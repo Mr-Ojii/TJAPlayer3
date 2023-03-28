@@ -97,7 +97,7 @@ internal class CActConfigKeyAssign : CActivity
 	{
 		if( !base.b活性化してない )
 		{
-			this.fontRenderer = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 16, CFontRenderer.FontStyle.Italic);
+			this.fontRenderer = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 16, CFontRenderer.FontStyle.Italic);
 			base.OnManagedリソースの作成();
 		}
 	}

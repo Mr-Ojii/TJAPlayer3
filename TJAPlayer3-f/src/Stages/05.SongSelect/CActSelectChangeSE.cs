@@ -50,7 +50,7 @@ class CActSelectChangeSE : CActivity
 			this.NameMoving = new CTexture[2];
 			this.SENameList = new CTexture[TJAPlayer3.Skin.SECount];
 
-			using (var font = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, 30))
+			using (var font = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 30))
 				for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)
 				{
 					string SEName = "Untitled";

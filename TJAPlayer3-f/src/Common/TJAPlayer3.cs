@@ -44,6 +44,11 @@ internal class TJAPlayer3 : Game
 		get;
 		private set;
 	}
+	public static CConfigToml ConfigToml
+	{
+		get;
+		private set;
+	}
 	public static CDTX[] DTX
 	{
 		get
@@ -252,16 +257,16 @@ internal class TJAPlayer3 : Game
 
 	public void t全画面_ウィンドウモード切り替え()
 	{
-		if ((ConfigIni != null) && (ConfigIni.FullScreen != (this.WindowState == FDK.Windowing.WindowState.FullScreen)))
+		if ((ConfigToml != null) && (ConfigToml.Window.FullScreen != (this.WindowState == FDK.Windowing.WindowState.FullScreen)))
 		{
-			if (ConfigIni.FullScreen)   // #23510 2010.10.27 yyagi: backup current window size before going fullscreen mode
+			if (ConfigToml.Window.FullScreen)   // #23510 2010.10.27 yyagi: backup current window size before going fullscreen mode
 			{
 				currentClientSize = this.ClientSize;
-				ConfigIni.rcWindowPos.Width = this.ClientSize.Width;
-				ConfigIni.rcWindowPos.Height = this.ClientSize.Height;
+				ConfigToml.Window.Width = this.ClientSize.Width;
+				ConfigToml.Window.Height = this.ClientSize.Height;
 			}
-			this.WindowState = ConfigIni.FullScreen ? FDK.Windowing.WindowState.FullScreen : FDK.Windowing.WindowState.Normal;
-			if (!ConfigIni.FullScreen)    // #23510 2010.10.27 yyagi: to resume window size from backuped value
+			this.WindowState = ConfigToml.Window.FullScreen ? FDK.Windowing.WindowState.FullScreen : FDK.Windowing.WindowState.Normal;
+			if (!ConfigToml.Window.FullScreen)    // #23510 2010.10.27 yyagi: to resume window size from backuped value
 			{
 				base.ClientSize =
 					new Size(currentClientSize.Width, currentClientSize.Height);
@@ -303,13 +308,13 @@ internal class TJAPlayer3 : Game
 
 		// #xxxxx 2013.4.8 yyagi; sleepの挿入位置を、EndScnene～Present間から、BeginScene前に移動。描画遅延を小さくするため。
 		#region [ スリープ ]
-		if (ConfigIni.nフレーム毎スリープms > 0)            // #xxxxx 2011.11.27 yyagi
+		if (ConfigToml.Window.SleepTimePerFrame > 0)            // #xxxxx 2011.11.27 yyagi
 		{
-			Thread.Sleep(ConfigIni.nフレーム毎スリープms);
+			Thread.Sleep(ConfigToml.Window.SleepTimePerFrame);
 		}
-		if (ConfigIni.n非フォーカス時スリープms > 0 && !this.Focused)
+		if (ConfigToml.Window.BackSleep > 0 && !this.Focused)
 		{
-			Thread.Sleep(ConfigIni.n非フォーカス時スリープms);
+			Thread.Sleep(ConfigToml.Window.BackSleep);
 		}
 		#endregion
 
@@ -827,18 +832,18 @@ internal class TJAPlayer3 : Game
 			if (ConfigIni.KeyAssign.FullScreen[i].Code > 0)
 				if (InputManager.Keyboard.bIsKeyPressed((int)ConfigIni.KeyAssign.FullScreen[i].Code))
 				{
-					if (ConfigIni != null)
+					if (ConfigToml != null)
 					{
-						ConfigIni.FullScreen = !ConfigIni.FullScreen;
+						ConfigToml.Window.FullScreen = !ConfigToml.Window.FullScreen;
 						this.t全画面_ウィンドウモード切り替え();
 					}
 				}
 		}
 		if ((InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.LeftAlt) || InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.RightAlt)) && InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return))
 		{
-			if (ConfigIni != null)
+			if (ConfigToml != null)
 			{
-				ConfigIni.FullScreen = !ConfigIni.FullScreen;
+				ConfigToml.Window.FullScreen = !ConfigToml.Window.FullScreen;
 				this.t全画面_ウィンドウモード切り替え();
 			}
 		}
@@ -849,7 +854,7 @@ internal class TJAPlayer3 : Game
 		#region [ 全画面_ウインドウ切り替え ]
 		if (this.b次のタイミングで全画面_ウィンドウ切り替えを行う)
 		{
-			ConfigIni.FullScreen = !ConfigIni.FullScreen;
+			ConfigToml.Window.FullScreen = !ConfigToml.Window.FullScreen;
 			app.t全画面_ウィンドウモード切り替え();
 			this.b次のタイミングで全画面_ウィンドウ切り替えを行う = false;
 		}
@@ -860,7 +865,7 @@ internal class TJAPlayer3 : Game
 		{
 			currentClientSize = this.ClientSize;                                             // #23510 2010.11.3 yyagi: to backup current window size before changing VSyncWait
 
-			this.VSync = ConfigIni.VSyncWait;
+			this.VSync = ConfigToml.Window.VSyncWait;
 			this.b次のタイミングで垂直帰線同期切り替えを行う = false;
 			base.ClientSize = new Size(currentClientSize.Width, currentClientSize.Height);   // #23510 2010.11.3 yyagi: to resume window size after changing VSyncWait
 		}
@@ -1060,26 +1065,23 @@ internal class TJAPlayer3 : Game
 #region [ ログ出力開始 ]
 		//---------------------
 		Trace.AutoFlush = true;
-		if (ConfigIni.bログ出力)
-		{ 
-			bool log出力ok = false;
-			int num = 0;
-			while (!log出力ok)
+		bool log出力ok = false;
+		int num = 0;
+		while (!log出力ok)
+		{
+			try
 			{
-				try
-				{
-					string logname;
-					if (num == 0)
-						logname = "TJAPlayer3-f.log";
-					else
-						logname = "TJAPlayer3-f_" + num.ToString() + ".log";
-					Trace.Listeners.Add(new CTraceLogListener(new StreamWriter(System.IO.Path.Combine(strEXEのあるフォルダ, logname), false, new UTF8Encoding(false))));
-					log出力ok = true;
-				}
-				catch (Exception)
-				{
-					num++;
-				}
+				string logname;
+				if (num == 0)
+					logname = "TJAPlayer3-f.log";
+				else
+					logname = "TJAPlayer3-f_" + num.ToString() + ".log";
+				Trace.Listeners.Add(new CTraceLogListener(new StreamWriter(System.IO.Path.Combine(strEXEのあるフォルダ, logname), false, new UTF8Encoding(false))));
+				log出力ok = true;
+			}
+			catch (Exception)
+			{
+				num++;
 			}
 		}
 		Trace.WriteLine("");
@@ -1097,16 +1099,16 @@ internal class TJAPlayer3 : Game
 
 #region [ ウィンドウ初期化 ]
 		//---------------------
-		base.Location = new Point(ConfigIni.rcWindowPos.X, ConfigIni.rcWindowPos.Y);   // #30675 2013.02.04 ikanick add
+		base.Location = new Point(ConfigToml.Window.X, ConfigToml.Window.Y);   // #30675 2013.02.04 ikanick add
 
 
 		base.Title = "";
 
-		base.ClientSize = new Size(ConfigIni.rcWindowPos.Width, ConfigIni.rcWindowPos.Height);   // #34510 yyagi 2010.10.31 to change window size got from Config.ini
+		base.ClientSize = new Size(ConfigToml.Window.Width, ConfigToml.Window.Height);   // #34510 yyagi 2010.10.31 to change window size got from Config.ini
 
-		if (ConfigIni.FullScreen)                       // #23510 2010.11.02 yyagi: add; to recover window size in case bootup with fullscreen mode
+		if (ConfigToml.Window.FullScreen)                       // #23510 2010.11.02 yyagi: add; to recover window size in case bootup with fullscreen mode
 		{                                                       // #30666 2013.02.02 yyagi: currentClientSize should be always made
-			currentClientSize = new Size(ConfigIni.rcWindowPos.Width, ConfigIni.rcWindowPos.Height);
+			currentClientSize = new Size(ConfigToml.Window.Width, ConfigToml.Window.Height);
 		}
 
 		base.Icon = Assembly.GetExecutingAssembly().GetManifestResourceStream("TJAPlayer3.TJAPlayer3-f.ico");
@@ -1117,9 +1119,9 @@ internal class TJAPlayer3 : Game
 		#endregion
 #region [ Direct3D9 デバイスの生成 ]
 		//---------------------
-		this.WindowState = ConfigIni.FullScreen ? FDK.Windowing.WindowState.FullScreen : FDK.Windowing.WindowState.Normal;
-		this.VSync = ConfigIni.VSyncWait;
-		base.ClientSize = new Size(ConfigIni.rcWindowPos.Width, ConfigIni.rcWindowPos.Height);   // #23510 2010.10.31 yyagi: to recover window size. width and height are able to get from Config.ini.
+		this.WindowState = ConfigToml.Window.FullScreen ? FDK.Windowing.WindowState.FullScreen : FDK.Windowing.WindowState.Normal;
+		this.VSync = ConfigToml.Window.VSyncWait;
+		base.ClientSize = new Size(ConfigToml.Window.Width, ConfigToml.Window.Height);   // #23510 2010.10.31 yyagi: to recover window size. width and height are able to get from Config.ini.
 		//---------------------
 #endregion
 
@@ -1767,14 +1769,14 @@ internal class TJAPlayer3 : Game
 
 	private void Window_ResizeOrMove(object sender, EventArgs e)               // #23510 2010.11.20 yyagi: to get resized window size
 	{
-		if (!ConfigIni.FullScreen)
+		if (!ConfigToml.Window.FullScreen)
 		{
-			ConfigIni.rcWindowPos.X = this.X;   // #30675 2013.02.04 ikanick add
-			ConfigIni.rcWindowPos.Y = this.Y;   //
+			ConfigToml.Window.X = this.X;   // #30675 2013.02.04 ikanick add
+			ConfigToml.Window.Y = this.Y;   //
 		}
 
-		ConfigIni.rcWindowPos.Width = (ConfigIni.FullScreen) ? currentClientSize.Width : this.ClientWidth;    // #23510 2010.10.31 yyagi add
-		ConfigIni.rcWindowPos.Height = (ConfigIni.FullScreen) ? currentClientSize.Height : this.ClientHeight;
+		ConfigToml.Window.Width = (ConfigToml.Window.FullScreen) ? currentClientSize.Width : this.ClientWidth;    // #23510 2010.10.31 yyagi add
+		ConfigToml.Window.Height = (ConfigToml.Window.FullScreen) ? currentClientSize.Height : this.ClientHeight;
 	}
 
 #endregion

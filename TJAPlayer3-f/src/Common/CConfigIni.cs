@@ -145,27 +145,13 @@ internal class CConfigIni : INotifyPropertyChanged
 	}
 	// プロパティ
 
-	public int nBGAlpha;
-	public bool bAVI有効;
-	public bool bBGA有効;
-	public bool bBGM音を発声する;
-	public bool bLogDTX詳細ログ出力;
-	public bool bLog曲検索ログ出力;
-	public bool bLog作成解放ログ出力;
-
 	public bool bTight;
 	public bool bWave再生位置自動調整機能有効;
 	public bool bランダムセレクトで子BOXを検索対象とする;
-	public bool bログ出力;
 	public bool ShowDebugStatus;
-	public bool VSyncWait;
-	public bool FullScreen;
-	public Rectangle rcWindowPos;
 	public Dictionary<int, string> dicJoystick;
 	public ERandomMode[] eRandom;
 	public CKeyAssign KeyAssign;
-	public int n非フォーカス時スリープms;       // #23568 2010.11.04 ikanick add
-	public int nフレーム毎スリープms;			// #xxxxx 2011.11.27 yyagi add
 	public int n演奏速度;
 	public bool b演奏速度が一倍速であるとき以外音声を再生しない;
 	public string[] strPlayerName;
@@ -240,8 +226,6 @@ internal class CConfigIni : INotifyPropertyChanged
 	public int n表示可能な最小コンボ数;
 	public int[] n譜面スクロール速度;
 	public string Version;
-	public string TJAPath;
-	public string FontName;
 	public bool bBranchGuide;
 	public int nScoreMode;
 	public int nDefaultCourse; //2017.01.30 DD デフォルトでカーソルをあわせる難易度
@@ -341,51 +325,17 @@ internal class CConfigIni : INotifyPropertyChanged
 	/// </summary>
 	public bool SendDiscordPlayingInformation;
 
-	#region [ STRANGE ]
-	public STRANGE HitRange;
-	[StructLayout( LayoutKind.Sequential )]
-	public struct STRANGE
-	{
-		public int Perfect;
-		public int Good;
-		public int Bad;
-	}
-	#endregion
-
-	#region[Ver.K追加オプション]
-	//--------------------------
-	//ゲーム内のオプションに加えて、
-	//システム周りのオプションもこのブロックで記述している。
-	#region[Display]
-	//--------------------------
-	public EClipDispType eClipDispType;
-	#endregion
-
-	//--------------------------
-	#endregion
-
 
 	// コンストラクタ
 
 	public CConfigIni()
 	{
 		this.Version = "Unknown";
-		this.TJAPath = @"./Songs/";
-		this.FullScreen = false;
-		this.VSyncWait = true;
-		this.rcWindowPos = new Rectangle(0, 0, 1280, 720);
-		this.nフレーム毎スリープms = -1;			// #xxxxx 2011.11.27 yyagi add
-		this.n非フォーカス時スリープms = 1;			// #23568 2010.11.04 ikanick add
-		this.nBGAlpha = 100;
-		this.bAVI有効 = false;
-		this.bBGA有効 = true;
 		//this.bWave再生位置自動調整機能有効 = true;
 		this.bWave再生位置自動調整機能有効 = false;
-		this.bBGM音を発声する = true;
 		this.bランダムセレクトで子BOXを検索対象とする = true;
 		this.n表示可能な最小コンボ数 = new int();
 		this.n表示可能な最小コンボ数 = 3;
-		this.FontName = CFontRenderer.DefaultFontName;
 		this.RandomPresence = true;
 		this.OpenOneSide = false;
 		this.SongSelectSkipCount = 7;
@@ -418,7 +368,6 @@ internal class CConfigIni : INotifyPropertyChanged
 		this.SongPreviewLevel = CSound.DefaultSongPreviewLevel;
 		this.SongPlaybackLevel = CSound.DefaultSongPlaybackLevel;
 		this.KeyboardSoundLevelIncrement = DefaultKeyboardSoundLevelIncrement;
-		this.bログ出力 = true;
 		this.eRandom = new ERandomMode[2];
 		this.n譜面スクロール速度 = new int[2];
 		this.nInputAdjustTimeMs = 0;
@@ -436,10 +385,6 @@ internal class CConfigIni : INotifyPropertyChanged
 		this.bAuto先生の連打 = true;
 		this.nAuto先生の連打速度 = 67;
 		#endregion
-		this.HitRange = new STRANGE();
-		this.HitRange.Perfect = 25; //そこらへんから拾ってきた判定の値
-		this.HitRange.Good = 75;
-		this.HitRange.Bad = 108;
 		this.ConfigIniファイル名 = "";
 		this.dicJoystick = new Dictionary<int, string>( 10 );
 		this.tデフォルトのキーアサインに設定する();
@@ -529,26 +474,7 @@ internal class CConfigIni : INotifyPropertyChanged
 	public void t書き出し( string iniファイル名 )
 	{
 		StreamWriter sw = new StreamWriter( iniファイル名, false, new UTF8Encoding(false));
-		sw.WriteLine( ";-------------------" );
-		
-		#region [ System ]
-		sw.WriteLine( "[System]" );
-		sw.WriteLine();
 
-		#region [ Version ]
-		sw.WriteLine( "; リリースバージョン" );
-		sw.WriteLine( "; Release Version." );
-		sw.WriteLine( "Version={0}", TJAPlayer3.VERSION );
-		sw.WriteLine();
-		#endregion
-		#region [ TJAPath ]
-		sw.WriteLine( "; 譜面ファイルが格納されているフォルダへのパス。" );
-		sw.WriteLine( @"; セミコロン(;)で区切ることにより複数のパスを指定できます。（例: d:/tja/;e:/tja2/）" );
-		sw.WriteLine( "; Pathes for TJA data." );
-		sw.WriteLine( @"; You can specify many pathes separated with semicolon(;). (e.g. d:/tja/;e:/tja2/)" );
-		sw.WriteLine( "TJAPath={0}", this.TJAPath );
-		sw.WriteLine();
-		#endregion
 		#region [ スキン関連 ]
 		#region [ Skinパスの絶対パス→相対パス変換 ]
 		Uri uriRoot = new Uri( System.IO.Path.Combine( TJAPlayer3.strEXEのあるフォルダ, "System/" ) );
@@ -567,138 +493,6 @@ internal class CConfigIni : INotifyPropertyChanged
 		sw.WriteLine( "; Skin folder path." );
 		sw.WriteLine( "; e.g. System/Default/Graphics/... -> Set SkinPath=./Default/" );
 		sw.WriteLine( "SkinPath={0}", relPath );
-		sw.WriteLine();
-		#endregion
-		#region [ Window関連 ]
-		sw.WriteLine( "; 画面モード(0:ウィンドウ, 1:全画面)" );
-		sw.WriteLine( "; Screen mode. (0:Window, 1:Fullscreen)" );
-		sw.WriteLine( "FullScreen={0}", this.FullScreen ? 1 : 0 );
-		sw.WriteLine();
-		sw.WriteLine("; ウインドウモード時の画面幅");				// #23510 2010.10.31 yyagi add
-		sw.WriteLine("; A width size in the window mode.");			//
-		sw.WriteLine("WindowWidth={0}", this.rcWindowPos.Width);		//
-		sw.WriteLine();												//
-		sw.WriteLine("; ウインドウモード時の画面高さ");				//
-		sw.WriteLine("; A height size in the window mode.");		//
-		sw.WriteLine("WindowHeight={0}", this.rcWindowPos.Height);	//
-		sw.WriteLine();												//
-		sw.WriteLine( "; ウィンドウモード時の位置X" );				            // #30675 2013.02.04 ikanick add
-		sw.WriteLine( "; X position in the window mode." );			            //
-		sw.WriteLine( "WindowX={0}", this.rcWindowPos.X );			//
-		sw.WriteLine();											            	//
-		sw.WriteLine( "; ウィンドウモード時の位置Y" );			            	//
-		sw.WriteLine( "; Y position in the window mode." );	            	    //
-		sw.WriteLine( "WindowY={0}", this.rcWindowPos.Y );   		//
-		sw.WriteLine();												            //
-		sw.WriteLine( "; 非フォーカス時のsleep値[ms]" );	    			    // #23568 2011.11.04 ikanick add
-		sw.WriteLine( "; A sleep time[ms] while the window is inactive." );	//
-		sw.WriteLine( "BackSleep={0}", this.n非フォーカス時スリープms );		// そのまま引用（苦笑）
-		sw.WriteLine();
-		#endregion
-		#region [ フォント ]
-		sw.WriteLine("; フォントレンダリングに使用するフォント名");
-		sw.WriteLine("; Font name used for font rendering.");
-		sw.WriteLine("FontName={0}", this.FontName);
-		sw.WriteLine();
-		#endregion
-		#region [ フレーム処理関連(VSync, フレーム毎のsleep) ]
-		sw.WriteLine("; 垂直帰線同期(0:OFF,1:ON)");
-		sw.WriteLine( "VSyncWait={0}", this.VSyncWait ? 1 : 0 );
-		sw.WriteLine();
-		sw.WriteLine( "; フレーム毎のsleep値[ms] (-1でスリープ無し, 0以上で毎フレームスリープ。動画キャプチャ等で活用下さい)" );	// #xxxxx 2011.11.27 yyagi add
-		sw.WriteLine( "; A sleep time[ms] per frame." );							//
-		sw.WriteLine( "SleepTimePerFrame={0}", this.nフレーム毎スリープms );		//
-		sw.WriteLine();                                                             //
-		#endregion
-		
-		#region [ WASAPI/ASIO関連 ]
-		sw.WriteLine( "; サウンド出力方式(0=BASS, 1=ASIO, 2=WASAPI(排他), 3=WASAPI(共有))" );
-		sw.WriteLine( "; WASAPIはVista以降のOSで使用可能。推奨方式はWASAPI。" );
-		sw.WriteLine( "; なお、WASAPIが使用不可ならASIOを、ASIOが使用不可ならBASSを使用します。");
-		sw.WriteLine( "; Sound device type(0=BASS, 1=ASIO, 2=WASAPI(Exclusive), 3=WASAPI(Shared))");
-		sw.WriteLine( "; WASAPI can use on Vista or later OSs." );
-		sw.WriteLine("; If WASAPI is not available, DTXMania try to use ASIO. If ASIO can't be used, DTXMania try to use BASS.");
-		sw.WriteLine( "SoundDeviceType={0}", (int) this.nSoundDeviceType );
-		sw.WriteLine();
-
-		sw.WriteLine( "; WASAPI使用時のサウンドバッファサイズ" );
-		sw.WriteLine( "; (0=デバイスに設定されている値を使用, 1～9999=バッファサイズ(単位:ms)の手動指定" );
-		sw.WriteLine( "; WASAPI Sound Buffer Size." );
-		sw.WriteLine( "; (0=Use system default buffer size, 1-9999=specify the buffer size(ms) by yourself)" );
-		sw.WriteLine( "WASAPIBufferSizeMs={0}", (int) this.nWASAPIBufferSizeMs );
-		sw.WriteLine();
-
-		sw.WriteLine( "; ASIO使用時のサウンドデバイス" );
-		sw.WriteLine( "; 存在しないデバイスを指定すると、DTXManiaが起動しないことがあります。" );
-		sw.WriteLine( "; Sound device used by ASIO." );
-		sw.WriteLine( "; Don't specify unconnected device, as the DTXMania may not bootup." );
-		try
-		{
-			string[] asiodev = CEnumerateAllAsioDevices.GetAllASIODevices();
-			for (int i = 0; i < asiodev.Length; i++)
-			{
-				sw.WriteLine("; {0}: {1}", i, asiodev[i]);
-			}
-		}
-		catch (Exception e) 
-		{
-			Trace.TraceWarning(e.ToString());
-		}
-		sw.WriteLine( "ASIODevice={0}", (int) this.nASIODevice );
-		sw.WriteLine();
-
-		//sw.WriteLine( "; ASIO使用時のサウンドバッファサイズ" );
-		//sw.WriteLine( "; (0=デバイスに設定されている値を使用, 1～9999=バッファサイズ(単位:ms)の手動指定" );
-		//sw.WriteLine( "; ASIO Sound Buffer Size." );
-		//sw.WriteLine( "; (0=Use the value specified to the device, 1-9999=specify the buffer size(ms) by yourself)" );
-		//sw.WriteLine( "ASIOBufferSizeMs={0}", (int) this.nASIOBufferSizeMs );
-		//sw.WriteLine();
-
-		//sw.WriteLine( "; Bass.Mixの制御を動的に行うか否か。" );
-		//sw.WriteLine( "; ONにすると、ギター曲などチップ音の多い曲も再生できますが、画面が少しがたつきます。" );
-		//sw.WriteLine( "; (0=行わない, 1=行う)" );
-		//sw.WriteLine( "DynamicBassMixerManagement={0}", this.bDynamicBassMixerManagement ? 1 : 0 );
-		//sw.WriteLine();
-
-		sw.WriteLine("; BASS使用時のサウンドバッファサイズ");
-		sw.WriteLine("; (0=デバイスに設定されている値を使用, 1～9999=バッファサイズ(単位:ms)の手動指定");
-		sw.WriteLine("; BASS Sound Buffer Size.");
-		sw.WriteLine("; (0=Use system default buffer size, 1-9999=specify the buffer size(ms) by yourself)");
-		sw.WriteLine("BASSBufferSizeMs={0}", (int)this.nBASSBufferSizeMs);
-		sw.WriteLine();
-
-		sw.WriteLine( "; 演奏タイマーの種類" );
-		sw.WriteLine( "; Playback timer" );
-		sw.WriteLine( "; (0=FDK Timer, 1=System Timer)" );
-		sw.WriteLine( "SoundTimerType={0}", this.bUseOSTimer ? 1 : 0 );
-		sw.WriteLine();
-
-		//sw.WriteLine( "; 全体ボリュームの設定" );
-		//sw.WriteLine( "; (0=無音 ～ 100=最大。WASAPI/ASIO時のみ有効)" );
-		//sw.WriteLine( "; Master volume settings" );
-		//sw.WriteLine( "; (0=Silent - 100=Max)" );
-		//sw.WriteLine( "MasterVolume={0}", this.nMasterVolume );
-		//sw.WriteLine();
-
-		#endregion
-		sw.WriteLine( "; 背景画像の半透明割合(0:透明～255:不透明)" );
-		sw.WriteLine( "; Transparency for background image in playing screen.(0:tranaparent - 255:no transparent)" );
-		sw.WriteLine( "BGAlpha={0}", this.nBGAlpha );
-		sw.WriteLine();
-		#region [ AVI/BGA ]
-		sw.WriteLine( "; AVIの表示(0:OFF, 1:ON)" );
-		sw.WriteLine( "AVI={0}", this.bAVI有効 ? 1 : 0 );
-		sw.WriteLine();
-		sw.WriteLine( "; BGAの表示(0:OFF, 1:ON)" );
-		sw.WriteLine( "BGA={0}", this.bBGA有効 ? 1 : 0 );
-		sw.WriteLine();
-		sw.WriteLine( "; 動画表示モード( 0:表示しない, 1:背景のみ, 2:窓表示のみ, 3:両方)" );
-		sw.WriteLine( "ClipDispType={0}", (int) this.eClipDispType );
-		sw.WriteLine();
-		#endregion
-		#region [ BGMの再生 ]
-		sw.WriteLine( "; BGM の再生(0:OFF, 1:ON)" );
-		sw.WriteLine( "BGMSound={0}", this.bBGM音を発声する ? 1 : 0 );
 		sw.WriteLine();
 		#endregion
 		sw.WriteLine("; 最小表示コンボ数");
@@ -771,7 +565,6 @@ internal class CConfigIni : INotifyPropertyChanged
 		sw.WriteLine( "EndingAnime={0}", (int)this.eEndingAnime );
 		sw.WriteLine();
 		sw.WriteLine( ";-------------------" );
-		#endregion
 
 		#region [ AutoPlay ]
 		sw.WriteLine("[AutoPlay]");
@@ -788,35 +581,6 @@ internal class CConfigIni : INotifyPropertyChanged
 		sw.WriteLine("TaikoAutoRollSpeed={0}", this.nAuto先生の連打速度);
 		sw.WriteLine();
 		sw.WriteLine(";-------------------");
-#endregion
-
-#region [ HitRange ]
-		sw.WriteLine("[HitRange]");
-		sw.WriteLine();
-		sw.WriteLine("; Perfect～Bad とみなされる範囲[ms]");
-		sw.WriteLine("Perfect={0}", this.HitRange.Perfect);
-		sw.WriteLine("Good={0}", this.HitRange.Good);
-		sw.WriteLine("Bad={0}", this.HitRange.Bad);
-		sw.WriteLine();
-		sw.WriteLine(";-------------------");
-#endregion
-
-#region [ Log ]
-		sw.WriteLine( "[Log]" );
-		sw.WriteLine();
-		sw.WriteLine( "; Log出力(0:OFF, 1:ON)" );
-		sw.WriteLine( "OutputLog={0}", this.bログ出力 ? 1 : 0 );
-		sw.WriteLine();
-		sw.WriteLine( "; 曲データ検索に関するLog出力(0:OFF, 1:ON)" );
-		sw.WriteLine( "TraceSongSearch={0}", this.bLog曲検索ログ出力 ? 1 : 0 );
-		sw.WriteLine();
-		sw.WriteLine( "; 画像やサウンドの作成_解放に関するLog出力(0:OFF, 1:ON)" );
-		sw.WriteLine( "TraceCreatedDisposed={0}", this.bLog作成解放ログ出力 ? 1 : 0 );
-		sw.WriteLine();
-		sw.WriteLine( "; DTX読み込み詳細に関するLog出力(0:OFF, 1:ON)" );
-		sw.WriteLine( "TraceDTXDetails={0}", this.bLogDTX詳細ログ出力 ? 1 : 0 );
-		sw.WriteLine();
-		sw.WriteLine( ";-------------------" );
 #endregion
 
 #region [ PlayOption ]
@@ -873,18 +637,6 @@ internal class CConfigIni : INotifyPropertyChanged
 		sw.WriteLine("; ぷちキャラ画像 (0:OFF, 1:ON)");
 		sw.WriteLine("ShowPuchiChara={0}", ShowPuchiChara ? 1 : 0);
 		sw.WriteLine();
-#region [ Invisible ]
-		//sw.WriteLine( "; ドラムチップ非表示モード (0:OFF, 1=SEMI, 2:FULL)" );
-		//sw.WriteLine( "; Drums chip invisible mode" );
-		//sw.WriteLine( "DrumsInvisible={0}", (int) this.eInvisible );
-		//sw.WriteLine();
-		//sw.WriteLine( "; Semi-InvisibleでMissった時のチップ再表示時間(ms)" );
-		//sw.WriteLine( "InvisibleDisplayTimeMs={0}", (int) this.nDisplayTimesMs );
-		//sw.WriteLine();
-		//sw.WriteLine( "; Semi-InvisibleでMissってチップ再表示時間終了後のFadeOut時間(ms)" );
-		//sw.WriteLine( "InvisibleFadeoutTimeMs={0}", (int) this.nFadeoutTimeMs );
-		//sw.WriteLine();
-#endregion
 		sw.WriteLine( "; RISKYモード(0:OFF, 1-10)" );									// #23559 2011.6.23 yyagi
 		sw.WriteLine( "; RISKY mode. 0=OFF, 1-10 is the times of misses to be Failed." );	//
 		sw.WriteLine( "Risky={0}", this.nRisky );			//
@@ -1104,12 +856,6 @@ internal class CConfigIni : INotifyPropertyChanged
 										this.Version = str4;
 									}
 #endregion
-#region [ TJAPath ]
-									else if( str3.Equals( "TJAPath" ) )
-									{
-										this.TJAPath = str4;
-									}
-#endregion
 #region [ skin関係 ]
 									else if ( str3.Equals( "SkinPath" ) )
 									{
@@ -1127,40 +873,6 @@ internal class CConfigIni : INotifyPropertyChanged
 											absSkinPath += '/';
 										}
 										this.strSystemSkinSubfolderFullName = absSkinPath;
-									}
-#endregion
-#region [ Window関係 ]
-									else if (str3.Equals("FullScreen"))
-									{
-										this.FullScreen = str4[0].ToBool();
-									}
-									else if ( str3.Equals( "WindowX" ) )        // #30675 2013.02.04 ikanick add
-									{
-										if (int.TryParse(str4, out int num))
-											this.rcWindowPos.X = num;
-									}
-									else if ( str3.Equals( "WindowY" ) )        // #30675 2013.02.04 ikanick add
-									{
-										if (int.TryParse(str4, out int num))
-											this.rcWindowPos.Y = num;
-									}
-									else if ( str3.Equals( "WindowWidth" ) )		// #23510 2010.10.31 yyagi add
-									{
-										if (int.TryParse(str4, out int num))
-											this.rcWindowPos.Width = num;
-										if( this.rcWindowPos.Width <= 0 )
-											this.rcWindowPos.Width = TJAPlayer3.app.LogicalSize.Width;
-									}
-									else if( str3.Equals( "WindowHeight" ) )		// #23510 2010.10.31 yyagi add
-									{
-										if (int.TryParse(str4, out int num))
-											this.rcWindowPos.Height = num;
-										if( this.rcWindowPos.Height <= 0 )
-											this.rcWindowPos.Height = TJAPlayer3.app.LogicalSize.Height;
-									}
-									else if ( str3.Equals( "BackSleep" ) )				// #23568 2010.11.04 ikanick add
-									{
-										this.n非フォーカス時スリープms = str4.ToInt32(0, 50, this.n非フォーカス時スリープms);
 									}
 #endregion
 
@@ -1200,49 +912,6 @@ internal class CConfigIni : INotifyPropertyChanged
 									//}
 #endregion
 
-#region [ フォント ]
-									else if (str3.Equals("FontName"))
-									{
-										this.FontName = str4;
-									}
-#endregion
-
-									else if ( str3.Equals( "VSyncWait" ) )
-									{
-										this.VSyncWait = str4[0].ToBool();
-									}
-									else if( str3.Equals( "SleepTimePerFrame" ) )		// #23568 2011.11.27 yyagi
-									{
-										this.nフレーム毎スリープms = str4.ToInt32(-1, 50, this.nフレーム毎スリープms);
-									}
-									else if( str3.Equals( "BGAlpha" ) )
-									{
-										this.nBGAlpha = str4.ToInt32(0, 0xff, this.nBGAlpha);
-									}
-#region [ AVI/BGA ]
-									else if( str3.Equals( "AVI" ) )
-									{
-										this.bAVI有効 = str4[0].ToBool();
-									}
-									else if( str3.Equals( "BGA" ) )
-									{
-										this.bBGA有効 = str4[0].ToBool();
-									}
-									else if( str3.Equals( "ClipDispType" ) )
-									{
-										this.eClipDispType = (EClipDispType)str4.ToInt32(0, 3, (int) this.eClipDispType);
-									}
-#endregion
-									//else if( str3.Equals( "AdjustWaves" ) )
-									//{
-									//	this.bWave再生位置自動調整機能有効 = str4[0].ToBool();
-									//}
-#region [ BGM/ドラムのヒット音 ]
-									else if( str3.Equals( "BGMSound" ) )
-									{
-										this.bBGM音を発声する = str4[0].ToBool();
-									}
-#endregion
 									else if( str3.Equals( "RandomFromSubBox" ) )
 									{
 										this.bランダムセレクトで子BOXを検索対象とする = str4[0].ToBool();
@@ -1343,52 +1012,6 @@ internal class CConfigIni : INotifyPropertyChanged
 									this.nAuto先生の連打速度 = str4.ToInt32(1, 9999, this.nAuto先生の連打速度);
 								}
 								continue;
-							//-----------------------------
-#endregion
-
-#region [ [HitRange] ]
-							//-----------------------------
-							case Eセクション種別.HitRange:
-								if (str3.Equals("Perfect"))
-								{
-									this.HitRange.Perfect = str4.ToInt32(0, 0x3e7, this.HitRange.Perfect);
-								}
-								else if (str3.Equals("Good"))
-								{
-									this.HitRange.Good = str4.ToInt32(0, 0x3e7, this.HitRange.Good);
-								}
-								else if (str3.Equals("Bad"))
-								{
-									this.HitRange.Bad = str4.ToInt32(0, 0x3e7, this.HitRange.Bad);
-								}
-								continue;
-							//-----------------------------
-#endregion
-
-
-
-#region [ [Log] ]
-							//-----------------------------
-							case Eセクション種別.Log:
-								{
-									if( str3.Equals( "OutputLog" ) )
-									{
-										this.bログ出力 = str4[0].ToBool();
-									}
-									else if( str3.Equals( "TraceCreatedDisposed" ) )
-									{
-										this.bLog作成解放ログ出力 = str4[0].ToBool();
-									}
-									else if( str3.Equals( "TraceDTXDetails" ) )
-									{
-										this.bLogDTX詳細ログ出力 = str4[0].ToBool();
-									}
-									else if( str3.Equals( "TraceSongSearch" ) )
-									{
-										this.bLog曲検索ログ出力 = str4[0].ToBool();
-									}
-									continue;
-								}
 							//-----------------------------
 #endregion
 

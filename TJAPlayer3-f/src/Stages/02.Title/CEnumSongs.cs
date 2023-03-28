@@ -313,45 +313,41 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
 
 			try
 			{
-				if ( !string.IsNullOrEmpty( TJAPlayer3.ConfigIni.TJAPath ) )
+				if (TJAPlayer3.ConfigToml.General.ChartPath.Length > 0)
 				{
-					string[] strArray = TJAPlayer3.ConfigIni.TJAPath.Split( new char[] { ';' } );
-					if ( strArray.Length > 0 )
+					// 全パスについて…
+					foreach ( string str in TJAPlayer3.ConfigToml.General.ChartPath )
 					{
-						// 全パスについて…
-						foreach ( string str in strArray )
+						string path = str;
+						if ( !Path.IsPathRooted( path ) )
 						{
-							string path = str;
-							if ( !Path.IsPathRooted( path ) )
-							{
-								path = TJAPlayer3.strEXEのあるフォルダ + str;	// 相対パスの場合、絶対パスに直す(2010.9.16)
-							}
+							path = TJAPlayer3.strEXEのあるフォルダ + str;	// 相対パスの場合、絶対パスに直す(2010.9.16)
+						}
 
-							if ( !string.IsNullOrEmpty( path ) )
-							{
-								Trace.TraceInformation( "検索パス: " + path );
-								Trace.Indent();
+						if ( !string.IsNullOrEmpty( path ) )
+						{
+							Trace.TraceInformation( "検索パス: " + path );
+							Trace.Indent();
 
-								try
-								{
-									this.SongsManager.t曲を検索してリストを作成する(path, true);
-								}
-								catch ( Exception e )
-								{
-									Trace.TraceError( e.ToString() );
-									Trace.TraceError( "An exception has occurred, but processing continues." );
+							try
+							{
+								this.SongsManager.t曲を検索してリストを作成する(path, true);
 							}
-									finally
-								{
-									Trace.Unindent();
-								}
+							catch ( Exception e )
+							{
+								Trace.TraceError( e.ToString() );
+								Trace.TraceError( "An exception has occurred, but processing continues." );
+							}
+							finally
+							{
+								Trace.Unindent();
 							}
 						}
 					}
 				}
 				else
 				{
-					Trace.TraceWarning( "曲データの検索パス(TJAPath)の指定がありません。" );
+					Trace.TraceWarning( "曲データの検索パス(ChartPath)の指定がありません。" );
 				}
 			}
 			finally

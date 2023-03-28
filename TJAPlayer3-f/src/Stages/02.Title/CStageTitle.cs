@@ -79,7 +79,7 @@ internal class CStageTitle : CStage
 		};
 		int lang = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
 		if ( !base.b活性化してない) {
-			using (var pf = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, 28))
+			using (var pf = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 28))
 			{
 				texttexture[0] = this.文字テクスチャを生成する(str[0, lang], Color.White, Color.SaddleBrown, pf);
 				texttexture[1] = this.文字テクスチャを生成する(str[1, lang], Color.White, Color.SaddleBrown, pf);

@@ -449,8 +449,8 @@ internal class CActSelect曲リスト : CActivity
 		// enter or return to the song select screen.
 		TJAPlayer3.IsPerformingCalibration = false;
 
-		this.pfMusicName = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 30);
-		this.pfSubtitle = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 23);
+		this.pfMusicName = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 30);
+		this.pfSubtitle = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 23);
 
 		this.n目標のスクロールカウンタ = 0;
 		this.n現在のスクロールカウンタ = 0;
@@ -510,9 +510,9 @@ internal class CActSelect曲リスト : CActivity
 		#region [ Songs not found画像 ]
 		try
 		{
-			string[] s1 = { "曲データが見つかりません。\n曲データをDTXManiaGR.exe以下の\nフォルダにインストールして下さい。", "Songs not found.\nYou need to install songs." };
+			string[] s1 = { "曲データが見つかりません。\n曲データをTJAPlayer3-f以下の\nフォルダにインストールして下さい。", "Songs not found.\nYou need to install songs." };
 
-			using (CFontRenderer pffont = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, 32))
+			using (CFontRenderer pffont = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 32))
 			{
 				this.txSongNotFound = TJAPlayer3.tCreateTexture(pffont.DrawText(s1[c], Color.White), true);
 				this.txSongNotFound.vcScaling = new Vector2(0.5f);
@@ -530,7 +530,7 @@ internal class CActSelect曲リスト : CActivity
 		{
 			string[] s1 = { "曲データを検索しています。\nそのまましばらくお待ち下さい。", "Now enumerating songs.\nPlease wait..." };
 
-			using (CFontRenderer pffont = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, 32))
+			using (CFontRenderer pffont = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 32))
 			{
 				this.txEnumeratingSongs = TJAPlayer3.tCreateTexture(pffont.DrawText(s1[c], Color.White), true);
 				this.txEnumeratingSongs.vcScaling = new Vector2(0.5f);

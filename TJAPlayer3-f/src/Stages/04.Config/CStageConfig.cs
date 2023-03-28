@@ -52,7 +52,7 @@ internal class CStageConfig : CStage
 		{
 			this.n現在のメニュー番号 = 0;                                                    //
 
-			this.privatefont = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, 14, CFontRenderer.FontStyle.Bold);
+			this.privatefont = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 14, CFontRenderer.FontStyle.Bold);
 
 			for( int i = 0; i < 4; i++ )													//
 			{																				//
@@ -120,7 +120,7 @@ internal class CStageConfig : CStage
 		{
 			string[] strMenuItem = {"System", "Drums", "Exit"};
 			txMenuItemLeft = new CTexture[strMenuItem.Length, 2];
-			using (var prvFont = new CFontRenderer(TJAPlayer3.ConfigIni.FontName, 20))
+			using (var prvFont = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 20))
 			{
 				for (int i = 0; i < strMenuItem.Length; i++)
 				{

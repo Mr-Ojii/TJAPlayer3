@@ -129,9 +129,9 @@ internal class CStage演奏画面共通 : CStage
 		Record.Random = TJAPlayer3.ConfigIni.eRandom[nPlayer];
 		Record.ScrollSpeed = (TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer] + 1) * 0.1;
 		Record.PlaySpeed = TJAPlayer3.ConfigIni.n演奏速度 / 20.0;
-		Record.PerfectRange = TJAPlayer3.ConfigIni.HitRange.Perfect;
-		Record.GoodRange = TJAPlayer3.ConfigIni.HitRange.Good;
-		Record.BadRange = TJAPlayer3.ConfigIni.HitRange.Bad;
+		Record.PerfectRange = TJAPlayer3.ConfigToml.HitRange.Perfect;
+		Record.GoodRange = TJAPlayer3.ConfigToml.HitRange.Good;
+		Record.BadRange = TJAPlayer3.ConfigToml.HitRange.Bad;
 		Record.PerfectCount = this.nヒット数[nPlayer].Perfect;
 		Record.GoodCount = this.nヒット数[nPlayer].Good;
 		Record.BadCount = this.nヒット数[nPlayer].Bad;
@@ -469,7 +469,7 @@ internal class CStage演奏画面共通 : CStage
 				TJAPlayer3.DTX[0].t全チップの再生停止();
 				base.eフェーズID = CStage.Eフェーズ.演奏_STAGE_FAILED;
 			}
-			if ((!String.IsNullOrEmpty(TJAPlayer3.DTX[0].strBGIMAGE_PATH) || (TJAPlayer3.DTX[0].listVD.Count == 0)) || !TJAPlayer3.ConfigIni.bAVI有効) //背景動画があったら背景画像を描画しない。
+			if ((!String.IsNullOrEmpty(TJAPlayer3.DTX[0].strBGIMAGE_PATH) || (TJAPlayer3.DTX[0].listVD.Count == 0)) || !TJAPlayer3.ConfigToml.Game.Background.Movie) //背景動画があったら背景画像を描画しない。
 			{
 				if (this.tx背景 != null)
 				{
@@ -480,30 +480,30 @@ internal class CStage演奏画面共通 : CStage
 				}
 			}
 
-			if (TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listVD.Count > 0 && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
+			if (TJAPlayer3.ConfigToml.Game.Background.Movie && TJAPlayer3.DTX[0].listVD.Count > 0 && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
 			{
 				this.t進行描画_AVI();
 			}
-			else if (TJAPlayer3.ConfigIni.bBGA有効)
+			else if (TJAPlayer3.ConfigToml.Game.Background.BGA)
 			{
 				if (TJAPlayer3.ConfigIni.eGameMode == EGame.特訓モード) actTraining.On進行描画_背景();
 				else actBackground.On進行描画();
 			}
 
-			if (!(TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listVD.Count > 0) && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
+			if (!(TJAPlayer3.ConfigToml.Game.Background.Movie && TJAPlayer3.DTX[0].listVD.Count > 0) && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
 			{
 				actRollChara.On進行描画();
 			}
 
-			if (!(TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listVD.Count > 0) && !bDoublePlay && TJAPlayer3.ConfigIni.ShowDancer && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
+			if (!(TJAPlayer3.ConfigToml.Game.Background.Movie && TJAPlayer3.DTX[0].listVD.Count > 0) && !bDoublePlay && TJAPlayer3.ConfigIni.ShowDancer && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
 			{
 				actDancer.On進行描画();
 			}
 
-			if (!(TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listVD.Count > 0) && !bDoublePlay && TJAPlayer3.ConfigIni.ShowFooter && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード && TJAPlayer3.Tx.Mob_Footer != null)
+			if (!(TJAPlayer3.ConfigToml.Game.Background.Movie && TJAPlayer3.DTX[0].listVD.Count > 0) && !bDoublePlay && TJAPlayer3.ConfigIni.ShowFooter && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード && TJAPlayer3.Tx.Mob_Footer != null)
 				TJAPlayer3.Tx.Mob_Footer.t2D描画(TJAPlayer3.app.Device, 0, TJAPlayer3.app.LogicalSize.Height - TJAPlayer3.Tx.Mob_Footer.szTextureSize.Height);
 
-			if (!(TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listVD.Count > 0) && TJAPlayer3.ConfigIni.ShowChara)
+			if (!(TJAPlayer3.ConfigToml.Game.Background.Movie && TJAPlayer3.DTX[0].listVD.Count > 0) && TJAPlayer3.ConfigIni.ShowChara)
 				this.actChara.On進行描画();
 
 			if (TJAPlayer3.ConfigIni.ShowMob && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
@@ -520,7 +520,7 @@ internal class CStage演奏画面共通 : CStage
 
 			this.actLaneTaiko.On進行描画();
 
-			if (TJAPlayer3.ConfigIni.eClipDispType.HasFlag(EClipDispType.Window) && TJAPlayer3.ConfigIni.nPlayerCount == 1)
+			if (TJAPlayer3.ConfigToml.Game.Background._ClipDispType.HasFlag(EClipDispType.Window) && TJAPlayer3.ConfigIni.nPlayerCount == 1)
 				this.actAVI.t窓表示();
 
 			if (!TJAPlayer3.ConfigIni.bNoInfo && TJAPlayer3.ConfigIni.eGameMode != EGame.特訓モード)
@@ -939,17 +939,17 @@ internal class CStage演奏画面共通 : CStage
 					return EJudge.Perfect;
 				}
 			}
-			if ( nDeltaTime <= TJAPlayer3.ConfigIni.HitRange.Perfect * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))
+			if ( nDeltaTime <= TJAPlayer3.ConfigToml.HitRange.Perfect * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))
 			{
 				return EJudge.Perfect;
 			}
-			if ( nDeltaTime <= TJAPlayer3.ConfigIni.HitRange.Good * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))
+			if ( nDeltaTime <= TJAPlayer3.ConfigToml.HitRange.Good * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))
 			{
 				if( TJAPlayer3.ConfigIni.bJust )
 					return EJudge.Bad;
 				return EJudge.Good;
 			}
-			if ( nDeltaTime <= TJAPlayer3.ConfigIni.HitRange.Bad * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))
+			if ( nDeltaTime <= TJAPlayer3.ConfigToml.HitRange.Bad * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))
 			{
 				return EJudge.Bad;
 			}
@@ -2650,7 +2650,7 @@ internal class CStage演奏画面共通 : CStage
 			}
 			else if ( keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.F5 ) )
 			{
-				TJAPlayer3.ConfigIni.eClipDispType = (EClipDispType)(((int)TJAPlayer3.ConfigIni.eClipDispType + 1) % 4);
+				TJAPlayer3.ConfigToml.Game.Background._ClipDispType = (EClipDispType)(((int)TJAPlayer3.ConfigToml.Game.Background._ClipDispType + 1) % 4);
 			}
 #if PLAYABLE
 			if ( keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.F6 ) )
@@ -2707,7 +2707,7 @@ internal class CStage演奏画面共通 : CStage
 
 	protected virtual void t進行描画_AVI()
 	{
-		if ( ( ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED ) && ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED_FadeOut ) ) && ( TJAPlayer3.ConfigIni.bAVI有効 ) )
+		if ( ( ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED ) && ( base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED_FadeOut ) ) && ( TJAPlayer3.ConfigToml.Game.Background.Movie ) )
 		{
 			this.actAVI.t進行描画();
 		}
@@ -2856,7 +2856,7 @@ internal class CStage演奏画面共通 : CStage
 					if ( !pChip.bHit && ( pChip.TimeSpan < 0 ) )
 					{
 						pChip.bHit = true;
-						if ( TJAPlayer3.ConfigIni.bBGM音を発声する )
+						if ( TJAPlayer3.ConfigToml.Game.BGMSound )
 						{
 							dTX.tチップの再生( pChip, CSoundManager.rc演奏用タイマ.n前回リセットした時のシステム時刻ms + (long)(pChip.n発声時刻ms / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)));
 						}
@@ -3083,7 +3083,7 @@ internal class CStage演奏画面共通 : CStage
 					{
 						if ((dTX.listVD.TryGetValue(pChip.n整数値, out CVideoDecoder vd)))
 						{
-							if (TJAPlayer3.ConfigIni.bAVI有効 && vd != null)
+							if (TJAPlayer3.ConfigToml.Game.Background.Movie && vd != null)
 							{
 								this.actAVI.Start(pChip.nチャンネル番号, vd);
 							}
@@ -3892,7 +3892,7 @@ internal class CStage演奏画面共通 : CStage
 					bool b = dTX.listWAV.TryGetValue(pChip.n整数値_内部番号, out wc);
 					if (!b) continue;
 
-					if ((wc.bUse && TJAPlayer3.ConfigIni.bBGM音を発声する))
+					if ((wc.bUse && TJAPlayer3.ConfigToml.Game.BGMSound))
 					{
 						TJAPlayer3.DTX[0].tチップの再生(pChip, (long)(CSoundManager.rc演奏用タイマ.n前回リセットした時のシステム時刻ms) + (long)(n発声時刻ms));
 #region [ PAUSEする ]

@@ -128,8 +128,8 @@ internal class CActPanel : CActivity
 
 	public override void On活性化()
 	{
-		this.pfMusicName = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameFontSize);
-		this.pfSubTitleName = new CCachedFontRenderer(TJAPlayer3.ConfigIni.FontName, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.SubTitleNameFontSize);
+		this.pfMusicName = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameFontSize);
+		this.pfSubTitleName = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.SubTitleNameFontSize);
 
 		this.txPanel = null;
 		this.ct進行用 = new CCounter();

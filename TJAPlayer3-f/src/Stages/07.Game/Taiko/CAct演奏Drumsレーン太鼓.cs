@@ -602,11 +602,11 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 			}
 		}
 
-		if (TJAPlayer3.ConfigIni.bAVI有効 && TJAPlayer3.DTX[0].listVD.Count > 0)
+		if (TJAPlayer3.ConfigToml.Game.Background.Movie && TJAPlayer3.DTX[0].listVD.Count > 0)
 		{
-			if (TJAPlayer3.Tx.Lane_Background_Main != null) TJAPlayer3.Tx.Lane_Background_Main.Opacity = TJAPlayer3.ConfigIni.nBGAlpha;
-			if(TJAPlayer3.Tx.Lane_Background_Sub != null) TJAPlayer3.Tx.Lane_Background_Sub.Opacity = TJAPlayer3.ConfigIni.nBGAlpha;
-			if (TJAPlayer3.Tx.Lane_Background_GoGo != null) TJAPlayer3.Tx.Lane_Background_GoGo.Opacity = TJAPlayer3.ConfigIni.nBGAlpha;
+			if (TJAPlayer3.Tx.Lane_Background_Main != null) TJAPlayer3.Tx.Lane_Background_Main.Opacity = TJAPlayer3.ConfigToml.Game.Background.BGAlpha;
+			if(TJAPlayer3.Tx.Lane_Background_Sub != null) TJAPlayer3.Tx.Lane_Background_Sub.Opacity = TJAPlayer3.ConfigToml.Game.Background.BGAlpha;
+			if (TJAPlayer3.Tx.Lane_Background_GoGo != null) TJAPlayer3.Tx.Lane_Background_GoGo.Opacity = TJAPlayer3.ConfigToml.Game.Background.BGAlpha;
 		}
 		else
 		{
