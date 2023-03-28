@@ -386,7 +386,7 @@ internal class CActConfigList : CActivity
 		);
 		this.list項目リスト.Add( this.iSystemSoundTimerType );
 
-		iRandomPresence = new CItemToggle("UseRandom", TJAPlayer3.ConfigIni.RandomPresence,
+		iRandomPresence = new CItemToggle("UseRandom", TJAPlayer3.ConfigToml.SongSelect.RandomPresence,
 			"ランダム選曲を使うかどうか\n" +
 			"(この変更後に曲の再読み込みを"+
 			" する必要があります。)\n",
@@ -1648,7 +1648,7 @@ internal class CActConfigList : CActivity
 		//Trace.TraceInformation( "Skin現在System  : " + CSkin.strSystemSkinSubfolderFullName );
 		//CDTXMania.ConfigIni.nMasterVolume = this.iSystemMasterVolume.nValue;							// #33700 2014.4.26 yyagi
 		//CDTXMania.ConfigIni.e判定表示優先度 = (EJudge表示優先度) this.iSystemJudgeDispPriority.n現在選択されている項目番号;
-		TJAPlayer3.ConfigIni.RandomPresence = this.iRandomPresence.bON;
+		TJAPlayer3.ConfigToml.SongSelect.RandomPresence = this.iRandomPresence.bON;
 		TJAPlayer3.ConfigIni.ShowChara = this.ShowChara.bON;
 		TJAPlayer3.ConfigIni.ShowDancer = this.ShowDancer.bON;
 		TJAPlayer3.ConfigIni.ShowRunner = this.ShowRunner.bON;

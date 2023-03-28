@@ -1,17 +1,41 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.Serialization;
 using FDK;
-
-using Rectangle = System.Drawing.Rectangle;
+using Tomlyn;
 
 namespace TJAPlayer3;
 
 public class CConfigToml 
 {
+    public static CConfigToml Load(string FilePath)
+    {
+        CConfigToml ConfigToml = new();
+        if (File.Exists(FilePath))
+        {
+            TomlModelOptions tomlModelOptions = new()
+            {
+                ConvertPropertyName = (x) => x,
+                ConvertFieldName = (x) => x,
+            };
+            string str = CJudgeTextEncoding.ReadTextFile(FilePath);
+
+            foreach(var st in str.Split("\n"))
+                if(st.StartsWith("Version"))
+                    if(st.Split("=")[1].Trim() == $"\"{TJAPlayer3.VERSION}\"")
+                    {
+                        //バージョンが同じ時だけ読み込む
+                        ConfigToml = Toml.ToModel<CConfigToml>(str, null, tomlModelOptions);
+                        ConfigToml.NotExistOrIncorrectVersion = false;
+                        break;
+                    }
+        }
+        return ConfigToml;
+    }
 	private const int MinimumKeyboardSoundLevelIncrement = 1;
 	private const int MaximumKeyboardSoundLevelIncrement = 20;
 	private const int DefaultKeyboardSoundLevelIncrement = 5;
@@ -24,6 +48,8 @@ public class CConfigToml
         WASAPI_Shared,
         Unknown = 99,
     }
+
+    public bool NotExistOrIncorrectVersion { get; private set; } = true;
 
     public CGeneral General { get; set; } = new();
     public class CGeneral
@@ -81,7 +107,7 @@ public class CConfigToml
             set { _BASSBufferSizeMS = Math.Clamp(value, 1, 9999); }
         }
         private int _BASSBufferSizeMS = 2;
-        public bool UseOSTimer { get; set; } = false;
+        public bool OSTimer { get; set; } = false;
         public int MasterVolume
         {
             get { return _MasterVolume; }
@@ -95,7 +121,7 @@ public class CConfigToml
     {
         public bool SongSearch { get; set; } = true;
         public bool CreatedDisposed { get; set; } = true;
-        public bool ChartDetails { get; set; } = true;
+        public bool ChartDetails { get; set; } = false;
     }
     public CHitRange HitRange { get; set; } = new();
     public class CHitRange
@@ -123,13 +149,19 @@ public class CConfigToml
     public CSongSelect SongSelect { get; set; } = new();
     public class CSongSelect
     {
-
+        public bool RandomPresence { get; set; } = true;
+        public bool OpenOneSide { get; set; } = false;
+        public bool CountDownTimer { get; set; } = true;
+        public bool TCCLikeStyle { get; set; } = false;
+        public bool EnableMouseWheel { get; set; } = true;
+        public int SkipCount { get; set; } = 7;
+        public int BackBoxInterval { get; set; } = 15;
     }
     public CGame Game { get; set; } = new();
     public class CGame
     {
         public bool BGMSound { get; set; } = true;
-        public CBackground Background = new();
+        public CBackground Background { get; set; } = new();
         public class CBackground
         {
             public int BGAlpha
@@ -154,7 +186,6 @@ public class CConfigToml
         using(StreamWriter sw = new StreamWriter(FilePath, false))
         {
             sw.WriteLine("[General]");
-            sw.WriteLine();
             sw.WriteLine("# アプリケーションのバージョン");
             sw.WriteLine("# Application Version.");
             sw.WriteLine("Version = \"{0}\"", TJAPlayer3.VERSION);
@@ -174,7 +205,6 @@ public class CConfigToml
             sw.WriteLine("FontName = \"{0}\"", this.General.FontName);
             sw.WriteLine();
             sw.WriteLine("[Window]");
-            sw.WriteLine();
             sw.WriteLine("# フルスクリーンにするか");
             sw.WriteLine("FullScreen = {0}", this.Window.FullScreen.ToString().ToLower());
             sw.WriteLine();
@@ -206,7 +236,6 @@ public class CConfigToml
             sw.WriteLine("VSyncWait = {0}", this.Window.VSyncWait.ToString().ToLower());
             sw.WriteLine();
             sw.WriteLine("[SoundDevice]");
-            sw.WriteLine();
             sw.WriteLine("# サウンド出力方式(0=BASS, 1=ASIO, 2=WASAPI(排他), 3=WASAPI(共有))" );
             sw.WriteLine("# WASAPIはVista以降のOSで使用可能。推奨方式はWASAPI。" );
             sw.WriteLine("# なお、WASAPIが使用不可ならASIOを、ASIOが使用不可ならBASSを使用します。");
@@ -246,25 +275,52 @@ public class CConfigToml
             sw.WriteLine("# 演奏タイマーの種類" );
             sw.WriteLine("# Playback timer" );
             sw.WriteLine("# (false=FDK Timer, true=System Timer)" );
-            sw.WriteLine("UseOSTimer = {0}", this.SoundDevice.UseOSTimer.ToString().ToLower());
+            sw.WriteLine("OSTimer = {0}", this.SoundDevice.OSTimer.ToString().ToLower());
             sw.WriteLine();
             sw.WriteLine("[Log]" );
-            sw.WriteLine();
-            sw.WriteLine("; 曲データ検索に関するLog出力");
+            sw.WriteLine("# 曲データ検索に関するLog出力");
             sw.WriteLine("SongSearch = {0}", this.Log.SongSearch.ToString().ToLower());
             sw.WriteLine();
-            sw.WriteLine("; 画像やサウンドの作成_解放に関するLog出力");
+            sw.WriteLine("# 画像やサウンドの作成_解放に関するLog出力");
             sw.WriteLine("CreatedDisposed = {0}", this.Log.CreatedDisposed.ToString().ToLower());
             sw.WriteLine();
-            sw.WriteLine("; 譜面読み込み詳細に関するLog出力");
+            sw.WriteLine("# 譜面読み込み詳細に関するLog出力");
             sw.WriteLine("ChartDetails = {0}", this.Log.ChartDetails.ToString().ToLower());
             sw.WriteLine();
             sw.WriteLine("[HitRange]");
-            sw.WriteLine();
             sw.WriteLine("# Perfect～Bad とみなされる範囲[ms]");
             sw.WriteLine("Perfect = {0}", this.HitRange.Perfect);
             sw.WriteLine("Good = {0}", this.HitRange.Good);
             sw.WriteLine("Bad = {0}", this.HitRange.Bad);
+            sw.WriteLine();
+            sw.WriteLine("[SongSelect]");
+            sw.WriteLine("# 選曲画面でランダム選曲を表示するか");
+            sw.WriteLine("# Whether to display random songs on the song selection screen.");
+            sw.WriteLine("RandomPresence = {0}", this.SongSelect.RandomPresence.ToString().ToLower());
+            sw.WriteLine();
+            sw.WriteLine("# 片開きにするかどうか(バグの塊)");
+            sw.WriteLine("# Box Open One Side.");
+            sw.WriteLine("OpenOneSide = {0}", this.SongSelect.RandomPresence.ToString().ToLower());
+            sw.WriteLine();
+            sw.WriteLine("# 選曲画面でのタイマーを有効にするかどうか");
+            sw.WriteLine("# Enable countdown in songselect.");
+            sw.WriteLine("CountDownTimer = {0}", this.SongSelect.CountDownTimer.ToString().ToLower());
+            sw.WriteLine();
+            sw.WriteLine("# TCC風");
+            sw.WriteLine("# Enable TCC-like style.");
+            sw.WriteLine("TCCLikeStyle = {0}", this.SongSelect.TCCLikeStyle.ToString().ToLower());
+            sw.WriteLine();
+            sw.WriteLine("# 選曲画面でのMouseホイールの有効化");
+            sw.WriteLine("# Enable mousewheel in songselect.");
+            sw.WriteLine("EnableMouseWheel = {0}", this.SongSelect.EnableMouseWheel.ToString().ToLower());
+            sw.WriteLine();
+            sw.WriteLine("# 選曲画面でPgUp/PgDnを押下した際のスキップ曲数");
+            sw.WriteLine("# Number of songs to be skipped when PgUp/PgDn is pressed on the song selection screen.");
+            sw.WriteLine("SkipCount = {0}", this.SongSelect.SkipCount);
+            sw.WriteLine();
+            sw.WriteLine("# 閉じるノードの差し込み間隔");
+            sw.WriteLine("# BackBoxes Interval.");
+            sw.WriteLine("BackBoxInterval = {0}", this.SongSelect.BackBoxInterval);
             sw.WriteLine();
             sw.WriteLine("[Game]");
             sw.WriteLine("# BGM の再生");
@@ -286,6 +342,4 @@ public class CConfigToml
             sw.WriteLine();
         }
     }
-
-    
 }

@@ -177,7 +177,7 @@ internal class CActSelect曲リスト : CActivity
 
 	public void tBOXに入る()
 	{
-		if (TJAPlayer3.ConfigIni.OpenOneSide) {
+		if (TJAPlayer3.ConfigToml.SongSelect.OpenOneSide) {
 			List<C曲リストノード> list = TJAPlayer3.SongsManager.list曲ルート;
 			list.InsertRange(list.IndexOf(this.r現在選択中の曲) + 1, this.r現在選択中の曲.list子リスト);
 			int n回数 = this.r現在選択中の曲.Openindex;
@@ -206,7 +206,7 @@ internal class CActSelect曲リスト : CActivity
 	}
 	public void tBOXを出る()
 	{
-		if (TJAPlayer3.ConfigIni.OpenOneSide) {
+		if (TJAPlayer3.ConfigToml.SongSelect.OpenOneSide) {
 			List<C曲リストノード> list = TJAPlayer3.SongsManager.list曲ルート;
 			this.r現在選択中の曲.r親ノード.Openindex = r現在選択中の曲.r親ノード.list子リスト.IndexOf(this.r現在選択中の曲);
 			list.Insert(list.IndexOf(this.r現在選択中の曲) + 1, this.r現在選択中の曲.r親ノード);
@@ -257,7 +257,7 @@ internal class CActSelect曲リスト : CActivity
 	{
 		if (this.r現在選択中の曲 != null)
 		{
-			for (int i = 0; i < TJAPlayer3.ConfigIni.SongSelectSkipCount; i++)
+			for (int i = 0; i < TJAPlayer3.ConfigToml.SongSelect.SkipCount; i++)
 				this.r現在選択中の曲 = r次の曲(r現在選択中の曲);
 		}
 		this.t現在選択中の曲を元に曲バーを再構成する();
@@ -269,7 +269,7 @@ internal class CActSelect曲リスト : CActivity
 	{
 		if (this.r現在選択中の曲 != null)
 		{
-			for (int i = 0; i < TJAPlayer3.ConfigIni.SongSelectSkipCount; i++)
+			for (int i = 0; i < TJAPlayer3.ConfigToml.SongSelect.SkipCount; i++)
 				this.r現在選択中の曲 = r前の曲(r現在選択中の曲);
 		}
 		this.t現在選択中の曲を元に曲バーを再構成する();
@@ -413,7 +413,7 @@ internal class CActSelect曲リスト : CActivity
 
 		song_last = song;
 
-		List<C曲リストノード> list = (song.r親ノード != null && !TJAPlayer3.ConfigIni.OpenOneSide) ? song.r親ノード.list子リスト : TJAPlayer3.SongsManager.list曲ルート;
+		List<C曲リストノード> list = (song.r親ノード != null && !TJAPlayer3.ConfigToml.SongSelect.OpenOneSide) ? song.r親ノード.list子リスト : TJAPlayer3.SongsManager.list曲ルート;
 		int index = list.IndexOf(song) + 1;
 		if (index <= 0)
 		{
@@ -913,7 +913,7 @@ internal class CActSelect曲リスト : CActivity
 		if (this.r現在選択中の曲.r親ノード != null)
 		{
 			int GenreBack = TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.r親ノード.strGenre);
-			if (TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[GenreBack] != null && TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[GenreBack] != null && !TJAPlayer3.ConfigIni.OpenOneSide)
+			if (TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[GenreBack] != null && TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[GenreBack] != null && !TJAPlayer3.ConfigToml.SongSelect.OpenOneSide)
 			{
 				int ForLoop = (int)(1280 / 100) + 1;
 				for (int i = 0; i < ForLoop; i++)
@@ -928,7 +928,7 @@ internal class CActSelect曲リスト : CActivity
 		#region [ (2) 通常フェーズの描画。]
 		//-----------------
 		#region[片開き用の背景]
-		if (TJAPlayer3.ConfigIni.OpenOneSide)
+		if (TJAPlayer3.ConfigToml.SongSelect.OpenOneSide)
 		{
 			for (int i = 0; i < 13; i++)
 			{
@@ -1443,7 +1443,7 @@ internal class CActSelect曲リスト : CActivity
 			return null;
 
 		
-		List<C曲リストノード> list = (song.r親ノード != null && !TJAPlayer3.ConfigIni.OpenOneSide) ? song.r親ノード.list子リスト : TJAPlayer3.SongsManager.list曲ルート;
+		List<C曲リストノード> list = (song.r親ノード != null && !TJAPlayer3.ConfigToml.SongSelect.OpenOneSide) ? song.r親ノード.list子リスト : TJAPlayer3.SongsManager.list曲ルート;
 
 		int index = list.IndexOf(song);
 
@@ -1460,7 +1460,7 @@ internal class CActSelect曲リスト : CActivity
 		if (song == null)
 			return null;
 
-		List<C曲リストノード> list = (song.r親ノード != null && !TJAPlayer3.ConfigIni.OpenOneSide) ? song.r親ノード.list子リスト : TJAPlayer3.SongsManager.list曲ルート;
+		List<C曲リストノード> list = (song.r親ノード != null && !TJAPlayer3.ConfigToml.SongSelect.OpenOneSide) ? song.r親ノード.list子リスト : TJAPlayer3.SongsManager.list曲ルート;
 
 		int index = list.IndexOf(song);
 

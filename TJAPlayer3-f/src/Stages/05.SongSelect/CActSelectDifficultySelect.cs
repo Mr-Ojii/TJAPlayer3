@@ -369,7 +369,7 @@ internal class CActSelectDifficultySelect : CActivity
 		}
 		#endregion
 		#region[BPM]
-		if (TJAPlayer3.ConfigIni.bTCClikeStyle && TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア != null && TJAPlayer3.Tx.Difficulty_BPMBox != null && TJAPlayer3.Tx.Difficulty_BPMNumber != null)
+		if (TJAPlayer3.ConfigToml.SongSelect.TCCLikeStyle && TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア != null && TJAPlayer3.Tx.Difficulty_BPMBox != null && TJAPlayer3.Tx.Difficulty_BPMNumber != null)
 		{
 			const int cx = 1000, cy = 500;
 

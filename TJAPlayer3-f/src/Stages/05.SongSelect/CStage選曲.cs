@@ -383,7 +383,7 @@ internal class CStage選曲 : CStage
 				TJAPlayer3.act文字コンソール.tPrint(0, 32, C文字コンソール.EFontType.赤, "Reg.Speed : " + TJAPlayer3.ConfigIni.nRegSpeedBPM.ToString());
 			#endregion
 
-			if (TJAPlayer3.ConfigIni.bEnableCountdownTimer && TJAPlayer3.Tx.SongSelect_Counter_Back[0] != null && TJAPlayer3.Tx.SongSelect_Counter_Back[1] != null && TJAPlayer3.Tx.SongSelect_Counter_Num[0] != null && TJAPlayer3.Tx.SongSelect_Counter_Num[1] != null)
+			if (TJAPlayer3.ConfigToml.SongSelect.CountDownTimer && TJAPlayer3.Tx.SongSelect_Counter_Back[0] != null && TJAPlayer3.Tx.SongSelect_Counter_Back[1] != null && TJAPlayer3.Tx.SongSelect_Counter_Num[0] != null && TJAPlayer3.Tx.SongSelect_Counter_Num[1] != null)
 			{
 				This_counter = (100 - this.ctカウントダウン用タイマー.n現在の値);
 				int dotinum = 1;
@@ -415,7 +415,7 @@ internal class CStage選曲 : CStage
 				}
 			}
 
-			if ((act曲リスト.r現在選択中の曲 != null) && TJAPlayer3.ConfigIni.bTCClikeStyle && act曲リスト.r現在選択中の曲.eNodeType == C曲リストノード.ENodeType.SCORE)
+			if ((act曲リスト.r現在選択中の曲 != null) && TJAPlayer3.ConfigToml.SongSelect.TCCLikeStyle && act曲リスト.r現在選択中の曲.eNodeType == C曲リストノード.ENodeType.SCORE)
 				this.act曲リスト.tアイテム数の描画();
 
 			this.actChangeSE.On進行描画();

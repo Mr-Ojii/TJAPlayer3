@@ -1043,6 +1043,10 @@ internal class TJAPlayer3 : Game
 		// END #23629 2010.11.13 from
 		//-----------------
 #endregion
+#region [ Config.toml の読み込み ]
+		string tomlpath = strEXEのあるフォルダ + "Config.toml";
+		ConfigToml = CConfigToml.Load(tomlpath);
+#endregion
 #region [ Config.ini の読込み ]
 		//---------------------
 		ConfigIni = new CConfigIni();
@@ -1715,6 +1719,10 @@ internal class TJAPlayer3 : Game
 
 			//---------------------
 #endregion
+#region [ Config.toml の出力]
+		string tomlpath = strEXEのあるフォルダ + "Config.toml";
+		ConfigToml.Save(tomlpath);
+#endregion
 			Trace.TraceInformation( "アプリケーションの終了処理を完了しました。" );
 
 			this.b終了処理完了済み = true;
@@ -1763,7 +1771,7 @@ internal class TJAPlayer3 : Game
 	//-----------------
 	private void Window_MouseWheel(object sender, FDK.Windowing.MouseWheelEventArgs e)
 	{
-		if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongSelect && ConfigIni.bEnableMouseWheel) 
+		if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongSelect && ConfigToml.SongSelect.EnableMouseWheel) 
 			TJAPlayer3.stage選曲.MouseWheel(e.y);
 	}
 

@@ -252,7 +252,7 @@ internal class CSongsManager
 		#region [ リストに１つ以上の曲があるなら RANDOM BOX を入れる ]
 
 		//-----------------------------
-		if (ノードリスト.Count > 0 && TJAPlayer3.ConfigIni.RandomPresence)
+		if (ノードリスト.Count > 0 && TJAPlayer3.ConfigToml.SongSelect.RandomPresence)
 		{
 			C曲リストノード itemRandom = new C曲リストノード();
 			itemRandom.eNodeType = C曲リストノード.ENodeType.RANDOM;
@@ -304,7 +304,7 @@ internal class CSongsManager
 			if (c曲リストノード.eNodeType == C曲リストノード.ENodeType.BOX)
 			{
 				int 曲数 = c曲リストノード.list子リスト.Count;//for文に直接書くと、もどるもカウントされてしまう。
-				for (int index = 0; index < ((曲数 - 1) / TJAPlayer3.ConfigIni.n閉じる差し込み間隔) + 2; index++)
+				for (int index = 0; index < ((曲数 - 1) / TJAPlayer3.ConfigToml.SongSelect.BackBoxInterval) + 2; index++)
 				{
 					C曲リストノード itemBack = new C曲リストノード();
 					itemBack.eNodeType = C曲リストノード.ENodeType.BACKBOX;
@@ -319,7 +319,7 @@ internal class CSongsManager
 					itemBack.arスコア.FileInfo.DirAbsolutePath = "";
 					itemBack.arスコア.譜面情報.Title = itemBack.strTitle;
 					c曲リストノード.arスコア.譜面情報.b譜面が存在する[0] = true;
-					c曲リストノード.list子リスト.Insert(Math.Min(index * (TJAPlayer3.ConfigIni.n閉じる差し込み間隔 + 1), c曲リストノード.list子リスト.Count), itemBack);
+					c曲リストノード.list子リスト.Insert(Math.Min(index * (TJAPlayer3.ConfigToml.SongSelect.BackBoxInterval + 1), c曲リストノード.list子リスト.Count), itemBack);
 
 
 					#region [ ログ出力 ]
@@ -454,7 +454,7 @@ internal class CSongsManager
 				C曲リストノード tmp = new C曲リストノード();//今、入ってるBACKBOXを使いまわす。
 				tmp = ノードリスト[index];
 				ノードリスト.RemoveAt(index);
-				ノードリスト.Insert(Math.Min((戻るノード数) * (TJAPlayer3.ConfigIni.n閉じる差し込み間隔 + 1), ノードリスト.Count), tmp);
+				ノードリスト.Insert(Math.Min((戻るノード数) * (TJAPlayer3.ConfigToml.SongSelect.BackBoxInterval + 1), ノードリスト.Count), tmp);
 				戻るノード数++;
 			}
 		}

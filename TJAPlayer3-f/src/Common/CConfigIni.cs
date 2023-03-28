@@ -230,7 +230,6 @@ internal class CConfigIni : INotifyPropertyChanged
 	public int nScoreMode;
 	public int nDefaultCourse; //2017.01.30 DD デフォルトでカーソルをあわせる難易度
 
-	public int n閉じる差し込み間隔;
 	public int nPlayerCount; //2017.08.18 kairera0467 マルチプレイ対応
 	public bool[] b太鼓パートAutoPlay = new bool[4];//2020.04.26 Mr-Ojii Auto変数の配列化
 	public bool bAuto先生の連打;
@@ -242,13 +241,7 @@ internal class CConfigIni : INotifyPropertyChanged
 
 	public bool bJudgeCountDisplay;
 
-	public bool RandomPresence;
-	public bool OpenOneSide;
-	public int SongSelectSkipCount;
-	public bool bEnableCountdownTimer;
-	public bool bTCClikeStyle;
 	public bool bEnableSkinV2;
-	public bool bEnableMouseWheel;
 
 	// 各画像の表示・非表示設定
 	public bool ShowChara;
@@ -281,13 +274,6 @@ internal class CConfigIni : INotifyPropertyChanged
 
 	public int nInputAdjustTimeMs;
 	public string strSystemSkinSubfolderFullName;	// #28195 2012.5.2 yyagi Skin切替用 System/以下のサブフォルダ名
-	public bool bConfigIniがないかDTXManiaのバージョンが異なる
-	{
-		get
-		{
-			return ( !this.bConfigIniが存在している || !TJAPlayer3.VERSION.Equals( this.Version ) );
-		}
-	}
 	public bool bEnterがキー割り当てのどこにも使用されていない
 	{
 		get
@@ -336,13 +322,7 @@ internal class CConfigIni : INotifyPropertyChanged
 		this.bランダムセレクトで子BOXを検索対象とする = true;
 		this.n表示可能な最小コンボ数 = new int();
 		this.n表示可能な最小コンボ数 = 3;
-		this.RandomPresence = true;
-		this.OpenOneSide = false;
-		this.SongSelectSkipCount = 7;
-		this.bEnableCountdownTimer = true;
-		this.bTCClikeStyle = false;
 		this.bEnableSkinV2 = false;
-		this.bEnableMouseWheel = true;
 		this.ApplyLoudnessMetadata = true;
 
 		// 2018-08-28 twopointzero:
@@ -410,7 +390,6 @@ internal class CConfigIni : INotifyPropertyChanged
 		this.nBranchAnime = 1;
 
 		this.b大音符判定 = true;
-		this.n閉じる差し込み間隔 = 15;
 		this.n両手判定の待ち時間 = 25;
 		this.b両手判定待ち時間中に大音符を判定枠に合わせるか = true;
 
@@ -585,34 +564,6 @@ internal class CConfigIni : INotifyPropertyChanged
 
 #region [ PlayOption ]
 		sw.WriteLine( "[PlayOption]" );
-		sw.WriteLine();                                                             //
-		sw.WriteLine("; 選曲画面でランダム選曲を表示するか(0:表示しない,1:表示する)");   // 2020.03.24 Mr-Ojii
-		sw.WriteLine("; Whether to display random songs on the song selection screen.(0:No, 1:Yes)");     //
-		sw.WriteLine("EnableRandomSongSelect={0}", this.RandomPresence ? 1 : 0);    //
-		sw.WriteLine();
-		sw.WriteLine("; 片開きにするかどうか(0:全開き,1:片開き(バグの塊))");   // 2020.03.24 Mr-Ojii
-		sw.WriteLine("; Box Open One Side.(0:No, 1:Yes)");
-		sw.WriteLine("EnableOpenOneSide={0}", this.OpenOneSide ? 1 : 0);
-		sw.WriteLine();
-		sw.WriteLine("; 選曲画面でのタイマーを有効にするかどうか(0:無効,1:有効)");   // 2020.03.24 Mr-Ojii
-		sw.WriteLine("; Enable countdown in songselect.(0:No, 1:Yes)");
-		sw.WriteLine("EnableCountDownTimer={0}", this.bEnableCountdownTimer ? 1 : 0);
-		sw.WriteLine();
-		sw.WriteLine("; TCC風(0:無効,1:有効)");   // 2020.10.10 Mr-Ojii
-		sw.WriteLine("; Enable TCC-like style.(0:No, 1:Yes)");
-		sw.WriteLine("TCClikeStyle={0}", this.bTCClikeStyle ? 1 : 0);
-		sw.WriteLine();
-		sw.WriteLine("; 選曲画面でのMouseホイールの有効化(0:無効,1:有効)");   // 2020.10.10 Mr-Ojii
-		sw.WriteLine("; Enable mousewheel in songselect.(0:No, 1:Yes)");
-		sw.WriteLine("EnableMouseWheel={0}", this.bEnableMouseWheel ? 1 : 0);
-		sw.WriteLine();
-		sw.WriteLine("; 選曲画面でPgUp/PgDnを押下した際のスキップ曲数");   // 2020.03.24 Mr-Ojii
-		sw.WriteLine("; Number of songs to be skipped when PgUp/PgDn is pressed on the song selection screen.");     //
-		sw.WriteLine("SongSelectSkipCount={0}", this.SongSelectSkipCount);    //
-		sw.WriteLine();
-		sw.WriteLine("; 閉じるノードの差し込み間隔");   // 2020.06.12 Mr-Ojii
-		sw.WriteLine("; BackBoxes Interval.");     //
-		sw.WriteLine("BackBoxInterval={0}", this.n閉じる差し込み間隔);
 		sw.WriteLine();
 		sw.WriteLine("; プレイヤーネーム");   // 2020.09.15 Mr-Ojii
 		sw.WriteLine("; PlayerName");
@@ -850,14 +801,8 @@ internal class CConfigIni : INotifyPropertyChanged
 							//-----------------------------
 							case Eセクション種別.System:
 								{
-#region [ Version ]
-									if ( str3.Equals( "Version" ) )
-									{
-										this.Version = str4;
-									}
-#endregion
 #region [ skin関係 ]
-									else if ( str3.Equals( "SkinPath" ) )
+									if ( str3.Equals( "SkinPath" ) )
 									{
 										string absSkinPath = str4;
 										if ( !System.IO.Path.IsPathRooted( str4 ) )
@@ -1019,35 +964,7 @@ internal class CConfigIni : INotifyPropertyChanged
 							//-----------------------------
 							case Eセクション種別.PlayOption:
 								{
-									if (str3.Equals("EnableRandomSongSelect"))
-									{
-										this.RandomPresence = str4[0].ToBool();
-									}
-									else if (str3.Equals("EnableOpenOneSide"))
-									{
-										this.OpenOneSide = str4[0].ToBool();
-									}
-									else if (str3.Equals("EnableCountDownTimer"))
-									{
-										this.bEnableCountdownTimer = str4[0].ToBool();
-									}
-									else if (str3.Equals("TCClikeStyle"))
-									{
-										this.bTCClikeStyle = str4[0].ToBool();
-									}
-									else if (str3.Equals("EnableMouseWheel"))
-									{
-										this.bEnableMouseWheel = str4[0].ToBool();
-									}
-									else if (str3.Equals("SongSelectSkipCount"))
-									{
-										this.SongSelectSkipCount = str4.ToInt32(1, 9999, this.SongSelectSkipCount);
-									}
-									else if (str3.Equals("BackBoxInterval"))
-									{
-										this.n閉じる差し込み間隔 = str4.ToInt32(1, 9999, this.n閉じる差し込み間隔);
-									}
-									else if (str3.Equals("1PPlayerName"))
+									if (str3.Equals("1PPlayerName"))
 									{
 										this.strPlayerName[0] = str4;
 									}
