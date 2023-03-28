@@ -493,7 +493,7 @@ internal class CActConfigList : CActivity
 		this.list項目リスト.Add( this.iTaikoAutoRoll );
 #endregion
 
-		this.iDrumsScrollSpeed1P = new CItemInteger( "1P ScrollSpeed", 0, 0x7cf, TJAPlayer3.ConfigToml.PlayOption.ScrollSpeed[0],
+		this.iDrumsScrollSpeed1P = new CItemInteger( "1P ScrollSpeed", 1, 2000, TJAPlayer3.ConfigToml.PlayOption.ScrollSpeed[0],
 			"演奏時のドラム譜面のスクロールの\n" +
 			"速度を指定します。\n" +
 			"x0.1 ～ x200.0 を指定可能です。",
@@ -503,7 +503,7 @@ internal class CActConfigList : CActivity
 			"(ScrollSpeed=x0.5 means half speed)" );
 		this.list項目リスト.Add( this.iDrumsScrollSpeed1P );
 
-		this.iDrumsScrollSpeed2P = new CItemInteger("2P ScrollSpeed", 0, 0x7cf, TJAPlayer3.ConfigToml.PlayOption.ScrollSpeed[1],
+		this.iDrumsScrollSpeed2P = new CItemInteger("2P ScrollSpeed", 1, 2000, TJAPlayer3.ConfigToml.PlayOption.ScrollSpeed[1],
 			"演奏時のドラム譜面のスクロールの\n" +
 			"速度を指定します。\n" +
 			"x0.1 ～ x200.0 を指定可能です。",
@@ -1316,7 +1316,7 @@ internal class CActConfigList : CActivity
 					}
 					else if ( this.list項目リスト[ nItem ] == this.iDrumsScrollSpeed1P || this.list項目リスト[nItem] == this.iDrumsScrollSpeed2P)
 					{
-						float f = ( ( (CItemInteger) this.list項目リスト[ nItem ] ).nValue + 1 ) * 0.1f;
+						float f = ( (CItemInteger) this.list項目リスト[ nItem ] ).nValue * 0.1f;
 						//CDTXMania.stageConfig.actFont.t文字列描画( x + 210, y + 12, f.ToString( "x0.0" ), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
 						strParam = f.ToString( "x0.0" );
 					}

@@ -217,9 +217,9 @@ public class CConfigToml
         public int[] ScrollSpeed
         {
             get { return _ScrollSpeed; }
-            set { _ScrollSpeed = value.Select(x => Math.Max(0, x)).ToArray(); }
+            set { _ScrollSpeed = value.Select(x => Math.Clamp(x, 1, 2000)).ToArray(); }
         }
-        private int[] _ScrollSpeed = new int[] { 9, 9, 9, 9 };
+        private int[] _ScrollSpeed = new int[] { 10, 10, 10, 10 };
         public int[] Random
         {
             get { return _Random.Select(x => (int)x).ToArray(); }
@@ -389,9 +389,9 @@ public class CConfigToml
             sw.WriteLine("# 最小表示コンボ数");
             sw.WriteLine("DispMinCombo = {0}", this.Game.DispMinCombo);
             sw.WriteLine();
-            sw.WriteLine( "# 演奏情報を表示する" );
-            sw.WriteLine( "# Showing playing info on the playing screen." );
-            sw.WriteLine( "ShowDebugStatus = {0}", this.Game.ShowDebugStatus.ToString().ToLower());
+            sw.WriteLine("# 演奏情報を表示する" );
+            sw.WriteLine("# Showing playing info on the playing screen." );
+            sw.WriteLine("ShowDebugStatus = {0}", this.Game.ShowDebugStatus.ToString().ToLower());
             sw.WriteLine();
             sw.WriteLine("[Game.Background]");
             sw.WriteLine("# 背景画像の半透明割合(0:透明～255:不透明)" );
@@ -436,7 +436,7 @@ public class CConfigToml
             sw.WriteLine("# プレイヤーネーム");
             sw.WriteLine("PlayerName = [ {0} ]", string.Join(", ", this.PlayOption.PlayerName.Select(x => $"\"{x}\"")));
             sw.WriteLine();
-            sw.WriteLine("; ドラム譜面スクロール速度(0:x0.1, 9:x1.0, 14:x1.5,…,1999:x200.0)" );
+            sw.WriteLine("# ドラム譜面スクロール速度(1:x0.1, 10:x1.0, 15:x1.5,…,2000:x200.0)" );
             sw.WriteLine("ScrollSpeed = [ {0} ]", string.Join(", ", this.PlayOption.ScrollSpeed));
             sw.WriteLine();
 		    sw.WriteLine("# RANDOMモード(0:OFF, 1:Random, 2:Mirror 3:SuperRandom, 4:HyperRandom)" );

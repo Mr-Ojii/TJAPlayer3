@@ -19,7 +19,7 @@ internal class CActSelectPlayOption : CActivity
 		List<CItemBase> l = new List<CItemBase>();
 
 		#region [ 個別 ScrollSpeed ]
-		l.Add(new CItemInteger("ばいそく", 0, 1999, TJAPlayer3.ConfigToml.PlayOption.ScrollSpeed[nPlayer],
+		l.Add(new CItemInteger("ばいそく", 1, 2000, TJAPlayer3.ConfigToml.PlayOption.ScrollSpeed[nPlayer],
 			"演奏時のドラム譜面のスクロールの\n" +
 			"速度を指定します。\n" +
 			"x0.1 ～ x200.0 を指定可能です。",
