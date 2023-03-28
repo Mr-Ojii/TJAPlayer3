@@ -56,6 +56,7 @@ public class CScoreJson
         public DateTime DateTime { get; set; } = DateTime.MinValue;
         public bool Tight { get; set; } = false;
         public int Risky { get; set; } = 0;
+        public bool Just { get; set; } = false;
         public bool InputMIDI { get; set; } = false;
         public bool InputKeyboard { get; set; } = false;
         public bool InputJoystick { get; set; } = false;

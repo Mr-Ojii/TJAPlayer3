@@ -278,7 +278,7 @@ internal class TJAPlayer3 : Game
 
 	protected override void OnClosing(CancelEventArgs e)
 	{
-		if (ConfigIni.eEndingAnime == EEndingAnime.Force && (r現在のステージ.eStageID != CStage.EStage.Ending))
+		if ((EEndingAnime)ConfigToml.Ending.EndingAnime == EEndingAnime.Force && (r現在のステージ.eStageID != CStage.EStage.Ending))
 		{
 			e.Cancel = true;
 			r現在のステージ.On非活性化();
@@ -696,7 +696,7 @@ internal class TJAPlayer3 : Game
 							#region [ 演奏クリア ]
 							//-----------------------------
 							CScoreJson.CRecord[] cRecords = new CScoreJson.CRecord[4];
-							for(int i = 0; i < ConfigIni.nPlayerCount; i++)
+							for(int i = 0; i < ConfigToml.PlayOption.PlayerCount; i++)
 								stage演奏ドラム画面.tSaveToCRecord(out cRecords[i], i);
 
 							this.tUpdateScoreJson();
@@ -704,7 +704,7 @@ internal class TJAPlayer3 : Game
 							r現在のステージ.On非活性化();
 							Trace.TraceInformation("----------------------");
 							Trace.TraceInformation("■ Result");
-							for(int i = 0; i < ConfigIni.nPlayerCount; i++)
+							for(int i = 0; i < ConfigToml.PlayOption.PlayerCount; i++)
 								stageResult.cRecords[i] = cRecords[i];
 
 							stageResult.On活性化();
@@ -1271,7 +1271,7 @@ internal class TJAPlayer3 : Game
 		try
 		{
 			ESoundDeviceType soundDeviceType;
-			switch (TJAPlayer3.ConfigIni.nSoundDeviceType)
+			switch (TJAPlayer3.ConfigToml.SoundDevice.DeviceType)
 			{
 				case 0:
 					soundDeviceType = ESoundDeviceType.BASS;
@@ -1290,12 +1290,11 @@ internal class TJAPlayer3 : Game
 					break;
 			}
 			SoundManager = new CSoundManager(soundDeviceType,
-										TJAPlayer3.ConfigIni.nWASAPIBufferSizeMs,
-										// CDTXMania.ConfigIni.nASIOBufferSizeMs,
+										TJAPlayer3.ConfigToml.SoundDevice.WASAPIBufferSizeMs,
 										0,
-										TJAPlayer3.ConfigIni.nASIODevice,
-										TJAPlayer3.ConfigIni.nBASSBufferSizeMs,
-										TJAPlayer3.ConfigIni.bUseOSTimer
+										TJAPlayer3.ConfigToml.SoundDevice.ASIODevice,
+										TJAPlayer3.ConfigToml.SoundDevice.BASSBufferSizeMs,
+										TJAPlayer3.ConfigToml.SoundDevice.UseOSTimer
 			);
 
 
@@ -1739,7 +1738,7 @@ internal class TJAPlayer3 : Game
 		}
 		json.BGMAdjust = DTX[0].nBGMAdjust;
 		
-		if(TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == false)
+		if(TJAPlayer3.ConfigToml.PlayOption.AutoPlay[0] == false)
 			json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[0]].PlayCount++;
 		
 		json.Save(strFilename);

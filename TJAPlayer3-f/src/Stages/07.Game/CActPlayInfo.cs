@@ -47,7 +47,7 @@ internal class CActPlayInfo : CActivity
 		{
 			string.Format("SCROLLMODE:    {0:####0}", Enum.GetName(typeof(EScrollMode), TJAPlayer3.ConfigIni.eScrollMode)),
 			string.Format("SCOREMODE:     {0:####0}", TJAPlayer3.DTX[0].nScoreModeTmp),
-			string.Format("SCROLL:        {0:####0.00}/{1:####0.00}", (TJAPlayer3.ConfigIni.n譜面スクロール速度[0] + 1) * 0.1, (TJAPlayer3.ConfigIni.n譜面スクロール速度[1] + 1) * 0.1),
+			string.Format("SCROLL:        {0:####0.00}/{1:####0.00}", (TJAPlayer3.ConfigToml.PlayOption.ScrollSpeed[0] + 1) * 0.1, (TJAPlayer3.ConfigToml.PlayOption.ScrollSpeed[1] + 1) * 0.1),
 			string.Format("NoteC:         {0:####0}", TJAPlayer3.DTX[0].nノーツ数[3]),
 			string.Format("NoteM:         {0:####0}", TJAPlayer3.DTX[0].nノーツ数[2]),
 			string.Format("NoteE:         {0:####0}", TJAPlayer3.DTX[0].nノーツ数[1]),
@@ -55,8 +55,8 @@ internal class CActPlayInfo : CActivity
 			string.Format("Frame:         {0:####0} fps", TJAPlayer3.FPS.nFPS),
 			string.Format("BPM:           {0:####0.0000}", this.dbBPM),
 			string.Format("Part:          {0:####0}/{1:####0}", NowMeasure[0], NowMeasure[1]),
-			string.Format("Time:          {0:####0.00}/{1:####0.00}", ((double)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))) / 1000.0, ((double)lastChipTime) / 1000.0),
-			string.Format("BGM/Taiko Adj: {0:####0}/{1:####0} ms", TJAPlayer3.DTX[0].nBGMAdjust, TJAPlayer3.ConfigIni.nInputAdjustTimeMs),
+			string.Format("Time:          {0:####0.00}/{1:####0.00}", ((double)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0))) / 1000.0, ((double)lastChipTime) / 1000.0),
+			string.Format("BGM/Taiko Adj: {0:####0}/{1:####0} ms", TJAPlayer3.DTX[0].nBGMAdjust, TJAPlayer3.ConfigToml.PlayOption.InputAdjustTimeMs),
 			string.Format("Sound CPU :    {0:####0.00}%", TJAPlayer3.SoundManager.CPUUsage ),
 		};
 

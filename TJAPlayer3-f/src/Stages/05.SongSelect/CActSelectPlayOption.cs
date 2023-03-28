@@ -19,7 +19,7 @@ internal class CActSelectPlayOption : CActivity
 		List<CItemBase> l = new List<CItemBase>();
 
 		#region [ 個別 ScrollSpeed ]
-		l.Add(new CItemInteger("ばいそく", 0, 1999, TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer],
+		l.Add(new CItemInteger("ばいそく", 0, 1999, TJAPlayer3.ConfigToml.PlayOption.ScrollSpeed[nPlayer],
 			"演奏時のドラム譜面のスクロールの\n" +
 			"速度を指定します。\n" +
 			"x0.1 ～ x200.0 を指定可能です。",
@@ -31,7 +31,7 @@ internal class CActSelectPlayOption : CActivity
 		#region [ 共通 Dark/Risky/PlaySpeed ]
 		if (nPlayer == 0)//1Pのときのみ表示
 		{
-			l.Add(new CItemInteger("演奏速度", 5, 400, TJAPlayer3.ConfigIni.n演奏速度,
+			l.Add(new CItemInteger("演奏速度", 5, 400, TJAPlayer3.ConfigToml.PlayOption.PlaySpeed,
 				"曲の演奏速度を、速くしたり遅くした\n" +
 				"りすることができます。\n" +
 				"（※一部のサウンドカードでは正しく\n" +
@@ -55,7 +55,7 @@ internal class CActSelectPlayOption : CActivity
 				new string[] { "なし", "完走!", "完走!激辛", "特訓" }));
 
 		}
-		l.Add(new CItemList("ランダム", (int)TJAPlayer3.ConfigIni.eRandom[nPlayer],
+		l.Add(new CItemList("ランダム", (int)TJAPlayer3.ConfigToml.PlayOption._Random[nPlayer],
 			"いわゆるランダム。\n  RANDOM: ちょっと変わる\n  MIRROR: あべこべ \n  SUPER: そこそこヤバい\n  HYPER: 結構ヤバい\nなお、実装は適当な模様",
 			"Drums chips come randomly.\n\n Part: swapping lanes randomly for each\n  measures.\n Super: swapping chip randomly\n Hyper: swapping randomly\n  (number of lanes also changes)",
 			new string[] { "しない", "ちょこっと", "あべこべ", "きまぐれ", "でたらめ" }));
@@ -63,10 +63,10 @@ internal class CActSelectPlayOption : CActivity
 			"",
 			new string[] { "しない", "ドロン", "ステルス" }));
 
-		l.Add(new CItemList("真打", TJAPlayer3.ConfigIni.ShinuchiMode[nPlayer] ? 1 : 0, "", "", new string[] { "しない", "する" }));
+		l.Add(new CItemList("真打", TJAPlayer3.ConfigToml.PlayOption.Shinuchi[nPlayer] ? 1 : 0, "", "", new string[] { "しない", "する" }));
 		if (nPlayer == 0)
 		{
-			l.Add(new CItemInteger("プレイ人数", 1, 2, TJAPlayer3.ConfigIni.nPlayerCount,
+			l.Add(new CItemInteger("プレイ人数", 1, 2, TJAPlayer3.ConfigToml.PlayOption.PlayerCount,
 				"プレイヤー人数",
 				"PlayerCount"));
 		}
@@ -104,26 +104,26 @@ internal class CActSelectPlayOption : CActivity
 			switch (NowRow[0])
 			{
 				case (int)EItemList1P.ScrollSpeed:
-					TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer] = lci[nPlayer][(int)EItemList1P.ScrollSpeed].GetIndex();
+					TJAPlayer3.ConfigToml.PlayOption.ScrollSpeed[nPlayer] = lci[nPlayer][(int)EItemList1P.ScrollSpeed].GetIndex();
 					break;
 				case (int)EItemList1P.PlaySpeed:
-					TJAPlayer3.ConfigIni.n演奏速度 = lci[nPlayer][(int)EItemList1P.PlaySpeed].GetIndex();
+					TJAPlayer3.ConfigToml.PlayOption.PlaySpeed = lci[nPlayer][(int)EItemList1P.PlaySpeed].GetIndex();
 					break;
 				case (int)EItemList1P.GameMode:
 					TJAPlayer3.ConfigIni.eGameMode = (EGame)lci[nPlayer][(int)EItemList1P.GameMode].GetIndex();
 					break;
 				case (int)EItemList1P.Random:
-					TJAPlayer3.ConfigIni.eRandom[nPlayer] = (ERandomMode)lci[nPlayer][(int)EItemList1P.Random].GetIndex();
+					TJAPlayer3.ConfigToml.PlayOption._Random[nPlayer] = (ERandomMode)lci[nPlayer][(int)EItemList1P.Random].GetIndex();
 					break;
 				case (int)EItemList1P.Stealth:
 					TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] = (EStealthMode)lci[nPlayer][(int)EItemList1P.Stealth].GetIndex();
 					break;
 				case (int)EItemList1P.Shinuchi:
-					TJAPlayer3.ConfigIni.ShinuchiMode[nPlayer] = lci[nPlayer][(int)EItemList1P.Shinuchi].GetIndex() == 1;
+					TJAPlayer3.ConfigToml.PlayOption.Shinuchi[nPlayer] = lci[nPlayer][(int)EItemList1P.Shinuchi].GetIndex() == 1;
 					break;
 				case (int)EItemList1P.PlayerCount:
-					TJAPlayer3.ConfigIni.nPlayerCount = lci[nPlayer][(int)EItemList1P.PlayerCount].GetIndex();
-					if (TJAPlayer3.ConfigIni.nPlayerCount == 1) 
+					TJAPlayer3.ConfigToml.PlayOption.PlayerCount = lci[nPlayer][(int)EItemList1P.PlayerCount].GetIndex();
+					if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount == 1) 
 					{
 						this.tDeativatePopupMenu(1);
 						TJAPlayer3.stage選曲.actChangeSE.tDeativateChangeSE(1);
@@ -136,16 +136,16 @@ internal class CActSelectPlayOption : CActivity
 			switch (NowRow[1])
 			{
 				case (int)EItemList2P.ScrollSpeed:
-					TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer] = lci[nPlayer][(int)EItemList2P.ScrollSpeed].GetIndex();
+					TJAPlayer3.ConfigToml.PlayOption.ScrollSpeed[nPlayer] = lci[nPlayer][(int)EItemList2P.ScrollSpeed].GetIndex();
 					break;
 				case (int)EItemList2P.Random:
-					TJAPlayer3.ConfigIni.eRandom[nPlayer] = (ERandomMode)lci[nPlayer][(int)EItemList2P.Random].GetIndex();
+					TJAPlayer3.ConfigToml.PlayOption._Random[nPlayer] = (ERandomMode)lci[nPlayer][(int)EItemList2P.Random].GetIndex();
 					break;
 				case (int)EItemList2P.Stealth:
 					TJAPlayer3.ConfigIni.eSTEALTH[nPlayer] = (EStealthMode)lci[nPlayer][(int)EItemList2P.Stealth].GetIndex();
 					break;
 				case (int)EItemList2P.Shinuchi:
-					TJAPlayer3.ConfigIni.ShinuchiMode[nPlayer] = lci[nPlayer][(int)EItemList2P.Shinuchi].GetIndex() == 1;
+					TJAPlayer3.ConfigToml.PlayOption.Shinuchi[nPlayer] = lci[nPlayer][(int)EItemList2P.Shinuchi].GetIndex() == 1;
 					break;
 			}
 		}

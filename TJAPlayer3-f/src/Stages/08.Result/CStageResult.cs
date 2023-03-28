@@ -123,7 +123,7 @@ internal class CStageResult : CStage
 			TJAPlayer3.DiscordClient?.SetPresence(new RichPresence()
 			{
 				Details = Details.Substring(0, Math.Min(127, Details.Length)),
-				State = "Result" + (TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] == true ? " (Auto)" : ""),
+				State = "Result" + (TJAPlayer3.ConfigToml.PlayOption.AutoPlay[0] == true ? " (Auto)" : ""),
 				Timestamps = new Timestamps(TJAPlayer3.StartupTime),
 				Assets = new Assets()
 				{
@@ -196,16 +196,16 @@ internal class CStageResult : CStage
 				{
 					if (TJAPlayer3.Tx.Result_v2_Background[0] != null)
 						TJAPlayer3.Tx.Result_v2_Background[0].t2D描画(TJAPlayer3.app.Device, 0, 0);
-					for (int ind = 0; ind < TJAPlayer3.ConfigIni.nPlayerCount; ind++)
+					for (int ind = 0; ind < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; ind++)
 					{
 						if (this.cRecords[ind].Gauge >= 80.0 && TJAPlayer3.Tx.Result_v2_Background[1] != null)
 						{
 							TJAPlayer3.Tx.Result_v2_Background[1].Opacity = Math.Min(this.ctMountainAndClear.n現在の値, 255);
-							TJAPlayer3.Tx.Result_v2_Background[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.ConfigIni.nPlayerCount * ind, 0, new Rectangle(TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.ConfigIni.nPlayerCount * ind, 0, TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.ConfigIni.nPlayerCount, TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Height));
+							TJAPlayer3.Tx.Result_v2_Background[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.ConfigToml.PlayOption.PlayerCount * ind, 0, new Rectangle(TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.ConfigToml.PlayOption.PlayerCount * ind, 0, TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.ConfigToml.PlayOption.PlayerCount, TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Height));
 						}
 					}
 				}
-				if (TJAPlayer3.Tx.Result_v2_Mountain != null && TJAPlayer3.ConfigIni.nPlayerCount == 1)
+				if (TJAPlayer3.Tx.Result_v2_Mountain != null && TJAPlayer3.ConfigToml.PlayOption.PlayerCount == 1)
 				{
 					if (TJAPlayer3.Tx.Result_v2_Mountain[0] != null)
 						if (this.ctMountainAndClear.n現在の値 <= 255 || this.cRecords[0].Gauge < 80.0)
@@ -268,7 +268,7 @@ internal class CStageResult : CStage
 			}
 
 			#region ネームプレート
-			for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
+			for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
 			{
 				if (TJAPlayer3.Tx.NamePlate[i] != null)
 				{
@@ -291,7 +291,7 @@ internal class CStageResult : CStage
 
 			// キー入力
 
-			if ((TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && !this.bアニメが完了)
+			if ((TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2) && !this.bアニメが完了)
 			{
 				this.actFI.tFadeIn完了();                 // #25406 2011.6.9 yyagi
 				this.actParameterPanel.tアニメを完了させる();
@@ -307,7 +307,7 @@ internal class CStageResult : CStage
 					base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
 					this.eFadeOut完了時の戻り値 = E戻り値.完了;
 				}
-				if ((TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.ConfigIni.nPlayerCount >= 2) && this.bアニメが完了)
+				if ((TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2) && this.bアニメが完了)
 				{
 					TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
 					//							this.actFO.tFadeOut開始();

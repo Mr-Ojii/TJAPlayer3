@@ -81,7 +81,7 @@ internal class CActSelectDifficultySelect : CActivity
 
 		if (b開いた直後) {
 
-			for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++)
+			for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++)
 			{
 				this.ct難易度拡大用[nPlayer].n現在の値 = 0;
 				this.ct難易度拡大用[nPlayer].t時間Reset();
@@ -101,7 +101,7 @@ internal class CActSelectDifficultySelect : CActivity
 
 		#region[難易度マーク]
 
-		for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
+		for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
 		{
 			if (選択済み[i])
 			{
@@ -325,8 +325,8 @@ internal class CActSelectDifficultySelect : CActivity
 		}
 		#endregion
 		#region[プレイヤーアンカー]
-		for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++) {
-			if (TJAPlayer3.ConfigIni.nPlayerCount >= 2 && 現在の選択行[0] == 現在の選択行[1] && !選択済み[0] && !選択済み[1]) {
+		for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++) {
+			if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 && 現在の選択行[0] == 現在の選択行[1] && !選択済み[0] && !選択済み[1]) {
 				if (現在の選択行[i] < 3)
 				{
 					if (TJAPlayer3.Tx.Difficulty_Anc_Box_Etc[i] != null)

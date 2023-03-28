@@ -46,8 +46,8 @@ internal class CStageSongLoading : CStage
 			// player and the special song title and subtitle
 			// of the .tja used to perform input calibration
 			TJAPlayer3.IsPerformingCalibration =
-				!TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] &&
-				TJAPlayer3.ConfigIni.nPlayerCount == 1 &&
+				!TJAPlayer3.ConfigToml.PlayOption.AutoPlay[0] &&
+				TJAPlayer3.ConfigToml.PlayOption.PlayerCount == 1 &&
 				strTitle == "Input Calibration" &&
 				strSubTitle == "TJAPlayer3 Developers";
 
@@ -319,9 +319,9 @@ internal class CStageSongLoading : CStage
 
 					//if( CDTXMania.DTX == null )
 					{
-						TJAPlayer3.DTX[0] = new CDTX( str, false, json.BGMAdjust, 0, TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] == TJAPlayer3.stage選曲.n確定された曲の難易度[1]);
-						if( TJAPlayer3.ConfigIni.nPlayerCount == 2 )
-							TJAPlayer3.DTX[1] = new CDTX( str, false, json.BGMAdjust, 1, TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] == TJAPlayer3.stage選曲.n確定された曲の難易度[1]);
+						TJAPlayer3.DTX[0] = new CDTX( str, false, json.BGMAdjust, 0, TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] == TJAPlayer3.stage選曲.n確定された曲の難易度[1]);
+						if( TJAPlayer3.ConfigToml.PlayOption.PlayerCount == 2 )
+							TJAPlayer3.DTX[1] = new CDTX( str, false, json.BGMAdjust, 1, TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] == TJAPlayer3.stage選曲.n確定された曲の難易度[1]);
 
 						if ( TJAPlayer3.ConfigIni.bスクロールモードを上書き == false)
 						{
@@ -402,9 +402,9 @@ internal class CStageSongLoading : CStage
 
 						TJAPlayer3.DTX[0].PlanToAddMixerChannel();
 
-						for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++)
+						for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++)
 						{
-							TJAPlayer3.DTX[nPlayer].t太鼓チップのランダム化(TJAPlayer3.ConfigIni.eRandom[nPlayer]);
+							TJAPlayer3.DTX[nPlayer].t太鼓チップのランダム化(TJAPlayer3.ConfigToml.PlayOption._Random[nPlayer]);
 						}
 
 						TJAPlayer3.stage演奏ドラム画面.On活性化();

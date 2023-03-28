@@ -145,16 +145,10 @@ internal class CConfigIni : INotifyPropertyChanged
 	}
 	// プロパティ
 
-	public bool bTight;
 	public bool bWave再生位置自動調整機能有効;
-	public bool bランダムセレクトで子BOXを検索対象とする;
-	public bool ShowDebugStatus;
 	public Dictionary<int, string> dicJoystick;
-	public ERandomMode[] eRandom;
 	public CKeyAssign KeyAssign;
-	public int n演奏速度;
 	public bool b演奏速度が一倍速であるとき以外音声を再生しない;
-	public string[] strPlayerName;
 
 	private bool _applyLoudnessMetadata;
 
@@ -223,17 +217,11 @@ internal class CConfigIni : INotifyPropertyChanged
 			nameof(KeyboardSoundLevelIncrement));
 	}
 
-	public int n表示可能な最小コンボ数;
-	public int[] n譜面スクロール速度;
 	public string Version;
 	public bool bBranchGuide;
 	public int nScoreMode;
 	public int nDefaultCourse; //2017.01.30 DD デフォルトでカーソルをあわせる難易度
 
-	public int nPlayerCount; //2017.08.18 kairera0467 マルチプレイ対応
-	public bool[] b太鼓パートAutoPlay = new bool[4];//2020.04.26 Mr-Ojii Auto変数の配列化
-	public bool bAuto先生の連打;
-	public int nAuto先生の連打速度;
 	public bool b大音符判定;
 	public int n両手判定の待ち時間;
 	public bool b両手判定待ち時間中に大音符を判定枠に合わせるか;
@@ -268,11 +256,7 @@ internal class CConfigIni : INotifyPropertyChanged
 	public int TokkunSkipMeasures;
 	public int TokkunMashInterval;
 	public bool bSuperHard = false;
-	public bool bJust;
 
-	public EEndingAnime eEndingAnime = EEndingAnime.Off;
-
-	public int nInputAdjustTimeMs;
 	public string strSystemSkinSubfolderFullName;	// #28195 2012.5.2 yyagi Skin切替用 System/以下のサブフォルダ名
 	public bool bEnterがキー割り当てのどこにも使用されていない
 	{
@@ -293,18 +277,10 @@ internal class CConfigIni : INotifyPropertyChanged
 		}
 	}
 	public bool b2P演奏時のSEの左右;
-	public int nRisky;						// #23559 2011.6.20 yyagi Riskyでの残ミス数。0で閉店
-	public int nSoundDeviceType;				// #24820 2012.12.23 yyagi 出力サウンドデバイス(0=BASS, 1=ASIO, 2=WASAPI(Exclusive), 3=WASAPI(Shared))
-	public int nWASAPIBufferSizeMs;				// #24820 2013.1.15 yyagi WASAPIのバッファサイズ
-//		public int nASIOBufferSizeMs;				// #24820 2012.12.28 yyagi ASIOのバッファサイズ
-	public int nASIODevice;                     // #24820 2013.1.17 yyagi ASIOデバイス
-	public int nBASSBufferSizeMs;             // 2021.3.18 Mr-Ojii BASSのバッファサイズ
-	public bool bUseOSTimer;					// #33689 2014.6.6 yyagi 演奏タイマーの種類
 	public bool bTimeStretch;					// #23664 2013.2.24 yyagi ピッチ変更無しで再生速度を変更するかどうか
 
 	//public bool bNoMP3Streaming;				// 2014.4.14 yyagi; mp3のシーク位置がおかしくなる場合は、これをtrueにすることで、wavにデコードしてからオンメモリ再生する
 	public int nMasterVolume;
-	public bool[] ShinuchiMode = new bool[2]; // 真打モード
 	public int MusicPreTimeMs; // 音源再生前の待機時間ms
 	/// <summary>
 	/// DiscordのRitch Presenceに再生中の.tjaファイルの情報を送信するかどうか。
@@ -319,9 +295,6 @@ internal class CConfigIni : INotifyPropertyChanged
 		this.Version = "Unknown";
 		//this.bWave再生位置自動調整機能有効 = true;
 		this.bWave再生位置自動調整機能有効 = false;
-		this.bランダムセレクトで子BOXを検索対象とする = true;
-		this.n表示可能な最小コンボ数 = new int();
-		this.n表示可能な最小コンボ数 = 3;
 		this.bEnableSkinV2 = false;
 		this.ApplyLoudnessMetadata = true;
 
@@ -348,40 +321,13 @@ internal class CConfigIni : INotifyPropertyChanged
 		this.SongPreviewLevel = CSound.DefaultSongPreviewLevel;
 		this.SongPlaybackLevel = CSound.DefaultSongPlaybackLevel;
 		this.KeyboardSoundLevelIncrement = DefaultKeyboardSoundLevelIncrement;
-		this.eRandom = new ERandomMode[2];
-		this.n譜面スクロール速度 = new int[2];
-		this.nInputAdjustTimeMs = 0;
-		this.eRandom[0] = ERandomMode.OFF;
-		this.eRandom[1] = ERandomMode.OFF;
-		this.n譜面スクロール速度[0] = 9;
-		this.n譜面スクロール速度[1] = 9;
 
-		this.n演奏速度 = 20;
 		this.b演奏速度が一倍速であるとき以外音声を再生しない = false;
-		this.strPlayerName = new string[] { "1PUnknown", "2PUnknown" };
-		#region [ AutoPlay ]
-		this.b太鼓パートAutoPlay[0] = true;
-		this.b太鼓パートAutoPlay[1] = true;
-		this.bAuto先生の連打 = true;
-		this.nAuto先生の連打速度 = 67;
-		#endregion
 		this.ConfigIniファイル名 = "";
 		this.dicJoystick = new Dictionary<int, string>( 10 );
 		this.tデフォルトのキーアサインに設定する();
-		this.nRisky = 0;							// #23539 2011.7.26 yyagi RISKYモード
 
 		this.strSystemSkinSubfolderFullName = "";	// #28195 2012.5.2 yyagi 使用中のSkinサブフォルダ名
-		this.bTight = false;                        // #29500 2012.9.11 kairera0467 TIGHTモード
-		#region [ WASAPI/ASIO ]
-		// #31927 2013.8.25 yyagi OSにより初期値変更
-		this.nSoundDeviceType = (int)(OperatingSystem.IsWindows() ? (COS.bIsWin10OrLater() ? ESoundDeviceTypeForConfig.WASAPI_Shared : ESoundDeviceTypeForConfig.WASAPI_Exclusive) : ESoundDeviceTypeForConfig.BASS);
-
-		this.nWASAPIBufferSizeMs = 2;				// #24820 2013.1.15 yyagi 初期値は50(0で自動設定)
-		this.nASIODevice = 0;                       // #24820 2013.1.17 yyagi
-		//			this.nASIOBufferSizeMs = 0;					// #24820 2012.12.25 yyagi 初期値は0(自動設定)
-		this.nBASSBufferSizeMs = 15;
-		#endregion
-		this.bUseOSTimer = false;					// #33689 2014.6.6 yyagi 初期値はfalse (FDKのタイマー。ＦＲＯＭ氏考案の独自タイマー)
 		this.bTimeStretch = false;					// #23664 2013.2.24 yyagi 初期値はfalse (再生速度変更を、ピッチ変更にて行う)
 		
 		this.bBranchGuide = false;
@@ -415,9 +361,6 @@ internal class CConfigIni : INotifyPropertyChanged
 		this.eGameMode = EGame.OFF;
 		this.TokkunSkipMeasures = 5;
 		this.TokkunMashInterval = 750;
-		this.nPlayerCount = 1; //2017.08.18 kairera0467 マルチプレイ対応
-		ShinuchiMode[0] = false;
-		ShinuchiMode[1] = false;
 		MusicPreTimeMs = 1000; // 一秒
 		SendDiscordPlayingInformation = true;
 	}
@@ -454,6 +397,7 @@ internal class CConfigIni : INotifyPropertyChanged
 	{
 		StreamWriter sw = new StreamWriter( iniファイル名, false, new UTF8Encoding(false));
 
+		sw.WriteLine("[System]");
 		#region [ スキン関連 ]
 		#region [ Skinパスの絶対パス→相対パス変換 ]
 		Uri uriRoot = new Uri( System.IO.Path.Combine( TJAPlayer3.strEXEのあるフォルダ, "System/" ) );
@@ -474,16 +418,6 @@ internal class CConfigIni : INotifyPropertyChanged
 		sw.WriteLine( "SkinPath={0}", relPath );
 		sw.WriteLine();
 		#endregion
-		sw.WriteLine("; 最小表示コンボ数");
-		sw.WriteLine("MinComboDrums={0}", this.n表示可能な最小コンボ数);
-		sw.WriteLine();
-		sw.WriteLine( "; RANDOM SELECT で子BOXを検索対象に含める (0:OFF, 1:ON)" );
-		sw.WriteLine( "RandomFromSubBox={0}", this.bランダムセレクトで子BOXを検索対象とする ? 1 : 0 );
-		sw.WriteLine();
-		sw.WriteLine( "; 演奏情報を表示する (0:OFF, 1:ON)" );
-		sw.WriteLine( "; Showing playing info on the playing screen. (0:OFF, 1:ON)" );
-		sw.WriteLine( "ShowDebugStatus={0}", this.ShowDebugStatus ? 1 : 0 );
-		sw.WriteLine();
 		sw.WriteLine("; BS1770GAIN によるラウドネスメータの測量を適用する (0:OFF, 1:ON)");
 		sw.WriteLine( "; Apply BS1770GAIN loudness metadata (0:OFF, 1:ON)" );
 		sw.WriteLine( "{0}={1}", nameof(ApplyLoudnessMetadata), this.ApplyLoudnessMetadata ? 1 : 0 );
@@ -528,47 +462,16 @@ internal class CConfigIni : INotifyPropertyChanged
 		sw.WriteLine("; Share Playing .tja file infomation on Discord.");                     //
 		sw.WriteLine("{0}={1}", nameof(SendDiscordPlayingInformation), SendDiscordPlayingInformation ? 1 : 0);       //
 		sw.WriteLine();
-		sw.WriteLine( "; 再生速度変更を、ピッチ変更で行うかどうか(0:ピッチ変更, 1:タイムストレッチ" );	// #23664 2013.2.24 yyagi
+		sw.WriteLine( "; 再生速度変更を、ピッチ変更で行うかどうか(0:ピッチ変更, 1:タイムストレッチ)" );	// #23664 2013.2.24 yyagi
 		sw.WriteLine( "; Set \"0\" if you'd like to use pitch shift with PlaySpeed." );	//
 		sw.WriteLine( "; Set \"1\" for time stretch." );								//
 		sw.WriteLine( "TimeStretch={0}", this.bTimeStretch ? 1 : 0 );					//
 		sw.WriteLine();
-
-		#region [ Adjust ]
-		sw.WriteLine( "; 判定タイミング調整(-99～99)[ms]" );
-		sw.WriteLine("; Revision value to adjust judgment timing.");	//
-		sw.WriteLine("InputAdjustTime={0}", this.nInputAdjustTimeMs);		//
-		sw.WriteLine();
-		#endregion
-		sw.WriteLine( "; 「また遊んでね」画面(0:OFF, 1:ON, 2:Force)" );
-		sw.WriteLine( "EndingAnime={0}", (int)this.eEndingAnime );
-		sw.WriteLine();
 		sw.WriteLine( ";-------------------" );
 
-		#region [ AutoPlay ]
-		sw.WriteLine("[AutoPlay]");
-		sw.WriteLine();
-		sw.WriteLine("; 自動演奏(0:OFF, 1:ON)");
-#if PLAYABLE
-		sw.WriteLine("Taiko={0}", this.b太鼓パートAutoPlay[0] ? 1 : 0);
-		sw.WriteLine("Taiko2P={0}", this.b太鼓パートAutoPlay[1] ? 1 : 0);
-#endif
-		sw.WriteLine("TaikoAutoRoll={0}", this.bAuto先生の連打 ? 1 : 0);
-		sw.WriteLine();
-		sw.WriteLine(";Auto先生の連打間隔の変更(ms)");
-		sw.WriteLine(";※フレームレート以上の速度は出ません。");
-		sw.WriteLine("TaikoAutoRollSpeed={0}", this.nAuto先生の連打速度);
-		sw.WriteLine();
-		sw.WriteLine(";-------------------");
-#endregion
 
 #region [ PlayOption ]
 		sw.WriteLine( "[PlayOption]" );
-		sw.WriteLine();
-		sw.WriteLine("; プレイヤーネーム");   // 2020.09.15 Mr-Ojii
-		sw.WriteLine("; PlayerName");
-		sw.WriteLine("1PPlayerName={0}", this.strPlayerName[0]);
-		sw.WriteLine("2PPlayerName={0}", this.strPlayerName[1]);
 		sw.WriteLine();
 		sw.WriteLine("; サブタイトルの表示モード(0:表示しない,1:譜面準拠,2:表示する)");   // 2020.10.18 Mr-Ojii
 		sw.WriteLine("; SubtitleDisplayMode(0:Off,1:Compliant,2:On)");
@@ -588,35 +491,14 @@ internal class CConfigIni : INotifyPropertyChanged
 		sw.WriteLine("; ぷちキャラ画像 (0:OFF, 1:ON)");
 		sw.WriteLine("ShowPuchiChara={0}", ShowPuchiChara ? 1 : 0);
 		sw.WriteLine();
-		sw.WriteLine( "; RISKYモード(0:OFF, 1-10)" );									// #23559 2011.6.23 yyagi
-		sw.WriteLine( "; RISKY mode. 0=OFF, 1-10 is the times of misses to be Failed." );	//
-		sw.WriteLine( "Risky={0}", this.nRisky );			//
-		sw.WriteLine();
-		sw.WriteLine( "; TIGHTモード(0:OFF, 1:ON)" );									// #29500 2012.9.11 kairera0467
-		sw.WriteLine( "; TIGHT mode. 0=OFF, 1=ON " );
-		sw.WriteLine( "DrumsTight={0}", this.bTight ? 1 : 0 );
-		sw.WriteLine();
-		sw.WriteLine( "; ドラム譜面スクロール速度(0:x0.1, 9:x1.0, 14:x1.5,…,1999:x200.0)" );
-		sw.WriteLine( "1PDrumsScrollSpeed={0}", this.n譜面スクロール速度[0]);
-		sw.WriteLine( "2PDrumsScrollSpeed={0}", this.n譜面スクロール速度[1]);
-		sw.WriteLine();
-		sw.WriteLine( "; 演奏速度(5～40)(→x5/20～x40/20)" );
-		sw.WriteLine( "PlaySpeed={0}", this.n演奏速度 );
-		sw.WriteLine();
 		sw.WriteLine( "; 演奏速度が一倍速であるときのみBGMを再生する(0:OFF, 1:ON)");
 		sw.WriteLine( "PlaySpeedNotEqualOneNoSound={0}", this.b演奏速度が一倍速であるとき以外音声を再生しない ? 1 : 0);
 		sw.WriteLine();
-
 		sw.WriteLine("; デフォルトで選択される難易度");
 		sw.WriteLine("DefaultCourse={0}", this.nDefaultCourse);
 		sw.WriteLine();
 		sw.WriteLine( "; スコア計算方法(0:ドンだフルモード, 1:~AC14, 2:AC15, 3:AC16)");
 		sw.WriteLine( "ScoreMode={0}", this.nScoreMode );
-		sw.WriteLine();
-		sw.WriteLine("; 真打モード (0:OFF, 1:ON)");
-		sw.WriteLine("; Fixed score mode (0:OFF, 1:ON)");
-		sw.WriteLine("{0}={1}", "1PShinuchiMode", ShinuchiMode[0] ? 1 : 0);
-		sw.WriteLine("{0}={1}", "2PShinuchiMode", ShinuchiMode[1] ? 1 : 0);
 		sw.WriteLine();
 		sw.WriteLine("; 両手判定の待ち時間中に大音符を判定枠に合わせる(0:OFF, 1:ON)");
 		sw.WriteLine("BigNotesJudgeFrame={0}", this.b両手判定待ち時間中に大音符を判定枠に合わせるか ? 1 : 0);
@@ -637,10 +519,6 @@ internal class CConfigIni : INotifyPropertyChanged
 		sw.WriteLine( "0:Path, 1:GenreName" );
 		sw.WriteLine( "DefaultSongSort={0}", this.nDefaultSongSort );
 		sw.WriteLine();
-		sw.WriteLine( "; RANDOMモード(0:OFF, 1:Random, 2:Mirror 3:SuperRandom, 4:HyperRandom)" );
-		sw.WriteLine( "1PTaikoRandom={0}", (int) this.eRandom[0]);
-		sw.WriteLine( "2PTaikoRandom={0}", (int) this.eRandom[1]);
-		sw.WriteLine();
 		sw.WriteLine( "; 1PSTEALTHモード(0:OFF, 1:ドロン, 2:ステルス)" );
 		sw.WriteLine( "1PTaikoStealth={0}", (int) this.eSTEALTH[0] );
 		sw.WriteLine( "2PTaikoStealth={0}", (int) this.eSTEALTH[1] );
@@ -655,14 +533,8 @@ internal class CConfigIni : INotifyPropertyChanged
 		sw.WriteLine("; 指定ms以内に5回縁を叩きましょう");
 		sw.WriteLine("{1}={0}", this.TokkunMashInterval, nameof(this.TokkunMashInterval));
 		sw.WriteLine();
-		sw.WriteLine( "; JUST(0:OFF, 1:ON)" );
-		sw.WriteLine( "Just={0}", this.bJust ? 1 : 0 );
-		sw.WriteLine();
 		sw.WriteLine( "; 判定数の表示(0:OFF, 1:ON)" );
 		sw.WriteLine( "JudgeCountDisplay={0}", this.bJudgeCountDisplay ? 1 : 0 );
-		sw.WriteLine();
-		sw.WriteLine( "; プレイ人数" );
-		sw.WriteLine( "PlayerCount={0}", this.nPlayerCount );
 		sw.WriteLine();
 
 		sw.WriteLine( ";-------------------" );
@@ -820,57 +692,6 @@ internal class CConfigIni : INotifyPropertyChanged
 										this.strSystemSkinSubfolderFullName = absSkinPath;
 									}
 #endregion
-
-#region [ WASAPI/ASIO関係 ]
-									else if ( str3.Equals( "SoundDeviceType" ) )
-									{
-										this.nSoundDeviceType = str4.ToInt32(0, 3, this.nSoundDeviceType);
-									}
-									else if ( str3.Equals( "WASAPIBufferSizeMs" ) )
-									{
-										this.nWASAPIBufferSizeMs = str4.ToInt32(0, 9999, this.nWASAPIBufferSizeMs);
-									}
-									else if ( str3.Equals( "ASIODevice" ) )
-									{
-										string[] asiodev = CEnumerateAllAsioDevices.GetAllASIODevices();
-										this.nASIODevice = str4.ToInt32(0, asiodev.Length - 1, this.nASIODevice);
-									}
-									//else if ( str3.Equals( "ASIOBufferSizeMs" ) )
-									//{
-									//    this.nASIOBufferSizeMs = CConvert.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, 0, 9999, this.nASIOBufferSizeMs );
-									//}
-									//else if ( str3.Equals( "DynamicBassMixerManagement" ) )
-									//{
-									//    this.bDynamicBassMixerManagement = str4[0].ToBool();
-									//}
-									else if (str3.Equals("BASSBufferSizeMs"))
-									{
-										this.nBASSBufferSizeMs = str4.ToInt32(0, 9999, this.nBASSBufferSizeMs);
-									}
-									else if ( str3.Equals( "SoundTimerType" ) )			// #33689 2014.6.6 yyagi
-									{
-										this.bUseOSTimer = str4[0].ToBool();
-									}
-									//else if ( str3.Equals( "MasterVolume" ) )
-									//{
-									//    this.nMasterVolume = CConvert.n値を文字列から取得して範囲内にちゃんと丸めて返す( str4, 0, 100, this.nMasterVolume );
-									//}
-#endregion
-
-									else if( str3.Equals( "RandomFromSubBox" ) )
-									{
-										this.bランダムセレクトで子BOXを検索対象とする = str4[0].ToBool();
-									}
-#region [ コンボ数 ]
-									else if( str3.Equals( "MinComboDrums" ) )
-									{
-										this.n表示可能な最小コンボ数 = str4.ToInt32(1, 0x1869f, this.n表示可能な最小コンボ数);
-									}
-#endregion
-									else if( str3.Equals( "ShowDebugStatus" ) )
-									{
-										this.ShowDebugStatus = str4[0].ToBool();
-									}
 									else if( str3.Equals( nameof(ApplyLoudnessMetadata) ) )
 									{
 										this.ApplyLoudnessMetadata = str4[0].ToBool();
@@ -919,44 +740,9 @@ internal class CConfigIni : INotifyPropertyChanged
 									{
 										this.bTimeStretch = str4[0].ToBool();
 									}
-#region [ AdjustTime ]
-									else if( str3.Equals( "InputAdjustTime" ) )
-									{
-										this.nInputAdjustTimeMs = str4.ToInt32(-99, 99, this.nInputAdjustTimeMs);
-									}
-#endregion
-									else if( str3.Equals( "EndingAnime" ) )
-									{
-										this.eEndingAnime = (EEndingAnime)str4.ToInt32(0, 2, (int)this.eEndingAnime);
-									}
 
 									continue;
 								}
-							//-----------------------------
-#endregion
-
-#region [ [AutoPlay] ]
-							//-----------------------------
-							case Eセクション種別.AutoPlay:
-#if PLAYABLE
-								if (str3.Equals("Taiko"))
-								{
-									this.b太鼓パートAutoPlay[0] = str4[0].ToBool();
-								}
-								else if (str3.Equals("Taiko2P"))
-								{
-									this.b太鼓パートAutoPlay[1] = str4[0].ToBool();
-								}
-#endif
-								if (str3.Equals("TaikoAutoRoll"))
-								{
-									this.bAuto先生の連打 = str4[0].ToBool();
-								}
-								else if (str3.Equals("TaikoAutoRollSpeed"))
-								{
-									this.nAuto先生の連打速度 = str4.ToInt32(1, 9999, this.nAuto先生の連打速度);
-								}
-								continue;
 							//-----------------------------
 #endregion
 
@@ -964,15 +750,7 @@ internal class CConfigIni : INotifyPropertyChanged
 							//-----------------------------
 							case Eセクション種別.PlayOption:
 								{
-									if (str3.Equals("1PPlayerName"))
-									{
-										this.strPlayerName[0] = str4;
-									}
-									else if (str3.Equals("2PPlayerName"))
-									{
-										this.strPlayerName[1] = str4;
-									}
-									else if (str3.Equals("ShowChara"))
+									if (str3.Equals("ShowChara"))
 									{
 										ShowChara = str4[0].ToBool();
 									}
@@ -1004,29 +782,9 @@ internal class CConfigIni : INotifyPropertyChanged
 									{
 										this.eScrollMode = (EScrollMode)str4.ToInt32(0, 2, 0);
 									}
-									else if( str3.Equals( "1PDrumsScrollSpeed" ) )
-									{
-										this.n譜面スクロール速度[0] = str4.ToInt32(0, 0x7cf, this.n譜面スクロール速度[0]);
-									}
-									else if (str3.Equals( "2PDrumsScrollSpeed" ) )
-									{
-										this.n譜面スクロール速度[1] = str4.ToInt32(0, 0x7cf, this.n譜面スクロール速度[1]);
-									}
-									else if( str3.Equals( "PlaySpeed" ) )
-									{
-										this.n演奏速度 = str4.ToInt32(5, 400, this.n演奏速度);
-									}
 									else if (str3.Equals("PlaySpeedNotEqualOneNoSound"))
 									{
 										this.b演奏速度が一倍速であるとき以外音声を再生しない = str4[0].ToBool();
-									}
-									else if ( str3.Equals( "Risky" ) )					// #23559 2011.6.23  yyagi
-									{
-										this.nRisky = str4.ToInt32(0, 10, this.nRisky);
-									}
-									else if ( str3.Equals( "DrumsTight" ) )
-									{
-										this.bTight = str4[0].ToBool();
 									}
 									else if ( str3.Equals( "BranchGuide" ) )
 									{
@@ -1068,14 +826,6 @@ internal class CConfigIni : INotifyPropertyChanged
 									{
 										this.nDefaultSongSort = str4.ToInt32(0, 1, this.nDefaultSongSort);
 									}
-									else if( str3.Equals( "1PTaikoRandom" ) )
-									{
-										this.eRandom[0] = (ERandomMode) str4.ToInt32(0, 4, (int) this.eRandom[0]);
-									}
-									else if (str3.Equals("2PTaikoRandom"))
-									{
-										this.eRandom[1] = (ERandomMode) str4.ToInt32(0, 4, (int) this.eRandom[1]);
-									}
 									else if( str3.Equals( "1PTaikoStealth" ) )
 									{
 										this.eSTEALTH[0] = (EStealthMode) str4.ToInt32(0, 3, (int) this.eSTEALTH[0]);
@@ -1099,22 +849,6 @@ internal class CConfigIni : INotifyPropertyChanged
 									else if( str3.Equals( "JudgeCountDisplay" ) )
 									{
 										this.bJudgeCountDisplay = str4[0].ToBool();
-									}
-									else if( str3.Equals( "Just" ) )
-									{
-										this.bJust = str4[0].ToBool();
-									}
-									else if( str3.Equals( "PlayerCount" ) )
-									{
-										this.nPlayerCount = str4.ToInt32(1, 2, this.nPlayerCount);
-									}
-									else if(str3.Equals("1PShinuchiMode"))
-									{
-										ShinuchiMode[0] = str4[0].ToBool();
-									}
-									else if (str3.Equals("2PShinuchiMode"))
-									{
-										ShinuchiMode[1] = str4[0].ToBool();
 									}
 									continue;
 								}
@@ -1211,10 +945,7 @@ internal class CConfigIni : INotifyPropertyChanged
 	{
 		Unknown,
 		System,
-		Log,
 		PlayOption,
-		AutoPlay,
-		HitRange,
 		GUID,
 		DrumsKeyAssign,
 		SystemKeyAssign,

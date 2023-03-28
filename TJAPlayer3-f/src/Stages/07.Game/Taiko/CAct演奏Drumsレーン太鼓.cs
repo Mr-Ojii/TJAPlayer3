@@ -78,7 +78,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 		if (base.b初めての進行描画)
 		{
 			for (int i = 0; i < 4; i++)
-				this.stBranch[i].nフラッシュ制御タイマ = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+				this.stBranch[i].nフラッシュ制御タイマ = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
 			base.b初めての進行描画 = false;
 		}
 
@@ -87,13 +87,13 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 		#region[ レーン本体 ]
 		if (TJAPlayer3.Tx.Lane_Background_Main != null)
 		{
-			for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
+			for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
 			{
 				TJAPlayer3.Tx.Lane_Background_Main.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldY[i]);
 			}
 		}
 		#endregion
-		for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
+		for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
 		{
 			#region[ 分岐アニメ制御タイマー ]
 			long num = CSoundManager.rc演奏用タイマ.n現在時刻ms;
@@ -132,7 +132,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 			#endregion
 		}
 		#region[ 分岐レイヤー ]
-		for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
+		for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
 		{
 			if (TJAPlayer3.stage演奏ドラム画面.bUseBranch[i] == true)
 			{
@@ -245,7 +245,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 			}
 		}
 		#endregion
-		for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
+		for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
 		{
 			#region[ ゴーゴータイムレーン背景レイヤー ]
 			if (TJAPlayer3.Tx.Lane_Background_GoGo != null && TJAPlayer3.stage演奏ドラム画面.bIsGOGOTIME[i])
@@ -284,7 +284,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 			#endregion
 		}
 		
-		for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
+		for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
 		{
 			if (TJAPlayer3.stage演奏ドラム画面.bUseBranch[i] == true)
 			{
@@ -583,10 +583,10 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 				}
 			}
 		}
-		var nTime = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+		var nTime = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
 
 
-		for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++)
+		for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++)
 		{
 			if (this.n総移動時間[nPlayer] != -1)
 			{
@@ -683,7 +683,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 	public void ゴーゴー炎()
 	{
 		//判定枠
-		for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
+		for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
 		{
 			if (TJAPlayer3.Tx.Notes != null)
 			{
@@ -695,7 +695,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 		}
 
 		#region[ ゴーゴー炎 ]
-		for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
+		for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
 		{
 			if (TJAPlayer3.stage演奏ドラム画面.bIsGOGOTIME[i])
 			{
@@ -726,7 +726,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 			}
 		}
 		#endregion
-		for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
+		for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
 		{
 			if (!this.st状態[i].ct進行.b停止中)
 			{
@@ -805,7 +805,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 	public void GOGOSTART()
 	{
 		this.ctゴーゴー = new CCounter(0, 17, 18, TJAPlayer3.Timer);
-		if(TJAPlayer3.ConfigIni.nPlayerCount == 1 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan) TJAPlayer3.stage演奏ドラム画面.GoGoSplash.StartSplash();
+		if(TJAPlayer3.ConfigToml.PlayOption.PlayerCount == 1 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan) TJAPlayer3.stage演奏ドラム画面.GoGoSplash.StartSplash();
 	}
 
 
@@ -828,7 +828,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 
 	public void t判定枠移動(int n移動開始時間, double db移動時間, int n移動px, int nPlayer)
 	{
-		if ((CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)) >= n移動開始時間 + (db移動時間 * 1000))
+		if ((CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0)) >= n移動開始時間 + (db移動時間 * 1000))
 		{
 			int position = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] + n移動px;
 			TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] = position;

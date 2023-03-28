@@ -90,7 +90,7 @@ internal class CAct演奏ゲージ共通 : CActivity
 			if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan)
 			{
 				int[] ypos = new int[] { 144, 532 };
-				for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++)
+				for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++)
 				{
 					if (TJAPlayer3.Tx.Gauge_Base[nPlayer] != null)
 					{
@@ -203,7 +203,7 @@ internal class CAct演奏ゲージ共通 : CActivity
 			{
 				//仮置き
 				int[] nSoulFire = new int[] { 52, 443, 0, 0 };
-				for( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
+				for( int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++ )
 				{
 					if( this.db現在のゲージ値[ i ] >= 100.0 )
 					{
@@ -216,7 +216,7 @@ internal class CAct演奏ゲージ共通 : CActivity
 			{
 				//仮置き
 				int[] nSoulY = new int[] { 125, 516, 0, 0 };
-				for( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
+				for( int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++ )
 				{
 					if( this.db現在のゲージ値[ i ] >= 80.0 )
 					{
@@ -299,11 +299,11 @@ internal class CAct演奏ゲージ共通 : CActivity
 		if( nRiskyTimes_InitialVal > 0 )
 		{
 			this.bRisky = true;
-			this.nRiskyTimes = TJAPlayer3.ConfigIni.nRisky;
-			this.nRiskyTimes_Initial = TJAPlayer3.ConfigIni.nRisky;
+			this.nRiskyTimes = TJAPlayer3.ConfigToml.PlayOption.Risky;
+			this.nRiskyTimes_Initial = TJAPlayer3.ConfigToml.PlayOption.Risky;
 		}
 
-		for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++) {
+		for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++) {
 			switch (TJAPlayer3.DTX[nPlayer].LEVELtaiko[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]])
 			{
 				case 1:
@@ -388,7 +388,7 @@ internal class CAct演奏ゲージ共通 : CActivity
 
 		double[] nGaugeRankValue = new double[2] { 0D, 0D };
 		double[,] nGaugeRankValue_branch = new double[,] { { 0D, 0D, 0D } , { 0D, 0D, 0D } };
-		for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++)
+		for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++)
 		{
 			if (TJAPlayer3.DTX[nPlayer].GaugeIncreaseMode == GaugeIncreaseMode.Normal)
 			{
@@ -417,7 +417,7 @@ internal class CAct演奏ゲージ共通 : CActivity
 		float[,] fAddVolume = new float[,] { { 1.0f, 0.5f, dbDamageRate[0] }, { 1.0f, 0.5f, dbDamageRate[1] } };
 
 
-		for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++)
+		for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++)
 		{
 			for (int i = 0; i < 3; i++)
 			{
@@ -445,7 +445,7 @@ internal class CAct演奏ゲージ共通 : CActivity
 		#endregion
 
 
-		for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++)
+		for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++)
 		{
 			this.dbゲージ増加量[nPlayer,0] = (float)nGaugeRankValue[nPlayer] / 100.0f;
 			this.dbゲージ増加量[nPlayer,1] = (float)(nGaugeRankValue[nPlayer] / 100.0f) * 0.5f;
@@ -457,7 +457,7 @@ internal class CAct演奏ゲージ共通 : CActivity
 		var increase = new float[,] { { dbゲージ増加量[0, 0], dbゲージ増加量[0, 1], dbゲージ増加量[0, 2] }, { dbゲージ増加量[1, 0], dbゲージ増加量[1, 1], dbゲージ増加量[1, 2] } };
 		var increaseBranch = new float[2, 3, 3];
 
-		for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++)
+		for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++)
 		{
 			for (int i = 0; i < 3; i++)
 			{
@@ -602,7 +602,7 @@ internal class CAct演奏ゲージ共通 : CActivity
 
 			default:
 				{
-					if( nPlayer == 0 ? TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[0] : TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[1] )
+					if( nPlayer == 0 ? TJAPlayer3.ConfigToml.PlayOption.AutoPlay[0] : TJAPlayer3.ConfigToml.PlayOption.AutoPlay[1] )
 					{
 						if( TJAPlayer3.DTX[nPlayer].bHasBranchChip )
 						{

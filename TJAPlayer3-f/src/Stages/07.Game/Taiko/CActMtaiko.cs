@@ -63,11 +63,11 @@ internal class CActMtaiko : CActivity
 	{
 		if( base.b初めての進行描画 )
 		{
-			this.nフラッシュ制御タイマ = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+			this.nフラッシュ制御タイマ = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
 			base.b初めての進行描画 = false;
 		}
 		
-		long num = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+		long num = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
 		if( num < this.nフラッシュ制御タイマ )
 		{
 			this.nフラッシュ制御タイマ = num;
@@ -127,7 +127,7 @@ internal class CActMtaiko : CActivity
 
 		int[] nLVUPY = new int[] { 127, 127, 0, 0 };
 
-		for ( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
+		for ( int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++ )
 		{
 			if( !this.ctレベルアップダウン[ i ].b停止中 )
 			{
@@ -196,7 +196,7 @@ internal class CActMtaiko : CActivity
 			}
 		}
 
-		for( int nPlayer = 0; nPlayer < TJAPlayer3.ConfigIni.nPlayerCount; nPlayer++ )
+		for( int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++ )
 		{
 			if (TJAPlayer3.Tx.Couse_Symbol[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] != null)
 			{
@@ -206,7 +206,7 @@ internal class CActMtaiko : CActivity
 					);
 			}
 
-			if (TJAPlayer3.ConfigIni.ShinuchiMode[nPlayer])
+			if (TJAPlayer3.ConfigToml.PlayOption.Shinuchi[nPlayer])
 			{
 				if (TJAPlayer3.Tx.Couse_Symbol[(int)Difficulty.Total] != null)
 				{
@@ -234,7 +234,7 @@ internal class CActMtaiko : CActivity
 
 	public void tMtaikoEvent( int nChannel, int nHand, int nPlayer )
 	{
-		if( !TJAPlayer3.ConfigIni.b太鼓パートAutoPlay[nPlayer] )
+		if( !TJAPlayer3.ConfigToml.PlayOption.AutoPlay[nPlayer] )
 		{
 			switch( nChannel )
 			{

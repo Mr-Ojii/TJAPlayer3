@@ -68,7 +68,7 @@ internal class CActRoll : CActivity
 		int[] nRollBalloon = new int[] { -3, 514, 0, 0 };
 		int[] nRollNumber = new int[] { 48, 559, 0, 0 };
 		const int fadenum = 167;
-		for( int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++ )
+		for( int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++ )
 		{
 			//CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, this.ct連打枠カウンター[player].n現在の値.ToString());
 			if (this.ct連打枠カウンター[player].b終了値に達してない)

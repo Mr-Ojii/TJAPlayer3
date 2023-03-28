@@ -650,7 +650,7 @@ internal class CDTX : CActivity
 			foreach (CVideoDecoder cvd in this.listVD.Values)
 			{
 				cvd.InitRead();
-				cvd.dbPlaySpeed = ((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0;
+				cvd.dbPlaySpeed = ((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0;
 			}
 		}
 	}
@@ -825,7 +825,7 @@ internal class CDTX : CActivity
 	#region [ チップの再生と停止 ]
 	public void tチップの再生(CChip pChip, long n再生開始システム時刻ms)
 	{
-		if (TJAPlayer3.ConfigIni.b演奏速度が一倍速であるとき以外音声を再生しない && TJAPlayer3.ConfigIni.n演奏速度 != 20)
+		if (TJAPlayer3.ConfigIni.b演奏速度が一倍速であるとき以外音声を再生しない && TJAPlayer3.ConfigToml.PlayOption.PlaySpeed != 20)
 			return;
 
 		if (pChip.n整数値_内部番号 >= 0)
@@ -835,7 +835,7 @@ internal class CDTX : CActivity
 				CSound sound = wc.rSound;
 				if (sound != null)
 				{
-					sound.dbPlaySpeed = ((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0;
+					sound.dbPlaySpeed = ((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0;
 					// 再生速度によって、WASAPI/ASIOで使う使用mixerが決まるため、付随情報の設定(音量/PAN)は、再生速度の設定後に行う
 
 					// 2018-08-27 twopointzero - DON'T attempt to load (or queue scanning) loudness metadata here.

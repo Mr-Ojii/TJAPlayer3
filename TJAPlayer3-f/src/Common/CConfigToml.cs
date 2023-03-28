@@ -36,9 +36,9 @@ public class CConfigToml
         }
         return ConfigToml;
     }
-	private const int MinimumKeyboardSoundLevelIncrement = 1;
-	private const int MaximumKeyboardSoundLevelIncrement = 20;
-	private const int DefaultKeyboardSoundLevelIncrement = 5;
+    private const int MinimumKeyboardSoundLevelIncrement = 1;
+    private const int MaximumKeyboardSoundLevelIncrement = 20;
+    private const int DefaultKeyboardSoundLevelIncrement = 5;
 
     public enum ESoundDeviceTypeForConfig
     {
@@ -88,12 +88,12 @@ public class CConfigToml
     public CSoundDevice SoundDevice { get; set; } = new();
     public class CSoundDevice
     {
-        public int SoundDeviceType
+        public int DeviceType
         {
-            get { return _SoundDeviceType; }
-            set { _SoundDeviceType = Math.Clamp(value, 0, 4); }
+            get { return _DeviceType; }
+            set { _DeviceType = Math.Clamp(value, 0, 4); }
         }
-        private int _SoundDeviceType = 0;
+        private int _DeviceType = (int)(OperatingSystem.IsWindows() ? (COS.bIsWin10OrLater() ? ESoundDeviceTypeForConfig.WASAPI_Shared : ESoundDeviceTypeForConfig.WASAPI_Exclusive) : ESoundDeviceTypeForConfig.BASS);
         public int WASAPIBufferSizeMs
         { 
             get { return _WASAPIBufferSizeMs; }
@@ -107,7 +107,7 @@ public class CConfigToml
             set { _BASSBufferSizeMS = Math.Clamp(value, 1, 9999); }
         }
         private int _BASSBufferSizeMS = 2;
-        public bool OSTimer { get; set; } = false;
+        public bool UseOSTimer { get; set; } = false;
         public int MasterVolume
         {
             get { return _MasterVolume; }
@@ -150,6 +150,7 @@ public class CConfigToml
     public class CSongSelect
     {
         public bool RandomPresence { get; set; } = true;
+        public bool RandomIncludeSubBox { get; set; } = true;
         public bool OpenOneSide { get; set; } = false;
         public bool CountDownTimer { get; set; } = true;
         public bool TCCLikeStyle { get; set; } = false;
@@ -161,6 +162,8 @@ public class CConfigToml
     public class CGame
     {
         public bool BGMSound { get; set; } = true;
+        public int DispMinCombo { get; set; } = 3;
+        public bool ShowDebugStatus { get; set; } = false;
         public CBackground Background { get; set; } = new();
         public class CBackground
         {
@@ -179,6 +182,60 @@ public class CConfigToml
             }
             public EClipDispType _ClipDispType = EClipDispType.Background;
         }
+    }
+
+    public CPlayOption PlayOption { get; set; } = new();
+    public class CPlayOption
+    {
+        public int PlaySpeed
+        {
+            get { return _PlaySpeed; }
+            set { _PlaySpeed = Math.Clamp(value, 5, 400); }
+        }
+        private int _PlaySpeed = 20;
+        public int InputAdjustTimeMs
+        {
+            get { return _InputAdjustTimeMs; }
+            set { _InputAdjustTimeMs = Math.Clamp(value, -1000, 1000); }
+        }
+        private int _InputAdjustTimeMs = 0;
+        public int Risky
+        {
+            get { return _Risky; }
+            set { _Risky = Math.Clamp(value, 0, 10); }
+        }
+        private int _Risky { get; set; } = 0;
+        public bool Tight { get; set; } = false;
+        public bool Just { get; set; } = false;
+        public int PlayerCount
+        {
+            get { return _PlayerCount; }
+            set { _PlayerCount = Math.Clamp(value, 1, 2); }
+        }
+        private int _PlayerCount = 1;
+        public string[] PlayerName { get; set; } = new string[] { "1P", "2P", "3P", "4P" };
+        public int[] ScrollSpeed
+        {
+            get { return _ScrollSpeed; }
+            set { _ScrollSpeed = value.Select(x => Math.Max(0, x)).ToArray(); }
+        }
+        private int[] _ScrollSpeed = new int[] { 9, 9, 9, 9 };
+        public int[] Random
+        {
+            get { return _Random.Select(x => (int)x).ToArray(); }
+            set { _Random = value.Select(x => (ERandomMode)x).ToArray(); }
+        }
+        public ERandomMode[] _Random = new ERandomMode[] { ERandomMode.OFF, ERandomMode.OFF, ERandomMode.OFF, ERandomMode.OFF };
+        public bool[] Shinuchi { get; set; } = new bool[] { false, false, false, false }; 
+        public bool[] AutoPlay { get; set; } = new bool[] { true, true, true, true };
+        public bool AutoRoll { get; set; } = true;
+        public int AutoRollSpeed { get; set; } = 67;
+    }
+
+    public CEnding Ending { get; set; } = new();
+    public class CEnding
+    {
+        public int EndingAnime { get; set; } = 0;
     }
 
     public void Save(string FilePath)
@@ -242,7 +299,7 @@ public class CConfigToml
             sw.WriteLine("# Sound device type(0=BASS, 1=ASIO, 2=WASAPI(Exclusive), 3=WASAPI(Shared))");
             sw.WriteLine("# WASAPI can use on Vista or later OSs.");
             sw.WriteLine("# If WASAPI is not available, TJAP3-f try to use ASIO. If ASIO can't be used, TJAP3-f try to use BASS.");
-            sw.WriteLine("SoundDeviceType = {0}", this.SoundDevice.SoundDeviceType);
+            sw.WriteLine("DeviceType = {0}", this.SoundDevice.DeviceType);
             sw.WriteLine();
             sw.WriteLine("# WASAPI使用時のサウンドバッファサイズ");
             sw.WriteLine("# (0=デバイスに設定されている値を使用, 1～9999=バッファサイズ(単位:ms)の手動指定");
@@ -275,7 +332,7 @@ public class CConfigToml
             sw.WriteLine("# 演奏タイマーの種類" );
             sw.WriteLine("# Playback timer" );
             sw.WriteLine("# (false=FDK Timer, true=System Timer)" );
-            sw.WriteLine("OSTimer = {0}", this.SoundDevice.OSTimer.ToString().ToLower());
+            sw.WriteLine("UseOSTimer = {0}", this.SoundDevice.UseOSTimer.ToString().ToLower());
             sw.WriteLine();
             sw.WriteLine("[Log]" );
             sw.WriteLine("# 曲データ検索に関するLog出力");
@@ -300,7 +357,10 @@ public class CConfigToml
             sw.WriteLine();
             sw.WriteLine("# 片開きにするかどうか(バグの塊)");
             sw.WriteLine("# Box Open One Side.");
-            sw.WriteLine("OpenOneSide = {0}", this.SongSelect.RandomPresence.ToString().ToLower());
+            sw.WriteLine("OpenOneSide = {0}", this.SongSelect.OpenOneSide.ToString().ToLower());
+            sw.WriteLine();
+            sw.WriteLine("# RANDOM SELECT で子BOXを検索対象に含める" );
+            sw.WriteLine("RandomIncludeSubBox={0}", this.SongSelect.RandomIncludeSubBox.ToString().ToLower());
             sw.WriteLine();
             sw.WriteLine("# 選曲画面でのタイマーを有効にするかどうか");
             sw.WriteLine("# Enable countdown in songselect.");
@@ -326,6 +386,13 @@ public class CConfigToml
             sw.WriteLine("# BGM の再生");
             sw.WriteLine("BGMSound = {0}", this.Game.BGMSound.ToString().ToLower());
             sw.WriteLine();
+            sw.WriteLine("# 最小表示コンボ数");
+            sw.WriteLine("DispMinCombo = {0}", this.Game.DispMinCombo);
+            sw.WriteLine();
+            sw.WriteLine( "# 演奏情報を表示する" );
+            sw.WriteLine( "# Showing playing info on the playing screen." );
+            sw.WriteLine( "ShowDebugStatus = {0}", this.Game.ShowDebugStatus.ToString().ToLower());
+            sw.WriteLine();
             sw.WriteLine("[Game.Background]");
             sw.WriteLine("# 背景画像の半透明割合(0:透明～255:不透明)" );
             sw.WriteLine("# Transparency for background image in playing screen.(0:tranaparent - 255:no transparent)" );
@@ -339,6 +406,57 @@ public class CConfigToml
             sw.WriteLine();
             sw.WriteLine("# 動画表示モード( 0:表示しない, 1:背景のみ, 2:窓表示のみ, 3:両方)" );
             sw.WriteLine("ClipDispType = {0}", this.Game.Background.ClipDispType );
+            sw.WriteLine();
+            sw.WriteLine("[Ending]");
+            sw.WriteLine("# 「また遊んでね」画面(0:OFF, 1:ON, 2:Force)" );
+            sw.WriteLine("EndingAnime={0}", this.Ending.EndingAnime );
+            sw.WriteLine();
+            sw.WriteLine("[PlayOption]");
+            sw.WriteLine("# 演奏速度(5～40)(→x5/20～x40/20)" );
+            sw.WriteLine("PlaySpeed = {0}", this.PlayOption.PlaySpeed );
+            sw.WriteLine();
+            sw.WriteLine("# 判定タイミング調整(-1000～1000)[ms]" );
+            sw.WriteLine("# Revision value to adjust judgment timing.");
+            sw.WriteLine("InputAdjustTimeMs = {0}", this.PlayOption.InputAdjustTimeMs);
+            sw.WriteLine();
+            sw.WriteLine("# RISKYモード(0:OFF, 1-10) 指定回数不可になると、その時点で終了するモードです。" );
+            sw.WriteLine("# RISKY mode. 0=OFF, 1-10 is the times of misses to be Failed." );
+            sw.WriteLine("Risky = {0}", this.PlayOption.Risky );
+            sw.WriteLine();
+            sw.WriteLine("# TIGHTモード" );
+            sw.WriteLine("# TIGHT mode." );
+            sw.WriteLine("Tight = {0}", this.PlayOption.Tight.ToString().ToLower());
+            sw.WriteLine();
+            sw.WriteLine( "# JUST" );
+            sw.WriteLine( "Just = {0}", this.PlayOption.Just.ToString().ToLower());
+            sw.WriteLine();
+            sw.WriteLine( "# プレイ人数" );
+            sw.WriteLine( "PlayerCount = {0}", this.PlayOption.PlayerCount );
+            sw.WriteLine();
+            sw.WriteLine("# プレイヤーネーム");
+            sw.WriteLine("PlayerName = [ {0} ]", string.Join(", ", this.PlayOption.PlayerName.Select(x => $"\"{x}\"")));
+            sw.WriteLine();
+            sw.WriteLine("; ドラム譜面スクロール速度(0:x0.1, 9:x1.0, 14:x1.5,…,1999:x200.0)" );
+            sw.WriteLine("ScrollSpeed = [ {0} ]", string.Join(", ", this.PlayOption.ScrollSpeed));
+            sw.WriteLine();
+		    sw.WriteLine("# RANDOMモード(0:OFF, 1:Random, 2:Mirror 3:SuperRandom, 4:HyperRandom)" );
+            sw.WriteLine("Random = [ {0} ]", string.Join(", ", this.PlayOption.Random));
+            sw.WriteLine();
+            sw.WriteLine("# 真打モード");
+            sw.WriteLine("# Fixed score mode");
+            sw.WriteLine("Shinuchi = [ {0} ]", string.Join(", ", this.PlayOption.Shinuchi.Select(x => x.ToString().ToLower())));
+		    sw.WriteLine();
+#if PLAYABLE
+            sw.WriteLine("# 自動演奏");
+            sw.WriteLine("AutoPlay = [ {0} ]", string.Join(", ", this.PlayOption.AutoPlay.Select(x => x.ToString().ToLower())));
+            sw.WriteLine();
+#endif
+            sw.WriteLine("# 自動演奏時の連打");
+            sw.WriteLine("AutoRoll = {0}", this.PlayOption.AutoRoll.ToString().ToLower());
+            sw.WriteLine();
+            sw.WriteLine("# 自動演奏時の連打間隔(ms)");
+            sw.WriteLine("# ※フレームレート以上の速度は出ません。");
+            sw.WriteLine("AutoRollSpeed = {0}", this.PlayOption.AutoRollSpeed);
             sw.WriteLine();
         }
     }

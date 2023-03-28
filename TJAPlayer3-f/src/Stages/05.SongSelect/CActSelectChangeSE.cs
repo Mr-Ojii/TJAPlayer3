@@ -39,7 +39,7 @@ class CActSelectChangeSE : CActivity
 				for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)
 				{
 					this.donglist[nPlayer, i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Taiko/" + i.ToString() + @"/dong.ogg"), ESoundGroup.SoundEffect);
-					if (TJAPlayer3.ConfigIni.nPlayerCount >= 2 && TJAPlayer3.ConfigIni.b2P演奏時のSEの左右 && donglist[nPlayer, i] != null)
+					if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.ConfigIni.b2P演奏時のSEの左右 && donglist[nPlayer, i] != null)
 					{
 						this.donglist[nPlayer, i].nPanning = (nPlayer * 200) - 100;
 					}

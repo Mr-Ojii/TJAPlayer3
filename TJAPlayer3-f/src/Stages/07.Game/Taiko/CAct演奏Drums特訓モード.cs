@@ -64,7 +64,7 @@ class CAct演奏Drums特訓モード : CActivity
 			{
 				bIsInGoGo = true;
 
-				var current = ((double)(pChip.db発声時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)));
+				var current = ((double)(pChip.db発声時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0)));
 				var width = 0;
 				if (TJAPlayer3.Tx.Tokkun_ProgressBar != null) width = TJAPlayer3.Tx.Tokkun_ProgressBar.szTextureSize.Width;
 
@@ -146,7 +146,7 @@ class CAct演奏Drums特訓モード : CActivity
 					{
 						for (int index = this.JumpPointList.Count - 1; index >= 0; index--)
 						{
-							if (this.JumpPointList[index].Time <= CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))
+							if (this.JumpPointList[index].Time <= CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0))
 							{
 								this.n現在の小節線 = this.JumpPointList[index].Measure;
 								TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0] = this.n現在の小節線;
@@ -187,7 +187,7 @@ class CAct演奏Drums特訓モード : CActivity
 					{
 						for (int index = 0; index < this.JumpPointList.Count; index++)
 						{
-							if (this.JumpPointList[index].Time >= CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0))
+							if (this.JumpPointList[index].Time >= CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0))
 							{
 								this.n現在の小節線 = this.JumpPointList[index].Measure;
 								TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0] = this.n現在の小節線;
@@ -217,8 +217,8 @@ class CAct演奏Drums特訓モード : CActivity
 			{
 				if (this.b特訓PAUSE)
 				{
-					if (TJAPlayer3.ConfigIni.n演奏速度 > 6) {
-						TJAPlayer3.ConfigIni.n演奏速度 = TJAPlayer3.ConfigIni.n演奏速度 - 2;
+					if (TJAPlayer3.ConfigToml.PlayOption.PlaySpeed > 6) {
+						TJAPlayer3.ConfigToml.PlayOption.PlaySpeed = TJAPlayer3.ConfigToml.PlayOption.PlaySpeed - 2;
 						this.t譜面の表示位置を合わせる(false);
 					}
 				}
@@ -227,9 +227,9 @@ class CAct演奏Drums特訓モード : CActivity
 			{
 				if (this.b特訓PAUSE)
 				{
-					if (TJAPlayer3.ConfigIni.n演奏速度 < 399)
+					if (TJAPlayer3.ConfigToml.PlayOption.PlaySpeed < 399)
 					{
-						TJAPlayer3.ConfigIni.n演奏速度 = TJAPlayer3.ConfigIni.n演奏速度 + 2;
+						TJAPlayer3.ConfigToml.PlayOption.PlaySpeed = TJAPlayer3.ConfigToml.PlayOption.PlaySpeed + 2;
 						this.t譜面の表示位置を合わせる(false);
 					}
 				}
@@ -284,15 +284,15 @@ class CAct演奏Drums特訓モード : CActivity
 					this.n現在の小節線 = TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0];
 				}
 
-				if (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0) > this.n最終演奏位置ms)
+				if (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0) > this.n最終演奏位置ms)
 				{
-					this.n最終演奏位置ms = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+					this.n最終演奏位置ms = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
 				}
 			}
 
 		}
 
-		var current = (double)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+		var current = (double)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
 		var percentage = current / length;
 
 		var currentWhite = (double)(this.n最終演奏位置ms);
@@ -374,7 +374,7 @@ class CAct演奏Drums特訓モード : CActivity
 				x += TJAPlayer3.Skin.SkinConfig.Game.Training.BigNumberWidth - 2;
 			}
 
-			var PlaySpdtmp = TJAPlayer3.ConfigIni.n演奏速度 / 20.0d * 10.0d;
+			var PlaySpdtmp = TJAPlayer3.ConfigToml.PlayOption.PlaySpeed / 20.0d * 10.0d;
 			PlaySpdtmp = Math.Round(PlaySpdtmp, MidpointRounding.AwayFromZero);
 
 			var playSpd = PlaySpdtmp / 10.0d;
@@ -475,7 +475,7 @@ class CAct演奏Drums特訓モード : CActivity
 
 		}
 
-		for (int i = 0; i < TJAPlayer3.ConfigIni.nPlayerCount; i++)
+		for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
 		{
 			TJAPlayer3.stage演奏ドラム画面.chip現在処理中の連打チップ[i] = null;
 		}
@@ -512,14 +512,14 @@ class CAct演奏Drums特訓モード : CActivity
 
 		if (doScroll)
 		{
-			this.nスクロール後ms = (long)(dTX.listChip[TJAPlayer3.stage演奏ドラム画面.n現在のトップChip].n発声時刻ms / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+			this.nスクロール後ms = (long)(dTX.listChip[TJAPlayer3.stage演奏ドラム画面.n現在のトップChip].n発声時刻ms / (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
 			this.bスクロール中 = true;
 
 			this.ctスクロールカウンター = new CCounter(0, TJAPlayer3.Skin.SkinConfig.Game.Training.ScrollTime, 1, TJAPlayer3.Timer);
 		}
 		else
 		{
-			CSoundManager.rc演奏用タイマ.n現在時刻ms = (long)(dTX.listChip[TJAPlayer3.stage演奏ドラム画面.n現在のトップChip].n発声時刻ms / (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+			CSoundManager.rc演奏用タイマ.n現在時刻ms = (long)(dTX.listChip[TJAPlayer3.stage演奏ドラム画面.n現在のトップChip].n発声時刻ms / (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
 			this.nスクロール後ms = CSoundManager.rc演奏用タイマ.n現在時刻ms;
 		}
 	}
@@ -528,8 +528,8 @@ class CAct演奏Drums特訓モード : CActivity
 	{
 		if (!this.bスクロール中 && this.b特訓PAUSE)
 		{
-			if (!JumpPointList.Contains(new STJUMPP() { Time = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), Measure = this.n現在の小節線 }))
-				JumpPointList.Add(new STJUMPP() { Time = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0)), Measure = this.n現在の小節線 });
+			if (!JumpPointList.Contains(new STJUMPP() { Time = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0)), Measure = this.n現在の小節線 }))
+				JumpPointList.Add(new STJUMPP() { Time = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0)), Measure = this.n現在の小節線 });
 			JumpPointList.Sort((a, b) => a.Time.CompareTo(b.Time));
 		}
 	}

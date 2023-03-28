@@ -576,7 +576,7 @@ internal class CActSelect曲リスト : CActivity
 		{
 			this.ct登場アニメ用 = new CCounter(0, 100, 3, TJAPlayer3.Timer);
 
-			this.nスクロールタイマ = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+			this.nスクロールタイマ = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
 			TJAPlayer3.stage選曲.t選択曲変更通知();
 
 			this.ct三角矢印アニメ.t開始(0, 1000, 1, TJAPlayer3.Timer);

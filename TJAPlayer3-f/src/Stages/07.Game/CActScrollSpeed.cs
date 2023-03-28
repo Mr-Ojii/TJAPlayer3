@@ -28,7 +28,7 @@ internal class CActScrollSpeed : CActivity
 		this.db現在の譜面スクロール速度 = new double[2];
 		for (int nPlayer = 0; nPlayer < 2; nPlayer++)
 		{
-			this.db現在の譜面スクロール速度[nPlayer] = (double)TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer];
+			this.db現在の譜面スクロール速度[nPlayer] = (double)TJAPlayer3.ConfigToml.PlayOption.ScrollSpeed[nPlayer];
 			this.n速度変更制御タイマ[nPlayer] = -1; 
 		}
 		base.On活性化();
@@ -41,7 +41,7 @@ internal class CActScrollSpeed : CActivity
 			{
 				for (int nPlayer = 0; nPlayer < 2; nPlayer++)
 				{
-					this.n速度変更制御タイマ[nPlayer] = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigIni.n演奏速度) / 20.0));
+					this.n速度変更制御タイマ[nPlayer] = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
 				}
 				base.b初めての進行描画 = false;
 			}
@@ -49,7 +49,7 @@ internal class CActScrollSpeed : CActivity
 
 			for (int nPlayer = 0; nPlayer < 2; nPlayer++)
 			{
-				double db譜面スクロールスピード = (double)TJAPlayer3.ConfigIni.n譜面スクロール速度[nPlayer];
+				double db譜面スクロールスピード = (double)TJAPlayer3.ConfigToml.PlayOption.ScrollSpeed[nPlayer];
 				if (n現在時刻 < this.n速度変更制御タイマ[nPlayer])
 				{
 					this.n速度変更制御タイマ[nPlayer] = n現在時刻;

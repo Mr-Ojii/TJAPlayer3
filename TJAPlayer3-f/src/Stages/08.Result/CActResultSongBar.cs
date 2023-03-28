@@ -35,7 +35,7 @@ internal class CActResultSongBar : CActivity
 
 
 		var title = TJAPlayer3.IsPerformingCalibration
-			? $"Calibration complete. InputAdjustTime is now {TJAPlayer3.ConfigIni.nInputAdjustTimeMs}ms"
+			? $"Calibration complete. InputAdjustTime is now {TJAPlayer3.ConfigToml.PlayOption.InputAdjustTimeMs}ms"
 			: TJAPlayer3.DTX[0].TITLE;
 
 		using (var pfMusicName = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, TJAPlayer3.Skin.SkinConfig.Result.MusicNameFontSize))
