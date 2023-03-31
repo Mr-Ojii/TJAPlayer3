@@ -939,7 +939,7 @@ internal class CActSelect曲リスト : CActivity
 				int nパネル番号 = (((this.n現在の選択行 - 6) + i) + 13) % 13;
 				int n見た目の行番号 = i;
 				int n次のパネル番号 = (this.n現在のスクロールカウンタ <= 0) ? ((i + 1) % 13) : (((i - 1) + 13) % 13);
-				int xAnime = this.ptバーの座標[n見た目の行番号].X + ((int)((this.ptバーの座標[n次のパネル番号].X - this.ptバーの座標[n見た目の行番号].X) * (((double)Math.Abs(this.n現在のスクロールカウンタ)) / 100.0)));
+				int xAnime = TJAPlayer3.Skin.SkinConfig.SongSelect.BarX[n見た目の行番号] + ((int)((TJAPlayer3.Skin.SkinConfig.SongSelect.BarX[n次のパネル番号] - TJAPlayer3.Skin.SkinConfig.SongSelect.BarX[n見た目の行番号]) * (((double)Math.Abs(this.n現在のスクロールカウンタ)) / 100.0)));
 
 				if (n見た目の行番号 == 5 && this.stバー情報[(nパネル番号 + 1) % 13].song.r親ノード != null) //5のところでCenterを描画しないと、選択曲変更のとき、背景に隠れてしまう。
 				{
@@ -952,7 +952,7 @@ internal class CActSelect曲リスト : CActivity
 
 					int sixbasho = basho;
 					int ForLoop;
-					ForLoop = Math.Abs((this.ptバーの座標[5].X + 100) - this.ptバーの座標[7].X) / 100;
+					ForLoop = Math.Abs((TJAPlayer3.Skin.SkinConfig.SongSelect.BarX[5] + 100) - TJAPlayer3.Skin.SkinConfig.SongSelect.BarX[7]) / 100;
 					for (int lo = 0; lo < ForLoop; lo++)
 					{
 						if (basho == 0)
@@ -977,7 +977,7 @@ internal class CActSelect曲リスト : CActivity
 								sixbasho = 1;
 							}
 						}
-						int sixx = this.ptバーの座標[5].X + 100 + lo * 100;
+						int sixx = TJAPlayer3.Skin.SkinConfig.SongSelect.BarX[5] + 100 + lo * 100;
 						sixx -= this.n現在のスクロールカウンタ;
 						if (TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[genre] != null)
 							TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[genre].t2D描画(TJAPlayer3.app.Device, sixx, TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY - 69, new Rectangle(sixbasho * 100, 0, 100, TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[nnGenreBack].szTextureSize.Height));
@@ -999,7 +999,7 @@ internal class CActSelect曲リスト : CActivity
 					}
 					else if (n見た目の行番号 != 6)
 					{
-						int fivesevenx = this.ptバーの座標[n見た目の行番号].X;
+						int fivesevenx = TJAPlayer3.Skin.SkinConfig.SongSelect.BarX[n見た目の行番号];
 						fivesevenx -= this.n現在のスクロールカウンタ;
 						if (TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[genre] != null)
 							TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[genre].t2D描画(TJAPlayer3.app.Device, fivesevenx, TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY - 69, new Rectangle(basho * 100, 0, 100, TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[nnGenreBack].szTextureSize.Height));
@@ -1027,7 +1027,7 @@ internal class CActSelect曲リスト : CActivity
 			int nパネル番号 = (((this.n現在の選択行 - 6) + i) + 13) % 13;
 			int n見た目の行番号 = i;
 			int n次のパネル番号 = (this.n現在のスクロールカウンタ <= 0) ? ((i + 1) % 13) : (((i - 1) + 13) % 13);
-			int xAnime = this.ptバーの座標[n見た目の行番号].X + ((int)((this.ptバーの座標[n次のパネル番号].X - this.ptバーの座標[n見た目の行番号].X) * (((double)Math.Abs(this.n現在のスクロールカウンタ)) / 100.0)));
+			int xAnime = TJAPlayer3.Skin.SkinConfig.SongSelect.BarX[n見た目の行番号] + ((int)((TJAPlayer3.Skin.SkinConfig.SongSelect.BarX[n次のパネル番号] - TJAPlayer3.Skin.SkinConfig.SongSelect.BarX[n見た目の行番号]) * (((double)Math.Abs(this.n現在のスクロールカウンタ)) / 100.0)));
 
 			#region [曲決定時のバーの横移動]
 			if (TJAPlayer3.stage選曲.現在の選曲画面状況 == CStage選曲.E選曲画面.難易度選択Out)
@@ -1423,11 +1423,6 @@ internal class CActSelect曲リスト : CActivity
 	private int n現在のスクロールカウンタ;
 	private int n現在の選択行;
 	private int n目標のスクロールカウンタ;
-
-	private Point[] ptバーの座標 = new Point[]
-	{ new Point( -160, 180 ), new Point( -60, 180 ), new Point( 40, 180 ), new Point( 140, 180 ), new Point( 240, 180 ), new Point( 340, 180 ),
-		new Point( 590, 180 ),
-		new Point( 840, 180 ), new Point( 940, 180 ), new Point( 1040, 180 ), new Point( 1140, 180 ), new Point( 1240, 180 ), new Point( 1340, 180 ) };//2020.06.16 Mr-Ojii 諸事情により座標変更
 
 	private STバー情報[] stバー情報 = new STバー情報[13];
 	private CTexture txSongNotFound, txEnumeratingSongs;

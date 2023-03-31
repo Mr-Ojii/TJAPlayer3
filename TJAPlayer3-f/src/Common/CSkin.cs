@@ -773,6 +773,8 @@ internal class CSkin : IDisposable
 			public int[] NamePlateAutoY { get; set; } = new int[2] { 650, 650 };
 			public int CounterX { get; set; } = 1145;
 			public int CounterY { get; set; } = 55;
+			public int[] BarX { get; set; } = new int[] { -160, -60, 40, 140, 240, 340, 590, 840, 940, 1040, 1140, 1240, 1340 };
+			public int[] BarY { get; set; } = new int[] { 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180 };
 			public int[] ScoreWindowX { get; set; } = { 0, 1030 };
 			public int[] ScoreWindowY { get; set; }= { 160, 160 };
 			public int BackBoxTextCorrectionY { get; set; } = 0;
