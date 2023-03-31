@@ -1209,10 +1209,10 @@ internal class CStage選曲 : CStage
 	{
 		if (this.現在の選曲画面状況 == E選曲画面.通常) 			
 		{
-			if (i < 0) 
-				this.tカーソルを下へ移動する();
-			else
+			if (i < 0)
 				this.tカーソルを上へ移動する();
+			else
+				this.tカーソルを下へ移動する();
 		}
 	}
 	private void tカーソルを下へ移動する()

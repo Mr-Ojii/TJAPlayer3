@@ -248,7 +248,7 @@ public class GameWindow : IDisposable
                                 break;
                         }
                     case SDL.SDL_EventType.SDL_MOUSEWHEEL:
-                        this.MouseWheel(_window_handle, new MouseWheelEventArgs(poll_event.wheel.x, poll_event.wheel.y));
+                        this.MouseWheel(_window_handle, new MouseWheelEventArgs(poll_event.wheel.preciseX, poll_event.wheel.preciseY));
                         break;
 
                     case SDL.SDL_EventType.SDL_QUIT:

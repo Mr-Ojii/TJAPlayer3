@@ -8,10 +8,10 @@ namespace FDK.Windowing;
 
 public class MouseWheelEventArgs : EventArgs
 {
-    public int x;
-    public int y;
+    public float x;
+    public float y;
     
-    public MouseWheelEventArgs(int x, int y)
+    public MouseWheelEventArgs(float x, float y)
     {
         this.x = x;
         this.y = y;

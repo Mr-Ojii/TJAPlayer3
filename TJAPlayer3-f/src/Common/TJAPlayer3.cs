@@ -1771,7 +1771,7 @@ internal class TJAPlayer3 : Game
 	private void Window_MouseWheel(object sender, FDK.Windowing.MouseWheelEventArgs e)
 	{
 		if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongSelect && ConfigToml.SongSelect.EnableMouseWheel) 
-			TJAPlayer3.stage選曲.MouseWheel(e.y);
+			TJAPlayer3.stage選曲.MouseWheel(e.x - e.y);
 	}
 
 	private void Window_ResizeOrMove(object sender, EventArgs e)               // #23510 2010.11.20 yyagi: to get resized window size
