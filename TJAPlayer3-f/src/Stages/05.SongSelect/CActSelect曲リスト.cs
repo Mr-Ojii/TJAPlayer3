@@ -1137,32 +1137,18 @@ internal class CActSelect曲リスト : CActivity
 								for (int i = 0; i < (int)Difficulty.Edit + 1; i++)
 								{
 									if (r現在選択中のスコア.譜面情報.b譜面が存在する[i])
-									{
-										// レベルが0以上
 										TJAPlayer3.Tx.SongSelect_Frame_Score.color = Color.FromArgb(255, 255, 255, 255);
-										if (i == 4 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0] == 4)
-										{
-											// エディット
-											TJAPlayer3.Tx.SongSelect_Frame_Score.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 494 + (3 * 60), TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY + 463, new Rectangle(60 * i, 0, 60, 360));
-										}
-										else if (i != 4)
-										{
-											TJAPlayer3.Tx.SongSelect_Frame_Score.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 494 + (i * 60), TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY + 463, new Rectangle(60 * i, 0, 60, 360));
-										}
-									}
 									else
-									{
-										// レベルが0未満 = 譜面がないとみなす
 										TJAPlayer3.Tx.SongSelect_Frame_Score.color = Color.FromArgb(255, 127, 127, 127);
-										if (i == 4 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0] == 4)
-										{
-											// エディット
-											TJAPlayer3.Tx.SongSelect_Frame_Score.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 494 + (3 * 60), TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY + 463, new Rectangle(60 * i, 0, 60, 360));
-										}
-										else if (i != 4)
-										{
-											TJAPlayer3.Tx.SongSelect_Frame_Score.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 494 + (i * 60), TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY + 463, new Rectangle(60 * i, 0, 60, 360));
-										}
+										
+									if (i == 4 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0] == 4)
+									{
+										// エディット
+										TJAPlayer3.Tx.SongSelect_Frame_Score.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 494 + (3 * 60), TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY + 463, new Rectangle(60 * i, 0, 60, 360));
+									}
+									else if (i != 4)
+									{
+										TJAPlayer3.Tx.SongSelect_Frame_Score.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 494 + (i * 60), TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY + 463, new Rectangle(60 * i, 0, 60, 360));
 									}
 								}
 							}
