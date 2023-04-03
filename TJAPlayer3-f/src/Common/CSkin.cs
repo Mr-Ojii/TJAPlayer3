@@ -937,7 +937,7 @@ internal class CSkin : IDisposable
 			public class CCourseSymbol
 			{
 				public int[] X { get; set; } = new int[] { 64, 64 };
-				public int[] Y { get; set; } = new int[] { 232, 432 };
+				public int[] Y { get; set; } = new int[] { 232, 410 };
 			}
 			public CPanelFont PanelFont { get; set; } = new();
 			public class CPanelFont

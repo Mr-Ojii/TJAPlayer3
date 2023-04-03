@@ -838,7 +838,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
 							TJAPlayer3.Tx.Taiko_Combo[0].Opacity = 0;
 						TJAPlayer3.Tx.Taiko_Combo[0].vcScaling.Y = 1f;
 						TJAPlayer3.Tx.Taiko_Combo[0].vcScaling.X = 1f;
-						TJAPlayer3.Tx.Taiko_Combo[0].t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x, y, rectangle);
+						TJAPlayer3.Tx.Taiko_Combo[0].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x, y, rectangle);
 					}
 					break;
 				}

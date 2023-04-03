@@ -66,7 +66,7 @@ class PuchiChara : CActivity
 		var sineY = Math.Sin(SineCounter.db現在の値 * (Math.PI / 180)) * (TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Sine * (isBalloon ? TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Scale[1] : TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Scale[0]));
 		TJAPlayer3.Tx.PuchiChara[nPlayer].vcScaling = new Vector2((isBalloon ? TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Scale[1] : TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Scale[0]));
 		TJAPlayer3.Tx.PuchiChara[nPlayer].Opacity = alpha;
-		TJAPlayer3.Tx.PuchiChara[nPlayer].t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x, y + (int)sineY, new Rectangle(Counter.n現在の値 * TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Width, (isGrowing ? TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Height : 0), TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Width, TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Height));
+		TJAPlayer3.Tx.PuchiChara[nPlayer].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x, y + (int)sineY, new Rectangle(Counter.n現在の値 * TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Width, (isGrowing ? TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Height : 0), TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Width, TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Height));
 		return base.On進行描画();
 	}
 

@@ -138,7 +138,7 @@ internal class FlyingNotes : CActivity
 
 					}
 
-					TJAPlayer3.Tx.Notes?.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, (int)Flying[i].X, (int)Flying[i].Y, new Rectangle(Flying[i].Lane * 130, 0, 130, 130));
+					TJAPlayer3.Tx.Notes?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, (int)Flying[i].X, (int)Flying[i].Y, new Rectangle(Flying[i].Lane * 130, 0, 130, 130));
 					
 				}
 			}
