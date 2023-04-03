@@ -336,7 +336,7 @@ internal class Dan_Cert : CActivity
 			TJAPlayer3.Tx.DanC_V2_Background?.t2D描画(TJAPlayer3.app.Device, 0, 0);
 
 			// 段プレートを描画する。
-			Dan_Plate?.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.SkinConfig.Game.DanC.v2DanPlateXY[0], TJAPlayer3.Skin.SkinConfig.Game.DanC.v2DanPlateXY[1]);
+			Dan_Plate?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.SkinConfig.Game.DanC.v2DanPlateXY[0], TJAPlayer3.Skin.SkinConfig.Game.DanC.v2DanPlateXY[1]);
 
 			DrawExamV2(Challenge, Gauge);
 		}
@@ -351,7 +351,7 @@ internal class Dan_Cert : CActivity
 			DrawNumber(notesRemain, TJAPlayer3.Skin.SkinConfig.Game.DanC.NumberXY[0], TJAPlayer3.Skin.SkinConfig.Game.DanC.NumberXY[1], TJAPlayer3.Skin.SkinConfig.Game.DanC.NumberPadding);
 
 			// 段プレートを描画する。
-			Dan_Plate?.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.SkinConfig.Game.DanC.DanPlateXY[0], TJAPlayer3.Skin.SkinConfig.Game.DanC.DanPlateXY[1]);
+			Dan_Plate?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.SkinConfig.Game.DanC.DanPlateXY[0], TJAPlayer3.Skin.SkinConfig.Game.DanC.DanPlateXY[1]);
 			DrawExam(Challenge);
 		}
 

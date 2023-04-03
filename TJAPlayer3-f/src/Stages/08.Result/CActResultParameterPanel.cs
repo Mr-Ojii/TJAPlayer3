@@ -194,7 +194,7 @@ internal class CActResultParameterPanel : CActivity
 
 					TJAPlayer3.Tx.Result_Dan?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.DanXY[0], TJAPlayer3.Skin.SkinConfig.Result.DanXY[1], new Rectangle(TJAPlayer3.Skin.SkinConfig.Result.DanWH[0] * CrownState[i], 0, TJAPlayer3.Skin.SkinConfig.Result.DanWH[0], TJAPlayer3.Skin.SkinConfig.Result.DanWH[1]));
 					// Dan_Plate
-					Dan_Plate?.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.SkinConfig.Result.DanPlateXY[0], TJAPlayer3.Skin.SkinConfig.Result.DanPlateXY[1]);
+					Dan_Plate?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.SkinConfig.Result.DanPlateXY[0], TJAPlayer3.Skin.SkinConfig.Result.DanPlateXY[1]);
 				}
 				else
 				{
@@ -402,7 +402,7 @@ internal class CActResultParameterPanel : CActivity
 					
 					TJAPlayer3.Tx.Result_Dan?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.DanXY[0], TJAPlayer3.Skin.SkinConfig.Result.DanXY[1], new Rectangle(TJAPlayer3.Skin.SkinConfig.Result.DanWH[0] * CrownState[i], 0, TJAPlayer3.Skin.SkinConfig.Result.DanWH[0], TJAPlayer3.Skin.SkinConfig.Result.DanWH[1]));
 					// Dan_Plate
-					Dan_Plate?.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.SkinConfig.Result.DanPlateXY[0], TJAPlayer3.Skin.SkinConfig.Result.DanPlateXY[1]);
+					Dan_Plate?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.SkinConfig.Result.DanPlateXY[0], TJAPlayer3.Skin.SkinConfig.Result.DanPlateXY[1]);
 				}
 				else
 				{

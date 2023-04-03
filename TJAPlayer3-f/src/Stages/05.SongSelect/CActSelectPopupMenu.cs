@@ -277,7 +277,7 @@ internal class CActSelectPopupMenu : CActivity
 			#endregion
 			#region [ ソートメニュータイトル描画 ]
 			int x = 210, y = 60;
-			stqMenuTitle.txName.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Left, x, y);
+			stqMenuTitle.txName.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Left, x, y);
 			#endregion
 			#region [ カーソル描画 ]
 			if ( TJAPlayer3.Tx.Menu_Highlight != null )
@@ -303,7 +303,7 @@ internal class CActSelectPopupMenu : CActivity
 				//font.t文字列描画( 190, 80 + i * 32, lciMenuItems[ i ].cItem.strName, bItemBold, 1.0f );
 				if ( lciMenuItems[ i ].txName != null )
 				{
-					lciMenuItems[i].txName.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Left, 180, 92 + i * 32);
+					lciMenuItems[i].txName.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Left, 180, 92 + i * 32);
 				}
 
 				bool bValueBold = (bItemBold || (i == nItemSelecting && bIsSelectingIntItem)) ? true : false;
@@ -335,7 +335,7 @@ internal class CActSelectPopupMenu : CActivity
 					{
 						using (var ctStr = TJAPlayer3.tCreateTexture(bmpStr))
 						{
-							ctStr.t2D描画(TJAPlayer3.app.Device, CTexture.RefPnt.Left, 330, 92 + i * 32);
+							ctStr.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Left, 330, 92 + i * 32);
 						}
 					}
 				}

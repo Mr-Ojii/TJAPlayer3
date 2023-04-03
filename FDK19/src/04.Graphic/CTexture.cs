@@ -169,10 +169,6 @@ public class CTexture : IDisposable
         }
     }
 
-    public void t2D描画(Device device, RefPnt refpnt, float x, float y) 
-    {
-        this.t2D描画(device, refpnt, x, y, rcImageRect);
-    }
     public void t2D描画(Device device, RefPnt refpnt, float x, float y, Rectangle rect)
     {
         switch (refpnt)
