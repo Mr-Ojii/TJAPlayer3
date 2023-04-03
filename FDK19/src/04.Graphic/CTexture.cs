@@ -181,25 +181,25 @@ public class CTexture : IDisposable
                 this.t2D描画(device, x, y, rect);
                 break;
             case RefPnt.Up:
-                this.t2D描画(device, x - (rect.Width / 2), y, rect);
+                this.t2D描画(device, x - (rect.Width / 2f), y, rect);
                 break;
             case RefPnt.UpRight:
                 this.t2D描画(device, x - rect.Width, y, rect);
                 break;
             case RefPnt.Left:
-                this.t2D描画(device, x, y - (rect.Height / 2), rect);
+                this.t2D描画(device, x, y - (rect.Height / 2f), rect);
                 break;
             case RefPnt.Center:
-                this.t2D描画(device, x - (rect.Width / 2), y - (rect.Height / 2), rect);
+                this.t2D描画(device, x - (rect.Width / 2f), y - (rect.Height / 2f), rect);
                 break;
             case RefPnt.Right:
-                this.t2D描画(device, x - rect.Width, y - (rect.Height / 2), rect);
+                this.t2D描画(device, x - rect.Width, y - (rect.Height / 2f), rect);
                 break;
             case RefPnt.DownLeft:
                 this.t2D描画(device, x, y - rect.Height, rect);
                 break;
             case RefPnt.Down:
-                this.t2D描画(device, x - (rect.Width / 2), y - rect.Height, rect);
+                this.t2D描画(device, x - (rect.Width / 2f), y - rect.Height, rect);
                 break;
             case RefPnt.DownRight:
                 this.t2D描画(device, x - rect.Width, y - rect.Height, rect);
@@ -221,25 +221,25 @@ public class CTexture : IDisposable
                 this.t2D描画(device, x, y, rect);
                 break;
             case RefPnt.Up:
-                this.t2D描画(device, x - (rect.Width / 2 * this.vcScaling.X), y, rect);
+                this.t2D描画(device, x - (rect.Width / 2f * this.vcScaling.X), y, rect);
                 break;
             case RefPnt.UpRight:
                 this.t2D描画(device, x - rect.Width * this.vcScaling.X, y, rect);
                 break;
             case RefPnt.Left:
-                this.t2D描画(device, x, y - (rect.Height / 2 * this.vcScaling.Y), rect);
+                this.t2D描画(device, x, y - (rect.Height / 2f * this.vcScaling.Y), rect);
                 break;
             case RefPnt.Center:
-                this.t2D描画(device, x - (rect.Width / 2 * this.vcScaling.X), y - (rect.Height / 2 * this.vcScaling.Y), rect);
+                this.t2D描画(device, x - (rect.Width / 2f * this.vcScaling.X), y - (rect.Height / 2f * this.vcScaling.Y), rect);
                 break;
             case RefPnt.Right:
-                this.t2D描画(device, x - rect.Width * this.vcScaling.X, y - (rect.Height / 2 * this.vcScaling.Y), rect);
+                this.t2D描画(device, x - rect.Width * this.vcScaling.X, y - (rect.Height / 2f * this.vcScaling.Y), rect);
                 break;
             case RefPnt.DownLeft:
                 this.t2D描画(device, x, y - rect.Height * this.vcScaling.Y, rect);
                 break;
             case RefPnt.Down:
-                this.t2D描画(device, x - (rect.Width / 2 * this.vcScaling.X), y - rect.Height * this.vcScaling.Y, rect);
+                this.t2D描画(device, x - (rect.Width / 2f * this.vcScaling.X), y - rect.Height * this.vcScaling.Y, rect);
                 break;
             case RefPnt.DownRight:
                 this.t2D描画(device, x - rect.Width * this.vcScaling.X, y - rect.Height * this.vcScaling.Y, rect);
@@ -260,25 +260,25 @@ public class CTexture : IDisposable
                 this.t2D描画(device, x, y, rect);
                 break;
             case RefPnt.Up:
-                this.t2D描画(device, x - (szTextureSize.Width / 2), y, rect);
+                this.t2D描画(device, x - (szTextureSize.Width / 2f), y, rect);
                 break;
             case RefPnt.UpRight:
                 this.t2D描画(device, x - szTextureSize.Width, y, rect);
                 break;
             case RefPnt.Left:
-                this.t2D描画(device, x, y - (szTextureSize.Height / 2), rect);
+                this.t2D描画(device, x, y - (szTextureSize.Height / 2f), rect);
                 break;
             case RefPnt.Center:
-                this.t2D描画(device, x - (szTextureSize.Width / 2), y - (szTextureSize.Height / 2), rect);
+                this.t2D描画(device, x - (szTextureSize.Width / 2f), y - (szTextureSize.Height / 2f), rect);
                 break;
             case RefPnt.Right:
-                this.t2D描画(device, x - szTextureSize.Width, y - (szTextureSize.Height / 2), rect);
+                this.t2D描画(device, x - szTextureSize.Width, y - (szTextureSize.Height / 2f), rect);
                 break;
             case RefPnt.DownLeft:
                 this.t2D描画(device, x, y - szTextureSize.Height, rect);
                 break;
             case RefPnt.Down:
-                this.t2D描画(device, x - (szTextureSize.Width / 2), y - szTextureSize.Height, rect);
+                this.t2D描画(device, x - (szTextureSize.Width / 2f), y - szTextureSize.Height, rect);
                 break;
             case RefPnt.DownRight:
                 this.t2D描画(device, x - szTextureSize.Width, y - szTextureSize.Height, rect);
@@ -303,10 +303,10 @@ public class CTexture : IDisposable
         if (this.texture == null)
             return;
 
-        dstrect.x = (int)x;
-        dstrect.y = (int)y;
-        dstrect.w = (int)(rc画像内の描画領域.Width * this.vcScaling.X);
-        dstrect.h = (int)(rc画像内の描画領域.Height * this.vcScaling.Y);
+        dstrect.x = x;
+        dstrect.y = y;
+        dstrect.w = rc画像内の描画領域.Width * this.vcScaling.X;
+        dstrect.h = rc画像内の描画領域.Height * this.vcScaling.Y;
 
         srcrect.x = rc画像内の描画領域.X;
         srcrect.y = rc画像内の描画領域.Y;
@@ -314,7 +314,7 @@ public class CTexture : IDisposable
         srcrect.h = rc画像内の描画領域.Height;
 
         SDL.SDL_SetTextureColorMod((IntPtr)this.texture, color.R, color.G, color.B);
-        SDL.SDL_RenderCopyEx(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect, -(this.fRotation * 180 / Math.PI), IntPtr.Zero, SDL.SDL_RendererFlip.SDL_FLIP_NONE);
+        SDL.SDL_RenderCopyExF(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect, -(this.fRotation * 180 / Math.PI), IntPtr.Zero, SDL.SDL_RendererFlip.SDL_FLIP_NONE);
     }
 
 
@@ -323,10 +323,10 @@ public class CTexture : IDisposable
         if (this.texture == null)
             return;
 
-        dstrect.x = (int)x;
-        dstrect.y = (int)y;
-        dstrect.w = (int)(rc画像内の描画領域.Width * this.vcScaling.X);
-        dstrect.h = (int)(rc画像内の描画領域.Height * this.vcScaling.Y);
+        dstrect.x = x;
+        dstrect.y = y;
+        dstrect.w = rc画像内の描画領域.Width * this.vcScaling.X;
+        dstrect.h = rc画像内の描画領域.Height * this.vcScaling.Y;
 
         srcrect.x = rc画像内の描画領域.X;
         srcrect.y = rc画像内の描画領域.Y;
@@ -334,7 +334,7 @@ public class CTexture : IDisposable
         srcrect.h = rc画像内の描画領域.Height;
 
         SDL.SDL_SetTextureColorMod((IntPtr)this.texture, color.R, color.G, color.B);
-        SDL.SDL_RenderCopy(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect);
+        SDL.SDL_RenderCopyF(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect);
     }
 
     public void t2D上下反転描画(Device device, float x, float y)
@@ -346,10 +346,10 @@ public class CTexture : IDisposable
         if (this.texture == null)
             throw new InvalidOperationException("Texture is not generated. ");
 
-        dstrect.x = (int)x;
-        dstrect.y = (int)y;
-        dstrect.w = (int)(rc画像内の描画領域.Width * this.vcScaling.X);
-        dstrect.h = (int)(rc画像内の描画領域.Height * this.vcScaling.Y);
+        dstrect.x = x;
+        dstrect.y = y;
+        dstrect.w = rc画像内の描画領域.Width * this.vcScaling.X;
+        dstrect.h = rc画像内の描画領域.Height * this.vcScaling.Y;
 
         srcrect.x = rc画像内の描画領域.X;
         srcrect.y = rc画像内の描画領域.Y;
@@ -357,7 +357,7 @@ public class CTexture : IDisposable
         srcrect.h = rc画像内の描画領域.Height;
 
         SDL.SDL_SetTextureColorMod((IntPtr)this.texture, color.R, color.G, color.B);
-        SDL.SDL_RenderCopyEx(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect, 0, IntPtr.Zero, SDL.SDL_RendererFlip.SDL_FLIP_VERTICAL);
+        SDL.SDL_RenderCopyExF(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect, 0, IntPtr.Zero, SDL.SDL_RendererFlip.SDL_FLIP_VERTICAL);
     }
 
     public void t2D左右反転描画(Device device, float x, float y)
@@ -369,10 +369,10 @@ public class CTexture : IDisposable
         if (this.texture == null)
             throw new InvalidOperationException("Texture is not generated. ");
 
-        dstrect.x = (int)x;
-        dstrect.y = (int)y;
-        dstrect.w = (int)(rc画像内の描画領域.Width * this.vcScaling.X);
-        dstrect.h = (int)(rc画像内の描画領域.Height * this.vcScaling.Y);
+        dstrect.x = x;
+        dstrect.y = y;
+        dstrect.w = rc画像内の描画領域.Width * this.vcScaling.X;
+        dstrect.h = rc画像内の描画領域.Height * this.vcScaling.Y;
 
         srcrect.x = rc画像内の描画領域.X;
         srcrect.y = rc画像内の描画領域.Y;
@@ -380,7 +380,7 @@ public class CTexture : IDisposable
         srcrect.h = rc画像内の描画領域.Height;
 
         SDL.SDL_SetTextureColorMod((IntPtr)this.texture, color.R, color.G, color.B);
-        SDL.SDL_RenderCopyEx(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect, 0, IntPtr.Zero, SDL.SDL_RendererFlip.SDL_FLIP_HORIZONTAL);
+        SDL.SDL_RenderCopyExF(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect, 0, IntPtr.Zero, SDL.SDL_RendererFlip.SDL_FLIP_HORIZONTAL);
     }
 
     #region [ IDisposable 実装 ]
@@ -454,7 +454,7 @@ public class CTexture : IDisposable
     private Color _color;
     private MakeType maketype = MakeType.bytearray;
     private SDL.SDL_Rect srcrect;
-    private SDL.SDL_Rect dstrect;
+    private SDL.SDL_FRect dstrect;
     //-----------------
     #endregion
 }
