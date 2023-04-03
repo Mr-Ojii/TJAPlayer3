@@ -381,7 +381,7 @@ internal class CActSelectPlayOption : CActivity
 
 			if (lci[nPlayer][lci[nPlayer].Count - i - 1].strName.Equals("ばいそく"))
 			{
-				using (CTexture texture = TJAPlayer3.tCreateTexture(this.Font.DrawText(((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex() + 1) * 0.1).ToString("0.0"), Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio)))
+				using (CTexture texture = TJAPlayer3.tCreateTexture(this.Font.DrawText((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex() * 0.1).ToString("0.0"), Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio)))
 				{
 					texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionListCorrectionX - texture.szTextureSize.Width / 2, y - (TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2] - TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1]) + TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionListCorrectionY);
 				}
