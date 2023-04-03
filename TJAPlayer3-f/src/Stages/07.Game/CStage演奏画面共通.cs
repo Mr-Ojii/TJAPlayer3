@@ -4233,14 +4233,14 @@ internal class CStage演奏画面共通 : CStage
 
 							TJAPlayer3.Tx.Notes.vcScaling.X = 1.0f;
 
-							TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(910, num9, 130, 130));
+							TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, new Rectangle(910, num9, 130, 130));
 
 							if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode == CSkin.ERollColorMode.All)
 								TJAPlayer3.Tx.Notes.color = effectedColor;
 							else
 								TJAPlayer3.Tx.Notes.color = normalColor;
 
-							TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x, y, 0, new Rectangle(650, num9, 130, 130));
+							TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x, y, new Rectangle(650, num9, 130, 130));
 							TJAPlayer3.Tx.Notes.color = normalColor;
 #endregion
 						}
@@ -4269,14 +4269,14 @@ internal class CStage演奏画面共通 : CStage
 
 							TJAPlayer3.Tx.Notes.vcScaling.X = 1.0f;
 
-							TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 - 130 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(910, num9, 130, 130));
+							TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 - 130 + f末端ノーツのテクスチャ位置調整, y, new Rectangle(910, num9, 130, 130));
 
 							if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode == CSkin.ERollColorMode.All)
 								TJAPlayer3.Tx.Notes.color = effectedColor;
 							else
 								TJAPlayer3.Tx.Notes.color = normalColor;
 
-							TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x, y, 0, new Rectangle(650, num9, 130, 130));
+							TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x, y, new Rectangle(650, num9, 130, 130));
 							TJAPlayer3.Tx.Notes.color = normalColor;
 #endregion
 						}
@@ -4309,7 +4309,7 @@ internal class CStage演奏画面共通 : CStage
 							TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x + 64, y, new Rectangle(1171, 0, 128, 130));
 
 							TJAPlayer3.Tx.Notes.vcScaling.X = 1.0f;
-							TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(1300, num9, 130, 130));
+							TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 + f末端ノーツのテクスチャ位置調整, y, new Rectangle(1300, num9, 130, 130));
 
 							if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode == CSkin.ERollColorMode.All)
 								TJAPlayer3.Tx.Notes.color = effectedColor;
@@ -4345,7 +4345,7 @@ internal class CStage演奏画面共通 : CStage
 							TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 64, y, new Rectangle(1171, 0, 128, 130));
 
 							TJAPlayer3.Tx.Notes.vcScaling.X = 1.0f;
-							TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 - 130 + f末端ノーツのテクスチャ位置調整, y, 0, new Rectangle(1300, num9, 130, 130));
+							TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 - 130 + f末端ノーツのテクスチャ位置調整, y, new Rectangle(1300, num9, 130, 130));
 
 							if (TJAPlayer3.Skin.SkinConfig.Game._RollColorMode == CSkin.ERollColorMode.All)
 								TJAPlayer3.Tx.Notes.color = effectedColor;

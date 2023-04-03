@@ -175,38 +175,34 @@ public class CTexture : IDisposable
     }
     public void t2D描画(Device device, RefPnt refpnt, float x, float y, Rectangle rect)
     {
-        this.t2D描画(device, refpnt, x, y, 1f, rect);
-    }
-    public void t2D描画(Device device, RefPnt refpnt, float x, float y, float depth, Rectangle rect)
-    {
         switch (refpnt)
         {
             case RefPnt.UpLeft:
-                this.t2D描画(device, x, y, depth, rect);
+                this.t2D描画(device, x, y, rect);
                 break;
             case RefPnt.Up:
-                this.t2D描画(device, x - (rect.Width / 2), y, depth, rect);
+                this.t2D描画(device, x - (rect.Width / 2), y, rect);
                 break;
             case RefPnt.UpRight:
-                this.t2D描画(device, x - rect.Width, y, depth, rect);
+                this.t2D描画(device, x - rect.Width, y, rect);
                 break;
             case RefPnt.Left:
-                this.t2D描画(device, x, y - (rect.Height / 2), depth, rect);
+                this.t2D描画(device, x, y - (rect.Height / 2), rect);
                 break;
             case RefPnt.Center:
-                this.t2D描画(device, x - (rect.Width / 2), y - (rect.Height / 2), depth, rect);
+                this.t2D描画(device, x - (rect.Width / 2), y - (rect.Height / 2), rect);
                 break;
             case RefPnt.Right:
-                this.t2D描画(device, x - rect.Width, y - (rect.Height / 2), depth, rect);
+                this.t2D描画(device, x - rect.Width, y - (rect.Height / 2), rect);
                 break;
             case RefPnt.DownLeft:
-                this.t2D描画(device, x, y - rect.Height, depth, rect);
+                this.t2D描画(device, x, y - rect.Height, rect);
                 break;
             case RefPnt.Down:
-                this.t2D描画(device, x - (rect.Width / 2), y - rect.Height, depth, rect);
+                this.t2D描画(device, x - (rect.Width / 2), y - rect.Height, rect);
                 break;
             case RefPnt.DownRight:
-                this.t2D描画(device, x - rect.Width, y - rect.Height, depth, rect);
+                this.t2D描画(device, x - rect.Width, y - rect.Height, rect);
                 break;
             default:
                 break;
@@ -219,38 +215,34 @@ public class CTexture : IDisposable
     }
     public void t2D拡大率考慮描画(Device device, RefPnt refpnt, float x, float y, Rectangle rect)
     {
-        this.t2D拡大率考慮描画(device, refpnt, x, y, 1f, rect);
-    }
-    public void t2D拡大率考慮描画(Device device, RefPnt refpnt, float x, float y, float depth, Rectangle rect)
-    {
         switch (refpnt)
         {
             case RefPnt.UpLeft:
-                this.t2D描画(device, x, y, depth, rect);
+                this.t2D描画(device, x, y, rect);
                 break;
             case RefPnt.Up:
-                this.t2D描画(device, x - (rect.Width / 2 * this.vcScaling.X), y, depth, rect);
+                this.t2D描画(device, x - (rect.Width / 2 * this.vcScaling.X), y, rect);
                 break;
             case RefPnt.UpRight:
-                this.t2D描画(device, x - rect.Width * this.vcScaling.X, y, depth, rect);
+                this.t2D描画(device, x - rect.Width * this.vcScaling.X, y, rect);
                 break;
             case RefPnt.Left:
-                this.t2D描画(device, x, y - (rect.Height / 2 * this.vcScaling.Y), depth, rect);
+                this.t2D描画(device, x, y - (rect.Height / 2 * this.vcScaling.Y), rect);
                 break;
             case RefPnt.Center:
-                this.t2D描画(device, x - (rect.Width / 2 * this.vcScaling.X), y - (rect.Height / 2 * this.vcScaling.Y), depth, rect);
+                this.t2D描画(device, x - (rect.Width / 2 * this.vcScaling.X), y - (rect.Height / 2 * this.vcScaling.Y), rect);
                 break;
             case RefPnt.Right:
-                this.t2D描画(device, x - rect.Width * this.vcScaling.X, y - (rect.Height / 2 * this.vcScaling.Y), depth, rect);
+                this.t2D描画(device, x - rect.Width * this.vcScaling.X, y - (rect.Height / 2 * this.vcScaling.Y), rect);
                 break;
             case RefPnt.DownLeft:
-                this.t2D描画(device, x, y - rect.Height * this.vcScaling.Y, depth, rect);
+                this.t2D描画(device, x, y - rect.Height * this.vcScaling.Y, rect);
                 break;
             case RefPnt.Down:
-                this.t2D描画(device, x - (rect.Width / 2 * this.vcScaling.X), y - rect.Height * this.vcScaling.Y, depth, rect);
+                this.t2D描画(device, x - (rect.Width / 2 * this.vcScaling.X), y - rect.Height * this.vcScaling.Y, rect);
                 break;
             case RefPnt.DownRight:
-                this.t2D描画(device, x - rect.Width * this.vcScaling.X, y - rect.Height * this.vcScaling.Y, depth, rect);
+                this.t2D描画(device, x - rect.Width * this.vcScaling.X, y - rect.Height * this.vcScaling.Y, rect);
                 break;
             default:
                 break;
@@ -262,38 +254,34 @@ public class CTexture : IDisposable
     }
     public void t2D元サイズ基準描画(Device device, RefPnt refpnt, float x, float y, Rectangle rect)
     {
-        this.t2D元サイズ基準描画(device, refpnt, x, y, 1f, rect);
-    }
-    public void t2D元サイズ基準描画(Device device, RefPnt refpnt, float x, float y, float depth, Rectangle rect)
-    {
         switch (refpnt)
         {
             case RefPnt.UpLeft:
-                this.t2D描画(device, x, y, depth, rect);
+                this.t2D描画(device, x, y, rect);
                 break;
             case RefPnt.Up:
-                this.t2D描画(device, x - (szTextureSize.Width / 2), y, depth, rect);
+                this.t2D描画(device, x - (szTextureSize.Width / 2), y, rect);
                 break;
             case RefPnt.UpRight:
-                this.t2D描画(device, x - szTextureSize.Width, y, depth, rect);
+                this.t2D描画(device, x - szTextureSize.Width, y, rect);
                 break;
             case RefPnt.Left:
-                this.t2D描画(device, x, y - (szTextureSize.Height / 2), depth, rect);
+                this.t2D描画(device, x, y - (szTextureSize.Height / 2), rect);
                 break;
             case RefPnt.Center:
-                this.t2D描画(device, x - (szTextureSize.Width / 2), y - (szTextureSize.Height / 2), depth, rect);
+                this.t2D描画(device, x - (szTextureSize.Width / 2), y - (szTextureSize.Height / 2), rect);
                 break;
             case RefPnt.Right:
-                this.t2D描画(device, x - szTextureSize.Width, y - (szTextureSize.Height / 2), depth, rect);
+                this.t2D描画(device, x - szTextureSize.Width, y - (szTextureSize.Height / 2), rect);
                 break;
             case RefPnt.DownLeft:
-                this.t2D描画(device, x, y - szTextureSize.Height, depth, rect);
+                this.t2D描画(device, x, y - szTextureSize.Height, rect);
                 break;
             case RefPnt.Down:
-                this.t2D描画(device, x - (szTextureSize.Width / 2), y - szTextureSize.Height, depth, rect);
+                this.t2D描画(device, x - (szTextureSize.Width / 2), y - szTextureSize.Height, rect);
                 break;
             case RefPnt.DownRight:
-                this.t2D描画(device, x - szTextureSize.Width, y - szTextureSize.Height, depth, rect);
+                this.t2D描画(device, x - szTextureSize.Width, y - szTextureSize.Height, rect);
                 break;
             default:
                 break;
@@ -308,13 +296,9 @@ public class CTexture : IDisposable
     /// <param name="y">描画位置（テクスチャの左上位置の Y 座標[dot]）。</param>
     public void t2D描画(Device device, float x, float y)
     {
-        this.t2D描画(device, x, y, 1f, this.rcImageRect);
+        this.t2D描画(device, x, y, this.rcImageRect);
     }
     public void t2D描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
-    {
-        this.t2D描画(device, x, y, 1f, rc画像内の描画領域);
-    }
-    public void t2D描画(Device device, float x, float y, float depth, Rectangle rc画像内の描画領域)
     {
         if (this.texture == null)
             return;
@@ -355,13 +339,9 @@ public class CTexture : IDisposable
 
     public void t2D上下反転描画(Device device, float x, float y)
     {
-        this.t2D上下反転描画(device, x, y, 1f, this.rcImageRect);
+        this.t2D上下反転描画(device, x, y, this.rcImageRect);
     }
     public void t2D上下反転描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
-    {
-        this.t2D上下反転描画(device, x, y, 1f, rc画像内の描画領域);
-    }
-    public void t2D上下反転描画(Device device, float x, float y, float depth, Rectangle rc画像内の描画領域)
     {
         if (this.texture == null)
             throw new InvalidOperationException("Texture is not generated. ");
@@ -382,13 +362,9 @@ public class CTexture : IDisposable
 
     public void t2D左右反転描画(Device device, float x, float y)
     {
-        this.t2D左右反転描画(device, x, y, 1f, this.rcImageRect);
+        this.t2D左右反転描画(device, x, y, this.rcImageRect);
     }
     public void t2D左右反転描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
-    {
-        this.t2D左右反転描画(device, x, y, 1f, rc画像内の描画領域);
-    }
-    public void t2D左右反転描画(Device device, float x, float y, float depth, Rectangle rc画像内の描画領域)
     {
         if (this.texture == null)
             throw new InvalidOperationException("Texture is not generated. ");
