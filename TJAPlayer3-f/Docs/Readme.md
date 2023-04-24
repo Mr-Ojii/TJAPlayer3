@@ -99,7 +99,7 @@ chmod +x TJAPlayer3-f.AppImage
 ## 開発環境(動作確認環境)
 #### OS
 * Windows 11(Ver.22H2) (x64)
-* macOS 12.6.2 (arm64)
+* macOS 13.3.1 (arm64)
 
 #### Editor
 * Visual Studio Community 2022
