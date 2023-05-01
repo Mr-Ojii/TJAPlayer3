@@ -184,26 +184,11 @@ public class GameWindow : IDisposable
 
         _window_id = SDL.SDL_GetWindowID(_window_handle);
 
-        _renderer_handle = IntPtr.Zero;
-        int render_num = SDL.SDL_GetNumRenderDrivers();
-        for(int i = 0; i < render_num; i++) {
-            SDL.SDL_RendererInfo info;
-            if(SDL.SDL_GetRenderDriverInfo(i, out info) == 0) {
-                if(Marshal.PtrToStringUTF8(info.name).Contains("opengl")) {
-                    _renderer_handle = SDL.SDL_CreateRenderer(_window_handle, i, SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED | SDL.SDL_RendererFlags.SDL_RENDERER_PRESENTVSYNC);
-                    if(_renderer_handle != IntPtr.Zero)
-                        break;
-                }
-            }
-        }
+        _renderer_handle = SDL.SDL_CreateRenderer(_window_handle, -1, SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED | SDL.SDL_RendererFlags.SDL_RENDERER_PRESENTVSYNC);
         if (_renderer_handle == IntPtr.Zero)
         {
-            _renderer_handle = SDL.SDL_CreateRenderer(_window_handle, -1, SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED | SDL.SDL_RendererFlags.SDL_RENDERER_PRESENTVSYNC);
-            if (_renderer_handle == IntPtr.Zero)
-            {
-                SDL.SDL_DestroyWindow(_window_handle);
-                throw new Exception("Failed to create renderer.");
-            }
+            SDL.SDL_DestroyWindow(_window_handle);
+            throw new Exception("Failed to create renderer.");
         }
         this.Device = new Device(_window_handle, _renderer_handle);
         SDL.SDL_SetHint(SDL.SDL_HINT_RENDER_SCALE_QUALITY, "linear");
