@@ -127,6 +127,35 @@ internal class CConfigIni
 				this.ID = nID;
 				this.Code = nCode;
 			}
+			public STKEYASSIGN(string str)
+			{
+				this.DeviceType = EInputDevice.Unknown;
+				str = str.Trim().ToUpper();
+				if (str.Length < 3)
+					return;
+
+				switch (str[ 0 ])
+				{
+					case 'J':
+						this.DeviceType = EInputDevice.Joypad;
+						break;
+					case 'K':
+						this.DeviceType = EInputDevice.KeyBoard;
+						break;
+					case 'M':
+						this.DeviceType = EInputDevice.MIDIInput;
+						break;
+					case 'N':
+						this.DeviceType = EInputDevice.Mouse;
+						break;
+				}
+				this.ID = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(str[ 1 ]);  // #24166 2011.1.15 yyagi: to support ID > 10, change 2nd character from Decimal to 36-numeral system. (e.g. J1023 -> JA23)
+				if(int.TryParse(str.Substring(2), out var code))
+					this.Code = code;
+				else
+					this.Code = -1;
+			}
+			
 			public override string ToString()
 			{
 				if (this.DeviceType == EInputDevice.Unknown)
@@ -447,43 +476,11 @@ internal class CConfigIni
 		string[] strArray = strキー記述.Split( new char[] { ',' } );
 		for( int i = 0; ( i < strArray.Length ) && ( i < 0x10 ); i++ )
 		{
-			EInputDevice e入力デバイス;
-			int id;
-			int code;
-			string str = strArray[ i ].Trim().ToUpper();
-			if ( str.Length >= 3 )
+			CKeyAssign.STKEYASSIGN stAssign = new CKeyAssign.STKEYASSIGN(strArray[i]);
+			if( (stAssign.DeviceType != EInputDevice.Unknown) && (stAssign.ID >= 0) && (stAssign.Code >= 0) && (stAssign.Code <= 0xff) )
 			{
-				e入力デバイス = EInputDevice.Unknown;
-				switch ( str[ 0 ] )
-				{
-					case 'J':
-						e入力デバイス = EInputDevice.Joypad;
-						break;
-
-					case 'K':
-						e入力デバイス = EInputDevice.KeyBoard;
-						break;
-
-					case 'M':
-						e入力デバイス = EInputDevice.MIDIInput;
-						break;
-
-					case 'N':
-						e入力デバイス = EInputDevice.Mouse;
-						break;
-				}
-			}
-			else
-			{
-				continue;
-			}
-			id = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf( str[ 1 ] );	// #24166 2011.1.15 yyagi: to support ID > 10, change 2nd character from Decimal to 36-numeral system. (e.g. J1023 -> JA23)
-			if( ( ( id >= 0 ) && int.TryParse( str.Substring( 2 ), out code ) ) && ( ( code >= 0 ) && ( code <= 0xff ) ) )
-			{
-				this.t指定した入力が既にアサイン済みである場合はそれを全削除する( e入力デバイス, id, code );
-				assign[ i ].DeviceType = e入力デバイス;
-				assign[ i ].ID = id;
-				assign[ i ].Code = code;
+				this.t指定した入力が既にアサイン済みである場合はそれを全削除する( stAssign.DeviceType, stAssign.ID, stAssign.Code );
+				assign[i] = stAssign;
 			}
 		}
 	}
