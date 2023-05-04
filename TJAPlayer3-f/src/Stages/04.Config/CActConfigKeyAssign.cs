@@ -28,7 +28,7 @@ internal class CActConfigKeyAssign : CActivity
 		this.strパッド名 = strパッド名;
 		for (int i = 0; i < 0x10; i++)
 		{
-			this.structReset用KeyAssign[i].入力デバイス = TJAPlayer3.ConfigIni.KeyAssign[(int)pad][i].入力デバイス;
+			this.structReset用KeyAssign[i].DeviceType = TJAPlayer3.ConfigIni.KeyAssign[(int)pad][i].DeviceType;
 			this.structReset用KeyAssign[i].ID = TJAPlayer3.ConfigIni.KeyAssign[(int)pad][i].ID;
 			this.structReset用KeyAssign[i].Code = TJAPlayer3.ConfigIni.KeyAssign[(int)pad][i].Code;
 		}
@@ -44,7 +44,7 @@ internal class CActConfigKeyAssign : CActivity
 				case 0x10:
 					for( int i = 0; i < 0x10; i++ )
 					{
-						TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ i ].入力デバイス = this.structReset用KeyAssign[ i ].入力デバイス;
+						TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ i ].DeviceType = this.structReset用KeyAssign[ i ].DeviceType;
 						TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ i ].ID = this.structReset用KeyAssign[ i ].ID;
 						TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ i ].Code = this.structReset用KeyAssign[ i ].Code;
 					}
@@ -131,7 +131,7 @@ internal class CActConfigKeyAssign : CActivity
 			else if( ( TJAPlayer3.InputManager.Keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.Delete ) && ( this.n現在の選択行 >= 0 ) ) && ( this.n現在の選択行 <= 15 ) )
 			{
 				TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
-				TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = EInputDevice.Unknown;
+				TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].DeviceType = EInputDevice.Unknown;
 				TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].ID = 0;
 				TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].Code = 0;
 			}
@@ -158,7 +158,7 @@ internal class CActConfigKeyAssign : CActivity
 			CConfigIni.CKeyAssign.STKEYASSIGN[] stkeyassignArray = TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ];
 			for( int i = 0; i < 0x10; i++ )
 			{
-				switch( stkeyassignArray[ i ].入力デバイス )
+				switch( stkeyassignArray[ i ].DeviceType )
 				{
 					case EInputDevice.KeyBoard:
 						this.tアサインコードの描画_Keyboard( i + 1, x + 20, y, stkeyassignArray[ i ].ID, stkeyassignArray[ i ].Code, this.n現在の選択行 == i );
@@ -228,8 +228,6 @@ internal class CActConfigKeyAssign : CActivity
 	private CConfigIni.CKeyAssign.STKEYASSIGN[] structReset用KeyAssign;
 	private string strパッド名;
 	private CCachedFontRenderer fontRenderer;
-	//private CTexture txHitKeyダイアログ;
-	//private CTexture txカーソル;
 
 	private void tアサインコードの描画_Joypad( int line, int x, int y, int nID, int nCode, bool b強調 )
 	{
@@ -322,7 +320,7 @@ internal class CActConfigKeyAssign : CActivity
 					{
 						TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
 						TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( EInputDevice.Joypad, device.ID, i );
-						TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = EInputDevice.Joypad;
+						TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].DeviceType = EInputDevice.Joypad;
 						TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].ID = device.ID;
 						TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].Code = i;
 						return true;
@@ -347,7 +345,7 @@ internal class CActConfigKeyAssign : CActivity
 			{
 				TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
 				TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( EInputDevice.KeyBoard, 0, i );
-				TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = EInputDevice.KeyBoard;
+				TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].DeviceType = EInputDevice.KeyBoard;
 				TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].ID = 0;
 				TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].Code = i;
 				return true;
@@ -367,7 +365,7 @@ internal class CActConfigKeyAssign : CActivity
 					{
 						TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
 						TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( EInputDevice.MIDIInput, device.ID, i );
-						TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = EInputDevice.MIDIInput;
+						TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].DeviceType = EInputDevice.MIDIInput;
 						TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].ID = device.ID;
 						TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].Code = i;
 						return true;
@@ -384,7 +382,7 @@ internal class CActConfigKeyAssign : CActivity
 			if( TJAPlayer3.InputManager.Mouse.bIsKeyPressed( i ) )
 			{
 				TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( EInputDevice.Mouse, 0, i );
-				TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].入力デバイス = EInputDevice.Mouse;
+				TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].DeviceType = EInputDevice.Mouse;
 				TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].ID = 0;
 				TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].Code = i;
 				return true;

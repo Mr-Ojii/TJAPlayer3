@@ -56,7 +56,7 @@ public class CPad
 			{
 				for( int i = 0; i < stkeyassignArray.Length; i++ )
 				{
-					switch( stkeyassignArray[ i ].入力デバイス )
+					switch( stkeyassignArray[ i ].DeviceType )
 					{
 						case EInputDevice.KeyBoard:
 							if( ( device.eInputDeviceType == EInputDeviceType.Keyboard ) && ( event2.nKey == stkeyassignArray[ i ].Code ) )
@@ -100,7 +100,7 @@ public class CPad
 		CConfigIni.CKeyAssign.STKEYASSIGN[] stkeyassignArray = this.rConfigIni.KeyAssign[(int)pad];
 		for (int i = 0; i < stkeyassignArray.Length; i++)
 		{
-			switch (stkeyassignArray[i].入力デバイス)
+			switch (stkeyassignArray[i].DeviceType)
 			{
 				case EInputDevice.KeyBoard:
 					if (!this.rInputManager.Keyboard.bIsKeyPressed(stkeyassignArray[i].Code))
@@ -146,7 +146,7 @@ public class CPad
 		CConfigIni.CKeyAssign.STKEYASSIGN[] stkeyassignArray = this.rConfigIni.KeyAssign[(int)pad];
 		for (int i = 0; i < stkeyassignArray.Length; i++)
 		{
-			switch (stkeyassignArray[i].入力デバイス)
+			switch (stkeyassignArray[i].DeviceType)
 			{
 				case EInputDevice.KeyBoard:
 					if (!this.rInputManager.Keyboard.bIsKeyDown(stkeyassignArray[i].Code))

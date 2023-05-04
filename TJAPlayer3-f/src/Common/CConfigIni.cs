@@ -118,21 +118,21 @@ internal class CConfigIni
 		[StructLayout(LayoutKind.Sequential)]
 		public struct STKEYASSIGN
 		{
-			public EInputDevice 入力デバイス;
+			public EInputDevice DeviceType;
 			public int ID;
 			public int Code;
-			public STKEYASSIGN(EInputDevice DeviceType, int nID, int nCode)
+			public STKEYASSIGN(EInputDevice eDeviceType, int nID, int nCode)
 			{
-				this.入力デバイス = DeviceType;
+				this.DeviceType = eDeviceType;
 				this.ID = nID;
 				this.Code = nCode;
 			}
 			public override string ToString()
 			{
-				if (this.入力デバイス == EInputDevice.Unknown)
+				if (this.DeviceType == EInputDevice.Unknown)
 					return "";
 				string str = "";
-				switch (this.入力デバイス)
+				switch (this.DeviceType)
 				{
 					case EInputDevice.KeyBoard:
 						str += "K";
@@ -169,7 +169,7 @@ internal class CConfigIni
 			{
 				for (int k = 0; k < 0x10; k++)
 				{
-					if ((this.KeyAssign[j][k].入力デバイス == EInputDevice.KeyBoard) && (this.KeyAssign[j][k].Code == (int)SlimDXKeys.Key.Return))
+					if ((this.KeyAssign[j][k].DeviceType == EInputDevice.KeyBoard) && (this.KeyAssign[j][k].Code == (int)SlimDXKeys.Key.Return))
 					{
 						return false;
 					}
@@ -202,13 +202,13 @@ internal class CConfigIni
 		{
 			for (int k = 0; k < 0x10; k++)
 			{
-				if (((this.KeyAssign[j][k].入力デバイス == DeviceType) && (this.KeyAssign[j][k].ID == nID)) && (this.KeyAssign[j][k].Code == nCode))
+				if (((this.KeyAssign[j][k].DeviceType == DeviceType) && (this.KeyAssign[j][k].ID == nID)) && (this.KeyAssign[j][k].Code == nCode))
 				{
 					for (int m = k; m < 15; m++)
 					{
 						this.KeyAssign[j][m] = this.KeyAssign[j][m + 1];
 					}
-					this.KeyAssign[j][15].入力デバイス = EInputDevice.Unknown;
+					this.KeyAssign[j][15].DeviceType = EInputDevice.Unknown;
 					this.KeyAssign[j][15].ID = 0;
 					this.KeyAssign[j][15].Code = 0;
 					k--;
@@ -481,7 +481,7 @@ internal class CConfigIni
 			if( ( ( id >= 0 ) && int.TryParse( str.Substring( 2 ), out code ) ) && ( ( code >= 0 ) && ( code <= 0xff ) ) )
 			{
 				this.t指定した入力が既にアサイン済みである場合はそれを全削除する( e入力デバイス, id, code );
-				assign[ i ].入力デバイス = e入力デバイス;
+				assign[ i ].DeviceType = e入力デバイス;
 				assign[ i ].ID = id;
 				assign[ i ].Code = code;
 			}
