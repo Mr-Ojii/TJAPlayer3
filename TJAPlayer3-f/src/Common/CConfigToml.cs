@@ -20,18 +20,13 @@ public class CConfigToml
             {
                 ConvertPropertyName = (x) => x,
                 ConvertFieldName = (x) => x,
+                IgnoreMissingProperties = true,
             };
             string str = CJudgeTextEncoding.ReadTextFile(FilePath);
+            ConfigToml = Toml.ToModel<CConfigToml>(str, null, tomlModelOptions);
 
-            foreach(var st in str.Split("\n"))
-                if(st.StartsWith("Version"))
-                    if(st.Split("=")[1].Trim() == $"\"{TJAPlayer3.VERSION}\"")
-                    {
-                        //バージョンが同じ時だけ読み込む
-                        ConfigToml = Toml.ToModel<CConfigToml>(str, null, tomlModelOptions);
-                        ConfigToml.NotExistOrIncorrectVersion = false;
-                        break;
-                    }
+            if(ConfigToml.General.Version == TJAPlayer3.VERSION)
+                ConfigToml.NotExistOrIncorrectVersion = false;
         }
         return ConfigToml;
     }
