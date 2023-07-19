@@ -12,26 +12,26 @@ namespace TJAPlayer3;
 /// </summary>
 internal static class ConfigIniToSongGainControllerBinder
 {
-	internal static void Bind(CConfigToml configToml, SongGainController songGainController)
-	{
-		songGainController.ApplyLoudnessMetadata = configToml.Sound.ApplyLoudnessMetadata;
-		songGainController.TargetLoudness = new Lufs(configToml.Sound.TargetLoudness);
-		songGainController.ApplySongVol = configToml.Sound.ApplySongVol;
+    internal static void Bind(CConfigToml configToml, SongGainController songGainController)
+    {
+        songGainController.ApplyLoudnessMetadata = configToml.Sound.ApplyLoudnessMetadata;
+        songGainController.TargetLoudness = new Lufs(configToml.Sound.TargetLoudness);
+        songGainController.ApplySongVol = configToml.Sound.ApplySongVol;
 
-		configToml.Sound.PropertyChanged += (sender, args) =>
-		{
-			switch (args.PropertyName)
-			{
-				case nameof(CConfigToml.CSoundConf.ApplyLoudnessMetadata):
-					songGainController.ApplyLoudnessMetadata = configToml.Sound.ApplyLoudnessMetadata;
-					break;
-				case nameof(CConfigToml.CSoundConf.TargetLoudness):
-					songGainController.TargetLoudness = new Lufs(configToml.Sound.TargetLoudness);
-					break;
-				case nameof(CConfigToml.CSoundConf.ApplySongVol):
-					songGainController.ApplySongVol = configToml.Sound.ApplySongVol;
-					break;
-			}
-		};
-	}
+        configToml.Sound.PropertyChanged += (sender, args) =>
+        {
+            switch (args.PropertyName)
+            {
+                case nameof(CConfigToml.CSoundConf.ApplyLoudnessMetadata):
+                    songGainController.ApplyLoudnessMetadata = configToml.Sound.ApplyLoudnessMetadata;
+                    break;
+                case nameof(CConfigToml.CSoundConf.TargetLoudness):
+                    songGainController.TargetLoudness = new Lufs(configToml.Sound.TargetLoudness);
+                    break;
+                case nameof(CConfigToml.CSoundConf.ApplySongVol):
+                    songGainController.ApplySongVol = configToml.Sound.ApplySongVol;
+                    break;
+            }
+        };
+    }
 }

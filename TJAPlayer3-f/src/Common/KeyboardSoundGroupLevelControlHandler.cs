@@ -20,43 +20,43 @@ namespace TJAPlayer3;
 /// </summary>
 internal static class KeyboardSoundGroupLevelControlHandler
 {
-	internal static void Handle(
-		IInputDevice keyboard,
-		SoundGroupLevelController soundGroupLevelController,
-		CSkin skin,
-		bool isSongPreview)
-	{
-		var isAdjustmentPositive = keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightBracket);
-		if (!(isAdjustmentPositive || keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftBracket)))
-		{
-			return;
-		}
+    internal static void Handle(
+        IInputDevice keyboard,
+        SoundGroupLevelController soundGroupLevelController,
+        CSkin skin,
+        bool isSongPreview)
+    {
+        var isAdjustmentPositive = keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightBracket);
+        if (!(isAdjustmentPositive || keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftBracket)))
+        {
+            return;
+        }
 
-		ESoundGroup soundGroup;
-		CSkin.Cシステムサウンド システムサウンド = null;
+        ESoundGroup soundGroup;
+        CSkin.Cシステムサウンド システムサウンド = null;
 
-		if (keyboard.bIsKeyDown((int)SlimDXKeys.Key.LeftControl) ||
-			keyboard.bIsKeyDown((int)SlimDXKeys.Key.RightControl))
-		{
-			soundGroup = ESoundGroup.SoundEffect;
-			システムサウンド = skin.SystemSounds[Eシステムサウンド.SOUND決定音];
-		}
-		else if (keyboard.bIsKeyDown((int)SlimDXKeys.Key.LeftShift) ||
-					keyboard.bIsKeyDown((int)SlimDXKeys.Key.RightShift))
-		{
-			soundGroup = ESoundGroup.Voice;
-			システムサウンド = skin.SystemSounds[Eシステムサウンド.SOUNDゲーム開始音];
-		}
-		else if (isSongPreview)
-		{
-			soundGroup = ESoundGroup.SongPreview;
-		}
-		else
-		{
-			soundGroup = ESoundGroup.SongPlayback;
-		}
+        if (keyboard.bIsKeyDown((int)SlimDXKeys.Key.LeftControl) ||
+            keyboard.bIsKeyDown((int)SlimDXKeys.Key.RightControl))
+        {
+            soundGroup = ESoundGroup.SoundEffect;
+            システムサウンド = skin.SystemSounds[Eシステムサウンド.SOUND決定音];
+        }
+        else if (keyboard.bIsKeyDown((int)SlimDXKeys.Key.LeftShift) ||
+                    keyboard.bIsKeyDown((int)SlimDXKeys.Key.RightShift))
+        {
+            soundGroup = ESoundGroup.Voice;
+            システムサウンド = skin.SystemSounds[Eシステムサウンド.SOUNDゲーム開始音];
+        }
+        else if (isSongPreview)
+        {
+            soundGroup = ESoundGroup.SongPreview;
+        }
+        else
+        {
+            soundGroup = ESoundGroup.SongPlayback;
+        }
 
-		soundGroupLevelController.AdjustLevel(soundGroup, isAdjustmentPositive);
-		システムサウンド?.t再生する();
-	}
+        soundGroupLevelController.AdjustLevel(soundGroup, isAdjustmentPositive);
+        システムサウンド?.t再生する();
+    }
 }

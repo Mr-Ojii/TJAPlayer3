@@ -12,55 +12,55 @@ namespace TJAPlayer3;
 /// </summary>
 internal static class ConfigIniToSoundGroupLevelControllerBinder
 {
-	internal static void Bind(CConfigToml configToml, SoundGroupLevelController soundGroupLevelController)
-	{
-		soundGroupLevelController.SetLevel(ESoundGroup.SoundEffect, configToml.Sound.SoundEffectLevel);
-		soundGroupLevelController.SetLevel(ESoundGroup.Voice, configToml.Sound.VoiceLevel);
-		soundGroupLevelController.SetLevel(ESoundGroup.SongPreview, configToml.Sound.SongPreviewLevel);
-		soundGroupLevelController.SetLevel(ESoundGroup.SongPlayback, configToml.Sound.SongPlaybackLevel);
-		soundGroupLevelController.SetKeyboardSoundLevelIncrement(configToml.Sound.KeyboardSoundLevelIncrement);
+    internal static void Bind(CConfigToml configToml, SoundGroupLevelController soundGroupLevelController)
+    {
+        soundGroupLevelController.SetLevel(ESoundGroup.SoundEffect, configToml.Sound.SoundEffectLevel);
+        soundGroupLevelController.SetLevel(ESoundGroup.Voice, configToml.Sound.VoiceLevel);
+        soundGroupLevelController.SetLevel(ESoundGroup.SongPreview, configToml.Sound.SongPreviewLevel);
+        soundGroupLevelController.SetLevel(ESoundGroup.SongPlayback, configToml.Sound.SongPlaybackLevel);
+        soundGroupLevelController.SetKeyboardSoundLevelIncrement(configToml.Sound.KeyboardSoundLevelIncrement);
 
-		configToml.Sound.PropertyChanged += (sender, args) =>
-		{
-			switch (args.PropertyName)
-			{
-				case nameof(CConfigToml.Sound.SoundEffectLevel):
-					soundGroupLevelController.SetLevel(ESoundGroup.SoundEffect, configToml.Sound.SoundEffectLevel);
-					break;
-				case nameof(CConfigToml.Sound.VoiceLevel):
-					soundGroupLevelController.SetLevel(ESoundGroup.Voice, configToml.Sound.VoiceLevel);
-					break;
-				case nameof(CConfigToml.Sound.SongPreviewLevel):
-					soundGroupLevelController.SetLevel(ESoundGroup.SongPreview, configToml.Sound.SongPreviewLevel);
-					break;
-				case nameof(CConfigToml.Sound.SongPlaybackLevel):
-					soundGroupLevelController.SetLevel(ESoundGroup.SongPlayback, configToml.Sound.SongPlaybackLevel);
-					break;
-				case nameof(CConfigToml.Sound.KeyboardSoundLevelIncrement):
-					soundGroupLevelController.SetKeyboardSoundLevelIncrement(configToml.Sound.KeyboardSoundLevelIncrement);
-					break;
-			}
-		};
+        configToml.Sound.PropertyChanged += (sender, args) =>
+        {
+            switch (args.PropertyName)
+            {
+                case nameof(CConfigToml.Sound.SoundEffectLevel):
+                    soundGroupLevelController.SetLevel(ESoundGroup.SoundEffect, configToml.Sound.SoundEffectLevel);
+                    break;
+                case nameof(CConfigToml.Sound.VoiceLevel):
+                    soundGroupLevelController.SetLevel(ESoundGroup.Voice, configToml.Sound.VoiceLevel);
+                    break;
+                case nameof(CConfigToml.Sound.SongPreviewLevel):
+                    soundGroupLevelController.SetLevel(ESoundGroup.SongPreview, configToml.Sound.SongPreviewLevel);
+                    break;
+                case nameof(CConfigToml.Sound.SongPlaybackLevel):
+                    soundGroupLevelController.SetLevel(ESoundGroup.SongPlayback, configToml.Sound.SongPlaybackLevel);
+                    break;
+                case nameof(CConfigToml.Sound.KeyboardSoundLevelIncrement):
+                    soundGroupLevelController.SetKeyboardSoundLevelIncrement(configToml.Sound.KeyboardSoundLevelIncrement);
+                    break;
+            }
+        };
 
-		soundGroupLevelController.LevelChanged += (sender, args) =>
-		{
-			switch (args.SoundGroup)
-			{
-				case ESoundGroup.SoundEffect:
-					configToml.Sound.SoundEffectLevel = args.Level;
-					break;
-				case ESoundGroup.Voice:
-					configToml.Sound.VoiceLevel = args.Level;
-					break;
-				case ESoundGroup.SongPreview:
-					configToml.Sound.SongPreviewLevel = args.Level;
-					break;
-				case ESoundGroup.SongPlayback:
-					configToml.Sound.SongPlaybackLevel = args.Level;
-					break;
-				default:
-					throw new ArgumentOutOfRangeException();
-			}
-		};
-	}
+        soundGroupLevelController.LevelChanged += (sender, args) =>
+        {
+            switch (args.SoundGroup)
+            {
+                case ESoundGroup.SoundEffect:
+                    configToml.Sound.SoundEffectLevel = args.Level;
+                    break;
+                case ESoundGroup.Voice:
+                    configToml.Sound.VoiceLevel = args.Level;
+                    break;
+                case ESoundGroup.SongPreview:
+                    configToml.Sound.SongPreviewLevel = args.Level;
+                    break;
+                case ESoundGroup.SongPlayback:
+                    configToml.Sound.SongPlaybackLevel = args.Level;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        };
+    }
 }

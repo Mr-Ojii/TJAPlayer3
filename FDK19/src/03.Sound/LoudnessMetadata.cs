@@ -10,12 +10,12 @@ namespace FDK;
 [Serializable]
 public struct LoudnessMetadata
 {
-	public readonly Lufs Integrated;
-	public readonly Lufs? TruePeak;
+    public readonly Lufs Integrated;
+    public readonly Lufs? TruePeak;
 
-	public LoudnessMetadata(Lufs integrated, Lufs? truePeak)
-	{
-		Integrated = integrated;
-		TruePeak = truePeak;
-	}
+    public LoudnessMetadata(Lufs integrated, Lufs? truePeak)
+    {
+        Integrated = integrated;
+        TruePeak = truePeak;
+    }
 }

@@ -11,75 +11,75 @@ namespace TJAPlayer3;
 /// </summary>
 internal class CItemBase
 {
-	// プロパティ
+    // プロパティ
 
-	public EItemType eItemType;
-	public enum EItemType
-	{
-		Base,
-		Toggle,
-		Integer,
-		List
-	}
+    public EItemType eItemType;
+    public enum EItemType
+    {
+        Base,
+        Toggle,
+        Integer,
+        List
+    }
 
-	public string strName;
-	public string strDescription;
+    public string strName;
+    public string strDescription;
 
 
-	// コンストラクタ
+    // コンストラクタ
 
-	public CItemBase()
-	{
-		this.strName = "";
-		this.strDescription = "";
-	}
-	public CItemBase( string strName )
-		: this()
-	{
-		this.tInitialize( strName );
-	}
-	public CItemBase(string strName, string strDescriptionJP)
-		: this() {
-		this.tInitialize(strName, strDescriptionJP);
-	}
-	public CItemBase(string strName,  string strDescriptionJP, string strDescriptionEN)
-		: this() {
-		this.tInitialize(strName, strDescriptionJP, strDescriptionEN);
-	}
+    public CItemBase()
+    {
+        this.strName = "";
+        this.strDescription = "";
+    }
+    public CItemBase( string strName )
+        : this()
+    {
+        this.tInitialize( strName );
+    }
+    public CItemBase(string strName, string strDescriptionJP)
+        : this() {
+        this.tInitialize(strName, strDescriptionJP);
+    }
+    public CItemBase(string strName,  string strDescriptionJP, string strDescriptionEN)
+        : this() {
+        this.tInitialize(strName, strDescriptionJP, strDescriptionEN);
+    }
 
-	
-	// メソッド；子クラスで実装する
+    
+    // メソッド；子クラスで実装する
 
-	public virtual void tPushedEnter()
-	{
-	}
-	public virtual void tMoveItemValueToNext()
-	{
-	}
-	public virtual void tMoveItemValueToForward()
-	{
-	}
+    public virtual void tPushedEnter()
+    {
+    }
+    public virtual void tMoveItemValueToNext()
+    {
+    }
+    public virtual void tMoveItemValueToForward()
+    {
+    }
 
-	public virtual void tInitialize( string strName )
-	{
-		this.tInitialize(strName, "", "");
-	}
-	public virtual void tInitialize(string strName, string strDescriptionJP) {
-		this.tInitialize(strName, strDescriptionJP, strDescriptionJP);
-	}
-	public virtual void tInitialize(string strName, string strDescriptionJP, string strDescriptionEN) {
-		this.strName = strName;
-		this.strDescription = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? strDescriptionJP : strDescriptionEN;
-	}
-	public virtual object objValue()
-	{
-		return null;
-	}
-	public virtual int GetIndex()
-	{
-		return 0;
-	}
-	public virtual void SetIndex( int index )
-	{
-	}
+    public virtual void tInitialize( string strName )
+    {
+        this.tInitialize(strName, "", "");
+    }
+    public virtual void tInitialize(string strName, string strDescriptionJP) {
+        this.tInitialize(strName, strDescriptionJP, strDescriptionJP);
+    }
+    public virtual void tInitialize(string strName, string strDescriptionJP, string strDescriptionEN) {
+        this.strName = strName;
+        this.strDescription = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? strDescriptionJP : strDescriptionEN;
+    }
+    public virtual object objValue()
+    {
+        return null;
+    }
+    public virtual int GetIndex()
+    {
+        return 0;
+    }
+    public virtual void SetIndex( int index )
+    {
+    }
 }

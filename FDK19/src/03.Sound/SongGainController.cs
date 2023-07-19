@@ -11,21 +11,21 @@
 /// </summary>
 public sealed class SongGainController
 {
-	public bool ApplyLoudnessMetadata { private get; set; }
-	public Lufs TargetLoudness { private get; set; }
-	public bool ApplySongVol { private get; set; }
+    public bool ApplyLoudnessMetadata { private get; set; }
+    public Lufs TargetLoudness { private get; set; }
+    public bool ApplySongVol { private get; set; }
 
-	public void Set(int songVol, LoudnessMetadata? songLoudnessMetadata, CSound sound)
-	{
-		if (ApplyLoudnessMetadata && songLoudnessMetadata.HasValue)
-		{
-			var gain = TargetLoudness - songLoudnessMetadata.Value.Integrated;
+    public void Set(int songVol, LoudnessMetadata? songLoudnessMetadata, CSound sound)
+    {
+        if (ApplyLoudnessMetadata && songLoudnessMetadata.HasValue)
+        {
+            var gain = TargetLoudness - songLoudnessMetadata.Value.Integrated;
 
-			sound.SetGain(gain, songLoudnessMetadata.Value.TruePeak);
-		}
-		else
-		{
-			sound.SetGain(ApplySongVol ? songVol : CSound.DefaultSongVol);
-		}
-	}
+            sound.SetGain(gain, songLoudnessMetadata.Value.TruePeak);
+        }
+        else
+        {
+            sound.SetGain(ApplySongVol ? songVol : CSound.DefaultSongVol);
+        }
+    }
 }

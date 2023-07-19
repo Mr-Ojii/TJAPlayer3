@@ -5,24 +5,24 @@
 /// </summary>
 public enum GaugeIncreaseMode
 {
-	/// <summary>
-	/// 切り捨てる。Floorと同義。
-	/// </summary>
-	Normal,
-	/// <summary>
-	/// 切り捨てる。
-	/// </summary>
-	Floor,
-	/// <summary>
-	/// 四捨五入する。
-	/// </summary>
-	Round,
-	/// <summary>
-	/// 切り上げる。
-	/// </summary>
-	Ceiling,
-	/// <summary>
-	/// 丸め処理を行わない。
-	/// </summary>
-	NotFix
+    /// <summary>
+    /// 切り捨てる。Floorと同義。
+    /// </summary>
+    Normal,
+    /// <summary>
+    /// 切り捨てる。
+    /// </summary>
+    Floor,
+    /// <summary>
+    /// 四捨五入する。
+    /// </summary>
+    Round,
+    /// <summary>
+    /// 切り上げる。
+    /// </summary>
+    Ceiling,
+    /// <summary>
+    /// 丸め処理を行わない。
+    /// </summary>
+    NotFix
 }

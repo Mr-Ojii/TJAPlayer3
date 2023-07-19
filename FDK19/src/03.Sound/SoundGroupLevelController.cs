@@ -35,97 +35,97 @@ namespace FDK;
 /// </summary>
 public sealed class SoundGroupLevelController
 {
-	private readonly Dictionary<ESoundGroup, int> _levelBySoundGroup = new Dictionary<ESoundGroup, int>
-	{
-		[ESoundGroup.SoundEffect] = CSound.MaximumGroupLevel,
-		[ESoundGroup.Voice] = CSound.MaximumGroupLevel,
-		[ESoundGroup.SongPreview] = CSound.MaximumGroupLevel,
-		[ESoundGroup.SongPlayback] = CSound.MaximumGroupLevel,
-		[ESoundGroup.Unknown] = CSound.MaximumGroupLevel
-	};
+    private readonly Dictionary<ESoundGroup, int> _levelBySoundGroup = new Dictionary<ESoundGroup, int>
+    {
+        [ESoundGroup.SoundEffect] = CSound.MaximumGroupLevel,
+        [ESoundGroup.Voice] = CSound.MaximumGroupLevel,
+        [ESoundGroup.SongPreview] = CSound.MaximumGroupLevel,
+        [ESoundGroup.SongPlayback] = CSound.MaximumGroupLevel,
+        [ESoundGroup.Unknown] = CSound.MaximumGroupLevel
+    };
 
-	private readonly ObservableCollection<CSound> _sounds;
+    private readonly ObservableCollection<CSound> _sounds;
 
-	private int _keyboardSoundLevelIncrement;
+    private int _keyboardSoundLevelIncrement;
 
-	public SoundGroupLevelController(ObservableCollection<CSound> sounds)
-	{
-		_sounds = sounds;
+    public SoundGroupLevelController(ObservableCollection<CSound> sounds)
+    {
+        _sounds = sounds;
 
-		_sounds.CollectionChanged += SoundsOnCollectionChanged;
-	}
+        _sounds.CollectionChanged += SoundsOnCollectionChanged;
+    }
 
-	public void SetLevel(ESoundGroup soundGroup, int level)
-	{
-		var clampedLevel = Math.Clamp(level, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel);
+    public void SetLevel(ESoundGroup soundGroup, int level)
+    {
+        var clampedLevel = Math.Clamp(level, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel);
 
-		if (_levelBySoundGroup[soundGroup] == clampedLevel)
-		{
-			return;
-		}
+        if (_levelBySoundGroup[soundGroup] == clampedLevel)
+        {
+            return;
+        }
 
-		_levelBySoundGroup[soundGroup] = clampedLevel;
+        _levelBySoundGroup[soundGroup] = clampedLevel;
 
-		foreach (var sound in _sounds)
-		{
-			if (sound.SoundGroup == soundGroup)
-			{
-				SetLevel(sound);
-			}
-		}
+        foreach (var sound in _sounds)
+        {
+            if (sound.SoundGroup == soundGroup)
+            {
+                SetLevel(sound);
+            }
+        }
 
-		RaiseLevelChanged(soundGroup, clampedLevel);
-	}
+        RaiseLevelChanged(soundGroup, clampedLevel);
+    }
 
-	public void SetKeyboardSoundLevelIncrement(int keyboardSoundLevelIncrement)
-	{
-		_keyboardSoundLevelIncrement = keyboardSoundLevelIncrement;
-	}
+    public void SetKeyboardSoundLevelIncrement(int keyboardSoundLevelIncrement)
+    {
+        _keyboardSoundLevelIncrement = keyboardSoundLevelIncrement;
+    }
 
-	public void AdjustLevel(ESoundGroup soundGroup, bool isAdjustmentPositive)
-	{
-		var adjustmentIncrement = isAdjustmentPositive
-			? _keyboardSoundLevelIncrement
-			: -_keyboardSoundLevelIncrement;
+    public void AdjustLevel(ESoundGroup soundGroup, bool isAdjustmentPositive)
+    {
+        var adjustmentIncrement = isAdjustmentPositive
+            ? _keyboardSoundLevelIncrement
+            : -_keyboardSoundLevelIncrement;
 
-		SetLevel(soundGroup, _levelBySoundGroup[soundGroup] + adjustmentIncrement);
-	}
+        SetLevel(soundGroup, _levelBySoundGroup[soundGroup] + adjustmentIncrement);
+    }
 
-	private void SetLevel(CSound sound)
-	{
-		sound.GroupLevel = _levelBySoundGroup[sound.SoundGroup];
-	}
+    private void SetLevel(CSound sound)
+    {
+        sound.GroupLevel = _levelBySoundGroup[sound.SoundGroup];
+    }
 
-	private void SoundsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-	{
-		switch (e.Action)
-		{
-			case NotifyCollectionChangedAction.Add:
-			case NotifyCollectionChangedAction.Replace:
-				foreach (CSound sound in e.NewItems)
-				{
-					SetLevel(sound);
-				}
-				break;
-		}
-	}
+    private void SoundsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    {
+        switch (e.Action)
+        {
+            case NotifyCollectionChangedAction.Add:
+            case NotifyCollectionChangedAction.Replace:
+                foreach (CSound sound in e.NewItems)
+                {
+                    SetLevel(sound);
+                }
+                break;
+        }
+    }
 
-	private void RaiseLevelChanged(ESoundGroup soundGroup, int level)
-	{
-		LevelChanged?.Invoke(this, new LevelChangedEventArgs(soundGroup, level));
-	}
+    private void RaiseLevelChanged(ESoundGroup soundGroup, int level)
+    {
+        LevelChanged?.Invoke(this, new LevelChangedEventArgs(soundGroup, level));
+    }
 
-	public class LevelChangedEventArgs : EventArgs
-	{
-		public LevelChangedEventArgs(ESoundGroup soundGroup, int level)
-		{
-			SoundGroup = soundGroup;
-			Level = level;
-		}
+    public class LevelChangedEventArgs : EventArgs
+    {
+        public LevelChangedEventArgs(ESoundGroup soundGroup, int level)
+        {
+            SoundGroup = soundGroup;
+            Level = level;
+        }
 
-		public ESoundGroup SoundGroup { get; private set; }
-		public int Level { get; private set; }
-	}
+        public ESoundGroup SoundGroup { get; private set; }
+        public int Level { get; private set; }
+    }
 
-	public event EventHandler<LevelChangedEventArgs> LevelChanged;
+    public event EventHandler<LevelChangedEventArgs> LevelChanged;
 }

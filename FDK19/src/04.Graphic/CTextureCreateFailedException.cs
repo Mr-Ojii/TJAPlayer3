@@ -10,19 +10,19 @@ namespace FDK;
 /// </summary>
 public class CTextureCreateFailedException : Exception
 {
-	public CTextureCreateFailedException()
-	{
-	}
-	public CTextureCreateFailedException( string message )
-		: base( message )
-	{
-	}
-	public CTextureCreateFailedException( SerializationInfo info, StreamingContext context )
-		: base( info, context )
-	{
-	}
-	public CTextureCreateFailedException( string message, Exception innerException )
-		: base( message, innerException )
-	{
-	}
+    public CTextureCreateFailedException()
+    {
+    }
+    public CTextureCreateFailedException( string message )
+        : base( message )
+    {
+    }
+    public CTextureCreateFailedException( SerializationInfo info, StreamingContext context )
+        : base( info, context )
+    {
+    }
+    public CTextureCreateFailedException( string message, Exception innerException )
+        : base( message, innerException )
+    {
+    }
 }
