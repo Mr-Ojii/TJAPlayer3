@@ -1,5 +1,6 @@
 *.cs text diff=csharp eol=crlf
 *.csproj text eol=crlf
+*.sln text eol=crlf
 
 *.def text eol=lf
 *.md text eol=lf
