@@ -1,5 +1,5 @@
 # TJAPlayer3-f
-最終更新日:2023/03/15(Mr-Ojii)
+最終更新日:2023/07/21(Mr-Ojii)
 
 このReadmeはTJAPlayer3のReadmeを基に作成いたしました。
 
@@ -71,7 +71,7 @@ MITライセンスのルールのもと、改造・再配布を行うことは�
 ## 推奨動作環境
 #### OS
 * Windows 10以降のWindows (x86,x64)
-* macOS 10.15 "Catalina"以降のmacOS (x64)
+* macOS 10.15 "Catalina"以降のmacOS (x64,arm64)
 * デスクトップ環境構築済みの Linux ディストリビューション 最新安定版 (x64, arm64)
 
 #### CPU
@@ -205,14 +205,16 @@ Fork元より使用しているライブラリ
 ができるようになります。
 
 ### OSとTJAPlayer3-fのアーキテクチャ数に対応したフォルダ名
+
 + Windows
-  - x86 : `win-x86`
-  - x64 : `win-x64`
+  - x86   : `win-x86`
+  - x64   : `win-x64`
 + macOS
-  - x64 : `osx-x64`
+  - x64   : `osx-x64`
+  - arm64 : `osx-arm64`
 + Linux
-  - x86 : `linux-x86`
-  - x64 : `linux-x64`
+  - x64   : `linux-x64`
+  - arm64 : `linux-arm64`
 
 
 ## BASSについて
