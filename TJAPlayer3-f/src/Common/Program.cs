@@ -61,13 +61,32 @@ internal class Program
 
             FFmpeg.AutoGen.ffmpeg.RootPath = AppContext.BaseDirectory + @"FFmpeg/" + osplatform + "-" + platform + "/";
 
-            DirectoryInfo info = new DirectoryInfo(AppContext.BaseDirectory + @"Libs/" + osplatform + "-" + platform + "/");
+            var OSPlatformDirName = AppContext.BaseDirectory + @"Libs/" + osplatform + "/";
 
-            //実行ファイルの階層にライブラリをコピー
-            foreach (FileInfo fileinfo in info.GetFiles())
+            if(Directory.Exists(OSPlatformDirName))
             {
-                fileinfo.CopyTo(AppContext.BaseDirectory + fileinfo.Name, true);
+                DirectoryInfo info = new DirectoryInfo(OSPlatformDirName);
+
+                //実行ファイルの階層にライブラリをコピー
+                foreach (FileInfo fileinfo in info.GetFiles())
+                {
+                    fileinfo.CopyTo(AppContext.BaseDirectory + fileinfo.Name, true);
+                }
             }
+
+            var PlatformDirName = AppContext.BaseDirectory + @"Libs/" + osplatform + "-" + platform + "/";
+
+            if(Directory.Exists(PlatformDirName))
+            {
+                DirectoryInfo info = new DirectoryInfo(PlatformDirName);
+
+                //実行ファイルの階層にライブラリをコピー
+                foreach (FileInfo fileinfo in info.GetFiles())
+                {
+                    fileinfo.CopyTo(AppContext.BaseDirectory + fileinfo.Name, true);
+                }
+            }
+
 
             Trace.WriteLine("Current Directory: " + Environment.CurrentDirectory);
             Trace.WriteLine("EXEのあるフォルダ: " + AppContext.BaseDirectory);
