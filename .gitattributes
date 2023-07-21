@@ -2,10 +2,10 @@
 *.csproj text eol=crlf
 *.sln text eol=crlf
 
-*.def text eol=lf
 *.md text eol=lf
 *.yml text eol=lf
 
+*.def text eol=crlf working-tree-encoding=cp932
 *.lrc text eol=crlf working-tree-encoding=cp932
 *.tja text eol=crlf working-tree-encoding=cp932
 
