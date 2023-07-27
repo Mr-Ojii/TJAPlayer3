@@ -1,10 +1,11 @@
 ﻿*.suo
 *.snk
 *.pfx
-/.vs
-/.vscode
-*/bin
-*/obj
+/.vs/*
+/.vscode/*
+!/.vscode/extensions.json
+*/bin/*
+*/obj/*
 *.exe
 *.exe.config
 *.log
@@ -18,5 +19,5 @@
 *.DotSettings.user
 *.bs1770gain.xml
 .DS_Store
-/packages
+/packages/*
 /Test/*
