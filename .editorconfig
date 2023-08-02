@@ -17,6 +17,7 @@ end_of_line = crlf
 
 [*.{def,lrc,tja}]
 # charset = cp932
+charset = unset
 end_of_line = crlf
 
 [*.md]
