@@ -4,7 +4,6 @@ using System.Text;
 using System.Diagnostics;
 using FDK;
 using System.Drawing;
-using DiscordRPC;
 
 namespace TJAPlayer3;
 
@@ -29,17 +28,7 @@ internal class CStageEnding : CStage
         try
         {
             this.ctAnimation = new CCounter(0, 3000, 1, TJAPlayer3.Timer);
-            TJAPlayer3.DiscordClient?.SetPresence(new RichPresence()
-            {
-                Details = "",
-                State = "Ending",
-                Timestamps = new Timestamps(TJAPlayer3.StartupTime),
-                Assets = new Assets()
-                {
-                    LargeImageKey = TJAPlayer3.LargeImageKey,
-                    LargeImageText = TJAPlayer3.LargeImageText,
-                }
-            });
+            TJAPlayer3.Discord?.Update("Ending");
             base.On活性化();
         }
         finally

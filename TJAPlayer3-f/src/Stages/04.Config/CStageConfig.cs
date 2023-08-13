@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 using System.Drawing;
 using System.Diagnostics;
 using FDK;
-using DiscordRPC;
 
 namespace TJAPlayer3;
 
@@ -23,8 +22,8 @@ internal class CStageConfig : CStage
         base.list子Activities.Add( this.actKeyAssign = new CActConfigKeyAssign() );
         base.b活性化してない = true;
     }
-    
-    
+
+
     // メソッド
 
     public void tアサイン完了通知()															// CONFIGにのみ存在
@@ -41,7 +40,7 @@ internal class CStageConfig : CStage
         this.t説明文パネルに現在選択されている項目の説明を描画する();						//
     }																						//
 
-    
+
     // CStage 実装
 
     public override void On活性化()
@@ -60,17 +59,7 @@ internal class CStageConfig : CStage
             }																				//
             this.bメニューにフォーカス中 = true;											// ここまでOPTIONと共通
             this.eItemPanelモード = EItemPanelモード.パッド一覧;
-            TJAPlayer3.DiscordClient?.SetPresence(new RichPresence()
-            {
-                Details = "",
-                State = "Config",
-                Timestamps = new Timestamps(TJAPlayer3.StartupTime),
-                Assets = new Assets()
-                {
-                    LargeImageKey = TJAPlayer3.LargeImageKey,
-                    LargeImageText = TJAPlayer3.LargeImageText,
-                }
-            });
+            TJAPlayer3.Discord?.Update("Config");
         }
         finally
         {
@@ -339,7 +328,7 @@ internal class CStageConfig : CStage
                     }
                 }
             }
-            
+
             if (this.actList.b要素値にフォーカス中)
             {
                 if (TJAPlayer3.Pad.bPressed(EPad.RBlue) || TJAPlayer3.Pad.bPressed(EPad.RBlue2P) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2)

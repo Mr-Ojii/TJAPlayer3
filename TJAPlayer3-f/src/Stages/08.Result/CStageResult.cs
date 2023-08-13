@@ -3,7 +3,6 @@ using System.IO;
 using System.Diagnostics;
 using System.Threading;
 using FDK;
-using DiscordRPC;
 
 using Rectangle = System.Drawing.Rectangle;
 
@@ -120,17 +119,10 @@ internal class CStageResult : CStage
             string Details = TJAPlayer3.DTX[0].TITLE + TJAPlayer3.DTX[0].EXTENSION;
 
             // Discord Presenseの更新
-            TJAPlayer3.DiscordClient?.SetPresence(new RichPresence()
-            {
-                Details = Details.Substring(0, Math.Min(127, Details.Length)),
-                State = "Result" + (TJAPlayer3.ConfigToml.PlayOption.AutoPlay[0] == true ? " (Auto)" : ""),
-                Timestamps = new Timestamps(TJAPlayer3.StartupTime),
-                Assets = new Assets()
-                {
-                    LargeImageKey = TJAPlayer3.LargeImageKey,
-                    LargeImageText = TJAPlayer3.LargeImageText,
-                }
-            });
+            TJAPlayer3.Discord?.Update(
+                Details.Substring(0, Math.Min(127, Details.Length)),
+                "Result" + (TJAPlayer3.ConfigToml.PlayOption.AutoPlay[0] == true ? " (Auto)" : "")
+            );
 
             this.ctMountainAndClear = new CCounter(0, 1655, 1, TJAPlayer3.Timer);
 
@@ -226,7 +218,7 @@ internal class CStageResult : CStage
                             //600msで150degなので4で割る
                             TJAPlayer3.Tx.Result_v2_Mountain[1].vcScaling.Y = (float)((Math.Sin((this.ctMountainAndClear.n現在の値 - 555) / 4.0 / 180.0 * Math.PI) * 0.8f) + 0.6f);
                         }
-                        else 
+                        else
                         {
                             TJAPlayer3.Tx.Result_v2_Mountain[1].vcScaling.Y = (float)Math.Sin((this.ctMountainAndClear.n現在の値 - 1155) / 500f * Math.PI) * 0.3f + 1f;
                         }
@@ -255,7 +247,7 @@ internal class CStageResult : CStage
                 this.ctMountainAndClear.n現在の値 = 0;
                 this.ctMountainAndClear.t時間Reset();
             }
-            else 
+            else
             {
                 this.ctMountainAndClear.t進行();
                 if (!this.ctMountainAndClear.b終了値に達した)
@@ -315,7 +307,7 @@ internal class CStageResult : CStage
                     this.eFadeOut完了時の戻り値 = E戻り値.完了;
                 }
             }
-            
+
         }
         return 0;
     }

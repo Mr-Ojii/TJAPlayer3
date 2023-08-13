@@ -10,8 +10,6 @@ using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using FDK;
 using System.Reflection;
-using DiscordRPC;
-using System.Runtime.InteropServices;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
@@ -200,10 +198,15 @@ internal class TJAPlayer3 : Game
         get;
         private set;
     }
+    public static DiscordRichPresence Discord
+    {
+        get;
+        private set;
+    }
 
     public bool bApplicationActive
     {
-        get 
+        get
         {
             return this.Focused;
         }
@@ -222,25 +225,6 @@ internal class TJAPlayer3 : Game
     {
         get;
         set;
-    }
-    public static DateTime StartupTime
-    {
-        get;
-        private set;
-    }
-    public static string LargeImageKey
-    {
-        get
-        {
-            return "tjaplayer3-f";
-        }
-    }
-    public static string LargeImageText
-    {
-        get
-        {
-            return "Ver." + Assembly.GetExecutingAssembly().GetName().Version.ToString() + "(" + RuntimeInformation.RuntimeIdentifier + ")";
-        }
     }
     #endregion
 
@@ -958,7 +942,7 @@ internal class TJAPlayer3 : Game
         obj.Dispose();
         obj = null;
     }
-    
+
     public static void t安全にDisposeする<T>(ref T[] array) where T : class, IDisposable //2020.08.01 Mr-Ojii twopointzero氏のソースコードをもとに追加
     {
         if (array == null)
@@ -1022,7 +1006,6 @@ internal class TJAPlayer3 : Game
     private bool b終了処理完了済み;
     private bool bネットワークに接続中 = false;
     private long 前回のシステム時刻ms = long.MinValue;
-    public static DiscordRpcClient DiscordClient;
     private static CDTX[] dtx = new CDTX[4];
 
     public static TextureLoader Tx = new TextureLoader();
@@ -1391,22 +1374,9 @@ internal class TJAPlayer3 : Game
         //---------------------
         #endregion
 #region Discordの処理
-        DiscordClient = new DiscordRpcClient("692578108997632051");
-        DiscordClient?.Initialize();
-        StartupTime = DateTime.UtcNow;
-        DiscordClient?.SetPresence(new RichPresence()
-        {
-            Details = "",
-            State = "Startup",
-            Timestamps = new Timestamps(TJAPlayer3.StartupTime),
-            Assets = new Assets()
-            {
-                LargeImageKey = TJAPlayer3.LargeImageKey,
-                LargeImageText = TJAPlayer3.LargeImageText,
-            }
-        });
+        Discord = new DiscordRichPresence("692578108997632051");
+        Discord?.Update("Startup");
 #endregion
-
 
         Trace.TraceInformation("アプリケーションの初期化を完了しました。");
 
@@ -1489,7 +1459,7 @@ internal class TJAPlayer3 : Game
             //---------------------
             #endregion
 #region Discordの処理
-            DiscordClient?.Dispose();
+            Discord.Dispose();
 #endregion
 #region [ 曲リストの終了処理 ]
             //---------------------
@@ -1686,7 +1656,7 @@ internal class TJAPlayer3 : Game
             try
             {
                 ConfigIni.t書き出し( str );
-                Trace.TraceInformation( "保存しました。({0})", str );	
+                Trace.TraceInformation( "保存しました。({0})", str );
             }
             catch( Exception e )
             {
@@ -1737,10 +1707,10 @@ internal class TJAPlayer3 : Game
             json.Name = DTX[0].strFilename;
         }
         json.BGMAdjust = DTX[0].nBGMAdjust;
-        
+
         if(TJAPlayer3.ConfigToml.PlayOption.AutoPlay[0] == false)
             json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[0]].PlayCount++;
-        
+
         json.Save(strFilename);
     }
     private void tガベージコレクションを実行する()
@@ -1770,7 +1740,7 @@ internal class TJAPlayer3 : Game
     //-----------------
     private void Window_MouseWheel(object sender, FDK.Windowing.MouseWheelEventArgs e)
     {
-        if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongSelect && ConfigToml.SongSelect.EnableMouseWheel) 
+        if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongSelect && ConfigToml.SongSelect.EnableMouseWheel)
             TJAPlayer3.stage選曲.MouseWheel(e.x - e.y);
     }
 

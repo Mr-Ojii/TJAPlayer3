@@ -7,7 +7,6 @@ using System.Drawing;
 using System.Globalization;
 using FDK;
 using System.Reflection;
-using DiscordRPC;
 
 namespace TJAPlayer3;
 
@@ -36,17 +35,7 @@ internal class CStageTitle : CStage
 
             base.On活性化();
 
-            TJAPlayer3.DiscordClient?.SetPresence(new RichPresence()
-            {
-                Details = "",
-                State = "Title",
-                Timestamps = new Timestamps(TJAPlayer3.StartupTime),
-                Assets = new Assets()
-                {
-                    LargeImageKey = TJAPlayer3.LargeImageKey,
-                    LargeImageText = TJAPlayer3.LargeImageText,
-                }
-            });
+            TJAPlayer3.Discord?.Update("Title");
         }
         finally
         {

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Drawing;
 using FDK;
-using DiscordRPC;
 using SixLabors.ImageSharp.PixelFormats;
 
 namespace TJAPlayer3;
@@ -28,17 +27,7 @@ class CStageMaintenance : CStage
         Trace.Indent();
         try
         {
-            TJAPlayer3.DiscordClient?.SetPresence(new RichPresence()
-            {
-                Details = "",
-                State = "Maintenance",
-                Timestamps = new Timestamps(TJAPlayer3.StartupTime),
-                Assets = new Assets()
-                {
-                    LargeImageKey = TJAPlayer3.LargeImageKey,
-                    LargeImageText = TJAPlayer3.LargeImageText,
-                }
-            });
+            TJAPlayer3.Discord?.Update("Maintenance");
             base.On活性化();
         }
         finally

@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Diagnostics;
 using System.IO;
 using FDK;
-using DiscordRPC;
 
 using Rectangle = System.Drawing.Rectangle;
 
@@ -95,17 +94,7 @@ internal class CStage選曲 : CStage
             完全に選択済み = false;
             // Discord Presenceの更新
 
-            TJAPlayer3.DiscordClient?.SetPresence(new RichPresence()
-            {
-                Details = "",
-                State = "SongSelect",
-                Timestamps = new Timestamps(TJAPlayer3.StartupTime),
-                Assets = new Assets()
-                {
-                    LargeImageKey = TJAPlayer3.LargeImageKey,
-                    LargeImageText = TJAPlayer3.LargeImageText,
-                }
-            });
+            TJAPlayer3.Discord?.Update("SongSelect");
         }
         finally
         {
@@ -485,7 +474,7 @@ internal class CStage選曲 : CStage
                     }
                     #endregion
                 }
-                #endregion			
+                #endregion
                 #region[DifficultySelectのキー入力]
                 else if (現在の選曲画面状況 == E選曲画面.難易度選択)
                 {//2020.06.02 Mr-Ojii DifficultySelectの追加
@@ -1061,7 +1050,7 @@ internal class CStage選曲 : CStage
         スキン変更
     }
     public enum E選曲画面 : int
-    { 
+    {
         通常,
         Dan選択,//2020.05.25 Mr-Ojii Danの選択用
         難易度選択In,//2020.05.25 Mr-Ojii DifficultySelectを追加したとき用
@@ -1207,7 +1196,7 @@ internal class CStage選曲 : CStage
 
     public void MouseWheel(float i)
     {
-        if (this.現在の選曲画面状況 == E選曲画面.通常) 			
+        if (this.現在の選曲画面状況 == E選曲画面.通常)
         {
             if (i < 0)
                 this.tカーソルを上へ移動する();
