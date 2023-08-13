@@ -12,7 +12,6 @@ using System.Text.RegularExpressions;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using FDK;
-using FDK.ExtensionMethods;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
@@ -190,11 +189,11 @@ internal class CDTX : CActivity
 
                 //太鼓予備
                 "??", "??", "??", "??", "??", "??", "??", "??",
-                "??", "??", "??", "??", "??", "??", "??", "??", 
+                "??", "??", "??", "??", "??", "??", "??", "??",
 
                 //システム
                 "小節線", "拍線", "??", "??", "AVI", "??", "??", "??",
-                "??", "??", "??", "??", "??", "??", "??", "??", 
+                "??", "??", "??", "??", "??", "??", "??", "??",
 
                 //システム(移動予定)
                 "SCROLL", "DELAY", "GOGOSTART", "GOGOEND", "??", "??", "??", "??",
@@ -204,7 +203,7 @@ internal class CDTX : CActivity
                 "??", "??", "??", "??", "??", "??", "??", "??",
 
                 "??", "??", "??", "??", "??", "??", "??", "??",
-                "??", "??", "??", "??", "??", "??", "??", "??", 
+                "??", "??", "??", "??", "??", "??", "??", "??",
 
                 //太鼓1P、システム(現行)
                 "??", "??", "??", "太鼓_赤", "太鼓_青", "太鼓_赤(大)", "太鼓_青(大)", "太鼓_黄",
@@ -217,11 +216,11 @@ internal class CDTX : CActivity
                 "??", "??", "??", "??", "??", "??", "??", "??",
 
                 "??", "??", "??", "??", "0xC4", "0xC5", "0xC6", "??",
-                "??", "??", "0xCA", "??", "??", "??", "??", "0xCF", 
+                "??", "??", "0xCA", "??", "??", "??", "??", "0xCF",
 
                 //システム(現行)
                 "0xD0", "??", "??", "??", "??", "??", "??", "??",
-                "??", "??", "ミキサー追加", "ミキサー削除", "DELAY", "譜面分岐リセット", "譜面分岐アニメ", "譜面分岐内部処理", 
+                "??", "??", "ミキサー追加", "ミキサー削除", "DELAY", "譜面分岐リセット", "譜面分岐アニメ", "譜面分岐内部処理",
 
                 //システム(現行)
                 "小節線ON/OFF", "分岐固定", "判定枠移動", "", "", "", "", "",
@@ -253,7 +252,7 @@ internal class CDTX : CActivity
                 if (TJAPlayer3.DTX[0].listWAV.TryGetValue(this.n整数値_内部番号, out var wc))
                     nDuration = (wc.rSound == null) ? 0 : wc.rSound.nDurationms;
             }
-            else if (this.nチャンネル番号 == 0x54) 
+            else if (this.nチャンネル番号 == 0x54)
             {
                 if (TJAPlayer3.DTX[0].listVD.TryGetValue(this.n整数値_内部番号, out var wc))
                     nDuration = (int)(wc.Duration * 1000);
@@ -759,7 +758,7 @@ internal class CDTX : CActivity
 
         if (eRandom == ERandomMode.OFF)
             return;
-            
+
         int nPercent = -1;
 
         switch (eRandom)
@@ -1270,7 +1269,7 @@ internal class CDTX : CActivity
                             chip.n発声時刻ms += this.nOFFSET;
                             if (this.listBRANCH.ContainsKey(chip.n整数値_内部番号))
                             {
-                                this.listBRANCH[chip.n整数値_内部番号].db分岐時刻ms += this.nOFFSET; 
+                                this.listBRANCH[chip.n整数値_内部番号].db分岐時刻ms += this.nOFFSET;
                             }
                         }
                         this.n現在のコース = chip.nコース;
@@ -1373,7 +1372,7 @@ internal class CDTX : CActivity
             #endregion
 
             OTCMedley obj = JsonSerializer.Deserialize<OTCMedley>(入力文字列, new JsonSerializerOptions() { AllowTrailingCommas = true });
-            
+
             if (obj.Jouken != null)
                 for (int joukenindex = 0; joukenindex < Math.Min(obj.Jouken.Length,3); joukenindex++)
                 {
@@ -1457,7 +1456,7 @@ internal class CDTX : CActivity
                         Dan_C[joukenindex] = new Dan_C(examType, examValue, examRange);
                     }
                 }
-            
+
             this.b譜面が存在する[(int)Difficulty.Dan] = true;
 
             #region[ 最初の処理 ]
@@ -1484,7 +1483,7 @@ internal class CDTX : CActivity
             chip1.nチャンネル番号 = 0x54;
             //chip1.n発声位置 = 384;
             //chip1.n発声時刻ms = (int)this.dbNowTime;
-            
+
             chip1.n発声時刻ms = (int)this.dbNowTime;
             chip1.dbBPM = this.dbNowBPM;
             chip1.dbSCROLL = this.dbNowScroll;
@@ -1619,7 +1618,7 @@ internal class CDTX : CActivity
 
                     t入力tci_tcm用(tcistr, coursesindex[diff]);
                 }
-            
+
             #region[#END命令の挿入]
             //ためしに割り込む。
             chip = new CChip();
@@ -1822,7 +1821,7 @@ internal class CDTX : CActivity
         }
     }
 
-    private void t入力tciファイル(string 全入力文字列) 
+    private void t入力tciファイル(string 全入力文字列)
     {
         OTCInfomation obj = JsonSerializer.Deserialize<OTCInfomation>(全入力文字列, new JsonSerializerOptions() { AllowTrailingCommas = true });
 
@@ -1886,7 +1885,7 @@ internal class CDTX : CActivity
             this.BASEBPM = (double)obj.BPM;
             this.dbNowBPM = (double)obj.BPM;
         }
-        else 
+        else
         {
             this.BPM = 120.0;
             this.BASEBPM = 120.0;
@@ -1916,7 +1915,7 @@ internal class CDTX : CActivity
 
         this.listBPM[0].bpm_change_bmscroll_time = -2000 * this.dbNowBPM / 15000;
         if (this.bOFFSETの値がマイナスである == false)						//↑trueとfalseが逆になるのでここの比較も逆
-            this.nOFFSET = this.nOFFSET * -1; //OFFSETは秒を加算するので、必ず正の数にすること。 
+            this.nOFFSET = this.nOFFSET * -1; //OFFSETは秒を加算するので、必ず正の数にすること。
         #endregion
 
         #region[MOVIEOFFSET]
@@ -1925,7 +1924,7 @@ internal class CDTX : CActivity
         else
             this.nMOVIEOFFSET = 0;
         this.bMOVIEOFFSETの値がマイナスである = this.nMOVIEOFFSET < 0 ? true : false;
-        
+
         if (this.bMOVIEOFFSETの値がマイナスである == true)
             this.nMOVIEOFFSET = this.nMOVIEOFFSET * -1; //OFFSETは秒を加算するので、必ず正の数にすること。
         #endregion
@@ -2002,7 +2001,7 @@ internal class CDTX : CActivity
         int n譜面数 = 0;
 
         int[] coursesindex = new int[(int)Difficulty.Total] {-1,-1,-1,-1,-1,-1,-1};
-        
+
         for (int i = 0; i < obj.Courses.Length; i++)
         {
             this.n参照中の難易度 = strConvertCourse(obj.Courses[i].Diffculty);
@@ -2018,7 +2017,7 @@ internal class CDTX : CActivity
         #region[ 読み込ませるコースを決定 ]
         if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongLoading)//2020.05.12 Mr-Ojii 起動直後の曲読み込みでエラーを吐くので対策
             n読み込むコース = TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayerSide];
-        
+
         if (this.b譜面が存在する[n読み込むコース] == false)
         {
             n読み込むコース++;
@@ -2042,7 +2041,7 @@ internal class CDTX : CActivity
         if (this.bSession譜面を読み込む)
             n読み込むセッション譜面パート = nPlayerSide + 1;
 
-        if (n読み込むセッション譜面パート >= 1) 
+        if (n読み込むセッション譜面パート >= 1)
         {
             if (obj.Courses[coursesindex[n読み込むコース]].Multiple == null ||  obj.Courses[coursesindex[n読み込むコース]].Multiple.Length < n読み込むセッション譜面パート || string.IsNullOrEmpty(obj.Courses[coursesindex[n読み込むコース]].Multiple[n読み込むセッション譜面パート - 1])) {
                 n読み込むセッション譜面パート = 0;
@@ -2115,7 +2114,7 @@ internal class CDTX : CActivity
 
     }
 
-    private void t入力tccファイル(string strファイル相対パス) 
+    private void t入力tccファイル(string strファイル相対パス)
     {
         string 読み込むtccファイル = this.strフォルダ名 + strファイル相対パス;
 
@@ -2202,7 +2201,7 @@ internal class CDTX : CActivity
                 {
                     chip.b可視 = false;
                 }
-                #region [ 作り直し ]  
+                #region [ 作り直し ]
                 if (IsEndedBranching)
                 {
                     if (this.IsBranchBarDraw[i])
@@ -2217,7 +2216,7 @@ internal class CDTX : CActivity
 
                 this.listChip.Add(chip);
 
-                #region [ 作り直し ]  
+                #region [ 作り直し ]
                 if (IsEndedBranching)
                     this.IsBranchBarDraw[i] = false;
                 else this.IsBranchBarDraw[(int)n現在のコース] = false;
@@ -2262,7 +2261,7 @@ internal class CDTX : CActivity
             {
                 this.t命令を挿入するtcc(今回の文字列);
             }
-            else 
+            else
             {
                 this.t入力tcc音符(今回の文字列 , n文字数);
             }
@@ -2640,7 +2639,7 @@ internal class CDTX : CActivity
     private string[] tコマンド行を削除したTJAを返す(string[] input, int nMode)
     {
         var sb = new StringBuilder();
-        
+
         // 18/11/11 AioiLight 譜面にSpace、スペース、Tab等が入っているとおかしくなるので修正。
         // 多分コマンドもスペースが抜かれちゃっているが、コマンド行を除く譜面を返すので大丈夫(たぶん)。
         for (int i = 0; i < input.Length; i++)
@@ -2701,7 +2700,7 @@ internal class CDTX : CActivity
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="InputText"></param>
     /// <returns>1小節内の文字数</returns>
@@ -2711,7 +2710,7 @@ internal class CDTX : CActivity
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="InputText"></param>
     /// <returns>1小節内の文字数</returns>
@@ -2808,7 +2807,7 @@ internal class CDTX : CActivity
     /// ○未実装
     /// _「COURSE」定義が無い譜面は未対応
     /// 　→ver2015082200で対応完了。
-    /// 
+    ///
     /// </summary>
     /// <param name="strInput">譜面のデータ</param>
     private void t入力_V4(string strInput)
@@ -2846,7 +2845,7 @@ internal class CDTX : CActivity
 
         //SplitしたヘッダのLengthの回数だけ、forで回して各種情報を読み取っていく。
         this.tParseHeader(strSplited);
-            
+
         #endregion
 
         #region[譜面]
@@ -3370,7 +3369,7 @@ internal class CDTX : CActivity
                     n分岐の種類 = n条件,
                     n番号 = nBRANCH現在番号,
                     //ノーツ * 0.5分後ろにして、ノーツが残らないようにする
-                    db分岐時刻ms = this.dbNowTime - ((15000.0 / this.dbNowBPM * (this.fNow_Measure_s / this.fNow_Measure_m)) * 0.5) 
+                    db分岐時刻ms = this.dbNowTime - ((15000.0 / this.dbNowBPM * (this.fNow_Measure_s / this.fNow_Measure_m)) * 0.5)
                 });
             this.nBRANCH現在番号++;
             #endregion
@@ -3577,7 +3576,7 @@ internal class CDTX : CActivity
             AddMusicPreTimeMs(); // 段位の幕が開いてからの遅延。
 
             strArray = SplitComma(argument); // \,をエスケープ処理するメソッドだぞっ
-            
+
             WarnSplitLength("#NEXTSONG", strArray, 6);
             var dansongs = new DanSongs();
             dansongs.Title = strArray[0];
@@ -3617,7 +3616,7 @@ internal class CDTX : CActivity
 
     void t現在のチップ情報を記録する(bool bInPut) //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
     {
-        //2020.04.21 こうなってしまったのは仕方がないな。。 
+        //2020.04.21 こうなってしまったのは仕方がないな。。
         if (bInPut)
         {
             #region [ 記録する ]
@@ -3723,7 +3722,7 @@ internal class CDTX : CActivity
                 {
                     this.t命令を挿入する(InputText);
                 }
-                catch(Exception e) 
+                catch(Exception e)
                 {
                     Trace.WriteLine(e);
                     Trace.WriteLine("命令挿入中にエラーが発生しましたが、処理を継続します。");
@@ -3761,7 +3760,7 @@ internal class CDTX : CActivity
                         {
                             chip.b可視 = false;
                         }
-                        #region [ 作り直し ]  
+                        #region [ 作り直し ]
                         if (IsEndedBranching)
                         {
                             if (this.IsBranchBarDraw[i])
@@ -3776,7 +3775,7 @@ internal class CDTX : CActivity
 
                         this.listChip.Add(chip);
 
-                        #region [ 作り直し ]  
+                        #region [ 作り直し ]
                         if (IsEndedBranching)
                             this.IsBranchBarDraw[i] = false;
                         else this.IsBranchBarDraw[(int)n現在のコース] = false;
@@ -3874,7 +3873,7 @@ internal class CDTX : CActivity
                             chip.bGOGOTIME = this.bGOGOTIME;
 
                             if (nObjectNum == 7 || nObjectNum == 9)
-                            { 
+                            {
                                 //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに修正
                                 switch (chip.nコース)
                                 {
@@ -4047,7 +4046,7 @@ internal class CDTX : CActivity
         {
             this.eScrollMode = EScrollMode.HBSCROLL;
         }
-        else if (InputText.Equals("#BMSCROLL")) 
+        else if (InputText.Equals("#BMSCROLL"))
         {
             this.eScrollMode = EScrollMode.BMSCROLL;
         }
@@ -4540,7 +4539,7 @@ internal class CDTX : CActivity
             {
                 this.bHasBranch[this.n参照中の難易度] = true;
             }
-            else if (InputText.StartsWith("#PAPAMAMA")) 
+            else if (InputText.StartsWith("#PAPAMAMA"))
             {
                 //2020.09.24 Mr-Ojii
                 //こちらもヘッダ命令ではないが、ここで読み込ませます。
@@ -4567,7 +4566,7 @@ internal class CDTX : CActivity
 
             if (this.nScoreModeTmp == 99)
             {
-                //2017.01.28 DD 
+                //2017.01.28 DD
                 this.nScoreModeTmp = TJAPlayer3.ConfigToml.PlayOption.DefaultScoreMode;
             }
         }
@@ -4673,11 +4672,11 @@ internal class CDTX : CActivity
         Regex timeRegexO = new Regex(@"^(\[)(\d{2})(:)(\d{2})(\])", RegexOptions.Multiline | RegexOptions.Compiled);
         List<long> list;
         for (int i = 0; i < strSplit後.Length; i++)
-        { 
+        {
             list = new List<long>();
             if (!String.IsNullOrEmpty(strSplit後[i]))
             {
-                if (strSplit後[i].StartsWith("[")) 
+                if (strSplit後[i].StartsWith("["))
                 {
                     Match timestring = timeRegex.Match(strSplit後[i]) , timestringO = timeRegexO.Match(strSplit後[i]);
                     while ( timestringO.Success || timestring.Success)
@@ -4701,7 +4700,7 @@ internal class CDTX : CActivity
                     }
                     strSplit後[i] = strSplit後[i].Replace("\r", "").Replace("\n", "");
 
-                    for (int listindex = 0; listindex < list.Count; listindex++) 
+                    for (int listindex = 0; listindex < list.Count; listindex++)
                     {
                         STLYRIC stlrc;
                         stlrc.Text = strSplit後[i];

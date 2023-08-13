@@ -8,7 +8,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using FDK;
-using FDK.ExtensionMethods;
 
 namespace TJAPlayer3;
 
@@ -155,7 +154,7 @@ internal class CConfigIni
                 else
                     this.Code = -1;
             }
-            
+
             public override string ToString()
             {
                 if (this.DeviceType == EInputDevice.Unknown)
@@ -468,7 +467,7 @@ internal class CConfigIni
         var str = string.Join(",", assign
             .Select(x => x.ToString())
             .Where(x => !string.IsNullOrEmpty(x)));
-        
+
         sw.Write(str);
     }
     private void tキーの読み出しと設定( string strキー記述, CKeyAssign.STKEYASSIGN[] assign )

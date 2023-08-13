@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 using System.Drawing;
 using System.Diagnostics;
 using FDK;
-using FDK.ExtensionMethods;
 
 
 namespace TJAPlayer3;

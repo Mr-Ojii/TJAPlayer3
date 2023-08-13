@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using FDK.ExtensionMethods;
 using FDK.BassMixExtension;
 using ManagedBass;
 using ManagedBass.Mix;
@@ -92,7 +91,7 @@ public class CSound : IDisposable
     /// software mixer. Later steps in the flow of audio apply "channel" level
     /// (e.g. AutomationLevel) and mixing group level (e.g. GroupLevel) before
     /// the audio is output.
-    /// 
+    ///
     /// This method, taking an integer representing a percent value, is used
     /// for mixing in the SONGVOL value, when available. It is also used for
     /// DTXViewer preview mode.
@@ -113,7 +112,7 @@ public class CSound : IDisposable
     /// software mixer. Later steps in the flow of audio apply "channel" level
     /// (e.g. AutomationLevel) and mixing group level (e.g. GroupLevel) before
     /// the audio is output.
-    /// 
+    ///
     /// This method, taking a LUFS gain value and a LUFS true audio peak value,
     /// is used for mixing in the loudness-metadata-base gain value, when available.
     /// </summary>
@@ -466,7 +465,7 @@ public class CSound : IDisposable
 
         var sounds = CSound.listインスタンス.ToArray();
         CSound.listインスタンス.Clear();
-        
+
 
         // 配列に基づいて個々のサウンドを作成する。
 
@@ -595,16 +594,16 @@ public class CSound : IDisposable
         // BASSファイルストリームを作成。
 
         this._hBassStream = Bass.CreateStream( strFilename, 0, 0, flags );
-        if (this._hBassStream == 0) 
+        if (this._hBassStream == 0)
         {
             //ファイルからのサウンド生成に失敗した場合にデコードする。(時間がかかるのはしょうがないね)
             tDecodeAudioFile(strFilename, out byArrWAVファイルイメージ, out _, out _, true);
             tBASSサウンドを作成する(byArrWAVファイルイメージ, hMixer, flags);
             return;
         }
-        
+
         nBytes = Bass.ChannelGetLength( this._hBassStream );
-        
+
         tBASSサウンドを作成する_ストリーム生成後の共通処理( hMixer );
     }
     private void tBASSサウンドを作成する( byte[] byArrWAVファイルイメージ, int hMixer, BassFlags flags )
@@ -740,7 +739,7 @@ public class CSound : IDisposable
 
         //正常にDecodeできなかった場合、例外
         if ( rtn < 0 )
-            throw new Exception( string.Format( "Decoded Failed...({0})({1})", rtn, strFilename ) );			
+            throw new Exception( string.Format( "Decoded Failed...({0})({1})", rtn, strFilename ) );
     }
     #endregion
     #endregion

@@ -4,7 +4,6 @@ using System.Text;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using FDK;
-using FDK.ExtensionMethods;
 
 namespace TJAPlayer3;
 

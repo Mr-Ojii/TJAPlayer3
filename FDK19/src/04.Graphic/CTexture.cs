@@ -10,7 +10,6 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SDL2;
-using FDK.ExtensionMethods;
 
 using Rectangle = System.Drawing.Rectangle;
 using Point = System.Drawing.Point;
@@ -38,7 +37,7 @@ public class CTexture : IDisposable
     }
     public Color color
     {
-        get 
+        get
         {
             return this._color;
         }
@@ -126,7 +125,6 @@ public class CTexture : IDisposable
             this.rcImageRect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
 
             this.texture = SDL.SDL_CreateTexture(device.renderer, SDL.SDL_PIXELFORMAT_ABGR8888, (int)SDL.SDL_TextureAccess.SDL_TEXTUREACCESS_TARGET, bitmap.Width, bitmap.Height);
-            
             Rgba32[] mem = ArrayPool<Rgba32>.Shared.Rent(bitmap.Width * bitmap.Height);
 
             bitmap.CopyPixelDataTo(mem);
@@ -154,7 +152,7 @@ public class CTexture : IDisposable
         }
     }
     // メソッド
-    public void UpdateTexture(IntPtr bitmap, Size size) 
+    public void UpdateTexture(IntPtr bitmap, Size size)
     {
         if (this.szTextureSize == size)
         {
@@ -278,7 +276,7 @@ public class CTexture : IDisposable
     }
 
 
-    public void t2D幕用描画(Device device, float x, float y, Rectangle rc画像内の描画領域, bool left, int num = 0) 
+    public void t2D幕用描画(Device device, float x, float y, Rectangle rc画像内の描画領域, bool left, int num = 0)
     {
         if (this.texture == null)
             return;
@@ -388,7 +386,7 @@ public class CTexture : IDisposable
         DownRight,
     }
 
-    public enum EBlendMode 
+    public enum EBlendMode
     {
         Normal,
         Addition,
