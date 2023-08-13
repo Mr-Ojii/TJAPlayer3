@@ -1052,25 +1052,8 @@ internal class TJAPlayer3 : Game
 #region [ ログ出力開始 ]
         //---------------------
         Trace.AutoFlush = true;
-        bool log出力ok = false;
-        int num = 0;
-        while (!log出力ok)
-        {
-            try
-            {
-                string logname;
-                if (num == 0)
-                    logname = "TJAPlayer3-f.log";
-                else
-                    logname = "TJAPlayer3-f_" + num.ToString() + ".log";
-                Trace.Listeners.Add(new CTraceLogListener(new StreamWriter(System.IO.Path.Combine(strEXEのあるフォルダ, logname), false, new UTF8Encoding(false))));
-                log出力ok = true;
-            }
-            catch (Exception)
-            {
-                num++;
-            }
-        }
+        Trace.Listeners.Add(new CTraceLogListener(new StreamWriter(Path.Combine(strEXEのあるフォルダ, "TJAPlayer3-f.log"), false, new UTF8Encoding(false))));
+
         Trace.WriteLine("");
         Trace.WriteLine("DTXMania powered by YAMAHA Silent Session Drums");
         Trace.WriteLine(string.Format("Release: {0}", VERSION));
