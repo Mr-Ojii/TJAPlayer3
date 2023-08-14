@@ -460,16 +460,16 @@ internal class CDTX : CActivity
     {
         get;
         private set;
-    }
+    } = 0;
     public bool b分岐を一回でも開始した = false; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加 //2020.04.22 akasoko26 分岐譜面のみ値を代入するように。
-    public int nPlayerSide; //2017.08.14 kairera0467 引数で指定する
+    public int nPlayerSide = 0; //2017.08.14 kairera0467 引数で指定する
     public bool bSession譜面を読み込む;
 
     public double BASEBPM;
-    public double BPM;
-    public bool bHasBranchChip;
-    public string GENRE;
-    public bool bLyrics;
+    public double BPM = 120.0;
+    public bool bHasBranchChip = false;
+    public string GENRE = "";
+    public bool bLyrics = false;
     public int[] LEVELtaiko = new int[(int)Difficulty.Total] { -1, -1, -1, -1, -1, -1, -1 };
     public Dictionary<int, CVideoDecoder> listVD;
     public Dictionary<int, CBPM> listBPM;
@@ -485,14 +485,14 @@ internal class CDTX : CActivity
 
     public Dictionary<int, CDELAY> listDELAY;
     public Dictionary<int, CBRANCH> listBRANCH;
-    public string PATH_WAV;
-    public string strFilename;
-    public string strFilenameの絶対パス;
-    public string strフォルダ名;
-    public string EXTENSION;
-    public string SUBTITLE;
-    public string TITLE;
-    public bool SUBTITLEDisp;
+    public string PATH_WAV = "";
+    public string strFilename = "";
+    public string strFilenameの絶対パス = "";
+    public string strフォルダ名 = "";
+    public string EXTENSION = "";
+    public string SUBTITLE = "";
+    public string TITLE = "";
+    public bool SUBTITLEDisp = false;
     public int nデモBGMオフセット = 0;
     public bool[] bPapaMamaSupport = new bool[(int)Difficulty.Total] { false, false, false, false, false, false, false };
 
@@ -511,7 +511,7 @@ internal class CDTX : CActivity
     //分岐関連
     private int n現在のコース = 0; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
 
-    private bool b最初の分岐である;
+    private bool b最初の分岐である = true;
     public int[] nノーツ数 = new int[4]; //0～2:各コース 3:共通
     public int[] nノーツ数_Branch = new int[4]; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加
     public int[] n風船数 = new int[4]; //0～2:各コース 3:共通
@@ -526,7 +526,7 @@ internal class CDTX : CActivity
     public int[] nScoreDiff = new int[(int)Difficulty.Total]; //[y]
     public bool[,] b配点が指定されている = new bool[3, (int)Difficulty.Total]; //2017.06.04 kairera0467 [ x, y ] x=通常(Init)or真打orDiff y=コース
 
-    private double dbBarLength;
+    private double dbBarLength = 1.0;
     public float fNow_Measure_s = 4.0f;
     public float fNow_Measure_m = 4.0f;
     public double dbNowTime = 0.0;
@@ -547,11 +547,11 @@ internal class CDTX : CActivity
     public List<Image<Rgba32>> listLyric; //2020.05.13 Mr-Ojii 曲読み込み時にテクスチャを生成するために変更
     public List<STLYRIC> listLyric2;
 
-    private int listBalloon_Normal_数値管理;
-    private int listBalloon_Expert_数値管理;
-    private int listBalloon_Master_数値管理;
+    private int listBalloon_Normal_数値管理 = 0;
+    private int listBalloon_Expert_数値管理 = 0;
+    private int listBalloon_Master_数値管理 = 0;
 
-    private int nBRANCH現在番号;
+    private int nBRANCH現在番号 = 0;
 
     public bool[] b譜面が存在する = new bool[(int)Difficulty.Total];
 
@@ -566,10 +566,10 @@ internal class CDTX : CActivity
     public double db移動待機時刻;
 
     public string strBGM_PATH;
-    public int SongVol;
-    public LoudnessMetadata? SongLoudnessMetadata;
+    public int SongVol = CSound.DefaultSongVol;
+    public LoudnessMetadata? SongLoudnessMetadata = null;
 
-    public bool bHIDDENBRANCH; //2016.04.01 kairera0467 選曲画面上、譜面分岐開始前まで譜面分岐の表示を隠す
+    public bool bHIDDENBRANCH = false; //2016.04.01 kairera0467 選曲画面上、譜面分岐開始前まで譜面分岐の表示を隠す
     public bool bGOGOTIME; //2018.03.11 kairera0467
 
     public bool[] IsBranchBarDraw = new bool[4]; //2020.04.25 Mr-Ojii akasoko26さんのコードをもとに追加 // 仕様変更により、黄色lineの表示法を変更.2020.04.21.akasoko26
@@ -579,35 +579,13 @@ internal class CDTX : CActivity
 
     public bool IsEnabledFixSENote;
     public int FixSENote;
-    public GaugeIncreaseMode GaugeIncreaseMode;
-    public EScrollMode eScrollMode;
+    public GaugeIncreaseMode GaugeIncreaseMode = GaugeIncreaseMode.Normal;
+    public EScrollMode eScrollMode = EScrollMode.Normal;
 
     // コンストラクタ
 
-    public CDTX()
+    public CDTX(string strFilename, bool bヘッダのみ, int nBGMAdjust, int nPlayerSide, bool bSession)
     {
-        this.nPlayerSide = 0;
-        this.EXTENSION = "";
-        this.TITLE = "";
-        this.SUBTITLE = "";
-        this.SUBTITLEDisp = false;
-        this.GENRE = "";
-        this.bLyrics = false;
-        this.PATH_WAV = "";
-        this.BPM = 120.0;
-        this.bHIDDENBRANCH = false;
-        this.bHasBranchChip = false;
-        this.strFilename = "";
-        this.strフォルダ名 = "";
-        this.strFilenameの絶対パス = "";
-        this.listBalloon_Normal_数値管理 = 0;
-        this.listBalloon_Expert_数値管理 = 0;
-        this.listBalloon_Master_数値管理 = 0;
-        this.nBRANCH現在番号 = 0;
-
-        this.nBGMAdjust = 0;
-
-        //this.nScoreModeTmp = 1;
         for (int y = 0; y < (int)Difficulty.Total; y++)
         {
             this.nScoreInit[0, y] = 300;
@@ -618,23 +596,9 @@ internal class CDTX : CActivity
             this.b配点が指定されている[2, y] = false;
         }
 
-        this.dbBarLength = 1.0;
-
-        this.b最初の分岐である = true;
-
-        this.SongVol = CSound.DefaultSongVol;
-        this.SongLoudnessMetadata = null;
-        this.eScrollMode = EScrollMode.Normal;
-
-        GaugeIncreaseMode = GaugeIncreaseMode.Normal;
-
         Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture; // Change default culture to invariant, fixes (Purota)
 
         Dan_C = new Dan_C[3];
-    }
-    public CDTX(string strFilename, bool bヘッダのみ, int nBGMAdjust, int nPlayerSide, bool bSession)
-        : this()
-    {
         this.On活性化();
         this.t入力(strFilename, bヘッダのみ, nBGMAdjust, nPlayerSide, bSession);
     }
