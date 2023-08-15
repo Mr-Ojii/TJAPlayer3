@@ -43,17 +43,17 @@ internal class CStage選曲 : CStage
         base.eStageID = CStage.EStage.SongSelect;
         base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
         base.b活性化してない = true;
-        base.list子Activities.Add(this.actFIFO = new CActFIFOBlack());
-        base.list子Activities.Add(this.actFIfromResult = new CActFIFOBlack());
-        //base.list子Activities.Add( this.actFOtoNowLoading = new CActFIFOBlack() );
-        base.list子Activities.Add(this.actFOtoNowLoading = new CActFIFOStart());
-        base.list子Activities.Add(this.act曲リスト = new CActSelect曲リスト());
-        base.list子Activities.Add(this.actDifficultySelect = new CActSelectDifficultySelect());
-        base.list子Activities.Add(this.actHistoryPanel = new CActSelectHistoryPanel());
-        base.list子Activities.Add(this.actPresound = new CActSelectPresound());
-        base.list子Activities.Add(this.actSortSongs = new CActSortSongs());
-        base.list子Activities.Add(this.actPlayOption = new CActSelectPlayOption());
-        base.list子Activities.Add(this.actChangeSE = new CActSelectChangeSE());
+        base.listChildren.Add(this.actFIFO = new CActFIFOBlack());
+        base.listChildren.Add(this.actFIfromResult = new CActFIFOBlack());
+        //base.listChildren.Add( this.actFOtoNowLoading = new CActFIFOBlack() );
+        base.listChildren.Add(this.actFOtoNowLoading = new CActFIFOStart());
+        base.listChildren.Add(this.act曲リスト = new CActSelect曲リスト());
+        base.listChildren.Add(this.actDifficultySelect = new CActSelectDifficultySelect());
+        base.listChildren.Add(this.actHistoryPanel = new CActSelectHistoryPanel());
+        base.listChildren.Add(this.actPresound = new CActSelectPresound());
+        base.listChildren.Add(this.actSortSongs = new CActSortSongs());
+        base.listChildren.Add(this.actPlayOption = new CActSelectPlayOption());
+        base.listChildren.Add(this.actChangeSE = new CActSelectChangeSE());
     }
 
 

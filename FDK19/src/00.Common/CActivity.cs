@@ -20,7 +20,7 @@ public class CActivity
             this.b活性化してる = !value;
         }
     }
-    public List<CActivity> list子Activities;
+    public List<CActivity> listChildren;
 
     /// <summary>
     /// <para>初めて On進行描画() を呼び出す場合に true を示す。（On活性化() 内で true にセットされる。）</para>
@@ -35,7 +35,7 @@ public class CActivity
     public CActivity()
     {
         this.b活性化してない = true;
-        this.list子Activities = new List<CActivity>();
+        this.listChildren = new List<CActivity>();
     }
 
 
@@ -53,7 +53,7 @@ public class CActivity
         this.b活性化してる = true;		// このフラグは、以下の処理をする前にセットする。
 
         // すべての子 Activity を活性化する。
-        foreach( CActivity activity in this.list子Activities )
+        foreach( CActivity activity in this.listChildren )
             activity.On活性化();
 
         // その他の初期化
@@ -66,7 +66,7 @@ public class CActivity
             return;
 
         // すべての 子Activity を非活性化する。
-        foreach( CActivity activity in this.list子Activities )
+        foreach( CActivity activity in this.listChildren )
             activity.On非活性化();
 
         this.b活性化してない = true;	// このフラグは、以上のメソッドを呼び出した後にセットする。

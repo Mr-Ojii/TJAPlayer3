@@ -17,9 +17,9 @@ internal class CStageConfig : CStage
     {
         base.eStageID = CStage.EStage.Config;
         base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
-        base.list子Activities.Add( this.actFIFO = new CActFIFOBlack() );
-        base.list子Activities.Add( this.actList = new CActConfigList() );
-        base.list子Activities.Add( this.actKeyAssign = new CActConfigKeyAssign() );
+        base.listChildren.Add( this.actFIFO = new CActFIFOBlack() );
+        base.listChildren.Add( this.actList = new CActConfigList() );
+        base.listChildren.Add( this.actKeyAssign = new CActConfigKeyAssign() );
         base.b活性化してない = true;
     }
 

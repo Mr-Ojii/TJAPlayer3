@@ -23,10 +23,10 @@ internal class CStageResult : CStage
         base.eStageID = CStage.EStage.Result;
         base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
         base.b活性化してない = true;
-        base.list子Activities.Add( this.actParameterPanel = new CActResultParameterPanel() );
-        base.list子Activities.Add( this.actSongBar = new CActResultSongBar() );
-        base.list子Activities.Add( this.actFI = new CActFIFOResult() );
-        base.list子Activities.Add( this.actFO = new CActFIFOBlack() );
+        base.listChildren.Add( this.actParameterPanel = new CActResultParameterPanel() );
+        base.listChildren.Add( this.actSongBar = new CActResultSongBar() );
+        base.listChildren.Add( this.actFI = new CActFIFOResult() );
+        base.listChildren.Add( this.actFO = new CActFIFOBlack() );
     }
 
     // CStage 実装

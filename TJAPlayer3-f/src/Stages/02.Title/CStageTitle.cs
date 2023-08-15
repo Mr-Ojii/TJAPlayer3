@@ -18,8 +18,8 @@ internal class CStageTitle : CStage
     {
         base.eStageID = CStage.EStage.Title;
         base.b活性化してない = true;
-        base.list子Activities.Add(this.actFI = new CActFIFOBlack());
-        base.list子Activities.Add(this.actFO = new CActFIFOBlack());
+        base.listChildren.Add(this.actFI = new CActFIFOBlack());
+        base.listChildren.Add(this.actFO = new CActFIFOBlack());
     }
 
     // CStage 実装
