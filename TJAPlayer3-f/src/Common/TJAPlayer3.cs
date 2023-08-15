@@ -882,11 +882,7 @@ internal class TJAPlayer3 : Game
             return null;
         }
     }
-    public static CTexture tCreateTexture(SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> image)
-    {
-        return tCreateTexture(image, false);
-    }
-    public static CTexture tCreateTexture(SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> image, bool b黒を透過する)
+    public static CTexture tCreateTexture(SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> image, bool b黒を透過する = false)
     {
         if (app == null)
         {
@@ -904,22 +900,12 @@ internal class TJAPlayer3 : Game
         }
     }
 
-    public static CTexture ColorTexture(string htmlcolor)
-    {
-        return ColorTexture(htmlcolor, 64, 64);
-    }
-    public static CTexture ColorTexture(string htmlcolor, int width, int height)//2020.05.31 Mr-Ojii 単色塗りつぶしテクスチャの生成。必要かって？Tile_Black・Tile_Whiteがいらなくなるじゃん。あと、メンテモードの画像生成に便利かなって。
+    public static CTexture ColorTexture(string htmlcolor, int width = 64, int height = 64)//2020.05.31 Mr-Ojii 単色塗りつぶしテクスチャの生成。必要かって？Tile_Black・Tile_Whiteがいらなくなるじゃん。あと、メンテモードの画像生成に便利かなって。
     {
         if (htmlcolor.Length == 7 && htmlcolor.StartsWith("#"))
-        {
             return ColorTexture(SixLabors.ImageSharp.Color.ParseHex(htmlcolor.Remove(0, 1)), width, height);
-        }
         else
             return ColorTexture(SixLabors.ImageSharp.Color.Black, width, height);
-    }
-    public static CTexture ColorTexture(SixLabors.ImageSharp.Color color)
-    {
-        return ColorTexture(color, 64, 64);
     }
     /// <summary>
     /// 単色塗りつぶしテクスチャの生成
@@ -928,7 +914,7 @@ internal class TJAPlayer3 : Game
     /// <param name="width">幅</param>
     /// <param name="height">高さ</param>
     /// <returns></returns>
-    public static CTexture ColorTexture(SixLabors.ImageSharp.Color color, int width, int height)
+    public static CTexture ColorTexture(SixLabors.ImageSharp.Color color, int width = 64, int height = 64)
     {
         return TJAPlayer3.tCreateTexture(new Image<Rgba32>(width, height, color));
     }
