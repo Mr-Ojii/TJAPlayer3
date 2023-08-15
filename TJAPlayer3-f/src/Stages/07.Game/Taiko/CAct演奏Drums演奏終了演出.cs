@@ -88,41 +88,27 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
     {
         this.bリザルトボイス再生済み = false;
         this.Mode = new EndMode[2];
+
+        this.soundFailed = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Failed.ogg"), ESoundGroup.SoundEffect);
+        this.soundClear = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Clear.ogg"), ESoundGroup.SoundEffect);
+        this.soundFullCombo = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Full Combo.ogg"), ESoundGroup.SoundEffect);
+        this.soundDonderFullCombo = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Donder Full Combo.ogg"), ESoundGroup.SoundEffect);
         base.On活性化();
     }
 
     public override void On非活性化()
     {
         this.ct進行メイン = null;
+
+        if (this.soundFailed != null)
+            this.soundFailed.t解放する();
+        if (this.soundClear != null)
+            this.soundClear.t解放する();
+        if (this.soundFullCombo != null)
+            this.soundFullCombo.t解放する();
+        if (this.soundDonderFullCombo != null)
+            this.soundDonderFullCombo.t解放する();
         base.On非活性化();
-    }
-
-    public override void OnManagedリソースの作成()
-    {
-        if (!base.b活性化してない)
-        {
-            this.soundFailed = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Failed.ogg"), ESoundGroup.SoundEffect);
-            this.soundClear = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Clear.ogg"), ESoundGroup.SoundEffect);
-            this.soundFullCombo = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Full Combo.ogg"), ESoundGroup.SoundEffect);
-            this.soundDonderFullCombo = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Donder Full Combo.ogg"), ESoundGroup.SoundEffect);
-            base.OnManagedリソースの作成();
-        }
-    }
-
-    public override void OnManagedリソースの解放()
-    {
-        if (!base.b活性化してない)
-        {
-            if (this.soundFailed != null)
-                this.soundFailed.t解放する();
-            if (this.soundClear != null)
-                this.soundClear.t解放する();
-            if (this.soundFullCombo != null)
-                this.soundFullCombo.t解放する();
-            if (this.soundDonderFullCombo != null)
-                this.soundDonderFullCombo.t解放する();
-            base.OnManagedリソースの解放();
-        }
     }
 
     public override int On進行描画()
@@ -146,11 +132,11 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
                 switch (this.Mode[i])
                 {
                     case EndMode.StageFailed:
-                        if (TJAPlayer3.Tx.End_Failed_Text != null) 
+                        if (TJAPlayer3.Tx.End_Failed_Text != null)
                         {
                             #region[ 文字 ]
                             #region[ Opacity ]
-                            if (this.ct進行メイン.n現在の値 < 26) 
+                            if (this.ct進行メイン.n現在の値 < 26)
                             {
                                 TJAPlayer3.Tx.End_Failed_Text.Opacity = 0;
                             }
@@ -158,14 +144,14 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
                             {
                                 TJAPlayer3.Tx.End_Failed_Text.Opacity = (int)(((this.ct進行メイン.n現在の値 - 26) / 10.0) * 255.0);
                             }
-                            else 
+                            else
                             {
                                 TJAPlayer3.Tx.End_Failed_Text.Opacity = 255;
                             }
                             #endregion
                             #region[ Rotate ]
                             int ytxtdiff = 0;
-                            if (this.ct進行メイン.n現在の値 < 116) 
+                            if (this.ct進行メイン.n現在の値 < 116)
                             {
                                 TJAPlayer3.Tx.End_Failed_Text.fRotation = 0f;
                             }
@@ -232,7 +218,7 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
                                     TJAPlayer3.Tx.End_Failed_R[2].t2D描画(TJAPlayer3.app.Device, 968, y[i] - ydiff - 30);
                                 }
                             }
-                            else 
+                            else
                             {
                                 TJAPlayer3.Tx.End_Failed_L[3].t2D描画(TJAPlayer3.app.Device, 467, y[i] - 30);
                                 TJAPlayer3.Tx.End_Failed_R[3].t2D描画(TJAPlayer3.app.Device, 968, y[i] - 30);

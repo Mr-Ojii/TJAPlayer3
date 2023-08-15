@@ -24,34 +24,7 @@ internal class CAct演奏Drums背景 : CActivity
 
     public override void On活性化()
     {
-        base.On活性化();
-    }
 
-    public override void On非活性化()
-    {
-        this.ct上背景FIFOタイマー = null;
-        for (int i = 0; i < 2; i++)
-        {
-            ct上背景スクロール用タイマー[i] = null;
-        }
-        for (int i = 0; i < 2; i++)
-        {
-            ct上背景上下用タイマー[i] = null;
-        }
-        for (int i = 0; i < 2; i++)
-        {
-            ct上背景桜用タイマー[i] = null;
-        }
-        for (int i = 0; i < 2; i++)
-        {
-            ct上背景桜スクロール用タイマー[i] = null;
-        }
-        this.ct下背景スクロール用タイマー1 = null;
-        base.On非活性化();
-    }
-
-    public override void OnManagedリソースの作成()
-    {
         this.ct上背景スクロール用タイマー = new CCounter[2];
         this.ct上背景上下用タイマー = new CCounter[2];
         this.ct上背景桜用タイマー = new CCounter[2];
@@ -91,18 +64,36 @@ internal class CAct演奏Drums背景 : CActivity
             this.ct下背景スクロール用タイマー1 = new CCounter( 1, TJAPlayer3.Tx.Background_Down_Scroll.szTextureSize.Width, 4, TJAPlayer3.Timer );
 
         this.ct上背景FIFOタイマー = new CCounter();
-        base.OnManagedリソースの作成();
+        base.On活性化();
     }
 
-    public override void OnManagedリソースの解放()
+    public override void On非活性化()
     {
-        base.OnManagedリソースの解放();
+        this.ct上背景FIFOタイマー = null;
+        for (int i = 0; i < 2; i++)
+        {
+            ct上背景スクロール用タイマー[i] = null;
+        }
+        for (int i = 0; i < 2; i++)
+        {
+            ct上背景上下用タイマー[i] = null;
+        }
+        for (int i = 0; i < 2; i++)
+        {
+            ct上背景桜用タイマー[i] = null;
+        }
+        for (int i = 0; i < 2; i++)
+        {
+            ct上背景桜スクロール用タイマー[i] = null;
+        }
+        this.ct下背景スクロール用タイマー1 = null;
+        base.On非活性化();
     }
 
     public override int On進行描画()
     {
         this.ct上背景FIFOタイマー.t進行();
-        
+
         for (int i = 0; i < 2; i++)
         {
             if(this.ct上背景クリアインタイマー[i] != null)
@@ -202,13 +193,13 @@ internal class CAct演奏Drums背景 : CActivity
                         }
                     }
                 }
-                if (this.ct上背景上下用タイマー[i] != null) { 
+                if (this.ct上背景上下用タイマー[i] != null) {
                     if (TJAPlayer3.Tx.Background_Up_YMove[i] != null)
                     {
                         int ym;
                         int xm;
 
-                        switch (TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollPattern[i]) 
+                        switch (TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollPattern[i])
                         {
                             case 0:
                                 if (ct上背景上下用タイマー[i].n現在の値 <= ct上背景上下用タイマー[i].n終了値 * 0.5)

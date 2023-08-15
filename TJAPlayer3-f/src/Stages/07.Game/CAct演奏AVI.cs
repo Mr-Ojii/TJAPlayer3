@@ -26,7 +26,7 @@ internal class CAct演奏AVI : CActivity
             if (this.rVD != null)
             {
                 this.ratio1 = Math.Min((float)TJAPlayer3.app.LogicalSize.Height / ((float)this.rVD.FrameSize.Height), (float)TJAPlayer3.app.LogicalSize.Width / ((float)this.rVD.FrameSize.Height));
-                
+
                 this.rVD.Start();
             }
         }
@@ -34,7 +34,7 @@ internal class CAct演奏AVI : CActivity
     public void Seek( int ms ) => this.rVD?.Seek(ms);
 
     public void Stop() => this.rVD?.Stop();
-    
+
     public void tPauseControl() => this.rVD?.PauseControl();
 
     public unsafe int t進行描画()
@@ -43,7 +43,7 @@ internal class CAct演奏AVI : CActivity
         {
             if (this.rVD == null)
                 return 0;
-                
+
             this.rVD.GetNowFrame(ref this.tx描画用);
 
             this.tx描画用.vcScaling.X = this.ratio1;
@@ -61,7 +61,7 @@ internal class CAct演奏AVI : CActivity
     {
         if( this.rVD == null || this.tx描画用 == null || !TJAPlayer3.ConfigToml.Game.Background._ClipDispType.HasFlag(EClipDispType.Window))
             return;
-            
+
         float[] fRatio = new float[] { 640.0f - 4.0f, 360.0f - 4.0f }; //中央下表示
 
         float ratio = Math.Min((float)(fRatio[0] / this.rVD.FrameSize.Width), (float)(fRatio[1] / this.rVD.FrameSize.Height));
@@ -77,24 +77,14 @@ internal class CAct演奏AVI : CActivity
     {
         base.On活性化();
     }
-    public override void OnManagedリソースの作成()
+    public override void On非活性化()
     {
-        if ( !base.b活性化してない )
+        if ( this.tx描画用 != null )
         {
-            base.OnManagedリソースの作成();
+            this.tx描画用.Dispose();
+            this.tx描画用 = null;
         }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if ( !base.b活性化してない )
-        {
-            if ( this.tx描画用 != null )
-            {
-                this.tx描画用.Dispose();
-                this.tx描画用 = null;
-            }
-            base.OnManagedリソースの解放();
-        }
+        base.On非活性化();
     }
     public override int On進行描画()
     {

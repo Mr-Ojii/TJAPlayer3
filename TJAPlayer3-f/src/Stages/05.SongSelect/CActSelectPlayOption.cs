@@ -123,7 +123,7 @@ internal class CActSelectPlayOption : CActivity
                     break;
                 case (int)EItemList1P.PlayerCount:
                     TJAPlayer3.ConfigToml.PlayOption.PlayerCount = lci[nPlayer][(int)EItemList1P.PlayerCount].GetIndex();
-                    if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount == 1) 
+                    if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount == 1)
                     {
                         this.tDeativatePopupMenu(1);
                         TJAPlayer3.stage選曲.actChangeSE.tDeativateChangeSE(1);
@@ -131,7 +131,7 @@ internal class CActSelectPlayOption : CActivity
                     break;
             }
         }
-        else if(nPlayer == 1) 
+        else if(nPlayer == 1)
         {
             switch (NowRow[1])
             {
@@ -211,27 +211,13 @@ internal class CActSelectPlayOption : CActivity
             this.Font.Dispose();
 
         int count = NameTexture[0].Count;
-        for (int index = 0; index < count; index++) 
+        for (int index = 0; index < count; index++)
             NameTexture[0][index].Dispose();
         count = NameTexture[1].Count;
         for (int index = 0; index < count; index++)
             NameTexture[1][index].Dispose();
 
         base.On非活性化();
-    }
-    public override void OnManagedリソースの作成()
-    {
-        if (!base.b活性化してない)
-        {
-            base.OnManagedリソースの作成();
-        }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if (!base.b活性化してない)
-        {
-            base.OnManagedリソースの解放();
-        }
     }
 
     public override int On進行描画()
@@ -301,7 +287,7 @@ internal class CActSelectPlayOption : CActivity
                 if (NowRow[0] >= lci[0].Count)
                     NowRow[0] = 0;
             }
-            if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return)) 
+            if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return))
             {
                 TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
                 tDeativatePopupMenu(0);
@@ -430,15 +416,15 @@ internal class CActSelectPlayOption : CActivity
         public CTexture ItemNameTexture;
         public CTexture[] ItemListTexture;
 
-        public ItemTextureList(CTexture NameTexture, CTexture[] ListTexture) 
+        public ItemTextureList(CTexture NameTexture, CTexture[] ListTexture)
         {
             this.ItemNameTexture = NameTexture;
             this.ItemListTexture = ListTexture;
         }
 
-        public void Dispose() 
+        public void Dispose()
         {
-            
+
             this.ItemNameTexture?.Dispose();
             if (this.ItemListTexture != null)
             {

@@ -64,32 +64,24 @@ internal class C文字コンソール : CActivity
 
 
     // CActivity 実装
-
-    public override void OnManagedリソースの作成()
+    public override void On活性化()
     {
-        if( !base.b活性化してない )
-        {
-            this.txフォント8x16[ 0 ] = TJAPlayer3.Tx.TxC(@"Console_Font.png");
-            this.txフォント8x16[ 1 ] = TJAPlayer3.Tx.TxC(@"Console_Font_Small.png");
-            base.OnManagedリソースの作成();
-        }
+        this.txフォント8x16[ 0 ] = TJAPlayer3.Tx.TxC(@"Console_Font.png");
+        this.txフォント8x16[ 1 ] = TJAPlayer3.Tx.TxC(@"Console_Font_Small.png");
+        base.On活性化();
     }
-    public override void OnManagedリソースの解放()
+    public override void On非活性化()
     {
-        if( !base.b活性化してない )
+        for( int i = 0; i < 2; i++ )
         {
-            for( int i = 0; i < 2; i++ )
+            if( this.txフォント8x16[ i ] != null )
             {
-                if( this.txフォント8x16[ i ] != null )
-                {
-                    this.txフォント8x16[ i ].Dispose();
-                    this.txフォント8x16[ i ] = null;
-                }
+                this.txフォント8x16[ i ].Dispose();
+                this.txフォント8x16[ i ] = null;
             }
-            base.OnManagedリソースの解放();
         }
+        base.On非活性化();
     }
-
 
     // その他
 

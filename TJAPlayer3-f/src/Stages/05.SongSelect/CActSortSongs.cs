@@ -15,7 +15,7 @@ internal class CActSortSongs : CActSelectPopupMenu
         lci.Add( new CItemList( "曲名", 0, "", "", new string[] { "Z,Y,X,...",		"A,B,C,..." } ) );
         lci.Add( new CItemList( "ジャンル", 0, "", "", TJAPlayer3.Skin.SortList.Keys.ToArray() ) );
         lci.Add( new CItemList( "戻る", 0, "", "", new string[] { "", 				"" } ) );
-        
+
         base.Initialize( lci, false, "SORT MENU" , 0 );
     }
 
@@ -66,7 +66,7 @@ internal class CActSortSongs : CActSelectPopupMenu
                 break;
         }
     }
-    
+
     // CActivity 実装
 
     public override void On活性化()
@@ -80,17 +80,6 @@ internal class CActSortSongs : CActSelectPopupMenu
         {
             base.On非活性化();
         }
-    }
-    public override void OnManagedリソースの作成()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの作成();
-        }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        base.OnManagedリソースの解放();
     }
 
     #region [ private ]

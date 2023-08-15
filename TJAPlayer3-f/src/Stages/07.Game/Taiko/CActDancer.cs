@@ -19,7 +19,9 @@ internal class CActDancer : CActivity
 
     public override void On活性化()
     {
-        this.ct踊り子モーション = new CCounter();
+        this.ar踊り子モーション番号 = TJAPlayer3.Skin.SkinConfig.Game.Dancer.Motion;
+        if(this.ar踊り子モーション番号 == null) ar踊り子モーション番号 = new int[] { 0, 0 };
+        this.ct踊り子モーション = new CCounter(0, this.ar踊り子モーション番号.Length - 1, 0.01, CSoundManager.rc演奏用タイマ);
         base.On活性化();
     }
 
@@ -27,19 +29,6 @@ internal class CActDancer : CActivity
     {
         this.ct踊り子モーション = null;
         base.On非活性化();
-    }
-
-    public override void OnManagedリソースの作成()
-    {
-        this.ar踊り子モーション番号 = TJAPlayer3.Skin.SkinConfig.Game.Dancer.Motion;
-        if(this.ar踊り子モーション番号 == null) ar踊り子モーション番号 = new int[] { 0, 0 };
-        this.ct踊り子モーション = new CCounter(0, this.ar踊り子モーション番号.Length - 1, 0.01, CSoundManager.rc演奏用タイマ);
-        base.OnManagedリソースの作成();
-    }
-
-    public override void OnManagedリソースの解放()
-    {
-        base.OnManagedリソースの解放();
     }
 
     public override int On進行描画()

@@ -31,15 +31,15 @@ internal class CStageSongLoading : CStage
         try
         {
             this.strTitle = "";
-            
+
             this.nBGM再生開始時刻 = -1;
             this.nBGMの総再生時間ms = 0;
 
             var 譜面情報 = TJAPlayer3.stage選曲.r確定されたスコア.譜面情報;
             this.strTitle = 譜面情報.Title;
             this.strSubTitle = 譜面情報.SubTitle;
-            
-            
+
+
 
             // For the moment, detect that we are performing
             // calibration via there being an actual single
@@ -51,32 +51,7 @@ internal class CStageSongLoading : CStage
                 strTitle == "Input Calibration" &&
                 strSubTitle == "TJAPlayer3 Developers";
 
-            base.On活性化();
-        }
-        finally
-        {
-            Trace.TraceInformation( "曲読み込みステージの活性化を完了しました。" );
-            Trace.Unindent();
-        }
-    }
-    public override void On非活性化()
-    {
-        Trace.TraceInformation( "曲読み込みステージを非活性化します。" );
-        Trace.Indent();
-        try
-        {
-            base.On非活性化();
-        }
-        finally
-        {
-            Trace.TraceInformation( "曲読み込みステージの非活性化を完了しました。" );
-            Trace.Unindent();
-        }
-    }
-    public override void OnManagedリソースの作成()
-    {
-        if( !base.b活性化してない )
-        {
+
             this.ct待機 = new CCounter( 0, 600, 5, TJAPlayer3.Timer );
             this.ct曲名表示 = new CCounter( 1, 30, 30, TJAPlayer3.Timer );
             try
@@ -126,16 +101,29 @@ internal class CStageSongLoading : CStage
                 this.txTitle = null;
                 this.txSubTitle = null;
             }
-            base.OnManagedリソースの作成();
+
+            base.On活性化();
+        }
+        finally
+        {
+            Trace.TraceInformation( "曲読み込みステージの活性化を完了しました。" );
+            Trace.Unindent();
         }
     }
-    public override void OnManagedリソースの解放()
+    public override void On非活性化()
     {
-        if( !base.b活性化してない )
+        Trace.TraceInformation( "曲読み込みステージを非活性化します。" );
+        Trace.Indent();
+        try
         {
             TJAPlayer3.t安全にDisposeする( ref this.txTitle );
             TJAPlayer3.t安全にDisposeする( ref this.txSubTitle );
-            base.OnManagedリソースの解放();
+            base.On非活性化();
+        }
+        finally
+        {
+            Trace.TraceInformation( "曲読み込みステージの非活性化を完了しました。" );
+            Trace.Unindent();
         }
     }
     public override int On進行描画()
@@ -186,7 +174,7 @@ internal class CStageSongLoading : CStage
 
         if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan)
         {
-            if (TJAPlayer3.ConfigToml.EnableSkinV2) 
+            if (TJAPlayer3.ConfigToml.EnableSkinV2)
             {
                 if (TJAPlayer3.Tx.SongLoading_v2_Plate != null)
                 {
@@ -357,7 +345,7 @@ internal class CStageSongLoading : CStage
                                 {
                                     using (var pfSubTitle = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 19))
                                     {
-                                        using (var bmpSongSubTitle = pfSubTitle.DrawText(TJAPlayer3.DTX[0].List_DanSongs[i].SubTitle, TJAPlayer3.Skin.SkinConfig.Game.DanC._SubTitleForeColor, TJAPlayer3.Skin.SkinConfig.Game.DanC._SubTitleBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio)) 
+                                        using (var bmpSongSubTitle = pfSubTitle.DrawText(TJAPlayer3.DTX[0].List_DanSongs[i].SubTitle, TJAPlayer3.Skin.SkinConfig.Game.DanC._SubTitleForeColor, TJAPlayer3.Skin.SkinConfig.Game.DanC._SubTitleBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
                                         {
                                             TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex = TJAPlayer3.tCreateTexture(bmpSongSubTitle);
                                             TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex.vcScaling.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex, 710);

@@ -32,7 +32,7 @@ internal class Dan_Cert : CActivity
     {
         NowShowingNumber = number;
 
-        for (int i = 0; i < 3; i++) 
+        for (int i = 0; i < 3; i++)
         {
             if(Challenge[i]!=null)
                 if(Challenge[i].IsEnable)
@@ -91,7 +91,12 @@ internal class Dan_Cert : CActivity
         }
         IsEnded = false;
 
-        if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] == (int)Difficulty.Dan) IsAnimating = true;
+        if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] == (int)Difficulty.Dan)
+            IsAnimating = true;
+
+        Dan_Plate = TJAPlayer3.tCreateTexture(Path.GetDirectoryName(TJAPlayer3.DTX[0].strFilenameの絶対パス) + @"/Dan_Plate.png");
+        Sound_Section = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Dan/Section.ogg"), ESoundGroup.SoundEffect);
+        Sound_Failed = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Dan/Failed.ogg"), ESoundGroup.SoundEffect);
         base.On活性化();
     }
 
@@ -105,7 +110,7 @@ internal class Dan_Cert : CActivity
                 // 残り音符数が0になったときに判断されるやつ
                 if (notesRemain <= 0)
                 {
-                    if (Gauge.GetAmount() < Gauge.GetValue(false)) Gauge.SetReached(true);						
+                    if (Gauge.GetAmount() < Gauge.GetValue(false)) Gauge.SetReached(true);
                 }
             }
 
@@ -221,7 +226,7 @@ internal class Dan_Cert : CActivity
                         }
                     }
 
-                    if (bNotesFin) 
+                    if (bNotesFin)
                     {
                         switch (Challenge[i].Type)
                         {
@@ -258,29 +263,11 @@ internal class Dan_Cert : CActivity
             Status[i].Timer_Failed = null;
         }
         IsEnded = false;
+
+        TJAPlayer3.t安全にDisposeする(ref Dan_Plate);
+        Sound_Section?.t解放する();
+        Sound_Failed?.t解放する();
         base.On非活性化();
-    }
-
-    public override void OnManagedリソースの作成()
-    {
-        if (!this.b活性化してない)
-        {
-            Dan_Plate = TJAPlayer3.tCreateTexture(Path.GetDirectoryName(TJAPlayer3.DTX[0].strFilenameの絶対パス) + @"/Dan_Plate.png");
-            Sound_Section = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Dan/Section.ogg"), ESoundGroup.SoundEffect);
-            Sound_Failed = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Dan/Failed.ogg"), ESoundGroup.SoundEffect);
-            base.OnManagedリソースの作成();
-        }
-    }
-
-    public override void OnManagedリソースの解放()
-    {
-        if (!this.b活性化してない)
-        {
-            TJAPlayer3.t安全にDisposeする(ref Dan_Plate);
-            Sound_Section?.t解放する();
-            Sound_Failed?.t解放する();
-            base.OnManagedリソースの解放();
-        }
     }
 
     public override int On進行描画()
@@ -582,10 +569,10 @@ internal class Dan_Cert : CActivity
             {
                 int soulgaugeboxx = (int)((TJAPlayer3.Skin.SkinConfig.Game.DanC.v2SoulGaugeBoxX[1] - TJAPlayer3.Skin.SkinConfig.Game.DanC.v2SoulGaugeBoxX[0]) * DanCGauge.GetValue(false) / 100.0) + TJAPlayer3.Skin.SkinConfig.Game.DanC.v2SoulGaugeBoxX[0];
                 TJAPlayer3.Tx.DanC_V2_SoulGauge_Box.t2D描画(TJAPlayer3.app.Device, soulgaugeboxx, TJAPlayer3.Skin.SkinConfig.Game.DanC.v2SoulGaugeBoxY);
-                
+
                 if (TJAPlayer3.Tx.DanC_V2_ExamRange != null)
                     TJAPlayer3.Tx.DanC_V2_ExamRange?.t2D描画(TJAPlayer3.app.Device, soulgaugeboxx + TJAPlayer3.Skin.SkinConfig.Game.DanC.v2SoulGaugeBoxExamRangeOffset[0], TJAPlayer3.Skin.SkinConfig.Game.DanC.v2SoulGaugeBoxY + TJAPlayer3.Skin.SkinConfig.Game.DanC.v2SoulGaugeBoxExamRangeOffset[1], new Rectangle(0, TJAPlayer3.Tx.DanC_V2_ExamRange.szTextureSize.Height / 2 * (int)Gauge.Range, TJAPlayer3.Tx.DanC_V2_ExamRange.szTextureSize.Width, TJAPlayer3.Tx.DanC_V2_ExamRange.szTextureSize.Height / 2));
-                
+
                 // 条件の種類
                 if (TJAPlayer3.Tx.DanC_V2_ExamType != null)
                 {
@@ -831,7 +818,7 @@ internal class Dan_Cert : CActivity
             }
             else
             {
-                for (int i = 0; i < value.ToString().Length; i++) 
+                for (int i = 0; i < value.ToString().Length; i++)
                 {
                     var number = (int)(value / Math.Pow(10, value.ToString().Length - 1 - i) % 10);
                     Rectangle rect = new Rectangle(TJAPlayer3.Tx.DanC_V2_Number.szTextureSize.Width / 10 * number, 0, TJAPlayer3.Tx.DanC_V2_Number.szTextureSize.Width / 10, TJAPlayer3.Tx.DanC_V2_Number.szTextureSize.Height);
@@ -878,14 +865,14 @@ internal class Dan_Cert : CActivity
             if (!dan_C[i].GetCleared(true)) status = Exam.Status.Success;
         }
         if (Gauge.IsEnable)
-            if (!Gauge.GetCleared(true)) 
+            if (!Gauge.GetCleared(true))
                 status = Exam.Status.Success;
         for (int i = 0; i < count; i++)
         {
             if (!dan_C[i].GetCleared(false)) status = Exam.Status.Failure;
         }
         if(Gauge.IsEnable)
-            if (!Gauge.GetCleared(false)) 
+            if (!Gauge.GetCleared(false))
                 status = Exam.Status.Failure;
         return status;
     }
@@ -942,7 +929,7 @@ internal class Dan_Cert : CActivity
     private CSound Sound_Section;
     private CSound Sound_Failed;
 
-    
+
     //-----------------
     #endregion
 }

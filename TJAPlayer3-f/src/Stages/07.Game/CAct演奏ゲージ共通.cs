@@ -10,7 +10,7 @@ namespace TJAPlayer3;
 
 /// <summary>
 /// CAct演奏Drumsゲージ と CAct演奏Gutiarゲージ のbaseクラス。ダメージ計算やDanger/Failed判断もこのクラスで行う。
-/// 
+///
 /// 課題
 /// _STAGE FAILED OFF時にゲージ回復を止める
 /// _黒→閉店までの差を大きくする。
@@ -28,35 +28,22 @@ internal class CAct演奏ゲージ共通 : CActivity
     public override void On活性化()
     {
         this.ct炎 = new CCounter( 0, 6, 50, TJAPlayer3.Timer );
+
+        if(TJAPlayer3.Skin.SkinConfig.Game.Gauge.RainbowTimer <= 1)
+        {
+            throw new DivideByZeroException("SkinConfigの設定\"Game.Gauge.RainbowTimer\"を1以下にすることは出来ません。");
+        }
+        this.ct虹アニメ = new CCounter( 0, TJAPlayer3.Skin.Game_Gauge_Rainbow_Ptn - 1, TJAPlayer3.Skin.SkinConfig.Game.Gauge.RainbowTimer, TJAPlayer3.Timer );
+        this.ct虹透明度 = new CCounter(0, TJAPlayer3.Skin.SkinConfig.Game.Gauge.RainbowTimer - 1, 1, TJAPlayer3.Timer);
         base.On活性化();
     }
     public override void On非活性化()
     {
         this.ct炎 = null;
+        this.ct虹アニメ = null;
         base.On非活性化();
     }
 
-    public override void OnManagedリソースの作成()
-    {
-        if( !this.b活性化してない )
-        {
-            if(TJAPlayer3.Skin.SkinConfig.Game.Gauge.RainbowTimer <= 1)
-            {
-                throw new DivideByZeroException("SkinConfigの設定\"Game.Gauge.RainbowTimer\"を1以下にすることは出来ません。");
-            }
-            this.ct虹アニメ = new CCounter( 0, TJAPlayer3.Skin.Game_Gauge_Rainbow_Ptn - 1, TJAPlayer3.Skin.SkinConfig.Game.Gauge.RainbowTimer, TJAPlayer3.Timer );
-            this.ct虹透明度 = new CCounter(0, TJAPlayer3.Skin.SkinConfig.Game.Gauge.RainbowTimer - 1, 1, TJAPlayer3.Timer);
-            base.OnManagedリソースの作成();
-        }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if( !base.b活性化してない )
-        {
-            this.ct虹アニメ = null;
-            base.OnManagedリソースの解放();
-        }
-    }
     public override int On進行描画()
     {
         if ( !base.b活性化してない )
@@ -78,14 +65,14 @@ internal class CAct演奏ゲージ共通 : CActivity
             /*
 
             新虹ゲージの仕様  2018/08/10 ろみゅ～？
-                
+
                 フェードで動く虹ゲージが、ある程度強化できたので放出。
                 透明度255の虹ベースを描画し、その上から透明度可変式の虹ゲージを描画する。
                 ゲージのパターン枚数は、読み込み枚数によって決定する。
                 ゲージ描画の切り替え速度は、タイマーの値をSkinConfigで指定して行う(初期値50,1にするとエラーを吐く模様)。進行速度は1ms、高フレームレートでの滑らかさを重視。
                 虹ゲージの透明度調整値は、「255/パターン数」で算出する。
                 こんな簡単なことを考えるのに30分(60f/s換算で108000f)を費やす。
-                
+
             */
             if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan)
             {
@@ -105,7 +92,7 @@ internal class CAct演奏ゲージ共通 : CActivity
                     TJAPlayer3.Tx.Gauge_Base_Danc.t2D描画(TJAPlayer3.app.Device, 492, 144, new Rectangle(0, 0, 700, 44));
                 }
             }
-            #region[ ゲージ1P ]				
+            #region[ ゲージ1P ]
             if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan)
             {
                 if (TJAPlayer3.Tx.Gauge[0] != null)
@@ -142,7 +129,7 @@ internal class CAct演奏ゲージ共通 : CActivity
             }
             else {
 
-                if (TJAPlayer3.Tx.Gauge_Danc != null) 
+                if (TJAPlayer3.Tx.Gauge_Danc != null)
                 {
                     TJAPlayer3.Tx.Gauge_Danc.t2D描画(TJAPlayer3.app.Device, 492, 144, new Rectangle(0, 0, nRectX, 44));
 
@@ -232,7 +219,7 @@ internal class CAct演奏ゲージ共通 : CActivity
         }
         return 0;
     }
-    
+
     const double GAUGE_MAX = 100.0;
     const double GAUGE_INITIAL =  2.0 / 3;
     const double GAUGE_MIN = -0.1;
@@ -271,7 +258,7 @@ internal class CAct演奏ゲージ共通 : CActivity
                 case 2:
                 case 3:
                     return ( nRiskyTimes <= 1 );
-                default: 
+                default:
                     return ( nRiskyTimes <= 2 );
             }
         }
@@ -383,7 +370,7 @@ internal class CAct演奏ゲージ共通 : CActivity
                         }
                         break;
                     }
-            } 
+            }
         }
 
         double[] nGaugeRankValue = new double[2] { 0D, 0D };
@@ -537,7 +524,7 @@ internal class CAct演奏ゲージ共通 : CActivity
     public float[,,] dbゲージ増加量_Branch = new float[2 , 3, 3];
 
 
-    public float[] fGaugeMaxRate = 
+    public float[] fGaugeMaxRate =
     {
         70.7f,//1～7
         70f,  //8
@@ -585,7 +572,7 @@ internal class CAct演奏ゲージ共通 : CActivity
                     }
                     else
                         fDamage = this.dbゲージ増加量[nPlayer, 2 ];
-                    
+
 
                     if( fDamage >= 0 )
                     {
@@ -616,7 +603,7 @@ internal class CAct演奏ゲージ共通 : CActivity
                     break;
                 }
         }
-        
+
 
         this.db現在のゲージ値[ nPlayer ] = Math.Round(this.db現在のゲージ値[ nPlayer ] + fDamage, 5, MidpointRounding.ToEven);
 

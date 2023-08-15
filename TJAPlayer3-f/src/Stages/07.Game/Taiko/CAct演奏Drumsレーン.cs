@@ -15,17 +15,6 @@ internal class CAct演奏Drumsレーン : CActivity
 
     public override void On活性化()
     {
-        base.On活性化();
-    }
-
-    public override void On非活性化()
-    {
-        this.ct分岐アニメ進行 = null;
-        base.On非活性化();
-    }
-
-    public override void OnManagedリソースの作成()
-    {
         this.ct分岐アニメ進行 = new CCounter[ 4 ];
         this.nBefore = new int[ 4 ];
         this.nAfter = new int[ 4 ];
@@ -38,13 +27,13 @@ internal class CAct演奏Drumsレーン : CActivity
         }
         if (TJAPlayer3.Tx.Lane_Base[0] != null)
             TJAPlayer3.Tx.Lane_Base[0].Opacity = 255;
-
-        base.OnManagedリソースの作成();
+        base.On活性化();
     }
 
-    public override void OnManagedリソースの解放()
+    public override void On非活性化()
     {
-        base.OnManagedリソースの解放();
+        this.ct分岐アニメ進行 = null;
+        base.On非活性化();
     }
 
     public override int On進行描画()

@@ -5140,6 +5140,7 @@ internal class CDTX : CActivity
         this.listLyric = new List<Image<Rgba32>>();
         this.listLyric2 = new List<STLYRIC>();
         this.List_DanSongs = new List<DanSongs>();
+        this.tAVIの読み込み();
         base.On活性化();
     }
     public override void On非活性化()
@@ -5219,31 +5220,15 @@ internal class CDTX : CActivity
         {
             this.pf歌詞フォント.Dispose();
         }
-
-        base.On非活性化();
-    }
-    public override void OnManagedリソースの作成()
-    {
-        if (!base.b活性化してない)
+        if (this.listVD != null)
         {
-            this.tAVIの読み込み();
-            base.OnManagedリソースの作成();
-        }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if (!base.b活性化してない)
-        {
-            if (this.listVD != null)
+            foreach (CVideoDecoder cvd in this.listVD.Values)
             {
-                foreach (CVideoDecoder cvd in this.listVD.Values)
-                {
-                    cvd.Dispose();
-                }
-                this.listVD = null;
+                cvd.Dispose();
             }
-            base.OnManagedリソースの解放();
+            this.listVD = null;
         }
+        base.On非活性化();
     }
 
     // その他

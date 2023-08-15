@@ -190,6 +190,45 @@ internal class CStage演奏画面共通 : CStage
         this.b演奏にMouseを使った = false;
 
         this.ShownLyric2 = 0;
+
+        // When performing calibration, reduce audio distraction from user input.
+        // For users who play primarily by listening to the music,
+        // you might think that we want them to hear drum sound effects during
+        // calibration, but we do not. Humans are remarkably good at adjusting
+        // the timing of their own physical movement, even without realizing it.
+        // We are calibrating their input timing for the purposes of judgment.
+        // We do not want them subconsciously playing early so as to line up
+        // their drum sound effects with the sounds of the input calibration file.
+        // Instead, we want them focused on the sounds of their keyboard, tatacon,
+        // other controller, etc. and the sounds of the input calibration audio file.
+        if (!TJAPlayer3.IsPerformingCalibration)
+        {
+            for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+            {
+                this.soundRed[i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/dong.ogg"), ESoundGroup.SoundEffect);
+                this.soundBlue[i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/ka.ogg"), ESoundGroup.SoundEffect);
+                this.soundAdlib[i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/Adlib.ogg"), ESoundGroup.SoundEffect);
+            }
+
+            if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.ConfigToml.PlayOption.UsePanning)//2020.05.06 Mr-Ojii 左右に出したかったから、追加。
+            {
+                if (this.soundRed[0] != null)
+                    this.soundRed[0].nPanning = -100;
+                if (this.soundBlue[0] != null)
+                    this.soundBlue[0].nPanning = -100;
+                if (this.soundAdlib[0] != null)
+                    this.soundAdlib[0].nPanning = -100;
+                if (this.soundRed[1] != null)
+                    this.soundRed[1].nPanning = 100;
+                if (this.soundBlue[1] != null)
+                    this.soundBlue[1].nPanning = 100;
+                if (this.soundAdlib[1] != null)
+                    this.soundAdlib[1].nPanning = 100;
+            }
+        }
+
+        this.t背景テクスチャの生成();
+
         base.On活性化();
         this.tパネル文字列の設定();
         //this.演奏判定ライン座標();
@@ -365,70 +404,19 @@ internal class CStage演奏画面共通 : CStage
 
         this.actDan.IsAnimating = false;//2020.07.03 Mr-Ojii IsAnimating=trueのときにそのまま選曲画面に戻ると、文字列が描画されない問題修正用。
 
+        for (int i = 0; i < 2; i++)
+        {
+            if (this.soundRed[i] != null)
+                this.soundRed[i].t解放する();
+            if (this.soundBlue[i] != null)
+                this.soundBlue[i].t解放する();
+            if (this.soundAdlib[i] != null)
+                this.soundAdlib[i].t解放する();
+        }
+        TJAPlayer3.t安全にDisposeする( ref this.tx背景 );
+
         base.On非活性化();
         LoudnessMetadataScanner.StartBackgroundScanning();
-    }
-    public override void OnManagedリソースの作成()
-    {
-        if ( !base.b活性化してない )
-        {
-            // When performing calibration, reduce audio distraction from user input.
-            // For users who play primarily by listening to the music,
-            // you might think that we want them to hear drum sound effects during
-            // calibration, but we do not. Humans are remarkably good at adjusting
-            // the timing of their own physical movement, even without realizing it.
-            // We are calibrating their input timing for the purposes of judgment.
-            // We do not want them subconsciously playing early so as to line up
-            // their drum sound effects with the sounds of the input calibration file.
-            // Instead, we want them focused on the sounds of their keyboard, tatacon,
-            // other controller, etc. and the sounds of the input calibration audio file.
-            if (!TJAPlayer3.IsPerformingCalibration)
-            {
-                for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
-                {
-                    this.soundRed[i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/dong.ogg"), ESoundGroup.SoundEffect);
-                    this.soundBlue[i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/ka.ogg"), ESoundGroup.SoundEffect);
-                    this.soundAdlib[i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Taiko/" + TJAPlayer3.Skin.NowSENum[i].ToString() + @"/Adlib.ogg"), ESoundGroup.SoundEffect);
-                }
-
-                if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.ConfigToml.PlayOption.UsePanning)//2020.05.06 Mr-Ojii 左右に出したかったから、追加。
-                {
-                    if (this.soundRed[0] != null)
-                        this.soundRed[0].nPanning = -100;
-                    if (this.soundBlue[0] != null)
-                        this.soundBlue[0].nPanning = -100;
-                    if (this.soundAdlib[0] != null)
-                        this.soundAdlib[0].nPanning = -100;
-                    if (this.soundRed[1] != null)
-                        this.soundRed[1].nPanning = 100;
-                    if (this.soundBlue[1] != null)
-                        this.soundBlue[1].nPanning = 100;
-                    if (this.soundAdlib[1] != null)
-                        this.soundAdlib[1].nPanning = 100;
-                }
-            }
-
-            this.t背景テクスチャの生成();
-            base.OnManagedリソースの作成();
-        }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if ( !base.b活性化してない )
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                if (this.soundRed[i] != null)
-                    this.soundRed[i].t解放する();
-                if (this.soundBlue[i] != null)
-                    this.soundBlue[i].t解放する();
-                if (this.soundAdlib[i] != null)
-                    this.soundAdlib[i].t解放する();
-            }
-            TJAPlayer3.t安全にDisposeする( ref this.tx背景 );
-            Trace.TraceInformation("CStage演奏画面共通 リソースの開放");
-            base.OnManagedリソースの解放();
-        }
     }
 
     public override int On進行描画()

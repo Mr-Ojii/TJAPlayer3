@@ -46,7 +46,7 @@ internal class CActResultParameterPanel : CActivity
             this.n表示された桁数[index] = 0;
         }
         this.AllPlayerCannotGetCrown = true;
-        for (int index = 0; index < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; index++) 
+        for (int index = 0; index < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; index++)
         {
             if (TJAPlayer3.stage選曲.n確定された曲の難易度[index] == (int)Difficulty.Dan)
             {
@@ -88,27 +88,14 @@ internal class CActResultParameterPanel : CActivity
                 }
             }
         }
+
+        Dan_Plate = TJAPlayer3.tCreateTexture(Path.GetDirectoryName(TJAPlayer3.DTX[0].strFilenameの絶対パス) + @"/Dan_Plate.png");
         this.ephase_v2 = EPhaseV2.Start;
     }
     public override void On非活性化()
     {
+        TJAPlayer3.t安全にDisposeする(ref Dan_Plate);
         base.On非活性化();
-    }
-    public override void OnManagedリソースの作成()
-    {
-        if( !base.b活性化してない )
-        {
-            Dan_Plate = TJAPlayer3.tCreateTexture(Path.GetDirectoryName(TJAPlayer3.DTX[0].strFilenameの絶対パス) + @"/Dan_Plate.png");
-            base.OnManagedリソースの作成();
-        }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if( !base.b活性化してない )
-        {
-            TJAPlayer3.t安全にDisposeする(ref Dan_Plate);
-            base.OnManagedリソースの解放();
-        }
     }
     public override int On進行描画()
     {
@@ -132,7 +119,7 @@ internal class CActResultParameterPanel : CActivity
                 this.NextPhaseV2();
 
             }
-            if (ephase_v2 == EPhaseV2.Gauge) 
+            if (ephase_v2 == EPhaseV2.Gauge)
             {
                 if(this.ctGauge.b終了値に達した)
                     this.NextPhaseV2();
@@ -164,7 +151,7 @@ internal class CActResultParameterPanel : CActivity
             {
                 if (TJAPlayer3.Tx.Result_v2_Panel != null)
                 {
-                    if (TJAPlayer3.Tx.Result_v2_Panel[i] != null) 
+                    if (TJAPlayer3.Tx.Result_v2_Panel[i] != null)
                         TJAPlayer3.Tx.Result_v2_Panel[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.v2PanelX[i], TJAPlayer3.Skin.SkinConfig.Result.v2PanelY[i]);
                 }
                 if (TJAPlayer3.Tx.Result_v2_GaugeBack != null)
@@ -399,7 +386,7 @@ internal class CActResultParameterPanel : CActivity
                 if (TJAPlayer3.stage選曲.n確定された曲の難易度[i] == (int)Difficulty.Dan)
                 {
                     TJAPlayer3.stage演奏ドラム画面.actDan.DrawExam(TJAPlayer3.stageResult.cRecords[i].DanC);
-                    
+
                     TJAPlayer3.Tx.Result_Dan?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.DanXY[0], TJAPlayer3.Skin.SkinConfig.Result.DanXY[1], new Rectangle(TJAPlayer3.Skin.SkinConfig.Result.DanWH[0] * CrownState[i], 0, TJAPlayer3.Skin.SkinConfig.Result.DanWH[0], TJAPlayer3.Skin.SkinConfig.Result.DanWH[1]));
                     // Dan_Plate
                     Dan_Plate?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.SkinConfig.Result.DanPlateXY[0], TJAPlayer3.Skin.SkinConfig.Result.DanPlateXY[1]);
@@ -498,7 +485,7 @@ internal class CActResultParameterPanel : CActivity
         }
     }
 
-    private void NextPhase() 
+    private void NextPhase()
     {
         ephase += 1;
         for (int index = 0; index < this.ToNextPhase.Length; index++)
@@ -565,7 +552,7 @@ internal class CActResultParameterPanel : CActivity
                 TJAPlayer3.Tx.Result_v2_Number.vcScaling.X = 1f;
                 TJAPlayer3.Tx.Result_v2_Number.vcScaling.Y = 1f;
             }
-            else 
+            else
             {
                 TJAPlayer3.Tx.Result_v2_Number.vcScaling.X = 0.625f;
                 TJAPlayer3.Tx.Result_v2_Number.vcScaling.Y = 0.625f;

@@ -15,7 +15,7 @@ internal class Rainbow : CActivity
     {
         base.b活性化してない = true;
     }
-    
+
     public virtual void Start( int player )
     {
         if (TJAPlayer3.Tx.Effects_Rainbow != null)
@@ -61,20 +61,6 @@ internal class Rainbow : CActivity
         }
         base.On非活性化();
     }
-    public override void OnManagedリソースの作成()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの作成();
-        }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの解放();
-        }
-    }
     public override int On進行描画()
     {
         if( !base.b活性化してない )
@@ -93,7 +79,7 @@ internal class Rainbow : CActivity
                     if(TJAPlayer3.Tx.Effects_Rainbow != null && this.Rainbow1P[f].Player == 0 ) //画像が出来るまで
                     {
                         //this.st虹[f].ct進行.n現在の値 = 164;
-                        
+
 
                         TJAPlayer3.Tx.Effects_Rainbow.vcScaling.X = 1.0f - ((float)(TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[0] - TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.nDefaultJudgePos[0, 0]) / (float)TJAPlayer3.Tx.Effects_Rainbow.szTextureSize.Width);
 
@@ -146,7 +132,7 @@ internal class Rainbow : CActivity
         }
         return base.On進行描画();
     }
-    
+
 
     // その他
 

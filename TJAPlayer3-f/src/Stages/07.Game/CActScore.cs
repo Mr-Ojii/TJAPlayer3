@@ -134,7 +134,7 @@ internal class CActScore : CActivity
             {
                 this.nスコアの増分[ player ] = 1L;
             }
-        }			
+        }
     }
 
     /// <summary>
@@ -231,20 +231,6 @@ internal class CActScore : CActivity
             this.ctボーナス加算タイマ[i] = new CCounter();
         }
         base.On活性化();
-    }
-    public override void OnManagedリソースの作成()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの作成();
-        }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの解放();
-        }
     }
     public override int On進行描画()
     {
@@ -450,7 +436,7 @@ internal class CActScore : CActivity
                                 TJAPlayer3.Tx.Taiko_Score[0].Opacity = alpha;
                                 TJAPlayer3.Tx.Taiko_Score[0].vcScaling.Y = ScoreScale[this.ct点数アニメタイマ[player].n現在の値];
                                 TJAPlayer3.Tx.Taiko_Score[0].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
-                                
+
                             }
                             break;
                         case 1:

@@ -22,7 +22,7 @@ internal class CActFIFOBlack : CActivity
         this.counter = new CCounter( 0, 100, 5, TJAPlayer3.Timer );
     }
 
-    
+
     // CActivity 実装
 
     public override void On非活性化()
@@ -30,13 +30,6 @@ internal class CActFIFOBlack : CActivity
         if( !base.b活性化してない )
         {
             base.On非活性化();
-        }
-    }
-    public override void OnManagedリソースの作成()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの作成();
         }
     }
     public override int On進行描画()

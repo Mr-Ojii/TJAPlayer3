@@ -33,6 +33,22 @@ internal class CStageTitle : CStage
             this.ct上移動用 = new CCounter();
             this.ct下移動用 = new CCounter();
 
+            string[,] str = new string[,]{
+                { "演奏ゲーム","Taiko Mode"},
+                { "コンフィグ","Config"},
+                { "やめる","Quit"}
+            };
+            int lang = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
+            using (var pf = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 28))
+            {
+                texttexture[0] = this.文字テクスチャを生成する(str[0, lang], Color.White, Color.SaddleBrown, pf);
+                texttexture[1] = this.文字テクスチャを生成する(str[1, lang], Color.White, Color.SaddleBrown, pf);
+                texttexture[2] = this.文字テクスチャを生成する(str[2, lang], Color.White, Color.SaddleBrown, pf);
+                texttexture[3] = this.文字テクスチャを生成する(str[0, lang], Color.White, Color.Black, pf);
+                texttexture[4] = this.文字テクスチャを生成する(str[1, lang], Color.White, Color.Black, pf);
+                texttexture[5] = this.文字テクスチャを生成する(str[2, lang], Color.White, Color.Black, pf);
+            }
+
             base.On活性化();
 
             TJAPlayer3.Discord?.Update("Title");
@@ -51,6 +67,7 @@ internal class CStageTitle : CStage
         {
             this.ct上移動用 = null;
             this.ct下移動用 = null;
+            TJAPlayer3.t安全にDisposeする(ref texttexture);
         }
         finally
         {
@@ -58,35 +75,6 @@ internal class CStageTitle : CStage
             Trace.Unindent();
         }
         base.On非活性化();
-    }
-    public override void OnManagedリソースの作成()
-    {
-        string[,] str = new string[,]{
-            { "演奏ゲーム","Taiko Mode"},
-            { "コンフィグ","Config"},
-            { "やめる","Quit"}
-        };
-        int lang = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
-        if ( !base.b活性化してない) {
-            using (var pf = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 28))
-            {
-                texttexture[0] = this.文字テクスチャを生成する(str[0, lang], Color.White, Color.SaddleBrown, pf);
-                texttexture[1] = this.文字テクスチャを生成する(str[1, lang], Color.White, Color.SaddleBrown, pf);
-                texttexture[2] = this.文字テクスチャを生成する(str[2, lang], Color.White, Color.SaddleBrown, pf);
-                texttexture[3] = this.文字テクスチャを生成する(str[0, lang], Color.White, Color.Black, pf);
-                texttexture[4] = this.文字テクスチャを生成する(str[1, lang], Color.White, Color.Black, pf);
-                texttexture[5] = this.文字テクスチャを生成する(str[2, lang], Color.White, Color.Black, pf);
-            }
-            base.OnManagedリソースの作成();
-        }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if( !base.b活性化してない )
-        {
-            TJAPlayer3.t安全にDisposeする(ref texttexture);
-            base.OnManagedリソースの解放();
-        }
     }
     public override int On進行描画()
     {

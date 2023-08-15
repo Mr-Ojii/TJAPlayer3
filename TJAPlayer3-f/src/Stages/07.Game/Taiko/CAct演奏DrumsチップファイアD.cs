@@ -20,8 +20,8 @@ internal class CAct演奏DrumsチップファイアD : CActivity
     {
         base.b活性化してない = true;
     }
-    
-    
+
+
     // メソッド
 
     public virtual void Start( int nLane, EJudge judge, int player )
@@ -79,20 +79,6 @@ internal class CAct演奏DrumsチップファイアD : CActivity
         }
         base.On非活性化();
     }
-    public override void OnManagedリソースの作成()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの作成();
-        }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの解放();
-        }
-    }
     public override int On進行描画()
     {
         if( !base.b活性化してない )
@@ -122,11 +108,11 @@ internal class CAct演奏DrumsチップファイアD : CActivity
                             {
                                 case EJudge.Perfect:
                                 case EJudge.AutoPerfect:
-                                    if (!this.st状態_大[i].ct進行.b停止中 && TJAPlayer3.Tx.Effects_Hit_Explosion_Big != null && this.st状態_大[i].nIsBig == 1)  
+                                    if (!this.st状態_大[i].ct進行.b停止中 && TJAPlayer3.Tx.Effects_Hit_Explosion_Big != null && this.st状態_大[i].nIsBig == 1)
                                             TJAPlayer3.Tx.Effects_Hit_Explosion.t2D描画(TJAPlayer3.app.Device, nX, nY, new Rectangle(this.st状態[i].ct進行.n現在の値 * 260, n + 520, 260, 260));
                                     else
                                         TJAPlayer3.Tx.Effects_Hit_Explosion.t2D描画(TJAPlayer3.app.Device, nX, nY, new Rectangle(this.st状態[i].ct進行.n現在の値 * 260, n, 260, 260));
-                                    break;                                    
+                                    break;
                                 case EJudge.Good:
                                     if (!this.st状態_大[i].ct進行.b停止中 && TJAPlayer3.Tx.Effects_Hit_Explosion_Big != null && this.st状態_大[i].nIsBig == 1)
                                         TJAPlayer3.Tx.Effects_Hit_Explosion.t2D描画( TJAPlayer3.app.Device, nX, nY, new Rectangle( this.st状態[ i ].ct進行.n現在の値 * 260, n + 780, 260, 260 ) );
@@ -167,7 +153,7 @@ internal class CAct演奏DrumsチップファイアD : CActivity
                                     TJAPlayer3.Tx.Effects_Hit_Explosion_Big.t2D拡大率考慮描画( TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[this.st状態_大[i].nPlayer], TJAPlayer3.Skin.SkinConfig.Game.JudgePointY[this.st状態[i].nPlayer] );
                                 }
                                 break;
-                                
+
                             case EJudge.Good:
                                 break;
 
@@ -181,7 +167,7 @@ internal class CAct演奏DrumsチップファイアD : CActivity
         }
         return 0;
     }
-    
+
 
     // その他
 

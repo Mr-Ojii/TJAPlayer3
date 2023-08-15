@@ -87,6 +87,13 @@ internal class CStage選曲 : CStage
             for (int i = 0; i < 4; i++)
                 this.ctキー反復用[i] = new CCounter(0, 0, 0, TJAPlayer3.Timer);
 
+            if (TJAPlayer3.Tx.SongSelect_Background != null)
+                this.ct背景スクロール用タイマー = new CCounter(0, TJAPlayer3.Tx.SongSelect_Background.szTextureSize.Width, 30, TJAPlayer3.Timer);
+            this.ctカウントダウン用タイマー = new CCounter(0, 100, 1000, TJAPlayer3.Timer);
+            this.ctDifficultySelectIN用タイマー = new CCounter(0, 750, 1, TJAPlayer3.Timer);
+            this.ctDifficultySelectINバー拡大用タイマー = new CCounter(0, 750, 1, TJAPlayer3.Timer);
+            this.ctDifficultySelectOUT用タイマー = new CCounter(0, 500, 1, TJAPlayer3.Timer);
+
             //this.actDifficultySelect.bIsDifficltSelect = true;
             base.On活性化();
 
@@ -121,26 +128,6 @@ internal class CStage選曲 : CStage
         {
             Trace.TraceInformation( "選曲ステージの非活性化を完了しました。" );
             Trace.Unindent();
-        }
-    }
-    public override void OnManagedリソースの作成()
-    {
-        if( !base.b活性化してない )
-        {
-            if (TJAPlayer3.Tx.SongSelect_Background != null)
-                this.ct背景スクロール用タイマー = new CCounter(0, TJAPlayer3.Tx.SongSelect_Background.szTextureSize.Width, 30, TJAPlayer3.Timer);
-            this.ctカウントダウン用タイマー = new CCounter(0, 100, 1000, TJAPlayer3.Timer);
-            this.ctDifficultySelectIN用タイマー = new CCounter(0, 750, 1, TJAPlayer3.Timer);
-            this.ctDifficultySelectINバー拡大用タイマー = new CCounter(0, 750, 1, TJAPlayer3.Timer);
-            this.ctDifficultySelectOUT用タイマー = new CCounter(0, 500, 1, TJAPlayer3.Timer);
-            base.OnManagedリソースの作成();
-        }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの解放();
         }
     }
     public override int On進行描画()

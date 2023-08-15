@@ -33,7 +33,7 @@ internal class CActConfigKeyAssign : CActivity
             this.structReset用KeyAssign[i].Code = TJAPlayer3.ConfigIni.KeyAssign[(int)pad][i].Code;
         }
     }
-    
+
     public void tPushedEnter()
     {
         if( !this.bキー入力待ち )
@@ -74,7 +74,7 @@ internal class CActConfigKeyAssign : CActivity
         }
     }
 
-    
+
     // CActivity 実装
 
     public override void On活性化()
@@ -84,30 +84,16 @@ internal class CActConfigKeyAssign : CActivity
         this.n現在の選択行 = 0;
         this.bキー入力待ち = false;
         this.structReset用KeyAssign = new CConfigIni.CKeyAssign.STKEYASSIGN[ 0x10 ];
+        this.fontRenderer = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 16, CFontRenderer.FontStyle.Italic);
         base.On活性化();
     }
     public override void On非活性化()
     {
         if( !base.b活性化してない )
         {
-            base.On非活性化();
-        }
-    }
-    public override void OnManagedリソースの作成()
-    {
-        if( !base.b活性化してない )
-        {
-            this.fontRenderer = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 16, CFontRenderer.FontStyle.Italic);
-            base.OnManagedリソースの作成();
-        }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if (!base.b活性化してない)
-        {
-            this.fontRenderer.Dispose();
+            this.fontRenderer?.Dispose();
             this.fontRenderer = null;
-            base.OnManagedリソースの解放();
+            base.On非活性化();
         }
     }
     public override int On進行描画()
@@ -386,7 +372,7 @@ internal class CActConfigKeyAssign : CActivity
     private void tDrawText(int x, int y, string str, bool b強調, float fScale)
     {
         Color fontcol = b強調 ? Color.Cyan : Color.White;
-        using (CTexture fonttex = TJAPlayer3.tCreateTexture(this.fontRenderer.DrawText(str, fontcol, Color.DarkCyan, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))) 
+        using (CTexture fonttex = TJAPlayer3.tCreateTexture(this.fontRenderer.DrawText(str, fontcol, Color.DarkCyan, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio)))
         {
             fonttex.vcScaling.X = fScale;
             fonttex.vcScaling.Y = fScale;

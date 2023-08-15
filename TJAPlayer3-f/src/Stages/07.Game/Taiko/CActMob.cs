@@ -31,16 +31,6 @@ internal class CActMob : CActivity
         base.On非活性化();
     }
 
-    public override void OnManagedリソースの作成()
-    {
-        base.OnManagedリソースの作成();
-    }
-
-    public override void OnManagedリソースの解放()
-    {
-        base.OnManagedリソースの解放();
-    }
-
     public override int On進行描画()
     {
         if(!TJAPlayer3.stage演奏ドラム画面.bDoublePlay)

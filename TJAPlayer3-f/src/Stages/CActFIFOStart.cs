@@ -31,13 +31,6 @@ internal class CActFIFOStart : CActivity
             base.On非活性化();
         }
     }
-    public override void OnManagedリソースの作成()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの作成();
-        }
-    }
     public override int On進行描画()
     {
         if( base.b活性化してない || ( this.counter == null ) )

@@ -26,36 +26,23 @@ internal class CActSelectHistoryPanel : CActivity
 
     public override void On活性化()
     {
-        base.On活性化(); 
+        this.Font = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 40);
+        tSongChange();
+        base.On活性化();
     }
     public override void On非活性化()
     {
         this.ct登場アニメ用 = null;
+
+        for(int i = 0; i < (int)Difficulty.Total; i++)
+            for(int j = 0; j < 3; j++)
+                TJAPlayer3.t安全にDisposeする(ref this.Names[i, j]);
+        if (Font != null)
+        {
+            Font.Dispose();
+            Font = null;
+        }
         base.On非活性化();
-    }
-    public override void OnManagedリソースの作成()
-    {
-        if( !base.b活性化してない )
-        {
-            this.Font = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 40);
-            base.OnManagedリソースの作成();
-            tSongChange();
-        }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if( !base.b活性化してない )
-        {
-            for(int i = 0; i < (int)Difficulty.Total; i++)
-                for(int j = 0; j < 3; j++)
-                    TJAPlayer3.t安全にDisposeする(ref this.Names[i, j]);
-            if (Font != null)
-            {
-                Font.Dispose();
-                Font = null;
-            }
-            base.OnManagedリソースの解放();
-        }
     }
     public override int On進行描画()
     {
@@ -84,7 +71,7 @@ internal class CActSelectHistoryPanel : CActivity
                             TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.t2D描画(TJAPlayer3.app.Device, x[i] + xdiff + 15, y[i] + 95 + j * 70, new Rectangle(0, 36, 32, 30));
                         }
                     }
-                } 
+                }
             }
         }
         return 0;

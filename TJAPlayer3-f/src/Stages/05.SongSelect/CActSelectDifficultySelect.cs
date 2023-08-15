@@ -32,8 +32,8 @@ internal class CActSelectDifficultySelect : CActivity
             選択済み = new bool[2] { false, false };
             裏カウント = new int[2] { 0, 0 };
         }
-        finally { 
-        
+        finally {
+
         }
 
         base.On活性化();
@@ -48,24 +48,10 @@ internal class CActSelectDifficultySelect : CActivity
             this.ct分岐表示用タイマー = null;
             this.b開いた直後 = true;
         }
-        finally { 
+        finally {
         }
 
         base.On非活性化();
-    }
-    public override void OnManagedリソースの作成()
-    {
-        if( this.b活性化してない )
-            return;
-
-        base.OnManagedリソースの作成();
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if( this.b活性化してない )
-            return;
-
-        base.OnManagedリソースの解放();
     }
     public override int On進行描画()
     {
@@ -393,7 +379,7 @@ internal class CActSelectDifficultySelect : CActivity
     }
 
 
-    
+
 
     // その他
 

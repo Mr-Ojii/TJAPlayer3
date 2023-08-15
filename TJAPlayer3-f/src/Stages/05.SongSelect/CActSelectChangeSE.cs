@@ -18,7 +18,38 @@ class CActSelectChangeSE : CActivity
     public override void On活性化()
     {
         if (this.b活性化してる)
-            return;		
+            return;
+
+        this.donglist = new CSound[2, TJAPlayer3.Skin.SECount];
+        for (int nPlayer = 0; nPlayer < 2; nPlayer++)
+        {
+            for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)
+            {
+                this.donglist[nPlayer, i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Taiko/" + i.ToString() + @"/dong.ogg"), ESoundGroup.SoundEffect);
+                if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.ConfigToml.PlayOption.UsePanning && donglist[nPlayer, i] != null)
+                {
+                    this.donglist[nPlayer, i].nPanning = (nPlayer * 200) - 100;
+                }
+            }
+        }
+
+        this.SEName = new CTexture[2];
+        this.NameMoving = new CTexture[2];
+        this.SENameList = new CTexture[TJAPlayer3.Skin.SECount];
+
+        using (var font = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 30))
+            for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)
+            {
+                string SEName = "Untitled";
+                if(i < TJAPlayer3.Skin.SkinConfig.Sound.SENames.Length)
+                    SEName = TJAPlayer3.Skin.SkinConfig.Sound.SENames[i];
+                using (var bmp = font.DrawText(SEName, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+                    this.SENameList[i] = TJAPlayer3.tCreateTexture(bmp);
+            }
+
+        this.SENameChanger(0);
+        this.SENameChanger(1);
+
 
         base.On活性化();
     }
@@ -27,57 +58,14 @@ class CActSelectChangeSE : CActivity
         if (this.b活性化してない)
             return;
 
+        for (int nPlayer = 0; nPlayer < 2; nPlayer++)
+            for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)
+                this.donglist[nPlayer, i]?.t解放する();
+
+        //Classは参照渡しであるため、ListをDisposeするだけでよい
+        TJAPlayer3.t安全にDisposeする(ref this.SENameList);
+
         base.On非活性化();
-    }
-    public override void OnManagedリソースの作成()
-    {
-        if (!base.b活性化してない)
-        {
-            this.donglist = new CSound[2, TJAPlayer3.Skin.SECount];
-            for (int nPlayer = 0; nPlayer < 2; nPlayer++)
-            {
-                for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)
-                {
-                    this.donglist[nPlayer, i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Taiko/" + i.ToString() + @"/dong.ogg"), ESoundGroup.SoundEffect);
-                    if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.ConfigToml.PlayOption.UsePanning && donglist[nPlayer, i] != null)
-                    {
-                        this.donglist[nPlayer, i].nPanning = (nPlayer * 200) - 100;
-                    }
-                }
-            }
-
-            this.SEName = new CTexture[2];
-            this.NameMoving = new CTexture[2];
-            this.SENameList = new CTexture[TJAPlayer3.Skin.SECount];
-
-            using (var font = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 30))
-                for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)
-                {
-                    string SEName = "Untitled";
-                    if(i < TJAPlayer3.Skin.SkinConfig.Sound.SENames.Length)
-                        SEName = TJAPlayer3.Skin.SkinConfig.Sound.SENames[i];
-                    using (var bmp = font.DrawText(SEName, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
-                        this.SENameList[i] = TJAPlayer3.tCreateTexture(bmp);
-                }
-
-            this.SENameChanger(0);
-            this.SENameChanger(1);
-        }
-
-        base.OnManagedリソースの作成();
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if (!base.b活性化してない)
-        {
-            for (int nPlayer = 0; nPlayer < 2; nPlayer++)
-                for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)
-                    this.donglist[nPlayer, i]?.t解放する();
-
-            //Classは参照渡しであるため、ListをDisposeするだけでよい
-            TJAPlayer3.t安全にDisposeする(ref this.SENameList);
-        }
-        base.OnManagedリソースの解放();
     }
 
     public override int On進行描画()
@@ -99,7 +87,7 @@ class CActSelectChangeSE : CActivity
             this.ct登場退場アニメ用[nPlayer].t進行();
             if (this.ePhase[nPlayer] == EChangeSEPhase.Active)
             {
-                this.boxたちの描画(TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxX[nPlayer], TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxY[nPlayer], nPlayer);	
+                this.boxたちの描画(TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxX[nPlayer], TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxY[nPlayer], nPlayer);
             }
             else if (this.ePhase[nPlayer] == EChangeSEPhase.AnimationIn)
             {
@@ -178,7 +166,7 @@ class CActSelectChangeSE : CActivity
         this.eMoving[nPlayer] = lr;
         this.ct変更アニメ用[nPlayer].t時間Reset();
         this.ct変更アニメ用[nPlayer].n現在の値 = 0;
-        
+
     }
 
     private void boxたちの描画(int x, int y, int nPlayer)
@@ -280,7 +268,7 @@ class CActSelectChangeSE : CActivity
         if (ePhase[nPlayer] == EChangeSEPhase.Active) {
             ePhase[nPlayer] = EChangeSEPhase.AnimationOut;
             ct登場退場アニメ用[nPlayer].t時間Reset();
-            ct登場退場アニメ用[nPlayer].n現在の値 = 0; 
+            ct登場退場アニメ用[nPlayer].n現在の値 = 0;
         }
     }
 

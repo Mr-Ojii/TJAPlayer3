@@ -21,7 +21,7 @@ internal class CActRunner : CActivity
     {
         if (TJAPlayer3.Tx.Runner == null)
             return;
-            
+
         if (pChip.nチャンネル番号 < 0x15 || (pChip.nチャンネル番号 >= 0x1A))
         {
             for (int i = 0; i < 128; i++)
@@ -71,16 +71,6 @@ internal class CActRunner : CActivity
             stRunners[i].ct進行 = null;
         }
         base.On非活性化();
-    }
-
-    public override void OnManagedリソースの作成()
-    {
-        base.OnManagedリソースの作成();
-    }
-
-    public override void OnManagedリソースの解放()
-    {
-        base.OnManagedリソースの解放();
     }
 
     public override int On進行描画()

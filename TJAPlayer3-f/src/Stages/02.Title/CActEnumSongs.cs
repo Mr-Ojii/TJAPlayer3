@@ -45,28 +45,7 @@ internal class CActEnumSongs :  CActivity
 
         try
         {
-            this.ctNowEnumeratingSongs = new CCounter();	// 0, 1000, 17, CDTXMania.Timer );
-            this.ctNowEnumeratingSongs.t開始( 0, 100, 17, TJAPlayer3.Timer );
-        }
-        finally
-        {
-        }
-    }
-    public override void On非活性化()
-    {
-        if ( this.b活性化してない )
-            return;
-        base.On非活性化();
-        this.ctNowEnumeratingSongs = null;
-    }
-    public override void OnManagedリソースの作成()
-    {
-        if ( this.b活性化してない )
-            return;
-
-        try
-        {
-            string[] strMessage = 
+            string[] strMessage =
             {
                 "     曲データの一覧を\n       取得しています。\n   しばらくお待ちください。",
                 " Now enumerating songs.\n         Please wait..."
@@ -93,15 +72,22 @@ internal class CActEnumSongs :  CActivity
             this.txMessage = null;
         }
 
-        base.OnManagedリソースの作成();
+        try
+        {
+            this.ctNowEnumeratingSongs = new CCounter();	// 0, 1000, 17, CDTXMania.Timer );
+            this.ctNowEnumeratingSongs.t開始( 0, 100, 17, TJAPlayer3.Timer );
+        }
+        finally
+        {
+        }
     }
-    public override void OnManagedリソースの解放()
+    public override void On非活性化()
     {
         if ( this.b活性化してない )
             return;
-
         TJAPlayer3.t安全にDisposeする( ref this.txMessage );
-        base.OnManagedリソースの解放();
+        base.On非活性化();
+        this.ctNowEnumeratingSongs = null;
     }
 
     public override int On進行描画()

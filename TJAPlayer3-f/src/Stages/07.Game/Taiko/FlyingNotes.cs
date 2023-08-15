@@ -15,14 +15,14 @@ internal class FlyingNotes : CActivity
     {
         base.b活性化してない = true;
     }
-    
-    
+
+
     // メソッド
     public virtual void Start( int nLane, int nPlayer, bool isRoll = false )
     {
         if (TJAPlayer3.Tx.Notes == null)
             return;
-            
+
         for (int i = 0; i < 128; i++)
         {
             if(!Flying[i].IsUsing)
@@ -75,20 +75,6 @@ internal class FlyingNotes : CActivity
         }
         base.On非活性化();
     }
-    public override void OnManagedリソースの作成()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの作成();
-        }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの解放();
-        }
-    }
     public override int On進行描画()
     {
         if( !base.b活性化してない )
@@ -139,13 +125,13 @@ internal class FlyingNotes : CActivity
                     }
 
                     TJAPlayer3.Tx.Notes?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, (int)Flying[i].X, (int)Flying[i].Y, new Rectangle(Flying[i].Lane * 130, 0, 130, 130));
-                    
+
                 }
             }
         }
         return base.On進行描画();
     }
-    
+
 
     #region [ private ]
     //-----------------

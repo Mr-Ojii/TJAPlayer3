@@ -15,7 +15,7 @@ internal class CActMtaiko : CActivity
 {
     /// <summary>
     /// mtaiko部分を描画するクラス。左側だけ。
-    /// 
+    ///
     /// </summary>
     public CActMtaiko()
     {
@@ -30,16 +30,7 @@ internal class CActMtaiko : CActivity
             stパッド状態.n明るさ = 0;
             this.stパッド状態[ i ] = stパッド状態;
         }
-        base.On活性化();
-    }
 
-    public override void On非活性化()
-    {
-        base.On非活性化();
-    }
-
-    public override void OnManagedリソースの作成()
-    {
         this.ctレベルアップダウン = new CCounter[ 4 ];
         this.After = new int[ 4 ];
         this.Before = new int[ 4 ];
@@ -47,16 +38,13 @@ internal class CActMtaiko : CActivity
         {
             this.ctレベルアップダウン[ i ] = new CCounter();
         }
-
-
-        base.OnManagedリソースの作成();
+        base.On活性化();
     }
 
-    public override void OnManagedリソースの解放()
+    public override void On非活性化()
     {
         this.ctレベルアップダウン = null;
-
-        base.OnManagedリソースの解放();
+        base.On非活性化();
     }
 
     public override int On進行描画()
@@ -66,7 +54,7 @@ internal class CActMtaiko : CActivity
             this.nフラッシュ制御タイマ = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
             base.b初めての進行描画 = false;
         }
-        
+
         long num = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
         if( num < this.nフラッシュ制御タイマ )
         {
@@ -92,7 +80,7 @@ internal class CActMtaiko : CActivity
             if(TJAPlayer3.Tx.Taiko_Background[1] != null )
                 TJAPlayer3.Tx.Taiko_Background[1].t2D描画( TJAPlayer3.app.Device, 0, 360 );
         }
-        
+
         if(TJAPlayer3.Tx.Taiko_Base != null )
         {
             TJAPlayer3.Tx.Taiko_Base.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Taiko.X[0], TJAPlayer3.Skin.SkinConfig.Game.Taiko.Y[0]);
@@ -268,7 +256,7 @@ internal class CActMtaiko : CActivity
                         this.stパッド状態[ 2 + nHand + ( 4 * nPlayer ) ].n明るさ = 8;
                     }
                     break;
-                        
+
                 case 0x13:
                     {
                         this.stパッド状態[ 2 + ( 4 * nPlayer ) ].n明るさ = 8;

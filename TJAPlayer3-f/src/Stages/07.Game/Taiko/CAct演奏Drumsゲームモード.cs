@@ -16,13 +16,13 @@ internal class CAct演奏Drumsゲームモード : CActivity
 {
     /// <summary>
     /// 現時点では「完走!叩ききりまショー!」のみ。
-    /// 
+    ///
     /// </summary>
     public CAct演奏Drumsゲームモード()
     {
         this.b活性化してない = true;
     }
-    
+
     //叩ききりまショー!
     //<ルール>
     //_某DAMのやつに似てるやつ。
@@ -115,7 +115,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
         this.st叩ききりまショー.nおまけ加算が発生した回数 = 0;
         this.st叩ききりまショー.n延長アニメ速度 = 0;
         this.n前回の延長時間 = 0;
-        
+
         this.st叩ききりまショー.ct針アニメ = new CCounter( 0, 1000, 1, TJAPlayer3.Timer );
 
         this.t叩ききりまショー_判定項目と難易度を決める();
@@ -362,16 +362,6 @@ internal class CAct演奏Drumsゲームモード : CActivity
             }
             #endregion
         }
-    }
-
-    public override void OnManagedリソースの作成()
-    {
-        base.OnManagedリソースの作成();
-    }
-
-    public override void OnManagedリソースの解放()
-    {
-        base.OnManagedリソースの解放();
     }
 
     public override int On進行描画()

@@ -185,6 +185,8 @@ internal class CActSelectPopupMenu : CActivity
         this.bIsActivePopupMenu = false;
         nItemSelecting = -1;
 
+        ConditionallyInitializePrvFont();
+
         base.On活性化();
     }
     public override void On非活性化()
@@ -197,26 +199,9 @@ internal class CActSelectPopupMenu : CActivity
             {
                 this.ctキー反復用[ i ] = null;
             }
+            TJAPlayer3.t安全にDisposeする( ref this.prvFont );
             base.On非活性化();
         }
-    }
-
-    public override void OnManagedリソースの作成()
-    {
-        base.OnManagedリソースの作成();
-
-        ConditionallyInitializePrvFont();
-    }
-
-    public override void OnManagedリソースの解放()
-    {
-        if ( !base.b活性化してない )
-        {
-            //CDTXMania.t安全にDisposeする( ref this.txPopupMenuBackground );
-            //CDTXMania.t安全にDisposeする( ref this.txCursor );
-            TJAPlayer3.t安全にDisposeする( ref this.prvFont );
-        }
-        base.OnManagedリソースの解放();
     }
 
     public override int On進行描画()

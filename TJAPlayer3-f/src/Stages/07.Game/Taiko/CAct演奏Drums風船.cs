@@ -25,6 +25,8 @@ internal class CAct演奏Drums風船 : CActivity
         {
             this.ct風船アニメ[i] = new CCounter();
         }
+
+        this.ct風船ふきだしアニメ = new CCounter(0, 1, 100, TJAPlayer3.Timer);
         base.On活性化();
     }
 
@@ -32,17 +34,6 @@ internal class CAct演奏Drums風船 : CActivity
     {
         this.ct風船ふきだしアニメ = null;
         base.On非活性化();
-    }
-
-    public override void OnManagedリソースの作成()
-    {
-        this.ct風船ふきだしアニメ = new CCounter(0, 1, 100, TJAPlayer3.Timer);
-        base.OnManagedリソースの作成();
-    }
-
-    public override void OnManagedリソースの解放()
-    {
-        base.OnManagedリソースの解放();
     }
 
     public override int On進行描画()

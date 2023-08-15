@@ -24,6 +24,9 @@ class CAct演奏Drums特訓モード : CActivity
 
         base.On活性化();
 
+        if (TJAPlayer3.Tx.Tokkun_Background_Up != null)
+            this.ct背景スクロールタイマー = new CCounter(1, TJAPlayer3.Tx.Tokkun_Background_Up.szTextureSize.Width, 16, TJAPlayer3.Timer);
+
         CDTX dTX = TJAPlayer3.DTX[0];
 
         var measureCount = 1;
@@ -32,9 +35,9 @@ class CAct演奏Drums特訓モード : CActivity
         int endtime = 1;
         int bgmlength = 1;
 
-        for (int index = 0; index < TJAPlayer3.DTX[0].listChip.Count; index++) 
+        for (int index = 0; index < TJAPlayer3.DTX[0].listChip.Count; index++)
         {
-            if (TJAPlayer3.DTX[0].listChip[index].nチャンネル番号 == 0xff) 
+            if (TJAPlayer3.DTX[0].listChip[index].nチャンネル番号 == 0xff)
             {
                 endtime = TJAPlayer3.DTX[0].listChip[index].n発声時刻ms;
                 break;
@@ -84,26 +87,10 @@ class CAct演奏Drums特訓モード : CActivity
         length = 1;
         gogoXList = null;
         JumpPointList = null;
+
+        this.ctスクロールカウンター = null;
+        this.ct背景スクロールタイマー = null;
         base.On非活性化();
-    }
-
-    public override void OnManagedリソースの作成()
-    {
-        if (!base.b活性化してない)
-        {
-            if (TJAPlayer3.Tx.Tokkun_Background_Up != null) this.ct背景スクロールタイマー = new CCounter(1, TJAPlayer3.Tx.Tokkun_Background_Up.szTextureSize.Width, 16, TJAPlayer3.Timer);
-            base.OnManagedリソースの作成();
-        }
-    }
-
-    public override void OnManagedリソースの解放()
-    {
-        if (!base.b活性化してない)
-        {
-            this.ctスクロールカウンター = null;
-            this.ct背景スクロールタイマー = null;
-            base.OnManagedリソースの解放();
-        }
     }
 
     public override int On進行描画()
@@ -563,14 +550,14 @@ class CAct演奏Drums特訓モード : CActivity
     private long[] LBlue = new long[] { 0, 0, 0, 0, 0 };
     private long[] RBlue = new long[] { 0, 0, 0, 0, 0 };
 
-    private struct STJUMPP 
+    private struct STJUMPP
     {
         public long Time;
         public int Measure;
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="time">今の時間</param>
     /// <param name="begin">最初の値</param>

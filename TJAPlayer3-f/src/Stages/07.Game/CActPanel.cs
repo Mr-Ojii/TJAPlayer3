@@ -72,7 +72,7 @@ internal class CActPanel : CActivity
             }
             if( !string.IsNullOrEmpty(genreName) )
             {
-                this.txGENRE = TJAPlayer3.Tx.TxCGen(TJAPlayer3.Skin.nStrジャンルtoNum(genreName).ToString());	
+                this.txGENRE = TJAPlayer3.Tx.TxCGen(TJAPlayer3.Skin.nStrジャンルtoNum(genreName).ToString());
             }
 
             this.ct進行用 = new CCounter( 0, 2000, 2, TJAPlayer3.Timer );
@@ -140,30 +140,17 @@ internal class CActPanel : CActivity
     public override void On非活性化()
     {
         this.ct進行用 = null;
+
+        TJAPlayer3.t安全にDisposeする( ref this.txPanel );
+        TJAPlayer3.t安全にDisposeする( ref this.txMusicName );
+        TJAPlayer3.t安全にDisposeする( ref this.txSubTitleName);
+        TJAPlayer3.t安全にDisposeする( ref this.txGENRE );
+        TJAPlayer3.t安全にDisposeする(ref this.txPanel);
+        TJAPlayer3.t安全にDisposeする(ref this.tx歌詞テクスチャ);
+        TJAPlayer3.t安全にDisposeする(ref this.pfMusicName);
+        TJAPlayer3.t安全にDisposeする(ref this.pfSubTitleName);
+        TJAPlayer3.t安全にDisposeする(ref this.tx難易度とステージ数);
         base.On非活性化();
-    }
-    public override void OnManagedリソースの作成()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの作成();
-        }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if( !base.b活性化してない )
-        {
-            TJAPlayer3.t安全にDisposeする( ref this.txPanel );
-            TJAPlayer3.t安全にDisposeする( ref this.txMusicName );
-            TJAPlayer3.t安全にDisposeする( ref this.txSubTitleName);
-            TJAPlayer3.t安全にDisposeする( ref this.txGENRE );
-            TJAPlayer3.t安全にDisposeする(ref this.txPanel);
-            TJAPlayer3.t安全にDisposeする(ref this.tx歌詞テクスチャ);
-            TJAPlayer3.t安全にDisposeする(ref this.pfMusicName);
-            TJAPlayer3.t安全にDisposeする(ref this.pfSubTitleName);
-            TJAPlayer3.t安全にDisposeする(ref this.tx難易度とステージ数);
-            base.OnManagedリソースの解放();
-        }
     }
     public override int On進行描画()
     {

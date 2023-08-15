@@ -52,9 +52,6 @@ public class CActivity
 
         this.b活性化してる = true;		// このフラグは、以下の処理をする前にセットする。
 
-        // 自身のリソースを作成する。
-        this.OnManagedリソースの作成();
-
         // すべての子 Activity を活性化する。
         foreach( CActivity activity in this.list子Activities )
             activity.On活性化();
@@ -68,42 +65,11 @@ public class CActivity
         if( this.b活性化してない )
             return;
 
-        // 自身のリソースを解放する。
-        this.OnManagedリソースの解放();
-
         // すべての 子Activity を非活性化する。
         foreach( CActivity activity in this.list子Activities )
             activity.On非活性化();
 
         this.b活性化してない = true;	// このフラグは、以上のメソッドを呼び出した後にセットする。
-    }
-
-    /// <summary>
-    /// <para>Managed リソースの作成を行う。</para>
-    /// <para>Direct3D デバイスが作成された直後に呼び出されるので、自分が活性化している時に限り、
-    /// Managed リソースを作成（または再構築）すること。</para>
-    /// <para>いつどのタイミングで呼び出されるか（いつDirect3Dが再作成されるか）分からないので、
-    /// いつ何時呼び出されても問題無いようにコーディングしておくこと。</para>
-    /// </summary>
-    public virtual void OnManagedリソースの作成()
-    {
-        // 活性化してないなら何もしない。
-        if( this.b活性化してない )
-            return;
-    }
-
-    /// <summary>
-    /// <para>Managed リソースの解放を行う。</para>
-    /// <para>Direct3D デバイスの解放直前に呼び出される。
-    /// （Unmanaged リソースとは異なり、Direct3D デバイスのリセット時には呼び出されない。）</para>
-    /// <para>いつどのタイミングで呼び出されるか（いつDirect3Dが解放されるか）分からないので、
-    /// いつ何時呼び出されても問題無いようにコーディングしておくこと。</para>
-    /// </summary>
-    public virtual void OnManagedリソースの解放()
-    {
-        // 活性化してないなら何もしない。
-        if( this.b活性化してない )
-            return;
     }
 
     /// <summary>
@@ -124,7 +90,7 @@ public class CActivity
         // 戻り値とその意味は子クラスで自由に決めていい。
         return 0;
     }
-    
+
     //-----------------
     #endregion
 }

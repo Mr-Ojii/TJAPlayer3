@@ -120,7 +120,7 @@ internal class CActConfigList : CActivity
         this.list項目リスト.Add( this.iCommonPlaySpeed );
 
         this.iSystemTimeStretch = new CItemToggle( "TimeStretch", TJAPlayer3.ConfigToml.PlayOption.TimeStretch,
-            "演奏速度の変更方式:\n" + 
+            "演奏速度の変更方式:\n" +
             "ONにすると、演奏速度の変更を、\n" +
             "周波数変更ではなく\n" +
             "タイムストレッチで行います。" +
@@ -182,7 +182,7 @@ internal class CActConfigList : CActivity
         //this.list項目リスト.Add( this.iSystemDamageLevel );
 
         this.iSystemApplyLoudnessMetadata = new CItemToggle( "Apply Loudness Metadata", TJAPlayer3.ConfigToml.Sound.ApplyLoudnessMetadata,
-            "BS1770GAIN によるラウドネスメータの測量を適用します。\n利用するにはBS1770GAINが必要です。", 
+            "BS1770GAIN によるラウドネスメータの測量を適用します。\n利用するにはBS1770GAINが必要です。",
             "To apply BS1770GAIN loudness\nmetadata when playing songs, turn it ON.\nTurn OFF if you prefer to use only\nthe main song level controls.\nIt needs BS1770GAIN." );
         this.list項目リスト.Add( this.iSystemApplyLoudnessMetadata );
 
@@ -289,7 +289,7 @@ internal class CActConfigList : CActivity
             // #24820 2013.1.17 yyagi
             asiodevs = CEnumerateAllAsioDevices.GetAllASIODevices();
         }
-        catch (Exception e) 
+        catch (Exception e)
         {
             Trace.TraceWarning(e.ToString());
             asiodevs = new string[] { "No Devices Detected." };
@@ -575,7 +575,7 @@ internal class CActConfigList : CActivity
             "It becomes MISS to hit pad without\n" +
             " chip." );
         this.list項目リスト.Add( this.iDrumsTight );
-        
+
         this.iSystemMinComboDrums = new CItemInteger( "D-MinCombo", 1, 0x1869f, TJAPlayer3.ConfigToml.Game.DispMinCombo,
             "表示可能な最小コンボ数（ドラム）：\n" +
             "画面に表示されるコンボの最小の数\n" +
@@ -667,7 +667,7 @@ internal class CActConfigList : CActivity
             "Show the JudgeCount\n" +
             "(SinglePlay Only)");
         this.list項目リスト.Add( this.iTaikoJudgeCountDisp );
-        
+
         this.iDrumsGoToKeyAssign = new CItemBase( "KEY CONFIG",
             "ドラムのキー入力に関する項目を設\n"+
             "定します。",
@@ -896,7 +896,7 @@ internal class CActConfigList : CActivity
             "Drums key assign:\nTo assign key/pads for RightRed\n button.");
         this.list項目リスト.Add(this.iKeyAssignTaikoRRed);
         this.iKeyAssignTaikoLBlue = new CItemBase( "LeftBlue",
-            "左側のふちへのキーの\n割り当てを設定します。",	
+            "左側のふちへのキーの\n割り当てを設定します。",
             "Drums key assign:\nTo assign key/pads for LeftBlue\n button." );
         this.list項目リスト.Add( this.iKeyAssignTaikoLBlue );
         this.iKeyAssignTaikoRBlue = new CItemBase( "RightBlue",
@@ -913,7 +913,7 @@ internal class CActConfigList : CActivity
             "Drums key assign:\nTo assign key/pads for RightRed2P\n button.");
         this.list項目リスト.Add( this.iKeyAssignTaikoRRed2P );
         this.iKeyAssignTaikoLBlue2P = new CItemBase( "LeftBlue2P",
-            "左側のふちへのキーの\n割り当てを設定します。",	
+            "左側のふちへのキーの\n割り当てを設定します。",
             "Drums key assign:\nTo assign key/pads for LeftBlue2P\n button." );
         this.list項目リスト.Add( this.iKeyAssignTaikoLBlue2P );
         this.iKeyAssignTaikoRBlue2P = new CItemBase( "RightBlue2P",
@@ -993,7 +993,7 @@ internal class CActConfigList : CActivity
 
         //			this.listMenu = new List<stMenuItemRight>();
 
-        this.t項目リストの設定_Drums();	// 
+        this.t項目リストの設定_Drums();	//
         this.t項目リストの設定_System();	// 順番として、最後にSystemを持ってくること。設定一覧の初期位置がSystemのため。
         this.b要素値にフォーカス中 = false;
         this.n目標のスクロールカウンタ = 0;
@@ -1007,6 +1007,8 @@ internal class CActConfigList : CActivity
         this.iSystemASIODevice_initial			= this.iSystemASIODevice.n現在選択されている項目番号;    //
         this.iSystemBASSBufferSizeMs_initial = this.iSystemBASSBufferSizeMs.nValue;              // CONFIG脱出時にこの値から変更されているようなら
         this.iSystemSoundTimerType_initial      = this.iSystemSoundTimerType.GetIndex();				//
+
+        this.txSkinSample1 = null;		// スキン選択時に動的に設定するため、ここでは初期化しない
         base.On活性化();
     }
     public override void On非活性化()
@@ -1017,8 +1019,10 @@ internal class CActConfigList : CActivity
         this.tConfigIniへ記録する();
         this.list項目リスト.Clear();
         this.ct三角矢印アニメ = null;
-        
+
         prvFont.Dispose();
+
+        TJAPlayer3.t安全にDisposeする( ref this.txSkinSample1 );
         base.On非活性化();
 #region [ Skin変更 ]
         if (TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(true).Replace(System.IO.Path.DirectorySeparatorChar, '/') != this.skinSubFolder_org.Replace(System.IO.Path.DirectorySeparatorChar, '/'))
@@ -1072,23 +1076,6 @@ internal class CActConfigList : CActivity
         CSoundManager.bIsTimeStretch = this.iSystemTimeStretch.bON;
 #endregion
     }
-    public override void OnManagedリソースの作成()
-    {
-        if( this.b活性化してない )
-            return;
-
-        this.txSkinSample1 = null;		// スキン選択時に動的に設定するため、ここでは初期化しない
-        base.OnManagedリソースの作成();
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if( this.b活性化してない )
-            return;
-
-        TJAPlayer3.t安全にDisposeする( ref this.txSkinSample1 );
-    
-        base.OnManagedリソースの解放();
-    }
     private void OnListMenuの初期化()
     {
         OnListMenuの解放();
@@ -1133,7 +1120,7 @@ internal class CActConfigList : CActivity
         {
             this.nスクロール用タイマ値 = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
             this.ct三角矢印アニメ.t開始( 0, 9, 50, TJAPlayer3.Timer );
-        
+
             base.b初めての進行描画 = false;
         }
         //-----------------
@@ -1223,7 +1210,7 @@ internal class CActConfigList : CActivity
         }
         //-----------------
 #endregion
-        
+
 #region [ ▲印アニメの進行 ]
         //-----------------
         if( this.b項目リスト側にフォーカスがある && ( this.n目標のスクロールカウンタ == 0 ) )
@@ -1378,12 +1365,12 @@ internal class CActConfigList : CActivity
             }
             //-----------------
 #endregion
-            
+
             nItem = this.t次の項目( nItem );
         }
         //-----------------
 #endregion
-        
+
 #region [ 項目リストにフォーカスがあって、かつスクロールが停止しているなら、パネルの上下に▲印を描画する。]
         //-----------------
         if( this.b項目リスト側にフォーカスがある && ( this.n目標のスクロールカウンタ == 0 ) )
@@ -1391,7 +1378,7 @@ internal class CActConfigList : CActivity
             int x;
             int y_upper;
             int y_lower;
-        
+
             // 位置決定。
 
             if( this.b要素値にフォーカス中 )
@@ -1408,7 +1395,7 @@ internal class CActConfigList : CActivity
             }
 
             // 描画。
-            
+
             if( TJAPlayer3.Tx.Config_Arrow != null )
             {
                 TJAPlayer3.Tx.Config_Arrow.t2D描画( TJAPlayer3.app.Device, x, y_upper, new Rectangle( 0, 0, 0x40, 0x18 ) );

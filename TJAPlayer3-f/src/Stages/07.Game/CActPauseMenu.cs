@@ -28,7 +28,7 @@ internal class CActPauseMenu : CActSelectPopupMenu
 
             lci[ nConfSet ].Add( null );										// Drum/Guitar/Bassで3つ分、枠を作っておく
             lci[ nConfSet ] = MakeListCItemBase( nConfSet );
-            
+
         }
         base.Initialize( lci[ nCurrentConfigSet ], true, QuickCfgTitle, 2 );	// ConfSet=0, nInst=Drums
     }
@@ -58,7 +58,7 @@ internal class CActPauseMenu : CActSelectPopupMenu
     //{
     //	base.tDeativatePopupMenu();
     //}
-    public void t選択後() 
+    public void t選択後()
     {
         if (this.選択完了)
         {
@@ -128,21 +128,6 @@ internal class CActPauseMenu : CActSelectPopupMenu
     {
         base.On非活性化();
     }
-    public override void OnManagedリソースの作成()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの作成();
-        }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if ( !base.b活性化してない )
-        {
-            TJAPlayer3.t安全にDisposeする( ref this.tx文字列パネル );
-            base.OnManagedリソースの解放();
-        }
-    }
 
     #region [ private ]
     //-----------------
@@ -156,7 +141,6 @@ internal class CActPauseMenu : CActSelectPopupMenu
         Default = 99
     };
 
-    private CTexture tx文字列パネル;
     private bool 選択完了;
     private int 選択した行;
     private Stopwatch sw;

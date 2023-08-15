@@ -59,54 +59,7 @@ internal class CStageConfig : CStage
             }																				//
             this.bメニューにフォーカス中 = true;											// ここまでOPTIONと共通
             this.eItemPanelモード = EItemPanelモード.パッド一覧;
-            TJAPlayer3.Discord?.Update("Config");
-        }
-        finally
-        {
-            Trace.TraceInformation( "コンフィグステージの活性化を完了しました。" );
-            Trace.Unindent();
-        }
-        base.On活性化();		// 2011.3.14 yyagi: On活性化()をtryの中から外に移動
-    }
-    public override void On非活性化()
-    {
-        Trace.TraceInformation( "コンフィグステージを非活性化します。" );
-        Trace.Indent();
-        try
-        {
-            TJAPlayer3.ConfigIni.t書き出し( TJAPlayer3.strEXEのあるフォルダ + "Config.ini" );	// CONFIGだけ
-            if (this.privatefont != null)                                                    // 以下OPTIONと共通
-            {
-                this.privatefont.Dispose();
-                this.privatefont = null;
-            }
-            for ( int i = 0; i < 4; i++ )
-            {
-                this.ctキー反復用[ i ] = null;
-            }
-            base.On非活性化();
-        }
-        catch ( UnauthorizedAccessException e )
-        {
-            Trace.TraceError( e.ToString() );
-            Trace.TraceError( "ファイルが読み取り専用になっていないか、管理者権限がないと書き込めなくなっていないか等を確認して下さい" );
-            Trace.TraceError( "An exception has occurred, but processing continues." );
-        }
-        catch ( Exception e )
-        {
-            Trace.TraceError( e.ToString() );
-            Trace.TraceError( "An exception has occurred, but processing continues." );
-        }
-        finally
-        {
-            Trace.TraceInformation( "コンフィグステージの非活性化を完了しました。" );
-            Trace.Unindent();
-        }
-    }
-    public override void OnManagedリソースの作成()											// OPTIONと画像以外共通
-    {
-        if( !base.b活性化してない )
-        {
+
             string[] strMenuItem = {"System", "Drums", "Exit"};
             txMenuItemLeft = new CTexture[strMenuItem.Length, 2];
             using (var prvFont = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 20))
@@ -132,17 +85,32 @@ internal class CStageConfig : CStage
             {
                 this.t説明文パネルに現在選択されている項目の説明を描画する();
             }
-            base.OnManagedリソースの作成();
+
+            TJAPlayer3.Discord?.Update("Config");
         }
-    }
-    public override void OnManagedリソースの解放()											// OPTIONと同じ(COnfig.iniの書き出しタイミングのみ異なるが、無視して良い)
-    {
-        if( !base.b活性化してない )
+        finally
         {
-            //CDTXMania.t安全にDisposeする( ref this.tx背景 );
-            //CDTXMania.t安全にDisposeする( ref this.tx上部パネル );
-            //CDTXMania.t安全にDisposeする( ref this.tx下部パネル );
-            //CDTXMania.t安全にDisposeする( ref this.txMenuカーソル );
+            Trace.TraceInformation( "コンフィグステージの活性化を完了しました。" );
+            Trace.Unindent();
+        }
+        base.On活性化();		// 2011.3.14 yyagi: On活性化()をtryの中から外に移動
+    }
+    public override void On非活性化()
+    {
+        Trace.TraceInformation( "コンフィグステージを非活性化します。" );
+        Trace.Indent();
+        try
+        {
+            TJAPlayer3.ConfigIni.t書き出し( TJAPlayer3.strEXEのあるフォルダ + "Config.ini" );	// CONFIGだけ
+            if (this.privatefont != null)                                                    // 以下OPTIONと共通
+            {
+                this.privatefont.Dispose();
+                this.privatefont = null;
+            }
+            for ( int i = 0; i < 4; i++ )
+            {
+                this.ctキー反復用[ i ] = null;
+            }
             TJAPlayer3.t安全にDisposeする( ref this.tx説明文パネル );
             for ( int i = 0; i < txMenuItemLeft.GetLength( 0 ); i++ )
             {
@@ -152,7 +120,23 @@ internal class CStageConfig : CStage
                 txMenuItemLeft[ i, 1 ] = null;
             }
             txMenuItemLeft = null;
-            base.OnManagedリソースの解放();
+            base.On非活性化();
+        }
+        catch ( UnauthorizedAccessException e )
+        {
+            Trace.TraceError( e.ToString() );
+            Trace.TraceError( "ファイルが読み取り専用になっていないか、管理者権限がないと書き込めなくなっていないか等を確認して下さい" );
+            Trace.TraceError( "An exception has occurred, but processing continues." );
+        }
+        catch ( Exception e )
+        {
+            Trace.TraceError( e.ToString() );
+            Trace.TraceError( "An exception has occurred, but processing continues." );
+        }
+        finally
+        {
+            Trace.TraceInformation( "コンフィグステージの非活性化を完了しました。" );
+            Trace.Unindent();
         }
     }
     public override int On進行描画()

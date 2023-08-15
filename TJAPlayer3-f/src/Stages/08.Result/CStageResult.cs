@@ -136,25 +136,11 @@ internal class CStageResult : CStage
     }
     public override void On非活性化()
     {
+        if( this.ct登場用 != null )
+        {
+            this.ct登場用 = null;
+        }
         base.On非活性化();
-    }
-    public override void OnManagedリソースの作成()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの作成();
-        }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if( !base.b活性化してない )
-        {
-            if( this.ct登場用 != null )
-            {
-                this.ct登場用 = null;
-            }
-            base.OnManagedリソースの解放();
-        }
     }
     public override int On進行描画()
     {

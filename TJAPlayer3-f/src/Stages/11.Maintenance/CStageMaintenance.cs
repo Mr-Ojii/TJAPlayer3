@@ -27,6 +27,18 @@ class CStageMaintenance : CStage
         Trace.Indent();
         try
         {
+            //表示用テクスチャの生成
+            don = TJAPlayer3.ColorTexture("#ff4000", Width, Height);
+            ka = TJAPlayer3.ColorTexture("#00c8ff", Width, Height);
+            string[] txt = new string[4] { "左ふち", "左面", "右面", "右ふち" };
+            using (var pf = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, fontsize))
+            {
+                for (int ind = 0; ind < 4; ind++)
+                {
+                    using (SixLabors.ImageSharp.Image<Rgba32> bmp = pf.DrawText(txt[ind], Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+                        str[ind] = TJAPlayer3.tCreateTexture(bmp);
+                }
+            }
             TJAPlayer3.Discord?.Update("Maintenance");
             base.On活性化();
         }
@@ -44,6 +56,10 @@ class CStageMaintenance : CStage
         Trace.Indent();
         try
         {
+            //表示用テクスチャの解放
+            TJAPlayer3.t安全にDisposeする(ref str);
+            TJAPlayer3.t安全にDisposeする(ref don);
+            TJAPlayer3.t安全にDisposeする(ref ka);
         }
         finally
         {
@@ -51,37 +67,6 @@ class CStageMaintenance : CStage
             Trace.Unindent();
         }
         base.On非活性化();
-    }
-
-    public override void OnManagedリソースの作成()
-    {
-        if (!base.b活性化してない)
-        {
-            //表示用テクスチャの生成
-            don = TJAPlayer3.ColorTexture("#ff4000", Width, Height);
-            ka = TJAPlayer3.ColorTexture("#00c8ff", Width, Height);
-            string[] txt = new string[4] { "左ふち", "左面", "右面", "右ふち" };
-            using (var pf = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, fontsize))
-            {
-                for (int ind = 0; ind < 4; ind++)
-                {
-                    using (SixLabors.ImageSharp.Image<Rgba32> bmp = pf.DrawText(txt[ind], Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
-                        str[ind] = TJAPlayer3.tCreateTexture(bmp);
-                }
-            }
-        }
-        base.OnManagedリソースの作成();
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if (!base.b活性化してない)
-        {
-            //表示用テクスチャの解放
-            TJAPlayer3.t安全にDisposeする(ref str);
-            TJAPlayer3.t安全にDisposeする(ref don);
-            TJAPlayer3.t安全にDisposeする(ref ka);
-            base.OnManagedリソースの解放();
-        }
     }
 
     public override int On進行描画()

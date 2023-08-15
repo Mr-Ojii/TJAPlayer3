@@ -77,7 +77,7 @@ internal class CActJudgeString : CActivity
             }
         }
 
-        
+
     }
 
 
@@ -99,20 +99,6 @@ internal class CActJudgeString : CActivity
             this.st状態[ i ].ct進行 = null;
         }
         base.On非活性化();
-    }
-    public override void OnManagedリソースの作成()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの作成();
-        }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの解放();
-        }
     }
 
     public int t進行描画()

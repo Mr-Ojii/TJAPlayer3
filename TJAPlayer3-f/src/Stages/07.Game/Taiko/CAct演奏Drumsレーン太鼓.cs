@@ -16,8 +16,8 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 {
     /// <summary>
     /// レーンを描画するクラス。
-    /// 
-    /// 
+    ///
+    ///
     /// </summary>
     public CAct演奏Drumsレーン太鼓()
     {
@@ -61,16 +61,6 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
         this.ctゴーゴー = null;
 
         base.On非活性化();
-    }
-
-    public override void OnManagedリソースの作成()
-    {
-        base.OnManagedリソースの作成();
-    }
-
-    public override void OnManagedリソースの解放()
-    {
-        base.OnManagedリソースの解放();
     }
 
     public override int On進行描画()
@@ -283,7 +273,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
             }
             #endregion
         }
-        
+
         for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
         {
             if (TJAPlayer3.stage演奏ドラム画面.bUseBranch[i] == true)
@@ -592,7 +582,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
             {
                 TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] = this.n移動開始X[nPlayer] + (int)((((int)nTime - this.n移動開始時刻[nPlayer]) / (double)(this.n総移動時間[nPlayer])) * this.n移動距離px[nPlayer]);
                 TJAPlayer3.stage演奏ドラム画面.FlyingNotes.StartPointX[nPlayer] = this.n移動開始X[nPlayer] + (int)((((int)nTime - this.n移動開始時刻[nPlayer]) / (double)(this.n総移動時間[nPlayer])) * this.n移動距離px[nPlayer]);
-                
+
                 if (((int)nTime) > this.n移動開始時刻[nPlayer] + this.n総移動時間[nPlayer])
                 {
                     this.n総移動時間[nPlayer] = -1;
@@ -637,8 +627,8 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
                         this.ctゴーゴースプラッシュ.n現在の値 = 0;
                     }
                 }
-                
-        
+
+
                 this.ctゴーゴースプラッシュ.t進行Loop();
             if (this.txゴーゴースプラッシュ != null)
             {
@@ -854,7 +844,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
         TJAPlayer3.stage演奏ドラム画面.FlyingNotes.StartPointX[0] = judgeposition;
     }
 
-    public void t判定枠Reset() 
+    public void t判定枠Reset()
     {
         TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[0] = this.nDefaultJudgePos[0, 0];
         TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldY[0] = this.nDefaultJudgePos[0, 1];

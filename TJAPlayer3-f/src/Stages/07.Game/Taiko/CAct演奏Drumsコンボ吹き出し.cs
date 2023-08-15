@@ -19,8 +19,8 @@ internal class CAct演奏Drumsコンボ吹き出し : CActivity
     {
         base.b活性化してない = true;
     }
-    
-    
+
+
     // メソッド
     public virtual void Start( int nCombo, int player )
     {
@@ -47,20 +47,6 @@ internal class CAct演奏Drumsコンボ吹き出し : CActivity
             this.ct進行[ i ] = null;
         }
         base.On非活性化();
-    }
-    public override void OnManagedリソースの作成()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの作成();
-        }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの解放();
-        }
     }
     public override int On進行描画()
     {
@@ -120,7 +106,7 @@ internal class CAct演奏Drumsコンボ吹き出し : CActivity
         }
         return 0;
     }
-    
+
 
     // その他
 

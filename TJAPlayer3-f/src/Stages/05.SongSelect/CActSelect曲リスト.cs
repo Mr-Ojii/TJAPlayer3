@@ -365,7 +365,7 @@ internal class CActSelect曲リスト : CActivity
                 }
                 return;
             }
-            
+
         }
         if (this.b活性化してる)
         {
@@ -422,7 +422,7 @@ internal class CActSelect曲リスト : CActivity
         else
         {
             int count = 0, current = 0;
-            foreach (C曲リストノード node in list) 
+            foreach (C曲リストノード node in list)
             {
                 if (node.eNodeType == C曲リストノード.ENodeType.SCORE)
                     count++;
@@ -474,38 +474,6 @@ internal class CActSelect曲リスト : CActivity
         this.ctバー展開用タイマー= new CCounter(0, 100, 1, TJAPlayer3.Timer);
         this.ctバー展開ディレイ用タイマー = new CCounter(0, 200, 1, TJAPlayer3.Timer);
 
-        base.On活性化();
-
-        this.t選択曲が変更された(true);      // #27648 2012.3.31 yyagi 選曲画面に入った直後の 現在位置/全アイテム数 の表示を正しく行うため
-    }
-    public override void On非活性化()
-    {
-        if (this.b活性化してない)
-            return;
-
-        for (int i = 0; i < 13; i++) {
-            this.stバー情報[i].ttkタイトル = this.ttk曲名テクスチャを生成する(this.stバー情報[i].song.strTitle, this.stバー情報[i].song.ForeColor, this.stバー情報[i].song.BackColor);
-        }
-
-        TJAPlayer3.t安全にDisposeする(ref pfMusicName);
-        TJAPlayer3.t安全にDisposeする(ref pfSubtitle);
-
-        this.ttk選択している曲の曲名 = null;
-        this.ttk選択している曲のサブタイトル = null;
-
-        this.ct登場アニメ用 = null;
-
-        this.ct三角矢印アニメ = null;
-
-
-
-        base.On非活性化();
-    }
-    public override void OnManagedリソースの作成()
-    {
-        if (this.b活性化してない)
-            return;
-
         int c = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
         #region [ Songs not found画像 ]
         try
@@ -543,15 +511,29 @@ internal class CActSelect曲リスト : CActivity
             this.txEnumeratingSongs = null;
         }
         #endregion
-        #region [ 曲数表示 ]
-        //this.txアイテム数数字 = CDTXMania.tCreateTexture( CSkin.Path( @"Graphics/ScreenSelect skill number on gauge etc.png" ), false );
-        #endregion
-        base.OnManagedリソースの作成();
+
+        base.On活性化();
+
+        this.t選択曲が変更された(true);      // #27648 2012.3.31 yyagi 選曲画面に入った直後の 現在位置/全アイテム数 の表示を正しく行うため
     }
-    public override void OnManagedリソースの解放()
+    public override void On非活性化()
     {
         if (this.b活性化してない)
             return;
+
+        for (int i = 0; i < 13; i++) {
+            this.stバー情報[i].ttkタイトル = this.ttk曲名テクスチャを生成する(this.stバー情報[i].song.strTitle, this.stバー情報[i].song.ForeColor, this.stバー情報[i].song.BackColor);
+        }
+
+        TJAPlayer3.t安全にDisposeする(ref pfMusicName);
+        TJAPlayer3.t安全にDisposeする(ref pfSubtitle);
+
+        this.ttk選択している曲の曲名 = null;
+        this.ttk選択している曲のサブタイトル = null;
+
+        this.ct登場アニメ用 = null;
+
+        this.ct三角矢印アニメ = null;
 
         ClearTitleTextureCache();
 
@@ -563,7 +545,7 @@ internal class CActSelect曲リスト : CActivity
         TJAPlayer3.t安全にDisposeする(ref this.txEnumeratingSongs);
         TJAPlayer3.t安全にDisposeする(ref this.txSongNotFound);
 
-        base.OnManagedリソースの解放();
+        base.On非活性化();
     }
     public override int On進行描画()
     {
@@ -634,7 +616,7 @@ internal class CActSelect曲リスト : CActivity
             全体Opacity = (int)(TJAPlayer3.stage選曲.ctDifficultySelectOUT用タイマー.n現在の値 * 255.0f / TJAPlayer3.stage選曲.ctDifficultySelectOUT用タイマー.n終了値);
         else
             全体Opacity = 255;
-        
+
 
         //しょうがないから、この曲リストで、描画するすべてのテクスチャのOpacityをここで決める。
         //その他のいい方法あったら、プルリクお願いします。受け入れます。(CActSelect曲リスト全体の透明度変更できたらいいな。)
@@ -1140,7 +1122,7 @@ internal class CActSelect曲リスト : CActivity
                                         TJAPlayer3.Tx.SongSelect_Frame_Score.color = Color.FromArgb(255, 255, 255, 255);
                                     else
                                         TJAPlayer3.Tx.SongSelect_Frame_Score.color = Color.FromArgb(255, 127, 127, 127);
-                                        
+
                                     if (i == 4 && TJAPlayer3.stage選曲.n現在選択中の曲の難易度[0] == 4)
                                     {
                                         // エディット
@@ -1389,7 +1371,7 @@ internal class CActSelect曲リスト : CActivity
         public C曲リストノード song;
     }
 
-    private const int BoxCenterx = 645; 
+    private const int BoxCenterx = 645;
 
     public bool b選択曲が変更された = true;
     private CCounter ct登場アニメ用;
@@ -1402,7 +1384,7 @@ internal class CActSelect曲リスト : CActivity
     internal CTexture タイトルtmp;
     internal CTexture サブタイトルtmp;
 
-    private readonly Dictionary<TitleTextureKey, CTexture> _titledictionary 
+    private readonly Dictionary<TitleTextureKey, CTexture> _titledictionary
         = new Dictionary<TitleTextureKey, CTexture>();
 
     private long nスクロールタイマ;
@@ -1423,7 +1405,7 @@ internal class CActSelect曲リスト : CActivity
         if (song == null)
             return null;
 
-        
+
         List<C曲リストノード> list = (song.r親ノード != null && !TJAPlayer3.ConfigToml.SongSelect.OpenOneSide) ? song.r親ノード.list子リスト : TJAPlayer3.SongsManager.list曲ルート;
 
         int index = list.IndexOf(song);

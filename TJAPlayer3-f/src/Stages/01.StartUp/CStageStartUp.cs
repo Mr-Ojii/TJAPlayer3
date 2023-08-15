@@ -54,20 +54,6 @@ internal class CStageStartUp : CStage
             Trace.Unindent();
         }
     }
-    public override void OnManagedリソースの作成()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの作成();
-        }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの解放();
-        }
-    }
     public override int On進行描画()
     {
         if( !base.b活性化してない )

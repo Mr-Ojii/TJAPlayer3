@@ -64,24 +64,10 @@ internal class CActResultSongBar : CActivity
         {
             this.ct登場用 = null;
         }
-        base.On非活性化();
-    }
-    public override void OnManagedリソースの作成()
-    {
-        if( !base.b活性化してない )
-        {
-            base.OnManagedリソースの作成();
-        }
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if( !base.b活性化してない )
-        {
-            TJAPlayer3.t安全にDisposeする( ref this.txMusicName );
+        TJAPlayer3.t安全にDisposeする( ref this.txMusicName );
 
-            TJAPlayer3.t安全にDisposeする(ref this.txStageText);
-            base.OnManagedリソースの解放();
-        }
+        TJAPlayer3.t安全にDisposeする(ref this.txStageText);
+        base.On非活性化();
     }
     public override int On進行描画()
     {

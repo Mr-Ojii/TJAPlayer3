@@ -54,7 +54,7 @@ internal class CAct演奏Combo共通 : CActivity
         0.000f,
         0.079f,
         0.158f,
-        0.237f, 
+        0.237f,
         0.211f,
         0.184f,
         0.158f,
@@ -373,18 +373,6 @@ internal class CAct演奏Combo共通 : CActivity
             this.status = null;
 
         base.On非活性化();
-    }
-    public override void OnManagedリソースの作成()
-    {
-        if( this.b活性化してない )
-            return;
-        base.OnManagedリソースの作成();
-    }
-    public override void OnManagedリソースの解放()
-    {
-        if( this.b活性化してない )
-            return;
-        base.OnManagedリソースの解放();
     }
     public override int On進行描画()
     {

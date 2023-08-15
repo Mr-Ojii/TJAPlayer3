@@ -46,18 +46,7 @@ internal class CActChara : CActivity
         }
         this.bマイどんアクション中 = new bool[] { false, false };
 
-        base.On活性化();
-    }
 
-    public override void On非活性化()
-    {
-        CharaAction_Balloon_FadeOut = null;
-
-        base.On非活性化();
-    }
-
-    public override void OnManagedリソースの作成()
-    {
         ctChara_Normal = new CCounter[2];
         ctChara_GoGo = new CCounter[2];
         ctChara_Clear = new CCounter[2];
@@ -106,11 +95,14 @@ internal class CActChara : CActivity
             ctChara_Clear[nPlayer] = new CCounter(0, arクリアモーション番号.Length - 1, 10, CSoundManager.rc演奏用タイマ);
             if (CharaAction_Balloon_Delay[nPlayer] != null) CharaAction_Balloon_Delay[nPlayer].n現在の値 = CharaAction_Balloon_Delay[nPlayer].n終了値;
         }
-        base.OnManagedリソースの作成();
+
+        base.On活性化();
     }
 
-    public override void OnManagedリソースの解放()
+    public override void On非活性化()
     {
+        CharaAction_Balloon_FadeOut = null;
+
         ctChara_Normal = null;
         ctChara_GoGo = null;
         ctChara_Clear = null;
@@ -126,8 +118,7 @@ internal class CActChara : CActivity
         CharaAction_Balloon_Broke = null;
         CharaAction_Balloon_Miss = null;
         CharaAction_Balloon_Delay = null;
-
-        base.OnManagedリソースの解放();
+        base.On非活性化();
     }
 
     public override int On進行描画()
