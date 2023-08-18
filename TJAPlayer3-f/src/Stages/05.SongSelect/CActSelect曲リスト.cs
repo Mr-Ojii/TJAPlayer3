@@ -531,8 +531,6 @@ internal class CActSelect曲リスト : CActivity
         this.ttk選択している曲の曲名 = null;
         this.ttk選択している曲のサブタイトル = null;
 
-        this.ct登場アニメ用 = null;
-
         this.ct三角矢印アニメ = null;
 
         ClearTitleTextureCache();
@@ -556,8 +554,6 @@ internal class CActSelect曲リスト : CActivity
         //-----------------
         if (this.b初めての進行描画)
         {
-            this.ct登場アニメ用 = new CCounter(0, 100, 3, TJAPlayer3.Timer);
-
             this.nスクロールタイマ = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
             TJAPlayer3.stage選曲.t選択曲変更通知();
 
@@ -698,167 +694,132 @@ internal class CActSelect曲リスト : CActivity
         else ct三角矢印アニメ.n現在の値 = 0;
 
 
-        if (!this.ct登場アニメ用.b終了値に達した)
-        {
-            #region [ (1) 登場アニメフェーズの進行。]
-            //-----------------
-            this.ct登場アニメ用.t進行();
-            //-----------------
-            #endregion
-        }
-        else
-        {
-            #region [ (2) 通常フェーズの進行。]
-            //-----------------
-            long n現在時刻 = CSoundManager.rc演奏用タイマ.n現在時刻ms;
+        #region [ (2) 通常フェーズの進行。]
+        //-----------------
+        long n現在時刻 = CSoundManager.rc演奏用タイマ.n現在時刻ms;
 
-            if (n現在時刻 < this.nスクロールタイマ) // 念のため
-                this.nスクロールタイマ = n現在時刻;
+        if (n現在時刻 < this.nスクロールタイマ) // 念のため
+            this.nスクロールタイマ = n現在時刻;
 
-            const int nアニメ間隔 = 2;
-            while ((n現在時刻 - this.nスクロールタイマ) >= nアニメ間隔)
+        const int nアニメ間隔 = 2;
+        while ((n現在時刻 - this.nスクロールタイマ) >= nアニメ間隔)
+        {
+            int n残距離 = Math.Abs((int)(this.n目標のスクロールカウンタ - this.n現在のスクロールカウンタ));
+            //残距離が遠いほどスクロールを速くする（＝n加速度を多くする）。
+            int n加速度 = (int)Math.Ceiling(Math.Sqrt(n残距離) / 5.0);
+
+            #region [ 加速度を加算し、現在のスクロールカウンタを目標のスクロールカウンタまで近づける。 ]
+            //-----------------
+            if (this.n現在のスクロールカウンタ < this.n目標のスクロールカウンタ)        // (A) 正の方向に未達の場合：
             {
-                int n加速度 = 1;
-                int n残距離 = Math.Abs((int)(this.n目標のスクロールカウンタ - this.n現在のスクロールカウンタ));
+                this.n現在のスクロールカウンタ += n加速度;                             // カウンタを正方向に移動する。
 
-                #region [ 残距離が遠いほどスクロールを速くする（＝n加速度を多くする）。]
-                //-----------------
-                if (n残距離 <= 10)
-                {
-                    n加速度 = 1;
-                }
-                else if (n残距離 <= 100)
-                {
-                    n加速度 = 2;
-                }
-                else if (n残距離 <= 300)
-                {
-                    n加速度 = 3;
-                }
-                else if (n残距離 <= 500)
-                {
-                    n加速度 = 4;
-                }
-                else
-                {
-                    n加速度 = 8;
-                }
-                //-----------------
-                #endregion
+                if (this.n現在のスクロールカウンタ > this.n目標のスクロールカウンタ)
+                    this.n現在のスクロールカウンタ = this.n目標のスクロールカウンタ;    // 到着！スクロール停止！
+            }
 
-                #region [ 加速度を加算し、現在のスクロールカウンタを目標のスクロールカウンタまで近づける。 ]
-                //-----------------
-                if (this.n現在のスクロールカウンタ < this.n目標のスクロールカウンタ)        // (A) 正の方向に未達の場合：
-                {
-                    this.n現在のスクロールカウンタ += n加速度;                             // カウンタを正方向に移動する。
+            else if (this.n現在のスクロールカウンタ > this.n目標のスクロールカウンタ)   // (B) 負の方向に未達の場合：
+            {
+                this.n現在のスクロールカウンタ -= n加速度;                             // カウンタを負方向に移動する。
 
-                    if (this.n現在のスクロールカウンタ > this.n目標のスクロールカウンタ)
-                        this.n現在のスクロールカウンタ = this.n目標のスクロールカウンタ;    // 到着！スクロール停止！
-                }
-
-                else if (this.n現在のスクロールカウンタ > this.n目標のスクロールカウンタ)   // (B) 負の方向に未達の場合：
-                {
-                    this.n現在のスクロールカウンタ -= n加速度;                             // カウンタを負方向に移動する。
-
-                    if (this.n現在のスクロールカウンタ < this.n目標のスクロールカウンタ)    // 到着！スクロール停止！
-                        this.n現在のスクロールカウンタ = this.n目標のスクロールカウンタ;
-                }
-                //-----------------
-                #endregion
-
-                if (this.n現在のスクロールカウンタ >= 100)      // １行＝100カウント。
-                {
-                    #region [ パネルを１行上にシフトする。]
-                    //-----------------
-
-                    // 選択曲と選択行を１つ下の行に移動。
-
-                    this.r現在選択中の曲 = this.r次の曲(this.r現在選択中の曲);
-                    this.n現在の選択行 = (this.n現在の選択行 + 1) % 13;
-
-
-                    // 選択曲から７つ下のパネル（＝新しく最下部に表示されるパネル。消えてしまう一番上のパネルを再利用する）に、新しい曲の情報を記載する。
-
-                    C曲リストノード song = this.r現在選択中の曲;
-                    for (int i = 0; i < 6; i++)
-                        song = this.r次の曲(song);
-
-                    int index = (this.n現在の選択行 + 6) % 13;    // 新しく最下部に表示されるパネルのインデックス（0～12）。
-                    this.stバー情報[index].song = song;
-                    this.stバー情報[index].ttkタイトル = this.ttk曲名テクスチャを生成する(song.strTitle, song.ForeColor, song.BackColor);
-
-                    // 1行(100カウント)移動完了。
-
-                    this.n現在のスクロールカウンタ -= 100;
-                    this.n目標のスクロールカウンタ -= 100;
-
-                    this.t選択曲が変更された(false);             // スクロールバー用に今何番目を選択しているかを更新
-
-                    this.ttk選択している曲の曲名 = null;
-                    this.ttk選択している曲のサブタイトル = null;
-
-
-                    if (this.n目標のスクロールカウンタ == 0)
-                        TJAPlayer3.stage選曲.t選択曲変更通知();      // スクロール完了＝選択曲変更！
-
-                    //-----------------
-                    #endregion
-                }
-                else if (this.n現在のスクロールカウンタ <= -100)
-                {
-                    #region [ パネルを１行下にシフトする。]
-                    //-----------------
-
-                    // 選択曲と選択行を１つ上の行に移動。
-
-                    this.r現在選択中の曲 = this.r前の曲(this.r現在選択中の曲);
-                    this.n現在の選択行 = ((this.n現在の選択行 - 1) + 13) % 13;
-
-
-                    // 選択曲から５つ上のパネル（＝新しく最上部に表示されるパネル。消えてしまう一番下のパネルを再利用する）に、新しい曲の情報を記載する。
-
-                    C曲リストノード song = this.r現在選択中の曲;
-                    for (int i = 0; i < 6; i++)
-                        song = this.r前の曲(song);
-
-                    int index = ((this.n現在の選択行 - 6) + 13) % 13; // 新しく最上部に表示されるパネルのインデックス（0～12）。
-                    this.stバー情報[index].song = song;
-                    this.stバー情報[index].ttkタイトル = this.ttk曲名テクスチャを生成する(song.strTitle, song.ForeColor, song.BackColor);
-
-                    // 1行(100カウント)移動完了。
-
-                    this.n現在のスクロールカウンタ += 100;
-                    this.n目標のスクロールカウンタ += 100;
-
-                    this.t選択曲が変更された(false);             // スクロールバー用に今何番目を選択しているかを更新
-
-                    this.ttk選択している曲の曲名 = null;
-                    this.ttk選択している曲のサブタイトル = null;
-
-                    if (this.n目標のスクロールカウンタ == 0)
-                        TJAPlayer3.stage選曲.t選択曲変更通知();      // スクロール完了＝選択曲変更！
-                                                            //-----------------
-                    #endregion
-                }
-
-                if (this.b選択曲が変更された && n現在のスクロールカウンタ == 0)
-                {
-                    if (this.ttk選択している曲の曲名 != null)
-                    {
-                        this.ttk選択している曲の曲名 = null;
-                        this.b選択曲が変更された = false;
-                    }
-                    if (this.ttk選択している曲のサブタイトル != null)
-                    {
-                        this.ttk選択している曲のサブタイトル = null;
-                        this.b選択曲が変更された = false;
-                    }
-                }
-                this.nスクロールタイマ += nアニメ間隔;
+                if (this.n現在のスクロールカウンタ < this.n目標のスクロールカウンタ)    // 到着！スクロール停止！
+                    this.n現在のスクロールカウンタ = this.n目標のスクロールカウンタ;
             }
             //-----------------
             #endregion
+
+            if (this.n現在のスクロールカウンタ >= 100)      // １行＝100カウント。
+            {
+                #region [ パネルを１行上にシフトする。]
+                //-----------------
+
+                // 選択曲と選択行を１つ下の行に移動。
+
+                this.r現在選択中の曲 = this.r次の曲(this.r現在選択中の曲);
+                this.n現在の選択行 = (this.n現在の選択行 + 1) % 13;
+
+
+                // 選択曲から７つ下のパネル（＝新しく最下部に表示されるパネル。消えてしまう一番上のパネルを再利用する）に、新しい曲の情報を記載する。
+
+                C曲リストノード song = this.r現在選択中の曲;
+                for (int i = 0; i < 6; i++)
+                    song = this.r次の曲(song);
+
+                int index = (this.n現在の選択行 + 6) % 13;    // 新しく最下部に表示されるパネルのインデックス（0～12）。
+                this.stバー情報[index].song = song;
+                this.stバー情報[index].ttkタイトル = this.ttk曲名テクスチャを生成する(song.strTitle, song.ForeColor, song.BackColor);
+
+                // 1行(100カウント)移動完了。
+
+                this.n現在のスクロールカウンタ -= 100;
+                this.n目標のスクロールカウンタ -= 100;
+
+                this.t選択曲が変更された(false);             // スクロールバー用に今何番目を選択しているかを更新
+
+                this.ttk選択している曲の曲名 = null;
+                this.ttk選択している曲のサブタイトル = null;
+
+
+                if (this.n目標のスクロールカウンタ == 0)
+                    TJAPlayer3.stage選曲.t選択曲変更通知();      // スクロール完了＝選択曲変更！
+
+                //-----------------
+                #endregion
+            }
+            else if (this.n現在のスクロールカウンタ <= -100)
+            {
+                #region [ パネルを１行下にシフトする。]
+                //-----------------
+
+                // 選択曲と選択行を１つ上の行に移動。
+
+                this.r現在選択中の曲 = this.r前の曲(this.r現在選択中の曲);
+                this.n現在の選択行 = ((this.n現在の選択行 - 1) + 13) % 13;
+
+
+                // 選択曲から５つ上のパネル（＝新しく最上部に表示されるパネル。消えてしまう一番下のパネルを再利用する）に、新しい曲の情報を記載する。
+
+                C曲リストノード song = this.r現在選択中の曲;
+                for (int i = 0; i < 6; i++)
+                    song = this.r前の曲(song);
+
+                int index = ((this.n現在の選択行 - 6) + 13) % 13; // 新しく最上部に表示されるパネルのインデックス（0～12）。
+                this.stバー情報[index].song = song;
+                this.stバー情報[index].ttkタイトル = this.ttk曲名テクスチャを生成する(song.strTitle, song.ForeColor, song.BackColor);
+
+                // 1行(100カウント)移動完了。
+
+                this.n現在のスクロールカウンタ += 100;
+                this.n目標のスクロールカウンタ += 100;
+
+                this.t選択曲が変更された(false);             // スクロールバー用に今何番目を選択しているかを更新
+
+                this.ttk選択している曲の曲名 = null;
+                this.ttk選択している曲のサブタイトル = null;
+
+                if (this.n目標のスクロールカウンタ == 0)
+                    TJAPlayer3.stage選曲.t選択曲変更通知();      // スクロール完了＝選択曲変更！
+                                                        //-----------------
+                #endregion
+            }
+
+            if (this.b選択曲が変更された && n現在のスクロールカウンタ == 0)
+            {
+                if (this.ttk選択している曲の曲名 != null)
+                {
+                    this.ttk選択している曲の曲名 = null;
+                    this.b選択曲が変更された = false;
+                }
+                if (this.ttk選択している曲のサブタイトル != null)
+                {
+                    this.ttk選択している曲のサブタイトル = null;
+                    this.b選択曲が変更された = false;
+                }
+            }
+            this.nスクロールタイマ += nアニメ間隔;
         }
+        //-----------------
+        #endregion
 
 
         // 描画。
@@ -867,17 +828,10 @@ internal class CActSelect曲リスト : CActivity
             #region [ 曲が１つもないなら「Songs not found.」を表示してここで帰れ。]
             //-----------------
             if (bIsEnumeratingSongs)
-            {
-                if (this.txEnumeratingSongs != null)
-                {
-                    this.txEnumeratingSongs.t2D描画(TJAPlayer3.app.Device, 320, 160);
-                }
-            }
+                this.txEnumeratingSongs?.t2D描画(TJAPlayer3.app.Device, 320, 160);
             else
-            {
-                if (this.txSongNotFound != null)
-                    this.txSongNotFound.t2D描画(TJAPlayer3.app.Device, 320, 160);
-            }
+                this.txSongNotFound?.t2D描画(TJAPlayer3.app.Device, 320, 160);
+
             if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
             {
                 TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
@@ -1374,7 +1328,6 @@ internal class CActSelect曲リスト : CActivity
     private const int BoxCenterx = 645;
 
     public bool b選択曲が変更された = true;
-    private CCounter ct登場アニメ用;
     private CCounter ct三角矢印アニメ;
     private CCounter ct分岐フェード用タイマー;
     private CCounter ctバー展開用タイマー;

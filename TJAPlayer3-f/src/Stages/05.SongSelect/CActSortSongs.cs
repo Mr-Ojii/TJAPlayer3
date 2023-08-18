@@ -10,11 +10,13 @@ internal class CActSortSongs : CActSelectPopupMenu
 
     public CActSortSongs()
     {
-        List<CItemBase> lci = new List<CItemBase>();
-        lci.Add( new CItemList( "絶対パス", 0, "", "", new string[] { "Z,Y,X,...",		"A,B,C,..." } ) );
-        lci.Add( new CItemList( "曲名", 0, "", "", new string[] { "Z,Y,X,...",		"A,B,C,..." } ) );
-        lci.Add( new CItemList( "ジャンル", 0, "", "", TJAPlayer3.Skin.SortList.Keys.ToArray() ) );
-        lci.Add( new CItemList( "戻る", 0, "", "", new string[] { "", 				"" } ) );
+        List<CItemBase> lci = new List<CItemBase>
+        {
+            new CItemList("絶対パス", 0, "", "", new string[] { "Z,Y,X,...", "A,B,C,..." }),
+            new CItemList("曲名", 0, "", "", new string[] { "Z,Y,X,...", "A,B,C,..." }),
+            new CItemList("ジャンル", 0, "", "", TJAPlayer3.Skin.SortList.Keys.ToArray()),
+            new CItemList("戻る", 0, "", "", new string[] { "", "" })
+        };
 
         base.Initialize( lci, false, "SORT MENU" , 0 );
     }
@@ -26,10 +28,6 @@ internal class CActSortSongs : CActSelectPopupMenu
         this.act曲リスト = ca;
         base.tActivatePopupMenu(0);
     }
-    //public void tDeativatePopupMenu()
-    //{
-    //	base.tDeativatePopupMenu();
-    //}
 
 
     public override void tPushedEnterMain( int nSortOrder )

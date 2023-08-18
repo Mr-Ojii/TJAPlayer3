@@ -45,7 +45,6 @@ internal class CStage選曲 : CStage
         base.b活性化してない = true;
         base.listChildren.Add(this.actFIFO = new CActFIFOBlack());
         base.listChildren.Add(this.actFIfromResult = new CActFIFOBlack());
-        //base.listChildren.Add( this.actFOtoNowLoading = new CActFIFOBlack() );
         base.listChildren.Add(this.actFOtoNowLoading = new CActFIFOStart());
         base.listChildren.Add(this.act曲リスト = new CActSelect曲リスト());
         base.listChildren.Add(this.actDifficultySelect = new CActSelectDifficultySelect());
