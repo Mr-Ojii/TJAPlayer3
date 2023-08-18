@@ -22,7 +22,7 @@ public class CStage : CActivity
         Ending,
         Maintenance                         //2020.06.01 Mr-Ojii
     }
-    
+
     internal Eフェーズ eフェーズID;
     public enum Eフェーズ
     {
@@ -45,7 +45,6 @@ public class CStage : CActivity
         選曲_コース選択画面へのFadeOut, //2016.10.20 kairera0467
         選曲_NowLoading画面へのFadeOut,
         NOWLOADING_DTXファイルを読み込む,
-        NOWLOADING_WAV読み込み待機,
         NOWLOADING_WAVファイルを読み込む,
         NOWLOADING_BMPファイルを読み込む,
         NOWLOADING_システムサウンドBGMの完了を待つ,

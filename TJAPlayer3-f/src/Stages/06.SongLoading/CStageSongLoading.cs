@@ -354,17 +354,8 @@ internal class CStageSongLoading : CStage
                         }
                     }
 
-                    base.eフェーズID = CStage.Eフェーズ.NOWLOADING_WAV読み込み待機;
+                    base.eフェーズID = CStage.Eフェーズ.NOWLOADING_WAVファイルを読み込む;
                     timeBeginLoadWAV = DateTime.Now;
-                    return (int) E曲読込画面の戻り値.継続;
-                }
-
-            case CStage.Eフェーズ.NOWLOADING_WAV読み込み待機:
-                {
-                    if( this.ct待機.n現在の値 > 260 )
-                    {
-                        base.eフェーズID = CStage.Eフェーズ.NOWLOADING_WAVファイルを読み込む;
-                    }
                     return (int) E曲読込画面の戻り値.継続;
                 }
 
@@ -403,18 +394,14 @@ internal class CStageSongLoading : CStage
 
             case CStage.Eフェーズ.NOWLOADING_BMPファイルを読み込む:
                 {
-                    TimeSpan span;
-                    DateTime timeBeginLoadBMPAVI = DateTime.Now;
-
                     if ( TJAPlayer3.ConfigToml.Game.Background.Movie )
                         TJAPlayer3.DTX[0].tAVIの読み込み();
-                    span = ( TimeSpan ) ( DateTime.Now - timeBeginLoadBMPAVI );
 
-                    span = ( TimeSpan ) ( DateTime.Now - timeBeginLoad );
+                    TimeSpan span = ( TimeSpan ) ( DateTime.Now - timeBeginLoad );
                     Trace.TraceInformation( "総読込時間:                {0}", span.ToString() );
 
                     TJAPlayer3.Timer.t更新();
-                    //CSoundManager.rc演奏用タイマ.t更新();
+
                     base.eフェーズID = CStage.Eフェーズ.NOWLOADING_システムサウンドBGMの完了を待つ;
                     return (int) E曲読込画面の戻り値.継続;
                 }
