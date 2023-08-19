@@ -1550,53 +1550,47 @@ internal class CActSelect曲リスト : CActivity
 
     internal void tアイテム数の描画()
     {
-        if (TJAPlayer3.Tx.SongSelect_ItemNumber != null)
+        if (TJAPlayer3.Tx.SongSelect_ItemNumber == null)
+            return;
+
+        const int y = 560;
+        const int 基準x = 1050;
+
+        int x = 基準x;
+
+        if (TJAPlayer3.Tx.SongSelect_ItemNumber_BG != null)
+            TJAPlayer3.Tx.SongSelect_ItemNumber_BG.t2D描画(TJAPlayer3.app.Device, (TJAPlayer3.Tx.SongSelect_ItemNumber.szTextureSize.Width / 11) + 基準x - TJAPlayer3.Tx.SongSelect_ItemNumber_BG.szTextureSize.Width, y - (TJAPlayer3.Tx.SongSelect_ItemNumber_BG.szTextureSize.Height - TJAPlayer3.Tx.SongSelect_ItemNumber.szTextureSize.Height) / 2);
+
+        string s = nNumOfItems.ToString();
+
+        for (int p = s.Length - 1; p >= 0; p--)
         {
-            const int y = 560;
-            const int 基準x = 1050;
+            tアイテム数の描画_１桁描画(x, y, s[p]);
+            x -= (TJAPlayer3.Tx.SongSelect_ItemNumber.szTextureSize.Width / 11);
+        }
 
-            int x = 基準x;
+        tアイテム数の描画_１桁描画(基準x - 75, y, '/');
 
-            if (TJAPlayer3.Tx.SongSelect_ItemNumber_BG != null)
-                TJAPlayer3.Tx.SongSelect_ItemNumber_BG.t2D描画(TJAPlayer3.app.Device, (TJAPlayer3.Tx.SongSelect_ItemNumber.szTextureSize.Width / 11) + 基準x - TJAPlayer3.Tx.SongSelect_ItemNumber_BG.szTextureSize.Width, y - (TJAPlayer3.Tx.SongSelect_ItemNumber_BG.szTextureSize.Height - TJAPlayer3.Tx.SongSelect_ItemNumber.szTextureSize.Height) / 2);
+        x = 基準x - 100;
 
-            string s = nNumOfItems.ToString();
+        s = nCurrentPosition.ToString();
 
-            for (int p = s.Length - 1; p >= 0; p--)
-            {
-                tアイテム数の描画_１桁描画(x, y, s[p]);
-                x -= (TJAPlayer3.Tx.SongSelect_ItemNumber.szTextureSize.Width / 11);
-            }
-
-            tアイテム数の描画_１桁描画(基準x - 75, y, '/');
-
-            x = 基準x - 100;
-
-            s = nCurrentPosition.ToString();
-
-            for (int p = s.Length - 1; p >= 0; p--)
-            {
-                tアイテム数の描画_１桁描画(x, y, s[p]);
-                x -= (TJAPlayer3.Tx.SongSelect_ItemNumber.szTextureSize.Width / 11);
-            }
+        for (int p = s.Length - 1; p >= 0; p--)
+        {
+            tアイテム数の描画_１桁描画(x, y, s[p]);
+            x -= (TJAPlayer3.Tx.SongSelect_ItemNumber.szTextureSize.Width / 11);
         }
     }
     private void tアイテム数の描画_１桁描画(int x, int y, char s数値)
     {
-        if (TJAPlayer3.Tx.SongSelect_ItemNumber != null)
-        {
-            int dx;
-            if (s数値 == '/')
-            {
-                dx = TJAPlayer3.Tx.SongSelect_ItemNumber.szTextureSize.Width / 11 * 10;
-            }
-            else
-            {
-                int n = (int)s数値 - (int)'0';
-                dx = (TJAPlayer3.Tx.SongSelect_ItemNumber.szTextureSize.Width / 11) * n;
-            }
-            TJAPlayer3.Tx.SongSelect_ItemNumber.t2D描画(TJAPlayer3.app.Device, x, y, new Rectangle(dx, 0, (TJAPlayer3.Tx.SongSelect_ItemNumber.szTextureSize.Width / 11), (TJAPlayer3.Tx.SongSelect_ItemNumber.szTextureSize.Height)));
-        }
+        if (TJAPlayer3.Tx.SongSelect_ItemNumber == null)
+            return;
+
+        int n = (int)s数値 - (int)'0';
+        if(s数値 == '/')
+            n = 10;
+        int dx = TJAPlayer3.Tx.SongSelect_ItemNumber.szTextureSize.Width / 11 * n;
+        TJAPlayer3.Tx.SongSelect_ItemNumber.t2D描画(TJAPlayer3.app.Device, x, y, new Rectangle(dx, 0, (TJAPlayer3.Tx.SongSelect_ItemNumber.szTextureSize.Width / 11), (TJAPlayer3.Tx.SongSelect_ItemNumber.szTextureSize.Height)));
     }
 
 
