@@ -29,56 +29,55 @@ internal class CActPanel : CActivity
     /// <param name="stageText">曲数</param>
     public void SetPanelString(string songName, string subtitle, string genreName, string stageText = null)
     {
-        if( base.b活性化してる )
+        if( !base.b活性化してる )
+            return;
+
+        TJAPlayer3.t安全にDisposeする( ref this.txPanel );
+        if( (songName != null ) && (songName.Length > 0 ) )
         {
-            TJAPlayer3.t安全にDisposeする( ref this.txPanel );
-            if( (songName != null ) && (songName.Length > 0 ) )
+            try
             {
-                try
+                TJAPlayer3.t安全にDisposeする(ref txMusicName);
+                TJAPlayer3.t安全にDisposeする(ref txSubTitleName);
+                using (var bmpSongTitle = pfMusicName.DrawText(songName, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameForeColor, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
                 {
-                    TJAPlayer3.t安全にDisposeする(ref txMusicName);
-                    TJAPlayer3.t安全にDisposeする(ref txSubTitleName);
-                    using (var bmpSongTitle = pfMusicName.DrawText(songName, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameForeColor, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+                    this.txMusicName = TJAPlayer3.tCreateTexture( bmpSongTitle );
+                }
+                if (txMusicName != null)
+                {
+                    this.txMusicName.vcScaling.X = TJAPlayer3.GetSongNameXScaling(ref txMusicName);
+                }
+                if (!string.IsNullOrEmpty(subtitle))
+                {
+                    using (var bmpSubTitle = pfSubTitleName.DrawText(subtitle, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameForeColor, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
                     {
-                        this.txMusicName = TJAPlayer3.tCreateTexture( bmpSongTitle );
+                        this.txSubTitleName = TJAPlayer3.tCreateTexture(bmpSubTitle);
                     }
-                    if (txMusicName != null)
+                    if (txSubTitleName != null)
                     {
-                        this.txMusicName.vcScaling.X = TJAPlayer3.GetSongNameXScaling(ref txMusicName);
-                    }
-                    if (!string.IsNullOrEmpty(subtitle))
-                    {
-                        using (var bmpSubTitle = pfSubTitleName.DrawText(subtitle, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameForeColor, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
-                        {
-                            this.txSubTitleName = TJAPlayer3.tCreateTexture(bmpSubTitle);
-                        }
-                        if (txSubTitleName != null)
-                        {
-                            this.txSubTitleName.vcScaling.X = TJAPlayer3.GetSongNameXScaling(ref txSubTitleName, 520);
-                        }
-                    }
-
-                    using (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> bmpDiff = pfMusicName.DrawText(stageText, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._StageTextForeColor, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._StageTextBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
-                    {
-                        this.tx難易度とステージ数 = TJAPlayer3.tCreateTexture( bmpDiff );
+                        this.txSubTitleName.vcScaling.X = TJAPlayer3.GetSongNameXScaling(ref txSubTitleName, 520);
                     }
                 }
-                catch( CTextureCreateFailedException e )
+
+                using (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> bmpDiff = pfMusicName.DrawText(stageText, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._StageTextForeColor, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._StageTextBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
                 {
-                    Trace.TraceError( e.ToString() );
-                    Trace.TraceError( "パネル文字列テクスチャの生成に失敗しました。" );
-                    this.txPanel = null;
+                    this.tx難易度とステージ数 = TJAPlayer3.tCreateTexture( bmpDiff );
                 }
             }
-            if( !string.IsNullOrEmpty(genreName) )
+            catch( CTextureCreateFailedException e )
             {
-                this.txGENRE = TJAPlayer3.Tx.TxCGen(TJAPlayer3.Skin.nStrジャンルtoNum(genreName).ToString());
+                Trace.TraceError( e.ToString() );
+                Trace.TraceError( "パネル文字列テクスチャの生成に失敗しました。" );
+                this.txPanel = null;
             }
-
-            this.ct進行用 = new CCounter( 0, 2000, 2, TJAPlayer3.Timer );
-            this.Start();
-
         }
+        if( !string.IsNullOrEmpty(genreName) )
+        {
+            this.txGENRE = TJAPlayer3.Tx.TxCGen(TJAPlayer3.Skin.nStrジャンルtoNum(genreName).ToString());
+        }
+
+        this.ct進行用 = new CCounter( 0, 2000, 2, TJAPlayer3.Timer );
+        this.Start();
     }
 
     public void t歌詞テクスチャを生成する(SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> bmplyric )

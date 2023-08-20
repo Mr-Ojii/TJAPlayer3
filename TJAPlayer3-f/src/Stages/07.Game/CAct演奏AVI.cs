@@ -18,17 +18,17 @@ internal class CAct演奏AVI : CActivity
 
     // メソッド
 
-    public void Start( int nチャンネル番号, CVideoDecoder rVD )
+    public void Start( CVideoDecoder rVD )
     {
-        if ( nチャンネル番号 == 0x54 && TJAPlayer3.ConfigToml.Game.Background.Movie )
-        {
-            this.rVD = rVD;
-            if (this.rVD != null)
-            {
-                this.ratio1 = Math.Min((float)TJAPlayer3.app.LogicalSize.Height / ((float)this.rVD.FrameSize.Height), (float)TJAPlayer3.app.LogicalSize.Width / ((float)this.rVD.FrameSize.Height));
+        if (!TJAPlayer3.ConfigToml.Game.Background.Movie)
+            return;
 
-                this.rVD.Start();
-            }
+        this.rVD = rVD;
+        if (this.rVD != null)
+        {
+            this.ratio1 = Math.Min((float)TJAPlayer3.app.LogicalSize.Height / ((float)this.rVD.FrameSize.Height), (float)TJAPlayer3.app.LogicalSize.Width / ((float)this.rVD.FrameSize.Height));
+
+            this.rVD.Start();
         }
     }
     public void Seek( int ms ) => this.rVD?.Seek(ms);

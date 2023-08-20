@@ -3068,7 +3068,7 @@ internal class CStage演奏画面共通 : CStage
                         {
                             if (TJAPlayer3.ConfigToml.Game.Background.Movie && vd != null)
                             {
-                                this.actAVI.Start(pChip.nチャンネル番号, vd);
+                                this.actAVI.Start(vd);
                             }
                         }
                         pChip.bHit = true;
@@ -3899,7 +3899,7 @@ internal class CStage演奏画面共通 : CStage
                     if (dTX.listChip[i].n発声時刻ms <= nStartTime)
                     {
                         this.actAVI.Seek(nStartTime - dTX.listChip[i].n発声時刻ms);
-                        this.actAVI.Start(0x54, this.actAVI.rVD);
+                        this.actAVI.Start(this.actAVI.rVD);
                         break;
                     }
                     else
