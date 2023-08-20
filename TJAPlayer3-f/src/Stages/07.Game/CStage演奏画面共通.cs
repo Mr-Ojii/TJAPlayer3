@@ -32,6 +32,7 @@ internal class CStage演奏画面共通 : CStage
         base.listChildren.Add(this.actScrollSpeed = new CActScrollSpeed());
         base.listChildren.Add(this.actAVI = new CAct演奏AVI());
         base.listChildren.Add(this.actPanel = new CActPanel());
+        base.listChildren.Add(this.actLyric = new CActLyric());
         base.listChildren.Add(this.actStageFailed = new CActStageFailed());
         base.listChildren.Add(this.actPlayInfo = new CActPlayInfo());
         base.listChildren.Add(this.actFI = new CActFIFOStart());
@@ -560,10 +561,10 @@ internal class CStage演奏画面共通 : CStage
 
             if (TJAPlayer3.DTX[0].listLyric2.Count > ShownLyric2 && TJAPlayer3.DTX[0].listLyric2[ShownLyric2].Time + TJAPlayer3.DTX[0].nBGMAdjust < (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0)))
             {
-                this.actPanel.t歌詞テクスチャを生成する(TJAPlayer3.DTX[0].listLyric2[ShownLyric2++].TextTex);
+                this.actLyric.tSetLyricTexture(TJAPlayer3.DTX[0].listLyric2[ShownLyric2++].TextTex);
             }
 
-            this.actPanel.t歌詞テクスチャを描画する();
+            this.actLyric.On進行描画();
 
             if (TJAPlayer3.ConfigToml.Game.ShowChara)
                 actChara.OnDraw_Balloon();
@@ -731,6 +732,7 @@ internal class CStage演奏画面共通 : CStage
     protected CActJudgeString actJudgeString;
     public TaikoLaneFlash actTaikoLaneFlash;
     public CActPanel actPanel;
+    public CActLyric actLyric;
     public CActPlayInfo actPlayInfo;
     public CActScore actScore;
     public CActStageFailed actStageFailed;
@@ -3138,7 +3140,7 @@ internal class CStage演奏画面共通 : CStage
                     if ( !pChip.bHit && ( pChip.TimeSpan < 0) && pChip.nPlayerSide == 0 )
                     {
                         pChip.bHit = true;
-                        this.actPanel.t歌詞テクスチャを削除する();
+                        this.actLyric.tDeleteLyricTexture();
                         if (pChip.nコース == this.n現在のコース[nPlayer])
                         {
                             if (this.actDan.GetFailedAllChallenges())
@@ -3452,7 +3454,7 @@ internal class CStage演奏画面共通 : CStage
                     {
                         if( dTX.listLyric.Count > ShownLyric[nPlayer] && dTX.nPlayerSide == nPlayer )
                         {
-                            this.actPanel.t歌詞テクスチャを生成する( dTX.listLyric[ShownLyric[nPlayer]] );
+                            this.actLyric.tSetLyricTexture(dTX.listLyric[ShownLyric[nPlayer]]);
                             ShownLyric[nPlayer]++;
                         }
                         pChip.bHit = true;
@@ -3722,7 +3724,7 @@ internal class CStage演奏画面共通 : CStage
         {
             TJAPlayer3.stage演奏ドラム画面.actDan.Update();
         }
-        this.actPanel.t歌詞テクスチャを削除する();
+        this.actLyric.tDeleteLyricTexture();
         for (int i = 0; i < 2; i++)
         {
             this.t演奏位置の変更(0, i);

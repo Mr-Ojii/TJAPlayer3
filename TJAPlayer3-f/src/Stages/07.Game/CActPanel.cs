@@ -80,39 +80,6 @@ internal class CActPanel : CActivity
         this.Start();
     }
 
-    public void t歌詞テクスチャを生成する(SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> bmplyric )
-    {
-        TJAPlayer3.t安全にDisposeする(ref this.tx歌詞テクスチャ);
-        this.tx歌詞テクスチャ = TJAPlayer3.tCreateTexture( bmplyric );
-    }
-
-    public void t歌詞テクスチャを削除する()
-    {
-        TJAPlayer3.t安全にDisposeする(ref this.tx歌詞テクスチャ);
-    }
-
-    /// <summary>
-    /// レイヤー管理のため、On進行描画から分離。
-    /// </summary>
-    public void t歌詞テクスチャを描画する()
-    {
-        if( this.tx歌詞テクスチャ != null )
-        {
-            if (TJAPlayer3.Skin.SkinConfig.Game.PanelFont._LyricReferencePoint == CSkin.EReferencePoint.Left)
-            {
-                this.tx歌詞テクスチャ.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.LyricX , TJAPlayer3.Skin.SkinConfig.Game.PanelFont.LyricY);
-            }
-            else if (TJAPlayer3.Skin.SkinConfig.Game.PanelFont._LyricReferencePoint == CSkin.EReferencePoint.Right)
-            {
-                this.tx歌詞テクスチャ.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.LyricX - this.tx歌詞テクスチャ.szTextureSize.Width, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.LyricY);
-            }
-            else
-            {
-                this.tx歌詞テクスチャ.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.LyricX - (this.tx歌詞テクスチャ.szTextureSize.Width / 2), TJAPlayer3.Skin.SkinConfig.Game.PanelFont.LyricY);
-            }
-        }
-    }
-
     public void Stop()
     {
         this.bMute = true;
@@ -145,7 +112,6 @@ internal class CActPanel : CActivity
         TJAPlayer3.t安全にDisposeする( ref this.txSubTitleName);
         TJAPlayer3.t安全にDisposeする( ref this.txGENRE );
         TJAPlayer3.t安全にDisposeする(ref this.txPanel);
-        TJAPlayer3.t安全にDisposeする(ref this.tx歌詞テクスチャ);
         TJAPlayer3.t安全にDisposeする(ref this.pfMusicName);
         TJAPlayer3.t安全にDisposeする(ref this.pfSubTitleName);
         TJAPlayer3.t安全にDisposeする(ref this.tx難易度とステージ数);
@@ -318,7 +284,6 @@ internal class CActPanel : CActivity
     private CTexture txSubTitleName;
     private CTexture tx難易度とステージ数;
     private CTexture txGENRE;
-    private CTexture tx歌詞テクスチャ;
     private CCachedFontRenderer pfMusicName;
     private CCachedFontRenderer pfSubTitleName;
     //-----------------
