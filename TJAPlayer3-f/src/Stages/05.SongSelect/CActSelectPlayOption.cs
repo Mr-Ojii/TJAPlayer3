@@ -5,8 +5,6 @@ using System.Text;
 using System.Drawing;
 using System.IO;
 using FDK;
-using System.Runtime.InteropServices;
-using System.Linq;
 
 namespace TJAPlayer3;
 

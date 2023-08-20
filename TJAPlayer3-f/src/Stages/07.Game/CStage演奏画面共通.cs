@@ -2712,7 +2712,7 @@ internal class CStage演奏画面共通 : CStage
     {
         if ((base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED) && (base.eフェーズID != CStage.Eフェーズ.演奏_STAGE_FAILED_FadeOut))
         {
-            this.actPanel.t進行描画();
+            this.actPanel.On進行描画();
         }
     }
     protected void tパネル文字列の設定()

@@ -11,9 +11,9 @@ internal class CActJudgeString : CActivity
 {
     // プロパティ
 
-    protected STSTATUS[] st状態 = new STSTATUS[12];
+    private STSTATUS[] st状態 = new STSTATUS[12];
     [StructLayout(LayoutKind.Sequential)]
-    protected struct STSTATUS
+    private struct STSTATUS
     {
         public bool b使用中;
         public CCounter ct進行;
@@ -24,7 +24,7 @@ internal class CActJudgeString : CActivity
         public int nPlayer;                             // 2017.08.15 kairera0467
     }
 
-    protected readonly Rectangle[] st判定文字列;
+    private readonly Rectangle[] st判定文字列;
 
     // コンストラクタ
 

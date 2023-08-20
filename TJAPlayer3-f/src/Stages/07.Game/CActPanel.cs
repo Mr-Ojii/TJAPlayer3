@@ -33,7 +33,7 @@ internal class CActPanel : CActivity
             return;
 
         TJAPlayer3.t安全にDisposeする(ref this.txPanel);
-        if ((songName != null) && (songName.Length > 0))
+        if (!string.IsNullOrEmpty(songName))
         {
             try
             {
@@ -118,10 +118,6 @@ internal class CActPanel : CActivity
         base.On非活性化();
     }
     public override int On進行描画()
-    {
-        throw new InvalidOperationException("t進行描画(x,y)のほうを使用してください。");
-    }
-    public int t進行描画()
     {
         if (TJAPlayer3.stage演奏ドラム画面.actDan.IsAnimating) return 0;
         if (!base.b活性化してない && !this.bMute)
@@ -266,7 +262,7 @@ internal class CActPanel : CActivity
                     }
             }
         }
-        return 0;
+        return base.On進行描画();
     }
 
 

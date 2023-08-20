@@ -107,30 +107,31 @@ internal class CActComboVoice : CActivity
     readonly List<CComboVoice>[] ListCombo = new List<CComboVoice>[2];
     //-----------------
     #endregion
+
+    private class CComboVoice : IComparable<CComboVoice>
+    {
+        public bool bFileFound;
+        public int nCombo;
+        public int nPlayer;
+        public string strFilePath;
+        public CSound soundComboVoice;
+
+        public CComboVoice()
+        {
+            bFileFound = false;
+            nCombo = 0;
+            nPlayer = 0;
+            strFilePath = "";
+            soundComboVoice = null;
+        }
+
+        public int CompareTo(CComboVoice other)
+        {
+            if (this.nCombo > other.nCombo) return 1;
+            else if (this.nCombo < other.nCombo) return -1;
+
+            return 0;
+        }
+    }
 }
 
-public class CComboVoice : IComparable<CComboVoice>
-{
-    public bool bFileFound;
-    public int nCombo;
-    public int nPlayer;
-    public string strFilePath;
-    public CSound soundComboVoice;
-
-    public CComboVoice()
-    {
-        bFileFound = false;
-        nCombo = 0;
-        nPlayer = 0;
-        strFilePath = "";
-        soundComboVoice = null;
-    }
-
-    public int CompareTo(CComboVoice other)
-    {
-        if (this.nCombo > other.nCombo) return 1;
-        else if (this.nCombo < other.nCombo) return -1;
-
-        return 0;
-    }
-}

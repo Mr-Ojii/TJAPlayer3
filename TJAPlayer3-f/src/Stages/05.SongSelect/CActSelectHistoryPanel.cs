@@ -61,7 +61,7 @@ internal class CActSelectHistoryPanel : CActivity
             {
                 if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア != null && this.ct登場アニメ用.b終了値に達した && TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.eNodeType == C曲リストノード.ENodeType.SCORE)
                 {
-                    if (TJAPlayer3.Tx.SongSelect_ScoreWindow[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]] != null)
+                    if (TJAPlayer3.Tx.SongSelect_ScoreWindow[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]] != null && TJAPlayer3.Tx.SongSelect_ScoreWindow_Text != null)
                     {
                         TJAPlayer3.Tx.SongSelect_ScoreWindow[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]].t2D描画(TJAPlayer3.app.Device, x[i], y[i]);
                         for (int j = 0; j < 3; j++)
@@ -88,14 +88,14 @@ internal class CActSelectHistoryPanel : CActivity
 
     private void t小文字表示(int x, int y, long n)
     {
+        if (TJAPlayer3.Tx.SongSelect_ScoreWindow_Text == null)
+            return;
+
         for (int index = 0; index < n.ToString().Length; index++)
         {
             int Num = (int)(n / Math.Pow(10, index) % 10);
             Rectangle rectangle = new Rectangle((TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.szTextureSize.Width / 10) * Num, 0, TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.szTextureSize.Width / 10, TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.szTextureSize.Height / 2);
-            if (TJAPlayer3.Tx.SongSelect_ScoreWindow_Text != null)
-            {
-                TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
-            }
+            TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
             x -= TJAPlayer3.Tx.SongSelect_ScoreWindow_Text.szTextureSize.Width / 10;
         }
     }
