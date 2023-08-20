@@ -90,13 +90,13 @@ public class CFontRenderer : IDisposable
             this.textRenderer = new CSkiaSharpTextRenderer(fontpath, pt, style);
             return;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Trace.TraceWarning("SkiaSharpでのフォント生成に失敗しました。" + e.ToString());
             this.textRenderer?.Dispose();
         }
 
-        try 
+        try
         {
             this.textRenderer = new CSkiaSharpTextRenderer(Assembly.GetExecutingAssembly().GetManifestResourceStream(@"FDK.mplus-1p-medium.ttf"), pt, style);
         }
@@ -177,7 +177,7 @@ public class CFontRenderer : IDisposable
             strImageList[i] = this.textRenderer.DrawText(strList[i], drawmode, fontColor, edgeColor, gradationTopColor, gradationBottomColor, edge_Ratio);
 
             //回転する文字
-            if(Rotate_Chara_List_Vertical.Contains(strList[i]))
+            if (Rotate_Chara_List_Vertical.Contains(strList[i]))
                 strImageList[i].Mutate(ctx => ctx.Rotate(RotateMode.Rotate90));
 
             nWidth = Math.Max(nWidth, strImageList[i].Width);

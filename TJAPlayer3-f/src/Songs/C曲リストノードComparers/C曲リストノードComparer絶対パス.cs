@@ -13,15 +13,15 @@ internal sealed class C曲リストノードComparer絶対パス : IComparer<C�
 
     public int Compare(C曲リストノード n1, C曲リストノード n2)
     {
-        if( ( n1.eNodeType == C曲リストノード.ENodeType.BOX ) && ( n2.eNodeType == C曲リストノード.ENodeType.BOX ) )
+        if ((n1.eNodeType == C曲リストノード.ENodeType.BOX) && (n2.eNodeType == C曲リストノード.ENodeType.BOX))
         {
-            return _order * n1.arスコア.FileInfo.DirAbsolutePath.CompareTo( n2.arスコア.FileInfo.DirAbsolutePath );
+            return _order * n1.arスコア.FileInfo.DirAbsolutePath.CompareTo(n2.arスコア.FileInfo.DirAbsolutePath);
         }
 
         var str = strファイルの絶対パス(n1);
         var strB = strファイルの絶対パス(n2);
 
-        return _order * str.CompareTo( strB );
+        return _order * str.CompareTo(strB);
     }
 
     private static string strファイルの絶対パス(C曲リストノード c曲リストノード)

@@ -680,7 +680,7 @@ internal class TJAPlayer3 : Game
                             #region [ 演奏クリア ]
                             //-----------------------------
                             CScoreJson.CRecord[] cRecords = new CScoreJson.CRecord[4];
-                            for(int i = 0; i < ConfigToml.PlayOption.PlayerCount; i++)
+                            for (int i = 0; i < ConfigToml.PlayOption.PlayerCount; i++)
                                 stage演奏ドラム画面.tSaveToCRecord(out cRecords[i], i);
 
                             this.tUpdateScoreJson();
@@ -688,7 +688,7 @@ internal class TJAPlayer3 : Game
                             r現在のステージ.On非活性化();
                             Trace.TraceInformation("----------------------");
                             Trace.TraceInformation("■ Result");
-                            for(int i = 0; i < ConfigToml.PlayOption.PlayerCount; i++)
+                            for (int i = 0; i < ConfigToml.PlayOption.PlayerCount; i++)
                                 stageResult.cRecords[i] = cRecords[i];
 
                             stageResult.On活性化();
@@ -757,7 +757,8 @@ internal class TJAPlayer3 : Game
                 case CStage.EStage.Maintenance:
                     #region [ *** ]
                     //-----------------------------
-                    if (this.n進行描画の戻り値 != 0) {
+                    if (this.n進行描画の戻り値 != 0)
+                    {
                         r現在のステージ.On非活性化();
                         Trace.TraceInformation("----------------------");
                         Trace.TraceInformation("■ 選曲");
@@ -858,7 +859,7 @@ internal class TJAPlayer3 : Game
 
     // その他
 
-#region [ 汎用ヘルパー ]
+    #region [ 汎用ヘルパー ]
     //-----------------
     public static CTexture tCreateTexture(string fileName)
     {
@@ -985,9 +986,9 @@ internal class TJAPlayer3 : Game
     }
 
     //-----------------
-#endregion
+    #endregion
 
-#region [ private ]
+    #region [ private ]
     //-----------------
     private bool b終了処理完了済み;
     private bool bネットワークに接続中 = false;
@@ -1003,7 +1004,7 @@ internal class TJAPlayer3 : Game
     private void t起動処理()
     {
         Program.Renderer = this.RendererName;
-#region [ strEXEのあるフォルダを決定する ]
+        #region [ strEXEのあるフォルダを決定する ]
         //-----------------
         // BEGIN #23629 2010.11.13 from: デバッグ時は Application.ExecutablePath が ($SolutionDir)/bin/x86/Debug/ などになり System/ の読み込みに失敗するので、カレントディレクトリを採用する。（プロジェクトのプロパティ→デバッグ→作業ディレクトリが有効になる）
 
@@ -1011,12 +1012,12 @@ internal class TJAPlayer3 : Game
 
         // END #23629 2010.11.13 from
         //-----------------
-#endregion
-#region [ Config.toml の読み込み ]
+        #endregion
+        #region [ Config.toml の読み込み ]
         string tomlpath = strEXEのあるフォルダ + "Config.toml";
         ConfigToml = CConfigToml.Load(tomlpath);
-#endregion
-#region [ Config.ini の読込み ]
+        #endregion
+        #region [ Config.ini の読込み ]
         //---------------------
         ConfigIni = new CConfigIni();
         string path = strEXEのあるフォルダ + "Config.ini";
@@ -1034,8 +1035,8 @@ internal class TJAPlayer3 : Game
             }
         }
         //---------------------
-#endregion
-#region [ ログ出力開始 ]
+        #endregion
+        #region [ ログ出力開始 ]
         //---------------------
         Trace.AutoFlush = true;
         Trace.Listeners.Add(new CTraceLogListener(new StreamWriter(Path.Combine(strEXEのあるフォルダ, "TJAPlayer3-f.log"), false, new UTF8Encoding(false))));
@@ -1050,10 +1051,10 @@ internal class TJAPlayer3 : Game
         Trace.TraceInformation("ProcessorCount: " + Environment.ProcessorCount.ToString());
         Trace.TraceInformation("CLR Version: " + Environment.Version.ToString());
         //---------------------
-#endregion
+        #endregion
 
 
-#region [ ウィンドウ初期化 ]
+        #region [ ウィンドウ初期化 ]
         //---------------------
         base.Location = new Point(ConfigToml.Window.X, ConfigToml.Window.Y);   // #30675 2013.02.04 ikanick add
 
@@ -1073,18 +1074,18 @@ internal class TJAPlayer3 : Game
         base.Move += this.Window_ResizeOrMove;
         //---------------------
         #endregion
-#region [ Direct3D9 デバイスの生成 ]
+        #region [ Direct3D9 デバイスの生成 ]
         //---------------------
         this.WindowState = ConfigToml.Window.FullScreen ? FDK.Windowing.WindowState.FullScreen : FDK.Windowing.WindowState.Normal;
         this.VSync = ConfigToml.Window.VSyncWait;
         base.ClientSize = new Size(ConfigToml.Window.Width, ConfigToml.Window.Height);   // #23510 2010.10.31 yyagi: to recover window size. width and height are able to get from Config.ini.
-        //---------------------
-#endregion
+                                                                                         //---------------------
+        #endregion
 
         DTX[0] = null;
         DTX[1] = null;
 
-#region [ Skin の初期化 ]
+        #region [ Skin の初期化 ]
         //---------------------
         Trace.TraceInformation("スキンの初期化を行います。");
         Trace.Indent();
@@ -1105,9 +1106,9 @@ internal class TJAPlayer3 : Game
             Trace.Unindent();
         }
         //---------------------
-#endregion
+        #endregion
         //-----------
-#region [ Timer の初期化 ]
+        #region [ Timer の初期化 ]
         //---------------------
         Trace.TraceInformation("タイマの初期化を行います。");
         Trace.Indent();
@@ -1121,10 +1122,10 @@ internal class TJAPlayer3 : Game
             Trace.Unindent();
         }
         //---------------------
-#endregion
+        #endregion
         //-----------
 
-#region [ FPS カウンタの初期化 ]
+        #region [ FPS カウンタの初期化 ]
         //---------------------
         Trace.TraceInformation("FPSカウンタの初期化を行います。");
         Trace.Indent();
@@ -1138,8 +1139,8 @@ internal class TJAPlayer3 : Game
             Trace.Unindent();
         }
         //---------------------
-#endregion
-#region [ act文字コンソールの初期化 ]
+        #endregion
+        #region [ act文字コンソールの初期化 ]
         //---------------------
         Trace.TraceInformation("文字コンソールの初期化を行います。");
         Trace.Indent();
@@ -1161,8 +1162,8 @@ internal class TJAPlayer3 : Game
             Trace.Unindent();
         }
         //---------------------
-#endregion
-#region [ InputManager の初期化 ]
+        #endregion
+        #region [ InputManager の初期化 ]
         //---------------------
         Trace.TraceInformation("InputManagerの初期化を行います。");
         Trace.Indent();
@@ -1195,8 +1196,8 @@ internal class TJAPlayer3 : Game
             Trace.Unindent();
         }
         //---------------------
-#endregion
-#region [ Pad の初期化 ]
+        #endregion
+        #region [ Pad の初期化 ]
         //---------------------
         Trace.TraceInformation("パッドの初期化を行います。");
         Trace.Indent();
@@ -1215,8 +1216,8 @@ internal class TJAPlayer3 : Game
             Trace.Unindent();
         }
         //---------------------
-#endregion
-#region [ SoundManager の初期化 ]
+        #endregion
+        #region [ SoundManager の初期化 ]
         //---------------------
         Trace.TraceInformation("サウンドデバイスの初期化を行います。");
         Trace.Indent();
@@ -1287,8 +1288,8 @@ internal class TJAPlayer3 : Game
             Trace.Unindent();
         }
         //---------------------
-#endregion
-#region [ SongsManager の初期化 ]
+        #endregion
+        #region [ SongsManager の初期化 ]
         //---------------------
         Trace.TraceInformation("曲リストの初期化を行います。");
         Trace.Indent();
@@ -1310,8 +1311,8 @@ internal class TJAPlayer3 : Game
             Trace.Unindent();
         }
         //---------------------
-#endregion
-#region [ ステージの初期化 ]
+        #endregion
+        #region [ ステージの初期化 ]
         //---------------------
         r現在のステージ = null;
         r直前のステージ = null;
@@ -1342,15 +1343,15 @@ internal class TJAPlayer3 : Game
         this.listトップレベルActivities.Add(stageMaintenance);
         //---------------------
         #endregion
-#region Discordの処理
+        #region Discordの処理
         Discord = new DiscordRichPresence("692578108997632051");
         Discord?.Update("Startup");
-#endregion
+        #endregion
 
         Trace.TraceInformation("アプリケーションの初期化を完了しました。");
 
 
-#region [ 最初のステージの起動 ]
+        #region [ 最初のステージの起動 ]
         //---------------------
         Trace.TraceInformation("----------------------");
         Trace.TraceInformation("■ 起動");
@@ -1360,7 +1361,7 @@ internal class TJAPlayer3 : Game
         r現在のステージ.On活性化();
 
         //---------------------
-#endregion
+        #endregion
     }
 
     private void InputLoop()
@@ -1381,44 +1382,26 @@ internal class TJAPlayer3 : Game
 
     private void t終了処理()
     {
-        if( !this.b終了処理完了済み )
+        if (!this.b終了処理完了済み)
         {
-            Trace.TraceInformation( "----------------------" );
-            Trace.TraceInformation( "■ アプリケーションの終了" );
-#region [ 曲検索の終了処理 ]
+            Trace.TraceInformation("----------------------");
+            Trace.TraceInformation("■ アプリケーションの終了");
+            #region [ 曲検索の終了処理 ]
             //---------------------
-            if ( actEnumSongs != null )
+            if (actEnumSongs != null)
             {
-                Trace.TraceInformation( "曲検索actの終了処理を行います。" );
+                Trace.TraceInformation("曲検索actの終了処理を行います。");
                 Trace.Indent();
                 try
                 {
                     actEnumSongs.On非活性化();
-                    actEnumSongs= null;
-                    Trace.TraceInformation( "曲検索actの終了処理を完了しました。" );
+                    actEnumSongs = null;
+                    Trace.TraceInformation("曲検索actの終了処理を完了しました。");
                 }
-                catch ( Exception e )
+                catch (Exception e)
                 {
-                    Trace.TraceError( e.ToString() );
-                    Trace.TraceError( "曲検索actの終了処理に失敗しました。" );
-                }
-                finally
-                {
-                    Trace.Unindent();
-                }
-            }
-            //---------------------
-#endregion
-#region [ 現在のステージの終了処理 ]
-            //---------------------
-            if( TJAPlayer3.r現在のステージ != null && TJAPlayer3.r現在のステージ.b活性化してる )		// #25398 2011.06.07 MODIFY FROM
-            {
-                Trace.TraceInformation( "現在のステージを終了します。" );
-                Trace.Indent();
-                try
-                {
-                    r現在のステージ.On非活性化();
-                    Trace.TraceInformation( "現在のステージの終了処理を完了しました。" );
+                    Trace.TraceError(e.ToString());
+                    Trace.TraceError("曲検索actの終了処理に失敗しました。");
                 }
                 finally
                 {
@@ -1427,24 +1410,16 @@ internal class TJAPlayer3 : Game
             }
             //---------------------
             #endregion
-#region Discordの処理
-            Discord.Dispose();
-#endregion
-#region [ 曲リストの終了処理 ]
+            #region [ 現在のステージの終了処理 ]
             //---------------------
-            if (SongsManager != null)
+            if (TJAPlayer3.r現在のステージ != null && TJAPlayer3.r現在のステージ.b活性化してる)		// #25398 2011.06.07 MODIFY FROM
             {
-                Trace.TraceInformation( "曲リストの終了処理を行います。" );
+                Trace.TraceInformation("現在のステージを終了します。");
                 Trace.Indent();
                 try
                 {
-                    SongsManager = null;
-                    Trace.TraceInformation( "曲リストの終了処理を完了しました。" );
-                }
-                catch( Exception exception )
-                {
-                    Trace.TraceError( exception.ToString() );
-                    Trace.TraceError( "曲リストの終了処理に失敗しました。" );
+                    r現在のステージ.On非活性化();
+                    Trace.TraceInformation("現在のステージの終了処理を完了しました。");
                 }
                 finally
                 {
@@ -1452,26 +1427,52 @@ internal class TJAPlayer3 : Game
                 }
             }
             //---------------------
-#endregion
-#region TextureLoaderの処理
+            #endregion
+            #region Discordの処理
+            Discord.Dispose();
+            #endregion
+            #region [ 曲リストの終了処理 ]
+            //---------------------
+            if (SongsManager != null)
+            {
+                Trace.TraceInformation("曲リストの終了処理を行います。");
+                Trace.Indent();
+                try
+                {
+                    SongsManager = null;
+                    Trace.TraceInformation("曲リストの終了処理を完了しました。");
+                }
+                catch (Exception exception)
+                {
+                    Trace.TraceError(exception.ToString());
+                    Trace.TraceError("曲リストの終了処理に失敗しました。");
+                }
+                finally
+                {
+                    Trace.Unindent();
+                }
+            }
+            //---------------------
+            #endregion
+            #region TextureLoaderの処理
             Tx.DisposeTexture();
-#endregion
-#region [ スキンの終了処理 ]
+            #endregion
+            #region [ スキンの終了処理 ]
             //---------------------
             if (Skin != null)
             {
-                Trace.TraceInformation( "スキンの終了処理を行います。" );
+                Trace.TraceInformation("スキンの終了処理を行います。");
                 Trace.Indent();
                 try
                 {
                     Skin.Dispose();
                     Skin = null;
-                    Trace.TraceInformation( "スキンの終了処理を完了しました。" );
+                    Trace.TraceInformation("スキンの終了処理を完了しました。");
                 }
-                catch( Exception exception2 )
+                catch (Exception exception2)
                 {
-                    Trace.TraceError( exception2.ToString() );
-                    Trace.TraceError( "スキンの終了処理に失敗しました。" );
+                    Trace.TraceError(exception2.ToString());
+                    Trace.TraceError("スキンの終了処理に失敗しました。");
                 }
                 finally
                 {
@@ -1479,23 +1480,23 @@ internal class TJAPlayer3 : Game
                 }
             }
             //---------------------
-#endregion
-#region [ サウンドの終了処理 ]
+            #endregion
+            #region [ サウンドの終了処理 ]
             //---------------------
             if (SoundManager != null)
             {
-                Trace.TraceInformation( "サウンド の終了処理を行います。" );
+                Trace.TraceInformation("サウンド の終了処理を行います。");
                 Trace.Indent();
                 try
                 {
                     SoundManager.Dispose();
                     SoundManager = null;
-                    Trace.TraceInformation( "サウンド の終了処理を完了しました。" );
+                    Trace.TraceInformation("サウンド の終了処理を完了しました。");
                 }
-                catch( Exception exception3 )
+                catch (Exception exception3)
                 {
-                    Trace.TraceError( exception3.ToString() );
-                    Trace.TraceError( "サウンド の終了処理に失敗しました。" );
+                    Trace.TraceError(exception3.ToString());
+                    Trace.TraceError("サウンド の終了処理に失敗しました。");
                 }
                 finally
                 {
@@ -1503,22 +1504,22 @@ internal class TJAPlayer3 : Game
                 }
             }
             //---------------------
-#endregion
-#region [ パッドの終了処理 ]
+            #endregion
+            #region [ パッドの終了処理 ]
             //---------------------
             if (Pad != null)
             {
-                Trace.TraceInformation( "パッドの終了処理を行います。" );
+                Trace.TraceInformation("パッドの終了処理を行います。");
                 Trace.Indent();
                 try
                 {
                     Pad = null;
-                    Trace.TraceInformation( "パッドの終了処理を完了しました。" );
+                    Trace.TraceInformation("パッドの終了処理を完了しました。");
                 }
-                catch( Exception exception4 )
+                catch (Exception exception4)
                 {
-                    Trace.TraceError( exception4.ToString() );
-                    Trace.TraceError( "パッドの終了処理に失敗しました。" );
+                    Trace.TraceError(exception4.ToString());
+                    Trace.TraceError("パッドの終了処理に失敗しました。");
                 }
                 finally
                 {
@@ -1526,24 +1527,24 @@ internal class TJAPlayer3 : Game
                 }
             }
             //---------------------
-#endregion
-#region [ InputManagerの終了処理 ]
+            #endregion
+            #region [ InputManagerの終了処理 ]
             //---------------------
             if (InputManager != null)
             {
-                Trace.TraceInformation( "InputManagerの終了処理を行います。" );
+                Trace.TraceInformation("InputManagerの終了処理を行います。");
                 Trace.Indent();
                 try
                 {
                     InputCTS.Cancel();
                     InputManager.Dispose();
                     InputManager = null;
-                    Trace.TraceInformation( "InputManagerの終了処理を完了しました。" );
+                    Trace.TraceInformation("InputManagerの終了処理を完了しました。");
                 }
-                catch( Exception exception5 )
+                catch (Exception exception5)
                 {
-                    Trace.TraceError( exception5.ToString() );
-                    Trace.TraceError( "InputManagerの終了処理に失敗しました。" );
+                    Trace.TraceError(exception5.ToString());
+                    Trace.TraceError("InputManagerの終了処理に失敗しました。");
                 }
                 finally
                 {
@@ -1551,23 +1552,23 @@ internal class TJAPlayer3 : Game
                 }
             }
             //---------------------
-#endregion
-#region [ 文字コンソールの終了処理 ]
+            #endregion
+            #region [ 文字コンソールの終了処理 ]
             //---------------------
             if (act文字コンソール != null)
             {
-                Trace.TraceInformation( "文字コンソールの終了処理を行います。" );
+                Trace.TraceInformation("文字コンソールの終了処理を行います。");
                 Trace.Indent();
                 try
                 {
                     act文字コンソール.On非活性化();
                     act文字コンソール = null;
-                    Trace.TraceInformation( "文字コンソールの終了処理を完了しました。" );
+                    Trace.TraceInformation("文字コンソールの終了処理を完了しました。");
                 }
-                catch( Exception exception6 )
+                catch (Exception exception6)
                 {
-                    Trace.TraceError( exception6.ToString() );
-                    Trace.TraceError( "文字コンソールの終了処理に失敗しました。" );
+                    Trace.TraceError(exception6.ToString());
+                    Trace.TraceError("文字コンソールの終了処理に失敗しました。");
                 }
                 finally
                 {
@@ -1575,40 +1576,40 @@ internal class TJAPlayer3 : Game
                 }
             }
             //---------------------
-#endregion
-#region [ FPSカウンタの終了処理 ]
+            #endregion
+            #region [ FPSカウンタの終了処理 ]
             //---------------------
             Trace.TraceInformation("FPSカウンタの終了処理を行います。");
             Trace.Indent();
             try
             {
-                if( FPS != null )
+                if (FPS != null)
                 {
                     FPS = null;
                 }
-                Trace.TraceInformation( "FPSカウンタの終了処理を完了しました。" );
+                Trace.TraceInformation("FPSカウンタの終了処理を完了しました。");
             }
             finally
             {
                 Trace.Unindent();
             }
             //---------------------
-#endregion
-#region [ タイマの終了処理 ]
+            #endregion
+            #region [ タイマの終了処理 ]
             //---------------------
             Trace.TraceInformation("タイマの終了処理を行います。");
             Trace.Indent();
             try
             {
-                if( Timer != null )
+                if (Timer != null)
                 {
                     Timer.Dispose();
                     Timer = null;
-                    Trace.TraceInformation( "タイマの終了処理を完了しました。" );
+                    Trace.TraceInformation("タイマの終了処理を完了しました。");
                 }
                 else
                 {
-                    Trace.TraceInformation( "タイマは使用されていません。" );
+                    Trace.TraceInformation("タイマは使用されていません。");
                 }
             }
             finally
@@ -1616,21 +1617,21 @@ internal class TJAPlayer3 : Game
                 Trace.Unindent();
             }
             //---------------------
-#endregion
-#region [ Config.iniの出力 ]
+            #endregion
+            #region [ Config.iniの出力 ]
             //---------------------
             Trace.TraceInformation("Config.ini を出力します。");
             string str = strEXEのあるフォルダ + "Config.ini";
             Trace.Indent();
             try
             {
-                ConfigIni.t書き出し( str );
-                Trace.TraceInformation( "保存しました。({0})", str );
+                ConfigIni.t書き出し(str);
+                Trace.TraceInformation("保存しました。({0})", str);
             }
-            catch( Exception e )
+            catch (Exception e)
             {
-                Trace.TraceError( e.ToString() );
-                Trace.TraceError( "Config.ini の出力に失敗しました。({0})", str );
+                Trace.TraceError(e.ToString());
+                Trace.TraceError("Config.ini の出力に失敗しました。({0})", str);
             }
             finally
             {
@@ -1656,12 +1657,12 @@ internal class TJAPlayer3 : Game
             ConfigIni = null;
 
             //---------------------
-#endregion
-#region [ Config.toml の出力]
-        string tomlpath = strEXEのあるフォルダ + "Config.toml";
-        ConfigToml.Save(tomlpath);
-#endregion
-            Trace.TraceInformation( "アプリケーションの終了処理を完了しました。" );
+            #endregion
+            #region [ Config.toml の出力]
+            string tomlpath = strEXEのあるフォルダ + "Config.toml";
+            ConfigToml.Save(tomlpath);
+            #endregion
+            Trace.TraceInformation("アプリケーションの終了処理を完了しました。");
 
             this.b終了処理完了済み = true;
         }
@@ -1670,14 +1671,14 @@ internal class TJAPlayer3 : Game
     {
         string strFilename = DTX[0].strFilenameの絶対パス + ".score.json";
         CScoreJson json = CScoreJson.Load(strFilename);
-        if( !File.Exists( strFilename ) )
+        if (!File.Exists(strFilename))
         {
             json.Title = DTX[0].TITLE;
             json.Name = DTX[0].strFilename;
         }
         json.BGMAdjust = DTX[0].nBGMAdjust;
 
-        if(TJAPlayer3.ConfigToml.PlayOption.AutoPlay[0] == false)
+        if (TJAPlayer3.ConfigToml.PlayOption.AutoPlay[0] == false)
             json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[0]].PlayCount++;
 
         json.Save(strFilename);
@@ -1705,7 +1706,7 @@ internal class TJAPlayer3 : Game
 
         TJAPlayer3.act文字コンソール.On活性化();
     }
-#region [ Windowイベント処理 ]
+    #region [ Windowイベント処理 ]
     //-----------------
     private void Window_MouseWheel(object sender, FDK.Windowing.MouseWheelEventArgs e)
     {
@@ -1725,6 +1726,6 @@ internal class TJAPlayer3 : Game
         ConfigToml.Window.Height = (ConfigToml.Window.FullScreen) ? currentClientSize.Height : this.ClientHeight;
     }
 
-#endregion
-#endregion
+    #endregion
+    #endregion
 }

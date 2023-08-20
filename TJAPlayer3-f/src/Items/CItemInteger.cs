@@ -25,17 +25,19 @@ internal class CItemInteger : CItemBase
         this.nValue = 0;
         this.bIsFocused = false;
     }
-    public CItemInteger( string strName, int nMin, int nMax, int nDefaultNum )
+    public CItemInteger(string strName, int nMin, int nMax, int nDefaultNum)
         : this()
     {
-        this.tInitialize( strName, nMin, nMax, nDefaultNum );
+        this.tInitialize(strName, nMin, nMax, nDefaultNum);
     }
     public CItemInteger(string strName, int nMin, int nMax, int nDefaultNum, string strDescriptionJP)
-        : this() {
+        : this()
+    {
         this.tInitialize(strName, nMin, nMax, nDefaultNum, strDescriptionJP);
     }
     public CItemInteger(string strName, int nMin, int nMax, int nDefaultNum, string strDescriptionJP, string strDescriptionEN)
-        : this() {
+        : this()
+    {
         this.tInitialize(strName, nMin, nMax, nDefaultNum, strDescriptionJP, strDescriptionEN);
     }
 
@@ -47,27 +49,29 @@ internal class CItemInteger : CItemBase
     }
     public override void tMoveItemValueToNext()
     {
-        if( ++this.nValue > this.nMax )
+        if (++this.nValue > this.nMax)
         {
             this.nValue = this.nMax;
         }
     }
     public override void tMoveItemValueToForward()
     {
-        if( --this.nValue < this.nMin )
+        if (--this.nValue < this.nMin)
         {
             this.nValue = this.nMin;
         }
     }
 
-    public void tInitialize( string strName, int nMin, int nMax, int nDefaultNum )
+    public void tInitialize(string strName, int nMin, int nMax, int nDefaultNum)
     {
-        this.tInitialize( strName, nMin, nMax, nDefaultNum, "", "" );
+        this.tInitialize(strName, nMin, nMax, nDefaultNum, "", "");
     }
-    public void tInitialize(string strName, int nMin, int nMax, int nDefaultNum, string strDescriptionJP) {
+    public void tInitialize(string strName, int nMin, int nMax, int nDefaultNum, string strDescriptionJP)
+    {
         this.tInitialize(strName, nMin, nMax, nDefaultNum, strDescriptionJP, strDescriptionJP);
     }
-    public void tInitialize(string strName, int nMin, int nMax, int nDefaultNum, string strDescriptionJP, string strDescriptionEN) {
+    public void tInitialize(string strName, int nMin, int nMax, int nDefaultNum, string strDescriptionJP, string strDescriptionEN)
+    {
         base.tInitialize(strName, strDescriptionJP, strDescriptionEN);
         this.nMin = nMin;
         this.nMax = nMax;
@@ -82,7 +86,7 @@ internal class CItemInteger : CItemBase
     {
         return this.nValue;
     }
-    public override void SetIndex( int index )
+    public override void SetIndex(int index)
     {
         this.nValue = index;
     }

@@ -23,14 +23,14 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
     {
         get
         {
-            return ( this.state == DTXEnumState.CompletelyDone );
+            return (this.state == DTXEnumState.CompletelyDone);
         }
     }
     public bool IsEnumerating
     {
         get
         {
-            if ( thDTXFileEnumerate == null )
+            if (thDTXFileEnumerate == null)
             {
                 return false;
             }
@@ -41,14 +41,14 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
     {
         get
         {
-            return ( this.state == DTXEnumState.Enumeratad );
+            return (this.state == DTXEnumState.Enumeratad);
         }
     }
     public bool IsSongListEnumStarted				// 曲リスト探索開始後？(探索完了も含む)
     {
         get
         {
-            return ( this.state != DTXEnumState.None );
+            return (this.state != DTXEnumState.None);
         }
     }
     public void SongListEnumCompletelyDone()
@@ -88,7 +88,7 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
     /// </summary>
     public void StartEnumFromCache()
     {
-        this.thDTXFileEnumerate = new Thread( new ThreadStart( this.t曲リストの構築1 ) );
+        this.thDTXFileEnumerate = new Thread(new ThreadStart(this.t曲リストの構築1));
         this.thDTXFileEnumerate.Name = "曲リストの構築";
         this.thDTXFileEnumerate.IsBackground = true;
         this.thDTXFileEnumerate.Start();
@@ -99,20 +99,20 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
     /// </summary>
     public void StartEnumFromDisk()
     {
-        if ( state == DTXEnumState.None || state == DTXEnumState.CompletelyDone )
+        if (state == DTXEnumState.None || state == DTXEnumState.CompletelyDone)
         {
-            Trace.TraceInformation( "★曲データ検索スレッドを起動しました。" );
-            lock ( this )
+            Trace.TraceInformation("★曲データ検索スレッドを起動しました。");
+            lock (this)
             {
                 state = DTXEnumState.Ongoing;
             }
             // this.autoReset = new AutoResetEvent( true );
 
-            if ( this.SongsManager == null )		// Enumerating Songs完了後、CONFIG画面から再スキャンしたときにこうなる
+            if (this.SongsManager == null)		// Enumerating Songs完了後、CONFIG画面から再スキャンしたときにこうなる
             {
                 this.SongsManager = new CSongsManager();
             }
-            this.thDTXFileEnumerate = new Thread( new ThreadStart( this.t曲リストの構築2 ) );
+            this.thDTXFileEnumerate = new Thread(new ThreadStart(this.t曲リストの構築2));
             this.thDTXFileEnumerate.Name = "曲リストの構築";
             this.thDTXFileEnumerate.IsBackground = true;
             this.thDTXFileEnumerate.Priority = ThreadPriority.Normal;
@@ -126,13 +126,13 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
     /// </summary>
     public void Suspend()
     {
-        if ( this.state != DTXEnumState.CompletelyDone &&
-            ( ( thDTXFileEnumerate.ThreadState & ( System.Threading.ThreadState.Background ) ) != 0 ) )
+        if (this.state != DTXEnumState.CompletelyDone &&
+            ((thDTXFileEnumerate.ThreadState & (System.Threading.ThreadState.Background)) != 0))
         {
             // this.thDTXFileEnumerate.Suspend();		// obsoleteにつき使用中止
             this.SongsManager.bIsSuspending = true;
             this.state = DTXEnumState.Suspended;
-            Trace.TraceInformation( "★曲データ検索スレッドを中断しました。" );
+            Trace.TraceInformation("★曲データ検索スレッドを中断しました。");
         }
     }
 
@@ -141,15 +141,15 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
     /// </summary>
     public void Resume()
     {
-        if ( this.state == DTXEnumState.Suspended )
+        if (this.state == DTXEnumState.Suspended)
         {
-            if ( ( this.thDTXFileEnumerate.ThreadState & ( System.Threading.ThreadState.WaitSleepJoin | System.Threading.ThreadState.StopRequested ) ) != 0 )	//
+            if ((this.thDTXFileEnumerate.ThreadState & (System.Threading.ThreadState.WaitSleepJoin | System.Threading.ThreadState.StopRequested)) != 0)	//
             {
                 // this.thDTXFileEnumerate.Resume();	// obsoleteにつき使用中止
                 this.SongsManager.bIsSuspending = false;
                 this.SongsManager.autoReset.Set();
                 this.state = DTXEnumState.Ongoing;
-                Trace.TraceInformation( "★曲データ検索スレッドを再開しました。" );
+                Trace.TraceInformation("★曲データ検索スレッドを再開しました。");
             }
         }
     }
@@ -161,15 +161,15 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
     public void WaitUntilSuspended()
     {
         // 曲検索が一時中断されるまで待機
-        for ( int i = 0; i < 10; i++ )
+        for (int i = 0; i < 10; i++)
         {
-            if ( this.state == DTXEnumState.CompletelyDone ||
-                ( thDTXFileEnumerate.ThreadState & ( System.Threading.ThreadState.WaitSleepJoin | System.Threading.ThreadState.Background | System.Threading.ThreadState.Stopped ) ) != 0 )
+            if (this.state == DTXEnumState.CompletelyDone ||
+                (thDTXFileEnumerate.ThreadState & (System.Threading.ThreadState.WaitSleepJoin | System.Threading.ThreadState.Background | System.Threading.ThreadState.Stopped)) != 0)
             {
                 break;
             }
-            Trace.TraceInformation( "★曲データ検索スレッドの中断待ちです: {0}", this.thDTXFileEnumerate.ThreadState.ToString() );
-            Thread.Sleep( 500 );
+            Trace.TraceInformation("★曲データ検索スレッドの中断待ちです: {0}", this.thDTXFileEnumerate.ThreadState.ToString());
+            Thread.Sleep(500);
         }
 
     }
@@ -191,17 +191,17 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
             //-----------------------------
             TJAPlayer3.stageStartUp.eフェーズID = CStage.Eフェーズ.起動0_システムサウンドを構築;
 
-            Trace.TraceInformation( "0) システムサウンドを構築します。" );
+            Trace.TraceInformation("0) システムサウンドを構築します。");
             Trace.Indent();
 
             try
             {
                 TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.BGM起動画面].t再生する();
-                for ( int i = 0; i < TJAPlayer3.Skin.nシステムサウンド数; i++ )
+                for (int i = 0; i < TJAPlayer3.Skin.nシステムサウンド数; i++)
                 {
-                    if ( !TJAPlayer3.Skin[ i ].b排他 )	// BGM系以外のみ読み込む。(BGM系は必要になったときに読み込む)
+                    if (!TJAPlayer3.Skin[i].b排他)	// BGM系以外のみ読み込む。(BGM系は必要になったときに読み込む)
                     {
-                        CSkin.Cシステムサウンド cシステムサウンド = TJAPlayer3.Skin[ i ];
+                        CSkin.Cシステムサウンド cシステムサウンド = TJAPlayer3.Skin[i];
                         try
                         {
                             cシステムサウンド.tLoad();
@@ -222,9 +222,9 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
                         }
                     }
                 }
-                lock ( TJAPlayer3.stageStartUp.list進行文字列 )
+                lock (TJAPlayer3.stageStartUp.list進行文字列)
                 {
-                    TJAPlayer3.stageStartUp.list進行文字列.Add( "SYSTEM SOUND...OK" );
+                    TJAPlayer3.stageStartUp.list進行文字列.Add("SYSTEM SOUND...OK");
                 }
             }
             finally
@@ -238,33 +238,33 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
             //-----------------------------
             TJAPlayer3.stageStartUp.eフェーズID = CStage.Eフェーズ.起動00_songlistから曲リストを作成する;
 
-            Trace.TraceInformation( "1) songlist.dbを読み込みます。" );
+            Trace.TraceInformation("1) songlist.dbを読み込みます。");
             Trace.Indent();
 
             try
             {
-                if ( !TJAPlayer3.ConfigToml.NotExistOrIncorrectVersion )
+                if (!TJAPlayer3.ConfigToml.NotExistOrIncorrectVersion)
                 {
                     CSongsManager s = new CSongsManager();
-                    s = Deserialize( strPathSongList );		// 直接this.SongsManagerにdeserialize()結果を代入するのは避ける。nullにされてしまうことがあるため。
-                    if ( s != null )
+                    s = Deserialize(strPathSongList);		// 直接this.SongsManagerにdeserialize()結果を代入するのは避ける。nullにされてしまうことがあるため。
+                    if (s != null)
                     {
                         this.SongsManager = s;
                     }
 
                     int scores = this.SongsManager.n検索されたスコア数;
-                    Trace.TraceInformation( "songlist.db の読み込みを完了しました。[{0}スコア]", scores );
-                    lock ( TJAPlayer3.stageStartUp.list進行文字列 )
+                    Trace.TraceInformation("songlist.db の読み込みを完了しました。[{0}スコア]", scores);
+                    lock (TJAPlayer3.stageStartUp.list進行文字列)
                     {
-                        TJAPlayer3.stageStartUp.list進行文字列.Add( "SONG LIST...OK" );
+                        TJAPlayer3.stageStartUp.list進行文字列.Add("SONG LIST...OK");
                     }
                 }
                 else
                 {
-                    Trace.TraceInformation( "初回の起動であるかまたはDTXManiaのバージョンが上がったため、songlist.db の読み込みをスキップします。" );
-                    lock ( TJAPlayer3.stageStartUp.list進行文字列 )
+                    Trace.TraceInformation("初回の起動であるかまたはDTXManiaのバージョンが上がったため、songlist.db の読み込みをスキップします。");
+                    lock (TJAPlayer3.stageStartUp.list進行文字列)
                     {
-                        TJAPlayer3.stageStartUp.list進行文字列.Add( "SONG LIST...SKIPPED" );
+                        TJAPlayer3.stageStartUp.list進行文字列.Add("SONG LIST...SKIPPED");
                     }
                 }
             }
@@ -278,9 +278,9 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
         finally
         {
             TJAPlayer3.stageStartUp.eフェーズID = CStage.Eフェーズ.起動7_完了;
-            TimeSpan span = (TimeSpan) ( DateTime.Now - now );
-            Trace.TraceInformation( "起動所要時間: {0}", span.ToString() );
-            lock ( this )							// #28700 2012.6.12 yyagi; state change must be in finally{} for exiting as of compact mode.
+            TimeSpan span = (TimeSpan)(DateTime.Now - now);
+            Trace.TraceInformation("起動所要時間: {0}", span.ToString());
+            lock (this)							// #28700 2012.6.12 yyagi; state change must be in finally{} for exiting as of compact mode.
             {
                 state = DTXEnumState.CompletelyDone;
             }
@@ -308,7 +308,7 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
             //-----------------------------
             //	base.eフェーズID = CStage.Eフェーズ.起動2_曲を検索してリストを作成する;
 
-            Trace.TraceInformation( "enum2) 曲データを検索します。" );
+            Trace.TraceInformation("enum2) 曲データを検索します。");
             Trace.Indent();
 
             try
@@ -316,27 +316,27 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
                 if (TJAPlayer3.ConfigToml.General.ChartPath.Length > 0)
                 {
                     // 全パスについて…
-                    foreach ( string str in TJAPlayer3.ConfigToml.General.ChartPath )
+                    foreach (string str in TJAPlayer3.ConfigToml.General.ChartPath)
                     {
                         string path = str;
-                        if ( !Path.IsPathRooted( path ) )
+                        if (!Path.IsPathRooted(path))
                         {
                             path = TJAPlayer3.strEXEのあるフォルダ + str;	// 相対パスの場合、絶対パスに直す(2010.9.16)
                         }
 
-                        if ( !string.IsNullOrEmpty( path ) )
+                        if (!string.IsNullOrEmpty(path))
                         {
-                            Trace.TraceInformation( "検索パス: " + path );
+                            Trace.TraceInformation("検索パス: " + path);
                             Trace.Indent();
 
                             try
                             {
                                 this.SongsManager.t曲を検索してリストを作成する(path, true);
                             }
-                            catch ( Exception e )
+                            catch (Exception e)
                             {
-                                Trace.TraceError( e.ToString() );
-                                Trace.TraceError( "An exception has occurred, but processing continues." );
+                                Trace.TraceError(e.ToString());
+                                Trace.TraceError("An exception has occurred, but processing continues.");
                             }
                             finally
                             {
@@ -347,12 +347,12 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
                 }
                 else
                 {
-                    Trace.TraceWarning( "曲データの検索パス(ChartPath)の指定がありません。" );
+                    Trace.TraceWarning("曲データの検索パス(ChartPath)の指定がありません。");
                 }
             }
             finally
             {
-                Trace.TraceInformation( "曲データの検索を完了しました。[{0}曲{1}スコア]", this.SongsManager.n検索された曲ノード数, this.SongsManager.n検索されたスコア数 );
+                Trace.TraceInformation("曲データの検索を完了しました。[{0}曲{1}スコア]", this.SongsManager.n検索された曲ノード数, this.SongsManager.n検索されたスコア数);
                 Trace.Unindent();
             }
             //	lock ( this.list進行文字列 )
@@ -365,21 +365,21 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
             //-----------------------------
             //					base.eフェーズID = CStage.Eフェーズ.起動5_曲リストへ後処理を適用する;
 
-            Trace.TraceInformation( "enum5) 曲リストへの後処理を適用します。" );
+            Trace.TraceInformation("enum5) 曲リストへの後処理を適用します。");
             Trace.Indent();
 
             try
             {
                 this.SongsManager.t曲リストへ後処理を適用する();
             }
-            catch ( Exception e )
+            catch (Exception e)
             {
-                Trace.TraceError( e.ToString() );
-                Trace.TraceError( "An exception has occurred, but processing continues. (6480ffa0-1cc1-40d4-9cc9-aceeecd0264b)" );
+                Trace.TraceError(e.ToString());
+                Trace.TraceError("An exception has occurred, but processing continues. (6480ffa0-1cc1-40d4-9cc9-aceeecd0264b)");
             }
             finally
             {
-                Trace.TraceInformation( "曲リストへの後処理を完了しました。" );
+                Trace.TraceInformation("曲リストへの後処理を完了しました。");
                 Trace.Unindent();
             }
             //					lock ( this.list進行文字列 )
@@ -391,11 +391,11 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
 
             //				if ( !bSucceededFastBoot )	// songs2.db読み込みに成功したなら、songs2.dbを新たに作らない
             #region [ 7) songlist.db への保存 ]		// #27060 2012.1.26 yyagi
-            Trace.TraceInformation( "enum7) 曲データの情報を songlist.db へ出力します。" );
+            Trace.TraceInformation("enum7) 曲データの情報を songlist.db へ出力します。");
             Trace.Indent();
 
-            SerializeSongList( this.SongsManager, strPathSongList );
-            Trace.TraceInformation( "songlist.db への出力を完了しました。" );
+            SerializeSongList(this.SongsManager, strPathSongList);
+            Trace.TraceInformation("songlist.db への出力を完了しました。");
             Trace.Unindent();
             //-----------------------------
             #endregion
@@ -405,10 +405,10 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
         finally
         {
             //				base.eフェーズID = CStage.Eフェーズ.起動7_完了;
-            TimeSpan span = (TimeSpan) ( DateTime.Now - now );
-            Trace.TraceInformation( "曲探索所要時間: {0}", span.ToString() );
+            TimeSpan span = (TimeSpan)(DateTime.Now - now);
+            Trace.TraceInformation("曲探索所要時間: {0}", span.ToString());
         }
-        lock ( this )
+        lock (this)
         {
             // state = DTXEnumState.Done;		// DoneにするのはCDTXMania.cs側にて。
             state = DTXEnumState.Enumeratad;
@@ -420,7 +420,7 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
     /// <summary>
     /// 曲リストのserialize
     /// </summary>
-    private static void SerializeSongList( CSongsManager cs, string strPathSongList )
+    private static void SerializeSongList(CSongsManager cs, string strPathSongList)
     {
         bool bSucceededSerialize = true;
         try
@@ -437,24 +437,24 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
                 f.Write(a);
             }
         }
-        catch ( Exception e )
+        catch (Exception e)
         {
             bSucceededSerialize = false;
-            Trace.TraceError( e.ToString() );
-            Trace.TraceError( "An exception has occurred, but processing continues. (9ad477a4-d922-412c-b87d-e3a49a608e92)" );
+            Trace.TraceError(e.ToString());
+            Trace.TraceError("An exception has occurred, but processing continues. (9ad477a4-d922-412c-b87d-e3a49a608e92)");
         }
         finally
         {
-            if ( !bSucceededSerialize )
+            if (!bSucceededSerialize)
             {
                 try
                 {
-                    File.Delete( strPathSongList );	// serializeに失敗したら、songs2.dbファイルを消しておく
+                    File.Delete(strPathSongList);	// serializeに失敗したら、songs2.dbファイルを消しておく
                 }
-                catch ( Exception e )
+                catch (Exception e)
                 {
-                    Trace.TraceError( e.ToString() );
-                    Trace.TraceError( "An exception has occurred, but processing continues. (62860c67-b44f-46f4-b4fc-999c6fe18cce)" );
+                    Trace.TraceError(e.ToString());
+                    Trace.TraceError("An exception has occurred, but processing continues. (62860c67-b44f-46f4-b4fc-999c6fe18cce)");
                 }
             }
         }
@@ -465,7 +465,7 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
     /// </summary>
     /// <param name="SongsManager"></param>
     /// <param name="strPathSongList"></param>
-    private CSongsManager Deserialize( string strPathSongList )
+    private CSongsManager Deserialize(string strPathSongList)
     {
         try
         {
@@ -476,7 +476,7 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
                 return null;
             }
 
-            using ( Stream input = File.OpenRead( strPathSongList ) )
+            using (Stream input = File.OpenRead(strPathSongList))
             {
                 try
                 {
@@ -494,21 +494,21 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
                         return tmp;
                     }
                 }
-                catch ( Exception e )
+                catch (Exception e)
                 {
                     // SongsManager = null;
 
-                    Trace.TraceError( e.ToString() );
-                    Trace.TraceError( "An exception has occurred, but processing continues. (a4289e34-7140-4b67-b821-3b5370a725e1)" );
+                    Trace.TraceError(e.ToString());
+                    Trace.TraceError("An exception has occurred, but processing continues. (a4289e34-7140-4b67-b821-3b5370a725e1)");
                 }
             }
             #endregion
         }
         catch (Exception e)
         {
-            Trace.TraceError( "songlist.db の読み込みに失敗しました。" );
-            Trace.TraceError( e.ToString() );
-            Trace.TraceError( "An exception has occurred, but processing continues. (5a907ed2-f849-4bc4-acd0-d2a6aa3c9c87)" );
+            Trace.TraceError("songlist.db の読み込みに失敗しました。");
+            Trace.TraceError(e.ToString());
+            Trace.TraceError("An exception has occurred, but processing continues. (5a907ed2-f849-4bc4-acd0-d2a6aa3c9c87)");
         }
         return null;
     }
@@ -521,7 +521,7 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
             {
                 親ノードを設定する(ref c.list子リスト, c);//再帰
             }
-            else 
+            else
             {
                 c.r親ノード = parent;
             }

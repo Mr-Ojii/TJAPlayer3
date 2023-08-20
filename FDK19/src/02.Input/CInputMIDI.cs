@@ -26,7 +26,7 @@ public class CInputMIDI : IInputDevice, IDisposable
 
     // メソッド
 
-    public unsafe void tメッセージからMIDI信号のみ受信(int dev, long time, byte[] buf, int count) 
+    public unsafe void tメッセージからMIDI信号のみ受信(int dev, long time, byte[] buf, int count)
     {
         if (this.ID == dev)
         {
@@ -62,7 +62,7 @@ public class CInputMIDI : IInputDevice, IDisposable
     {
         this.listInputEvents.Clear();            // #xxxxx 2012.6.11 yyagi; To optimize, I removed new();
 
-        while(this.listEventBuffer.TryDequeue(out var InputEvent))
+        while (this.listEventBuffer.TryDequeue(out var InputEvent))
             this.listInputEvents.Add(InputEvent);
     }
 

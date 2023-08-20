@@ -23,17 +23,17 @@ internal class CStageResult : CStage
         base.eStageID = CStage.EStage.Result;
         base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
         base.b活性化してない = true;
-        base.listChildren.Add( this.actParameterPanel = new CActResultParameterPanel() );
-        base.listChildren.Add( this.actSongBar = new CActResultSongBar() );
-        base.listChildren.Add( this.actFI = new CActFIFOResult() );
-        base.listChildren.Add( this.actFO = new CActFIFOBlack() );
+        base.listChildren.Add(this.actParameterPanel = new CActResultParameterPanel());
+        base.listChildren.Add(this.actSongBar = new CActResultSongBar());
+        base.listChildren.Add(this.actFI = new CActFIFOResult());
+        base.listChildren.Add(this.actFO = new CActFIFOBlack());
     }
 
     // CStage 実装
 
     public override void On活性化()
     {
-        Trace.TraceInformation( "結果ステージを活性化します。" );
+        Trace.TraceInformation("結果ステージを活性化します。");
         Trace.Indent();
         try
         {
@@ -47,9 +47,9 @@ internal class CStageResult : CStage
             string str = TJAPlayer3.DTX[0].strFilenameの絶対パス + ".score.json";
             CScoreJson json = CScoreJson.Load(str);
 
-            for( int i = 0; i < 1; i++ )
+            for (int i = 0; i < 1; i++)
             {
-                if(!this.cRecords[i].Auto)
+                if (!this.cRecords[i].Auto)
                 {
                     #region [ .score.json の作成と出力 ]
                     //王冠の更新
@@ -64,7 +64,8 @@ internal class CStageResult : CStage
                         else
                             json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].Crown = Math.Max(json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].Crown, 3);
                     }
-                    else {
+                    else
+                    {
                         switch (TJAPlayer3.stage演奏ドラム画面.actDan.GetExamStatus(this.cRecords[i].DanC, this.cRecords[i].DanCGauge))
                         {
                             case Exam.Status.Success:
@@ -84,14 +85,14 @@ internal class CStageResult : CStage
 
                     //HiScoreの更新
                     int j;
-                    for(j = 0; j < json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore.Count; j++)
+                    for (j = 0; j < json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore.Count; j++)
                         if (this.cRecords[i].Score >= json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore[j].Score)
                             break;
 
                     json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore.Insert(j, this.cRecords[i]);
 
                     //3個以上だった場合、3個に丸める
-                    while(json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore.Count > 3)
+                    while (json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore.Count > 3)
                         json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore.RemoveAt(3);
 
                     //クリアしていた場合、クリアのカウントを増やす
@@ -105,7 +106,7 @@ internal class CStageResult : CStage
                     #region [ 選曲画面の譜面情報の更新 ]
                     Cスコア cスコア = TJAPlayer3.stage選曲.r確定されたスコア;
                     cスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[i]] = json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].Crown;
-                    for(int k = 0; k < json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore.Count; k++)
+                    for (int k = 0; k < json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore.Count; k++)
                     {
                         cスコア.譜面情報.nHiScore[TJAPlayer3.stage選曲.n確定された曲の難易度[i]][j] = (int)json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore[j].Score;
                         cスコア.譜面情報.strHiScorerName[TJAPlayer3.stage選曲.n確定された曲の難易度[i]][j] = json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore[j].PlayerName;
@@ -130,13 +131,13 @@ internal class CStageResult : CStage
         }
         finally
         {
-            Trace.TraceInformation( "結果ステージの活性化を完了しました。" );
+            Trace.TraceInformation("結果ステージの活性化を完了しました。");
             Trace.Unindent();
         }
     }
     public override void On非活性化()
     {
-        if( this.ct登場用 != null )
+        if (this.ct登場用 != null)
         {
             this.ct登場用 = null;
         }
@@ -144,20 +145,20 @@ internal class CStageResult : CStage
     }
     public override int On進行描画()
     {
-        if( !base.b活性化してない )
+        if (!base.b活性化してない)
         {
-            if( base.b初めての進行描画 )
+            if (base.b初めての進行描画)
             {
-                this.ct登場用 = new CCounter( 0, 100, 5, TJAPlayer3.Timer );
+                this.ct登場用 = new CCounter(0, 100, 5, TJAPlayer3.Timer);
                 this.actFI.tFadeIn開始();
                 base.eフェーズID = CStage.Eフェーズ.共通_FadeIn;
                 base.b初めての進行描画 = false;
             }
             this.bアニメが完了 = true;
-            if( this.ct登場用.b進行中 )
+            if (this.ct登場用.b進行中)
             {
                 this.ct登場用.t進行();
-                if( this.ct登場用.b終了値に達した )
+                if (this.ct登場用.b終了値に達した)
                 {
                     this.ct登場用.t停止();
                 }
@@ -240,7 +241,7 @@ internal class CStageResult : CStage
                     this.bアニメが完了 = false;
             }
 
-            if ( this.actSongBar.On進行描画() == 0 )
+            if (this.actSongBar.On進行描画() == 0)
             {
                 this.bアニメが完了 = false;
             }
@@ -255,16 +256,16 @@ internal class CStageResult : CStage
             }
             #endregion
 
-            if ( base.eフェーズID == CStage.Eフェーズ.共通_FadeIn )
+            if (base.eフェーズID == CStage.Eフェーズ.共通_FadeIn)
             {
-                if( this.actFI.On進行描画() != 0 )
+                if (this.actFI.On進行描画() != 0)
                 {
                     base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
                 }
             }
-            else if( ( base.eフェーズID == CStage.Eフェーズ.共通_FadeOut ) )			//&& ( this.actFO.On進行描画() != 0 ) )
+            else if ((base.eフェーズID == CStage.Eフェーズ.共通_FadeOut))			//&& ( this.actFO.On進行描画() != 0 ) )
             {
-                return (int) this.eFadeOut完了時の戻り値;
+                return (int)this.eFadeOut完了時の戻り値;
             }
 
             // キー入力

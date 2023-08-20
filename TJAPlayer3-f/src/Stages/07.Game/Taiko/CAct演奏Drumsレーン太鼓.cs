@@ -39,10 +39,10 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 
         this.n総移動時間[0] = -1;
         this.n総移動時間[1] = -1;
-        this.nDefaultJudgePos[0,0] = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[0];
-        this.nDefaultJudgePos[0,1] = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldY[0];
-        this.nDefaultJudgePos[1,0] = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[1];
-        this.nDefaultJudgePos[1,1] = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldY[1];
+        this.nDefaultJudgePos[0, 0] = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[0];
+        this.nDefaultJudgePos[0, 1] = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldY[0];
+        this.nDefaultJudgePos[1, 0] = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[1];
+        this.nDefaultJudgePos[1, 1] = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldY[1];
         this.ctゴーゴー炎 = new CCounter(0, TJAPlayer3.Skin.SkinConfig.Game.Effect.Fire.Ptn, 50, TJAPlayer3.Timer);
         base.On活性化();
     }
@@ -54,10 +54,10 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
             this.st状態[i].ct進行 = null;
             this.stBranch[i].ct分岐アニメ進行 = null;
         }
-        TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[0] = this.nDefaultJudgePos[0,0];
-        TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldY[0] = this.nDefaultJudgePos[0,1];
-        TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[1] = this.nDefaultJudgePos[1,0];
-        TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldY[1] = this.nDefaultJudgePos[1,1];
+        TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[0] = this.nDefaultJudgePos[0, 0];
+        TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldY[0] = this.nDefaultJudgePos[0, 1];
+        TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[1] = this.nDefaultJudgePos[1, 0];
+        TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldY[1] = this.nDefaultJudgePos[1, 1];
         this.ctゴーゴー = null;
 
         base.On非活性化();
@@ -567,7 +567,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 
             if (TJAPlayer3.stage演奏ドラム画面.bDoublePlay)
             {
-                if(TJAPlayer3.Tx.Taiko_Frame[1] != null)
+                if (TJAPlayer3.Tx.Taiko_Frame[1] != null)
                 {
                     TJAPlayer3.Tx.Taiko_Frame[1].t2D描画(TJAPlayer3.app.Device, 329, 360);
                 }
@@ -595,7 +595,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
         if (TJAPlayer3.ConfigToml.Game.Background.Movie && TJAPlayer3.DTX[0].listVD.Count > 0)
         {
             if (TJAPlayer3.Tx.Lane_Background_Main != null) TJAPlayer3.Tx.Lane_Background_Main.Opacity = TJAPlayer3.ConfigToml.Game.Background.BGAlpha;
-            if(TJAPlayer3.Tx.Lane_Background_Sub != null) TJAPlayer3.Tx.Lane_Background_Sub.Opacity = TJAPlayer3.ConfigToml.Game.Background.BGAlpha;
+            if (TJAPlayer3.Tx.Lane_Background_Sub != null) TJAPlayer3.Tx.Lane_Background_Sub.Opacity = TJAPlayer3.ConfigToml.Game.Background.BGAlpha;
             if (TJAPlayer3.Tx.Lane_Background_GoGo != null) TJAPlayer3.Tx.Lane_Background_GoGo.Opacity = TJAPlayer3.ConfigToml.Game.Background.BGAlpha;
         }
         else
@@ -709,7 +709,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
                     }
                     else
                     {
-                        TJAPlayer3.Tx.Effects_Fire.vcScaling = new Vector2( f倍率 );
+                        TJAPlayer3.Tx.Effects_Fire.vcScaling = new Vector2(f倍率);
                         TJAPlayer3.Tx.Effects_Fire.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[i], TJAPlayer3.Skin.SkinConfig.Game.JudgePointY[i], new Rectangle(TJAPlayer3.Skin.SkinConfig.Game.Effect.Fire.Width * (this.ctゴーゴー炎.n現在の値), 0, TJAPlayer3.Skin.SkinConfig.Game.Effect.Fire.Width, TJAPlayer3.Skin.SkinConfig.Game.Effect.Fire.Height));
                     }
                 }
@@ -795,7 +795,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
     public void GOGOSTART()
     {
         this.ctゴーゴー = new CCounter(0, 17, 18, TJAPlayer3.Timer);
-        if(TJAPlayer3.ConfigToml.PlayOption.PlayerCount == 1 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan) TJAPlayer3.stage演奏ドラム画面.GoGoSplash.StartSplash();
+        if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount == 1 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan) TJAPlayer3.stage演奏ドラム画面.GoGoSplash.StartSplash();
     }
 
 
@@ -838,7 +838,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
     {
         this.n移動開始時刻[nPlayer] = -1;
 
-        int	judgeposition = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] - n移動px;
+        int judgeposition = TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] - n移動px;
 
         TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] = judgeposition;
         TJAPlayer3.stage演奏ドラム画面.FlyingNotes.StartPointX[0] = judgeposition;
@@ -916,7 +916,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
     private int[] n移動距離px = new int[2];
     private int[] n移動目的場所X = new int[2];
 
-    internal int[,] nDefaultJudgePos = new int[2,2];
+    internal int[,] nDefaultJudgePos = new int[2, 2];
 
 
     //-----------------

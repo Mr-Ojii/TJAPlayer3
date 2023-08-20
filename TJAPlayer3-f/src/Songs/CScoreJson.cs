@@ -24,10 +24,10 @@ public class CScoreJson
     {
         try
         {
-            using(var sw = new StreamWriter(FilePath))
+            using (var sw = new StreamWriter(FilePath))
                 sw.Write(JsonSerializer.Serialize(this));
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Trace.TraceWarning(e.ToString());
         }

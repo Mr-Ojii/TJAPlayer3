@@ -134,7 +134,7 @@ public class CSoundManager  // : CSound
         };
 
         int n初期デバイス = Array.IndexOf(ESoundDeviceTypes, soundDeviceType);
-        if(n初期デバイス < 0 || n初期デバイス > ESoundDeviceTypes.Length - 1)
+        if (n初期デバイス < 0 || n初期デバイス > ESoundDeviceTypes.Length - 1)
             n初期デバイス = ESoundDeviceTypes.Length - 1;
 
         for (SoundDeviceType = ESoundDeviceTypes[n初期デバイス]; ; SoundDeviceType = ESoundDeviceTypes[++n初期デバイス])

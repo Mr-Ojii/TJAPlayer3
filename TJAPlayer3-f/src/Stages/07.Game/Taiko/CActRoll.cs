@@ -17,17 +17,17 @@ internal class CActRoll : CActivity
 
     public override void On活性化()
     {
-        this.ct連打枠カウンター = new CCounter[ 4 ];
+        this.ct連打枠カウンター = new CCounter[4];
         this.ct連打アニメ = new CCounter[4];
         FadeOutCounter = new CCounter[4];
-        for ( int i = 0; i < 4; i++ )
+        for (int i = 0; i < 4; i++)
         {
-            this.ct連打枠カウンター[ i ] = new CCounter();
+            this.ct連打枠カウンター[i] = new CCounter();
             this.ct連打アニメ[i] = new CCounter();
             FadeOutCounter[i] = new CCounter();
         }
-        this.b表示 = new bool[]{ false, false, false, false };
-        this.n連打数 = new int[ 4 ];
+        this.b表示 = new bool[] { false, false, false, false };
+        this.n連打数 = new int[4];
 
         base.On活性化();
     }
@@ -43,18 +43,18 @@ internal class CActRoll : CActivity
         base.On非活性化();
     }
 
-    public override int On進行描画( )
+    public override int On進行描画()
     {
         return base.On進行描画();
     }
 
-    public int On進行描画( int n連打数, int player )
+    public int On進行描画(int n連打数, int player)
     {
-        this.ct連打枠カウンター[ player ].t進行();
+        this.ct連打枠カウンター[player].t進行();
         this.ct連打アニメ[player].t進行();
         FadeOutCounter[player].t進行();
         const int fadenum = 167;
-        for( int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++ )
+        for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
         {
             //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, this.ct連打枠カウンター[player].n現在の値.ToString());
             if (this.ct連打枠カウンター[player].b終了値に達してない)
@@ -80,9 +80,9 @@ internal class CActRoll : CActivity
         return base.On進行描画();
     }
 
-    public void t枠表示時間延長( int player )
+    public void t枠表示時間延長(int player)
     {
-        this.ct連打枠カウンター[ player ] = new CCounter( 0, 1500, 1, TJAPlayer3.Timer );
+        this.ct連打枠カウンター[player] = new CCounter(0, 1500, 1, TJAPlayer3.Timer);
         FadeOutCounter[player].n現在の値 = 0;
         FadeOutCounter[player].t停止();
     }
@@ -107,7 +107,7 @@ internal class CActRoll : CActivity
     };
     private CCounter[] FadeOutCounter;
 
-    private void t文字表示( int x, int y, int n連打, int nPlayer)
+    private void t文字表示(int x, int y, int n連打, int nPlayer)
     {
         int n桁数 = n連打.ToString().Length;
 

@@ -39,7 +39,7 @@ internal class CAct演奏Drums背景 : CActivity
                 switch (TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollPattern[i])
                 {
                     case 0:
-                    this.ct上背景上下用タイマー[i] = new CCounter(1, 100, 30, TJAPlayer3.Timer);
+                        this.ct上背景上下用タイマー[i] = new CCounter(1, 100, 30, TJAPlayer3.Timer);
                         break;
 
                     case 1:
@@ -55,13 +55,13 @@ internal class CAct演奏Drums背景 : CActivity
 
 
                 this.ct上背景桜用タイマー[i] = new CCounter(0, 400, 8, TJAPlayer3.Timer);
-                if(TJAPlayer3.Tx.Background_Up_Sakura[i]!=null)
+                if (TJAPlayer3.Tx.Background_Up_Sakura[i] != null)
                     this.ct上背景桜スクロール用タイマー[i] = new CCounter(0, TJAPlayer3.Tx.Background_Up_Sakura[i].szTextureSize.Width, 8, TJAPlayer3.Timer);
                 this.ct上背景クリアインタイマー[i] = new CCounter();
             }
         }
         if (TJAPlayer3.Tx.Background_Down_Scroll != null)
-            this.ct下背景スクロール用タイマー1 = new CCounter( 1, TJAPlayer3.Tx.Background_Down_Scroll.szTextureSize.Width, 4, TJAPlayer3.Timer );
+            this.ct下背景スクロール用タイマー1 = new CCounter(1, TJAPlayer3.Tx.Background_Down_Scroll.szTextureSize.Width, 4, TJAPlayer3.Timer);
 
         this.ct上背景FIFOタイマー = new CCounter();
         base.On活性化();
@@ -96,7 +96,7 @@ internal class CAct演奏Drums背景 : CActivity
 
         for (int i = 0; i < 2; i++)
         {
-            if(this.ct上背景クリアインタイマー[i] != null)
+            if (this.ct上背景クリアインタイマー[i] != null)
                 this.ct上背景クリアインタイマー[i].t進行();
         }
         for (int i = 0; i < 2; i++)
@@ -158,7 +158,8 @@ internal class CAct演奏Drums背景 : CActivity
                         TJAPlayer3.Tx.Background_Up_Clear[i].t2D描画(TJAPlayer3.app.Device, (l * TJAPlayer3.Tx.Background_Up_Clear[i].szTextureSize.Width) - this.ct上背景スクロール用タイマー[i].n現在の値, TJAPlayer3.Skin.SkinConfig.Game.Background.ScrollY[i]);
                     }
                 }
-                if (this.ct上背景桜用タイマー[i] != null && this.ct上背景桜スクロール用タイマー[i] != null) {
+                if (this.ct上背景桜用タイマー[i] != null && this.ct上背景桜スクロール用タイマー[i] != null)
+                {
                     if (TJAPlayer3.Tx.Background_Up_Sakura[i] != null)
                     {
                         int xy = (int)(this.ct上背景桜用タイマー[i].n現在の値 - (this.ct上背景桜用タイマー[i].n終了値 / 2.0));
@@ -193,7 +194,8 @@ internal class CAct演奏Drums背景 : CActivity
                         }
                     }
                 }
-                if (this.ct上背景上下用タイマー[i] != null) {
+                if (this.ct上背景上下用タイマー[i] != null)
+                {
                     if (TJAPlayer3.Tx.Background_Up_YMove[i] != null)
                     {
                         int ym;
@@ -313,21 +315,21 @@ internal class CAct演奏Drums背景 : CActivity
         }
         #endregion
         #region 1P-下背景
-        if( !TJAPlayer3.stage演奏ドラム画面.bDoublePlay )
+        if (!TJAPlayer3.stage演奏ドラム画面.bDoublePlay)
         {
             {
-                if( TJAPlayer3.Tx.Background_Down != null )
+                if (TJAPlayer3.Tx.Background_Down != null)
                 {
-                    TJAPlayer3.Tx.Background_Down.t2D描画( TJAPlayer3.app.Device, 0, 360 );
+                    TJAPlayer3.Tx.Background_Down.t2D描画(TJAPlayer3.app.Device, 0, 360);
                 }
             }
-            if(TJAPlayer3.stage演奏ドラム画面.bIsAlreadyCleared[0])
+            if (TJAPlayer3.stage演奏ドラム画面.bIsAlreadyCleared[0])
             {
-                if( TJAPlayer3.Tx.Background_Down_Clear != null && TJAPlayer3.Tx.Background_Down_Scroll != null )
+                if (TJAPlayer3.Tx.Background_Down_Clear != null && TJAPlayer3.Tx.Background_Down_Scroll != null)
                 {
-                    TJAPlayer3.Tx.Background_Down_Clear.Opacity = ( ( this.ct上背景FIFOタイマー.n現在の値 * 0xff ) / 100 );
-                    TJAPlayer3.Tx.Background_Down_Scroll.Opacity = ( ( this.ct上背景FIFOタイマー.n現在の値 * 0xff ) / 100 );
-                    TJAPlayer3.Tx.Background_Down_Clear.t2D描画( TJAPlayer3.app.Device, 0, 360 );
+                    TJAPlayer3.Tx.Background_Down_Clear.Opacity = ((this.ct上背景FIFOタイマー.n現在の値 * 0xff) / 100);
+                    TJAPlayer3.Tx.Background_Down_Scroll.Opacity = ((this.ct上背景FIFOタイマー.n現在の値 * 0xff) / 100);
+                    TJAPlayer3.Tx.Background_Down_Clear.t2D描画(TJAPlayer3.app.Device, 0, 360);
 
                     //int nループ幅 = 1257;
                     //CDTXMania.Tx.Background_Down_Scroll.t2D描画( CDTXMania.app.Device, 0 - this.ct下背景スクロール用タイマー1.n現在の値, 360 );

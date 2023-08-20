@@ -18,9 +18,9 @@ internal class CActComboVoice : CActivity
     }
 
     // メソッド
-    public void t再生( int nCombo, int player )
+    public void t再生(int nCombo, int player)
     {
-        if(VoiceIndex[player] < ListCombo[player].Count)
+        if (VoiceIndex[player] < ListCombo[player].Count)
         {
             var index = ListCombo[player][VoiceIndex[player]];
             if (nCombo == index.nCombo)
@@ -74,7 +74,7 @@ internal class CActComboVoice : CActivity
                     comboVoice.nCombo = int.Parse(Path.GetFileNameWithoutExtension(item));
                     ListCombo[i].Add(comboVoice);
                 }
-                if(ListCombo[i].Count > 0)
+                if (ListCombo[i].Count > 0)
                 {
                     ListCombo[i].Sort();
                 }
@@ -126,10 +126,10 @@ public class CComboVoice : IComparable<CComboVoice>
         soundComboVoice = null;
     }
 
-    public int CompareTo( CComboVoice other )
+    public int CompareTo(CComboVoice other)
     {
-        if( this.nCombo > other.nCombo ) return 1;
-        else if( this.nCombo < other.nCombo ) return -1;
+        if (this.nCombo > other.nCombo) return 1;
+        else if (this.nCombo < other.nCombo) return -1;
 
         return 0;
     }

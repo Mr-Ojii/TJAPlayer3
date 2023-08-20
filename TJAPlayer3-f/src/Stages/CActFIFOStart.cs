@@ -14,26 +14,26 @@ internal class CActFIFOStart : CActivity
     {
         this.mode = EFIFOMode.FadeOut;
 
-        this.counter = new CCounter( 0, 1500, 1, TJAPlayer3.Timer );
+        this.counter = new CCounter(0, 1500, 1, TJAPlayer3.Timer);
     }
     public void tFadeIn開始()
     {
         this.mode = EFIFOMode.FadeIn;
-        this.counter = new CCounter( 0, 1500, 1, TJAPlayer3.Timer );
+        this.counter = new CCounter(0, 1500, 1, TJAPlayer3.Timer);
     }
 
     // CActivity 実装
 
     public override void On非活性化()
     {
-        if( !base.b活性化してない )
+        if (!base.b活性化してない)
         {
             base.On非活性化();
         }
     }
     public override int On進行描画()
     {
-        if( base.b活性化してない || ( this.counter == null ) )
+        if (base.b活性化してない || (this.counter == null))
         {
             return 0;
         }
@@ -80,16 +80,16 @@ internal class CActFIFOStart : CActivity
             }
         }
 
-        if( this.mode == EFIFOMode.FadeOut )
+        if (this.mode == EFIFOMode.FadeOut)
         {
-            if( this.counter.b終了値に達してない )
+            if (this.counter.b終了値に達してない)
             {
                 return 0;
             }
         }
-        else if( this.mode == EFIFOMode.FadeIn )
+        else if (this.mode == EFIFOMode.FadeIn)
         {
-            if( this.counter.b終了値に達してない )
+            if (this.counter.b終了値に達してない)
             {
                 return 0;
             }

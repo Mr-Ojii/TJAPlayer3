@@ -45,7 +45,7 @@ class GoGoSplash : CActivity
             {
                 if (i > TJAPlayer3.Skin.SkinConfig.Game.Effect.GoGoSplash.Y.Length) break;
                 // Yの配列がiよりも小さかったらそこでキャンセルする。
-                if(TJAPlayer3.Skin.SkinConfig.Game.Effect.GoGoSplash.Rotate && TJAPlayer3.Tx.Effects_GoGoSplash != null)
+                if (TJAPlayer3.Skin.SkinConfig.Game.Effect.GoGoSplash.Rotate && TJAPlayer3.Tx.Effects_GoGoSplash != null)
                 {
                     // Switch文を使いたかったが、定数じゃないから使えねぇ!!!!
                     if (i == 0)

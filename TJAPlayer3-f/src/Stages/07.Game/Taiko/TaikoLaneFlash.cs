@@ -43,7 +43,7 @@ internal class TaikoLaneFlash : CActivity
             for (int j = 0; j < (int)FlashType.Total; j++)
             {
                 PlayerLane[i].Flash[j].On進行描画();
-            }   
+            }
         }
         return base.On進行描画();
     }

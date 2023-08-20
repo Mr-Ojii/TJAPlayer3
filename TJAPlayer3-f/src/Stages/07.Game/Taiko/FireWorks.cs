@@ -27,7 +27,7 @@ internal class FireWorks : CActivity
     {
         for (int i = 0; i < 128; i++)
         {
-            if(!FireWork[i].IsUsing)
+            if (!FireWork[i].IsUsing)
             {
                 FireWork[i].IsUsing = true;
                 FireWork[i].Lane = nLane;
@@ -66,7 +66,7 @@ internal class FireWorks : CActivity
         {
             for (int i = 0; i < 128; i++)
             {
-                if(FireWork[i].IsUsing)
+                if (FireWork[i].IsUsing)
                 {
                     FireWork[i].Counter.t進行();
                     TJAPlayer3.Tx.Effects_Hit_FireWorks.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, (float)FireWork[i].X, (float)FireWork[i].Y, new Rectangle(FireWork[i].Counter.n現在の値 * TJAPlayer3.Skin.SkinConfig.Game.Effect.FireWorks.Width, 0, TJAPlayer3.Skin.SkinConfig.Game.Effect.FireWorks.Width, TJAPlayer3.Skin.SkinConfig.Game.Effect.FireWorks.Height));

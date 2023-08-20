@@ -23,7 +23,7 @@ internal class CStageEnding : CStage
 
     public override void On活性化()
     {
-        Trace.TraceInformation( "終了ステージを活性化します。" );
+        Trace.TraceInformation("終了ステージを活性化します。");
         Trace.Indent();
         try
         {
@@ -33,13 +33,13 @@ internal class CStageEnding : CStage
         }
         finally
         {
-            Trace.TraceInformation( "終了ステージの活性化を完了しました。" );
+            Trace.TraceInformation("終了ステージの活性化を完了しました。");
             Trace.Unindent();
         }
     }
     public override void On非活性化()
     {
-        Trace.TraceInformation( "終了ステージを非活性化します。" );
+        Trace.TraceInformation("終了ステージを非活性化します。");
         Trace.Indent();
         try
         {
@@ -47,7 +47,7 @@ internal class CStageEnding : CStage
         }
         finally
         {
-            Trace.TraceInformation( "終了ステージの非活性化を完了しました。" );
+            Trace.TraceInformation("終了ステージの非活性化を完了しました。");
             Trace.Unindent();
         }
     }
@@ -57,9 +57,9 @@ internal class CStageEnding : CStage
         {
             return 1;
         }
-        if( !base.b活性化してない )
+        if (!base.b活性化してない)
         {
-            if( base.b初めての進行描画 )
+            if (base.b初めての進行描画)
             {
                 TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDゲーム終了音].t再生する();
                 base.b初めての進行描画 = false;

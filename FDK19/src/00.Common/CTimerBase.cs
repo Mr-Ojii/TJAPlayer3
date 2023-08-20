@@ -28,14 +28,14 @@ public abstract class CTimerBase : IDisposable
     {
         get
         {
-            if( this.n停止数 > 0 )
-                return ( this.n一時停止システム時刻ms - this.n前回リセットした時のシステム時刻ms );
+            if (this.n停止数 > 0)
+                return (this.n一時停止システム時刻ms - this.n前回リセットした時のシステム時刻ms);
 
-            return ( this.n更新システム時刻ms - this.n前回リセットした時のシステム時刻ms );
+            return (this.n更新システム時刻ms - this.n前回リセットした時のシステム時刻ms);
         }
         set
         {
-            if( this.n停止数 > 0 )
+            if (this.n停止数 > 0)
                 this.n前回リセットした時のシステム時刻ms = this.n一時停止システム時刻ms - value;
             else
                 this.n前回リセットした時のシステム時刻ms = this.n更新システム時刻ms - value;
@@ -45,10 +45,10 @@ public abstract class CTimerBase : IDisposable
     {
         get
         {
-            if( this.n停止数 > 0 )
-                return ( this.n一時停止システム時刻ms - this.n前回リセットした時のシステム時刻ms );
+            if (this.n停止数 > 0)
+                return (this.n一時停止システム時刻ms - this.n前回リセットした時のシステム時刻ms);
 
-            return ( this.nシステム時刻ms - this.n前回リセットした時のシステム時刻ms );
+            return (this.nシステム時刻ms - this.n前回リセットした時のシステム時刻ms);
         }
     }
     public long n前回リセットした時のシステム時刻ms
@@ -62,14 +62,14 @@ public abstract class CTimerBase : IDisposable
     {
         get
         {
-            if( this.n停止数 > 0 )
-                return ( this.db一時停止システム時刻ms - this.db前回リセットした時のシステム時刻ms );
+            if (this.n停止数 > 0)
+                return (this.db一時停止システム時刻ms - this.db前回リセットした時のシステム時刻ms);
 
-            return ( this.db更新システム時刻ms - this.db前回リセットした時のシステム時刻ms );
+            return (this.db更新システム時刻ms - this.db前回リセットした時のシステム時刻ms);
         }
         set
         {
-            if( this.n停止数 > 0 )
+            if (this.n停止数 > 0)
                 this.db前回リセットした時のシステム時刻ms = this.db一時停止システム時刻ms - value;
             else
                 this.db前回リセットした時のシステム時刻ms = this.db更新システム時刻ms - value;
@@ -79,10 +79,10 @@ public abstract class CTimerBase : IDisposable
     {
         get
         {
-            if( this.n停止数 > 0 )
-                return ( this.db一時停止システム時刻ms - this.db前回リセットした時のシステム時刻ms );
+            if (this.n停止数 > 0)
+                return (this.db一時停止システム時刻ms - this.db前回リセットした時のシステム時刻ms);
 
-            return ( this.dbシステム時刻ms - this.db前回リセットした時のシステム時刻ms );
+            return (this.dbシステム時刻ms - this.db前回リセットした時のシステム時刻ms);
         }
     }
     public double db前回リセットした時のシステム時刻ms
@@ -95,7 +95,7 @@ public abstract class CTimerBase : IDisposable
     {
         get
         {
-            return ( this.n停止数 == 0 );
+            return (this.n停止数 == 0);
         }
     }
 
@@ -108,7 +108,7 @@ public abstract class CTimerBase : IDisposable
     }
     public void t一時停止()
     {
-        if( this.n停止数 == 0 )
+        if (this.n停止数 == 0)
         {
             this.n一時停止システム時刻ms = this.n更新システム時刻ms;
             this.db一時停止システム時刻ms = this.db更新システム時刻ms;
@@ -123,10 +123,10 @@ public abstract class CTimerBase : IDisposable
     }
     public void t再開()
     {
-        if( this.n停止数 > 0 )
+        if (this.n停止数 > 0)
         {
             this.n停止数--;
-            if( this.n停止数 == 0 )
+            if (this.n停止数 == 0)
             {
                 this.t更新();
                 this.n前回リセットした時のシステム時刻ms += this.n更新システム時刻ms - this.n一時停止システム時刻ms;
@@ -134,7 +134,7 @@ public abstract class CTimerBase : IDisposable
             }
         }
     }
-    
+
     #region [ protected ]
     //-----------------
     protected long n一時停止システム時刻ms = 0;

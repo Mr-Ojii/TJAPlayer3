@@ -40,7 +40,7 @@ public class CFPS
         this.bChangedFPSValue = false;
 
         const long INTERVAL = 1000;
-        while( ( this.timer.n現在時刻ms - this.nBaseTimems) >= INTERVAL )
+        while ((this.timer.n現在時刻ms - this.nBaseTimems) >= INTERVAL)
         {
             this.nFPS = this.nLocalFPS;
             this.nLocalFPS = 0;
@@ -55,9 +55,9 @@ public class CFPS
 
     #region [ private ]
     //-----------------
-    private CTimer	timer;
-    private long	nBaseTimems;
-    private int		nLocalFPS;
+    private CTimer timer;
+    private long nBaseTimems;
+    private int nLocalFPS;
     //-----------------
     #endregion
 }

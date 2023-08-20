@@ -60,24 +60,24 @@ internal class CActResultSongBar : CActivity
     }
     public override void On非活性化()
     {
-        if( this.ct登場用 != null )
+        if (this.ct登場用 != null)
         {
             this.ct登場用 = null;
         }
-        TJAPlayer3.t安全にDisposeする( ref this.txMusicName );
+        TJAPlayer3.t安全にDisposeする(ref this.txMusicName);
 
         TJAPlayer3.t安全にDisposeする(ref this.txStageText);
         base.On非活性化();
     }
     public override int On進行描画()
     {
-        if( base.b活性化してない )
+        if (base.b活性化してない)
         {
             return 0;
         }
-        if( base.b初めての進行描画 )
+        if (base.b初めての進行描画)
         {
-            this.ct登場用 = new CCounter( 0, 270, 4, TJAPlayer3.Timer );
+            this.ct登場用 = new CCounter(0, 270, 4, TJAPlayer3.Timer);
             base.b初めての進行描画 = false;
         }
         this.ct登場用.t進行();
@@ -130,7 +130,7 @@ internal class CActResultSongBar : CActivity
         }
 
 
-        if( !this.ct登場用.b終了値に達した )
+        if (!this.ct登場用.b終了値に達した)
         {
             return 0;
         }

@@ -26,7 +26,7 @@ internal class CStageSongLoading : CStage
 
     public override void On活性化()
     {
-        Trace.TraceInformation( "曲読み込みステージを活性化します。" );
+        Trace.TraceInformation("曲読み込みステージを活性化します。");
         Trace.Indent();
         try
         {
@@ -52,8 +52,8 @@ internal class CStageSongLoading : CStage
                 strSubTitle == "TJAPlayer3 Developers";
 
 
-            this.ct待機 = new CCounter( 0, 600, 5, TJAPlayer3.Timer );
-            this.ct曲名表示 = new CCounter( 1, 30, 30, TJAPlayer3.Timer );
+            this.ct待機 = new CCounter(0, 600, 5, TJAPlayer3.Timer);
+            this.ct曲名表示 = new CCounter(1, 30, 30, TJAPlayer3.Timer);
             try
             {
                 // When performing calibration, inform the player that
@@ -71,7 +71,7 @@ internal class CStageSongLoading : CStage
                 this.txTitle = null;
                 this.txSubTitle = null;
 
-                if( !string.IsNullOrEmpty(タイトル) )
+                if (!string.IsNullOrEmpty(タイトル))
                 {
                     using (CFontRenderer pfTITLE = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, TJAPlayer3.Skin.SkinConfig.SongLoading.TitleFontSize))
                     {
@@ -82,7 +82,7 @@ internal class CStageSongLoading : CStage
                         }
                     }
 
-                    if( !string.IsNullOrEmpty(サブタイトル) )
+                    if (!string.IsNullOrEmpty(サブタイトル))
                     {
                         using (CFontRenderer pfSUBTITLE = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, TJAPlayer3.Skin.SkinConfig.SongLoading.SubTitleFontSize))
                         {
@@ -95,9 +95,9 @@ internal class CStageSongLoading : CStage
                 }
 
             }
-            catch ( CTextureCreateFailedException e )
+            catch (CTextureCreateFailedException e)
             {
-                Trace.TraceError( e.ToString() );
+                Trace.TraceError(e.ToString());
                 this.txTitle = null;
                 this.txSubTitle = null;
             }
@@ -106,34 +106,34 @@ internal class CStageSongLoading : CStage
         }
         finally
         {
-            Trace.TraceInformation( "曲読み込みステージの活性化を完了しました。" );
+            Trace.TraceInformation("曲読み込みステージの活性化を完了しました。");
             Trace.Unindent();
         }
     }
     public override void On非活性化()
     {
-        Trace.TraceInformation( "曲読み込みステージを非活性化します。" );
+        Trace.TraceInformation("曲読み込みステージを非活性化します。");
         Trace.Indent();
         try
         {
-            TJAPlayer3.t安全にDisposeする( ref this.txTitle );
-            TJAPlayer3.t安全にDisposeする( ref this.txSubTitle );
+            TJAPlayer3.t安全にDisposeする(ref this.txTitle);
+            TJAPlayer3.t安全にDisposeする(ref this.txSubTitle);
             base.On非活性化();
         }
         finally
         {
-            Trace.TraceInformation( "曲読み込みステージの非活性化を完了しました。" );
+            Trace.TraceInformation("曲読み込みステージの非活性化を完了しました。");
             Trace.Unindent();
         }
     }
     public override int On進行描画()
     {
-        if( base.b活性化してない )
+        if (base.b活性化してない)
             return 0;
 
         #region [ 初めての進行描画 ]
         //-----------------------------
-        if( base.b初めての進行描画 )
+        if (base.b初めての進行描画)
         {
             if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan)
             {
@@ -152,9 +152,9 @@ internal class CStageSongLoading : CStage
         this.ct待機.t進行();
 
         #region [ ESC押下時は選曲画面に戻る ]
-        if ( TJAPlayer3.InputManager.Keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.Escape ) )
+        if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
         {
-            return (int) E曲読込画面の戻り値.読込中止;
+            return (int)E曲読込画面の戻り値.読込中止;
         }
         #endregion
 
@@ -220,7 +220,7 @@ internal class CStageSongLoading : CStage
                     }
                     else if (TJAPlayer3.Skin.SkinConfig.SongLoading._v2SubTitleReferencePoint == CSkin.EReferencePoint.Right)
                     {
-                        this.txSubTitle.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.SongLoading.v2SubTitleX - (this.txSubTitle.szTextureSize.Width * txSubTitle.vcScaling.X), TJAPlayer3.Skin.SkinConfig.SongLoading.v2SubTitleY- (this.txSubTitle.szTextureSize.Height / 2));
+                        this.txSubTitle.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.SongLoading.v2SubTitleX - (this.txSubTitle.szTextureSize.Width * txSubTitle.vcScaling.X), TJAPlayer3.Skin.SkinConfig.SongLoading.v2SubTitleY - (this.txSubTitle.szTextureSize.Height / 2));
                     }
                     else
                     {
@@ -286,14 +286,14 @@ internal class CStageSongLoading : CStage
         //-----------------------------
         #endregion
 
-        switch( base.eフェーズID )
+        switch (base.eフェーズID)
         {
             case CStage.Eフェーズ.共通_FadeIn:
                 //if( this.actFI.On進行描画() != 0 )			    // #27787 2012.3.10 yyagi 曲読み込み画面のFadeInの省略
-                                                                    // 必ず一度「CStaeg.Eフェーズ.共通_FadeIn」フェーズを経由させること。
-                                                                    // さもないと、曲読み込みが完了するまで、曲読み込み画面が描画されない。
-                    base.eフェーズID = CStage.Eフェーズ.NOWLOADING_DTXファイルを読み込む;
-                return (int) E曲読込画面の戻り値.継続;
+                // 必ず一度「CStaeg.Eフェーズ.共通_FadeIn」フェーズを経由させること。
+                // さもないと、曲読み込みが完了するまで、曲読み込み画面が描画されない。
+                base.eフェーズID = CStage.Eフェーズ.NOWLOADING_DTXファイルを読み込む;
+                return (int)E曲読込画面の戻り値.継続;
 
             case CStage.Eフェーズ.NOWLOADING_DTXファイルを読み込む:
                 {
@@ -302,24 +302,24 @@ internal class CStageSongLoading : CStage
 
                     CScoreJson json = CScoreJson.Load(str + ".score.json");
 
-                    if( ( TJAPlayer3.DTX[0] != null ) && TJAPlayer3.DTX[0].b活性化してる )
+                    if ((TJAPlayer3.DTX[0] != null) && TJAPlayer3.DTX[0].b活性化してる)
                         TJAPlayer3.DTX[0].On非活性化();
 
                     //if( CDTXMania.DTX == null )
                     {
-                        for(int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+                        for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
                             TJAPlayer3.DTX[i] = new CDTX(str, false, json.BGMAdjust, i, TJAPlayer3.ConfigToml.PlayOption.PlayerCount == 2 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] == TJAPlayer3.stage選曲.n確定された曲の難易度[1]);
 
-                        if ( TJAPlayer3.ConfigToml.OverrideScrollMode == false)
+                        if (TJAPlayer3.ConfigToml.OverrideScrollMode == false)
                             TJAPlayer3.ConfigToml.ScrollMode = TJAPlayer3.DTX[0].eScrollMode;
 
-                        Trace.TraceInformation( "----曲情報-----------------" );
-                        Trace.TraceInformation( "TITLE: {0}", TJAPlayer3.DTX[0].TITLE );
-                        Trace.TraceInformation( "FILE: {0}",  TJAPlayer3.DTX[0].strFilenameの絶対パス );
-                        Trace.TraceInformation( "---------------------------" );
+                        Trace.TraceInformation("----曲情報-----------------");
+                        Trace.TraceInformation("TITLE: {0}", TJAPlayer3.DTX[0].TITLE);
+                        Trace.TraceInformation("FILE: {0}", TJAPlayer3.DTX[0].strFilenameの絶対パス);
+                        Trace.TraceInformation("---------------------------");
 
-                        TimeSpan span = (TimeSpan) ( DateTime.Now - timeBeginLoad );
-                        Trace.TraceInformation( "DTX読込所要時間:           {0}", span.ToString() );
+                        TimeSpan span = (TimeSpan)(DateTime.Now - timeBeginLoad);
+                        Trace.TraceInformation("DTX読込所要時間:           {0}", span.ToString());
 
                         // 段位認定モード用。
                         if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] == (int)Difficulty.Dan && TJAPlayer3.DTX[0].List_DanSongs != null)
@@ -356,24 +356,24 @@ internal class CStageSongLoading : CStage
 
                     base.eフェーズID = CStage.Eフェーズ.NOWLOADING_WAVファイルを読み込む;
                     timeBeginLoadWAV = DateTime.Now;
-                    return (int) E曲読込画面の戻り値.継続;
+                    return (int)E曲読込画面の戻り値.継続;
                 }
 
             case CStage.Eフェーズ.NOWLOADING_WAVファイルを読み込む:
                 {
-                    int looptime = (TJAPlayer3.ConfigToml.Window.VSyncWait)? 3 : 1;	// VSyncWait=ON時は1frame(1/60s)あたり3つ読むようにする
-                    for ( int i = 0; i < looptime && nWAVcount <= TJAPlayer3.DTX[0].listWAV.Count; i++ )
+                    int looptime = (TJAPlayer3.ConfigToml.Window.VSyncWait) ? 3 : 1;	// VSyncWait=ON時は1frame(1/60s)あたり3つ読むようにする
+                    for (int i = 0; i < looptime && nWAVcount <= TJAPlayer3.DTX[0].listWAV.Count; i++)
                     {
-                        if ( TJAPlayer3.DTX[0].listWAV[ nWAVcount ].bUse )	// #28674 2012.5.8 yyagi
+                        if (TJAPlayer3.DTX[0].listWAV[nWAVcount].bUse)	// #28674 2012.5.8 yyagi
                         {
-                            TJAPlayer3.DTX[0].tWAVの読み込み( TJAPlayer3.DTX[0].listWAV[ nWAVcount ] );
+                            TJAPlayer3.DTX[0].tWAVの読み込み(TJAPlayer3.DTX[0].listWAV[nWAVcount]);
                         }
                         nWAVcount++;
                     }
-                    if ( nWAVcount > TJAPlayer3.DTX[0].listWAV.Count )
+                    if (nWAVcount > TJAPlayer3.DTX[0].listWAV.Count)
                     {
-                        TimeSpan span = ( TimeSpan ) ( DateTime.Now - timeBeginLoadWAV );
-                        Trace.TraceInformation( "WAV読込所要時間({0,4}):     {1}", TJAPlayer3.DTX[0].listWAV.Count, span.ToString() );
+                        TimeSpan span = (TimeSpan)(DateTime.Now - timeBeginLoadWAV);
+                        Trace.TraceInformation("WAV読込所要時間({0,4}):     {1}", TJAPlayer3.DTX[0].listWAV.Count, span.ToString());
                         timeBeginLoadWAV = DateTime.Now;
 
                         TJAPlayer3.DTX[0].PlanToAddMixerChannel();
@@ -385,48 +385,48 @@ internal class CStageSongLoading : CStage
 
                         TJAPlayer3.stage演奏ドラム画面.On活性化();
 
-                        span = (TimeSpan) ( DateTime.Now - timeBeginLoadWAV );
+                        span = (TimeSpan)(DateTime.Now - timeBeginLoadWAV);
 
                         base.eフェーズID = CStage.Eフェーズ.NOWLOADING_BMPファイルを読み込む;
                     }
-                    return (int) E曲読込画面の戻り値.継続;
+                    return (int)E曲読込画面の戻り値.継続;
                 }
 
             case CStage.Eフェーズ.NOWLOADING_BMPファイルを読み込む:
                 {
-                    if ( TJAPlayer3.ConfigToml.Game.Background.Movie )
+                    if (TJAPlayer3.ConfigToml.Game.Background.Movie)
                         TJAPlayer3.DTX[0].tAVIの読み込み();
 
-                    TimeSpan span = ( TimeSpan ) ( DateTime.Now - timeBeginLoad );
-                    Trace.TraceInformation( "総読込時間:                {0}", span.ToString() );
+                    TimeSpan span = (TimeSpan)(DateTime.Now - timeBeginLoad);
+                    Trace.TraceInformation("総読込時間:                {0}", span.ToString());
 
                     TJAPlayer3.Timer.t更新();
 
                     base.eフェーズID = CStage.Eフェーズ.NOWLOADING_システムサウンドBGMの完了を待つ;
-                    return (int) E曲読込画面の戻り値.継続;
+                    return (int)E曲読込画面の戻り値.継続;
                 }
 
             case CStage.Eフェーズ.NOWLOADING_システムサウンドBGMの完了を待つ:
                 {
                     long nCurrentTime = TJAPlayer3.Timer.n現在時刻ms;
-                    if( nCurrentTime < this.nBGM再生開始時刻 )
+                    if (nCurrentTime < this.nBGM再生開始時刻)
                         this.nBGM再生開始時刻 = nCurrentTime;
 
-//						if ( ( nCurrentTime - this.nBGM再生開始時刻 ) > ( this.nBGMの総再生時間ms - 1000 ) )
-                    if ( ( nCurrentTime - this.nBGM再生開始時刻 ) >= ( this.nBGMの総再生時間ms ) )	// #27787 2012.3.10 yyagi 1000ms == FadeIn分の時間
+                    //						if ( ( nCurrentTime - this.nBGM再生開始時刻 ) > ( this.nBGMの総再生時間ms - 1000 ) )
+                    if ((nCurrentTime - this.nBGM再生開始時刻) >= (this.nBGMの総再生時間ms))	// #27787 2012.3.10 yyagi 1000ms == FadeIn分の時間
                     {
                         base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
                     }
-                    return (int) E曲読込画面の戻り値.継続;
+                    return (int)E曲読込画面の戻り値.継続;
                 }
 
             case CStage.Eフェーズ.共通_FadeOut:
-                if ( this.ct待機.b終了値に達してない )
+                if (this.ct待機.b終了値に達してない)
                     return (int)E曲読込画面の戻り値.継続;
 
-                return (int) E曲読込画面の戻り値.読込完了;
+                return (int)E曲読込画面の戻り値.読込完了;
         }
-        return (int) E曲読込画面の戻り値.継続;
+        return (int)E曲読込画面の戻り値.継続;
     }
 
     // その他

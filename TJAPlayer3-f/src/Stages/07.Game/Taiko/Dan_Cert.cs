@@ -34,8 +34,8 @@ internal class Dan_Cert : CActivity
 
         for (int i = 0; i < 3; i++)
         {
-            if(Challenge[i]!=null)
-                if(Challenge[i].IsEnable)
+            if (Challenge[i] != null)
+                if (Challenge[i].IsEnable)
                     Challenge[i].SetNowSongNum(number);
         }
         if (Gauge != null)
@@ -60,7 +60,7 @@ internal class Dan_Cert : CActivity
         Gauge = new Dan_C();
         for (int i = 0; i < 3; i++)
         {
-            if(TJAPlayer3.DTX[0].Dan_C[i] != null) Challenge[i] = new Dan_C(TJAPlayer3.DTX[0].Dan_C[i]);
+            if (TJAPlayer3.DTX[0].Dan_C[i] != null) Challenge[i] = new Dan_C(TJAPlayer3.DTX[0].Dan_C[i]);
         }
         if (TJAPlayer3.DTX[0].Dan_C_Gauge != null) Gauge = new Dan_C(TJAPlayer3.DTX[0].Dan_C_Gauge);
         // 始点を決定する。
@@ -152,7 +152,7 @@ internal class Dan_Cert : CActivity
             // 値が変更されていたらアニメーションを行う。
             if (isChangedAmount)
             {
-                if(Status[i].Timer_Amount != null && Status[i].Timer_Amount.b終了値に達してない)
+                if (Status[i].Timer_Amount != null && Status[i].Timer_Amount.b終了値に達してない)
                 {
                     Status[i].Timer_Amount = new CCounter(0, 11, 12, TJAPlayer3.Timer);
                     Status[i].Timer_Amount.n現在の値 = 1;
@@ -242,7 +242,7 @@ internal class Dan_Cert : CActivity
                     }
                 }
             }
-            if(oldReached == false && Challenge[i].GetReached() == true)
+            if (oldReached == false && Challenge[i].GetReached() == true)
             {
                 Sound_Failed?.t再生を開始する();
             }
@@ -562,7 +562,7 @@ internal class Dan_Cert : CActivity
         }
     }
 
-    public void DrawExamV2(Dan_C[] dan_C,Dan_C DanCGauge)
+    public void DrawExamV2(Dan_C[] dan_C, Dan_C DanCGauge)
     {
         if (Gauge != null)
             if (Gauge.IsEnable)
@@ -777,7 +777,7 @@ internal class Dan_Cert : CActivity
     {
         for (int i = 0; i < value.ToString().Length; i++)
         {
-            if(TJAPlayer3.Tx.DanC_Number != null)
+            if (TJAPlayer3.Tx.DanC_Number != null)
             {
                 var number = (int)(value / Math.Pow(10, i) % 10);
                 Rectangle rectangle = new Rectangle(TJAPlayer3.Tx.DanC_Number.szTextureSize.Width / 10 * number, 0, TJAPlayer3.Tx.DanC_Number.szTextureSize.Width / 10, TJAPlayer3.Tx.DanC_Number.szTextureSize.Height);
@@ -851,7 +851,7 @@ internal class Dan_Cert : CActivity
     /// </summary>
     /// <param name="dan_C">条件。</param>
     /// <returns>ExamStatus。</returns>
-    public Exam.Status GetExamStatus(Dan_C[] dan_C,Dan_C Gauge)
+    public Exam.Status GetExamStatus(Dan_C[] dan_C, Dan_C Gauge)
     {
         var status = Exam.Status.Better_Success;
         var count = 0;
@@ -871,7 +871,7 @@ internal class Dan_Cert : CActivity
         {
             if (!dan_C[i].GetCleared(false)) status = Exam.Status.Failure;
         }
-        if(Gauge.IsEnable)
+        if (Gauge.IsEnable)
             if (!Gauge.GetCleared(false))
                 status = Exam.Status.Failure;
         return status;

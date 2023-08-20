@@ -80,7 +80,8 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
         }
     }
 
-    public void Stop() {
+    public void Stop()
+    {
         this.ct進行メイン = null;//nullにすれば、必然的に止まる。
     }
 

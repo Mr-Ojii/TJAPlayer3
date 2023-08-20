@@ -18,7 +18,7 @@ internal class CAct演奏AVI : CActivity
 
     // メソッド
 
-    public void Start( CVideoDecoder rVD )
+    public void Start(CVideoDecoder rVD)
     {
         if (!TJAPlayer3.ConfigToml.Game.Background.Movie)
             return;
@@ -31,7 +31,7 @@ internal class CAct演奏AVI : CActivity
             this.rVD.Start();
         }
     }
-    public void Seek( int ms ) => this.rVD?.Seek(ms);
+    public void Seek(int ms) => this.rVD?.Seek(ms);
 
     public void Stop() => this.rVD?.Stop();
 
@@ -39,7 +39,7 @@ internal class CAct演奏AVI : CActivity
 
     public unsafe int t進行描画()
     {
-        if ( !base.b活性化してない )
+        if (!base.b活性化してない)
         {
             if (this.rVD == null)
                 return 0;
@@ -59,7 +59,7 @@ internal class CAct演奏AVI : CActivity
 
     public void t窓表示()
     {
-        if( this.rVD == null || this.tx描画用 == null || !TJAPlayer3.ConfigToml.Game.Background._ClipDispType.HasFlag(EClipDispType.Window))
+        if (this.rVD == null || this.tx描画用 == null || !TJAPlayer3.ConfigToml.Game.Background._ClipDispType.HasFlag(EClipDispType.Window))
             return;
 
         float[] fRatio = new float[] { 640.0f - 4.0f, 360.0f - 4.0f }; //中央下表示
@@ -79,7 +79,7 @@ internal class CAct演奏AVI : CActivity
     }
     public override void On非活性化()
     {
-        if ( this.tx描画用 != null )
+        if (this.tx描画用 != null)
         {
             this.tx描画用.Dispose();
             this.tx描画用 = null;
@@ -88,7 +88,7 @@ internal class CAct演奏AVI : CActivity
     }
     public override int On進行描画()
     {
-        throw new InvalidOperationException( "t進行描画(int,int)のほうを使用してください。" );
+        throw new InvalidOperationException("t進行描画(int,int)のほうを使用してください。");
     }
 
 

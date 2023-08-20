@@ -12,21 +12,21 @@ public static class CConvert
 {
     // メソッド
 
-    public static double DegreeToRadian( double angle )
+    public static double DegreeToRadian(double angle)
     {
-        return ( ( Math.PI * angle ) / 180.0 );
+        return ((Math.PI * angle) / 180.0);
     }
-    public static double RadianToDegree( double angle )
+    public static double RadianToDegree(double angle)
     {
-        return ( angle * 180.0 / Math.PI );
+        return (angle * 180.0 / Math.PI);
     }
-    public static float DegreeToRadian( float angle )
+    public static float DegreeToRadian(float angle)
     {
-        return (float) DegreeToRadian( (double) angle );
+        return (float)DegreeToRadian((double)angle);
     }
-    public static float RadianToDegree( float angle )
+    public static float RadianToDegree(float angle)
     {
-        return (float) RadianToDegree( (double) angle );
+        return (float)RadianToDegree((double)angle);
     }
 
     /// <summary>

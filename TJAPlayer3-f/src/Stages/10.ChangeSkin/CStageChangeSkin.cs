@@ -26,12 +26,12 @@ internal class CStageChangeSkin : CStage
 
     public override void On活性化()
     {
-        Trace.TraceInformation( "スキン変更ステージを活性化します。" );
+        Trace.TraceInformation("スキン変更ステージを活性化します。");
         Trace.Indent();
         try
         {
             base.On活性化();
-            Trace.TraceInformation( "スキン変更ステージの活性化を完了しました。" );
+            Trace.TraceInformation("スキン変更ステージの活性化を完了しました。");
         }
         finally
         {
@@ -40,12 +40,12 @@ internal class CStageChangeSkin : CStage
     }
     public override void On非活性化()
     {
-        Trace.TraceInformation( "スキン変更ステージを非活性化します。" );
+        Trace.TraceInformation("スキン変更ステージを非活性化します。");
         Trace.Indent();
         try
         {
             base.On非活性化();
-            Trace.TraceInformation( "スキン変更ステージの非活性化を完了しました。" );
+            Trace.TraceInformation("スキン変更ステージの非活性化を完了しました。");
         }
         finally
         {
@@ -54,9 +54,9 @@ internal class CStageChangeSkin : CStage
     }
     public override int On進行描画()
     {
-        if( !base.b活性化してない )
+        if (!base.b活性化してない)
         {
-            if ( base.b初めての進行描画 )
+            if (base.b初めての進行描画)
             {
                 base.b初めての進行描画 = false;
                 return 0;

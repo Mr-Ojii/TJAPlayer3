@@ -10,7 +10,7 @@ namespace FDK;
 
 public unsafe class CFrameConverter : IDisposable
 {
-    public CFrameConverter(Size FrameSize, AVPixelFormat pix_fmt) 
+    public CFrameConverter(Size FrameSize, AVPixelFormat pix_fmt)
     {
         this.FrameSize = FrameSize;
         if (pix_fmt != CVPxfmt)
@@ -33,7 +33,7 @@ public unsafe class CFrameConverter : IDisposable
         ffmpeg.av_image_fill_arrays(ref _dstData, ref _dstLinesize, (byte*)_convertedFrameBufferPtr, CVPxfmt, FrameSize.Width, FrameSize.Height, 1);
     }
 
-    public AVFrame* Convert(AVFrame* framep) 
+    public AVFrame* Convert(AVFrame* framep)
     {
         if (this.IsConvert)
         {
@@ -52,13 +52,13 @@ public unsafe class CFrameConverter : IDisposable
             ffmpeg.av_frame_unref(framep);
             return tmp;
         }
-        else 
+        else
         {
             return framep;
         }
     }
 
-    public void Dispose() 
+    public void Dispose()
     {
         Marshal.FreeHGlobal(_convertedFrameBufferPtr);
         ffmpeg.sws_freeContext(convert_context);

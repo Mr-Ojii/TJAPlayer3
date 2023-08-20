@@ -22,25 +22,25 @@ internal class CActPauseMenu : CActSelectPopupMenu
     {
         this.bEsc有効 = false;
         lci = new List<List<CItemBase>>();									// この画面に来る度に、メニューを作り直す。
-        for ( int nConfSet = 0; nConfSet < 3; nConfSet++ )
+        for (int nConfSet = 0; nConfSet < 3; nConfSet++)
         {
-            lci.Add( new List<CItemBase>() );									// ConfSet用の3つ分の枠。
+            lci.Add(new List<CItemBase>());									// ConfSet用の3つ分の枠。
 
-            lci[ nConfSet ].Add( null );										// Drum/Guitar/Bassで3つ分、枠を作っておく
-            lci[ nConfSet ] = MakeListCItemBase( nConfSet );
+            lci[nConfSet].Add(null);										// Drum/Guitar/Bassで3つ分、枠を作っておく
+            lci[nConfSet] = MakeListCItemBase(nConfSet);
 
         }
-        base.Initialize( lci[ nCurrentConfigSet ], true, QuickCfgTitle, 2 );	// ConfSet=0, nInst=Drums
+        base.Initialize(lci[nCurrentConfigSet], true, QuickCfgTitle, 2);	// ConfSet=0, nInst=Drums
     }
 
-    private List<CItemBase> MakeListCItemBase( int nConfigSet )
+    private List<CItemBase> MakeListCItemBase(int nConfigSet)
     {
         List<CItemBase> l = new List<CItemBase>();
 
         #region [ 共通 SET切り替え/More/Return ]
-        l.Add( new CItemList( "続ける", 0, "", "", new string[] { "" } ) );
-        l.Add( new CItemList( "やり直し", 0, "", "", new string[] { "" } ) );
-        l.Add( new CItemList( "演奏中止", 0, "", "", new string[] { "", "" } ) );
+        l.Add(new CItemList("続ける", 0, "", "", new string[] { "" }));
+        l.Add(new CItemList("やり直し", 0, "", "", new string[] { "" }));
+        l.Add(new CItemList("演奏中止", 0, "", "", new string[] { "", "" }));
         #endregion
 
         return l;
@@ -101,7 +101,7 @@ internal class CActPauseMenu : CActSelectPopupMenu
     {
     }
 
-    public override void tPushedEnterMain( int nSortOrder )
+    public override void tPushedEnterMain(int nSortOrder)
     {
         if (!this.選択完了)
         {

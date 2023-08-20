@@ -11,8 +11,8 @@ internal class CActJudgeString : CActivity
 {
     // プロパティ
 
-    protected STSTATUS[] st状態 = new STSTATUS[ 12 ];
-    [StructLayout( LayoutKind.Sequential )]
+    protected STSTATUS[] st状態 = new STSTATUS[12];
+    [StructLayout(LayoutKind.Sequential)]
     protected struct STSTATUS
     {
         public bool b使用中;
@@ -43,7 +43,7 @@ internal class CActJudgeString : CActivity
 
     // メソッド
 
-    public void Start( EJudge judge, int lag, CDTX.CChip pChip, int player )
+    public void Start(EJudge judge, int lag, CDTX.CChip pChip, int player)
     {
         // When performing calibration, reduce visual distraction
         // and current judgment feedback near the judgment position.
@@ -52,7 +52,7 @@ internal class CActJudgeString : CActivity
             return;
         }
 
-        if( pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x19 )
+        if (pChip.nチャンネル番号 >= 0x15 && pChip.nチャンネル番号 <= 0x19)
         {
             return;
         }
@@ -85,18 +85,18 @@ internal class CActJudgeString : CActivity
 
     public override void On活性化()
     {
-        for( int i = 0; i < 12; i++ )
+        for (int i = 0; i < 12; i++)
         {
-            this.st状態[ i ].ct進行 = new CCounter();
-            this.st状態[ i ].b使用中 = false;
+            this.st状態[i].ct進行 = new CCounter();
+            this.st状態[i].b使用中 = false;
         }
         base.On活性化();
     }
     public override void On非活性化()
     {
-        for( int i = 0; i < 12; i++ )
+        for (int i = 0; i < 12; i++)
         {
-            this.st状態[ i ].ct進行 = null;
+            this.st状態[i].ct進行 = null;
         }
         base.On非活性化();
     }

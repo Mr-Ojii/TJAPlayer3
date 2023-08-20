@@ -36,12 +36,12 @@ public enum EGame
 }
 public enum EPad			// 演奏用のenum。ここを修正するときは、次に出てくる EKeyConfigPad と EPadFlag もセットで修正すること。
 {
-    LRed    = 0,
-    RRed    = 1,
-    LBlue   = 2,
-    RBlue   = 3,
-    LRed2P  = 4,
-    RRed2P  = 5,
+    LRed = 0,
+    RRed = 1,
+    LBlue = 2,
+    RBlue = 3,
+    LRed2P = 4,
+    RRed2P = 5,
     LBlue2P = 6,
     RBlue2P = 7,
     MAX,			// 門番用として定義
@@ -49,12 +49,12 @@ public enum EPad			// 演奏用のenum。ここを修正するときは、次に
 }
 public enum EKeyConfigPad		// #24609 キーコンフィグで使うenum。capture要素あり。
 {
-    LRed    = EPad.LRed,
-    RRed    = EPad.RRed,
-    LBlue   = EPad.LBlue,
-    RBlue   = EPad.RBlue,
-    LRed2P  = EPad.LRed2P,
-    RRed2P  = EPad.RRed2P,
+    LRed = EPad.LRed,
+    RRed = EPad.RRed,
+    LBlue = EPad.LBlue,
+    RBlue = EPad.RBlue,
+    LRed2P = EPad.LRed2P,
+    RRed2P = EPad.RRed2P,
     LBlue2P = EPad.LBlue2P,
     RBlue2P = EPad.RBlue2P,
     Capture,
@@ -72,11 +72,11 @@ public enum ERandomMode
 }
 internal enum EInputDevice
 {
-    KeyBoard		= 0,
-    MIDIInput		= 1,
-    Joypad			= 2,
-    Mouse			= 3,
-    Unknown			= -1
+    KeyBoard = 0,
+    MIDIInput = 1,
+    Joypad = 2,
+    Mouse = 3,
+    Unknown = -1
 }
 public enum EJudge
 {

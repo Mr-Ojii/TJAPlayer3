@@ -27,13 +27,13 @@ internal class CAct演奏ゲージ共通 : CActivity
 
     public override void On活性化()
     {
-        this.ct炎 = new CCounter( 0, 6, 50, TJAPlayer3.Timer );
+        this.ct炎 = new CCounter(0, 6, 50, TJAPlayer3.Timer);
 
-        if(TJAPlayer3.Skin.SkinConfig.Game.Gauge.RainbowTimer <= 1)
+        if (TJAPlayer3.Skin.SkinConfig.Game.Gauge.RainbowTimer <= 1)
         {
             throw new DivideByZeroException("SkinConfigの設定\"Game.Gauge.RainbowTimer\"を1以下にすることは出来ません。");
         }
-        this.ct虹アニメ = new CCounter( 0, TJAPlayer3.Skin.Game_Gauge_Rainbow_Ptn - 1, TJAPlayer3.Skin.SkinConfig.Game.Gauge.RainbowTimer, TJAPlayer3.Timer );
+        this.ct虹アニメ = new CCounter(0, TJAPlayer3.Skin.Game_Gauge_Rainbow_Ptn - 1, TJAPlayer3.Skin.SkinConfig.Game.Gauge.RainbowTimer, TJAPlayer3.Timer);
         this.ct虹透明度 = new CCounter(0, TJAPlayer3.Skin.SkinConfig.Game.Gauge.RainbowTimer - 1, 1, TJAPlayer3.Timer);
         base.On活性化();
     }
@@ -46,22 +46,22 @@ internal class CAct演奏ゲージ共通 : CActivity
 
     public override int On進行描画()
     {
-        if ( !base.b活性化してない )
+        if (!base.b活性化してない)
         {
             //CDTXMania.act文字コンソール.tPrint( 20, 150, C文字コンソール.EFontType.白, this.db現在のゲージ値.Taiko.ToString() );
 
             #region [ 初めての進行描画 ]
-            if ( base.b初めての進行描画 )
+            if (base.b初めての進行描画)
             {
                 base.b初めての進行描画 = false;
             }
             #endregion
 
 
-            int nRectX = (int)( this.db現在のゲージ値[ 0 ] / 2 ) * 14;
-            int nRectX2P = (int)( this.db現在のゲージ値[ 1 ] / 2 ) * 14;
+            int nRectX = (int)(this.db現在のゲージ値[0] / 2) * 14;
+            int nRectX2P = (int)(this.db現在のゲージ値[1] / 2) * 14;
             int 虹ベース = ct虹アニメ.n現在の値 + 1;
-            if (虹ベース == ct虹アニメ.n終了値+1) 虹ベース = 0;
+            if (虹ベース == ct虹アニメ.n終了値 + 1) 虹ベース = 0;
             /*
 
             新虹ゲージの仕様  2018/08/10 ろみゅ～？
@@ -127,7 +127,8 @@ internal class CAct演奏ゲージ共通 : CActivity
                     #endregion
                 }
             }
-            else {
+            else
+            {
 
                 if (TJAPlayer3.Tx.Gauge_Danc != null)
                 {
@@ -153,10 +154,10 @@ internal class CAct演奏ゲージ共通 : CActivity
             }
             #endregion
             #region[ ゲージ2P ]
-            if( TJAPlayer3.stage演奏ドラム画面.bDoublePlay && TJAPlayer3.Tx.Gauge[1] != null )
+            if (TJAPlayer3.stage演奏ドラム画面.bDoublePlay && TJAPlayer3.Tx.Gauge[1] != null)
             {
-                TJAPlayer3.Tx.Gauge[1].t2D描画( TJAPlayer3.app.Device, 492, 532, new Rectangle( 0, 0, nRectX2P, 44 ) );
-                if(TJAPlayer3.Tx.Gauge[1] != null )
+                TJAPlayer3.Tx.Gauge[1].t2D描画(TJAPlayer3.app.Device, 492, 532, new Rectangle(0, 0, nRectX2P, 44));
+                if (TJAPlayer3.Tx.Gauge[1] != null)
                 {
                     if (this.db現在のゲージ値[1] >= 100.0)
                     {
@@ -170,48 +171,48 @@ internal class CAct演奏ゲージ共通 : CActivity
                             TJAPlayer3.Tx.Gauge_Rainbow[虹ベース].t2D上下反転描画(TJAPlayer3.app.Device, 492, 532);
                         }
                     }
-                    TJAPlayer3.Tx.Gauge_Line[1].t2D描画( TJAPlayer3.app.Device, 492, 532 );
+                    TJAPlayer3.Tx.Gauge_Line[1].t2D描画(TJAPlayer3.app.Device, 492, 532);
                 }
                 #region[ 「クリア」文字 ]
-                if( this.db現在のゲージ値[ 1 ] >= 80.0 )
+                if (this.db現在のゲージ値[1] >= 80.0)
                 {
-                    TJAPlayer3.Tx.Gauge[1].t2D描画( TJAPlayer3.app.Device, 1038, 554, new Rectangle( 0, 44, 58, 24 ) );
+                    TJAPlayer3.Tx.Gauge[1].t2D描画(TJAPlayer3.app.Device, 1038, 554, new Rectangle(0, 44, 58, 24));
                 }
                 else
                 {
-                    TJAPlayer3.Tx.Gauge[1].t2D描画( TJAPlayer3.app.Device, 1038, 554, new Rectangle( 58, 44, 58, 24 ) );
+                    TJAPlayer3.Tx.Gauge[1].t2D描画(TJAPlayer3.app.Device, 1038, 554, new Rectangle(58, 44, 58, 24));
                 }
                 #endregion
             }
             #endregion
 
 
-            if(TJAPlayer3.Tx.Gauge_Soul_Fire != null )
+            if (TJAPlayer3.Tx.Gauge_Soul_Fire != null)
             {
                 //仮置き
                 int[] nSoulFire = new int[] { 52, 443, 0, 0 };
-                for( int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++ )
+                for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
                 {
-                    if( this.db現在のゲージ値[ i ] >= 100.0 )
+                    if (this.db現在のゲージ値[i] >= 100.0)
                     {
                         this.ct炎.t進行Loop();
-                        TJAPlayer3.Tx.Gauge_Soul_Fire.t2D描画( TJAPlayer3.app.Device, 1112, nSoulFire[ i ], new Rectangle( 230 * ( this.ct炎.n現在の値 ), 0, 230, 230 ) );
+                        TJAPlayer3.Tx.Gauge_Soul_Fire.t2D描画(TJAPlayer3.app.Device, 1112, nSoulFire[i], new Rectangle(230 * (this.ct炎.n現在の値), 0, 230, 230));
                     }
                 }
             }
-            if(TJAPlayer3.Tx.Gauge_Soul != null )
+            if (TJAPlayer3.Tx.Gauge_Soul != null)
             {
                 //仮置き
                 int[] nSoulY = new int[] { 125, 516, 0, 0 };
-                for( int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++ )
+                for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
                 {
-                    if( this.db現在のゲージ値[ i ] >= 80.0 )
+                    if (this.db現在のゲージ値[i] >= 80.0)
                     {
-                        TJAPlayer3.Tx.Gauge_Soul.t2D描画( TJAPlayer3.app.Device, 1184, nSoulY[ i ], new Rectangle( 0, 0, 80, 80 ) );
+                        TJAPlayer3.Tx.Gauge_Soul.t2D描画(TJAPlayer3.app.Device, 1184, nSoulY[i], new Rectangle(0, 0, 80, 80));
                     }
                     else
                     {
-                        TJAPlayer3.Tx.Gauge_Soul.t2D描画( TJAPlayer3.app.Device, 1184, nSoulY[ i ], new Rectangle( 0, 80, 80, 80 ) );
+                        TJAPlayer3.Tx.Gauge_Soul.t2D描画(TJAPlayer3.app.Device, 1184, nSoulY[i], new Rectangle(0, 80, 80, 80));
                     }
                 }
             }
@@ -221,7 +222,7 @@ internal class CAct演奏ゲージ共通 : CActivity
     }
 
     const double GAUGE_MAX = 100.0;
-    const double GAUGE_INITIAL =  2.0 / 3;
+    const double GAUGE_INITIAL = 2.0 / 3;
     const double GAUGE_MIN = -0.1;
     const double GAUGE_ZERO = 0.0;
     const double GAUGE_DANGER = 0.3;
@@ -241,56 +242,59 @@ internal class CAct演奏ゲージ共通 : CActivity
         get;
         private set;
     }
-    public bool IsFailed( int nPlayer )	// 閉店状態になったかどうか
+    public bool IsFailed(int nPlayer)	// 閉店状態になったかどうか
     {
-        if ( bRisky ) {
-            return ( nRiskyTimes <= 0 );
-        }
-        return this.db現在のゲージ値[ nPlayer ] <= GAUGE_MIN;
-    }
-    public bool IsDanger( int nPlayer )	// DANGERかどうか
-    {
-        if ( bRisky )
+        if (bRisky)
         {
-            switch ( nRiskyTimes_Initial ) {
+            return (nRiskyTimes <= 0);
+        }
+        return this.db現在のゲージ値[nPlayer] <= GAUGE_MIN;
+    }
+    public bool IsDanger(int nPlayer)	// DANGERかどうか
+    {
+        if (bRisky)
+        {
+            switch (nRiskyTimes_Initial)
+            {
                 case 1:
                     return false;
                 case 2:
                 case 3:
-                    return ( nRiskyTimes <= 1 );
+                    return (nRiskyTimes <= 1);
                 default:
-                    return ( nRiskyTimes <= 2 );
+                    return (nRiskyTimes <= 2);
             }
         }
-        return ( this.db現在のゲージ値[ nPlayer ] <= GAUGE_DANGER );
+        return (this.db現在のゲージ値[nPlayer] <= GAUGE_DANGER);
     }
 
     /// <summary>
     /// ゲージの初期化
     /// </summary>
     /// <param name="nRiskyTimes_Initial_">Riskyの初期値(0でRisky未使用)</param>
-    public void Init(int nRiskyTimes_InitialVal )		// ゲージ初期化
+    public void Init(int nRiskyTimes_InitialVal)		// ゲージ初期化
     {
         //ダメージ値の計算は太鼓の達人譜面Wikiのものを参考にしました。
 
-        for ( int i = 0; i < 4; i++ )
+        for (int i = 0; i < 4; i++)
         {
-            this.db現在のゲージ値[ i ] = 0;
+            this.db現在のゲージ値[i] = 0;
         }
 
         //ゲージのMAXまでの最低コンボ数を計算
-        float[] dbGaugeMaxComboValue = new float[2] { 0 , 0};
-        float[,] dbGaugeMaxComboValue_branch = new float[2,3];
+        float[] dbGaugeMaxComboValue = new float[2] { 0, 0 };
+        float[,] dbGaugeMaxComboValue_branch = new float[2, 3];
         float[] dbDamageRate = new float[2] { 2.0f, 2.0f };
 
-        if( nRiskyTimes_InitialVal > 0 )
+        if (nRiskyTimes_InitialVal > 0)
         {
             this.bRisky = true;
             this.nRiskyTimes = TJAPlayer3.ConfigToml.PlayOption.Risky;
             this.nRiskyTimes_Initial = TJAPlayer3.ConfigToml.PlayOption.Risky;
         }
 
-        for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++) {
+        for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++)
+        {
             switch (TJAPlayer3.DTX[nPlayer].LEVELtaiko[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]])
             {
                 case 1:
@@ -306,7 +310,7 @@ internal class CAct演奏ゲージ共通 : CActivity
                             dbGaugeMaxComboValue[nPlayer] = TJAPlayer3.DTX[nPlayer].nノーツ数[3] * (this.fGaugeMaxRate[0] / 100.0f);
                             for (int i = 0; i < 3; i++)
                             {
-                                dbGaugeMaxComboValue_branch[nPlayer,i] = TJAPlayer3.DTX[nPlayer].nノーツ数_Branch[i] * (this.fGaugeMaxRate[0] / 100.0f);
+                                dbGaugeMaxComboValue_branch[nPlayer, i] = TJAPlayer3.DTX[nPlayer].nノーツ数_Branch[i] * (this.fGaugeMaxRate[0] / 100.0f);
                             }
                             dbDamageRate[nPlayer] = 1.6f;
                         }
@@ -326,7 +330,7 @@ internal class CAct演奏ゲージ共通 : CActivity
                             dbGaugeMaxComboValue[nPlayer] = TJAPlayer3.DTX[nPlayer].nノーツ数[3] * (this.fGaugeMaxRate[1] / 100.0f);
                             for (int i = 0; i < 3; i++)
                             {
-                                dbGaugeMaxComboValue_branch[nPlayer,i] = TJAPlayer3.DTX[nPlayer].nノーツ数_Branch[i] * (this.fGaugeMaxRate[1] / 100.0f);
+                                dbGaugeMaxComboValue_branch[nPlayer, i] = TJAPlayer3.DTX[nPlayer].nノーツ数_Branch[i] * (this.fGaugeMaxRate[1] / 100.0f);
                             }
                         }
                         else
@@ -344,7 +348,7 @@ internal class CAct演奏ゲージ共通 : CActivity
                             dbGaugeMaxComboValue[nPlayer] = TJAPlayer3.DTX[nPlayer].nノーツ数[3] * (this.fGaugeMaxRate[2] / 100.0f);
                             for (int i = 0; i < 3; i++)
                             {
-                                dbGaugeMaxComboValue_branch[nPlayer,i] = TJAPlayer3.DTX[nPlayer].nノーツ数_Branch[i] * (this.fGaugeMaxRate[2] / 100.0f);
+                                dbGaugeMaxComboValue_branch[nPlayer, i] = TJAPlayer3.DTX[nPlayer].nノーツ数_Branch[i] * (this.fGaugeMaxRate[2] / 100.0f);
                             }
                         }
                         else
@@ -361,7 +365,7 @@ internal class CAct演奏ゲージ共通 : CActivity
                             dbGaugeMaxComboValue[nPlayer] = TJAPlayer3.DTX[nPlayer].nノーツ数[3] * (this.fGaugeMaxRate[2] / 100.0f);
                             for (int i = 0; i < 3; i++)
                             {
-                                dbGaugeMaxComboValue_branch[nPlayer,i] = TJAPlayer3.DTX[nPlayer].nノーツ数_Branch[i] * (this.fGaugeMaxRate[2] / 100.0f);
+                                dbGaugeMaxComboValue_branch[nPlayer, i] = TJAPlayer3.DTX[nPlayer].nノーツ数_Branch[i] * (this.fGaugeMaxRate[2] / 100.0f);
                             }
                         }
                         else
@@ -374,7 +378,7 @@ internal class CAct演奏ゲージ共通 : CActivity
         }
 
         double[] nGaugeRankValue = new double[2] { 0D, 0D };
-        double[,] nGaugeRankValue_branch = new double[,] { { 0D, 0D, 0D } , { 0D, 0D, 0D } };
+        double[,] nGaugeRankValue_branch = new double[,] { { 0D, 0D, 0D }, { 0D, 0D, 0D } };
         for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++)
         {
             if (TJAPlayer3.DTX[nPlayer].GaugeIncreaseMode == GaugeIncreaseMode.Normal)
@@ -382,7 +386,7 @@ internal class CAct演奏ゲージ共通 : CActivity
                 nGaugeRankValue[nPlayer] = Math.Floor(10000.0f / dbGaugeMaxComboValue[nPlayer]);
                 for (int i = 0; i < 3; i++)
                 {
-                    nGaugeRankValue_branch[nPlayer,i] = Math.Floor(10000.0f / dbGaugeMaxComboValue_branch[nPlayer,i]);
+                    nGaugeRankValue_branch[nPlayer, i] = Math.Floor(10000.0f / dbGaugeMaxComboValue_branch[nPlayer, i]);
                 }
             }
             else
@@ -390,7 +394,7 @@ internal class CAct演奏ゲージ共通 : CActivity
                 nGaugeRankValue[nPlayer] = 10000.0f / dbGaugeMaxComboValue[nPlayer];
                 for (int i = 0; i < 3; i++)
                 {
-                    nGaugeRankValue_branch[nPlayer,i] = 10000.0f / dbGaugeMaxComboValue_branch[nPlayer,i];
+                    nGaugeRankValue_branch[nPlayer, i] = 10000.0f / dbGaugeMaxComboValue_branch[nPlayer, i];
                 }
             }
         }
@@ -410,10 +414,10 @@ internal class CAct演奏ゲージ共通 : CActivity
             {
                 for (int l = 0; l < 3; l++)
                 {
-                    if (!double.IsInfinity(nGaugeRankValue_branch[nPlayer,i] / 100.0f))//値がInfintyかチェック
+                    if (!double.IsInfinity(nGaugeRankValue_branch[nPlayer, i] / 100.0f))//値がInfintyかチェック
                     {
-                        fIsDontInfinty = (float)(nGaugeRankValue_branch[nPlayer,i] / 100.0f);
-                        this.dbゲージ増加量_Branch[nPlayer, i, l] = fIsDontInfinty * fAddVolume[nPlayer,l];
+                        fIsDontInfinty = (float)(nGaugeRankValue_branch[nPlayer, i] / 100.0f);
+                        this.dbゲージ増加量_Branch[nPlayer, i, l] = fIsDontInfinty * fAddVolume[nPlayer, l];
                     }
                 }
             }
@@ -421,10 +425,10 @@ internal class CAct演奏ゲージ共通 : CActivity
             {
                 for (int l = 0; l < 3; l++)
                 {
-                    if (double.IsInfinity(nGaugeRankValue_branch[nPlayer,i] / 100.0f))//値がInfintyかチェック
+                    if (double.IsInfinity(nGaugeRankValue_branch[nPlayer, i] / 100.0f))//値がInfintyかチェック
                     {
                         //Infintyだった場合はInfintyではない値 * 3.0をしてその値を利用する。
-                        this.dbゲージ増加量_Branch[nPlayer, i, l] = (fIsDontInfinty * fAddVolume[nPlayer,l]) * 3f;
+                        this.dbゲージ増加量_Branch[nPlayer, i, l] = (fIsDontInfinty * fAddVolume[nPlayer, l]) * 3f;
                     }
                 }
             }
@@ -434,9 +438,9 @@ internal class CAct演奏ゲージ共通 : CActivity
 
         for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++)
         {
-            this.dbゲージ増加量[nPlayer,0] = (float)nGaugeRankValue[nPlayer] / 100.0f;
-            this.dbゲージ増加量[nPlayer,1] = (float)(nGaugeRankValue[nPlayer] / 100.0f) * 0.5f;
-            this.dbゲージ増加量[nPlayer,2] = (float)(nGaugeRankValue[nPlayer] / 100.0f) * dbDamageRate[nPlayer];
+            this.dbゲージ増加量[nPlayer, 0] = (float)nGaugeRankValue[nPlayer] / 100.0f;
+            this.dbゲージ増加量[nPlayer, 1] = (float)(nGaugeRankValue[nPlayer] / 100.0f) * 0.5f;
+            this.dbゲージ増加量[nPlayer, 2] = (float)(nGaugeRankValue[nPlayer] / 100.0f) * dbDamageRate[nPlayer];
         }
         //2015.03.26 kairera0467 計算を初期化時にするよう修正。
 
@@ -521,7 +525,7 @@ internal class CAct演奏ゲージ共通 : CActivity
     public float[,] dbゲージ増加量 = new float[2, 3];
 
     //譜面レベル, 判定
-    public float[,,] dbゲージ増加量_Branch = new float[2 , 3, 3];
+    public float[,,] dbゲージ増加量_Branch = new float[2, 3, 3];
 
 
     public float[] fGaugeMaxRate =
@@ -541,45 +545,45 @@ internal class CAct演奏ゲージ共通 : CActivity
         var nコース = nHitCourse;
 
 
-        switch ( e今回の判定 )
+        switch (e今回の判定)
         {
             case EJudge.Perfect:
                 {
-                    if( TJAPlayer3.DTX[nPlayer].bHasBranchChip )
+                    if (TJAPlayer3.DTX[nPlayer].bHasBranchChip)
                     {
-                        fDamage = this.dbゲージ増加量_Branch[nPlayer, nコース, 0 ];
+                        fDamage = this.dbゲージ増加量_Branch[nPlayer, nコース, 0];
                     }
                     else
-                        fDamage = this.dbゲージ増加量[nPlayer, 0 ];
+                        fDamage = this.dbゲージ増加量[nPlayer, 0];
                 }
                 break;
             case EJudge.Good:
                 {
-                    if( TJAPlayer3.DTX[nPlayer].bHasBranchChip )
+                    if (TJAPlayer3.DTX[nPlayer].bHasBranchChip)
                     {
-                        fDamage = this.dbゲージ増加量_Branch[nPlayer, nコース, 1 ];
+                        fDamage = this.dbゲージ増加量_Branch[nPlayer, nコース, 1];
                     }
                     else
-                        fDamage = this.dbゲージ増加量[nPlayer, 1 ];
+                        fDamage = this.dbゲージ増加量[nPlayer, 1];
                 }
                 break;
             case EJudge.Bad:
             case EJudge.Miss:
                 {
-                    if( TJAPlayer3.DTX[nPlayer].bHasBranchChip )
+                    if (TJAPlayer3.DTX[nPlayer].bHasBranchChip)
                     {
-                        fDamage = this.dbゲージ増加量_Branch[nPlayer, nコース, 2 ];
+                        fDamage = this.dbゲージ増加量_Branch[nPlayer, nコース, 2];
                     }
                     else
-                        fDamage = this.dbゲージ増加量[nPlayer, 2 ];
+                        fDamage = this.dbゲージ増加量[nPlayer, 2];
 
 
-                    if( fDamage >= 0 )
+                    if (fDamage >= 0)
                     {
                         fDamage = -fDamage;
                     }
 
-                    if( this.bRisky )
+                    if (this.bRisky)
                     {
                         this.nRiskyTimes--;
                     }
@@ -589,14 +593,14 @@ internal class CAct演奏ゲージ共通 : CActivity
 
             default:
                 {
-                    if( nPlayer == 0 ? TJAPlayer3.ConfigToml.PlayOption.AutoPlay[0] : TJAPlayer3.ConfigToml.PlayOption.AutoPlay[1] )
+                    if (nPlayer == 0 ? TJAPlayer3.ConfigToml.PlayOption.AutoPlay[0] : TJAPlayer3.ConfigToml.PlayOption.AutoPlay[1])
                     {
-                        if( TJAPlayer3.DTX[nPlayer].bHasBranchChip )
+                        if (TJAPlayer3.DTX[nPlayer].bHasBranchChip)
                         {
-                            fDamage = this.dbゲージ増加量_Branch[nPlayer, nコース, 0 ];
+                            fDamage = this.dbゲージ増加量_Branch[nPlayer, nコース, 0];
                         }
                         else
-                            fDamage = this.dbゲージ増加量[nPlayer, 0 ];
+                            fDamage = this.dbゲージ増加量[nPlayer, 0];
                     }
                     else
                         fDamage = 0;
@@ -605,7 +609,7 @@ internal class CAct演奏ゲージ共通 : CActivity
         }
 
 
-        this.db現在のゲージ値[ nPlayer ] = Math.Round(this.db現在のゲージ値[ nPlayer ] + fDamage, 5, MidpointRounding.ToEven);
+        this.db現在のゲージ値[nPlayer] = Math.Round(this.db現在のゲージ値[nPlayer] + fDamage, 5, MidpointRounding.ToEven);
 
         if (this.db現在のゲージ値[nPlayer] >= 100.0)
             this.db現在のゲージ値[nPlayer] = 100.0;
@@ -617,7 +621,7 @@ internal class CAct演奏ゲージ共通 : CActivity
     //-----------------
     #endregion
 
-    public double[] db現在のゲージ値 { get; private set; } = new double[ 4 ];
+    public double[] db現在のゲージ値 { get; private set; } = new double[4];
     private CCounter ct炎;
     private CCounter ct虹アニメ;
     private CCounter ct虹透明度;

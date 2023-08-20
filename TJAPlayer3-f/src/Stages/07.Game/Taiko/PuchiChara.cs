@@ -29,7 +29,7 @@ class PuchiChara : CActivity
         SineCounter = null;
         base.On非活性化();
     }
-    
+
     public void ChangeBPM(double bpm)
     {
         int n値 = Counter.n現在の値;
@@ -43,7 +43,7 @@ class PuchiChara : CActivity
         SineCounter.t時間Resetdb();
     }
 
-    public void InitializeBPM(double bpm) 
+    public void InitializeBPM(double bpm)
     {
         Counter = new CCounter(0, TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Ptn - 1, (int)(TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Timer * bpm / TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Ptn), TJAPlayer3.Timer);
 

@@ -20,7 +20,7 @@ internal class CActDancer : CActivity
     public override void On活性化()
     {
         this.ar踊り子モーション番号 = TJAPlayer3.Skin.SkinConfig.Game.Dancer.Motion;
-        if(this.ar踊り子モーション番号 == null) ar踊り子モーション番号 = new int[] { 0, 0 };
+        if (this.ar踊り子モーション番号 == null) ar踊り子モーション番号 = new int[] { 0, 0 };
         this.ct踊り子モーション = new CCounter(0, this.ar踊り子モーション番号.Length - 1, 0.01, CSoundManager.rc演奏用タイマ);
         base.On活性化();
     }
@@ -33,7 +33,7 @@ internal class CActDancer : CActivity
 
     public override int On進行描画()
     {
-        if( this.b初めての進行描画 )
+        if (this.b初めての進行描画)
         {
             this.b初めての進行描画 = false;
         }

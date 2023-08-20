@@ -19,10 +19,10 @@ internal class CBoxDef
 
     // コンストラクタ
 
-    public CBoxDef( string boxdefFileName )
+    public CBoxDef(string boxdefFileName)
     {
         string[] strs = CJudgeTextEncoding.ReadTextFile(boxdefFileName).Split("\n", StringSplitOptions.RemoveEmptyEntries);
-        foreach(var stri in strs)
+        foreach (var stri in strs)
         {
             var str = stri.TrimStart(' ', '\t');
 

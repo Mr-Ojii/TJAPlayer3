@@ -13,7 +13,7 @@ internal class Cスコア
 
     public STFileInfo FileInfo;
     [Serializable]
-    [StructLayout( LayoutKind.Sequential )]
+    [StructLayout(LayoutKind.Sequential)]
     public struct STFileInfo
     {
         public string FileAbsolutePath;
@@ -21,7 +21,7 @@ internal class Cスコア
         public DateTime LastWriteTime;
         public long FileSize;
 
-        public STFileInfo( string FileAbsolutePath, string DirAbsolutePath, DateTime LastWriteTime, long FileSize )
+        public STFileInfo(string FileAbsolutePath, string DirAbsolutePath, DateTime LastWriteTime, long FileSize)
         {
             this.FileAbsolutePath = FileAbsolutePath;
             this.DirAbsolutePath = DirAbsolutePath;
@@ -32,7 +32,7 @@ internal class Cスコア
 
     public ST譜面情報 譜面情報;
     [Serializable]
-    [StructLayout( LayoutKind.Sequential )]
+    [StructLayout(LayoutKind.Sequential)]
     public struct ST譜面情報
     {
         public string Title;
@@ -57,7 +57,7 @@ internal class Cスコア
 
     public Cスコア()
     {
-        this.FileInfo = new STFileInfo( "", "", DateTime.MinValue, 0L );
+        this.FileInfo = new STFileInfo("", "", DateTime.MinValue, 0L);
         this.譜面情報 = new ST譜面情報();
         this.譜面情報.Title = "";
         this.譜面情報.SubTitle = "";
@@ -71,9 +71,9 @@ internal class Cスコア
         this.譜面情報.b譜面分岐 = new bool[(int)Difficulty.Total];
         this.譜面情報.bPapaMamaSupport = new bool[(int)Difficulty.Total];
         this.譜面情報.b歌詞あり = false;
-        this.譜面情報.nHiScore = new int[(int)Difficulty.Total][] { new int[]{ 0, 0, 0 }, new int[]{ 0, 0, 0 }, new int[]{ 0, 0, 0 }, new int[]{ 0, 0, 0 }, new int[]{ 0, 0, 0 }, new int[]{ 0, 0, 0 }, new int[]{ 0, 0, 0 } };
+        this.譜面情報.nHiScore = new int[(int)Difficulty.Total][] { new int[] { 0, 0, 0 }, new int[] { 0, 0, 0 }, new int[] { 0, 0, 0 }, new int[] { 0, 0, 0 }, new int[] { 0, 0, 0 }, new int[] { 0, 0, 0 }, new int[] { 0, 0, 0 } };
         this.譜面情報.strHiScorerName = new string[(int)Difficulty.Total][] { new string[] { "", "", "" }, new string[] { "", "", "" }, new string[] { "", "", "" }, new string[] { "", "", "" }, new string[] { "", "", "" }, new string[] { "", "", "" }, new string[] { "", "", "" } };
         this.譜面情報.nCrown = new int[(int)Difficulty.Total];
-        this.譜面情報.Level = new int[(int)Difficulty.Total] { -1, -1, -1, -1, -1, -1, -1};
+        this.譜面情報.Level = new int[(int)Difficulty.Total] { -1, -1, -1, -1, -1, -1, -1 };
     }
 }

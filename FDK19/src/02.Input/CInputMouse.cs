@@ -71,7 +71,7 @@ public class CInputMouse : IInputDevice, IDisposable
                 }
             }
             //-----------------------------
-            
+
         }
     }
 
@@ -90,7 +90,7 @@ public class CInputMouse : IInputDevice, IDisposable
             this.btmpMousePushDown[i] = false;
             this.btmpMousePullUp[i] = false;
         }
-        while(this.listEventBuffer.TryDequeue(out var InputEvent))
+        while (this.listEventBuffer.TryDequeue(out var InputEvent))
             this.listInputEvents.Add(InputEvent);
     }
 
@@ -143,7 +143,7 @@ public class CInputMouse : IInputDevice, IDisposable
     private bool[] btmpMouseState = new bool[Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length];
     public ConcurrentQueue<STInputEvent> listEventBuffer;
 
-    private uint[] masklist = new uint[] 
+    private uint[] masklist = new uint[]
     {
         SDL.SDL_BUTTON_LMASK,
         SDL.SDL_BUTTON_MMASK,

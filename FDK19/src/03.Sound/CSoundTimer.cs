@@ -13,7 +13,7 @@ public class CSoundTimer : CTimerBase
     {
         get
         {
-            if(this.Device.eOutputDevice == ESoundDeviceType.Unknown)
+            if (this.Device.eOutputDevice == ESoundDeviceType.Unknown)
                 return CTimerBase.nUnused;
 
             // BASS 系の ISoundDevice.nElapsedTimems はオーディオバッファの更新間隔ずつでしか更新されないため、単にこれを返すだけではとびとびの値になる。
@@ -81,7 +81,7 @@ public class CSoundTimer : CTimerBase
             Trace.TraceInformation("FDK: CSoundTimer.SnapTimers(): 例外発生しましたが、継続します。");
         }
     }
-    public long nサウンドタイマーのシステム時刻msへの変換( long nDInputのタイムスタンプ )
+    public long nサウンドタイマーのシステム時刻msへの変換(long nDInputのタイムスタンプ)
     {
         return nDInputのタイムスタンプ - this.nDInputTimerCounter + this.nSoundTimerCounter;	// Timer違いによる時差を補正する
     }
@@ -91,15 +91,15 @@ public class CSoundTimer : CTimerBase
         // 特になし； ISoundDevice の解放は呼び出し元で行うこと。
 
         //sendinputスレッド削除
-        if ( timer != null )
+        if (timer != null)
         {
-            timer.Change( System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite );
+            timer.Change(System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
             // ここで、実際にtimerが停止したことを確認するコードを追加すべきだが、やり方わからず。
             // 代替策として、SnapTimers()中で、例外発生を破棄している。
             timer.Dispose();
             timer = null;
         }
-        if ( ct != null )
+        if (ct != null)
         {
             ct.t一時停止();
             ct.Dispose();

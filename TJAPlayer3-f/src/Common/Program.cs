@@ -63,7 +63,7 @@ internal class Program
 
             var OSPlatformDirName = AppContext.BaseDirectory + @"Libs/" + osplatform + "/";
 
-            if(Directory.Exists(OSPlatformDirName))
+            if (Directory.Exists(OSPlatformDirName))
             {
                 DirectoryInfo info = new DirectoryInfo(OSPlatformDirName);
 
@@ -76,7 +76,7 @@ internal class Program
 
             var PlatformDirName = AppContext.BaseDirectory + @"Libs/" + osplatform + "-" + platform + "/";
 
-            if(Directory.Exists(PlatformDirName))
+            if (Directory.Exists(PlatformDirName))
             {
                 DirectoryInfo info = new DirectoryInfo(PlatformDirName);
 
@@ -130,7 +130,7 @@ internal class Program
                     { "FrameworkDescription",RuntimeInformation.FrameworkDescription },
                     { "ProcessArchitecture",RuntimeInformation.ProcessArchitecture.ToString() }
                 };
-                
+
                 //エラーが発生したことをユーザーに知らせるため、HTMLを作成する。
                 using (StreamWriter writer = new StreamWriter(AppContext.BaseDirectory + "Error.html", false, Encoding.UTF8))
                 {
@@ -153,7 +153,7 @@ internal class Program
                     writer.WriteLine("<table>");
                     writer.WriteLine("<tbody>");
                     writer.Write("<tr>");
-                    foreach (KeyValuePair<string, string> keyValuePair in errorjsonobject) 
+                    foreach (KeyValuePair<string, string> keyValuePair in errorjsonobject)
                     {
                         writer.Write($"<th>{keyValuePair.Key}</th>");
                     }
@@ -188,18 +188,18 @@ internal class Program
             mutex.ReleaseMutex();
             mutex = null;
         }
-        else 
+        else
         {
             string msg = $"TJAPlayer3-f(Ver.{Assembly.GetExecutingAssembly().GetName().Version}) is already running.";
-            if(SDL.SDL_ShowSimpleMessageBox(SDL.SDL_MessageBoxFlags.SDL_MESSAGEBOX_WARNING, "TJAPlayer3-f", msg, 0) != 0)
+            if (SDL.SDL_ShowSimpleMessageBox(SDL.SDL_MessageBoxFlags.SDL_MESSAGEBOX_WARNING, "TJAPlayer3-f", msg, 0) != 0)
                 Console.WriteLine(msg);
         }
     }
 
     //渡されたのをLowerCaseにして返します
-    private class LowerCaseJsonNamingPolicy : JsonNamingPolicy 
+    private class LowerCaseJsonNamingPolicy : JsonNamingPolicy
     {
-        public override string ConvertName(string name) 
+        public override string ConvertName(string name)
             => name.ToLower();
     }
 }

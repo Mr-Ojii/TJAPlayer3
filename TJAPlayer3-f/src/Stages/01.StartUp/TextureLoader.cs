@@ -139,7 +139,7 @@ class TextureLoader
             SongSelect_Bar_Box_Genre[i] = TxC(SONGSELECT + @"Bar_Box_Genre_" + i.ToString() + ".png");
         }
         this.SongSelect_Box_Center_Genre = new CTexture[SkinMaxNum + 2];
-        for (int i = 0; i <  SongSelect_Box_Center_Genre.Length; i++)
+        for (int i = 0; i < SongSelect_Box_Center_Genre.Length; i++)
         {
             SongSelect_Box_Center_Genre[i] = TxC(SONGSELECT + BOX_CENTER + @"Box_Center_Genre_" + i.ToString() + ".png");
         }
@@ -151,7 +151,7 @@ class TextureLoader
         this.SongSelect_Box_Center_Text_Genre = new CTexture[SkinMaxNum + 2];
         for (int i = 0; i < SongSelect_Box_Center_Text_Genre.Length; i++)
         {
-            SongSelect_Box_Center_Text_Genre[i] = TxC(SONGSELECT +BOX_CENTER+ @"Box_Center_Text_Genre_" + i.ToString() + ".png");
+            SongSelect_Box_Center_Text_Genre[i] = TxC(SONGSELECT + BOX_CENTER + @"Box_Center_Text_Genre_" + i.ToString() + ".png");
         }
         this.SongSelect_Bar_Center_Back_Genre = new CTexture[SkinMaxNum + 2];
         for (int i = 0; i < SongSelect_Bar_Center_Back_Genre.Length; i++)
@@ -202,7 +202,7 @@ class TextureLoader
         }
         for (int i = 0; i < Difficulty_Anc.Length; i++)
         {
-            Difficulty_Anc[i] = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_Anc_" + (i+1).ToString() + "P.png");
+            Difficulty_Anc[i] = TxC(SONGSELECT + DIFFICULITY + @"Difficulty_Anc_" + (i + 1).ToString() + "P.png");
         }
         for (int i = 0; i < Difficulty_Anc_Same.Length; i++)
         {
@@ -877,7 +877,7 @@ class TextureLoader
         TJAPlayer3.t安全にDisposeする(ref Taiko_Ka_Right);
         TJAPlayer3.t安全にDisposeする(ref Taiko_LevelUp);
         TJAPlayer3.t安全にDisposeする(ref Taiko_LevelDown);
-        TJAPlayer3.t安全にDisposeする(ref Couse_Symbol);			
+        TJAPlayer3.t安全にDisposeする(ref Couse_Symbol);
         TJAPlayer3.t安全にDisposeする(ref Taiko_Score);
         TJAPlayer3.t安全にDisposeする(ref Taiko_Combo);
         TJAPlayer3.t安全にDisposeする(ref Taiko_Combo_Effect);
@@ -898,7 +898,7 @@ class TextureLoader
         TJAPlayer3.t安全にDisposeする(ref Gauge_Base_Danc);
         TJAPlayer3.t安全にDisposeする(ref Gauge_Line_Danc);
         TJAPlayer3.t安全にDisposeする(ref Gauge_Rainbow_Danc);
-        
+
         #endregion
 
         #endregion
@@ -912,7 +912,7 @@ class TextureLoader
         #endregion
         #region エフェクト
         TJAPlayer3.t安全にDisposeする(ref Effects_Hit_Explosion);
-        TJAPlayer3.t安全にDisposeする(ref  Effects_Hit_Explosion_Big);
+        TJAPlayer3.t安全にDisposeする(ref Effects_Hit_Explosion_Big);
         TJAPlayer3.t安全にDisposeする(ref Effects_Hit_FireWorks);
         TJAPlayer3.t安全にDisposeする(ref Effects_Fire);
         TJAPlayer3.t安全にDisposeする(ref Effects_Rainbow);
@@ -922,7 +922,7 @@ class TextureLoader
         TJAPlayer3.t安全にDisposeする(ref Effects_Hit_Good);
         TJAPlayer3.t安全にDisposeする(ref Effects_Hit_Good_Big);
         TJAPlayer3.t安全にDisposeする(ref Effects_Roll);
-        
+
         #endregion
         #region レーン
         TJAPlayer3.t安全にDisposeする(ref Lane_Base);
@@ -1239,9 +1239,9 @@ class TextureLoader
     #endregion
     #region 終了演出
     public CTexture[] End_Failed_L,
-        End_Failed_R, 
+        End_Failed_R,
         End_Clear_L,
-        End_Clear_R, 
+        End_Clear_R,
         End_Fan;
     public CTexture End_Failed_Text,
         End_Failed_Impact,

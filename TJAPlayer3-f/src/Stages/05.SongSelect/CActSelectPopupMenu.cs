@@ -19,11 +19,11 @@ internal class CActSelectPopupMenu : CActivity
 
     public int GetIndex(int pos)
     {
-        return lciMenuItems[ pos ].cItem.GetIndex();
+        return lciMenuItems[pos].cItem.GetIndex();
     }
-    public object GetObj現在値( int pos )
+    public object GetObj現在値(int pos)
     {
-        return lciMenuItems[ pos ].cItem.objValue();
+        return lciMenuItems[pos].cItem.objValue();
     }
     public bool bGotoDetailConfig
     {
@@ -51,27 +51,27 @@ internal class CActSelectPopupMenu : CActivity
         this.bIsActivePopupMenu = false;
     }
 
-    protected void Initialize( List<CItemBase> menulist, bool showAllItems, string title, int defaultPos )
+    protected void Initialize(List<CItemBase> menulist, bool showAllItems, string title, int defaultPos)
     {
         ConditionallyInitializePrvFont();
 
         stqMenuTitle = new stQuickMenuItem();
         stqMenuTitle.cItem = new CItemBase();
         stqMenuTitle.cItem.strName = title;
-        using (var bitmap = prvFont.DrawText( title, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+        using (var bitmap = prvFont.DrawText(title, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
         {
-            stqMenuTitle.txName = TJAPlayer3.tCreateTexture( bitmap );
+            stqMenuTitle.txName = TJAPlayer3.tCreateTexture(bitmap);
         }
-        lciMenuItems = new stQuickMenuItem[ menulist.Count ];
-        for (int i = 0; i < menulist.Count; i++ )
+        lciMenuItems = new stQuickMenuItem[menulist.Count];
+        for (int i = 0; i < menulist.Count; i++)
         {
             stQuickMenuItem stqm = new stQuickMenuItem();
-            stqm.cItem = menulist[ i ];
-            using (var bitmap = prvFont.DrawText( menulist[ i ].strName, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+            stqm.cItem = menulist[i];
+            using (var bitmap = prvFont.DrawText(menulist[i].strName, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
             {
-                stqm.txName = TJAPlayer3.tCreateTexture( bitmap );
+                stqm.txName = TJAPlayer3.tCreateTexture(bitmap);
             }
-            lciMenuItems[ i ] = stqm;
+            lciMenuItems[i] = stqm;
         }
 
         bShowAllItems = showAllItems;
@@ -88,18 +88,18 @@ internal class CActSelectPopupMenu : CActivity
 
     public void tPushedEnter()
     {
-        if ( this.bキー入力待ち )
+        if (this.bキー入力待ち)
         {
             TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音].t再生する();
 
-            if ( this.n現在の選択行 != lciMenuItems.Length - 1 )
+            if (this.n現在の選択行 != lciMenuItems.Length - 1)
             {
-                if ( lciMenuItems[ n現在の選択行 ].cItem.eItemType == CItemBase.EItemType.List ||
-                        lciMenuItems[ n現在の選択行 ].cItem.eItemType == CItemBase.EItemType.Toggle	)
+                if (lciMenuItems[n現在の選択行].cItem.eItemType == CItemBase.EItemType.List ||
+                        lciMenuItems[n現在の選択行].cItem.eItemType == CItemBase.EItemType.Toggle)
                 {
-                    lciMenuItems[ n現在の選択行 ].cItem.tMoveItemValueToNext();
+                    lciMenuItems[n現在の選択行].cItem.tMoveItemValueToNext();
                 }
-                else if ( lciMenuItems[ n現在の選択行 ].cItem.eItemType == CItemBase.EItemType.Integer )
+                else if (lciMenuItems[n現在の選択行].cItem.eItemType == CItemBase.EItemType.Integer)
                 {
                     bIsSelectingIntItem = !bIsSelectingIntItem;		// 選択状態/選択解除状態を反転する
                 }
@@ -109,7 +109,7 @@ internal class CActSelectPopupMenu : CActivity
                 }
                 nItemSelecting = n現在の選択行;
             }
-            tPushedEnterMain( (int) lciMenuItems[ n現在の選択行 ].cItem.GetIndex() );
+            tPushedEnterMain((int)lciMenuItems[n現在の選択行].cItem.GetIndex());
         }
     }
 
@@ -117,7 +117,7 @@ internal class CActSelectPopupMenu : CActivity
     /// Decide押下時の処理を、継承先で記述する。
     /// </summary>
     /// <param name="val">CItemBaseの現在の設定値のindex</param>
-    public virtual void tPushedEnterMain( int val )
+    public virtual void tPushedEnterMain(int val)
     {
     }
     /// <summary>
@@ -135,16 +135,16 @@ internal class CActSelectPopupMenu : CActivity
 
     public void t次に移動()
     {
-        if ( this.bキー入力待ち )
+        if (this.bキー入力待ち)
         {
             TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
-            if ( bIsSelectingIntItem )
+            if (bIsSelectingIntItem)
             {
-                    lciMenuItems[ n現在の選択行 ].cItem.tMoveItemValueToForward();		// 項目移動と数値上下は方向が逆になるので注意
+                lciMenuItems[n現在の選択行].cItem.tMoveItemValueToForward();		// 項目移動と数値上下は方向が逆になるので注意
             }
             else
             {
-                if ( ++this.n現在の選択行 >= this.lciMenuItems.Length )
+                if (++this.n現在の選択行 >= this.lciMenuItems.Length)
                 {
                     this.n現在の選択行 = 0;
                 }
@@ -153,16 +153,16 @@ internal class CActSelectPopupMenu : CActivity
     }
     public void t前に移動()
     {
-        if ( this.bキー入力待ち )
+        if (this.bキー入力待ち)
         {
             TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
-            if ( bIsSelectingIntItem )
+            if (bIsSelectingIntItem)
             {
-                lciMenuItems[ n現在の選択行 ].cItem.tMoveItemValueToNext();		// 項目移動と数値上下は方向が逆になるので注意
+                lciMenuItems[n現在の選択行].cItem.tMoveItemValueToNext();		// 項目移動と数値上下は方向が逆になるので注意
             }
             else
             {
-                if ( --this.n現在の選択行 < 0 )
+                if (--this.n現在の選択行 < 0)
                 {
                     this.n現在の選択行 = this.lciMenuItems.Length - 1;
                 }
@@ -174,11 +174,11 @@ internal class CActSelectPopupMenu : CActivity
 
     public override void On活性化()
     {
-//		this.n現在の選択行 = 0;
+        //		this.n現在の選択行 = 0;
         this.bキー入力待ち = true;
-        for ( int i = 0; i < 4; i++ )
+        for (int i = 0; i < 4; i++)
         {
-            this.ctキー反復用[ i ] = new CCounter( 0, 0, 0, TJAPlayer3.Timer );
+            this.ctキー反復用[i] = new CCounter(0, 0, 0, TJAPlayer3.Timer);
         }
         base.b活性化してない = true;
 
@@ -191,33 +191,33 @@ internal class CActSelectPopupMenu : CActivity
     }
     public override void On非活性化()
     {
-        if ( !base.b活性化してない )
+        if (!base.b活性化してない)
         {
             //CDTXMania.t安全にDisposeする( ref this.txCursor );
             //CDTXMania.t安全にDisposeする( ref this.txPopupMenuBackground );
-            for ( int i = 0; i < 4; i++ )
+            for (int i = 0; i < 4; i++)
             {
-                this.ctキー反復用[ i ] = null;
+                this.ctキー反復用[i] = null;
             }
-            TJAPlayer3.t安全にDisposeする( ref this.prvFont );
+            TJAPlayer3.t安全にDisposeする(ref this.prvFont);
             base.On非活性化();
         }
     }
 
     public override int On進行描画()
     {
-        throw new InvalidOperationException( "t進行描画(bool)のほうを使用してください。" );
+        throw new InvalidOperationException("t進行描画(bool)のほうを使用してください。");
     }
 
     public int t進行描画()
     {
-        if ( !base.b活性化してない && this.bIsActivePopupMenu )
+        if (!base.b活性化してない && this.bIsActivePopupMenu)
         {
-            if ( this.bキー入力待ち )
+            if (this.bキー入力待ち)
             {
                 #region [ キー入力: キャンセル ]
-                if ( ( TJAPlayer3.InputManager.Keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.Escape ))
-                    && this.bEsc有効 )
+                if ((TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
+                    && this.bEsc有効)
                 {	// キャンセル
                     TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
                     tCancel();
@@ -228,36 +228,36 @@ internal class CActSelectPopupMenu : CActivity
                 #region [ キー入力: 決定 ]
                 ESortAction eAction = ESortAction.END;
                 if (
-                    TJAPlayer3.Pad.bPressed(EPad.LRed )
-                    || TJAPlayer3.Pad.bPressed( EPad.RRed )
-                    || ( TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.Return ) ) )
+                    TJAPlayer3.Pad.bPressed(EPad.LRed)
+                    || TJAPlayer3.Pad.bPressed(EPad.RRed)
+                    || (TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return)))
                 {
                     eAction = ESortAction.Decide;
                 }
-                if ( eAction == ESortAction.Decide )	// 決定
+                if (eAction == ESortAction.Decide)	// 決定
                 {
                     this.tPushedEnter();
                 }
                 #endregion
                 #region [ キー入力: 前に移動 ]
-                this.ctキー反復用.Up.tキー反復( TJAPlayer3.InputManager.Keyboard.bIsKeyDown( (int)SlimDXKeys.Key.UpArrow ), new CCounter.DGキー処理( this.t前に移動 ) );
+                this.ctキー反復用.Up.tキー反復(TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.UpArrow), new CCounter.DGキー処理(this.t前に移動));
                 if (TJAPlayer3.Pad.bPressed(EPad.LBlue))
                 {
                     this.t前に移動();
                 }
                 #endregion
                 #region [ キー入力: 次に移動 ]
-                this.ctキー反復用.Down.tキー反復( TJAPlayer3.InputManager.Keyboard.bIsKeyDown( (int)SlimDXKeys.Key.DownArrow ), new CCounter.DGキー処理( this.t次に移動 ) );
-                if (TJAPlayer3.Pad.bPressed( EPad.RBlue))
+                this.ctキー反復用.Down.tキー反復(TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.DownArrow), new CCounter.DGキー処理(this.t次に移動));
+                if (TJAPlayer3.Pad.bPressed(EPad.RBlue))
                 {
                     this.t次に移動();
                 }
                 #endregion
             }
             #region [ ポップアップメニュー 背景描画 ]
-            if ( TJAPlayer3.Tx.Menu_Title != null )
+            if (TJAPlayer3.Tx.Menu_Title != null)
             {
-                TJAPlayer3.Tx.Menu_Title.t2D描画( TJAPlayer3.app.Device, 160, 40 );
+                TJAPlayer3.Tx.Menu_Title.t2D描画(TJAPlayer3.app.Device, 160, 40);
             }
             #endregion
             #region [ ソートメニュータイトル描画 ]
@@ -265,28 +265,28 @@ internal class CActSelectPopupMenu : CActivity
             stqMenuTitle.txName.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Left, x, y);
             #endregion
             #region [ カーソル描画 ]
-            if ( TJAPlayer3.Tx.Menu_Highlight != null )
+            if (TJAPlayer3.Tx.Menu_Highlight != null)
             {
                 int height = 32;
                 int curX = 180;
-                int curY = 46 + ( height * ( this.n現在の選択行 + 1 ) );
-                TJAPlayer3.Tx.Menu_Highlight.t2D描画( TJAPlayer3.app.Device, curX, curY, new Rectangle( 0, 0, 16, 32 ) );
+                int curY = 46 + (height * (this.n現在の選択行 + 1));
+                TJAPlayer3.Tx.Menu_Highlight.t2D描画(TJAPlayer3.app.Device, curX, curY, new Rectangle(0, 0, 16, 32));
                 curX += 0x10;
-                Rectangle rectangle = new Rectangle( 8, 0, 0x10, 0x20 );
-                for ( int j = 0; j < 16; j++ )
+                Rectangle rectangle = new Rectangle(8, 0, 0x10, 0x20);
+                for (int j = 0; j < 16; j++)
                 {
-                    TJAPlayer3.Tx.Menu_Highlight.t2D描画( TJAPlayer3.app.Device, curX, curY, rectangle );
+                    TJAPlayer3.Tx.Menu_Highlight.t2D描画(TJAPlayer3.app.Device, curX, curY, rectangle);
                     curX += 16;
                 }
-                TJAPlayer3.Tx.Menu_Highlight.t2D描画( TJAPlayer3.app.Device, curX, curY, new Rectangle( 0x10, 0, 16, 32 ) );
+                TJAPlayer3.Tx.Menu_Highlight.t2D描画(TJAPlayer3.app.Device, curX, curY, new Rectangle(0x10, 0, 16, 32));
             }
             #endregion
             #region [ ソート候補文字列描画 ]
-            for ( int i = 0; i < lciMenuItems.Length; i++ )
+            for (int i = 0; i < lciMenuItems.Length; i++)
             {
-                bool bItemBold = ( i == nItemSelecting && !bShowAllItems ) ? true : false;
+                bool bItemBold = (i == nItemSelecting && !bShowAllItems) ? true : false;
                 //font.t文字列描画( 190, 80 + i * 32, lciMenuItems[ i ].cItem.strName, bItemBold, 1.0f );
-                if ( lciMenuItems[ i ].txName != null )
+                if (lciMenuItems[i].txName != null)
                 {
                     lciMenuItems[i].txName.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Left, 180, 92 + i * 32);
                 }
@@ -355,18 +355,18 @@ internal class CActSelectPopupMenu : CActivity
     private bool bShowAllItems;
     private bool bIsSelectingIntItem;
 
-    [StructLayout( LayoutKind.Sequential )]
+    [StructLayout(LayoutKind.Sequential)]
     private struct STキー反復用カウンタ
     {
         public CCounter Up;
         public CCounter Down;
         public CCounter R;
         public CCounter B;
-        public CCounter this[ int index ]
+        public CCounter this[int index]
         {
             get
             {
-                switch ( index )
+                switch (index)
                 {
                     case 0:
                         return this.Up;
@@ -384,7 +384,7 @@ internal class CActSelectPopupMenu : CActivity
             }
             set
             {
-                switch ( index )
+                switch (index)
                 {
                     case 0:
                         this.Up = value;

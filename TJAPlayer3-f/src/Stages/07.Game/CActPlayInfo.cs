@@ -20,7 +20,7 @@ internal class CActPlayInfo : CActivity
         base.b活性化してない = true;
     }
 
-            
+
     // CActivity 実装
 
     public override void On活性化()
@@ -34,11 +34,11 @@ internal class CActPlayInfo : CActivity
     }
     public override int On進行描画()
     {
-        throw new InvalidOperationException( "t進行描画(int x, int y) のほうを使用してください。" );
+        throw new InvalidOperationException("t進行描画(int x, int y) のほうを使用してください。");
     }
-    public void t進行描画( int x, int y )
+    public void t進行描画(int x, int y)
     {
-        if ( base.b活性化してない )
+        if (base.b活性化してない)
             return;
 
         int lastChipTime = (TJAPlayer3.DTX[0].listChip.Count > 0) ? TJAPlayer3.DTX[0].listChip[TJAPlayer3.DTX[0].listChip.Count - 1].n発声時刻ms : 0;

@@ -475,7 +475,7 @@ internal class CSongsManager
 
             for (int i = 0; i < (int)Difficulty.Total; i++)
             {
-                for(int j = 0; j < json.Records[i].HiScore.Count; j++)
+                for (int j = 0; j < json.Records[i].HiScore.Count; j++)
                 {
                     score.譜面情報.nHiScore[i][j] = (int)json.Records[i].HiScore[j].Score;
                     score.譜面情報.strHiScorerName[i][j] = json.Records[i].HiScore[j].PlayerName;

@@ -16,7 +16,7 @@ internal class CActScore : CActivity
     protected long[] n現在表示中のスコア;
     //protected CTexture txScore;
 
-//      protected CTexture txScore_1P;
+    //      protected CTexture txScore_1P;
     protected CCounter ctTimer;
     public CCounter[] ct点数アニメタイマ;
 
@@ -25,7 +25,7 @@ internal class CActScore : CActivity
     protected STスコア[] stScore;
     protected int n現在表示中のAddScore;
 
-    [StructLayout( LayoutKind.Sequential )]
+    [StructLayout(LayoutKind.Sequential)]
     protected struct STスコア
     {
         public bool b使用中;
@@ -97,7 +97,7 @@ internal class CActScore : CActivity
         st文字位置Array[9] = st文字位置10;
         this.stFont = st文字位置Array;
 
-        this.stScore = new STスコア[ 256 ];
+        this.stScore = new STスコア[256];
         base.b活性化してない = true;
     }
 
@@ -120,19 +120,19 @@ internal class CActScore : CActivity
         1.000f
     };
 
-    public double Get( int player )
+    public double Get(int player)
     {
-        return this.n現在の本当のスコア[ player ];
+        return this.n現在の本当のスコア[player];
     }
-    public void Set( double nScore, int player )
+    public void Set(double nScore, int player)
     {
-        if( this.n現在の本当のスコア[ player ] != nScore )
+        if (this.n現在の本当のスコア[player] != nScore)
         {
-            this.n現在の本当のスコア[ player ] = nScore;
-            this.nスコアの増分[ player ] = (long) ( ( (double) ( this.n現在の本当のスコア[ player ] - this.n現在表示中のスコア[ player ] ) ) / 20.0 );
-            if( this.nスコアの増分[ player ] < 1L )
+            this.n現在の本当のスコア[player] = nScore;
+            this.nスコアの増分[player] = (long)(((double)(this.n現在の本当のスコア[player] - this.n現在表示中のスコア[player])) / 20.0);
+            if (this.nスコアの増分[player] < 1L)
             {
-                this.nスコアの増分[ player ] = 1L;
+                this.nスコアの増分[player] = 1L;
             }
         }
     }
@@ -143,63 +143,63 @@ internal class CActScore : CActivity
     /// <param name="part"></param>
     /// <param name="bAutoPlay"></param>
     /// <param name="delta"></param>
-    public void Add( long delta, int player )
+    public void Add(long delta, int player)
     {
         double rev = 1.0;
 
-        this.ctTimer = new CCounter( 0, 400, 1, TJAPlayer3.Timer );
+        this.ctTimer = new CCounter(0, 400, 1, TJAPlayer3.Timer);
 
-        for( int sc = 0; sc < 1; sc++ )
+        for (int sc = 0; sc < 1; sc++)
         {
-            for( int i = 0; i < 256; i++ )
+            for (int i = 0; i < 256; i++)
             {
-                if( this.stScore[ i ].b使用中 == false )
+                if (this.stScore[i].b使用中 == false)
                 {
-                    this.stScore[ i ].b使用中 = true;
-                    this.stScore[ i ].b表示中 = true;
-                    this.stScore[ i ].nAddScore = (int)delta;
-                    this.stScore[ i ].ctTimer = new CCounter( 0, 500, 1, TJAPlayer3.Timer );
-                    this.stScore[ i ].bBonusScore = false;
-                    this.stScore[ i ].nPlayer = player;
+                    this.stScore[i].b使用中 = true;
+                    this.stScore[i].b表示中 = true;
+                    this.stScore[i].nAddScore = (int)delta;
+                    this.stScore[i].ctTimer = new CCounter(0, 500, 1, TJAPlayer3.Timer);
+                    this.stScore[i].bBonusScore = false;
+                    this.stScore[i].nPlayer = player;
                     this.n現在表示中のAddScore++;
                     break;
                 }
             }
         }
 
-        this.Set( this.Get( player ) + delta * rev, player );
+        this.Set(this.Get(player) + delta * rev, player);
     }
 
-    public void BonusAdd( int player )
+    public void BonusAdd(int player)
     {
-        for( int sc = 0; sc < 1; sc++ )
+        for (int sc = 0; sc < 1; sc++)
         {
-            for( int i = 0; i < 256; i++ )
+            for (int i = 0; i < 256; i++)
             {
-                if( this.stScore[ i ].b使用中 == false )
+                if (this.stScore[i].b使用中 == false)
                 {
-                    this.stScore[ i ].b使用中 = true;
-                    this.stScore[ i ].b表示中 = true;
-                    this.stScore[ i ].nAddScore = 10000;
-                    this.stScore[ i ].ctTimer = new CCounter( 0, 400, 1, TJAPlayer3.Timer );
-                    this.stScore[ i ].bBonusScore = true;
-                    this.stScore[ i ].nPlayer = player;
+                    this.stScore[i].b使用中 = true;
+                    this.stScore[i].b表示中 = true;
+                    this.stScore[i].nAddScore = 10000;
+                    this.stScore[i].ctTimer = new CCounter(0, 400, 1, TJAPlayer3.Timer);
+                    this.stScore[i].bBonusScore = true;
+                    this.stScore[i].nPlayer = player;
                     this.n現在表示中のAddScore++;
                     break;
                 }
             }
         }
 
-        this.Set( this.Get( player ) + 10000, player );
+        this.Set(this.Get(player) + 10000, player);
     }
 
     // CActivity 実装
 
     public override void On活性化()
     {
-        this.n現在表示中のスコア = new long[ 4 ];
-        this.n現在の本当のスコア = new double[ 4 ];
-        this.nスコアの増分 = new long[ 4 ];
+        this.n現在表示中のスコア = new long[4];
+        this.n現在の本当のスコア = new double[4];
+        this.nスコアの増分 = new long[4];
 
         for (int i = 0; i < 4; i++)
         {
@@ -208,12 +208,12 @@ internal class CActScore : CActivity
             this.nスコアの増分[i] = 0L;
         }
 
-        for( int sc = 0; sc < 256; sc++ )
+        for (int sc = 0; sc < 256; sc++)
         {
-            this.stScore[ sc ].b使用中 = false;
-            this.stScore[ sc ].ctTimer = new CCounter();
-            this.stScore[ sc ].nAddScore = 0;
-            this.stScore[ sc ].bBonusScore = false;
+            this.stScore[sc].b使用中 = false;
+            this.stScore[sc].ctTimer = new CCounter();
+            this.stScore[sc].nAddScore = 0;
+            this.stScore[sc].bBonusScore = false;
         }
 
         this.n現在表示中のAddScore = 0;
@@ -419,19 +419,19 @@ internal class CActScore : CActivity
         return 0;
     }
 
-    protected void t小文字表示( int x, int y, string str, int mode , int alpha, int player )
+    protected void t小文字表示(int x, int y, string str, int mode, int alpha, int player)
     {
-        foreach( char ch in str )
+        foreach (char ch in str)
         {
-            for( int i = 0; i < this.stFont.Length; i++ )
+            for (int i = 0; i < this.stFont.Length; i++)
             {
-                if( this.stFont[ i ].ch == ch )
+                if (this.stFont[i].ch == ch)
                 {
                     Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.SkinConfig.Game.Score.Size[0] * i, 0, TJAPlayer3.Skin.SkinConfig.Game.Score.Size[0], TJAPlayer3.Skin.SkinConfig.Game.Score.Size[1]);
-                    switch( mode )
+                    switch (mode)
                     {
                         case 0:
-                            if( TJAPlayer3.Tx.Taiko_Score[0] != null )
+                            if (TJAPlayer3.Tx.Taiko_Score[0] != null)
                             {
                                 TJAPlayer3.Tx.Taiko_Score[0].Opacity = alpha;
                                 TJAPlayer3.Tx.Taiko_Score[0].vcScaling.Y = ScoreScale[this.ct点数アニメタイマ[player].n現在の値];
@@ -440,7 +440,7 @@ internal class CActScore : CActivity
                             }
                             break;
                         case 1:
-                            if(TJAPlayer3.Tx.Taiko_Score[1] != null )
+                            if (TJAPlayer3.Tx.Taiko_Score[1] != null)
                             {
                                 TJAPlayer3.Tx.Taiko_Score[1].Opacity = alpha;
                                 TJAPlayer3.Tx.Taiko_Score[1].vcScaling.Y = 1;
@@ -448,7 +448,7 @@ internal class CActScore : CActivity
                             }
                             break;
                         case 2:
-                            if(TJAPlayer3.Tx.Taiko_Score[2] != null )
+                            if (TJAPlayer3.Tx.Taiko_Score[2] != null)
                             {
                                 TJAPlayer3.Tx.Taiko_Score[2].Opacity = alpha;
                                 TJAPlayer3.Tx.Taiko_Score[2].vcScaling.Y = 1;

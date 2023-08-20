@@ -39,7 +39,7 @@ public class CJudgeTextEncoding
             reader.Read(file);
             str = reader.Text;
         }
-        if(!string.IsNullOrEmpty(str))
+        if (!string.IsNullOrEmpty(str))
             str = str.Replace("\r\n", "\n").Replace("\r", "\n");
 
         return str;

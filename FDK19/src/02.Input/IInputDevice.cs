@@ -12,11 +12,11 @@ public interface IInputDevice : IDisposable
     {
         get;
     }
-    string GUID 
+    string GUID
     {
-        get; 
+        get;
     }
-    int ID 
+    int ID
     {
         get;
     }
@@ -28,10 +28,10 @@ public interface IInputDevice : IDisposable
 
     // メソッドインターフェース
 
-    void tPolling( bool bIsWindowActive );
+    void tPolling(bool bIsWindowActive);
     void tSwapEventList();
-    bool bIsKeyPressed( int nKey );
-    bool bIsKeyDown( int nKey );
-    bool bIsKeyReleased( int nKey );
-    bool bIsKeyUp( int nKey );
+    bool bIsKeyPressed(int nKey);
+    bool bIsKeyDown(int nKey);
+    bool bIsKeyReleased(int nKey);
+    bool bIsKeyUp(int nKey);
 }

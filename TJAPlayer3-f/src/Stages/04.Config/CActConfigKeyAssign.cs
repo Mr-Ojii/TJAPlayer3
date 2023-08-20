@@ -22,7 +22,7 @@ internal class CActConfigKeyAssign : CActivity
 
     // メソッド
 
-    public void t開始( EKeyConfigPad pad, string strパッド名)
+    public void t開始(EKeyConfigPad pad, string strパッド名)
     {
         this.pad = pad;
         this.strパッド名 = strパッド名;
@@ -36,17 +36,17 @@ internal class CActConfigKeyAssign : CActivity
 
     public void tPushedEnter()
     {
-        if( !this.bキー入力待ち )
+        if (!this.bキー入力待ち)
         {
             TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
-            switch ( this.n現在の選択行 )
+            switch (this.n現在の選択行)
             {
                 case 0x10:
-                    for( int i = 0; i < 0x10; i++ )
+                    for (int i = 0; i < 0x10; i++)
                     {
-                        TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ i ].DeviceType = this.structReset用KeyAssign[ i ].DeviceType;
-                        TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ i ].ID = this.structReset用KeyAssign[ i ].ID;
-                        TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ i ].Code = this.structReset用KeyAssign[ i ].Code;
+                        TJAPlayer3.ConfigIni.KeyAssign[(int)this.pad][i].DeviceType = this.structReset用KeyAssign[i].DeviceType;
+                        TJAPlayer3.ConfigIni.KeyAssign[(int)this.pad][i].ID = this.structReset用KeyAssign[i].ID;
+                        TJAPlayer3.ConfigIni.KeyAssign[(int)this.pad][i].Code = this.structReset用KeyAssign[i].Code;
                     }
                     return;
 
@@ -59,18 +59,18 @@ internal class CActConfigKeyAssign : CActivity
     }
     public void t次に移動()
     {
-        if( !this.bキー入力待ち )
+        if (!this.bキー入力待ち)
         {
             TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
-            this.n現在の選択行 = ( this.n現在の選択行 + 1 ) % 0x12;
+            this.n現在の選択行 = (this.n現在の選択行 + 1) % 0x12;
         }
     }
     public void t前に移動()
     {
-        if( !this.bキー入力待ち )
+        if (!this.bキー入力待ち)
         {
             TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
-            this.n現在の選択行 = ( ( this.n現在の選択行 - 1 ) + 0x12 ) % 0x12;
+            this.n現在の選択行 = ((this.n現在の選択行 - 1) + 0x12) % 0x12;
         }
     }
 
@@ -83,13 +83,13 @@ internal class CActConfigKeyAssign : CActivity
         this.strパッド名 = "";
         this.n現在の選択行 = 0;
         this.bキー入力待ち = false;
-        this.structReset用KeyAssign = new CConfigIni.CKeyAssign.STKEYASSIGN[ 0x10 ];
+        this.structReset用KeyAssign = new CConfigIni.CKeyAssign.STKEYASSIGN[0x10];
         this.fontRenderer = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 16, CFontRenderer.FontStyle.Italic);
         base.On活性化();
     }
     public override void On非活性化()
     {
-        if( !base.b活性化してない )
+        if (!base.b活性化してない)
         {
             this.fontRenderer?.Dispose();
             this.fontRenderer = null;
@@ -98,72 +98,72 @@ internal class CActConfigKeyAssign : CActivity
     }
     public override int On進行描画()
     {
-        if( !base.b活性化してない )
+        if (!base.b活性化してない)
         {
-            if( this.bキー入力待ち )
+            if (this.bキー入力待ち)
             {
-                if( TJAPlayer3.InputManager.Keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.Escape ) )
+                if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
                 {
                     TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
                     this.bキー入力待ち = false;
                     TJAPlayer3.InputManager.tSwapEventList();
                 }
-                else if( ( this.tキーチェックとアサイン_Keyboard() || this.tキーチェックとアサイン_MidiIn() ) || ( this.tキーチェックとアサイン_Joypad() || this.tキーチェックとアサイン_Mouse() ) )
+                else if ((this.tキーチェックとアサイン_Keyboard() || this.tキーチェックとアサイン_MidiIn()) || (this.tキーチェックとアサイン_Joypad() || this.tキーチェックとアサイン_Mouse()))
                 {
                     this.bキー入力待ち = false;
                     TJAPlayer3.InputManager.tSwapEventList();
                 }
             }
-            else if( ( TJAPlayer3.InputManager.Keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.Delete ) && ( this.n現在の選択行 >= 0 ) ) && ( this.n現在の選択行 <= 15 ) )
+            else if ((TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Delete) && (this.n現在の選択行 >= 0)) && (this.n現在の選択行 <= 15))
             {
                 TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
-                TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].DeviceType = EInputDevice.Unknown;
-                TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].ID = 0;
-                TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].Code = 0;
+                TJAPlayer3.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].DeviceType = EInputDevice.Unknown;
+                TJAPlayer3.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].ID = 0;
+                TJAPlayer3.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].Code = 0;
             }
-            if(TJAPlayer3.Tx.Menu_Highlight != null )
+            if (TJAPlayer3.Tx.Menu_Highlight != null)
             {
                 int num = 20;
                 int num2 = 0x144;
-                int num3 = 0x3e + ( num * ( this.n現在の選択行 + 1 ) );
-                TJAPlayer3.Tx.Menu_Highlight.t2D描画( TJAPlayer3.app.Device, num2, num3, new Rectangle( 0, 0, 0x10, 0x20 ) );
+                int num3 = 0x3e + (num * (this.n現在の選択行 + 1));
+                TJAPlayer3.Tx.Menu_Highlight.t2D描画(TJAPlayer3.app.Device, num2, num3, new Rectangle(0, 0, 0x10, 0x20));
                 num2 += 0x10;
-                Rectangle rectangle = new Rectangle( 8, 0, 0x10, 0x20 );
-                for( int j = 0; j < 14; j++ )
+                Rectangle rectangle = new Rectangle(8, 0, 0x10, 0x20);
+                for (int j = 0; j < 14; j++)
                 {
-                    TJAPlayer3.Tx.Menu_Highlight.t2D描画( TJAPlayer3.app.Device, num2, num3, rectangle );
+                    TJAPlayer3.Tx.Menu_Highlight.t2D描画(TJAPlayer3.app.Device, num2, num3, rectangle);
                     num2 += 0x10;
                 }
-                TJAPlayer3.Tx.Menu_Highlight.t2D描画( TJAPlayer3.app.Device, num2, num3, new Rectangle( 0x10, 0, 0x10, 0x20 ) );
+                TJAPlayer3.Tx.Menu_Highlight.t2D描画(TJAPlayer3.app.Device, num2, num3, new Rectangle(0x10, 0, 0x10, 0x20));
             }
             int num5 = 20;
             int x = 0x134;
             int y = 0x40;
-            tDrawText( x, y, this.strパッド名, false, 0.75f );
+            tDrawText(x, y, this.strパッド名, false, 0.75f);
             y += num5;
-            CConfigIni.CKeyAssign.STKEYASSIGN[] stkeyassignArray = TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ];
-            for( int i = 0; i < 0x10; i++ )
+            CConfigIni.CKeyAssign.STKEYASSIGN[] stkeyassignArray = TJAPlayer3.ConfigIni.KeyAssign[(int)this.pad];
+            for (int i = 0; i < 0x10; i++)
             {
-                switch( stkeyassignArray[ i ].DeviceType )
+                switch (stkeyassignArray[i].DeviceType)
                 {
                     case EInputDevice.KeyBoard:
-                        this.tアサインコードの描画_Keyboard( i + 1, x + 20, y, stkeyassignArray[ i ].ID, stkeyassignArray[ i ].Code, this.n現在の選択行 == i );
+                        this.tアサインコードの描画_Keyboard(i + 1, x + 20, y, stkeyassignArray[i].ID, stkeyassignArray[i].Code, this.n現在の選択行 == i);
                         break;
 
                     case EInputDevice.MIDIInput:
-                        this.tアサインコードの描画_MidiIn( i + 1, x + 20, y, stkeyassignArray[ i ].ID, stkeyassignArray[ i ].Code, this.n現在の選択行 == i );
+                        this.tアサインコードの描画_MidiIn(i + 1, x + 20, y, stkeyassignArray[i].ID, stkeyassignArray[i].Code, this.n現在の選択行 == i);
                         break;
 
                     case EInputDevice.Joypad:
-                        this.tアサインコードの描画_Joypad( i + 1, x + 20, y, stkeyassignArray[ i ].ID, stkeyassignArray[ i ].Code, this.n現在の選択行 == i );
+                        this.tアサインコードの描画_Joypad(i + 1, x + 20, y, stkeyassignArray[i].ID, stkeyassignArray[i].Code, this.n現在の選択行 == i);
                         break;
 
                     case EInputDevice.Mouse:
-                        this.tアサインコードの描画_Mouse( i + 1, x + 20, y, stkeyassignArray[ i ].ID, stkeyassignArray[ i ].Code, this.n現在の選択行 == i );
+                        this.tアサインコードの描画_Mouse(i + 1, x + 20, y, stkeyassignArray[i].ID, stkeyassignArray[i].Code, this.n現在の選択行 == i);
                         break;
 
                     default:
-                        tDrawText( x + 20, y, string.Format( "{0,2}.", i + 1 ), this.n現在の選択行 == i, 0.75f );
+                        tDrawText(x + 20, y, string.Format("{0,2}.", i + 1), this.n現在の選択行 == i, 0.75f);
                         break;
                 }
                 y += num5;
@@ -172,9 +172,9 @@ internal class CActConfigKeyAssign : CActivity
             y += num5;
             tDrawText(x + 20, y, "<< Return to List", this.n現在の選択行 == 0x11, 0.75f);
             y += num5;
-            if( this.bキー入力待ち && ( TJAPlayer3.Tx.Config_KeyAssign != null ) )
+            if (this.bキー入力待ち && (TJAPlayer3.Tx.Config_KeyAssign != null))
             {
-                TJAPlayer3.Tx.Config_KeyAssign.t2D描画( TJAPlayer3.app.Device, 0x185, 0xd7 );
+                TJAPlayer3.Tx.Config_KeyAssign.t2D描画(TJAPlayer3.app.Device, 0x185, 0xd7);
             }
         }
         return 0;
@@ -211,10 +211,10 @@ internal class CActConfigKeyAssign : CActivity
     private string strパッド名;
     private CCachedFontRenderer fontRenderer;
 
-    private void tアサインコードの描画_Joypad( int line, int x, int y, int nID, int nCode, bool b強調 )
+    private void tアサインコードの描画_Joypad(int line, int x, int y, int nID, int nCode, bool b強調)
     {
         string str = "";
-        switch( nCode )
+        switch (nCode)
         {
             case 0:
                 str = "Left";
@@ -249,58 +249,58 @@ internal class CActConfigKeyAssign : CActivity
                 break;
 
             default:
-                if( ( 8 <= nCode ) && ( nCode < 8 + 128 ) )				// other buttons (128 types)
+                if ((8 <= nCode) && (nCode < 8 + 128))				// other buttons (128 types)
                 {
-                    str = string.Format( "Button{0}", nCode - 7 );
+                    str = string.Format("Button{0}", nCode - 7);
                 }
-                else if ( ( 8 + 128 <= nCode ) && ( nCode < 8 + 128 + 8 ) )		// POV HAT ( 8 types; 45 degrees per HATs)
+                else if ((8 + 128 <= nCode) && (nCode < 8 + 128 + 8))		// POV HAT ( 8 types; 45 degrees per HATs)
                 {
-                    str = string.Format( "POV {0}", ( nCode - 8 - 128 ) * 45 );
+                    str = string.Format("POV {0}", (nCode - 8 - 128) * 45);
                 }
                 else
                 {
-                    str = string.Format( "Code{0}", nCode );
+                    str = string.Format("Code{0}", nCode);
                 }
                 break;
         }
-        tDrawText( x, y, string.Format( "{0,2}. Joypad #{1} ", line, nID ) + str, b強調, 0.75f );
+        tDrawText(x, y, string.Format("{0,2}. Joypad #{1} ", line, nID) + str, b強調, 0.75f);
     }
-    private void tアサインコードの描画_Keyboard( int line, int x, int y, int nID, int nCode, bool b強調 )
+    private void tアサインコードの描画_Keyboard(int line, int x, int y, int nID, int nCode, bool b強調)
     {
         string str = null;
-        if(this.KeyLabel.TryGetValue(nCode, out var strLabel))
+        if (this.KeyLabel.TryGetValue(nCode, out var strLabel))
         {
-            str = string.Format( "{0,2}. Key {1}", line, strLabel );
+            str = string.Format("{0,2}. Key {1}", line, strLabel);
         }
         else
         {
-            str = string.Format( "{0,2}. Key 0x{1:X2}", line, nCode );
+            str = string.Format("{0,2}. Key 0x{1:X2}", line, nCode);
         }
-        tDrawText( x, y, str, b強調, 0.75f );
+        tDrawText(x, y, str, b強調, 0.75f);
     }
-    private void tアサインコードの描画_MidiIn( int line, int x, int y, int nID, int nCode, bool b強調 )
+    private void tアサインコードの描画_MidiIn(int line, int x, int y, int nID, int nCode, bool b強調)
     {
-        tDrawText( x, y, string.Format( "{0,2}. MidiIn #{1} code.{2}", line, nID, nCode ), b強調, 0.75f );
+        tDrawText(x, y, string.Format("{0,2}. MidiIn #{1} code.{2}", line, nID, nCode), b強調, 0.75f);
     }
-    private void tアサインコードの描画_Mouse( int line, int x, int y, int nID, int nCode, bool b強調 )
+    private void tアサインコードの描画_Mouse(int line, int x, int y, int nID, int nCode, bool b強調)
     {
-        tDrawText( x, y, string.Format( "{0,2}. Mouse Button{1}", line, nCode ), b強調, 0.75f );
+        tDrawText(x, y, string.Format("{0,2}. Mouse Button{1}", line, nCode), b強調, 0.75f);
     }
     private bool tキーチェックとアサイン_Joypad()
     {
-        foreach( IInputDevice device in TJAPlayer3.InputManager.listInputDevices )
+        foreach (IInputDevice device in TJAPlayer3.InputManager.listInputDevices)
         {
-            if( device.eInputDeviceType == EInputDeviceType.Joystick )
+            if (device.eInputDeviceType == EInputDeviceType.Joystick)
             {
-                for( int i = 0; i < 8 + 0x80 + 8; i++ )		// +8 for Axis, +8 for HAT
+                for (int i = 0; i < 8 + 0x80 + 8; i++)		// +8 for Axis, +8 for HAT
                 {
-                    if( device.bIsKeyPressed( i ) )
+                    if (device.bIsKeyPressed(i))
                     {
                         TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
-                        TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( EInputDevice.Joypad, device.ID, i );
-                        TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].DeviceType = EInputDevice.Joypad;
-                        TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].ID = device.ID;
-                        TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].Code = i;
+                        TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する(EInputDevice.Joypad, device.ID, i);
+                        TJAPlayer3.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].DeviceType = EInputDevice.Joypad;
+                        TJAPlayer3.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].ID = device.ID;
+                        TJAPlayer3.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].Code = i;
                         return true;
                     }
                 }
@@ -310,22 +310,22 @@ internal class CActConfigKeyAssign : CActivity
     }
     private bool tキーチェックとアサイン_Keyboard()
     {
-        for( int i = 0; i < 0x100; i++ )
+        for (int i = 0; i < 0x100; i++)
         {
-            if( i != (int)SlimDXKeys.Key.Escape &&
+            if (i != (int)SlimDXKeys.Key.Escape &&
                 i != (int)SlimDXKeys.Key.Return &&
                 i != (int)SlimDXKeys.Key.UpArrow &&
                 i != (int)SlimDXKeys.Key.DownArrow &&
                 i != (int)SlimDXKeys.Key.LeftArrow &&
                 i != (int)SlimDXKeys.Key.RightArrow &&
                 i != (int)SlimDXKeys.Key.Delete &&
-                    TJAPlayer3.InputManager.Keyboard.bIsKeyPressed( i ) )
+                    TJAPlayer3.InputManager.Keyboard.bIsKeyPressed(i))
             {
                 TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
-                TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( EInputDevice.KeyBoard, 0, i );
-                TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].DeviceType = EInputDevice.KeyBoard;
-                TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].ID = 0;
-                TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].Code = i;
+                TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する(EInputDevice.KeyBoard, 0, i);
+                TJAPlayer3.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].DeviceType = EInputDevice.KeyBoard;
+                TJAPlayer3.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].ID = 0;
+                TJAPlayer3.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].Code = i;
                 return true;
             }
         }
@@ -333,19 +333,19 @@ internal class CActConfigKeyAssign : CActivity
     }
     private bool tキーチェックとアサイン_MidiIn()
     {
-        foreach( IInputDevice device in TJAPlayer3.InputManager.listInputDevices )
+        foreach (IInputDevice device in TJAPlayer3.InputManager.listInputDevices)
         {
-            if( device.eInputDeviceType == EInputDeviceType.MidiIn )
+            if (device.eInputDeviceType == EInputDeviceType.MidiIn)
             {
-                for( int i = 0; i < 0x100; i++ )
+                for (int i = 0; i < 0x100; i++)
                 {
-                    if( device.bIsKeyPressed( i ) )
+                    if (device.bIsKeyPressed(i))
                     {
                         TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
-                        TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( EInputDevice.MIDIInput, device.ID, i );
-                        TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].DeviceType = EInputDevice.MIDIInput;
-                        TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].ID = device.ID;
-                        TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].Code = i;
+                        TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する(EInputDevice.MIDIInput, device.ID, i);
+                        TJAPlayer3.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].DeviceType = EInputDevice.MIDIInput;
+                        TJAPlayer3.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].ID = device.ID;
+                        TJAPlayer3.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].Code = i;
                         return true;
                     }
                 }
@@ -355,14 +355,14 @@ internal class CActConfigKeyAssign : CActivity
     }
     private bool tキーチェックとアサイン_Mouse()
     {
-        for( int i = 0; i < 8; i++ )
+        for (int i = 0; i < 8; i++)
         {
-            if( TJAPlayer3.InputManager.Mouse.bIsKeyPressed( i ) )
+            if (TJAPlayer3.InputManager.Mouse.bIsKeyPressed(i))
             {
-                TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する( EInputDevice.Mouse, 0, i );
-                TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].DeviceType = EInputDevice.Mouse;
-                TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].ID = 0;
-                TJAPlayer3.ConfigIni.KeyAssign[ (int) this.pad ][ this.n現在の選択行 ].Code = i;
+                TJAPlayer3.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する(EInputDevice.Mouse, 0, i);
+                TJAPlayer3.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].DeviceType = EInputDevice.Mouse;
+                TJAPlayer3.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].ID = 0;
+                TJAPlayer3.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].Code = i;
                 return true;
             }
         }

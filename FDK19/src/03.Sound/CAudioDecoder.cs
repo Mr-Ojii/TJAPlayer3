@@ -14,11 +14,11 @@ public unsafe static class CAudioDecoder
     {
         if (!File.Exists(filename))
             throw new FileNotFoundException(filename + " not found...");
-        
+
         AVFormatContext* format_context = null;
         if (ffmpeg.avformat_open_input(&format_context, filename, null, null) != 0)
             throw new FileLoadException("avformat_open_input failed\n");
-        
+
         // get stream info
         if (ffmpeg.avformat_find_stream_info(format_context, null) < 0)
             throw new FileLoadException("avformat_find_stream_info failed\n");
@@ -71,7 +71,7 @@ public unsafe static class CAudioDecoder
         {
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
-                if (enablechunk) 
+                if (enablechunk)
                 {
                     bw.Write(new byte[] { 0x52, 0x49, 0x46, 0x46 });        // 'RIFF'
                     bw.Write((UInt32)0);                                    // ファイルサイズ - 8 [byte]；今は不明なので後で上書きする。
@@ -146,7 +146,7 @@ public unsafe static class CAudioDecoder
                                     bw.Write(swr_buf[index]);
                                 }
                             }
-                            else 
+                            else
                             {
                                 for (int index = 0; index < frame->nb_samples * (16 / 8) * frame->ch_layout.nb_channels; index++)
                                 {

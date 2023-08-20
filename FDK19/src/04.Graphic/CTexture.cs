@@ -131,7 +131,7 @@ public class CTexture : IDisposable
 
             unsafe
             {
-                fixed(Rgba32* ptr = mem)
+                fixed (Rgba32* ptr = mem)
                 {
                     SDL.SDL_UpdateTexture((IntPtr)this.texture, IntPtr.Zero, (IntPtr)ptr, bitmap.Width * 4);
                 }
@@ -351,7 +351,7 @@ public class CTexture : IDisposable
             if (this.texture.HasValue)
             {
                 this.bTextureDisposed = true;
-                if(this.texture != null)
+                if (this.texture != null)
                     SDL.SDL_DestroyTexture((IntPtr)this.texture);
                 this.texture = null;
             }

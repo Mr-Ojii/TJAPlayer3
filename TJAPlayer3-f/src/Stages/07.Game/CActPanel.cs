@@ -29,11 +29,11 @@ internal class CActPanel : CActivity
     /// <param name="stageText">曲数</param>
     public void SetPanelString(string songName, string subtitle, string genreName, string stageText = null)
     {
-        if( !base.b活性化してる )
+        if (!base.b活性化してる)
             return;
 
-        TJAPlayer3.t安全にDisposeする( ref this.txPanel );
-        if( (songName != null ) && (songName.Length > 0 ) )
+        TJAPlayer3.t安全にDisposeする(ref this.txPanel);
+        if ((songName != null) && (songName.Length > 0))
         {
             try
             {
@@ -41,7 +41,7 @@ internal class CActPanel : CActivity
                 TJAPlayer3.t安全にDisposeする(ref txSubTitleName);
                 using (var bmpSongTitle = pfMusicName.DrawText(songName, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameForeColor, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
                 {
-                    this.txMusicName = TJAPlayer3.tCreateTexture( bmpSongTitle );
+                    this.txMusicName = TJAPlayer3.tCreateTexture(bmpSongTitle);
                 }
                 if (txMusicName != null)
                 {
@@ -61,22 +61,22 @@ internal class CActPanel : CActivity
 
                 using (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> bmpDiff = pfMusicName.DrawText(stageText, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._StageTextForeColor, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._StageTextBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
                 {
-                    this.tx難易度とステージ数 = TJAPlayer3.tCreateTexture( bmpDiff );
+                    this.tx難易度とステージ数 = TJAPlayer3.tCreateTexture(bmpDiff);
                 }
             }
-            catch( CTextureCreateFailedException e )
+            catch (CTextureCreateFailedException e)
             {
-                Trace.TraceError( e.ToString() );
-                Trace.TraceError( "パネル文字列テクスチャの生成に失敗しました。" );
+                Trace.TraceError(e.ToString());
+                Trace.TraceError("パネル文字列テクスチャの生成に失敗しました。");
                 this.txPanel = null;
             }
         }
-        if( !string.IsNullOrEmpty(genreName) )
+        if (!string.IsNullOrEmpty(genreName))
         {
             this.txGENRE = TJAPlayer3.Tx.TxCGen(TJAPlayer3.Skin.nStrジャンルtoNum(genreName).ToString());
         }
 
-        this.ct進行用 = new CCounter( 0, 2000, 2, TJAPlayer3.Timer );
+        this.ct進行用 = new CCounter(0, 2000, 2, TJAPlayer3.Timer);
         this.Start();
     }
 
@@ -107,10 +107,10 @@ internal class CActPanel : CActivity
     {
         this.ct進行用 = null;
 
-        TJAPlayer3.t安全にDisposeする( ref this.txPanel );
-        TJAPlayer3.t安全にDisposeする( ref this.txMusicName );
-        TJAPlayer3.t安全にDisposeする( ref this.txSubTitleName);
-        TJAPlayer3.t安全にDisposeする( ref this.txGENRE );
+        TJAPlayer3.t安全にDisposeする(ref this.txPanel);
+        TJAPlayer3.t安全にDisposeする(ref this.txMusicName);
+        TJAPlayer3.t安全にDisposeする(ref this.txSubTitleName);
+        TJAPlayer3.t安全にDisposeする(ref this.txGENRE);
         TJAPlayer3.t安全にDisposeする(ref this.txPanel);
         TJAPlayer3.t安全にDisposeする(ref this.pfMusicName);
         TJAPlayer3.t安全にDisposeする(ref this.pfSubTitleName);
@@ -119,20 +119,20 @@ internal class CActPanel : CActivity
     }
     public override int On進行描画()
     {
-        throw new InvalidOperationException( "t進行描画(x,y)のほうを使用してください。" );
+        throw new InvalidOperationException("t進行描画(x,y)のほうを使用してください。");
     }
     public int t進行描画()
     {
         if (TJAPlayer3.stage演奏ドラム画面.actDan.IsAnimating) return 0;
-        if( !base.b活性化してない && !this.bMute )
+        if (!base.b活性化してない && !this.bMute)
         {
             this.ct進行用.t進行Loop();
-            if( this.bFirst )
+            if (this.bFirst)
             {
                 this.ct進行用.n現在の値 = 300;
             }
-            if( this.txGENRE != null )
-                this.txGENRE.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.GenreX, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.GenreY );
+            if (this.txGENRE != null)
+                this.txGENRE.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.GenreX, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.GenreY);
 
             if (!TJAPlayer3.Skin.SkinConfig.Game.PanelFont.StageTextDisp)
             {
@@ -146,7 +146,7 @@ internal class CActPanel : CActivity
                     {
                         this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameX - ((this.txMusicName.szTextureSize.Width * fRate) / 2), TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameY);
                     }
-                    else if (TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameReferencePoint  == CSkin.EReferencePoint.Left)
+                    else if (TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameReferencePoint == CSkin.EReferencePoint.Left)
                     {
                         this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameX, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameY);
                     }
@@ -252,11 +252,11 @@ internal class CActPanel : CActivity
                     }
                 }
                 if (this.tx難易度とステージ数 != null)
-                    if (TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameReferencePoint  == CSkin.EReferencePoint.Center)
+                    if (TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameReferencePoint == CSkin.EReferencePoint.Center)
                     {
                         this.tx難易度とステージ数.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameX - (this.tx難易度とステージ数.szTextureSize.Width / 2), TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameY);
                     }
-                    else if (TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameReferencePoint  == CSkin.EReferencePoint.Left)
+                    else if (TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameReferencePoint == CSkin.EReferencePoint.Left)
                     {
                         this.tx難易度とステージ数.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameX, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameY);
                     }

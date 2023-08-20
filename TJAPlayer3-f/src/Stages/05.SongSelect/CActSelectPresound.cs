@@ -50,7 +50,8 @@ internal class CActSelectPresound : CActivity
     public override void On非活性化()
     {
         this.tサウンドの停止MT();
-        if (token != null) {
+        if (token != null)
+        {
             token.Cancel();
             token.Dispose();
             token = null;
@@ -147,7 +148,8 @@ internal class CActSelectPresound : CActivity
             {
                 // 2020.06.15 Mr-Ojii TJAP2fPCより拝借-----------
                 // 2019.03.22 kairera0467 簡易マルチスレッド化
-                CSound tmps = await Task.Run<CSound>(() => {
+                CSound tmps = await Task.Run<CSound>(() =>
+                {
                     token = new CancellationTokenSource();
                     return this.tプレビューサウンドの作成MT(strPreviewFilename);
                 });

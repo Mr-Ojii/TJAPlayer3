@@ -33,21 +33,23 @@ internal class CItemBase
         this.strName = "";
         this.strDescription = "";
     }
-    public CItemBase( string strName )
+    public CItemBase(string strName)
         : this()
     {
-        this.tInitialize( strName );
+        this.tInitialize(strName);
     }
     public CItemBase(string strName, string strDescriptionJP)
-        : this() {
+        : this()
+    {
         this.tInitialize(strName, strDescriptionJP);
     }
-    public CItemBase(string strName,  string strDescriptionJP, string strDescriptionEN)
-        : this() {
+    public CItemBase(string strName, string strDescriptionJP, string strDescriptionEN)
+        : this()
+    {
         this.tInitialize(strName, strDescriptionJP, strDescriptionEN);
     }
 
-    
+
     // メソッド；子クラスで実装する
 
     public virtual void tPushedEnter()
@@ -60,14 +62,16 @@ internal class CItemBase
     {
     }
 
-    public virtual void tInitialize( string strName )
+    public virtual void tInitialize(string strName)
     {
         this.tInitialize(strName, "", "");
     }
-    public virtual void tInitialize(string strName, string strDescriptionJP) {
+    public virtual void tInitialize(string strName, string strDescriptionJP)
+    {
         this.tInitialize(strName, strDescriptionJP, strDescriptionJP);
     }
-    public virtual void tInitialize(string strName, string strDescriptionJP, string strDescriptionEN) {
+    public virtual void tInitialize(string strName, string strDescriptionJP, string strDescriptionEN)
+    {
         this.strName = strName;
         this.strDescription = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? strDescriptionJP : strDescriptionEN;
     }
@@ -79,7 +83,7 @@ internal class CItemBase
     {
         return 0;
     }
-    public virtual void SetIndex( int index )
+    public virtual void SetIndex(int index)
     {
     }
 }

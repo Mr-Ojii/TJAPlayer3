@@ -405,7 +405,7 @@ internal class CSkin : IDisposable
                 if (tmpSortList.Count != 0)
                     this.SortList = tmpSortList;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Trace.TraceWarning(e.ToString());
             }
@@ -638,7 +638,7 @@ internal class CSkin : IDisposable
     public void tReadSkinConfig()
     {
         var skinConfigPath = Path(@"SkinConfig.toml");
-        if(!File.Exists(skinConfigPath))
+        if (!File.Exists(skinConfigPath))
             return;
 
         string strToml = CJudgeTextEncoding.ReadTextFile(skinConfigPath);
@@ -750,7 +750,7 @@ internal class CSkin : IDisposable
         public CSound Sound { get; set; } = new();
         public class CSound
         {
-            public string[] SENames { get; set; } = new string[] {};
+            public string[] SENames { get; set; } = new string[] { };
         }
         public CTitle Title { get; set; } = new();
         public class CTitle
@@ -776,16 +776,16 @@ internal class CSkin : IDisposable
             public int[] BarX { get; set; } = new int[] { -160, -60, 40, 140, 240, 340, 590, 840, 940, 1040, 1140, 1240, 1340 };
             public int[] BarY { get; set; } = new int[] { 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180, 180 };
             public int[] ScoreWindowX { get; set; } = { 0, 1030 };
-            public int[] ScoreWindowY { get; set; }= { 160, 160 };
+            public int[] ScoreWindowY { get; set; } = { 160, 160 };
             public int BackBoxTextCorrectionY { get; set; } = 0;
-            public int BoxHeaderCorrectionY { get; set; }= 0;
+            public int BoxHeaderCorrectionY { get; set; } = 0;
             public string[] RotateChara { get; set; } = new string[] { };
             public string[] CorrectionXChara { get; set; } = new string[] { };
             public string[] CorrectionYChara { get; set; } = new string[] { };
             public int[] CorrectionXCharaValue { get; set; } = new int[] { };
             public int[] CorrectionYCharaValue { get; set; } = new int[] { };
-            public string[] ForeColor { get{ return this._ForeColor.Select(ColorTranslator.ToHtml).ToArray(); } set{ this._ForeColor = value.Select(ColorTranslator.FromHtml).ToArray(); } }
-            public string[] BackColor { get{ return this._BackColor.Select(ColorTranslator.ToHtml).ToArray(); } set{ this._BackColor = value.Select(ColorTranslator.FromHtml).ToArray(); } }
+            public string[] ForeColor { get { return this._ForeColor.Select(ColorTranslator.ToHtml).ToArray(); } set { this._ForeColor = value.Select(ColorTranslator.FromHtml).ToArray(); } }
+            public string[] BackColor { get { return this._BackColor.Select(ColorTranslator.ToHtml).ToArray(); } set { this._BackColor = value.Select(ColorTranslator.FromHtml).ToArray(); } }
             [IgnoreDataMember]
             public Color[] _ForeColor { get; set; } = new Color[] { Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White, Color.White };
             [IgnoreDataMember]
@@ -835,19 +835,19 @@ internal class CSkin : IDisposable
             public int SubTitleY { get; set; } = 390;
             public int TitleFontSize { get; set; } = 30;
             public int SubTitleFontSize { get; set; } = 22;
-            public int PlateReferencePoint { get{ return (int)this._PlateReferencePoint; } set{ this._PlateReferencePoint = (EReferencePoint)value; } }
-            public int TitleReferencePoint { get{ return (int)this._TitleReferencePoint; } set{ this._TitleReferencePoint = (EReferencePoint)value; } }
-            public int SubTitleReferencePoint { get{ return (int)this._SubTitleReferencePoint; } set{ this._SubTitleReferencePoint = (EReferencePoint)value; } }
+            public int PlateReferencePoint { get { return (int)this._PlateReferencePoint; } set { this._PlateReferencePoint = (EReferencePoint)value; } }
+            public int TitleReferencePoint { get { return (int)this._TitleReferencePoint; } set { this._TitleReferencePoint = (EReferencePoint)value; } }
+            public int SubTitleReferencePoint { get { return (int)this._SubTitleReferencePoint; } set { this._SubTitleReferencePoint = (EReferencePoint)value; } }
             [IgnoreDataMember]
             public EReferencePoint _PlateReferencePoint { get; set; } = EReferencePoint.Center;
             [IgnoreDataMember]
             public EReferencePoint _TitleReferencePoint { get; set; } = EReferencePoint.Center;
             [IgnoreDataMember]
             public EReferencePoint _SubTitleReferencePoint { get; set; } = EReferencePoint.Center;
-            public string TitleForeColor { get{ return ColorTranslator.ToHtml(this._TitleForeColor); } set{ this._TitleForeColor = ColorTranslator.FromHtml(value); } }
-            public string TitleBackColor { get{ return ColorTranslator.ToHtml(this._TitleBackColor); } set{ this._TitleBackColor = ColorTranslator.FromHtml(value); } }
-            public string SubTitleForeColor { get{ return ColorTranslator.ToHtml(this._SubTitleForeColor); } set{ this._SubTitleForeColor = ColorTranslator.FromHtml(value); } }
-            public string SubTitleBackColor { get{ return ColorTranslator.ToHtml(this._SubTitleBackColor); } set{ this._SubTitleBackColor = ColorTranslator.FromHtml(value); } }
+            public string TitleForeColor { get { return ColorTranslator.ToHtml(this._TitleForeColor); } set { this._TitleForeColor = ColorTranslator.FromHtml(value); } }
+            public string TitleBackColor { get { return ColorTranslator.ToHtml(this._TitleBackColor); } set { this._TitleBackColor = ColorTranslator.FromHtml(value); } }
+            public string SubTitleForeColor { get { return ColorTranslator.ToHtml(this._SubTitleForeColor); } set { this._SubTitleForeColor = ColorTranslator.FromHtml(value); } }
+            public string SubTitleBackColor { get { return ColorTranslator.ToHtml(this._SubTitleBackColor); } set { this._SubTitleBackColor = ColorTranslator.FromHtml(value); } }
             [IgnoreDataMember]
             public Color _TitleForeColor { get; set; } = ColorTranslator.FromHtml("#FFFFFF");
             [IgnoreDataMember]
@@ -863,9 +863,9 @@ internal class CSkin : IDisposable
             public int v2TitleY { get; set; } = 180;
             public int v2SubTitleX { get; set; } = 640;
             public int v2SubTitleY { get; set; } = 230;
-            public int v2PlateReferencePoint { get{ return (int)this._v2PlateReferencePoint; } set{ this._v2PlateReferencePoint = (EReferencePoint)value; } }
-            public int v2TitleReferencePoint { get{ return (int)this._v2TitleReferencePoint; } set{ this._v2TitleReferencePoint = (EReferencePoint)value; } }
-            public int v2SubTitleReferencePoint { get{ return (int)this._v2SubTitleReferencePoint; } set{ this._v2SubTitleReferencePoint = (EReferencePoint)value; } }
+            public int v2PlateReferencePoint { get { return (int)this._v2PlateReferencePoint; } set { this._v2PlateReferencePoint = (EReferencePoint)value; } }
+            public int v2TitleReferencePoint { get { return (int)this._v2TitleReferencePoint; } set { this._v2TitleReferencePoint = (EReferencePoint)value; } }
+            public int v2SubTitleReferencePoint { get { return (int)this._v2SubTitleReferencePoint; } set { this._v2SubTitleReferencePoint = (EReferencePoint)value; } }
             [IgnoreDataMember]
             public EReferencePoint _v2PlateReferencePoint { get; set; } = EReferencePoint.Center;
             [IgnoreDataMember]
@@ -876,7 +876,7 @@ internal class CSkin : IDisposable
         public CGame Game { get; set; } = new();
         public class CGame
         {
-            public int RollColorMode { get{ return (int)this._RollColorMode; } set{ this._RollColorMode = (ERollColorMode)value; } }
+            public int RollColorMode { get { return (int)this._RollColorMode; } set { this._RollColorMode = (ERollColorMode)value; } }
             [IgnoreDataMember]
             public ERollColorMode _RollColorMode { get; set; } = ERollColorMode.All;
             public bool JudgeFrameAddBlend { get; set; } = true;
@@ -914,9 +914,9 @@ internal class CSkin : IDisposable
                 public int[] BeatNormal { get; set; } = new int[] { 1, 1 };
                 public int[] BeatClear { get; set; } = new int[] { 2, 2 };
                 public int[] BeatGoGo { get; set; } = new int[] { 2, 2 };
-                public int[][] MotionNormal { get; set; } = new int[][] { new int[] { 0 }, new int[] { 0 }};
-                public int[][] MotionClear { get; set; } = new int[][] { new int[] { 0 }, new int[] { 0 }};
-                public int[][] MotionGoGo { get; set; } = new int[][] { new int[] { 0 }, new int[] { 0 }};
+                public int[][] MotionNormal { get; set; } = new int[][] { new int[] { 0 }, new int[] { 0 } };
+                public int[][] MotionClear { get; set; } = new int[][] { new int[] { 0 }, new int[] { 0 } };
+                public int[][] MotionGoGo { get; set; } = new int[][] { new int[] { 0 }, new int[] { 0 } };
             }
             public CDancer Dancer { get; set; } = new();
             public class CDancer
@@ -945,14 +945,14 @@ internal class CSkin : IDisposable
                 public int MusicNameX { get; set; } = 1254;
                 public int MusicNameY { get; set; } = 14;
                 public int MusicNameFontSize { get; set; } = 30;
-                public int MusicNameReferencePoint { get{ return (int)this._MusicNameReferencePoint; } set{ this._MusicNameReferencePoint = (EReferencePoint)value; } }
+                public int MusicNameReferencePoint { get { return (int)this._MusicNameReferencePoint; } set { this._MusicNameReferencePoint = (EReferencePoint)value; } }
                 [IgnoreDataMember]
                 public EReferencePoint _MusicNameReferencePoint { get; set; } = EReferencePoint.Right;
 
                 public int SubTitleNameX { get; set; } = 1114;
-                public int SubTitleNameY { get; set; }= 70;
+                public int SubTitleNameY { get; set; } = 70;
                 public int SubTitleNameFontSize { get; set; } = 15;
-                public int SubTitleNameReferencePoint { get{ return (int)this._SubTitleNameReferencePoint; } set{ this._SubTitleNameReferencePoint = (EReferencePoint)value; } }
+                public int SubTitleNameReferencePoint { get { return (int)this._SubTitleNameReferencePoint; } set { this._SubTitleNameReferencePoint = (EReferencePoint)value; } }
                 [IgnoreDataMember]
                 public EReferencePoint _SubTitleNameReferencePoint { get; set; } = EReferencePoint.Right;
 
@@ -962,19 +962,19 @@ internal class CSkin : IDisposable
                 public int LyricY { get; set; } = 630;
                 public string LyricFontName { get; set; } = CFontRenderer.DefaultFontName;
                 public int LyricFontSize { get; set; } = 38;
-                public int LyricReferencePoint { get{ return (int)this._LyricReferencePoint; } set{ this._LyricReferencePoint = (EReferencePoint)value; } }
+                public int LyricReferencePoint { get { return (int)this._LyricReferencePoint; } set { this._LyricReferencePoint = (EReferencePoint)value; } }
                 [IgnoreDataMember]
                 public EReferencePoint _LyricReferencePoint { get; set; } = EReferencePoint.Center;
 
                 public string StageText { get; set; } = "1曲目";
                 public bool StageTextDisp { get; set; } = true;
 
-                public string MusicNameForeColor { get{ return ColorTranslator.ToHtml(this._MusicNameForeColor); } set{ this._MusicNameForeColor = ColorTranslator.FromHtml(value); } }
-                public string StageTextForeColor { get{ return ColorTranslator.ToHtml(this._StageTextForeColor); } set{ this._StageTextForeColor = ColorTranslator.FromHtml(value); } }
-                public string LyricForeColor { get{ return ColorTranslator.ToHtml(this._LyricForeColor); } set{ this._LyricForeColor = ColorTranslator.FromHtml(value); } }
-                public string MusicNameBackColor { get{ return ColorTranslator.ToHtml(this._MusicNameBackColor); } set{ this._MusicNameBackColor = ColorTranslator.FromHtml(value); } }
-                public string StageTextBackColor { get{ return ColorTranslator.ToHtml(this._StageTextBackColor); } set{ this._StageTextBackColor = ColorTranslator.FromHtml(value); } }
-                public string LyricBackColor { get{ return ColorTranslator.ToHtml(this._LyricBackColor); } set{ this._LyricBackColor = ColorTranslator.FromHtml(value); } }
+                public string MusicNameForeColor { get { return ColorTranslator.ToHtml(this._MusicNameForeColor); } set { this._MusicNameForeColor = ColorTranslator.FromHtml(value); } }
+                public string StageTextForeColor { get { return ColorTranslator.ToHtml(this._StageTextForeColor); } set { this._StageTextForeColor = ColorTranslator.FromHtml(value); } }
+                public string LyricForeColor { get { return ColorTranslator.ToHtml(this._LyricForeColor); } set { this._LyricForeColor = ColorTranslator.FromHtml(value); } }
+                public string MusicNameBackColor { get { return ColorTranslator.ToHtml(this._MusicNameBackColor); } set { this._MusicNameBackColor = ColorTranslator.FromHtml(value); } }
+                public string StageTextBackColor { get { return ColorTranslator.ToHtml(this._StageTextBackColor); } set { this._StageTextBackColor = ColorTranslator.FromHtml(value); } }
+                public string LyricBackColor { get { return ColorTranslator.ToHtml(this._LyricBackColor); } set { this._LyricBackColor = ColorTranslator.FromHtml(value); } }
                 [IgnoreDataMember]
                 public Color _MusicNameForeColor { get; set; } = ColorTranslator.FromHtml("#FFFFFF");
                 [IgnoreDataMember]
@@ -996,7 +996,7 @@ internal class CSkin : IDisposable
                 public int[] AddX { get; set; } = new int[] { 20, 20, 0, 0 };
                 public int[] AddY { get; set; } = new int[] { 186, 570, 0, 0 };
                 public int[] AddBonusX { get; set; } = new int[] { 20, 20, 0, 0 };
-                public int[] AddBonusY { get; set; }= new int[] { 136, 626, 0, 0 };
+                public int[] AddBonusY { get; set; } = new int[] { 136, 626, 0, 0 };
                 public int Padding { get; set; } = 20;
                 public int[] Size { get; set; } = new int[] { 24, 40 };
             }
@@ -1035,7 +1035,7 @@ internal class CSkin : IDisposable
             public class CBalloon
             {
                 public int[] ComboX { get; set; } = new int[] { 253, 253 };
-                public int[] ComboY { get; set; }= new int[] { -11, 498 };
+                public int[] ComboY { get; set; } = new int[] { -11, 498 };
                 public int[] ComboNumberX { get; set; } = new int[] { 312, 312 };
                 public int[] ComboNumberY { get; set; } = new int[] { 34, 540 };
                 public int[] ComboNumberExX { get; set; } = new int[] { 335, 335 };
@@ -1171,10 +1171,10 @@ internal class CSkin : IDisposable
             public CDanC DanC { get; set; } = new();
             public class CDanC
             {
-                public string TitleForeColor { get{ return ColorTranslator.ToHtml(this._TitleForeColor); } set{ this._TitleForeColor = ColorTranslator.FromHtml(value); } }
-                public string TitleBackColor { get{ return ColorTranslator.ToHtml(this._TitleBackColor); } set{ this._TitleBackColor = ColorTranslator.FromHtml(value); } }
-                public string SubTitleForeColor { get{ return ColorTranslator.ToHtml(this._SubTitleForeColor); } set{ this._SubTitleForeColor = ColorTranslator.FromHtml(value); } }
-                public string SubTitleBackColor { get{ return ColorTranslator.ToHtml(this._SubTitleBackColor); } set{ this._SubTitleBackColor = ColorTranslator.FromHtml(value); } }
+                public string TitleForeColor { get { return ColorTranslator.ToHtml(this._TitleForeColor); } set { this._TitleForeColor = ColorTranslator.FromHtml(value); } }
+                public string TitleBackColor { get { return ColorTranslator.ToHtml(this._TitleBackColor); } set { this._TitleBackColor = ColorTranslator.FromHtml(value); } }
+                public string SubTitleForeColor { get { return ColorTranslator.ToHtml(this._SubTitleForeColor); } set { this._SubTitleForeColor = ColorTranslator.FromHtml(value); } }
+                public string SubTitleBackColor { get { return ColorTranslator.ToHtml(this._SubTitleBackColor); } set { this._SubTitleBackColor = ColorTranslator.FromHtml(value); } }
                 [IgnoreDataMember]
                 public Color _TitleForeColor { get; set; } = ColorTranslator.FromHtml("#FFFFFF");
                 [IgnoreDataMember]
@@ -1260,19 +1260,19 @@ internal class CSkin : IDisposable
             public int MusicNameX { get; set; } = 1254;
             public int MusicNameY { get; set; } = 6;
             public int MusicNameFontSize { get; set; } = 30;
-            public int MusicNameReferencePoint { get{ return (int)this._MusicNameReferencePoint; } set{ this._MusicNameReferencePoint = (EReferencePoint)value; } }
+            public int MusicNameReferencePoint { get { return (int)this._MusicNameReferencePoint; } set { this._MusicNameReferencePoint = (EReferencePoint)value; } }
             [IgnoreDataMember]
             public EReferencePoint _MusicNameReferencePoint { get; set; } = EReferencePoint.Right;
             public int StageTextX { get; set; } = 230;
             public int StageTextY { get; set; } = 6;
             public int StageTextFontSize { get; set; } = 30;
-            public int StageTextReferencePoint { get{ return (int)this._StageTextReferencePoint; } set{ this._StageTextReferencePoint = (EReferencePoint)value; } }
+            public int StageTextReferencePoint { get { return (int)this._StageTextReferencePoint; } set { this._StageTextReferencePoint = (EReferencePoint)value; } }
             [IgnoreDataMember]
             public EReferencePoint _StageTextReferencePoint { get; set; } = EReferencePoint.Left;
-            public string MusicNameForeColor { get{ return ColorTranslator.ToHtml(this._MusicNameForeColor); } set{ this._MusicNameForeColor = ColorTranslator.FromHtml(value); } }
-            public string MusicNameBackColor { get{ return ColorTranslator.ToHtml(this._MusicNameBackColor); } set{ this._MusicNameBackColor = ColorTranslator.FromHtml(value); } }
-            public string StageTextForeColor { get{ return ColorTranslator.ToHtml(this._StageTextForeColor); } set{ this._StageTextForeColor = ColorTranslator.FromHtml(value); } }
-            public string StageTextBackColor { get{ return ColorTranslator.ToHtml(this._StageTextBackColor); } set{ this._StageTextBackColor = ColorTranslator.FromHtml(value); } }
+            public string MusicNameForeColor { get { return ColorTranslator.ToHtml(this._MusicNameForeColor); } set { this._MusicNameForeColor = ColorTranslator.FromHtml(value); } }
+            public string MusicNameBackColor { get { return ColorTranslator.ToHtml(this._MusicNameBackColor); } set { this._MusicNameBackColor = ColorTranslator.FromHtml(value); } }
+            public string StageTextForeColor { get { return ColorTranslator.ToHtml(this._StageTextForeColor); } set { this._StageTextForeColor = ColorTranslator.FromHtml(value); } }
+            public string StageTextBackColor { get { return ColorTranslator.ToHtml(this._StageTextBackColor); } set { this._StageTextBackColor = ColorTranslator.FromHtml(value); } }
             [IgnoreDataMember]
             public Color _MusicNameForeColor { get; set; } = ColorTranslator.FromHtml("#FFFFFF");
             [IgnoreDataMember]
@@ -1311,7 +1311,7 @@ internal class CSkin : IDisposable
             public int[] v2GaugeBodyY { get; set; } = { 130, 130 };
             public int v2MusicNameX { get; set; } = 640;
             public int v2MusicNameY { get; set; } = 6;
-            public int v2MusicNameReferencePoint { get{ return (int)this._v2MusicNameReferencePoint; } set{ this._v2MusicNameReferencePoint = (EReferencePoint)value; } }
+            public int v2MusicNameReferencePoint { get { return (int)this._v2MusicNameReferencePoint; } set { this._v2MusicNameReferencePoint = (EReferencePoint)value; } }
             [IgnoreDataMember]
             public EReferencePoint _v2MusicNameReferencePoint { get; set; } = EReferencePoint.Center;
             public int[] v2NamePlateX { get; set; } = new int[] { 20, 1000 };

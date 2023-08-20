@@ -29,15 +29,15 @@ internal class CActScrollSpeed : CActivity
         for (int nPlayer = 0; nPlayer < 2; nPlayer++)
         {
             this.db現在の譜面スクロール速度[nPlayer] = (double)TJAPlayer3.ConfigToml.PlayOption.ScrollSpeed[nPlayer];
-            this.n速度変更制御タイマ[nPlayer] = -1; 
+            this.n速度変更制御タイマ[nPlayer] = -1;
         }
         base.On活性化();
     }
     public override unsafe int On進行描画()
     {
-        if( !base.b活性化してない )
+        if (!base.b活性化してない)
         {
-            if( base.b初めての進行描画 )
+            if (base.b初めての進行描画)
             {
                 for (int nPlayer = 0; nPlayer < 2; nPlayer++)
                 {
@@ -76,7 +76,7 @@ internal class CActScrollSpeed : CActivity
                     }
                     this.n速度変更制御タイマ[nPlayer] += 2;
                 }
-                
+
             }
         }
         return 0;

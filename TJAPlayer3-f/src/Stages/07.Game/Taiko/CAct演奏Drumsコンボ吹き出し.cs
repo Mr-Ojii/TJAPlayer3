@@ -22,83 +22,83 @@ internal class CAct演奏Drumsコンボ吹き出し : CActivity
 
 
     // メソッド
-    public virtual void Start( int nCombo, int player )
+    public virtual void Start(int nCombo, int player)
     {
-        this.ct進行[ player ] = new CCounter( 1, 103, 20, TJAPlayer3.Timer );
-        this.nCombo_渡[ player ] = nCombo;
+        this.ct進行[player] = new CCounter(1, 103, 20, TJAPlayer3.Timer);
+        this.nCombo_渡[player] = nCombo;
     }
 
     // CActivity 実装
 
     public override void On活性化()
     {
-        for( int i = 0; i < 2; i++ )
+        for (int i = 0; i < 2; i++)
         {
-            this.nCombo_渡[ i ] = 0;
-            this.ct進行[ i ] = new CCounter();
+            this.nCombo_渡[i] = 0;
+            this.ct進行[i] = new CCounter();
         }
 
         base.On活性化();
     }
     public override void On非活性化()
     {
-        for( int i = 0; i < 2; i++ )
+        for (int i = 0; i < 2; i++)
         {
-            this.ct進行[ i ] = null;
+            this.ct進行[i] = null;
         }
         base.On非活性化();
     }
     public override int On進行描画()
     {
-        if( !base.b活性化してない )
+        if (!base.b活性化してない)
         {
-            for( int i = 0; i < 2; i++ )
+            for (int i = 0; i < 2; i++)
             {
-                if( !this.ct進行[ i ].b停止中 )
+                if (!this.ct進行[i].b停止中)
                 {
-                    this.ct進行[ i ].t進行();
-                    if( this.ct進行[ i ].b終了値に達した )
+                    this.ct進行[i].t進行();
+                    if (this.ct進行[i].b終了値に達した)
                     {
-                        this.ct進行[ i ].t停止();
+                        this.ct進行[i].t停止();
                     }
                 }
 
-                if( TJAPlayer3.Tx.Balloon_Combo[ i ] != null )
+                if (TJAPlayer3.Tx.Balloon_Combo[i] != null)
                 {
                     //半透明4f
-                    if( this.ct進行[ i ].n現在の値 == 1 || this.ct進行[ i ].n現在の値 == 103 )
+                    if (this.ct進行[i].n現在の値 == 1 || this.ct進行[i].n現在の値 == 103)
                     {
-                        TJAPlayer3.Tx.Balloon_Combo[ i ].Opacity = 64;
+                        TJAPlayer3.Tx.Balloon_Combo[i].Opacity = 64;
                         TJAPlayer3.Tx.Balloon_Number_Combo.Opacity = 64;
                     }
-                    else if( this.ct進行[ i ].n現在の値 == 2 || this.ct進行[ i ].n現在の値 == 102 )
+                    else if (this.ct進行[i].n現在の値 == 2 || this.ct進行[i].n現在の値 == 102)
                     {
-                        TJAPlayer3.Tx.Balloon_Combo[ i ].Opacity = 128;
+                        TJAPlayer3.Tx.Balloon_Combo[i].Opacity = 128;
                         TJAPlayer3.Tx.Balloon_Number_Combo.Opacity = 128;
                     }
-                    else if( this.ct進行[ i ].n現在の値 == 3 || this.ct進行[ i ].n現在の値 == 101 )
+                    else if (this.ct進行[i].n現在の値 == 3 || this.ct進行[i].n現在の値 == 101)
                     {
-                        TJAPlayer3.Tx.Balloon_Combo[ i ].Opacity = 192;
+                        TJAPlayer3.Tx.Balloon_Combo[i].Opacity = 192;
                         TJAPlayer3.Tx.Balloon_Number_Combo.Opacity = 192;
                     }
-                    else if( this.ct進行[ i ].n現在の値 >= 4 && this.ct進行[ i ].n現在の値 <= 100 )
+                    else if (this.ct進行[i].n現在の値 >= 4 && this.ct進行[i].n現在の値 <= 100)
                     {
-                        TJAPlayer3.Tx.Balloon_Combo[ i ].Opacity = 255;
+                        TJAPlayer3.Tx.Balloon_Combo[i].Opacity = 255;
                         TJAPlayer3.Tx.Balloon_Number_Combo.Opacity = 255;
                     }
 
-                    if( this.ct進行[ i ].b進行中 )
+                    if (this.ct進行[i].b進行中)
                     {
-                        TJAPlayer3.Tx.Balloon_Combo[ i ].t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboX[ i ], TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboY[ i ] );
-                        if( this.nCombo_渡[ i ] < 1000 ) //2016.08.23 kairera0467 仮実装。
+                        TJAPlayer3.Tx.Balloon_Combo[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboX[i], TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboY[i]);
+                        if (this.nCombo_渡[i] < 1000) //2016.08.23 kairera0467 仮実装。
                         {
-                            this.t小文字表示( TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboNumberX[ i ], TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboNumberY[ i ], string.Format( "{0,4:###0}", this.nCombo_渡[ i ] ) );
-                            TJAPlayer3.Tx.Balloon_Number_Combo.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboTextX[ i ], TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboTextY[ i ], new Rectangle( 0, 54, 77, 32 ) );
+                            this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboNumberX[i], TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboNumberY[i], string.Format("{0,4:###0}", this.nCombo_渡[i]));
+                            TJAPlayer3.Tx.Balloon_Number_Combo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboTextX[i], TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboTextY[i], new Rectangle(0, 54, 77, 32));
                         }
                         else
                         {
-                            this.t小文字表示( TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboNumberExX[ i ], TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboNumberExY[ i ], string.Format( "{0,4:###0}", this.nCombo_渡[ i ] ) );
-                            TJAPlayer3.Tx.Balloon_Number_Combo.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboTextExX[ i ], TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboTextExY[ i ], new Rectangle( 0, 54, 77, 32 ) );
+                            this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboNumberExX[i], TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboNumberExY[i], string.Format("{0,4:###0}", this.nCombo_渡[i]));
+                            TJAPlayer3.Tx.Balloon_Number_Combo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboTextExX[i], TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboTextExY[i], new Rectangle(0, 54, 77, 32));
                         }
                     }
                 }
@@ -112,17 +112,17 @@ internal class CAct演奏Drumsコンボ吹き出し : CActivity
 
     #region [ private ]
     //-----------------
-    private CCounter[] ct進行 = new CCounter[ 2 ];
+    private CCounter[] ct進行 = new CCounter[2];
     //private CTexture[] tx吹き出し本体 = new CTexture[ 2 ];
     //private CTexture tx数字;
-    private int[] nCombo_渡 = new int[ 2 ];
+    private int[] nCombo_渡 = new int[2];
 
     [StructLayout(LayoutKind.Sequential)]
     private struct ST文字位置
     {
         public char ch;
         public Point pt;
-        public ST文字位置( char ch, Point pt )
+        public ST文字位置(char ch, Point pt)
         {
             this.ch = ch;
             this.pt = pt;
@@ -141,18 +141,18 @@ internal class CAct演奏Drumsコンボ吹き出し : CActivity
         new ST文字位置( '9', new Point( 396, 0 ) )
     };
 
-    private void t小文字表示( int x, int y, string str )
+    private void t小文字表示(int x, int y, string str)
     {
-        foreach( char ch in str )
+        foreach (char ch in str)
         {
-            for( int i = 0; i < this.st小文字位置.Length; i++ )
+            for (int i = 0; i < this.st小文字位置.Length; i++)
             {
-                if( this.st小文字位置[ i ].ch == ch )
+                if (this.st小文字位置[i].ch == ch)
                 {
-                    Rectangle rectangle = new Rectangle( this.st小文字位置[ i ].pt.X, this.st小文字位置[ i ].pt.Y, 44, 54 );
-                    if(TJAPlayer3.Tx.Balloon_Number_Combo != null )
+                    Rectangle rectangle = new Rectangle(this.st小文字位置[i].pt.X, this.st小文字位置[i].pt.Y, 44, 54);
+                    if (TJAPlayer3.Tx.Balloon_Number_Combo != null)
                     {
-                        TJAPlayer3.Tx.Balloon_Number_Combo.t2D描画( TJAPlayer3.app.Device, x, y, rectangle );
+                        TJAPlayer3.Tx.Balloon_Number_Combo.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
                     }
                     break;
                 }

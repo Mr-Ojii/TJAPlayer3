@@ -13,6 +13,6 @@ internal sealed class C曲リストノードComparerタイトル : IComparer<C�
 
     public int Compare(C曲リストノード n1, C曲リストノード n2)
     {
-        return _order * n1.strTitle.CompareTo( n2.strTitle );
+        return _order * n1.strTitle.CompareTo(n2.strTitle);
     }
 }

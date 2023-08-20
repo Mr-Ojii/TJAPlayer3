@@ -18,21 +18,21 @@ internal class CActSortSongs : CActSelectPopupMenu
             new CItemList("戻る", 0, "", "", new string[] { "", "" })
         };
 
-        base.Initialize( lci, false, "SORT MENU" , 0 );
+        base.Initialize(lci, false, "SORT MENU", 0);
     }
 
 
     // メソッド
-    public void tActivatePopupMenu( ref CActSelect曲リスト ca )
+    public void tActivatePopupMenu(ref CActSelect曲リスト ca)
     {
         this.act曲リスト = ca;
         base.tActivatePopupMenu(0);
     }
 
 
-    public override void tPushedEnterMain( int nSortOrder )
+    public override void tPushedEnterMain(int nSortOrder)
     {
-        switch ( (EOrder)n現在の選択行 )
+        switch ((EOrder)n現在の選択行)
         {
             case EOrder.Path:
                 nSortOrder *= 2;    // 0,1  => -1, 1
@@ -55,7 +55,7 @@ internal class CActSortSongs : CActSelectPopupMenu
                 this.act曲リスト.t曲リストのソート(
                     CSongsManager.t曲リストのソート9_ジャンル順, nSortOrder
                 );
-                this.act曲リスト.t選択曲が変更された( true );
+                this.act曲リスト.t選択曲が変更された(true);
                 break;
             case EOrder.Return:
                 this.tDeativatePopupMenu();
@@ -74,7 +74,7 @@ internal class CActSortSongs : CActSelectPopupMenu
     }
     public override void On非活性化()
     {
-        if( !base.b活性化してない )
+        if (!base.b活性化してない)
         {
             base.On非活性化();
         }

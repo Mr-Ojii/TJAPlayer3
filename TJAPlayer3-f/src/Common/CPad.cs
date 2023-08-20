@@ -11,7 +11,7 @@ public class CPad
     // プロパティ
 
     internal STHIT stDetectedDevices;
-    [StructLayout( LayoutKind.Sequential )]
+    [StructLayout(LayoutKind.Sequential)]
     internal struct STHIT
     {
         public bool Keyboard;
@@ -30,7 +30,7 @@ public class CPad
 
     // コンストラクタ
 
-    internal CPad( CConfigIni configIni, CConfigToml configToml, CInputManager mgrInput )
+    internal CPad(CConfigIni configIni, CConfigToml configToml, CInputManager mgrInput)
     {
         this.rConfigIni = configIni;
         this.rConfigToml = configToml;
@@ -41,51 +41,51 @@ public class CPad
 
     // メソッド
 
-    public List<STInputEvent> GetEvents( EPad pad )
+    public List<STInputEvent> GetEvents(EPad pad)
     {
         CConfigIni.CKeyAssign.STKEYASSIGN[] stkeyassignArray = this.rConfigIni.KeyAssign[(int)pad];
         List<STInputEvent> list = new List<STInputEvent>();
 
         // すべての入力デバイスについて…
-        foreach( IInputDevice device in this.rInputManager.listInputDevices )
+        foreach (IInputDevice device in this.rInputManager.listInputDevices)
         {
-            if( ( device.listInputEvents == null ) || ( device.listInputEvents.Count == 0 ) )
+            if ((device.listInputEvents == null) || (device.listInputEvents.Count == 0))
                 continue;
 
-            foreach( STInputEvent event2 in device.listInputEvents )
+            foreach (STInputEvent event2 in device.listInputEvents)
             {
-                for( int i = 0; i < stkeyassignArray.Length; i++ )
+                for (int i = 0; i < stkeyassignArray.Length; i++)
                 {
-                    switch( stkeyassignArray[ i ].DeviceType )
+                    switch (stkeyassignArray[i].DeviceType)
                     {
                         case EInputDevice.KeyBoard:
-                            if( ( device.eInputDeviceType == EInputDeviceType.Keyboard ) && ( event2.nKey == stkeyassignArray[ i ].Code ) )
+                            if ((device.eInputDeviceType == EInputDeviceType.Keyboard) && (event2.nKey == stkeyassignArray[i].Code))
                             {
-                                list.Add( event2 );
+                                list.Add(event2);
                                 this.stDetectedDevices.Keyboard = true;
                             }
                             break;
 
                         case EInputDevice.MIDIInput:
-                            if( ( ( device.eInputDeviceType == EInputDeviceType.MidiIn ) && ( device.ID == stkeyassignArray[ i ].ID ) ) && ( event2.nKey == stkeyassignArray[ i ].Code ) )
+                            if (((device.eInputDeviceType == EInputDeviceType.MidiIn) && (device.ID == stkeyassignArray[i].ID)) && (event2.nKey == stkeyassignArray[i].Code))
                             {
-                                list.Add( event2 );
+                                list.Add(event2);
                                 this.stDetectedDevices.MIDIIN = true;
                             }
                             break;
 
                         case EInputDevice.Joypad:
-                            if( ( ( device.eInputDeviceType == EInputDeviceType.Joystick ) && ( device.ID == stkeyassignArray[ i ].ID ) ) && ( event2.nKey == stkeyassignArray[ i ].Code ) )
+                            if (((device.eInputDeviceType == EInputDeviceType.Joystick) && (device.ID == stkeyassignArray[i].ID)) && (event2.nKey == stkeyassignArray[i].Code))
                             {
-                                list.Add( event2 );
+                                list.Add(event2);
                                 this.stDetectedDevices.Joypad = true;
                             }
                             break;
 
                         case EInputDevice.Mouse:
-                            if( ( device.eInputDeviceType == EInputDeviceType.Mouse ) && ( event2.nKey == stkeyassignArray[ i ].Code ) )
+                            if ((device.eInputDeviceType == EInputDeviceType.Mouse) && (event2.nKey == stkeyassignArray[i].Code))
                             {
-                                list.Add( event2 );
+                                list.Add(event2);
                                 this.stDetectedDevices.Mouse = true;
                             }
                             break;
@@ -95,7 +95,7 @@ public class CPad
         }
         return list;
     }
-    public bool bPressed( EPad pad )
+    public bool bPressed(EPad pad)
     {
         CConfigIni.CKeyAssign.STKEYASSIGN[] stkeyassignArray = this.rConfigIni.KeyAssign[(int)pad];
         for (int i = 0; i < stkeyassignArray.Length; i++)
@@ -138,10 +138,10 @@ public class CPad
                     return true;
             }
         }
-        
+
         return false;
     }
-    public bool bDown( EPad pad )
+    public bool bDown(EPad pad)
     {
         CConfigIni.CKeyAssign.STKEYASSIGN[] stkeyassignArray = this.rConfigIni.KeyAssign[(int)pad];
         for (int i = 0; i < stkeyassignArray.Length; i++)

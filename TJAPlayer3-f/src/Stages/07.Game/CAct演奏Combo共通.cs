@@ -21,7 +21,7 @@ internal class CAct演奏Combo共通 : CActivity
         }
         public CAct演奏Combo共通 act;
 
-        public int this[ int index ]
+        public int this[int index]
         {
             get
             {
@@ -30,7 +30,7 @@ internal class CAct演奏Combo共通 : CActivity
             set
             {
                 this.Combo[index] = value;
-                if( this.Combo[index] > this.Max[index] )
+                if (this.Combo[index] > this.Max[index])
                 {
                     this.Max[index] = this.Combo[index];
                 }
@@ -86,7 +86,7 @@ internal class CAct演奏Combo共通 : CActivity
     protected class CSTATUS
     {
         private CSTAT[] status = new CSTAT[4] { new(), new(), new(), new() };
-        public CSTAT this[ int index ]
+        public CSTAT this[int index]
         {
             get
             {
@@ -122,7 +122,7 @@ internal class CAct演奏Combo共通 : CActivity
 
     // メソッド
 
-    protected virtual void tコンボ表示_太鼓( int nCombo値, int nジャンプインデックス, int nPlayer )
+    protected virtual void tコンボ表示_太鼓(int nCombo値, int nジャンプインデックス, int nPlayer)
     {
         //テスト用コンボ数
         //nCombo値 = 114;
@@ -131,24 +131,24 @@ internal class CAct演奏Combo共通 : CActivity
         //if( CDTXMania.ConfigIni.bドラムコンボ表示 == false )
         //	return;		// 表示OFF。
 
-        if( nCombo値 == 0 )
+        if (nCombo値 == 0)
             return;		// コンボゼロは表示しない。
         //-----------------
         #endregion
 
-        int[] n位の数 = new int[ 10 ];	// 表示は10桁もあれば足りるだろう
+        int[] n位の数 = new int[10];	// 表示は10桁もあれば足りるだろう
 
         this.ctコンボラメ.t進行Loop();
-        this.ctコンボ加算[ nPlayer ].t進行();
+        this.ctコンボ加算[nPlayer].t進行();
 
         #region [ nCombo値を桁数ごとに n位の数[] に格納する。（例：nCombo値=125 のとき n位の数 = { 5,2,1,0,0,0,0,0,0,0 } ） ]
         //-----------------
         int n = nCombo値;
         int n桁数 = 0;
-        while( ( n > 0 ) && ( n桁数 < 10 ) )
+        while ((n > 0) && (n桁数 < 10))
         {
-            n位の数[ n桁数 ] = n % 10;		// 1の位を格納
-            n = ( n - ( n % 10 ) ) / 10;	// 右へシフト（例: 12345 → 1234 ）
+            n位の数[n桁数] = n % 10;		// 1の位を格納
+            n = (n - (n % 10)) / 10;	// 右へシフト（例: 12345 → 1234 ）
             n桁数++;
         }
         //-----------------
@@ -158,13 +158,13 @@ internal class CAct演奏Combo共通 : CActivity
         //-----------------
         //X右座標を元にして、右座標 - ( コンボの幅 * 桁数 ) でX座標を求めていく?
 
-        int n数字とCOMBOを合わせた画像の全長px = ( ( 44 ) * n桁数 );
-        int x = 245 + ( n数字とCOMBOを合わせた画像の全長px / 2 );
+        int n数字とCOMBOを合わせた画像の全長px = ((44) * n桁数);
+        int x = 245 + (n数字とCOMBOを合わせた画像の全長px / 2);
         //int y = 212;
         //int y = CDTXMania.Skin.nComboNumberY[ nPlayer ];
 
         #region[ コンボ文字 ]
-        if( n桁数 <= 2 )
+        if (n桁数 <= 2)
         {
             TJAPlayer3.Tx.Taiko_Combo_Text?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboTextX[nPlayer], TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboTextY[nPlayer], new Rectangle(0, 0, TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboTextSize[0], TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboTextSize[1]));
         }
@@ -176,17 +176,17 @@ internal class CAct演奏Combo共通 : CActivity
 
         int rightX = 0;
         #region 一番右の数字の座標の決定
-        if( n桁数 == 1)
+        if (n桁数 == 1)
         {
             // 一桁ならそのままSkinConfigの座標を使用する。
             rightX = TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboX[nPlayer];
         }
-        else if( n桁数 == 2)
+        else if (n桁数 == 2)
         {
             // 二桁ならSkinConfigの座標+パディング/2を使用する
             rightX = TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboX[nPlayer] + TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboPadding[0] / 2;
         }
-        else if( n桁数 == 3)
+        else if (n桁数 == 3)
         {
             // 三桁ならSkinConfigの座標+パディングを使用する
             rightX = TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboExX[nPlayer] + TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboPadding[1];
@@ -213,7 +213,7 @@ internal class CAct演奏Combo共通 : CActivity
                     // 2で割るとあまりが出る
                     // そのままパディングを足していく
                     // 右に表示される桁数を求める(中央除く -1)
-                    rightDigit = (n桁数 - 1) /2;
+                    rightDigit = (n桁数 - 1) / 2;
                     rightX = TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboEx4X[nPlayer] + TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboPadding[2] * rightDigit;
                     break;
                 default:
@@ -223,16 +223,16 @@ internal class CAct演奏Combo共通 : CActivity
         #endregion
 
 
-        for ( int i = 0; i < n桁数; i++ )
+        for (int i = 0; i < n桁数; i++)
         {
             if (TJAPlayer3.Tx.Taiko_Combo[0] != null)
                 TJAPlayer3.Tx.Taiko_Combo[0].Opacity = 255;
             if (TJAPlayer3.Tx.Taiko_Combo[1] != null)
                 TJAPlayer3.Tx.Taiko_Combo[1].Opacity = 255;
 
-            if ( n桁数 <= 1 )
+            if (n桁数 <= 1)
             {
-                if(TJAPlayer3.Tx.Taiko_Combo[0] != null )
+                if (TJAPlayer3.Tx.Taiko_Combo[0] != null)
                 {
                     var yScalling = ComboScale[this.ctコンボ加算[nPlayer].n現在の値];
                     TJAPlayer3.Tx.Taiko_Combo[0].vcScaling.Y = TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboScale[0] + yScalling;
@@ -240,10 +240,10 @@ internal class CAct演奏Combo共通 : CActivity
                     TJAPlayer3.Tx.Taiko_Combo[0].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, rightX, TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboY[nPlayer], new Rectangle(n位の数[i] * TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboSize[0], 0, TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboSize[0], TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboSize[1]));
                 }
             }
-            else if( n桁数 <= 2 )
+            else if (n桁数 <= 2)
             {
                 //int[] arComboX = { CDTXMania.Skin.Game_Taiko_Combo_X[nPlayer] + CDTXMania.Skin.Game_Taiko_Combo_Padding[0], CDTXMania.Skin.Game_Taiko_Combo_X[nPlayer] - CDTXMania.Skin.Game_Taiko_Combo_Padding[0] };
-                if (TJAPlayer3.Tx.Taiko_Combo[0] != null )
+                if (TJAPlayer3.Tx.Taiko_Combo[0] != null)
                 {
                     var yScalling = ComboScale[this.ctコンボ加算[nPlayer].n現在の値];
                     TJAPlayer3.Tx.Taiko_Combo[0].vcScaling.Y = TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboScale[0] + yScalling;
@@ -251,9 +251,9 @@ internal class CAct演奏Combo共通 : CActivity
                     TJAPlayer3.Tx.Taiko_Combo[0].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, rightX - TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboPadding[0] * i, TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboY[nPlayer], new Rectangle(n位の数[i] * TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboSize[0], 0, TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboSize[0], TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboSize[1]));
                 }
             }
-            else if( n桁数 == 3 )
+            else if (n桁数 == 3)
             {
-                if (TJAPlayer3.Tx.Taiko_Combo[1] != null )
+                if (TJAPlayer3.Tx.Taiko_Combo[1] != null)
                 {
                     var yScalling = ComboScale_Ex[this.ctコンボ加算[nPlayer].n現在の値, 0];
                     TJAPlayer3.Tx.Taiko_Combo[1].vcScaling.Y = TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboScale[1] + yScalling;
@@ -261,10 +261,10 @@ internal class CAct演奏Combo共通 : CActivity
                     var yJumping = TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboExIsJumping ? (int)ComboScale_Ex[this.ctコンボ加算[nPlayer].n現在の値, 1] : 0;
                     TJAPlayer3.Tx.Taiko_Combo[1].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, rightX - TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboPadding[1] * i, TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboExY[nPlayer] + yJumping, new Rectangle(n位の数[i] * TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboSizeEx[0], 0, TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboSizeEx[0], TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboSizeEx[1]));
                 }
-                if(TJAPlayer3.Tx.Taiko_Combo_Effect != null )
+                if (TJAPlayer3.Tx.Taiko_Combo_Effect != null)
                 {
                     TJAPlayer3.Tx.Taiko_Combo_Effect.eBlendMode = CTexture.EBlendMode.Addition;
-                    if ( this.ctコンボラメ.n現在の値 < 14)
+                    if (this.ctコンボラメ.n現在の値 < 14)
                     {
                         // ひだり
                         #region[透明度制御]
@@ -273,7 +273,7 @@ internal class CAct演奏Combo共通 : CActivity
                         #endregion
                         TJAPlayer3.Tx.Taiko_Combo_Effect.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, (rightX - TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboPadding[1] * i) - ((TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboSizeEx[0] / 4) * TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboScale[1]), TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboExY[nPlayer] - ((TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboSizeEx[1] / 4) * TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboScale[1]) - (int)(1.05 * this.ctコンボラメ.n現在の値));
                     }
-                    if(ctコンボラメ.n現在の値 > 4 && ctコンボラメ.n現在の値 < 24)
+                    if (ctコンボラメ.n現在の値 > 4 && ctコンボラメ.n現在の値 < 24)
                     {
                         // みぎ
                         #region[透明度制御]
@@ -351,49 +351,49 @@ internal class CAct演奏Combo共通 : CActivity
     {
         this.n現在のコンボ数 = new STCOMBO() { act = this };
         this.status = new CSTATUS();
-        this.ctコンボ加算 = new CCounter[ 4 ];
-        for( int i = 0; i < 4; i++ )
+        this.ctコンボ加算 = new CCounter[4];
+        for (int i = 0; i < 4; i++)
         {
-            this.status[ i ].e現在のモード = EMode.非表示中;
-            this.status[ i ].nCOMBO値 = 0;
-            this.status[ i ].n最高COMBO値 = 0;
-            this.status[ i ].n現在表示中のCOMBO値 = 0;
-            this.status[ i ].n残像表示中のCOMBO値 = 0;
-            this.status[ i ].nジャンプインデックス値 = 99999;
-            this.status[ i ].n前回の時刻_ジャンプ用 = -1;
-            this.status[ i ].nコンボが切れた時刻 = -1;
-            this.ctコンボ加算[ i ] = new CCounter( 0, 12, 12, TJAPlayer3.Timer );
+            this.status[i].e現在のモード = EMode.非表示中;
+            this.status[i].nCOMBO値 = 0;
+            this.status[i].n最高COMBO値 = 0;
+            this.status[i].n現在表示中のCOMBO値 = 0;
+            this.status[i].n残像表示中のCOMBO値 = 0;
+            this.status[i].nジャンプインデックス値 = 99999;
+            this.status[i].n前回の時刻_ジャンプ用 = -1;
+            this.status[i].nコンボが切れた時刻 = -1;
+            this.ctコンボ加算[i] = new CCounter(0, 12, 12, TJAPlayer3.Timer);
         }
-        this.ctコンボラメ = new CCounter( 0, 29, 20, TJAPlayer3.Timer );
+        this.ctコンボラメ = new CCounter(0, 29, 20, TJAPlayer3.Timer);
         base.On活性化();
     }
     public override void On非活性化()
     {
-        if( this.status != null )
+        if (this.status != null)
             this.status = null;
 
         base.On非活性化();
     }
     public override int On進行描画()
     {
-        if( this.b活性化してない )
+        if (this.b活性化してない)
             return 0;
 
-        for( int i = 0; i < 4; i++ )
+        for (int i = 0; i < 4; i++)
         {
             EEvent e今回の状態遷移イベント;
 
             #region [ 前回と今回の COMBO 値から、e今回の状態遷移イベントを決定する。]
             //-----------------
-            if( this.status[ i ].n現在表示中のCOMBO値 == this.status[ i ].nCOMBO値 )
+            if (this.status[i].n現在表示中のCOMBO値 == this.status[i].nCOMBO値)
             {
                 e今回の状態遷移イベント = EEvent.同一数値;
             }
-            else if( this.status[ i ].n現在表示中のCOMBO値 > this.status[ i ].nCOMBO値 )
+            else if (this.status[i].n現在表示中のCOMBO値 > this.status[i].nCOMBO値)
             {
                 e今回の状態遷移イベント = EEvent.ミス通知;
             }
-            else if( ( this.status[ i ].n現在表示中のCOMBO値 < TJAPlayer3.ConfigToml.Game.DispMinCombo ) && ( this.status[ i ].nCOMBO値 < TJAPlayer3.ConfigToml.Game.DispMinCombo ) )
+            else if ((this.status[i].n現在表示中のCOMBO値 < TJAPlayer3.ConfigToml.Game.DispMinCombo) && (this.status[i].nCOMBO値 < TJAPlayer3.ConfigToml.Game.DispMinCombo))
             {
                 e今回の状態遷移イベント = EEvent.非表示;
             }
@@ -406,93 +406,93 @@ internal class CAct演奏Combo共通 : CActivity
 
             #region [ nジャンプインデックス値 の進行。]
             //-----------------
-            if( this.status[ i ].nジャンプインデックス値 < 360 )
+            if (this.status[i].nジャンプインデックス値 < 360)
             {
-                if( ( this.status[ i ].n前回の時刻_ジャンプ用 == -1 ) || ( TJAPlayer3.Timer.n現在時刻ms < this.status[ i ].n前回の時刻_ジャンプ用 ) )
-                    this.status[ i ].n前回の時刻_ジャンプ用 = TJAPlayer3.Timer.n現在時刻ms;
+                if ((this.status[i].n前回の時刻_ジャンプ用 == -1) || (TJAPlayer3.Timer.n現在時刻ms < this.status[i].n前回の時刻_ジャンプ用))
+                    this.status[i].n前回の時刻_ジャンプ用 = TJAPlayer3.Timer.n現在時刻ms;
 
                 const long INTERVAL = 2;
-                while( ( TJAPlayer3.Timer.n現在時刻ms - this.status[ i ].n前回の時刻_ジャンプ用 ) >= INTERVAL )
+                while ((TJAPlayer3.Timer.n現在時刻ms - this.status[i].n前回の時刻_ジャンプ用) >= INTERVAL)
                 {
-                    if( this.status[ i ].nジャンプインデックス値 < 2000 )
-                        this.status[ i ].nジャンプインデックス値 += 3;
+                    if (this.status[i].nジャンプインデックス値 < 2000)
+                        this.status[i].nジャンプインデックス値 += 3;
 
-                    this.status[ i ].n前回の時刻_ジャンプ用 += INTERVAL;
+                    this.status[i].n前回の時刻_ジャンプ用 += INTERVAL;
                 }
             }
         //-----------------
-            #endregion
+        #endregion
 
 
         Retry:	// モードが変化した場合はここからリトライする。
 
-            switch( this.status[ i ].e現在のモード )
+            switch (this.status[i].e現在のモード)
             {
                 case EMode.非表示中:
                     #region [ *** ]
                     //-----------------
 
-                    if( e今回の状態遷移イベント == EEvent.数値更新 )
+                    if (e今回の状態遷移イベント == EEvent.数値更新)
                     {
                         // モード変更
-                        this.status[ i ].e現在のモード = EMode.進行表示中;
-                        this.status[ i ].nジャンプインデックス値 = 0;
-                        this.status[ i ].n前回の時刻_ジャンプ用 = TJAPlayer3.Timer.n現在時刻ms;
+                        this.status[i].e現在のモード = EMode.進行表示中;
+                        this.status[i].nジャンプインデックス値 = 0;
+                        this.status[i].n前回の時刻_ジャンプ用 = TJAPlayer3.Timer.n現在時刻ms;
                         goto Retry;
                     }
 
-                    this.status[ i ].n現在表示中のCOMBO値 = this.status[ i ].nCOMBO値;
+                    this.status[i].n現在表示中のCOMBO値 = this.status[i].nCOMBO値;
                     break;
                 //-----------------
-                    #endregion
+                #endregion
 
                 case EMode.進行表示中:
                     #region [ *** ]
                     //-----------------
 
-                    if( ( e今回の状態遷移イベント == EEvent.非表示 ) || ( e今回の状態遷移イベント == EEvent.ミス通知 ) )
+                    if ((e今回の状態遷移イベント == EEvent.非表示) || (e今回の状態遷移イベント == EEvent.ミス通知))
                     {
                         // モード変更
-                        this.status[ i ].e現在のモード = EMode.残像表示中;
-                        this.status[ i ].n残像表示中のCOMBO値 = this.status[ i ].n現在表示中のCOMBO値;
-                        this.status[ i ].nコンボが切れた時刻 = TJAPlayer3.Timer.n現在時刻ms;
+                        this.status[i].e現在のモード = EMode.残像表示中;
+                        this.status[i].n残像表示中のCOMBO値 = this.status[i].n現在表示中のCOMBO値;
+                        this.status[i].nコンボが切れた時刻 = TJAPlayer3.Timer.n現在時刻ms;
                         goto Retry;
                     }
 
-                    if( e今回の状態遷移イベント == EEvent.数値更新 )
+                    if (e今回の状態遷移イベント == EEvent.数値更新)
                     {
-                        this.status[ i ].nジャンプインデックス値 = 0;
-                        this.status[ i ].n前回の時刻_ジャンプ用 = TJAPlayer3.Timer.n現在時刻ms;
+                        this.status[i].nジャンプインデックス値 = 0;
+                        this.status[i].n前回の時刻_ジャンプ用 = TJAPlayer3.Timer.n現在時刻ms;
                     }
 
-                    this.status[ i ].n現在表示中のCOMBO値 = this.status[ i ].nCOMBO値;
-                    switch( i )
+                    this.status[i].n現在表示中のCOMBO値 = this.status[i].nCOMBO値;
+                    switch (i)
                     {
                         case 0:
                         case 1:
-                            this.tコンボ表示_太鼓( this.status[ i ].nCOMBO値, this.status[ i ].nジャンプインデックス値, i );
+                            this.tコンボ表示_太鼓(this.status[i].nCOMBO値, this.status[i].nジャンプインデックス値, i);
                             break;
                     }
                     break;
                 //-----------------
-                    #endregion
+                #endregion
 
                 case EMode.残像表示中:
                     #region [ *** ]
                     //-----------------
-                    if( e今回の状態遷移イベント == EEvent.数値更新 )
+                    if (e今回の状態遷移イベント == EEvent.数値更新)
                     {
                         // モード変更１
-                        this.status[ i ].e現在のモード = EMode.進行表示中;
+                        this.status[i].e現在のモード = EMode.進行表示中;
                         goto Retry;
                     }
-                    if( ( TJAPlayer3.Timer.n現在時刻ms - this.status[ i ].nコンボが切れた時刻 ) > 1000 )
+                    if ((TJAPlayer3.Timer.n現在時刻ms - this.status[i].nコンボが切れた時刻) > 1000)
                     {
                         // モード変更２
-                        this.status[ i ].e現在のモード = EMode.非表示中;
+                        this.status[i].e現在のモード = EMode.非表示中;
                         goto Retry;
                     }
-                    this.status[ i ].n現在表示中のCOMBO値 = this.status[ i ].nCOMBO値;
+                    this.status[i].n現在表示中のCOMBO値 = this.status[i].nCOMBO値;
                     break;
                     //-----------------
                     #endregion

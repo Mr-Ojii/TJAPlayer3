@@ -41,7 +41,7 @@ class CActSelectChangeSE : CActivity
             for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)
             {
                 string SEName = "Untitled";
-                if(i < TJAPlayer3.Skin.SkinConfig.Sound.SENames.Length)
+                if (i < TJAPlayer3.Skin.SkinConfig.Sound.SENames.Length)
                     SEName = TJAPlayer3.Skin.SkinConfig.Sound.SENames[i];
                 using (var bmp = font.DrawText(SEName, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
                     this.SENameList[i] = TJAPlayer3.tCreateTexture(bmp);
@@ -107,7 +107,8 @@ class CActSelectChangeSE : CActivity
             }
         }
 
-        if (this.ePhase[0] == EChangeSEPhase.Active) {
+        if (this.ePhase[0] == EChangeSEPhase.Active)
+        {
             if (TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return))
             {
                 TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
@@ -162,7 +163,8 @@ class CActSelectChangeSE : CActivity
         return base.On進行描画();
     }
 
-    private void MoveStart(EMoving lr,int nPlayer) {
+    private void MoveStart(EMoving lr, int nPlayer)
+    {
         this.eMoving[nPlayer] = lr;
         this.ct変更アニメ用[nPlayer].t時間Reset();
         this.ct変更アニメ用[nPlayer].n現在の値 = 0;
@@ -265,7 +267,8 @@ class CActSelectChangeSE : CActivity
     /// <param name="nPlayer">プレイヤー番号</param>
     public void tDeativateChangeSE(int nPlayer)
     {
-        if (ePhase[nPlayer] == EChangeSEPhase.Active) {
+        if (ePhase[nPlayer] == EChangeSEPhase.Active)
+        {
             ePhase[nPlayer] = EChangeSEPhase.AnimationOut;
             ct登場退場アニメ用[nPlayer].t時間Reset();
             ct登場退場アニメ用[nPlayer].n現在の値 = 0;

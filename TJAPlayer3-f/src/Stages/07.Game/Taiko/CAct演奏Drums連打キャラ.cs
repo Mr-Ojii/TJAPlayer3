@@ -18,11 +18,11 @@ internal class CAct演奏Drums連打キャラ : CActivity
 
 
     // メソッド
-    public virtual void Start( int player )
+    public virtual void Start(int player)
     {
         for (int i = 0; i < 128; i++)
         {
-            if(!RollCharas[i].IsUsing)
+            if (!RollCharas[i].IsUsing)
             {
                 RollCharas[i].IsUsing = true;
                 RollCharas[i].Type = random.Next(0, TJAPlayer3.Skin.Game_Effect_Roll_Ptn);
@@ -72,15 +72,15 @@ internal class CAct演奏Drums連打キャラ : CActivity
     }
     public override int On進行描画()
     {
-        if( !base.b活性化してない )
+        if (!base.b活性化してない)
         {
             for (int i = 0; i < 128; i++)
             {
-                if(RollCharas[i].IsUsing)
+                if (RollCharas[i].IsUsing)
                 {
                     RollCharas[i].OldValue = RollCharas[i].Counter.n現在の値;
                     RollCharas[i].Counter.t進行();
-                    if(RollCharas[i].Counter.b終了値に達した)
+                    if (RollCharas[i].Counter.b終了値に達した)
                     {
                         RollCharas[i].Counter.t停止();
                         RollCharas[i].IsUsing = false;

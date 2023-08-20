@@ -107,7 +107,7 @@ public class CInputKeyboard : IInputDevice, IDisposable
             this.btmpKeyPushDown[i] = false;
             this.btmpKeyPullUp[i] = false;
         }
-        while(listEventBuffer.TryDequeue(out var InputEvent))
+        while (listEventBuffer.TryDequeue(out var InputEvent))
             this.listInputEvents.Add(InputEvent);
     }
 

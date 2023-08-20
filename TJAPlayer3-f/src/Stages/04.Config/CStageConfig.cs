@@ -17,9 +17,9 @@ internal class CStageConfig : CStage
     {
         base.eStageID = CStage.EStage.Config;
         base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
-        base.listChildren.Add( this.actFIFO = new CActFIFOBlack() );
-        base.listChildren.Add( this.actList = new CActConfigList() );
-        base.listChildren.Add( this.actKeyAssign = new CActConfigKeyAssign() );
+        base.listChildren.Add(this.actFIFO = new CActFIFOBlack());
+        base.listChildren.Add(this.actList = new CActConfigList());
+        base.listChildren.Add(this.actKeyAssign = new CActConfigKeyAssign());
         base.b活性化してない = true;
     }
 
@@ -30,9 +30,9 @@ internal class CStageConfig : CStage
     {																						//
         this.eItemPanelモード = EItemPanelモード.パッド一覧;								//
     }																						//
-    public void tパッド選択通知( EKeyConfigPad pad )					//
+    public void tパッド選択通知(EKeyConfigPad pad)					//
     {																						//
-        this.actKeyAssign.t開始( pad, this.actList.ib現在の選択項目.strName );		//
+        this.actKeyAssign.t開始(pad, this.actList.ib現在の選択項目.strName);		//
         this.eItemPanelモード = EItemPanelモード.KeyCode一覧;							//
     }																						//
     public void t項目変更通知()																// OPTIONと共通
@@ -45,7 +45,7 @@ internal class CStageConfig : CStage
 
     public override void On活性化()
     {
-        Trace.TraceInformation( "コンフィグステージを活性化します。" );
+        Trace.TraceInformation("コンフィグステージを活性化します。");
         Trace.Indent();
         try
         {
@@ -53,14 +53,14 @@ internal class CStageConfig : CStage
 
             this.privatefont = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 14, CFontRenderer.FontStyle.Bold);
 
-            for( int i = 0; i < 4; i++ )													//
+            for (int i = 0; i < 4; i++)													//
             {																				//
-                this.ctキー反復用[ i ] = new CCounter( 0, 0, 0, TJAPlayer3.Timer );			//
+                this.ctキー反復用[i] = new CCounter(0, 0, 0, TJAPlayer3.Timer);			//
             }																				//
             this.bメニューにフォーカス中 = true;											// ここまでOPTIONと共通
             this.eItemPanelモード = EItemPanelモード.パッド一覧;
 
-            string[] strMenuItem = {"System", "Drums", "Exit"};
+            string[] strMenuItem = { "System", "Drums", "Exit" };
             txMenuItemLeft = new CTexture[strMenuItem.Length, 2];
             using (var prvFont = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 20))
             {
@@ -77,7 +77,7 @@ internal class CStageConfig : CStage
                 }
             }
 
-            if( this.bメニューにフォーカス中 )
+            if (this.bメニューにフォーカス中)
             {
                 this.t説明文パネルに現在選択されているメニューの説明を描画する();
             }
@@ -90,61 +90,61 @@ internal class CStageConfig : CStage
         }
         finally
         {
-            Trace.TraceInformation( "コンフィグステージの活性化を完了しました。" );
+            Trace.TraceInformation("コンフィグステージの活性化を完了しました。");
             Trace.Unindent();
         }
         base.On活性化();		// 2011.3.14 yyagi: On活性化()をtryの中から外に移動
     }
     public override void On非活性化()
     {
-        Trace.TraceInformation( "コンフィグステージを非活性化します。" );
+        Trace.TraceInformation("コンフィグステージを非活性化します。");
         Trace.Indent();
         try
         {
-            TJAPlayer3.ConfigIni.t書き出し( TJAPlayer3.strEXEのあるフォルダ + "Config.ini" );	// CONFIGだけ
+            TJAPlayer3.ConfigIni.t書き出し(TJAPlayer3.strEXEのあるフォルダ + "Config.ini");	// CONFIGだけ
             if (this.privatefont != null)                                                    // 以下OPTIONと共通
             {
                 this.privatefont.Dispose();
                 this.privatefont = null;
             }
-            for ( int i = 0; i < 4; i++ )
+            for (int i = 0; i < 4; i++)
             {
-                this.ctキー反復用[ i ] = null;
+                this.ctキー反復用[i] = null;
             }
-            TJAPlayer3.t安全にDisposeする( ref this.tx説明文パネル );
-            for ( int i = 0; i < txMenuItemLeft.GetLength( 0 ); i++ )
+            TJAPlayer3.t安全にDisposeする(ref this.tx説明文パネル);
+            for (int i = 0; i < txMenuItemLeft.GetLength(0); i++)
             {
-                txMenuItemLeft[ i, 0 ].Dispose();
-                txMenuItemLeft[ i, 0 ] = null;
-                txMenuItemLeft[ i, 1 ].Dispose();
-                txMenuItemLeft[ i, 1 ] = null;
+                txMenuItemLeft[i, 0].Dispose();
+                txMenuItemLeft[i, 0] = null;
+                txMenuItemLeft[i, 1].Dispose();
+                txMenuItemLeft[i, 1] = null;
             }
             txMenuItemLeft = null;
             base.On非活性化();
         }
-        catch ( UnauthorizedAccessException e )
+        catch (UnauthorizedAccessException e)
         {
-            Trace.TraceError( e.ToString() );
-            Trace.TraceError( "ファイルが読み取り専用になっていないか、管理者権限がないと書き込めなくなっていないか等を確認して下さい" );
-            Trace.TraceError( "An exception has occurred, but processing continues." );
+            Trace.TraceError(e.ToString());
+            Trace.TraceError("ファイルが読み取り専用になっていないか、管理者権限がないと書き込めなくなっていないか等を確認して下さい");
+            Trace.TraceError("An exception has occurred, but processing continues.");
         }
-        catch ( Exception e )
+        catch (Exception e)
         {
-            Trace.TraceError( e.ToString() );
-            Trace.TraceError( "An exception has occurred, but processing continues." );
+            Trace.TraceError(e.ToString());
+            Trace.TraceError("An exception has occurred, but processing continues.");
         }
         finally
         {
-            Trace.TraceInformation( "コンフィグステージの非活性化を完了しました。" );
+            Trace.TraceInformation("コンフィグステージの非活性化を完了しました。");
             Trace.Unindent();
         }
     }
     public override int On進行描画()
     {
-        if( base.b活性化してない )
+        if (base.b活性化してない)
             return 0;
 
-        if( base.b初めての進行描画 )
+        if (base.b初めての進行描画)
         {
             base.eフェーズID = CStage.Eフェーズ.共通_FadeIn;
             this.actFIFO.tFadeIn開始();
@@ -155,30 +155,30 @@ internal class CStageConfig : CStage
 
         #region [ 背景 ]
         //---------------------
-        if(TJAPlayer3.Tx.Config_Background != null )
-            TJAPlayer3.Tx.Config_Background.t2D描画( TJAPlayer3.app.Device, 0, 0 );
+        if (TJAPlayer3.Tx.Config_Background != null)
+            TJAPlayer3.Tx.Config_Background.t2D描画(TJAPlayer3.app.Device, 0, 0);
         //---------------------
         #endregion
         #region [ メニューカーソル ]
         //---------------------
-        if( TJAPlayer3.Tx.Config_Cursor != null )
+        if (TJAPlayer3.Tx.Config_Cursor != null)
         {
             Rectangle rectangle;
             TJAPlayer3.Tx.Config_Cursor.Opacity = this.bメニューにフォーカス中 ? 255 : 128;
             int x = 110;
-            int y = (int)( 140 + ( this.n現在のメニュー番号 * 38 ) );
+            int y = (int)(140 + (this.n現在のメニュー番号 * 38));
             int num3 = 340;
-            TJAPlayer3.Tx.Config_Cursor.t2D描画( TJAPlayer3.app.Device, x, y, new Rectangle( 0, 0, 32, 48 ) );
-            TJAPlayer3.Tx.Config_Cursor.t2D描画( TJAPlayer3.app.Device, ( x + num3 ) - 32, y, new Rectangle( 20, 0, 32, 48 ) );
+            TJAPlayer3.Tx.Config_Cursor.t2D描画(TJAPlayer3.app.Device, x, y, new Rectangle(0, 0, 32, 48));
+            TJAPlayer3.Tx.Config_Cursor.t2D描画(TJAPlayer3.app.Device, (x + num3) - 32, y, new Rectangle(20, 0, 32, 48));
             x += 32;
-            for( num3 -= 64; num3 > 0; num3 -= rectangle.Width )
+            for (num3 -= 64; num3 > 0; num3 -= rectangle.Width)
             {
-                rectangle = new Rectangle( 16, 0, 32, 48 );
-                if( num3 < 32 )
+                rectangle = new Rectangle(16, 0, 32, 48);
+                if (num3 < 32)
                 {
                     rectangle.Width -= 32 - num3;
                 }
-                TJAPlayer3.Tx.Config_Cursor.t2D描画( TJAPlayer3.app.Device, x, y, rectangle );
+                TJAPlayer3.Tx.Config_Cursor.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
                 x += rectangle.Width;
             }
         }
@@ -188,27 +188,27 @@ internal class CStageConfig : CStage
         //---------------------
         int menuY = 162 - 22;
         int stepY = 39;
-        for ( int i = 0; i < txMenuItemLeft.GetLength( 0 ); i++ )
+        for (int i = 0; i < txMenuItemLeft.GetLength(0); i++)
         {
-            int flag = ( this.n現在のメニュー番号 == i ) ? 1 : 0;
-            int num4 = txMenuItemLeft[ i, flag ].szTextureSize.Width;
-            txMenuItemLeft[i, flag].t2D描画(TJAPlayer3.app.Device, 282 - (num4 / 2) + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionX, menuY + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionY ); //55
+            int flag = (this.n現在のメニュー番号 == i) ? 1 : 0;
+            int num4 = txMenuItemLeft[i, flag].szTextureSize.Width;
+            txMenuItemLeft[i, flag].t2D描画(TJAPlayer3.app.Device, 282 - (num4 / 2) + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionX, menuY + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionY); //55
             menuY += stepY;
         }
         //---------------------
         #endregion
         #region [ 説明文パネル ]
         //---------------------
-        if( this.tx説明文パネル != null )
-            this.tx説明文パネル.t2D描画( TJAPlayer3.app.Device, 67, 382 );
+        if (this.tx説明文パネル != null)
+            this.tx説明文パネル.t2D描画(TJAPlayer3.app.Device, 67, 382);
         //---------------------
         #endregion
         #region [ アイテム ]
         //---------------------
-        switch( this.eItemPanelモード )
+        switch (this.eItemPanelモード)
         {
             case EItemPanelモード.パッド一覧:
-                this.actList.t進行描画( !this.bメニューにフォーカス中 );
+                this.actList.t進行描画(!this.bメニューにフォーカス中);
                 break;
 
             case EItemPanelモード.KeyCode一覧:
@@ -219,10 +219,10 @@ internal class CStageConfig : CStage
         #endregion
         #region [ FadeIn_アウト ]
         //---------------------
-        switch( base.eフェーズID )
+        switch (base.eフェーズID)
         {
             case CStage.Eフェーズ.共通_FadeIn:
-                if( this.actFIFO.On進行描画() != 0 )
+                if (this.actFIFO.On進行描画() != 0)
                 {
                     TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.BGMコンフィグ画面].t再生する();
                     base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
@@ -230,7 +230,7 @@ internal class CStageConfig : CStage
                 break;
 
             case CStage.Eフェーズ.共通_FadeOut:
-                if( this.actFIFO.On進行描画() == 0 )
+                if (this.actFIFO.On進行描画() == 0)
                 {
                     break;
                 }
@@ -245,24 +245,24 @@ internal class CStageConfig : CStage
 
         // キー入力
 
-        if( ( base.eフェーズID != CStage.Eフェーズ.共通_通常状態 )
-            || this.actKeyAssign.bキー入力待ちの最中である )
+        if ((base.eフェーズID != CStage.Eフェーズ.共通_通常状態)
+            || this.actKeyAssign.bキー入力待ちの最中である)
             return 0;
 
         // 曲データの一覧取得中は、キー入力を無効化する
-        if ( !TJAPlayer3.EnumSongs.IsEnumerating || TJAPlayer3.actEnumSongs.bコマンドでの曲データ取得 != true )
+        if (!TJAPlayer3.EnumSongs.IsEnumerating || TJAPlayer3.actEnumSongs.bコマンドでの曲データ取得 != true)
         {
-            if ( ( TJAPlayer3.InputManager.Keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.Escape )))
+            if ((TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape)))
             {
                 TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
-                if ( !this.bメニューにフォーカス中 )
+                if (!this.bメニューにフォーカス中)
                 {
-                    if ( this.eItemPanelモード == EItemPanelモード.KeyCode一覧 )
+                    if (this.eItemPanelモード == EItemPanelモード.KeyCode一覧)
                     {
                         TJAPlayer3.stageConfig.tアサイン完了通知();
                         return 0;
                     }
-                    if ( !this.actList.bIsKeyAssignSelected && !this.actList.bIsFocusingParameter )	// #24525 2011.3.15 yyagi, #32059 2013.9.17 yyagi
+                    if (!this.actList.bIsKeyAssignSelected && !this.actList.bIsFocusingParameter)	// #24525 2011.3.15 yyagi, #32059 2013.9.17 yyagi
                     {
                         this.bメニューにフォーカス中 = true;
                     }
@@ -275,15 +275,15 @@ internal class CStageConfig : CStage
                     base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
                 }
             }
-            else if (TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed( (int)SlimDXKeys.Key.Return ) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2)
+            else if (TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2)
             {
-                if ( this.n現在のメニュー番号 == 2 )
+                if (this.n現在のメニュー番号 == 2)
                 {
                     TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
                     this.actFIFO.tFadeOut開始();
                     base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
                 }
-                else if ( this.bメニューにフォーカス中 )
+                else if (this.bメニューにフォーカス中)
                 {
                     TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
                     this.bメニューにフォーカス中 = false;
@@ -291,15 +291,15 @@ internal class CStageConfig : CStage
                 }
                 else
                 {
-                    switch ( this.eItemPanelモード )
+                    switch (this.eItemPanelモード)
                     {
                         case EItemPanelモード.パッド一覧:
                             bool bIsKeyAssignSelectedBeforeHitEnter = this.actList.bIsKeyAssignSelected;	// #24525 2011.3.15 yyagi
                             this.actList.tPushedEnter();
-                            if ( this.actList.b現在選択されている項目はReturnToMenuである )
+                            if (this.actList.b現在選択されている項目はReturnToMenuである)
                             {
                                 this.t説明文パネルに現在選択されているメニューの説明を描画する();
-                                if ( bIsKeyAssignSelectedBeforeHitEnter == false )							// #24525 2011.3.15 yyagi
+                                if (bIsKeyAssignSelectedBeforeHitEnter == false)							// #24525 2011.3.15 yyagi
                                 {
                                     this.bメニューにフォーカス中 = true;
                                 }
@@ -337,9 +337,9 @@ internal class CStageConfig : CStage
             }
 
 
-            this.ctキー反復用.Up.tキー反復( TJAPlayer3.InputManager.Keyboard.bIsKeyDown( (int)SlimDXKeys.Key.UpArrow ) , new CCounter.DGキー処理( this.tカーソルを上へ移動する ) );
+            this.ctキー反復用.Up.tキー反復(TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.UpArrow), new CCounter.DGキー処理(this.tカーソルを上へ移動する));
 
-            this.ctキー反復用.Down.tキー反復( TJAPlayer3.InputManager.Keyboard.bIsKeyDown( (int)SlimDXKeys.Key.DownArrow ), new CCounter.DGキー処理( this.tカーソルを下へ移動する ) );
+            this.ctキー反復用.Down.tキー反復(TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.DownArrow), new CCounter.DGキー処理(this.tカーソルを下へ移動する));
 
         }
         return 0;
@@ -356,18 +356,18 @@ internal class CStageConfig : CStage
         KeyCode一覧
     }
 
-    [StructLayout( LayoutKind.Sequential )]
+    [StructLayout(LayoutKind.Sequential)]
     private struct STキー反復用カウンタ
     {
         public CCounter Up;
         public CCounter Down;
         public CCounter R;
         public CCounter B;
-        public CCounter this[ int index ]
+        public CCounter this[int index]
         {
             get
             {
-                switch( index )
+                switch (index)
                 {
                     case 0:
                         return this.Up;
@@ -385,7 +385,7 @@ internal class CStageConfig : CStage
             }
             set
             {
-                switch( index )
+                switch (index)
                 {
                     case 0:
                         this.Up = value;
@@ -423,13 +423,13 @@ internal class CStageConfig : CStage
     //private CTexture tx上部パネル;
     private CTexture tx説明文パネル;
     //private CTexture tx背景;
-    private CTexture[ , ] txMenuItemLeft;
+    private CTexture[,] txMenuItemLeft;
 
     private void tカーソルを下へ移動する()
     {
-        if( !this.bメニューにフォーカス中 )
+        if (!this.bメニューにフォーカス中)
         {
-            switch( this.eItemPanelモード )
+            switch (this.eItemPanelモード)
             {
                 case EItemPanelモード.パッド一覧:
                     this.actList.t次に移動();
@@ -443,8 +443,8 @@ internal class CStageConfig : CStage
         else
         {
             TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
-            this.n現在のメニュー番号 = ( this.n現在のメニュー番号 + 1 ) % 3;
-            switch( this.n現在のメニュー番号 )
+            this.n現在のメニュー番号 = (this.n現在のメニュー番号 + 1) % 3;
+            switch (this.n現在のメニュー番号)
             {
                 case 0:
                     this.actList.t項目リストの設定_System();
@@ -463,9 +463,9 @@ internal class CStageConfig : CStage
     }
     private void tカーソルを上へ移動する()
     {
-        if( !this.bメニューにフォーカス中 )
+        if (!this.bメニューにフォーカス中)
         {
-            switch( this.eItemPanelモード )
+            switch (this.eItemPanelモード)
             {
                 case EItemPanelモード.パッド一覧:
                     this.actList.t前に移動();
@@ -479,8 +479,8 @@ internal class CStageConfig : CStage
         else
         {
             TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
-            this.n現在のメニュー番号 = ( (this.n現在のメニュー番号 - 1 )+ 3) % 3;
-            switch( this.n現在のメニュー番号 )
+            this.n現在のメニュー番号 = ((this.n現在のメニュー番号 - 1) + 3) % 3;
+            switch (this.n現在のメニュー番号)
             {
                 case 0:
                     this.actList.t項目リストの設定_System();
@@ -546,10 +546,10 @@ internal class CStageConfig : CStage
             }
             this.tx説明文パネル = TJAPlayer3.tCreateTexture(privatefont.DrawText(item.strDescription, Color.White), true);
         }
-        catch( CTextureCreateFailedException e )
+        catch (CTextureCreateFailedException e)
         {
-            Trace.TraceError( e.ToString() );
-            Trace.TraceError( "説明文パネルテクスチャの作成に失敗しました。" );
+            Trace.TraceError(e.ToString());
+            Trace.TraceError("説明文パネルテクスチャの作成に失敗しました。");
             this.tx説明文パネル = null;
         }
     }

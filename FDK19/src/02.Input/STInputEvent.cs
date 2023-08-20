@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 namespace FDK;
 
 // struct
-[StructLayout( LayoutKind.Sequential )]
+[StructLayout(LayoutKind.Sequential)]
 public struct STInputEvent
 {
     public int nKey { get; set; }

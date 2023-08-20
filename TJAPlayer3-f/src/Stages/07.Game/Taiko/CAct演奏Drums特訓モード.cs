@@ -202,7 +202,8 @@ class CAct演奏Drums特訓モード : CActivity
             {
                 if (this.b特訓PAUSE)
                 {
-                    if (TJAPlayer3.ConfigToml.PlayOption.PlaySpeed > 6) {
+                    if (TJAPlayer3.ConfigToml.PlayOption.PlaySpeed > 6)
+                    {
                         TJAPlayer3.ConfigToml.PlayOption.PlaySpeed = TJAPlayer3.ConfigToml.PlayOption.PlaySpeed - 2;
                         this.t譜面の表示位置を合わせる(false);
                     }
@@ -490,7 +491,8 @@ class CAct演奏Drums特訓モード : CActivity
         {
             TJAPlayer3.stage演奏ドラム画面.n現在のトップChip = 0;
         }
-        else {
+        else
+        {
             while (dTX.listChip[TJAPlayer3.stage演奏ドラム画面.n現在のトップChip].n発声時刻ms == dTX.listChip[TJAPlayer3.stage演奏ドラム画面.n現在のトップChip - 1].n発声時刻ms && TJAPlayer3.stage演奏ドラム画面.n現在のトップChip != 0)
                 TJAPlayer3.stage演奏ドラム画面.n現在のトップChip--;
         }
@@ -564,7 +566,8 @@ class CAct演奏Drums特訓モード : CActivity
     /// <param name="change">最終の値-最初の値</param>
     /// <param name="duration">全体の時間</param>
     /// <returns></returns>
-    private int EasingCircular(int time, int begin, int change, int duration) {
+    private int EasingCircular(int time, int begin, int change, int duration)
+    {
         double t = time, b = begin, c = change, d = duration;
 
         t = t / d * 2;

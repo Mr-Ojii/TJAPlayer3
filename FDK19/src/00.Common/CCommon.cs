@@ -13,27 +13,27 @@ public class CCommon
 {
     // 解放
 
-    public static void tDispose<T>( ref T obj )
+    public static void tDispose<T>(ref T obj)
     {
-        if( obj == null )
+        if (obj == null)
             return;
 
         var d = obj as IDisposable;
 
-        if( d != null )
+        if (d != null)
         {
             d.Dispose();
-            obj = default( T );
+            obj = default(T);
         }
     }
-    public static void tDispose<T>( T obj )
+    public static void tDispose<T>(T obj)
     {
-        if( obj == null )
+        if (obj == null)
             return;
 
         var d = obj as IDisposable;
 
-        if( d != null )
+        if (d != null)
             d.Dispose();
     }
 

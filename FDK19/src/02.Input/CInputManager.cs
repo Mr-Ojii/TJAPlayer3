@@ -107,7 +107,7 @@ public class CInputManager : IDisposable
         {
             var midiinlisttmp = MidiAccessManager.Default.Inputs.ToArray();
 
-            for (int i = 0; i < midiinlisttmp.Length; i++) 
+            for (int i = 0; i < midiinlisttmp.Length; i++)
             {
                 var midiintmp = MidiAccessManager.Default.OpenInputAsync(midiinlisttmp[i].Id).Result;
                 midiintmp.MessageReceived += onMessageRecevied;
@@ -116,7 +116,7 @@ public class CInputManager : IDisposable
                 this.listInputDevices.Add(item);
             }
         }
-        catch (Exception e) 
+        catch (Exception e)
         {
             Trace.TraceError(e.ToString());
         }
@@ -262,7 +262,7 @@ public class CInputManager : IDisposable
                 foreach (IInputDevice device in this.listInputDevices)
                 {
                     CInputMIDI tmidi = device as CInputMIDI;
-                    if ((tmidi != null) && (tmidi.ID == dev)) 
+                    if ((tmidi != null) && (tmidi.ID == dev))
                     {
                         for (int i = 0; i < e.Length / 3; i++)
                             tmidi.tメッセージからMIDI信号のみ受信(dev, time, e.Data, i);

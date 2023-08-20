@@ -13,7 +13,7 @@ internal class CItemToggle : CItemBase
 
     public bool bON;
 
-    
+
     // コンストラクタ
 
     public CItemToggle()
@@ -21,17 +21,19 @@ internal class CItemToggle : CItemBase
         base.eItemType = CItemBase.EItemType.Toggle;
         this.bON = false;
     }
-    public CItemToggle( string strName, bool bDefault )
+    public CItemToggle(string strName, bool bDefault)
         : this()
     {
-        this.tInitialize( strName, bDefault );
+        this.tInitialize(strName, bDefault);
     }
     public CItemToggle(string strName, bool bDefault, string strDescriptionJP)
-        : this() {
+        : this()
+    {
         this.tInitialize(strName, bDefault, strDescriptionJP);
     }
     public CItemToggle(string strName, bool bDefault, string strDescriptionJP, string strDescriptionEN)
-        : this() {
+        : this()
+    {
         this.tInitialize(strName, bDefault, strDescriptionJP, strDescriptionEN);
     }
 
@@ -54,24 +56,26 @@ internal class CItemToggle : CItemBase
     {
         this.tInitialize(strName, bDefault, "", "");
     }
-    public void tInitialize(string strName, bool bDefault, string strDescriptionJP) {
+    public void tInitialize(string strName, bool bDefault, string strDescriptionJP)
+    {
         this.tInitialize(strName, bDefault, strDescriptionJP, strDescriptionJP);
     }
-    public void tInitialize(string strName, bool bDefault, string strDescriptionJP, string strDescriptionEN) {
+    public void tInitialize(string strName, bool bDefault, string strDescriptionJP, string strDescriptionEN)
+    {
         base.tInitialize(strName, strDescriptionJP, strDescriptionEN);
         this.bON = bDefault;
     }
     public override object objValue()
     {
-        return ( this.bON ) ? "ON" : "OFF";
+        return (this.bON) ? "ON" : "OFF";
     }
     public override int GetIndex()
     {
-        return ( this.bON ) ? 1 : 0;
+        return (this.bON) ? 1 : 0;
     }
-    public override void SetIndex( int index )
+    public override void SetIndex(int index)
     {
-        switch ( index )
+        switch (index)
         {
             case 0:
                 this.bON = false;

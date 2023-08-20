@@ -18,14 +18,14 @@ internal class FlyingNotes : CActivity
 
 
     // メソッド
-    public virtual void Start( int nLane, int nPlayer, bool isRoll = false )
+    public virtual void Start(int nLane, int nPlayer, bool isRoll = false)
     {
         if (TJAPlayer3.Tx.Notes == null)
             return;
 
         for (int i = 0; i < 128; i++)
         {
-            if(!Flying[i].IsUsing)
+            if (!Flying[i].IsUsing)
             {
                 // 初期化
                 Flying[i].IsUsing = true;
@@ -77,7 +77,7 @@ internal class FlyingNotes : CActivity
     }
     public override int On進行描画()
     {
-        if( !base.b活性化してない )
+        if (!base.b活性化してない)
         {
             for (int i = 0; i < 128; i++)
             {
@@ -93,7 +93,7 @@ internal class FlyingNotes : CActivity
                     }
                     for (int n = Flying[i].OldValue; n < Flying[i].Counter.n現在の値; n++)
                     {
-                        if(TJAPlayer3.Skin.SkinConfig.Game.Effect.FlyingNotes.IsUsingEasing)
+                        if (TJAPlayer3.Skin.SkinConfig.Game.Effect.FlyingNotes.IsUsingEasing)
                         {
                             Flying[i].X = Flying[i].StartPointX + Flying[i].Width + ((-Math.Cos(Flying[i].Counter.n現在の値 * (Math.PI / 180)) * Flying[i].Width));
                         }

@@ -65,11 +65,14 @@ public class CCounter
     }
 
     //2020/04/15 Mr-Ojii AkasokoPullyou様のコードを参考にBPMがマイナス値の時の動作を修正
-    public int _n間隔ms {
-        get {
+    public int _n間隔ms
+    {
+        get
+        {
             return this.n間隔ms;
         }
-        set {
+        set
+        {
             this.n間隔ms = value >= 0 ? value : value * -1;
         }
     }
@@ -90,7 +93,7 @@ public class CCounter
 
     public bool b進行中
     {
-        get { return ( this.n現在の経過時間ms != -1 ); }
+        get { return (this.n現在の経過時間ms != -1); }
     }
     public bool b停止中
     {
@@ -98,7 +101,7 @@ public class CCounter
     }
     public bool b終了値に達した
     {
-        get { return ( this.n現在の値 >= this.n終了値 ); }
+        get { return (this.n現在の値 >= this.n終了値); }
     }
     public bool b終了値に達してない
     {
@@ -108,7 +111,7 @@ public class CCounter
     /// <summary>通常のCCounterでは使用できません。</summary>
     public bool b進行中db
     {
-        get { return ( this.db現在の経過時間 != -1 ); }
+        get { return (this.db現在の経過時間 != -1); }
     }
 
     /// <summary>通常のCCounterでは使用できません。</summary>
@@ -120,7 +123,7 @@ public class CCounter
     /// <summary>通常のCCounterでは使用できません。</summary>
     public bool b終了値に達したdb
     {
-        get { return ( this.db現在の値 >= this.db終了値 ); }
+        get { return (this.db現在の値 >= this.db終了値); }
     }
 
     /// <summary>通常のCCounterでは使用できません。</summary>
@@ -149,17 +152,17 @@ public class CCounter
     }
 
     /// <summary>生成と同時に開始する。</summary>
-    public CCounter( int n開始値, int n終了値, int n間隔ms, CTimer timer )
+    public CCounter(int n開始値, int n終了値, int n間隔ms, CTimer timer)
         : this()
     {
-        this.t開始( n開始値, n終了値, n間隔ms, timer );
+        this.t開始(n開始値, n終了値, n間隔ms, timer);
     }
 
     /// <summary>生成と同時に開始する。(double版)</summary>
-    public CCounter( double db開始値, double db終了値, double db間隔, CSoundTimer timer )
+    public CCounter(double db開始値, double db終了値, double db間隔, CSoundTimer timer)
         : this()
     {
-        this.t開始( db開始値, db終了値, db間隔 * 1000.0, timer );
+        this.t開始(db開始値, db終了値, db間隔 * 1000.0, timer);
     }
 
 
@@ -172,7 +175,7 @@ public class CCounter
     /// <param name="n終了値">最後のカウント値。</param>
     /// <param name="n間隔ms">カウント値を１増加させるのにかける時間（ミリ秒単位）。</param>
     /// <param name="timer">カウントに使用するタイマ。</param>
-    public void t開始( int n開始値, int n終了値, int n間隔ms, CTimer timer )
+    public void t開始(int n開始値, int n終了値, int n間隔ms, CTimer timer)
     {
         this.n開始値 = n開始値;
         this.n終了値 = n終了値;
@@ -189,7 +192,7 @@ public class CCounter
     /// <param name="db終了値">最後のカウント値。</param>
     /// <param name="db間隔">カウント値を１増加させるのにかける時間（秒単位）。</param>
     /// <param name="timer">カウントに使用するタイマ。</param>
-    public void t開始( double db開始値, double db終了値, double db間隔, CSoundTimer timer )
+    public void t開始(double db開始値, double db終了値, double db間隔, CSoundTimer timer)
     {
         this.db開始値 = db開始値;
         this.db終了値 = db終了値;
@@ -205,15 +208,15 @@ public class CCounter
     /// </summary>
     public void t進行()
     {
-        if ( ( this.timer != null ) && ( this.n現在の経過時間ms != CTimer.nUnused ) )
+        if ((this.timer != null) && (this.n現在の経過時間ms != CTimer.nUnused))
         {
             long num = this.timer.n現在時刻ms;
-            if ( num < this.n現在の経過時間ms )
+            if (num < this.n現在の経過時間ms)
                 this.n現在の経過時間ms = num;
 
-            while ( ( num - this.n現在の経過時間ms ) >= this.n間隔ms )
+            while ((num - this.n現在の経過時間ms) >= this.n間隔ms)
             {
-                if ( ++this.n現在の値 > this.n終了値 )
+                if (++this.n現在の値 > this.n終了値)
                     this.n現在の値 = this.n終了値;
 
                 this.n現在の経過時間ms += this.n間隔ms;
@@ -253,15 +256,15 @@ public class CCounter
     /// </summary>
     public void t進行db()
     {
-        if ( ( this.timerdb != null ) && ( this.db現在の経過時間 != CSoundTimer.nUnused ) )
+        if ((this.timerdb != null) && (this.db現在の経過時間 != CSoundTimer.nUnused))
         {
             double num = this.timerdb.n現在時刻ms;
-            if ( num < this.db現在の経過時間 )
+            if (num < this.db現在の経過時間)
                 this.db現在の経過時間 = num;
 
-            while ( ( num - this.db現在の経過時間 ) >= this.db間隔 )
+            while ((num - this.db現在の経過時間) >= this.db間隔)
             {
-                if ( ++this.db現在の値 > this.db終了値 )
+                if (++this.db現在の値 > this.db終了値)
                     this.db現在の値 = this.db終了値;
 
                 this.db現在の経過時間 += this.db間隔;
@@ -275,15 +278,15 @@ public class CCounter
     /// </summary>
     public void t進行Loop()
     {
-        if ( ( this.timer != null ) && ( this.n現在の経過時間ms != CTimer.nUnused ) )
+        if ((this.timer != null) && (this.n現在の経過時間ms != CTimer.nUnused))
         {
             long num = this.timer.n現在時刻ms;
-            if ( num < this.n現在の経過時間ms )
+            if (num < this.n現在の経過時間ms)
                 this.n現在の経過時間ms = num;
 
-            while ( ( num - this.n現在の経過時間ms ) >= this.n間隔ms )
+            while ((num - this.n現在の経過時間ms) >= this.n間隔ms)
             {
-                if ( ++this.n現在の値 > this.n終了値 )
+                if (++this.n現在の値 > this.n終了値)
                     this.n現在の値 = this.n開始値;
 
                 this.n現在の経過時間ms += this.n間隔ms;
@@ -297,15 +300,15 @@ public class CCounter
     /// </summary>
     public void t進行LoopDb()
     {
-        if ( ( this.timerdb != null ) && ( this.db現在の経過時間 != CSoundTimer.nUnused ) )
+        if ((this.timerdb != null) && (this.db現在の経過時間 != CSoundTimer.nUnused))
         {
             double num = this.timerdb.n現在時刻ms;
-            if ( num < this.n現在の経過時間ms )
+            if (num < this.n現在の経過時間ms)
                 this.db現在の経過時間 = num;
 
-            while ( ( num - this.db現在の経過時間 ) >= this.db間隔 )
+            while ((num - this.db現在の経過時間) >= this.db間隔)
             {
-                if ( ++this.db現在の値 > this.db終了値 )
+                if (++this.db現在の値 > this.db終了値)
                     this.db現在の値 = this.db開始値;
 
                 this.db現在の経過時間 += this.db間隔;
@@ -336,15 +339,15 @@ public class CCounter
     /// </summary>
     /// <param name="bキー押下">キーが押下されている場合は true。</param>
     /// <param name="tキー処理">キーが押下されている場合に実行する処理。</param>
-    public void tキー反復( bool bキー押下, DGキー処理 tキー処理 )
+    public void tキー反復(bool bキー押下, DGキー処理 tキー処理)
     {
         const int n1回目 = 0;
         const int n2回目 = 1;
         const int n3回目以降 = 2;
 
-        if ( bキー押下 )
+        if (bキー押下)
         {
-            switch ( this.n現在の値 )
+            switch (this.n現在の値)
             {
                 case n1回目:
 
@@ -355,7 +358,7 @@ public class CCounter
 
                 case n2回目:
 
-                    if ( ( this.timer.n現在時刻ms - this.n現在の経過時間ms ) > 200 )
+                    if ((this.timer.n現在時刻ms - this.n現在の経過時間ms) > 200)
                     {
                         tキー処理();
                         this.n現在の経過時間ms = this.timer.n現在時刻ms;
@@ -365,7 +368,7 @@ public class CCounter
 
                 case n3回目以降:
 
-                    if ( ( this.timer.n現在時刻ms - this.n現在の経過時間ms ) > 125 )
+                    if ((this.timer.n現在時刻ms - this.n現在の経過時間ms) > 125)
                     {
                         tキー処理();
                         this.n現在の経過時間ms = this.timer.n現在時刻ms;

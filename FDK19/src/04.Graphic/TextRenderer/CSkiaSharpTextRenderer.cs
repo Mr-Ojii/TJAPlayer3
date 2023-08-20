@@ -71,7 +71,8 @@ internal class CSkiaSharpTextRenderer : ITextRenderer
         string[] strs = drawstr.Split("\n");
         Image<Rgba32>[] images = new Image<Rgba32>[strs.Length];
 
-        for (int i = 0; i < strs.Length; i++) {
+        for (int i = 0; i < strs.Length; i++)
+        {
             SKRect bounds = new SKRect();
             int width = (int)Math.Ceiling(paint.MeasureText(drawstr, ref bounds)) + 50;
             int height = (int)Math.Ceiling(paint.FontMetrics.Descent - paint.FontMetrics.Ascent) + 50;
@@ -134,16 +135,16 @@ internal class CSkiaSharpTextRenderer : ITextRenderer
 
         int ret_width = 0;
         int ret_height = 0;
-        for(int i = 0; i < images.Length; i++)
+        for (int i = 0; i < images.Length; i++)
         {
             ret_width = Math.Max(ret_width, images[i].Width);
             ret_height += images[i].Height;
         }
-        
+
         Image<Rgba32> ret = new Image<Rgba32>(ret_width, ret_height);
 
         int height_i = 0;
-        for (int i = 0; i < images.Length; i++) 
+        for (int i = 0; i < images.Length; i++)
         {
             ret.Mutate(ctx => ctx.DrawImage(images[i], new Point(0, height_i), 1));
             height_i += images[i].Height;

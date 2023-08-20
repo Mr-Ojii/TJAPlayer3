@@ -914,7 +914,7 @@ internal class CDTX : CActivity
                 this.b譜面が存在する[i] = false;
         }
     }
-    private void t入力_全入力文字列から( string str1, int nBGMAdjust)
+    private void t入力_全入力文字列から(string str1, int nBGMAdjust)
     {
         if (string.IsNullOrEmpty(str1))
             return;
@@ -1338,7 +1338,7 @@ internal class CDTX : CActivity
             OTCMedley obj = JsonSerializer.Deserialize<OTCMedley>(入力文字列, new JsonSerializerOptions() { AllowTrailingCommas = true });
 
             if (obj.Jouken != null)
-                for (int joukenindex = 0; joukenindex < Math.Min(obj.Jouken.Length,3); joukenindex++)
+                for (int joukenindex = 0; joukenindex < Math.Min(obj.Jouken.Length, 3); joukenindex++)
                 {
                     if (!string.IsNullOrEmpty(obj.Jouken[joukenindex].Type) && !string.IsNullOrEmpty(obj.Jouken[joukenindex].Range) && obj.Jouken[joukenindex].Value[0] != null)
                     {
@@ -1391,13 +1391,13 @@ internal class CDTX : CActivity
                         {
                             try
                             {
-                                examValue = new int[] {(int) obj.Jouken[joukenindex].Value[0], (int)obj.Jouken[joukenindex].Value[1] };
+                                examValue = new int[] { (int)obj.Jouken[joukenindex].Value[0], (int)obj.Jouken[joukenindex].Value[1] };
                             }
                             catch (Exception)
                             {
                                 try
                                 {
-                                    examValue = new int[] { (int)obj.Jouken[joukenindex].Value[0], (int) obj.Jouken[joukenindex].Value[0] };
+                                    examValue = new int[] { (int)obj.Jouken[joukenindex].Value[0], (int)obj.Jouken[joukenindex].Value[0] };
                                 }
                                 catch (Exception)
                                 {
@@ -1409,7 +1409,7 @@ internal class CDTX : CActivity
                         {
                             try
                             {
-                                examValue = new int[] {(int) obj.Jouken[joukenindex].Value[0], (int)obj.Jouken[joukenindex].Value[0] };
+                                examValue = new int[] { (int)obj.Jouken[joukenindex].Value[0], (int)obj.Jouken[joukenindex].Value[0] };
                             }
                             catch (Exception)
                             {
@@ -1489,7 +1489,8 @@ internal class CDTX : CActivity
             #endregion
 
             if (obj.Humen != null)
-                for (int humenindex = 0; humenindex < obj.Humen.Length; humenindex++) {
+                for (int humenindex = 0; humenindex < obj.Humen.Length; humenindex++)
+                {
 
 
                     string 読み込みtci名 = this.strフォルダ名 + obj.Humen[humenindex].File;
@@ -1543,7 +1544,8 @@ internal class CDTX : CActivity
                             objtci.SubTitle = objtci.SubTitle.Substring(3);
                         }
                     }
-                    else {
+                    else
+                    {
                         objtci.SubTitle = "";
                     }
                     dansongs.Title = objtci.Title;
@@ -1603,7 +1605,8 @@ internal class CDTX : CActivity
         }
     }
 
-    private void t入力tci_tcm用(string 入力文字列, int cindex) {
+    private void t入力tci_tcm用(string 入力文字列, int cindex)
+    {
 
         OTCInfomation obj = JsonSerializer.Deserialize<OTCInfomation>(入力文字列, new JsonSerializerOptions() { AllowTrailingCommas = true });
 
@@ -1756,7 +1759,7 @@ internal class CDTX : CActivity
     }
 
 
-    private void t入力tci(string 入力文字列,int nBGMAdjust)
+    private void t入力tci(string 入力文字列, int nBGMAdjust)
     {
         if (!string.IsNullOrEmpty(入力文字列))
         {
@@ -1791,7 +1794,8 @@ internal class CDTX : CActivity
 
         #region[タイトル&サブタイ]
         this.TITLE = obj.Title;
-        if (obj.SubTitle != null) {
+        if (obj.SubTitle != null)
+        {
             if (obj.SubTitle.StartsWith("--"))
             {
                 this.SUBTITLE = obj.SubTitle.Substring(2);
@@ -1913,7 +1917,7 @@ internal class CDTX : CActivity
         Regex IMAGEEX = new Regex(@"\.png|\.jpg|\.jpeg|\.gif|\.bmp|\.", RegexOptions.Multiline | RegexOptions.Compiled);
         //現在、画像か動画かを拡張子で判別しているが、
         //Image/Bitmapオブジェクト生成が失敗した場合に動画に切り替える方法のほうが良いのだろうか？
-        Match im =IMAGEEX.Match(Path.GetExtension(this.strフォルダ名 + obj.BGFile));
+        Match im = IMAGEEX.Match(Path.GetExtension(this.strフォルダ名 + obj.BGFile));
         if (im.Success)
         {
             if (!string.IsNullOrEmpty(obj.BGFile))
@@ -1964,7 +1968,7 @@ internal class CDTX : CActivity
         int n読み込むコース = 3;
         int n譜面数 = 0;
 
-        int[] coursesindex = new int[(int)Difficulty.Total] {-1,-1,-1,-1,-1,-1,-1};
+        int[] coursesindex = new int[(int)Difficulty.Total] { -1, -1, -1, -1, -1, -1, -1 };
 
         for (int i = 0; i < obj.Courses.Length; i++)
         {
@@ -2007,7 +2011,8 @@ internal class CDTX : CActivity
 
         if (n読み込むセッション譜面パート >= 1)
         {
-            if (obj.Courses[coursesindex[n読み込むコース]].Multiple == null ||  obj.Courses[coursesindex[n読み込むコース]].Multiple.Length < n読み込むセッション譜面パート || string.IsNullOrEmpty(obj.Courses[coursesindex[n読み込むコース]].Multiple[n読み込むセッション譜面パート - 1])) {
+            if (obj.Courses[coursesindex[n読み込むコース]].Multiple == null || obj.Courses[coursesindex[n読み込むコース]].Multiple.Length < n読み込むセッション譜面パート || string.IsNullOrEmpty(obj.Courses[coursesindex[n読み込むコース]].Multiple[n読み込むセッション譜面パート - 1]))
+            {
                 n読み込むセッション譜面パート = 0;
             }
         }
@@ -2128,10 +2133,12 @@ internal class CDTX : CActivity
         }
     }
 
-    private void t入力tcc小節(string[] 小節ごとInput) {
+    private void t入力tcc小節(string[] 小節ごとInput)
+    {
 
         int n文字数 = 0;
-        for (int i = 0; i < 小節ごとInput.Length; i++) {//1小節にいくつの音符があるかどうかの計算は先にする。
+        for (int i = 0; i < 小節ごとInput.Length; i++)
+        {//1小節にいくつの音符があるかどうかの計算は先にする。
             if (!小節ごとInput[i].StartsWith("#"))
                 n文字数 += 小節ごとInput[i].Length;
         }
@@ -2227,14 +2234,15 @@ internal class CDTX : CActivity
             }
             else
             {
-                this.t入力tcc音符(今回の文字列 , n文字数);
+                this.t入力tcc音符(今回の文字列, n文字数);
             }
         }
         this.n現在の小節数++;
 
     }
 
-    private void t入力tcc音符(string str音符,int n文字数) {
+    private void t入力tcc音符(string str音符, int n文字数)
+    {
 
         for (int n = 0; n < str音符.Length; n++)
         {
@@ -2450,7 +2458,8 @@ internal class CDTX : CActivity
         }
     }
 
-    private void t命令を挿入するtcc(string InputText) {
+    private void t命令を挿入するtcc(string InputText)
+    {
 
         string[] InputArr = InputText.Split(' ');
 
@@ -2993,7 +3002,8 @@ internal class CDTX : CActivity
         var argumentMatchGroup = match.Groups[2];
         var argument = argumentMatchGroup.Success ? argumentMatchGroup.Value : null;
 
-        while (true) {//2020.05.29 Mr-Ojii 間違えて、命令の最後の所に,を入れてしまった時の対応
+        while (true)
+        {//2020.05.29 Mr-Ojii 間違えて、命令の最後の所に,を入れてしまった時の対応
             if (argument != null && argument[argument.Length - 1] == ',')
                 argument = argument.Substring(0, argument.Length - 1);
             else
@@ -3314,7 +3324,9 @@ internal class CDTX : CActivity
             chip.n整数値_内部番号 = nBRANCH現在番号;
             this.listChip.Add(chip);
             this.listBRANCH.Add(nBRANCH現在番号,
-                new CBRANCH { db条件数値A = nNum[0],
+                new CBRANCH
+                {
+                    db条件数値A = nNum[0],
                     db条件数値B = nNum[1],
                     n分岐の種類 = n条件,
                     n番号 = nBRANCH現在番号,
@@ -3401,7 +3413,7 @@ internal class CDTX : CActivity
         {
             int nDIRECTION = Convert.ToInt32(argument);
             //勝手に#SCROLLに変換
-            switch(nDIRECTION)
+            switch (nDIRECTION)
             {
                 case 1: //上
                     this.dbNowScroll = 0;
@@ -3672,7 +3684,7 @@ internal class CDTX : CActivity
                 {
                     this.t命令を挿入する(InputText);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Trace.WriteLine(e);
                     Trace.WriteLine("命令挿入中にエラーが発生しましたが、処理を継続します。");
@@ -4442,7 +4454,7 @@ internal class CDTX : CActivity
             }
             catch (Exception e)
             {
-                Trace.TraceWarning(e.ToString()+"\n"+
+                Trace.TraceWarning(e.ToString() + "\n" +
                     "動画のデコーダー生成で例外が発生しましたが、処理を継続します。");
                 if (this.listVD.ContainsKey(1))
                     this.listVD.Remove(1);
@@ -4456,34 +4468,34 @@ internal class CDTX : CActivity
             this.bHIDDENBRANCH = true;
 
         if (HeaderDict.TryGetValue("LYRICFILE", out strCommandParam))
+        {
+            string[] strFiles = SplitComma(strCommandParam);
+            string[] strFilePath = new string[strFiles.Length];
+            for (int index = 0; index < strFiles.Length; index++)
             {
-                string[] strFiles = SplitComma(strCommandParam);
-                string[] strFilePath = new string[strFiles.Length];
-                for (int index = 0; index < strFiles.Length; index++)
+                strFilePath[index] = this.strフォルダ名 + strFiles[index];
+                if (File.Exists(strFilePath[index]))
                 {
-                    strFilePath[index] = this.strフォルダ名 + strFiles[index];
-                    if (File.Exists(strFilePath[index]))
+                    try
                     {
-                        try
-                        {
-                            this.LyricFileParser(strFilePath[index],index);
-                            this.bLyrics = true;
-                        }
-                        catch
-                        {
-                            Console.WriteLine("lrcファイルNo.{0}の読み込みに失敗しましたが、", index);
-                            Console.WriteLine("処理を続行します。");
-                        }
+                        this.LyricFileParser(strFilePath[index], index);
+                        this.bLyrics = true;
+                    }
+                    catch
+                    {
+                        Console.WriteLine("lrcファイルNo.{0}の読み込みに失敗しましたが、", index);
+                        Console.WriteLine("処理を続行します。");
                     }
                 }
             }
+        }
     }
 
     //#STARTとCOURSEが存在すること
     private void tParseHeader(IEnumerable<string> SplitedText)
     {
         Dictionary<string, string> HeaderDict = new();
-        foreach(var InputText in SplitedText)
+        foreach (var InputText in SplitedText)
         {
             if (InputText.StartsWith("#BRANCHSTART"))
             {
@@ -4509,7 +4521,7 @@ internal class CDTX : CActivity
             {
                 string strCommandName = InputText.Remove(InputText.IndexOf(':')).Trim();
                 string strCommandParam = InputText.Remove(0, InputText.IndexOf(':') + 1).Trim(); //':'も含めてRemove
-                if(!string.IsNullOrEmpty(strCommandName) && !string.IsNullOrEmpty(strCommandParam))
+                if (!string.IsNullOrEmpty(strCommandName) && !string.IsNullOrEmpty(strCommandParam))
                     HeaderDict.Add(strCommandName, strCommandParam);
             }
 
@@ -4614,7 +4626,7 @@ internal class CDTX : CActivity
     /// 自力で作ったので、うまくパースしてくれないかも
     /// </summary>
     /// <param name="strFilePath">lrcファイルのパス</param>
-    private void LyricFileParser(string strFilePath ,int ordnumber)//2020.06.04 Mr-Ojii lrcファイルのパース用
+    private void LyricFileParser(string strFilePath, int ordnumber)//2020.06.04 Mr-Ojii lrcファイルのパース用
     {
         string str = CJudgeTextEncoding.ReadTextFile(strFilePath);
         var strSplit後 = str.Split(this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries);
@@ -4628,8 +4640,8 @@ internal class CDTX : CActivity
             {
                 if (strSplit後[i].StartsWith("["))
                 {
-                    Match timestring = timeRegex.Match(strSplit後[i]) , timestringO = timeRegexO.Match(strSplit後[i]);
-                    while ( timestringO.Success || timestring.Success)
+                    Match timestring = timeRegex.Match(strSplit後[i]), timestringO = timeRegexO.Match(strSplit後[i]);
+                    while (timestringO.Success || timestring.Success)
                     {
                         long time;
                         if (timestring.Success)
@@ -4984,7 +4996,7 @@ internal class CDTX : CActivity
 
         foreach (CChip pChip in listChip)
         {
-            if(pChip.nチャンネル番号 != 0x01)
+            if (pChip.nチャンネル番号 != 0x01)
                 continue;
 
             int n発音前余裕ms = 1000, n発音後余裕ms = 800;
@@ -5216,7 +5228,7 @@ internal class CDTX : CActivity
                 this.listLyric2[i].TextTex.Dispose();
             this.listLyric2.Clear();
         }
-        if(this.pf歌詞フォント != null)
+        if (this.pf歌詞フォント != null)
         {
             this.pf歌詞フォント.Dispose();
         }

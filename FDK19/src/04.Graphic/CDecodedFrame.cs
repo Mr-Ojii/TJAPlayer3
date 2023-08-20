@@ -23,7 +23,7 @@ public class CDecodedFrame : IDisposable
         get;
         private set;
     }
-    public double Time 
+    public double Time
     {
         get;
         private set;
@@ -39,7 +39,7 @@ public class CDecodedFrame : IDisposable
         private set;
     }
 
-    public unsafe CDecodedFrame UpdateFrame(double time, AVFrame* frame) 
+    public unsafe CDecodedFrame UpdateFrame(double time, AVFrame* frame)
     {
         this.Time = time;
         Buffer.MemoryCopy(frame->data[0], (void*)this.TexPointer, frame->linesize[0] * frame->height, frame->linesize[0] * frame->height);

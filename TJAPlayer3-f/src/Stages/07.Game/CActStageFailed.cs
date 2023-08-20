@@ -14,52 +14,52 @@ internal class CActStageFailed : CActivity
 
     public CActStageFailed()
     {
-        ST文字位置[] st文字位置Array = new ST文字位置[ 11 ];
+        ST文字位置[] st文字位置Array = new ST文字位置[11];
 
         ST文字位置 st文字位置 = new ST文字位置();
         st文字位置.ch = '0';
-        st文字位置.pt = new Point( 0, 0 );
-        st文字位置Array[ 0 ] = st文字位置;
+        st文字位置.pt = new Point(0, 0);
+        st文字位置Array[0] = st文字位置;
         ST文字位置 st文字位置2 = new ST文字位置();
         st文字位置2.ch = '1';
-        st文字位置2.pt = new Point( 62, 0 );
-        st文字位置Array[ 1 ] = st文字位置2;
+        st文字位置2.pt = new Point(62, 0);
+        st文字位置Array[1] = st文字位置2;
         ST文字位置 st文字位置3 = new ST文字位置();
         st文字位置3.ch = '2';
-        st文字位置3.pt = new Point( 124, 0 );
-        st文字位置Array[ 2 ] = st文字位置3;
+        st文字位置3.pt = new Point(124, 0);
+        st文字位置Array[2] = st文字位置3;
         ST文字位置 st文字位置4 = new ST文字位置();
         st文字位置4.ch = '3';
-        st文字位置4.pt = new Point( 186, 0 );
-        st文字位置Array[ 3 ] = st文字位置4;
+        st文字位置4.pt = new Point(186, 0);
+        st文字位置Array[3] = st文字位置4;
         ST文字位置 st文字位置5 = new ST文字位置();
         st文字位置5.ch = '4';
-        st文字位置5.pt = new Point( 248, 0 );
-        st文字位置Array[ 4 ] = st文字位置5;
+        st文字位置5.pt = new Point(248, 0);
+        st文字位置Array[4] = st文字位置5;
         ST文字位置 st文字位置6 = new ST文字位置();
         st文字位置6.ch = '5';
-        st文字位置6.pt = new Point( 310, 0 );
-        st文字位置Array[ 5 ] = st文字位置6;
+        st文字位置6.pt = new Point(310, 0);
+        st文字位置Array[5] = st文字位置6;
         ST文字位置 st文字位置7 = new ST文字位置();
         st文字位置7.ch = '6';
-        st文字位置7.pt = new Point( 372, 0 );
-        st文字位置Array[ 6 ] = st文字位置7;
+        st文字位置7.pt = new Point(372, 0);
+        st文字位置Array[6] = st文字位置7;
         ST文字位置 st文字位置8 = new ST文字位置();
         st文字位置8.ch = '7';
-        st文字位置8.pt = new Point( 434, 0 );
-        st文字位置Array[ 7 ] = st文字位置8;
+        st文字位置8.pt = new Point(434, 0);
+        st文字位置Array[7] = st文字位置8;
         ST文字位置 st文字位置9 = new ST文字位置();
         st文字位置9.ch = '8';
-        st文字位置9.pt = new Point( 496, 0 );
-        st文字位置Array[ 8 ] = st文字位置9;
+        st文字位置9.pt = new Point(496, 0);
+        st文字位置Array[8] = st文字位置9;
         ST文字位置 st文字位置10 = new ST文字位置();
         st文字位置10.ch = '9';
-        st文字位置10.pt = new Point( 558, 0 );
-        st文字位置Array[ 9 ] = st文字位置10;
+        st文字位置10.pt = new Point(558, 0);
+        st文字位置Array[9] = st文字位置10;
         ST文字位置 st文字位置11 = new ST文字位置();
         st文字位置11.ch = '%';
-        st文字位置11.pt = new Point( 558 + 62, 0 );
-        st文字位置Array[ 10 ] = st文字位置11;
+        st文字位置11.pt = new Point(558 + 62, 0);
+        st文字位置Array[10] = st文字位置11;
         this.st文字位置 = st文字位置Array;
         base.b活性化してない = true;
     }
@@ -70,10 +70,10 @@ internal class CActStageFailed : CActivity
     public void Start()
     {
         this.dbFailedTime = TJAPlayer3.Timer.n現在時刻ms;
-        this.ct進行 = new CCounter( 0, 1000, 2, TJAPlayer3.Timer );
-        if( TJAPlayer3.ConfigToml.PlayOption._GameMode != EGame.OFF )
+        this.ct進行 = new CCounter(0, 1000, 2, TJAPlayer3.Timer);
+        if (TJAPlayer3.ConfigToml.PlayOption._GameMode != EGame.OFF)
         {
-            this.ct進行 = new CCounter( 0, 4000, 2, TJAPlayer3.Timer );
+            this.ct進行 = new CCounter(0, 4000, 2, TJAPlayer3.Timer);
         }
     }
 
@@ -93,11 +93,11 @@ internal class CActStageFailed : CActivity
     }
     public override int On進行描画()
     {
-        if( base.b活性化してない )
+        if (base.b活性化してない)
         {
             return 0;
         }
-        if( ( this.ct進行 == null ) || this.ct進行.b停止中 )
+        if ((this.ct進行 == null) || this.ct進行.b停止中)
         {
             return 0;
         }
@@ -160,7 +160,7 @@ internal class CActStageFailed : CActivity
             }
         }
 
-        if( !this.ct進行.b終了値に達した )
+        if (!this.ct進行.b終了値に達した)
         {
             return 0;
         }
@@ -185,22 +185,22 @@ internal class CActStageFailed : CActivity
         public Point pt;
     }
 
-    private void t文字表示( int x, int y, string str )
+    private void t文字表示(int x, int y, string str)
     {
-        foreach( char ch in str )
+        foreach (char ch in str)
         {
-            for( int i = 0; i < this.st文字位置.Length; i++ )
+            for (int i = 0; i < this.st文字位置.Length; i++)
             {
-                if( this.st文字位置[ i ].ch == ch )
+                if (this.st文字位置[i].ch == ch)
                 {
-                    Rectangle rectangle = new Rectangle( this.st文字位置[ i ].pt.X, this.st文字位置[ i ].pt.Y, 62, 80 );
-                    if( ch == '%' )
+                    Rectangle rectangle = new Rectangle(this.st文字位置[i].pt.X, this.st文字位置[i].pt.Y, 62, 80);
+                    if (ch == '%')
                     {
                         rectangle.Width = 80;
                     }
-                    if(TJAPlayer3.Tx.Balloon_Number_Roll != null )
+                    if (TJAPlayer3.Tx.Balloon_Number_Roll != null)
                     {
-                        TJAPlayer3.Tx.Balloon_Number_Roll.t2D描画( TJAPlayer3.app.Device, x - ( 62 * str.Length / 2 ), y, rectangle );
+                        TJAPlayer3.Tx.Balloon_Number_Roll.t2D描画(TJAPlayer3.app.Device, x - (62 * str.Length / 2), y, rectangle);
                     }
                     break;
                 }

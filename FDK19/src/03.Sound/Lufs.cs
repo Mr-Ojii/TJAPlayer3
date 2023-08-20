@@ -34,12 +34,12 @@ public struct Lufs
         return _value.ToString();
     }
 
-    public static Lufs operator- (Lufs left, Lufs right)
+    public static Lufs operator -(Lufs left, Lufs right)
     {
         return new Lufs(left._value - right._value);
     }
 
-    public static Lufs operator+ (Lufs left, Lufs right)
+    public static Lufs operator +(Lufs left, Lufs right)
     {
         return new Lufs(left._value + right._value);
     }

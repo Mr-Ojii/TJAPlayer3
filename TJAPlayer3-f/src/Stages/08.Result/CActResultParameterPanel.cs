@@ -121,7 +121,7 @@ internal class CActResultParameterPanel : CActivity
             }
             if (ephase_v2 == EPhaseV2.Gauge)
             {
-                if(this.ctGauge.b終了値に達した)
+                if (this.ctGauge.b終了値に達した)
                     this.NextPhaseV2();
             }
             else if (ephase_v2 == EPhaseV2.Skill)
@@ -158,7 +158,7 @@ internal class CActResultParameterPanel : CActivity
                 {
                     TJAPlayer3.Tx.Result_v2_GaugeBack.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Result.v2GaugeBackX[i], TJAPlayer3.Skin.SkinConfig.Result.v2GaugeBackY[i]);
                 }
-                if (TJAPlayer3.Tx.Result_v2_GaugeBase != null&& TJAPlayer3.Tx.Result_v2_Gauge != null)
+                if (TJAPlayer3.Tx.Result_v2_GaugeBase != null && TJAPlayer3.Tx.Result_v2_Gauge != null)
                 {
                     int width = (int)(TJAPlayer3.Tx.Result_v2_Gauge.szTextureSize.Width * (Math.Min((TJAPlayer3.stageResult.cRecords[i].Gauge / 100f), this.ctGauge.n現在の値 / 100f))) / (TJAPlayer3.Tx.Result_v2_Gauge.szTextureSize.Width / 50) * (TJAPlayer3.Tx.Result_v2_Gauge.szTextureSize.Width / 50);// 2020/10/13 Mr-Ojii 最後の意味が無いように見える乗算、除算には意味があります。消さないで。
                     Rectangle rec = new Rectangle(0, 0, width, TJAPlayer3.Tx.Result_v2_Gauge.szTextureSize.Height);
@@ -570,7 +570,7 @@ internal class CActResultParameterPanel : CActivity
                 {
                     TJAPlayer3.Tx.Result_v2_Number.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x, y, rectangle);
                 }
-                if(score)
+                if (score)
                     x -= TJAPlayer3.Tx.Result_v2_Number.szTextureSize.Width / 10;
                 else
                     x -= TJAPlayer3.Tx.Result_v2_Number.szTextureSize.Width / 16;

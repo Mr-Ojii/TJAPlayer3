@@ -165,7 +165,8 @@ public unsafe class CVideoDecoder : IDisposable
             {
                 while (frame.Time <= (CTimer.n現在時刻ms * _dbPlaySpeed))
                 {
-                    if (decodedframes.TryDequeue(out CDecodedFrame cdecodedframe)) {
+                    if (decodedframes.TryDequeue(out CDecodedFrame cdecodedframe))
+                    {
 
                         if (decodedframes.Count != 0)
                             if (decodedframes.TryPeek(out frame))
@@ -227,7 +228,7 @@ public unsafe class CVideoDecoder : IDisposable
                     {
                         if (packet->stream_index == video_stream->index)
                         {
-                            if (ffmpeg.avcodec_send_packet(codec_context, packet) >= 0) 
+                            if (ffmpeg.avcodec_send_packet(codec_context, packet) >= 0)
                             {
                                 if (ffmpeg.avcodec_receive_frame(codec_context, frame) == 0)
                                 {
@@ -252,7 +253,7 @@ public unsafe class CVideoDecoder : IDisposable
                         return;
                     }
                 }
-                else 
+                else
                 {
                     //ポーズ中に無限ループに入り、CPU使用率が異常に高くなってしまうため、1ms待つ。
                     //ネットを調べると、await Task.Delay()を使えというお話が出てくるが、unsafeなので、使えない
@@ -273,23 +274,24 @@ public unsafe class CVideoDecoder : IDisposable
         }
     }
 
-    public CDecodedFrame PickUnusedDcodedFrame() 
+    public CDecodedFrame PickUnusedDcodedFrame()
     {
-        for (int i = 0; i < framelist.Length; i++) {
-            if (framelist[i].Using == false) 
+        for (int i = 0; i < framelist.Length; i++)
+        {
+            if (framelist[i].Using == false)
             {
                 return framelist[i];
-            }	
+            }
         }
         return null;
     }
 
-    public Size FrameSize 
+    public Size FrameSize
     {
         get;
         private set;
     }
-    public double Duration 
+    public double Duration
     {
         get;
         private set;

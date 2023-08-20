@@ -42,8 +42,8 @@ internal class CActSelectPlayOption : CActivity
                 " for your practice.\n" +
                 "Note: It also changes the songs' pitch."));
 
-        #endregion
-        #region [ 個別 Sud/Hid ]
+            #endregion
+            #region [ 個別 Sud/Hid ]
             l.Add(new CItemList("ゲーム", (int)TJAPlayer3.ConfigToml.PlayOption._GameMode,
                 "ゲームモード\n" +
                 "TYPE-A: 完走!叩ききりまショー!\n" +
@@ -82,9 +82,11 @@ internal class CActSelectPlayOption : CActivity
         {
             CTexture NameTexture = TJAPlayer3.tCreateTexture(this.Font.DrawText(cItemBases[i].strName, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio));
             CTexture[] ListTexture;
-            if (cItemBases[i].eItemType == CItemBase.EItemType.List) {
+            if (cItemBases[i].eItemType == CItemBase.EItemType.List)
+            {
                 ListTexture = new CTexture[((CItemList)cItemBases[i]).list項目値.Count];
-                for (int index = 0; index < ((CItemList)cItemBases[i]).list項目値.Count; index++) {
+                for (int index = 0; index < ((CItemList)cItemBases[i]).list項目値.Count; index++)
+                {
                     ListTexture[index] = TJAPlayer3.tCreateTexture(this.Font.DrawText(((CItemList)cItemBases[i]).list項目値[index], Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio));
                 }
             }
@@ -131,7 +133,7 @@ internal class CActSelectPlayOption : CActivity
                     break;
             }
         }
-        else if(nPlayer == 1)
+        else if (nPlayer == 1)
         {
             switch (NowRow[1])
             {

@@ -42,7 +42,7 @@ internal class CActSelect曲リスト : CActivity
     {
         get
         {
-            return new int[] { this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(this.r現在選択中の曲, 0), this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(this.r現在選択中の曲 , 1) };
+            return new int[] { this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(this.r現在選択中の曲, 0), this.n現在のアンカ難易度レベルに最も近い難易度レベルを返す(this.r現在選択中の曲, 1) };
         }
     }
     public Cスコア r現在選択中のスコア
@@ -165,7 +165,8 @@ internal class CActSelect曲リスト : CActivity
         this.t現在選択中の曲を元に曲バーを再構成する();
     }
 
-    public void RandomSelect(C曲リストノード c曲) {
+    public void RandomSelect(C曲リストノード c曲)
+    {
         this.r現在選択中の曲 = c曲;
         this.t現在選択中の曲を元に曲バーを再構成する();
 
@@ -177,7 +178,8 @@ internal class CActSelect曲リスト : CActivity
 
     public void tBOXに入る()
     {
-        if (TJAPlayer3.ConfigToml.SongSelect.OpenOneSide) {
+        if (TJAPlayer3.ConfigToml.SongSelect.OpenOneSide)
+        {
             List<C曲リストノード> list = TJAPlayer3.SongsManager.list曲ルート;
             list.InsertRange(list.IndexOf(this.r現在選択中の曲) + 1, this.r現在選択中の曲.list子リスト);
             int n回数 = this.r現在選択中の曲.Openindex;
@@ -206,12 +208,14 @@ internal class CActSelect曲リスト : CActivity
     }
     public void tBOXを出る()
     {
-        if (TJAPlayer3.ConfigToml.SongSelect.OpenOneSide) {
+        if (TJAPlayer3.ConfigToml.SongSelect.OpenOneSide)
+        {
             List<C曲リストノード> list = TJAPlayer3.SongsManager.list曲ルート;
             this.r現在選択中の曲.r親ノード.Openindex = r現在選択中の曲.r親ノード.list子リスト.IndexOf(this.r現在選択中の曲);
             list.Insert(list.IndexOf(this.r現在選択中の曲) + 1, this.r現在選択中の曲.r親ノード);
             this.r現在選択中の曲 = this.r次の曲(r現在選択中の曲);
-            for (int index = 0; index < list.Count; index++) {
+            for (int index = 0; index < list.Count; index++)
+            {
                 if (this.r現在選択中の曲.list子リスト.Contains(list[index]))
                 {
                     list.RemoveAt(index);
@@ -471,7 +475,7 @@ internal class CActSelect曲リスト : CActivity
 
         this.ct三角矢印アニメ = new CCounter();
         this.ct分岐フェード用タイマー = new CCounter(1, 2, 2500, TJAPlayer3.Timer);
-        this.ctバー展開用タイマー= new CCounter(0, 100, 1, TJAPlayer3.Timer);
+        this.ctバー展開用タイマー = new CCounter(0, 100, 1, TJAPlayer3.Timer);
         this.ctバー展開ディレイ用タイマー = new CCounter(0, 200, 1, TJAPlayer3.Timer);
 
         int c = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
@@ -521,7 +525,8 @@ internal class CActSelect曲リスト : CActivity
         if (this.b活性化してない)
             return;
 
-        for (int i = 0; i < 13; i++) {
+        for (int i = 0; i < 13; i++)
+        {
             this.stバー情報[i].ttkタイトル = this.ttk曲名テクスチャを生成する(this.stバー情報[i].song.strTitle, this.stバー情報[i].song.ForeColor, this.stバー情報[i].song.BackColor);
         }
 
@@ -1022,7 +1027,7 @@ internal class CActSelect曲リスト : CActivity
                                 {
                                     TJAPlayer3.Tx.Difficulty_Icons.vcScaling.X = 0.4f;
                                     TJAPlayer3.Tx.Difficulty_Icons.vcScaling.Y = 0.4f;
-                                    TJAPlayer3.Tx.Difficulty_Icons.t2D描画(TJAPlayer3.app.Device, xAnime + 40,TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY - 15, new Rectangle(j * 100, 0, 100, 100));
+                                    TJAPlayer3.Tx.Difficulty_Icons.t2D描画(TJAPlayer3.app.Device, xAnime + 40, TJAPlayer3.Skin.SkinConfig.SongSelect.OverallY - 15, new Rectangle(j * 100, 0, 100, 100));
                                 }
                                 break;
                             }
@@ -1587,7 +1592,7 @@ internal class CActSelect曲リスト : CActivity
             return;
 
         int n = (int)s数値 - (int)'0';
-        if(s数値 == '/')
+        if (s数値 == '/')
             n = 10;
         int dx = TJAPlayer3.Tx.SongSelect_ItemNumber.szTextureSize.Width / 11 * n;
         TJAPlayer3.Tx.SongSelect_ItemNumber.t2D描画(TJAPlayer3.app.Device, x, y, new Rectangle(dx, 0, (TJAPlayer3.Tx.SongSelect_ItemNumber.szTextureSize.Width / 11), (TJAPlayer3.Tx.SongSelect_ItemNumber.szTextureSize.Height)));

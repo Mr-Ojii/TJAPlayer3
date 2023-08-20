@@ -18,12 +18,12 @@ internal class CActChipEffects : CActivity
     // メソッド
     public virtual void Start(int nPlayer, int Lane)
     {
-        if(TJAPlayer3.Tx.Gauge_Soul_Explosion == null)
+        if (TJAPlayer3.Tx.Gauge_Soul_Explosion == null)
             return;
 
         for (int i = 0; i < 128; i++)
         {
-            if(!st[i].b使用中)
+            if (!st[i].b使用中)
             {
                 st[i].b使用中 = true;
                 st[i].ct進行 = new CCounter(0, TJAPlayer3.Skin.SkinConfig.Game.Effect.NotesFlash.Ptn, TJAPlayer3.Skin.SkinConfig.Game.Effect.NotesFlash.Timer, TJAPlayer3.Timer);
@@ -71,7 +71,7 @@ internal class CActChipEffects : CActivity
                 st[i].b使用中 = false;
             }
             TJAPlayer3.Tx.Notes.Opacity = 255 - (int)Math.Min((500.0 * (st[i].ct進行.n現在の値 / (double)st[i].ct進行.n終了値)), 255.0);
-            if(TJAPlayer3.Tx.Notes_White != null)
+            if (TJAPlayer3.Tx.Notes_White != null)
                 TJAPlayer3.Tx.Notes_White.Opacity = (int)Math.Min((500.0 * (st[i].ct進行.n現在の値 / (double)st[i].ct進行.n終了値)), 255.0);//2020.05.15 Mr-Ojii ノーツを白くするために追加。
             switch (st[i].nプレイヤー)
             {

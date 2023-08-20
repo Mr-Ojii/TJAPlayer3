@@ -10,7 +10,7 @@ public class MouseWheelEventArgs : EventArgs
 {
     public float x;
     public float y;
-    
+
     public MouseWheelEventArgs(float x, float y)
     {
         this.x = x;

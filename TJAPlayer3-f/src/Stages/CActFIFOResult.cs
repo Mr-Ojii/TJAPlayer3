@@ -13,14 +13,14 @@ internal class CActFIFOResult : CActivity
     public void tFadeOut開始()
     {
         this.mode = EFIFOMode.FadeOut;
-        this.counter = new CCounter( 0, 500, 2, TJAPlayer3.Timer );
+        this.counter = new CCounter(0, 500, 2, TJAPlayer3.Timer);
         if (TJAPlayer3.Tx.Result_FadeIn != null)
             TJAPlayer3.Tx.Result_FadeIn.Opacity = 255;
     }
     public void tFadeIn開始()
     {
         this.mode = EFIFOMode.FadeIn;
-        this.counter = new CCounter( 0, 100, 5, TJAPlayer3.Timer );
+        this.counter = new CCounter(0, 100, 5, TJAPlayer3.Timer);
         if (TJAPlayer3.Tx.Result_FadeIn != null)
             TJAPlayer3.Tx.Result_FadeIn.Opacity = 255;
     }
@@ -33,14 +33,14 @@ internal class CActFIFOResult : CActivity
 
     public override void On非活性化()
     {
-        if( !base.b活性化してない )
+        if (!base.b活性化してない)
         {
             base.On非活性化();
         }
     }
     public override int On進行描画()
     {
-        if( base.b活性化してない || ( this.counter == null ) )
+        if (base.b活性化してない || (this.counter == null))
         {
             return 0;
         }
@@ -78,16 +78,16 @@ internal class CActFIFOResult : CActivity
                 }
             }
         }
-        if( this.mode == EFIFOMode.FadeOut )
+        if (this.mode == EFIFOMode.FadeOut)
         {
-            if( this.counter.n現在の値 != 500 )
+            if (this.counter.n現在の値 != 500)
             {
                 return 0;
             }
         }
-        else if( this.mode == EFIFOMode.FadeIn )
+        else if (this.mode == EFIFOMode.FadeIn)
         {
-            if( this.counter.n現在の値 != 100 )
+            if (this.counter.n現在の値 != 100)
             {
                 return 0;
             }

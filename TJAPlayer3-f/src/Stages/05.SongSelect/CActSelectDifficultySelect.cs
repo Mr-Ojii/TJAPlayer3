@@ -24,7 +24,7 @@ internal class CActSelectDifficultySelect : CActivity
 
     public override void On活性化()
     {
-        if( this.b活性化してる )
+        if (this.b活性化してる)
             return;
         try
         {
@@ -32,7 +32,8 @@ internal class CActSelectDifficultySelect : CActivity
             選択済み = new bool[2] { false, false };
             裏カウント = new int[2] { 0, 0 };
         }
-        finally {
+        finally
+        {
 
         }
 
@@ -40,7 +41,7 @@ internal class CActSelectDifficultySelect : CActivity
     }
     public override void On非活性化()
     {
-        if( this.b活性化してない )
+        if (this.b活性化してない)
             return;
 
         try
@@ -48,7 +49,8 @@ internal class CActSelectDifficultySelect : CActivity
             this.ct分岐表示用タイマー = null;
             this.b開いた直後 = true;
         }
-        finally {
+        finally
+        {
         }
 
         base.On非活性化();
@@ -65,7 +67,8 @@ internal class CActSelectDifficultySelect : CActivity
             base.b初めての進行描画 = false;
         }
 
-        if (b開いた直後) {
+        if (b開いた直後)
+        {
 
             for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++)
             {
@@ -97,7 +100,8 @@ internal class CActSelectDifficultySelect : CActivity
                     TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].vcScaling = new Vector2(0.75f);
                     TJAPlayer3.Tx.Difficulty_Mark[確定された難易度[i]].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, i * 1075 - 30, TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.MarkY);
                 }
-            }else if (現在の選択行[i] >= 3)
+            }
+            else if (現在の選択行[i] >= 3)
             {
                 if (裏表示 && 現在の選択行[i] - 3 == 3)
                 {
@@ -144,15 +148,15 @@ internal class CActSelectDifficultySelect : CActivity
                     }
                     else if (i == 0 && j == (height / wh))
                     {
-                        TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh - (wh - height % wh) + ydiff, new Rectangle(0, wh*2, wh, wh));
+                        TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh - (wh - height % wh) + ydiff, new Rectangle(0, wh * 2, wh, wh));
                     }
                     else if (i == (width / wh) && j == 0)
                     {
-                        TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh - (wh - width % wh) + xdiff, j * wh + ydiff, new Rectangle(wh*2, 0, wh, wh));
+                        TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh - (wh - width % wh) + xdiff, j * wh + ydiff, new Rectangle(wh * 2, 0, wh, wh));
                     }
                     else if (i == (width / wh) && j == (height / wh))
                     {
-                        TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh - (wh - width % wh) + xdiff, j * wh - (wh - height % wh) + ydiff, new Rectangle(wh*2, wh*2, wh, wh));
+                        TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh - (wh - width % wh) + xdiff, j * wh - (wh - height % wh) + ydiff, new Rectangle(wh * 2, wh * 2, wh, wh));
                     }
                     else if (i == 0)
                     {
@@ -164,11 +168,11 @@ internal class CActSelectDifficultySelect : CActivity
                     }
                     else if (i == (width / wh))
                     {
-                        TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh - (wh - width % wh) + xdiff, j * wh + ydiff, new Rectangle(wh*2, wh, wh, wh));
+                        TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh - (wh - width % wh) + xdiff, j * wh + ydiff, new Rectangle(wh * 2, wh, wh, wh));
                     }
                     else if (j == (height / wh))
                     {
-                        TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh - (wh - height % wh) + ydiff, new Rectangle(wh, wh*2, wh, wh));
+                        TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh - (wh - height % wh) + ydiff, new Rectangle(wh, wh * 2, wh, wh));
                     }
                     else
                     {
@@ -260,12 +264,12 @@ internal class CActSelectDifficultySelect : CActivity
             {
                 if (裏表示 && i == 3)
                 {
-                    if(TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.b譜面分岐[4])
+                    if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.b譜面分岐[4])
                         TJAPlayer3.Tx.Difficulty_Branch.t2D描画(TJAPlayer3.app.Device, i * 100 + 470, 310, new Rectangle(TJAPlayer3.Tx.Difficulty_Branch.szTextureSize.Width / 2, 0, TJAPlayer3.Tx.Difficulty_Branch.szTextureSize.Width / 2, TJAPlayer3.Tx.Difficulty_Branch.szTextureSize.Height));
                 }
                 else
                 {
-                    if(TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.b譜面分岐[i])
+                    if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.b譜面分岐[i])
                         TJAPlayer3.Tx.Difficulty_Branch.t2D描画(TJAPlayer3.app.Device, i * 100 + 470, 310, new Rectangle(0, 0, TJAPlayer3.Tx.Difficulty_Branch.szTextureSize.Width / 2, TJAPlayer3.Tx.Difficulty_Branch.szTextureSize.Height));
                 }
             }
@@ -299,7 +303,7 @@ internal class CActSelectDifficultySelect : CActivity
             {
                 if (裏表示 && i == 3)
                 {
-                    if(TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[4])
+                    if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.b譜面が存在する[4])
                         TJAPlayer3.Tx.Crown_t.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarX[i] + 35, TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.BarY[i] - 30, new Rectangle(TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.nCrown[4] * 100, 0, 100, 100));
                 }
                 else
@@ -311,12 +315,14 @@ internal class CActSelectDifficultySelect : CActivity
         }
         #endregion
         #region[プレイヤーアンカー]
-        for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++) {
-            if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 && 現在の選択行[0] == 現在の選択行[1] && !選択済み[0] && !選択済み[1]) {
+        for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+        {
+            if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 && 現在の選択行[0] == 現在の選択行[1] && !選択済み[0] && !選択済み[1])
+            {
                 if (現在の選択行[i] < 3)
                 {
                     if (TJAPlayer3.Tx.Difficulty_Anc_Box_Etc[i] != null)
-                        TJAPlayer3.Tx.Difficulty_Anc_Box_Etc[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.AncBoxEtcX[現在の選択行[i]] + i * TJAPlayer3.Tx.Difficulty_Anc_Box_Etc[i].szTextureSize.Width / 2, TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.AncBoxEtcY[現在の選択行[i]], new Rectangle(i * TJAPlayer3.Tx.Difficulty_Anc_Box_Etc[i].szTextureSize.Width / 2, 0, TJAPlayer3.Tx.Difficulty_Anc_Box_Etc[i].szTextureSize.Width / 2, TJAPlayer3.Tx.Difficulty_Anc_Box_Etc[i].szTextureSize.Height)) ;
+                        TJAPlayer3.Tx.Difficulty_Anc_Box_Etc[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.AncBoxEtcX[現在の選択行[i]] + i * TJAPlayer3.Tx.Difficulty_Anc_Box_Etc[i].szTextureSize.Width / 2, TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.AncBoxEtcY[現在の選択行[i]], new Rectangle(i * TJAPlayer3.Tx.Difficulty_Anc_Box_Etc[i].szTextureSize.Width / 2, 0, TJAPlayer3.Tx.Difficulty_Anc_Box_Etc[i].szTextureSize.Width / 2, TJAPlayer3.Tx.Difficulty_Anc_Box_Etc[i].szTextureSize.Height));
 
                     if (TJAPlayer3.Tx.Difficulty_Anc_Same[i] != null)
                         TJAPlayer3.Tx.Difficulty_Anc_Same[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.AncEtcX[現在の選択行[i]] + (int)(TJAPlayer3.Tx.Difficulty_Anc_Same[i].szTextureSize.Width * (i - 0.5)), TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.AncEtcY[現在の選択行[i]]);
@@ -370,7 +376,7 @@ internal class CActSelectDifficultySelect : CActivity
             裏表示 = !裏表示;
             裏カウント[0] = 0;
             裏カウント[1] = 0;
-            if(裏表示)
+            if (裏表示)
                 TJAPlayer3.stage選曲.act曲リスト.n現在のアンカ難易度レベル[0] = 4;
             else
                 TJAPlayer3.stage選曲.act曲リスト.n現在のアンカ難易度レベル[0] = 3;

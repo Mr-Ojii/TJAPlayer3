@@ -92,7 +92,7 @@ public class CSoundDeviceBASS : ISoundDevice
         int nFreq = 44100;
         if (!Bass.Init(-1, nFreq, DeviceInitFlags.Default, IntPtr.Zero))
             throw new Exception(string.Format("BASS の初期化に失敗しました。(BASS_Init)[{0}]", Bass.LastError.ToString()));
-        
+
         if (!Bass.Configure(Configuration.UpdatePeriod, UpdatePeriod))
         {
             Trace.TraceWarning($"BASS_SetConfig({nameof(Configuration.UpdatePeriod)}) に失敗しました。[{Bass.LastError}]");
@@ -101,14 +101,14 @@ public class CSoundDeviceBASS : ISoundDevice
         {
             Trace.TraceWarning($"BASS_SetConfig({nameof(Configuration.UpdateThreads)}) に失敗しました。[{Bass.LastError}]");
         }
-        
+
         Bass.Configure(Configuration.PlaybackBufferLength, BufferSizems);
         Bass.Configure(Configuration.LogarithmicVolumeCurve, true);
 
         this.tSTREAMPROC = new StreamProcedure(StreamProc);
         this.hMainStream = Bass.CreateStream(nFreq, 2, BassFlags.Default, this.tSTREAMPROC, IntPtr.Zero);
 
-        var flag = BassFlags.MixerNonStop| BassFlags.Decode;   // デコードのみ＝発声しない。
+        var flag = BassFlags.MixerNonStop | BassFlags.Decode;   // デコードのみ＝発声しない。
         this.hMixer = BassMix.CreateMixerStream(nFreq, 2, flag);
 
         if (this.hMixer == 0)

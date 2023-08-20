@@ -136,7 +136,7 @@ internal class CStageTitle : CStage
                 if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.UpArrow) || TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.bPressed(EPad.LBlue) || TJAPlayer3.Pad.bPressed(EPad.LBlue2P) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2)
                     this.tカーソルを上へ移動する();
 
-                if(TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.DownArrow) || TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.bPressed(EPad.RBlue) || TJAPlayer3.Pad.bPressed(EPad.RBlue2P) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2)
+                if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.DownArrow) || TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.bPressed(EPad.RBlue) || TJAPlayer3.Pad.bPressed(EPad.RBlue2P) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2)
                     this.tカーソルを下へ移動する();
 
                 if (((TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return)) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2))
@@ -286,8 +286,10 @@ internal class CStageTitle : CStage
 
     #region [ private ]
     //-----------------
-    private CTexture 文字テクスチャを生成する(string str文字, Color forecolor, Color backcolor, CFontRenderer pf) {
-        using (var bmp = pf.DrawText_V(str文字, forecolor, backcolor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatioVertical)) {
+    private CTexture 文字テクスチャを生成する(string str文字, Color forecolor, Color backcolor, CFontRenderer pf)
+    {
+        using (var bmp = pf.DrawText_V(str文字, forecolor, backcolor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatioVertical))
+        {
             return TJAPlayer3.tCreateTexture(bmp);
         }
     }
@@ -298,19 +300,19 @@ internal class CStageTitle : CStage
     private CCounter ct下移動用;
     private CCounter ct上移動用;
     //縦スタイル用
-    private readonly int[] MENU_XT = {300,640,980 };
+    private readonly int[] MENU_XT = { 300, 640, 980 };
     private const int MENU_YT = 100;
     //------------------------------------
     private int n現在のカーソル行;
 
     private void tカーソルを下へ移動する()
     {
-        if ( this.n現在のカーソル行 != (int) E戻り値.EXIT - 1 )
+        if (this.n現在のカーソル行 != (int)E戻り値.EXIT - 1)
         {
             TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
             this.n現在のカーソル行++;
-            this.ct下移動用.t開始( 0, 100, 1, TJAPlayer3.Timer );
-            if( this.ct上移動用.b進行中 )
+            this.ct下移動用.t開始(0, 100, 1, TJAPlayer3.Timer);
+            if (this.ct上移動用.b進行中)
             {
                 this.ct下移動用.n現在の値 = 100 - this.ct上移動用.n現在の値;
                 this.ct上移動用.t停止();
@@ -319,12 +321,12 @@ internal class CStageTitle : CStage
     }
     private void tカーソルを上へ移動する()
     {
-        if ( this.n現在のカーソル行 != (int) E戻り値.GAMESTART - 1 )
+        if (this.n現在のカーソル行 != (int)E戻り値.GAMESTART - 1)
         {
             TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
             this.n現在のカーソル行--;
-            this.ct上移動用.t開始( 0, 100, 1, TJAPlayer3.Timer );
-            if( this.ct下移動用.b進行中 )
+            this.ct上移動用.t開始(0, 100, 1, TJAPlayer3.Timer);
+            if (this.ct下移動用.b進行中)
             {
                 this.ct上移動用.n現在の値 = 100 - this.ct下移動用.n現在の値;
                 this.ct下移動用.t停止();

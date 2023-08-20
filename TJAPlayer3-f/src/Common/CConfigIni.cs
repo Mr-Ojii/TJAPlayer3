@@ -133,7 +133,7 @@ internal class CConfigIni
                 if (str.Length < 3)
                     return;
 
-                switch (str[ 0 ])
+                switch (str[0])
                 {
                     case 'J':
                         this.DeviceType = EInputDevice.Joypad;
@@ -148,8 +148,8 @@ internal class CConfigIni
                         this.DeviceType = EInputDevice.Mouse;
                         break;
                 }
-                this.ID = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(str[ 1 ]);  // #24166 2011.1.15 yyagi: to support ID > 10, change 2nd character from Decimal to 36-numeral system. (e.g. J1023 -> JA23)
-                if(int.TryParse(str.Substring(2), out var code))
+                this.ID = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(str[1]);  // #24166 2011.1.15 yyagi: to support ID > 10, change 2nd character from Decimal to 36-numeral system. (e.g. J1023 -> JA23)
+                if (int.TryParse(str.Substring(2), out var code))
                     this.Code = code;
                 else
                     this.Code = -1;
@@ -176,7 +176,7 @@ internal class CConfigIni
                         break;
                 }
                 // #24166 2011.1.15 yyagi: to support ID > 10, change 2nd character from Decimal to 36-numeral system. (e.g. J1023 -> JA23)
-                str += "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".Substring( this.ID, 1 );
+                str += "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".Substring(this.ID, 1);
                 str += this.Code.ToString();
                 return str;
             }
@@ -215,10 +215,10 @@ internal class CConfigIni
     {
         this.tデフォルトのキーアサインに設定する();
     }
-    public CConfigIni( string iniファイル名 )
+    public CConfigIni(string iniファイル名)
         : this()
     {
-        this.tファイルから読み込み( iniファイル名 );
+        this.tファイルから読み込み(iniファイル名);
     }
 
 
@@ -244,96 +244,96 @@ internal class CConfigIni
             }
         }
     }
-    public void t書き出し( string iniファイル名 )
+    public void t書き出し(string iniファイル名)
     {
-        StreamWriter sw = new StreamWriter( iniファイル名, false, new UTF8Encoding(false));
+        StreamWriter sw = new StreamWriter(iniファイル名, false, new UTF8Encoding(false));
 
-#region [ DrumsKeyAssign ]
+        #region [ DrumsKeyAssign ]
         sw.WriteLine();
-        sw.WriteLine( ";-------------------" );
-        sw.WriteLine( "; キーアサイン" );
-        sw.WriteLine( ";   項　目：Keyboard → 'K'＋'0'＋KeyCode(10進数)" );
-        sw.WriteLine( ";           Mouse    → 'N'＋'0'＋ボタン番号(0～13)" );
-        sw.WriteLine( ";           MIDI In  → 'M'＋デバイス番号1桁(0～9,A～Z)＋ノート番号(10進数)" );
-        sw.WriteLine( ";           Joystick → 'J'＋デバイス番号1桁(0～9,A～Z)＋ 0 ...... Ｘ減少(左)ボタン" );
-        sw.WriteLine( ";                                                         1 ...... Ｘ増加(右)ボタン" );
-        sw.WriteLine( ";                                                         2 ...... Ｙ減少(上)ボタン" );
-        sw.WriteLine( ";                                                         3 ...... Ｙ増加(下)ボタン" );
-        sw.WriteLine( ";                                                         4 ...... Ｚ減少(前)ボタン" );
-        sw.WriteLine( ";                                                         5 ...... Ｚ増加(後)ボタン" );
-        sw.WriteLine( ";                                                         6 ...... Ｚ回転(ＣＣＷ)");
-        sw.WriteLine( ";                                                         7 ...... Ｚ回転(ＣＷ)");
-        sw.WriteLine( ";                                                         8～135.. ボタン1～128" );
-        sw.WriteLine( ";           これらの項目を 16 個まで指定可能(',' で区切って記述）。" );
-        sw.WriteLine( ";" );
-        sw.WriteLine( ";   表記例：LeftRed=K044,M042,J18");
-        sw.WriteLine( ";           → LeftRed を Keyboard の 44 ('Z'), MidiIn#0 の 42, JoyPad#1 の 8(ボタン1) に割当て" );
-        sw.WriteLine( ";" );
-        sw.WriteLine( ";   ※Joystick のデバイス番号とデバイスとの関係は [GUID] セクションに記してあるものが有効。" );
-        sw.WriteLine( ";" );
-        sw.WriteLine( ";   ※改造者はJoystickと呼べるようなものを所持していないため、Ｚ回転のＣＷ、ＣＣＷは逆である可能性があります。");
+        sw.WriteLine(";-------------------");
+        sw.WriteLine("; キーアサイン");
+        sw.WriteLine(";   項　目：Keyboard → 'K'＋'0'＋KeyCode(10進数)");
+        sw.WriteLine(";           Mouse    → 'N'＋'0'＋ボタン番号(0～13)");
+        sw.WriteLine(";           MIDI In  → 'M'＋デバイス番号1桁(0～9,A～Z)＋ノート番号(10進数)");
+        sw.WriteLine(";           Joystick → 'J'＋デバイス番号1桁(0～9,A～Z)＋ 0 ...... Ｘ減少(左)ボタン");
+        sw.WriteLine(";                                                         1 ...... Ｘ増加(右)ボタン");
+        sw.WriteLine(";                                                         2 ...... Ｙ減少(上)ボタン");
+        sw.WriteLine(";                                                         3 ...... Ｙ増加(下)ボタン");
+        sw.WriteLine(";                                                         4 ...... Ｚ減少(前)ボタン");
+        sw.WriteLine(";                                                         5 ...... Ｚ増加(後)ボタン");
+        sw.WriteLine(";                                                         6 ...... Ｚ回転(ＣＣＷ)");
+        sw.WriteLine(";                                                         7 ...... Ｚ回転(ＣＷ)");
+        sw.WriteLine(";                                                         8～135.. ボタン1～128");
+        sw.WriteLine(";           これらの項目を 16 個まで指定可能(',' で区切って記述）。");
+        sw.WriteLine(";");
+        sw.WriteLine(";   表記例：LeftRed=K044,M042,J18");
+        sw.WriteLine(";           → LeftRed を Keyboard の 44 ('Z'), MidiIn#0 の 42, JoyPad#1 の 8(ボタン1) に割当て");
+        sw.WriteLine(";");
+        sw.WriteLine(";   ※Joystick のデバイス番号とデバイスとの関係は [GUID] セクションに記してあるものが有効。");
+        sw.WriteLine(";");
+        sw.WriteLine(";   ※改造者はJoystickと呼べるようなものを所持していないため、Ｚ回転のＣＷ、ＣＣＷは逆である可能性があります。");
         sw.WriteLine();
-        sw.WriteLine( "[DrumsKeyAssign]" );
+        sw.WriteLine("[DrumsKeyAssign]");
         sw.WriteLine();
-        sw.Write( "LeftRed=" );
-        this.tキーの書き出し( sw, this.KeyAssign.LeftRed );
+        sw.Write("LeftRed=");
+        this.tキーの書き出し(sw, this.KeyAssign.LeftRed);
         sw.WriteLine();
-        sw.Write( "RightRed=" );
-        this.tキーの書き出し( sw, this.KeyAssign.RightRed );
+        sw.Write("RightRed=");
+        this.tキーの書き出し(sw, this.KeyAssign.RightRed);
         sw.WriteLine();
-        sw.Write( "LeftBlue=" );										// #27029 2012.1.4 from
-        this.tキーの書き出し( sw, this.KeyAssign.LeftBlue );	//
+        sw.Write("LeftBlue=");										// #27029 2012.1.4 from
+        this.tキーの書き出し(sw, this.KeyAssign.LeftBlue);	//
         sw.WriteLine();											//
-        sw.Write( "RightBlue=" );										// #27029 2012.1.4 from
-        this.tキーの書き出し( sw, this.KeyAssign.RightBlue );	//
+        sw.Write("RightBlue=");										// #27029 2012.1.4 from
+        this.tキーの書き出し(sw, this.KeyAssign.RightBlue);	//
         sw.WriteLine();
-        sw.Write( "LeftRed2P=" );
-        this.tキーの書き出し( sw, this.KeyAssign.LeftRed2P );
+        sw.Write("LeftRed2P=");
+        this.tキーの書き出し(sw, this.KeyAssign.LeftRed2P);
         sw.WriteLine();
-        sw.Write( "RightRed2P=" );
-        this.tキーの書き出し( sw, this.KeyAssign.RightRed2P );
+        sw.Write("RightRed2P=");
+        this.tキーの書き出し(sw, this.KeyAssign.RightRed2P);
         sw.WriteLine();
-        sw.Write( "LeftBlue2P=" );										// #27029 2012.1.4 from
-        this.tキーの書き出し( sw, this.KeyAssign.LeftBlue2P );	//
+        sw.Write("LeftBlue2P=");										// #27029 2012.1.4 from
+        this.tキーの書き出し(sw, this.KeyAssign.LeftBlue2P);	//
         sw.WriteLine();											        //
-        sw.Write( "RightBlue2P=" );										// #27029 2012.1.4 from
-        this.tキーの書き出し( sw, this.KeyAssign.RightBlue2P );	//
+        sw.Write("RightBlue2P=");										// #27029 2012.1.4 from
+        this.tキーの書き出し(sw, this.KeyAssign.RightBlue2P);	//
         sw.WriteLine();
         sw.WriteLine();
-#endregion
-#region [ SystemkeyAssign ]
-        sw.WriteLine( "[SystemKeyAssign]" );
+        #endregion
+        #region [ SystemkeyAssign ]
+        sw.WriteLine("[SystemKeyAssign]");
         sw.WriteLine();
-        sw.Write( "Capture=" );
-        this.tキーの書き出し( sw, this.KeyAssign.Capture );
+        sw.Write("Capture=");
+        this.tキーの書き出し(sw, this.KeyAssign.Capture);
         sw.WriteLine();
         sw.Write("FullScreen=");
         this.tキーの書き出し(sw, this.KeyAssign.FullScreen);
         sw.WriteLine();
         sw.WriteLine();
-#endregion
+        #endregion
 
         sw.Close();
     }
 
-    public void tファイルから読み込み( string iniファイル名 )
+    public void tファイルから読み込み(string iniファイル名)
     {
-        if( File.Exists( iniファイル名 ) )
+        if (File.Exists(iniファイル名))
         {
             string str = CJudgeTextEncoding.ReadTextFile(iniファイル名);
             this.tキーアサインを全部クリアする();
-            t文字列から読み込み( str );
+            t文字列から読み込み(str);
         }
     }
 
-    private void t文字列から読み込み( string strAllSettings )	// 2011.4.13 yyagi; refactored to make initial KeyConfig easier.
+    private void t文字列から読み込み(string strAllSettings)	// 2011.4.13 yyagi; refactored to make initial KeyConfig easier.
     {
         Eセクション種別 unknown = Eセクション種別.Unknown;
         string[] delimiter = { "\n" };
-        string[] strSingleLine = strAllSettings.Split( delimiter, StringSplitOptions.RemoveEmptyEntries );
-        foreach ( string s in strSingleLine )
+        string[] strSingleLine = strAllSettings.Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
+        foreach (string s in strSingleLine)
         {
-            string str = s.Replace( '\t', ' ' ).TrimStart( new char[] { '\t', ' ' } );
+            string str = s.Replace('\t', ' ').TrimStart(new char[] { '\t', ' ' });
             if (str.Length == 0 || str[0] == ';')
                 continue;
 
@@ -341,9 +341,9 @@ internal class CConfigIni
             {
                 string str3;
                 string str4;
-                if ( str[ 0 ] == '[' )
+                if (str[0] == '[')
                 {
-#region [ セクションの変更 ]
+                    #region [ セクションの変更 ]
                     //-----------------------------
                     int index = str.IndexOf(']');
                     string str2;
@@ -352,88 +352,88 @@ internal class CConfigIni
                     else
                         str2 = str.Substring(1);
 
-                    if ( Enum.TryParse(typeof(Eセクション種別), str2, out var eType) )
+                    if (Enum.TryParse(typeof(Eセクション種別), str2, out var eType))
                         unknown = (Eセクション種別)eType;
                     else
                         unknown = Eセクション種別.Unknown;
                     //-----------------------------
-#endregion
+                    #endregion
                 }
                 else
                 {
-                    string[] strArray = str.Split( new char[] { '=' } );
-                    if( strArray.Length == 2 )
+                    string[] strArray = str.Split(new char[] { '=' });
+                    if (strArray.Length == 2)
                     {
-                        str3 = strArray[ 0 ].Trim();
-                        str4 = strArray[ 1 ].Trim();
-                        switch( unknown )
+                        str3 = strArray[0].Trim();
+                        str4 = strArray[1].Trim();
+                        switch (unknown)
                         {
-#region [ [DrumsKeyAssign] ]
+                            #region [ [DrumsKeyAssign] ]
                             //-----------------------------
                             case Eセクション種別.DrumsKeyAssign:
                                 {
-                                    if( str3.Equals( "LeftRed" ) )
+                                    if (str3.Equals("LeftRed"))
                                     {
-                                        this.tキーの読み出しと設定( str4, this.KeyAssign.LeftRed );
+                                        this.tキーの読み出しと設定(str4, this.KeyAssign.LeftRed);
                                     }
-                                    else if( str3.Equals( "RightRed" ) )
+                                    else if (str3.Equals("RightRed"))
                                     {
-                                        this.tキーの読み出しと設定( str4, this.KeyAssign.RightRed );
+                                        this.tキーの読み出しと設定(str4, this.KeyAssign.RightRed);
                                     }
-                                    else if( str3.Equals( "LeftBlue" ) )										// #27029 2012.1.4 from
+                                    else if (str3.Equals("LeftBlue"))										// #27029 2012.1.4 from
                                     {																	//
-                                        this.tキーの読み出しと設定( str4, this.KeyAssign.LeftBlue );	//
+                                        this.tキーの読み出しと設定(str4, this.KeyAssign.LeftBlue);	//
                                     }																	//
-                                    else if( str3.Equals( "RightBlue" ) )										// #27029 2012.1.4 from
+                                    else if (str3.Equals("RightBlue"))										// #27029 2012.1.4 from
                                     {																	//
-                                        this.tキーの読み出しと設定( str4, this.KeyAssign.RightBlue );	//
+                                        this.tキーの読み出しと設定(str4, this.KeyAssign.RightBlue);	//
                                     }
 
-                                    else if( str3.Equals( "LeftRed2P" ) )
+                                    else if (str3.Equals("LeftRed2P"))
                                     {
-                                        this.tキーの読み出しと設定( str4, this.KeyAssign.LeftRed2P );
+                                        this.tキーの読み出しと設定(str4, this.KeyAssign.LeftRed2P);
                                     }
-                                    else if( str3.Equals( "RightRed2P" ) )
+                                    else if (str3.Equals("RightRed2P"))
                                     {
-                                        this.tキーの読み出しと設定( str4, this.KeyAssign.RightRed2P );
+                                        this.tキーの読み出しと設定(str4, this.KeyAssign.RightRed2P);
                                     }
-                                    else if( str3.Equals( "LeftBlue2P" ) )										// #27029 2012.1.4 from
+                                    else if (str3.Equals("LeftBlue2P"))										// #27029 2012.1.4 from
                                     {																	//
-                                        this.tキーの読み出しと設定( str4, this.KeyAssign.LeftBlue2P );	//
+                                        this.tキーの読み出しと設定(str4, this.KeyAssign.LeftBlue2P);	//
                                     }																	//
-                                    else if( str3.Equals( "RightBlue2P" ) )										// #27029 2012.1.4 from
+                                    else if (str3.Equals("RightBlue2P"))										// #27029 2012.1.4 from
                                     {																	//
-                                        this.tキーの読み出しと設定( str4, this.KeyAssign.RightBlue2P );	//
+                                        this.tキーの読み出しと設定(str4, this.KeyAssign.RightBlue2P);	//
                                     }
 
                                     continue;
                                 }
                             //-----------------------------
-#endregion
+                            #endregion
 
-#region [ [SystemKeyAssign] ]
+                            #region [ [SystemKeyAssign] ]
                             //-----------------------------
                             case Eセクション種別.SystemKeyAssign:
-                                if( str3.Equals( "Capture" ) )
+                                if (str3.Equals("Capture"))
                                 {
-                                    this.tキーの読み出しと設定( str4, this.KeyAssign.Capture );
+                                    this.tキーの読み出しと設定(str4, this.KeyAssign.Capture);
                                 }
                                 else if (str3.Equals("FullScreen"))
                                 {
                                     this.tキーの読み出しと設定(str4, this.KeyAssign.FullScreen);
                                 }
                                 continue;
-                            //-----------------------------
-#endregion
+                                //-----------------------------
+                                #endregion
                         }
                     }
                 }
                 continue;
             }
-            catch ( Exception exception )
+            catch (Exception exception)
             {
-                Trace.TraceError( exception.ToString() );
-                Trace.TraceError( "An exception has occurred, but processing continues." );
+                Trace.TraceError(exception.ToString());
+                Trace.TraceError("An exception has occurred, but processing continues.");
                 continue;
             }
         }
@@ -441,7 +441,7 @@ internal class CConfigIni
 
     // その他
 
-#region [ private ]
+    #region [ private ]
     //-----------------
     private enum Eセクション種別
     {
@@ -462,7 +462,7 @@ internal class CConfigIni
             }
         }
     }
-    private void tキーの書き出し( StreamWriter sw, CKeyAssign.STKEYASSIGN[] assign )
+    private void tキーの書き出し(StreamWriter sw, CKeyAssign.STKEYASSIGN[] assign)
     {
         var str = string.Join(",", assign
             .Select(x => x.ToString())
@@ -470,15 +470,15 @@ internal class CConfigIni
 
         sw.Write(str);
     }
-    private void tキーの読み出しと設定( string strキー記述, CKeyAssign.STKEYASSIGN[] assign )
+    private void tキーの読み出しと設定(string strキー記述, CKeyAssign.STKEYASSIGN[] assign)
     {
-        string[] strArray = strキー記述.Split( new char[] { ',' } );
-        for( int i = 0; ( i < strArray.Length ) && ( i < 0x10 ); i++ )
+        string[] strArray = strキー記述.Split(new char[] { ',' });
+        for (int i = 0; (i < strArray.Length) && (i < 0x10); i++)
         {
             CKeyAssign.STKEYASSIGN stAssign = new CKeyAssign.STKEYASSIGN(strArray[i]);
-            if( (stAssign.DeviceType != EInputDevice.Unknown) && (stAssign.ID >= 0) && (stAssign.Code >= 0) && (stAssign.Code <= 0xff) )
+            if ((stAssign.DeviceType != EInputDevice.Unknown) && (stAssign.ID >= 0) && (stAssign.Code >= 0) && (stAssign.Code <= 0xff))
             {
-                this.t指定した入力が既にアサイン済みである場合はそれを全削除する( stAssign.DeviceType, stAssign.ID, stAssign.Code );
+                this.t指定した入力が既にアサイン済みである場合はそれを全削除する(stAssign.DeviceType, stAssign.ID, stAssign.Code);
                 assign[i] = stAssign;
             }
         }
@@ -502,8 +502,8 @@ RightBlue2P=K047
 Capture=K065
 FullScreen=K064
 ";
-        t文字列から読み込み( strDefaultKeyAssign );
+        t文字列から読み込み(strDefaultKeyAssign);
     }
     //-----------------
-#endregion
+    #endregion
 }

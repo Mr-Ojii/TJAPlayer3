@@ -48,10 +48,10 @@ public class CTimer : CTimerBase
         : base()
     {
         this.生成時刻 = DateTime.Now;
-        
+
         base.tリセット();
     }
-    
+
     public override void Dispose()
     {
     }

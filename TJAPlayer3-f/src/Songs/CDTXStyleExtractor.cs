@@ -56,13 +56,13 @@ public static class CDTXStyleExtractor
 
     private static readonly string SheetStartBareRegexMatchPattern =
         $"{SheetStartPrefixRegexPattern}$";
-    
+
     private static readonly string SheetStartP1RegexMatchPattern =
         $"{SheetStartPrefixRegexPattern}\\s*P1";
 
     private static readonly string SheetStartP2RegexMatchPattern =
         $"{SheetStartPrefixRegexPattern}\\s*P2";
-    
+
     private static readonly string SheetStartUnrecognizedRegexMatchPattern =
         $"{SheetStartPrefixRegexPattern}.*$";
 
@@ -353,7 +353,7 @@ public static class CDTXStyleExtractor
             {
                 return SubSectionKind.SheetStartP2;
             }
-        
+
             if (SheetStartUnrecognizedMatchRegex.IsMatch(subsection))
             {
                 return SubSectionKind.SheetStartUnrecognized;
@@ -443,7 +443,7 @@ public static class CDTXStyleExtractor
         {
             unchecked
             {
-                return ((int) SectionKind * 397) ^ (int) SubSectionKind;
+                return ((int)SectionKind * 397) ^ (int)SubSectionKind;
             }
         }
 

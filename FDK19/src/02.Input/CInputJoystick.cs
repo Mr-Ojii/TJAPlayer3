@@ -202,7 +202,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                 #endregion
                 #region [ Z軸－ ]
                 //-----------------------------
-                if (SDL.SDL_JoystickGetAxis(joystick_handle,2) < -16384)
+                if (SDL.SDL_JoystickGetAxis(joystick_handle, 2) < -16384)
                 {
                     if (this.btmpButtonState[4] == false)
                     {
@@ -451,7 +451,7 @@ public class CInputJoystick : IInputDevice, IDisposable
             this.btmpButtonPushDown[i] = false;
             this.btmpButtonPullUp[i] = false;
         }
-        while(this.listEventBuffer.TryDequeue(out var InputEvent))
+        while (this.listEventBuffer.TryDequeue(out var InputEvent))
             this.listInputEvents.Add(InputEvent);
     }
 
@@ -480,7 +480,7 @@ public class CInputJoystick : IInputDevice, IDisposable
     {
         if (!this.bDisposed)
         {
-            if (SDL.SDL_JoystickGetAttached(joystick_handle)== SDL.SDL_bool.SDL_TRUE)
+            if (SDL.SDL_JoystickGetAttached(joystick_handle) == SDL.SDL_bool.SDL_TRUE)
             {
                 SDL.SDL_JoystickClose(joystick_handle);
             }

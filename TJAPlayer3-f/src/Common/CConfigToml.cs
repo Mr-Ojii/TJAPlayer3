@@ -9,7 +9,7 @@ using Tomlyn;
 
 namespace TJAPlayer3;
 
-public class CConfigToml 
+public class CConfigToml
 {
     public static CConfigToml Load(string FilePath)
     {
@@ -25,7 +25,7 @@ public class CConfigToml
             string str = CJudgeTextEncoding.ReadTextFile(FilePath);
             ConfigToml = Toml.ToModel<CConfigToml>(str, null, tomlModelOptions);
 
-            if(ConfigToml.General.Version == TJAPlayer3.VERSION)
+            if (ConfigToml.General.Version == TJAPlayer3.VERSION)
                 ConfigToml.NotExistOrIncorrectVersion = false;
         }
         return ConfigToml;
@@ -67,29 +67,29 @@ public class CConfigToml
         {
             get
             {
-                Uri uriRoot = new Uri( System.IO.Path.Combine( TJAPlayer3.strEXEのあるフォルダ, "System/" ) );
-                if ( _SkinPath != null && _SkinPath.Length == 0 )
+                Uri uriRoot = new Uri(System.IO.Path.Combine(TJAPlayer3.strEXEのあるフォルダ, "System/"));
+                if (_SkinPath != null && _SkinPath.Length == 0)
                 {
                     // Config.iniが空の状態でDTXManiaをViewerとして起動_終了すると、strSystemSkinSubfolderFullName が空の状態でここに来る。
                     // → 初期値として Default/ を設定する。
-                    _SkinPath = System.IO.Path.Combine( TJAPlayer3.strEXEのあるフォルダ, "System/Default/" );
+                    _SkinPath = System.IO.Path.Combine(TJAPlayer3.strEXEのあるフォルダ, "System/Default/");
                 }
-                Uri uriPath = new Uri( System.IO.Path.Combine( this._SkinPath, "./" ) );
-                string relPath = uriRoot.MakeRelativeUri( uriPath ).ToString();				// 相対パスを取得
-                return System.Web.HttpUtility.UrlDecode( relPath );						// デコードする
+                Uri uriPath = new Uri(System.IO.Path.Combine(this._SkinPath, "./"));
+                string relPath = uriRoot.MakeRelativeUri(uriPath).ToString();				// 相対パスを取得
+                return System.Web.HttpUtility.UrlDecode(relPath);						// デコードする
             }
             set
             {
                 string absSkinPath = value;
-                if ( !System.IO.Path.IsPathRooted( value ) )
+                if (!System.IO.Path.IsPathRooted(value))
                 {
-                    absSkinPath = System.IO.Path.Combine( TJAPlayer3.strEXEのあるフォルダ, "System" );
-                    absSkinPath = System.IO.Path.Combine( absSkinPath, value );
-                    Uri u = new Uri( absSkinPath );
+                    absSkinPath = System.IO.Path.Combine(TJAPlayer3.strEXEのあるフォルダ, "System");
+                    absSkinPath = System.IO.Path.Combine(absSkinPath, value);
+                    Uri u = new Uri(absSkinPath);
                     absSkinPath = u.AbsolutePath.ToString();	// str4内に相対パスがある場合に備える
-                    absSkinPath = System.Web.HttpUtility.UrlDecode( absSkinPath );						// デコードする
+                    absSkinPath = System.Web.HttpUtility.UrlDecode(absSkinPath);						// デコードする
                 }
-                if ( absSkinPath[ absSkinPath.Length - 1 ] != '/' )	// フォルダ名末尾に\を必ずつけて、CSkin側と表記を統一する
+                if (absSkinPath[absSkinPath.Length - 1] != '/')	// フォルダ名末尾に\を必ずつけて、CSkin側と表記を統一する
                 {
                     absSkinPath += '/';
                 }
@@ -133,14 +133,14 @@ public class CConfigToml
         }
         private int _DeviceType = (int)(OperatingSystem.IsWindows() ? (COS.bIsWin10OrLater() ? ESoundDeviceTypeForConfig.WASAPI_Shared : ESoundDeviceTypeForConfig.WASAPI_Exclusive) : ESoundDeviceTypeForConfig.BASS);
         public int WASAPIBufferSizeMs
-        { 
+        {
             get { return _WASAPIBufferSizeMs; }
             set { _WASAPIBufferSizeMs = Math.Clamp(_WASAPIBufferSizeMs, 1, 9999); }
         }
         private int _WASAPIBufferSizeMs = 2;
         public int ASIODevice { get; set; } = 0;
         public int BASSBufferSizeMs
-        { 
+        {
             get { return _BASSBufferSizeMS; }
             set { _BASSBufferSizeMS = Math.Clamp(value, 1, 9999); }
         }
@@ -165,21 +165,21 @@ public class CConfigToml
             set => SetProperty(ref _applyLoudnessMetadata, value, nameof(ApplyLoudnessMetadata));
         }
 
-		// 2018-08-28 twopointzero:
-		// There exists a particular large, well-known, well-curated, and
-		// regularly-updated collection of content for use with Taiko no
-		// Tatsujin simulators. A statistical analysis was performed on the
-		// the integrated loudness and true peak loudness of the thousands
-		// of songs within this collection as of late August 2018.
-		//
-		// The analysis allows us to select a target loudness which
-		// results in the smallest total amount of loudness adjustment
-		// applied to the songs of that collection. The selected target
-		// loudness should result in the least-noticeable average
-		// adjustment for the most users, assuming their collection is
-		// similar to the exemplar.
-		//
-		// The target loudness which achieves this is -7.4 LUFS.
+        // 2018-08-28 twopointzero:
+        // There exists a particular large, well-known, well-curated, and
+        // regularly-updated collection of content for use with Taiko no
+        // Tatsujin simulators. A statistical analysis was performed on the
+        // the integrated loudness and true peak loudness of the thousands
+        // of songs within this collection as of late August 2018.
+        //
+        // The analysis allows us to select a target loudness which
+        // results in the smallest total amount of loudness adjustment
+        // applied to the songs of that collection. The selected target
+        // loudness should result in the least-noticeable average
+        // adjustment for the most users, assuming their collection is
+        // similar to the exemplar.
+        //
+        // The target loudness which achieves this is -7.4 LUFS.
         private double _targetLoudness = -7.4;
 
         public double TargetLoudness
@@ -266,7 +266,7 @@ public class CConfigToml
             OnPropertyChanged(propertyName);
             return true;
         }
-        
+
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -437,7 +437,7 @@ public class CConfigToml
             set { _Stealth = value.Select(x => (EStealthMode)x).ToArray(); }
         }
         public EStealthMode[] _Stealth = new EStealthMode[] { EStealthMode.OFF, EStealthMode.OFF, EStealthMode.OFF, EStealthMode.OFF };
-        public bool[] Shinuchi { get; set; } = new bool[] { false, false, false, false }; 
+        public bool[] Shinuchi { get; set; } = new bool[] { false, false, false, false };
         public bool[] AutoPlay { get; set; } = new bool[] { true, true, true, true };
         public bool AutoRoll { get; set; } = true;
         public int AutoRollSpeed { get; set; } = 67;
@@ -449,7 +449,7 @@ public class CConfigToml
 
     public void Save(string FilePath)
     {
-        using(StreamWriter sw = new StreamWriter(FilePath, false))
+        using (StreamWriter sw = new StreamWriter(FilePath, false))
         {
             //コンパイル時の誤字対策のため"{0} = {1}"でnameofを使うこと
             sw.WriteLine("[{0}]", nameof(this.General));
@@ -462,9 +462,9 @@ public class CConfigToml
             sw.WriteLine("{0} = [ {1} ]", nameof(this.General.ChartPath), string.Join(", ", this.General.ChartPath.Select(x => $"\"{x}\"")));
             sw.WriteLine();
             sw.WriteLine("# 使用スキンのフォルダ名");
-            sw.WriteLine("# 例えば System/Default/Graphics/... などの場合は、SkinPath=\"./Default/\" を指定します。" );
+            sw.WriteLine("# 例えば System/Default/Graphics/... などの場合は、SkinPath=\"./Default/\" を指定します。");
             sw.WriteLine("# Skin fonder path.");
-            sw.WriteLine("# e.g. System/Default/Graphics/... -> Set SkinPath=\"./Default/\"" );
+            sw.WriteLine("# e.g. System/Default/Graphics/... -> Set SkinPath=\"./Default/\"");
             sw.WriteLine("{0} = \"{1}\"", nameof(this.General.SkinPath), this.General.SkinPath);
             sw.WriteLine();
             sw.WriteLine("# フォントレンダリングに使用するフォント名");
@@ -479,8 +479,8 @@ public class CConfigToml
             sw.WriteLine("# X position in the window mode.");
             sw.WriteLine("{0} = {1}", nameof(this.Window.X), this.Window.X);
             sw.WriteLine();
-            sw.WriteLine("# ウィンドウモード時の位置Y" );
-            sw.WriteLine("# Y position in the window mode." );
+            sw.WriteLine("# ウィンドウモード時の位置Y");
+            sw.WriteLine("# Y position in the window mode.");
             sw.WriteLine("{0} = {1}", nameof(this.Window.Y), this.Window.Y);
             sw.WriteLine();
             sw.WriteLine("# ウインドウモード時の画面幅");
@@ -495,16 +495,16 @@ public class CConfigToml
             sw.WriteLine("# A sleep time[ms] while the window is inactive.");
             sw.WriteLine("{0} = {1}", nameof(this.Window.BackSleep), this.Window.BackSleep);
             sw.WriteLine();
-            sw.WriteLine("# フレーム毎のsleep値[ms] (-1でスリープ無し, 0以上で毎フレームスリープ。動画キャプチャ等で活用下さい)" );
-            sw.WriteLine("# A sleep time[ms] per frame." );
-            sw.WriteLine("{0} = {1}", nameof(this.Window.SleepTimePerFrame), this.Window.SleepTimePerFrame );
+            sw.WriteLine("# フレーム毎のsleep値[ms] (-1でスリープ無し, 0以上で毎フレームスリープ。動画キャプチャ等で活用下さい)");
+            sw.WriteLine("# A sleep time[ms] per frame.");
+            sw.WriteLine("{0} = {1}", nameof(this.Window.SleepTimePerFrame), this.Window.SleepTimePerFrame);
             sw.WriteLine();
             sw.WriteLine("# 垂直帰線同期");
             sw.WriteLine("{0} = {1}", nameof(this.Window.VSyncWait), this.Window.VSyncWait.ToString().ToLower());
             sw.WriteLine();
             sw.WriteLine("[{0}]", nameof(this.SoundDevice));
-            sw.WriteLine("# サウンド出力方式(0=BASS, 1=ASIO, 2=WASAPI(排他), 3=WASAPI(共有))" );
-            sw.WriteLine("# WASAPIはVista以降のOSで使用可能。推奨方式はWASAPI。" );
+            sw.WriteLine("# サウンド出力方式(0=BASS, 1=ASIO, 2=WASAPI(排他), 3=WASAPI(共有))");
+            sw.WriteLine("# WASAPIはVista以降のOSで使用可能。推奨方式はWASAPI。");
             sw.WriteLine("# なお、WASAPIが使用不可ならASIOを、ASIOが使用不可ならBASSを使用します。");
             sw.WriteLine("# Sound device type(0=BASS, 1=ASIO, 2=WASAPI(Exclusive), 3=WASAPI(Shared))");
             sw.WriteLine("# WASAPI can use on Vista or later OSs.");
@@ -515,7 +515,7 @@ public class CConfigToml
             sw.WriteLine("# (0=デバイスに設定されている値を使用, 1～9999=バッファサイズ(単位:ms)の手動指定");
             sw.WriteLine("# WASAPI Sound Buffer Size.");
             sw.WriteLine("# (0=Use system default buffer size, 1-9999=specify the buffer size(ms) by yourself)");
-            sw.WriteLine("{0} = {1}", nameof(this.SoundDevice.WASAPIBufferSizeMs), this.SoundDevice.WASAPIBufferSizeMs );
+            sw.WriteLine("{0} = {1}", nameof(this.SoundDevice.WASAPIBufferSizeMs), this.SoundDevice.WASAPIBufferSizeMs);
             sw.WriteLine();
             sw.WriteLine("# ASIO使用時のサウンドデバイス");
             sw.WriteLine("# 存在しないデバイスを指定すると、TJAP3-fが起動しないことがあります。");
@@ -527,11 +527,11 @@ public class CConfigToml
                 for (int i = 0; i < asiodev.Length; i++)
                     sw.WriteLine("# {0}: {1}", i, asiodev[i]);
             }
-            catch (Exception e) 
+            catch (Exception e)
             {
                 Trace.TraceWarning(e.ToString());
             }
-            sw.WriteLine("{0} = {1}", nameof(this.SoundDevice.ASIODevice), this.SoundDevice.ASIODevice );
+            sw.WriteLine("{0} = {1}", nameof(this.SoundDevice.ASIODevice), this.SoundDevice.ASIODevice);
             sw.WriteLine();
             sw.WriteLine("# BASS使用時のサウンドバッファサイズ");
             sw.WriteLine("# (0=デバイスに設定されている値を使用, 1～9999=バッファサイズ(単位:ms)の手動指定");
@@ -539,43 +539,43 @@ public class CConfigToml
             sw.WriteLine("# (0=Use system default buffer size, 1-9999=specify the buffer size(ms) by yourself)");
             sw.WriteLine("{0} = {1}", nameof(this.SoundDevice.BASSBufferSizeMs), this.SoundDevice.BASSBufferSizeMs);
             sw.WriteLine();
-            sw.WriteLine("# 演奏タイマーの種類" );
-            sw.WriteLine("# Playback timer" );
-            sw.WriteLine("# (false=FDK Timer, true=System Timer)" );
+            sw.WriteLine("# 演奏タイマーの種類");
+            sw.WriteLine("# Playback timer");
+            sw.WriteLine("# (false=FDK Timer, true=System Timer)");
             sw.WriteLine("{0} = {1}", nameof(this.SoundDevice.UseOSTimer), this.SoundDevice.UseOSTimer.ToString().ToLower());
             sw.WriteLine();
             sw.WriteLine("[Sound]");
             sw.WriteLine("# BS1770GAIN によるラウドネスメータの測量を適用する");
-            sw.WriteLine("# Apply BS1770GAIN loudness metadata" );
+            sw.WriteLine("# Apply BS1770GAIN loudness metadata");
             sw.WriteLine("{0} = {1}", nameof(this.Sound.ApplyLoudnessMetadata), this.Sound.ApplyLoudnessMetadata.ToString().ToLower());
             sw.WriteLine();
-            sw.WriteLine($"# BS1770GAIN によるラウドネスメータの目標値 (0). ({CSound.MinimumLufs}-{CSound.MaximumLufs})" );
-            sw.WriteLine($"# Loudness Target in dB (decibels) relative to full scale (0). ({CSound.MinimumLufs}-{CSound.MaximumLufs})" );
-            sw.WriteLine("{0} = {1}", nameof(this.Sound.TargetLoudness), this.Sound.TargetLoudness );
+            sw.WriteLine($"# BS1770GAIN によるラウドネスメータの目標値 (0). ({CSound.MinimumLufs}-{CSound.MaximumLufs})");
+            sw.WriteLine($"# Loudness Target in dB (decibels) relative to full scale (0). ({CSound.MinimumLufs}-{CSound.MaximumLufs})");
+            sw.WriteLine("{0} = {1}", nameof(this.Sound.TargetLoudness), this.Sound.TargetLoudness);
             sw.WriteLine();
             sw.WriteLine("# .tjaファイルのSONGVOLヘッダを音源の音量に適用する");
-            sw.WriteLine("# Apply SONGVOL (0:OFF, 1:ON)" );
+            sw.WriteLine("# Apply SONGVOL (0:OFF, 1:ON)");
             sw.WriteLine("{0} = {1}", nameof(this.Sound.ApplySongVol), this.Sound.ApplySongVol.ToString().ToLower());
             sw.WriteLine();
-            sw.WriteLine($"# 効果音の音量 ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
-            sw.WriteLine($"# Sound effect level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
-            sw.WriteLine("{0} = {1}", nameof(this.Sound.SoundEffectLevel), this.Sound.SoundEffectLevel );
+            sw.WriteLine($"# 効果音の音量 ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)");
+            sw.WriteLine($"# Sound effect level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)");
+            sw.WriteLine("{0} = {1}", nameof(this.Sound.SoundEffectLevel), this.Sound.SoundEffectLevel);
             sw.WriteLine();
-            sw.WriteLine($"# 各ボイス、コンボボイスの音量 ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
-            sw.WriteLine($"# Voice level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
-            sw.WriteLine("{0} = {1}", nameof(this.Sound.VoiceLevel), this.Sound.VoiceLevel );
+            sw.WriteLine($"# 各ボイス、コンボボイスの音量 ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)");
+            sw.WriteLine($"# Voice level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)");
+            sw.WriteLine("{0} = {1}", nameof(this.Sound.VoiceLevel), this.Sound.VoiceLevel);
             sw.WriteLine();
-            sw.WriteLine($"# 選曲画面のプレビュー時の音量 ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
-            sw.WriteLine($"# Song preview level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
-            sw.WriteLine("{0} = {1}", nameof(this.Sound.SongPreviewLevel), this.Sound.SongPreviewLevel );
+            sw.WriteLine($"# 選曲画面のプレビュー時の音量 ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)");
+            sw.WriteLine($"# Song preview level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)");
+            sw.WriteLine("{0} = {1}", nameof(this.Sound.SongPreviewLevel), this.Sound.SongPreviewLevel);
             sw.WriteLine();
-            sw.WriteLine($"# ゲーム中の音源の音量 ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
-            sw.WriteLine($"# Song playback level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)" );
-            sw.WriteLine("{0} = {1}", nameof(this.Sound.SongPlaybackLevel), this.Sound.SongPlaybackLevel );
+            sw.WriteLine($"# ゲーム中の音源の音量 ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)");
+            sw.WriteLine($"# Song playback level ({CSound.MinimumGroupLevel}-{CSound.MaximumGroupLevel}%)");
+            sw.WriteLine("{0} = {1}", nameof(this.Sound.SongPlaybackLevel), this.Sound.SongPlaybackLevel);
             sw.WriteLine();
-            sw.WriteLine($"# KeyBoardによる音量変更の増加量、減少量 ({MinimumKeyboardSoundLevelIncrement}-{MaximumKeyboardSoundLevelIncrement})" );
-            sw.WriteLine($"# Keyboard sound level increment ({MinimumKeyboardSoundLevelIncrement}-{MaximumKeyboardSoundLevelIncrement})" );
-            sw.WriteLine("{0} = {1}", nameof(this.Sound.KeyboardSoundLevelIncrement), this.Sound.KeyboardSoundLevelIncrement );
+            sw.WriteLine($"# KeyBoardによる音量変更の増加量、減少量 ({MinimumKeyboardSoundLevelIncrement}-{MaximumKeyboardSoundLevelIncrement})");
+            sw.WriteLine($"# Keyboard sound level increment ({MinimumKeyboardSoundLevelIncrement}-{MaximumKeyboardSoundLevelIncrement})");
+            sw.WriteLine("{0} = {1}", nameof(this.Sound.KeyboardSoundLevelIncrement), this.Sound.KeyboardSoundLevelIncrement);
             sw.WriteLine();
             sw.WriteLine("[{0}]", nameof(this.Log));
             sw.WriteLine("# 曲データ検索に関するLog出力");
@@ -602,7 +602,7 @@ public class CConfigToml
             sw.WriteLine("# Box Open One Side.");
             sw.WriteLine("{0} = {1}", nameof(this.SongSelect.OpenOneSide), this.SongSelect.OpenOneSide.ToString().ToLower());
             sw.WriteLine();
-            sw.WriteLine("# RANDOM SELECT で子BOXを検索対象に含める" );
+            sw.WriteLine("# RANDOM SELECT で子BOXを検索対象に含める");
             sw.WriteLine("{0} = {1}", nameof(this.SongSelect.RandomIncludeSubBox), this.SongSelect.RandomIncludeSubBox.ToString().ToLower());
             sw.WriteLine();
             sw.WriteLine("# 選曲画面でのタイマーを有効にするかどうか");
@@ -625,19 +625,19 @@ public class CConfigToml
             sw.WriteLine("# BackBoxes Interval.");
             sw.WriteLine("{0} = {1}", nameof(this.SongSelect.BackBoxInterval), this.SongSelect.BackBoxInterval);
             sw.WriteLine();
-            sw.WriteLine("# デフォルトの曲ソート(0:絶対パス順, 1:ジャンル名ソートRENEWED )" );
-            sw.WriteLine("# 0:Path, 1:GenreName" );
-            sw.WriteLine("{0} = {1}", nameof(this.SongSelect.DefaultSongSort), this.SongSelect.DefaultSongSort );
+            sw.WriteLine("# デフォルトの曲ソート(0:絶対パス順, 1:ジャンル名ソートRENEWED )");
+            sw.WriteLine("# 0:Path, 1:GenreName");
+            sw.WriteLine("{0} = {1}", nameof(this.SongSelect.DefaultSongSort), this.SongSelect.DefaultSongSort);
             sw.WriteLine();
             sw.WriteLine("[{0}]", nameof(this.Game));
             sw.WriteLine("# 最小表示コンボ数");
             sw.WriteLine("{0} = {1}", nameof(this.Game.DispMinCombo), this.Game.DispMinCombo);
             sw.WriteLine();
-            sw.WriteLine("# 演奏情報を表示する" );
-            sw.WriteLine("# Showing playing info on the playing screen." );
+            sw.WriteLine("# 演奏情報を表示する");
+            sw.WriteLine("# Showing playing info on the playing screen.");
             sw.WriteLine("{0} = {1}", nameof(this.Game.ShowDebugStatus), this.Game.ShowDebugStatus.ToString().ToLower());
             sw.WriteLine();
-            sw.WriteLine("# 判定数の表示" );
+            sw.WriteLine("# 判定数の表示");
             sw.WriteLine("{0} = {1}", nameof(this.Game.ShowJudgeCountDisplay), this.Game.ShowJudgeCountDisplay.ToString().ToLower());
             sw.WriteLine();
             sw.WriteLine("# 各画像の表示設定");
@@ -657,7 +657,7 @@ public class CConfigToml
             sw.WriteLine("# 譜面分岐のアニメーション(0:7～14, 1:15)");
             sw.WriteLine("{0} = {1}", nameof(this.Game.BranchAnime), this.Game.BranchAnime);
             sw.WriteLine();
-            sw.WriteLine("# NoInfo" );
+            sw.WriteLine("# NoInfo");
             sw.WriteLine("{0} = {1}", nameof(this.Game.NoInfo), this.Game.NoInfo.ToString().ToLower());
             sw.WriteLine();
             sw.WriteLine("# 両手判定の待ち時間中に大音符を判定枠に合わせる");
@@ -672,22 +672,22 @@ public class CConfigToml
             sw.WriteLine("{0} = {1}", nameof(this.Game.SendDiscordPlayingInformation), this.Game.SendDiscordPlayingInformation.ToString().ToLower());
             sw.WriteLine();
             sw.WriteLine("[{0}.{1}]", nameof(this.Game), nameof(this.Game.Background));
-            sw.WriteLine("# 背景画像の半透明割合(0:透明～255:不透明)" );
-            sw.WriteLine("# Transparency for background image in playing screen.(0:tranaparent - 255:no transparent)" );
-            sw.WriteLine("{0} = {1}", nameof(this.Game.Background.BGAlpha), this.Game.Background.BGAlpha );
+            sw.WriteLine("# 背景画像の半透明割合(0:透明～255:不透明)");
+            sw.WriteLine("# Transparency for background image in playing screen.(0:tranaparent - 255:no transparent)");
+            sw.WriteLine("{0} = {1}", nameof(this.Game.Background.BGAlpha), this.Game.Background.BGAlpha);
             sw.WriteLine();
-            sw.WriteLine("# 動画の表示" );
-            sw.WriteLine("{0} = {1}", nameof(this.Game.Background.Movie), this.Game.Background.Movie.ToString().ToLower() );
+            sw.WriteLine("# 動画の表示");
+            sw.WriteLine("{0} = {1}", nameof(this.Game.Background.Movie), this.Game.Background.Movie.ToString().ToLower());
             sw.WriteLine();
-            sw.WriteLine("# BGAの表示" );
-            sw.WriteLine("{0} = {1}", nameof(this.Game.Background.BGA), this.Game.Background.BGA.ToString().ToLower() );
+            sw.WriteLine("# BGAの表示");
+            sw.WriteLine("{0} = {1}", nameof(this.Game.Background.BGA), this.Game.Background.BGA.ToString().ToLower());
             sw.WriteLine();
-            sw.WriteLine("# 動画表示モード( 0:表示しない, 1:背景のみ, 2:窓表示のみ, 3:両方)" );
-            sw.WriteLine("{0} = {1}", nameof(this.Game.Background.ClipDispType), this.Game.Background.ClipDispType );
+            sw.WriteLine("# 動画表示モード( 0:表示しない, 1:背景のみ, 2:窓表示のみ, 3:両方)");
+            sw.WriteLine("{0} = {1}", nameof(this.Game.Background.ClipDispType), this.Game.Background.ClipDispType);
             sw.WriteLine();
             sw.WriteLine("[{0}]", nameof(this.Ending));
-            sw.WriteLine("# 「また遊んでね」画面(0:OFF, 1:ON, 2:Force)" );
-            sw.WriteLine("{0} = {1}", nameof(this.Ending.EndingAnime), this.Ending.EndingAnime );
+            sw.WriteLine("# 「また遊んでね」画面(0:OFF, 1:ON, 2:Force)");
+            sw.WriteLine("{0} = {1}", nameof(this.Ending.EndingAnime), this.Ending.EndingAnime);
             sw.WriteLine();
             sw.WriteLine("[{0}]", nameof(this.PlayOption));
             sw.WriteLine("# BGM の再生");
@@ -696,71 +696,71 @@ public class CConfigToml
             sw.WriteLine("# 演奏速度が一倍速であるときのみBGMを再生する");
             sw.WriteLine("{0} = {1}", nameof(this.PlayOption.PlayBGMOnlyPlaySpeedEqualsOne), this.PlayOption.PlayBGMOnlyPlaySpeedEqualsOne.ToString().ToLower());
             sw.WriteLine();
-            sw.WriteLine("# 再生速度変更を、ピッチ変更で行うかどうか(false:ピッチ変更, true:タイムストレッチ)" );
-            sw.WriteLine("# Set \"false\" if you'd like to use pitch shift with PlaySpeed." );
-            sw.WriteLine("# Set \"true\" for time stretch." );
+            sw.WriteLine("# 再生速度変更を、ピッチ変更で行うかどうか(false:ピッチ変更, true:タイムストレッチ)");
+            sw.WriteLine("# Set \"false\" if you'd like to use pitch shift with PlaySpeed.");
+            sw.WriteLine("# Set \"true\" for time stretch.");
             sw.WriteLine("{0} = {1}", nameof(this.PlayOption.TimeStretch), this.PlayOption.TimeStretch.ToString().ToLower());
             sw.WriteLine();
             sw.WriteLine("# 音源再生前の空白時間 (ms)");
             sw.WriteLine("# Blank time before music source to play. (ms)");
             sw.WriteLine("{0} = {1}", nameof(this.PlayOption.MusicPreTimeMs), this.PlayOption.MusicPreTimeMs);
             sw.WriteLine();
-            sw.WriteLine("# ゲーム(0:OFF, 1:完走!叩ききりまショー!, 2:完走!叩ききりまショー!(激辛), 3:特訓モード)" );
-            sw.WriteLine("{0} = {1}", nameof(this.PlayOption.GameMode), this.PlayOption.GameMode );
+            sw.WriteLine("# ゲーム(0:OFF, 1:完走!叩ききりまショー!, 2:完走!叩ききりまショー!(激辛), 3:特訓モード)");
+            sw.WriteLine("{0} = {1}", nameof(this.PlayOption.GameMode), this.PlayOption.GameMode);
             sw.WriteLine();
             sw.WriteLine("# 2P演奏時に左右別々に音をならすか");
             sw.WriteLine("# Use audio panning when multiplayer.");
             sw.WriteLine("{0} = {1}", nameof(this.PlayOption.UsePanning), this.PlayOption.UsePanning.ToString().ToLower());
             sw.WriteLine();
-            sw.WriteLine("# 演奏速度(5～40)(→x5/20～x40/20)" );
-            sw.WriteLine("{0} = {1}", nameof(this.PlayOption.PlaySpeed), this.PlayOption.PlaySpeed );
+            sw.WriteLine("# 演奏速度(5～40)(→x5/20～x40/20)");
+            sw.WriteLine("{0} = {1}", nameof(this.PlayOption.PlaySpeed), this.PlayOption.PlaySpeed);
             sw.WriteLine();
-            sw.WriteLine("# 判定タイミング調整(-1000～1000)[ms]" );
+            sw.WriteLine("# 判定タイミング調整(-1000～1000)[ms]");
             sw.WriteLine("# Revision value to adjust judgment timing.");
             sw.WriteLine("{0} = {1}", nameof(this.PlayOption.InputAdjustTimeMs), this.PlayOption.InputAdjustTimeMs);
             sw.WriteLine();
             sw.WriteLine("# 譜面でスコア計算方法が指定されていない場合のデフォルトスコア計算方法(0:ドンだフルモード, 1:~AC14, 2:AC15, 3:AC16)");
-            sw.WriteLine("{0} = {1}", nameof(this.PlayOption.DefaultScoreMode), this.PlayOption.DefaultScoreMode );
+            sw.WriteLine("{0} = {1}", nameof(this.PlayOption.DefaultScoreMode), this.PlayOption.DefaultScoreMode);
             sw.WriteLine();
             sw.WriteLine("# デフォルトで選択される難易度");
             sw.WriteLine("{0} = {1}", nameof(this.PlayOption.DefaultCourse), this.PlayOption.DefaultCourse);
             sw.WriteLine();
-            sw.WriteLine("# RISKYモード(0:OFF, 1-10) 指定回数不可になると、その時点で終了するモードです。" );
-            sw.WriteLine("# RISKY mode. 0=OFF, 1-10 is the times of misses to be Failed." );
-            sw.WriteLine("{0} = {1}", nameof(this.PlayOption.Risky), this.PlayOption.Risky );
+            sw.WriteLine("# RISKYモード(0:OFF, 1-10) 指定回数不可になると、その時点で終了するモードです。");
+            sw.WriteLine("# RISKY mode. 0=OFF, 1-10 is the times of misses to be Failed.");
+            sw.WriteLine("{0} = {1}", nameof(this.PlayOption.Risky), this.PlayOption.Risky);
             sw.WriteLine();
-            sw.WriteLine("# TIGHTモード" );
-            sw.WriteLine("# TIGHT mode." );
+            sw.WriteLine("# TIGHTモード");
+            sw.WriteLine("# TIGHT mode.");
             sw.WriteLine("{0} = {1}", nameof(this.PlayOption.Tight), this.PlayOption.Tight.ToString().ToLower());
             sw.WriteLine();
-            sw.WriteLine("# JUST" );
+            sw.WriteLine("# JUST");
             sw.WriteLine("{0} = {1}", nameof(this.PlayOption.Just), this.PlayOption.Just.ToString().ToLower());
             sw.WriteLine();
-            sw.WriteLine("# 大音符の両手判定" );
+            sw.WriteLine("# 大音符の両手判定");
             sw.WriteLine("{0} = {1}", nameof(this.PlayOption.BigNotesJudge), this.PlayOption.BigNotesJudge.ToString().ToLower());
             sw.WriteLine();
-            sw.WriteLine("# 大音符の両手入力待機時間(ms)" );
+            sw.WriteLine("# 大音符の両手入力待機時間(ms)");
             sw.WriteLine("{0} = {1}", nameof(this.PlayOption.BigNotesWaitTime), this.PlayOption.BigNotesWaitTime);
             sw.WriteLine();
-            sw.WriteLine("# プレイ人数" );
-            sw.WriteLine("{0} = {1}", nameof(this.PlayOption.PlayerCount), this.PlayOption.PlayerCount );
+            sw.WriteLine("# プレイ人数");
+            sw.WriteLine("{0} = {1}", nameof(this.PlayOption.PlayerCount), this.PlayOption.PlayerCount);
             sw.WriteLine();
             sw.WriteLine("# プレイヤーネーム");
             sw.WriteLine("{0} = [ {1} ]", nameof(this.PlayOption.PlayerName), string.Join(", ", this.PlayOption.PlayerName.Select(x => $"\"{x}\"")));
             sw.WriteLine();
-            sw.WriteLine("# ドラム譜面スクロール速度(1:x0.1, 10:x1.0, 15:x1.5,…,2000:x200.0)" );
+            sw.WriteLine("# ドラム譜面スクロール速度(1:x0.1, 10:x1.0, 15:x1.5,…,2000:x200.0)");
             sw.WriteLine("{0} = [ {1} ]", nameof(this.PlayOption.ScrollSpeed), string.Join(", ", this.PlayOption.ScrollSpeed));
             sw.WriteLine();
-		    sw.WriteLine("# RANDOMモード(0:OFF, 1:Random, 2:Mirror 3:SuperRandom, 4:HyperRandom)" );
+            sw.WriteLine("# RANDOMモード(0:OFF, 1:Random, 2:Mirror 3:SuperRandom, 4:HyperRandom)");
             sw.WriteLine("{0} = [ {1} ]", nameof(this.PlayOption.Random), string.Join(", ", this.PlayOption.Random));
             sw.WriteLine();
-            sw.WriteLine("# STEALTHモード(0:OFF, 1:ドロン, 2:ステルス)" );
+            sw.WriteLine("# STEALTHモード(0:OFF, 1:ドロン, 2:ステルス)");
             sw.WriteLine("{0} = [ {1} ]", nameof(this.PlayOption.Stealth), string.Join(", ", this.PlayOption.Stealth));
             sw.WriteLine();
             sw.WriteLine("# 真打モード");
             sw.WriteLine("# Fixed score mode");
             sw.WriteLine("{0} = [ {1} ]", nameof(this.PlayOption.Shinuchi), string.Join(", ", this.PlayOption.Shinuchi.Select(x => x.ToString().ToLower())));
-		    sw.WriteLine();
+            sw.WriteLine();
 #if PLAYABLE
             sw.WriteLine("# 自動演奏");
             sw.WriteLine("{0} = [ {1} ]", nameof(this.PlayOption.AutoPlay), string.Join(", ", this.PlayOption.AutoPlay.Select(x => x.ToString().ToLower())));
@@ -782,7 +782,7 @@ public class CConfigToml
             sw.WriteLine("{0} = {1}", nameof(this.PlayOption.TrainingJumpInterval), this.PlayOption.TrainingJumpInterval);
             sw.WriteLine();
             sw.WriteLine("[{0}]", nameof(this.JoystickGUID));
-            foreach(var pair in JoystickGUID)
+            foreach (var pair in JoystickGUID)
             {
                 sw.WriteLine("{0} = {1}", pair.Key, $"\"{pair.Value}\"");
             }

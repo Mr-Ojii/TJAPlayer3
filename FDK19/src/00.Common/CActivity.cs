@@ -47,13 +47,13 @@ public class CActivity
     public virtual void On活性化()
     {
         // すでに活性化してるなら何もしない。
-        if( this.b活性化してる )
+        if (this.b活性化してる)
             return;
 
         this.b活性化してる = true;		// このフラグは、以下の処理をする前にセットする。
 
         // すべての子 Activity を活性化する。
-        foreach( CActivity activity in this.listChildren )
+        foreach (CActivity activity in this.listChildren)
             activity.On活性化();
 
         // その他の初期化
@@ -62,11 +62,11 @@ public class CActivity
     public virtual void On非活性化()
     {
         // 活性化してないなら何もしない。
-        if( this.b活性化してない )
+        if (this.b活性化してない)
             return;
 
         // すべての 子Activity を非活性化する。
-        foreach( CActivity activity in this.listChildren )
+        foreach (CActivity activity in this.listChildren)
             activity.On非活性化();
 
         this.b活性化してない = true;	// このフラグは、以上のメソッドを呼び出した後にセットする。
@@ -80,7 +80,7 @@ public class CActivity
     public virtual int On進行描画()
     {
         // 活性化してないなら何もしない。
-        if( this.b活性化してない )
+        if (this.b活性化してない)
             return 0;
 
 

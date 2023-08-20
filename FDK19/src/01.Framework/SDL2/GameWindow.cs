@@ -108,7 +108,7 @@ public class GameWindow : IDisposable
             SDL.SDL_GetWindowPosition(_window_handle, out int x, out int y);
             return new Point(x, y);
         }
-        set 
+        set
         {
             SDL.SDL_SetWindowPosition(_window_handle, value.X, value.Y);
         }
@@ -147,7 +147,7 @@ public class GameWindow : IDisposable
         set
         {
             SDL.SDL_WindowFlags flag = 0;
-            switch(value)
+            switch (value)
             {
                 case WindowState.FullScreen:
                     flag = SDL.SDL_WindowFlags.SDL_WINDOW_FULLSCREEN;
@@ -214,7 +214,7 @@ public class GameWindow : IDisposable
                 {
                     case SDL.SDL_EventType.SDL_WINDOWEVENT:
                         {
-                            if(poll_event.window.windowID == _window_id)
+                            if (poll_event.window.windowID == _window_id)
                                 switch (poll_event.window.windowEvent)
                                 {
                                     case SDL.SDL_WindowEventID.SDL_WINDOWEVENT_MOVED:
@@ -230,7 +230,7 @@ public class GameWindow : IDisposable
                                         _focused = false;
                                         break;
                                 }
-                                break;
+                            break;
                         }
                     case SDL.SDL_EventType.SDL_MOUSEWHEEL:
                         this.MouseWheel(_window_handle, new MouseWheelEventArgs(poll_event.wheel.preciseX, poll_event.wheel.preciseY));

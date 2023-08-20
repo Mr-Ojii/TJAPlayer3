@@ -16,7 +16,7 @@ internal class Rainbow : CActivity
         base.b活性化してない = true;
     }
 
-    public virtual void Start( int player )
+    public virtual void Start(int player)
     {
         if (TJAPlayer3.Tx.Effects_Rainbow != null)
         {
@@ -45,25 +45,25 @@ internal class Rainbow : CActivity
 
     public override void On活性化()
     {
-        for( int i = 0; i < 2; i++ )
+        for (int i = 0; i < 2; i++)
         {
-            this.Rainbow1P[ i ].Counter = new CCounter();
-            this.Rainbow2P[ i ].Counter = new CCounter();
+            this.Rainbow1P[i].Counter = new CCounter();
+            this.Rainbow2P[i].Counter = new CCounter();
         }
         base.On活性化();
     }
     public override void On非活性化()
     {
-        for( int i = 0; i < 2; i++ )
+        for (int i = 0; i < 2; i++)
         {
-            this.Rainbow1P[ i ].Counter = null;
-            this.Rainbow2P[ i ].Counter = null;
+            this.Rainbow1P[i].Counter = null;
+            this.Rainbow2P[i].Counter = null;
         }
         base.On非活性化();
     }
     public override int On進行描画()
     {
-        if( !base.b活性化してない )
+        if (!base.b活性化してない)
         {
             for (int f = 0; f < 2; f++)
             {
@@ -76,7 +76,7 @@ internal class Rainbow : CActivity
                         this.Rainbow1P[f].IsUsing = false;
                     }
 
-                    if(TJAPlayer3.Tx.Effects_Rainbow != null && this.Rainbow1P[f].Player == 0 ) //画像が出来るまで
+                    if (TJAPlayer3.Tx.Effects_Rainbow != null && this.Rainbow1P[f].Player == 0) //画像が出来るまで
                     {
                         //this.st虹[f].ct進行.n現在の値 = 164;
 
@@ -109,7 +109,7 @@ internal class Rainbow : CActivity
                         this.Rainbow2P[f].IsUsing = false;
                     }
 
-                    if(TJAPlayer3.Tx.Effects_Rainbow != null && this.Rainbow2P[f].Player == 1 ) //画像が出来るまで
+                    if (TJAPlayer3.Tx.Effects_Rainbow != null && this.Rainbow2P[f].Player == 1) //画像が出来るまで
                     {
                         //this.st虹[f].ct進行.n現在の値 = 164;
                         TJAPlayer3.Tx.Effects_Rainbow.vcScaling.X = 1.0f - ((float)(TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[1] - TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.nDefaultJudgePos[1, 0]) / (float)TJAPlayer3.Tx.Effects_Rainbow.szTextureSize.Width);

@@ -23,7 +23,7 @@ internal class CActConfigList : CActivity
         get
         {
             Eメニュー種別 e = this.eメニュー種別;
-            if ( e == Eメニュー種別.KeyAssignDrums || e == Eメニュー種別.KeyAssignSystem )
+            if (e == Eメニュー種別.KeyAssignDrums || e == Eメニュー種別.KeyAssignSystem)
             {
                 return true;
             }
@@ -44,8 +44,8 @@ internal class CActConfigList : CActivity
     {
         get
         {
-            CItemBase currentItem = this.list項目リスト[ this.n現在の選択項目 ];
-            if ( currentItem == this.iSystemReturnToMenu || currentItem == this.iDrumsReturnToMenu )
+            CItemBase currentItem = this.list項目リスト[this.n現在の選択項目];
+            if (currentItem == this.iSystemReturnToMenu || currentItem == this.iDrumsReturnToMenu)
             {
                 return true;
             }
@@ -59,7 +59,7 @@ internal class CActConfigList : CActivity
     {
         get
         {
-            return this.list項目リスト[ this.n現在の選択項目 ];
+            return this.list項目リスト[this.n現在の選択項目];
         }
     }
     public int n現在の選択項目;
@@ -74,15 +74,15 @@ internal class CActConfigList : CActivity
 
         // #27029 2012.1.5 from: 説明文は最大9行→13行に変更。
 
-        this.iSystemReturnToMenu = new CItemBase( "<< Return To Menu",
+        this.iSystemReturnToMenu = new CItemBase("<< Return To Menu",
             "左側のメニューに戻ります。",
-            "Return to left menu." );
-        this.list項目リスト.Add( this.iSystemReturnToMenu );
+            "Return to left menu.");
+        this.list項目リスト.Add(this.iSystemReturnToMenu);
 
-        this.iSystemReloadDTX = new CItemBase( "曲データ再読込み",
+        this.iSystemReloadDTX = new CItemBase("曲データ再読込み",
             "曲データの一覧情報を取得し直します。",
-            "Reload song data." );
-        this.list項目リスト.Add( this.iSystemReloadDTX );
+            "Reload song data.");
+        this.list項目リスト.Add(this.iSystemReloadDTX);
 
         //this.iCommonDark = new CItemList( "Dark", CItemBase.Eパネル種別.通常, (int) CDTXMania.ConfigIni.eDark,
         //    "HALF: 背景、レーン、ゲージが表示\nされなくなります。\nFULL: さらに小節線、拍線、判定ラ\nイン、パッドも表示されなくなります。",
@@ -90,15 +90,15 @@ internal class CActConfigList : CActivity
         //    new string[] { "OFF", "HALF", "FULL" } );
         //this.list項目リスト.Add( this.iCommonDark );
 
-        this.iTaikoPlayerCount = new CItemInteger( "プレイ人数", 1, 2, TJAPlayer3.ConfigToml.PlayOption.PlayerCount,
+        this.iTaikoPlayerCount = new CItemInteger("プレイ人数", 1, 2, TJAPlayer3.ConfigToml.PlayOption.PlayerCount,
             "プレイ人数切り替え：\n2にすると演奏画面が2人プレイ専用のレイアウトになり、2P専用譜面を読み込むようになります。",
-            "" );
-        this.list項目リスト.Add( this.iTaikoPlayerCount );
+            "");
+        this.list項目リスト.Add(this.iTaikoPlayerCount);
 
-        this.iSystemRisky = new CItemInteger( "Risky", 0, 10, TJAPlayer3.ConfigToml.PlayOption.Risky,
+        this.iSystemRisky = new CItemInteger("Risky", 0, 10, TJAPlayer3.ConfigToml.PlayOption.Risky,
             "Riskyモードの設定:\n1以上の値にすると、その回数分の\nBad/MissでFAILEDとなります。\n0にすると無効になり、\nDamageLevelに従ったゲージ増減と\nなります。\nStageFailedの設定と併用できます。",
-            "Risky mode:\nSet over 1, in case you'd like to specify\n the number of Bad/Miss times to be\n FAILED.\nSet 0 to disable Risky mode." );
-        this.list項目リスト.Add( this.iSystemRisky );
+            "Risky mode:\nSet over 1, in case you'd like to specify\n the number of Bad/Miss times to be\n FAILED.\nSet 0 to disable Risky mode.");
+        this.list項目リスト.Add(this.iSystemRisky);
 
         this.iCommonPlaySpeed = new CItemInteger("再生速度", 5, 400, TJAPlayer3.ConfigToml.PlayOption.PlaySpeed,
             "曲の演奏速度を、速くしたり遅くした\n" +
@@ -117,9 +117,9 @@ internal class CActConfigList : CActivity
             "Note: It also changes the songs' pitch.\n" +
             "In case TimeStretch=ON, some sound\n" +
             "lag occurs slower than x0.900.");
-        this.list項目リスト.Add( this.iCommonPlaySpeed );
+        this.list項目リスト.Add(this.iCommonPlaySpeed);
 
-        this.iSystemTimeStretch = new CItemToggle( "TimeStretch", TJAPlayer3.ConfigToml.PlayOption.TimeStretch,
+        this.iSystemTimeStretch = new CItemToggle("TimeStretch", TJAPlayer3.ConfigToml.PlayOption.TimeStretch,
             "演奏速度の変更方式:\n" +
             "ONにすると、演奏速度の変更を、\n" +
             "周波数変更ではなく\n" +
@@ -136,41 +136,41 @@ internal class CActConfigList : CActivity
             "If you set TimeStretch=ON, it usese\n" +
             "more CPU power. And some sound\n" +
             "lag occurs slower than x0.900.");
-        this.list項目リスト.Add( this.iSystemTimeStretch );
+        this.list項目リスト.Add(this.iSystemTimeStretch);
 
 
-        this.iSystemFullscreen = new CItemToggle( "Fullscreen", TJAPlayer3.ConfigToml.Window.FullScreen,
+        this.iSystemFullscreen = new CItemToggle("Fullscreen", TJAPlayer3.ConfigToml.Window.FullScreen,
             "画面モード設定：\nON で全画面モード、OFF でウィンド\nウモードになります。",
-            "Fullscreen mode or window mode." );
-        this.list項目リスト.Add( this.iSystemFullscreen );
-        this.iSystemRandomFromSubBox = new CItemToggle( "RandSubBox", TJAPlayer3.ConfigToml.SongSelect.RandomIncludeSubBox,
+            "Fullscreen mode or window mode.");
+        this.list項目リスト.Add(this.iSystemFullscreen);
+        this.iSystemRandomFromSubBox = new CItemToggle("RandSubBox", TJAPlayer3.ConfigToml.SongSelect.RandomIncludeSubBox,
             "子BOXをRANDOMの対象とする：\nON にすると、RANDOM SELECT 時\nに子BOXも選択対象とします。",
-            "Turn ON to use child BOX (subfolders)\n at RANDOM SELECT." );
-        this.list項目リスト.Add( this.iSystemRandomFromSubBox );
-        this.iSystemVSyncWait = new CItemToggle( "VSyncWait", TJAPlayer3.ConfigToml.Window.VSyncWait,
+            "Turn ON to use child BOX (subfolders)\n at RANDOM SELECT.");
+        this.list項目リスト.Add(this.iSystemRandomFromSubBox);
+        this.iSystemVSyncWait = new CItemToggle("VSyncWait", TJAPlayer3.ConfigToml.Window.VSyncWait,
             "垂直帰線同期：\n画面の描画をディスプレイの垂直帰\n線中に行なう場合には ON を指定し\nます。ON にすると、ガタつきのない\n滑らかな画面描画が実現されます。",
-            "Turn ON to wait VSync (Vertical\n Synchronizing signal) at every\n drawings. (so FPS becomes 60)\nIf you have enough CPU/GPU power,\n the scroll would become smooth." );
-        this.list項目リスト.Add( this.iSystemVSyncWait );
-        this.iSystemAVI = new CItemToggle( "Movie", TJAPlayer3.ConfigToml.Game.Background.Movie,
+            "Turn ON to wait VSync (Vertical\n Synchronizing signal) at every\n drawings. (so FPS becomes 60)\nIf you have enough CPU/GPU power,\n the scroll would become smooth.");
+        this.list項目リスト.Add(this.iSystemVSyncWait);
+        this.iSystemAVI = new CItemToggle("Movie", TJAPlayer3.ConfigToml.Game.Background.Movie,
             "Movieの使用：\n動画を再生可能にする場合に\nON にします。動画の再生には、それ\nなりのマシンパワーが必要とされます。",
-            "To use Movie playback or not." );
-        this.list項目リスト.Add( this.iSystemAVI );
-        this.iSystemBGA = new CItemToggle( "BGA", TJAPlayer3.ConfigToml.Game.Background.BGA,
+            "To use Movie playback or not.");
+        this.list項目リスト.Add(this.iSystemAVI);
+        this.iSystemBGA = new CItemToggle("BGA", TJAPlayer3.ConfigToml.Game.Background.BGA,
             "BGAの使用：\n画像(BGA)を表示可能にする場合に\nON にします。BGA の再生には、それ\nなりのマシンパワーが必要とされます。",
-            "To draw BGA (back ground animations)\n or not." );
-        this.list項目リスト.Add( this.iSystemBGA );
-        this.iSystemDebugInfo = new CItemToggle( "Debug Info", TJAPlayer3.ConfigToml.Game.ShowDebugStatus,
+            "To draw BGA (back ground animations)\n or not.");
+        this.list項目リスト.Add(this.iSystemBGA);
+        this.iSystemDebugInfo = new CItemToggle("Debug Info", TJAPlayer3.ConfigToml.Game.ShowDebugStatus,
             "演奏情報の表示：\n演奏中、BGA領域の下部に演奏情報\n（FPS、BPM、演奏時間など）を表示し\nます。\nまた、小節線の横に小節番号が表示\nされるようになります。",
-            "To show song informations on playing\n BGA area. (FPS, BPM, total time etc)\nYou can ON/OFF the indications\n by pushing [Del] while playing drums" );
-        this.list項目リスト.Add( this.iSystemDebugInfo );
-        this.iSystemBGAlpha = new CItemInteger( "BG Alpha", 0, 0xff, TJAPlayer3.ConfigToml.Game.Background.BGAlpha,
+            "To show song informations on playing\n BGA area. (FPS, BPM, total time etc)\nYou can ON/OFF the indications\n by pushing [Del] while playing drums");
+        this.list項目リスト.Add(this.iSystemDebugInfo);
+        this.iSystemBGAlpha = new CItemInteger("BG Alpha", 0, 0xff, TJAPlayer3.ConfigToml.Game.Background.BGAlpha,
             "背景画像の半透明割合：\n背景画像をTJAP3-fのフレーム画像\nと合成する際の、背景画像の透明度\nを指定します。\n0 が完全透明で、255 が完全不透明\nとなります。",
-            "The degree for transparing playing\n screen and wallpaper.\n\n0=completely transparent,\n255=no transparency" );
-        this.list項目リスト.Add( this.iSystemBGAlpha );
-        this.iSystemBGMSound = new CItemToggle( "BGM Sound", TJAPlayer3.ConfigToml.PlayOption.BGMSound,
+            "The degree for transparing playing\n screen and wallpaper.\n\n0=completely transparent,\n255=no transparency");
+        this.list項目リスト.Add(this.iSystemBGAlpha);
+        this.iSystemBGMSound = new CItemToggle("BGM Sound", TJAPlayer3.ConfigToml.PlayOption.BGMSound,
             "BGMの再生：\nこれをOFFにすると、BGM を再生しな\nくなります。",
-            "Turn OFF if you don't want to play\n BGM." );
-        this.list項目リスト.Add( this.iSystemBGMSound );
+            "Turn OFF if you don't want to play\n BGM.");
+        this.list項目リスト.Add(this.iSystemBGMSound);
         //this.iSystemAudienceSound = new CItemToggle( "Audience", CDTXMania.ConfigIni.b歓声を発声する,
         //    "歓声の再生：\nこれをOFFにすると、歓声を再生しな\nくなります。",
         //    "Turn ON if you want to be cheered\n at the end of fill-in zone or not." );
@@ -181,45 +181,45 @@ internal class CActConfigList : CActivity
         //    new string[] { "Small", "Normal", "Large" } );
         //this.list項目リスト.Add( this.iSystemDamageLevel );
 
-        this.iSystemApplyLoudnessMetadata = new CItemToggle( "Apply Loudness Metadata", TJAPlayer3.ConfigToml.Sound.ApplyLoudnessMetadata,
+        this.iSystemApplyLoudnessMetadata = new CItemToggle("Apply Loudness Metadata", TJAPlayer3.ConfigToml.Sound.ApplyLoudnessMetadata,
             "BS1770GAIN によるラウドネスメータの測量を適用します。\n利用するにはBS1770GAINが必要です。",
-            "To apply BS1770GAIN loudness\nmetadata when playing songs, turn it ON.\nTurn OFF if you prefer to use only\nthe main song level controls.\nIt needs BS1770GAIN." );
-        this.list項目リスト.Add( this.iSystemApplyLoudnessMetadata );
+            "To apply BS1770GAIN loudness\nmetadata when playing songs, turn it ON.\nTurn OFF if you prefer to use only\nthe main song level controls.\nIt needs BS1770GAIN.");
+        this.list項目リスト.Add(this.iSystemApplyLoudnessMetadata);
 
-        this.iSystemTargetLoudness = new CItemInteger( "Target Loudness", (int)Math.Round(CSound.MinimumLufs.ToDouble() * 10.0), (int)Math.Round(CSound.MaximumLufs.ToDouble() * 10.0), (int)Math.Round(TJAPlayer3.ConfigToml.Sound.TargetLoudness * 10.0),
+        this.iSystemTargetLoudness = new CItemInteger("Target Loudness", (int)Math.Round(CSound.MinimumLufs.ToDouble() * 10.0), (int)Math.Round(CSound.MaximumLufs.ToDouble() * 10.0), (int)Math.Round(TJAPlayer3.ConfigToml.Sound.TargetLoudness * 10.0),
             "BS1770GAIN によるラウドネスメータの目標値を指定します。",
             "When applying BS1770GAIN loudness\nmetadata while playing songs, song levels\nwill be adjusted to target this loudness,\nmeasured in cB (centibels) relative to full scale.\n");
-        this.list項目リスト.Add( this.iSystemTargetLoudness );
+        this.list項目リスト.Add(this.iSystemTargetLoudness);
 
-        this.iSystemApplySongVol = new CItemToggle( "Apply SONGVOL", TJAPlayer3.ConfigToml.Sound.ApplySongVol,
+        this.iSystemApplySongVol = new CItemToggle("Apply SONGVOL", TJAPlayer3.ConfigToml.Sound.ApplySongVol,
             ".tjaファイルのSONGVOLヘッダを音源の音量に適用します。設定による音量調整を使用する場合はこの設定をOFFにしてください。",
-            "To apply .tja SONGVOL properties when playing\nsongs, turn it ON. Turn OFF if you prefer to\nuse only the main song level controls." );
-        this.list項目リスト.Add( this.iSystemApplySongVol );
+            "To apply .tja SONGVOL properties when playing\nsongs, turn it ON. Turn OFF if you prefer to\nuse only the main song level controls.");
+        this.list項目リスト.Add(this.iSystemApplySongVol);
 
-        this.iSystemSoundEffectLevel = new CItemInteger( "Sound Effect Level", CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, TJAPlayer3.ConfigToml.Sound.SoundEffectLevel,
+        this.iSystemSoundEffectLevel = new CItemInteger("Sound Effect Level", CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, TJAPlayer3.ConfigToml.Sound.SoundEffectLevel,
             $"効果音の音量を調節します。\n{CSound.MinimumGroupLevel} ～ {CSound.MaximumGroupLevel} % の値が指定可能です。\n",
-            $"The level adjustment for sound effects.\nYou can specify from {CSound.MinimumGroupLevel} to {CSound.MaximumGroupLevel}%." );
-        this.list項目リスト.Add( this.iSystemSoundEffectLevel );
+            $"The level adjustment for sound effects.\nYou can specify from {CSound.MinimumGroupLevel} to {CSound.MaximumGroupLevel}%.");
+        this.list項目リスト.Add(this.iSystemSoundEffectLevel);
 
-        this.iSystemVoiceLevel = new CItemInteger( "Voice Level", CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, TJAPlayer3.ConfigToml.Sound.VoiceLevel,
+        this.iSystemVoiceLevel = new CItemInteger("Voice Level", CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, TJAPlayer3.ConfigToml.Sound.VoiceLevel,
             $"各画面で流れるボイス、コンボボイスの音量を調節します。\n{CSound.MinimumGroupLevel} ～ {CSound.MaximumGroupLevel} % の値が指定可能です。\n",
-            $"The level adjustment for voices.\nYou can specify from {CSound.MinimumGroupLevel} to {CSound.MaximumGroupLevel}%." );
-        this.list項目リスト.Add( this.iSystemVoiceLevel );
+            $"The level adjustment for voices.\nYou can specify from {CSound.MinimumGroupLevel} to {CSound.MaximumGroupLevel}%.");
+        this.list項目リスト.Add(this.iSystemVoiceLevel);
 
-        this.iSystemSongPreviewLevel = new CItemInteger( "Song Preview Level", CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, TJAPlayer3.ConfigToml.Sound.SongPreviewLevel,
+        this.iSystemSongPreviewLevel = new CItemInteger("Song Preview Level", CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, TJAPlayer3.ConfigToml.Sound.SongPreviewLevel,
             $"選曲画面のプレビュー時の音量を調節します。\n{CSound.MinimumGroupLevel} ～ {CSound.MaximumGroupLevel} % の値が指定可能です。\n",
-            $"The level adjustment for song previews.\nYou can specify from {CSound.MinimumGroupLevel} to {CSound.MaximumGroupLevel}%." );
-        this.list項目リスト.Add( this.iSystemSongPreviewLevel );
+            $"The level adjustment for song previews.\nYou can specify from {CSound.MinimumGroupLevel} to {CSound.MaximumGroupLevel}%.");
+        this.list項目リスト.Add(this.iSystemSongPreviewLevel);
 
-        this.iSystemSongPlaybackLevel = new CItemInteger( "Song Playback Level", CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, TJAPlayer3.ConfigToml.Sound.SongPlaybackLevel,
+        this.iSystemSongPlaybackLevel = new CItemInteger("Song Playback Level", CSound.MinimumGroupLevel, CSound.MaximumGroupLevel, TJAPlayer3.ConfigToml.Sound.SongPlaybackLevel,
             $"ゲーム中の音源の音量を調節します。\n{CSound.MinimumGroupLevel} ～ {CSound.MaximumGroupLevel} % の値が指定可能です。\n",
-            $"The level adjustment for songs during gameplay.\nYou can specify from {CSound.MinimumGroupLevel} to {CSound.MaximumGroupLevel}%." );
-        this.list項目リスト.Add( this.iSystemSongPlaybackLevel );
+            $"The level adjustment for songs during gameplay.\nYou can specify from {CSound.MinimumGroupLevel} to {CSound.MaximumGroupLevel}%.");
+        this.list項目リスト.Add(this.iSystemSongPlaybackLevel);
 
-        this.iSystemKeyboardSoundLevelIncrement = new CItemInteger( "Keyboard Level Increment", 1, 20, TJAPlayer3.ConfigToml.Sound.KeyboardSoundLevelIncrement,
+        this.iSystemKeyboardSoundLevelIncrement = new CItemInteger("Keyboard Level Increment", 1, 20, TJAPlayer3.ConfigToml.Sound.KeyboardSoundLevelIncrement,
             "キーボードで音量調整をするときの増加量、減少量を指定します。\n1 ～ 20 の値が指定可能です。\n",
-            "The amount of sound level change for each press\nof a sound level control key.\nYou can specify from 1 to 20." );
-        this.list項目リスト.Add( this.iSystemKeyboardSoundLevelIncrement );
+            "The amount of sound level change for each press\nof a sound level control key.\nYou can specify from 1 to 20.");
+        this.list項目リスト.Add(this.iSystemKeyboardSoundLevelIncrement);
 
         this.MusicPreTimeMs = new CItemInteger("MusicPreTimeMs", 0, 10000, TJAPlayer3.ConfigToml.PlayOption.MusicPreTimeMs,
             "音源再生前の空白時間 (ms)。\n",
@@ -263,7 +263,7 @@ internal class CActConfigList : CActivity
         this.list項目リスト.Add(this.iSystemSoundType);
 
         // #24820 2013.1.15 yyagi
-        this.iSystemWASAPIBufferSizeMs = new CItemInteger( "WASAPIBufSize", 0, 99999, TJAPlayer3.ConfigToml.SoundDevice.WASAPIBufferSizeMs,
+        this.iSystemWASAPIBufferSizeMs = new CItemInteger("WASAPIBufSize", 0, 99999, TJAPlayer3.ConfigToml.SoundDevice.WASAPIBufferSizeMs,
             "WASAPI使用時のバッファサイズ:\n" +
             "0～99999ms を指定可能です。\n" +
             "0を指定すると、OSがバッファの\n" +
@@ -281,8 +281,8 @@ internal class CActConfigList : CActivity
             "but it may cause sound troubles.\n" +
             "\n" +
             "Note: Exit CONFIGURATION to make\n" +
-            "     the setting take effect." );
-        this.list項目リスト.Add( this.iSystemWASAPIBufferSizeMs );
+            "     the setting take effect.");
+        this.list項目リスト.Add(this.iSystemWASAPIBufferSizeMs);
         string[] asiodevs;
         try
         {
@@ -360,7 +360,7 @@ internal class CActConfigList : CActivity
         this.list項目リスト.Add(this.iSystemBASSBufferSizeMs);
 
         // #33689 2014.6.17 yyagi
-        this.iSystemSoundTimerType = new CItemToggle( "UseOSTimer", TJAPlayer3.ConfigToml.SoundDevice.UseOSTimer,
+        this.iSystemSoundTimerType = new CItemToggle("UseOSTimer", TJAPlayer3.ConfigToml.SoundDevice.UseOSTimer,
             "OSタイマーを使用するかどうか:\n" +
             "演奏タイマーとして、DTXMania独自の\n" +
             "タイマーを使うか、OS標準のタイマー\n" +
@@ -384,11 +384,11 @@ internal class CActConfigList : CActivity
             "This settings is avilable only when\n" +
             "you uses WASAPI/ASIO.\n"
         );
-        this.list項目リスト.Add( this.iSystemSoundTimerType );
+        this.list項目リスト.Add(this.iSystemSoundTimerType);
 
         iRandomPresence = new CItemToggle("UseRandom", TJAPlayer3.ConfigToml.SongSelect.RandomPresence,
             "ランダム選曲を使うかどうか\n" +
-            "(この変更後に曲の再読み込みを"+
+            "(この変更後に曲の再読み込みを" +
             " する必要があります。)\n",
             "Use RandomSongSelect.\n" +
             "(You will need to reload the song \n" +
@@ -445,10 +445,10 @@ internal class CActConfigList : CActivity
         this.list項目リスト.Add(this.iSystemSkinSubfolder);
 
 
-        this.iSystemGoToKeyAssign = new CItemBase( "System Keys",
+        this.iSystemGoToKeyAssign = new CItemBase("System Keys",
         "システムのキー入力に関する項目を設\n定します。",
-        "Settings for the system key/pad inputs." );
-        this.list項目リスト.Add( this.iSystemGoToKeyAssign );
+        "Settings for the system key/pad inputs.");
+        this.list項目リスト.Add(this.iSystemGoToKeyAssign);
 
         OnListMenuの初期化();
         this.n現在の選択項目 = 0;
@@ -463,10 +463,10 @@ internal class CActConfigList : CActivity
 
         // #27029 2012.1.5 from: 説明文は最大9行→13行に変更。
 
-        this.iDrumsReturnToMenu = new CItemBase( "<< Return To Menu",
+        this.iDrumsReturnToMenu = new CItemBase("<< Return To Menu",
             "左側のメニューに戻ります。",
-            "Return to left menu." );
-        this.list項目リスト.Add( this.iDrumsReturnToMenu );
+            "Return to left menu.");
+        this.list項目リスト.Add(this.iDrumsReturnToMenu);
 
         #region [ AutoPlay ]
 #if PLAYABLE
@@ -485,23 +485,23 @@ internal class CActConfigList : CActivity
         this.list項目リスト.Add( this.iTaikoAutoPlay2P );
 #endif
 
-        this.iTaikoAutoRoll = new CItemToggle( "AUTO Roll", TJAPlayer3.ConfigToml.PlayOption.AutoRoll,
+        this.iTaikoAutoRoll = new CItemToggle("AUTO Roll", TJAPlayer3.ConfigToml.PlayOption.AutoRoll,
             "OFFにするとAUTO先生が黄色連打を\n" +
             "叩かなくなります。",
             "To play both Taiko\n" +
-            " automatically." );
-        this.list項目リスト.Add( this.iTaikoAutoRoll );
-#endregion
+            " automatically.");
+        this.list項目リスト.Add(this.iTaikoAutoRoll);
+        #endregion
 
-        this.iDrumsScrollSpeed1P = new CItemInteger( "1P ScrollSpeed", 1, 2000, TJAPlayer3.ConfigToml.PlayOption.ScrollSpeed[0],
+        this.iDrumsScrollSpeed1P = new CItemInteger("1P ScrollSpeed", 1, 2000, TJAPlayer3.ConfigToml.PlayOption.ScrollSpeed[0],
             "演奏時のドラム譜面のスクロールの\n" +
             "速度を指定します。\n" +
             "x0.1 ～ x200.0 を指定可能です。",
             "To change the scroll speed for the\n" +
             "drums lanes.\n" +
             "You can set it from x0.1 to x200.0.\n" +
-            "(ScrollSpeed=x0.5 means half speed)" );
-        this.list項目リスト.Add( this.iDrumsScrollSpeed1P );
+            "(ScrollSpeed=x0.5 means half speed)");
+        this.list項目リスト.Add(this.iDrumsScrollSpeed1P);
 
         this.iDrumsScrollSpeed2P = new CItemInteger("2P ScrollSpeed", 1, 2000, TJAPlayer3.ConfigToml.PlayOption.ScrollSpeed[1],
             "演奏時のドラム譜面のスクロールの\n" +
@@ -513,7 +513,7 @@ internal class CActConfigList : CActivity
             "(ScrollSpeed=x0.5 means half speed)");
         this.list項目リスト.Add(this.iDrumsScrollSpeed2P);
 
-        this.iSystemRisky = new CItemInteger( "Risky", 0, 10, TJAPlayer3.ConfigToml.PlayOption.Risky,
+        this.iSystemRisky = new CItemInteger("Risky", 0, 10, TJAPlayer3.ConfigToml.PlayOption.Risky,
             "Riskyモードの設定:\n" +
             "1以上の値にすると、その回数分の\n" +
             "不可で演奏が強制終了します。\n" +
@@ -525,14 +525,14 @@ internal class CActConfigList : CActivity
             "Set over 1, in case you'd like to specify\n" +
             " the number of Bad/Miss times to be\n" +
             " FAILED.\n" +
-            "Set 0 to disable Risky mode." );
-        this.list項目リスト.Add( this.iSystemRisky );
+            "Set 0 to disable Risky mode.");
+        this.list項目リスト.Add(this.iSystemRisky);
 
-        this.iTaikoRandom1P = new CItemList( "1P Random", (int) TJAPlayer3.ConfigToml.PlayOption.Random[0],
+        this.iTaikoRandom1P = new CItemList("1P Random", (int)TJAPlayer3.ConfigToml.PlayOption.Random[0],
             "いわゆるランダム。\n  RANDOM: ちょっと変わる\n  MIRROR: あべこべ \n  SUPER: そこそこヤバい\n  HYPER: 結構ヤバい\nなお、実装は適当な模様",
             "Notes come randomly.\n\n Part: swapping lanes randomly for each\n  measures.\n Super: swapping chip randomly\n Hyper: swapping randomly\n  (number of lanes also changes)",
-            new string[] { "OFF", "RANDOM", "MIRROR", "SUPER", "HYPER" } );
-        this.list項目リスト.Add( this.iTaikoRandom1P );
+            new string[] { "OFF", "RANDOM", "MIRROR", "SUPER", "HYPER" });
+        this.list項目リスト.Add(this.iTaikoRandom1P);
 
         this.iTaikoRandom2P = new CItemList("2P Random", (int)TJAPlayer3.ConfigToml.PlayOption.Random[1],
             "いわゆるランダム。\n  RANDOM: ちょっと変わる\n  MIRROR: あべこべ \n  SUPER: そこそこヤバい\n  HYPER: 結構ヤバい\nなお、実装は適当な模様",
@@ -540,13 +540,13 @@ internal class CActConfigList : CActivity
             new string[] { "OFF", "RANDOM", "MIRROR", "SUPER", "HYPER" });
         this.list項目リスト.Add(this.iTaikoRandom2P);
 
-        this.iTaikoStealthP1 = new CItemList( "1P Stealth", (int) TJAPlayer3.ConfigToml.PlayOption._Stealth[0],
-            "DORON:ドロン\n"+
+        this.iTaikoStealthP1 = new CItemList("1P Stealth", (int)TJAPlayer3.ConfigToml.PlayOption._Stealth[0],
+            "DORON:ドロン\n" +
             "STEALTH:ステルス",
-            "DORON:Hidden for NoteImage.\n"+
+            "DORON:Hidden for NoteImage.\n" +
             "STEALTH:Hidden for NoteImage and SeNotes",
-            new string[] { "OFF", "DORON", "STEALTH" } );
-        this.list項目リスト.Add( this.iTaikoStealthP1 );
+            new string[] { "OFF", "DORON", "STEALTH" });
+        this.list項目リスト.Add(this.iTaikoStealthP1);
 
         this.iTaikoStealthP2 = new CItemList("2P Stealth", (int)TJAPlayer3.ConfigToml.PlayOption._Stealth[1],
             "DORON:ドロン\n" +
@@ -556,39 +556,39 @@ internal class CActConfigList : CActivity
             new string[] { "OFF", "DORON", "STEALTH" });
         this.list項目リスト.Add(this.iTaikoStealthP2);
 
-        this.iTaikoNoInfo = new CItemToggle( "NoInfo", TJAPlayer3.ConfigToml.Game.NoInfo,
+        this.iTaikoNoInfo = new CItemToggle("NoInfo", TJAPlayer3.ConfigToml.Game.NoInfo,
             "有効にすると曲情報などが見えなくなります。\n" +
             "",
             "It becomes MISS to hit pad without\n" +
-            " chip." );
-        this.list項目リスト.Add( this.iTaikoNoInfo );
+            " chip.");
+        this.list項目リスト.Add(this.iTaikoNoInfo);
 
-        this.iTaikoJust = new CItemToggle( "JUST", TJAPlayer3.ConfigToml.PlayOption.Just,
+        this.iTaikoJust = new CItemToggle("JUST", TJAPlayer3.ConfigToml.PlayOption.Just,
             "有効にすると「良」以外の判定が全て不可になります。\n" +
             "",
-            "有効にすると「良」以外の判定が全て不可になります。" );
-        this.list項目リスト.Add( this.iTaikoJust );
+            "有効にすると「良」以外の判定が全て不可になります。");
+        this.list項目リスト.Add(this.iTaikoJust);
 
-        this.iDrumsTight = new CItemToggle( "Tight", TJAPlayer3.ConfigToml.PlayOption.Tight,
+        this.iDrumsTight = new CItemToggle("Tight", TJAPlayer3.ConfigToml.PlayOption.Tight,
             "ドラムチップのないところでパッドを\n" +
             "叩くとミスになります。",
             "It becomes MISS to hit pad without\n" +
-            " chip." );
-        this.list項目リスト.Add( this.iDrumsTight );
+            " chip.");
+        this.list項目リスト.Add(this.iDrumsTight);
 
-        this.iSystemMinComboDrums = new CItemInteger( "D-MinCombo", 1, 0x1869f, TJAPlayer3.ConfigToml.Game.DispMinCombo,
+        this.iSystemMinComboDrums = new CItemInteger("D-MinCombo", 1, 0x1869f, TJAPlayer3.ConfigToml.Game.DispMinCombo,
             "表示可能な最小コンボ数（ドラム）：\n" +
             "画面に表示されるコンボの最小の数\n" +
             "を指定します。\n" +
             "1 ～ 99999 の値が指定可能です。",
             "Initial number to show the combo\n" +
             " for the drums.\n" +
-            "You can specify from 1 to 99999." );
-        this.list項目リスト.Add( this.iSystemMinComboDrums );
+            "You can specify from 1 to 99999.");
+        this.list項目リスト.Add(this.iSystemMinComboDrums);
 
 
         // #23580 2011.1.3 yyagi
-        this.iInputAdjustTimeMs = new CItemInteger( "InputAdjust", -1000, 1000, TJAPlayer3.ConfigToml.PlayOption.InputAdjustTimeMs,
+        this.iInputAdjustTimeMs = new CItemInteger("InputAdjust", -1000, 1000, TJAPlayer3.ConfigToml.PlayOption.InputAdjustTimeMs,
             "ドラムの入力タイミングの微調整を\n" +
             "行います。\n" +
             "-99 ～ 99ms まで指定可能です。\n" +
@@ -596,8 +596,8 @@ internal class CActConfigList : CActivity
             "値を指定してください。\n",
             "To adjust the input timing.\n" +
             "You can set from -99 to 99ms.\n" +
-            "To decrease input lag, set minus value." );
-        this.list項目リスト.Add( this.iInputAdjustTimeMs );
+            "To decrease input lag, set minus value.");
+        this.list項目リスト.Add(this.iInputAdjustTimeMs);
 
         //this.iTaikoHispeedRandom = new CItemToggle("HSRandom", CDTXMania.ConfigIni.bHispeedRandom,
         //    "1ノーツごとのスクロール速度をランダムにします。\n" +
@@ -606,7 +606,7 @@ internal class CActConfigList : CActivity
         //    "");
         //this.list項目リスト.Add(this.iTaikoHispeedRandom);
 
-        this.iTaikoDefaultCourse = new CItemList( "DefaultCourse", TJAPlayer3.ConfigToml.PlayOption.DefaultCourse,
+        this.iTaikoDefaultCourse = new CItemList("DefaultCourse", TJAPlayer3.ConfigToml.PlayOption.DefaultCourse,
             "デフォルトで選択される難易度\n" +
             " \n" +
             " ",
@@ -621,7 +621,7 @@ internal class CActConfigList : CActivity
             " \n" +
             " \n" +
             " ",
-            new string[] { "TYPE-A", "TYPE-B", "TYPE-C"});
+            new string[] { "TYPE-A", "TYPE-B", "TYPE-C" });
         this.list項目リスト.Add(this.iTaikoScoreMode);
 
         ShinuchiMode1P = new CItemToggle("1PShinuchiMode", TJAPlayer3.ConfigToml.PlayOption.Shinuchi[0],
@@ -654,47 +654,47 @@ internal class CActConfigList : CActivity
             " \n" +
             " ",
             new string[] { "OFF", "TYPE-A", "TYPE-B", "TYPE-C" });
-        this.list項目リスト.Add( this.iTaikoGameMode );
+        this.list項目リスト.Add(this.iTaikoGameMode);
 
-        this.iTaikoBigNotesJudge = new CItemToggle( "BigNotesJudge", TJAPlayer3.ConfigToml.PlayOption.BigNotesJudge,
+        this.iTaikoBigNotesJudge = new CItemToggle("BigNotesJudge", TJAPlayer3.ConfigToml.PlayOption.BigNotesJudge,
             "大音符の両手判定を有効にします。",
             "大音符の両手判定を有効にします。");
-        this.list項目リスト.Add( this.iTaikoBigNotesJudge );
+        this.list項目リスト.Add(this.iTaikoBigNotesJudge);
 
-        this.iTaikoJudgeCountDisp = new CItemToggle( "JudgeCountDisp", TJAPlayer3.ConfigToml.Game.ShowJudgeCountDisplay,
+        this.iTaikoJudgeCountDisp = new CItemToggle("JudgeCountDisp", TJAPlayer3.ConfigToml.Game.ShowJudgeCountDisplay,
             "左下に判定数を表示します。\n" +
             "(1人プレイ専用)",
             "Show the JudgeCount\n" +
             "(SinglePlay Only)");
-        this.list項目リスト.Add( this.iTaikoJudgeCountDisp );
+        this.list項目リスト.Add(this.iTaikoJudgeCountDisp);
 
-        this.iDrumsGoToKeyAssign = new CItemBase( "KEY CONFIG",
-            "ドラムのキー入力に関する項目を設\n"+
+        this.iDrumsGoToKeyAssign = new CItemBase("KEY CONFIG",
+            "ドラムのキー入力に関する項目を設\n" +
             "定します。",
-            "Settings for the drums key/pad inputs." );
-        this.list項目リスト.Add( this.iDrumsGoToKeyAssign );
+            "Settings for the drums key/pad inputs.");
+        this.list項目リスト.Add(this.iDrumsGoToKeyAssign);
 
         OnListMenuの初期化();
         this.n現在の選択項目 = 0;
         this.eメニュー種別 = Eメニュー種別.Drums;
     }
-#endregion
+    #endregion
 
     /// <summary>
     /// ESC押下時の右メニュー描画
     /// </summary>
     public void tEsc押下()
     {
-        if ( this.b要素値にフォーカス中 )		// #32059 2013.9.17 add yyagi
+        if (this.b要素値にフォーカス中)		// #32059 2013.9.17 add yyagi
         {
             this.b要素値にフォーカス中 = false;
         }
 
-        if ( this.eメニュー種別 == Eメニュー種別.KeyAssignSystem )
+        if (this.eメニュー種別 == Eメニュー種別.KeyAssignSystem)
         {
             t項目リストの設定_System();
         }
-        else if ( this.eメニュー種別 == Eメニュー種別.KeyAssignDrums )
+        else if (this.eメニュー種別 == Eメニュー種別.KeyAssignDrums)
         {
             t項目リストの設定_Drums();
         }
@@ -703,65 +703,65 @@ internal class CActConfigList : CActivity
     public void tPushedEnter()
     {
         TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
-        if ( this.b要素値にフォーカス中 )
+        if (this.b要素値にフォーカス中)
         {
             this.b要素値にフォーカス中 = false;
         }
-        else if( this.list項目リスト[ this.n現在の選択項目 ].eItemType == CItemBase.EItemType.Integer )
+        else if (this.list項目リスト[this.n現在の選択項目].eItemType == CItemBase.EItemType.Integer)
         {
             this.b要素値にフォーカス中 = true;
         }
-        else if( this.b現在選択されている項目はReturnToMenuである )
+        else if (this.b現在選択されている項目はReturnToMenuである)
         {
             //this.tConfigIniへ記録する();
             //CONFIG中にスキン変化が発生すると面倒なので、一旦マスクした。
         }
-#region [ 個々のキーアサイン ]
+        #region [ 個々のキーアサイン ]
         //太鼓のキー設定。
-        else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoLRed )
+        else if (this.list項目リスト[this.n現在の選択項目] == this.iKeyAssignTaikoLRed)
         {
-            TJAPlayer3.stageConfig.tパッド選択通知( EKeyConfigPad.LRed );
+            TJAPlayer3.stageConfig.tパッド選択通知(EKeyConfigPad.LRed);
         }
-        else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoRRed )
+        else if (this.list項目リスト[this.n現在の選択項目] == this.iKeyAssignTaikoRRed)
         {
-            TJAPlayer3.stageConfig.tパッド選択通知( EKeyConfigPad.RRed );
+            TJAPlayer3.stageConfig.tパッド選択通知(EKeyConfigPad.RRed);
         }
-        else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoLBlue )
+        else if (this.list項目リスト[this.n現在の選択項目] == this.iKeyAssignTaikoLBlue)
         {
-            TJAPlayer3.stageConfig.tパッド選択通知( EKeyConfigPad.LBlue );
+            TJAPlayer3.stageConfig.tパッド選択通知(EKeyConfigPad.LBlue);
         }
-        else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoRBlue )
+        else if (this.list項目リスト[this.n現在の選択項目] == this.iKeyAssignTaikoRBlue)
         {
-            TJAPlayer3.stageConfig.tパッド選択通知( EKeyConfigPad.RBlue );
+            TJAPlayer3.stageConfig.tパッド選択通知(EKeyConfigPad.RBlue);
         }
 
         //太鼓のキー設定。2P
-        else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoLRed2P )
+        else if (this.list項目リスト[this.n現在の選択項目] == this.iKeyAssignTaikoLRed2P)
         {
-            TJAPlayer3.stageConfig.tパッド選択通知( EKeyConfigPad.LRed2P );
+            TJAPlayer3.stageConfig.tパッド選択通知(EKeyConfigPad.LRed2P);
         }
-        else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoRRed2P )
+        else if (this.list項目リスト[this.n現在の選択項目] == this.iKeyAssignTaikoRRed2P)
         {
-            TJAPlayer3.stageConfig.tパッド選択通知( EKeyConfigPad.RRed2P );
+            TJAPlayer3.stageConfig.tパッド選択通知(EKeyConfigPad.RRed2P);
         }
-        else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoLBlue2P )
+        else if (this.list項目リスト[this.n現在の選択項目] == this.iKeyAssignTaikoLBlue2P)
         {
-            TJAPlayer3.stageConfig.tパッド選択通知( EKeyConfigPad.LBlue2P );
+            TJAPlayer3.stageConfig.tパッド選択通知(EKeyConfigPad.LBlue2P);
         }
-        else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignTaikoRBlue2P )
+        else if (this.list項目リスト[this.n現在の選択項目] == this.iKeyAssignTaikoRBlue2P)
         {
-            TJAPlayer3.stageConfig.tパッド選択通知( EKeyConfigPad.RBlue2P );
+            TJAPlayer3.stageConfig.tパッド選択通知(EKeyConfigPad.RBlue2P);
         }
 
-        else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignSystemCapture )
+        else if (this.list項目リスト[this.n現在の選択項目] == this.iKeyAssignSystemCapture)
         {
-            TJAPlayer3.stageConfig.tパッド選択通知( EKeyConfigPad.Capture);
+            TJAPlayer3.stageConfig.tパッド選択通知(EKeyConfigPad.Capture);
         }
         else if (this.list項目リスト[this.n現在の選択項目] == this.iKeyAssignSystemFullScreen)
         {
             TJAPlayer3.stageConfig.tパッド選択通知(EKeyConfigPad.FullScreen);
         }
-#endregion
+        #endregion
         else
         {
             // #27029 2012.1.5 from
@@ -773,47 +773,47 @@ internal class CActConfigList : CActivity
             //else
             //{
             //    // 変更許可
-                this.list項目リスト[ this.n現在の選択項目 ].tPushedEnter();
+            this.list項目リスト[this.n現在の選択項目].tPushedEnter();
             //}
 
 
             // Enter押下後の後処理
 
-            if( this.list項目リスト[ this.n現在の選択項目 ] == this.iSystemFullscreen )
+            if (this.list項目リスト[this.n現在の選択項目] == this.iSystemFullscreen)
             {
                 TJAPlayer3.app.b次のタイミングで全画面_ウィンドウ切り替えを行う = true;
             }
-            else if( this.list項目リスト[ this.n現在の選択項目 ] == this.iSystemVSyncWait )
+            else if (this.list項目リスト[this.n現在の選択項目] == this.iSystemVSyncWait)
             {
                 TJAPlayer3.ConfigToml.Window.VSyncWait = this.iSystemVSyncWait.bON;
                 TJAPlayer3.app.b次のタイミングで垂直帰線同期切り替えを行う = true;
             }
-#region [ キーアサインへの遷移と脱出 ]
-            else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iSystemGoToKeyAssign )			// #24609 2011.4.12 yyagi
+            #region [ キーアサインへの遷移と脱出 ]
+            else if (this.list項目リスト[this.n現在の選択項目] == this.iSystemGoToKeyAssign)			// #24609 2011.4.12 yyagi
             {
                 t項目リストの設定_KeyAssignSystem();
             }
-            else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignSystemReturnToMenu )	// #24609 2011.4.12 yyagi
+            else if (this.list項目リスト[this.n現在の選択項目] == this.iKeyAssignSystemReturnToMenu)	// #24609 2011.4.12 yyagi
             {
                 t項目リストの設定_System();
             }
-            else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iDrumsGoToKeyAssign )				// #24525 2011.3.15 yyagi
+            else if (this.list項目リスト[this.n現在の選択項目] == this.iDrumsGoToKeyAssign)				// #24525 2011.3.15 yyagi
             {
                 t項目リストの設定_KeyAssignDrums();
             }
-            else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iKeyAssignDrumsReturnToMenu )		// #24525 2011.3.15 yyagi
+            else if (this.list項目リスト[this.n現在の選択項目] == this.iKeyAssignDrumsReturnToMenu)		// #24525 2011.3.15 yyagi
             {
                 t項目リストの設定_Drums();
             }
-#endregion
-#region [ スキン項目でEnterを押下した場合に限り、スキンの縮小サンプルを生成する。]
-            else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iSystemSkinSubfolder )			// #28195 2012.5.2 yyagi
+            #endregion
+            #region [ スキン項目でEnterを押下した場合に限り、スキンの縮小サンプルを生成する。]
+            else if (this.list項目リスト[this.n現在の選択項目] == this.iSystemSkinSubfolder)			// #28195 2012.5.2 yyagi
             {
                 tGenerateSkinSample();
             }
-#endregion
-#region [ 曲データ一覧の再読み込み ]
-            else if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iSystemReloadDTX )				// #32081 2013.10.21 yyagi
+            #endregion
+            #region [ 曲データ一覧の再読み込み ]
+            else if (this.list項目リスト[this.n現在の選択項目] == this.iSystemReloadDTX)				// #32081 2013.10.21 yyagi
             {
                 if (!TJAPlayer3.EnumSongs.IsEnumerating)//現在の実行中のリスト生成が終わってから
                 {
@@ -822,17 +822,17 @@ internal class CActConfigList : CActivity
                     TJAPlayer3.actEnumSongs.On活性化();
                 }
             }
-#endregion
+            #endregion
         }
     }
 
     private void tGenerateSkinSample()
     {
-        nSkinIndex = ( ( CItemList ) this.list項目リスト[ this.n現在の選択項目 ] ).n現在選択されている項目番号;
-        if ( nSkinSampleIndex != nSkinIndex )
+        nSkinIndex = ((CItemList)this.list項目リスト[this.n現在の選択項目]).n現在選択されている項目番号;
+        if (nSkinSampleIndex != nSkinIndex)
         {
-            string path = skinSubFolders[ nSkinIndex ];
-            path = System.IO.Path.Combine( path, @"Graphics/1_Title/Background.png" );
+            string path = skinSubFolders[nSkinIndex];
+            path = System.IO.Path.Combine(path, @"Graphics/1_Title/Background.png");
             using (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> image = SixLabors.ImageSharp.Image.Load<SixLabors.ImageSharp.PixelFormats.Rgba32>(path))
             {
                 image.Mutate(c => c.Resize(image.Width / 4, image.Height / 4));
@@ -846,7 +846,7 @@ internal class CActConfigList : CActivity
         }
     }
 
-#region [ 項目リストの設定 ( Exit, KeyAssignSystem/Drums) ]
+    #region [ 項目リストの設定 ( Exit, KeyAssignSystem/Drums) ]
     public void t項目リストの設定_Exit()
     {
         this.tConfigIniへ記録する();
@@ -859,14 +859,14 @@ internal class CActConfigList : CActivity
 
         // #27029 2012.1.5 from: 説明文は最大9行→13行に変更。
 
-        this.iKeyAssignSystemReturnToMenu = new CItemBase( "<< ReturnTo Menu",
+        this.iKeyAssignSystemReturnToMenu = new CItemBase("<< ReturnTo Menu",
             "左側のメニューに戻ります。",
-            "Return to left menu." );
-        this.list項目リスト.Add( this.iKeyAssignSystemReturnToMenu );
-        this.iKeyAssignSystemCapture = new CItemBase( "Capture",
+            "Return to left menu.");
+        this.list項目リスト.Add(this.iKeyAssignSystemReturnToMenu);
+        this.iKeyAssignSystemCapture = new CItemBase("Capture",
             "キャプチャキー設定：\n画面キャプチャのキーの割り当てを設\n定します。",
-            "Capture key assign:\nTo assign key for screen capture.\n (You can use keyboard only. You can't\nuse pads to capture screenshot." );
-        this.list項目リスト.Add( this.iKeyAssignSystemCapture );
+            "Capture key assign:\nTo assign key for screen capture.\n (You can use keyboard only. You can't\nuse pads to capture screenshot.");
+        this.list項目リスト.Add(this.iKeyAssignSystemCapture);
         this.iKeyAssignSystemFullScreen = new CItemBase("FullScreen",
             "フルスクリーンキー設定：\nフルスクリーン切り替えのキーの\n割り当てを設定します。");
         this.list項目リスト.Add(this.iKeyAssignSystemFullScreen);
@@ -877,61 +877,61 @@ internal class CActConfigList : CActivity
     }
     public void t項目リストの設定_KeyAssignDrums()
     {
-//			this.tConfigIniへ記録する();
+        //			this.tConfigIniへ記録する();
         this.list項目リスト.Clear();
 
         // #27029 2012.1.5 from: 説明文は最大9行→13行に変更。
 
-        this.iKeyAssignDrumsReturnToMenu = new CItemBase( "<< ReturnTo Menu",
+        this.iKeyAssignDrumsReturnToMenu = new CItemBase("<< ReturnTo Menu",
             "左側のメニューに戻ります。",
             "Return to left menu.");
         this.list項目リスト.Add(this.iKeyAssignDrumsReturnToMenu);
 
-        this.iKeyAssignTaikoLRed = new CItemBase( "LeftRed",
+        this.iKeyAssignTaikoLRed = new CItemBase("LeftRed",
             "左側の面へのキーの割り当てを設\n定します。",
             "Drums key assign:\nTo assign key/pads for LeftRed\n button.");
         this.list項目リスト.Add(this.iKeyAssignTaikoLRed);
-        this.iKeyAssignTaikoRRed = new CItemBase( "RightRed",
+        this.iKeyAssignTaikoRRed = new CItemBase("RightRed",
             "右側の面へのキーの割り当て\nを設定します。",
             "Drums key assign:\nTo assign key/pads for RightRed\n button.");
         this.list項目リスト.Add(this.iKeyAssignTaikoRRed);
-        this.iKeyAssignTaikoLBlue = new CItemBase( "LeftBlue",
+        this.iKeyAssignTaikoLBlue = new CItemBase("LeftBlue",
             "左側のふちへのキーの\n割り当てを設定します。",
-            "Drums key assign:\nTo assign key/pads for LeftBlue\n button." );
-        this.list項目リスト.Add( this.iKeyAssignTaikoLBlue );
-        this.iKeyAssignTaikoRBlue = new CItemBase( "RightBlue",
+            "Drums key assign:\nTo assign key/pads for LeftBlue\n button.");
+        this.list項目リスト.Add(this.iKeyAssignTaikoLBlue);
+        this.iKeyAssignTaikoRBlue = new CItemBase("RightBlue",
             "右側のふちへのキーの\n割り当てを設定します。",
-            "Drums key assign:\nTo assign key/pads for RightBlue\n button." );
-        this.list項目リスト.Add( this.iKeyAssignTaikoRBlue );
+            "Drums key assign:\nTo assign key/pads for RightBlue\n button.");
+        this.list項目リスト.Add(this.iKeyAssignTaikoRBlue);
 
-        this.iKeyAssignTaikoLRed2P = new CItemBase( "LeftRed2P",
+        this.iKeyAssignTaikoLRed2P = new CItemBase("LeftRed2P",
             "左側の面へのキーの割り当てを設\n定します。",
             "Drums key assign:\nTo assign key/pads for LeftRed2P\n button.");
-        this.list項目リスト.Add( this.iKeyAssignTaikoLRed2P );
-        this.iKeyAssignTaikoRRed2P = new CItemBase( "RightRed2P",
+        this.list項目リスト.Add(this.iKeyAssignTaikoLRed2P);
+        this.iKeyAssignTaikoRRed2P = new CItemBase("RightRed2P",
             "右側の面へのキーの割り当て\nを設定します。",
             "Drums key assign:\nTo assign key/pads for RightRed2P\n button.");
-        this.list項目リスト.Add( this.iKeyAssignTaikoRRed2P );
-        this.iKeyAssignTaikoLBlue2P = new CItemBase( "LeftBlue2P",
+        this.list項目リスト.Add(this.iKeyAssignTaikoRRed2P);
+        this.iKeyAssignTaikoLBlue2P = new CItemBase("LeftBlue2P",
             "左側のふちへのキーの\n割り当てを設定します。",
-            "Drums key assign:\nTo assign key/pads for LeftBlue2P\n button." );
-        this.list項目リスト.Add( this.iKeyAssignTaikoLBlue2P );
-        this.iKeyAssignTaikoRBlue2P = new CItemBase( "RightBlue2P",
+            "Drums key assign:\nTo assign key/pads for LeftBlue2P\n button.");
+        this.list項目リスト.Add(this.iKeyAssignTaikoLBlue2P);
+        this.iKeyAssignTaikoRBlue2P = new CItemBase("RightBlue2P",
             "右側のふちへのキーの\n割り当てを設定します。",
-            "Drums key assign:\nTo assign key/pads for RightBlue2P\n button." );
-        this.list項目リスト.Add( this.iKeyAssignTaikoRBlue2P );
+            "Drums key assign:\nTo assign key/pads for RightBlue2P\n button.");
+        this.list項目リスト.Add(this.iKeyAssignTaikoRBlue2P);
 
         OnListMenuの初期化();
         this.n現在の選択項目 = 0;
         this.eメニュー種別 = Eメニュー種別.KeyAssignDrums;
     }
-#endregion
+    #endregion
     public void t次に移動()
     {
         TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
-        if ( this.b要素値にフォーカス中 )
+        if (this.b要素値にフォーカス中)
         {
-            this.list項目リスト[ this.n現在の選択項目 ].tMoveItemValueToForward();
+            this.list項目リスト[this.n現在の選択項目].tMoveItemValueToForward();
             t要素値を上下に変更中の処理();
         }
         else
@@ -942,9 +942,9 @@ internal class CActConfigList : CActivity
     public void t前に移動()
     {
         TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
-        if ( this.b要素値にフォーカス中 )
+        if (this.b要素値にフォーカス中)
         {
-            this.list項目リスト[ this.n現在の選択項目 ].tMoveItemValueToNext();
+            this.list項目リスト[this.n現在の選択項目].tMoveItemValueToNext();
             t要素値を上下に変更中の処理();
         }
         else
@@ -965,31 +965,31 @@ internal class CActConfigList : CActivity
 
     public override void On活性化()
     {
-        if( this.b活性化してる )
+        if (this.b活性化してる)
             return;
 
         this.list項目リスト = new List<CItemBase>();
         this.eメニュー種別 = Eメニュー種別.Unknown;
 
-#region [ スキン選択肢と、現在選択中のスキン(index)の準備 #28195 2012.5.2 yyagi ]
-        int ns = ( TJAPlayer3.Skin.strSystemSkinSubfolders == null ) ? 0 : TJAPlayer3.Skin.strSystemSkinSubfolders.Length;
-        skinSubFolders = new string[ ns ];
-        for ( int i = 0; i < ns; i++ )
+        #region [ スキン選択肢と、現在選択中のスキン(index)の準備 #28195 2012.5.2 yyagi ]
+        int ns = (TJAPlayer3.Skin.strSystemSkinSubfolders == null) ? 0 : TJAPlayer3.Skin.strSystemSkinSubfolders.Length;
+        skinSubFolders = new string[ns];
+        for (int i = 0; i < ns; i++)
         {
-            skinSubFolders[ i ] = TJAPlayer3.Skin.strSystemSkinSubfolders[ i ];
+            skinSubFolders[i] = TJAPlayer3.Skin.strSystemSkinSubfolders[i];
         }
-        skinSubFolder_org = TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName( true );
-        Array.Sort( skinSubFolders );
-        skinNames = CSkin.GetSkinName( skinSubFolders );
-        nSkinIndex = Array.BinarySearch( skinSubFolders, skinSubFolder_org );
-        if ( nSkinIndex < 0 )	// 念のため
+        skinSubFolder_org = TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(true);
+        Array.Sort(skinSubFolders);
+        skinNames = CSkin.GetSkinName(skinSubFolders);
+        nSkinIndex = Array.BinarySearch(skinSubFolders, skinSubFolder_org);
+        if (nSkinIndex < 0)	// 念のため
         {
             nSkinIndex = 0;
         }
         nSkinSampleIndex = -1;
-#endregion
+        #endregion
 
-        this.prvFont = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 20 );	// t項目リストの設定 の前に必要
+        this.prvFont = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 20);	// t項目リストの設定 の前に必要
 
         //			this.listMenu = new List<stMenuItemRight>();
 
@@ -1001,19 +1001,19 @@ internal class CActConfigList : CActivity
         this.nスクロール用タイマ値 = -1;
         this.ct三角矢印アニメ = new CCounter();
 
-        this.iSystemSoundType_initial			= this.iSystemSoundType.n現在選択されている項目番号;	// CONFIGに入ったときの値を保持しておく
-            this.iSystemWASAPIBufferSizeMs_initial	= this.iSystemWASAPIBufferSizeMs.nValue;				// CONFIG脱出時にこの値から変更されているようなら
+        this.iSystemSoundType_initial = this.iSystemSoundType.n現在選択されている項目番号;   // CONFIGに入ったときの値を保持しておく
+        this.iSystemWASAPIBufferSizeMs_initial = this.iSystemWASAPIBufferSizeMs.nValue;				// CONFIG脱出時にこの値から変更されているようなら
         // this.iSystemASIOBufferSizeMs_initial	= this.iSystemASIOBufferSizeMs.n現在の値;				// サウンドデバイスを再構築する
-        this.iSystemASIODevice_initial			= this.iSystemASIODevice.n現在選択されている項目番号;    //
+        this.iSystemASIODevice_initial = this.iSystemASIODevice.n現在選択されている項目番号;    //
         this.iSystemBASSBufferSizeMs_initial = this.iSystemBASSBufferSizeMs.nValue;              // CONFIG脱出時にこの値から変更されているようなら
-        this.iSystemSoundTimerType_initial      = this.iSystemSoundTimerType.GetIndex();				//
+        this.iSystemSoundTimerType_initial = this.iSystemSoundTimerType.GetIndex();				//
 
         this.txSkinSample1 = null;		// スキン選択時に動的に設定するため、ここでは初期化しない
         base.On活性化();
     }
     public override void On非活性化()
     {
-        if( this.b活性化してない )
+        if (this.b活性化してない)
             return;
 
         this.tConfigIniへ記録する();
@@ -1022,27 +1022,27 @@ internal class CActConfigList : CActivity
 
         prvFont.Dispose();
 
-        TJAPlayer3.t安全にDisposeする( ref this.txSkinSample1 );
+        TJAPlayer3.t安全にDisposeする(ref this.txSkinSample1);
         base.On非活性化();
-#region [ Skin変更 ]
+        #region [ Skin変更 ]
         if (TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(true).Replace(System.IO.Path.DirectorySeparatorChar, '/') != this.skinSubFolder_org.Replace(System.IO.Path.DirectorySeparatorChar, '/'))
         {
             TJAPlayer3.app.RefleshSkin();
         }
-#endregion
+        #endregion
 
         // #24820 2013.1.22 yyagi CONFIGでWASAPI/ASIO/BASS関連の設定を変更した場合、サウンドデバイスを再構築する。
         // #33689 2014.6.17 yyagi CONFIGでSoundTimerTypeの設定を変更した場合も、サウンドデバイスを再構築する。
-#region [ サウンドデバイス変更 ]
-        if ( this.iSystemSoundType_initial != this.iSystemSoundType.n現在選択されている項目番号 ||
+        #region [ サウンドデバイス変更 ]
+        if (this.iSystemSoundType_initial != this.iSystemSoundType.n現在選択されている項目番号 ||
                 this.iSystemWASAPIBufferSizeMs_initial != this.iSystemWASAPIBufferSizeMs.nValue ||
             // this.iSystemASIOBufferSizeMs_initial != this.iSystemASIOBufferSizeMs.n現在の値 ||
             this.iSystemASIODevice_initial != this.iSystemASIODevice.n現在選択されている項目番号 ||
                 this.iSystemBASSBufferSizeMs_initial != this.iSystemBASSBufferSizeMs.nValue ||
-            this.iSystemSoundTimerType_initial != this.iSystemSoundTimerType.GetIndex() )
+            this.iSystemSoundTimerType_initial != this.iSystemSoundTimerType.GetIndex())
         {
             ESoundDeviceType soundDeviceType;
-            switch ( this.iSystemSoundType.n現在選択されている項目番号 )
+            switch (this.iSystemSoundType.n現在選択されている項目番号)
             {
                 case 0:
                     soundDeviceType = ESoundDeviceType.BASS;
@@ -1060,26 +1060,26 @@ internal class CActConfigList : CActivity
                     soundDeviceType = ESoundDeviceType.Unknown;
                     break;
             }
-            TJAPlayer3.SoundManager.tInitialize( soundDeviceType,
+            TJAPlayer3.SoundManager.tInitialize(soundDeviceType,
                                     this.iSystemWASAPIBufferSizeMs.nValue,
                                     0,
                                     // this.iSystemASIOBufferSizeMs.nValue,
                                     this.iSystemASIODevice.n現在選択されている項目番号,
                                     this.iSystemBASSBufferSizeMs.nValue,
-                                    this.iSystemSoundTimerType.bON );
+                                    this.iSystemSoundTimerType.bON);
             CSoundManager.bIsTimeStretch = this.iSystemTimeStretch.bON;
             TJAPlayer3.app.ShowWindowTitleWithSoundType();
             TJAPlayer3.Skin.ReloadSkin();//2020.07.07 Mr-Ojii 音声の再読み込みをすることによって、音量の初期化を防ぐ
         }
-#endregion
-#region [ サウンドのタイムストレッチモード変更 ]
+        #endregion
+        #region [ サウンドのタイムストレッチモード変更 ]
         CSoundManager.bIsTimeStretch = this.iSystemTimeStretch.bON;
-#endregion
+        #endregion
     }
     private void OnListMenuの初期化()
     {
         OnListMenuの解放();
-        this.listMenu = new stMenuItemRight[ this.list項目リスト.Count ];
+        this.listMenu = new stMenuItemRight[this.list項目リスト.Count];
     }
 
     /// <summary>
@@ -1087,17 +1087,17 @@ internal class CActConfigList : CActivity
     /// </summary>
     private void OnListMenuの解放()
     {
-        if ( listMenu != null )
+        if (listMenu != null)
         {
-            for ( int i = 0; i < listMenu.Length; i++ )
+            for (int i = 0; i < listMenu.Length; i++)
             {
-                if ( listMenu[ i ].txParam != null )
+                if (listMenu[i].txParam != null)
                 {
-                    listMenu[ i ].txParam.Dispose();
+                    listMenu[i].txParam.Dispose();
                 }
-                if ( listMenu[ i ].txMenuItemRight != null )
+                if (listMenu[i].txMenuItemRight != null)
                 {
-                    listMenu[ i ].txMenuItemRight.Dispose();
+                    listMenu[i].txMenuItemRight.Dispose();
                 }
             }
             this.listMenu = null;
@@ -1105,51 +1105,51 @@ internal class CActConfigList : CActivity
     }
     public override int On進行描画()
     {
-        throw new InvalidOperationException( "t進行描画(bool)のほうを使用してください。" );
+        throw new InvalidOperationException("t進行描画(bool)のほうを使用してください。");
     }
-    public int t進行描画( bool b項目リスト側にフォーカスがある )
+    public int t進行描画(bool b項目リスト側にフォーカスがある)
     {
-        if( this.b活性化してない )
+        if (this.b活性化してない)
             return 0;
 
         // 進行
 
-#region [ 初めての進行描画 ]
+        #region [ 初めての進行描画 ]
         //-----------------
-        if( base.b初めての進行描画 )
+        if (base.b初めての進行描画)
         {
             this.nスクロール用タイマ値 = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
-            this.ct三角矢印アニメ.t開始( 0, 9, 50, TJAPlayer3.Timer );
+            this.ct三角矢印アニメ.t開始(0, 9, 50, TJAPlayer3.Timer);
 
             base.b初めての進行描画 = false;
         }
         //-----------------
-#endregion
+        #endregion
 
-        this.b項目リスト側にフォーカスがある = b項目リスト側にフォーカスがある;		// 記憶
+        this.b項目リスト側にフォーカスがある = b項目リスト側にフォーカスがある;       // 記憶
 
-#region [ 項目スクロールの進行 ]
+        #region [ 項目スクロールの進行 ]
         //-----------------
         long n現在時刻 = TJAPlayer3.Timer.n現在時刻ms;
-        if( n現在時刻 < this.nスクロール用タイマ値 ) this.nスクロール用タイマ値 = n現在時刻;
+        if (n現在時刻 < this.nスクロール用タイマ値) this.nスクロール用タイマ値 = n現在時刻;
 
         const int INTERVAL = 2;	// [ms]
-        while( ( n現在時刻 - this.nスクロール用タイマ値 ) >= INTERVAL )
+        while ((n現在時刻 - this.nスクロール用タイマ値) >= INTERVAL)
         {
-            int n目標項目までのスクロール量 = Math.Abs( (int) ( this.n目標のスクロールカウンタ - this.n現在のスクロールカウンタ ) );
+            int n目標項目までのスクロール量 = Math.Abs((int)(this.n目標のスクロールカウンタ - this.n現在のスクロールカウンタ));
             int n加速度 = 0;
 
-#region [ n加速度の決定；目標まで遠いほど加速する。]
+            #region [ n加速度の決定；目標まで遠いほど加速する。]
             //-----------------
-            if( n目標項目までのスクロール量 <= 100 )
+            if (n目標項目までのスクロール量 <= 100)
             {
                 n加速度 = 2;
             }
-            else if( n目標項目までのスクロール量 <= 300 )
+            else if (n目標項目までのスクロール量 <= 300)
             {
                 n加速度 = 3;
             }
-            else if( n目標項目までのスクロール量 <= 500 )
+            else if (n目標項目までのスクロール量 <= 500)
             {
                 n加速度 = 4;
             }
@@ -1158,222 +1158,222 @@ internal class CActConfigList : CActivity
                 n加速度 = 8;
             }
             //-----------------
-#endregion
-#region [ this.n現在のスクロールカウンタに n加速度 を加減算。]
+            #endregion
+            #region [ this.n現在のスクロールカウンタに n加速度 を加減算。]
             //-----------------
-            if( this.n現在のスクロールカウンタ < this.n目標のスクロールカウンタ )
+            if (this.n現在のスクロールカウンタ < this.n目標のスクロールカウンタ)
             {
                 this.n現在のスクロールカウンタ += n加速度;
-                if( this.n現在のスクロールカウンタ > this.n目標のスクロールカウンタ )
+                if (this.n現在のスクロールカウンタ > this.n目標のスクロールカウンタ)
                 {
                     // 目標を超えたら目標値で停止。
                     this.n現在のスクロールカウンタ = this.n目標のスクロールカウンタ;
                 }
             }
-            else if( this.n現在のスクロールカウンタ > this.n目標のスクロールカウンタ )
+            else if (this.n現在のスクロールカウンタ > this.n目標のスクロールカウンタ)
             {
                 this.n現在のスクロールカウンタ -= n加速度;
-                if( this.n現在のスクロールカウンタ < this.n目標のスクロールカウンタ )
+                if (this.n現在のスクロールカウンタ < this.n目標のスクロールカウンタ)
                 {
                     // 目標を超えたら目標値で停止。
                     this.n現在のスクロールカウンタ = this.n目標のスクロールカウンタ;
                 }
             }
             //-----------------
-#endregion
-#region [ 行超え処理、ならびに目標位置に到達したらスクロールを停止して項目変更通知を発行。]
+            #endregion
+            #region [ 行超え処理、ならびに目標位置に到達したらスクロールを停止して項目変更通知を発行。]
             //-----------------
-            if( this.n現在のスクロールカウンタ >= 100 )
+            if (this.n現在のスクロールカウンタ >= 100)
             {
-                this.n現在の選択項目 = this.t次の項目( this.n現在の選択項目 );
+                this.n現在の選択項目 = this.t次の項目(this.n現在の選択項目);
                 this.n現在のスクロールカウンタ -= 100;
                 this.n目標のスクロールカウンタ -= 100;
-                if( this.n目標のスクロールカウンタ == 0 )
+                if (this.n目標のスクロールカウンタ == 0)
                 {
                     TJAPlayer3.stageConfig.t項目変更通知();
                 }
             }
-            else if( this.n現在のスクロールカウンタ <= -100 )
+            else if (this.n現在のスクロールカウンタ <= -100)
             {
-                this.n現在の選択項目 = this.t前の項目( this.n現在の選択項目 );
+                this.n現在の選択項目 = this.t前の項目(this.n現在の選択項目);
                 this.n現在のスクロールカウンタ += 100;
                 this.n目標のスクロールカウンタ += 100;
-                if( this.n目標のスクロールカウンタ == 0 )
+                if (this.n目標のスクロールカウンタ == 0)
                 {
                     TJAPlayer3.stageConfig.t項目変更通知();
                 }
             }
             //-----------------
-#endregion
+            #endregion
 
             this.nスクロール用タイマ値 += INTERVAL;
         }
         //-----------------
-#endregion
+        #endregion
 
-#region [ ▲印アニメの進行 ]
+        #region [ ▲印アニメの進行 ]
         //-----------------
-        if( this.b項目リスト側にフォーカスがある && ( this.n目標のスクロールカウンタ == 0 ) )
+        if (this.b項目リスト側にフォーカスがある && (this.n目標のスクロールカウンタ == 0))
             this.ct三角矢印アニメ.t進行Loop();
         //-----------------
-#endregion
+        #endregion
 
 
         // 描画
 
-        this.ptパネルの基本座標[ 4 ].X = this.b項目リスト側にフォーカスがある ? 0x228 : 0x25a;		// メニューにフォーカスがあるなら、項目リストの中央は頭を出さない。
+        this.ptパネルの基本座標[4].X = this.b項目リスト側にフォーカスがある ? 0x228 : 0x25a;       // メニューにフォーカスがあるなら、項目リストの中央は頭を出さない。
 
-#region [ 計11個の項目パネルを描画する。]
+        #region [ 計11個の項目パネルを描画する。]
         //-----------------
         int nItem = this.n現在の選択項目;
-        for( int i = 0; i < 4; i++ )
-            nItem = this.t前の項目( nItem );
+        for (int i = 0; i < 4; i++)
+            nItem = this.t前の項目(nItem);
 
-        for( int n行番号 = -4; n行番号 < 6; n行番号++ )		// n行番号 == 0 がフォーカスされている項目パネル。
+        for (int n行番号 = -4; n行番号 < 6; n行番号++)		// n行番号 == 0 がフォーカスされている項目パネル。
         {
-#region [ 今まさに画面外に飛びだそうとしている項目パネルは描画しない。]
+            #region [ 今まさに画面外に飛びだそうとしている項目パネルは描画しない。]
             //-----------------
-            if( ( ( n行番号 == -4 ) && ( this.n現在のスクロールカウンタ > 0 ) ) ||		// 上に飛び出そうとしている
-                ( ( n行番号 == +5 ) && ( this.n現在のスクロールカウンタ < 0 ) ) )		// 下に飛び出そうとしている
+            if (((n行番号 == -4) && (this.n現在のスクロールカウンタ > 0)) ||		// 上に飛び出そうとしている
+                ((n行番号 == +5) && (this.n現在のスクロールカウンタ < 0)))		// 下に飛び出そうとしている
             {
-                nItem = this.t次の項目( nItem );
+                nItem = this.t次の項目(nItem);
                 continue;
             }
             //-----------------
-#endregion
+            #endregion
 
             int n移動元の行の基本位置 = n行番号 + 4;
-            int n移動先の行の基本位置 = ( this.n現在のスクロールカウンタ <= 0 ) ? ( ( n移動元の行の基本位置 + 1 ) % 10 ) : ( ( ( n移動元の行の基本位置 - 1 ) + 10 ) % 10 );
-            int x = this.ptパネルの基本座標[ n移動元の行の基本位置 ].X + ( (int) ( ( this.ptパネルの基本座標[ n移動先の行の基本位置 ].X - this.ptパネルの基本座標[ n移動元の行の基本位置 ].X ) * ( ( (double) Math.Abs( this.n現在のスクロールカウンタ ) ) / 100.0 ) ) );
-            int y = this.ptパネルの基本座標[ n移動元の行の基本位置 ].Y + ( (int) ( ( this.ptパネルの基本座標[ n移動先の行の基本位置 ].Y - this.ptパネルの基本座標[ n移動元の行の基本位置 ].Y ) * ( ( (double) Math.Abs( this.n現在のスクロールカウンタ ) ) / 100.0 ) ) );
+            int n移動先の行の基本位置 = (this.n現在のスクロールカウンタ <= 0) ? ((n移動元の行の基本位置 + 1) % 10) : (((n移動元の行の基本位置 - 1) + 10) % 10);
+            int x = this.ptパネルの基本座標[n移動元の行の基本位置].X + ((int)((this.ptパネルの基本座標[n移動先の行の基本位置].X - this.ptパネルの基本座標[n移動元の行の基本位置].X) * (((double)Math.Abs(this.n現在のスクロールカウンタ)) / 100.0)));
+            int y = this.ptパネルの基本座標[n移動元の行の基本位置].Y + ((int)((this.ptパネルの基本座標[n移動先の行の基本位置].Y - this.ptパネルの基本座標[n移動元の行の基本位置].Y) * (((double)Math.Abs(this.n現在のスクロールカウンタ)) / 100.0)));
 
-#region [ 現在の行の項目パネル枠を描画。]
+            #region [ 現在の行の項目パネル枠を描画。]
             //-----------------
-            if ( TJAPlayer3.Tx.Config_ItemBox != null )
-                TJAPlayer3.Tx.Config_ItemBox.t2D描画( TJAPlayer3.app.Device, x, y );
+            if (TJAPlayer3.Tx.Config_ItemBox != null)
+                TJAPlayer3.Tx.Config_ItemBox.t2D描画(TJAPlayer3.app.Device, x, y);
             //-----------------
-#endregion
-#region [ 現在の行の項目名を描画。]
+            #endregion
+            #region [ 現在の行の項目名を描画。]
             //-----------------
-            if ( listMenu[ nItem ].txMenuItemRight != null )	// 自前のキャッシュに含まれているようなら、再レンダリングせずキャッシュを使用
+            if (listMenu[nItem].txMenuItemRight != null)	// 自前のキャッシュに含まれているようなら、再レンダリングせずキャッシュを使用
             {
                 listMenu[nItem].txMenuItemRight.t2D描画(TJAPlayer3.app.Device, x + 20 + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionX, y + 12 + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionY);
             }
             else
             {
-                using (var bmpItem = prvFont.DrawText( this.list項目リスト[ nItem ].strName, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+                using (var bmpItem = prvFont.DrawText(this.list項目リスト[nItem].strName, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
                 {
-                    listMenu[ nItem ].txMenuItemRight = TJAPlayer3.tCreateTexture( bmpItem );
+                    listMenu[nItem].txMenuItemRight = TJAPlayer3.tCreateTexture(bmpItem);
                     // ctItem.t2D描画( CDTXMania.app.Device, ( x + 0x12 ) * Scale.X, ( y + 12 ) * Scale.Y - 20 );
                     // CDTXMania.t安全にDisposeする( ref ctItem );
                 }
             }
             //CDTXMania.stageConfig.actFont.t文字列描画( x + 0x12, y + 12, this.list項目リスト[ nItem ].strName );
             //-----------------
-#endregion
-#region [ 現在の行の項目の要素を描画。]
+            #endregion
+            #region [ 現在の行の項目の要素を描画。]
             //-----------------
             string strParam = null;
             bool b強調 = false;
-            switch ( this.list項目リスト[ nItem ].eItemType )
+            switch (this.list項目リスト[nItem].eItemType)
             {
                 case CItemBase.EItemType.Toggle:
-#region [ *** ]
+                    #region [ *** ]
                     //-----------------
                     //CDTXMania.stageConfig.actFont.t文字列描画( x + 210, y + 12, ( (CItemToggle) this.list項目リスト[ nItem ] ).bON ? "ON" : "OFF" );
-                    strParam = ( (CItemToggle) this.list項目リスト[ nItem ] ).bON ? "ON" : "OFF";
+                    strParam = ((CItemToggle)this.list項目リスト[nItem]).bON ? "ON" : "OFF";
                     break;
                 //-----------------
-#endregion
+                #endregion
 
-                case CItemBase.EItemType.Integer:		// #24789 2011.4.8 yyagi: add PlaySpeed supports (copied them from OPTION)
-#region [ *** ]
+                case CItemBase.EItemType.Integer:       // #24789 2011.4.8 yyagi: add PlaySpeed supports (copied them from OPTION)
+                    #region [ *** ]
                     //-----------------
-                    if ( this.list項目リスト[ nItem ] == this.iCommonPlaySpeed )
+                    if (this.list項目リスト[nItem] == this.iCommonPlaySpeed)
                     {
-                        double d = ( (double) ( (CItemInteger) this.list項目リスト[ nItem ] ).nValue ) / 20.0;
+                        double d = ((double)((CItemInteger)this.list項目リスト[nItem]).nValue) / 20.0;
                         //CDTXMania.stageConfig.actFont.t文字列描画( x + 210, y + 12, d.ToString( "0.000" ), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
-                        strParam = d.ToString( "0.000" );
+                        strParam = d.ToString("0.000");
                     }
-                    else if ( this.list項目リスト[ nItem ] == this.iDrumsScrollSpeed1P || this.list項目リスト[nItem] == this.iDrumsScrollSpeed2P)
+                    else if (this.list項目リスト[nItem] == this.iDrumsScrollSpeed1P || this.list項目リスト[nItem] == this.iDrumsScrollSpeed2P)
                     {
-                        float f = ( (CItemInteger) this.list項目リスト[ nItem ] ).nValue * 0.1f;
+                        float f = ((CItemInteger)this.list項目リスト[nItem]).nValue * 0.1f;
                         //CDTXMania.stageConfig.actFont.t文字列描画( x + 210, y + 12, f.ToString( "x0.0" ), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
-                        strParam = f.ToString( "x0.0" );
+                        strParam = f.ToString("x0.0");
                     }
                     else
                     {
                         //CDTXMania.stageConfig.actFont.t文字列描画( x + 210, y + 12, ( (CItemInteger) this.list項目リスト[ nItem ] ).n現在の値.ToString(), ( n行番号 == 0 ) && this.b要素値にフォーカス中 );
-                        strParam = ( (CItemInteger) this.list項目リスト[ nItem ] ).nValue.ToString();
+                        strParam = ((CItemInteger)this.list項目リスト[nItem]).nValue.ToString();
                     }
-                    b強調 = ( n行番号 == 0 ) && this.b要素値にフォーカス中;
+                    b強調 = (n行番号 == 0) && this.b要素値にフォーカス中;
                     break;
                 //-----------------
-#endregion
+                #endregion
 
-                case CItemBase.EItemType.List:	// #28195 2012.5.2 yyagi: add Skin supports
-#region [ *** ]
+                case CItemBase.EItemType.List:  // #28195 2012.5.2 yyagi: add Skin supports
+                    #region [ *** ]
                     //-----------------
                     {
-                        CItemList list = (CItemList) this.list項目リスト[ nItem ];
+                        CItemList list = (CItemList)this.list項目リスト[nItem];
                         //CDTXMania.stageConfig.actFont.t文字列描画( x + 210, y + 12, list.list項目値[ list.n現在選択されている項目番号 ] );
-                        strParam = list.list項目値[ list.n現在選択されている項目番号 ];
+                        strParam = list.list項目値[list.n現在選択されている項目番号];
 
-#region [ 必要な場合に、Skinのサンプルを生成・描画する。#28195 2012.5.2 yyagi ]
-                        if ( this.list項目リスト[ this.n現在の選択項目 ] == this.iSystemSkinSubfolder )
+                        #region [ 必要な場合に、Skinのサンプルを生成・描画する。#28195 2012.5.2 yyagi ]
+                        if (this.list項目リスト[this.n現在の選択項目] == this.iSystemSkinSubfolder)
                         {
                             tGenerateSkinSample();		// 最初にSkinの選択肢にきたとき(Enterを押す前)に限り、サンプル生成が発生する。
-                            if ( txSkinSample1 != null )
+                            if (txSkinSample1 != null)
                             {
-                                txSkinSample1.t2D描画( TJAPlayer3.app.Device, 124, 409 );
+                                txSkinSample1.t2D描画(TJAPlayer3.app.Device, 124, 409);
                             }
                         }
-#endregion
+                        #endregion
                         break;
                     }
-                //-----------------
-#endregion
+                    //-----------------
+                    #endregion
             }
-            if ( b強調 )
+            if (b強調)
             {
                 using (var bmpStr = prvFont.DrawText(strParam, Color.Black, Color.White, Color.Yellow, Color.OrangeRed, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
                 {
-                    using (var txStr = TJAPlayer3.tCreateTexture( bmpStr ))
+                    using (var txStr = TJAPlayer3.tCreateTexture(bmpStr))
                     {
-                        txStr.t2D描画( TJAPlayer3.app.Device, x + 400 + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionX, y + 12 + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionX );
+                        txStr.t2D描画(TJAPlayer3.app.Device, x + 400 + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionX, y + 12 + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionX);
                     }
                 }
             }
             else
             {
-                int nIndex = this.list項目リスト[ nItem ].GetIndex();
-                if ( listMenu[ nItem ].nParam != nIndex || listMenu[ nItem ].txParam == null )
+                int nIndex = this.list項目リスト[nItem].GetIndex();
+                if (listMenu[nItem].nParam != nIndex || listMenu[nItem].txParam == null)
                 {
-                    stMenuItemRight stm = listMenu[ nItem ];
+                    stMenuItemRight stm = listMenu[nItem];
                     stm.nParam = nIndex;
-                    object o = this.list項目リスト[ nItem ].objValue();
-                    stm.strParam = ( o == null ) ? "" : o.ToString();
+                    object o = this.list項目リスト[nItem].objValue();
+                    stm.strParam = (o == null) ? "" : o.ToString();
 
-                    using (var bmpStr = prvFont.DrawText( strParam, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+                    using (var bmpStr = prvFont.DrawText(strParam, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
                     {
-                        stm.txParam = TJAPlayer3.tCreateTexture( bmpStr );
+                        stm.txParam = TJAPlayer3.tCreateTexture(bmpStr);
                     }
 
-                    listMenu[ nItem ] = stm;
+                    listMenu[nItem] = stm;
                 }
-                listMenu[ nItem ].txParam.t2D描画( TJAPlayer3.app.Device,  x + 400 + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionX, y + 12 + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionY );
+                listMenu[nItem].txParam.t2D描画(TJAPlayer3.app.Device, x + 400 + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionX, y + 12 + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionY);
             }
             //-----------------
-#endregion
+            #endregion
 
-            nItem = this.t次の項目( nItem );
+            nItem = this.t次の項目(nItem);
         }
         //-----------------
-#endregion
+        #endregion
 
-#region [ 項目リストにフォーカスがあって、かつスクロールが停止しているなら、パネルの上下に▲印を描画する。]
+        #region [ 項目リストにフォーカスがあって、かつスクロールが停止しているなら、パネルの上下に▲印を描画する。]
         //-----------------
-        if( this.b項目リスト側にフォーカスがある && ( this.n目標のスクロールカウンタ == 0 ) )
+        if (this.b項目リスト側にフォーカスがある && (this.n目標のスクロールカウンタ == 0))
         {
             int x;
             int y_upper;
@@ -1381,7 +1381,7 @@ internal class CActConfigList : CActivity
 
             // 位置決定。
 
-            if( this.b要素値にフォーカス中 )
+            if (this.b要素値にフォーカス中)
             {
                 x = 552;	// 要素値の上下あたり。
                 y_upper = 0x117 - this.ct三角矢印アニメ.n現在の値;
@@ -1396,21 +1396,21 @@ internal class CActConfigList : CActivity
 
             // 描画。
 
-            if( TJAPlayer3.Tx.Config_Arrow != null )
+            if (TJAPlayer3.Tx.Config_Arrow != null)
             {
-                TJAPlayer3.Tx.Config_Arrow.t2D描画( TJAPlayer3.app.Device, x, y_upper, new Rectangle( 0, 0, 0x40, 0x18 ) );
-                TJAPlayer3.Tx.Config_Arrow.t2D描画( TJAPlayer3.app.Device, x, y_lower, new Rectangle( 0, 0x18, 0x40, 0x18 ) );
+                TJAPlayer3.Tx.Config_Arrow.t2D描画(TJAPlayer3.app.Device, x, y_upper, new Rectangle(0, 0, 0x40, 0x18));
+                TJAPlayer3.Tx.Config_Arrow.t2D描画(TJAPlayer3.app.Device, x, y_lower, new Rectangle(0, 0x18, 0x40, 0x18));
             }
         }
         //-----------------
-#endregion
+        #endregion
         return 0;
     }
 
 
     // その他
 
-#region [ private ]
+    #region [ private ]
     //-----------------
     private enum Eメニュー種別
     {
@@ -1426,7 +1426,7 @@ internal class CActConfigList : CActivity
     public bool b要素値にフォーカス中;
     private CCounter ct三角矢印アニメ;
     private Eメニュー種別 eメニュー種別;
-#region [ キーコンフィグ ]
+    #region [ キーコンフィグ ]
     private CItemBase iKeyAssignSystemFullScreen;          // #24609
     private CItemBase iKeyAssignSystemCapture;			// #24609
     private CItemBase iKeyAssignSystemReturnToMenu;		// #24609
@@ -1441,7 +1441,7 @@ internal class CActConfigList : CActivity
     private CItemBase iKeyAssignTaikoLBlue2P;
     private CItemBase iKeyAssignTaikoRBlue2P;
 
-#endregion
+    #endregion
     private CItemToggle iSystemApplyLoudnessMetadata;
     private CItemInteger iSystemTargetLoudness;
     private CItemToggle iSystemApplySongVol;
@@ -1463,14 +1463,14 @@ internal class CActConfigList : CActivity
     private CItemToggle SendDiscordPlayingInformation;
     private CItemInteger iSystemRisky;					// #23559 2011.7.27 yyagi
     private CItemList iSystemSoundType;					// #24820 2013.1.3 yyagi
-    private CItemInteger iSystemWASAPIBufferSizeMs;		// #24820 2013.1.15 yyagi
-//		private CItemInteger iSystemASIOBufferSizeMs;		// #24820 2013.1.3 yyagi
-    private CItemList	iSystemASIODevice;              // #24820 2013.1.17 yyagi
+    private CItemInteger iSystemWASAPIBufferSizeMs;     // #24820 2013.1.15 yyagi
+                                                        //		private CItemInteger iSystemASIOBufferSizeMs;		// #24820 2013.1.3 yyagi
+    private CItemList iSystemASIODevice;              // #24820 2013.1.17 yyagi
     private CItemInteger iSystemBASSBufferSizeMs;     // #24820 2013.1.15 yyagi
 
     private int iSystemSoundType_initial;
     private int iSystemWASAPIBufferSizeMs_initial;
-//		private int iSystemASIOBufferSizeMs_initial;
+    //		private int iSystemASIOBufferSizeMs_initial;
     private int iSystemASIODevice_initial;
     private int iSystemBASSBufferSizeMs_initial;
     private CItemToggle iSystemSoundTimerType;			// #33689 2014.6.17 yyagi
@@ -1547,17 +1547,17 @@ internal class CActConfigList : CActivity
     private CItemBase iSystemReloadDTX;					// #32081 2013.10.21 yyagi
     //private CItemInteger iSystemMasterVolume;			// #33700 2014.4.26 yyagi
 
-    private int t前の項目( int nItem )
+    private int t前の項目(int nItem)
     {
-        if( --nItem < 0 )
+        if (--nItem < 0)
         {
             nItem = this.list項目リスト.Count - 1;
         }
         return nItem;
     }
-    private int t次の項目( int nItem )
+    private int t次の項目(int nItem)
     {
-        if( ++nItem >= this.list項目リスト.Count )
+        if (++nItem >= this.list項目リスト.Count)
         {
             nItem = 0;
         }
@@ -1565,7 +1565,7 @@ internal class CActConfigList : CActivity
     }
     private void tConfigIniへ記録する()
     {
-        switch( this.eメニュー種別 )
+        switch (this.eメニュー種別)
         {
             case Eメニュー種別.System:
                 this.tConfigIniへ記録する_System();
@@ -1588,7 +1588,7 @@ internal class CActConfigList : CActivity
         TJAPlayer3.ConfigToml.Window.VSyncWait = this.iSystemVSyncWait.bON;
         TJAPlayer3.ConfigToml.Game.Background.Movie = this.iSystemAVI.bON;
         TJAPlayer3.ConfigToml.Game.Background.BGA = this.iSystemBGA.bON;
-//			CDTXMania.ConfigIni.bGraph有効 = this.iSystemGraph.bON;#24074 2011.01.23 comment-out ikanick オプション(Drums)へ移行
+        //			CDTXMania.ConfigIni.bGraph有効 = this.iSystemGraph.bON;#24074 2011.01.23 comment-out ikanick オプション(Drums)へ移行
         TJAPlayer3.ConfigToml.Game.ShowDebugStatus = this.iSystemDebugInfo.bON;
         TJAPlayer3.ConfigToml.Game.Background.BGAlpha = this.iSystemBGAlpha.nValue;
         TJAPlayer3.ConfigToml.PlayOption.BGMSound = this.iSystemBGMSound.bON;
@@ -1612,12 +1612,12 @@ internal class CActConfigList : CActivity
 
         TJAPlayer3.ConfigToml.PlayOption.Risky = this.iSystemRisky.nValue;										// #23559 2011.7.27 yyagi
 
-        TJAPlayer3.ConfigToml.General.SkinPath = skinSubFolders[ nSkinIndex ];				// #28195 2012.5.2 yyagi
-        TJAPlayer3.Skin.SetCurrentSkinSubfolderFullName( TJAPlayer3.ConfigToml.General.SkinPath, true );
+        TJAPlayer3.ConfigToml.General.SkinPath = skinSubFolders[nSkinIndex];				// #28195 2012.5.2 yyagi
+        TJAPlayer3.Skin.SetCurrentSkinSubfolderFullName(TJAPlayer3.ConfigToml.General.SkinPath, true);
 
         TJAPlayer3.ConfigToml.SoundDevice.DeviceType = this.iSystemSoundType.n現在選択されている項目番号;		// #24820 2013.1.3 yyagi
-        TJAPlayer3.ConfigToml.SoundDevice.WASAPIBufferSizeMs = this.iSystemWASAPIBufferSizeMs.nValue;				// #24820 2013.1.15 yyagi
-//			CDTXMania.ConfigIni.nASIOBufferSizeMs = this.iSystemASIOBufferSizeMs.nValue;					// #24820 2013.1.3 yyagi
+        TJAPlayer3.ConfigToml.SoundDevice.WASAPIBufferSizeMs = this.iSystemWASAPIBufferSizeMs.nValue;               // #24820 2013.1.15 yyagi
+                                                                                                                    //			CDTXMania.ConfigIni.nASIOBufferSizeMs = this.iSystemASIOBufferSizeMs.nValue;					// #24820 2013.1.3 yyagi
         TJAPlayer3.ConfigToml.SoundDevice.ASIODevice = this.iSystemASIODevice.n現在選択されている項目番号;           // #24820 2013.1.17 yyagi
         TJAPlayer3.ConfigToml.SoundDevice.BASSBufferSizeMs = this.iSystemBASSBufferSizeMs.nValue;                // 2021.3.18 Mr-Ojii
         TJAPlayer3.ConfigToml.SoundDevice.UseOSTimer = this.iSystemSoundTimerType.bON;								// #33689 2014.6.17 yyagi
@@ -1682,5 +1682,5 @@ internal class CActConfigList : CActivity
         TJAPlayer3.ConfigToml.PlayOption.BigNotesJudge = this.iTaikoBigNotesJudge.bON;
     }
     //-----------------
-#endregion
+    #endregion
 }
