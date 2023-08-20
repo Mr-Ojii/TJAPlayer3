@@ -62,54 +62,6 @@ internal class CStage演奏画面共通 : CStage
 
         base.listChildren.Add(this.actDan = new Dan_Cert());
         base.listChildren.Add(this.actTraining = new CAct演奏Drums特訓モード());
-        #region[ 文字初期化 ]
-        ST文字位置[] st文字位置Array = new ST文字位置[11];
-        ST文字位置 st文字位置 = new ST文字位置();
-        st文字位置.ch = '0';
-        st文字位置.pt = new Point(0, 0);
-        st文字位置Array[0] = st文字位置;
-        ST文字位置 st文字位置2 = new ST文字位置();
-        st文字位置2.ch = '1';
-        st文字位置2.pt = new Point(32, 0);
-        st文字位置Array[1] = st文字位置2;
-        ST文字位置 st文字位置3 = new ST文字位置();
-        st文字位置3.ch = '2';
-        st文字位置3.pt = new Point(64, 0);
-        st文字位置Array[2] = st文字位置3;
-        ST文字位置 st文字位置4 = new ST文字位置();
-        st文字位置4.ch = '3';
-        st文字位置4.pt = new Point(96, 0);
-        st文字位置Array[3] = st文字位置4;
-        ST文字位置 st文字位置5 = new ST文字位置();
-        st文字位置5.ch = '4';
-        st文字位置5.pt = new Point(128, 0);
-        st文字位置Array[4] = st文字位置5;
-        ST文字位置 st文字位置6 = new ST文字位置();
-        st文字位置6.ch = '5';
-        st文字位置6.pt = new Point(160, 0);
-        st文字位置Array[5] = st文字位置6;
-        ST文字位置 st文字位置7 = new ST文字位置();
-        st文字位置7.ch = '6';
-        st文字位置7.pt = new Point(192, 0);
-        st文字位置Array[6] = st文字位置7;
-        ST文字位置 st文字位置8 = new ST文字位置();
-        st文字位置8.ch = '7';
-        st文字位置8.pt = new Point(224, 0);
-        st文字位置Array[7] = st文字位置8;
-        ST文字位置 st文字位置9 = new ST文字位置();
-        st文字位置9.ch = '8';
-        st文字位置9.pt = new Point(256, 0);
-        st文字位置Array[8] = st文字位置9;
-        ST文字位置 st文字位置10 = new ST文字位置();
-        st文字位置10.ch = '9';
-        st文字位置10.pt = new Point(288, 0);
-        st文字位置Array[9] = st文字位置10;
-        ST文字位置 st文字位置11 = new ST文字位置();
-        st文字位置11.ch = '%';
-        st文字位置11.pt = new Point(320, 0);
-        st文字位置Array[10] = st文字位置11;
-        this.st小文字位置 = st文字位置Array;
-        #endregion
     }
 
     #region [ tSaveToCRecord ]
@@ -712,13 +664,6 @@ internal class CStage演奏画面共通 : CStage
         public int nScore;
     }
 
-    [StructLayout(LayoutKind.Sequential)]
-    protected struct ST文字位置
-    {
-        public char ch;
-        public Point pt;
-    }
-
     public CAct演奏AVI actAVI;
     public Rainbow Rainbow;
     public CAct演奏Combo共通 actCombo;
@@ -762,7 +707,21 @@ internal class CStage演奏画面共通 : CStage
     protected CAct演奏Drumsゲームモード actGame;
     protected CCounter ct手つなぎ;
 
-    private readonly ST文字位置[] st小文字位置;
+    private readonly Dictionary<char, Point> st小文字位置 = new()
+    {
+        {'0', new Point(0, 0)},
+        {'1', new Point(32, 0)},
+        {'2', new Point(64, 0)},
+        {'3', new Point(96, 0)},
+        {'4', new Point(128, 0)},
+        {'5', new Point(160, 0)},
+        {'6', new Point(192, 0)},
+        {'7', new Point(224, 0)},
+        {'8', new Point(256, 0)},
+        {'9', new Point(288, 0)},
+        {'%', new Point(320, 0)},
+    };
+
     protected int ShownLyric2 = 0;
     public bool bPAUSE;
     public bool[] bIsAlreadyCleared;
@@ -4630,17 +4589,10 @@ internal class CStage演奏画面共通 : CStage
     {
         foreach (char ch in str)
         {
-            for (int i = 0; i < this.st小文字位置.Length; i++)
+            if (this.st小文字位置.TryGetValue(ch, out var pt))
             {
-                if (this.st小文字位置[i].ch == ch)
-                {
-                    Rectangle rectangle = new Rectangle(this.st小文字位置[i].pt.X, this.st小文字位置[i].pt.Y, 32, 38);
-                    if (TJAPlayer3.Tx.Result_Number != null)
-                    {
-                        TJAPlayer3.Tx.Result_Number.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
-                    }
-                    break;
-                }
+                Rectangle rectangle = new Rectangle(pt.X, pt.Y, 32, 38);
+                TJAPlayer3.Tx.Result_Number?.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
             }
             x += 22;
         }
@@ -4650,17 +4602,10 @@ internal class CStage演奏画面共通 : CStage
     {
         foreach (char ch in str)
         {
-            for (int i = 0; i < this.st小文字位置.Length; i++)
+            if (this.st小文字位置.TryGetValue(ch, out var pt))
             {
-                if (this.st小文字位置[i].ch == ch)
-                {
-                    Rectangle rectangle = new Rectangle(this.st小文字位置[i].pt.X, 38, 32, 42);
-                    if (TJAPlayer3.Tx.Result_Number != null)
-                    {
-                        TJAPlayer3.Tx.Result_Number.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
-                    }
-                    break;
-                }
+                Rectangle rectangle = new Rectangle(pt.X, 38, 32, 42);
+                TJAPlayer3.Tx.Result_Number?.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
             }
             x += 28;
         }

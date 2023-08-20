@@ -14,53 +14,6 @@ internal class CActStageFailed : CActivity
 
     public CActStageFailed()
     {
-        ST文字位置[] st文字位置Array = new ST文字位置[11];
-
-        ST文字位置 st文字位置 = new ST文字位置();
-        st文字位置.ch = '0';
-        st文字位置.pt = new Point(0, 0);
-        st文字位置Array[0] = st文字位置;
-        ST文字位置 st文字位置2 = new ST文字位置();
-        st文字位置2.ch = '1';
-        st文字位置2.pt = new Point(62, 0);
-        st文字位置Array[1] = st文字位置2;
-        ST文字位置 st文字位置3 = new ST文字位置();
-        st文字位置3.ch = '2';
-        st文字位置3.pt = new Point(124, 0);
-        st文字位置Array[2] = st文字位置3;
-        ST文字位置 st文字位置4 = new ST文字位置();
-        st文字位置4.ch = '3';
-        st文字位置4.pt = new Point(186, 0);
-        st文字位置Array[3] = st文字位置4;
-        ST文字位置 st文字位置5 = new ST文字位置();
-        st文字位置5.ch = '4';
-        st文字位置5.pt = new Point(248, 0);
-        st文字位置Array[4] = st文字位置5;
-        ST文字位置 st文字位置6 = new ST文字位置();
-        st文字位置6.ch = '5';
-        st文字位置6.pt = new Point(310, 0);
-        st文字位置Array[5] = st文字位置6;
-        ST文字位置 st文字位置7 = new ST文字位置();
-        st文字位置7.ch = '6';
-        st文字位置7.pt = new Point(372, 0);
-        st文字位置Array[6] = st文字位置7;
-        ST文字位置 st文字位置8 = new ST文字位置();
-        st文字位置8.ch = '7';
-        st文字位置8.pt = new Point(434, 0);
-        st文字位置Array[7] = st文字位置8;
-        ST文字位置 st文字位置9 = new ST文字位置();
-        st文字位置9.ch = '8';
-        st文字位置9.pt = new Point(496, 0);
-        st文字位置Array[8] = st文字位置9;
-        ST文字位置 st文字位置10 = new ST文字位置();
-        st文字位置10.ch = '9';
-        st文字位置10.pt = new Point(558, 0);
-        st文字位置Array[9] = st文字位置10;
-        ST文字位置 st文字位置11 = new ST文字位置();
-        st文字位置11.ch = '%';
-        st文字位置11.pt = new Point(558 + 62, 0);
-        st文字位置Array[10] = st文字位置11;
-        this.st文字位置 = st文字位置Array;
         base.b活性化してない = true;
     }
 
@@ -176,33 +129,35 @@ internal class CActStageFailed : CActivity
     private CCounter ct進行;
     private double dbFailedTime;
     //-----------------
-    private ST文字位置[] st文字位置;
-
-    [StructLayout(LayoutKind.Sequential)]
-    public struct ST文字位置
+    private readonly Dictionary<char, Point> st文字位置 = new()
     {
-        public char ch;
-        public Point pt;
-    }
+        {'0', new Point(0, 0)},
+        {'1', new Point(62, 0)},
+        {'2', new Point(124, 0)},
+        {'3', new Point(186, 0)},
+        {'4', new Point(248, 0)},
+        {'5', new Point(310, 0)},
+        {'6', new Point(372, 0)},
+        {'7', new Point(434, 0)},
+        {'8', new Point(496, 0)},
+        {'9', new Point(558, 0)},
+        {'%', new Point(558 + 62, 0)},
+    };
 
     private void t文字表示(int x, int y, string str)
     {
         foreach (char ch in str)
         {
-            for (int i = 0; i < this.st文字位置.Length; i++)
+            if (this.st文字位置.TryGetValue(ch, out var pt))
             {
-                if (this.st文字位置[i].ch == ch)
+                Rectangle rectangle = new Rectangle(pt.X, pt.Y, 62, 80);
+                if (ch == '%')
                 {
-                    Rectangle rectangle = new Rectangle(this.st文字位置[i].pt.X, this.st文字位置[i].pt.Y, 62, 80);
-                    if (ch == '%')
-                    {
-                        rectangle.Width = 80;
-                    }
-                    if (TJAPlayer3.Tx.Balloon_Number_Roll != null)
-                    {
-                        TJAPlayer3.Tx.Balloon_Number_Roll.t2D描画(TJAPlayer3.app.Device, x - (62 * str.Length / 2), y, rectangle);
-                    }
-                    break;
+                    rectangle.Width = 80;
+                }
+                if (TJAPlayer3.Tx.Balloon_Number_Roll != null)
+                {
+                    TJAPlayer3.Tx.Balloon_Number_Roll.t2D描画(TJAPlayer3.app.Device, x - (62 * str.Length / 2), y, rectangle);
                 }
             }
             x += 62;

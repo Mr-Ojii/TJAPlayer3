@@ -36,15 +36,6 @@ internal class CActScore : CActivity
         public int nPlayer;
     }
 
-    [StructLayout(LayoutKind.Sequential)]
-    private struct ST文字位置
-    {
-        public char ch;
-        public Point pt;
-    }
-    private ST文字位置[] stFont;
-
-
     public long GetScore(int player)
     {
         return n現在表示中のスコア[player];
@@ -54,49 +45,6 @@ internal class CActScore : CActivity
 
     public CActScore()
     {
-        ST文字位置[] st文字位置Array = new ST文字位置[11];
-        ST文字位置 st文字位置 = new ST文字位置();
-        st文字位置.ch = '0';
-        st文字位置.pt = new Point(0, 0);
-        st文字位置Array[0] = st文字位置;
-        ST文字位置 st文字位置2 = new ST文字位置();
-        st文字位置2.ch = '1';
-        st文字位置2.pt = new Point(24, 0);
-        st文字位置Array[1] = st文字位置2;
-        ST文字位置 st文字位置3 = new ST文字位置();
-        st文字位置3.ch = '2';
-        st文字位置3.pt = new Point(48, 0);
-        st文字位置Array[2] = st文字位置3;
-        ST文字位置 st文字位置4 = new ST文字位置();
-        st文字位置4.ch = '3';
-        st文字位置4.pt = new Point(72, 0);
-        st文字位置Array[3] = st文字位置4;
-        ST文字位置 st文字位置5 = new ST文字位置();
-        st文字位置5.ch = '4';
-        st文字位置5.pt = new Point(96, 0);
-        st文字位置Array[4] = st文字位置5;
-        ST文字位置 st文字位置6 = new ST文字位置();
-        st文字位置6.ch = '5';
-        st文字位置6.pt = new Point(120, 0);
-        st文字位置Array[5] = st文字位置6;
-        ST文字位置 st文字位置7 = new ST文字位置();
-        st文字位置7.ch = '6';
-        st文字位置7.pt = new Point(144, 0);
-        st文字位置Array[6] = st文字位置7;
-        ST文字位置 st文字位置8 = new ST文字位置();
-        st文字位置8.ch = '7';
-        st文字位置8.pt = new Point(168, 0);
-        st文字位置Array[7] = st文字位置8;
-        ST文字位置 st文字位置9 = new ST文字位置();
-        st文字位置9.ch = '8';
-        st文字位置9.pt = new Point(192, 0);
-        st文字位置Array[8] = st文字位置9;
-        ST文字位置 st文字位置10 = new ST文字位置();
-        st文字位置10.ch = '9';
-        st文字位置10.pt = new Point(216, 0);
-        st文字位置Array[9] = st文字位置10;
-        this.stFont = st文字位置Array;
-
         this.stScore = new STスコア[256];
         base.b活性化してない = true;
     }
@@ -423,43 +371,39 @@ internal class CActScore : CActivity
     {
         foreach (char ch in str)
         {
-            for (int i = 0; i < this.stFont.Length; i++)
+            if (int.TryParse(ch.ToString(), out var i))
             {
-                if (this.stFont[i].ch == ch)
+                Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.SkinConfig.Game.Score.Size[0] * i, 0, TJAPlayer3.Skin.SkinConfig.Game.Score.Size[0], TJAPlayer3.Skin.SkinConfig.Game.Score.Size[1]);
+                switch (mode)
                 {
-                    Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.SkinConfig.Game.Score.Size[0] * i, 0, TJAPlayer3.Skin.SkinConfig.Game.Score.Size[0], TJAPlayer3.Skin.SkinConfig.Game.Score.Size[1]);
-                    switch (mode)
-                    {
-                        case 0:
-                            if (TJAPlayer3.Tx.Taiko_Score[0] != null)
-                            {
-                                TJAPlayer3.Tx.Taiko_Score[0].Opacity = alpha;
-                                TJAPlayer3.Tx.Taiko_Score[0].vcScaling.Y = ScoreScale[this.ct点数アニメタイマ[player].n現在の値];
-                                TJAPlayer3.Tx.Taiko_Score[0].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
+                    case 0:
+                        if (TJAPlayer3.Tx.Taiko_Score[0] != null)
+                        {
+                            TJAPlayer3.Tx.Taiko_Score[0].Opacity = alpha;
+                            TJAPlayer3.Tx.Taiko_Score[0].vcScaling.Y = ScoreScale[this.ct点数アニメタイマ[player].n現在の値];
+                            TJAPlayer3.Tx.Taiko_Score[0].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
 
-                            }
-                            break;
-                        case 1:
-                            if (TJAPlayer3.Tx.Taiko_Score[1] != null)
-                            {
-                                TJAPlayer3.Tx.Taiko_Score[1].Opacity = alpha;
-                                TJAPlayer3.Tx.Taiko_Score[1].vcScaling.Y = 1;
-                                TJAPlayer3.Tx.Taiko_Score[1].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
-                            }
-                            break;
-                        case 2:
-                            if (TJAPlayer3.Tx.Taiko_Score[2] != null)
-                            {
-                                TJAPlayer3.Tx.Taiko_Score[2].Opacity = alpha;
-                                TJAPlayer3.Tx.Taiko_Score[2].vcScaling.Y = 1;
-                                TJAPlayer3.Tx.Taiko_Score[2].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
-                            }
-                            break;
-                    }
-                    break;
+                        }
+                        break;
+                    case 1:
+                        if (TJAPlayer3.Tx.Taiko_Score[1] != null)
+                        {
+                            TJAPlayer3.Tx.Taiko_Score[1].Opacity = alpha;
+                            TJAPlayer3.Tx.Taiko_Score[1].vcScaling.Y = 1;
+                            TJAPlayer3.Tx.Taiko_Score[1].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
+                        }
+                        break;
+                    case 2:
+                        if (TJAPlayer3.Tx.Taiko_Score[2] != null)
+                        {
+                            TJAPlayer3.Tx.Taiko_Score[2].Opacity = alpha;
+                            TJAPlayer3.Tx.Taiko_Score[2].vcScaling.Y = 1;
+                            TJAPlayer3.Tx.Taiko_Score[2].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
+                        }
+                        break;
                 }
+                x += TJAPlayer3.Skin.SkinConfig.Game.Score.Padding;
             }
-            x += TJAPlayer3.Skin.SkinConfig.Game.Score.Padding;
         }
     }
 }

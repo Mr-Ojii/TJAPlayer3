@@ -785,52 +785,24 @@ internal class CAct演奏Drumsゲームモード : CActivity
         //CDTXMania.act文字コンソール.tPrint( 236, 80, C文字コンソール.EFontType.赤, "+" + string.Format( "{0,2:#0}", addtime.ToString() ) );
     }
 
-    private struct ST文字位置
-    {
-        public char ch;
-        public Point pt;
-        public ST文字位置(char ch, Point pt)
-        {
-            this.ch = ch;
-            this.pt = pt;
-        }
-    }
-
-    private ST文字位置[] st小文字位置 = new ST文字位置[]{
-        new ST文字位置( '0', new Point( 0, 0 ) ),
-        new ST文字位置( '1', new Point( 44, 0 ) ),
-        new ST文字位置( '2', new Point( 88, 0 ) ),
-        new ST文字位置( '3', new Point( 132, 0 ) ),
-        new ST文字位置( '4', new Point( 176, 0 ) ),
-        new ST文字位置( '5', new Point( 220, 0 ) ),
-        new ST文字位置( '6', new Point( 264, 0 ) ),
-        new ST文字位置( '7', new Point( 308, 0 ) ),
-        new ST文字位置( '8', new Point( 352, 0 ) ),
-        new ST文字位置( '9', new Point( 396, 0 ) )
-    };
-
     private void t小文字表示(int x, int y, string str)
     {
         foreach (char ch in str)
         {
-            for (int i = 0; i < this.st小文字位置.Length; i++)
+            if (int.TryParse(ch.ToString(), out var i))
             {
-                if (this.st小文字位置[i].ch == ch)
+                Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboSize[0] * i, 0, TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboSize[0], TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboSize[1]);
+                if (TJAPlayer3.Tx.Taiko_Combo[0] != null)
                 {
-                    Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboSize[0] * i, 0, TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboSize[0], TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboSize[1]);
-                    if (TJAPlayer3.Tx.Taiko_Combo[0] != null)
-                    {
-                        if (this.st叩ききりまショー.bタイマー使用中)
-                            TJAPlayer3.Tx.Taiko_Combo[0].Opacity = 255;
-                        else if (this.st叩ききりまショー.b最初のチップが叩かれた && !this.st叩ききりまショー.bタイマー使用中)
-                            TJAPlayer3.Tx.Taiko_Combo[0].Opacity = 128;
-                        if (this.st叩ききりまショー.b加算アニメ中)
-                            TJAPlayer3.Tx.Taiko_Combo[0].Opacity = 0;
-                        TJAPlayer3.Tx.Taiko_Combo[0].vcScaling.Y = 1f;
-                        TJAPlayer3.Tx.Taiko_Combo[0].vcScaling.X = 1f;
-                        TJAPlayer3.Tx.Taiko_Combo[0].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x, y, rectangle);
-                    }
-                    break;
+                    if (this.st叩ききりまショー.bタイマー使用中)
+                        TJAPlayer3.Tx.Taiko_Combo[0].Opacity = 255;
+                    else if (this.st叩ききりまショー.b最初のチップが叩かれた && !this.st叩ききりまショー.bタイマー使用中)
+                        TJAPlayer3.Tx.Taiko_Combo[0].Opacity = 128;
+                    if (this.st叩ききりまショー.b加算アニメ中)
+                        TJAPlayer3.Tx.Taiko_Combo[0].Opacity = 0;
+                    TJAPlayer3.Tx.Taiko_Combo[0].vcScaling.Y = 1f;
+                    TJAPlayer3.Tx.Taiko_Combo[0].vcScaling.X = 1f;
+                    TJAPlayer3.Tx.Taiko_Combo[0].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x, y, rectangle);
                 }
             }
             x += TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboPadding[0] * 2;

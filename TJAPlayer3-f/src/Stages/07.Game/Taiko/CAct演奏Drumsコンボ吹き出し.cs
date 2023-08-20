@@ -113,49 +113,29 @@ internal class CAct演奏Drumsコンボ吹き出し : CActivity
     #region [ private ]
     //-----------------
     private CCounter[] ct進行 = new CCounter[2];
-    //private CTexture[] tx吹き出し本体 = new CTexture[ 2 ];
-    //private CTexture tx数字;
     private int[] nCombo_渡 = new int[2];
 
-    [StructLayout(LayoutKind.Sequential)]
-    private struct ST文字位置
-    {
-        public char ch;
-        public Point pt;
-        public ST文字位置(char ch, Point pt)
-        {
-            this.ch = ch;
-            this.pt = pt;
-        }
-    }
-    private ST文字位置[] st小文字位置 = new ST文字位置[]{
-        new ST文字位置( '0', new Point( 0, 0 ) ),
-        new ST文字位置( '1', new Point( 44, 0 ) ),
-        new ST文字位置( '2', new Point( 88, 0 ) ),
-        new ST文字位置( '3', new Point( 132, 0 ) ),
-        new ST文字位置( '4', new Point( 176, 0 ) ),
-        new ST文字位置( '5', new Point( 220, 0 ) ),
-        new ST文字位置( '6', new Point( 264, 0 ) ),
-        new ST文字位置( '7', new Point( 308, 0 ) ),
-        new ST文字位置( '8', new Point( 352, 0 ) ),
-        new ST文字位置( '9', new Point( 396, 0 ) )
+    private readonly Dictionary<char, Point> st小文字位置 = new Dictionary<char, Point>(){
+        {'0', new Point( 0, 0 )},
+        {'1', new Point( 44, 0 )},
+        {'2', new Point( 88, 0 )},
+        {'3', new Point( 132, 0 )},
+        {'4', new Point( 176, 0 )},
+        {'5', new Point( 220, 0 )},
+        {'6', new Point( 264, 0 )},
+        {'7', new Point( 308, 0 )},
+        {'8', new Point( 352, 0 )},
+        {'9', new Point( 396, 0 )},
     };
 
     private void t小文字表示(int x, int y, string str)
     {
         foreach (char ch in str)
         {
-            for (int i = 0; i < this.st小文字位置.Length; i++)
+            if (this.st小文字位置.TryGetValue(ch, out var pt))
             {
-                if (this.st小文字位置[i].ch == ch)
-                {
-                    Rectangle rectangle = new Rectangle(this.st小文字位置[i].pt.X, this.st小文字位置[i].pt.Y, 44, 54);
-                    if (TJAPlayer3.Tx.Balloon_Number_Combo != null)
-                    {
-                        TJAPlayer3.Tx.Balloon_Number_Combo.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
-                    }
-                    break;
-                }
+                Rectangle rectangle = new Rectangle(pt.X, pt.Y, 44, 54);
+                TJAPlayer3.Tx.Balloon_Number_Combo?.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
             }
             x += 40;
         }
