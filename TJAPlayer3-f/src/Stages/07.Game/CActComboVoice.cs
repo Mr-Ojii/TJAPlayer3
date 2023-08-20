@@ -22,14 +22,12 @@ internal class CActComboVoice : CActivity
     {
         if(VoiceIndex[player] < ListCombo[player].Count)
         {
-
             var index = ListCombo[player][VoiceIndex[player]];
             if (nCombo == index.nCombo)
             {
                 index.soundComboVoice.t再生を開始する();
                 VoiceIndex[player]++;
             }
-
         }
     }
 

@@ -158,8 +158,7 @@ internal class CStage選曲 : CStage
 
             this.ct登場時アニメ用共通.t進行();
 
-            if( TJAPlayer3.Tx.SongSelect_Background != null )
-                TJAPlayer3.Tx.SongSelect_Background.t2D描画( TJAPlayer3.app.Device, 0, 0 );
+            TJAPlayer3.Tx.SongSelect_Background?.t2D描画( TJAPlayer3.app.Device, 0, 0 );
 
             if( act曲リスト.r現在選択中の曲 != null )
             {

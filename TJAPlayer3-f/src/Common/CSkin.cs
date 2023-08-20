@@ -948,7 +948,7 @@ internal class CSkin : IDisposable
                 public int MusicNameReferencePoint { get{ return (int)this._MusicNameReferencePoint; } set{ this._MusicNameReferencePoint = (EReferencePoint)value; } }
                 [IgnoreDataMember]
                 public EReferencePoint _MusicNameReferencePoint { get; set; } = EReferencePoint.Right;
-                
+
                 public int SubTitleNameX { get; set; } = 1114;
                 public int SubTitleNameY { get; set; }= 70;
                 public int SubTitleNameFontSize { get; set; } = 15;
@@ -965,7 +965,7 @@ internal class CSkin : IDisposable
                 public int LyricReferencePoint { get{ return (int)this._LyricReferencePoint; } set{ this._LyricReferencePoint = (EReferencePoint)value; } }
                 [IgnoreDataMember]
                 public EReferencePoint _LyricReferencePoint { get; set; } = EReferencePoint.Center;
-                
+
                 public string StageText { get; set; } = "1曲目";
                 public bool StageTextDisp { get; set; } = true;
 
@@ -1003,6 +1003,8 @@ internal class CSkin : IDisposable
             public CTaiko Taiko { get; set; } = new();
             public class CTaiko
             {
+                public int[] BackGroundX { get; set; } = new int[] { 0, 0 };
+                public int[] BackGroundY { get; set; } = new int[] { 184, 360 };
                 public int[] NamePlateX { get; set; } = new int[] { 0, 0 };
                 public int[] NamePlateY { get; set; } = new int[] { 288, 368 };
                 public int[] PlayerNumberX { get; set; } = new int[] { 4, 4 };
@@ -1181,7 +1183,7 @@ internal class CSkin : IDisposable
                 public Color _SubTitleForeColor { get; set; } = ColorTranslator.FromHtml("#FFFFFF");
                 [IgnoreDataMember]
                 public Color _SubTitleBackColor { get; set; } = ColorTranslator.FromHtml("#000000");
-                
+
                 public int[] X { get; set; } = new int[] { 302, 302, 302 };
                 public int Y { get; set; } = 520;
                 public int YPadding { get; set; } = 100;

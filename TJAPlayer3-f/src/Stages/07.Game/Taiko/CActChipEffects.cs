@@ -13,10 +13,8 @@ internal class CActChipEffects : CActivity
 
     public CActChipEffects()
     {
-        //base.b活性化してない = true;
     }
-    
-    
+
     // メソッド
     public virtual void Start(int nPlayer, int Lane)
     {
@@ -74,7 +72,7 @@ internal class CActChipEffects : CActivity
             }
             TJAPlayer3.Tx.Notes.Opacity = 255 - (int)Math.Min((500.0 * (st[i].ct進行.n現在の値 / (double)st[i].ct進行.n終了値)), 255.0);
             if(TJAPlayer3.Tx.Notes_White != null)
-                TJAPlayer3.Tx.Notes_White.Opacity = (int)Math.Min((500.0 * (st[i].ct進行.n現在の値 / (double)st[i].ct進行.n終了値)), 255.0);//2020.05.15 Mr-Ojii ノーツを白くするために追加。 
+                TJAPlayer3.Tx.Notes_White.Opacity = (int)Math.Min((500.0 * (st[i].ct進行.n現在の値 / (double)st[i].ct進行.n終了値)), 255.0);//2020.05.15 Mr-Ojii ノーツを白くするために追加。
             switch (st[i].nプレイヤー)
             {
                 case 0:
@@ -96,14 +94,12 @@ internal class CActChipEffects : CActivity
         }
         return 0;
     }
-    
+
 
     // その他
 
     #region [ private ]
     //-----------------
-    //private CTexture[] txChara;
-
     [StructLayout(LayoutKind.Sequential)]
     private struct STチップエフェクト
     {
@@ -113,21 +109,6 @@ internal class CActChipEffects : CActivity
         public int Lane;
     }
     private STチップエフェクト[] st = new STチップエフェクト[128];
-    //private struct ST連打キャラ
-    //{
-    //    public int nColor;
-    //    public bool b使用中;
-    //    public CCounter ct進行;
-    //    public int n前回のValue;
-    //    public float fX;
-    //    public float fY;
-    //    public float fX開始点;
-    //    public float fY開始点;
-    //    public float f進行方向; //進行方向 0:左→右 1:左下→右上 2:右→左
-    //    public float fX加速度;
-    //    public float fY加速度;
-    //}
-    //private ST連打キャラ[] st連打キャラ = new ST連打キャラ[64];
     //-----------------
     #endregion
 }

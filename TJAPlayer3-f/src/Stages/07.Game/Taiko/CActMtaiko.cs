@@ -72,21 +72,12 @@ internal class CActMtaiko : CActivity
             this.nフラッシュ制御タイマ += 20;
         }
 
-        if(TJAPlayer3.Tx.Taiko_Background[0] != null )
-            TJAPlayer3.Tx.Taiko_Background[0].t2D描画( TJAPlayer3.app.Device, 0, 184 );
+        for(int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+            TJAPlayer3.Tx.Taiko_Background[i]?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Taiko.BackGroundX[i], TJAPlayer3.Skin.SkinConfig.Game.Taiko.BackGroundY[i]);
 
-        if ( TJAPlayer3.stage演奏ドラム画面.bDoublePlay )
-        {
-            if(TJAPlayer3.Tx.Taiko_Background[1] != null )
-                TJAPlayer3.Tx.Taiko_Background[1].t2D描画( TJAPlayer3.app.Device, 0, 360 );
-        }
+        for(int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+            TJAPlayer3.Tx.Taiko_Base?.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Taiko.X[i], TJAPlayer3.Skin.SkinConfig.Game.Taiko.Y[i]);
 
-        if(TJAPlayer3.Tx.Taiko_Base != null )
-        {
-            TJAPlayer3.Tx.Taiko_Base.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Taiko.X[0], TJAPlayer3.Skin.SkinConfig.Game.Taiko.Y[0]);
-            if( TJAPlayer3.stage演奏ドラム画面.bDoublePlay )
-                TJAPlayer3.Tx.Taiko_Base.t2D描画( TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Taiko.X[1], TJAPlayer3.Skin.SkinConfig.Game.Taiko.Y[1]);
-        }
         if( TJAPlayer3.Tx.Taiko_Don_Left != null && TJAPlayer3.Tx.Taiko_Don_Right != null && TJAPlayer3.Tx.Taiko_Ka_Left != null && TJAPlayer3.Tx.Taiko_Ka_Right != null )
         {
             TJAPlayer3.Tx.Taiko_Ka_Left.Opacity = this.stパッド状態[0].n明るさ * 73;
@@ -112,8 +103,6 @@ internal class CActMtaiko : CActivity
             TJAPlayer3.Tx.Taiko_Don_Left.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Taiko.X[1], TJAPlayer3.Skin.SkinConfig.Game.Taiko.Y[1], new Rectangle(0, 0, TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Width / 2, TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Height));
             TJAPlayer3.Tx.Taiko_Don_Right.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Taiko.X[1] + TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Width / 2, TJAPlayer3.Skin.SkinConfig.Game.Taiko.Y[1], new Rectangle(TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Width / 2, 0, TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Width / 2, TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Height));
         }
-
-        int[] nLVUPY = new int[] { 127, 127, 0, 0 };
 
         for ( int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++ )
         {

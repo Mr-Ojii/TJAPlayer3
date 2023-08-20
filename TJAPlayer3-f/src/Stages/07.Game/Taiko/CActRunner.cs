@@ -89,18 +89,12 @@ internal class CActRunner : CActivity
                 for (int n = stRunners[i].nOldValue; n < stRunners[i].ct進行.n現在の値; n++)
                 {
                     //AkasokoPullyou様のソースコードを参考にして、ランナーの逆流を防止
-                    double dbBPM = TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM >= 0 ? TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM : TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM * -1;
+                    double dbBPM = Math.Abs(TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM);
                     stRunners[i].fX += (float)dbBPM / 18;
                     int Width = TJAPlayer3.app.LogicalSize.Width / Ptn;
                     stRunners[i].nNowPtn = (int)stRunners[i].fX / Width;
                 }
-                if (TJAPlayer3.Tx.Runner != null)
-                {
-                    if (stRunners[i].nPlayer == 0)
-                        TJAPlayer3.Tx.Runner.t2D描画(TJAPlayer3.app.Device, (int)(StartPoint_X[0] + stRunners[i].fX), StartPoint_Y[0], new Rectangle(stRunners[i].nNowPtn * Size[0], stRunners[i].nType * Size[1], Size[0], Size[1]));
-                    else
-                        TJAPlayer3.Tx.Runner.t2D描画(TJAPlayer3.app.Device, (int)(StartPoint_X[1] + stRunners[i].fX), StartPoint_Y[1], new Rectangle(stRunners[i].nNowPtn * Size[0], stRunners[i].nType * Size[1], Size[0], Size[1]));
-                }
+                TJAPlayer3.Tx.Runner?.t2D描画(TJAPlayer3.app.Device, (int)(StartPoint_X[stRunners[i].nPlayer] + stRunners[i].fX), StartPoint_Y[stRunners[i].nPlayer], new Rectangle(stRunners[i].nNowPtn * Size[0], stRunners[i].nType * Size[1], Size[0], Size[1]));
             }
         }
         return base.On進行描画();

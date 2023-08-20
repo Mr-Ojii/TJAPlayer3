@@ -53,10 +53,6 @@ internal class CActRoll : CActivity
         this.ct連打枠カウンター[ player ].t進行();
         this.ct連打アニメ[player].t進行();
         FadeOutCounter[player].t進行();
-        //1PY:-3 2PY:514
-        //仮置き
-        int[] nRollBalloon = new int[] { -3, 514, 0, 0 };
-        int[] nRollNumber = new int[] { 48, 559, 0, 0 };
         const int fadenum = 167;
         for( int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++ )
         {
