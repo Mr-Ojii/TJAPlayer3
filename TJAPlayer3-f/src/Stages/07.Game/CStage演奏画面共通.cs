@@ -2767,12 +2767,13 @@ internal class CStage演奏画面共通 : CStage
         {
             CDTX.CChip pChip = dTX.listChip[nCurrentTopChip];
             pChip.TimeSpan = (int)(pChip.n発声時刻ms - n現在時刻ms);
-            pChip.nバーからの距離dot = (int)(pChip.TimeSpan * pChip.dbBPM * pChip.dbSCROLL * this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] / 502.8594 / 5.0);//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
 
-            if (pChip.dbSCROLL_Y != 0)
-                pChip.nバーからの距離dot_Y = (int)(((pChip.n発声時刻ms - ((CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0)) * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0))) * pChip.dbBPM * pChip.dbSCROLL_Y * this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer]) / 502.8594 / 5.0); // 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
-
-            if (TJAPlayer3.ConfigToml.ScrollMode == EScrollMode.BMSCROLL || TJAPlayer3.ConfigToml.ScrollMode == EScrollMode.HBSCROLL)
+            if (TJAPlayer3.ConfigToml.ScrollMode == EScrollMode.Normal)
+            {
+                pChip.nバーからの距離dot = (int)(pChip.TimeSpan * pChip.dbBPM * pChip.dbSCROLL * this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] / 502.8594 / 5.0);//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
+                pChip.nバーからの距離dot_Y = (int)(pChip.TimeSpan * pChip.dbBPM * pChip.dbSCROLL_Y * this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] / 502.8594 / 5.0);
+            }
+            else if (TJAPlayer3.ConfigToml.ScrollMode == EScrollMode.BMSCROLL || TJAPlayer3.ConfigToml.ScrollMode == EScrollMode.HBSCROLL)
             {
                 var dbSCROLL = TJAPlayer3.ConfigToml.ScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.dbSCROLL;
 
@@ -2783,9 +2784,8 @@ internal class CStage演奏画面共通 : CStage
                     var dbSCROLL_Y = TJAPlayer3.ConfigToml.ScrollMode == EScrollMode.BMSCROLL ? 1.0 : pChip.dbSCROLL_Y;
                     pChip.nバーからの距離dot_Y = (int)(3 * 0.8335 * ((pChip.fBMSCROLLTime * NOTE_GAP) - (play_bpm_time * NOTE_GAP)) * dbSCROLL_Y * this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] / 2 / 5.0);
                 }
-
             }
-            else if (TJAPlayer3.ConfigToml.ScrollMode == EScrollMode.REGULSPEED)
+            else
             {
                 pChip.nバーからの距離dot = (int)(pChip.TimeSpan * TJAPlayer3.ConfigToml.RegSpeedBPM * this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer] / 502.8594 / 5.0);//2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算を修正
             }
