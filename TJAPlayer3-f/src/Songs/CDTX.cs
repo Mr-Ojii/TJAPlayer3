@@ -285,37 +285,14 @@ internal class CDTX : CActivity
 
         public int CompareTo(CDTX.CChip other)
         {
-            // まずは位置で比較。
-
-            //BGMチップだけ発声位置
-            //if( this.nチャンネル番号 == 0x01 || this.nチャンネル番号 == 0x02 )
-            //{
-            //    if( this.n発声位置 < other.n発声位置 )
-            //        return -1;
-
-            //    if( this.n発声位置 > other.n発声位置 )
-            //        return 1;
-            //}
-
-            //if( this.n発声位置 < other.n発声位置 )
-            //    return -1;
-
-            //if( this.n発声位置 > other.n発声位置 )
-            //    return 1;
-
             //譜面解析メソッドV4では発声時刻msで比較する。
-            var n発声時刻msCompareToResult = 0;
-            n発声時刻msCompareToResult = this.n発声時刻ms.CompareTo(other.n発声時刻ms);
-            if (n発声時刻msCompareToResult != 0)
-            {
-                return n発声時刻msCompareToResult;
-            }
+            var res = this.n発声時刻ms.CompareTo(other.n発声時刻ms);
+            if (res != 0)
+                return res;
 
-            n発声時刻msCompareToResult = this.db発声時刻ms.CompareTo(other.db発声時刻ms);
-            if (n発声時刻msCompareToResult != 0)
-            {
-                return n発声時刻msCompareToResult;
-            }
+            res = this.db発声時刻ms.CompareTo(other.db発声時刻ms);
+            if (res != 0)
+                return res;
 
             // 位置が同じなら優先度で比較。
             return n優先度[this.nチャンネル番号].CompareTo(n優先度[other.nチャンネル番号]);

@@ -222,8 +222,10 @@ internal class CActScore : CActivity
                 }
             }
 
-            this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Game.Score.X[0], TJAPlayer3.Skin.SkinConfig.Game.Score.Y[0], string.Format("{0,7:######0}", this.n現在表示中のスコア[0]), 0, 256, 0);
-            if (TJAPlayer3.stage演奏ドラム画面.bDoublePlay) this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Game.Score.X[1], TJAPlayer3.Skin.SkinConfig.Game.Score.Y[1], string.Format("{0,7:######0}", this.n現在表示中のスコア[1]), 0, 256, 1);
+            for(int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+            {
+                this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Game.Score.X[i], TJAPlayer3.Skin.SkinConfig.Game.Score.Y[i], string.Format("{0,7:######0}", this.n現在表示中のスコア[i]), 0, 256, i);
+            }
 
             for (int i = 0; i < 256; i++)
             {

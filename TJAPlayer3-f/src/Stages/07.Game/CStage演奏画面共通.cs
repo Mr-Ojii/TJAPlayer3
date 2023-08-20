@@ -232,8 +232,8 @@ internal class CStage演奏画面共通 : CStage
         db再生速度 = ((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0;
 
         #region [ 演奏開始前にmixer登録しておくべきサウンド(開幕してすぐに鳴らすことになるチップ音)を登録しておく ]
-        foreach (CDTX.CChip pChip in TJAPlayer3.DTX[0].listChip)
         {
+            CDTX.CChip pChip = TJAPlayer3.DTX[0].listChip[0];
             //				Debug.WriteLine( "CH=" + pChip.nチャンネル番号.ToString( "x2" ) + ", 整数値=" + pChip.n整数値 +  ", time=" + pChip.n発声時刻ms );
             if (pChip.n発声時刻ms <= 0)
             {
@@ -249,10 +249,6 @@ internal class CStage演奏画面共通 : CStage
                         }
                     }
                 }
-            }
-            else
-            {
-                break;
             }
         }
         #endregion

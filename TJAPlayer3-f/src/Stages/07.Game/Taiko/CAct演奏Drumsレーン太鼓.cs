@@ -545,34 +545,24 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
             }
         }
 
-
-
         if (TJAPlayer3.Tx.Lane_Background_Sub != null)
         {
-            TJAPlayer3.Tx.Lane_Background_Sub.t2D描画(TJAPlayer3.app.Device, 333, 326);
-            if (TJAPlayer3.stage演奏ドラム画面.bDoublePlay)
+            int[] ypos = new int[] { 326, 502 };
+            for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
             {
-                TJAPlayer3.Tx.Lane_Background_Sub.t2D描画(TJAPlayer3.app.Device, 333, 502);
+                TJAPlayer3.Tx.Lane_Background_Sub.t2D描画(TJAPlayer3.app.Device, 333, ypos[i]);
             }
         }
-
 
         TJAPlayer3.stage演奏ドラム画面.actTaikoLaneFlash.On進行描画();
 
 
-
-        if (TJAPlayer3.Tx.Taiko_Frame[0] != null)
+        for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
         {
-            TJAPlayer3.Tx.Taiko_Frame[0].t2D描画(TJAPlayer3.app.Device, 329, 136);
-
-            if (TJAPlayer3.stage演奏ドラム画面.bDoublePlay)
-            {
-                if (TJAPlayer3.Tx.Taiko_Frame[1] != null)
-                {
-                    TJAPlayer3.Tx.Taiko_Frame[1].t2D描画(TJAPlayer3.app.Device, 329, 360);
-                }
-            }
+            int[] ypos = new int[] { 136, 360 };
+            TJAPlayer3.Tx.Taiko_Frame[i]?.t2D描画(TJAPlayer3.app.Device, 329, ypos[i]);
         }
+
         var nTime = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
 
 
@@ -605,68 +595,6 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
             if (TJAPlayer3.Tx.Lane_Background_GoGo != null) TJAPlayer3.Tx.Lane_Background_GoGo.Opacity = 255;
         }
 
-        //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, this.nBranchレイヤー透明度.ToString());
-        //CDTXMania.act文字コンソール.tPrint(0, 16, C文字コンソール.EFontType.白, this.ct分岐アニメ進行.n現在の値.ToString());
-        //CDTXMania.act文字コンソール.tPrint(0, 32, C文字コンソール.EFontType.白, this.ct分岐アニメ進行.n終了値.ToString());
-
-        //CDTXMania.act文字コンソール.tPrint(0, 32, C文字コンソール.EFontType.白, this.ctゴーゴースプラッシュ.n現在の値.ToString());
-
-        /*#region[ ゴーゴースプラッシュ ]
-        for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
-        {
-            if (CDTXMania.stage演奏ドラム画面.bIsGOGOTIME[i])
-            {
-
-                if (this.txゴーゴースプラッシュ != null)
-                {
-                    this.txゴーゴースプラッシュ[(int)this.ctゴーゴースプラッシュ.db現在の値].t2D描画(CDTXMania.app.Device, 0, 260);
-                    this.ctゴーゴースプラッシュ.n現在の値++;
-                    if(this.ctゴーゴースプラッシュ.b終了値に達した)
-                    {
-                        this.ctゴーゴースプラッシュ.t停止();
-                        this.ctゴーゴースプラッシュ.n現在の値 = 0;
-                    }
-                }
-
-
-                this.ctゴーゴースプラッシュ.t進行Loop();
-            if (this.txゴーゴースプラッシュ != null)
-            {
-                if (this.ctゴーゴースプラッシュ.b終了値に達してない)
-                {
-                    this.txゴーゴースプラッシュ[(int)this.ctゴーゴースプラッシュ.db現在の値].t2D描画(CDTXMania.app.Device, 0, 260);
-                }
-
-            }
-            }
-        }
-        #endregion */
-        /*
-        for (int i = 0; i < CDTXMania.ConfigIni.nPlayerCount; i++)
-        {
-            #region[ ゴーゴースプラッシュ ]
-            if (this.txゴーゴースプラッシュ != null && CDTXMania.stage演奏ドラム画面.bIsGOGOTIME[i])
-            {
-                if (!this.ctゴーゴースプラッシュ.b停止中)
-                {
-                    this.ctゴーゴースプラッシュ.t進行();
-                }
-                if (this.ctゴーゴースプラッシュ.n現在の値 < 28)
-                {
-                    for (int v = 0; v < 6; v++)
-                    {
-                        this.txゴーゴースプラッシュ[this.ctゴーゴースプラッシュ.n現在の値].t2D描画(CDTXMania.app.Device, 0 + (v * 213), 260);
-                    }
-
-                }
-                else
-                {
-                    this.txゴーゴースプラッシュ[this.ctゴーゴースプラッシュ.n現在の値].n透明度 = 100;
-                }
-
-            }
-            #endregion
-        } */
         return base.On進行描画();
     }
 
