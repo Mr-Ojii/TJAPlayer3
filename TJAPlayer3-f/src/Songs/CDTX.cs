@@ -577,7 +577,14 @@ internal class CDTX : CActivity
 
         Dan_C = new Dan_C[3];
         this.On活性化();
+
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
         this.t入力(strFilename, bヘッダのみ, nBGMAdjust, nPlayerSide, bSession);
+        sw.Stop();
+#if DEBUG
+        Trace.TraceInformation($"パース時間({strFilename}) : {sw.Elapsed.TotalNanoseconds}ns");
+#endif
     }
 
 
