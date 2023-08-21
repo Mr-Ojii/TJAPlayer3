@@ -307,8 +307,12 @@ internal class CStageSongLoading : CStage
 
                     //if( CDTXMania.DTX == null )
                     {
+                        bool bSession = TJAPlayer3.ConfigToml.PlayOption.Session &&
+                                        TJAPlayer3.ConfigToml.PlayOption.PlayerCount == 2 &&
+                                        TJAPlayer3.stage選曲.n確定された曲の難易度[0] == TJAPlayer3.stage選曲.n確定された曲の難易度[1];
+
                         for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
-                            TJAPlayer3.DTX[i] = new CDTX(str, false, json.BGMAdjust, i, TJAPlayer3.ConfigToml.PlayOption.PlayerCount == 2 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] == TJAPlayer3.stage選曲.n確定された曲の難易度[1]);
+                            TJAPlayer3.DTX[i] = new CDTX(str, false, json.BGMAdjust, i, bSession);
 
                         if (TJAPlayer3.ConfigToml.OverrideScrollMode == false)
                             TJAPlayer3.ConfigToml.ScrollMode = TJAPlayer3.DTX[0].eScrollMode;

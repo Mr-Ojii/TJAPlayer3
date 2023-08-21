@@ -419,6 +419,7 @@ public class CConfigToml
         }
         private int _PlayerCount = 1;
         public string[] PlayerName { get; set; } = new string[] { "1P", "2P", "3P", "4P" };
+        public bool Session { get; set; } = true;
         public int[] ScrollSpeed
         {
             get { return _ScrollSpeed; }
@@ -747,6 +748,9 @@ public class CConfigToml
             sw.WriteLine();
             sw.WriteLine("# プレイヤーネーム");
             sw.WriteLine("{0} = [ {1} ]", nameof(this.PlayOption.PlayerName), string.Join(", ", this.PlayOption.PlayerName.Select(x => $"\"{x}\"")));
+            sw.WriteLine();
+            sw.WriteLine("# 2人プレイの際にセッション譜面を読み込む");
+            sw.WriteLine("{0} = {1}", nameof(this.PlayOption.Session), this.PlayOption.Session.ToString().ToLower());
             sw.WriteLine();
             sw.WriteLine("# ドラム譜面スクロール速度(1:x0.1, 10:x1.0, 15:x1.5,…,2000:x200.0)");
             sw.WriteLine("{0} = [ {1} ]", nameof(this.PlayOption.ScrollSpeed), string.Join(", ", this.PlayOption.ScrollSpeed));
