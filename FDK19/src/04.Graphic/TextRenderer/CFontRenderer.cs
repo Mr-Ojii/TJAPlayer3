@@ -72,7 +72,7 @@ public class CFontRenderer : IDisposable
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 return "MS UI Gothic";
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                return "ヒラギノ角ゴ Std W8";//OSX搭載PC未所持のため暫定
+                return "Hiragino Sans";
             else
                 return "Droid Sans Fallback";
         }
