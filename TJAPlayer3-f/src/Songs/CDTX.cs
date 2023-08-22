@@ -2775,7 +2775,7 @@ internal class CDTX : CActivity
         //どうせ使わないので先にSplitしてコメントを削除。
         var strSplited = strInput
             .Replace('\t', ' ') //タブをスペースに
-            .Split(this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries) //改行でSplit
+            .Split(this.dlmtEnter, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries) //改行でSplit
             .Select(s => Regex.Replace(s, @" *//.*", "")) //コメントの削除 //2017.01.28 DD コメント前のスペースも削除するように修正
             .Where(s => !string.IsNullOrEmpty(s)); //空要素の削除
 
@@ -2834,9 +2834,7 @@ internal class CDTX : CActivity
         //Seseragi255様のプルリクより変更
 
         //多難易度選択が可能になったので、セッション譜面は同じ難易度再生の時以外はお預けにしておく
-        int n読み込むセッション譜面パート = 0;
-        if (this.bSession譜面を読み込む)
-            n読み込むセッション譜面パート = nPlayerSide + 1;
+        int n読み込むセッション譜面パート = this.bSession譜面を読み込む ? nPlayerSide + 1 : 0;
 
         //指定したコースの譜面の命令を消去する。
         strSplitした譜面[n読み込むコース] = CDTXStyleExtractor.tセッション譜面がある(
