@@ -39,6 +39,7 @@
     <PackageReference Include="DiscordRichPresence" Version="1.2.1.24" />
     <PackageReference Include="LargeAddressAware" Version="1.0.6" />
     <PackageReference Include="Tomlyn" Version="0.16.2" />
+    <PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="3.3.4" />
   </ItemGroup>
   <ItemGroup Label="Resources">
     <EmbeddedResource Include="TJAPlayer3-f.ico" />
@@ -53,6 +54,10 @@
     <None Include="Songs/**" CopyToOutputDirectory="PreserveNewest" />
     <None Include="System/**" CopyToOutputDirectory="PreserveNewest" />
     <None Include="Docs/**" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="../BannedSymbols.txt" />
   </ItemGroup>
 
   <PropertyGroup>

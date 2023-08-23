@@ -1,0 +1,4 @@
+M:System.Char.ToLower(System.Char);Use ToLowerInvariant() instead.
+M:System.Char.ToUpper(System.Char);Use ToUpperInvariant() instead.
+M:System.String.ToLower();Use ToLowerInvariant() instead.
+M:System.String.ToUpper();Use ToUpperInvariant() instead.

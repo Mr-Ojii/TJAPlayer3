@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <SignAssembly>false</SignAssembly>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    
+
     <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -48,9 +48,14 @@
     <PackageReference Include="SixLabors.ImageSharp" Version="3.0.1" />
     <PackageReference Include="SkiaSharp" Version="2.88.3" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.3" />
+    <PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="3.3.4" />
   </ItemGroup>
   <ItemGroup Label="Resources">
     <EmbeddedResource Include="mplus-1p-medium.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="../BannedSymbols.txt" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -60,5 +65,5 @@
     <Version>21.0.0.0</Version>
     <NeutralLanguage>ja-JP</NeutralLanguage>
   </PropertyGroup>
-  
+
 </Project>
