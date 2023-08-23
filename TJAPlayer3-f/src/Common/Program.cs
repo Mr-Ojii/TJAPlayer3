@@ -200,6 +200,6 @@ internal class Program
     private class LowerCaseJsonNamingPolicy : JsonNamingPolicy
     {
         public override string ConvertName(string name)
-            => name.ToLower();
+            => name.ToLowerInvariant();
     }
 }

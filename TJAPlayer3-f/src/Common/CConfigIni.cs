@@ -129,7 +129,7 @@ internal class CConfigIni
             public STKEYASSIGN(string str)
             {
                 this.DeviceType = EInputDevice.Unknown;
-                str = str.Trim().ToUpper();
+                str = str.Trim().ToUpperInvariant();
                 if (str.Length < 3)
                     return;
 

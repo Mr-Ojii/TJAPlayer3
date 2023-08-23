@@ -79,7 +79,7 @@ internal class CSongsManager
         foreach (FileInfo fileinfo in info.GetFiles())
         {
             SlowOrSuspendSearchTask();      // #27060 中断要求があったら、解除要求が来るまで待機, #PREMOVIE再生中は検索負荷を落とす
-            string strExt = fileinfo.Extension.ToLower();
+            string strExt = fileinfo.Extension.ToLowerInvariant();
 
             if ((strExt.Equals(".tja")) || strExt.Equals(".tcm") || strExt.Equals(".tci"))
             {

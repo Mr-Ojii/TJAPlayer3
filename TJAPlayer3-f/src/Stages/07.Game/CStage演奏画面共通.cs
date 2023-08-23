@@ -337,7 +337,7 @@ internal class CStage演奏画面共通 : CStage
             "Playing" + (TJAPlayer3.ConfigToml.PlayOption.AutoPlay[0] == true ? " (Auto)" : ""),
             DateTime.UtcNow,
             DateTime.UtcNow.AddMilliseconds(TJAPlayer3.DTX[0].listChip[TJAPlayer3.DTX[0].listChip.Count - 1].n発声時刻ms / (TJAPlayer3.ConfigToml.PlayOption.PlaySpeed / 20.0)),
-            TJAPlayer3.ConfigToml.Game.SendDiscordPlayingInformation ? difficultyName.ToLower() : "",
+            TJAPlayer3.ConfigToml.Game.SendDiscordPlayingInformation ? difficultyName.ToLowerInvariant() : "",
             TJAPlayer3.ConfigToml.Game.SendDiscordPlayingInformation ? String.Format("COURSE:{0} ({1})", difficultyName, TJAPlayer3.stage選曲.n確定された曲の難易度[0]) : ""
         );
     }

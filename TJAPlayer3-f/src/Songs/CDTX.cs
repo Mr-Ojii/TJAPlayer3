@@ -4362,7 +4362,7 @@ internal class CDTX : CActivity
         }
 
         if (HeaderDict.TryGetValue("GAUGEINCR", out strCommandParam))
-            switch (strCommandParam.ToLower())
+            switch (strCommandParam.ToLowerInvariant())
             {
                 case "normal":
                     GaugeIncreaseMode = GaugeIncreaseMode.Normal;
