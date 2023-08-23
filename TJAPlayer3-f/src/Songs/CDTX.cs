@@ -12,8 +12,6 @@ using System.Text.RegularExpressions;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using FDK;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
 
 namespace TJAPlayer3;
 
@@ -398,7 +396,6 @@ internal class CDTX : CActivity
     public struct STLYRIC
     {
         public long Time;
-        public Image<Rgba32> TextTex;
         public string Text;
         public int index;
     }
@@ -521,7 +518,7 @@ internal class CDTX : CActivity
     private List<int> listBalloon_Expert;
     private List<int> listBalloon_Master;
 
-    public List<Image<Rgba32>> listLyric; //2020.05.13 Mr-Ojii 曲読み込み時にテクスチャを生成するために変更
+    public List<string> listLyric; //2020.05.13 Mr-Ojii 曲読み込み時にテクスチャを生成するために変更
     public List<STLYRIC> listLyric2;
 
     private int listBalloon_Normal_数値管理 = 0;
@@ -3376,7 +3373,7 @@ internal class CDTX : CActivity
         }
         else if (command == "#LYRIC")
         {
-            this.listLyric.Add(this.pf歌詞フォント.DrawText(argument, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._LyricForeColor, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._LyricBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio));
+            this.listLyric.Add(argument);
 
             var chip = new CChip();
 
@@ -4648,7 +4645,6 @@ internal class CDTX : CActivity
                     {
                         STLYRIC stlrc;
                         stlrc.Text = strSplit後[i];
-                        stlrc.TextTex = this.pf歌詞フォント.DrawText(strSplit後[i], TJAPlayer3.Skin.SkinConfig.Game.PanelFont._LyricForeColor, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._LyricBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio);
                         stlrc.Time = list[listindex];
                         stlrc.index = ordnumber;
                         this.listLyric2.Add(stlrc);
@@ -5115,11 +5111,8 @@ internal class CDTX : CActivity
 
     // CActivity 実装
 
-    private CCachedFontRenderer pf歌詞フォント;
     public override void On活性化()
     {
-        this.pf歌詞フォント = new CCachedFontRenderer(TJAPlayer3.Skin.SkinConfig.Game.PanelFont.LyricFontName, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.LyricFontSize);
-
         this.listWAV = new Dictionary<int, CWAV>();
         this.listBPM = new Dictionary<int, CBPM>();
         this.listJPOSSCROLL = new Dictionary<int, CJPOSSCROLL>();
@@ -5131,7 +5124,7 @@ internal class CDTX : CActivity
         this.listBalloon_Expert = new List<int>();
         this.listBalloon_Master = new List<int>();
         this.listLine = new List<CLine>();
-        this.listLyric = new List<Image<Rgba32>>();
+        this.listLyric = new List<string>();
         this.listLyric2 = new List<STLYRIC>();
         this.List_DanSongs = new List<DanSongs>();
         this.tAVIの読み込み();
@@ -5200,19 +5193,11 @@ internal class CDTX : CActivity
         }
         if (this.listLyric != null)
         {
-            for (int i = 0; i < this.listLyric.Count; i++)
-                this.listLyric[i].Dispose();
             this.listLyric.Clear();
         }
         if (this.listLyric2 != null)
         {
-            for (int i = 0; i < this.listLyric2.Count; i++)
-                this.listLyric2[i].TextTex.Dispose();
             this.listLyric2.Clear();
-        }
-        if (this.pf歌詞フォント != null)
-        {
-            this.pf歌詞フォント.Dispose();
         }
         if (this.listVD != null)
         {

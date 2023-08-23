@@ -6,6 +6,12 @@ using System.Diagnostics;
 using System.Numerics;
 using System.IO;
 using FDK;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+
+using Color = System.Drawing.Color;
+using Point = System.Drawing.Point;
+using Rectangle = System.Drawing.Rectangle;
 
 namespace TJAPlayer3;
 
@@ -209,9 +215,18 @@ internal class CStage演奏画面共通 : CStage
         this.n現在の連打数 = new int[] { 0, 0, 0, 0 };
         this.n合計連打数 = new int[] { 0, 0, 0, 0 };
         this.n分岐した回数 = new int[4];
-        for (int i = 0; i < 2; i++)
+        this.ShownLyric = 0;
+        this.ShownLyric2 = 0;
+        using(var fontLyric = new CCachedFontRenderer(TJAPlayer3.Skin.SkinConfig.Game.PanelFont.LyricFontName, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.LyricFontSize))
         {
-            ShownLyric[i] = 0;
+            foreach (var lyric in TJAPlayer3.DTX[0].listLyric)
+            {
+                this.listLyric.Add(fontLyric.DrawText(lyric, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._LyricForeColor, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._LyricBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio));
+            }
+            foreach (var lyric in TJAPlayer3.DTX[0].listLyric2)
+            {
+                this.listLyric2.Add(fontLyric.DrawText(lyric.Text, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._LyricForeColor, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._LyricBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio));
+            }
         }
         this.nJPOSSCROLL = new int[4];
         this.bLEVELHOLD = new bool[] { false, false, false, false };
@@ -364,6 +379,20 @@ internal class CStage演奏画面共通 : CStage
         }
         TJAPlayer3.t安全にDisposeする(ref this.tx背景);
 
+        if (this.listLyric != null)
+        {
+            for (int i = 0; i < this.listLyric.Count; i++)
+                listLyric[i].Dispose();
+            listLyric.Clear();
+        }
+
+        if (this.listLyric2 != null)
+        {
+            for (int i = 0; i < this.listLyric2.Count; i++)
+                listLyric2[i].Dispose();
+            listLyric2.Clear();
+        }
+
         base.On非活性化();
         LoudnessMetadataScanner.StartBackgroundScanning();
     }
@@ -509,7 +538,7 @@ internal class CStage演奏画面共通 : CStage
 
             if (TJAPlayer3.DTX[0].listLyric2.Count > ShownLyric2 && TJAPlayer3.DTX[0].listLyric2[ShownLyric2].Time + TJAPlayer3.DTX[0].nBGMAdjust < (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0)))
             {
-                this.actLyric.tSetLyricTexture(TJAPlayer3.DTX[0].listLyric2[ShownLyric2++].TextTex);
+                this.actLyric.tSetLyricTexture(this.listLyric2[ShownLyric2++]);
             }
 
             this.actLyric.On進行描画();
@@ -718,7 +747,6 @@ internal class CStage演奏画面共通 : CStage
         {'%', new Point(320, 0)},
     };
 
-    protected int ShownLyric2 = 0;
     public bool bPAUSE;
     public bool[] bIsAlreadyCleared;
     public bool[] bIsAlreadyMaxed;
@@ -755,7 +783,10 @@ internal class CStage演奏画面共通 : CStage
     public bool[] b強制的に分岐させた = new bool[] { false, false, false, false };
     public bool[] bLEVELHOLD = new bool[] { false, false, false, false };
 
-    private readonly int[] ShownLyric = new int[] { 0, 0 };
+    private List<Image<Rgba32>> listLyric = new();
+    private List<Image<Rgba32>> listLyric2 = new();
+    private int ShownLyric = 0;
+    private int ShownLyric2 = 0;
     public bool[] b連打中 = new bool[] { false, false, false, false }; //奥の手
     private int[] n合計連打数 = new int[4];
     protected int[] n風船残り = new int[4];
@@ -3411,10 +3442,13 @@ internal class CStage演奏画面共通 : CStage
                 case 0xF1:
                     if (!pChip.bHit && (pChip.TimeSpan < 0))
                     {
-                        if (dTX.listLyric.Count > ShownLyric[nPlayer] && dTX.nPlayerSide == nPlayer)
+                        //1Pの歌詞のみ表示
+                        if(nPlayer != 0)
+                            break;
+
+                        if (this.listLyric.Count > ShownLyric && dTX.nPlayerSide == nPlayer)
                         {
-                            this.actLyric.tSetLyricTexture(dTX.listLyric[ShownLyric[nPlayer]]);
-                            ShownLyric[nPlayer]++;
+                            this.actLyric.tSetLyricTexture(this.listLyric[ShownLyric++]);
                         }
                         pChip.bHit = true;
                     }
