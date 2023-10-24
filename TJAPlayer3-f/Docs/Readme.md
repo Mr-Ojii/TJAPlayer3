@@ -182,7 +182,6 @@ Fork元より使用しているライブラリ
 * [SDL2](https://www.libsdl.org/)
 * [ppy/SDL2-CS](https://github.com/ppy/SDL2-CS)
 * [discord-rpc-csharp](https://github.com/Lachee/discord-rpc-csharp)
-* [SixLabors.ImageSharp](https://github.com/SixLabors/ImageSharp)
 * [M+ FONTS](https://osdn.net/projects/mplus-fonts/)
 * [managed-midi](https://github.com/atsushieno/managed-midi)
 * [ManagedBass](https://github.com/ManagedBass/Home)
