@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
+using SkiaSharp;
 
 using Color = System.Drawing.Color;
 
@@ -35,7 +34,7 @@ public class CCachedFontRenderer : CFontRenderer
     /// <param name="drawstr">描画文字列</param>
     /// <param name="fontColor">描画色</param>
     /// <returns>描画済テクスチャ</returns>
-    public new Image<Rgba32> DrawText(string drawstr, Color fontColor)
+    public new SKBitmap DrawText(string drawstr, Color fontColor)
     {
         return DrawText(drawstr, DrawMode.Normal, fontColor, Color.White, Color.White, Color.White, 0);
     }
@@ -47,7 +46,7 @@ public class CCachedFontRenderer : CFontRenderer
     /// <param name="fontColor">描画色</param>
     /// <param name="edgeColor">縁取色</param>
     /// <returns>描画済テクスチャ</returns>
-    public new Image<Rgba32> DrawText(string drawstr, Color fontColor, Color edgeColor, int edge_Ratio)
+    public new SKBitmap DrawText(string drawstr, Color fontColor, Color edgeColor, int edge_Ratio)
     {
         return DrawText(drawstr, DrawMode.Edge, fontColor, edgeColor, Color.White, Color.White, edge_Ratio);
     }
@@ -59,7 +58,7 @@ public class CCachedFontRenderer : CFontRenderer
     /// <param name="fontColor">描画色</param>
     /// <param name="edgeColor">縁取色</param>
     /// <returns>描画済テクスチャ</returns>
-    public Image<Rgba32> DrawText(string drawstr, Color fontColor, Color edgeColor, DrawMode dMode, int edge_Ratio)
+    public SKBitmap DrawText(string drawstr, Color fontColor, Color edgeColor, DrawMode dMode, int edge_Ratio)
     {
         return DrawText(drawstr, dMode, fontColor, edgeColor, Color.White, Color.White, edge_Ratio);
     }
@@ -73,7 +72,7 @@ public class CCachedFontRenderer : CFontRenderer
     /// <param name="gradationTopColor">グラデーション 上側の色</param>
     /// <param name="gradationBottomColor">グラデーション 下側の色</param>
     /// <returns>描画済テクスチャ</returns>
-    public new Image<Rgba32> DrawText(string drawstr, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio)
+    public new SKBitmap DrawText(string drawstr, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradataionBottomColor, int edge_Ratio)
     {
         return DrawText(drawstr, DrawMode.Edge | DrawMode.Gradation, fontColor, edgeColor, gradationTopColor, gradataionBottomColor, edge_Ratio);
     }
@@ -87,14 +86,14 @@ public class CCachedFontRenderer : CFontRenderer
     /// <param name="gradationTopColor">グラデーション 上側の色</param>
     /// <param name="gradationBottomColor">グラデーション 下側の色</param>
     /// <returns>描画済テクスチャ</returns>
-    public new Image<Rgba32> DrawText_V(string drawstr, Color fontColor, Color edgeColor, int edge_Ratio)
+    public new SKBitmap DrawText_V(string drawstr, Color fontColor, Color edgeColor, int edge_Ratio)
     {
         return DrawText_V(drawstr, DrawMode.Edge, fontColor, edgeColor, Color.Black, Color.Black, edge_Ratio);
     }
 
     #endregion
 
-    protected new Image<Rgba32> DrawText(string drawstr, DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
+    protected new SKBitmap DrawText(string drawstr, DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
     {
         #region [ 以前レンダリングしたことのある文字列/フォントか? (キャッシュにヒットするか?) ]
         int index = listFontCache.FindIndex(
@@ -140,20 +139,20 @@ public class CCachedFontRenderer : CFontRenderer
             }
             #endregion
 
-            // 呼び出し元のDispose()でキャッシュもDispose()されないように、Clone()で返す。
-            return listFontCache[listFontCache.Count - 1].bmp.Clone();
+            // 呼び出し元のDispose()でキャッシュもDispose()されないように、Copy()で返す。
+            return listFontCache[listFontCache.Count - 1].bmp.Copy();
         }
         else
         {
             Debug.WriteLine(drawstr + ": Cacheにヒット!! index=" + index);
             #region [ キャッシュにヒット。レンダリングは行わず、キャッシュ内のデータを返して終了。]
-            // 呼び出し元のDispose()でキャッシュもDispose()されないように、Clone()で返す。
-            return listFontCache[index].bmp.Clone();
+            // 呼び出し元のDispose()でキャッシュもDispose()されないように、Copy()で返す。
+            return listFontCache[index].bmp.Copy();
             #endregion
         }
     }
 
-    protected new Image<Rgba32> DrawText_V(string drawstr, DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
+    protected new SKBitmap DrawText_V(string drawstr, DrawMode drawmode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
     {
         #region [ 以前レンダリングしたことのある文字列/フォントか? (キャッシュにヒットするか?) ]
         int index = listFontCache.FindIndex(
@@ -198,15 +197,15 @@ public class CCachedFontRenderer : CFontRenderer
             }
             #endregion
 
-            // 呼び出し元のDispose()でキャッシュもDispose()されないように、Clone()で返す。
-            return listFontCache[listFontCache.Count - 1].bmp.Clone();
+            // 呼び出し元のDispose()でキャッシュもDispose()されないように、Copy()で返す。
+            return listFontCache[listFontCache.Count - 1].bmp.Copy();
         }
         else
         {
             Debug.WriteLine(drawstr + ": Cacheにヒット!! index=" + index);
             #region [ キャッシュにヒット。レンダリングは行わず、キャッシュ内のデータを返して終了。]
-            // 呼び出し元のDispose()でキャッシュもDispose()されないように、Clone()で返す。
-            return listFontCache[index].bmp.Clone();
+            // 呼び出し元のDispose()でキャッシュもDispose()されないように、Copy()で返す。
+            return listFontCache[index].bmp.Copy();
             #endregion
         }
     }
@@ -255,7 +254,7 @@ public class CCachedFontRenderer : CFontRenderer
         public Color edgeColor;
         public Color gradationTopColor;
         public Color gradationBottomColor;
-        public Image<Rgba32> bmp;
+        public SKBitmap bmp;
         public bool Vertical;
     }
     private List<FontCache> listFontCache;

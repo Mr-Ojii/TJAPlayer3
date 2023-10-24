@@ -6,8 +6,7 @@ using System.Diagnostics;
 using System.Numerics;
 using System.IO;
 using FDK;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
+using SkiaSharp;
 
 using Color = System.Drawing.Color;
 using Point = System.Drawing.Point;
@@ -783,8 +782,8 @@ internal class CStage演奏画面共通 : CStage
     public bool[] b強制的に分岐させた = new bool[] { false, false, false, false };
     public bool[] bLEVELHOLD = new bool[] { false, false, false, false };
 
-    private List<Image<Rgba32>> listLyric = new();
-    private List<Image<Rgba32>> listLyric2 = new();
+    private List<SKBitmap> listLyric = new();
+    private List<SKBitmap> listLyric2 = new();
     private int ShownLyric = 0;
     private int ShownLyric2 = 0;
     public bool[] b連打中 = new bool[] { false, false, false, false }; //奥の手

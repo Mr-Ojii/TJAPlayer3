@@ -1,9 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing;
+using System.Drawing;
 using SkiaSharp;
 
 using Color = System.Drawing.Color;
@@ -60,16 +58,16 @@ internal class CSkiaSharpTextRenderer : ITextRenderer
         paint.IsAntialias = true;
     }
 
-    public SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> DrawText(string drawstr, CFontRenderer.DrawMode drawMode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
+    public SKBitmap DrawText(string drawstr, CFontRenderer.DrawMode drawMode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
     {
         if (string.IsNullOrEmpty(drawstr))
         {
             //nullか""だったら、1x1を返す
-            return new Image<Rgba32>(1, 1);
+            return new SKBitmap(1, 1, true);
         }
 
         string[] strs = drawstr.Split("\n");
-        Image<Rgba32>[] images = new Image<Rgba32>[strs.Length];
+        SKBitmap[] images = new SKBitmap[strs.Length];
 
         for (int i = 0; i < strs.Length; i++)
         {
@@ -79,57 +77,63 @@ internal class CSkiaSharpTextRenderer : ITextRenderer
 
             //少し大きめにとる(定数じゃない方法を考えましょう)
             SKBitmap bitmap = new SKBitmap(width, height, SKColorType.Rgba8888, SKAlphaType.Premul);
-            SKCanvas canvas = new SKCanvas(bitmap);
-
-            if (drawMode.HasFlag(CFontRenderer.DrawMode.Edge))
+            using (SKCanvas canvas = new SKCanvas(bitmap))
             {
-                SKPaint edgePaint = new SKPaint();
-                SKPath path = paint.GetTextPath(strs[i], 25, -paint.FontMetrics.Ascent + 25);
-                edgePaint.StrokeWidth = paint.TextSize * 8 / edge_Ratio;
-                //https://docs.microsoft.com/ja-jp/xamarin/xamarin-forms/user-interface/graphics/skiasharp/paths/paths
-                edgePaint.StrokeJoin = SKStrokeJoin.Round;
-                edgePaint.Color = new SKColor(edgeColor.R, edgeColor.G, edgeColor.B, edgeColor.A);
-                edgePaint.Style = SKPaintStyle.Stroke;
-                edgePaint.IsAntialias = true;
+                if (drawMode.HasFlag(CFontRenderer.DrawMode.Edge))
+                {
+                    SKPaint edgePaint = new SKPaint();
+                    SKPath path = paint.GetTextPath(strs[i], 25, -paint.FontMetrics.Ascent + 25);
+                    edgePaint.StrokeWidth = paint.TextSize * 8 / edge_Ratio;
+                    //https://docs.microsoft.com/ja-jp/xamarin/xamarin-forms/user-interface/graphics/skiasharp/paths/paths
+                    edgePaint.StrokeJoin = SKStrokeJoin.Round;
+                    edgePaint.Color = new SKColor(edgeColor.R, edgeColor.G, edgeColor.B, edgeColor.A);
+                    edgePaint.Style = SKPaintStyle.Stroke;
+                    edgePaint.IsAntialias = true;
 
-                canvas.DrawPath(path, edgePaint);
+                    canvas.DrawPath(path, edgePaint);
+                }
+
+                if (drawMode.HasFlag(CFontRenderer.DrawMode.Gradation))
+                {
+                    //https://docs.microsoft.com/ja-jp/xamarin/xamarin-forms/user-interface/graphics/skiasharp/effects/shaders/linear-gradient
+                    paint.Shader = SKShader.CreateLinearGradient(
+                        new SKPoint(0, 25),
+                        new SKPoint(0, height - 25),
+                        new SKColor[] {
+                        new SKColor(gradationTopColor.R, gradationTopColor.G, gradationTopColor.B, gradationTopColor.A),
+                        new SKColor(gradationBottomColor.R, gradationBottomColor.G, gradationBottomColor.B, gradationBottomColor.A) },
+                        new float[] { 0, 1 },
+                        SKShaderTileMode.Clamp);
+                    paint.Color = new SKColor(0xffffffff);
+                }
+                else
+                {
+                    paint.Shader = null;
+                    paint.Color = new SKColor(fontColor.R, fontColor.G, fontColor.B);
+                }
+
+                canvas.DrawText(strs[i], 25, -paint.FontMetrics.Ascent + 25, paint);
+                canvas.Flush();
             }
 
-            if (drawMode.HasFlag(CFontRenderer.DrawMode.Gradation))
-            {
-                //https://docs.microsoft.com/ja-jp/xamarin/xamarin-forms/user-interface/graphics/skiasharp/effects/shaders/linear-gradient
-                paint.Shader = SKShader.CreateLinearGradient(
-                    new SKPoint(0, 25),
-                    new SKPoint(0, height - 25),
-                    new SKColor[] {
-                    new SKColor(gradationTopColor.R, gradationTopColor.G, gradationTopColor.B, gradationTopColor.A),
-                    new SKColor(gradationBottomColor.R, gradationBottomColor.G, gradationBottomColor.B, gradationBottomColor.A) },
-                    new float[] { 0, 1 },
-                    SKShaderTileMode.Clamp);
-                paint.Color = new SKColor(0xffffffff);
-            }
-            else
-            {
-                paint.Shader = null;
-                paint.Color = new SKColor(fontColor.R, fontColor.G, fontColor.B);
-            }
-
-            canvas.DrawText(strs[i], 25, -paint.FontMetrics.Ascent + 25, paint);
-            canvas.Flush();
-
-            var image = SixLabors.ImageSharp.Image.LoadPixelData<SixLabors.ImageSharp.PixelFormats.Rgba32>(bitmap.Bytes, width, height);
-            var rect = CCommon.MeasureForegroundArea(image, SixLabors.ImageSharp.Color.Transparent);
+            var rect = CCommon.MeasureForegroundArea(bitmap, SKColor.Empty);
 
             //無だった場合は、スペースと判断する(縦書きレンダリングに転用したいがための愚策)
-            if (rect != SixLabors.ImageSharp.Rectangle.Empty)
+            if (rect != SKRectI.Empty)
             {
-                image.Mutate(ctx => ctx.Crop(rect));
-                images[i] = image;
+                SKBitmap crop_bitmap = new SKBitmap(rect.Width, rect.Height);
+                using (SKCanvas crop_canvas = new SKCanvas(crop_bitmap))
+                {
+                    SKRect dest = new SKRect(0, 0, rect.Width, rect.Height);
+                    crop_canvas.DrawBitmap(bitmap, rect, dest);
+                    bitmap.Dispose();
+                    images[i] = crop_bitmap;
+                }
             }
             else
             {
-                image.Dispose();
-                images[i] = new Image<Rgba32>((int)paint.TextSize, (int)Math.Ceiling(paint.FontMetrics.Descent - paint.FontMetrics.Ascent));
+                bitmap.Dispose();
+                images[i] = new SKBitmap((int)paint.TextSize, (int)Math.Ceiling(paint.FontMetrics.Descent - paint.FontMetrics.Ascent));
             }
         }
 
@@ -141,14 +145,16 @@ internal class CSkiaSharpTextRenderer : ITextRenderer
             ret_height += images[i].Height;
         }
 
-        Image<Rgba32> ret = new Image<Rgba32>(ret_width, ret_height);
-
-        int height_i = 0;
-        for (int i = 0; i < images.Length; i++)
+        SKBitmap ret = new SKBitmap(ret_width, ret_height, true);
+        using (SKCanvas ret_canvas = new SKCanvas(ret))
         {
-            ret.Mutate(ctx => ctx.DrawImage(images[i], new Point(0, height_i), 1));
-            height_i += images[i].Height;
-            images[i].Dispose();
+            int height_i = 0;
+            for (int i = 0; i < images.Length; i++)
+            {
+                ret_canvas.DrawBitmap(images[i], new SKPoint(0, height_i));
+                height_i += images[i].Height;
+                images[i].Dispose();
+            }
         }
 
         return ret;

@@ -8,7 +8,6 @@ using System.Diagnostics;
 using System.Numerics;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing;
 using SDL2;
 using SkiaSharp;
 

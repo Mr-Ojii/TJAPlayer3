@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
-using System.IO;
-using System.Runtime.InteropServices;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
+using SkiaSharp;
 
 namespace FDK;
 
@@ -50,7 +44,7 @@ public class CCommon
     /// <summary>
     /// 指定されたImageで、backColor以外の色が使われている範囲を計測する
     /// </summary>
-    public static Rectangle MeasureForegroundArea(Image<Rgba32> bmp, SixLabors.ImageSharp.Color backColor)
+    public static SKRectI MeasureForegroundArea(SKBitmap bmp, SKColor backColor)
     {
         //元々のやつの動作がおかしかったので、書き直します。
         //2021-08-02 Mr-Ojii
@@ -62,7 +56,7 @@ public class CCommon
             for (int y = 0; y < bmp.Height; y++)
             {
                 //backColorではない色であった場合、位置を決定する
-                if (bmp[x, y].ToVector4() != ((System.Numerics.Vector4)backColor))
+                if (bmp.GetPixel(x, y) != backColor)
                 {
                     leftPos = x;
                     break;
@@ -76,7 +70,7 @@ public class CCommon
         //違う色が見つからなかった時
         if (leftPos == -1)
         {
-            return Rectangle.Empty;
+            return SKRectI.Empty;
         }
 
         //右
@@ -85,7 +79,7 @@ public class CCommon
         {
             for (int y = 0; y < bmp.Height; y++)
             {
-                if (bmp[x, y].ToVector4() != ((System.Numerics.Vector4)backColor))
+                if (bmp.GetPixel(x, y) != backColor)
                 {
                     rightPos = x;
                     break;
@@ -98,7 +92,7 @@ public class CCommon
         }
         if (rightPos == -1)
         {
-            return Rectangle.Empty;
+            return SKRectI.Empty;
         }
 
         //上
@@ -107,7 +101,7 @@ public class CCommon
         {
             for (int x = 0; x < bmp.Width; x++)
             {
-                if (bmp[x, y].ToVector4() != ((System.Numerics.Vector4)backColor))
+                if (bmp.GetPixel(x, y) != backColor)
                 {
                     topPos = y;
                     break;
@@ -120,7 +114,7 @@ public class CCommon
         }
         if (topPos == -1)
         {
-            return Rectangle.Empty;
+            return SKRectI.Empty;
         }
 
         //下
@@ -129,7 +123,7 @@ public class CCommon
         {
             for (int x = 0; x < bmp.Width; x++)
             {
-                if (bmp[x, y].ToVector4() != ((System.Numerics.Vector4)backColor))
+                if (bmp.GetPixel(x, y) != backColor)
                 {
                     bottomPos = y;
                     break;
@@ -142,10 +136,10 @@ public class CCommon
         }
         if (bottomPos == -1)
         {
-            return Rectangle.Empty;
+            return SKRectI.Empty;
         }
 
         //結果を返す
-        return new Rectangle(leftPos, topPos, rightPos - leftPos + 1, bottomPos - topPos + 1);
+        return new SKRectI(leftPos, topPos, rightPos, bottomPos);
     }
 }

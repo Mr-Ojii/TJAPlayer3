@@ -12,6 +12,7 @@ using FDK;
 using System.Reflection;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using SkiaSharp;
 
 using Rectangle = System.Drawing.Rectangle;
 using Point = System.Drawing.Point;
@@ -884,6 +885,23 @@ internal class TJAPlayer3 : Game
         }
     }
     public static CTexture tCreateTexture(SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> image)
+    {
+        if (app == null)
+        {
+            return null;
+        }
+        try
+        {
+            return new CTexture(app.Device, image);
+        }
+        catch (CTextureCreateFailedException e)
+        {
+            Trace.TraceError(e.ToString());
+            Trace.TraceError("テクスチャの生成に失敗しました。(txData)");
+            return null;
+        }
+    }
+    public static CTexture tCreateTexture(SKBitmap image)
     {
         if (app == null)
         {

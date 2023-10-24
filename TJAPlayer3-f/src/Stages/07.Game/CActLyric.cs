@@ -1,6 +1,5 @@
-﻿using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
-using FDK;
+﻿using FDK;
+using SkiaSharp;
 
 namespace TJAPlayer3;
 
@@ -12,7 +11,7 @@ internal class CActLyric : CActivity
         base.b活性化してない = true;
     }
 
-    public void tSetLyricTexture(Image<Rgba32> bmpLyric)
+    public void tSetLyricTexture(SKBitmap bmpLyric)
     {
         TJAPlayer3.t安全にDisposeする(ref this.txLyricTexture);
         this.txLyricTexture = TJAPlayer3.tCreateTexture(bmpLyric);

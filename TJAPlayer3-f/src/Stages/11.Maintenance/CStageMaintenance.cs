@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Drawing;
 using FDK;
-using SixLabors.ImageSharp.PixelFormats;
 
 namespace TJAPlayer3;
 
