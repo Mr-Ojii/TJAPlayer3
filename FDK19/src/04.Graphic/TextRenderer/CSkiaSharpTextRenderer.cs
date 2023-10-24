@@ -118,7 +118,7 @@ internal class CSkiaSharpTextRenderer : ITextRenderer
             canvas.Flush();
 
             var image = SixLabors.ImageSharp.Image.LoadPixelData<SixLabors.ImageSharp.PixelFormats.Rgba32>(bitmap.Bytes, width, height);
-            SixLabors.ImageSharp.Rectangle rect = CCommon.MeasureForegroundArea(image, SixLabors.ImageSharp.Color.Transparent);
+            var rect = CCommon.MeasureForegroundArea(image, SixLabors.ImageSharp.Color.Transparent);
 
             //無だった場合は、スペースと判断する(縦書きレンダリングに転用したいがための愚策)
             if (rect != SixLabors.ImageSharp.Rectangle.Empty)

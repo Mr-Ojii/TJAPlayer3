@@ -59,7 +59,7 @@ internal class CActPanel : CActivity
                     }
                 }
 
-                using (SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> bmpDiff = pfMusicName.DrawText(stageText, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._StageTextForeColor, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._StageTextBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+                using (var bmpDiff = pfMusicName.DrawText(stageText, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._StageTextForeColor, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._StageTextBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
                 {
                     this.tx難易度とステージ数 = TJAPlayer3.tCreateTexture(bmpDiff);
                 }

@@ -113,7 +113,7 @@ public class CTexture : IDisposable
         if (!File.Exists(strFilename))     // #27122 2012.1.13 from: ImageInformation では FileNotFound 例外は返ってこないので、ここで自分でチェックする。わかりやすいログのために。
             throw new FileNotFoundException(string.Format("File does not exist. \n[{0}]", strFilename));
 
-        using (SixLabors.ImageSharp.Image<Rgba32> image = SixLabors.ImageSharp.Image.Load<Rgba32>(strFilename))
+        using (var image = SixLabors.ImageSharp.Image.Load<Rgba32>(strFilename))
             MakeTexture(device, image, false);
     }
     public void MakeTexture(Device device, SixLabors.ImageSharp.Image<Rgba32> bitmap, bool bTransparentBlack)
