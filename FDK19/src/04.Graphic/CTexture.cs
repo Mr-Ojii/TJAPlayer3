@@ -6,8 +6,6 @@ using System.Buffers;
 using System.IO;
 using System.Diagnostics;
 using System.Numerics;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
 using SDL2;
 using SkiaSharp;
 
@@ -101,12 +99,6 @@ public class CTexture : IDisposable
         filename = strFilename;
         MakeTexture(device, strFilename);
     }
-    public CTexture(Device device, Image<Rgba32> image)
-        : this()
-    {
-        maketype = MakeType.bitmap;
-        MakeTexture(device, image);
-    }
 
     public CTexture(Device device, SKBitmap bitmap)
         : this()
@@ -153,39 +145,6 @@ public class CTexture : IDisposable
         }
     }
 
-    public void MakeTexture(Device device, SixLabors.ImageSharp.Image<Rgba32> bitmap)
-    {
-        try
-        {
-            this.rcImageRect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
-
-            this.texture = SDL.SDL_CreateTexture(device.renderer, SDL.SDL_PIXELFORMAT_ABGR8888, (int)SDL.SDL_TextureAccess.SDL_TEXTUREACCESS_TARGET, bitmap.Width, bitmap.Height);
-            Rgba32[] mem = ArrayPool<Rgba32>.Shared.Rent(bitmap.Width * bitmap.Height);
-
-            bitmap.CopyPixelDataTo(mem);
-
-            unsafe
-            {
-                fixed (Rgba32* ptr = mem)
-                {
-                    SDL.SDL_UpdateTexture((IntPtr)this.texture, IntPtr.Zero, (IntPtr)ptr, bitmap.Width * 4);
-                }
-            }
-
-            ArrayPool<Rgba32>.Shared.Return(mem);
-
-            this.color = Color.FromArgb(255, 255, 255, 255);
-            this.eBlendMode = EBlendMode.Normal;
-            this.Opacity = 255;
-
-            this.bTextureDisposed = false;
-        }
-        catch
-        {
-            this.Dispose();
-            throw new CTextureCreateFailedException(string.Format("Failed to create texture. \n"));
-        }
-    }
     // メソッド
     public void UpdateTexture(IntPtr bitmap, Size size)
     {

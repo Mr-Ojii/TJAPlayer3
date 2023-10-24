@@ -4,9 +4,8 @@ using System.Diagnostics;
 using System.Text;
 using System.Drawing;
 using System.Threading;
-using SixLabors.ImageSharp.Processing;
-using SixLabors.ImageSharp;
 using FDK;
+using SkiaSharp;
 
 using Color = System.Drawing.Color;
 using Rectangle = System.Drawing.Rectangle;
@@ -833,14 +832,16 @@ internal class CActConfigList : CActivity
         {
             string path = skinSubFolders[nSkinIndex];
             path = System.IO.Path.Combine(path, @"Graphics/1_Title/Background.png");
-            using (var image = SixLabors.ImageSharp.Image.Load<SixLabors.ImageSharp.PixelFormats.Rgba32>(path))
+            using (var image = SKBitmap.Decode(path))
             {
-                image.Mutate(c => c.Resize(image.Width / 4, image.Height / 4));
-                if (txSkinSample1 != null)
+                using (var bitmap = image.Resize(new SKSizeI(image.Width / 4, image.Height / 4), SKFilterQuality.Medium))
                 {
-                    TJAPlayer3.t安全にDisposeする(ref txSkinSample1);
+                    if (txSkinSample1 != null)
+                    {
+                        TJAPlayer3.t安全にDisposeする(ref txSkinSample1);
+                    }
+                    txSkinSample1 = TJAPlayer3.tCreateTexture(bitmap);
                 }
-                txSkinSample1 = TJAPlayer3.tCreateTexture(image);
             }
             nSkinSampleIndex = nSkinIndex;
         }
