@@ -60,6 +60,8 @@ internal class Program
             }
 
             FFmpeg.AutoGen.ffmpeg.RootPath = AppContext.BaseDirectory + @"FFmpeg/" + osplatform + "-" + platform + "/";
+            FFmpeg.AutoGen.ffmpeg.RootPath = "/opt/homebrew/lib/";
+
 
             var OSPlatformDirName = AppContext.BaseDirectory + @"Libs/" + osplatform + "/";
 
