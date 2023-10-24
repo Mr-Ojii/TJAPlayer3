@@ -1,5 +1,5 @@
 # TJAPlayer3-f
-最終更新日:2023/07/21(Mr-Ojii)
+最終更新日:2023/10/25(Mr-Ojii)
 
 このReadmeはTJAPlayer3のReadmeを基に作成いたしました。
 
@@ -99,7 +99,7 @@ chmod +x TJAPlayer3-f.AppImage
 ## 開発環境(動作確認環境)
 #### OS
 * Windows 11(Ver.22H2) (x64)
-* macOS 13.3.1 (arm64)
+* macOS 14.0 (arm64)
 
 #### Editor
 * Visual Studio Community 2022
@@ -167,7 +167,7 @@ masterブランチでほぼすべての開発を行います。
 
 ## Discord Server
 作っていいものかと思いながら、公開鯖を作ってみたかったので作ってしまいました。  
-参加した場合、#readmeをご一読ください。よろしくお願いいたします。  
+参加した際、#readmeをご一読ください。よろしくお願いいたします。  
 [https://discord.gg/Wg9bD5jTHZ](https://discord.gg/Wg9bD5jTHZ)
 
 
@@ -190,7 +190,7 @@ Fork元より使用しているライブラリ
 
 また、フレームワークに[.NET](https://dotnet.microsoft.com/)を使用しています。
 
-ライセンスは「Licenses」に追加いたしました。
+ライセンスは「ThirdPartyLicenses」に追加いたしました。
 
 
 ## FFmpegについて
