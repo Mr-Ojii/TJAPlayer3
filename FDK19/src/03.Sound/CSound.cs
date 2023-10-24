@@ -735,11 +735,7 @@ public class CSound : IDisposable
             throw new FileNotFoundException(string.Format("File Not Found...({0})", strFilename));
 
         //丸投げ
-        int rtn = CAudioDecoder.AudioDecode(strFilename, out buffer, out nPCMDataIndex, out totalPCMSize, enablechunk);
-
-        //正常にDecodeできなかった場合、例外
-        if (rtn < 0)
-            throw new Exception(string.Format("Decoded Failed...({0})({1})", rtn, strFilename));
+        CAudioDecoder.AudioDecode(strFilename, out buffer, out nPCMDataIndex, out totalPCMSize, enablechunk);
     }
     #endregion
     #endregion

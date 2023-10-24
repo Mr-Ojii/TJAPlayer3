@@ -10,7 +10,7 @@ namespace FDK;
 
 public unsafe static class CAudioDecoder
 {
-    public static int AudioDecode(string filename, out byte[] buffer,
+    public static void AudioDecode(string filename, out byte[] buffer,
         out int nPCMDataIndex, out int totalPCMSize, bool enablechunk)
     {
         if (!File.Exists(filename))
@@ -89,6 +89,7 @@ public unsafe static class CAudioDecoder
                     pos = (int)ms.Position;
                     bw.Write((UInt32)0);
                 }
+
                 while (true)
                 {
                     if (ffmpeg.av_read_frame(format_context, packet) < 0)
@@ -144,18 +145,12 @@ public unsafe static class CAudioDecoder
                                 ret = ffmpeg.swr_convert(swr, &swr_buf, frame->nb_samples, frame->extended_data, frame->nb_samples);
 
                                 int bytes_count = frame->nb_samples * (32 / 8) * frame->ch_layout.nb_channels;
-                                byte[] tmp = ArrayPool<byte>.Shared.Rent(bytes_count);
-                                Marshal.Copy((nint)swr_buf, tmp, 0, bytes_count);
-                                bw.Write((byte[])tmp, 0, bytes_count);
-                                ArrayPool<byte>.Shared.Return(tmp);
+                                bw.Write(new ReadOnlySpan<byte>(swr_buf, bytes_count));
                             }
                             else
                             {
                                 int bytes_count = frame->nb_samples * (32 / 8) * frame->ch_layout.nb_channels;
-                                byte[] tmp = ArrayPool<byte>.Shared.Rent(bytes_count);
-                                Marshal.Copy((nint)frame->extended_data[0], tmp, 0, bytes_count);
-                                bw.Write((byte[])tmp, 0, bytes_count);
-                                ArrayPool<byte>.Shared.Return(tmp);
+                                bw.Write(new ReadOnlySpan<byte>(frame->extended_data[0], bytes_count));
                             }
                         }
                     }
@@ -172,7 +167,7 @@ public unsafe static class CAudioDecoder
 
                 bw.Close();
 
-                Debug.Print("Frames=" + nFrame + "\n" + "Samples=" + nSample);
+                Console.WriteLine("Frames=" + nFrame + "\n" + "Samples=" + nSample);
                 buffer = ms.ToArray();
             }
         }
@@ -184,8 +179,5 @@ public unsafe static class CAudioDecoder
         ffmpeg.av_frame_free(&frame);
         ffmpeg.avcodec_free_context(&codec_context);
         ffmpeg.avformat_close_input(&format_context);
-
-        return 0;
-
     }
 }
