@@ -10,6 +10,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SDL2;
+using SkiaSharp;
 
 using Rectangle = System.Drawing.Rectangle;
 using Point = System.Drawing.Point;
@@ -108,14 +109,51 @@ public class CTexture : IDisposable
         MakeTexture(device, image);
     }
 
+    public CTexture(Device device, SKBitmap bitmap)
+        : this()
+    {
+        maketype = MakeType.bitmap;
+        MakeTexture(device, bitmap);
+    }
+
     public void MakeTexture(Device device, string strFilename)
     {
         if (!File.Exists(strFilename))     // #27122 2012.1.13 from: ImageInformation では FileNotFound 例外は返ってこないので、ここで自分でチェックする。わかりやすいログのために。
             throw new FileNotFoundException(string.Format("File does not exist. \n[{0}]", strFilename));
 
-        using (var image = SixLabors.ImageSharp.Image.Load<Rgba32>(strFilename))
-            MakeTexture(device, image);
+
+        using (var bitmap = SKBitmap.Decode(strFilename))
+            MakeTexture(device, bitmap);
     }
+
+    public unsafe void MakeTexture(Device device, SKBitmap bitmap)
+    {
+        try
+        {
+            this.rcImageRect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+
+            this.texture = SDL.SDL_CreateTexture(device.renderer, SDL.SDL_PIXELFORMAT_ARGB8888, (int)SDL.SDL_TextureAccess.SDL_TEXTUREACCESS_TARGET, bitmap.Width, bitmap.Height);
+
+            //SKColorはArgb8888で格納されるが、無駄コピーが発生するのでどうにかしたい
+            //Dictionary<SKColorType, uint>を作れば良い？
+            fixed(void* ptr = bitmap.Pixels)
+            {
+                SDL.SDL_UpdateTexture((nint)this.texture, nint.Zero, (nint)ptr, bitmap.Width * 4);
+            }
+
+            this.color = Color.FromArgb(255, 255, 255, 255);
+            this.eBlendMode = EBlendMode.Normal;
+            this.Opacity = 255;
+
+            this.bTextureDisposed = false;
+        }
+        catch
+        {
+            this.Dispose();
+            throw new CTextureCreateFailedException(string.Format("Failed to create texture. \n"));
+        }
+    }
+
     public void MakeTexture(Device device, SixLabors.ImageSharp.Image<Rgba32> bitmap)
     {
         try
