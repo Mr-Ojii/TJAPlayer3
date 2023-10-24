@@ -68,7 +68,7 @@ public unsafe class CFrameConverter : IDisposable
     private readonly byte_ptrArray4 _dstData;
     private readonly int_array4 _dstLinesize;
     private readonly IntPtr _convertedFrameBufferPtr;
-    private const AVPixelFormat CVPxfmt = AVPixelFormat.AV_PIX_FMT_RGBA;
+    private const AVPixelFormat CVPxfmt = AVPixelFormat.AV_PIX_FMT_BGRA;
     private bool IsConvert = false;
     private Size FrameSize;
 }
