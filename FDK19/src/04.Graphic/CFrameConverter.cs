@@ -23,8 +23,10 @@ public unsafe class CFrameConverter : IDisposable
                 FrameSize.Height,
                 CVPxfmt,
                 ffmpeg.SWS_FAST_BILINEAR, null, null, null);
-            this.IsConvert = true;
+
             if (convert_context == null) throw new ApplicationException("Could not initialize the conversion context.\n");
+            this.IsConvert = true;
+            this.convert_frame = ffmpeg.av_frame_alloc();
         }
         _convertedFrameBufferPtr = Marshal.AllocHGlobal(ffmpeg.av_image_get_buffer_size(CVPxfmt, FrameSize.Width, FrameSize.Height, 1));
 
@@ -39,18 +41,16 @@ public unsafe class CFrameConverter : IDisposable
         {
             ffmpeg.sws_scale(convert_context, framep->data, framep->linesize, 0, framep->height, _dstData, _dstLinesize);
 
-            AVFrame* tmp = ffmpeg.av_frame_alloc();
-            tmp = ffmpeg.av_frame_alloc();
-            tmp->best_effort_timestamp = framep->best_effort_timestamp;
-            tmp->width = FrameSize.Width;
-            tmp->height = FrameSize.Height;
-            tmp->data = new byte_ptrArray8();
-            tmp->data.UpdateFrom(_dstData);
-            tmp->linesize = new int_array8();
-            tmp->linesize.UpdateFrom(_dstLinesize);
+            this.convert_frame->best_effort_timestamp = framep->best_effort_timestamp;
+            this.convert_frame->width = FrameSize.Width;
+            this.convert_frame->height = FrameSize.Height;
+            this.convert_frame->data = new byte_ptrArray8();
+            this.convert_frame->data.UpdateFrom(_dstData);
+            this.convert_frame->linesize = new int_array8();
+            this.convert_frame->linesize.UpdateFrom(_dstLinesize);
 
             ffmpeg.av_frame_unref(framep);
-            return tmp;
+            return this.convert_frame;
         }
         else
         {
@@ -62,6 +62,8 @@ public unsafe class CFrameConverter : IDisposable
     {
         Marshal.FreeHGlobal(_convertedFrameBufferPtr);
         ffmpeg.sws_freeContext(convert_context);
+        fixed(AVFrame** ptr = &convert_frame)
+            ffmpeg.av_frame_free(ptr);
     }
 
     private SwsContext* convert_context;
@@ -71,4 +73,5 @@ public unsafe class CFrameConverter : IDisposable
     private const AVPixelFormat CVPxfmt = AVPixelFormat.AV_PIX_FMT_BGRA;
     private bool IsConvert = false;
     private Size FrameSize;
+    private AVFrame* convert_frame = null;
 }

@@ -231,15 +231,11 @@ public unsafe class CVideoDecoder : IDisposable
                             {
                                 if (ffmpeg.avcodec_receive_frame(codec_context, frame) == 0)
                                 {
-                                    AVFrame* outframe = null;
-
-                                    outframe = frameconv.Convert(frame);
+                                    AVFrame* outframe = frameconv.Convert(frame);
 
                                     decodedframes.Enqueue(PickUnusedDcodedFrame().UpdateFrame((outframe->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, outframe));
 
-                                    ffmpeg.av_frame_unref(frame);
                                     ffmpeg.av_frame_unref(outframe);
-                                    ffmpeg.av_frame_free(&outframe);
                                 }
                             }
                         }
@@ -268,7 +264,7 @@ public unsafe class CVideoDecoder : IDisposable
         {
             ffmpeg.av_packet_free(&packet);
             ffmpeg.av_frame_unref(frame);
-            ffmpeg.av_free(frame);
+            ffmpeg.av_frame_free(&frame);
             DS = DecodingState.Stopped;
         }
     }
