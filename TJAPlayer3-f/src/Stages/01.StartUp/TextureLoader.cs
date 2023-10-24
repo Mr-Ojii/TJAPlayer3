@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using SkiaSharp;
 
 namespace TJAPlayer3;
 
@@ -69,7 +70,7 @@ class TextureLoader
     public void LoadTexture()
     {
         #region 共通
-        Tile_Black = TJAPlayer3.ColorTexture(SixLabors.ImageSharp.Color.Black);
+        Tile_Black = TJAPlayer3.ColorTexture(SKColors.Black);
         Menu_Title = TxC(@"Menu_Title.png");
         Menu_Highlight = TxC(@"Menu_Highlight.png");
         Enum_Song = TxC(@"Enum_Song.png");

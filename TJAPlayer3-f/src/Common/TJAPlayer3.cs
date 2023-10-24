@@ -10,8 +10,6 @@ using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using FDK;
 using System.Reflection;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
 using SkiaSharp;
 
 using Rectangle = System.Drawing.Rectangle;
@@ -922,9 +920,9 @@ internal class TJAPlayer3 : Game
     public static CTexture ColorTexture(string htmlcolor, int width = 64, int height = 64)//2020.05.31 Mr-Ojii 単色塗りつぶしテクスチャの生成。必要かって？Tile_Black・Tile_Whiteがいらなくなるじゃん。あと、メンテモードの画像生成に便利かなって。
     {
         if (htmlcolor.Length == 7 && htmlcolor.StartsWith("#"))
-            return ColorTexture(SixLabors.ImageSharp.Color.ParseHex(htmlcolor.Remove(0, 1)), width, height);
+            return ColorTexture(SKColor.Parse(htmlcolor.Remove(0, 1)), width, height);
         else
-            return ColorTexture(SixLabors.ImageSharp.Color.Black, width, height);
+            return ColorTexture(SKColors.Black, width, height);
     }
     /// <summary>
     /// 単色塗りつぶしテクスチャの生成
@@ -933,9 +931,16 @@ internal class TJAPlayer3 : Game
     /// <param name="width">幅</param>
     /// <param name="height">高さ</param>
     /// <returns></returns>
-    public static CTexture ColorTexture(SixLabors.ImageSharp.Color color, int width = 64, int height = 64)
+    public static CTexture ColorTexture(SKColor color, int width = 64, int height = 64)
     {
-        return TJAPlayer3.tCreateTexture(new Image<Rgba32>(width, height, color));
+        using (var bitmap = new SKBitmap(width, height))
+        {
+            using(var canvas = new SKCanvas(bitmap))
+            {
+                canvas.DrawColor(color);
+                return TJAPlayer3.tCreateTexture(bitmap);
+            }
+        }
     }
 
     /// <summary>プロパティ、インデクサには ref は使用できないので注意。</summary>
