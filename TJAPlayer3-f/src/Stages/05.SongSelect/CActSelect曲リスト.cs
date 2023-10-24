@@ -486,7 +486,7 @@ internal class CActSelect曲リスト : CActivity
 
             using (CFontRenderer pffont = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 32))
             {
-                this.txSongNotFound = TJAPlayer3.tCreateTexture(pffont.DrawText(s1[c], Color.White), true);
+                this.txSongNotFound = TJAPlayer3.tCreateTexture(pffont.DrawText(s1[c], Color.White));
                 this.txSongNotFound.vcScaling = new Vector2(0.5f);
             }
         }
@@ -504,7 +504,7 @@ internal class CActSelect曲リスト : CActivity
 
             using (CFontRenderer pffont = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 32))
             {
-                this.txEnumeratingSongs = TJAPlayer3.tCreateTexture(pffont.DrawText(s1[c], Color.White), true);
+                this.txEnumeratingSongs = TJAPlayer3.tCreateTexture(pffont.DrawText(s1[c], Color.White));
                 this.txEnumeratingSongs.vcScaling = new Vector2(0.5f);
             }
         }

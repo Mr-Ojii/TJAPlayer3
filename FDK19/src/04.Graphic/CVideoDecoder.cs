@@ -153,7 +153,7 @@ public unsafe class CVideoDecoder : IDisposable
         this.EnqueueFrames();
         if (lastTexture != null)
             lastTexture.Dispose();
-        lastTexture = new CTexture(device, new Image<Rgba32>(FrameSize.Width, FrameSize.Height), false);
+        lastTexture = new CTexture(device, new Image<Rgba32>(FrameSize.Width, FrameSize.Height));
     }
 
     public void GetNowFrame(ref CTexture Texture)
@@ -189,7 +189,7 @@ public unsafe class CVideoDecoder : IDisposable
         }
 
         if (lastTexture == null)
-            lastTexture = new CTexture(this.device, new Image<Rgba32>(FrameSize.Width, FrameSize.Height), false);
+            lastTexture = new CTexture(this.device, new Image<Rgba32>(FrameSize.Width, FrameSize.Height));
 
         if (Texture == lastTexture)
             return;

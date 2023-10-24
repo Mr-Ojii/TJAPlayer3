@@ -883,7 +883,7 @@ internal class TJAPlayer3 : Game
             return null;
         }
     }
-    public static CTexture tCreateTexture(SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> image, bool b黒を透過する = false)
+    public static CTexture tCreateTexture(SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32> image)
     {
         if (app == null)
         {
@@ -891,7 +891,7 @@ internal class TJAPlayer3 : Game
         }
         try
         {
-            return new CTexture(app.Device, image, b黒を透過する);
+            return new CTexture(app.Device, image);
         }
         catch (CTextureCreateFailedException e)
         {

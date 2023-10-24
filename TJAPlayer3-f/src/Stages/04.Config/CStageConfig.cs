@@ -526,7 +526,7 @@ internal class CStageConfig : CStage
             {
                 this.tx説明文パネル.Dispose();
             }
-            this.tx説明文パネル = TJAPlayer3.tCreateTexture(this.privatefont.DrawText(str[c], Color.White), true);
+            this.tx説明文パネル = TJAPlayer3.tCreateTexture(this.privatefont.DrawText(str[c], Color.White));
         }
         catch (CTextureCreateFailedException e)
         {
@@ -544,7 +544,7 @@ internal class CStageConfig : CStage
             {
                 this.tx説明文パネル.Dispose();
             }
-            this.tx説明文パネル = TJAPlayer3.tCreateTexture(privatefont.DrawText(item.strDescription, Color.White), true);
+            this.tx説明文パネル = TJAPlayer3.tCreateTexture(privatefont.DrawText(item.strDescription, Color.White));
         }
         catch (CTextureCreateFailedException e)
         {

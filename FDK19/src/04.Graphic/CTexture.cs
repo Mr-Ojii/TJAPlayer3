@@ -101,11 +101,11 @@ public class CTexture : IDisposable
         filename = strFilename;
         MakeTexture(device, strFilename);
     }
-    public CTexture(Device device, Image<Rgba32> image, bool bTransparentBlack)
+    public CTexture(Device device, Image<Rgba32> image)
         : this()
     {
         maketype = MakeType.bitmap;
-        MakeTexture(device, image, bTransparentBlack);
+        MakeTexture(device, image);
     }
 
     public void MakeTexture(Device device, string strFilename)
@@ -114,12 +114,10 @@ public class CTexture : IDisposable
             throw new FileNotFoundException(string.Format("File does not exist. \n[{0}]", strFilename));
 
         using (var image = SixLabors.ImageSharp.Image.Load<Rgba32>(strFilename))
-            MakeTexture(device, image, false);
+            MakeTexture(device, image);
     }
-    public void MakeTexture(Device device, SixLabors.ImageSharp.Image<Rgba32> bitmap, bool bTransparentBlack)
+    public void MakeTexture(Device device, SixLabors.ImageSharp.Image<Rgba32> bitmap)
     {
-        if (bTransparentBlack)
-            bitmap.Mutate(c => c.BackgroundColor(SixLabors.ImageSharp.Color.Transparent));
         try
         {
             this.rcImageRect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
