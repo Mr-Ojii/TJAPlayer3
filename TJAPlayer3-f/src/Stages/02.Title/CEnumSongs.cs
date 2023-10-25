@@ -425,17 +425,13 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
         bool bSucceededSerialize = true;
         try
         {
-            using (StreamWriter f = new StreamWriter(strPathSongList, false, Encoding.UTF8))
+            System.Text.Json.JsonSerializerOptions options = new System.Text.Json.JsonSerializerOptions
             {
-                System.Text.Json.JsonSerializerOptions options = new System.Text.Json.JsonSerializerOptions
-                {
-                    Converters = { new ColorJsonConverter() },
-                    Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(System.Text.Unicode.UnicodeRanges.All),
-                    IncludeFields = true,
-                };
-                string a = System.Text.Json.JsonSerializer.Serialize(cs, options);
-                f.Write(a);
-            }
+                Converters = { new ColorJsonConverter() },
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(System.Text.Unicode.UnicodeRanges.All),
+                IncludeFields = true,
+            };
+            File.WriteAllBytes(strPathSongList, JsonSerializer.SerializeToUtf8Bytes(cs, options));
         }
         catch (Exception e)
         {
@@ -476,31 +472,25 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
                 return null;
             }
 
-            using (Stream input = File.OpenRead(strPathSongList))
+            try
             {
-                try
+                JsonSerializerOptions options = new JsonSerializerOptions
                 {
-                    using (StreamReader file = new StreamReader(strPathSongList, Encoding.UTF8))
-                    {
-                        JsonSerializerOptions options = new JsonSerializerOptions
-                        {
-                            Converters = { new ColorJsonConverter() },
-                            Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(System.Text.Unicode.UnicodeRanges.All),
-                            IncludeFields = true,
-                        };
+                    Converters = { new ColorJsonConverter() },
+                    Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(System.Text.Unicode.UnicodeRanges.All),
+                    IncludeFields = true,
+                };
 
-                        CSongsManager tmp = JsonSerializer.Deserialize<CSongsManager>(file.ReadToEnd(), options);
-                        親ノードを設定する(ref tmp.list曲ルート, null);
-                        return tmp;
-                    }
-                }
-                catch (Exception e)
-                {
-                    // SongsManager = null;
+                CSongsManager tmp = JsonSerializer.Deserialize<CSongsManager>(File.ReadAllBytes(strPathSongList), options);
+                親ノードを設定する(ref tmp.list曲ルート, null);
+                return tmp;
+            }
+            catch (Exception e)
+            {
+                // SongsManager = null;
 
-                    Trace.TraceError(e.ToString());
-                    Trace.TraceError("An exception has occurred, but processing continues. (a4289e34-7140-4b67-b821-3b5370a725e1)");
-                }
+                Trace.TraceError(e.ToString());
+                Trace.TraceError("An exception has occurred, but processing continues. (a4289e34-7140-4b67-b821-3b5370a725e1)");
             }
             #endregion
         }

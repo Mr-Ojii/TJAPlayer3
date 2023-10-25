@@ -12,11 +12,10 @@ public class CScoreJson
     public static CScoreJson Load(string FilePath)
     {
         CScoreJson cScoreJson = new();
+
         if (File.Exists(FilePath))
-        {
-            string str = CJudgeTextEncoding.ReadTextFile(FilePath);
-            cScoreJson = JsonSerializer.Deserialize<CScoreJson>(str);
-        }
+            cScoreJson = JsonSerializer.Deserialize<CScoreJson>(File.ReadAllBytes(FilePath));
+
         return cScoreJson;
     }
 
@@ -24,8 +23,7 @@ public class CScoreJson
     {
         try
         {
-            using (var sw = new StreamWriter(FilePath))
-                sw.Write(JsonSerializer.Serialize(this));
+            File.WriteAllBytes(FilePath, JsonSerializer.SerializeToUtf8Bytes(this));
         }
         catch (Exception e)
         {

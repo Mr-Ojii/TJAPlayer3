@@ -2,7 +2,7 @@
 *.snk
 *.pfx
 /.vs/*
-/.vscode/*
+/.vscode*/*
 !/.vscode/extensions.json
 */bin/*
 */obj/*
