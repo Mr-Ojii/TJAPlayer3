@@ -97,6 +97,7 @@ public class CConfigToml
             }
         }
         private string _SkinPath = "";
+        public string FFmpegPath { get; set; }
         public string FontName { get; set; } = CFontRenderer.DefaultFontName;
     }
 
@@ -467,6 +468,12 @@ public class CConfigToml
             sw.WriteLine("# Skin fonder path.");
             sw.WriteLine("# e.g. System/Default/Graphics/... -> Set SkinPath=\"./Default/\"");
             sw.WriteLine("{0} = \"{1}\"", nameof(this.General.SkinPath), this.General.SkinPath);
+            sw.WriteLine();
+            sw.WriteLine("# FFmpegのライブラリディレクトリ");
+            sw.WriteLine("# 規定のディレクトリとは異なったディレクトリを指定したい際、FFmpegライブラリの絶対パスを指定します。");
+            sw.WriteLine("# FFmpeg library path.");
+            sw.WriteLine("# Absolute path to the FFmpeg library.");
+            sw.WriteLine("{0} = \"{1}\"", nameof(this.General.FFmpegPath), this.General.FFmpegPath);
             sw.WriteLine();
             sw.WriteLine("# フォントレンダリングに使用するフォント名");
             sw.WriteLine("# Font name used for font rendering.");

@@ -1059,6 +1059,10 @@ internal class TJAPlayer3 : Game
         //---------------------
         #endregion
 
+        #region [ FFmpegのパス設定 ]
+        if (!string.IsNullOrEmpty(ConfigToml.General.FFmpegPath))
+            FFmpeg.AutoGen.ffmpeg.RootPath = ConfigToml.General.FFmpegPath;
+        #endregion
 
         #region [ ウィンドウ初期化 ]
         //---------------------
