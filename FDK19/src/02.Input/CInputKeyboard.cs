@@ -44,13 +44,12 @@ public class CInputKeyboard : IInputDevice, IDisposable
 
                 for (int index = 0; index < (int)SDL.SDL_Scancode.SDL_NUM_SCANCODES; index++)
                 {
+                    // #xxxxx: 2022.02.09 Mr-Ojii: SDLK (SDL.SDL_Scancode) を SlimDX.DirectInput.Key に変換。
+                    if (!DeviceConstantConverter.SDLKToKey.TryGetValue((SDL.SDL_Scancode)index, out var key))
+                        continue;
+
                     if (currentState[index] == 1)
                     {
-                        // #xxxxx: 2022.02.09 Mr-Ojii: SDLK (SDL.SDL_Scancode) を SlimDX.DirectInput.Key に変換。
-                        var key = DeviceConstantConverter.SDLKToKey((SDL.SDL_Scancode)index);
-                        if (SlimDXKey.Unknown == key)
-                            continue;   // 未対応キーは無視。
-
                         if (this.btmpKeyState[(int)key] == false)
                         {
                             var ev = new STInputEvent()
@@ -68,11 +67,6 @@ public class CInputKeyboard : IInputDevice, IDisposable
                     }
                     else
                     {
-                        // #xxxxx: 2022.02.09 Mr-Ojii: from: SDLK (SDL.SDL_Scancode) を SlimDX.DirectInput.Key に変換。
-                        var key = DeviceConstantConverter.SDLKToKey((SDL.SDL_Scancode)index);
-                        if (SlimDXKey.Unknown == key)
-                            continue;   // 未対応キーは無視。
-
                         if (this.btmpKeyState[(int)key] == true) // 前回は押されているのに今回は押されていない → 離された
                         {
                             var ev = new STInputEvent()

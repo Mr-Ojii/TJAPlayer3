@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Frozen;
 using System.Text;
 
 using SlimDXKey = SlimDXKeys.Key;
@@ -7,29 +8,18 @@ using SDLKey = SDL2.SDL.SDL_Scancode;
 
 namespace FDK;
 
-public class DeviceConstantConverter
+internal class DeviceConstantConverter
 {
     // メソッド
-
-
-    /// <returns>
-    /// 対応する値がなければ SlimDXKey.Unknown を返す。
-    /// </returns>
-    public static SlimDXKey SDLKToKey(SDLKey sdl_key)
-    {
-        if (_SDLKtoKey.TryGetValue(sdl_key, out var key))
-            return key;
-        else
-            return SlimDXKey.Unknown;
-    }
 
     /// <summary>
     ///	SDLKey(SDL_Scancode) から SlimDXKey への変換表。
     /// </summary>
-    private static readonly Dictionary<SDLKey, SlimDXKey> _SDLKtoKey = new Dictionary<SDLKey, SlimDXKey>()
+    public static readonly FrozenDictionary<SDLKey, SlimDXKey> SDLKToKey = new Dictionary<SDLKey, SlimDXKey>()
     {
         #region [ *** ]
-        { SDLKey.SDL_SCANCODE_UNKNOWN, SlimDXKey.Unknown },
+        //TryGetValueで取得できたかで使用可能判定とするので、Unknownはコメントアウト
+        //{ SDLKey.SDL_SCANCODE_UNKNOWN, SlimDXKey.Unknown },
         { SDLKey.SDL_SCANCODE_A, SlimDXKey.A },
         { SDLKey.SDL_SCANCODE_B, SlimDXKey.B },
         { SDLKey.SDL_SCANCODE_C, SlimDXKey.C },
@@ -161,5 +151,5 @@ public class DeviceConstantConverter
         { SDLKey.SDL_SCANCODE_AC_BOOKMARKS, SlimDXKey.WebFavorites },
         { SDLKey.SDL_SCANCODE_SLEEP, SlimDXKey.Sleep },
         #endregion
-    };
+    }.ToFrozenDictionary();
 }
