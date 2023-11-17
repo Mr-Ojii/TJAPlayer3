@@ -15,7 +15,7 @@ jobs:
       rev_list_count: ${{ steps.rev.outputs.REV_LIST_COUNT }}
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: Set REV_LIST_COUNT
@@ -42,7 +42,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
@@ -103,7 +103,7 @@ jobs:
     steps:
 
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Download Artifacts
       uses: actions/download-artifact@v3
