@@ -7,20 +7,6 @@ public class CCommon
 {
     // 解放
 
-    public static void tDispose<T>(ref T obj)
-    {
-        if (obj == null)
-            return;
-
-        var d = obj as IDisposable;
-
-        if (d != null)
-        {
-            d.Dispose();
-            obj = default(T);
-        }
-    }
-
     public static void tRunCompleteGC()
     {
         GC.Collect();					// アクセス不可能なオブジェクトを除去し、ファイナライぜーション実施。

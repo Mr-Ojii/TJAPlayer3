@@ -161,7 +161,8 @@ public class CSoundManager  // : CSound
     {
         SoundDevice?.Dispose();
         SoundDevice = null;
-        CCommon.tDispose(ref rc演奏用タイマ);   // Global.Bass を解放した後に解放すること。（Global.Bass で参照されているため）
+        rc演奏用タイマ?.Dispose();   // Global.Bass を解放した後に解放すること。（Global.Bass で参照されているため）
+        rc演奏用タイマ = null;
     }
 
 
@@ -180,7 +181,8 @@ public class CSoundManager  // : CSound
 
             SoundDevice?.Dispose();
             SoundDevice = null;
-            CCommon.tDispose(ref rc演奏用タイマ);   // Global.SoundDevice を解放した後に解放すること。（Global.SoundDevice で参照されているため）
+            rc演奏用タイマ?.Dispose();   // Global.SoundDevice を解放した後に解放すること。（Global.SoundDevice で参照されているため）
+            rc演奏用タイマ = null;
         }
         //-----------------
         #endregion
