@@ -116,6 +116,6 @@ public class CCommon
         }
 
         //結果を返す
-        return new SKRectI(leftPos, topPos, rightPos, bottomPos);
+        return new SKRectI(leftPos, topPos, rightPos + 1, bottomPos + 1);
     }
 }
