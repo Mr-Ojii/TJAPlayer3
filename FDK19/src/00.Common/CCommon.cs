@@ -20,16 +20,6 @@ public class CCommon
             obj = default(T);
         }
     }
-    public static void tDispose<T>(T obj)
-    {
-        if (obj == null)
-            return;
-
-        var d = obj as IDisposable;
-
-        if (d != null)
-            d.Dispose();
-    }
 
     public static void tRunCompleteGC()
     {

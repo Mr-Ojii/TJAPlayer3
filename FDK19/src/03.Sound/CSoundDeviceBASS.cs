@@ -221,9 +221,9 @@ public class CSoundDeviceBASS : ISoundDevice
 
         if (bManagedDispose)
         {
-            CCommon.tDispose(this.tmSystemTimer);
+            this.tmSystemTimer?.Dispose();
             this.tmSystemTimer = null;
-            libCache.Dispose();
+            this.libCache?.Dispose();
             this.libCache = null;
         }
     }

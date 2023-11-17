@@ -476,7 +476,7 @@ internal class CSoundDeviceWASAPI : ISoundDevice
         }
         if (bManagedDispose)
         {
-            CCommon.tDispose(this.tmSystemTimer);
+            this.tmSystemTimer?.Dispose();
             this.tmSystemTimer = null;
         }
     }
