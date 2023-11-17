@@ -65,7 +65,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                         STInputEvent ev = new STInputEvent()
                         {
                             nKey = 0,
-                            bPressed = true,
+                            eType = EInputEventType.Pressed,
                             nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                         };
                         this.listEventBuffer.Enqueue(ev);
@@ -81,7 +81,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                         STInputEvent ev = new STInputEvent()
                         {
                             nKey = 0,
-                            bPressed = false,
+                            eType = EInputEventType.Released,
                             nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                         };
                         this.listEventBuffer.Enqueue(ev);
@@ -101,7 +101,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                         STInputEvent ev = new STInputEvent()
                         {
                             nKey = 1,
-                            bPressed = true,
+                            eType = EInputEventType.Pressed,
                             nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                         };
                         this.listEventBuffer.Enqueue(ev);
@@ -117,7 +117,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                         STInputEvent event7 = new STInputEvent()
                         {
                             nKey = 1,
-                            bPressed = false,
+                            eType = EInputEventType.Released,
                             nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                         };
                         this.listEventBuffer.Enqueue(event7);
@@ -137,7 +137,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                         STInputEvent ev = new STInputEvent()
                         {
                             nKey = 2,
-                            bPressed = true,
+                            eType = EInputEventType.Pressed,
                             nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                         };
                         this.listEventBuffer.Enqueue(ev);
@@ -153,7 +153,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                         STInputEvent ev = new STInputEvent()
                         {
                             nKey = 2,
-                            bPressed = false,
+                            eType = EInputEventType.Released,
                             nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                         };
                         this.listEventBuffer.Enqueue(ev);
@@ -173,7 +173,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                         STInputEvent ev = new STInputEvent()
                         {
                             nKey = 3,
-                            bPressed = true,
+                            eType = EInputEventType.Pressed,
                             nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                         };
                         this.listEventBuffer.Enqueue(ev);
@@ -189,7 +189,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                         STInputEvent ev = new STInputEvent()
                         {
                             nKey = 3,
-                            bPressed = false,
+                            eType = EInputEventType.Released,
                             nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                         };
                         this.listEventBuffer.Enqueue(ev);
@@ -209,7 +209,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                         STInputEvent ev = new STInputEvent()
                         {
                             nKey = 4,
-                            bPressed = true,
+                            eType = EInputEventType.Pressed,
                             nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                         };
                         this.listEventBuffer.Enqueue(ev);
@@ -225,7 +225,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                         STInputEvent ev = new STInputEvent()
                         {
                             nKey = 4,
-                            bPressed = false,
+                            eType = EInputEventType.Released,
                             nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                         };
                         this.listEventBuffer.Enqueue(ev);
@@ -245,7 +245,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                         STInputEvent ev = new STInputEvent()
                         {
                             nKey = 5,
-                            bPressed = true,
+                            eType = EInputEventType.Pressed,
                             nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                         };
                         this.listEventBuffer.Enqueue(ev);
@@ -261,7 +261,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                         STInputEvent event15 = new STInputEvent()
                         {
                             nKey = 5,
-                            bPressed = false,
+                            eType = EInputEventType.Released,
                             nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                         };
                         this.listEventBuffer.Enqueue(event15);
@@ -281,7 +281,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                         STInputEvent ev = new STInputEvent()
                         {
                             nKey = 6,
-                            bPressed = true,
+                            eType = EInputEventType.Pressed,
                             nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                         };
                         this.listEventBuffer.Enqueue(ev);
@@ -297,7 +297,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                         STInputEvent ev = new STInputEvent()
                         {
                             nKey = 6,
-                            bPressed = false,
+                            eType = EInputEventType.Released,
                             nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                         };
                         this.listEventBuffer.Enqueue(ev);
@@ -317,7 +317,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                         STInputEvent ev = new STInputEvent()
                         {
                             nKey = 7,
-                            bPressed = true,
+                            eType = EInputEventType.Pressed,
                             nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                         };
                         this.listEventBuffer.Enqueue(ev);
@@ -333,7 +333,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                         STInputEvent event15 = new STInputEvent()
                         {
                             nKey = 7,
-                            bPressed = false,
+                            eType = EInputEventType.Released,
                             nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                         };
                         this.listEventBuffer.Enqueue(event15);
@@ -355,7 +355,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                         STInputEvent item = new STInputEvent()
                         {
                             nKey = 8 + j,
-                            bPressed = true,
+                            eType = EInputEventType.Pressed,
                             nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                         };
                         this.listEventBuffer.Enqueue(item);
@@ -369,7 +369,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                         STInputEvent item = new STInputEvent()
                         {
                             nKey = 8 + j,
-                            bPressed = false,
+                            eType = EInputEventType.Released,
                             nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                         };
                         this.listEventBuffer.Enqueue(item);
@@ -394,7 +394,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                             STInputEvent stevent = new STInputEvent()
                             {
                                 nKey = 8 + 128 + nWay,
-                                bPressed = true,
+                                eType = EInputEventType.Pressed,
                                 nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                             };
                             this.listEventBuffer.Enqueue(stevent);
@@ -421,7 +421,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                         STInputEvent stevent = new STInputEvent()
                         {
                             nKey = nWay,
-                            bPressed = false,
+                            eType = EInputEventType.Released,
                             nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                         };
                         this.listEventBuffer.Enqueue(stevent);

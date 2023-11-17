@@ -45,8 +45,7 @@ public class CInputMouse : IInputDevice, IDisposable
                         var ev = new STInputEvent()
                         {
                             nKey = j,
-                            bPressed = true,
-                            bReleased = false,
+                            eType = EInputEventType.Pressed,
                             nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                         };
                         this.listEventBuffer.Enqueue(ev);
@@ -59,8 +58,7 @@ public class CInputMouse : IInputDevice, IDisposable
                         var ev = new STInputEvent()
                         {
                             nKey = j,
-                            bPressed = false,
-                            bReleased = true,
+                            eType = EInputEventType.Released,
                             nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                         };
                         this.listEventBuffer.Enqueue(ev);

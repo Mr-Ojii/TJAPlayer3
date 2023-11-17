@@ -2088,7 +2088,7 @@ internal class CStage演奏画面共通 : CStage
             int nPadtmp = nPad;//2020.09.24 Mr-Ojii パパママサポートに対応するため、tmpをかませることにする。
             foreach (STInputEvent inputEvent in listInputEvent)
             {
-                if (!inputEvent.bPressed)
+                if (inputEvent.eType != EInputEventType.Pressed)
                     continue;
 
                 long nTime = (long)(((inputEvent.nTimeStamp + TJAPlayer3.ConfigToml.PlayOption.InputAdjustTimeMs - CSoundManager.rc演奏用タイマ.n前回リセットした時のシステム時刻ms) * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0)));

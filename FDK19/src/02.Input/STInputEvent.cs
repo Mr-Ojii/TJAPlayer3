@@ -5,12 +5,17 @@ using System.Runtime.InteropServices;
 
 namespace FDK;
 
+public enum EInputEventType
+{
+    Pressed,
+    Released,
+}
+
 // struct
 [StructLayout(LayoutKind.Sequential)]
 public struct STInputEvent
 {
     public int nKey { get; set; }
-    public bool bPressed { get; set; }
-    public bool bReleased { get; set; }
+    public EInputEventType eType { get; set; }
     public long nTimeStamp { get; set; }
 }

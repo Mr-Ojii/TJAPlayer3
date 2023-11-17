@@ -55,8 +55,7 @@ public class CInputKeyboard : IInputDevice, IDisposable
                             var ev = new STInputEvent()
                             {
                                 nKey = (int)key,
-                                bPressed = true,
-                                bReleased = false,
+                                eType = EInputEventType.Pressed,
                                 nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                             };
                             this.listEventBuffer.Enqueue(ev);
@@ -72,8 +71,7 @@ public class CInputKeyboard : IInputDevice, IDisposable
                             var ev = new STInputEvent()
                             {
                                 nKey = (int)key,
-                                bPressed = false,
-                                bReleased = true,
+                                eType = EInputEventType.Released,
                                 nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
                             };
                             this.listEventBuffer.Enqueue(ev);

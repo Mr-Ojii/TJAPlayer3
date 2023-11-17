@@ -36,10 +36,12 @@ public class CInputMIDI : IInputDevice, IDisposable
 
             if ((nMIDIevent == 0x90) && (nPara2 != 0))      // Note ON
             {
-                STInputEvent item = new STInputEvent();
-                item.nKey = nPara1;
-                item.bPressed = true;
-                item.nTimeStamp = time;
+                STInputEvent item = new STInputEvent()
+                {
+                    nKey = nPara1,
+                    eType = EInputEventType.Pressed,
+                    nTimeStamp = time,
+                };
                 this.listEventBuffer.Enqueue(item);
             }
         }
@@ -70,7 +72,7 @@ public class CInputMIDI : IInputDevice, IDisposable
     {
         foreach (STInputEvent event2 in this.listInputEvents)
         {
-            if ((event2.nKey == nKey) && event2.bPressed)
+            if ((event2.nKey == nKey) && (event2.eType == EInputEventType.Pressed))
             {
                 return true;
             }
