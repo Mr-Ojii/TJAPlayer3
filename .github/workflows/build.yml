@@ -1,8 +1,8 @@
 name: build
 
-on: 
+on:
   push:
-    branches: 
+    branches:
       - master
     tags:
       - "Ver.*"
@@ -24,7 +24,7 @@ jobs:
         cd ${{ github.workspace }}
         REVCOUNT=`git rev-list --count HEAD`
         echo "REV_LIST_COUNT=${REVCOUNT}" >> $GITHUB_OUTPUT
-     
+
 
   build:
     name: Build
@@ -46,7 +46,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '7.0.x'
+        dotnet-version: '8.0.x'
     - name: Build
       run: dotnet publish TJAPlayer3-f -o publish -r ${{ matrix.config.platform }} -p:MyOption=PUBLISH -p:PublishSingleFile=true --configuration Release --self-contained true
 
@@ -60,13 +60,13 @@ jobs:
             echo ${filename}
           fi
         done
-        
+
     - name: Rename App File (linux)
       if: ${{ matrix.config.os-platform == 'linux' }}
       run: |
         cd ${{ github.workspace }}
         mv "publish/TJAPlayer3-f" "publish/TJAPlayer3-f.AppImage"
-    
+
     #Pre
     - name: Create Archive(Pre)
       if: (startsWith(github.ref, 'refs/tags/Ver')) != true
@@ -101,10 +101,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: [get_rev_list_count, build]
     steps:
-    
+
     - name: Checkout repository
       uses: actions/checkout@v3
-    
+
     - name: Download Artifacts
       uses: actions/download-artifact@v3
       with:
