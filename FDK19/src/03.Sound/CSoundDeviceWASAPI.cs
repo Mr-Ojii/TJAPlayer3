@@ -441,17 +441,17 @@ internal class CSoundDeviceWASAPI : ISoundDevice
     public CSound tCreateSound(string strFilename, ESoundGroup soundGroup)
     {
         var sound = new CSound(soundGroup);
-        sound.tWASAPIサウンドを作成する(strFilename, this.hMixer, this.eOutputDevice);
+        sound.tBASSサウンドを作成する(strFilename, this.hMixer, this.eOutputDevice, BassFlags.Decode | BassFlags.Float);
         return sound;
     }
 
     public void tCreateSound(string strFilename, CSound sound)
     {
-        sound.tWASAPIサウンドを作成する(strFilename, this.hMixer, this.eOutputDevice);
+        sound.tBASSサウンドを作成する(strFilename, this.hMixer, this.eOutputDevice, BassFlags.Decode | BassFlags.Float);
     }
     public void tCreateSound(byte[] byArrWAVFileImage, CSound sound)
     {
-        sound.tWASAPIサウンドを作成する(byArrWAVFileImage, this.hMixer, this.eOutputDevice);
+        sound.tBASSサウンドを作成する(byArrWAVFileImage, this.hMixer, this.eOutputDevice, BassFlags.Decode | BassFlags.Float);
     }
     #endregion
 

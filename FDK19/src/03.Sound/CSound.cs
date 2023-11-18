@@ -236,8 +236,7 @@ public class CSound : IDisposable
     {
         get
         {
-            float fPan = 0.0f;
-            if (!Bass.ChannelGetAttribute(this.hBassStream, ChannelAttribute.Pan, out fPan))
+            if (!Bass.ChannelGetAttribute(this.hBassStream, ChannelAttribute.Pan, out var fPan))
                 return 0;
             return (int)(fPan * 100);
         }
@@ -263,35 +262,15 @@ public class CSound : IDisposable
         this._hTempoStream = 0;
     }
 
-    public void tBASSサウンドを作成する(string strFilename, int hMixer)
+    public void tBASSサウンドを作成する(string strFilename, int hMixer, ESoundDeviceType eSoundDeviceType, BassFlags bassFlags)
     {
-        this.eSoundDeviceType = ESoundDeviceType.BASS;      // 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
-        this.tBASSサウンドを作成する(strFilename, hMixer, BassFlags.Decode);
+        this.eSoundDeviceType = eSoundDeviceType;      // 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
+        this.tBASSサウンドを作成する(strFilename, hMixer, bassFlags);
     }
-    public void tBASSサウンドを作成する(byte[] byArrWAVファイルイメージ, int hMixer)
+    public void tBASSサウンドを作成する(byte[] byArrWAVファイルイメージ, int hMixer, ESoundDeviceType eSoundDeviceType, BassFlags bassFlags)
     {
-        this.eSoundDeviceType = ESoundDeviceType.BASS;      // 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
-        this.tBASSサウンドを作成する(byArrWAVファイルイメージ, hMixer, BassFlags.Decode);
-    }
-    public void tASIOサウンドを作成する(string strFilename, int hMixer)
-    {
-        this.eSoundDeviceType = ESoundDeviceType.ASIO;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
-        this.tBASSサウンドを作成する(strFilename, hMixer, BassFlags.Decode);
-    }
-    public void tASIOサウンドを作成する(byte[] byArrWAVファイルイメージ, int hMixer)
-    {
-        this.eSoundDeviceType = ESoundDeviceType.ASIO;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
-        this.tBASSサウンドを作成する(byArrWAVファイルイメージ, hMixer, BassFlags.Decode);
-    }
-    public void tWASAPIサウンドを作成する(string strFilename, int hMixer, ESoundDeviceType eSoundDeviceType)
-    {
-        this.eSoundDeviceType = eSoundDeviceType;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
-        this.tBASSサウンドを作成する(strFilename, hMixer, BassFlags.Decode | BassFlags.Float);
-    }
-    public void tWASAPIサウンドを作成する(byte[] byArrWAVファイルイメージ, int hMixer, ESoundDeviceType eSoundDeviceType)
-    {
-        this.eSoundDeviceType = eSoundDeviceType;		// 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
-        this.tBASSサウンドを作成する(byArrWAVファイルイメージ, hMixer, BassFlags.Decode | BassFlags.Float);
+        this.eSoundDeviceType = eSoundDeviceType;      // 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
+        this.tBASSサウンドを作成する(byArrWAVファイルイメージ, hMixer, bassFlags);
     }
 
     #region [ DTXMania用の変換 ]
@@ -597,7 +576,7 @@ public class CSound : IDisposable
         if (this._hBassStream == 0)
         {
             //ファイルからのサウンド生成に失敗した場合にデコードする。(時間がかかるのはしょうがないね)
-            tDecodeAudioFile(strFilename, out byArrWAVファイルイメージ, out _, out _, true);
+            CAudioDecoder.AudioDecode(strFilename, out byArrWAVファイルイメージ, out _, out _, true);
             tBASSサウンドを作成する(byArrWAVファイルイメージ, hMixer, flags);
             return;
         }
@@ -724,19 +703,5 @@ public class CSound : IDisposable
         }
         return true;
     }
-
-    #region [ tDecodeAudioFile() ]
-    public void tDecodeAudioFile(string strFilename, out byte[] buffer,
-        out int nPCMDataIndex, out int totalPCMSize, bool enablechunk)
-    {
-        nPCMDataIndex = 0;
-
-        if (!File.Exists(strFilename))
-            throw new FileNotFoundException(string.Format("File Not Found...({0})", strFilename));
-
-        //丸投げ
-        CAudioDecoder.AudioDecode(strFilename, out buffer, out nPCMDataIndex, out totalPCMSize, enablechunk);
-    }
-    #endregion
     #endregion
 }

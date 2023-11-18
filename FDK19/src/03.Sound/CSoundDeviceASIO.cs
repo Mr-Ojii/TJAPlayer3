@@ -323,17 +323,17 @@ internal class CSoundDeviceASIO : ISoundDevice
     public CSound tCreateSound(string strFilename, ESoundGroup soundGroup)
     {
         var sound = new CSound(soundGroup);
-        sound.tASIOサウンドを作成する(strFilename, this.hMixer);
+        sound.tBASSサウンドを作成する(strFilename, this.hMixer, this.eOutputDevice, BassFlags.Decode);
         return sound;
     }
 
     public void tCreateSound(string strFilename, CSound sound)
     {
-        sound.tASIOサウンドを作成する(strFilename, this.hMixer);
+        sound.tBASSサウンドを作成する(strFilename, this.hMixer, this.eOutputDevice, BassFlags.Decode);
     }
     public void tCreateSound(byte[] byArrWAVFileImage, CSound sound)
     {
-        sound.tASIOサウンドを作成する(byArrWAVFileImage, this.hMixer);
+        sound.tBASSサウンドを作成する(byArrWAVFileImage, this.hMixer, this.eOutputDevice, BassFlags.Decode);
     }
     #endregion
 
