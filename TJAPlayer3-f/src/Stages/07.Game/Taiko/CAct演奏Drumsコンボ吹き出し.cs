@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Frozen;
 using System.Text;
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -115,7 +116,7 @@ internal class CAct演奏Drumsコンボ吹き出し : CActivity
     private CCounter[] ct進行 = new CCounter[2];
     private int[] nCombo_渡 = new int[2];
 
-    private readonly Dictionary<char, Point> st小文字位置 = new Dictionary<char, Point>(){
+    private readonly FrozenDictionary<char, Point> st小文字位置 = new Dictionary<char, Point>(){
         {'0', new Point( 0, 0 )},
         {'1', new Point( 44, 0 )},
         {'2', new Point( 88, 0 )},
@@ -126,7 +127,7 @@ internal class CAct演奏Drumsコンボ吹き出し : CActivity
         {'7', new Point( 308, 0 )},
         {'8', new Point( 352, 0 )},
         {'9', new Point( 396, 0 )},
-    };
+    }.ToFrozenDictionary();
 
     private void t小文字表示(int x, int y, string str)
     {

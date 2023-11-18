@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Frozen;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.Drawing;
@@ -185,7 +186,7 @@ internal class CActConfigKeyAssign : CActivity
 
     #region [ private ]
     private bool bキー入力待ち;
-    private Dictionary<int, string> KeyLabel = new() {
+    private FrozenDictionary<int, string> KeyLabel = new Dictionary<int, string>() {
         { 0x00, "[ 0 ]" }, { 0x01, "[ 1 ]" }, { 0x02, "[ 2 ]" }, { 0x03, "[ 3 ]" }, { 0x04, "[ 4 ]" }, { 0x05, "[ 5 ]" }, { 0x06, "[ 6 ]" }, { 0x07, "[ 7 ]" }, { 0x08, "[ 8 ]" }, { 0x09, "[ 9 ]" },
         { 0x0a, "[ A ]" }, { 0x0b, "[ B ]" }, { 0x0c, "[ C ]" }, { 0x0d, "[ D ]" }, { 0x0e, "[ E ]" }, { 0x0f, "[ F ]" }, { 0x10, "[ G ]" }, { 0x11, "[ H ]" }, { 0x12, "[ R ]" }, { 0x13, "[ J ]" },
         { 0x14, "[ K ]" }, { 0x15, "[ L ]" }, { 0x16, "[ M ]" }, { 0x17, "[ N ]" }, { 0x18, "[ O ]" }, { 0x19, "[ P ]" }, { 0x1a, "[ Q ]" }, { 0x1b, "[ R ]" }, { 0x1c, "[ S ]" }, { 0x1d, "[ T ]" },
@@ -204,7 +205,7 @@ internal class CActConfigKeyAssign : CActivity
         { 0x74, "[R-Ctrl]" }, { 0x75, "[Enter]" }, { 0x76, "[Right]" }, { 0x77, "[R-Alt]" }, { 0x78, "[R-Shift]" }, { 0x79, "[R-Win]" },
         { 0x7a, "[Scroll]" }, { 0x7b, "[ ; ]" }, { 0x7c, "[ / ]" }, { 0x7d, "[Sleep]" }, { 0x7e, "[Space]" }, { 0x7f, "[Stop]" }, { 0x80, "[PrtScn]" },
         { 0x81, "[TAB]" }, { 0x82, "[ _ ]" }, { 0x84, "[Up]" }, { 0x85, "[Volume-]" }, { 0x86, "[Volume+]" }, { 0x87, "[Wake]" }, { 0x8b, "[WebHome]" }, { 0x8f, "[ / ]" },
-    };
+    }.ToFrozenDictionary();
     private int n現在の選択行;
     private EKeyConfigPad pad;
     private CConfigIni.CKeyAssign.STKEYASSIGN[] structReset用KeyAssign;

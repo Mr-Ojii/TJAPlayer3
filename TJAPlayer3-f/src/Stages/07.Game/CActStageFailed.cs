@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Frozen;
 using System.Text;
 using System.Drawing;
 using System.IO;
@@ -129,7 +130,7 @@ internal class CActStageFailed : CActivity
     private CCounter ct進行;
     private double dbFailedTime;
     //-----------------
-    private readonly Dictionary<char, Point> st文字位置 = new()
+    private readonly FrozenDictionary<char, Point> st文字位置 = new Dictionary<char, Point>()
     {
         {'0', new Point(0, 0)},
         {'1', new Point(62, 0)},
@@ -142,7 +143,7 @@ internal class CActStageFailed : CActivity
         {'8', new Point(496, 0)},
         {'9', new Point(558, 0)},
         {'%', new Point(558 + 62, 0)},
-    };
+    }.ToFrozenDictionary();
 
     private void t文字表示(int x, int y, string str)
     {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Frozen;
 using System.Runtime.InteropServices;
 using System.Drawing;
 using System.Diagnostics;
@@ -731,7 +732,7 @@ internal class CStage演奏画面共通 : CStage
     protected CAct演奏Drumsゲームモード actGame;
     protected CCounter ct手つなぎ;
 
-    private readonly Dictionary<char, Point> st小文字位置 = new()
+    private readonly FrozenDictionary<char, Point> st小文字位置 = new Dictionary<char, Point>()
     {
         {'0', new Point(0, 0)},
         {'1', new Point(32, 0)},
@@ -744,7 +745,7 @@ internal class CStage演奏画面共通 : CStage
         {'8', new Point(256, 0)},
         {'9', new Point(288, 0)},
         {'%', new Point(320, 0)},
-    };
+    }.ToFrozenDictionary();
 
     public bool bPAUSE;
     public bool[] bIsAlreadyCleared;
