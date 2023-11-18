@@ -120,11 +120,7 @@ jobs:
         cd ${{ github.workspace }}/artifacts
         RELEASE_NAME=TJAPlayer3-f-prerelease-${{ needs.get_rev_list_count.outputs.rev_list_count }}
         TAG_NAME=prerelease-${{ needs.get_rev_list_count.outputs.rev_list_count }}
-        assets=()
-        for asset in ${{ github.workspace }}/artifacts/*.zip; do
-          assets+=("-a" "$asset")
-        done
-        hub release create "${assets[@]}" -p -m "$RELEASE_NAME" "$TAG_NAME"
+        gh release create "${TAG_NAME}" ${{ github.workspace }}/artifacts/*.zip -t "${RELEASE_NAME}" -p
 
     - name: Create a Release
       if: (startsWith(github.ref, 'refs/tags/Ver'))
@@ -135,9 +131,5 @@ jobs:
         VERSION=$(echo ${{ github.ref }} | sed -e "s#refs/tags/##g")
         RELEASE_NAME=${VERSION}
         TAG_NAME=${VERSION}
-        assets=()
-        for asset in ${{ github.workspace }}/artifacts/*.zip; do
-          assets+=("-a" "$asset")
-        done
-        hub release create "${assets[@]}" -m "$RELEASE_NAME" "$TAG_NAME"
+        gh release create "${TAG_NAME}" ${{ github.workspace }}/artifacts/*.zip -t "${RELEASE_NAME}"
 
