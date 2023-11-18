@@ -36,7 +36,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FFmpeg.AutoGen" Version="6.0.0.2" />
+    <PackageReference Include="FFmpeg.AutoGen" Version="6.1.0" />
     <PackageReference Include="managed-midi" Version="1.10.1" />
     <PackageReference Include="ManagedBass" Version="3.1.1" />
     <PackageReference Include="ManagedBass.Asio" Version="3.1.1" />
