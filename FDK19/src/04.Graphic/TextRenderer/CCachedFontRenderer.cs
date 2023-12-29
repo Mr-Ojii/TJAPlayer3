@@ -174,14 +174,16 @@ public class CCachedFontRenderer : CFontRenderer
         {
             // キャッシュにヒットせず。
             #region [ レンダリングして、キャッシュに登録 ]
-            FontCache fc = new FontCache();
-            fc.bmp = base.DrawText_V(drawstr, drawmode, fontColor, edgeColor, gradationTopColor, gradationBottomColor, edge_Ratio);
-            fc.drawstr = drawstr;
-            fc.fontColor = fontColor;
-            fc.edgeColor = edgeColor;
-            fc.gradationTopColor = gradationTopColor;
-            fc.gradationBottomColor = gradationBottomColor;
-            fc.Vertical = true;
+            FontCache fc = new FontCache()
+            {
+                bmp = base.DrawText_V(drawstr, drawmode, fontColor, edgeColor, gradationTopColor, gradationBottomColor, edge_Ratio),
+                drawstr = drawstr,
+                fontColor = fontColor,
+                edgeColor = edgeColor,
+                gradationTopColor = gradationTopColor,
+                gradationBottomColor = gradationBottomColor,
+                Vertical = true,
+            };
             listFontCache.Add(fc);
             Debug.WriteLine(drawstr + ": Cacheにヒットせず。(cachesize=" + listFontCache.Count + ")");
             #endregion
@@ -189,10 +191,7 @@ public class CCachedFontRenderer : CFontRenderer
             if (listFontCache.Count > MAXCACHESIZE)
             {
                 Debug.WriteLine("Cache溢れ。" + listFontCache[0].drawstr + " を解放します。");
-                if (listFontCache[0].bmp != null)
-                {
-                    listFontCache[0].bmp.Dispose();
-                }
+                listFontCache[0].bmp?.Dispose();
                 listFontCache.RemoveAt(0);
             }
             #endregion
@@ -216,21 +215,10 @@ public class CCachedFontRenderer : CFontRenderer
     {
         if (!this.bDisposed_CCachedFontRenderer)
         {
-            if (listFontCache != null)
-            {
-                //Debug.WriteLine( "Disposing CCachedFontRenderer()" );
-                #region [ キャッシュしている画像を破棄する ]
-                foreach (FontCache bc in listFontCache)
-                {
-                    if (bc.bmp != null)
-                    {
-                        bc.bmp.Dispose();
-                    }
-                }
-                #endregion
-                listFontCache.Clear();
-                listFontCache = null;
-            }
+            foreach (FontCache bc in listFontCache)
+                bc.bmp?.Dispose();
+
+            listFontCache.Clear();
             this.bDisposed_CCachedFontRenderer = true;
         }
         base.Dispose();

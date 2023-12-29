@@ -47,7 +47,7 @@ internal class CSkiaSharpTextRenderer : ITextRenderer
         paint.IsAntialias = true;
     }
 
-    public CSkiaSharpTextRenderer(Stream fontstream, int pt, CFontRenderer.FontStyle style)
+    public CSkiaSharpTextRenderer(Stream? fontstream, int pt, CFontRenderer.FontStyle style)
     {
         paint = new SKPaint();
 
@@ -60,7 +60,7 @@ internal class CSkiaSharpTextRenderer : ITextRenderer
 
     public SKBitmap DrawText(string drawstr, CFontRenderer.DrawMode drawMode, Color fontColor, Color edgeColor, Color gradationTopColor, Color gradationBottomColor, int edge_Ratio)
     {
-        if (string.IsNullOrEmpty(drawstr))
+        if (string.IsNullOrEmpty(drawstr) || this.paint is null)
         {
             //nullか""だったら、1x1を返す
             return new SKBitmap(1, 1, true);
@@ -72,7 +72,7 @@ internal class CSkiaSharpTextRenderer : ITextRenderer
         for (int i = 0; i < strs.Length; i++)
         {
             SKRect bounds = new SKRect();
-            int width = (int)Math.Ceiling(paint.MeasureText(drawstr, ref bounds)) + 50;
+            int width = (int)Math.Ceiling(this.paint.MeasureText(drawstr, ref bounds)) + 50;
             int height = (int)Math.Ceiling(paint.FontMetrics.Descent - paint.FontMetrics.Ascent) + 50;
 
             //少し大きめにとる(定数じゃない方法を考えましょう)
@@ -162,8 +162,8 @@ internal class CSkiaSharpTextRenderer : ITextRenderer
 
     public void Dispose()
     {
-        paint.Dispose();
+        this.paint?.Dispose();
     }
 
-    private SKPaint paint = null;
+    private SKPaint? paint = null;
 }
