@@ -8,6 +8,7 @@ internal class CStageStartUp : CStage
     {
         base.eStageID = CStage.EStage.StartUp;
         base.b活性化してない = true;
+        this.list進行文字列 = new();
     }
 
     public List<string> list進行文字列;
@@ -20,7 +21,7 @@ internal class CStageStartUp : CStage
         Trace.Indent();
         try
         {
-            this.list進行文字列 = new List<string>();
+            this.list進行文字列.Clear();
             base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
             base.On活性化();
             Trace.TraceInformation("起動ステージの活性化を完了しました。");
@@ -36,7 +37,7 @@ internal class CStageStartUp : CStage
         Trace.Indent();
         try
         {
-            this.list進行文字列 = null;
+            this.list進行文字列.Clear();
             //2021.01.03 曲リストが生成されてからここに突入するので、esのAbortを削除
             base.On非活性化();
             Trace.TraceInformation("起動ステージの非活性化を完了しました。");
@@ -54,7 +55,7 @@ internal class CStageStartUp : CStage
             {
                 this.list進行文字列.Add("DTXManiaXG Ver.K powered by YAMAHA Silent Session Drums\n");
                 this.list進行文字列.Add("Product by.kairera0467\n");
-                this.list進行文字列.Add("Release: " + TJAPlayer3.VERSION + " [" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + "]");
+                this.list進行文字列.Add("Release: " + TJAPlayer3.VERSION);
 
                 this.list進行文字列.Add("");
                 this.list進行文字列.Add("TJAPlayer3-f forked TJAPlayer3 (Aioilight)");
