@@ -147,19 +147,18 @@ internal class CActStageFailed : CActivity
 
     private void t文字表示(int x, int y, string str)
     {
+        //描画するテクスチャがないなら、以後の計算は無駄
+        if (TJAPlayer3.Tx.Balloon_Number_Roll == null)
+            return;
+
         foreach (char ch in str)
         {
             if (this.st文字位置.TryGetValue(ch, out var pt))
             {
                 Rectangle rectangle = new Rectangle(pt.X, pt.Y, 62, 80);
                 if (ch == '%')
-                {
                     rectangle.Width = 80;
-                }
-                if (TJAPlayer3.Tx.Balloon_Number_Roll != null)
-                {
-                    TJAPlayer3.Tx.Balloon_Number_Roll.t2D描画(TJAPlayer3.app.Device, x - (62 * str.Length / 2), y, rectangle);
-                }
+                TJAPlayer3.Tx.Balloon_Number_Roll.t2D描画(TJAPlayer3.app.Device, x - (62 * str.Length / 2), y, rectangle);
             }
             x += 62;
         }
