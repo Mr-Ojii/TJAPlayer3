@@ -17,7 +17,7 @@ public class CInputManager : IDisposable
         get;
         private set;
     }
-    public IInputDevice Keyboard
+    public IInputDevice? Keyboard
     {
         get
         {
@@ -36,7 +36,7 @@ public class CInputManager : IDisposable
             return null;
         }
     }
-    public IInputDevice Mouse
+    public IInputDevice? Mouse
     {
         get
         {
@@ -62,8 +62,8 @@ public class CInputManager : IDisposable
     {
         this.listInputDevices = new List<IInputDevice>(10);
         #region [ Enumerate keyboard/mouse: exception is masked if keyboard/mouse is not connected ]
-        CInputKeyboard cinputkeyboard = null;
-        CInputMouse cinputmouse = null;
+        CInputKeyboard? cinputkeyboard = null;
+        CInputMouse? cinputmouse = null;
         try
         {
             cinputkeyboard = new CInputKeyboard();
@@ -125,7 +125,7 @@ public class CInputManager : IDisposable
 
     // メソッド
 
-    public IInputDevice Joystick(int ID)
+    public IInputDevice? Joystick(int ID)
     {
         foreach (IInputDevice device in this.listInputDevices)
         {
@@ -136,7 +136,7 @@ public class CInputManager : IDisposable
         }
         return null;
     }
-    public IInputDevice Joystick(string GUID)
+    public IInputDevice? Joystick(string GUID)
     {
         foreach (IInputDevice device in this.listInputDevices)
         {
@@ -147,7 +147,7 @@ public class CInputManager : IDisposable
         }
         return null;
     }
-    public IInputDevice MidiIn(int ID)
+    public IInputDevice? MidiIn(int ID)
     {
         foreach (IInputDevice device in this.listInputDevices)
         {
@@ -243,17 +243,20 @@ public class CInputManager : IDisposable
 
     #region [ private ]
     //-----------------
-    private IInputDevice _Keyboard;
-    private IInputDevice _Mouse;
+    private IInputDevice? _Keyboard = null;
+    private IInputDevice? _Mouse = null;
     private bool bDisposed;
     private object objMidiIn排他用 = new object();
     private List<IMidiInput> midiInputs = new List<IMidiInput>();
 
-    private void onMessageRecevied(object sender, MidiReceivedEventArgs e)
+    private void onMessageRecevied(object? sender, MidiReceivedEventArgs? e)
     {
+        if (sender is null || e is null)
+            return;
+
         long time = CSoundManager.rc演奏用タイマ.nシステム時刻ms;  // lock前に取得。演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 
-        int dev = int.Parse((sender as IMidiInput).Details.Id);
+        int dev = int.Parse(((IMidiInput)sender).Details.Id);
 
         lock (this.objMidiIn排他用)
         {
@@ -261,7 +264,7 @@ public class CInputManager : IDisposable
             {
                 foreach (IInputDevice device in this.listInputDevices)
                 {
-                    CInputMIDI tmidi = device as CInputMIDI;
+                    CInputMIDI tmidi = (CInputMIDI)device;
                     if ((tmidi != null) && (tmidi.ID == dev))
                     {
                         for (int i = 0; i < e.Length / 3; i++)
