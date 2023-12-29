@@ -6,7 +6,7 @@
     <ProjectGuid>{BCD40908-F3E2-4707-BFAA-1DD99DF6357D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <TargetFramework>net8.0</TargetFramework>
-    <UseWindowsForms>false</UseWindowsForms>
+    <Nullable>enable</Nullable>
 
     <AssemblyName>FDK</AssemblyName>
     <RootNamespace>FDK</RootNamespace>
