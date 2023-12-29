@@ -91,46 +91,22 @@ public class CCounter
 
     // 状態プロパティ
 
-    public bool b進行中
-    {
-        get { return (this.n現在の経過時間ms != -1); }
-    }
-    public bool b停止中
-    {
-        get { return !this.b進行中; }
-    }
-    public bool b終了値に達した
-    {
-        get { return (this.n現在の値 >= this.n終了値); }
-    }
-    public bool b終了値に達してない
-    {
-        get { return !this.b終了値に達した; }
-    }
+    public bool b進行中 => this.n現在の経過時間ms != -1;
+    public bool b停止中 => !this.b進行中;
+    public bool b終了値に達した => this.n現在の値 >= this.n終了値;
+    public bool b終了値に達してない => !this.b終了値に達した;
 
     /// <summary>通常のCCounterでは使用できません。</summary>
-    public bool b進行中db
-    {
-        get { return (this.db現在の経過時間 != -1); }
-    }
+    public bool b進行中db => this.db現在の経過時間 != -1;
 
     /// <summary>通常のCCounterでは使用できません。</summary>
-    public bool b停止中db
-    {
-        get { return !this.b進行中db; }
-    }
+    public bool b停止中db => !this.b進行中db;
 
     /// <summary>通常のCCounterでは使用できません。</summary>
-    public bool b終了値に達したdb
-    {
-        get { return (this.db現在の値 >= this.db終了値); }
-    }
+    public bool b終了値に達したdb => this.db現在の値 >= this.db終了値;
 
     /// <summary>通常のCCounterでは使用できません。</summary>
-    public bool b終了値に達してないdb
-    {
-        get { return !this.b終了値に達したdb; }
-    }
+    public bool b終了値に達してないdb => !this.b終了値に達したdb;
 
 
     // コンストラクタ
