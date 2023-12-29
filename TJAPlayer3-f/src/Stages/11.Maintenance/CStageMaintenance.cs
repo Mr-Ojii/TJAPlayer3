@@ -50,8 +50,10 @@ class CStageMaintenance : CStage
         {
             //表示用テクスチャの解放
             TJAPlayer3.t安全にDisposeする(ref str);
-            TJAPlayer3.t安全にDisposeする(ref don);
-            TJAPlayer3.t安全にDisposeする(ref ka);
+            don?.Dispose();
+            don = null;
+            ka?.Dispose();
+            ka = null;
         }
         finally
         {
@@ -67,6 +69,12 @@ class CStageMaintenance : CStage
         {
             base.b初めての進行描画 = false;
         }
+
+        if ((TJAPlayer3.InputManager.Keyboard is null) || TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
+            return 1;
+
+        if ((don is null) || (ka is null))
+            return 0;
 
         //入力信号に合わせて色を描画
         if (TJAPlayer3.Pad.bPressed(EPad.LBlue))
@@ -93,8 +101,6 @@ class CStageMaintenance : CStage
             str[index].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Diff + Width) * (index + 1), strY);
         }
 
-        if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
-            return 1;
         return 0;
     }
 
