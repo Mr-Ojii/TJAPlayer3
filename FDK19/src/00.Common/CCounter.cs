@@ -120,6 +120,7 @@ public class CCounter
         this.n現在の値 = 0;
         this.n現在の経過時間ms = CTimer.nUnused;
 
+        this.timerdb = null;
         this.db開始値 = 0;
         this.db終了値 = 0;
         this._db間隔 = 0;
@@ -317,6 +318,9 @@ public class CCounter
     /// <param name="tキー処理">キーが押下されている場合に実行する処理。</param>
     public void tキー反復(bool bキー押下, DGキー処理 tキー処理)
     {
+        if (timer is null)
+            return;
+
         const int n1回目 = 0;
         const int n2回目 = 1;
         const int n3回目以降 = 2;
@@ -365,8 +369,8 @@ public class CCounter
 
     #region [ private ]
     //-----------------
-    private CTimer timer;
-    private CSoundTimer timerdb;
+    private CTimer? timer;
+    private CSoundTimer? timerdb;
     private int n間隔ms;
     private double db間隔;
     //-----------------
