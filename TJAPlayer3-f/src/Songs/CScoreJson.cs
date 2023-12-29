@@ -1,11 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Text.Json;
-using System.Collections.Generic;
-using FDK;
-
-namespace TJAPlayer3;
+﻿namespace TJAPlayer3;
 
 public class CScoreJson
 {

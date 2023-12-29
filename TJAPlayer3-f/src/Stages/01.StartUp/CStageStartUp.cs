@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
-using System.Threading;
-using System.IO;
-using FDK;
-
-namespace TJAPlayer3;
+﻿namespace TJAPlayer3;
 
 internal class CStageStartUp : CStage
 {

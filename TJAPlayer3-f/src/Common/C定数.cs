@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Runtime.InteropServices;
-
-namespace TJAPlayer3;
+﻿namespace TJAPlayer3;
 
 /// <summary>
 /// 難易度。

@@ -12,10 +12,16 @@
     <Using Include="System.ComponentModel" />
     <Using Include="System.Diagnostics" />
     <Using Include="System.Drawing" />
+    <Using Include="System.Globalization" />
+    <Using Include="System.Net.NetworkInformation" />
     <Using Include="System.Numerics" />
     <Using Include="System.Reflection" />
     <Using Include="System.Runtime.InteropServices" />
+    <Using Include="System.Runtime.Serialization" />
     <Using Include="System.Text" />
+    <Using Include="System.Text.Json" />
+    <Using Include="System.Text.Json.Serialization" />
+    <Using Include="System.Text.RegularExpressions" />
     <Using Include="System.Xml.XPath" />
   </ItemGroup>
 

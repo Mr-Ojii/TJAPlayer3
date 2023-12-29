@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Numerics;
-using FDK;
-
-using Rectangle = System.Drawing.Rectangle;
-using Point = System.Drawing.Point;
-using Color = System.Drawing.Color;
+﻿using FDK;
 
 namespace TJAPlayer3;
 

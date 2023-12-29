@@ -1,12 +1,4 @@
-﻿using TJAPlayer3;
-using FDK;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Numerics;
-using Rectangle = System.Drawing.Rectangle;
+﻿using FDK;
 
 namespace TJAPlayer3;
 

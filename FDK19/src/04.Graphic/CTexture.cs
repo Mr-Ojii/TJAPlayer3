@@ -1,11 +1,6 @@
 ﻿using SDL2;
 using SkiaSharp;
 
-using Rectangle = System.Drawing.Rectangle;
-using Point = System.Drawing.Point;
-using Color = System.Drawing.Color;
-using Size = System.Drawing.Size;
-
 namespace FDK;
 
 public class CTexture : IDisposable

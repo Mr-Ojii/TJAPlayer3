@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text.Json.Serialization;
-
-namespace TJAPlayer3;
+﻿namespace TJAPlayer3;
 
 internal class C曲リストノード
 {

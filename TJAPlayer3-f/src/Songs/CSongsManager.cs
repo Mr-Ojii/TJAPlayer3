@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
-using System.Diagnostics;
-using System.IO;
-using System.Threading;
-using TJAPlayer3.C曲リストノードComparers;
-using FDK;
+﻿using TJAPlayer3.C曲リストノードComparers;
 
 namespace TJAPlayer3;
 

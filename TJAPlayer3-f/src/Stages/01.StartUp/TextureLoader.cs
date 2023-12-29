@@ -1,9 +1,4 @@
 ﻿using FDK;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
 using SkiaSharp;
 
 namespace TJAPlayer3;

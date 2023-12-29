@@ -1,9 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-
-namespace TJAPlayer3.C曲リストノードComparers;
+﻿namespace TJAPlayer3.C曲リストノードComparers;
 
 internal sealed class C曲リストノードComparerGenre : IComparer<C曲リストノード>
 {

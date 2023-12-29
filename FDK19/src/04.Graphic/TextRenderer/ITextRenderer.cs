@@ -1,7 +1,5 @@
 ﻿using SkiaSharp;
 
-using Color = System.Drawing.Color;
-
 namespace FDK;
 
 internal interface ITextRenderer : IDisposable

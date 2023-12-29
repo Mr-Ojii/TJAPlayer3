@@ -1,10 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Diagnostics;
-using System.Threading;
-using FDK;
-
-using Rectangle = System.Drawing.Rectangle;
+﻿using FDK;
 
 namespace TJAPlayer3;
 

@@ -1,6 +1,4 @@
 ﻿using FFmpeg.AutoGen;
-
-using Size = System.Drawing.Size;
 using SkiaSharp;
 
 namespace FDK;

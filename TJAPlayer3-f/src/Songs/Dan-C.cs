@@ -1,10 +1,4 @@
-﻿using FFmpeg.AutoGen;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace TJAPlayer3;
+﻿namespace TJAPlayer3;
 
 /// <summary>
 /// 段位認定を管理するクラス。

@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.Text.Json;
-
-namespace TJAPlayer3;
+﻿namespace TJAPlayer3;
 
 internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得するクラス
 {													// ファイルキャッシュ(songslist.db)からの取得と、ディスクからの取得を、この一つのクラスに集約。

@@ -1,7 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using System.Reflection;
-using DiscordRPC;
-using System;
+﻿using DiscordRPC;
 
 internal class DiscordRichPresence : IDisposable
 {

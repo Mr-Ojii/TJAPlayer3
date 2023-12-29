@@ -1,22 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
-using System.Drawing;
-using System.Diagnostics;
-using System.IO;
-using System.Threading;
-using System.Net.NetworkInformation;
-using System.Threading.Tasks;
-using FDK;
-using System.Reflection;
+﻿using FDK;
 using SkiaSharp;
-
-using Rectangle = System.Drawing.Rectangle;
-using Point = System.Drawing.Point;
-using Color = System.Drawing.Color;
-using Size = System.Drawing.Size;
-using System.ComponentModel;
 
 namespace TJAPlayer3;
 

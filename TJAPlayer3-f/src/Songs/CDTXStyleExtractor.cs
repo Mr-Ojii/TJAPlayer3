@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-
-namespace TJAPlayer3;
+﻿namespace TJAPlayer3;
 
 /// <summary>
 /// CDTXStyleExtractor determines if there is a session notation, and if there is then

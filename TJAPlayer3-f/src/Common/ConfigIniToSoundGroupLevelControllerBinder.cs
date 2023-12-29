@@ -1,5 +1,4 @@
-﻿using System;
-using FDK;
+﻿using FDK;
 
 namespace TJAPlayer3;
 
@@ -8,7 +7,7 @@ namespace TJAPlayer3;
 /// group level values, and keyboard sound level adjustment increment
 /// values, to flow between CConfigIni and the SoundGroupLevelController
 /// without either of those two classes being aware of one another.
-/// See those classes properties, methods, and events for more details. 
+/// See those classes properties, methods, and events for more details.
 /// </summary>
 internal static class ConfigIniToSoundGroupLevelControllerBinder
 {

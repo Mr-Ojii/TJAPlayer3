@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
-using System.Text.Json;
-using System.Runtime.InteropServices;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection;
-using System.Net.Http;
-using FDK;
+﻿using FDK;
 using SDL2;
 
 namespace TJAPlayer3;

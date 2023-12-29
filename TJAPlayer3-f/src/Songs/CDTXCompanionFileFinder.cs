@@ -1,8 +1,4 @@
-﻿using System.Diagnostics;
-using System.IO;
-using System.Text;
-
-namespace TJAPlayer3;
+﻿namespace TJAPlayer3;
 
 internal static class CDTXCompanionFileFinder
 {

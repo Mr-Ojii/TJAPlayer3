@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Runtime.InteropServices;
-using System.Drawing;
-using FDK;
+﻿using FDK;
+
 using static TJAPlayer3.PlayerLane;
 
 namespace TJAPlayer3;
