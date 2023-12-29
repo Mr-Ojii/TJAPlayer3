@@ -84,7 +84,7 @@ public class CSound : IDisposable
     #endregion
     public bool b演奏終了後も再生が続くチップである = false;	// これがtrueなら、本サウンドの再生終了のコールバック時に自動でミキサーから削除する
 
-    private SyncProcedure _cbEndofStream;	// ストリームの終端まで再生されたときに呼び出されるコールバック
+    private SyncProcedure? _cbEndofStream;  // ストリームの終端まで再生されたときに呼び出されるコールバック
 
     /// <summary>
     /// Gain is applied "first" to the audio data, much as in a physical or
@@ -454,16 +454,18 @@ public class CSound : IDisposable
             {
                 #region [ ファイルから ]
                 case EMakeType.File:
-                    string strFilename = sounds[i].strFilename;
+                    string? strFilename = sounds[i].strFilename;
                     sounds[i].Dispose(true, false);
-                    device.tCreateSound(strFilename, sounds[i]);
+                    if (strFilename is not null)
+                        device.tCreateSound(strFilename, sounds[i]);
                     break;
                 #endregion
                 #region [ WAVファイルイメージから ]
                 case EMakeType.WAVFileImage:
-                    byte[] byArrWaveファイルイメージ = sounds[i].byArrWAVファイルイメージ;
+                    byte[]? byArrWaveファイルイメージ = sounds[i].byArrWAVファイルイメージ;
                     sounds[i].Dispose(true, false);
-                    device.tCreateSound(byArrWaveファイルイメージ, sounds[i]);
+                    if (byArrWaveファイルイメージ is not null)
+                        device.tCreateSound(byArrWaveファイルイメージ, sounds[i]);
                     break;
                     #endregion
             }
@@ -542,11 +544,11 @@ public class CSound : IDisposable
     protected enum EMakeType { File, WAVFileImage, Unknown }
     protected EMakeType eMakeType = EMakeType.Unknown;
     protected ESoundDeviceType eSoundDeviceType = ESoundDeviceType.Unknown;
-    public string strFilename = null;
-    protected byte[] byArrWAVファイルイメージ = null;	// WAVファイルイメージ、もしくはchunkのDATA部のみ
+    public string? strFilename = null;
+    protected byte[]? byArrWAVファイルイメージ = null;  // WAVファイルイメージ、もしくはchunkのDATA部のみ
     protected GCHandle hGC;
     protected int _hTempoStream = 0;
-    protected int _hBassStream = -1;					// ASIO, WASAPI 用
+    protected int _hBassStream = -1;                    // ASIO, WASAPI 用
     protected int hBassStream = 0;                      // #31076 2013.4.1 yyagi; プロパティとして実装すると動作が低速になったため、
                                                         // tBASSサウンドを作成する_ストリーム生成後の共通処理()のタイミングと、
                                                         // PlaySpeedを変更したタイミングでのみ、
