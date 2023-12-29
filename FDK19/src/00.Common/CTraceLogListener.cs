@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
 using System.Diagnostics;
 
@@ -15,93 +13,95 @@ public class CTraceLogListener : TraceListener
 
     public override void Flush()
     {
-        if (this.streamWriter != null)
+        if (this.streamWriter is null)
+            return;
+
+        try
         {
-            try
-            {
-                this.streamWriter.Flush();
-            }
-            catch (ObjectDisposedException)
-            {
-            }
+            this.streamWriter.Flush();
+        }
+        catch (ObjectDisposedException)
+        {
         }
     }
-    public override void TraceEvent(TraceEventCache eventCache, string source, TraceEventType eventType, int id, string message)
+    public override void TraceEvent(TraceEventCache? eventCache, string source, TraceEventType eventType, int id, string? message)
     {
-        if (this.streamWriter != null)
+        if (this.streamWriter is null)
+            return;
+
+        try
         {
-            try
-            {
-                this.tWriteEventType(eventType);
-                this.tWriteIndent();
-                this.streamWriter.WriteLine(message);
-            }
-            catch (ObjectDisposedException)
-            {
-            }
+            this.tWriteEventType(eventType);
+            this.tWriteIndent();
+            this.streamWriter.WriteLine(message);
+        }
+        catch (ObjectDisposedException)
+        {
         }
     }
-    public override void TraceEvent(TraceEventCache eventCache, string source, TraceEventType eventType, int id, string format, params object[] args)
+    public override void TraceEvent(TraceEventCache? eventCache, string source, TraceEventType eventType, int id, string? format, params object?[]? args)
     {
-        if (this.streamWriter != null)
+        if (format is null || args is null || this.streamWriter is null)
+            return;
+
+        try
         {
-            try
-            {
-                this.tWriteEventType(eventType);
-                this.tWriteIndent();
-                this.streamWriter.WriteLine(string.Format(format, args));
-            }
-            catch (ObjectDisposedException)
-            {
-            }
+            this.tWriteEventType(eventType);
+            this.tWriteIndent();
+            this.streamWriter.WriteLine(string.Format(format, args));
+        }
+        catch (ObjectDisposedException)
+        {
         }
     }
-    public override void Write(string message)
+    public override void Write(string? message)
     {
-        if (this.streamWriter != null)
+        if (this.streamWriter is null)
+            return;
+
+        try
         {
-            try
-            {
-                this.streamWriter.Write(message);
-            }
-            catch (ObjectDisposedException)
-            {
-            }
+            this.streamWriter.Write(message);
+        }
+        catch (ObjectDisposedException)
+        {
         }
     }
-    public override void WriteLine(string message)
+    public override void WriteLine(string? message)
     {
-        if (this.streamWriter != null)
+        if (this.streamWriter is null)
+            return;
+
+        try
         {
-            try
-            {
-                this.streamWriter.WriteLine(message);
-            }
-            catch (ObjectDisposedException)
-            {
-            }
+            this.streamWriter.WriteLine(message);
+        }
+        catch (ObjectDisposedException)
+        {
         }
     }
 
     protected override void Dispose(bool disposing)
     {
-        if (this.streamWriter != null)
+        if (this.streamWriter is null)
+            return;
+
+        try
         {
-            try
-            {
-                this.streamWriter.Close();
-            }
-            catch
-            {
-            }
-            this.streamWriter = null;
+            this.streamWriter.Close();
         }
+        catch
+        {
+        }
+
+        this.streamWriter = null;
+
         base.Dispose(disposing);
     }
 
     #region [ private ]
     //-----------------
-    private StreamWriter streamWriter;
+    private StreamWriter? streamWriter;
 
     private void tWriteEventType(TraceEventType eventType)
     {
