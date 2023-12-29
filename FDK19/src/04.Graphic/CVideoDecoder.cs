@@ -95,7 +95,7 @@ public unsafe class CVideoDecoder : IDisposable
         }
         if (lastTexture != null)
             lastTexture.Dispose();
-        while (decodedframes.TryDequeue(out CDecodedFrame frame))
+        while (decodedframes.TryDequeue(out CDecodedFrame? frame))
             frame.Dispose();
     }
 
@@ -147,7 +147,7 @@ public unsafe class CVideoDecoder : IDisposable
         ffmpeg.avcodec_flush_buffers(codec_context);
         CTimer.n現在時刻ms = timestampms;
         cts?.Dispose();
-        while (decodedframes.TryDequeue(out CDecodedFrame frame))
+        while (decodedframes.TryDequeue(out CDecodedFrame? frame))
             frame.RemoveFrame();
         this.EnqueueFrames();
         if (lastTexture != null)
@@ -160,11 +160,11 @@ public unsafe class CVideoDecoder : IDisposable
         if (this.bPlaying && decodedframes.Count != 0)
         {
             CTimer.t更新();
-            if (decodedframes.TryPeek(out CDecodedFrame frame))
+            if (decodedframes.TryPeek(out CDecodedFrame? frame))
             {
                 while (frame.Time <= (CTimer.n現在時刻ms * _dbPlaySpeed))
                 {
-                    if (decodedframes.TryDequeue(out CDecodedFrame cdecodedframe))
+                    if (decodedframes.TryDequeue(out CDecodedFrame? cdecodedframe))
                     {
 
                         if (decodedframes.Count != 0)
@@ -175,7 +175,7 @@ public unsafe class CVideoDecoder : IDisposable
                                     continue;
                                 }
 
-                        lastTexture.UpdateTexture(cdecodedframe.TexPointer, cdecodedframe.TexSize);
+                        lastTexture?.UpdateTexture(cdecodedframe.TexPointer, cdecodedframe.TexSize);
 
                         cdecodedframe.RemoveFrame();
                     }
@@ -208,6 +208,9 @@ public unsafe class CVideoDecoder : IDisposable
 
     private void EnqueueOneFrame()
     {
+        if (cts is null)
+            return;
+
         DS = DecodingState.Running;
         AVFrame* frame = ffmpeg.av_frame_alloc();
         AVPacket* packet = ffmpeg.av_packet_alloc();
@@ -233,7 +236,9 @@ public unsafe class CVideoDecoder : IDisposable
                                 {
                                     AVFrame* outframe = frameconv.Convert(frame);
 
-                                    decodedframes.Enqueue(PickUnusedDcodedFrame().UpdateFrame((outframe->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, outframe));
+                                    var unusedFrame = PickUnusedDcodedFrame();
+                                    if (unusedFrame is not null)
+                                        decodedframes.Enqueue(unusedFrame.UpdateFrame((outframe->best_effort_timestamp - video_stream->start_time) * ((double)video_stream->time_base.num / (double)video_stream->time_base.den) * 1000, outframe));
 
                                     ffmpeg.av_frame_unref(outframe);
                                 }
@@ -269,7 +274,7 @@ public unsafe class CVideoDecoder : IDisposable
         }
     }
 
-    public CDecodedFrame PickUnusedDcodedFrame()
+    public CDecodedFrame? PickUnusedDcodedFrame()
     {
         for (int i = 0; i < framelist.Length; i++)
         {
@@ -319,7 +324,7 @@ public unsafe class CVideoDecoder : IDisposable
     private AVStream* video_stream;
     private AVCodecContext* codec_context;
     private ConcurrentQueue<CDecodedFrame> decodedframes;
-    private CancellationTokenSource cts;
+    private CancellationTokenSource? cts;
     private CDecodedFrame[] framelist = new CDecodedFrame[6];
     private DecodingState DS = DecodingState.Stopped;
     private enum DecodingState
@@ -332,7 +337,7 @@ public unsafe class CVideoDecoder : IDisposable
     private bool bPlaying = false;
     private CTimer CTimer;
     private AVRational Framerate;
-    private CTexture lastTexture;
+    private CTexture? lastTexture;
     private bool bqueueinitialized = false;
 
     //for convert
