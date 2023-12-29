@@ -9,7 +9,7 @@ namespace FDK;
 #region [ DTXMania用拡張 ]
 public class CSoundManager  // : CSound
 {
-    private static ISoundDevice SoundDevice
+    private static ISoundDevice? SoundDevice
     {
         get; set;
     }
@@ -17,7 +17,7 @@ public class CSoundManager  // : CSound
     {
         get; set;
     }
-    public static CSoundTimer rc演奏用タイマ = null;
+    public static CSoundTimer? rc演奏用タイマ = null;
     public static bool bUseOSTimer = false;     // OSのタイマーを使うか、CSoundTimerを使うか。DTXCではfalse, DTXManiaではtrue。
                                                 // DTXCでCSoundTimerを使うと、内部で無音のループサウンドを再生するため
                                                 // サウンドデバイスを占有してしまい、Viewerとして呼び出されるDTXManiaで、ASIOが使えなくなる。
@@ -36,7 +36,8 @@ public class CSoundManager  // : CSound
         }
         set
         {
-            SoundDevice.nMasterVolume = value;
+            if (SoundDevice is not null)
+                SoundDevice.nMasterVolume = value;
             _nMasterVolume = value;
         }
     }
@@ -222,12 +223,17 @@ public class CSoundManager  // : CSound
 
         CSound.tすべてのサウンドを再構築する(SoundDevice);        // すでに生成済みのサウンドがあれば作り直す。
     }
-    public CSound tCreateSound(string filename, ESoundGroup soundGroup)
+    public CSound? tCreateSound(string filename, ESoundGroup soundGroup)
     {
         if (!File.Exists(filename))
         {
             Trace.TraceWarning($"[i18n] File does not exist: {filename}");
             return null;
+        }
+
+        if (SoundDevice is null)
+        {
+            throw new Exception("SoundDevice が null です。");
         }
 
         if (SoundDeviceType == ESoundDeviceType.Unknown)
