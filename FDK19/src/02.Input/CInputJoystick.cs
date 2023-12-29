@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using SDL2;
+using System.Runtime.CompilerServices;
 
 namespace FDK;
 
@@ -484,10 +485,8 @@ public class CInputJoystick : IInputDevice, IDisposable
             {
                 SDL.SDL_JoystickClose(joystick_handle);
             }
-            if (this.listInputEvents != null)
-            {
-                this.listInputEvents = null;
-            }
+            this.listInputEvents.Clear();
+            this.listEventBuffer.Clear();
             this.bDisposed = true;
         }
     }

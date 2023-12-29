@@ -144,10 +144,8 @@ public class CInputKeyboard : IInputDevice, IDisposable
     {
         if (!this.bDisposed)
         {
-            if (this.listInputEvents != null)
-            {
-                this.listInputEvents = null;
-            }
+            this.listInputEvents.Clear();
+            this.listEventBuffer.Clear();
             this.bDisposed = true;
         }
     }

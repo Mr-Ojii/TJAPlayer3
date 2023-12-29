@@ -98,14 +98,8 @@ public class CInputMIDI : IInputDevice, IDisposable
     //-----------------
     public void Dispose()
     {
-        if (this.listEventBuffer != null)
-        {
-            this.listEventBuffer = null;
-        }
-        if (this.listInputEvents != null)
-        {
-            this.listInputEvents = null;
-        }
+        this.listInputEvents.Clear();
+        this.listEventBuffer.Clear();
     }
     //-----------------
     #endregion

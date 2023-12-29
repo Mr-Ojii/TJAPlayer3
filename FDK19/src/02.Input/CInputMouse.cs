@@ -117,10 +117,8 @@ public class CInputMouse : IInputDevice, IDisposable
     {
         if (!this.bDisposed)
         {
-            if (this.listInputEvents != null)
-            {
-                this.listInputEvents = null;
-            }
+            this.listEventBuffer.Clear();
+            this.listInputEvents.Clear();
             this.bDisposed = true;
         }
     }
