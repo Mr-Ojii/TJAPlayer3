@@ -13,7 +13,12 @@ internal class Program
     [STAThread]
     private static void Main()
     {
-        Mutex mutex = new Mutex(false, "Global\\TJAPlayer3-f-Ver." + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+        var version = Assembly.GetExecutingAssembly().GetName().Version;
+        string version_string = "null";
+        if (version is not null)
+            version_string = version.ToString();
+
+        Mutex mutex = new Mutex(false, "Global\\TJAPlayer3-f-Ver." + version_string);
 
         if (mutex.WaitOne(0, false))
         {
@@ -100,23 +105,27 @@ internal class Program
                 Trace.WriteLine("An error has occurred. Sorry.");
                 AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
 
+                string name = "";
+                if (asmApp.Name is not null)
+                    name = asmApp.Name;
+
                 //情報リスト
                 Dictionary<string, string> errorjsonobject = new Dictionary<string, string>
                 {
-                    { "Name",asmApp.Name },
-                    { "Version",asmApp.Version.ToString() },
-                    { "Exception",e.ToString() },
-                    { "DateTime",DateTime.UtcNow.ToString("yyyy/MM/dd HH:mm:ss.ff") },
-                    { "SkinName",SkinName },
-                    { "SkinVersion",SkinVersion },
-                    { "SkinCreator",SkinCreator },
-                    { "Renderer",Renderer },
-                    { "OperatingSystem",Environment.OSVersion.ToString() },
-                    { "OSDescription",RuntimeInformation.OSDescription },
-                    { "OSArchitecture",RuntimeInformation.OSArchitecture.ToString() },
-                    { "RuntimeIdentifier",RuntimeInformation.RuntimeIdentifier },
-                    { "FrameworkDescription",RuntimeInformation.FrameworkDescription },
-                    { "ProcessArchitecture",RuntimeInformation.ProcessArchitecture.ToString() }
+                    { "Name", name },
+                    { "Version", version_string },
+                    { "Exception", e.ToString() },
+                    { "DateTime", DateTime.UtcNow.ToString("yyyy/MM/dd HH:mm:ss.ff") },
+                    { "SkinName", SkinName },
+                    { "SkinVersion", SkinVersion },
+                    { "SkinCreator", SkinCreator },
+                    { "Renderer", Renderer },
+                    { "OperatingSystem", Environment.OSVersion.ToString() },
+                    { "OSDescription", RuntimeInformation.OSDescription },
+                    { "OSArchitecture", RuntimeInformation.OSArchitecture.ToString() },
+                    { "RuntimeIdentifier", RuntimeInformation.RuntimeIdentifier },
+                    { "FrameworkDescription", RuntimeInformation.FrameworkDescription },
+                    { "ProcessArchitecture", RuntimeInformation.ProcessArchitecture.ToString() }
                 };
 
                 //エラーが発生したことをユーザーに知らせるため、HTMLを作成する。
@@ -174,7 +183,6 @@ internal class Program
                 Trace.Listeners.RemoveAt(1);
 
             mutex.ReleaseMutex();
-            mutex = null;
         }
         else
         {
