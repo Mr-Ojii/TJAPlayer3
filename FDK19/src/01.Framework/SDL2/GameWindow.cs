@@ -161,7 +161,7 @@ public class GameWindow : IDisposable
         }
     }
 
-    public string RendererName
+    public string? RendererName
     {
         get
         {
@@ -218,10 +218,12 @@ public class GameWindow : IDisposable
                                 switch (poll_event.window.windowEvent)
                                 {
                                     case SDL.SDL_WindowEventID.SDL_WINDOWEVENT_MOVED:
-                                        this.Move(_window_handle, new EventArgs());
+                                        if (this.Move is not null)
+                                            this.Move(_window_handle, new EventArgs());
                                         break;
                                     case SDL.SDL_WindowEventID.SDL_WINDOWEVENT_RESIZED:
-                                        this.Resize(_window_handle, new EventArgs());
+                                        if (this.Resize is not null)
+                                            this.Resize(_window_handle, new EventArgs());
                                         break;
                                     case SDL.SDL_WindowEventID.SDL_WINDOWEVENT_FOCUS_GAINED:
                                         _focused = true;
@@ -233,7 +235,8 @@ public class GameWindow : IDisposable
                             break;
                         }
                     case SDL.SDL_EventType.SDL_MOUSEWHEEL:
-                        this.MouseWheel(_window_handle, new MouseWheelEventArgs(poll_event.wheel.preciseX, poll_event.wheel.preciseY));
+                        if (this.MouseWheel is not null)
+                            this.MouseWheel(_window_handle, new MouseWheelEventArgs(poll_event.wheel.preciseX, poll_event.wheel.preciseY));
                         break;
 
                     case SDL.SDL_EventType.SDL_QUIT:
@@ -257,7 +260,14 @@ public class GameWindow : IDisposable
 
     public bool SaveScreen(string strFullPath)
     {
-        string strSavePath = Path.GetDirectoryName(strFullPath);
+        if (strFullPath is null)
+            return false;
+
+        string? strSavePath = Path.GetDirectoryName(strFullPath);
+
+        if (strSavePath is null)
+            return false;
+
         if (!Directory.Exists(strSavePath))
         {
             try
@@ -313,9 +323,9 @@ public class GameWindow : IDisposable
 
     }
 
-    protected event EventHandler Move;
-    protected event EventHandler Resize;
-    protected event MouseWheelEventHandler MouseWheel;
+    protected event EventHandler? Move;
+    protected event EventHandler? Resize;
+    protected event MouseWheelEventHandler? MouseWheel;
 
 
     private IntPtr _window_handle;
