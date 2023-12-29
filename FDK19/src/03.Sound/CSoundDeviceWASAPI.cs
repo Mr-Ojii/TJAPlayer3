@@ -27,7 +27,7 @@ internal class CSoundDeviceWASAPI : ISoundDevice
         get;
         protected set;
     }
-    public string strRecordFileType = null;
+    public string? strRecordFileType = null;
     // CSoundTimer 用に公開しているプロパティ
 
     public long nElapsedTimems
@@ -40,7 +40,7 @@ internal class CSoundDeviceWASAPI : ISoundDevice
         get;
         protected set;
     }
-    public CTimer tmSystemTimer
+    public CTimer? tmSystemTimer
     {
         get;
         protected set;
@@ -81,11 +81,6 @@ internal class CSoundDeviceWASAPI : ISoundDevice
                 Trace.TraceInformation("WASAPI Master Volume Set Error: " + be.ToString());
             }
         }
-    }
-    public string strDefaultSoundDeviceBusType
-    {
-        get;
-        protected set;
     }
     // メソッド
 
@@ -128,7 +123,7 @@ internal class CSoundDeviceWASAPI : ISoundDevice
         //(デバッグ用)
         Trace.TraceInformation("サウンドデバイス一覧:");
         int a;
-        string strDefaultSoundDeviceName = null;
+        string? strDefaultSoundDeviceName = null;
         DeviceInfo[] bassDevInfos = new DeviceInfo[Bass.DeviceCount];
         for (int j = 0; j < bassDevInfos.Length; j++)
         {
@@ -489,7 +484,7 @@ internal class CSoundDeviceWASAPI : ISoundDevice
 
     protected int hMixer = -1;
     protected int hMixer_DeviceOut = -1;
-    protected WasapiProcedure tWasapiProc = null;
+    protected WasapiProcedure? tWasapiProc = null;
 
     protected int tWASAPI処理(IntPtr buffer, int length, IntPtr user)
     {
@@ -504,7 +499,7 @@ internal class CSoundDeviceWASAPI : ISoundDevice
 
         int n未再生バイト数 = BassWasapi.GetData(null, (int)DataFlags.Available);	// 誤差削減のため、必要となるギリギリ直前に取得する。
         this.nElapsedTimems = (this.nTotalByteCount - n未再生バイト数) * 1000 / this.nMixer_BytesPerSec;
-        this.SystemTimemsWhenUpdatingElapsedTime = this.tmSystemTimer.nシステム時刻ms;
+        this.SystemTimemsWhenUpdatingElapsedTime = this.tmSystemTimer is null ? 0 : this.tmSystemTimer.nシステム時刻ms;
 
         // 実出力遅延を更新。
         // 未再生バイト数の平均値。

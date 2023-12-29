@@ -71,7 +71,7 @@ internal class CSoundDeviceASIO : ISoundDevice
         get;
         protected set;
     }
-    public CTimer tmSystemTimer
+    public CTimer? tmSystemTimer
     {
         get;
         protected set;
@@ -379,7 +379,7 @@ internal class CSoundDeviceASIO : ISoundDevice
     protected int nバッファサイズsample = 0;
     protected AsioSampleFormat fmtASIODeviceFormat = AsioSampleFormat.Unknown;
     protected AsioSampleFormat fmtASIOChannelFormat = AsioSampleFormat.Bit16;		// 16bit 固定
-    protected AsioProcedure tAsioProc = null;
+    protected AsioProcedure? tAsioProc = null;
 
     protected int tAsio処理(bool input, int channel, IntPtr buffer, int length, IntPtr user)
     {
@@ -397,7 +397,7 @@ internal class CSoundDeviceASIO : ISoundDevice
         // データの転送差分ではなく累積転送バイト数から算出する。
 
         this.nElapsedTimems = (this.nTotalByteCount * 1000 / this.nMixer_BytesPerSec) - this.nOutPutDelayms;
-        this.SystemTimemsWhenUpdatingElapsedTime = this.tmSystemTimer.nシステム時刻ms;
+        this.SystemTimemsWhenUpdatingElapsedTime = this.tmSystemTimer is null ? 0 : this.tmSystemTimer.nシステム時刻ms;
 
 
         // 経過時間を更新後に、今回分の累積転送バイト数を反映。

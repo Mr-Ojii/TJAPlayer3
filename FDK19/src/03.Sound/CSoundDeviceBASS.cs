@@ -41,7 +41,7 @@ public class CSoundDeviceBASS : ISoundDevice
         get;
         protected set;
     }
-    public CTimer tmSystemTimer
+    public CTimer? tmSystemTimer
     {
         get;
         protected set;
@@ -246,7 +246,7 @@ public class CSoundDeviceBASS : ISoundDevice
         // データの転送差分ではなく累積転送バイト数から算出する。
 
         this.nElapsedTimems = (this.nTotalByteCount * 1000 / this.nMixer_BytesPerSec) - this.nOutPutDelayms;
-        this.SystemTimemsWhenUpdatingElapsedTime = this.tmSystemTimer.nシステム時刻ms;
+        this.SystemTimemsWhenUpdatingElapsedTime = this.tmSystemTimer is null ? 0 : this.tmSystemTimer.nシステム時刻ms;
 
 
         // 経過時間を更新後に、今回分の累積転送バイト数を反映。
@@ -260,9 +260,9 @@ public class CSoundDeviceBASS : ISoundDevice
     protected int hMainStream = -1;
     protected int hMixer = -1;
     protected int hMixer_DeviceOut = -1;
-    protected StreamProcedure tSTREAMPROC = null;
+    protected StreamProcedure? tSTREAMPROC = null;
     private bool bIsBASSSoundFree = true;
 
     //WASAPIとASIOはLinuxでは使えないので、ここだけで良し
-    private CBassLibraryLoader libCache = null;
+    private CBassLibraryLoader? libCache = null;
 }
