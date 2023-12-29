@@ -36,14 +36,4 @@ public static class CConvert
     {
         return (int)(255.0 * num);
     }
-
-    /// <summary>
-    /// 255段階数値を百分率に変換するメソッド。
-    /// </summary>
-    /// <param name="num"></param>
-    /// <returns></returns>
-    public static int n255ToParsent(int num)
-    {
-        return (int)(100.0 / num);
-    }
 }
