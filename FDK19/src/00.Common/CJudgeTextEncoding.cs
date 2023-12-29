@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Diagnostics;
+﻿using System.IO;
 
 namespace FDK;
 
@@ -15,11 +10,9 @@ public class CJudgeTextEncoding
     /// </summary>
     /// <param name="path"></param>
     /// <returns></returns>
-    public static string ReadTextFile(string path)
+    public static string? ReadTextFile(string path)
     {
-        if (!File.Exists(path))
-            return null;
-        string str = null;
+        string? str = null;
         FileInfo file = new FileInfo(path);
 
         using (Hnx8.ReadJEnc.FileReader reader = new Hnx8.ReadJEnc.FileReader(file))
