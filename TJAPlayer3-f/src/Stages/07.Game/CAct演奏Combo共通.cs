@@ -44,7 +44,7 @@ internal class CAct演奏Combo共通 : CActivity
 
     protected enum EEvent { 非表示, 数値更新, 同一数値, ミス通知 }
     protected enum EMode { 非表示中, 進行表示中, 残像表示中 }
-    protected CSTATUS status;
+    protected CSTAT[] status;
     public CCounter[] ctコンボ加算;
     public CCounter ctコンボラメ;
 
@@ -83,34 +83,17 @@ internal class CAct演奏Combo共通 : CActivity
     };
     // 内部クラス
 
-    protected class CSTATUS
+    protected class CSTAT
     {
-        private CSTAT[] status = new CSTAT[4] { new(), new(), new(), new() };
-        public CSTAT this[int index]
-        {
-            get
-            {
-                return this.status[index];
-            }
-            set
-            {
-                this.status[index] = value;
-            }
-        }
-
-        public class CSTAT
-        {
-            public CAct演奏Combo共通.EMode e現在のモード;
-            public int nCOMBO値;
-            public long nコンボが切れた時刻;
-            public int nジャンプインデックス値;
-            public int n現在表示中のCOMBO値;
-            public int n最高COMBO値;
-            public int n残像表示中のCOMBO値;
-            public long n前回の時刻_ジャンプ用;
-        }
+        public CAct演奏Combo共通.EMode e現在のモード;
+        public int nCOMBO値;
+        public long nコンボが切れた時刻;
+        public int nジャンプインデックス値;
+        public int n現在表示中のCOMBO値;
+        public int n最高COMBO値;
+        public int n残像表示中のCOMBO値;
+        public long n前回の時刻_ジャンプ用;
     }
-
 
     // コンストラクタ
 
@@ -350,7 +333,7 @@ internal class CAct演奏Combo共通 : CActivity
     public override void On活性化()
     {
         this.n現在のコンボ数 = new STCOMBO() { act = this };
-        this.status = new CSTATUS();
+        this.status = new CSTAT[4] { new(), new(), new(), new() };
         this.ctコンボ加算 = new CCounter[4];
         for (int i = 0; i < 4; i++)
         {
