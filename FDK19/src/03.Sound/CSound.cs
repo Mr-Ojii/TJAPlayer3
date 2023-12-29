@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using FDK.BassMixExtension;
+﻿using FDK.BassMixExtension;
 using ManagedBass;
 using ManagedBass.Mix;
 using ManagedBass.Fx;

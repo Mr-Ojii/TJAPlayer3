@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Runtime.InteropServices;
-using System.Diagnostics;
-
-namespace FDK;
+﻿namespace FDK;
 
 public class CTimer : CTimerBase
 {

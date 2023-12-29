@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Frozen;
-using System.Text;
-
-using SlimDXKey = SlimDXKeys.Key;
+﻿using SlimDXKey = SlimDXKeys.Key;
 using SDLKey = SDL2.SDL.SDL_Scancode;
 
 namespace FDK;

@@ -1,11 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Threading;
-using System.Reflection;
-using System.IO;
-using System.Text;
-using System.Runtime.InteropServices;
-using FDK.Windowing;
+﻿using FDK.Windowing;
 
 namespace FDK;
 

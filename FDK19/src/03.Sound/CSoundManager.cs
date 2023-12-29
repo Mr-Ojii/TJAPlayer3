@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
-using System.IO;
-
-namespace FDK;
+﻿namespace FDK;
 
 #region [ DTXMania用拡張 ]
 public class CSoundManager  // : CSound

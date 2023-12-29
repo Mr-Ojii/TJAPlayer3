@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Concurrent;
-using SDL2;
+﻿using SDL2;
 
 namespace FDK;
 

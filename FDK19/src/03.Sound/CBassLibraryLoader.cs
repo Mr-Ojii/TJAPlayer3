@@ -1,12 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using System.Collections.Generic;
-using System.Text;
-using System.Runtime;
-using System.Runtime.InteropServices;
-
-namespace FDK;
+﻿namespace FDK;
 
 //Linuxでの"BASS must be loaded first"のエラー解消用
 

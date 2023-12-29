@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-using System.Runtime.InteropServices;
-using FFmpeg.AutoGen;
+﻿using FFmpeg.AutoGen;
 
 
 namespace FDK;

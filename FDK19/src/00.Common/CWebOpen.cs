@@ -1,8 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-
-namespace FDK;
+﻿namespace FDK;
 
 public static class CWebOpen
 {

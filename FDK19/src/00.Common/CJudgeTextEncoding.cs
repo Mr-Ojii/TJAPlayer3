@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace FDK;
+﻿namespace FDK;
 
 public class CJudgeTextEncoding
 {

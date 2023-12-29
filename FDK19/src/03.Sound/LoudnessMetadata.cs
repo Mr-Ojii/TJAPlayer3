@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FDK;
+﻿namespace FDK;
 
 /// <summary>
 /// The LoudnessMetadata structure is used to carry, and assist with

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FDK;
+﻿namespace FDK;
 
 public static class COS //2020.05.08 Mr-Ojii DTXManiaからいろいろと移植
 {

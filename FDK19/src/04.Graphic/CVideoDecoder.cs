@@ -1,15 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Diagnostics;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Collections.Concurrent;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FFmpeg.AutoGen;
-using System.Threading;
+﻿using FFmpeg.AutoGen;
 
 using Size = System.Drawing.Size;
 using SkiaSharp;

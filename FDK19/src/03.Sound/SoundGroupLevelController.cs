@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-
-namespace FDK;
+﻿namespace FDK;
 
 /// <summary>
 /// SoundGroupLevelController holds the current sound level value for each

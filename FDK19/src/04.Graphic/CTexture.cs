@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Drawing;
-using System.Buffers;
-using System.IO;
-using System.Diagnostics;
-using System.Numerics;
-using SDL2;
+﻿using SDL2;
 using SkiaSharp;
 
 using Rectangle = System.Drawing.Rectangle;

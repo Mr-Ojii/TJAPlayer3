@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Runtime.Serialization;
-
-namespace FDK;
+﻿namespace FDK;
 
 /// <summary>
 /// テクスチャの作成に失敗しました。

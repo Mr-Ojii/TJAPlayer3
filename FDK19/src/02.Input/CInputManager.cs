@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using Commons.Music.Midi;
+﻿using Commons.Music.Midi;
 
 namespace FDK;
 

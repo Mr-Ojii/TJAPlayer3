@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Xml.XPath;
-
-namespace FDK;
+﻿namespace FDK;
 
 /// <summary>
 /// The LoudnessMetadataScanner plays two roles:

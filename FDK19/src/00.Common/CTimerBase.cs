@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FDK;
+﻿namespace FDK;
 
 /// <summary>
 /// <para>タイマの抽象クラス。</para>
