@@ -59,7 +59,9 @@ internal class CStageSongLoading : CStage
                     ? "Please play as accurately as possible."
                     : this.strSubTitle;
 
+                this.txTitle?.Dispose();
                 this.txTitle = null;
+                this.txSubTitle?.Dispose();
                 this.txSubTitle = null;
 
                 if (!string.IsNullOrEmpty(タイトル))
@@ -89,7 +91,9 @@ internal class CStageSongLoading : CStage
             catch (CTextureCreateFailedException e)
             {
                 Trace.TraceError(e.ToString());
+                this.txTitle?.Dispose();
                 this.txTitle = null;
+                this.txSubTitle?.Dispose();
                 this.txSubTitle = null;
             }
 
@@ -143,7 +147,7 @@ internal class CStageSongLoading : CStage
         this.ct待機.t進行();
 
         #region [ ESC押下時は選曲画面に戻る ]
-        if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
+        if ((TJAPlayer3.InputManager.Keyboard is not null) && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
         {
             return (int)E曲読込画面の戻り値.読込中止;
         }
