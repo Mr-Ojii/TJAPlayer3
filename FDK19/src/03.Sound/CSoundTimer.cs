@@ -42,11 +42,11 @@ public class CSoundTimer : CTimerBase
             {
                 if (CSoundManager.bUseOSTimer)
                 {
-                    return this.ctDInputTimer.nシステム時刻ms;             // 仮にCSoundTimerをCTimer相当の動作にしてみた
+                    return this.ctDInputTimer is null ? 0 :this.ctDInputTimer.nシステム時刻ms;             // 仮にCSoundTimerをCTimer相当の動作にしてみた
                 }
                 else
                 {
-                    return this.Device.nElapsedTimems
+                    return this.Device.tmSystemTimer is null ? 0 : this.Device.nElapsedTimems
                         + (this.Device.tmSystemTimer.nシステム時刻ms - this.Device.SystemTimemsWhenUpdatingElapsedTime);
                 }
             }
@@ -66,7 +66,7 @@ public class CSoundTimer : CTimerBase
     {
         try
         {
-            this.nDInputTimerCounter = this.ctDInputTimer.nシステム時刻ms;
+            this.nDInputTimerCounter = this.ctDInputTimer is null ? 0 :this.ctDInputTimer.nシステム時刻ms;
             this.nSoundTimerCounter = this.nシステム時刻ms;
             //Debug.WriteLine( "BaseCounter: " + nDInputTimerCounter + ", " + nSoundTimerCounter );
         }
