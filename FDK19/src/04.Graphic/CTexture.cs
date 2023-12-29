@@ -29,6 +29,8 @@ public class CTexture : IDisposable
         }
         set
         {
+            if (this.texture is null)
+                return;
             this._opacity = Math.Clamp(value, 0, 0xff);
             SDL.SDL_SetTextureAlphaMod((IntPtr)this.texture, (byte)this._opacity);
         }
@@ -59,6 +61,8 @@ public class CTexture : IDisposable
         }
         set
         {
+            if (this.texture is null)
+                return;
             this._eBlendMode = value;
             switch (value)
             {
@@ -148,17 +152,17 @@ public class CTexture : IDisposable
     // メソッド
     public void UpdateTexture(IntPtr bitmap, Size size)
     {
-        if (this.szTextureSize == size)
+        if (texture is null || this.szTextureSize != size)
+            return;
+
+        SDL.SDL_Rect rect = new SDL.SDL_Rect()
         {
-            SDL.SDL_Rect rect = new SDL.SDL_Rect()
-            {
-                x = 0,
-                y = 0,
-                w = size.Width,
-                h = size.Height
-            };
-            SDL.SDL_UpdateTexture((IntPtr)this.texture, ref rect, bitmap, size.Width * 4);
-        }
+            x = 0,
+            y = 0,
+            w = size.Width,
+            h = size.Height
+        };
+        SDL.SDL_UpdateTexture((IntPtr)this.texture, ref rect, bitmap, size.Width * 4);
     }
 
     public void t2D拡大率考慮描画(Device device, RefPnt refpnt, float x, float y)
