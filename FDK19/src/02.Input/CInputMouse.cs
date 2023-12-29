@@ -42,26 +42,32 @@ public class CInputMouse : IInputDevice, IDisposable
                 {
                     if (this.btmpMouseState[j] == false && ((currentState & masklist[j]) != 0))
                     {
-                        var ev = new STInputEvent()
+                        if (CSoundManager.rc演奏用タイマ is not null)
                         {
-                            nKey = j,
-                            eType = EInputEventType.Pressed,
-                            nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                        };
-                        this.listEventBuffer.Enqueue(ev);
+                            var ev = new STInputEvent()
+                            {
+                                nKey = j,
+                                eType = EInputEventType.Pressed,
+                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                            };
+                            this.listEventBuffer.Enqueue(ev);
+                        }
 
                         this.btmpMouseState[j] = true;
                         this.btmpMousePushDown[j] = true;
                     }
                     else if (this.btmpMouseState[j] == true && !((currentState & masklist[j]) != 0))
                     {
-                        var ev = new STInputEvent()
+                        if (CSoundManager.rc演奏用タイマ is not null)
                         {
-                            nKey = j,
-                            eType = EInputEventType.Released,
-                            nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                        };
-                        this.listEventBuffer.Enqueue(ev);
+                            var ev = new STInputEvent()
+                            {
+                                nKey = j,
+                                eType = EInputEventType.Released,
+                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                            };
+                            this.listEventBuffer.Enqueue(ev);
+                        }
 
                         this.btmpMouseState[j] = false;
                         this.btmpMousePullUp[j] = true;

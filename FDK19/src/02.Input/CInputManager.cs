@@ -254,7 +254,9 @@ public class CInputManager : IDisposable
         if (sender is null || e is null)
             return;
 
-        long time = CSoundManager.rc演奏用タイマ.nシステム時刻ms;  // lock前に取得。演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+        long time = 0;
+        if (CSoundManager.rc演奏用タイマ is not null)
+            time = CSoundManager.rc演奏用タイマ.nシステム時刻ms; // lock前に取得。演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 
         int dev = int.Parse(((IMidiInput)sender).Details.Id);
 

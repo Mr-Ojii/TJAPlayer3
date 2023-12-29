@@ -52,13 +52,16 @@ public class CInputKeyboard : IInputDevice, IDisposable
                     {
                         if (this.btmpKeyState[(int)key] == false)
                         {
-                            var ev = new STInputEvent()
+                            if (CSoundManager.rc演奏用タイマ is not null)
                             {
-                                nKey = (int)key,
-                                eType = EInputEventType.Pressed,
-                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                            };
-                            this.listEventBuffer.Enqueue(ev);
+                                var ev = new STInputEvent()
+                                {
+                                    nKey = (int)key,
+                                    eType = EInputEventType.Pressed,
+                                    nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                                };
+                                this.listEventBuffer.Enqueue(ev);
+                            }
 
                             this.btmpKeyState[(int)key] = true;
                             this.btmpKeyPushDown[(int)key] = true;
@@ -68,13 +71,16 @@ public class CInputKeyboard : IInputDevice, IDisposable
                     {
                         if (this.btmpKeyState[(int)key] == true) // 前回は押されているのに今回は押されていない → 離された
                         {
-                            var ev = new STInputEvent()
+                            if (CSoundManager.rc演奏用タイマ is not null)
                             {
-                                nKey = (int)key,
-                                eType = EInputEventType.Released,
-                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                            };
-                            this.listEventBuffer.Enqueue(ev);
+                                var ev = new STInputEvent()
+                                {
+                                    nKey = (int)key,
+                                    eType = EInputEventType.Released,
+                                    nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                                };
+                                this.listEventBuffer.Enqueue(ev);
+                            }
 
                             this.btmpKeyState[(int)key] = false;
                             this.btmpKeyPullUp[(int)key] = true;

@@ -63,13 +63,16 @@ public class CInputJoystick : IInputDevice, IDisposable
                 {
                     if (this.btmpButtonState[0] == false)
                     {
-                        STInputEvent ev = new STInputEvent()
+                        if (CSoundManager.rc演奏用タイマ is not null)
                         {
-                            nKey = 0,
-                            eType = EInputEventType.Pressed,
-                            nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                        };
-                        this.listEventBuffer.Enqueue(ev);
+                            STInputEvent ev = new STInputEvent()
+                            {
+                                nKey = 0,
+                                eType = EInputEventType.Pressed,
+                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                            };
+                            this.listEventBuffer.Enqueue(ev);
+                        }
 
                         this.btmpButtonState[0] = true;
                         this.btmpButtonPushDown[0] = true;
@@ -79,13 +82,16 @@ public class CInputJoystick : IInputDevice, IDisposable
                 {
                     if (this.btmpButtonState[0] == true)
                     {
-                        STInputEvent ev = new STInputEvent()
+                        if (CSoundManager.rc演奏用タイマ is not null)
                         {
-                            nKey = 0,
-                            eType = EInputEventType.Released,
-                            nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                        };
-                        this.listEventBuffer.Enqueue(ev);
+                            STInputEvent ev = new STInputEvent()
+                            {
+                                nKey = 0,
+                                eType = EInputEventType.Released,
+                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                            };
+                            this.listEventBuffer.Enqueue(ev);
+                        }
 
                         this.btmpButtonState[0] = false;
                         this.btmpButtonPullUp[0] = true;
@@ -99,13 +105,16 @@ public class CInputJoystick : IInputDevice, IDisposable
                 {
                     if (this.btmpButtonState[1] == false)
                     {
-                        STInputEvent ev = new STInputEvent()
+                        if (CSoundManager.rc演奏用タイマ is not null)
                         {
-                            nKey = 1,
-                            eType = EInputEventType.Pressed,
-                            nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                        };
-                        this.listEventBuffer.Enqueue(ev);
+                            STInputEvent ev = new STInputEvent()
+                            {
+                                nKey = 1,
+                                eType = EInputEventType.Pressed,
+                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                            };
+                            this.listEventBuffer.Enqueue(ev);
+                        }
 
                         this.btmpButtonState[1] = true;
                         this.btmpButtonPushDown[1] = true;
@@ -115,13 +124,16 @@ public class CInputJoystick : IInputDevice, IDisposable
                 {
                     if (this.btmpButtonState[1] == true)
                     {
-                        STInputEvent event7 = new STInputEvent()
+                        if (CSoundManager.rc演奏用タイマ is not null)
                         {
-                            nKey = 1,
-                            eType = EInputEventType.Released,
-                            nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                        };
-                        this.listEventBuffer.Enqueue(event7);
+                            STInputEvent event7 = new STInputEvent()
+                            {
+                                nKey = 1,
+                                eType = EInputEventType.Released,
+                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                            };
+                            this.listEventBuffer.Enqueue(event7);
+                        }
 
                         this.btmpButtonState[1] = false;
                         this.btmpButtonPullUp[1] = true;
@@ -135,13 +147,16 @@ public class CInputJoystick : IInputDevice, IDisposable
                 {
                     if (this.btmpButtonState[2] == false)
                     {
-                        STInputEvent ev = new STInputEvent()
+                        if (CSoundManager.rc演奏用タイマ is not null)
                         {
-                            nKey = 2,
-                            eType = EInputEventType.Pressed,
-                            nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                        };
-                        this.listEventBuffer.Enqueue(ev);
+                            STInputEvent ev = new STInputEvent()
+                            {
+                                nKey = 2,
+                                eType = EInputEventType.Pressed,
+                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                            };
+                            this.listEventBuffer.Enqueue(ev);
+                        }
 
                         this.btmpButtonState[2] = true;
                         this.btmpButtonPushDown[2] = true;
@@ -151,13 +166,16 @@ public class CInputJoystick : IInputDevice, IDisposable
                 {
                     if (this.btmpButtonState[2] == true)
                     {
-                        STInputEvent ev = new STInputEvent()
+                        if (CSoundManager.rc演奏用タイマ is not null)
                         {
-                            nKey = 2,
-                            eType = EInputEventType.Released,
-                            nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                        };
-                        this.listEventBuffer.Enqueue(ev);
+                            STInputEvent ev = new STInputEvent()
+                            {
+                                nKey = 2,
+                                eType = EInputEventType.Released,
+                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                            };
+                            this.listEventBuffer.Enqueue(ev);
+                        }
 
                         this.btmpButtonState[2] = false;
                         this.btmpButtonPullUp[2] = true;
@@ -171,13 +189,16 @@ public class CInputJoystick : IInputDevice, IDisposable
                 {
                     if (this.btmpButtonState[3] == false)
                     {
-                        STInputEvent ev = new STInputEvent()
+                        if (CSoundManager.rc演奏用タイマ is not null)
                         {
-                            nKey = 3,
-                            eType = EInputEventType.Pressed,
-                            nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                        };
-                        this.listEventBuffer.Enqueue(ev);
+                            STInputEvent ev = new STInputEvent()
+                            {
+                                nKey = 3,
+                                eType = EInputEventType.Pressed,
+                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                            };
+                            this.listEventBuffer.Enqueue(ev);
+                        }
 
                         this.btmpButtonState[3] = true;
                         this.btmpButtonPushDown[3] = true;
@@ -187,13 +208,16 @@ public class CInputJoystick : IInputDevice, IDisposable
                 {
                     if (this.btmpButtonState[3] == true)
                     {
-                        STInputEvent ev = new STInputEvent()
+                        if (CSoundManager.rc演奏用タイマ is not null)
                         {
-                            nKey = 3,
-                            eType = EInputEventType.Released,
-                            nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                        };
-                        this.listEventBuffer.Enqueue(ev);
+                            STInputEvent ev = new STInputEvent()
+                            {
+                                nKey = 3,
+                                eType = EInputEventType.Released,
+                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                            };
+                            this.listEventBuffer.Enqueue(ev);
+                        }
 
                         this.btmpButtonState[3] = false;
                         this.btmpButtonPullUp[3] = true;
@@ -207,13 +231,16 @@ public class CInputJoystick : IInputDevice, IDisposable
                 {
                     if (this.btmpButtonState[4] == false)
                     {
-                        STInputEvent ev = new STInputEvent()
+                        if (CSoundManager.rc演奏用タイマ is not null)
                         {
-                            nKey = 4,
-                            eType = EInputEventType.Pressed,
-                            nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                        };
-                        this.listEventBuffer.Enqueue(ev);
+                            STInputEvent ev = new STInputEvent()
+                            {
+                                nKey = 4,
+                                eType = EInputEventType.Pressed,
+                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                            };
+                            this.listEventBuffer.Enqueue(ev);
+                        }
 
                         this.btmpButtonState[4] = true;
                         this.btmpButtonPushDown[4] = true;
@@ -223,13 +250,16 @@ public class CInputJoystick : IInputDevice, IDisposable
                 {
                     if (this.btmpButtonState[4] == true)
                     {
-                        STInputEvent ev = new STInputEvent()
+                        if (CSoundManager.rc演奏用タイマ is not null)
                         {
-                            nKey = 4,
-                            eType = EInputEventType.Released,
-                            nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                        };
-                        this.listEventBuffer.Enqueue(ev);
+                            STInputEvent ev = new STInputEvent()
+                            {
+                                nKey = 4,
+                                eType = EInputEventType.Released,
+                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                            };
+                            this.listEventBuffer.Enqueue(ev);
+                        }
 
                         this.btmpButtonState[4] = false;
                         this.btmpButtonPullUp[4] = true;
@@ -243,13 +273,16 @@ public class CInputJoystick : IInputDevice, IDisposable
                 {
                     if (this.btmpButtonState[5] == false)
                     {
-                        STInputEvent ev = new STInputEvent()
+                        if (CSoundManager.rc演奏用タイマ is not null)
                         {
-                            nKey = 5,
-                            eType = EInputEventType.Pressed,
-                            nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                        };
-                        this.listEventBuffer.Enqueue(ev);
+                            STInputEvent ev = new STInputEvent()
+                            {
+                                nKey = 5,
+                                eType = EInputEventType.Pressed,
+                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                            };
+                            this.listEventBuffer.Enqueue(ev);
+                        }
 
                         this.btmpButtonState[5] = true;
                         this.btmpButtonPushDown[5] = true;
@@ -259,13 +292,16 @@ public class CInputJoystick : IInputDevice, IDisposable
                 {
                     if (this.btmpButtonState[5] == true)
                     {
-                        STInputEvent event15 = new STInputEvent()
+                        if (CSoundManager.rc演奏用タイマ is not null)
                         {
-                            nKey = 5,
-                            eType = EInputEventType.Released,
-                            nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                        };
-                        this.listEventBuffer.Enqueue(event15);
+                            STInputEvent event15 = new STInputEvent()
+                            {
+                                nKey = 5,
+                                eType = EInputEventType.Released,
+                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                            };
+                            this.listEventBuffer.Enqueue(event15);
+                        }
 
                         this.btmpButtonState[5] = false;
                         this.btmpButtonPullUp[5] = true;
@@ -279,13 +315,16 @@ public class CInputJoystick : IInputDevice, IDisposable
                 {
                     if (this.btmpButtonState[6] == false)
                     {
-                        STInputEvent ev = new STInputEvent()
+                        if (CSoundManager.rc演奏用タイマ is not null)
                         {
-                            nKey = 6,
-                            eType = EInputEventType.Pressed,
-                            nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                        };
-                        this.listEventBuffer.Enqueue(ev);
+                            STInputEvent ev = new STInputEvent()
+                            {
+                                nKey = 6,
+                                eType = EInputEventType.Pressed,
+                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                            };
+                            this.listEventBuffer.Enqueue(ev);
+                        }
 
                         this.btmpButtonState[6] = true;
                         this.btmpButtonPushDown[6] = true;
@@ -295,13 +334,16 @@ public class CInputJoystick : IInputDevice, IDisposable
                 {
                     if (this.btmpButtonState[4] == true)
                     {
-                        STInputEvent ev = new STInputEvent()
+                        if (CSoundManager.rc演奏用タイマ is not null)
                         {
-                            nKey = 6,
-                            eType = EInputEventType.Released,
-                            nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                        };
-                        this.listEventBuffer.Enqueue(ev);
+                            STInputEvent ev = new STInputEvent()
+                            {
+                                nKey = 6,
+                                eType = EInputEventType.Released,
+                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                            };
+                            this.listEventBuffer.Enqueue(ev);
+                        }
 
                         this.btmpButtonState[6] = false;
                         this.btmpButtonPullUp[6] = true;
@@ -315,13 +357,16 @@ public class CInputJoystick : IInputDevice, IDisposable
                 {
                     if (this.btmpButtonState[7] == false)
                     {
-                        STInputEvent ev = new STInputEvent()
+                        if (CSoundManager.rc演奏用タイマ is not null)
                         {
-                            nKey = 7,
-                            eType = EInputEventType.Pressed,
-                            nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                        };
-                        this.listEventBuffer.Enqueue(ev);
+                            STInputEvent ev = new STInputEvent()
+                            {
+                                nKey = 7,
+                                eType = EInputEventType.Pressed,
+                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                            };
+                            this.listEventBuffer.Enqueue(ev);
+                        }
 
                         this.btmpButtonState[7] = true;
                         this.btmpButtonPushDown[7] = true;
@@ -331,13 +376,16 @@ public class CInputJoystick : IInputDevice, IDisposable
                 {
                     if (this.btmpButtonState[7] == true)
                     {
-                        STInputEvent event15 = new STInputEvent()
+                        if (CSoundManager.rc演奏用タイマ is not null)
                         {
-                            nKey = 7,
-                            eType = EInputEventType.Released,
-                            nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                        };
-                        this.listEventBuffer.Enqueue(event15);
+                            STInputEvent event15 = new STInputEvent()
+                            {
+                                nKey = 7,
+                                eType = EInputEventType.Released,
+                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                            };
+                            this.listEventBuffer.Enqueue(event15);
+                        }
 
                         this.btmpButtonState[7] = false;
                         this.btmpButtonPullUp[7] = true;
@@ -353,13 +401,16 @@ public class CInputJoystick : IInputDevice, IDisposable
                     bool buttonState = (SDL.SDL_JoystickGetButton(joystick_handle, j) == 1);
                     if (this.btmpButtonState[8 + j] == false && buttonState)
                     {
-                        STInputEvent item = new STInputEvent()
+                        if (CSoundManager.rc演奏用タイマ is not null)
                         {
-                            nKey = 8 + j,
-                            eType = EInputEventType.Pressed,
-                            nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                        };
-                        this.listEventBuffer.Enqueue(item);
+                            STInputEvent item = new STInputEvent()
+                            {
+                                nKey = 8 + j,
+                                eType = EInputEventType.Pressed,
+                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                            };
+                            this.listEventBuffer.Enqueue(item);
+                        }
 
                         this.btmpButtonState[8 + j] = true;
                         this.btmpButtonPushDown[8 + j] = true;
@@ -367,13 +418,16 @@ public class CInputJoystick : IInputDevice, IDisposable
                     }
                     else if (this.btmpButtonState[8 + j] == true && !buttonState)
                     {
-                        STInputEvent item = new STInputEvent()
+                        if (CSoundManager.rc演奏用タイマ is not null)
                         {
-                            nKey = 8 + j,
-                            eType = EInputEventType.Released,
-                            nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                        };
-                        this.listEventBuffer.Enqueue(item);
+                            STInputEvent item = new STInputEvent()
+                            {
+                                nKey = 8 + j,
+                                eType = EInputEventType.Released,
+                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                            };
+                            this.listEventBuffer.Enqueue(item);
+                        }
 
                         this.btmpButtonState[8 + j] = false;
                         this.btmpButtonPullUp[8 + j] = true;
@@ -390,18 +444,22 @@ public class CInputJoystick : IInputDevice, IDisposable
                 {
                     if (hatState == hatList[nWay])
                     {
-                        if (this.btmpButtonState[8 + 128 + nWay] == false)
+                        int nButtonKey = 8 + 128 + nWay;
+                        if (this.btmpButtonState[nButtonKey] == false)
                         {
-                            STInputEvent stevent = new STInputEvent()
+                            if (CSoundManager.rc演奏用タイマ is not null)
                             {
-                                nKey = 8 + 128 + nWay,
-                                eType = EInputEventType.Pressed,
-                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                            };
-                            this.listEventBuffer.Enqueue(stevent);
+                                STInputEvent stevent = new STInputEvent()
+                                {
+                                    nKey = nButtonKey,
+                                    eType = EInputEventType.Pressed,
+                                    nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                                };
+                                this.listEventBuffer.Enqueue(stevent);
+                            }
 
-                            this.btmpButtonState[stevent.nKey] = true;
-                            this.btmpButtonPushDown[stevent.nKey] = true;
+                            this.btmpButtonState[nButtonKey] = true;
+                            this.btmpButtonPushDown[nButtonKey] = true;
                         }
                         bIsButtonPressedReleased = true;
                     }
@@ -419,13 +477,16 @@ public class CInputJoystick : IInputDevice, IDisposable
                     }
                     if (nWay != 0)
                     {
-                        STInputEvent stevent = new STInputEvent()
+                        if (CSoundManager.rc演奏用タイマ is not null)
                         {
-                            nKey = nWay,
-                            eType = EInputEventType.Released,
-                            nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
-                        };
-                        this.listEventBuffer.Enqueue(stevent);
+                            STInputEvent stevent = new STInputEvent()
+                            {
+                                nKey = nWay,
+                                eType = EInputEventType.Released,
+                                nTimeStamp = CSoundManager.rc演奏用タイマ.nシステム時刻ms, // 演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
+                            };
+                            this.listEventBuffer.Enqueue(stevent);
+                        }
 
                         this.btmpButtonState[nWay] = false;
                         this.btmpButtonPullUp[nWay] = true;

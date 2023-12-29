@@ -13,7 +13,7 @@ public class CSoundTimer : CTimerBase
     {
         get
         {
-            if (this.Device.eOutputDevice == ESoundDeviceType.Unknown)
+            if (this.Device is null || this.Device.eOutputDevice == ESoundDeviceType.Unknown)
                 return CTimerBase.nUnused;
 
             // BASS 系の ISoundDevice.nElapsedTimems はオーディオバッファの更新間隔ずつでしか更新されないため、単にこれを返すだけではとびとびの値になる。
@@ -41,9 +41,8 @@ public class CSoundTimer : CTimerBase
             else
             {
                 if (CSoundManager.bUseOSTimer)
-                //if ( true )
                 {
-                    return ctDInputTimer.nシステム時刻ms;             // 仮にCSoundTimerをCTimer相当の動作にしてみた
+                    return this.ctDInputTimer.nシステム時刻ms;             // 仮にCSoundTimerをCTimer相当の動作にしてみた
                 }
                 else
                 {
@@ -60,10 +59,10 @@ public class CSoundTimer : CTimerBase
 
         TimerCallback timerDelegate = new TimerCallback(SnapTimers);    // CSoundTimerをシステム時刻に変換するために、
         timer = new Timer(timerDelegate, null, 0, 1000);                // CSoundTimerとCTimerを両方とも走らせておき、
-        ctDInputTimer = new CTimer();           // 1秒に1回時差を測定するようにしておく			
+        ctDInputTimer = new CTimer();           // 1秒に1回時差を測定するようにしておく
     }
 
-    private void SnapTimers(object o)   // 1秒に1回呼び出され、2つのタイマー間の現在値をそれぞれ保持する。
+    private void SnapTimers(object? o)   // 1秒に1回呼び出され、2つのタイマー間の現在値をそれぞれ保持する。
     {
         try
         {
@@ -107,13 +106,13 @@ public class CSoundTimer : CTimerBase
         }
     }
 
-    internal ISoundDevice Device = null;	// debugのため、一時的にprotectedをpublicにする。後で元に戻しておくこと。
+    internal ISoundDevice? Device = null;	// debugのため、一時的にprotectedをpublicにする。後で元に戻しておくこと。
     //protected Thread thSendInput = null;
     //protected Thread thSnapTimers = null;
-    private CTimer ctDInputTimer = null;
+    private CTimer? ctDInputTimer = null;
     private long nDInputTimerCounter = 0;
     private long nSoundTimerCounter = 0;
-    Timer timer = null;
+    Timer? timer = null;
 
-    private CTimer ct = null;								// TESTCODE
+    private CTimer? ct = null;								// TESTCODE
 }
