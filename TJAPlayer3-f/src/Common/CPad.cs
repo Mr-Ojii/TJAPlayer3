@@ -99,7 +99,7 @@ public class CPad
             switch (stkeyassignArray[i].DeviceType)
             {
                 case EInputDevice.KeyBoard:
-                    if (!this.rInputManager.Keyboard.bIsKeyPressed(stkeyassignArray[i].Code))
+                    if ((this.rInputManager.Keyboard is null) || !this.rInputManager.Keyboard.bIsKeyPressed(stkeyassignArray[i].Code))
                         break;
 
                     this.stDetectedDevices.Keyboard = true;
@@ -108,7 +108,7 @@ public class CPad
                 case EInputDevice.MIDIInput:
                     {
                         IInputDevice device2 = this.rInputManager.MidiIn(stkeyassignArray[i].ID);
-                        if ((device2 == null) || !device2.bIsKeyPressed(stkeyassignArray[i].Code))
+                        if ((device2 is null) || !device2.bIsKeyPressed(stkeyassignArray[i].Code))
                             break;
 
                         this.stDetectedDevices.MIDIIN = true;
@@ -120,14 +120,14 @@ public class CPad
                             break;
 
                         IInputDevice device = this.rInputManager.Joystick(stkeyassignArray[i].ID);
-                        if ((device == null) || !device.bIsKeyPressed(stkeyassignArray[i].Code))
+                        if ((device is null) || !device.bIsKeyPressed(stkeyassignArray[i].Code))
                             break;
 
                         this.stDetectedDevices.Joypad = true;
                         return true;
                     }
                 case EInputDevice.Mouse:
-                    if (!this.rInputManager.Mouse.bIsKeyPressed(stkeyassignArray[i].Code))
+                    if ((this.rInputManager.Mouse is null) || !this.rInputManager.Mouse.bIsKeyPressed(stkeyassignArray[i].Code))
                         break;
 
                     this.stDetectedDevices.Mouse = true;
@@ -145,7 +145,7 @@ public class CPad
             switch (stkeyassignArray[i].DeviceType)
             {
                 case EInputDevice.KeyBoard:
-                    if (!this.rInputManager.Keyboard.bIsKeyDown(stkeyassignArray[i].Code))
+                    if ((this.rInputManager.Keyboard is null) || !this.rInputManager.Keyboard.bIsKeyDown(stkeyassignArray[i].Code))
                     {
                         break;
                     }
@@ -155,22 +155,19 @@ public class CPad
                 case EInputDevice.Joypad:
                     {
                         if (!this.rConfigToml.JoystickGUID.ContainsKey(stkeyassignArray[i].ID))
-                        {
                             break;
-                        }
+
                         IInputDevice device = this.rInputManager.Joystick(stkeyassignArray[i].ID);
-                        if ((device == null) || !device.bIsKeyDown(stkeyassignArray[i].Code))
-                        {
+                        if ((device is null) || !device.bIsKeyDown(stkeyassignArray[i].Code))
                             break;
-                        }
+
                         this.stDetectedDevices.Joypad = true;
                         return true;
                     }
                 case EInputDevice.Mouse:
-                    if (!this.rInputManager.Mouse.bIsKeyDown(stkeyassignArray[i].Code))
-                    {
+                    if ((this.rInputManager.Mouse is null) || !this.rInputManager.Mouse.bIsKeyDown(stkeyassignArray[i].Code))
                         break;
-                    }
+
                     this.stDetectedDevices.Mouse = true;
                     return true;
             }
