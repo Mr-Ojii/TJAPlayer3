@@ -1,23 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <ProductVersion>9.0.21022</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{BCD40908-F3E2-4707-BFAA-1DD99DF6357D}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
 
     <AssemblyName>FDK</AssemblyName>
     <RootNamespace>FDK</RootNamespace>
-    <FileAlignment>512</FileAlignment>
-    <SignAssembly>false</SignAssembly>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-
-    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\AnyCPU\Debug\</OutputPath>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <DefineConstants>TRACE</DefineConstants>
@@ -26,7 +16,6 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\AnyCPU\Release\</OutputPath>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <DefineConstants>TRACE</DefineConstants>
