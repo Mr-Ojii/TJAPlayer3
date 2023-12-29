@@ -34,8 +34,8 @@ public static class LoudnessMetadataScanner
     private static readonly object LockObject = new object();
     private static readonly Queue<double> RecentFileScanDurations = new Queue<double>();
 
-    private static Thread ScanningThread;
-    private static Semaphore Semaphore;
+    private static Thread? ScanningThread;
+    private static Semaphore? Semaphore;
 
     public static void StartBackgroundScanning()
     {
@@ -80,7 +80,7 @@ public static class LoudnessMetadataScanner
         lock (LockObject)
         {
             ScanningThread = null;
-            Semaphore.Release();
+            Semaphore?.Release();
             Semaphore = null;
         }
 
@@ -115,10 +115,15 @@ public static class LoudnessMetadataScanner
         return null;
     }
 
-    private static string GetLoudnessMetadataPath(string absoluteBgmPath)
+    private static string? GetLoudnessMetadataPath(string absoluteBgmPath)
     {
+        string? absoluteBgmDirectory = Path.GetDirectoryName(absoluteBgmPath);
+
+        if (absoluteBgmDirectory is null)
+            return null;
+
         return Path.Combine(
-            Path.GetDirectoryName(absoluteBgmPath),
+            absoluteBgmDirectory,
             Path.GetFileNameWithoutExtension(absoluteBgmPath) + ".bs1770gain.xml");
     }
 
@@ -221,6 +226,10 @@ public static class LoudnessMetadataScanner
                         continue;
                     }
 
+                    string? absoluteBgmDirectory = Path.GetDirectoryName(absoluteBgmPath);
+                    if (absoluteBgmDirectory is null)
+                        throw new Exception($"Directory not found ({absoluteBgmDirectory})");
+
                     var loudnessMetadataPath = GetLoudnessMetadataPath(absoluteBgmPath);
 
                     if (File.Exists(loudnessMetadataPath))
@@ -232,9 +241,11 @@ public static class LoudnessMetadataScanner
                     Trace.TraceInformation($"{tracePrefix}: Scanning jobs outstanding: {jobCount}. Scanning {absoluteBgmPath}...");
                     var stopwatch = Stopwatch.StartNew();
 
-                    File.Delete(loudnessMetadataPath);
+                    if (loudnessMetadataPath is not null)
+                        File.Delete(loudnessMetadataPath);
+
                     var arguments = $"-it --xml -f \"{Path.GetFileName(loudnessMetadataPath)}\" \"{Path.GetFileName(absoluteBgmPath)}\"";
-                    Execute(Path.GetDirectoryName(absoluteBgmPath), Bs1770GainExeFileName, arguments, true);
+                    Execute(absoluteBgmDirectory, Bs1770GainExeFileName, arguments, true);
 
                     var seconds = stopwatch.Elapsed.TotalSeconds;
                     RecentFileScanDurations.Enqueue(seconds);
@@ -281,8 +292,8 @@ public static class LoudnessMetadataScanner
         }
     }
 
-    private static string Execute(
-        string workingDirectory, string fileName, string arguments, bool shouldFailOnStdErrDataReceived = false)
+    private static string? Execute(
+        string? workingDirectory, string fileName, string arguments, bool shouldFailOnStdErrDataReceived = false)
     {
         var processStartInfo = new ProcessStartInfo(fileName, arguments)
         {
@@ -297,6 +308,9 @@ public static class LoudnessMetadataScanner
         var stderrWriter = new StringWriter();
         using (var process = Process.Start(processStartInfo))
         {
+            if (process is null)
+                return null;
+
             process.OutputDataReceived += (s, e) =>
             {
                 if (e.Data != null)
@@ -352,5 +366,5 @@ public static class LoudnessMetadataScanner
         public bool IsActivelyScanning { get; private set; }
     }
 
-    public static event EventHandler<ScanningStateChangedEventArgs> ScanningStateChanged;
+    public static event EventHandler<ScanningStateChangedEventArgs>? ScanningStateChanged;
 }
