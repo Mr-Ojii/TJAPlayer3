@@ -560,10 +560,9 @@ internal class CActResultParameterPanel : CActivity
             if (TJAPlayer3.Tx.Result_v2_Number != null)
             {
                 Rectangle rectangle = new Rectangle(TJAPlayer3.Tx.Result_v2_Number.szTextureSize.Width / 10 * Num, 0, TJAPlayer3.Tx.Result_v2_Number.szTextureSize.Width / 10, TJAPlayer3.Tx.Result_v2_Number.szTextureSize.Height);
-                if (TJAPlayer3.Tx.Result_v2_Number != null)
-                {
-                    TJAPlayer3.Tx.Result_v2_Number.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x, y, rectangle);
-                }
+
+                TJAPlayer3.Tx.Result_v2_Number.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x, y, rectangle);
+
                 if (score)
                     x -= TJAPlayer3.Tx.Result_v2_Number.szTextureSize.Width / 10;
                 else
