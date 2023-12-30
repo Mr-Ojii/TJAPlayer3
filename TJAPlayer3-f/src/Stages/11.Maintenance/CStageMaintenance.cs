@@ -105,8 +105,8 @@ class CStageMaintenance : CStage
     }
 
     #region[private]
-    private CTexture don;
-    private CTexture ka;
+    private CTexture? don;
+    private CTexture? ka;
     private CTexture[] str = new CTexture[4];
 
     private const int Width = 100;
