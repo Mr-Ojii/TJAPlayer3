@@ -1,12 +1,14 @@
 ﻿using DiscordRPC;
 
+namespace TJAPlayer3;
+
 internal class DiscordRichPresence : IDisposable
 {
     private static readonly string largeImageKey = "tjaplayer3-f";
-    private static readonly string largeImageText = "Ver." + Assembly.GetExecutingAssembly().GetName().Version.ToString() + "(" + RuntimeInformation.RuntimeIdentifier + ")";
+    private static readonly string largeImageText = "Ver." + TJAPlayer3.VERSION + "(" + RuntimeInformation.RuntimeIdentifier + ")";
 
     private DateTime StartupTime;
-    private DiscordRpcClient DiscordClient;
+    private DiscordRpcClient? DiscordClient;
 
     public DiscordRichPresence(string applicationID)
     {
