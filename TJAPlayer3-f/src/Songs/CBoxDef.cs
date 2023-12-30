@@ -15,7 +15,11 @@ internal class CBoxDef
 
     public CBoxDef(string boxdefFileName)
     {
-        string[] strs = CJudgeTextEncoding.ReadTextFile(boxdefFileName).Split("\n", StringSplitOptions.RemoveEmptyEntries);
+        string? str_o = CJudgeTextEncoding.ReadTextFile(boxdefFileName);
+        if (str_o is null)
+            return;
+
+        string[] strs = str_o.Split("\n", StringSplitOptions.RemoveEmptyEntries);
         foreach (var stri in strs)
         {
             var str = stri.TrimStart(' ', '\t');
