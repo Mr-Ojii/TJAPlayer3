@@ -72,7 +72,7 @@ internal class C文字コンソール : CActivity
         {
             if (this.txフォント8x16[i] != null)
             {
-                this.txフォント8x16[i].Dispose();
+                this.txフォント8x16[i]?.Dispose();
                 this.txフォント8x16[i] = null;
             }
         }
@@ -86,7 +86,7 @@ internal class C文字コンソール : CActivity
     private readonly Rectangle[,] rc文字の矩形領域;
     private const string str表記可能文字 = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~ ";
     private const int nFontWidth = 8, nFontHeight = 16;
-    private CTexture[] txフォント8x16 = new CTexture[2];
+    private CTexture?[] txフォント8x16 = new CTexture[2];
     //-----------------
     #endregion
 }
