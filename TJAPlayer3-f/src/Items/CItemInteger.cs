@@ -74,7 +74,7 @@ internal class CItemInteger : CItemBase
         this.nValue = nDefaultNum;
         this.bIsFocused = false;
     }
-    public override object objValue()
+    public override object? objValue()
     {
         return this.nValue;
     }

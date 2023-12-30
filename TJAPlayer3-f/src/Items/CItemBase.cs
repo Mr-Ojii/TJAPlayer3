@@ -69,7 +69,7 @@ internal class CItemBase
         this.strName = strName;
         this.strDescription = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? strDescriptionJP : strDescriptionEN;
     }
-    public virtual object objValue()
+    public virtual object? objValue()
     {
         return null;
     }

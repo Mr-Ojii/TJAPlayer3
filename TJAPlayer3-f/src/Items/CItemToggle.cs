@@ -61,7 +61,7 @@ internal class CItemToggle : CItemBase
         base.tInitialize(strName, strDescriptionJP, strDescriptionEN);
         this.bON = bDefault;
     }
-    public override object objValue()
+    public override object? objValue()
     {
         return (this.bON) ? "ON" : "OFF";
     }

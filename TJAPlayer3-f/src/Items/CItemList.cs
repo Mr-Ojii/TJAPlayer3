@@ -73,7 +73,7 @@ internal class CItemList : CItemBase
             this.list項目値.Add(str);
         }
     }
-    public override object objValue()
+    public override object? objValue()
     {
         return this.list項目値[n現在選択されている項目番号];
     }
