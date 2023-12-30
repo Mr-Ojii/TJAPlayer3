@@ -6,8 +6,11 @@ internal class CActScrollSpeed : CActivity
 {
     // プロパティ
 
-    public double[] db現在の譜面スクロール速度;
-
+    public double[] db現在の譜面スクロール速度
+    {
+        get;
+        private set;
+    } = new double[2];
 
     // コンストラクタ
 
@@ -21,8 +24,6 @@ internal class CActScrollSpeed : CActivity
 
     public override void On活性化()
     {
-        this.n速度変更制御タイマ = new long[2];
-        this.db現在の譜面スクロール速度 = new double[2];
         for (int nPlayer = 0; nPlayer < 2; nPlayer++)
         {
             this.db現在の譜面スクロール速度[nPlayer] = (double)TJAPlayer3.ConfigToml.PlayOption.ScrollSpeed[nPlayer];
@@ -34,6 +35,9 @@ internal class CActScrollSpeed : CActivity
     {
         if (!base.b活性化してない)
         {
+            if (CSoundManager.rc演奏用タイマ is null)
+                return 0;
+
             if (base.b初めての進行描画)
             {
                 for (int nPlayer = 0; nPlayer < 2; nPlayer++)
@@ -84,7 +88,7 @@ internal class CActScrollSpeed : CActivity
 
     #region [ private ]
     //-----------------
-    private long[] n速度変更制御タイマ;
+    private long[] n速度変更制御タイマ = new long[2];
     //-----------------
     #endregion
 }
