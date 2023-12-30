@@ -120,7 +120,7 @@ internal class CActStageFailed : CActivity
     #region [ private ]
     //-----------------
     private bool b効果音再生済み;
-    private CCounter ct進行;
+    private CCounter? ct進行;
     private double dbFailedTime;
     //-----------------
     private readonly FrozenDictionary<char, Point> st文字位置 = new Dictionary<char, Point>()
