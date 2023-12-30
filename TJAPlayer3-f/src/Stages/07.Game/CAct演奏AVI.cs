@@ -37,7 +37,7 @@ internal class CAct演奏AVI : CActivity
     {
         if (!base.b活性化してない)
         {
-            if (this.rVD == null)
+            if (this.rVD is null || this.tx描画用 is null)
                 return 0;
 
             this.rVD.GetNowFrame(ref this.tx描画用);
@@ -94,9 +94,9 @@ internal class CAct演奏AVI : CActivity
     //-----------------
     private float ratio1;
 
-    private CTexture tx描画用;
+    private CTexture? tx描画用;
 
-    public CVideoDecoder rVD;
+    public CVideoDecoder? rVD;
 
     //-----------------
     #endregion
