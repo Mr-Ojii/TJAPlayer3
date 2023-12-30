@@ -42,6 +42,8 @@ internal class CActSelectHistoryPanel : CActivity
                 this.ct登場アニメ用 = new CCounter(0, 3000, 1, TJAPlayer3.Timer);
                 base.b初めての進行描画 = false;
             }
+            if (ct登場アニメ用 is null)
+                return 0;
             this.ct登場アニメ用.t進行();
             int[] x = TJAPlayer3.Skin.SkinConfig.SongSelect.ScoreWindowX;
             int[] y = TJAPlayer3.Skin.SkinConfig.SongSelect.ScoreWindowY;
@@ -70,9 +72,9 @@ internal class CActSelectHistoryPanel : CActivity
 
     #region [ private ]
     //-----------------
-    private CCounter ct登場アニメ用;
+    private CCounter? ct登場アニメ用;
     private CTexture[,] Names = new CTexture[(int)Difficulty.Total, 3];
-    private CCachedFontRenderer Font;
+    private CCachedFontRenderer? Font;
     //-----------------
 
     private void t小文字表示(int x, int y, long n)
