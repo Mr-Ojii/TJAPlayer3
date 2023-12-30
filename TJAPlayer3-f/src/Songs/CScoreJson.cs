@@ -4,12 +4,14 @@ public class CScoreJson
 {
     public static CScoreJson Load(string FilePath)
     {
-        CScoreJson cScoreJson = new();
-
         if (File.Exists(FilePath))
-            cScoreJson = JsonSerializer.Deserialize<CScoreJson>(File.ReadAllBytes(FilePath));
+        {
+            CScoreJson? cScoreJson = JsonSerializer.Deserialize<CScoreJson>(File.ReadAllBytes(FilePath));
+            if (cScoreJson is not null)
+                return cScoreJson;
+        }
 
-        return cScoreJson;
+        return new CScoreJson();
     }
 
     public void Save(string FilePath)
@@ -38,7 +40,7 @@ public class CScoreJson
         public int Crown { get; set; } = 0;
 
         public List<CRecord> HiScore { get; set; } = new();
-        public CRecord LastPlay { get; set; } = null;
+        public CRecord? LastPlay { get; set; } = null;
     }
 
     public class CRecord
