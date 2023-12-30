@@ -18,10 +18,10 @@ internal class C曲リストノード
     public Cスコア arスコア = new Cスコア();
     public Color ForeColor = Color.White;
     public Color BackColor = Color.Black;
-    public List<C曲リストノード> list子リスト;
+    public List<C曲リストノード> list子リスト = new();
     public int nスコア数;
     [JsonIgnore]
-    public C曲リストノード r親ノード;
+    public C曲リストノード? r親ノード;
     [JsonIgnore]
     public int Openindex;
     public string strGenre = "";
