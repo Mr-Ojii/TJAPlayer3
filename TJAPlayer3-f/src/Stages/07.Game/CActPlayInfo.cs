@@ -39,6 +39,9 @@ internal class CActPlayInfo : CActivity
 
         int lastChipTime = (TJAPlayer3.DTX[0].listChip.Count > 0) ? TJAPlayer3.DTX[0].listChip[TJAPlayer3.DTX[0].listChip.Count - 1].n発声時刻ms : 0;
 
+        if (CSoundManager.rc演奏用タイマ is null)
+            return;
+
         string[] infoList = new string[]
         {
             string.Format("SCROLLMODE:    {0:####0}", Enum.GetName(typeof(EScrollMode), TJAPlayer3.ConfigToml.ScrollMode)),
