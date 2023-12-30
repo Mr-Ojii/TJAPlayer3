@@ -107,7 +107,7 @@ public class CPad
 
                 case EInputDevice.MIDIInput:
                     {
-                        IInputDevice device2 = this.rInputManager.MidiIn(stkeyassignArray[i].ID);
+                        IInputDevice? device2 = this.rInputManager.MidiIn(stkeyassignArray[i].ID);
                         if ((device2 is null) || !device2.bIsKeyPressed(stkeyassignArray[i].Code))
                             break;
 
@@ -119,7 +119,7 @@ public class CPad
                         if (!this.rConfigToml.JoystickGUID.ContainsKey(stkeyassignArray[i].ID))
                             break;
 
-                        IInputDevice device = this.rInputManager.Joystick(stkeyassignArray[i].ID);
+                        IInputDevice? device = this.rInputManager.Joystick(stkeyassignArray[i].ID);
                         if ((device is null) || !device.bIsKeyPressed(stkeyassignArray[i].Code))
                             break;
 
@@ -157,7 +157,7 @@ public class CPad
                         if (!this.rConfigToml.JoystickGUID.ContainsKey(stkeyassignArray[i].ID))
                             break;
 
-                        IInputDevice device = this.rInputManager.Joystick(stkeyassignArray[i].ID);
+                        IInputDevice? device = this.rInputManager.Joystick(stkeyassignArray[i].ID);
                         if ((device is null) || !device.bIsKeyDown(stkeyassignArray[i].Code))
                             break;
 
