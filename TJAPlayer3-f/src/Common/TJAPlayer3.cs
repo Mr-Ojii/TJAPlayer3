@@ -910,7 +910,7 @@ internal class TJAPlayer3 : Game
     }
 
     /// <summary>プロパティ、インデクサには ref は使用できないので注意。</summary>
-    public static void t安全にDisposeする<T>(ref T obj) where T : class, IDisposable //2020.06.06 Mr-Ojii twopointzero氏のソースコードをもとに改良
+    public static void t安全にDisposeする<T>(ref T? obj) where T : class, IDisposable //2020.06.06 Mr-Ojii twopointzero氏のソースコードをもとに改良
     {
         if (obj == null)
             return;
@@ -919,7 +919,7 @@ internal class TJAPlayer3 : Game
         obj = null;
     }
 
-    public static void t安全にDisposeする<T>(ref T[] array) where T : class, IDisposable //2020.08.01 Mr-Ojii twopointzero氏のソースコードをもとに追加
+    public static void t安全にDisposeする<T>(ref T?[] array) where T : class, IDisposable //2020.08.01 Mr-Ojii twopointzero氏のソースコードをもとに追加
     {
         if (array == null)
         {
