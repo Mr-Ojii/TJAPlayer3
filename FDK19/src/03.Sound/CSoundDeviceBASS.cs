@@ -35,7 +35,7 @@ public class CSoundDeviceBASS : ISoundDevice
         get;
         protected set;
     }
-    public CTimer? tmSystemTimer
+    public CTimer tmSystemTimer
     {
         get;
         protected set;
@@ -216,7 +216,6 @@ public class CSoundDeviceBASS : ISoundDevice
         if (bManagedDispose)
         {
             this.tmSystemTimer?.Dispose();
-            this.tmSystemTimer = null;
             this.libCache?.Dispose();
             this.libCache = null;
         }

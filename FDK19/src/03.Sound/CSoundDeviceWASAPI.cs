@@ -36,7 +36,7 @@ internal class CSoundDeviceWASAPI : ISoundDevice
         get;
         protected set;
     }
-    public CTimer? tmSystemTimer
+    public CTimer tmSystemTimer
     {
         get;
         protected set;
@@ -468,7 +468,6 @@ internal class CSoundDeviceWASAPI : ISoundDevice
         if (bManagedDispose)
         {
             this.tmSystemTimer?.Dispose();
-            this.tmSystemTimer = null;
         }
     }
     ~CSoundDeviceWASAPI()

@@ -67,7 +67,7 @@ internal class CSoundDeviceASIO : ISoundDevice
         get;
         protected set;
     }
-    public CTimer? tmSystemTimer
+    public CTimer tmSystemTimer
     {
         get;
         protected set;
@@ -357,7 +357,6 @@ internal class CSoundDeviceASIO : ISoundDevice
         if (bManagedDispose)
         {
             this.tmSystemTimer?.Dispose();
-            this.tmSystemTimer = null;
         }
     }
     ~CSoundDeviceASIO()

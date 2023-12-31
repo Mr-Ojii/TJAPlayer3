@@ -8,7 +8,7 @@ internal interface ISoundDevice : IDisposable
     long nBufferSizems { get; }
     long nElapsedTimems { get; }
     long SystemTimemsWhenUpdatingElapsedTime { get; }
-    CTimer? tmSystemTimer { get; }
+    CTimer tmSystemTimer { get; }
     float CPUUsage { get; }
 
     CSound tCreateSound(string strFilename, ESoundGroup soundGroup);
