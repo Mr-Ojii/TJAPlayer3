@@ -102,12 +102,12 @@ class CActSelectChangeSE : CActivity
 
         if (this.ePhase[0] == EChangeSEPhase.Active)
         {
-            if (TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return))
+            if (TJAPlayer3.app.Pad.bPressed(EPad.LRed) || TJAPlayer3.app.Pad.bPressed(EPad.RRed) || TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return))
             {
                 TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
                 this.tDeativateChangeSE(0);
             }
-            if ((TJAPlayer3.Pad.bPressed(EPad.LBlue) || TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftArrow)) && TJAPlayer3.Skin.SECount != 0)
+            if ((TJAPlayer3.app.Pad.bPressed(EPad.LBlue) || TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftArrow)) && TJAPlayer3.Skin.SECount != 0)
             {
                 TJAPlayer3.Skin.NowSENum[0]--;
                 if (TJAPlayer3.Skin.NowSENum[0] < 0)
@@ -116,7 +116,7 @@ class CActSelectChangeSE : CActivity
                 this.MoveStart(EMoving.LeftMoving, 0);
                 this.SENameChanger(0);
             }
-            if ((TJAPlayer3.Pad.bPressed(EPad.RBlue) || TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightArrow)) && TJAPlayer3.Skin.SECount != 0)
+            if ((TJAPlayer3.app.Pad.bPressed(EPad.RBlue) || TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightArrow)) && TJAPlayer3.Skin.SECount != 0)
             {
                 TJAPlayer3.Skin.NowSENum[0]++;
                 if (TJAPlayer3.Skin.NowSENum[0] > TJAPlayer3.Skin.SECount - 1)
@@ -128,12 +128,12 @@ class CActSelectChangeSE : CActivity
         }
         if (this.ePhase[1] == EChangeSEPhase.Active)
         {
-            if (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P) || (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return) && TJAPlayer3.stage選曲.actDifficultySelect.選択済み[0]))
+            if (TJAPlayer3.app.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.app.Pad.bPressed(EPad.RRed2P) || (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return) && TJAPlayer3.stage選曲.actDifficultySelect.選択済み[0]))
             {
                 TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
                 this.tDeativateChangeSE(1);
             }
-            if ((TJAPlayer3.Pad.bPressed(EPad.LBlue2P) || (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftArrow) && TJAPlayer3.stage選曲.actDifficultySelect.選択済み[0])) && TJAPlayer3.Skin.SECount != 0)
+            if ((TJAPlayer3.app.Pad.bPressed(EPad.LBlue2P) || (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftArrow) && TJAPlayer3.stage選曲.actDifficultySelect.選択済み[0])) && TJAPlayer3.Skin.SECount != 0)
             {
                 TJAPlayer3.Skin.NowSENum[1]--;
                 if (TJAPlayer3.Skin.NowSENum[1] < 0)
@@ -142,7 +142,7 @@ class CActSelectChangeSE : CActivity
                 this.MoveStart(EMoving.LeftMoving, 1);
                 this.SENameChanger(1);
             }
-            if ((TJAPlayer3.Pad.bPressed(EPad.RBlue2P) || (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightArrow) && TJAPlayer3.stage選曲.actDifficultySelect.選択済み[0])) && TJAPlayer3.Skin.SECount != 0)
+            if ((TJAPlayer3.app.Pad.bPressed(EPad.RBlue2P) || (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightArrow) && TJAPlayer3.stage選曲.actDifficultySelect.選択済み[0])) && TJAPlayer3.Skin.SECount != 0)
             {
                 TJAPlayer3.Skin.NowSENum[1]++;
                 if (TJAPlayer3.Skin.NowSENum[1] > TJAPlayer3.Skin.SECount - 1)

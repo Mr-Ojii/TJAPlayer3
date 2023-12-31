@@ -110,7 +110,7 @@ class CAct演奏Drums特訓モード : CActivity
                     this.t演奏を停止する();
                 }
             }
-            if (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.bPressed(EPad.LBlue))
+            if (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.app.Pad.bPressed(EPad.LBlue))
             {
                 if (this.b特訓PAUSE)
                 {
@@ -137,7 +137,7 @@ class CAct演奏Drums特訓モード : CActivity
                     }
                 }
             }
-            if (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.bPressed(EPad.RBlue))
+            if (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.app.Pad.bPressed(EPad.RBlue))
             {
                 if (this.b特訓PAUSE)
                 {
@@ -191,7 +191,7 @@ class CAct演奏Drums特訓モード : CActivity
                     TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND特訓スクロール].t再生する();
                 }
             }
-            if (TJAPlayer3.Pad.bPressed(EPad.LBlue2P))
+            if (TJAPlayer3.app.Pad.bPressed(EPad.LBlue2P))
             {
                 if (this.b特訓PAUSE)
                 {
@@ -202,7 +202,7 @@ class CAct演奏Drums特訓モード : CActivity
                     }
                 }
             }
-            if (TJAPlayer3.Pad.bPressed(EPad.RBlue2P))
+            if (TJAPlayer3.app.Pad.bPressed(EPad.RBlue2P))
             {
                 if (this.b特訓PAUSE)
                 {

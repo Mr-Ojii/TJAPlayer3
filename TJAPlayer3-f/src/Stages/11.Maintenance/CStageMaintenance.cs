@@ -77,21 +77,21 @@ class CStageMaintenance : CStage
             return 0;
 
         //入力信号に合わせて色を描画
-        if (TJAPlayer3.Pad.bPressed(EPad.LBlue))
+        if (TJAPlayer3.app.Pad.bPressed(EPad.LBlue))
             ka.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Diff + Width) * 4, Y);
-        if (TJAPlayer3.Pad.bPressed(EPad.LRed))
+        if (TJAPlayer3.app.Pad.bPressed(EPad.LRed))
             don.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Diff + Width) * 3, Y);
-        if (TJAPlayer3.Pad.bPressed(EPad.RRed))
+        if (TJAPlayer3.app.Pad.bPressed(EPad.RRed))
             don.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Diff + Width) * 2, Y);
-        if (TJAPlayer3.Pad.bPressed(EPad.RBlue))
+        if (TJAPlayer3.app.Pad.bPressed(EPad.RBlue))
             ka.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Diff + Width) * 1, Y);
-        if (TJAPlayer3.Pad.bPressed(EPad.LBlue2P))
+        if (TJAPlayer3.app.Pad.bPressed(EPad.LBlue2P))
             ka.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Diff + Width) * 1, Y);
-        if (TJAPlayer3.Pad.bPressed(EPad.LRed2P))
+        if (TJAPlayer3.app.Pad.bPressed(EPad.LRed2P))
             don.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Diff + Width) * 2, Y);
-        if (TJAPlayer3.Pad.bPressed(EPad.RRed2P))
+        if (TJAPlayer3.app.Pad.bPressed(EPad.RRed2P))
             don.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Diff + Width) * 3, Y);
-        if (TJAPlayer3.Pad.bPressed(EPad.RBlue2P))
+        if (TJAPlayer3.app.Pad.bPressed(EPad.RBlue2P))
             ka.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Diff + Width) * 4, Y);
 
         for (int index = 0; index < 4; index++)

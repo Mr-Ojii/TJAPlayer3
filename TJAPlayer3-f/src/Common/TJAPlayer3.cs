@@ -79,7 +79,7 @@ internal class TJAPlayer3 : Game
         get;
         private set;
     }
-    public static CPad Pad
+    public CPad Pad
     {
         get;
         private set;
@@ -928,7 +928,7 @@ internal class TJAPlayer3 : Game
                     //-----------------------------
                     if (this.n進行描画の戻り値 != 0)
                     {
-                        TJAPlayer3.Pad.stDetectedDevices.Clear();  // 入力デバイスフラグクリア(2010.9.11)
+                        TJAPlayer3.app.Pad.stDetectedDevices.Clear();  // 入力デバイスフラグクリア(2010.9.11)
                         r現在のステージ.On非活性化();
                         #region [ ESC押下時は、曲の読み込みを中止して選曲画面に戻る ]
                         if (this.n進行描画の戻り値 == (int)E曲読込画面の戻り値.読込中止)

@@ -220,8 +220,8 @@ internal class CActSelectPopupMenu : CActivity
                 #region [ キー入力: 決定 ]
                 ESortAction eAction = ESortAction.END;
                 if (
-                    TJAPlayer3.Pad.bPressed(EPad.LRed)
-                    || TJAPlayer3.Pad.bPressed(EPad.RRed)
+                    TJAPlayer3.app.Pad.bPressed(EPad.LRed)
+                    || TJAPlayer3.app.Pad.bPressed(EPad.RRed)
                     || (TJAPlayer3.app.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return)))
                 {
                     eAction = ESortAction.Decide;
@@ -233,14 +233,14 @@ internal class CActSelectPopupMenu : CActivity
                 #endregion
                 #region [ キー入力: 前に移動 ]
                 this.ctキー反復用.Up.tキー反復(TJAPlayer3.app.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.UpArrow), new CCounter.DGキー処理(this.t前に移動));
-                if (TJAPlayer3.Pad.bPressed(EPad.LBlue))
+                if (TJAPlayer3.app.Pad.bPressed(EPad.LBlue))
                 {
                     this.t前に移動();
                 }
                 #endregion
                 #region [ キー入力: 次に移動 ]
                 this.ctキー反復用.Down.tキー反復(TJAPlayer3.app.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.DownArrow), new CCounter.DGキー処理(this.t次に移動));
-                if (TJAPlayer3.Pad.bPressed(EPad.RBlue))
+                if (TJAPlayer3.app.Pad.bPressed(EPad.RBlue))
                 {
                     this.t次に移動();
                 }

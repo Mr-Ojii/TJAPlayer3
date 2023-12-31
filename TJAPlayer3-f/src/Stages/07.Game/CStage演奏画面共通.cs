@@ -2068,7 +2068,7 @@ internal class CStage演奏画面共通 : CStage
     {
         for (int nPad = 0; nPad < (int)EPad.MAX; nPad++)
         {
-            List<STInputEvent> listInputEvent = TJAPlayer3.Pad.GetEvents((EPad)nPad);
+            List<STInputEvent> listInputEvent = TJAPlayer3.app.Pad.GetEvents((EPad)nPad);
 
             if ((listInputEvent == null) || (listInputEvent.Count == 0))
                 continue;
@@ -2647,19 +2647,19 @@ internal class CStage演奏画面共通 : CStage
 
     protected void t入力メソッド記憶()
     {
-        if (TJAPlayer3.Pad.stDetectedDevices.Keyboard)
+        if (TJAPlayer3.app.Pad.stDetectedDevices.Keyboard)
         {
             this.b演奏にKeyBoardを使った = true;
         }
-        if (TJAPlayer3.Pad.stDetectedDevices.Joypad)
+        if (TJAPlayer3.app.Pad.stDetectedDevices.Joypad)
         {
             this.b演奏にJoypadを使った = true;
         }
-        if (TJAPlayer3.Pad.stDetectedDevices.MIDIIN)
+        if (TJAPlayer3.app.Pad.stDetectedDevices.MIDIIN)
         {
             this.b演奏にMIDIInputを使った = true;
         }
-        if (TJAPlayer3.Pad.stDetectedDevices.Mouse)
+        if (TJAPlayer3.app.Pad.stDetectedDevices.Mouse)
         {
             this.b演奏にMouseを使った = true;
         }
