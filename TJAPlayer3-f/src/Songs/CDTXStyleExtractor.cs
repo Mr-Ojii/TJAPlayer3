@@ -308,6 +308,7 @@ public static class CDTXStyleExtractor
         {
             SectionKind = sectionKind;
             OriginalRawValue = originalRawValue;
+            SubSections = new();
         }
     }
 
@@ -418,14 +419,14 @@ public static class CDTXStyleExtractor
             SubSectionKind = subSectionKind;
         }
 
-        public bool Equals(SectionKindAndSubSectionKind other)
+        public bool Equals(SectionKindAndSubSectionKind? other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
             return SectionKind == other.SectionKind && SubSectionKind == other.SubSectionKind;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
