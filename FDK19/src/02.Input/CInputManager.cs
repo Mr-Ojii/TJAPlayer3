@@ -11,77 +11,19 @@ public class CInputManager : IDisposable
         get;
         private set;
     }
-    public IInputDevice? Keyboard
-    {
-        get
-        {
-            if (this._Keyboard != null)
-            {
-                return this._Keyboard;
-            }
-            foreach (IInputDevice device in this.listInputDevices)
-            {
-                if (device.eInputDeviceType == EInputDeviceType.Keyboard)
-                {
-                    this._Keyboard = device;
-                    return device;
-                }
-            }
-            return null;
-        }
-    }
-    public IInputDevice? Mouse
-    {
-        get
-        {
-            if (this._Mouse != null)
-            {
-                return this._Mouse;
-            }
-            foreach (IInputDevice device in this.listInputDevices)
-            {
-                if (device.eInputDeviceType == EInputDeviceType.Mouse)
-                {
-                    this._Mouse = device;
-                    return device;
-                }
-            }
-            return null;
-        }
-    }
+    public IInputDevice Keyboard => this._Keyboard;
+    public IInputDevice Mouse => this._Mouse;
 
 
     // コンストラクタ
     public CInputManager()
     {
         this.listInputDevices = new List<IInputDevice>(10);
-        #region [ Enumerate keyboard/mouse: exception is masked if keyboard/mouse is not connected ]
-        CInputKeyboard? cinputkeyboard = null;
-        CInputMouse? cinputmouse = null;
-        try
-        {
-            cinputkeyboard = new CInputKeyboard();
-        }
-        catch (Exception e)
-        {
-            Trace.WriteLine(e.ToString());
-        }
-        if (cinputkeyboard != null)
-        {
-            this.listInputDevices.Add(cinputkeyboard);
-        }
-        try
-        {
-            cinputmouse = new CInputMouse();
-        }
-        catch (Exception e)
-        {
-            Trace.WriteLine(e.ToString());
-        }
-        if (cinputmouse != null)
-        {
-            this.listInputDevices.Add(cinputmouse);
-        }
+        #region [ Enumerate keyboard/mouse ]
+        this._Keyboard = new CInputKeyboard();
+        this.listInputDevices.Add(this._Keyboard);
+        this._Mouse = new CInputMouse();
+        this.listInputDevices.Add(this._Mouse);
         #endregion
         #region [ Enumerate joypad ]
         try
@@ -237,8 +179,8 @@ public class CInputManager : IDisposable
 
     #region [ private ]
     //-----------------
-    private IInputDevice? _Keyboard = null;
-    private IInputDevice? _Mouse = null;
+    private IInputDevice _Keyboard;
+    private IInputDevice _Mouse;
     private bool bDisposed;
     private object objMidiIn排他用 = new object();
     private List<IMidiInput> midiInputs = new List<IMidiInput>();
