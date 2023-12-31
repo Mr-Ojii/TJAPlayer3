@@ -33,7 +33,7 @@ internal static class KeyboardSoundGroupLevelControlHandler
         }
 
         ESoundGroup soundGroup;
-        CSkin.Cシステムサウンド システムサウンド = null;
+        CSkin.Cシステムサウンド? システムサウンド = null;
 
         if (keyboard.bIsKeyDown((int)SlimDXKeys.Key.LeftControl) ||
             keyboard.bIsKeyDown((int)SlimDXKeys.Key.RightControl))
