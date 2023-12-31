@@ -96,9 +96,13 @@ class CStageMaintenance : CStage
 
         for (int index = 0; index < 4; index++)
         {
-            //文字の描画
-            str[index].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Diff + Width) * (4 - index), strY);
-            str[index].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Diff + Width) * (index + 1), strY);
+            CTexture? str_i = str[index];
+            if(str_i is not null)
+            {
+                //文字の描画
+                str_i.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 - (Diff + Width) * (4 - index), strY);
+                str_i.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, 640 + (Diff + Width) * (index + 1), strY);
+            }
         }
 
         return 0;
@@ -107,7 +111,7 @@ class CStageMaintenance : CStage
     #region[private]
     private CTexture? don;
     private CTexture? ka;
-    private CTexture[] str = new CTexture[4];
+    private CTexture?[] str = new CTexture?[4];
 
     private const int Width = 100;
     private const int Height = 100;
