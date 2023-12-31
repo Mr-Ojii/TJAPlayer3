@@ -56,7 +56,7 @@ internal class CSongsManager
     {
         this.t曲を検索してリストを作成する(str基点フォルダ, b子BOXへ再帰する, this.list曲ルート, null);
     }
-    private void t曲を検索してリストを作成する(string str基点フォルダ, bool b子BOXへ再帰する, List<C曲リストノード> listノードリスト, C曲リストノード node親)
+    private void t曲を検索してリストを作成する(string str基点フォルダ, bool b子BOXへ再帰する, List<C曲リストノード> listノードリスト, C曲リストノード? node親)
     {
         if (!str基点フォルダ.EndsWith(@"/"))
             str基点フォルダ = str基点フォルダ + @"/";
@@ -159,7 +159,6 @@ internal class CSongsManager
                         }
                     }
                 }
-                dtx = null;
 
                 try
                 {
