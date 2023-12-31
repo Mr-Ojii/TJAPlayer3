@@ -150,12 +150,16 @@ public class GameWindow : IDisposable
         }
     }
 
-    public string? RendererName
+    public string RendererName
     {
         get
         {
             SDL.SDL_GetRendererInfo(this._renderer_handle, out var info);
-            return Marshal.PtrToStringUTF8(info.name);
+            string? _renderer_name = Marshal.PtrToStringUTF8(info.name);
+            if (_renderer_name is null)
+                return "null";
+            else
+                return _renderer_name;
         }
     }
 
