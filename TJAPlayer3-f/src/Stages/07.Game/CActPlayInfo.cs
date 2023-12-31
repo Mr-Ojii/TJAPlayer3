@@ -61,7 +61,7 @@ internal class CActPlayInfo : CActivity
 
         for (int i = 0; i < infoList.Length; i++)
         {
-            TJAPlayer3.act文字コンソール.tPrint(x, y, C文字コンソール.EFontType.白, infoList[i]);
+            TJAPlayer3.app.act文字コンソール.tPrint(x, y, C文字コンソール.EFontType.白, infoList[i]);
             y += 15;
         }
     }

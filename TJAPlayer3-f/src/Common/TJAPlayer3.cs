@@ -24,7 +24,7 @@ internal class TJAPlayer3 : Game
         get;
         private set;
     }
-    public static C文字コンソール act文字コンソール
+    public C文字コンソール act文字コンソール
     {
         get;
         private set;
@@ -1684,7 +1684,7 @@ internal class TJAPlayer3 : Game
     {
         Trace.TraceInformation("スキン変更:" + TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(false));
 
-        TJAPlayer3.act文字コンソール.On非活性化();
+        TJAPlayer3.app.act文字コンソール.On非活性化();
 
         TJAPlayer3.Skin.Dispose();
         TJAPlayer3.Skin = null;
@@ -1694,7 +1694,7 @@ internal class TJAPlayer3 : Game
         TJAPlayer3.Tx.DisposeTexture();
         TJAPlayer3.Tx.LoadTexture();
 
-        TJAPlayer3.act文字コンソール.On活性化();
+        TJAPlayer3.app.act文字コンソール.On活性化();
     }
     #region [ Windowイベント処理 ]
     //-----------------

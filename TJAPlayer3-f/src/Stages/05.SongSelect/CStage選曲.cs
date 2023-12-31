@@ -335,19 +335,19 @@ internal class CStage選曲 : CStage
 
             #region[ 下部テキスト ]
             if (TJAPlayer3.app.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー)
-                TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, "GAME: SURVIVAL");
+                TJAPlayer3.app.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, "GAME: SURVIVAL");
             if (TJAPlayer3.app.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー激辛)
-                TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, "GAME: SURVIVAL HARD");
+                TJAPlayer3.app.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, "GAME: SURVIVAL HARD");
             if (TJAPlayer3.app.ConfigToml.PlayOption._GameMode == EGame.特訓モード)
-                TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, "GAME: TRAINING MODE");
+                TJAPlayer3.app.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, "GAME: TRAINING MODE");
             if (TJAPlayer3.app.ConfigToml.SuperHard)
-                TJAPlayer3.act文字コンソール.tPrint(0, 16, C文字コンソール.EFontType.赤, "SUPER HARD MODE : ON");
+                TJAPlayer3.app.act文字コンソール.tPrint(0, 16, C文字コンソール.EFontType.赤, "SUPER HARD MODE : ON");
             if (TJAPlayer3.app.ConfigToml.ScrollMode == EScrollMode.BMSCROLL)
-                TJAPlayer3.act文字コンソール.tPrint(0, 32, C文字コンソール.EFontType.赤, "BMSCROLL : ON");
+                TJAPlayer3.app.act文字コンソール.tPrint(0, 32, C文字コンソール.EFontType.赤, "BMSCROLL : ON");
             else if (TJAPlayer3.app.ConfigToml.ScrollMode == EScrollMode.HBSCROLL)
-                TJAPlayer3.act文字コンソール.tPrint(0, 32, C文字コンソール.EFontType.赤, "HBSCROLL : ON");
+                TJAPlayer3.app.act文字コンソール.tPrint(0, 32, C文字コンソール.EFontType.赤, "HBSCROLL : ON");
             else if (TJAPlayer3.app.ConfigToml.ScrollMode == EScrollMode.REGULSPEED)
-                TJAPlayer3.act文字コンソール.tPrint(0, 32, C文字コンソール.EFontType.赤, "Reg.Speed : " + TJAPlayer3.app.ConfigToml.RegSpeedBPM.ToString());
+                TJAPlayer3.app.act文字コンソール.tPrint(0, 32, C文字コンソール.EFontType.赤, "Reg.Speed : " + TJAPlayer3.app.ConfigToml.RegSpeedBPM.ToString());
             #endregion
 
             if (TJAPlayer3.app.ConfigToml.SongSelect.CountDownTimer && TJAPlayer3.Tx.SongSelect_Counter_Back[0] != null && TJAPlayer3.Tx.SongSelect_Counter_Back[1] != null && TJAPlayer3.Tx.SongSelect_Counter_Num[0] != null && TJAPlayer3.Tx.SongSelect_Counter_Num[1] != null)

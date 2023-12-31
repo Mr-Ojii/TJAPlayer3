@@ -95,7 +95,7 @@ class CAct演奏Drums特訓モード : CActivity
                 base.b初めての進行描画 = false;
             }
 
-            TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, "TRAINING MODE (BETA)");
+            TJAPlayer3.app.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, "TRAINING MODE (BETA)");
 
             if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Space))
             {

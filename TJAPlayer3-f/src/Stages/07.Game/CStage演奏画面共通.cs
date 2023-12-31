@@ -1792,10 +1792,10 @@ internal class CStage演奏画面共通 : CStage
 #if DEBUG
         if (player == 0)
         {
-            TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, pastChip != null ? pastChip.ToString() : "null");
-            TJAPlayer3.act文字コンソール.tPrint(0, 20, C文字コンソール.EFontType.白, futureChip != null ? futureChip.ToString() : "null");
-            TJAPlayer3.act文字コンソール.tPrint(0, 40, C文字コンソール.EFontType.白, nearestChip != null ? nearestChip.ToString() : "null");
-            TJAPlayer3.act文字コンソール.tPrint(0, 60, C文字コンソール.EFontType.白, startPosision.ToString());
+            TJAPlayer3.app.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, pastChip != null ? pastChip.ToString() : "null");
+            TJAPlayer3.app.act文字コンソール.tPrint(0, 20, C文字コンソール.EFontType.白, futureChip != null ? futureChip.ToString() : "null");
+            TJAPlayer3.app.act文字コンソール.tPrint(0, 40, C文字コンソール.EFontType.白, nearestChip != null ? nearestChip.ToString() : "null");
+            TJAPlayer3.app.act文字コンソール.tPrint(0, 60, C文字コンソール.EFontType.白, startPosision.ToString());
 
         }
 #endif
@@ -1943,10 +1943,10 @@ internal class CStage演奏画面共通 : CStage
 #if DEBUG
         if (player == 0)
         {
-            TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, pastChip != null ? pastChip.ToString() : "null");
-            TJAPlayer3.act文字コンソール.tPrint(0, 20, C文字コンソール.EFontType.白, futureChip != null ? futureChip.ToString() : "null");
-            TJAPlayer3.act文字コンソール.tPrint(0, 40, C文字コンソール.EFontType.白, nearestChip != null ? nearestChip.ToString() : "null");
-            TJAPlayer3.act文字コンソール.tPrint(0, 60, C文字コンソール.EFontType.白, startPosision.ToString());
+            TJAPlayer3.app.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, pastChip != null ? pastChip.ToString() : "null");
+            TJAPlayer3.app.act文字コンソール.tPrint(0, 20, C文字コンソール.EFontType.白, futureChip != null ? futureChip.ToString() : "null");
+            TJAPlayer3.app.act文字コンソール.tPrint(0, 40, C文字コンソール.EFontType.白, nearestChip != null ? nearestChip.ToString() : "null");
+            TJAPlayer3.app.act文字コンソール.tPrint(0, 60, C文字コンソール.EFontType.白, startPosision.ToString());
 
         }
 #endif
@@ -4371,7 +4371,7 @@ internal class CStage演奏画面共通 : CStage
         {
             if (x >= 310)
             {
-                TJAPlayer3.act文字コンソール.tPrint(x + 8, y - 26, C文字コンソール.EFontType.白, pChip.n整数値_内部番号.ToString());
+                TJAPlayer3.app.act文字コンソール.tPrint(x + 8, y - 26, C文字コンソール.EFontType.白, pChip.n整数値_内部番号.ToString());
             }
         }
         if ((pChip.b可視) && (TJAPlayer3.Tx.Bar != null))

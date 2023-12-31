@@ -163,12 +163,12 @@ internal class CStageTitle : CStage
             string strCreator = "https://github.com/Mr-Ojii/TJAPlayer3-f";
             AssemblyName asmApp = Assembly.GetExecutingAssembly().GetName();
 #if DEBUG
-            TJAPlayer3.act文字コンソール.tPrint(4, 44, C文字コンソール.EFontType.白, "DEBUG BUILD");
+            TJAPlayer3.app.act文字コンソール.tPrint(4, 44, C文字コンソール.EFontType.白, "DEBUG BUILD");
 #endif
-            TJAPlayer3.act文字コンソール.tPrint(4, 4, C文字コンソール.EFontType.白, asmApp.Name + " Ver." + TJAPlayer3.VERSION + " (" + strCreator + ")");
-            TJAPlayer3.act文字コンソール.tPrint(4, 24, C文字コンソール.EFontType.白, "Skin:" + TJAPlayer3.Skin.SkinConfig.General.Name + " Ver." + TJAPlayer3.Skin.SkinConfig.General.Version + " (" + TJAPlayer3.Skin.SkinConfig.General.Creator + ")");
+            TJAPlayer3.app.act文字コンソール.tPrint(4, 4, C文字コンソール.EFontType.白, asmApp.Name + " Ver." + TJAPlayer3.VERSION + " (" + strCreator + ")");
+            TJAPlayer3.app.act文字コンソール.tPrint(4, 24, C文字コンソール.EFontType.白, "Skin:" + TJAPlayer3.Skin.SkinConfig.General.Name + " Ver." + TJAPlayer3.Skin.SkinConfig.General.Version + " (" + TJAPlayer3.Skin.SkinConfig.General.Creator + ")");
             //CDTXMania.act文字コンソール.tPrint(4, 24, C文字コンソール.EFontType.白, strSubTitle);
-            TJAPlayer3.act文字コンソール.tPrint(4, (TJAPlayer3.app.LogicalSize.Height - 24), C文字コンソール.EFontType.白, "TJAPlayer3-f forked TJAPlayer3(AioiLight) forked TJAPlayer2 forPC(kairera0467)");
+            TJAPlayer3.app.act文字コンソール.tPrint(4, (TJAPlayer3.app.LogicalSize.Height - 24), C文字コンソール.EFontType.白, "TJAPlayer3-f forked TJAPlayer3(AioiLight) forked TJAPlayer2 forPC(kairera0467)");
             #endregion
 
 
