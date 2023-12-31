@@ -44,5 +44,5 @@ internal class CActLyric : CActivity
     }
 
     private float refRatio;
-    private CTexture txLyricTexture;
+    private CTexture? txLyricTexture;
 }
