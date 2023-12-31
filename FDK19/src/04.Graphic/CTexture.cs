@@ -16,10 +16,11 @@ public class CTexture : IDisposable
         }
         set
         {
-            if (this.texture is null)
+            if (this.texture == nint.Zero)
                 return;
+
             this._opacity = Math.Clamp(value, 0, 0xff);
-            SDL.SDL_SetTextureAlphaMod((IntPtr)this.texture, (byte)this._opacity);
+            SDL.SDL_SetTextureAlphaMod((nint)this.texture, (byte)this._opacity);
         }
     }
     public Color color
@@ -48,16 +49,17 @@ public class CTexture : IDisposable
         }
         set
         {
-            if (this.texture is null)
+            if (this.texture == nint.Zero)
                 return;
+
             this._eBlendMode = value;
             switch (value)
             {
                 case EBlendMode.Addition:
-                    SDL.SDL_SetTextureBlendMode((IntPtr)this.texture, SDL.SDL_BlendMode.SDL_BLENDMODE_ADD);
+                    SDL.SDL_SetTextureBlendMode((nint)this.texture, SDL.SDL_BlendMode.SDL_BLENDMODE_ADD);
                     break;
                 default:
-                    SDL.SDL_SetTextureBlendMode((IntPtr)this.texture, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
+                    SDL.SDL_SetTextureBlendMode((nint)this.texture, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
                     break;
             }
         }
@@ -69,7 +71,7 @@ public class CTexture : IDisposable
     public CTexture()
     {
         this._opacity = 0xff;
-        this.texture = null;
+        this.texture = nint.Zero;
         this.bTextureDisposed = true;
         this.fRotation = 0f;
         this.vcScaling = new Vector2(1f, 1f);
@@ -116,6 +118,9 @@ public class CTexture : IDisposable
 
             this.texture = SDL.SDL_CreateTexture(device.renderer, SDL.SDL_PIXELFORMAT_ARGB8888, (int)SDL.SDL_TextureAccess.SDL_TEXTUREACCESS_TARGET, bitmap.Width, bitmap.Height);
 
+            if (this.texture == nint.Zero)
+                throw new Exception("Failed to create texture.");
+
             //SKColorはArgb8888で格納されるが、無駄コピーが発生するのでどうにかしたい
             //Dictionary<SKColorType, uint>を作れば良い？
             fixed(void* ptr = bitmap.Pixels)
@@ -132,14 +137,14 @@ public class CTexture : IDisposable
         catch
         {
             this.Dispose();
-            throw new CTextureCreateFailedException(string.Format("Failed to create texture. \n"));
+            throw new CTextureCreateFailedException(string.Format("Failed to create texture."));
         }
     }
 
     // メソッド
-    public void UpdateTexture(IntPtr bitmap, Size size)
+    public void UpdateTexture(nint bitmap, Size size)
     {
-        if (texture is null || this.szTextureSize != size)
+        if (texture == nint.Zero || this.szTextureSize != size)
             return;
 
         SDL.SDL_Rect rect = new SDL.SDL_Rect()
@@ -149,7 +154,7 @@ public class CTexture : IDisposable
             w = size.Width,
             h = size.Height
         };
-        SDL.SDL_UpdateTexture((IntPtr)this.texture, ref rect, bitmap, size.Width * 4);
+        SDL.SDL_UpdateTexture((nint)this.texture, ref rect, bitmap, size.Width * 4);
     }
 
     public void t2D拡大率考慮描画(Device device, RefPnt refpnt, float x, float y)
@@ -243,7 +248,7 @@ public class CTexture : IDisposable
     }
     public void t2D描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
     {
-        if (this.texture == null)
+        if (this.texture == nint.Zero)
             return;
 
         dstrect.x = x;
@@ -256,14 +261,14 @@ public class CTexture : IDisposable
         srcrect.w = rc画像内の描画領域.Width;
         srcrect.h = rc画像内の描画領域.Height;
 
-        SDL.SDL_SetTextureColorMod((IntPtr)this.texture, color.R, color.G, color.B);
-        SDL.SDL_RenderCopyExF(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect, -(this.fRotation * 180 / Math.PI), IntPtr.Zero, SDL.SDL_RendererFlip.SDL_FLIP_NONE);
+        SDL.SDL_SetTextureColorMod((nint)this.texture, color.R, color.G, color.B);
+        SDL.SDL_RenderCopyExF(device.renderer, (nint)this.texture, ref srcrect, ref dstrect, -(this.fRotation * 180 / Math.PI), nint.Zero, SDL.SDL_RendererFlip.SDL_FLIP_NONE);
     }
 
 
     public void t2D幕用描画(Device device, float x, float y, Rectangle rc画像内の描画領域, bool left, int num = 0)
     {
-        if (this.texture == null)
+        if (this.texture == nint.Zero)
             return;
 
         dstrect.x = x;
@@ -276,8 +281,8 @@ public class CTexture : IDisposable
         srcrect.w = rc画像内の描画領域.Width;
         srcrect.h = rc画像内の描画領域.Height;
 
-        SDL.SDL_SetTextureColorMod((IntPtr)this.texture, color.R, color.G, color.B);
-        SDL.SDL_RenderCopyF(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect);
+        SDL.SDL_SetTextureColorMod((nint)this.texture, color.R, color.G, color.B);
+        SDL.SDL_RenderCopyF(device.renderer, (nint)this.texture, ref srcrect, ref dstrect);
     }
 
     public void t2D上下反転描画(Device device, float x, float y)
@@ -286,7 +291,7 @@ public class CTexture : IDisposable
     }
     public void t2D上下反転描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
     {
-        if (this.texture == null)
+        if (this.texture == nint.Zero)
             throw new InvalidOperationException("Texture is not generated. ");
 
         dstrect.x = x;
@@ -299,8 +304,8 @@ public class CTexture : IDisposable
         srcrect.w = rc画像内の描画領域.Width;
         srcrect.h = rc画像内の描画領域.Height;
 
-        SDL.SDL_SetTextureColorMod((IntPtr)this.texture, color.R, color.G, color.B);
-        SDL.SDL_RenderCopyExF(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect, 0, IntPtr.Zero, SDL.SDL_RendererFlip.SDL_FLIP_VERTICAL);
+        SDL.SDL_SetTextureColorMod((nint)this.texture, color.R, color.G, color.B);
+        SDL.SDL_RenderCopyExF(device.renderer, (nint)this.texture, ref srcrect, ref dstrect, 0, nint.Zero, SDL.SDL_RendererFlip.SDL_FLIP_VERTICAL);
     }
 
     public void t2D左右反転描画(Device device, float x, float y)
@@ -309,7 +314,7 @@ public class CTexture : IDisposable
     }
     public void t2D左右反転描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
     {
-        if (this.texture == null)
+        if (this.texture == nint.Zero)
             throw new InvalidOperationException("Texture is not generated. ");
 
         dstrect.x = x;
@@ -322,8 +327,8 @@ public class CTexture : IDisposable
         srcrect.w = rc画像内の描画領域.Width;
         srcrect.h = rc画像内の描画領域.Height;
 
-        SDL.SDL_SetTextureColorMod((IntPtr)this.texture, color.R, color.G, color.B);
-        SDL.SDL_RenderCopyExF(device.renderer, (IntPtr)this.texture, ref srcrect, ref dstrect, 0, IntPtr.Zero, SDL.SDL_RendererFlip.SDL_FLIP_HORIZONTAL);
+        SDL.SDL_SetTextureColorMod((nint)this.texture, color.R, color.G, color.B);
+        SDL.SDL_RenderCopyExF(device.renderer, (nint)this.texture, ref srcrect, ref dstrect, 0, nint.Zero, SDL.SDL_RendererFlip.SDL_FLIP_HORIZONTAL);
     }
 
     #region [ IDisposable 実装 ]
@@ -333,12 +338,11 @@ public class CTexture : IDisposable
         if (!this.bDisposed)
         {
             // テクスチャの破棄
-            if (this.texture.HasValue)
+            if (this.texture != nint.Zero)
             {
                 this.bTextureDisposed = true;
-                if (this.texture != null)
-                    SDL.SDL_DestroyTexture((IntPtr)this.texture);
-                this.texture = null;
+                SDL.SDL_DestroyTexture((nint)this.texture);
+                this.texture = nint.Zero;
             }
 
             this.bDisposed = true;
@@ -388,7 +392,7 @@ public class CTexture : IDisposable
 
     // 2012.3.21 さらなる new の省略作戦
 
-    private IntPtr? texture;
+    private nint texture;
     private string filename;
     protected Rectangle rcImageRect;                              // テクスチャ作ったらあとは不変
     private int _opacity;
