@@ -180,11 +180,7 @@ internal class TJAPlayer3 : Game
     }
     public static CStage r現在のステージ = null;
     public static CStage r直前のステージ = null;
-    public static string strEXEのあるフォルダ
-    {
-        get;
-        private set;
-    }
+    public static string strEXEのあるフォルダ => AppContext.BaseDirectory;
     public static CTimer Timer
     {
         get;
@@ -1003,15 +999,6 @@ internal class TJAPlayer3 : Game
     private void t起動処理()
     {
         Program.Renderer = this.RendererName;
-        #region [ strEXEのあるフォルダを決定する ]
-        //-----------------
-        // BEGIN #23629 2010.11.13 from: デバッグ時は Application.ExecutablePath が ($SolutionDir)/bin/x86/Debug/ などになり System/ の読み込みに失敗するので、カレントディレクトリを採用する。（プロジェクトのプロパティ→デバッグ→作業ディレクトリが有効になる）
-
-        strEXEのあるフォルダ = AppContext.BaseDirectory;
-
-        // END #23629 2010.11.13 from
-        //-----------------
-        #endregion
         #region [ Config.toml の読み込み ]
         string tomlpath = strEXEのあるフォルダ + "Config.toml";
         ConfigToml = CConfigToml.Load(tomlpath);
