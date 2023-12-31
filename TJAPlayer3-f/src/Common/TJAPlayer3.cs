@@ -7,7 +7,17 @@ internal class TJAPlayer3 : Game
 {
     // プロパティ
     #region [ properties ]
-    public static readonly string VERSION = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+    public static string VERSION
+    {
+        get
+        {
+            var version = Assembly.GetExecutingAssembly().GetName().Version;
+            if (version is null)
+                return "null";
+
+            return version.ToString();
+        }
+    }
 
     public static TJAPlayer3 app
     {
