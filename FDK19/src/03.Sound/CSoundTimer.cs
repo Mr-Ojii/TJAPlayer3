@@ -89,23 +89,14 @@ public class CSoundTimer : CTimerBase
             // ここで、実際にtimerが停止したことを確認するコードを追加すべきだが、やり方わからず。
             // 代替策として、SnapTimers()中で、例外発生を破棄している。
             timer.Dispose();
-            timer = null;
-        }
-        if (ct != null)
-        {
-            ct.t一時停止();
-            ct.Dispose();
-            ct = null;
         }
     }
 
     internal ISoundDevice Device;	// debugのため、一時的にprotectedをpublicにする。後で元に戻しておくこと。
     //protected Thread thSendInput = null;
     //protected Thread thSnapTimers = null;
-    private CTimer? ctDInputTimer = null;
+    private CTimer ctDInputTimer;
     private long nDInputTimerCounter = 0;
     private long nSoundTimerCounter = 0;
-    Timer? timer = null;
-
-    private CTimer? ct = null;								// TESTCODE
+    private Timer timer;
 }
