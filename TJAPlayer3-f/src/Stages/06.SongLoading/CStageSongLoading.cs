@@ -37,8 +37,8 @@ internal class CStageSongLoading : CStage
             // player and the special song title and subtitle
             // of the .tja used to perform input calibration
             TJAPlayer3.IsPerformingCalibration =
-                !TJAPlayer3.ConfigToml.PlayOption.AutoPlay[0] &&
-                TJAPlayer3.ConfigToml.PlayOption.PlayerCount == 1 &&
+                !TJAPlayer3.app.ConfigToml.PlayOption.AutoPlay[0] &&
+                TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount == 1 &&
                 strTitle == "Input Calibration" &&
                 strSubTitle == "TJAPlayer3 Developers";
 
@@ -66,7 +66,7 @@ internal class CStageSongLoading : CStage
 
                 if (!string.IsNullOrEmpty(タイトル))
                 {
-                    using (CFontRenderer pfTITLE = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, TJAPlayer3.Skin.SkinConfig.SongLoading.TitleFontSize))
+                    using (CFontRenderer pfTITLE = new CFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, TJAPlayer3.Skin.SkinConfig.SongLoading.TitleFontSize))
                     {
                         using (var bmpSongTitle = pfTITLE.DrawText(タイトル, TJAPlayer3.Skin.SkinConfig.SongLoading._TitleForeColor, TJAPlayer3.Skin.SkinConfig.SongLoading._TitleBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
                         {
@@ -77,7 +77,7 @@ internal class CStageSongLoading : CStage
 
                     if (!string.IsNullOrEmpty(サブタイトル))
                     {
-                        using (CFontRenderer pfSUBTITLE = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, TJAPlayer3.Skin.SkinConfig.SongLoading.SubTitleFontSize))
+                        using (CFontRenderer pfSUBTITLE = new CFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, TJAPlayer3.Skin.SkinConfig.SongLoading.SubTitleFontSize))
                         {
                             using (var bmpSongSubTitle = pfSUBTITLE.DrawText(サブタイトル, TJAPlayer3.Skin.SkinConfig.SongLoading._SubTitleForeColor, TJAPlayer3.Skin.SkinConfig.SongLoading._SubTitleBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
                             {
@@ -156,7 +156,7 @@ internal class CStageSongLoading : CStage
         #region [ 背景、音符＋タイトル表示 ]
         //-----------------------------
         this.ct曲名表示.t進行();
-        if (TJAPlayer3.ConfigToml.EnableSkinV2)
+        if (TJAPlayer3.app.ConfigToml.EnableSkinV2)
         {
             if (TJAPlayer3.Tx.SongLoading_v2_BG != null)
                 TJAPlayer3.Tx.SongLoading_v2_BG.t2D描画(TJAPlayer3.app.Device, 0, 0);
@@ -169,7 +169,7 @@ internal class CStageSongLoading : CStage
 
         if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan)
         {
-            if (TJAPlayer3.ConfigToml.EnableSkinV2)
+            if (TJAPlayer3.app.ConfigToml.EnableSkinV2)
             {
                 if (TJAPlayer3.Tx.SongLoading_v2_Plate != null)
                 {
@@ -302,15 +302,15 @@ internal class CStageSongLoading : CStage
 
                     //if( CDTXMania.DTX == null )
                     {
-                        bool bSession = TJAPlayer3.ConfigToml.PlayOption.Session &&
-                                        TJAPlayer3.ConfigToml.PlayOption.PlayerCount == 2 &&
+                        bool bSession = TJAPlayer3.app.ConfigToml.PlayOption.Session &&
+                                        TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount == 2 &&
                                         TJAPlayer3.stage選曲.n確定された曲の難易度[0] == TJAPlayer3.stage選曲.n確定された曲の難易度[1];
 
-                        for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+                        for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
                             TJAPlayer3.DTX[i] = new CDTX(str, false, json.BGMAdjust, i, bSession);
 
-                        if (TJAPlayer3.ConfigToml.OverrideScrollMode == false)
-                            TJAPlayer3.ConfigToml.ScrollMode = TJAPlayer3.DTX[0].eScrollMode;
+                        if (TJAPlayer3.app.ConfigToml.OverrideScrollMode == false)
+                            TJAPlayer3.app.ConfigToml.ScrollMode = TJAPlayer3.DTX[0].eScrollMode;
 
                         Trace.TraceInformation("----曲情報-----------------");
                         Trace.TraceInformation("TITLE: {0}", TJAPlayer3.DTX[0].TITLE);
@@ -327,7 +327,7 @@ internal class CStageSongLoading : CStage
                             {
                                 if (!string.IsNullOrEmpty(TJAPlayer3.DTX[0].List_DanSongs[i].Title))
                                 {
-                                    using (var pfTitle = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 32))
+                                    using (var pfTitle = new CFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, 32))
                                     {
                                         using (var bmpSongTitle = pfTitle.DrawText(TJAPlayer3.DTX[0].List_DanSongs[i].Title, TJAPlayer3.Skin.SkinConfig.Game.DanC._TitleForeColor, TJAPlayer3.Skin.SkinConfig.Game.DanC._TitleBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
                                         {
@@ -339,7 +339,7 @@ internal class CStageSongLoading : CStage
 
                                 if (!string.IsNullOrEmpty(TJAPlayer3.DTX[0].List_DanSongs[i].SubTitle))
                                 {
-                                    using (var pfSubTitle = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 19))
+                                    using (var pfSubTitle = new CFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, 19))
                                     {
                                         using (var bmpSongSubTitle = pfSubTitle.DrawText(TJAPlayer3.DTX[0].List_DanSongs[i].SubTitle, TJAPlayer3.Skin.SkinConfig.Game.DanC._SubTitleForeColor, TJAPlayer3.Skin.SkinConfig.Game.DanC._SubTitleBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
                                         {
@@ -360,7 +360,7 @@ internal class CStageSongLoading : CStage
 
             case CStage.Eフェーズ.NOWLOADING_WAVファイルを読み込む:
                 {
-                    int looptime = (TJAPlayer3.ConfigToml.Window.VSyncWait) ? 3 : 1;	// VSyncWait=ON時は1frame(1/60s)あたり3つ読むようにする
+                    int looptime = (TJAPlayer3.app.ConfigToml.Window.VSyncWait) ? 3 : 1;	// VSyncWait=ON時は1frame(1/60s)あたり3つ読むようにする
                     for (int i = 0; i < looptime && nWAVcount <= TJAPlayer3.DTX[0].listWAV.Count; i++)
                     {
                         if (TJAPlayer3.DTX[0].listWAV[nWAVcount].bUse)	// #28674 2012.5.8 yyagi
@@ -377,9 +377,9 @@ internal class CStageSongLoading : CStage
 
                         TJAPlayer3.DTX[0].PlanToAddMixerChannel();
 
-                        for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++)
+                        for (int nPlayer = 0; nPlayer < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; nPlayer++)
                         {
-                            TJAPlayer3.DTX[nPlayer].t太鼓チップのランダム化(TJAPlayer3.ConfigToml.PlayOption._Random[nPlayer]);
+                            TJAPlayer3.DTX[nPlayer].t太鼓チップのランダム化(TJAPlayer3.app.ConfigToml.PlayOption._Random[nPlayer]);
                         }
 
                         TJAPlayer3.stage演奏ドラム画面.On活性化();
@@ -393,7 +393,7 @@ internal class CStageSongLoading : CStage
 
             case CStage.Eフェーズ.NOWLOADING_BMPファイルを読み込む:
                 {
-                    if (TJAPlayer3.ConfigToml.Game.Background.Movie)
+                    if (TJAPlayer3.app.ConfigToml.Game.Background.Movie)
                         TJAPlayer3.DTX[0].tAVIの読み込み();
 
                     TimeSpan span = (TimeSpan)(DateTime.Now - timeBeginLoad);

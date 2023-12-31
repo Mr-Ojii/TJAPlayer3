@@ -41,7 +41,7 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
             // 通常のモード。
             // ここでフルコンボフラグをチェックするが現時点ではない。
             // 今の段階では魂ゲージ80%以上でチェック。
-            for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+            for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
             {
                 if (TJAPlayer3.stage演奏ドラム画面.actGauge.db現在のゲージ値[i] < 80)
                 {
@@ -116,7 +116,7 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
 
             //CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.EFontType.灰, this.ct進行メイン.n現在の値.ToString() );
             //仮置き
-            for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+            for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
             {
                 int[] y = new int[] { 210, 386 };
                 float[] f文字拡大率 = new float[] { 1.04f, 1.11f, 1.15f, 1.19f, 1.23f, 1.26f, 1.30f, 1.31f, 1.32f, 1.32f, 1.32f, 1.30f, 1.30f, 1.26f, 1.25f, 1.19f, 1.15f, 1.11f, 1.05f, 1.0f };

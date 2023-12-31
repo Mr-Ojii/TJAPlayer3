@@ -28,7 +28,7 @@ internal class CActMob : CActivity
 
     public override int On進行描画()
     {
-        if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount != 1)
+        if (TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount != 1)
             return base.On進行描画();
 
         if (this.ctMob != null && this.ctMobPtn != null && TJAPlayer3.Skin.Game_Mob_Ptn != 0)

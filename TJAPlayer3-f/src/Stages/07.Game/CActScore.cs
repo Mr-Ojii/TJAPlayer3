@@ -217,7 +217,7 @@ internal class CActScore : CActivity
                 }
             }
 
-            for(int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+            for(int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
             {
                 this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Game.Score.X[i], TJAPlayer3.Skin.SkinConfig.Game.Score.Y[i], string.Format("{0,7:######0}", this.n現在表示中のスコア[i]), 0, 256, i);
             }

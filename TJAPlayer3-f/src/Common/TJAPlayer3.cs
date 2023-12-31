@@ -34,7 +34,7 @@ internal class TJAPlayer3 : Game
         get;
         private set;
     }
-    public static CConfigToml ConfigToml
+    public CConfigToml ConfigToml
     {
         get;
         private set;
@@ -1081,8 +1081,8 @@ internal class TJAPlayer3 : Game
         Trace.Indent();
         try
         {
-            Skin = new CSkin(TJAPlayer3.ConfigToml.General.SkinPath);
-            TJAPlayer3.ConfigToml.General.SkinPath = TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(true);    // 旧指定のSkinフォルダが消滅していた場合に備える
+            Skin = new CSkin(TJAPlayer3.app.ConfigToml.General.SkinPath);
+            TJAPlayer3.app.ConfigToml.General.SkinPath = TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(true);    // 旧指定のSkinフォルダが消滅していた場合に備える
             this.LogicalSize = new Size(Skin.SkinConfig.General.Width, Skin.SkinConfig.General.Height);
             Trace.TraceInformation("スキンの初期化を完了しました。");
         }
@@ -1214,7 +1214,7 @@ internal class TJAPlayer3 : Game
         try
         {
             ESoundDeviceType soundDeviceType;
-            switch (TJAPlayer3.ConfigToml.SoundDevice.DeviceType)
+            switch (TJAPlayer3.app.ConfigToml.SoundDevice.DeviceType)
             {
                 case 0:
                     soundDeviceType = ESoundDeviceType.BASS;
@@ -1233,11 +1233,11 @@ internal class TJAPlayer3 : Game
                     break;
             }
             SoundManager = new CSoundManager(soundDeviceType,
-                                        TJAPlayer3.ConfigToml.SoundDevice.WASAPIBufferSizeMs,
+                                        TJAPlayer3.app.ConfigToml.SoundDevice.WASAPIBufferSizeMs,
                                         0,
-                                        TJAPlayer3.ConfigToml.SoundDevice.ASIODevice,
-                                        TJAPlayer3.ConfigToml.SoundDevice.BASSBufferSizeMs,
-                                        TJAPlayer3.ConfigToml.SoundDevice.UseOSTimer
+                                        TJAPlayer3.app.ConfigToml.SoundDevice.ASIODevice,
+                                        TJAPlayer3.app.ConfigToml.SoundDevice.BASSBufferSizeMs,
+                                        TJAPlayer3.app.ConfigToml.SoundDevice.UseOSTimer
             );
 
 
@@ -1264,8 +1264,8 @@ internal class TJAPlayer3 : Game
             }
 
             ShowWindowTitleWithSoundType();
-            CSoundManager.bIsTimeStretch = TJAPlayer3.ConfigToml.PlayOption.TimeStretch;
-            SoundManager.nMasterVolume = TJAPlayer3.ConfigToml.MasterVolume;
+            CSoundManager.bIsTimeStretch = TJAPlayer3.app.ConfigToml.PlayOption.TimeStretch;
+            SoundManager.nMasterVolume = TJAPlayer3.app.ConfigToml.MasterVolume;
             //FDK.CSoundManager.bIsMP3DecodeByWindowsCodec = CDTXMania.ConfigIni.bNoMP3Streaming;
             Trace.TraceInformation("サウンドデバイスの初期化を完了しました。");
         }
@@ -1668,7 +1668,7 @@ internal class TJAPlayer3 : Game
         }
         json.BGMAdjust = DTX[0].nBGMAdjust;
 
-        if (TJAPlayer3.ConfigToml.PlayOption.AutoPlay[0] == false)
+        if (TJAPlayer3.app.ConfigToml.PlayOption.AutoPlay[0] == false)
             json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[0]].PlayCount++;
 
         json.Save(strFilename);
@@ -1688,7 +1688,7 @@ internal class TJAPlayer3 : Game
 
         TJAPlayer3.Skin.Dispose();
         TJAPlayer3.Skin = null;
-        TJAPlayer3.Skin = new CSkin(TJAPlayer3.ConfigToml.General.SkinPath);
+        TJAPlayer3.Skin = new CSkin(TJAPlayer3.app.ConfigToml.General.SkinPath);
 
 
         TJAPlayer3.Tx.DisposeTexture();

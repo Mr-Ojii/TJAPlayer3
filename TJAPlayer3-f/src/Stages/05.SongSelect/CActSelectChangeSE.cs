@@ -19,7 +19,7 @@ class CActSelectChangeSE : CActivity
             for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)
             {
                 this.donglist[nPlayer, i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Taiko/" + i.ToString() + @"/dong.ogg"), ESoundGroup.SoundEffect);
-                if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.ConfigToml.PlayOption.UsePanning && donglist[nPlayer, i] != null)
+                if (TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.app.ConfigToml.PlayOption.UsePanning && donglist[nPlayer, i] != null)
                 {
                     this.donglist[nPlayer, i].nPanning = (nPlayer * 200) - 100;
                 }
@@ -30,7 +30,7 @@ class CActSelectChangeSE : CActivity
         this.NameMoving = new CTexture[2];
         this.SENameList = new CTexture[TJAPlayer3.Skin.SECount];
 
-        using (var font = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 30))
+        using (var font = new CFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, 30))
             for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)
             {
                 string SEName = "Untitled";

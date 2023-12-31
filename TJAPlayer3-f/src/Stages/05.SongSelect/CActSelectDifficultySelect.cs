@@ -59,7 +59,7 @@ internal class CActSelectDifficultySelect : CActivity
         if (b開いた直後)
         {
 
-            for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++)
+            for (int nPlayer = 0; nPlayer < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; nPlayer++)
             {
                 this.ct難易度拡大用[nPlayer].n現在の値 = 0;
                 this.ct難易度拡大用[nPlayer].t時間Reset();
@@ -79,7 +79,7 @@ internal class CActSelectDifficultySelect : CActivity
 
         #region[難易度マーク]
 
-        for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+        for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
         {
             if (選択済み[i])
             {
@@ -304,9 +304,9 @@ internal class CActSelectDifficultySelect : CActivity
         }
         #endregion
         #region[プレイヤーアンカー]
-        for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+        for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
         {
-            if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 && 現在の選択行[0] == 現在の選択行[1] && !選択済み[0] && !選択済み[1])
+            if (TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2 && 現在の選択行[0] == 現在の選択行[1] && !選択済み[0] && !選択済み[1])
             {
                 if (現在の選択行[i] < 3)
                 {
@@ -350,7 +350,7 @@ internal class CActSelectDifficultySelect : CActivity
         }
         #endregion
         #region[BPM]
-        if (TJAPlayer3.ConfigToml.SongSelect.TCCLikeStyle && TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア != null && TJAPlayer3.Tx.Difficulty_BPMBox != null && TJAPlayer3.Tx.Difficulty_BPMNumber != null)
+        if (TJAPlayer3.app.ConfigToml.SongSelect.TCCLikeStyle && TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア != null && TJAPlayer3.Tx.Difficulty_BPMBox != null && TJAPlayer3.Tx.Difficulty_BPMNumber != null)
         {
             const int cx = 1000, cy = 500;
 
@@ -380,7 +380,7 @@ internal class CActSelectDifficultySelect : CActivity
 
     #region [ private ]
     //-----------------
-    internal int[] 現在の選択行 = new int[2] { TJAPlayer3.ConfigToml.PlayOption.DefaultCourse + 3, TJAPlayer3.ConfigToml.PlayOption.DefaultCourse + 3 };
+    internal int[] 現在の選択行 = new int[2] { TJAPlayer3.app.ConfigToml.PlayOption.DefaultCourse + 3, TJAPlayer3.app.ConfigToml.PlayOption.DefaultCourse + 3 };
     internal bool[] 選択済み = new bool[2];
     internal int[] 確定された難易度 = new int[2];
     internal int[] 裏カウント = new int[2];

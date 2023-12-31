@@ -95,8 +95,8 @@ internal class CStage選曲 : CStage
         }
         finally
         {
-            TJAPlayer3.ConfigToml.ScrollMode = EScrollMode.Normal;
-            TJAPlayer3.ConfigToml.OverrideScrollMode = false;
+            TJAPlayer3.app.ConfigToml.ScrollMode = EScrollMode.Normal;
+            TJAPlayer3.app.ConfigToml.OverrideScrollMode = false;
             Trace.TraceInformation("選曲ステージの活性化を完了しました。");
             Trace.Unindent();
         }
@@ -314,7 +314,7 @@ internal class CStage選曲 : CStage
                 TJAPlayer3.Tx.SongSelect_Footer.t2D描画(TJAPlayer3.app.Device, 0, TJAPlayer3.app.LogicalSize.Height - TJAPlayer3.Tx.SongSelect_Footer.szTextureSize.Height);
 
             #region ネームプレート
-            for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+            for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
             {
                 if (TJAPlayer3.Tx.NamePlate[i] != null)
                 {
@@ -323,9 +323,9 @@ internal class CStage選曲 : CStage
             }
             if (TJAPlayer3.Tx.SongSelect_Auto != null)
             {
-                for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+                for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
                 {
-                    if (TJAPlayer3.ConfigToml.PlayOption.AutoPlay[i])
+                    if (TJAPlayer3.app.ConfigToml.PlayOption.AutoPlay[i])
                     {
                         TJAPlayer3.Tx.SongSelect_Auto.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.SongSelect.NamePlateAutoX[i], TJAPlayer3.Skin.SkinConfig.SongSelect.NamePlateAutoY[i]);
                     }
@@ -334,23 +334,23 @@ internal class CStage選曲 : CStage
             #endregion
 
             #region[ 下部テキスト ]
-            if (TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー)
+            if (TJAPlayer3.app.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー)
                 TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, "GAME: SURVIVAL");
-            if (TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー激辛)
+            if (TJAPlayer3.app.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー激辛)
                 TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, "GAME: SURVIVAL HARD");
-            if (TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.特訓モード)
+            if (TJAPlayer3.app.ConfigToml.PlayOption._GameMode == EGame.特訓モード)
                 TJAPlayer3.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, "GAME: TRAINING MODE");
-            if (TJAPlayer3.ConfigToml.SuperHard)
+            if (TJAPlayer3.app.ConfigToml.SuperHard)
                 TJAPlayer3.act文字コンソール.tPrint(0, 16, C文字コンソール.EFontType.赤, "SUPER HARD MODE : ON");
-            if (TJAPlayer3.ConfigToml.ScrollMode == EScrollMode.BMSCROLL)
+            if (TJAPlayer3.app.ConfigToml.ScrollMode == EScrollMode.BMSCROLL)
                 TJAPlayer3.act文字コンソール.tPrint(0, 32, C文字コンソール.EFontType.赤, "BMSCROLL : ON");
-            else if (TJAPlayer3.ConfigToml.ScrollMode == EScrollMode.HBSCROLL)
+            else if (TJAPlayer3.app.ConfigToml.ScrollMode == EScrollMode.HBSCROLL)
                 TJAPlayer3.act文字コンソール.tPrint(0, 32, C文字コンソール.EFontType.赤, "HBSCROLL : ON");
-            else if (TJAPlayer3.ConfigToml.ScrollMode == EScrollMode.REGULSPEED)
-                TJAPlayer3.act文字コンソール.tPrint(0, 32, C文字コンソール.EFontType.赤, "Reg.Speed : " + TJAPlayer3.ConfigToml.RegSpeedBPM.ToString());
+            else if (TJAPlayer3.app.ConfigToml.ScrollMode == EScrollMode.REGULSPEED)
+                TJAPlayer3.act文字コンソール.tPrint(0, 32, C文字コンソール.EFontType.赤, "Reg.Speed : " + TJAPlayer3.app.ConfigToml.RegSpeedBPM.ToString());
             #endregion
 
-            if (TJAPlayer3.ConfigToml.SongSelect.CountDownTimer && TJAPlayer3.Tx.SongSelect_Counter_Back[0] != null && TJAPlayer3.Tx.SongSelect_Counter_Back[1] != null && TJAPlayer3.Tx.SongSelect_Counter_Num[0] != null && TJAPlayer3.Tx.SongSelect_Counter_Num[1] != null)
+            if (TJAPlayer3.app.ConfigToml.SongSelect.CountDownTimer && TJAPlayer3.Tx.SongSelect_Counter_Back[0] != null && TJAPlayer3.Tx.SongSelect_Counter_Back[1] != null && TJAPlayer3.Tx.SongSelect_Counter_Num[0] != null && TJAPlayer3.Tx.SongSelect_Counter_Num[1] != null)
             {
                 This_counter = (100 - this.ctカウントダウン用タイマー.n現在の値);
                 int dotinum = 1;
@@ -384,7 +384,7 @@ internal class CStage選曲 : CStage
                 }
             }
 
-            if ((act曲リスト.r現在選択中の曲 != null) && TJAPlayer3.ConfigToml.SongSelect.TCCLikeStyle && act曲リスト.r現在選択中の曲.eNodeType == C曲リストノード.ENodeType.SCORE)
+            if ((act曲リスト.r現在選択中の曲 != null) && TJAPlayer3.app.ConfigToml.SongSelect.TCCLikeStyle && act曲リスト.r現在選択中の曲.eNodeType == C曲リストノード.ENodeType.SCORE)
                 this.act曲リスト.tアイテム数の描画();
 
             this.actChangeSE.On進行描画();
@@ -420,7 +420,7 @@ internal class CStage選曲 : CStage
                     }
                     #endregion
                     #region[Decide]
-                    if (((TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed)) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 ||
+                    if (((TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed)) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2 ||
                                     (TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return))))
                     {
                         if (DanSelectingRow == 1)
@@ -467,7 +467,7 @@ internal class CStage選曲 : CStage
                                 this.actChangeSE.tDeativateChangeSE(0);
                             else if (this.actPlayOption.bIsActive[0])
                                 this.actPlayOption.tDeativatePopupMenu(0);
-                            else if (this.actDifficultySelect.選択済み[0] && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2)
+                            else if (this.actDifficultySelect.選択済み[0] && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2)
                             {
                                 if (this.actChangeSE.bIsActive[1])
                                     this.actChangeSE.tDeativateChangeSE(1);
@@ -493,16 +493,16 @@ internal class CStage選曲 : CStage
                         if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.F3))
                         {
                             TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND変更音].t再生する();
-                            TJAPlayer3.ConfigToml.PlayOption.AutoPlay[0] = !TJAPlayer3.ConfigToml.PlayOption.AutoPlay[0];
+                            TJAPlayer3.app.ConfigToml.PlayOption.AutoPlay[0] = !TJAPlayer3.app.ConfigToml.PlayOption.AutoPlay[0];
                         }
                         #endregion
                         #region [ F4 2PオートON/OFF ]
                         if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.F4))
                         {
-                            if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount > 1)
+                            if (TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount > 1)
                             {
                                 TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND変更音].t再生する();
-                                TJAPlayer3.ConfigToml.PlayOption.AutoPlay[1] = !TJAPlayer3.ConfigToml.PlayOption.AutoPlay[1];
+                                TJAPlayer3.app.ConfigToml.PlayOption.AutoPlay[1] = !TJAPlayer3.app.ConfigToml.PlayOption.AutoPlay[1];
                             }
                         }
                         #endregion
@@ -511,46 +511,46 @@ internal class CStage選曲 : CStage
                         if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.F5))
                         {
                             TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND変更音].t再生する();
-                            TJAPlayer3.ConfigToml.SuperHard = !TJAPlayer3.ConfigToml.SuperHard;
+                            TJAPlayer3.app.ConfigToml.SuperHard = !TJAPlayer3.app.ConfigToml.SuperHard;
                         }
                         #endregion
                         #region [ F6 SCROLL ]
                         if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.F6))
                         {
                             TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND変更音].t再生する();
-                            TJAPlayer3.ConfigToml.OverrideScrollMode = true;
-                            switch ((int)TJAPlayer3.ConfigToml.ScrollMode)
+                            TJAPlayer3.app.ConfigToml.OverrideScrollMode = true;
+                            switch ((int)TJAPlayer3.app.ConfigToml.ScrollMode)
                             {
                                 case 0:
-                                    TJAPlayer3.ConfigToml.ScrollMode = EScrollMode.BMSCROLL;
+                                    TJAPlayer3.app.ConfigToml.ScrollMode = EScrollMode.BMSCROLL;
                                     break;
                                 case 1:
-                                    TJAPlayer3.ConfigToml.ScrollMode = EScrollMode.HBSCROLL;
+                                    TJAPlayer3.app.ConfigToml.ScrollMode = EScrollMode.HBSCROLL;
                                     break;
                                 case 2:
-                                    TJAPlayer3.ConfigToml.ScrollMode = EScrollMode.REGULSPEED;
+                                    TJAPlayer3.app.ConfigToml.ScrollMode = EScrollMode.REGULSPEED;
                                     break;
                                 case 3:
-                                    TJAPlayer3.ConfigToml.ScrollMode = EScrollMode.Normal;
-                                    TJAPlayer3.ConfigToml.OverrideScrollMode = false;
+                                    TJAPlayer3.app.ConfigToml.ScrollMode = EScrollMode.Normal;
+                                    TJAPlayer3.app.ConfigToml.OverrideScrollMode = false;
                                     break;
                             }
                         }
                         #endregion
                         #region[ F7 Reg.Speed DOWN ]
-                        this.ctキー反復用.Left.tキー反復(TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.F7) && (TJAPlayer3.ConfigToml.ScrollMode == EScrollMode.REGULSPEED),
+                        this.ctキー反復用.Left.tキー反復(TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.F7) && (TJAPlayer3.app.ConfigToml.ScrollMode == EScrollMode.REGULSPEED),
                             new CCounter.DGキー処理(
                             () =>
                             {
-                                TJAPlayer3.ConfigToml.RegSpeedBPM = Math.Max(TJAPlayer3.ConfigToml.RegSpeedBPM - 1, 1);
+                                TJAPlayer3.app.ConfigToml.RegSpeedBPM = Math.Max(TJAPlayer3.app.ConfigToml.RegSpeedBPM - 1, 1);
                             }));
                         #endregion
                         #region[ F8 Reg.Speed UP ]
-                        this.ctキー反復用.Right.tキー反復(TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.F8) && (TJAPlayer3.ConfigToml.ScrollMode == EScrollMode.REGULSPEED),
+                        this.ctキー反復用.Right.tキー反復(TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.F8) && (TJAPlayer3.app.ConfigToml.ScrollMode == EScrollMode.REGULSPEED),
                             new CCounter.DGキー処理(
                             () =>
                             {
-                                TJAPlayer3.ConfigToml.RegSpeedBPM = Math.Min(TJAPlayer3.ConfigToml.RegSpeedBPM + 1, 9999);
+                                TJAPlayer3.app.ConfigToml.RegSpeedBPM = Math.Min(TJAPlayer3.app.ConfigToml.RegSpeedBPM + 1, 9999);
                             }));
                         #endregion
                         #region [ Decide ]
@@ -572,7 +572,7 @@ internal class CStage選曲 : CStage
                             }
                             else
                             {
-                                if (!(TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.特訓モード && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2))
+                                if (!(TJAPlayer3.app.ConfigToml.PlayOption._GameMode == EGame.特訓モード && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2))
                                 {
                                     if (this.actDifficultySelect.裏表示 && this.actDifficultySelect.現在の選択行[0] == 6)
                                     {
@@ -595,7 +595,7 @@ internal class CStage選曲 : CStage
                             }
                             this.難易度選択完了したか();
                         }
-                        else if (((TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return)) && this.actDifficultySelect.選択済み[0] || TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 && !this.actDifficultySelect.選択済み[1] && !this.actChangeSE.bIsActive[1] && !this.actPlayOption.bIsActive[1])
+                        else if (((TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return)) && this.actDifficultySelect.選択済み[0] || TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2 && !this.actDifficultySelect.選択済み[1] && !this.actChangeSE.bIsActive[1] && !this.actPlayOption.bIsActive[1])
                         {
                             if (this.actDifficultySelect.現在の選択行[1] == 0)
                             {
@@ -612,7 +612,7 @@ internal class CStage選曲 : CStage
                             }
                             else
                             {
-                                if (!(TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.特訓モード && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2))
+                                if (!(TJAPlayer3.app.ConfigToml.PlayOption._GameMode == EGame.特訓モード && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2))
                                 {
                                     if (this.actDifficultySelect.裏表示 && this.actDifficultySelect.現在の選択行[1] == 6)
                                     {
@@ -662,7 +662,7 @@ internal class CStage選曲 : CStage
                                     this.act曲リスト.n現在のアンカ難易度レベル[0] = this.actDifficultySelect.現在の選択行[0] - 3;
                             }
                         }
-                        if (((TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightArrow) && this.actDifficultySelect.選択済み[0]) || TJAPlayer3.Pad.bPressed(EPad.RBlue2P)) && !this.actDifficultySelect.選択済み[1] && !this.actChangeSE.bIsActive[1] && !this.actPlayOption.bIsActive[1] && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2)
+                        if (((TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightArrow) && this.actDifficultySelect.選択済み[0]) || TJAPlayer3.Pad.bPressed(EPad.RBlue2P)) && !this.actDifficultySelect.選択済み[1] && !this.actChangeSE.bIsActive[1] && !this.actPlayOption.bIsActive[1] && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2)
                         {
                             TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
                             this.actDifficultySelect.現在の選択行[1]++;
@@ -716,7 +716,7 @@ internal class CStage選曲 : CStage
                                     this.act曲リスト.n現在のアンカ難易度レベル[0] = this.actDifficultySelect.現在の選択行[0] - 3;
                             }
                         }
-                        if (((TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftArrow) && this.actDifficultySelect.選択済み[0]) || TJAPlayer3.Pad.bPressed(EPad.LBlue2P)) && !this.actDifficultySelect.選択済み[1] && !this.actChangeSE.bIsActive[1] && !this.actPlayOption.bIsActive[1] && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2)
+                        if (((TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftArrow) && this.actDifficultySelect.選択済み[0]) || TJAPlayer3.Pad.bPressed(EPad.LBlue2P)) && !this.actDifficultySelect.選択済み[1] && !this.actChangeSE.bIsActive[1] && !this.actPlayOption.bIsActive[1] && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2)
                         {
                             TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
                             this.actDifficultySelect.現在の選択行[1]--;
@@ -784,16 +784,16 @@ internal class CStage選曲 : CStage
                         if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.F3))
                         {
                             TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND変更音].t再生する();
-                            TJAPlayer3.ConfigToml.PlayOption.AutoPlay[0] = !TJAPlayer3.ConfigToml.PlayOption.AutoPlay[0];
+                            TJAPlayer3.app.ConfigToml.PlayOption.AutoPlay[0] = !TJAPlayer3.app.ConfigToml.PlayOption.AutoPlay[0];
                         }
                         #endregion
                         #region [ F4 2PオートON/OFF ]
                         if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.F4))
                         {
-                            if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount > 1)
+                            if (TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount > 1)
                             {
                                 TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND変更音].t再生する();
-                                TJAPlayer3.ConfigToml.PlayOption.AutoPlay[1] = !TJAPlayer3.ConfigToml.PlayOption.AutoPlay[1];
+                                TJAPlayer3.app.ConfigToml.PlayOption.AutoPlay[1] = !TJAPlayer3.app.ConfigToml.PlayOption.AutoPlay[1];
                             }
                         }
                         #endregion
@@ -802,52 +802,52 @@ internal class CStage選曲 : CStage
                         if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.F5))
                         {
                             TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND変更音].t再生する();
-                            TJAPlayer3.ConfigToml.SuperHard = !TJAPlayer3.ConfigToml.SuperHard;
+                            TJAPlayer3.app.ConfigToml.SuperHard = !TJAPlayer3.app.ConfigToml.SuperHard;
                         }
                         #endregion
                         #region [ F6 SCROLL ]
                         if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.F6))
                         {
                             TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND変更音].t再生する();
-                            TJAPlayer3.ConfigToml.OverrideScrollMode = true;
-                            switch ((int)TJAPlayer3.ConfigToml.ScrollMode)
+                            TJAPlayer3.app.ConfigToml.OverrideScrollMode = true;
+                            switch ((int)TJAPlayer3.app.ConfigToml.ScrollMode)
                             {
                                 case 0:
-                                    TJAPlayer3.ConfigToml.ScrollMode = EScrollMode.BMSCROLL;
+                                    TJAPlayer3.app.ConfigToml.ScrollMode = EScrollMode.BMSCROLL;
                                     break;
                                 case 1:
-                                    TJAPlayer3.ConfigToml.ScrollMode = EScrollMode.HBSCROLL;
+                                    TJAPlayer3.app.ConfigToml.ScrollMode = EScrollMode.HBSCROLL;
                                     break;
                                 case 2:
-                                    TJAPlayer3.ConfigToml.ScrollMode = EScrollMode.REGULSPEED;
+                                    TJAPlayer3.app.ConfigToml.ScrollMode = EScrollMode.REGULSPEED;
                                     break;
                                 case 3:
-                                    TJAPlayer3.ConfigToml.ScrollMode = EScrollMode.Normal;
-                                    TJAPlayer3.ConfigToml.OverrideScrollMode = false;
+                                    TJAPlayer3.app.ConfigToml.ScrollMode = EScrollMode.Normal;
+                                    TJAPlayer3.app.ConfigToml.OverrideScrollMode = false;
                                     break;
                             }
                         }
                         #endregion
                         #region[ F7 Reg.Speed DOWN ]
-                        this.ctキー反復用.Left.tキー反復(TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.F7) && (TJAPlayer3.ConfigToml.ScrollMode == EScrollMode.REGULSPEED),
+                        this.ctキー反復用.Left.tキー反復(TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.F7) && (TJAPlayer3.app.ConfigToml.ScrollMode == EScrollMode.REGULSPEED),
                             new CCounter.DGキー処理(
                             () =>
                             {
-                                TJAPlayer3.ConfigToml.RegSpeedBPM = Math.Max(TJAPlayer3.ConfigToml.RegSpeedBPM - 1, 1);
+                                TJAPlayer3.app.ConfigToml.RegSpeedBPM = Math.Max(TJAPlayer3.app.ConfigToml.RegSpeedBPM - 1, 1);
                             }));
                         #endregion
                         #region[ F8 Reg.Speed UP ]
-                        this.ctキー反復用.Right.tキー反復(TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.F8) && (TJAPlayer3.ConfigToml.ScrollMode == EScrollMode.REGULSPEED),
+                        this.ctキー反復用.Right.tキー反復(TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.F8) && (TJAPlayer3.app.ConfigToml.ScrollMode == EScrollMode.REGULSPEED),
                             new CCounter.DGキー処理(
                             () =>
                             {
-                                TJAPlayer3.ConfigToml.RegSpeedBPM = Math.Min(TJAPlayer3.ConfigToml.RegSpeedBPM + 1, 9999);
+                                TJAPlayer3.app.ConfigToml.RegSpeedBPM = Math.Min(TJAPlayer3.app.ConfigToml.RegSpeedBPM + 1, 9999);
                             }));
                         #endregion
                         if (this.act曲リスト.r現在選択中の曲 != null)
                         {
                             #region [ Decide ]
-                            if (((TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed)) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 ||
+                            if (((TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed)) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2 ||
                                     (TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return))))
                             {
                                 if (this.act曲リスト.r現在選択中の曲 != null)
@@ -855,7 +855,7 @@ internal class CStage選曲 : CStage
                                     switch (this.act曲リスト.r現在選択中の曲.eNodeType)
                                     {
                                         case C曲リストノード.ENodeType.SCORE:
-                                            if (!((this.n現在選択中の曲の難易度[0] == (int)Difficulty.Dan || this.n現在選択中の曲の難易度[0] == (int)Difficulty.Tower) && (TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 || TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.特訓モード)))
+                                            if (!((this.n現在選択中の曲の難易度[0] == (int)Difficulty.Dan || this.n現在選択中の曲の難易度[0] == (int)Difficulty.Tower) && (TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2 || TJAPlayer3.app.ConfigToml.PlayOption._GameMode == EGame.特訓モード)))
                                             {
                                                 if (this.n現在選択中の曲の難易度[0] == (int)Difficulty.Dan && TJAPlayer3.Tx.Difficulty_Dan_Box != null && TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting != null)
                                                 {
@@ -876,7 +876,7 @@ internal class CStage選曲 : CStage
                                                 }
                                                 else
                                                 {
-                                                    if (TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.Tab) && !(TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.特訓モード))
+                                                    if (TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.Tab) && !(TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.app.ConfigToml.PlayOption._GameMode == EGame.特訓モード))
                                                     {
                                                         if (TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND曲決定音].b読み込み成功)
                                                         {
@@ -917,7 +917,7 @@ internal class CStage選曲 : CStage
                             #endregion
                             #region [ Up ]
                             this.ctキー反復用.Up.tキー反復(TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.LeftArrow), new CCounter.DGキー処理(this.tカーソルを上へ移動する));
-                            if (TJAPlayer3.Pad.bPressed(EPad.LBlue) || TJAPlayer3.Pad.bPressed(EPad.LBlue2P) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2)
+                            if (TJAPlayer3.Pad.bPressed(EPad.LBlue) || TJAPlayer3.Pad.bPressed(EPad.LBlue2P) && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2)
                             {
                                 this.tカーソルを上へ移動する();
                             }
@@ -932,7 +932,7 @@ internal class CStage選曲 : CStage
                             #endregion
                             #region [ Down ]
                             this.ctキー反復用.Down.tキー反復(TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.RightArrow), new CCounter.DGキー処理(this.tカーソルを下へ移動する));
-                            if (TJAPlayer3.Pad.bPressed(EPad.RBlue) || TJAPlayer3.Pad.bPressed(EPad.RBlue2P) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2)
+                            if (TJAPlayer3.Pad.bPressed(EPad.RBlue) || TJAPlayer3.Pad.bPressed(EPad.RBlue2P) && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2)
                             {
                                 this.tカーソルを下へ移動する();
                             }
@@ -1061,7 +1061,7 @@ internal class CStage選曲 : CStage
     {
         if (!完全に選択済み)
         {
-            if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2)
+            if (TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2)
             {
                 if (this.actDifficultySelect.選択済み[0] && this.actDifficultySelect.選択済み[1])
                 {
@@ -1278,7 +1278,7 @@ internal class CStage選曲 : CStage
                 {
                     list.Add(c曲リストノード);
                 }
-                if ((c曲リストノード.list子リスト != null) && TJAPlayer3.ConfigToml.SongSelect.RandomIncludeSubBox)
+                if ((c曲リストノード.list子リスト != null) && TJAPlayer3.app.ConfigToml.SongSelect.RandomIncludeSubBox)
                 {
                     this.t指定された曲の子リストの曲を列挙する_孫リスト含む(c曲リストノード, ref list);
                 }
@@ -1298,7 +1298,7 @@ internal class CStage選曲 : CStage
                 {
                     list.Add(c曲リストノード);
                 }
-                if ((c曲リストノード.list子リスト != null) && TJAPlayer3.ConfigToml.SongSelect.RandomIncludeSubBox)
+                if ((c曲リストノード.list子リスト != null) && TJAPlayer3.app.ConfigToml.SongSelect.RandomIncludeSubBox)
                 {
                     this.t指定された曲の子リストの曲を列挙する_孫リスト含む(c曲リストノード, ref list);
                 }

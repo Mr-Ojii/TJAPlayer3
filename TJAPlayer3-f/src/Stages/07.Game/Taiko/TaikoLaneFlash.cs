@@ -16,8 +16,8 @@ internal class TaikoLaneFlash : CActivity
 
     public override void On活性化()
     {
-        PlayerLane = new PlayerLane[TJAPlayer3.ConfigToml.PlayOption.PlayerCount];
-        for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+        PlayerLane = new PlayerLane[TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount];
+        for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
         {
             PlayerLane[i] = new PlayerLane(i);
         }
@@ -25,7 +25,7 @@ internal class TaikoLaneFlash : CActivity
     }
     public override void On非活性化()
     {
-        for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+        for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
         {
             PlayerLane[i] = null;
         }
@@ -34,7 +34,7 @@ internal class TaikoLaneFlash : CActivity
 
     public override int On進行描画()
     {
-        for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+        for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
         {
             for (int j = 0; j < (int)FlashType.Total; j++)
             {

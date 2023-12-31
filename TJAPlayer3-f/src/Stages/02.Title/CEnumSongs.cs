@@ -233,7 +233,7 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
 
             try
             {
-                if (!TJAPlayer3.ConfigToml.NotExistOrIncorrectVersion)
+                if (!TJAPlayer3.app.ConfigToml.NotExistOrIncorrectVersion)
                 {
                     CSongsManager s = new CSongsManager();
                     s = Deserialize(strPathSongList);		// 直接this.SongsManagerにdeserialize()結果を代入するのは避ける。nullにされてしまうことがあるため。
@@ -303,10 +303,10 @@ internal class CEnumSongs							// #27060 2011.2.7 yyagi 曲リストを取得�
 
             try
             {
-                if (TJAPlayer3.ConfigToml.General.ChartPath.Length > 0)
+                if (TJAPlayer3.app.ConfigToml.General.ChartPath.Length > 0)
                 {
                     // 全パスについて…
-                    foreach (string str in TJAPlayer3.ConfigToml.General.ChartPath)
+                    foreach (string str in TJAPlayer3.app.ConfigToml.General.ChartPath)
                     {
                         string path = str;
                         if (!Path.IsPathRooted(path))

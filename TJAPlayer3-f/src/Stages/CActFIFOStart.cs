@@ -35,7 +35,7 @@ internal class CActFIFOStart : CActivity
         }
         this.counter.t進行();
 
-        if (TJAPlayer3.ConfigToml.EnableSkinV2)
+        if (TJAPlayer3.app.ConfigToml.EnableSkinV2)
         {
             if (TJAPlayer3.Tx.SongLoading_v2_BG != null)
             {

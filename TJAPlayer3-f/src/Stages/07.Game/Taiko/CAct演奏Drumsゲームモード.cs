@@ -114,7 +114,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
     public void t叩ききりまショー_判定項目と難易度を決める()
     {
         //まず通常、激辛時でわける。
-        if (TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー)
+        if (TJAPlayer3.app.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー)
         {
             #region[ 通常 ]
             //通常の査定
@@ -179,7 +179,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
             };
             #endregion
         }
-        else if (TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー激辛)
+        else if (TJAPlayer3.app.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー激辛)
         {
             #region[ 激辛 ]
             //激ムズの査定
@@ -292,7 +292,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
                 #endregion
             }
 
-            if (TJAPlayer3.ConfigToml.SuperHard)
+            if (TJAPlayer3.app.ConfigToml.SuperHard)
             {
                 #region[ 超激辛 ]
                 this.st叩ききりまショー.b超激辛 = true;
@@ -356,7 +356,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
 
     public override int On進行描画()
     {
-        if (TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー || TJAPlayer3.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー激辛)
+        if (TJAPlayer3.app.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー || TJAPlayer3.app.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー激辛)
         {
             //if( this.st叩ききりまショー.b最初のチップが叩かれた == true )//&&
             //CDTXMania.stage演奏ドラム画面.r検索範囲内にチップがあるか調べる( CSoundManager.rc演奏用タイマ.n現在時刻ms, 0, 3000 ) )
@@ -373,7 +373,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
                 if (!this.st叩ききりまショー.ct残り時間.b停止中 || this.st叩ききりまショー.b加算アニメ中 == true)
                 {
                     this.st叩ききりまショー.ct残り時間.t進行();
-                    if (!TJAPlayer3.stage演奏ドラム画面.r検索範囲内にチップがあるか調べる((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0)), 5000, 0) || this.st叩ききりまショー.b加算アニメ中 == true)
+                    if (!TJAPlayer3.stage演奏ドラム画面.r検索範囲内にチップがあるか調べる((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.app.ConfigToml.PlayOption.PlaySpeed) / 20.0)), 5000, 0) || this.st叩ききりまショー.b加算アニメ中 == true)
                     {
                         this.st叩ききりまショー.bタイマー使用中 = false;
                         this.st叩ききりまショー.ct残り時間.t停止();
@@ -489,7 +489,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
         double n延長する時間 = 0;
 
         //最後に延長した時刻から11秒経過していなければ延長を行わない。
-        if (this.n最後に時間延長した時刻 + 11000 <= (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0)))
+        if (this.n最後に時間延長した時刻 + 11000 <= (CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.app.ConfigToml.PlayOption.PlaySpeed) / 20.0)))
         {
             //1項目につき5秒
             //-精度
@@ -607,7 +607,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
             #endregion
 
 
-            this.n最後に時間延長した時刻 = (int)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
+            this.n最後に時間延長した時刻 = (int)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.app.ConfigToml.PlayOption.PlaySpeed) / 20.0));
             if (n延長する時間 < 0)
                 n延長する時間 = 0;
             if (this.st叩ききりまショー.n区間ノート数 == 0)
@@ -639,7 +639,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
                 return;
             if (this.st叩ききりまショー.b超激辛 && (((double)this.st叩ききりまショー.nヒット数_BAD + this.st叩ききりまショー.nヒット数_MISS) > 0))
                 return; //ミスが出るようでは上達しませんよ。お兄様。
-            if (TJAPlayer3.ConfigToml.SuperHard)
+            if (TJAPlayer3.app.ConfigToml.SuperHard)
                 return; //スーパーハード時はボーナス加点無し。
 
 
@@ -677,7 +677,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
             }
 
 
-            this.n最後に時間延長した時刻 = (int)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
+            this.n最後に時間延長した時刻 = (int)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.app.ConfigToml.PlayOption.PlaySpeed) / 20.0));
             if (n延長する時間 < 0)
                 n延長する時間 = 0;
 

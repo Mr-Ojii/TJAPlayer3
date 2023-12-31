@@ -124,7 +124,7 @@ internal class CAct演奏Drums背景 : CActivity
 
 
         #region 1P-2P-上背景
-        for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+        for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
         {
             if (this.ct上背景スクロール用タイマー[i] != null)
             {

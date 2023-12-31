@@ -116,7 +116,7 @@ internal class CStageResult : CStage
             // Discord Presenseの更新
             TJAPlayer3.app.Discord.Update(
                 Details.Substring(0, Math.Min(127, Details.Length)),
-                "Result" + (TJAPlayer3.ConfigToml.PlayOption.AutoPlay[0] == true ? " (Auto)" : "")
+                "Result" + (TJAPlayer3.app.ConfigToml.PlayOption.AutoPlay[0] == true ? " (Auto)" : "")
             );
 
             this.ctMountainAndClear = new CCounter(0, 1655, 1, TJAPlayer3.Timer);
@@ -163,22 +163,22 @@ internal class CStageResult : CStage
             }
 
             // 描画
-            if (TJAPlayer3.ConfigToml.EnableSkinV2)
+            if (TJAPlayer3.app.ConfigToml.EnableSkinV2)
             {
                 if (TJAPlayer3.Tx.Result_v2_Background != null)
                 {
                     if (TJAPlayer3.Tx.Result_v2_Background[0] != null)
                         TJAPlayer3.Tx.Result_v2_Background[0].t2D描画(TJAPlayer3.app.Device, 0, 0);
-                    for (int ind = 0; ind < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; ind++)
+                    for (int ind = 0; ind < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; ind++)
                     {
                         if (this.cRecords[ind].Gauge >= 80.0 && TJAPlayer3.Tx.Result_v2_Background[1] != null)
                         {
                             TJAPlayer3.Tx.Result_v2_Background[1].Opacity = Math.Min(this.ctMountainAndClear.n現在の値, 255);
-                            TJAPlayer3.Tx.Result_v2_Background[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.ConfigToml.PlayOption.PlayerCount * ind, 0, new Rectangle(TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.ConfigToml.PlayOption.PlayerCount * ind, 0, TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.ConfigToml.PlayOption.PlayerCount, TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Height));
+                            TJAPlayer3.Tx.Result_v2_Background[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount * ind, 0, new Rectangle(TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount * ind, 0, TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount, TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Height));
                         }
                     }
                 }
-                if (TJAPlayer3.Tx.Result_v2_Mountain != null && TJAPlayer3.ConfigToml.PlayOption.PlayerCount == 1)
+                if (TJAPlayer3.Tx.Result_v2_Mountain != null && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount == 1)
                 {
                     if (TJAPlayer3.Tx.Result_v2_Mountain[0] != null)
                         if (this.ctMountainAndClear.n現在の値 <= 255 || this.cRecords[0].Gauge < 80.0)
@@ -241,11 +241,11 @@ internal class CStageResult : CStage
             }
 
             #region ネームプレート
-            for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+            for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
             {
                 if (TJAPlayer3.Tx.NamePlate[i] != null)
                 {
-                    TJAPlayer3.Tx.NamePlate[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.ConfigToml.EnableSkinV2 ? TJAPlayer3.Skin.SkinConfig.Result.v2NamePlateX[i] : TJAPlayer3.Skin.SkinConfig.Result.NamePlateX[i], TJAPlayer3.ConfigToml.EnableSkinV2 ? TJAPlayer3.Skin.SkinConfig.Result.v2NamePlateY[i] : TJAPlayer3.Skin.SkinConfig.Result.NamePlateY[i]);
+                    TJAPlayer3.Tx.NamePlate[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.ConfigToml.EnableSkinV2 ? TJAPlayer3.Skin.SkinConfig.Result.v2NamePlateX[i] : TJAPlayer3.Skin.SkinConfig.Result.NamePlateX[i], TJAPlayer3.app.ConfigToml.EnableSkinV2 ? TJAPlayer3.Skin.SkinConfig.Result.v2NamePlateY[i] : TJAPlayer3.Skin.SkinConfig.Result.NamePlateY[i]);
                 }
             }
             #endregion
@@ -264,7 +264,7 @@ internal class CStageResult : CStage
 
             // キー入力
 
-            if ((TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2) && !this.bアニメが完了)
+            if ((TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2) && !this.bアニメが完了)
             {
                 this.actFI.tFadeIn完了();                 // #25406 2011.6.9 yyagi
                 this.actParameterPanel.tアニメを完了させる();
@@ -280,7 +280,7 @@ internal class CStageResult : CStage
                     base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
                     this.eFadeOut完了時の戻り値 = E戻り値.完了;
                 }
-                if ((TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2) && this.bアニメが完了)
+                if ((TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2) && this.bアニメが完了)
                 {
                     TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
                     //							this.actFO.tFadeOut開始();

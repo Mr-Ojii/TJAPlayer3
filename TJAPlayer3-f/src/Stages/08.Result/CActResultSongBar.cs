@@ -30,10 +30,10 @@ internal class CActResultSongBar : CActivity
 
 
         var title = TJAPlayer3.IsPerformingCalibration
-            ? $"Calibration complete. InputAdjustTime is now {TJAPlayer3.ConfigToml.PlayOption.InputAdjustTimeMs}ms"
+            ? $"Calibration complete. InputAdjustTime is now {TJAPlayer3.app.ConfigToml.PlayOption.InputAdjustTimeMs}ms"
             : TJAPlayer3.DTX[0].TITLE;
 
-        using (var pfMusicName = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, TJAPlayer3.Skin.SkinConfig.Result.MusicNameFontSize))
+        using (var pfMusicName = new CFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, TJAPlayer3.Skin.SkinConfig.Result.MusicNameFontSize))
         {
 
             using (var bmpSongTitle = pfMusicName.DrawText(title, TJAPlayer3.Skin.SkinConfig.Result._MusicNameForeColor, TJAPlayer3.Skin.SkinConfig.Result._MusicNameBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
@@ -43,7 +43,7 @@ internal class CActResultSongBar : CActivity
             }
         }
 
-        using (var pfStageText = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, TJAPlayer3.Skin.SkinConfig.Result.StageTextFontSize))
+        using (var pfStageText = new CFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, TJAPlayer3.Skin.SkinConfig.Result.StageTextFontSize))
         {
             using (var bmpStageText = pfStageText.DrawText(TJAPlayer3.Skin.SkinConfig.Game.PanelFont.StageText, TJAPlayer3.Skin.SkinConfig.Result._StageTextForeColor, TJAPlayer3.Skin.SkinConfig.Result._StageTextBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
             {
@@ -77,7 +77,7 @@ internal class CActResultSongBar : CActivity
         }
         this.ct登場用.t進行();
 
-        if (TJAPlayer3.ConfigToml.EnableSkinV2)
+        if (TJAPlayer3.app.ConfigToml.EnableSkinV2)
         {
             if (TJAPlayer3.Skin.SkinConfig.Result._v2MusicNameReferencePoint == CSkin.EReferencePoint.Center)
             {

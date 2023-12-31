@@ -16,7 +16,7 @@ internal class CAct演奏AVI : CActivity
 
     public void Start(CVideoDecoder rVD)
     {
-        if (!TJAPlayer3.ConfigToml.Game.Background.Movie)
+        if (!TJAPlayer3.app.ConfigToml.Game.Background.Movie)
             return;
 
         this.rVD = rVD;
@@ -45,7 +45,7 @@ internal class CAct演奏AVI : CActivity
             this.tx描画用.vcScaling.X = this.ratio1;
             this.tx描画用.vcScaling.Y = this.ratio1;
 
-            if (TJAPlayer3.ConfigToml.Game.Background._ClipDispType.HasFlag(EClipDispType.Background))
+            if (TJAPlayer3.app.ConfigToml.Game.Background._ClipDispType.HasFlag(EClipDispType.Background))
             {
                 this.tx描画用.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.app.LogicalSize.Width / 2, TJAPlayer3.app.LogicalSize.Height / 2);
             }
@@ -55,7 +55,7 @@ internal class CAct演奏AVI : CActivity
 
     public void t窓表示()
     {
-        if (this.rVD == null || this.tx描画用 == null || !TJAPlayer3.ConfigToml.Game.Background._ClipDispType.HasFlag(EClipDispType.Window))
+        if (this.rVD == null || this.tx描画用 == null || !TJAPlayer3.app.ConfigToml.Game.Background._ClipDispType.HasFlag(EClipDispType.Window))
             return;
 
         float[] fRatio = new float[] { 640.0f - 4.0f, 360.0f - 4.0f }; //中央下表示

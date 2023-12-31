@@ -46,7 +46,7 @@ internal class CActComboVoice : CActivity
 
         // フォルダ内を走査してコンボボイスをListに入れていく
         // 1P、2P コンボボイス
-        for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+        for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
         {
             var currentDir = CSkin.Path(string.Format(@"Sounds/Combo_{0}P/", i + 1));
             if (Directory.Exists(currentDir))
@@ -58,7 +58,7 @@ internal class CActComboVoice : CActivity
                     comboVoice.nPlayer = i;
                     comboVoice.strFilePath = item;
                     comboVoice.soundComboVoice = TJAPlayer3.SoundManager.tCreateSound(item, ESoundGroup.Voice);
-                    if (TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.ConfigToml.PlayOption.UsePanning) //2020.05.06 Mr-Ojii 左右に出したかったから追加。
+                    if (TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.app.ConfigToml.PlayOption.UsePanning) //2020.05.06 Mr-Ojii 左右に出したかったから追加。
                     {
                         if (i == 0)
                             comboVoice.soundComboVoice.nPanning = -100;

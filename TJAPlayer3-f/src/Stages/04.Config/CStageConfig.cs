@@ -44,7 +44,7 @@ internal class CStageConfig : CStage
         {
             this.n現在のメニュー番号 = 0;                                                    //
 
-            this.privatefont = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 14, CFontRenderer.FontStyle.Bold);
+            this.privatefont = new CCachedFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, 14, CFontRenderer.FontStyle.Bold);
 
             for (int i = 0; i < 4; i++)													//
             {																				//
@@ -55,7 +55,7 @@ internal class CStageConfig : CStage
 
             string[] strMenuItem = { "System", "Drums", "Exit" };
             txMenuItemLeft = new CTexture[strMenuItem.Length, 2];
-            using (var prvFont = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 20))
+            using (var prvFont = new CFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, 20))
             {
                 for (int i = 0; i < strMenuItem.Length; i++)
                 {
@@ -268,7 +268,7 @@ internal class CStageConfig : CStage
                     base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
                 }
             }
-            else if (TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2)
+            else if (TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2)
             {
                 if (this.n現在のメニュー番号 == 2)
                 {
@@ -308,22 +308,22 @@ internal class CStageConfig : CStage
 
             if (this.actList.b要素値にフォーカス中)
             {
-                if (TJAPlayer3.Pad.bPressed(EPad.RBlue) || TJAPlayer3.Pad.bPressed(EPad.RBlue2P) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2)
+                if (TJAPlayer3.Pad.bPressed(EPad.RBlue) || TJAPlayer3.Pad.bPressed(EPad.RBlue2P) && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2)
                 {
                     this.tカーソルを上へ移動する();
                 }
-                if (TJAPlayer3.Pad.bPressed(EPad.LBlue) || TJAPlayer3.Pad.bPressed(EPad.LBlue2P) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2)
+                if (TJAPlayer3.Pad.bPressed(EPad.LBlue) || TJAPlayer3.Pad.bPressed(EPad.LBlue2P) && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2)
                 {
                     this.tカーソルを下へ移動する();
                 }
             }
             else
             {
-                if (TJAPlayer3.Pad.bPressed(EPad.RBlue) || TJAPlayer3.Pad.bPressed(EPad.RBlue2P) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2)
+                if (TJAPlayer3.Pad.bPressed(EPad.RBlue) || TJAPlayer3.Pad.bPressed(EPad.RBlue2P) && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2)
                 {
                     this.tカーソルを下へ移動する();
                 }
-                if (TJAPlayer3.Pad.bPressed(EPad.LBlue) || TJAPlayer3.Pad.bPressed(EPad.LBlue2P) && TJAPlayer3.ConfigToml.PlayOption.PlayerCount >= 2)
+                if (TJAPlayer3.Pad.bPressed(EPad.LBlue) || TJAPlayer3.Pad.bPressed(EPad.LBlue2P) && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2)
                 {
                     this.tカーソルを上へ移動する();
                 }

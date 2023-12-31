@@ -23,7 +23,7 @@ class CStageMaintenance : CStage
             don = TJAPlayer3.ColorTexture("#ff4000", Width, Height);
             ka = TJAPlayer3.ColorTexture("#00c8ff", Width, Height);
             string[] txt = new string[4] { "左ふち", "左面", "右面", "右ふち" };
-            using (var pf = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, fontsize))
+            using (var pf = new CFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, fontsize))
             {
                 for (int ind = 0; ind < 4; ind++)
                 {

@@ -341,7 +341,7 @@ internal class CDTX : CActivity
                     this.rSound.t解放する();
                 this.rSound = null;
 
-                if (TJAPlayer3.ConfigToml.Log.CreatedDisposed)
+                if (TJAPlayer3.app.ConfigToml.Log.CreatedDisposed)
                     Trace.TraceInformation("サウンドを解放しました。({0})", this.strFilename);
             }
 
@@ -581,7 +581,7 @@ internal class CDTX : CActivity
             foreach (CVideoDecoder cvd in this.listVD.Values)
             {
                 cvd.InitRead();
-                cvd.dbPlaySpeed = ((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0;
+                cvd.dbPlaySpeed = ((double)TJAPlayer3.app.ConfigToml.PlayOption.PlaySpeed) / 20.0;
             }
         }
     }
@@ -650,7 +650,7 @@ internal class CDTX : CActivity
             {
                 cwav.rSound = TJAPlayer3.SoundManager.tCreateSound(str, ESoundGroup.SongPlayback);
 
-                if (TJAPlayer3.ConfigToml.Log.CreatedDisposed)
+                if (TJAPlayer3.app.ConfigToml.Log.CreatedDisposed)
                 {
                     Trace.TraceInformation("サウンドを作成しました。({1})({0})", str, "OnMemory");
                 }
@@ -756,7 +756,7 @@ internal class CDTX : CActivity
     #region [ チップの再生と停止 ]
     public void tチップの再生(CChip pChip, long n再生開始システム時刻ms)
     {
-        if (TJAPlayer3.ConfigToml.PlayOption.PlayBGMOnlyPlaySpeedEqualsOne && TJAPlayer3.ConfigToml.PlayOption.PlaySpeed != 20)
+        if (TJAPlayer3.app.ConfigToml.PlayOption.PlayBGMOnlyPlaySpeedEqualsOne && TJAPlayer3.app.ConfigToml.PlayOption.PlaySpeed != 20)
             return;
 
         if (pChip.n整数値_内部番号 >= 0)
@@ -766,7 +766,7 @@ internal class CDTX : CActivity
                 CSound sound = wc.rSound;
                 if (sound != null)
                 {
-                    sound.dbPlaySpeed = ((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0;
+                    sound.dbPlaySpeed = ((double)TJAPlayer3.app.ConfigToml.PlayOption.PlaySpeed) / 20.0;
                     // 再生速度によって、WASAPI/ASIOで使う使用mixerが決まるため、付随情報の設定(音量/PAN)は、再生速度の設定後に行う
 
                     // 2018-08-27 twopointzero - DON'T attempt to load (or queue scanning) loudness metadata here.
@@ -1263,7 +1263,7 @@ internal class CDTX : CActivity
 
         #endregion
         #region [ bLogDTX詳細ログ出力 ]
-        if (TJAPlayer3.ConfigToml.Log.ChartDetails)
+        if (TJAPlayer3.app.ConfigToml.Log.ChartDetails)
         {
             foreach (CWAV cwav in this.listWAV.Values)
             {
@@ -4173,7 +4173,7 @@ internal class CDTX : CActivity
         }
         if (this.nScoreModeTmp == 99) //2017.01.28 DD SCOREMODEを入力していない場合のみConfigで設定したモードにする
         {
-            this.nScoreModeTmp = TJAPlayer3.ConfigToml.PlayOption.DefaultScoreMode;
+            this.nScoreModeTmp = TJAPlayer3.app.ConfigToml.PlayOption.DefaultScoreMode;
         }
     }
 
@@ -4495,7 +4495,7 @@ internal class CDTX : CActivity
             if (this.nScoreModeTmp == 99)
             {
                 //2017.01.28 DD
-                this.nScoreModeTmp = TJAPlayer3.ConfigToml.PlayOption.DefaultScoreMode;
+                this.nScoreModeTmp = TJAPlayer3.app.ConfigToml.PlayOption.DefaultScoreMode;
             }
         }
     }
@@ -5296,8 +5296,8 @@ internal class CDTX : CActivity
     /// </summary>
     private void AddMusicPreTimeMs()
     {
-        this.dbNowTime += TJAPlayer3.ConfigToml.PlayOption.MusicPreTimeMs;
-        this.dbNowBMScollTime += TJAPlayer3.ConfigToml.PlayOption.MusicPreTimeMs * this.dbNowBPM / 15000;
+        this.dbNowTime += TJAPlayer3.app.ConfigToml.PlayOption.MusicPreTimeMs;
+        this.dbNowBMScollTime += TJAPlayer3.app.ConfigToml.PlayOption.MusicPreTimeMs * this.dbNowBPM / 15000;
     }
     //-----------------
     #endregion

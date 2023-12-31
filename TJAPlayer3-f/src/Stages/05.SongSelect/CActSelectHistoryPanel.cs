@@ -15,7 +15,7 @@ internal class CActSelectHistoryPanel : CActivity
 
     public override void On活性化()
     {
-        this.Font = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 40);
+        this.Font = new CCachedFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, 40);
         tSongChange();
         base.On活性化();
     }
@@ -48,7 +48,7 @@ internal class CActSelectHistoryPanel : CActivity
             int[] x = TJAPlayer3.Skin.SkinConfig.SongSelect.ScoreWindowX;
             int[] y = TJAPlayer3.Skin.SkinConfig.SongSelect.ScoreWindowY;
             int xdiff = 170;
-            for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+            for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
             {
                 if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア != null && this.ct登場アニメ用.b終了値に達した && TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.eNodeType == C曲リストノード.ENodeType.SCORE)
                 {

@@ -48,7 +48,7 @@ internal class CActRoll : CActivity
         this.ct連打アニメ[player].t進行();
         FadeOutCounter[player].t進行();
         const int fadenum = 167;
-        for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+        for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
         {
             //CDTXMania.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, this.ct連打枠カウンター[player].n現在の値.ToString());
             if (this.ct連打枠カウンター[player].b終了値に達してない)

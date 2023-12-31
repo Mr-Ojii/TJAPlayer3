@@ -14,7 +14,7 @@ internal class CAct演奏Drumsレーン : CActivity
         this.ct分岐アニメ進行 = new CCounter[4];
         this.nBefore = new int[4];
         this.nAfter = new int[4];
-        for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+        for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
         {
             this.ct分岐アニメ進行[i] = new CCounter();
             this.nBefore[i] = 0;
@@ -34,7 +34,7 @@ internal class CAct演奏Drumsレーン : CActivity
 
     public override int On進行描画()
     {
-        for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+        for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
         {
             if (!this.ct分岐アニメ進行[i].b停止中)
             {
@@ -49,7 +49,7 @@ internal class CAct演奏Drumsレーン : CActivity
 
 
         //アニメーション中の分岐レイヤー(背景)の描画を行う。
-        for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+        for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
         {
             if (TJAPlayer3.stage演奏ドラム画面.bUseBranch[i] == true)
             {

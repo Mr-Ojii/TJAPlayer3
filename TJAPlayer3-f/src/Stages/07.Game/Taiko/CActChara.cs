@@ -26,7 +26,7 @@ internal class CActChara : CActivity
         var balloonBrokePtn = TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Broke;
         var balloonMissPtn = TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss;
         CharaAction_Balloon_FadeOut = new CCounter[2];
-        for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++)
+        for (int nPlayer = 0; nPlayer < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; nPlayer++)
         {
             var tick = TJAPlayer3.Skin.SkinConfig.Game.Chara.BalloonTimer[nPlayer];
             CharaAction_Balloon_FadeOut_StartMs[nPlayer] = new int[2];
@@ -59,7 +59,7 @@ internal class CActChara : CActivity
         this.arゴーゴーモーション番号 = new int[2][];
         this.arクリアモーション番号 = new int[2][];
 
-        for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++)
+        for (int nPlayer = 0; nPlayer < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; nPlayer++)
         {
             this.arモーション番号[nPlayer] = TJAPlayer3.Skin.SkinConfig.Game.Chara.MotionNormal[nPlayer];
             this.arゴーゴーモーション番号[nPlayer] = TJAPlayer3.Skin.SkinConfig.Game.Chara.MotionGoGo[nPlayer];
@@ -115,7 +115,7 @@ internal class CActChara : CActivity
 
     public override int On進行描画()
     {
-        for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++)
+        for (int nPlayer = 0; nPlayer < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; nPlayer++)
         {
             if (ctChara_Normal[nPlayer] != null || TJAPlayer3.Skin.Game_Chara_Ptn_Normal[nPlayer] != 0) ctChara_Normal[nPlayer].t進行LoopDb();
             if (ctChara_GoGo[nPlayer] != null || TJAPlayer3.Skin.Game_Chara_Ptn_GoGo[nPlayer] != 0) ctChara_GoGo[nPlayer].t進行LoopDb();
@@ -262,7 +262,7 @@ internal class CActChara : CActivity
 
     public void OnDraw_Balloon()
     {
-        for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++)
+        for (int nPlayer = 0; nPlayer < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; nPlayer++)
         {
             if (TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Breaking[nPlayer] != 0) CharaAction_Balloon_Breaking[nPlayer]?.t進行();
             if (TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Broke[nPlayer] != 0) CharaAction_Balloon_Broke[nPlayer]?.t進行();

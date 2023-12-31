@@ -40,7 +40,7 @@ internal class CActResultParameterPanel : CActivity
             this.n表示された桁数[index] = 0;
         }
         this.AllPlayerCannotGetCrown = true;
-        for (int index = 0; index < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; index++)
+        for (int index = 0; index < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; index++)
         {
             if (TJAPlayer3.stage選曲.n確定された曲の難易度[index] == (int)Difficulty.Dan)
             {
@@ -101,7 +101,7 @@ internal class CActResultParameterPanel : CActivity
         {
             base.b初めての進行描画 = false;
         }
-        if (TJAPlayer3.ConfigToml.EnableSkinV2)
+        if (TJAPlayer3.app.ConfigToml.EnableSkinV2)
         {
             this.ct文字V2用.t進行();
 
@@ -141,7 +141,7 @@ internal class CActResultParameterPanel : CActivity
             else if (ephase_v2 == EPhaseV2.Gauge)
                 ctGauge.t進行();
 
-            for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+            for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
             {
                 if (TJAPlayer3.Tx.Result_v2_Panel != null)
                 {
@@ -220,7 +220,7 @@ internal class CActResultParameterPanel : CActivity
             else if (ephase != EPhase.Loop)
             {
                 bool bIstrue = true;
-                for (int index = 0; index < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; index++)
+                for (int index = 0; index < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; index++)
                 {
                     if (!this.ToNextPhase[index])
                         bIstrue = false;
@@ -233,7 +233,7 @@ internal class CActResultParameterPanel : CActivity
             }
             #endregion
 
-            for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+            for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
             {
                 if (TJAPlayer3.Tx.Result_Panel != null)
                 {

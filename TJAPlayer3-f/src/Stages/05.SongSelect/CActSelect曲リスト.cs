@@ -61,7 +61,7 @@ internal class CActSelect曲リスト : CActivity
         this.r現在選択中の曲 = null;
         n現在のアンカ難易度レベル = new int[2];
         for (int nPlayer = 0; nPlayer < 2; nPlayer++)
-            this.n現在のアンカ難易度レベル[nPlayer] = TJAPlayer3.ConfigToml.PlayOption.DefaultCourse;
+            this.n現在のアンカ難易度レベル[nPlayer] = TJAPlayer3.app.ConfigToml.PlayOption.DefaultCourse;
         base.b活性化してない = true;
         this.bIsEnumeratingSongs = false;
     }
@@ -167,7 +167,7 @@ internal class CActSelect曲リスト : CActivity
 
     public void tBOXに入る()
     {
-        if (TJAPlayer3.ConfigToml.SongSelect.OpenOneSide)
+        if (TJAPlayer3.app.ConfigToml.SongSelect.OpenOneSide)
         {
             List<C曲リストノード> list = TJAPlayer3.SongsManager.list曲ルート;
             list.InsertRange(list.IndexOf(this.r現在選択中の曲) + 1, this.r現在選択中の曲.list子リスト);
@@ -197,7 +197,7 @@ internal class CActSelect曲リスト : CActivity
     }
     public void tBOXを出る()
     {
-        if (TJAPlayer3.ConfigToml.SongSelect.OpenOneSide)
+        if (TJAPlayer3.app.ConfigToml.SongSelect.OpenOneSide)
         {
             List<C曲リストノード> list = TJAPlayer3.SongsManager.list曲ルート;
             this.r現在選択中の曲.r親ノード.Openindex = r現在選択中の曲.r親ノード.list子リスト.IndexOf(this.r現在選択中の曲);
@@ -250,7 +250,7 @@ internal class CActSelect曲リスト : CActivity
     {
         if (this.r現在選択中の曲 != null)
         {
-            for (int i = 0; i < TJAPlayer3.ConfigToml.SongSelect.SkipCount; i++)
+            for (int i = 0; i < TJAPlayer3.app.ConfigToml.SongSelect.SkipCount; i++)
                 this.r現在選択中の曲 = r次の曲(r現在選択中の曲);
         }
         this.t現在選択中の曲を元に曲バーを再構成する();
@@ -262,7 +262,7 @@ internal class CActSelect曲リスト : CActivity
     {
         if (this.r現在選択中の曲 != null)
         {
-            for (int i = 0; i < TJAPlayer3.ConfigToml.SongSelect.SkipCount; i++)
+            for (int i = 0; i < TJAPlayer3.app.ConfigToml.SongSelect.SkipCount; i++)
                 this.r現在選択中の曲 = r前の曲(r現在選択中の曲);
         }
         this.t現在選択中の曲を元に曲バーを再構成する();
@@ -406,7 +406,7 @@ internal class CActSelect曲リスト : CActivity
 
         song_last = song;
 
-        List<C曲リストノード> list = (song.r親ノード != null && !TJAPlayer3.ConfigToml.SongSelect.OpenOneSide) ? song.r親ノード.list子リスト : TJAPlayer3.SongsManager.list曲ルート;
+        List<C曲リストノード> list = (song.r親ノード != null && !TJAPlayer3.app.ConfigToml.SongSelect.OpenOneSide) ? song.r親ノード.list子リスト : TJAPlayer3.SongsManager.list曲ルート;
         int index = list.IndexOf(song) + 1;
         if (index <= 0)
         {
@@ -442,8 +442,8 @@ internal class CActSelect曲リスト : CActivity
         // enter or return to the song select screen.
         TJAPlayer3.IsPerformingCalibration = false;
 
-        this.pfMusicName = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 30);
-        this.pfSubtitle = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 23);
+        this.pfMusicName = new CCachedFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, 30);
+        this.pfSubtitle = new CCachedFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, 23);
 
         this.n目標のスクロールカウンタ = 0;
         this.n現在のスクロールカウンタ = 0;
@@ -473,7 +473,7 @@ internal class CActSelect曲リスト : CActivity
         {
             string[] s1 = { "曲データが見つかりません。\n曲データをTJAPlayer3-f以下の\nフォルダにインストールして下さい。", "Songs not found.\nYou need to install songs." };
 
-            using (CFontRenderer pffont = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 32))
+            using (CFontRenderer pffont = new CFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, 32))
             {
                 this.txSongNotFound = TJAPlayer3.tCreateTexture(pffont.DrawText(s1[c], Color.White));
                 this.txSongNotFound.vcScaling = new Vector2(0.5f);
@@ -491,7 +491,7 @@ internal class CActSelect曲リスト : CActivity
         {
             string[] s1 = { "曲データを検索しています。\nそのまましばらくお待ち下さい。", "Now enumerating songs.\nPlease wait..." };
 
-            using (CFontRenderer pffont = new CFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 32))
+            using (CFontRenderer pffont = new CFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, 32))
             {
                 this.txEnumeratingSongs = TJAPlayer3.tCreateTexture(pffont.DrawText(s1[c], Color.White));
                 this.txEnumeratingSongs.vcScaling = new Vector2(0.5f);
@@ -548,7 +548,7 @@ internal class CActSelect曲リスト : CActivity
         //-----------------
         if (this.b初めての進行描画)
         {
-            this.nスクロールタイマ = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
+            this.nスクロールタイマ = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.app.ConfigToml.PlayOption.PlaySpeed) / 20.0));
             TJAPlayer3.stage選曲.t選択曲変更通知();
 
             this.ct三角矢印アニメ.t開始(0, 1000, 1, TJAPlayer3.Timer);
@@ -843,7 +843,7 @@ internal class CActSelect曲リスト : CActivity
         if (this.r現在選択中の曲.r親ノード != null)
         {
             int GenreBack = TJAPlayer3.Skin.nStrジャンルtoNum(this.r現在選択中の曲.r親ノード.strGenre);
-            if (TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[GenreBack] != null && TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[GenreBack] != null && !TJAPlayer3.ConfigToml.SongSelect.OpenOneSide)
+            if (TJAPlayer3.Tx.SongSelect_Bar_Center_Back_Genre[GenreBack] != null && TJAPlayer3.Tx.SongSelect_Box_Center_Header_Genre[GenreBack] != null && !TJAPlayer3.app.ConfigToml.SongSelect.OpenOneSide)
             {
                 int ForLoop = (int)(1280 / 100) + 1;
                 for (int i = 0; i < ForLoop; i++)
@@ -858,7 +858,7 @@ internal class CActSelect曲リスト : CActivity
         #region [ (2) 通常フェーズの描画。]
         //-----------------
         #region[片開き用の背景]
-        if (TJAPlayer3.ConfigToml.SongSelect.OpenOneSide)
+        if (TJAPlayer3.app.ConfigToml.SongSelect.OpenOneSide)
         {
             for (int i = 0; i < 13; i++)
             {
@@ -1353,7 +1353,7 @@ internal class CActSelect曲リスト : CActivity
             return null;
 
 
-        List<C曲リストノード> list = (song.r親ノード != null && !TJAPlayer3.ConfigToml.SongSelect.OpenOneSide) ? song.r親ノード.list子リスト : TJAPlayer3.SongsManager.list曲ルート;
+        List<C曲リストノード> list = (song.r親ノード != null && !TJAPlayer3.app.ConfigToml.SongSelect.OpenOneSide) ? song.r親ノード.list子リスト : TJAPlayer3.SongsManager.list曲ルート;
 
         int index = list.IndexOf(song);
 
@@ -1370,7 +1370,7 @@ internal class CActSelect曲リスト : CActivity
         if (song == null)
             return null;
 
-        List<C曲リストノード> list = (song.r親ノード != null && !TJAPlayer3.ConfigToml.SongSelect.OpenOneSide) ? song.r親ノード.list子リスト : TJAPlayer3.SongsManager.list曲ルート;
+        List<C曲リストノード> list = (song.r親ノード != null && !TJAPlayer3.app.ConfigToml.SongSelect.OpenOneSide) ? song.r親ノード.list子リスト : TJAPlayer3.SongsManager.list曲ルート;
 
         int index = list.IndexOf(song);
 

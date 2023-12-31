@@ -42,11 +42,11 @@ internal class CActMtaiko : CActivity
     {
         if (base.b初めての進行描画)
         {
-            this.nフラッシュ制御タイマ = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
+            this.nフラッシュ制御タイマ = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.app.ConfigToml.PlayOption.PlaySpeed) / 20.0));
             base.b初めての進行描画 = false;
         }
 
-        long num = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.ConfigToml.PlayOption.PlaySpeed) / 20.0));
+        long num = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.app.ConfigToml.PlayOption.PlaySpeed) / 20.0));
         if (num < this.nフラッシュ制御タイマ)
         {
             this.nフラッシュ制御タイマ = num;
@@ -63,10 +63,10 @@ internal class CActMtaiko : CActivity
             this.nフラッシュ制御タイマ += 20;
         }
 
-        for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+        for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
             TJAPlayer3.Tx.Taiko_Background[i]?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Taiko.BackGroundX[i], TJAPlayer3.Skin.SkinConfig.Game.Taiko.BackGroundY[i]);
 
-        for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+        for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
             TJAPlayer3.Tx.Taiko_Base?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Taiko.X[i], TJAPlayer3.Skin.SkinConfig.Game.Taiko.Y[i]);
 
         if (TJAPlayer3.Tx.Taiko_Don_Left != null && TJAPlayer3.Tx.Taiko_Don_Right != null && TJAPlayer3.Tx.Taiko_Ka_Left != null && TJAPlayer3.Tx.Taiko_Ka_Right != null)
@@ -95,7 +95,7 @@ internal class CActMtaiko : CActivity
             TJAPlayer3.Tx.Taiko_Don_Right.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Taiko.X[1] + TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Width / 2, TJAPlayer3.Skin.SkinConfig.Game.Taiko.Y[1], new Rectangle(TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Width / 2, 0, TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Width / 2, TJAPlayer3.Tx.Taiko_Ka_Right.szTextureSize.Height));
         }
 
-        for (int i = 0; i < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; i++)
+        for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
         {
             if (!this.ctレベルアップダウン[i].b停止中)
             {
@@ -106,7 +106,7 @@ internal class CActMtaiko : CActivity
                 }
             }
 
-            if ((this.ctレベルアップダウン[i].b進行中 && (TJAPlayer3.Tx.Taiko_LevelUp != null && TJAPlayer3.Tx.Taiko_LevelDown != null)) && !TJAPlayer3.ConfigToml.Game.NoInfo)
+            if ((this.ctレベルアップダウン[i].b進行中 && (TJAPlayer3.Tx.Taiko_LevelUp != null && TJAPlayer3.Tx.Taiko_LevelDown != null)) && !TJAPlayer3.app.ConfigToml.Game.NoInfo)
             {
                 //this.ctレベルアップダウン[ i ].n現在の値 = 110;
 
@@ -165,7 +165,7 @@ internal class CActMtaiko : CActivity
             }
         }
 
-        for (int nPlayer = 0; nPlayer < TJAPlayer3.ConfigToml.PlayOption.PlayerCount; nPlayer++)
+        for (int nPlayer = 0; nPlayer < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; nPlayer++)
         {
             if (TJAPlayer3.Tx.Couse_Symbol[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] != null)
             {
@@ -175,7 +175,7 @@ internal class CActMtaiko : CActivity
                     );
             }
 
-            if (TJAPlayer3.ConfigToml.PlayOption.Shinuchi[nPlayer])
+            if (TJAPlayer3.app.ConfigToml.PlayOption.Shinuchi[nPlayer])
             {
                 if (TJAPlayer3.Tx.Couse_Symbol[(int)Difficulty.Total] != null)
                 {
@@ -203,7 +203,7 @@ internal class CActMtaiko : CActivity
 
     public void tMtaikoEvent(int nChannel, int nHand, int nPlayer)
     {
-        if (!TJAPlayer3.ConfigToml.PlayOption.AutoPlay[nPlayer])
+        if (!TJAPlayer3.app.ConfigToml.PlayOption.AutoPlay[nPlayer])
         {
             switch (nChannel)
             {

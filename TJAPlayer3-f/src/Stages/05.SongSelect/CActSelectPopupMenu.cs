@@ -74,7 +74,7 @@ internal class CActSelectPopupMenu : CActivity
     {
         if (prvFont == null)
         {
-            prvFont = new CCachedFontRenderer(TJAPlayer3.ConfigToml.General.FontName, 18);
+            prvFont = new CCachedFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, 18);
         }
     }
 

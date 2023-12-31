@@ -371,7 +371,7 @@ internal class CAct演奏Combo共通 : CActivity
             {
                 e今回の状態遷移イベント = EEvent.ミス通知;
             }
-            else if ((this.status[i].n現在表示中のCOMBO値 < TJAPlayer3.ConfigToml.Game.DispMinCombo) && (this.status[i].nCOMBO値 < TJAPlayer3.ConfigToml.Game.DispMinCombo))
+            else if ((this.status[i].n現在表示中のCOMBO値 < TJAPlayer3.app.ConfigToml.Game.DispMinCombo) && (this.status[i].nCOMBO値 < TJAPlayer3.app.ConfigToml.Game.DispMinCombo))
             {
                 e今回の状態遷移イベント = EEvent.非表示;
             }
