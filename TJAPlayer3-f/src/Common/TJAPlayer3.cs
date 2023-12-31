@@ -283,7 +283,9 @@ internal class TJAPlayer3 : Game
             currentClientSize = new Size(ConfigToml.Window.Width, ConfigToml.Window.Height);
         }
 
-        base.Icon = Assembly.GetExecutingAssembly().GetManifestResourceStream("TJAPlayer3.TJAPlayer3-f.ico");
+        var icon_stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("TJAPlayer3.TJAPlayer3-f.ico");
+        if (icon_stream is not null)
+            base.Icon = icon_stream;
         base.MouseWheel += this.Window_MouseWheel;
         base.Resize += this.Window_ResizeOrMove;                       // #23510 2010.11.20 yyagi: to set resized window size in Config.ini
         base.Move += this.Window_ResizeOrMove;
@@ -1694,13 +1696,13 @@ internal class TJAPlayer3 : Game
     }
     #region [ Windowイベント処理 ]
     //-----------------
-    private void Window_MouseWheel(object sender, FDK.Windowing.MouseWheelEventArgs e)
+    private void Window_MouseWheel(object? sender, FDK.Windowing.MouseWheelEventArgs? e)
     {
         if (TJAPlayer3.r現在のステージ.eStageID == CStage.EStage.SongSelect && ConfigToml.SongSelect.EnableMouseWheel)
             TJAPlayer3.stage選曲.MouseWheel(e.x - e.y);
     }
 
-    private void Window_ResizeOrMove(object sender, EventArgs e)               // #23510 2010.11.20 yyagi: to get resized window size
+    private void Window_ResizeOrMove(object? sender, EventArgs? e)               // #23510 2010.11.20 yyagi: to get resized window size
     {
         if (!ConfigToml.Window.FullScreen)
         {
