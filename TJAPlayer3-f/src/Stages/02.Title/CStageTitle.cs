@@ -43,7 +43,7 @@ internal class CStageTitle : CStage
 
             base.On活性化();
 
-            TJAPlayer3.Discord?.Update("Title");
+            TJAPlayer3.app.Discord.Update("Title");
         }
         finally
         {

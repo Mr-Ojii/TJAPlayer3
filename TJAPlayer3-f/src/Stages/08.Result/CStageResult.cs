@@ -114,7 +114,7 @@ internal class CStageResult : CStage
             string Details = TJAPlayer3.DTX[0].TITLE + TJAPlayer3.DTX[0].EXTENSION;
 
             // Discord Presenseの更新
-            TJAPlayer3.Discord?.Update(
+            TJAPlayer3.app.Discord.Update(
                 Details.Substring(0, Math.Min(127, Details.Length)),
                 "Result" + (TJAPlayer3.ConfigToml.PlayOption.AutoPlay[0] == true ? " (Auto)" : "")
             );

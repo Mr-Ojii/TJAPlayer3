@@ -31,7 +31,7 @@ class CStageMaintenance : CStage
                         str[ind] = TJAPlayer3.tCreateTexture(bmp);
                 }
             }
-            TJAPlayer3.Discord?.Update("Maintenance");
+            TJAPlayer3.app.Discord.Update("Maintenance");
             base.On活性化();
         }
         finally

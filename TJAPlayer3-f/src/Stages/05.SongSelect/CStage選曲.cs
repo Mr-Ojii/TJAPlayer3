@@ -91,7 +91,7 @@ internal class CStage選曲 : CStage
             完全に選択済み = false;
             // Discord Presenceの更新
 
-            TJAPlayer3.Discord?.Update("SongSelect");
+            TJAPlayer3.app.Discord.Update("SongSelect");
         }
         finally
         {

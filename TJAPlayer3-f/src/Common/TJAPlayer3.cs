@@ -186,7 +186,7 @@ internal class TJAPlayer3 : Game
         get;
         private set;
     }
-    public static DiscordRichPresence Discord
+    public DiscordRichPresence Discord
     {
         get;
         private set;
@@ -1334,8 +1334,8 @@ internal class TJAPlayer3 : Game
         //---------------------
         #endregion
         #region Discordの処理
-        Discord = new DiscordRichPresence("692578108997632051");
-        Discord?.Update("Startup");
+        this.Discord = new DiscordRichPresence("692578108997632051");
+        this.Discord.Update("Startup");
         #endregion
 
         Trace.TraceInformation("アプリケーションの初期化を完了しました。");
@@ -1419,7 +1419,7 @@ internal class TJAPlayer3 : Game
             //---------------------
             #endregion
             #region Discordの処理
-            Discord.Dispose();
+            this.Discord.Dispose();
             #endregion
             #region [ 曲リストの終了処理 ]
             //---------------------

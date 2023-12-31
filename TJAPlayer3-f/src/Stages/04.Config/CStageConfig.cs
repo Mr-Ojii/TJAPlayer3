@@ -79,7 +79,7 @@ internal class CStageConfig : CStage
                 this.t説明文パネルに現在選択されている項目の説明を描画する();
             }
 
-            TJAPlayer3.Discord?.Update("Config");
+            TJAPlayer3.app.Discord.Update("Config");
         }
         finally
         {

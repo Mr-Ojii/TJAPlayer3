@@ -320,7 +320,7 @@ internal class CStage演奏画面共通 : CStage
         string Details = TJAPlayer3.ConfigToml.Game.SendDiscordPlayingInformation ? TJAPlayer3.DTX[0].TITLE + TJAPlayer3.DTX[0].EXTENSION : "";
 
 
-        TJAPlayer3.Discord?.Update(
+        TJAPlayer3.app.Discord.Update(
             Details.Substring(0, Math.Min(127, Details.Length)),
             "Playing" + (TJAPlayer3.ConfigToml.PlayOption.AutoPlay[0] == true ? " (Auto)" : ""),
             DateTime.UtcNow,

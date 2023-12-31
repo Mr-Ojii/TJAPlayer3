@@ -23,7 +23,7 @@ internal class CStageEnding : CStage
         try
         {
             this.ctAnimation = new CCounter(0, 3000, 1, TJAPlayer3.Timer);
-            TJAPlayer3.Discord?.Update("Ending");
+            TJAPlayer3.app.Discord.Update("Ending");
             base.On活性化();
         }
         finally
