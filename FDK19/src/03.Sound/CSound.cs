@@ -258,12 +258,42 @@ public class CSound : IDisposable
     public void tBASSサウンドを作成する(string strFilename, int hMixer, ESoundDeviceType eSoundDeviceType, BassFlags bassFlags)
     {
         this.eSoundDeviceType = eSoundDeviceType;      // 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
-        this.tBASSサウンドを作成する(strFilename, hMixer, bassFlags);
+
+        this.eMakeType = EMakeType.File;
+        this.strFilename = strFilename;
+
+        // BASSファイルストリームを作成。
+
+        this._hBassStream = Bass.CreateStream(strFilename, 0, 0, bassFlags);
+        if (this._hBassStream == 0)
+        {
+            //ファイルからのサウンド生成に失敗した場合にデコードする。(時間がかかるのはしょうがないね)
+            CAudioDecoder.AudioDecode(strFilename, out byArrWAVファイルイメージ, out _, out _, true);
+            tBASSサウンドを作成する(byArrWAVファイルイメージ, hMixer, eSoundDeviceType, bassFlags);
+            return;
+        }
+
+        nBytes = Bass.ChannelGetLength(this._hBassStream);
+
+        tBASSサウンドを作成する_ストリーム生成後の共通処理(hMixer);
     }
     public void tBASSサウンドを作成する(byte[] byArrWAVファイルイメージ, int hMixer, ESoundDeviceType eSoundDeviceType, BassFlags bassFlags)
     {
         this.eSoundDeviceType = eSoundDeviceType;      // 作成後に設定する。（作成に失敗してると例外発出されてここは実行されない）
-        this.tBASSサウンドを作成する(byArrWAVファイルイメージ, hMixer, bassFlags);
+
+        this.eMakeType = EMakeType.WAVFileImage;
+        this.byArrWAVファイルイメージ = byArrWAVファイルイメージ;
+        this.hGC = GCHandle.Alloc(byArrWAVファイルイメージ, GCHandleType.Pinned);		// byte[] をピン留め
+
+        // BASSファイルストリームを作成。
+
+        this._hBassStream = Bass.CreateStream(hGC.AddrOfPinnedObject(), 0, byArrWAVファイルイメージ.Length, bassFlags);
+        if (this._hBassStream == 0)
+            throw new Exception(string.Format("サウンドストリームの生成に失敗しました。(BASS_StreamCreateFile)[{0}]", Bass.LastError.ToString()));
+
+        nBytes = Bass.ChannelGetLength(this._hBassStream);
+
+        tBASSサウンドを作成する_ストリーム生成後の共通処理(hMixer);
     }
 
     #region [ DTXMania用の変換 ]
@@ -293,7 +323,7 @@ public class CSound : IDisposable
     }
     public void t再生を一時停止する()
     {
-        tサウンドを停止する(true);
+        tサウンドを停止する();
     }
     public void t再生を再開する(long t)
     {
@@ -371,14 +401,10 @@ public class CSound : IDisposable
     }
     public void tサウンドを停止してMixerからも削除する()
     {
-        tサウンドを停止する(false);
+        tサウンドを停止する();
         tBASSサウンドをミキサーから削除する();
     }
     public void tサウンドを停止する()
-    {
-        tサウンドを停止する(false);
-    }
-    public void tサウンドを停止する(bool pause)
     {
         BassMixExtensions.ChannelPause(this.hBassStream);
     }
@@ -560,44 +586,6 @@ public class CSound : IDisposable
     private int nFrequency = 0;
     private double _dbPlaySpeed = 1.0;
 
-    private void tBASSサウンドを作成する(string strFilename, int hMixer, BassFlags flags)
-    {
-        this.eMakeType = EMakeType.File;
-        this.strFilename = strFilename;
-
-        // BASSファイルストリームを作成。
-
-        this._hBassStream = Bass.CreateStream(strFilename, 0, 0, flags);
-        if (this._hBassStream == 0)
-        {
-            //ファイルからのサウンド生成に失敗した場合にデコードする。(時間がかかるのはしょうがないね)
-            CAudioDecoder.AudioDecode(strFilename, out byArrWAVファイルイメージ, out _, out _, true);
-            tBASSサウンドを作成する(byArrWAVファイルイメージ, hMixer, flags);
-            return;
-        }
-
-        nBytes = Bass.ChannelGetLength(this._hBassStream);
-
-        tBASSサウンドを作成する_ストリーム生成後の共通処理(hMixer);
-    }
-    private void tBASSサウンドを作成する(byte[] byArrWAVファイルイメージ, int hMixer, BassFlags flags)
-    {
-        this.eMakeType = EMakeType.WAVFileImage;
-        this.byArrWAVファイルイメージ = byArrWAVファイルイメージ;
-        this.hGC = GCHandle.Alloc(byArrWAVファイルイメージ, GCHandleType.Pinned);		// byte[] をピン留め
-
-
-        // BASSファイルストリームを作成。
-
-        this._hBassStream = Bass.CreateStream(hGC.AddrOfPinnedObject(), 0, byArrWAVファイルイメージ.Length, flags);
-        if (this._hBassStream == 0)
-            throw new Exception(string.Format("サウンドストリームの生成に失敗しました。(BASS_StreamCreateFile)[{0}]", Bass.LastError.ToString()));
-
-        nBytes = Bass.ChannelGetLength(this._hBassStream);
-
-        tBASSサウンドを作成する_ストリーム生成後の共通処理(hMixer);
-    }
-
     private void tBASSサウンドを作成する_ストリーム生成後の共通処理(int hMixer)
     {
         CSoundManager.nStreams++;
@@ -670,7 +658,7 @@ public class CSound : IDisposable
     {
         return tBASSサウンドをミキサーから削除する(this.hBassStream);
     }
-    public static bool tBASSサウンドをミキサーから削除する(int channel)
+    private static bool tBASSサウンドをミキサーから削除する(int channel)
     {
         bool b = BassMix.MixerRemoveChannel(channel);
         if (b)
