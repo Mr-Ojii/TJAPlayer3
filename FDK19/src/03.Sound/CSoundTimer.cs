@@ -6,7 +6,7 @@ public class CSoundTimer : CTimerBase
     {
         get
         {
-            if (this.Device is null || this.Device.eOutputDevice == ESoundDeviceType.Unknown)
+            if (this.Device.eOutputDevice == ESoundDeviceType.Unknown)
                 return CTimerBase.nUnused;
 
             // BASS 系の ISoundDevice.nElapsedTimems はオーディオバッファの更新間隔ずつでしか更新されないため、単にこれを返すだけではとびとびの値になる。
@@ -99,7 +99,7 @@ public class CSoundTimer : CTimerBase
         }
     }
 
-    internal ISoundDevice? Device = null;	// debugのため、一時的にprotectedをpublicにする。後で元に戻しておくこと。
+    internal ISoundDevice Device;	// debugのため、一時的にprotectedをpublicにする。後で元に戻しておくこと。
     //protected Thread thSendInput = null;
     //protected Thread thSnapTimers = null;
     private CTimer? ctDInputTimer = null;
