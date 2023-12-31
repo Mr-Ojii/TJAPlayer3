@@ -10,7 +10,6 @@ internal class CActMtaiko : CActivity
     /// </summary>
     public CActMtaiko()
     {
-        base.b活性化してない = true;
     }
 
     public override void On活性化()

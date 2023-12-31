@@ -13,7 +13,6 @@ internal class CStageConfig : CStage
         base.listChildren.Add(this.actFIFO = new CActFIFOBlack());
         base.listChildren.Add(this.actList = new CActConfigList());
         base.listChildren.Add(this.actKeyAssign = new CActConfigKeyAssign());
-        base.b活性化してない = true;
     }
 
 

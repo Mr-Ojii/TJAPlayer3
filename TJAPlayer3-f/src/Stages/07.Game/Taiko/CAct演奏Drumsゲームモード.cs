@@ -10,7 +10,6 @@ internal class CAct演奏Drumsゲームモード : CActivity
     /// </summary>
     public CAct演奏Drumsゲームモード()
     {
-        this.b活性化してない = true;
     }
 
     //叩ききりまショー!

@@ -13,7 +13,6 @@ internal class CActPlayInfo : CActivity
 
     public CActPlayInfo()
     {
-        base.b活性化してない = true;
     }
 
 

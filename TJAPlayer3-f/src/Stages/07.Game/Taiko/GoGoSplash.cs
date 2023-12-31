@@ -6,7 +6,6 @@ class GoGoSplash : CActivity
 {
     public GoGoSplash()
     {
-        this.b活性化してない = true;
     }
 
     public override void On活性化()

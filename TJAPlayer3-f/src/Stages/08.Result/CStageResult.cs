@@ -16,7 +16,6 @@ internal class CStageResult : CStage
         this.cRecords = new CScoreJson.CRecord[2];
         base.eStageID = CStage.EStage.Result;
         base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
-        base.b活性化してない = true;
         base.listChildren.Add(this.actParameterPanel = new CActResultParameterPanel());
         base.listChildren.Add(this.actSongBar = new CActResultSongBar());
         base.listChildren.Add(this.actFI = new CActFIFOResult());

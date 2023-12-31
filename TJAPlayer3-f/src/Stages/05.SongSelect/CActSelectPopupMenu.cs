@@ -172,7 +172,6 @@ internal class CActSelectPopupMenu : CActivity
         {
             this.ctキー反復用[i] = new CCounter(0, 0, 0, TJAPlayer3.Timer);
         }
-        base.b活性化してない = true;
 
         this.bIsActivePopupMenu = false;
         nItemSelecting = -1;

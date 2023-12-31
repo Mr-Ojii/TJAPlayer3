@@ -8,7 +8,6 @@ internal class CActComboVoice : CActivity
 
     public CActComboVoice()
     {
-        base.b活性化してない = true;
     }
 
     // メソッド

@@ -9,7 +9,6 @@ internal class CStageTitle : CStage
     public CStageTitle()
     {
         base.eStageID = CStage.EStage.Title;
-        base.b活性化してない = true;
         base.listChildren.Add(this.actFI = new CActFIFOBlack());
         base.listChildren.Add(this.actFO = new CActFIFOBlack());
     }

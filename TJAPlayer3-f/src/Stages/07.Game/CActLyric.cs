@@ -8,7 +8,6 @@ internal class CActLyric : CActivity
     // コンストラクタ
     public CActLyric()
     {
-        base.b活性化してない = true;
     }
 
     public void tSetLyricTexture(SKBitmap bmpLyric)

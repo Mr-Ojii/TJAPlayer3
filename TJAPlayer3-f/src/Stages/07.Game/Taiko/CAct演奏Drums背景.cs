@@ -10,7 +10,6 @@ internal class CAct演奏Drums背景 : CActivity
     //
     public CAct演奏Drums背景()
     {
-        base.b活性化してない = true;
     }
 
     public void ClearIn(int player)

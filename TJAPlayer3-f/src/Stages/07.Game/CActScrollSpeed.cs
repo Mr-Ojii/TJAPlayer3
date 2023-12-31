@@ -16,7 +16,6 @@ internal class CActScrollSpeed : CActivity
 
     public CActScrollSpeed()
     {
-        base.b活性化してない = true;
     }
 
 

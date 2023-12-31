@@ -10,7 +10,6 @@ internal class TaikoLaneFlash : CActivity
 
     public TaikoLaneFlash()
     {
-        base.b活性化してない = true;
     }
 
 

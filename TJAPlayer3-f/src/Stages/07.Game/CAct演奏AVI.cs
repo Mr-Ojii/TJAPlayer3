@@ -8,7 +8,6 @@ internal class CAct演奏AVI : CActivity
 
     public CAct演奏AVI()
     {
-        base.b活性化してない = true;
     }
 
 

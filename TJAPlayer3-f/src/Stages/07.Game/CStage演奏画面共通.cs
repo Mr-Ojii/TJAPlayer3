@@ -15,7 +15,6 @@ internal class CStage演奏画面共通 : CStage
     {
         base.eStageID = CStage.EStage.Playing;
         base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
-        base.b活性化してない = true;
         base.listChildren.Add(this.actCombo = new CAct演奏Combo共通());
         base.listChildren.Add(this.actChipFireD = new CAct演奏DrumsチップファイアD());
         base.listChildren.Add(this.Rainbow = new Rainbow());

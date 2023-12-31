@@ -6,7 +6,6 @@ class CAct演奏Drums特訓モード : CActivity
 {
     public CAct演奏Drums特訓モード()
     {
-        base.b活性化してない = true;
     }
 
     public override void On活性化()

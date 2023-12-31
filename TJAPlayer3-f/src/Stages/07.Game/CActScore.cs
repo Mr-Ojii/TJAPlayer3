@@ -41,7 +41,6 @@ internal class CActScore : CActivity
     public CActScore()
     {
         this.stScore = new STスコア[256];
-        base.b活性化してない = true;
     }
 
 

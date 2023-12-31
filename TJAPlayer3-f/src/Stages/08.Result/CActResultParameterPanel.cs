@@ -8,7 +8,6 @@ internal class CActResultParameterPanel : CActivity
 
     public CActResultParameterPanel()
     {
-        base.b活性化してない = true;
     }
 
 

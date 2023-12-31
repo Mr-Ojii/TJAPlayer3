@@ -6,7 +6,6 @@ class CActSelectChangeSE : CActivity
 {
     public CActSelectChangeSE()
     {
-        base.b活性化してない = true;
     }
     public override void On活性化()
     {

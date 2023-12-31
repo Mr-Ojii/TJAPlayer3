@@ -12,7 +12,6 @@ internal class CAct演奏Drumsコンボ吹き出し : CActivity
     /// </summary>
     public CAct演奏Drumsコンボ吹き出し()
     {
-        base.b活性化してない = true;
     }
 
 

@@ -8,7 +8,6 @@ internal class CActSelectHistoryPanel : CActivity
 
     public CActSelectHistoryPanel()
     {
-        base.b活性化してない = true;
     }
 
     // CActivity 実装

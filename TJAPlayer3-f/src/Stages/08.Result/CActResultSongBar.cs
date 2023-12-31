@@ -8,7 +8,6 @@ internal class CActResultSongBar : CActivity
 
     public CActResultSongBar()
     {
-        base.b活性化してない = true;
     }
 
 

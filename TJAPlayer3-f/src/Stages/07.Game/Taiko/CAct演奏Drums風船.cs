@@ -8,7 +8,6 @@ internal class CAct演奏Drums風船 : CActivity
 
     public CAct演奏Drums風船()
     {
-        base.b活性化してない = true;
     }
 
     public override void On活性化()

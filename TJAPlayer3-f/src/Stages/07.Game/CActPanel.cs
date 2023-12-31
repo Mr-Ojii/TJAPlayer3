@@ -9,7 +9,6 @@ internal class CActPanel : CActivity
 
     public CActPanel()
     {
-        base.b活性化してない = true;
         this.Start();
     }
 

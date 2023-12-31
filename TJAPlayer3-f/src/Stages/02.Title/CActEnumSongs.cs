@@ -21,7 +21,6 @@ internal class CActEnumSongs : CActivity
     }
     private void Init(bool _bコマンドでの曲データ取得)
     {
-        base.b活性化してない = true;
         bコマンドでの曲データ取得 = _bコマンドでの曲データ取得;
     }
 

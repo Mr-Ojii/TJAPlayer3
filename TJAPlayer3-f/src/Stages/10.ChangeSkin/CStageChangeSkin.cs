@@ -10,7 +10,6 @@ internal class CStageChangeSkin : CStage
     public CStageChangeSkin()
     {
         base.eStageID = CStage.EStage.ChangeSkin;
-        base.b活性化してない = true;
     }
 
 

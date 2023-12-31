@@ -6,7 +6,6 @@ internal class CAct演奏Drumsレーン : CActivity
 {
     public CAct演奏Drumsレーン()
     {
-        base.b活性化してない = true;
     }
 
     public override void On活性化()

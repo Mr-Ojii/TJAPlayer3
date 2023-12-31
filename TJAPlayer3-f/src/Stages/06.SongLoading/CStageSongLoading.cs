@@ -10,7 +10,6 @@ internal class CStageSongLoading : CStage
     {
         base.eStageID = CStage.EStage.SongLoading;
         base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
-        base.b活性化してない = true;
     }
 
     // CStage 実装

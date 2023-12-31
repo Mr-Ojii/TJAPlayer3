@@ -11,7 +11,6 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
     /// </summary>
     public CAct演奏Drumsレーン太鼓()
     {
-        base.b活性化してない = true;
     }
 
     public override void On活性化()

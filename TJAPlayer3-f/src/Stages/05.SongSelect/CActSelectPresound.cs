@@ -8,7 +8,6 @@ internal class CActSelectPresound : CActivity
 
     public CActSelectPresound()
     {
-        base.b活性化してない = true;
     }
     public void t選択曲が変更された()
     {

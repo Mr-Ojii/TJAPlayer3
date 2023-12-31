@@ -9,7 +9,6 @@ internal class CActMob : CActivity
     /// </summary>
     public CActMob()
     {
-        base.b活性化してない = true;
     }
 
     public override void On活性化()

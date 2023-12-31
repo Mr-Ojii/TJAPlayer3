@@ -9,7 +9,6 @@ internal class CActRunner : CActivity
     /// </summary>
     public CActRunner()
     {
-        base.b活性化してない = true;
     }
 
     public void Start(int Player, bool IsMiss, CDTX.CChip pChip)

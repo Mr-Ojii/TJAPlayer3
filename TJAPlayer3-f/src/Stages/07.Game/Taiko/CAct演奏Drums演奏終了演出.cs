@@ -11,7 +11,6 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
     /// </summary>
     public CAct演奏Drums演奏終了演出()
     {
-        base.b活性化してない = true;
     }
 
     public void Start()

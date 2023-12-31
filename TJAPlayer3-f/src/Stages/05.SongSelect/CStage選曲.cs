@@ -33,7 +33,6 @@ internal class CStage選曲 : CStage
     {
         base.eStageID = CStage.EStage.SongSelect;
         base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
-        base.b活性化してない = true;
         base.listChildren.Add(this.actFIFO = new CActFIFOBlack());
         base.listChildren.Add(this.actFIfromResult = new CActFIFOBlack());
         base.listChildren.Add(this.actFOtoNowLoading = new CActFIFOStart());

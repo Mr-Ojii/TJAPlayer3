@@ -7,7 +7,6 @@ internal class CStageStartUp : CStage
     public CStageStartUp()
     {
         base.eStageID = CStage.EStage.StartUp;
-        base.b活性化してない = true;
         this.list進行文字列 = new();
     }
 

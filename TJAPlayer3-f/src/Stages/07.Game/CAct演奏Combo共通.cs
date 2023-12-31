@@ -94,7 +94,6 @@ internal class CAct演奏Combo共通 : CActivity
 
     public CAct演奏Combo共通()
     {
-        this.b活性化してない = true;
     }
 
 

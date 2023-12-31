@@ -14,7 +14,6 @@ internal class CAct演奏ゲージ共通 : CActivity
     // コンストラクタ
     public CAct演奏ゲージ共通()
     {
-        this.b活性化してない = true;
     }
 
     // CActivity 実装

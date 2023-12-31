@@ -12,7 +12,6 @@ public class LaneFlash : CActivity
     {
         Texture = texture;
         Player = player;
-        base.b活性化してない = true;
     }
 
     public void Start()

@@ -8,7 +8,6 @@ internal class CActStageFailed : CActivity
 
     public CActStageFailed()
     {
-        base.b活性化してない = true;
     }
 
 

@@ -8,7 +8,6 @@ internal class FireWorks : CActivity
 
     public FireWorks()
     {
-        base.b活性化してない = true;
     }
 
 

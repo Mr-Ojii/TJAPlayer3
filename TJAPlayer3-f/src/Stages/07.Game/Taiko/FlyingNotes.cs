@@ -8,7 +8,6 @@ internal class FlyingNotes : CActivity
 
     public FlyingNotes()
     {
-        base.b活性化してない = true;
     }
 
 

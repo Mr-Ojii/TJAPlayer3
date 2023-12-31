@@ -8,7 +8,6 @@ internal class CAct演奏DrumsチップファイアD : CActivity
 
     public CAct演奏DrumsチップファイアD()
     {
-        base.b活性化してない = true;
     }
 
 

@@ -11,7 +11,7 @@ public class CActivity
         {
             return !this.b活性化してる;
         }
-        set
+        private set
         {
             this.b活性化してる = !value;
         }

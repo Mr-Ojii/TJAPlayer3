@@ -32,7 +32,6 @@ internal class CActJudgeString : CActivity
             new Rectangle( 0, 120,   90, 60 ),		// Miss
             new Rectangle( 0, 0,    90, 60 )		// Auto
         };
-        base.b活性化してない = true;
     }
 
 

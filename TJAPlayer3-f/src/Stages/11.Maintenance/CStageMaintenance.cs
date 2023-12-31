@@ -9,7 +9,6 @@ class CStageMaintenance : CStage
     public CStageMaintenance()
     {
         base.eStageID = CStage.EStage.Maintenance;
-        base.b活性化してない = true;
     }
     // CStage 実装
 
@@ -39,7 +38,6 @@ class CStageMaintenance : CStage
             Trace.TraceInformation("メンテナンスの活性化を完了しました。");
             Trace.Unindent();
         }
-
     }
 
     public override void On非活性化()

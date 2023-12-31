@@ -9,7 +9,6 @@ internal class CActDancer : CActivity
     /// </summary>
     public CActDancer()
     {
-        base.b活性化してない = true;
     }
 
     public override void On活性化()

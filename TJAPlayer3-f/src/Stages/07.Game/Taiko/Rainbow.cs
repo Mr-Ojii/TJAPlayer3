@@ -8,7 +8,6 @@ internal class Rainbow : CActivity
 
     public Rainbow()
     {
-        base.b活性化してない = true;
     }
 
     public virtual void Start(int player)

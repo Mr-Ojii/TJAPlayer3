@@ -10,7 +10,6 @@ internal class CStageEnding : CStage
     {
         base.eStageID = CStage.EStage.Ending;
         base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
-        base.b活性化してない = true;
     }
 
 

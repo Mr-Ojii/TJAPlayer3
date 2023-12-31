@@ -9,7 +9,6 @@ internal class Dan_Cert : CActivity
     /// </summary>
     public Dan_Cert()
     {
-        base.b活性化してない = true;
     }
 
     //

@@ -6,7 +6,6 @@ class PuchiChara : CActivity
 {
     public PuchiChara()
     {
-        base.b活性化してない = true;
     }
 
     public override void On活性化()

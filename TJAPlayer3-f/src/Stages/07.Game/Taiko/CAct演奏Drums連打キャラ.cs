@@ -8,7 +8,6 @@ internal class CAct演奏Drums連打キャラ : CActivity
 
     public CAct演奏Drums連打キャラ()
     {
-        base.b活性化してない = true;
     }
 
 

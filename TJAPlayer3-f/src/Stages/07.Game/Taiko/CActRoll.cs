@@ -6,7 +6,6 @@ internal class CActRoll : CActivity
 {
     public CActRoll()
     {
-        base.b活性化してない = true;
     }
 
     public override void On活性化()
