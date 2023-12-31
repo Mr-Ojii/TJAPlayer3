@@ -48,7 +48,7 @@ internal class CStageEnding : CStage
     }
     public override int On進行描画()
     {
-        if ((EEndingAnime)TJAPlayer3.ConfigToml.Ending.EndingAnime == EEndingAnime.Off || (this.ctAnimation is null) || ((TJAPlayer3.InputManager.Keyboard is not null) && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))) //2017.01.27 DD
+        if ((EEndingAnime)TJAPlayer3.ConfigToml.Ending.EndingAnime == EEndingAnime.Off || (this.ctAnimation is null) || (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))) //2017.01.27 DD
         {
             return 1;
         }

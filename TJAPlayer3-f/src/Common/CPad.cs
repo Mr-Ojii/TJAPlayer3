@@ -99,7 +99,7 @@ public class CPad
             switch (stkeyassignArray[i].DeviceType)
             {
                 case EInputDevice.KeyBoard:
-                    if ((this.rInputManager.Keyboard is null) || !this.rInputManager.Keyboard.bIsKeyPressed(stkeyassignArray[i].Code))
+                    if (!this.rInputManager.Keyboard.bIsKeyPressed(stkeyassignArray[i].Code))
                         break;
 
                     this.stDetectedDevices.Keyboard = true;
@@ -127,7 +127,7 @@ public class CPad
                         return true;
                     }
                 case EInputDevice.Mouse:
-                    if ((this.rInputManager.Mouse is null) || !this.rInputManager.Mouse.bIsKeyPressed(stkeyassignArray[i].Code))
+                    if (!this.rInputManager.Mouse.bIsKeyPressed(stkeyassignArray[i].Code))
                         break;
 
                     this.stDetectedDevices.Mouse = true;
@@ -145,10 +145,9 @@ public class CPad
             switch (stkeyassignArray[i].DeviceType)
             {
                 case EInputDevice.KeyBoard:
-                    if ((this.rInputManager.Keyboard is null) || !this.rInputManager.Keyboard.bIsKeyDown(stkeyassignArray[i].Code))
-                    {
+                    if (!this.rInputManager.Keyboard.bIsKeyDown(stkeyassignArray[i].Code))
                         break;
-                    }
+
                     this.stDetectedDevices.Keyboard = true;
                     return true;
 
@@ -165,7 +164,7 @@ public class CPad
                         return true;
                     }
                 case EInputDevice.Mouse:
-                    if ((this.rInputManager.Mouse is null) || !this.rInputManager.Mouse.bIsKeyDown(stkeyassignArray[i].Code))
+                    if (!this.rInputManager.Mouse.bIsKeyDown(stkeyassignArray[i].Code))
                         break;
 
                     this.stDetectedDevices.Mouse = true;
