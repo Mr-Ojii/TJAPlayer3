@@ -41,7 +41,7 @@ internal class CSkiaSharpTextRenderer : ITextRenderer
         paint.IsAntialias = true;
     }
 
-    public CSkiaSharpTextRenderer(Stream? fontstream, int pt, CFontRenderer.FontStyle style)
+    public CSkiaSharpTextRenderer(Stream fontstream, int pt, CFontRenderer.FontStyle style)
     {
         paint = new SKPaint();
 
@@ -159,5 +159,5 @@ internal class CSkiaSharpTextRenderer : ITextRenderer
         this.paint?.Dispose();
     }
 
-    private SKPaint? paint = null;
+    private SKPaint paint;
 }

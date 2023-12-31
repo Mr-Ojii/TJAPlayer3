@@ -89,7 +89,11 @@ public class CFontRenderer : IDisposable
 
         try
         {
-            this.textRenderer = new CSkiaSharpTextRenderer(Assembly.GetExecutingAssembly().GetManifestResourceStream(@"FDK.mplus-1p-medium.ttf"), pt, style);
+            Stream? stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(@"FDK.mplus-1p-medium.ttf");
+            if (stream is null)
+                throw new Exception("failed to get built-in font");
+
+            this.textRenderer = new CSkiaSharpTextRenderer(stream, pt, style);
         }
         catch (Exception e)
         {
