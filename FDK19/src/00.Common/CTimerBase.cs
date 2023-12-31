@@ -16,7 +16,6 @@ public abstract class CTimerBase : IDisposable
     public double dbシステム時刻ms
     {
         get;
-        set;
     }
     public abstract void Dispose();
 
