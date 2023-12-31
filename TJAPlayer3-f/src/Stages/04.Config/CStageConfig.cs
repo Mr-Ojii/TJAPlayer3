@@ -94,7 +94,7 @@ internal class CStageConfig : CStage
         Trace.Indent();
         try
         {
-            TJAPlayer3.ConfigIni.t書き出し(TJAPlayer3.strEXEのあるフォルダ + "Config.ini");	// CONFIGだけ
+            TJAPlayer3.app.ConfigIni.t書き出し(TJAPlayer3.strEXEのあるフォルダ + "Config.ini");	// CONFIGだけ
             if (this.privatefont != null)                                                    // 以下OPTIONと共通
             {
                 this.privatefont.Dispose();
@@ -268,7 +268,7 @@ internal class CStageConfig : CStage
                     base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
                 }
             }
-            else if (TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2)
+            else if (TJAPlayer3.app.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return) || TJAPlayer3.Pad.bPressed(EPad.LRed) || TJAPlayer3.Pad.bPressed(EPad.RRed) || (TJAPlayer3.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2)
             {
                 if (this.n現在のメニュー番号 == 2)
                 {

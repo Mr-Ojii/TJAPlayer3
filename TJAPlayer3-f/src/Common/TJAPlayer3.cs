@@ -29,7 +29,7 @@ internal class TJAPlayer3 : Game
         get;
         private set;
     }
-    public static CConfigIni ConfigIni
+    public CConfigIni ConfigIni
     {
         get;
         private set;

@@ -222,7 +222,7 @@ internal class CActSelectPopupMenu : CActivity
                 if (
                     TJAPlayer3.Pad.bPressed(EPad.LRed)
                     || TJAPlayer3.Pad.bPressed(EPad.RRed)
-                    || (TJAPlayer3.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return)))
+                    || (TJAPlayer3.app.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return)))
                 {
                     eAction = ESortAction.Decide;
                 }
