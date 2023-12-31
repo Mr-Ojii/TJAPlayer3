@@ -66,14 +66,14 @@ internal class CAct演奏Drums風船 : CActivity
                 if (n残り打数[j] < n連打数)
                 {
                     if (TJAPlayer3.Tx.Balloon_Breaking[j] != null)
-                        TJAPlayer3.Tx.Balloon_Breaking[j].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Balloon.BalloonX[nPlayer] + (this.ct風船ふきだしアニメ.n現在の値 == 1 ? 3 : 0) + TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] - 414, TJAPlayer3.Skin.SkinConfig.Game.Balloon.BalloonY[nPlayer]);
+                        TJAPlayer3.Tx.Balloon_Breaking[j].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.BalloonX[nPlayer] + (this.ct風船ふきだしアニメ.n現在の値 == 1 ? 3 : 0) + TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] - 414, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.BalloonY[nPlayer]);
                     break;
                 }
             }
             //1P:31 2P:329
             if (TJAPlayer3.Tx.Balloon_Balloon != null)
-                TJAPlayer3.Tx.Balloon_Balloon.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Balloon.BalloonFrameX[nPlayer] + TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] - 414, TJAPlayer3.Skin.SkinConfig.Game.Balloon.BalloonFrameY[nPlayer]);
-            this.t文字表示(TJAPlayer3.Skin.SkinConfig.Game.Balloon.BalloonNumberX[nPlayer] + TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] - 414, TJAPlayer3.Skin.SkinConfig.Game.Balloon.BalloonNumberY[nPlayer], n連打数, nPlayer);
+                TJAPlayer3.Tx.Balloon_Balloon.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.BalloonFrameX[nPlayer] + TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] - 414, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.BalloonFrameY[nPlayer]);
+            this.t文字表示(TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.BalloonNumberX[nPlayer] + TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] - 414, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.BalloonNumberY[nPlayer], n連打数, nPlayer);
             //CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.EFontType.白, n連打数.ToString() );
         }
         if (n連打数 == 0 && TJAPlayer3.stage演奏ドラム画面.actChara.b風船連打中[nPlayer])
@@ -118,16 +118,16 @@ internal class CAct演奏Drums風船 : CActivity
         for (int index = n連打.ToString().Length - 1; index >= 0; index--)
         {
             int i = (int)(n連打 / Math.Pow(10, index) % 10);
-            Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.SkinConfig.Game.Balloon.NumberSize[0] * i, 0, TJAPlayer3.Skin.SkinConfig.Game.Balloon.NumberSize[0], TJAPlayer3.Skin.SkinConfig.Game.Balloon.NumberSize[1]);
+            Rectangle rectangle = new Rectangle(TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.NumberSize[0] * i, 0, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.NumberSize[0], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.NumberSize[1]);
 
             if (TJAPlayer3.Tx.Balloon_Number_Roll != null)
             {
                 TJAPlayer3.Tx.Balloon_Number_Roll.Opacity = 255;
-                TJAPlayer3.Tx.Balloon_Number_Roll.vcScaling.X = TJAPlayer3.Skin.SkinConfig.Game.Balloon.BalloonNumberScale;
-                TJAPlayer3.Tx.Balloon_Number_Roll.vcScaling.Y = TJAPlayer3.Skin.SkinConfig.Game.Balloon.BalloonNumberScale + RollScale[this.ct風船アニメ[nPlayer].n現在の値];
-                TJAPlayer3.Tx.Balloon_Number_Roll.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x - (((TJAPlayer3.Skin.SkinConfig.Game.Balloon.NumberPadding + 2) * n桁数) / 2), y, rectangle);
+                TJAPlayer3.Tx.Balloon_Number_Roll.vcScaling.X = TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.BalloonNumberScale;
+                TJAPlayer3.Tx.Balloon_Number_Roll.vcScaling.Y = TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.BalloonNumberScale + RollScale[this.ct風船アニメ[nPlayer].n現在の値];
+                TJAPlayer3.Tx.Balloon_Number_Roll.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x - (((TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.NumberPadding + 2) * n桁数) / 2), y, rectangle);
             }
-            x += (TJAPlayer3.Skin.SkinConfig.Game.Balloon.NumberPadding - (n桁数 > 2 ? n桁数 * 2 : 0));
+            x += (TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.NumberPadding - (n桁数 > 2 ? n桁数 * 2 : 0));
         }
     }
 }

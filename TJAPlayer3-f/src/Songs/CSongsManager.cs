@@ -104,8 +104,8 @@ internal class CSongsManager
                     c曲リストノード.BackColor = c曲リストノード.r親ノード.BackColor;
                 }
 
-                c曲リストノード.ForeColor = TJAPlayer3.Skin.SkinConfig.SongSelect._ForeColor[TJAPlayer3.Skin.nStrジャンルtoNum(c曲リストノード.strGenre)];
-                c曲リストノード.BackColor = TJAPlayer3.Skin.SkinConfig.SongSelect._BackColor[TJAPlayer3.Skin.nStrジャンルtoNum(c曲リストノード.strGenre)];
+                c曲リストノード.ForeColor = TJAPlayer3.app.Skin.SkinConfig.SongSelect._ForeColor[TJAPlayer3.app.Skin.nStrジャンルtoNum(c曲リストノード.strGenre)];
+                c曲リストノード.BackColor = TJAPlayer3.app.Skin.SkinConfig.SongSelect._BackColor[TJAPlayer3.app.Skin.nStrジャンルtoNum(c曲リストノード.strGenre)];
 
                 bool b = false;
 
@@ -194,8 +194,8 @@ internal class CSongsManager
                 c曲リストノード.ForeColor = boxdef.ForeColor;
                 c曲リストノード.BackColor = boxdef.BackColor;
 
-                c曲リストノード.ForeColor = TJAPlayer3.Skin.SkinConfig.SongSelect._ForeColor[TJAPlayer3.Skin.nStrジャンルtoNum(c曲リストノード.strGenre)];
-                c曲リストノード.BackColor = TJAPlayer3.Skin.SkinConfig.SongSelect._BackColor[TJAPlayer3.Skin.nStrジャンルtoNum(c曲リストノード.strGenre)];
+                c曲リストノード.ForeColor = TJAPlayer3.app.Skin.SkinConfig.SongSelect._ForeColor[TJAPlayer3.app.Skin.nStrジャンルtoNum(c曲リストノード.strGenre)];
+                c曲リストノード.BackColor = TJAPlayer3.app.Skin.SkinConfig.SongSelect._BackColor[TJAPlayer3.app.Skin.nStrジャンルtoNum(c曲リストノード.strGenre)];
 
                 c曲リストノード.nスコア数 = 1;
                 c曲リストノード.arスコア = new Cスコア();

@@ -45,8 +45,8 @@ internal class CActSelectHistoryPanel : CActivity
             if (ct登場アニメ用 is null)
                 return 0;
             this.ct登場アニメ用.t進行();
-            int[] x = TJAPlayer3.Skin.SkinConfig.SongSelect.ScoreWindowX;
-            int[] y = TJAPlayer3.Skin.SkinConfig.SongSelect.ScoreWindowY;
+            int[] x = TJAPlayer3.app.Skin.SkinConfig.SongSelect.ScoreWindowX;
+            int[] y = TJAPlayer3.app.Skin.SkinConfig.SongSelect.ScoreWindowY;
             int xdiff = 170;
             for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
             {

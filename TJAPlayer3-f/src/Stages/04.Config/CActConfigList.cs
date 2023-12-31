@@ -691,7 +691,7 @@ internal class CActConfigList : CActivity
     }
     public void tPushedEnter()
     {
-        TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
+        TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
         if (this.b要素値にフォーカス中)
         {
             this.b要素値にフォーカス中 = false;
@@ -919,7 +919,7 @@ internal class CActConfigList : CActivity
     #endregion
     public void t次に移動()
     {
-        TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
+        TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
         if (this.b要素値にフォーカス中)
         {
             this.list項目リスト[this.n現在の選択項目].tMoveItemValueToForward();
@@ -932,7 +932,7 @@ internal class CActConfigList : CActivity
     }
     public void t前に移動()
     {
-        TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
+        TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
         if (this.b要素値にフォーカス中)
         {
             this.list項目リスト[this.n現在の選択項目].tMoveItemValueToNext();
@@ -963,13 +963,13 @@ internal class CActConfigList : CActivity
         this.eメニュー種別 = Eメニュー種別.Unknown;
 
         #region [ スキン選択肢と、現在選択中のスキン(index)の準備 #28195 2012.5.2 yyagi ]
-        int ns = (TJAPlayer3.Skin.strSystemSkinSubfolders == null) ? 0 : TJAPlayer3.Skin.strSystemSkinSubfolders.Length;
+        int ns = (TJAPlayer3.app.Skin.strSystemSkinSubfolders == null) ? 0 : TJAPlayer3.app.Skin.strSystemSkinSubfolders.Length;
         skinSubFolders = new string[ns];
         for (int i = 0; i < ns; i++)
         {
-            skinSubFolders[i] = TJAPlayer3.Skin.strSystemSkinSubfolders[i];
+            skinSubFolders[i] = TJAPlayer3.app.Skin.strSystemSkinSubfolders[i];
         }
-        skinSubFolder_org = TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(true);
+        skinSubFolder_org = TJAPlayer3.app.Skin.GetCurrentSkinSubfolderFullName(true);
         Array.Sort(skinSubFolders);
         skinNames = CSkin.GetSkinName(skinSubFolders);
         nSkinIndex = Array.BinarySearch(skinSubFolders, skinSubFolder_org);
@@ -1016,7 +1016,7 @@ internal class CActConfigList : CActivity
         TJAPlayer3.t安全にDisposeする(ref this.txSkinSample1);
         base.On非活性化();
         #region [ Skin変更 ]
-        if (TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(true).Replace(System.IO.Path.DirectorySeparatorChar, '/') != this.skinSubFolder_org.Replace(System.IO.Path.DirectorySeparatorChar, '/'))
+        if (TJAPlayer3.app.Skin.GetCurrentSkinSubfolderFullName(true).Replace(System.IO.Path.DirectorySeparatorChar, '/') != this.skinSubFolder_org.Replace(System.IO.Path.DirectorySeparatorChar, '/'))
         {
             TJAPlayer3.app.RefleshSkin();
         }
@@ -1060,7 +1060,7 @@ internal class CActConfigList : CActivity
                                     this.iSystemSoundTimerType.bON);
             CSoundManager.bIsTimeStretch = this.iSystemTimeStretch.bON;
             TJAPlayer3.app.ShowWindowTitleWithSoundType();
-            TJAPlayer3.Skin.ReloadSkin();//2020.07.07 Mr-Ojii 音声の再読み込みをすることによって、音量の初期化を防ぐ
+            TJAPlayer3.app.Skin.ReloadSkin();//2020.07.07 Mr-Ojii 音声の再読み込みをすることによって、音量の初期化を防ぐ
         }
         #endregion
         #region [ サウンドのタイムストレッチモード変更 ]
@@ -1248,11 +1248,11 @@ internal class CActConfigList : CActivity
             //-----------------
             if (listMenu[nItem].txMenuItemRight != null)	// 自前のキャッシュに含まれているようなら、再レンダリングせずキャッシュを使用
             {
-                listMenu[nItem].txMenuItemRight.t2D描画(TJAPlayer3.app.Device, x + 20 + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionX, y + 12 + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionY);
+                listMenu[nItem].txMenuItemRight.t2D描画(TJAPlayer3.app.Device, x + 20 + TJAPlayer3.app.Skin.SkinConfig.Config.ItemTextCorrectionX, y + 12 + TJAPlayer3.app.Skin.SkinConfig.Config.ItemTextCorrectionY);
             }
             else
             {
-                using (var bmpItem = prvFont.DrawText(this.list項目リスト[nItem].strName, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+                using (var bmpItem = prvFont.DrawText(this.list項目リスト[nItem].strName, Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                 {
                     listMenu[nItem].txMenuItemRight = TJAPlayer3.tCreateTexture(bmpItem);
                     // ctItem.t2D描画( CDTXMania.app.Device, ( x + 0x12 ) * Scale.X, ( y + 12 ) * Scale.Y - 20 );
@@ -1327,11 +1327,11 @@ internal class CActConfigList : CActivity
             }
             if (b強調)
             {
-                using (var bmpStr = prvFont.DrawText(strParam, Color.Black, Color.White, Color.Yellow, Color.OrangeRed, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+                using (var bmpStr = prvFont.DrawText(strParam, Color.Black, Color.White, Color.Yellow, Color.OrangeRed, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                 {
                     using (var txStr = TJAPlayer3.tCreateTexture(bmpStr))
                     {
-                        txStr.t2D描画(TJAPlayer3.app.Device, x + 400 + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionX, y + 12 + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionX);
+                        txStr.t2D描画(TJAPlayer3.app.Device, x + 400 + TJAPlayer3.app.Skin.SkinConfig.Config.ItemTextCorrectionX, y + 12 + TJAPlayer3.app.Skin.SkinConfig.Config.ItemTextCorrectionX);
                     }
                 }
             }
@@ -1345,14 +1345,14 @@ internal class CActConfigList : CActivity
                     object o = this.list項目リスト[nItem].objValue();
                     stm.strParam = (o == null) ? "" : o.ToString();
 
-                    using (var bmpStr = prvFont.DrawText(strParam, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+                    using (var bmpStr = prvFont.DrawText(strParam, Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                     {
                         stm.txParam = TJAPlayer3.tCreateTexture(bmpStr);
                     }
 
                     listMenu[nItem] = stm;
                 }
-                listMenu[nItem].txParam.t2D描画(TJAPlayer3.app.Device, x + 400 + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionX, y + 12 + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionY);
+                listMenu[nItem].txParam.t2D描画(TJAPlayer3.app.Device, x + 400 + TJAPlayer3.app.Skin.SkinConfig.Config.ItemTextCorrectionX, y + 12 + TJAPlayer3.app.Skin.SkinConfig.Config.ItemTextCorrectionY);
             }
             //-----------------
             #endregion
@@ -1604,7 +1604,7 @@ internal class CActConfigList : CActivity
         TJAPlayer3.app.ConfigToml.PlayOption.Risky = this.iSystemRisky.nValue;										// #23559 2011.7.27 yyagi
 
         TJAPlayer3.app.ConfigToml.General.SkinPath = skinSubFolders[nSkinIndex];				// #28195 2012.5.2 yyagi
-        TJAPlayer3.Skin.SetCurrentSkinSubfolderFullName(TJAPlayer3.app.ConfigToml.General.SkinPath, true);
+        TJAPlayer3.app.Skin.SetCurrentSkinSubfolderFullName(TJAPlayer3.app.ConfigToml.General.SkinPath, true);
 
         TJAPlayer3.app.ConfigToml.SoundDevice.DeviceType = this.iSystemSoundType.n現在選択されている項目番号;		// #24820 2013.1.3 yyagi
         TJAPlayer3.app.ConfigToml.SoundDevice.WASAPIBufferSizeMs = this.iSystemWASAPIBufferSizeMs.nValue;               // #24820 2013.1.15 yyagi

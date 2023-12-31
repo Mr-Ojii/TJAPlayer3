@@ -101,7 +101,7 @@ internal class CActStageFailed : CActivity
                 }
                 if (!this.b効果音再生済み)
                 {
-                    TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDステージ失敗音].t再生する();
+                    TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDステージ失敗音].t再生する();
                     this.b効果音再生済み = true;
                 }
             }

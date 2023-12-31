@@ -117,7 +117,7 @@ class TextureLoader
         SongSelect_ItemNumber_BG = TxC(SONGSELECT + @"ItemNumber_BG.png");
         SongSelect_GenreText = TxC(SONGSELECT + @"GenreText.png");
 
-        int SkinMaxNum = TJAPlayer3.Skin.SkinConfig.Genre.Values.Max();
+        int SkinMaxNum = TJAPlayer3.app.Skin.SkinConfig.Genre.Values.Max();
 
         this.SongSelect_Lyric_Text = new CTexture[SkinMaxNum + 2];
         for (int i = 0; i < SongSelect_Lyric_Text.Length; i++)
@@ -245,128 +245,128 @@ class TextureLoader
         for (int nPlayer = 0; nPlayer < 2; nPlayer++)
         {
             string PLAYER = nPlayer.ToString() + @"/";
-            TJAPlayer3.Skin.Game_Chara_Ptn_Normal[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"Normal/"));
-            if (TJAPlayer3.Skin.Game_Chara_Ptn_Normal[nPlayer] != 0)
+            TJAPlayer3.app.Skin.Game_Chara_Ptn_Normal[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"Normal/"));
+            if (TJAPlayer3.app.Skin.Game_Chara_Ptn_Normal[nPlayer] != 0)
             {
-                Chara_Normal[nPlayer] = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_Normal[nPlayer]];
-                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_Normal[nPlayer]; i++)
+                Chara_Normal[nPlayer] = new CTexture[TJAPlayer3.app.Skin.Game_Chara_Ptn_Normal[nPlayer]];
+                for (int i = 0; i < TJAPlayer3.app.Skin.Game_Chara_Ptn_Normal[nPlayer]; i++)
                 {
                     Chara_Normal[nPlayer][i] = TxC(GAME + CHARA + PLAYER + @"Normal/" + i.ToString() + ".png");
                 }
             }
-            TJAPlayer3.Skin.Game_Chara_Ptn_Clear[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"Clear/"));
-            if (TJAPlayer3.Skin.Game_Chara_Ptn_Clear[nPlayer] != 0)
+            TJAPlayer3.app.Skin.Game_Chara_Ptn_Clear[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"Clear/"));
+            if (TJAPlayer3.app.Skin.Game_Chara_Ptn_Clear[nPlayer] != 0)
             {
-                Chara_Normal_Cleared[nPlayer] = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_Clear[nPlayer]];
-                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_Clear[nPlayer]; i++)
+                Chara_Normal_Cleared[nPlayer] = new CTexture[TJAPlayer3.app.Skin.Game_Chara_Ptn_Clear[nPlayer]];
+                for (int i = 0; i < TJAPlayer3.app.Skin.Game_Chara_Ptn_Clear[nPlayer]; i++)
                 {
                     Chara_Normal_Cleared[nPlayer][i] = TxC(GAME + CHARA + PLAYER + @"Clear/" + i.ToString() + ".png");
                 }
             }
-            if (TJAPlayer3.Skin.Game_Chara_Ptn_Clear[nPlayer] != 0)
+            if (TJAPlayer3.app.Skin.Game_Chara_Ptn_Clear[nPlayer] != 0)
             {
-                Chara_Normal_Maxed[nPlayer] = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_Clear[nPlayer]];
-                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_Clear[nPlayer]; i++)
+                Chara_Normal_Maxed[nPlayer] = new CTexture[TJAPlayer3.app.Skin.Game_Chara_Ptn_Clear[nPlayer]];
+                for (int i = 0; i < TJAPlayer3.app.Skin.Game_Chara_Ptn_Clear[nPlayer]; i++)
                 {
                     Chara_Normal_Maxed[nPlayer][i] = TxC(GAME + CHARA + PLAYER + @"Clear_Max/" + i.ToString() + ".png");
                 }
             }
-            TJAPlayer3.Skin.Game_Chara_Ptn_GoGo[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"GoGo/"));
-            if (TJAPlayer3.Skin.Game_Chara_Ptn_GoGo[nPlayer] != 0)
+            TJAPlayer3.app.Skin.Game_Chara_Ptn_GoGo[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"GoGo/"));
+            if (TJAPlayer3.app.Skin.Game_Chara_Ptn_GoGo[nPlayer] != 0)
             {
-                Chara_GoGoTime[nPlayer] = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_GoGo[nPlayer]];
-                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_GoGo[nPlayer]; i++)
+                Chara_GoGoTime[nPlayer] = new CTexture[TJAPlayer3.app.Skin.Game_Chara_Ptn_GoGo[nPlayer]];
+                for (int i = 0; i < TJAPlayer3.app.Skin.Game_Chara_Ptn_GoGo[nPlayer]; i++)
                 {
                     Chara_GoGoTime[nPlayer][i] = TxC(GAME + CHARA + PLAYER + @"GoGo/" + i.ToString() + ".png");
                 }
             }
-            if (TJAPlayer3.Skin.Game_Chara_Ptn_GoGo[nPlayer] != 0)
+            if (TJAPlayer3.app.Skin.Game_Chara_Ptn_GoGo[nPlayer] != 0)
             {
-                Chara_GoGoTime_Maxed[nPlayer] = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_GoGo[nPlayer]];
-                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_GoGo[nPlayer]; i++)
+                Chara_GoGoTime_Maxed[nPlayer] = new CTexture[TJAPlayer3.app.Skin.Game_Chara_Ptn_GoGo[nPlayer]];
+                for (int i = 0; i < TJAPlayer3.app.Skin.Game_Chara_Ptn_GoGo[nPlayer]; i++)
                 {
                     Chara_GoGoTime_Maxed[nPlayer][i] = TxC(GAME + CHARA + PLAYER + @"GoGo_Max/" + i.ToString() + ".png");
                 }
             }
 
-            TJAPlayer3.Skin.Game_Chara_Ptn_10combo[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"10combo/"));
-            if (TJAPlayer3.Skin.Game_Chara_Ptn_10combo[nPlayer] != 0)
+            TJAPlayer3.app.Skin.Game_Chara_Ptn_10combo[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"10combo/"));
+            if (TJAPlayer3.app.Skin.Game_Chara_Ptn_10combo[nPlayer] != 0)
             {
-                Chara_10Combo[nPlayer] = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_10combo[nPlayer]];
-                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_10combo[nPlayer]; i++)
+                Chara_10Combo[nPlayer] = new CTexture[TJAPlayer3.app.Skin.Game_Chara_Ptn_10combo[nPlayer]];
+                for (int i = 0; i < TJAPlayer3.app.Skin.Game_Chara_Ptn_10combo[nPlayer]; i++)
                 {
                     Chara_10Combo[nPlayer][i] = TxC(GAME + CHARA + PLAYER + @"10combo/" + i.ToString() + ".png");
                 }
             }
-            TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"10combo_Max/"));
-            if (TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max[nPlayer] != 0)
+            TJAPlayer3.app.Skin.Game_Chara_Ptn_10combo_Max[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"10combo_Max/"));
+            if (TJAPlayer3.app.Skin.Game_Chara_Ptn_10combo_Max[nPlayer] != 0)
             {
-                Chara_10Combo_Maxed[nPlayer] = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max[nPlayer]];
-                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_10combo_Max[nPlayer]; i++)
+                Chara_10Combo_Maxed[nPlayer] = new CTexture[TJAPlayer3.app.Skin.Game_Chara_Ptn_10combo_Max[nPlayer]];
+                for (int i = 0; i < TJAPlayer3.app.Skin.Game_Chara_Ptn_10combo_Max[nPlayer]; i++)
                 {
                     Chara_10Combo_Maxed[nPlayer][i] = TxC(GAME + CHARA + PLAYER + @"10combo_Max/" + i.ToString() + ".png");
                 }
             }
 
-            TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"GoGoStart/"));
-            if (TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart[nPlayer] != 0)
+            TJAPlayer3.app.Skin.Game_Chara_Ptn_GoGoStart[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"GoGoStart/"));
+            if (TJAPlayer3.app.Skin.Game_Chara_Ptn_GoGoStart[nPlayer] != 0)
             {
-                Chara_GoGoStart[nPlayer] = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart[nPlayer]];
-                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart[nPlayer]; i++)
+                Chara_GoGoStart[nPlayer] = new CTexture[TJAPlayer3.app.Skin.Game_Chara_Ptn_GoGoStart[nPlayer]];
+                for (int i = 0; i < TJAPlayer3.app.Skin.Game_Chara_Ptn_GoGoStart[nPlayer]; i++)
                 {
                     Chara_GoGoStart[nPlayer][i] = TxC(GAME + CHARA + PLAYER + @"GoGoStart/" + i.ToString() + ".png");
                 }
             }
-            TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart_Max[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"GoGoStart_Max/"));
-            if (TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart_Max[nPlayer] != 0)
+            TJAPlayer3.app.Skin.Game_Chara_Ptn_GoGoStart_Max[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"GoGoStart_Max/"));
+            if (TJAPlayer3.app.Skin.Game_Chara_Ptn_GoGoStart_Max[nPlayer] != 0)
             {
-                Chara_GoGoStart_Maxed[nPlayer] = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart_Max[nPlayer]];
-                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_GoGoStart_Max[nPlayer]; i++)
+                Chara_GoGoStart_Maxed[nPlayer] = new CTexture[TJAPlayer3.app.Skin.Game_Chara_Ptn_GoGoStart_Max[nPlayer]];
+                for (int i = 0; i < TJAPlayer3.app.Skin.Game_Chara_Ptn_GoGoStart_Max[nPlayer]; i++)
                 {
                     Chara_GoGoStart_Maxed[nPlayer][i] = TxC(GAME + CHARA + PLAYER + @"GoGoStart_Max/" + i.ToString() + ".png");
                 }
             }
-            TJAPlayer3.Skin.Game_Chara_Ptn_ClearIn[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"ClearIn/"));
-            if (TJAPlayer3.Skin.Game_Chara_Ptn_ClearIn[nPlayer] != 0)
+            TJAPlayer3.app.Skin.Game_Chara_Ptn_ClearIn[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"ClearIn/"));
+            if (TJAPlayer3.app.Skin.Game_Chara_Ptn_ClearIn[nPlayer] != 0)
             {
-                Chara_Become_Cleared[nPlayer] = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_ClearIn[nPlayer]];
-                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_ClearIn[nPlayer]; i++)
+                Chara_Become_Cleared[nPlayer] = new CTexture[TJAPlayer3.app.Skin.Game_Chara_Ptn_ClearIn[nPlayer]];
+                for (int i = 0; i < TJAPlayer3.app.Skin.Game_Chara_Ptn_ClearIn[nPlayer]; i++)
                 {
                     Chara_Become_Cleared[nPlayer][i] = TxC(GAME + CHARA + PLAYER + @"ClearIn/" + i.ToString() + ".png");
                 }
             }
-            TJAPlayer3.Skin.Game_Chara_Ptn_SoulIn[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"SoulIn/"));
-            if (TJAPlayer3.Skin.Game_Chara_Ptn_SoulIn[nPlayer] != 0)
+            TJAPlayer3.app.Skin.Game_Chara_Ptn_SoulIn[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"SoulIn/"));
+            if (TJAPlayer3.app.Skin.Game_Chara_Ptn_SoulIn[nPlayer] != 0)
             {
-                Chara_Become_Maxed[nPlayer] = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_SoulIn[nPlayer]];
-                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_SoulIn[nPlayer]; i++)
+                Chara_Become_Maxed[nPlayer] = new CTexture[TJAPlayer3.app.Skin.Game_Chara_Ptn_SoulIn[nPlayer]];
+                for (int i = 0; i < TJAPlayer3.app.Skin.Game_Chara_Ptn_SoulIn[nPlayer]; i++)
                 {
                     Chara_Become_Maxed[nPlayer][i] = TxC(GAME + CHARA + PLAYER + @"SoulIn/" + i.ToString() + ".png");
                 }
             }
-            TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Breaking[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"Balloon_Breaking/"));
-            if (TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Breaking[nPlayer] != 0)
+            TJAPlayer3.app.Skin.Game_Chara_Ptn_Balloon_Breaking[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"Balloon_Breaking/"));
+            if (TJAPlayer3.app.Skin.Game_Chara_Ptn_Balloon_Breaking[nPlayer] != 0)
             {
-                Chara_Balloon_Breaking[nPlayer] = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Breaking[nPlayer]];
-                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Breaking[nPlayer]; i++)
+                Chara_Balloon_Breaking[nPlayer] = new CTexture[TJAPlayer3.app.Skin.Game_Chara_Ptn_Balloon_Breaking[nPlayer]];
+                for (int i = 0; i < TJAPlayer3.app.Skin.Game_Chara_Ptn_Balloon_Breaking[nPlayer]; i++)
                 {
                     Chara_Balloon_Breaking[nPlayer][i] = TxC(GAME + CHARA + PLAYER + @"Balloon_Breaking/" + i.ToString() + ".png");
                 }
             }
-            TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Broke[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"Balloon_Broke/"));
-            if (TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Broke[nPlayer] != 0)
+            TJAPlayer3.app.Skin.Game_Chara_Ptn_Balloon_Broke[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"Balloon_Broke/"));
+            if (TJAPlayer3.app.Skin.Game_Chara_Ptn_Balloon_Broke[nPlayer] != 0)
             {
-                Chara_Balloon_Broke[nPlayer] = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Broke[nPlayer]];
-                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Broke[nPlayer]; i++)
+                Chara_Balloon_Broke[nPlayer] = new CTexture[TJAPlayer3.app.Skin.Game_Chara_Ptn_Balloon_Broke[nPlayer]];
+                for (int i = 0; i < TJAPlayer3.app.Skin.Game_Chara_Ptn_Balloon_Broke[nPlayer]; i++)
                 {
                     Chara_Balloon_Broke[nPlayer][i] = TxC(GAME + CHARA + PLAYER + @"Balloon_Broke/" + i.ToString() + ".png");
                 }
             }
-            TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"Balloon_Miss/"));
-            if (TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss[nPlayer] != 0)
+            TJAPlayer3.app.Skin.Game_Chara_Ptn_Balloon_Miss[nPlayer] = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + CHARA + PLAYER + @"Balloon_Miss/"));
+            if (TJAPlayer3.app.Skin.Game_Chara_Ptn_Balloon_Miss[nPlayer] != 0)
             {
-                Chara_Balloon_Miss[nPlayer] = new CTexture[TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss[nPlayer]];
-                for (int i = 0; i < TJAPlayer3.Skin.Game_Chara_Ptn_Balloon_Miss[nPlayer]; i++)
+                Chara_Balloon_Miss[nPlayer] = new CTexture[TJAPlayer3.app.Skin.Game_Chara_Ptn_Balloon_Miss[nPlayer]];
+                for (int i = 0; i < TJAPlayer3.app.Skin.Game_Chara_Ptn_Balloon_Miss[nPlayer]; i++)
                 {
                     Chara_Balloon_Miss[nPlayer][i] = TxC(GAME + CHARA + PLAYER + @"Balloon_Miss/" + i.ToString() + ".png");
                 }
@@ -374,14 +374,14 @@ class TextureLoader
         }
         #endregion
         #region 踊り子
-        TJAPlayer3.Skin.Game_Dancer_Ptn = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + DANCER + @"1/"));
-        if (TJAPlayer3.Skin.Game_Dancer_Ptn != 0)
+        TJAPlayer3.app.Skin.Game_Dancer_Ptn = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + DANCER + @"1/"));
+        if (TJAPlayer3.app.Skin.Game_Dancer_Ptn != 0)
         {
             Dancer = new CTexture[5][];
             for (int i = 0; i < Dancer.Length; i++)
             {
-                Dancer[i] = new CTexture[TJAPlayer3.Skin.Game_Dancer_Ptn];
-                for (int p = 0; p < TJAPlayer3.Skin.Game_Dancer_Ptn; p++)
+                Dancer[i] = new CTexture[TJAPlayer3.app.Skin.Game_Dancer_Ptn];
+                for (int p = 0; p < TJAPlayer3.app.Skin.Game_Dancer_Ptn; p++)
                 {
                     Dancer[i][p] = TxC(GAME + DANCER + (i + 1) + @"/" + p.ToString() + ".png");
                 }
@@ -389,9 +389,9 @@ class TextureLoader
         }
         #endregion
         #region モブ
-        TJAPlayer3.Skin.Game_Mob_Ptn = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + MOB));
-        Mob = new CTexture[TJAPlayer3.Skin.Game_Mob_Ptn];
-        for (int i = 0; i < TJAPlayer3.Skin.Game_Mob_Ptn; i++)
+        TJAPlayer3.app.Skin.Game_Mob_Ptn = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + MOB));
+        Mob = new CTexture[TJAPlayer3.app.Skin.Game_Mob_Ptn];
+        for (int i = 0; i < TJAPlayer3.app.Skin.Game_Mob_Ptn; i++)
         {
             Mob[i] = TxC(GAME + MOB + i.ToString() + ".png");
         }
@@ -470,11 +470,11 @@ class TextureLoader
         Gauge_Line = new CTexture[2];
         Gauge_Line[0] = TxC(GAME + GAUGE + @"1P_Line.png");
         Gauge_Line[1] = TxC(GAME + GAUGE + @"2P_Line.png");
-        TJAPlayer3.Skin.Game_Gauge_Rainbow_Ptn = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + GAUGE + @"Rainbow/"));
-        if (TJAPlayer3.Skin.Game_Gauge_Rainbow_Ptn != 0)
+        TJAPlayer3.app.Skin.Game_Gauge_Rainbow_Ptn = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + GAUGE + @"Rainbow/"));
+        if (TJAPlayer3.app.Skin.Game_Gauge_Rainbow_Ptn != 0)
         {
-            Gauge_Rainbow = new CTexture[TJAPlayer3.Skin.Game_Gauge_Rainbow_Ptn];
-            for (int i = 0; i < TJAPlayer3.Skin.Game_Gauge_Rainbow_Ptn; i++)
+            Gauge_Rainbow = new CTexture[TJAPlayer3.app.Skin.Game_Gauge_Rainbow_Ptn];
+            for (int i = 0; i < TJAPlayer3.app.Skin.Game_Gauge_Rainbow_Ptn; i++)
             {
                 Gauge_Rainbow[i] = TxC(GAME + GAUGE + @"Rainbow/" + i.ToString() + ".png");
             }
@@ -489,11 +489,11 @@ class TextureLoader
         Gauge_Danc = TxC(GAME + GAUGE + @"DanC/" + @"1P.png");
         Gauge_Base_Danc = TxC(GAME + GAUGE + @"DanC/" + @"1P_Base.png");
         Gauge_Line_Danc = TxC(GAME + GAUGE + @"DanC/" + @"1P_Line.png");
-        TJAPlayer3.Skin.Game_Gauge_Rainbow_Danc_Ptn = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + GAUGE + @"DanC/" + @"Rainbow/"));
-        if (TJAPlayer3.Skin.Game_Gauge_Rainbow_Danc_Ptn != 0)
+        TJAPlayer3.app.Skin.Game_Gauge_Rainbow_Danc_Ptn = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + GAUGE + @"DanC/" + @"Rainbow/"));
+        if (TJAPlayer3.app.Skin.Game_Gauge_Rainbow_Danc_Ptn != 0)
         {
-            Gauge_Rainbow_Danc = new CTexture[TJAPlayer3.Skin.Game_Gauge_Rainbow_Danc_Ptn];
-            for (int i = 0; i < TJAPlayer3.Skin.Game_Gauge_Rainbow_Danc_Ptn; i++)
+            Gauge_Rainbow_Danc = new CTexture[TJAPlayer3.app.Skin.Game_Gauge_Rainbow_Danc_Ptn];
+            for (int i = 0; i < TJAPlayer3.app.Skin.Game_Gauge_Rainbow_Danc_Ptn; i++)
             {
                 Gauge_Rainbow_Danc[i] = TxC(GAME + GAUGE + @"DanC/" + @"Rainbow/" + i.ToString() + ".png");
             }
@@ -518,20 +518,20 @@ class TextureLoader
         #endregion
         #region エフェクト
         Effects_Hit_Explosion = TxC(GAME + EFFECTS + @"Hit/Explosion.png");
-        if (Effects_Hit_Explosion != null) Effects_Hit_Explosion.eBlendMode = TJAPlayer3.Skin.SkinConfig.Game.Effect.HitExplosion.AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
+        if (Effects_Hit_Explosion != null) Effects_Hit_Explosion.eBlendMode = TJAPlayer3.app.Skin.SkinConfig.Game.Effect.HitExplosion.AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
         Effects_Hit_Explosion_Big = TxC(GAME + EFFECTS + @"Hit/Explosion_Big.png");
-        if (Effects_Hit_Explosion_Big != null) Effects_Hit_Explosion_Big.eBlendMode = TJAPlayer3.Skin.SkinConfig.Game.Effect.HitExplosion.BigAddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
+        if (Effects_Hit_Explosion_Big != null) Effects_Hit_Explosion_Big.eBlendMode = TJAPlayer3.app.Skin.SkinConfig.Game.Effect.HitExplosion.BigAddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
         Effects_Hit_FireWorks = TxC(GAME + EFFECTS + @"Hit/FireWorks.png");
-        if (Effects_Hit_FireWorks != null) Effects_Hit_FireWorks.eBlendMode = TJAPlayer3.Skin.SkinConfig.Game.Effect.FireWorks.AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
+        if (Effects_Hit_FireWorks != null) Effects_Hit_FireWorks.eBlendMode = TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FireWorks.AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
 
 
         Effects_Fire = TxC(GAME + EFFECTS + @"Fire.png");
-        if (Effects_Fire != null) Effects_Fire.eBlendMode = TJAPlayer3.Skin.SkinConfig.Game.Effect.Fire.AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
+        if (Effects_Fire != null) Effects_Fire.eBlendMode = TJAPlayer3.app.Skin.SkinConfig.Game.Effect.Fire.AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
 
         Effects_Rainbow = TxC(GAME + EFFECTS + @"Rainbow.png");
 
         Effects_GoGoSplash = TxC(GAME + EFFECTS + @"GoGoSplash.png");
-        if (Effects_GoGoSplash != null) Effects_GoGoSplash.eBlendMode = TJAPlayer3.Skin.SkinConfig.Game.Effect.GoGoSplash.AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
+        if (Effects_GoGoSplash != null) Effects_GoGoSplash.eBlendMode = TJAPlayer3.app.Skin.SkinConfig.Game.Effect.GoGoSplash.AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
         Effects_Hit_Perfect = new CTexture[15];
         Effects_Hit_Perfect_Big = new CTexture[15];
         Effects_Hit_Good = new CTexture[15];
@@ -543,9 +543,9 @@ class TextureLoader
             Effects_Hit_Good[i] = TxC(GAME + EFFECTS + @"Hit/" + @"Good/" + i.ToString() + ".png");
             Effects_Hit_Good_Big[i] = TxC(GAME + EFFECTS + @"Hit/" + @"Good_Big/" + i.ToString() + ".png");
         }
-        TJAPlayer3.Skin.Game_Effect_Roll_Ptn = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + EFFECTS + @"Roll/"));
-        Effects_Roll = new CTexture[TJAPlayer3.Skin.Game_Effect_Roll_Ptn];
-        for (int i = 0; i < TJAPlayer3.Skin.Game_Effect_Roll_Ptn; i++)
+        TJAPlayer3.app.Skin.Game_Effect_Roll_Ptn = TJAPlayer3.t連番画像の枚数を数える(CSkin.Path(BASE + GAME + EFFECTS + @"Roll/"));
+        Effects_Roll = new CTexture[TJAPlayer3.app.Skin.Game_Effect_Roll_Ptn];
+        for (int i = 0; i < TJAPlayer3.app.Skin.Game_Effect_Roll_Ptn; i++)
         {
             Effects_Roll[i] = TxC(GAME + EFFECTS + @"Roll/" + i.ToString() + ".png");
         }

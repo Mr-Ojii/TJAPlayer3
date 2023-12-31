@@ -62,7 +62,7 @@ internal class CActSelectPresound : CActivity
             if ((this.ctBGMFadeIn用 != null) && this.ctBGMFadeIn用.b進行中)
             {
                 this.ctBGMFadeIn用.t進行();
-                TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.BGM選曲画面].nAutomationLevel_現在のサウンド = this.ctBGMFadeIn用.n現在の値;
+                TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.BGM選曲画面].nAutomationLevel_現在のサウンド = this.ctBGMFadeIn用.n現在の値;
                 if (this.ctBGMFadeIn用.b終了値に達した)
                 {
                     this.ctBGMFadeIn用.t停止();
@@ -71,7 +71,7 @@ internal class CActSelectPresound : CActivity
             if ((this.ctBGMFadeOut用 != null) && this.ctBGMFadeOut用.b進行中)
             {
                 this.ctBGMFadeOut用.t進行();
-                TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.BGM選曲画面].nAutomationLevel_現在のサウンド = CSound.MaximumAutomationLevel - this.ctBGMFadeOut用.n現在の値;
+                TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.BGM選曲画面].nAutomationLevel_現在のサウンド = CSound.MaximumAutomationLevel - this.ctBGMFadeOut用.n現在の値;
                 if (this.ctBGMFadeOut用.b終了値に達した)
                 {
                     this.ctBGMFadeOut用.t停止();
@@ -121,7 +121,7 @@ internal class CActSelectPresound : CActivity
             this.ctBGMFadeIn用.t停止();
         }
         this.ctBGMFadeOut用 = new CCounter(0, 100, 10, TJAPlayer3.Timer);
-        this.ctBGMFadeOut用.n現在の値 = 100 - TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.BGM選曲画面].nAutomationLevel_現在のサウンド;
+        this.ctBGMFadeOut用.n現在の値 = 100 - TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.BGM選曲画面].nAutomationLevel_現在のサウンド;
     }
     private void tBGMFadeIn開始()
     {
@@ -130,7 +130,7 @@ internal class CActSelectPresound : CActivity
             this.ctBGMFadeOut用.t停止();
         }
         this.ctBGMFadeIn用 = new CCounter(0, 100, 20, TJAPlayer3.Timer);
-        this.ctBGMFadeIn用.n現在の値 = TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.BGM選曲画面].nAutomationLevel_現在のサウンド;
+        this.ctBGMFadeIn用.n現在の値 = TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.BGM選曲画面].nAutomationLevel_現在のサウンド;
     }
     private async void tプレビューサウンドの作成()
     {

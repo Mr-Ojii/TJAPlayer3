@@ -66,8 +66,8 @@ internal class CActRoll : CActivity
 
 
                 if (TJAPlayer3.Tx.Balloon_Roll != null)
-                    TJAPlayer3.Tx.Balloon_Roll.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Balloon.RollFrameX[player], TJAPlayer3.Skin.SkinConfig.Game.Balloon.RollFrameY[player]);
-                this.t文字表示(TJAPlayer3.Skin.SkinConfig.Game.Balloon.RollNumberX[player], TJAPlayer3.Skin.SkinConfig.Game.Balloon.RollNumberY[player], n連打数, player);
+                    TJAPlayer3.Tx.Balloon_Roll.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.RollFrameX[player], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.RollFrameY[player]);
+                this.t文字表示(TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.RollNumberX[player], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.RollNumberY[player], n連打数, player);
             }
         }
 
@@ -108,15 +108,15 @@ internal class CActRoll : CActivity
         for (int index = n連打.ToString().Length - 1; index >= 0; index--)
         {
             int i = (int)(n連打 / Math.Pow(10, index) % 10);
-            Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.SkinConfig.Game.Balloon.NumberSize[0] * i, 0, TJAPlayer3.Skin.SkinConfig.Game.Balloon.NumberSize[0], TJAPlayer3.Skin.SkinConfig.Game.Balloon.NumberSize[1]);
+            Rectangle rectangle = new Rectangle(TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.NumberSize[0] * i, 0, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.NumberSize[0], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.NumberSize[1]);
 
             if (TJAPlayer3.Tx.Balloon_Number_Roll != null)
             {
-                TJAPlayer3.Tx.Balloon_Number_Roll.vcScaling.X = TJAPlayer3.Skin.SkinConfig.Game.Balloon.RollNumberScale;
-                TJAPlayer3.Tx.Balloon_Number_Roll.vcScaling.Y = TJAPlayer3.Skin.SkinConfig.Game.Balloon.RollNumberScale + RollScale[this.ct連打アニメ[nPlayer].n現在の値];
-                TJAPlayer3.Tx.Balloon_Number_Roll.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x - (((TJAPlayer3.Skin.SkinConfig.Game.Balloon.NumberPadding + 2) * n桁数) / 2), y, rectangle);
+                TJAPlayer3.Tx.Balloon_Number_Roll.vcScaling.X = TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.RollNumberScale;
+                TJAPlayer3.Tx.Balloon_Number_Roll.vcScaling.Y = TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.RollNumberScale + RollScale[this.ct連打アニメ[nPlayer].n現在の値];
+                TJAPlayer3.Tx.Balloon_Number_Roll.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x - (((TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.NumberPadding + 2) * n桁数) / 2), y, rectangle);
             }
-            x += (TJAPlayer3.Skin.SkinConfig.Game.Balloon.NumberPadding - (n桁数 > 2 ? n桁数 * 2 : 0));
+            x += (TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.NumberPadding - (n桁数 > 2 ? n桁数 * 2 : 0));
         }
     }
 }

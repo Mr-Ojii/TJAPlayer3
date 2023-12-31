@@ -219,7 +219,7 @@ internal class CActScore : CActivity
 
             for(int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
             {
-                this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Game.Score.X[i], TJAPlayer3.Skin.SkinConfig.Game.Score.Y[i], string.Format("{0,7:######0}", this.n現在表示中のスコア[i]), 0, 256, i);
+                this.t小文字表示(TJAPlayer3.app.Skin.SkinConfig.Game.Score.X[i], TJAPlayer3.app.Skin.SkinConfig.Game.Score.Y[i], string.Format("{0,7:######0}", this.n現在表示中のスコア[i]), 0, 256, i);
             }
 
             for (int i = 0; i < 256; i++)
@@ -349,9 +349,9 @@ internal class CActScore : CActivity
 
 
                         if (this.n現在表示中のAddScore < 10 && this.stScore[i].bBonusScore == false)
-                            this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Game.Score.AddX[this.stScore[i].nPlayer] + xAdd, this.stScore[i].nPlayer == 0 ? TJAPlayer3.Skin.SkinConfig.Game.Score.AddY[this.stScore[i].nPlayer] + yAdd : TJAPlayer3.Skin.SkinConfig.Game.Score.AddY[this.stScore[i].nPlayer] - yAdd, string.Format("{0,7:######0}", this.stScore[i].nAddScore), this.stScore[i].nPlayer + 1, alpha, stScore[i].nPlayer);
+                            this.t小文字表示(TJAPlayer3.app.Skin.SkinConfig.Game.Score.AddX[this.stScore[i].nPlayer] + xAdd, this.stScore[i].nPlayer == 0 ? TJAPlayer3.app.Skin.SkinConfig.Game.Score.AddY[this.stScore[i].nPlayer] + yAdd : TJAPlayer3.app.Skin.SkinConfig.Game.Score.AddY[this.stScore[i].nPlayer] - yAdd, string.Format("{0,7:######0}", this.stScore[i].nAddScore), this.stScore[i].nPlayer + 1, alpha, stScore[i].nPlayer);
                         if (this.n現在表示中のAddScore < 10 && this.stScore[i].bBonusScore == true)
-                            this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Game.Score.AddBonusX[this.stScore[i].nPlayer] + xAdd, TJAPlayer3.Skin.SkinConfig.Game.Score.AddBonusY[this.stScore[i].nPlayer], string.Format("{0,7:######0}", this.stScore[i].nAddScore), this.stScore[i].nPlayer + 1, alpha, stScore[i].nPlayer);
+                            this.t小文字表示(TJAPlayer3.app.Skin.SkinConfig.Game.Score.AddBonusX[this.stScore[i].nPlayer] + xAdd, TJAPlayer3.app.Skin.SkinConfig.Game.Score.AddBonusY[this.stScore[i].nPlayer], string.Format("{0,7:######0}", this.stScore[i].nAddScore), this.stScore[i].nPlayer + 1, alpha, stScore[i].nPlayer);
                         else
                         {
                             this.n現在表示中のAddScore--;
@@ -370,7 +370,7 @@ internal class CActScore : CActivity
         {
             if (int.TryParse(ch.ToString(), out var i))
             {
-                Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.SkinConfig.Game.Score.Size[0] * i, 0, TJAPlayer3.Skin.SkinConfig.Game.Score.Size[0], TJAPlayer3.Skin.SkinConfig.Game.Score.Size[1]);
+                Rectangle rectangle = new Rectangle(TJAPlayer3.app.Skin.SkinConfig.Game.Score.Size[0] * i, 0, TJAPlayer3.app.Skin.SkinConfig.Game.Score.Size[0], TJAPlayer3.app.Skin.SkinConfig.Game.Score.Size[1]);
                 switch (mode)
                 {
                     case 0:
@@ -399,7 +399,7 @@ internal class CActScore : CActivity
                         }
                         break;
                 }
-                x += TJAPlayer3.Skin.SkinConfig.Game.Score.Padding;
+                x += TJAPlayer3.app.Skin.SkinConfig.Game.Score.Padding;
             }
         }
     }

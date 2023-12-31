@@ -13,10 +13,10 @@ class CActSelectChangeSE : CActivity
         if (this.b活性化してる)
             return;
 
-        this.donglist = new CSound[2, TJAPlayer3.Skin.SECount];
+        this.donglist = new CSound[2, TJAPlayer3.app.Skin.SECount];
         for (int nPlayer = 0; nPlayer < 2; nPlayer++)
         {
-            for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)
+            for (int i = 0; i < TJAPlayer3.app.Skin.SECount; i++)
             {
                 this.donglist[nPlayer, i] = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Taiko/" + i.ToString() + @"/dong.ogg"), ESoundGroup.SoundEffect);
                 if (TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.app.ConfigToml.PlayOption.UsePanning && donglist[nPlayer, i] != null)
@@ -28,15 +28,15 @@ class CActSelectChangeSE : CActivity
 
         this.SEName = new CTexture[2];
         this.NameMoving = new CTexture[2];
-        this.SENameList = new CTexture[TJAPlayer3.Skin.SECount];
+        this.SENameList = new CTexture[TJAPlayer3.app.Skin.SECount];
 
         using (var font = new CFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, 30))
-            for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)
+            for (int i = 0; i < TJAPlayer3.app.Skin.SECount; i++)
             {
                 string SEName = "Untitled";
-                if (i < TJAPlayer3.Skin.SkinConfig.Sound.SENames.Length)
-                    SEName = TJAPlayer3.Skin.SkinConfig.Sound.SENames[i];
-                using (var bmp = font.DrawText(SEName, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+                if (i < TJAPlayer3.app.Skin.SkinConfig.Sound.SENames.Length)
+                    SEName = TJAPlayer3.app.Skin.SkinConfig.Sound.SENames[i];
+                using (var bmp = font.DrawText(SEName, Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                     this.SENameList[i] = TJAPlayer3.tCreateTexture(bmp);
             }
 
@@ -52,7 +52,7 @@ class CActSelectChangeSE : CActivity
             return;
 
         for (int nPlayer = 0; nPlayer < 2; nPlayer++)
-            for (int i = 0; i < TJAPlayer3.Skin.SECount; i++)
+            for (int i = 0; i < TJAPlayer3.app.Skin.SECount; i++)
                 this.donglist[nPlayer, i]?.t解放する();
 
         //Classは参照渡しであるため、ListをDisposeするだけでよい
@@ -80,20 +80,20 @@ class CActSelectChangeSE : CActivity
             this.ct登場退場アニメ用[nPlayer].t進行();
             if (this.ePhase[nPlayer] == EChangeSEPhase.Active)
             {
-                this.boxたちの描画(TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxX[nPlayer], TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxY[nPlayer], nPlayer);
+                this.boxたちの描画(TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxX[nPlayer], TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxY[nPlayer], nPlayer);
             }
             else if (this.ePhase[nPlayer] == EChangeSEPhase.AnimationIn)
             {
-                int y = (int)((TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxY[nPlayer]) + (float)((Math.Sin(this.ct登場退場アニメ用[nPlayer].n現在の値 / 100.0) - 0.9) * -500f));
-                this.boxたちの描画(TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxX[nPlayer], y, nPlayer);
+                int y = (int)((TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxY[nPlayer]) + (float)((Math.Sin(this.ct登場退場アニメ用[nPlayer].n現在の値 / 100.0) - 0.9) * -500f));
+                this.boxたちの描画(TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxX[nPlayer], y, nPlayer);
 
                 if (this.ct登場退場アニメ用[nPlayer].b終了値に達した)
                     this.ePhase[nPlayer] = EChangeSEPhase.Active;
             }
             else if (this.ePhase[nPlayer] == EChangeSEPhase.AnimationOut)
             {
-                int y = (int)((TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxY[nPlayer]) + (float)((Math.Sin((this.ct登場退場アニメ用[nPlayer].n終了値 - this.ct登場退場アニメ用[nPlayer].n現在の値) / 100.0) - 0.9) * -500f));
-                this.boxたちの描画(TJAPlayer3.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxX[nPlayer], y, nPlayer);
+                int y = (int)((TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxY[nPlayer]) + (float)((Math.Sin((this.ct登場退場アニメ用[nPlayer].n終了値 - this.ct登場退場アニメ用[nPlayer].n現在の値) / 100.0) - 0.9) * -500f));
+                this.boxたちの描画(TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.ChangeSEBoxX[nPlayer], y, nPlayer);
 
                 if (this.ct登場退場アニメ用[nPlayer].b終了値に達した)
                     this.ePhase[nPlayer] = EChangeSEPhase.Inactive;
@@ -104,24 +104,24 @@ class CActSelectChangeSE : CActivity
         {
             if (TJAPlayer3.app.Pad.bPressed(EPad.LRed) || TJAPlayer3.app.Pad.bPressed(EPad.RRed) || TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return))
             {
-                TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
+                TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
                 this.tDeativateChangeSE(0);
             }
-            if ((TJAPlayer3.app.Pad.bPressed(EPad.LBlue) || TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftArrow)) && TJAPlayer3.Skin.SECount != 0)
+            if ((TJAPlayer3.app.Pad.bPressed(EPad.LBlue) || TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftArrow)) && TJAPlayer3.app.Skin.SECount != 0)
             {
-                TJAPlayer3.Skin.NowSENum[0]--;
-                if (TJAPlayer3.Skin.NowSENum[0] < 0)
-                    TJAPlayer3.Skin.NowSENum[0] = TJAPlayer3.Skin.SECount - 1;
-                this.donglist[0, TJAPlayer3.Skin.NowSENum[0]]?.t再生を開始する();
+                TJAPlayer3.app.Skin.NowSENum[0]--;
+                if (TJAPlayer3.app.Skin.NowSENum[0] < 0)
+                    TJAPlayer3.app.Skin.NowSENum[0] = TJAPlayer3.app.Skin.SECount - 1;
+                this.donglist[0, TJAPlayer3.app.Skin.NowSENum[0]]?.t再生を開始する();
                 this.MoveStart(EMoving.LeftMoving, 0);
                 this.SENameChanger(0);
             }
-            if ((TJAPlayer3.app.Pad.bPressed(EPad.RBlue) || TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightArrow)) && TJAPlayer3.Skin.SECount != 0)
+            if ((TJAPlayer3.app.Pad.bPressed(EPad.RBlue) || TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightArrow)) && TJAPlayer3.app.Skin.SECount != 0)
             {
-                TJAPlayer3.Skin.NowSENum[0]++;
-                if (TJAPlayer3.Skin.NowSENum[0] > TJAPlayer3.Skin.SECount - 1)
-                    TJAPlayer3.Skin.NowSENum[0] = 0;
-                this.donglist[0, TJAPlayer3.Skin.NowSENum[0]]?.t再生を開始する();
+                TJAPlayer3.app.Skin.NowSENum[0]++;
+                if (TJAPlayer3.app.Skin.NowSENum[0] > TJAPlayer3.app.Skin.SECount - 1)
+                    TJAPlayer3.app.Skin.NowSENum[0] = 0;
+                this.donglist[0, TJAPlayer3.app.Skin.NowSENum[0]]?.t再生を開始する();
                 this.MoveStart(EMoving.RightMoving, 0);
                 this.SENameChanger(0);
             }
@@ -130,24 +130,24 @@ class CActSelectChangeSE : CActivity
         {
             if (TJAPlayer3.app.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.app.Pad.bPressed(EPad.RRed2P) || (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return) && TJAPlayer3.stage選曲.actDifficultySelect.選択済み[0]))
             {
-                TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
+                TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
                 this.tDeativateChangeSE(1);
             }
-            if ((TJAPlayer3.app.Pad.bPressed(EPad.LBlue2P) || (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftArrow) && TJAPlayer3.stage選曲.actDifficultySelect.選択済み[0])) && TJAPlayer3.Skin.SECount != 0)
+            if ((TJAPlayer3.app.Pad.bPressed(EPad.LBlue2P) || (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftArrow) && TJAPlayer3.stage選曲.actDifficultySelect.選択済み[0])) && TJAPlayer3.app.Skin.SECount != 0)
             {
-                TJAPlayer3.Skin.NowSENum[1]--;
-                if (TJAPlayer3.Skin.NowSENum[1] < 0)
-                    TJAPlayer3.Skin.NowSENum[1] = TJAPlayer3.Skin.SECount - 1;
-                this.donglist[1, TJAPlayer3.Skin.NowSENum[1]]?.t再生を開始する();
+                TJAPlayer3.app.Skin.NowSENum[1]--;
+                if (TJAPlayer3.app.Skin.NowSENum[1] < 0)
+                    TJAPlayer3.app.Skin.NowSENum[1] = TJAPlayer3.app.Skin.SECount - 1;
+                this.donglist[1, TJAPlayer3.app.Skin.NowSENum[1]]?.t再生を開始する();
                 this.MoveStart(EMoving.LeftMoving, 1);
                 this.SENameChanger(1);
             }
-            if ((TJAPlayer3.app.Pad.bPressed(EPad.RBlue2P) || (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightArrow) && TJAPlayer3.stage選曲.actDifficultySelect.選択済み[0])) && TJAPlayer3.Skin.SECount != 0)
+            if ((TJAPlayer3.app.Pad.bPressed(EPad.RBlue2P) || (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightArrow) && TJAPlayer3.stage選曲.actDifficultySelect.選択済み[0])) && TJAPlayer3.app.Skin.SECount != 0)
             {
-                TJAPlayer3.Skin.NowSENum[1]++;
-                if (TJAPlayer3.Skin.NowSENum[1] > TJAPlayer3.Skin.SECount - 1)
-                    TJAPlayer3.Skin.NowSENum[1] = 0;
-                this.donglist[1, TJAPlayer3.Skin.NowSENum[1]]?.t再生を開始する();
+                TJAPlayer3.app.Skin.NowSENum[1]++;
+                if (TJAPlayer3.app.Skin.NowSENum[1] > TJAPlayer3.app.Skin.SECount - 1)
+                    TJAPlayer3.app.Skin.NowSENum[1] = 0;
+                this.donglist[1, TJAPlayer3.app.Skin.NowSENum[1]]?.t再生を開始する();
                 this.MoveStart(EMoving.RightMoving, 1);
                 this.SENameChanger(1);
             }
@@ -171,15 +171,15 @@ class CActSelectChangeSE : CActivity
 
         if (TJAPlayer3.Tx.ChangeSE_Num != null)
         {
-            for (int i = 0; i < TJAPlayer3.Skin.SECount.ToString().Length; i++)
+            for (int i = 0; i < TJAPlayer3.app.Skin.SECount.ToString().Length; i++)
             {
-                var number = (int)(TJAPlayer3.Skin.SECount / Math.Pow(10, TJAPlayer3.Skin.SECount.ToString().Length - i - 1) % 10);
+                var number = (int)(TJAPlayer3.app.Skin.SECount / Math.Pow(10, TJAPlayer3.app.Skin.SECount.ToString().Length - i - 1) % 10);
                 Rectangle rectangle = new Rectangle(TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Width / 10 * number, 0, TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Width / 10, TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Height);
                 TJAPlayer3.Tx.ChangeSE_Num.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (i * TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Width / 10) + 20, y - 260, rectangle);
             }
-            for (int i = 0; i < (TJAPlayer3.Skin.NowSENum[nPlayer] + 1).ToString().Length; i++)
+            for (int i = 0; i < (TJAPlayer3.app.Skin.NowSENum[nPlayer] + 1).ToString().Length; i++)
             {
-                var number = (int)((TJAPlayer3.Skin.NowSENum[nPlayer] + 1) / Math.Pow(10, i) % 10);
+                var number = (int)((TJAPlayer3.app.Skin.NowSENum[nPlayer] + 1) / Math.Pow(10, i) % 10);
                 Rectangle rectangle = new Rectangle(TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Width / 10 * number, 0, TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Width / 10, TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Height);
                 TJAPlayer3.Tx.ChangeSE_Num.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x - (i * TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Width / 10) - 20, y - 260, rectangle);
             }
@@ -233,10 +233,10 @@ class CActSelectChangeSE : CActivity
 
     private void SENameChanger(int nPlayer)
     {
-        if (TJAPlayer3.Skin.SECount != 0)
+        if (TJAPlayer3.app.Skin.SECount != 0)
         {
             this.NameMoving[nPlayer] = this.SEName[nPlayer];
-            this.SEName[nPlayer] = this.SENameList[TJAPlayer3.Skin.NowSENum[nPlayer]];
+            this.SEName[nPlayer] = this.SENameList[TJAPlayer3.app.Skin.NowSENum[nPlayer]];
         }
     }
 
@@ -246,7 +246,7 @@ class CActSelectChangeSE : CActivity
     /// <param name="nPlayer">プレイヤー番号</param>
     public void tActivateChangeSE(int nPlayer)
     {
-        if (TJAPlayer3.Skin.SECount != 0 && ePhase[nPlayer] == EChangeSEPhase.Inactive)
+        if (TJAPlayer3.app.Skin.SECount != 0 && ePhase[nPlayer] == EChangeSEPhase.Inactive)
         {
             ePhase[nPlayer] = EChangeSEPhase.AnimationIn;
             ct登場退場アニメ用[nPlayer].t時間Reset();

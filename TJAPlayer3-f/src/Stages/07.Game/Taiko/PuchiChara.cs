@@ -11,8 +11,8 @@ class PuchiChara : CActivity
 
     public override void On活性化()
     {
-        Counter = new CCounter(0, TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Ptn - 1, TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Timer, TJAPlayer3.Timer);
-        SineCounter = new CCounter(0, 360, TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.SineTimer, CSoundManager.rc演奏用タイマ);
+        Counter = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Ptn - 1, TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Timer, TJAPlayer3.Timer);
+        SineCounter = new CCounter(0, 360, TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.SineTimer, CSoundManager.rc演奏用タイマ);
         base.On活性化();
     }
     public override void On非活性化()
@@ -25,21 +25,21 @@ class PuchiChara : CActivity
     public void ChangeBPM(double bpm)
     {
         int n値 = Counter.n現在の値;
-        Counter = new CCounter(0, TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Ptn - 1, (int)(TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Timer * bpm / TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Ptn), TJAPlayer3.Timer);
+        Counter = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Ptn - 1, (int)(TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Timer * bpm / TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Ptn), TJAPlayer3.Timer);
         Counter.t時間Reset();
         Counter.n現在の値 = n値;
 
         double db値 = SineCounter.db現在の値;
-        SineCounter = new CCounter(1, 360, TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.SineTimer * bpm / 180, CSoundManager.rc演奏用タイマ);
+        SineCounter = new CCounter(1, 360, TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.SineTimer * bpm / 180, CSoundManager.rc演奏用タイマ);
         SineCounter.db現在の値 = db値;
         SineCounter.t時間Resetdb();
     }
 
     public void InitializeBPM(double bpm)
     {
-        Counter = new CCounter(0, TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Ptn - 1, (int)(TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Timer * bpm / TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Ptn), TJAPlayer3.Timer);
+        Counter = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Ptn - 1, (int)(TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Timer * bpm / TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Ptn), TJAPlayer3.Timer);
 
-        SineCounter = new CCounter(1, 360, TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.SineTimer * bpm / 180, CSoundManager.rc演奏用タイマ);
+        SineCounter = new CCounter(1, 360, TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.SineTimer * bpm / 180, CSoundManager.rc演奏用タイマ);
     }
 
     /// <summary>
@@ -55,10 +55,10 @@ class PuchiChara : CActivity
         if (Counter == null || SineCounter == null || TJAPlayer3.Tx.PuchiChara[nPlayer] == null) return base.On進行描画();
         Counter.t進行Loop();
         SineCounter.t進行LoopDb();
-        var sineY = Math.Sin(SineCounter.db現在の値 * (Math.PI / 180)) * (TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Sine * (isBalloon ? TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Scale[1] : TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Scale[0]));
-        TJAPlayer3.Tx.PuchiChara[nPlayer].vcScaling = new Vector2((isBalloon ? TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Scale[1] : TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Scale[0]));
+        var sineY = Math.Sin(SineCounter.db現在の値 * (Math.PI / 180)) * (TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Sine * (isBalloon ? TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Scale[1] : TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Scale[0]));
+        TJAPlayer3.Tx.PuchiChara[nPlayer].vcScaling = new Vector2((isBalloon ? TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Scale[1] : TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Scale[0]));
         TJAPlayer3.Tx.PuchiChara[nPlayer].Opacity = alpha;
-        TJAPlayer3.Tx.PuchiChara[nPlayer].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x, y + (int)sineY, new Rectangle(Counter.n現在の値 * TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Width, (isGrowing ? TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Height : 0), TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Width, TJAPlayer3.Skin.SkinConfig.Game.PuchiChara.Height));
+        TJAPlayer3.Tx.PuchiChara[nPlayer].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x, y + (int)sineY, new Rectangle(Counter.n現在の値 * TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Width, (isGrowing ? TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Height : 0), TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Width, TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Height));
         return base.On進行描画();
     }
 

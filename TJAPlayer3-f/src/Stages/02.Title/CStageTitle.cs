@@ -133,14 +133,14 @@ internal class CStageTitle : CStage
 
                 if (((TJAPlayer3.app.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return)) || TJAPlayer3.app.Pad.bPressed(EPad.LRed) || TJAPlayer3.app.Pad.bPressed(EPad.RRed) || (TJAPlayer3.app.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.app.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2))
                 {
-                    if ((this.n現在のカーソル行 == (int)E戻り値.GAMESTART - 1) && TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDゲーム開始音].b読み込み成功)
+                    if ((this.n現在のカーソル行 == (int)E戻り値.GAMESTART - 1) && TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDゲーム開始音].b読み込み成功)
                     {
                         if (!((TJAPlayer3.app.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.LeftControl) || TJAPlayer3.app.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.RightControl)) && TJAPlayer3.app.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.A)))
-                            TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDゲーム開始音].t再生する();
+                            TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDゲーム開始音].t再生する();
                     }
                     else
                     {
-                        TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
+                        TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
                     }
                     if (this.n現在のカーソル行 == (int)E戻り値.EXIT - 1)
                     {
@@ -166,7 +166,7 @@ internal class CStageTitle : CStage
             TJAPlayer3.app.act文字コンソール.tPrint(4, 44, C文字コンソール.EFontType.白, "DEBUG BUILD");
 #endif
             TJAPlayer3.app.act文字コンソール.tPrint(4, 4, C文字コンソール.EFontType.白, asmApp.Name + " Ver." + TJAPlayer3.VERSION + " (" + strCreator + ")");
-            TJAPlayer3.app.act文字コンソール.tPrint(4, 24, C文字コンソール.EFontType.白, "Skin:" + TJAPlayer3.Skin.SkinConfig.General.Name + " Ver." + TJAPlayer3.Skin.SkinConfig.General.Version + " (" + TJAPlayer3.Skin.SkinConfig.General.Creator + ")");
+            TJAPlayer3.app.act文字コンソール.tPrint(4, 24, C文字コンソール.EFontType.白, "Skin:" + TJAPlayer3.app.Skin.SkinConfig.General.Name + " Ver." + TJAPlayer3.app.Skin.SkinConfig.General.Version + " (" + TJAPlayer3.app.Skin.SkinConfig.General.Creator + ")");
             //CDTXMania.act文字コンソール.tPrint(4, 24, C文字コンソール.EFontType.白, strSubTitle);
             TJAPlayer3.app.act文字コンソール.tPrint(4, (TJAPlayer3.app.LogicalSize.Height - 24), C文字コンソール.EFontType.白, "TJAPlayer3-f forked TJAPlayer3(AioiLight) forked TJAPlayer2 forPC(kairera0467)");
             #endregion
@@ -224,7 +224,7 @@ internal class CStageTitle : CStage
                 case CStage.Eフェーズ.共通_FadeIn:
                     if (this.actFI.On進行描画() != 0)
                     {
-                        TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDタイトル音].t再生する();
+                        TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDタイトル音].t再生する();
                         base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
                     }
                     break;
@@ -255,7 +255,7 @@ internal class CStageTitle : CStage
                 case CStage.Eフェーズ.タイトル_起動画面からのFadeIn:
                     if (this.actFI.On進行描画() != 0)
                     {
-                        TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDタイトル音].t再生する();
+                        TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDタイトル音].t再生する();
                         base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
                     }
                     break;
@@ -280,7 +280,7 @@ internal class CStageTitle : CStage
     //-----------------
     private CTexture 文字テクスチャを生成する(string str文字, Color forecolor, Color backcolor, CFontRenderer pf)
     {
-        using (var bmp = pf.DrawText_V(str文字, forecolor, backcolor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatioVertical))
+        using (var bmp = pf.DrawText_V(str文字, forecolor, backcolor, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatioVertical))
         {
             return TJAPlayer3.tCreateTexture(bmp);
         }
@@ -301,7 +301,7 @@ internal class CStageTitle : CStage
     {
         if (this.n現在のカーソル行 != (int)E戻り値.EXIT - 1)
         {
-            TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
+            TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
             this.n現在のカーソル行++;
             this.ct下移動用.t開始(0, 100, 1, TJAPlayer3.Timer);
             if (this.ct上移動用.b進行中)
@@ -315,7 +315,7 @@ internal class CStageTitle : CStage
     {
         if (this.n現在のカーソル行 != (int)E戻り値.GAMESTART - 1)
         {
-            TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
+            TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
             this.n現在のカーソル行--;
             this.ct上移動用.t開始(0, 100, 1, TJAPlayer3.Timer);
             if (this.ct下移動用.b進行中)

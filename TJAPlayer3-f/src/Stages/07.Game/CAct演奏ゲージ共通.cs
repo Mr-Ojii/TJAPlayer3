@@ -23,12 +23,12 @@ internal class CAct演奏ゲージ共通 : CActivity
     {
         this.ct炎 = new CCounter(0, 6, 50, TJAPlayer3.Timer);
 
-        if (TJAPlayer3.Skin.SkinConfig.Game.Gauge.RainbowTimer <= 1)
+        if (TJAPlayer3.app.Skin.SkinConfig.Game.Gauge.RainbowTimer <= 1)
         {
             throw new DivideByZeroException("SkinConfigの設定\"Game.Gauge.RainbowTimer\"を1以下にすることは出来ません。");
         }
-        this.ct虹アニメ = new CCounter(0, TJAPlayer3.Skin.Game_Gauge_Rainbow_Ptn - 1, TJAPlayer3.Skin.SkinConfig.Game.Gauge.RainbowTimer, TJAPlayer3.Timer);
-        this.ct虹透明度 = new CCounter(0, TJAPlayer3.Skin.SkinConfig.Game.Gauge.RainbowTimer - 1, 1, TJAPlayer3.Timer);
+        this.ct虹アニメ = new CCounter(0, TJAPlayer3.app.Skin.Game_Gauge_Rainbow_Ptn - 1, TJAPlayer3.app.Skin.SkinConfig.Game.Gauge.RainbowTimer, TJAPlayer3.Timer);
+        this.ct虹透明度 = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.Gauge.RainbowTimer - 1, 1, TJAPlayer3.Timer);
         base.On活性化();
     }
     public override void On非活性化()

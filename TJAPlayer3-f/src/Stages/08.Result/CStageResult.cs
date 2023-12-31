@@ -245,7 +245,7 @@ internal class CStageResult : CStage
             {
                 if (TJAPlayer3.Tx.NamePlate[i] != null)
                 {
-                    TJAPlayer3.Tx.NamePlate[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.ConfigToml.EnableSkinV2 ? TJAPlayer3.Skin.SkinConfig.Result.v2NamePlateX[i] : TJAPlayer3.Skin.SkinConfig.Result.NamePlateX[i], TJAPlayer3.app.ConfigToml.EnableSkinV2 ? TJAPlayer3.Skin.SkinConfig.Result.v2NamePlateY[i] : TJAPlayer3.Skin.SkinConfig.Result.NamePlateY[i]);
+                    TJAPlayer3.Tx.NamePlate[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.ConfigToml.EnableSkinV2 ? TJAPlayer3.app.Skin.SkinConfig.Result.v2NamePlateX[i] : TJAPlayer3.app.Skin.SkinConfig.Result.NamePlateX[i], TJAPlayer3.app.ConfigToml.EnableSkinV2 ? TJAPlayer3.app.Skin.SkinConfig.Result.v2NamePlateY[i] : TJAPlayer3.app.Skin.SkinConfig.Result.NamePlateY[i]);
                 }
             }
             #endregion
@@ -275,14 +275,14 @@ internal class CStageResult : CStage
             {
                 if (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
                 {
-                    TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
+                    TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
                     this.actFO.tFadeOut開始();
                     base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
                     this.eFadeOut完了時の戻り値 = E戻り値.完了;
                 }
                 if ((TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return) || TJAPlayer3.app.Pad.bPressed(EPad.LRed) || TJAPlayer3.app.Pad.bPressed(EPad.RRed) || (TJAPlayer3.app.Pad.bPressed(EPad.LRed2P) || TJAPlayer3.app.Pad.bPressed(EPad.RRed2P)) && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2) && this.bアニメが完了)
                 {
-                    TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
+                    TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
                     //							this.actFO.tFadeOut開始();
                     base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
                     this.eFadeOut完了時の戻り値 = E戻り値.完了;

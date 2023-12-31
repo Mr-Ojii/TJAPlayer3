@@ -11,7 +11,7 @@ internal class CActSortSongs : CActSelectPopupMenu
         {
             new CItemList("絶対パス", 0, "", "", new string[] { "Z,Y,X,...", "A,B,C,..." }),
             new CItemList("曲名", 0, "", "", new string[] { "Z,Y,X,...", "A,B,C,..." }),
-            new CItemList("ジャンル", 0, "", "", TJAPlayer3.Skin.SortList.Keys.ToArray()),
+            new CItemList("ジャンル", 0, "", "", TJAPlayer3.app.Skin.SortList.Keys.ToArray()),
             new CItemList("戻る", 0, "", "", new string[] { "", "" })
         };
 

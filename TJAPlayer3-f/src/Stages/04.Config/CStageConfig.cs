@@ -59,11 +59,11 @@ internal class CStageConfig : CStage
             {
                 for (int i = 0; i < strMenuItem.Length; i++)
                 {
-                    using (var bmpStr = prvFont.DrawText(strMenuItem[i], Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+                    using (var bmpStr = prvFont.DrawText(strMenuItem[i], Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                     {
                         txMenuItemLeft[i, 0] = TJAPlayer3.tCreateTexture(bmpStr);
                     }
-                    using (var bmpStr = prvFont.DrawText(strMenuItem[i], Color.White, Color.Black, Color.Yellow, Color.OrangeRed, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+                    using (var bmpStr = prvFont.DrawText(strMenuItem[i], Color.White, Color.Black, Color.Yellow, Color.OrangeRed, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                     {
                         txMenuItemLeft[i, 1] = TJAPlayer3.tCreateTexture(bmpStr);
                     }
@@ -185,7 +185,7 @@ internal class CStageConfig : CStage
         {
             int flag = (this.n現在のメニュー番号 == i) ? 1 : 0;
             int num4 = txMenuItemLeft[i, flag].szTextureSize.Width;
-            txMenuItemLeft[i, flag].t2D描画(TJAPlayer3.app.Device, 282 - (num4 / 2) + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionX, menuY + TJAPlayer3.Skin.SkinConfig.Config.ItemTextCorrectionY); //55
+            txMenuItemLeft[i, flag].t2D描画(TJAPlayer3.app.Device, 282 - (num4 / 2) + TJAPlayer3.app.Skin.SkinConfig.Config.ItemTextCorrectionX, menuY + TJAPlayer3.app.Skin.SkinConfig.Config.ItemTextCorrectionY); //55
             menuY += stepY;
         }
         //---------------------
@@ -217,7 +217,7 @@ internal class CStageConfig : CStage
             case CStage.Eフェーズ.共通_FadeIn:
                 if (this.actFIFO.On進行描画() != 0)
                 {
-                    TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.BGMコンフィグ画面].t再生する();
+                    TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.BGMコンフィグ画面].t再生する();
                     base.eフェーズID = CStage.Eフェーズ.共通_通常状態;
                 }
                 break;
@@ -247,7 +247,7 @@ internal class CStageConfig : CStage
         {
             if ((TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape)))
             {
-                TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
+                TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
                 if (!this.bメニューにフォーカス中)
                 {
                     if (this.eItemPanelモード == EItemPanelモード.KeyCode一覧)
@@ -272,13 +272,13 @@ internal class CStageConfig : CStage
             {
                 if (this.n現在のメニュー番号 == 2)
                 {
-                    TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
+                    TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
                     this.actFIFO.tFadeOut開始();
                     base.eフェーズID = CStage.Eフェーズ.共通_FadeOut;
                 }
                 else if (this.bメニューにフォーカス中)
                 {
-                    TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
+                    TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
                     this.bメニューにフォーカス中 = false;
                     this.t説明文パネルに現在選択されている項目の説明を描画する();
                 }
@@ -435,7 +435,7 @@ internal class CStageConfig : CStage
         }
         else
         {
-            TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
+            TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
             this.n現在のメニュー番号 = (this.n現在のメニュー番号 + 1) % 3;
             switch (this.n現在のメニュー番号)
             {
@@ -471,7 +471,7 @@ internal class CStageConfig : CStage
         }
         else
         {
-            TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
+            TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
             this.n現在のメニュー番号 = ((this.n現在のメニュー番号 - 1) + 3) % 3;
             switch (this.n現在のメニュー番号)
             {

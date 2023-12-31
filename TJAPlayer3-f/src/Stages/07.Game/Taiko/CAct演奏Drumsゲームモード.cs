@@ -451,7 +451,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
                 TJAPlayer3.Tx.GameMode_Timer_Tick.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, 280, 134);
 
                 string str表示する残り時間 = (this.st叩ききりまショー.ct残り時間.n現在の値 < 1000) ? "25" : ((26000 - this.st叩ききりまショー.ct残り時間.n現在の値) / 1000).ToString();
-                this.t小文字表示(230 + (str表示する残り時間.Length * TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboSize[0] / 4), 84 + TJAPlayer3.Tx.GameMode_Timer_Frame.szTextureSize.Height / 2, string.Format("{0,2:#0}", str表示する残り時間));
+                this.t小文字表示(230 + (str表示する残り時間.Length * TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboSize[0] / 4), 84 + TJAPlayer3.Tx.GameMode_Timer_Frame.szTextureSize.Height / 2, string.Format("{0,2:#0}", str表示する残り時間));
             }
 
             if (!this.st叩ききりまショー.ct加算審査中.b停止中)
@@ -781,7 +781,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
         {
             if (int.TryParse(ch.ToString(), out var i))
             {
-                Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboSize[0] * i, 0, TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboSize[0], TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboSize[1]);
+                Rectangle rectangle = new Rectangle(TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboSize[0] * i, 0, TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboSize[0], TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboSize[1]);
                 if (TJAPlayer3.Tx.Taiko_Combo[0] != null)
                 {
                     if (this.st叩ききりまショー.bタイマー使用中)
@@ -795,7 +795,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
                     TJAPlayer3.Tx.Taiko_Combo[0].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x, y, rectangle);
                 }
             }
-            x += TJAPlayer3.Skin.SkinConfig.Game.Taiko.ComboPadding[0] * 2;
+            x += TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboPadding[0] * 2;
         }
     }
     protected void t加算文字表示(int x, int y, string str)
@@ -807,7 +807,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
             {
                 if (cFont[i] == ch)
                 {
-                    Rectangle rectangle = new Rectangle(TJAPlayer3.Skin.SkinConfig.Game.Score.Size[0] * i, 0, TJAPlayer3.Skin.SkinConfig.Game.Score.Size[0], TJAPlayer3.Skin.SkinConfig.Game.Score.Size[1]);
+                    Rectangle rectangle = new Rectangle(TJAPlayer3.app.Skin.SkinConfig.Game.Score.Size[0] * i, 0, TJAPlayer3.app.Skin.SkinConfig.Game.Score.Size[0], TJAPlayer3.app.Skin.SkinConfig.Game.Score.Size[1]);
                     if (TJAPlayer3.Tx.Taiko_Score[0] != null)
                     {
                         TJAPlayer3.Tx.Taiko_Score[0].vcScaling.Y = 1f;

@@ -84,7 +84,7 @@ internal class TJAPlayer3 : Game
         get;
         private set;
     }
-    public static CSkin Skin
+    public CSkin Skin
     {
         get;
         private set;
@@ -309,7 +309,7 @@ internal class TJAPlayer3 : Game
         try
         {
             Skin = new CSkin(TJAPlayer3.app.ConfigToml.General.SkinPath);
-            TJAPlayer3.app.ConfigToml.General.SkinPath = TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(true);    // 旧指定のSkinフォルダが消滅していた場合に備える
+            TJAPlayer3.app.ConfigToml.General.SkinPath = TJAPlayer3.app.Skin.GetCurrentSkinSubfolderFullName(true);    // 旧指定のSkinフォルダが消滅していた場合に備える
             this.LogicalSize = new Size(Skin.SkinConfig.General.Width, Skin.SkinConfig.General.Height);
             Trace.TraceInformation("スキンの初期化を完了しました。");
         }
@@ -1680,13 +1680,13 @@ internal class TJAPlayer3 : Game
 
     public void RefleshSkin()
     {
-        Trace.TraceInformation("スキン変更:" + TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(false));
+        Trace.TraceInformation("スキン変更:" + TJAPlayer3.app.Skin.GetCurrentSkinSubfolderFullName(false));
 
         TJAPlayer3.app.act文字コンソール.On非活性化();
 
-        TJAPlayer3.Skin.Dispose();
-        TJAPlayer3.Skin = null;
-        TJAPlayer3.Skin = new CSkin(TJAPlayer3.app.ConfigToml.General.SkinPath);
+        TJAPlayer3.app.Skin.Dispose();
+        TJAPlayer3.app.Skin = null;
+        TJAPlayer3.app.Skin = new CSkin(TJAPlayer3.app.ConfigToml.General.SkinPath);
 
 
         TJAPlayer3.Tx.DisposeTexture();

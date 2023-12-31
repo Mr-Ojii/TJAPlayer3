@@ -27,20 +27,20 @@ internal class FlyingNotes : CActivity
                 Flying[i].Lane = nLane;
                 Flying[i].Player = nPlayer;
                 Flying[i].X = StartPointX[nPlayer];
-                Flying[i].Y = TJAPlayer3.Skin.SkinConfig.Game.Effect.FlyingNotes.StartPointY[nPlayer];
+                Flying[i].Y = TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FlyingNotes.StartPointY[nPlayer];
                 Flying[i].StartPointX = StartPointX[nPlayer];
-                Flying[i].StartPointY = TJAPlayer3.Skin.SkinConfig.Game.Effect.FlyingNotes.StartPointY[nPlayer];
+                Flying[i].StartPointY = TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FlyingNotes.StartPointY[nPlayer];
                 Flying[i].OldValue = 0;
                 Flying[i].IsRoll = isRoll;
                 // 角度の決定
-                Flying[i].Height = Math.Abs(TJAPlayer3.Skin.SkinConfig.Game.Effect.FlyingNotes.EndPointY[nPlayer] - TJAPlayer3.Skin.SkinConfig.Game.Effect.FlyingNotes.StartPointY[nPlayer]);
-                Flying[i].Width = Math.Abs((TJAPlayer3.Skin.SkinConfig.Game.Effect.FlyingNotes.EndPointX[nPlayer] - StartPointX[nPlayer])) / 2;
+                Flying[i].Height = Math.Abs(TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FlyingNotes.EndPointY[nPlayer] - TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FlyingNotes.StartPointY[nPlayer]);
+                Flying[i].Width = Math.Abs((TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FlyingNotes.EndPointX[nPlayer] - StartPointX[nPlayer])) / 2;
                 //Console.WriteLine("{0}, {1}", width2P, height2P);
-                Flying[i].Counter = new CCounter(0, (180), TJAPlayer3.Skin.SkinConfig.Game.Effect.FlyingNotes.Timer, TJAPlayer3.Timer);
+                Flying[i].Counter = new CCounter(0, (180), TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FlyingNotes.Timer, TJAPlayer3.Timer);
                 //Flying[i].Counter = new CCounter(0, 200000, CDTXMania.Skin.Game_Effect_FlyingNotes_Timer, CDTXMania.Timer);
 
-                Flying[i].IncreaseX = (1.00 * Math.Abs((TJAPlayer3.Skin.SkinConfig.Game.Effect.FlyingNotes.EndPointX[nPlayer] - StartPointX[nPlayer]))) / (180);
-                Flying[i].IncreaseY = (1.00 * Math.Abs((TJAPlayer3.Skin.SkinConfig.Game.Effect.FlyingNotes.EndPointY[nPlayer] - TJAPlayer3.Skin.SkinConfig.Game.Effect.FlyingNotes.StartPointY[nPlayer]))) / (180);
+                Flying[i].IncreaseX = (1.00 * Math.Abs((TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FlyingNotes.EndPointX[nPlayer] - StartPointX[nPlayer]))) / (180);
+                Flying[i].IncreaseY = (1.00 * Math.Abs((TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FlyingNotes.EndPointY[nPlayer] - TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FlyingNotes.StartPointY[nPlayer]))) / (180);
                 break;
             }
         }
@@ -58,7 +58,7 @@ internal class FlyingNotes : CActivity
         }
         for (int i = 0; i < 2; i++)
         {
-            StartPointX[i] = TJAPlayer3.Skin.SkinConfig.Game.Effect.FlyingNotes.StartPointX[i];
+            StartPointX[i] = TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FlyingNotes.StartPointX[i];
         }
         base.On活性化();
     }
@@ -88,7 +88,7 @@ internal class FlyingNotes : CActivity
                     }
                     for (int n = Flying[i].OldValue; n < Flying[i].Counter.n現在の値; n++)
                     {
-                        if (TJAPlayer3.Skin.SkinConfig.Game.Effect.FlyingNotes.IsUsingEasing)
+                        if (TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FlyingNotes.IsUsingEasing)
                         {
                             Flying[i].X = Flying[i].StartPointX + Flying[i].Width + ((-Math.Cos(Flying[i].Counter.n現在の値 * (Math.PI / 180)) * Flying[i].Width));
                         }
@@ -97,7 +97,7 @@ internal class FlyingNotes : CActivity
                             Flying[i].X += Flying[i].IncreaseX;
                         }
 
-                        if (n % TJAPlayer3.Skin.SkinConfig.Game.Effect.FireWorks.Timing == 0 && !Flying[i].IsRoll && Flying[i].Counter.n現在の値 > 18)
+                        if (n % TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FireWorks.Timing == 0 && !Flying[i].IsRoll && Flying[i].Counter.n現在の値 > 18)
                         {
                             if (Flying[i].Lane == 3 || Flying[i].Lane == 4)
                             {
@@ -108,12 +108,12 @@ internal class FlyingNotes : CActivity
 
                         if (Flying[i].Player == 0)
                         {
-                            Flying[i].Y = (TJAPlayer3.Skin.SkinConfig.Game.Effect.FlyingNotes.StartPointY[Flying[i].Player]) - Math.Sin(Flying[i].Counter.n現在の値 * (Math.PI / 180)) * TJAPlayer3.Skin.SkinConfig.Game.Effect.FlyingNotes.Sine;
+                            Flying[i].Y = (TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FlyingNotes.StartPointY[Flying[i].Player]) - Math.Sin(Flying[i].Counter.n現在の値 * (Math.PI / 180)) * TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FlyingNotes.Sine;
                             Flying[i].Y -= Flying[i].IncreaseY * Flying[i].Counter.n現在の値;
                         }
                         else
                         {
-                            Flying[i].Y = (TJAPlayer3.Skin.SkinConfig.Game.Effect.FlyingNotes.StartPointY[Flying[i].Player]) + Math.Sin(Flying[i].Counter.n現在の値 * (Math.PI / 180)) * TJAPlayer3.Skin.SkinConfig.Game.Effect.FlyingNotes.Sine;
+                            Flying[i].Y = (TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FlyingNotes.StartPointY[Flying[i].Player]) + Math.Sin(Flying[i].Counter.n現在の値 * (Math.PI / 180)) * TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FlyingNotes.Sine;
                             Flying[i].Y += Flying[i].IncreaseY * Flying[i].Counter.n現在の値;
                         }
 

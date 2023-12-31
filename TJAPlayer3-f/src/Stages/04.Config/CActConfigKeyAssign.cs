@@ -33,7 +33,7 @@ internal class CActConfigKeyAssign : CActivity
     {
         if (!this.bキー入力待ち)
         {
-            TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
+            TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
             switch (this.n現在の選択行)
             {
                 case 0x10:
@@ -56,7 +56,7 @@ internal class CActConfigKeyAssign : CActivity
     {
         if (!this.bキー入力待ち)
         {
-            TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
+            TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
             this.n現在の選択行 = (this.n現在の選択行 + 1) % 0x12;
         }
     }
@@ -64,7 +64,7 @@ internal class CActConfigKeyAssign : CActivity
     {
         if (!this.bキー入力待ち)
         {
-            TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
+            TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
             this.n現在の選択行 = ((this.n現在の選択行 - 1) + 0x12) % 0x12;
         }
     }
@@ -99,7 +99,7 @@ internal class CActConfigKeyAssign : CActivity
             {
                 if (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
                 {
-                    TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
+                    TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
                     this.bキー入力待ち = false;
                     TJAPlayer3.app.InputManager.tSwapEventList();
                 }
@@ -111,7 +111,7 @@ internal class CActConfigKeyAssign : CActivity
             }
             else if ((TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Delete) && (this.n現在の選択行 >= 0)) && (this.n現在の選択行 <= 15))
             {
-                TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
+                TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
                 TJAPlayer3.app.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].DeviceType = EInputDevice.Unknown;
                 TJAPlayer3.app.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].ID = 0;
                 TJAPlayer3.app.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].Code = 0;
@@ -291,7 +291,7 @@ internal class CActConfigKeyAssign : CActivity
                 {
                     if (device.bIsKeyPressed(i))
                     {
-                        TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
+                        TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
                         TJAPlayer3.app.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する(EInputDevice.Joypad, device.ID, i);
                         TJAPlayer3.app.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].DeviceType = EInputDevice.Joypad;
                         TJAPlayer3.app.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].ID = device.ID;
@@ -316,7 +316,7 @@ internal class CActConfigKeyAssign : CActivity
                 i != (int)SlimDXKeys.Key.Delete &&
                     TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed(i))
             {
-                TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
+                TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
                 TJAPlayer3.app.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する(EInputDevice.KeyBoard, 0, i);
                 TJAPlayer3.app.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].DeviceType = EInputDevice.KeyBoard;
                 TJAPlayer3.app.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].ID = 0;
@@ -336,7 +336,7 @@ internal class CActConfigKeyAssign : CActivity
                 {
                     if (device.bIsKeyPressed(i))
                     {
-                        TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
+                        TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
                         TJAPlayer3.app.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する(EInputDevice.MIDIInput, device.ID, i);
                         TJAPlayer3.app.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].DeviceType = EInputDevice.MIDIInput;
                         TJAPlayer3.app.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].ID = device.ID;
@@ -367,7 +367,7 @@ internal class CActConfigKeyAssign : CActivity
     private void tDrawText(int x, int y, string str, bool b強調, float fScale)
     {
         Color fontcol = b強調 ? Color.Cyan : Color.White;
-        using (CTexture fonttex = TJAPlayer3.tCreateTexture(this.fontRenderer.DrawText(str, fontcol, Color.DarkCyan, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio)))
+        using (CTexture fonttex = TJAPlayer3.tCreateTexture(this.fontRenderer.DrawText(str, fontcol, Color.DarkCyan, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio)))
         {
             fonttex.vcScaling.X = fScale;
             fonttex.vcScaling.Y = fScale;

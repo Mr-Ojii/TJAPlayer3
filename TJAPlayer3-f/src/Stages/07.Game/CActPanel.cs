@@ -34,7 +34,7 @@ internal class CActPanel : CActivity
             {
                 TJAPlayer3.t安全にDisposeする(ref txMusicName);
                 TJAPlayer3.t安全にDisposeする(ref txSubTitleName);
-                using (var bmpSongTitle = pfMusicName.DrawText(songName, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameForeColor, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+                using (var bmpSongTitle = pfMusicName.DrawText(songName, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._MusicNameForeColor, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._MusicNameBackColor, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                 {
                     this.txMusicName = TJAPlayer3.tCreateTexture(bmpSongTitle);
                 }
@@ -44,7 +44,7 @@ internal class CActPanel : CActivity
                 }
                 if (!string.IsNullOrEmpty(subtitle))
                 {
-                    using (var bmpSubTitle = pfSubTitleName.DrawText(subtitle, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameForeColor, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+                    using (var bmpSubTitle = pfSubTitleName.DrawText(subtitle, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._MusicNameForeColor, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._MusicNameBackColor, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                     {
                         this.txSubTitleName = TJAPlayer3.tCreateTexture(bmpSubTitle);
                     }
@@ -54,7 +54,7 @@ internal class CActPanel : CActivity
                     }
                 }
 
-                using (var bmpDiff = pfMusicName.DrawText(stageText, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._StageTextForeColor, TJAPlayer3.Skin.SkinConfig.Game.PanelFont._StageTextBackColor, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+                using (var bmpDiff = pfMusicName.DrawText(stageText, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._StageTextForeColor, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._StageTextBackColor, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                 {
                     this.tx難易度とステージ数 = TJAPlayer3.tCreateTexture(bmpDiff);
                 }
@@ -68,7 +68,7 @@ internal class CActPanel : CActivity
         }
         if (!string.IsNullOrEmpty(genreName))
         {
-            this.txGENRE = TJAPlayer3.Tx.TxCGen(TJAPlayer3.Skin.nStrジャンルtoNum(genreName).ToString());
+            this.txGENRE = TJAPlayer3.Tx.TxCGen(TJAPlayer3.app.Skin.nStrジャンルtoNum(genreName).ToString());
         }
 
         this.ct進行用 = new CCounter(0, 2000, 2, TJAPlayer3.Timer);
@@ -89,8 +89,8 @@ internal class CActPanel : CActivity
 
     public override void On活性化()
     {
-        this.pfMusicName = new CCachedFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameFontSize);
-        this.pfSubTitleName = new CCachedFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.SubTitleNameFontSize);
+        this.pfMusicName = new CCachedFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameFontSize);
+        this.pfSubTitleName = new CCachedFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.SubTitleNameFontSize);
 
         this.txPanel = null;
         this.ct進行用 = new CCounter();
@@ -123,9 +123,9 @@ internal class CActPanel : CActivity
                 this.ct進行用.n現在の値 = 300;
             }
             if (this.txGENRE != null)
-                this.txGENRE.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.GenreX, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.GenreY);
+                this.txGENRE.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.GenreX, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.GenreY);
 
-            if (!TJAPlayer3.Skin.SkinConfig.Game.PanelFont.StageTextDisp)
+            if (!TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.StageTextDisp)
             {
                 if (this.txMusicName != null)
                 {
@@ -133,17 +133,17 @@ internal class CActPanel : CActivity
                     if (this.txMusicName.szTextureSize.Width <= 660.0f)
                         fRate = 1.0f;
                     this.txMusicName.vcScaling.X = fRate;
-                    if (TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameReferencePoint == CSkin.EReferencePoint.Center)
+                    if (TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._MusicNameReferencePoint == CSkin.EReferencePoint.Center)
                     {
-                        this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameX - ((this.txMusicName.szTextureSize.Width * fRate) / 2), TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameY);
+                        this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameX - ((this.txMusicName.szTextureSize.Width * fRate) / 2), TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameY);
                     }
-                    else if (TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameReferencePoint == CSkin.EReferencePoint.Left)
+                    else if (TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._MusicNameReferencePoint == CSkin.EReferencePoint.Left)
                     {
-                        this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameX, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameY);
+                        this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameX, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameY);
                     }
                     else
                     {
-                        this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameX - (this.txMusicName.szTextureSize.Width * fRate), TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameY);
+                        this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameX - (this.txMusicName.szTextureSize.Width * fRate), TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameY);
                     }
                     if (this.txSubTitleName != null)
                     {
@@ -151,17 +151,17 @@ internal class CActPanel : CActivity
                         if (this.txSubTitleName.szTextureSize.Width <= 600.0f)
                             fRate = 1.0f;
                         this.txSubTitleName.vcScaling.X = fRate;
-                        if (TJAPlayer3.Skin.SkinConfig.Game.PanelFont._SubTitleNameReferencePoint == CSkin.EReferencePoint.Center)
+                        if (TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._SubTitleNameReferencePoint == CSkin.EReferencePoint.Center)
                         {
-                            this.txSubTitleName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.SubTitleNameX - ((this.txSubTitleName.szTextureSize.Width * fRate) / 2), TJAPlayer3.Skin.SkinConfig.Game.PanelFont.SubTitleNameY);
+                            this.txSubTitleName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.SubTitleNameX - ((this.txSubTitleName.szTextureSize.Width * fRate) / 2), TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.SubTitleNameY);
                         }
-                        else if (TJAPlayer3.Skin.SkinConfig.Game.PanelFont._SubTitleNameReferencePoint == CSkin.EReferencePoint.Left)
+                        else if (TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._SubTitleNameReferencePoint == CSkin.EReferencePoint.Left)
                         {
-                            this.txSubTitleName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.SubTitleNameX, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.SubTitleNameY);
+                            this.txSubTitleName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.SubTitleNameX, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.SubTitleNameY);
                         }
                         else
                         {
-                            this.txSubTitleName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.SubTitleNameX - (this.txSubTitleName.szTextureSize.Width * fRate), TJAPlayer3.Skin.SkinConfig.Game.PanelFont.SubTitleNameY);
+                            this.txSubTitleName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.SubTitleNameX - (this.txSubTitleName.szTextureSize.Width * fRate), TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.SubTitleNameY);
                         }
                     }
                 }
@@ -214,46 +214,46 @@ internal class CActPanel : CActivity
                     {
                         b初めての進行描画 = false;
                     }
-                    if (TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameReferencePoint == CSkin.EReferencePoint.Center)
+                    if (TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._MusicNameReferencePoint == CSkin.EReferencePoint.Center)
                     {
-                        this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameX - ((this.txMusicName.szTextureSize.Width * txMusicName.vcScaling.X) / 2), TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameY);
+                        this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameX - ((this.txMusicName.szTextureSize.Width * txMusicName.vcScaling.X) / 2), TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameY);
                     }
-                    else if (TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameReferencePoint == CSkin.EReferencePoint.Left)
+                    else if (TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._MusicNameReferencePoint == CSkin.EReferencePoint.Left)
                     {
-                        this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameX, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameY);
+                        this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameX, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameY);
                     }
                     else
                     {
-                        this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameX - (this.txMusicName.szTextureSize.Width * txMusicName.vcScaling.X), TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameY);
+                        this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameX - (this.txMusicName.szTextureSize.Width * txMusicName.vcScaling.X), TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameY);
                     }
                     if (this.txSubTitleName != null)
                     {
-                        if (TJAPlayer3.Skin.SkinConfig.Game.PanelFont._SubTitleNameReferencePoint == CSkin.EReferencePoint.Center)
+                        if (TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._SubTitleNameReferencePoint == CSkin.EReferencePoint.Center)
                         {
-                            this.txSubTitleName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.SubTitleNameX - ((this.txSubTitleName.szTextureSize.Width * this.txSubTitleName.vcScaling.X) / 2), TJAPlayer3.Skin.SkinConfig.Game.PanelFont.SubTitleNameY);
+                            this.txSubTitleName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.SubTitleNameX - ((this.txSubTitleName.szTextureSize.Width * this.txSubTitleName.vcScaling.X) / 2), TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.SubTitleNameY);
                         }
-                        else if (TJAPlayer3.Skin.SkinConfig.Game.PanelFont._SubTitleNameReferencePoint == CSkin.EReferencePoint.Left)
+                        else if (TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._SubTitleNameReferencePoint == CSkin.EReferencePoint.Left)
                         {
-                            this.txSubTitleName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.SubTitleNameX, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.SubTitleNameY);
+                            this.txSubTitleName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.SubTitleNameX, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.SubTitleNameY);
                         }
                         else
                         {
-                            this.txSubTitleName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.SubTitleNameX - (this.txSubTitleName.szTextureSize.Width * this.txSubTitleName.vcScaling.X), TJAPlayer3.Skin.SkinConfig.Game.PanelFont.SubTitleNameY);
+                            this.txSubTitleName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.SubTitleNameX - (this.txSubTitleName.szTextureSize.Width * this.txSubTitleName.vcScaling.X), TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.SubTitleNameY);
                         }
                     }
                 }
                 if (this.tx難易度とステージ数 != null)
-                    if (TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameReferencePoint == CSkin.EReferencePoint.Center)
+                    if (TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._MusicNameReferencePoint == CSkin.EReferencePoint.Center)
                     {
-                        this.tx難易度とステージ数.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameX - (this.tx難易度とステージ数.szTextureSize.Width / 2), TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameY);
+                        this.tx難易度とステージ数.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameX - (this.tx難易度とステージ数.szTextureSize.Width / 2), TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameY);
                     }
-                    else if (TJAPlayer3.Skin.SkinConfig.Game.PanelFont._MusicNameReferencePoint == CSkin.EReferencePoint.Left)
+                    else if (TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._MusicNameReferencePoint == CSkin.EReferencePoint.Left)
                     {
-                        this.tx難易度とステージ数.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameX, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameY);
+                        this.tx難易度とステージ数.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameX, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameY);
                     }
                     else
                     {
-                        this.tx難易度とステージ数.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameX - this.tx難易度とステージ数.szTextureSize.Width, TJAPlayer3.Skin.SkinConfig.Game.PanelFont.MusicNameY);
+                        this.tx難易度とステージ数.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameX - this.tx難易度とステージ数.szTextureSize.Width, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameY);
                     }
             }
         }

@@ -9,7 +9,7 @@ internal sealed class C曲リストノードComparerGenre : IComparer<C曲リス
 
     public int Compare(C曲リストノード n1, C曲リストノード n2)
     {
-        return TJAPlayer3.Skin.nStrGenreToNumForSort(n1.strGenre, order).CompareTo(TJAPlayer3.Skin.nStrGenreToNumForSort(n2.strGenre, order));
+        return TJAPlayer3.app.Skin.nStrGenreToNumForSort(n1.strGenre, order).CompareTo(TJAPlayer3.app.Skin.nStrGenreToNumForSort(n2.strGenre, order));
     }
 
     private readonly int order;

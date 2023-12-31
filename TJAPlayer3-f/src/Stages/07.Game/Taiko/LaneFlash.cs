@@ -40,7 +40,7 @@ public class LaneFlash : CActivity
             Counter.t進行();
             if (Counter.b終了値に達した) Counter.t停止();
             Texture.Opacity = ((150 - Counter.n現在の値) * 255) / 100;
-            Texture.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldBGX[Player], TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldBGY[Player]);
+            Texture.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[Player], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGY[Player]);
         }
         return base.On進行描画();
     }

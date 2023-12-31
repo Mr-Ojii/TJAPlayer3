@@ -36,11 +36,11 @@ class GoGoSplash : CActivity
         }
         if (Splash.b進行中)
         {
-            for (int i = 0; i < TJAPlayer3.Skin.SkinConfig.Game.Effect.GoGoSplash.X.Length; i++)
+            for (int i = 0; i < TJAPlayer3.app.Skin.SkinConfig.Game.Effect.GoGoSplash.X.Length; i++)
             {
-                if (i > TJAPlayer3.Skin.SkinConfig.Game.Effect.GoGoSplash.Y.Length) break;
+                if (i > TJAPlayer3.app.Skin.SkinConfig.Game.Effect.GoGoSplash.Y.Length) break;
                 // Yの配列がiよりも小さかったらそこでキャンセルする。
-                if (TJAPlayer3.Skin.SkinConfig.Game.Effect.GoGoSplash.Rotate && TJAPlayer3.Tx.Effects_GoGoSplash != null)
+                if (TJAPlayer3.app.Skin.SkinConfig.Game.Effect.GoGoSplash.Rotate && TJAPlayer3.Tx.Effects_GoGoSplash != null)
                 {
                     // Switch文を使いたかったが、定数じゃないから使えねぇ!!!!
                     if (i == 0)
@@ -51,11 +51,11 @@ class GoGoSplash : CActivity
                     {
                         TJAPlayer3.Tx.Effects_GoGoSplash.fRotation = -0.13962634015954636f;
                     }
-                    else if (i == TJAPlayer3.Skin.SkinConfig.Game.Effect.GoGoSplash.X.Length - 2)
+                    else if (i == TJAPlayer3.app.Skin.SkinConfig.Game.Effect.GoGoSplash.X.Length - 2)
                     {
                         TJAPlayer3.Tx.Effects_GoGoSplash.fRotation = 0.13962634015954636f;
                     }
-                    else if (i == TJAPlayer3.Skin.SkinConfig.Game.Effect.GoGoSplash.X.Length - 1)
+                    else if (i == TJAPlayer3.app.Skin.SkinConfig.Game.Effect.GoGoSplash.X.Length - 1)
                     {
                         TJAPlayer3.Tx.Effects_GoGoSplash.fRotation = 0.2792526803190927f;
                     }
@@ -64,7 +64,7 @@ class GoGoSplash : CActivity
                         TJAPlayer3.Tx.Effects_GoGoSplash.fRotation = 0.0f;
                     }
                 }
-                TJAPlayer3.Tx.Effects_GoGoSplash?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, TJAPlayer3.Skin.SkinConfig.Game.Effect.GoGoSplash.X[i], TJAPlayer3.Skin.SkinConfig.Game.Effect.GoGoSplash.Y[i], new Rectangle(TJAPlayer3.Skin.SkinConfig.Game.Effect.GoGoSplash.Width * Splash.n現在の値, 0, TJAPlayer3.Skin.SkinConfig.Game.Effect.GoGoSplash.Width, TJAPlayer3.Skin.SkinConfig.Game.Effect.GoGoSplash.Height));
+                TJAPlayer3.Tx.Effects_GoGoSplash?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, TJAPlayer3.app.Skin.SkinConfig.Game.Effect.GoGoSplash.X[i], TJAPlayer3.app.Skin.SkinConfig.Game.Effect.GoGoSplash.Y[i], new Rectangle(TJAPlayer3.app.Skin.SkinConfig.Game.Effect.GoGoSplash.Width * Splash.n現在の値, 0, TJAPlayer3.app.Skin.SkinConfig.Game.Effect.GoGoSplash.Width, TJAPlayer3.app.Skin.SkinConfig.Game.Effect.GoGoSplash.Height));
             }
         }
         return base.On進行描画();
@@ -72,7 +72,7 @@ class GoGoSplash : CActivity
 
     public void StartSplash()
     {
-        Splash = new CCounter(0, TJAPlayer3.Skin.SkinConfig.Game.Effect.GoGoSplash.Ptn - 1, TJAPlayer3.Skin.SkinConfig.Game.Effect.GoGoSplash.Timer, TJAPlayer3.Timer);
+        Splash = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.Effect.GoGoSplash.Ptn - 1, TJAPlayer3.app.Skin.SkinConfig.Game.Effect.GoGoSplash.Timer, TJAPlayer3.Timer);
     }
 
     private CCounter Splash;

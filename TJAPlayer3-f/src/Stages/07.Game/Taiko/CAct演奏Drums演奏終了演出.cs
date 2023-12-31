@@ -680,7 +680,7 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
                                 {
                                     TJAPlayer3.Tx.End_DonderFullCombo_Lane.Opacity = 255;
                                 }
-                                TJAPlayer3.Tx.End_DonderFullCombo_Lane.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.Skin.SkinConfig.Game.ScrollFieldY[i]);
+                                TJAPlayer3.Tx.End_DonderFullCombo_Lane.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
                             }
                             #endregion
                             #region[ 文字 ]
@@ -983,7 +983,7 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
             {
                 if (!this.bリザルトボイス再生済み)
                 {
-                    TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND成績発表].t再生する();
+                    TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND成績発表].t再生する();
                     this.bリザルトボイス再生済み = true;
                 }
                 return 1;

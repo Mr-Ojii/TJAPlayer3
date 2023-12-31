@@ -31,7 +31,7 @@ internal class CActMob : CActivity
         if (TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount != 1)
             return base.On進行描画();
 
-        if (this.ctMob != null && this.ctMobPtn != null && TJAPlayer3.Skin.Game_Mob_Ptn != 0)
+        if (this.ctMob != null && this.ctMobPtn != null && TJAPlayer3.app.Skin.Game_Mob_Ptn != 0)
         {
             ctMob.t進行LoopDb();
             ctMobPtn.t進行LoopDb();

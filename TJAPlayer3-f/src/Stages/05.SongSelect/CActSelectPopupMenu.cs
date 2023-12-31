@@ -50,7 +50,7 @@ internal class CActSelectPopupMenu : CActivity
         stqMenuTitle = new stQuickMenuItem();
         stqMenuTitle.cItem = new CItemBase();
         stqMenuTitle.cItem.strName = title;
-        using (var bitmap = prvFont.DrawText(title, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+        using (var bitmap = prvFont.DrawText(title, Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
         {
             stqMenuTitle.txName = TJAPlayer3.tCreateTexture(bitmap);
         }
@@ -59,7 +59,7 @@ internal class CActSelectPopupMenu : CActivity
         {
             stQuickMenuItem stqm = new stQuickMenuItem();
             stqm.cItem = menulist[i];
-            using (var bitmap = prvFont.DrawText(menulist[i].strName, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+            using (var bitmap = prvFont.DrawText(menulist[i].strName, Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
             {
                 stqm.txName = TJAPlayer3.tCreateTexture(bitmap);
             }
@@ -82,7 +82,7 @@ internal class CActSelectPopupMenu : CActivity
     {
         if (this.bキー入力待ち)
         {
-            TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音].t再生する();
+            TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND決定音].t再生する();
 
             if (this.n現在の選択行 != lciMenuItems.Length - 1)
             {
@@ -129,7 +129,7 @@ internal class CActSelectPopupMenu : CActivity
     {
         if (this.bキー入力待ち)
         {
-            TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
+            TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
             if (bIsSelectingIntItem)
             {
                 lciMenuItems[n現在の選択行].cItem.tMoveItemValueToForward();		// 項目移動と数値上下は方向が逆になるので注意
@@ -147,7 +147,7 @@ internal class CActSelectPopupMenu : CActivity
     {
         if (this.bキー入力待ち)
         {
-            TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
+            TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
             if (bIsSelectingIntItem)
             {
                 lciMenuItems[n現在の選択行].cItem.tMoveItemValueToNext();		// 項目移動と数値上下は方向が逆になるので注意
@@ -211,7 +211,7 @@ internal class CActSelectPopupMenu : CActivity
                 if ((TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
                     && this.bEsc有効)
                 {	// キャンセル
-                    TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
+                    TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
                     tCancel();
                     this.bIsActivePopupMenu = false;
                 }
@@ -307,8 +307,8 @@ internal class CActSelectPopupMenu : CActivity
                             break;
                     }
                     using (var bmpStr = bValueBold ?
-                        prvFont.DrawText(s, Color.White, Color.Black, Color.Yellow, Color.OrangeRed, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio) :
-                        prvFont.DrawText(s, Color.White, Color.Black, TJAPlayer3.Skin.SkinConfig.Font.EdgeRatio))
+                        prvFont.DrawText(s, Color.White, Color.Black, Color.Yellow, Color.OrangeRed, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio) :
+                        prvFont.DrawText(s, Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                     {
                         using (var ctStr = TJAPlayer3.tCreateTexture(bmpStr))
                         {

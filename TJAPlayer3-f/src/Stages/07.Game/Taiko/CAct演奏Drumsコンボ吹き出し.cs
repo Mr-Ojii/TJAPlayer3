@@ -84,16 +84,16 @@ internal class CAct演奏Drumsコンボ吹き出し : CActivity
 
                     if (this.ct進行[i].b進行中)
                     {
-                        TJAPlayer3.Tx.Balloon_Combo[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboX[i], TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboY[i]);
+                        TJAPlayer3.Tx.Balloon_Combo[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboY[i]);
                         if (this.nCombo_渡[i] < 1000) //2016.08.23 kairera0467 仮実装。
                         {
-                            this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboNumberX[i], TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboNumberY[i], string.Format("{0,4:###0}", this.nCombo_渡[i]));
-                            TJAPlayer3.Tx.Balloon_Number_Combo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboTextX[i], TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboTextY[i], new Rectangle(0, 54, 77, 32));
+                            this.t小文字表示(TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboNumberX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboNumberY[i], string.Format("{0,4:###0}", this.nCombo_渡[i]));
+                            TJAPlayer3.Tx.Balloon_Number_Combo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboTextX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboTextY[i], new Rectangle(0, 54, 77, 32));
                         }
                         else
                         {
-                            this.t小文字表示(TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboNumberExX[i], TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboNumberExY[i], string.Format("{0,4:###0}", this.nCombo_渡[i]));
-                            TJAPlayer3.Tx.Balloon_Number_Combo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboTextExX[i], TJAPlayer3.Skin.SkinConfig.Game.Balloon.ComboTextExY[i], new Rectangle(0, 54, 77, 32));
+                            this.t小文字表示(TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboNumberExX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboNumberExY[i], string.Format("{0,4:###0}", this.nCombo_渡[i]));
+                            TJAPlayer3.Tx.Balloon_Number_Combo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboTextExX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboTextExY[i], new Rectangle(0, 54, 77, 32));
                         }
                     }
                 }
