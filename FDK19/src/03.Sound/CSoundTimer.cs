@@ -92,9 +92,7 @@ public class CSoundTimer : CTimerBase
         }
     }
 
-    internal ISoundDevice Device;	// debugのため、一時的にprotectedをpublicにする。後で元に戻しておくこと。
-    //protected Thread thSendInput = null;
-    //protected Thread thSnapTimers = null;
+    private ISoundDevice Device;
     private CTimer ctDInputTimer;
     private long nDInputTimerCounter = 0;
     private long nSoundTimerCounter = 0;
