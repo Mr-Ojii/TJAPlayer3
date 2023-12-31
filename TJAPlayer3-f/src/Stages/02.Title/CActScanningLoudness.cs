@@ -38,9 +38,9 @@ internal class CActScanningLoudness : CActivity
         {
             return 0;
         }
-        this.ctNowScanningLoudness.t進行Loop();
-        if (bIsActivelyScanning && TJAPlayer3.Tx.Scanning_Loudness != null)
+        if (bIsActivelyScanning && TJAPlayer3.Tx.Scanning_Loudness != null && this.ctNowScanningLoudness != null)
         {
+            this.ctNowScanningLoudness.t進行Loop();
             TJAPlayer3.Tx.Scanning_Loudness.Opacity = (int)(176.0 + 80.0 * Math.Sin((double)(2 * Math.PI * this.ctNowScanningLoudness.n現在の値 / 100.0)));
             TJAPlayer3.Tx.Scanning_Loudness.t2D描画(TJAPlayer3.app.Device, 18 + 89 + 18, 7); // 2018-09-03 twopointzero: display right of Enum_Song, using its width and margin
         }
@@ -48,5 +48,5 @@ internal class CActScanningLoudness : CActivity
         return 0;
     }
 
-    private CCounter ctNowScanningLoudness;
+    private CCounter? ctNowScanningLoudness;
 }
