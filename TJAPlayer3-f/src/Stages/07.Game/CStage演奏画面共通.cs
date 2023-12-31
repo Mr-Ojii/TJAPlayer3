@@ -2484,7 +2484,7 @@ internal class CStage演奏画面共通 : CStage
     }
     protected void tキー入力()
     {
-        IInputDevice keyboard = TJAPlayer3.InputManager.Keyboard;
+        IInputDevice keyboard = TJAPlayer3.app.InputManager.Keyboard;
         if (keyboard.bIsKeyPressed((int)SlimDXKeys.Key.F1))
         {
             if (!this.actPauseMenu.bIsActivePopupMenu && this.bPAUSE == false)

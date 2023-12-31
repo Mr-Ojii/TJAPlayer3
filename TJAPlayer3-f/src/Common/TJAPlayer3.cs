@@ -74,7 +74,7 @@ internal class TJAPlayer3 : Game
         private set;
     }
 
-    public static CInputManager InputManager
+    public CInputManager InputManager
     {
         get;
         private set;

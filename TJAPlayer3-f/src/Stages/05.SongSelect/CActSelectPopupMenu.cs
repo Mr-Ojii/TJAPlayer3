@@ -208,7 +208,7 @@ internal class CActSelectPopupMenu : CActivity
             if (this.bキー入力待ち)
             {
                 #region [ キー入力: キャンセル ]
-                if ((TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
+                if ((TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
                     && this.bEsc有効)
                 {	// キャンセル
                     TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
@@ -222,7 +222,7 @@ internal class CActSelectPopupMenu : CActivity
                 if (
                     TJAPlayer3.Pad.bPressed(EPad.LRed)
                     || TJAPlayer3.Pad.bPressed(EPad.RRed)
-                    || (TJAPlayer3.app.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return)))
+                    || (TJAPlayer3.app.ConfigIni.bEnterがキー割り当てのどこにも使用されていない && TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Return)))
                 {
                     eAction = ESortAction.Decide;
                 }
@@ -232,14 +232,14 @@ internal class CActSelectPopupMenu : CActivity
                 }
                 #endregion
                 #region [ キー入力: 前に移動 ]
-                this.ctキー反復用.Up.tキー反復(TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.UpArrow), new CCounter.DGキー処理(this.t前に移動));
+                this.ctキー反復用.Up.tキー反復(TJAPlayer3.app.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.UpArrow), new CCounter.DGキー処理(this.t前に移動));
                 if (TJAPlayer3.Pad.bPressed(EPad.LBlue))
                 {
                     this.t前に移動();
                 }
                 #endregion
                 #region [ キー入力: 次に移動 ]
-                this.ctキー反復用.Down.tキー反復(TJAPlayer3.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.DownArrow), new CCounter.DGキー処理(this.t次に移動));
+                this.ctキー反復用.Down.tキー反復(TJAPlayer3.app.InputManager.Keyboard.bIsKeyDown((int)SlimDXKeys.Key.DownArrow), new CCounter.DGキー処理(this.t次に移動));
                 if (TJAPlayer3.Pad.bPressed(EPad.RBlue))
                 {
                     this.t次に移動();

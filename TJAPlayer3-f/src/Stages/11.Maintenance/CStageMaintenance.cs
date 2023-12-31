@@ -70,7 +70,7 @@ class CStageMaintenance : CStage
             base.b初めての進行描画 = false;
         }
 
-        if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
+        if (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
             return 1;
 
         if ((don is null) || (ka is null))

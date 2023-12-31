@@ -97,7 +97,7 @@ class CAct演奏Drums特訓モード : CActivity
 
             TJAPlayer3.app.act文字コンソール.tPrint(0, 0, C文字コンソール.EFontType.白, "TRAINING MODE (BETA)");
 
-            if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Space))
+            if (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Space))
             {
                 if (this.b特訓PAUSE)
                 {
@@ -110,7 +110,7 @@ class CAct演奏Drums特訓モード : CActivity
                     this.t演奏を停止する();
                 }
             }
-            if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.bPressed(EPad.LBlue))
+            if (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.LeftArrow) || TJAPlayer3.Pad.bPressed(EPad.LBlue))
             {
                 if (this.b特訓PAUSE)
                 {
@@ -137,7 +137,7 @@ class CAct演奏Drums特訓モード : CActivity
                     }
                 }
             }
-            if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.bPressed(EPad.RBlue))
+            if (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.RightArrow) || TJAPlayer3.Pad.bPressed(EPad.RBlue))
             {
                 if (this.b特訓PAUSE)
                 {
@@ -165,7 +165,7 @@ class CAct演奏Drums特訓モード : CActivity
 
                 }
             }
-            if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.PageDown))
+            if (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.PageDown))
             {
                 if (this.b特訓PAUSE)
                 {
@@ -178,7 +178,7 @@ class CAct演奏Drums特訓モード : CActivity
                     TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND特訓スクロール].t再生する();
                 }
             }
-            if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.PageUp))
+            if (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.PageUp))
             {
                 if (this.b特訓PAUSE)
                 {
@@ -213,7 +213,7 @@ class CAct演奏Drums特訓モード : CActivity
                     }
                 }
             }
-            if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Home))
+            if (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Home))
             {
                 if (this.b特訓PAUSE)
                 {
@@ -227,7 +227,7 @@ class CAct演奏Drums特訓モード : CActivity
                     }
                 }
             }
-            if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.End))
+            if (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.End))
             {
                 if (this.b特訓PAUSE)
                 {
@@ -241,7 +241,7 @@ class CAct演奏Drums特訓モード : CActivity
                     }
                 }
             }
-            if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.A))
+            if (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.A))
                 this.t現在の位置にジャンプポイントを設定する();
 
             if (this.bスクロール中)

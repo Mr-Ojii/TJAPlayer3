@@ -97,19 +97,19 @@ internal class CActConfigKeyAssign : CActivity
         {
             if (this.bキー入力待ち)
             {
-                if (TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
+                if (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
                 {
                     TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND取消音].t再生する();
                     this.bキー入力待ち = false;
-                    TJAPlayer3.InputManager.tSwapEventList();
+                    TJAPlayer3.app.InputManager.tSwapEventList();
                 }
                 else if ((this.tキーチェックとアサイン_Keyboard() || this.tキーチェックとアサイン_MidiIn()) || (this.tキーチェックとアサイン_Joypad() || this.tキーチェックとアサイン_Mouse()))
                 {
                     this.bキー入力待ち = false;
-                    TJAPlayer3.InputManager.tSwapEventList();
+                    TJAPlayer3.app.InputManager.tSwapEventList();
                 }
             }
-            else if ((TJAPlayer3.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Delete) && (this.n現在の選択行 >= 0)) && (this.n現在の選択行 <= 15))
+            else if ((TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Delete) && (this.n現在の選択行 >= 0)) && (this.n現在の選択行 <= 15))
             {
                 TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
                 TJAPlayer3.app.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].DeviceType = EInputDevice.Unknown;
@@ -283,7 +283,7 @@ internal class CActConfigKeyAssign : CActivity
     }
     private bool tキーチェックとアサイン_Joypad()
     {
-        foreach (IInputDevice device in TJAPlayer3.InputManager.listInputDevices)
+        foreach (IInputDevice device in TJAPlayer3.app.InputManager.listInputDevices)
         {
             if (device.eInputDeviceType == EInputDeviceType.Joystick)
             {
@@ -314,7 +314,7 @@ internal class CActConfigKeyAssign : CActivity
                 i != (int)SlimDXKeys.Key.LeftArrow &&
                 i != (int)SlimDXKeys.Key.RightArrow &&
                 i != (int)SlimDXKeys.Key.Delete &&
-                    TJAPlayer3.InputManager.Keyboard.bIsKeyPressed(i))
+                    TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed(i))
             {
                 TJAPlayer3.Skin.SystemSounds[Eシステムサウンド.SOUND決定音]?.t再生する();
                 TJAPlayer3.app.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する(EInputDevice.KeyBoard, 0, i);
@@ -328,7 +328,7 @@ internal class CActConfigKeyAssign : CActivity
     }
     private bool tキーチェックとアサイン_MidiIn()
     {
-        foreach (IInputDevice device in TJAPlayer3.InputManager.listInputDevices)
+        foreach (IInputDevice device in TJAPlayer3.app.InputManager.listInputDevices)
         {
             if (device.eInputDeviceType == EInputDeviceType.MidiIn)
             {
@@ -352,7 +352,7 @@ internal class CActConfigKeyAssign : CActivity
     {
         for (int i = 0; i < 8; i++)
         {
-            if (TJAPlayer3.InputManager.Mouse.bIsKeyPressed(i))
+            if (TJAPlayer3.app.InputManager.Mouse.bIsKeyPressed(i))
             {
                 TJAPlayer3.app.ConfigIni.t指定した入力が既にアサイン済みである場合はそれを全削除する(EInputDevice.Mouse, 0, i);
                 TJAPlayer3.app.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].DeviceType = EInputDevice.Mouse;
