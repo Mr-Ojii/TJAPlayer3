@@ -51,7 +51,7 @@ internal class CActPlayInfo : CActivity
             string.Format("NoteM:         {0:####0}", TJAPlayer3.DTX[0].nノーツ数[2]),
             string.Format("NoteE:         {0:####0}", TJAPlayer3.DTX[0].nノーツ数[1]),
             string.Format("NoteN:         {0:####0}", TJAPlayer3.DTX[0].nノーツ数[0]),
-            string.Format("Frame:         {0:####0} fps", TJAPlayer3.FPS.nFPS),
+            string.Format("Frame:         {0:####0} fps", TJAPlayer3.app.FPS.nFPS),
             string.Format("BPM:           {0:####0.0000}", this.dbBPM),
             string.Format("Part:          {0:####0}/{1:####0}", NowMeasure[0], NowMeasure[1]),
             string.Format("Time:          {0:####0.00}/{1:####0.00}", ((double)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.app.ConfigToml.PlayOption.PlaySpeed) / 20.0))) / 1000.0, ((double)lastChipTime) / 1000.0),

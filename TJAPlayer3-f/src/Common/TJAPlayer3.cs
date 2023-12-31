@@ -68,7 +68,7 @@ internal class TJAPlayer3 : Game
 
     public static bool IsPerformingCalibration;
 
-    public static CFPS FPS
+    public CFPS FPS
     {
         get;
         private set;
