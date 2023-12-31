@@ -222,7 +222,361 @@ internal class TJAPlayer3 : Game
         : base("TJAPlayer3-f", 1280, 720)
     {
         TJAPlayer3.app = this;
-        this.t起動処理();
+
+        Program.Renderer = this.RendererName;
+        #region [ Config.toml の読み込み ]
+        string tomlpath = strEXEのあるフォルダ + "Config.toml";
+        ConfigToml = CConfigToml.Load(tomlpath);
+        #endregion
+        #region [ Config.ini の読込み ]
+        //---------------------
+        ConfigIni = new CConfigIni();
+        string path = strEXEのあるフォルダ + "Config.ini";
+        if (File.Exists(path))
+        {
+            try
+            {
+                ConfigIni.tファイルから読み込み(path);
+            }
+            catch (Exception e)
+            {
+                //ConfigIni = new CConfigIni();	// 存在してなければ新規生成
+                Trace.TraceError(e.ToString());
+                Trace.TraceError("An exception has occurred, but processing continues.");
+            }
+        }
+        //---------------------
+        #endregion
+        #region [ ログ出力開始 ]
+        //---------------------
+        Trace.AutoFlush = true;
+        Trace.Listeners.Add(new CTraceLogListener(new StreamWriter(Path.Combine(strEXEのあるフォルダ, "TJAPlayer3-f.log"), false, new UTF8Encoding(false))));
+
+        Trace.WriteLine("");
+        Trace.WriteLine("DTXMania powered by YAMAHA Silent Session Drums");
+        Trace.WriteLine(string.Format("Release: {0}", VERSION));
+        Trace.WriteLine("");
+        Trace.TraceInformation("----------------------");
+        Trace.TraceInformation("■ アプリケーションの初期化");
+        Trace.TraceInformation("OS Version: " + Environment.OSVersion);
+        Trace.TraceInformation("ProcessorCount: " + Environment.ProcessorCount.ToString());
+        Trace.TraceInformation("CLR Version: " + Environment.Version.ToString());
+        //---------------------
+        #endregion
+
+        #region [ FFmpegのパス設定 ]
+        if (!string.IsNullOrEmpty(ConfigToml.General.FFmpegPath))
+            FFmpeg.AutoGen.ffmpeg.RootPath = ConfigToml.General.FFmpegPath;
+        #endregion
+
+        #region [ ウィンドウ初期化 ]
+        //---------------------
+        base.Location = new Point(ConfigToml.Window.X, ConfigToml.Window.Y);   // #30675 2013.02.04 ikanick add
+
+
+        base.Title = "";
+
+        base.ClientSize = new Size(ConfigToml.Window.Width, ConfigToml.Window.Height);   // #34510 yyagi 2010.10.31 to change window size got from Config.ini
+
+        if (ConfigToml.Window.FullScreen)                       // #23510 2010.11.02 yyagi: add; to recover window size in case bootup with fullscreen mode
+        {                                                       // #30666 2013.02.02 yyagi: currentClientSize should be always made
+            currentClientSize = new Size(ConfigToml.Window.Width, ConfigToml.Window.Height);
+        }
+
+        base.Icon = Assembly.GetExecutingAssembly().GetManifestResourceStream("TJAPlayer3.TJAPlayer3-f.ico");
+        base.MouseWheel += this.Window_MouseWheel;
+        base.Resize += this.Window_ResizeOrMove;                       // #23510 2010.11.20 yyagi: to set resized window size in Config.ini
+        base.Move += this.Window_ResizeOrMove;
+        //---------------------
+        #endregion
+        #region [ Direct3D9 デバイスの生成 ]
+        //---------------------
+        this.WindowState = ConfigToml.Window.FullScreen ? FDK.Windowing.WindowState.FullScreen : FDK.Windowing.WindowState.Normal;
+        this.VSync = ConfigToml.Window.VSyncWait;
+        base.ClientSize = new Size(ConfigToml.Window.Width, ConfigToml.Window.Height);   // #23510 2010.10.31 yyagi: to recover window size. width and height are able to get from Config.ini.
+                                                                                         //---------------------
+        #endregion
+
+        DTX[0] = null;
+        DTX[1] = null;
+
+        #region [ Skin の初期化 ]
+        //---------------------
+        Trace.TraceInformation("スキンの初期化を行います。");
+        Trace.Indent();
+        try
+        {
+            Skin = new CSkin(TJAPlayer3.app.ConfigToml.General.SkinPath);
+            TJAPlayer3.app.ConfigToml.General.SkinPath = TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(true);    // 旧指定のSkinフォルダが消滅していた場合に備える
+            this.LogicalSize = new Size(Skin.SkinConfig.General.Width, Skin.SkinConfig.General.Height);
+            Trace.TraceInformation("スキンの初期化を完了しました。");
+        }
+        catch
+        {
+            Trace.TraceInformation("スキンの初期化に失敗しました。");
+            throw;
+        }
+        finally
+        {
+            Trace.Unindent();
+        }
+        //---------------------
+        #endregion
+        //-----------
+        #region [ Timer の初期化 ]
+        //---------------------
+        Trace.TraceInformation("タイマの初期化を行います。");
+        Trace.Indent();
+        try
+        {
+            Timer = new CTimer();
+            Trace.TraceInformation("タイマの初期化を完了しました。");
+        }
+        finally
+        {
+            Trace.Unindent();
+        }
+        //---------------------
+        #endregion
+        //-----------
+
+        #region [ FPS カウンタの初期化 ]
+        //---------------------
+        Trace.TraceInformation("FPSカウンタの初期化を行います。");
+        Trace.Indent();
+        try
+        {
+            FPS = new CFPS();
+            Trace.TraceInformation("FPSカウンタを生成しました。");
+        }
+        finally
+        {
+            Trace.Unindent();
+        }
+        //---------------------
+        #endregion
+        #region [ act文字コンソールの初期化 ]
+        //---------------------
+        Trace.TraceInformation("文字コンソールの初期化を行います。");
+        Trace.Indent();
+        try
+        {
+            act文字コンソール = new C文字コンソール();
+            Trace.TraceInformation("文字コンソールを生成しました。");
+            act文字コンソール.On活性化();
+            Trace.TraceInformation("文字コンソールを活性化しました。");
+            Trace.TraceInformation("文字コンソールの初期化を完了しました。");
+        }
+        catch (Exception exception)
+        {
+            Trace.TraceError(exception.ToString());
+            Trace.TraceError("文字コンソールの初期化に失敗しました。");
+        }
+        finally
+        {
+            Trace.Unindent();
+        }
+        //---------------------
+        #endregion
+        #region [ InputManager の初期化 ]
+        //---------------------
+        Trace.TraceInformation("InputManagerの初期化を行います。");
+        Trace.Indent();
+        try
+        {
+            InputManager = new CInputManager();
+            foreach (IInputDevice device in InputManager.listInputDevices)
+            {
+                if ((device.eInputDeviceType == EInputDeviceType.Joystick) && !ConfigToml.JoystickGUID.ContainsValue(device.GUID))
+                {
+                    int key = 0;
+                    while (ConfigToml.JoystickGUID.ContainsKey(key))
+                    {
+                        key++;
+                    }
+                    ConfigToml.JoystickGUID.Add(key, device.GUID);
+                }
+            }
+            InputCTS = new CancellationTokenSource();
+            Task.Factory.StartNew(() => InputLoop());
+            Trace.TraceInformation("InputManagerの初期化を完了しました。");
+        }
+        catch
+        {
+            Trace.TraceError("InputManagerの初期化に失敗しました。");
+            throw;
+        }
+        finally
+        {
+            Trace.Unindent();
+        }
+        //---------------------
+        #endregion
+        #region [ Pad の初期化 ]
+        //---------------------
+        Trace.TraceInformation("パッドの初期化を行います。");
+        Trace.Indent();
+        try
+        {
+            Pad = new CPad(ConfigIni, ConfigToml, InputManager);
+            Trace.TraceInformation("パッドの初期化を完了しました。");
+        }
+        catch (Exception exception3)
+        {
+            Trace.TraceError(exception3.ToString());
+            Trace.TraceError("パッドの初期化に失敗しました。");
+        }
+        finally
+        {
+            Trace.Unindent();
+        }
+        //---------------------
+        #endregion
+        #region [ SoundManager の初期化 ]
+        //---------------------
+        Trace.TraceInformation("サウンドデバイスの初期化を行います。");
+        Trace.Indent();
+        try
+        {
+            ESoundDeviceType soundDeviceType;
+            switch (TJAPlayer3.app.ConfigToml.SoundDevice.DeviceType)
+            {
+                case 0:
+                    soundDeviceType = ESoundDeviceType.BASS;
+                    break;
+                case 1:
+                    soundDeviceType = ESoundDeviceType.ASIO;
+                    break;
+                case 2:
+                    soundDeviceType = ESoundDeviceType.ExclusiveWASAPI;
+                    break;
+                case 3:
+                    soundDeviceType = ESoundDeviceType.SharedWASAPI;
+                    break;
+                default:
+                    soundDeviceType = ESoundDeviceType.Unknown;
+                    break;
+            }
+            SoundManager = new CSoundManager(soundDeviceType,
+                                        TJAPlayer3.app.ConfigToml.SoundDevice.WASAPIBufferSizeMs,
+                                        0,
+                                        TJAPlayer3.app.ConfigToml.SoundDevice.ASIODevice,
+                                        TJAPlayer3.app.ConfigToml.SoundDevice.BASSBufferSizeMs,
+                                        TJAPlayer3.app.ConfigToml.SoundDevice.UseOSTimer
+            );
+
+
+            Trace.TraceInformation("Initializing loudness scanning, song gain control, and sound group level control...");
+            Trace.Indent();
+            try
+            {
+                actScanningLoudness = new CActScanningLoudness();
+                actScanningLoudness.On活性化();
+                LoudnessMetadataScanner.ScanningStateChanged +=
+                    (_, args) => actScanningLoudness.bIsActivelyScanning = args.IsActivelyScanning;
+                LoudnessMetadataScanner.StartBackgroundScanning();
+
+                SongGainController = new SongGainController();
+                ConfigIniToSongGainControllerBinder.Bind(ConfigToml, SongGainController);
+
+                SoundGroupLevelController = new SoundGroupLevelController(CSound.listインスタンス);
+                ConfigIniToSoundGroupLevelControllerBinder.Bind(ConfigToml, SoundGroupLevelController);
+            }
+            finally
+            {
+                Trace.Unindent();
+                Trace.TraceInformation("Initialized loudness scanning, song gain control, and sound group level control.");
+            }
+
+            ShowWindowTitleWithSoundType();
+            CSoundManager.bIsTimeStretch = TJAPlayer3.app.ConfigToml.PlayOption.TimeStretch;
+            SoundManager.nMasterVolume = TJAPlayer3.app.ConfigToml.MasterVolume;
+            //FDK.CSoundManager.bIsMP3DecodeByWindowsCodec = CDTXMania.ConfigIni.bNoMP3Streaming;
+            Trace.TraceInformation("サウンドデバイスの初期化を完了しました。");
+        }
+        catch (Exception e)
+        {
+            throw new NullReferenceException("サウンドデバイスがひとつも有効になっていないため、サウンドデバイスの初期化ができませんでした。", e);
+        }
+        finally
+        {
+            Trace.Unindent();
+        }
+        //---------------------
+        #endregion
+        #region [ SongsManager の初期化 ]
+        //---------------------
+        Trace.TraceInformation("曲リストの初期化を行います。");
+        Trace.Indent();
+        try
+        {
+            SongsManager = new CSongsManager();
+            //				SongsManager_裏読 = new CSongsManager();
+            EnumSongs = new CEnumSongs();
+            actEnumSongs = new CActEnumSongs();
+            Trace.TraceInformation("曲リストの初期化を完了しました。");
+        }
+        catch (Exception e)
+        {
+            Trace.TraceError(e.ToString());
+            Trace.TraceError("曲リストの初期化に失敗しました。");
+        }
+        finally
+        {
+            Trace.Unindent();
+        }
+        //---------------------
+        #endregion
+        #region [ ステージの初期化 ]
+        //---------------------
+        r現在のステージ = null;
+        r直前のステージ = null;
+        stageStartUp = new CStageStartUp();
+        stageTitle = new CStageTitle();
+        //			stageオプション = new CStageオプション();
+        stageConfig = new CStageConfig();
+        stage選曲 = new CStage選曲();
+        stageSongLoading = new CStageSongLoading();
+        stage演奏ドラム画面 = new CStage演奏画面共通();
+        stageResult = new CStageResult();
+        stageChangeSkin = new CStageChangeSkin();
+        stageEnding = new CStageEnding();
+        stageMaintenance = new CStageMaintenance();
+        this.listトップレベルActivities = new List<CActivity>();
+        this.listトップレベルActivities.Add(actEnumSongs);
+        this.listトップレベルActivities.Add(act文字コンソール);
+        this.listトップレベルActivities.Add(stageStartUp);
+        this.listトップレベルActivities.Add(stageTitle);
+        //			this.listトップレベルActivities.Add( stageオプション );
+        this.listトップレベルActivities.Add(stageConfig);
+        this.listトップレベルActivities.Add(stage選曲);
+        this.listトップレベルActivities.Add(stageSongLoading);
+        this.listトップレベルActivities.Add(stage演奏ドラム画面);
+        this.listトップレベルActivities.Add(stageResult);
+        this.listトップレベルActivities.Add(stageChangeSkin);
+        this.listトップレベルActivities.Add(stageEnding);
+        this.listトップレベルActivities.Add(stageMaintenance);
+        //---------------------
+        #endregion
+        #region Discordの処理
+        this.Discord = new DiscordRichPresence("692578108997632051");
+        this.Discord.Update("Startup");
+        #endregion
+
+        Trace.TraceInformation("アプリケーションの初期化を完了しました。");
+
+
+        #region [ 最初のステージの起動 ]
+        //---------------------
+        Trace.TraceInformation("----------------------");
+        Trace.TraceInformation("■ 起動");
+
+        r現在のステージ = stageStartUp;
+
+        r現在のステージ.On活性化();
+
+        //---------------------
+        #endregion
     }
 
     // メソッド
@@ -995,364 +1349,6 @@ internal class TJAPlayer3 : Game
     private List<CActivity> listトップレベルActivities;
     private int n進行描画の戻り値;
     private CancellationTokenSource InputCTS = null;
-
-    private void t起動処理()
-    {
-        Program.Renderer = this.RendererName;
-        #region [ Config.toml の読み込み ]
-        string tomlpath = strEXEのあるフォルダ + "Config.toml";
-        ConfigToml = CConfigToml.Load(tomlpath);
-        #endregion
-        #region [ Config.ini の読込み ]
-        //---------------------
-        ConfigIni = new CConfigIni();
-        string path = strEXEのあるフォルダ + "Config.ini";
-        if (File.Exists(path))
-        {
-            try
-            {
-                ConfigIni.tファイルから読み込み(path);
-            }
-            catch (Exception e)
-            {
-                //ConfigIni = new CConfigIni();	// 存在してなければ新規生成
-                Trace.TraceError(e.ToString());
-                Trace.TraceError("An exception has occurred, but processing continues.");
-            }
-        }
-        //---------------------
-        #endregion
-        #region [ ログ出力開始 ]
-        //---------------------
-        Trace.AutoFlush = true;
-        Trace.Listeners.Add(new CTraceLogListener(new StreamWriter(Path.Combine(strEXEのあるフォルダ, "TJAPlayer3-f.log"), false, new UTF8Encoding(false))));
-
-        Trace.WriteLine("");
-        Trace.WriteLine("DTXMania powered by YAMAHA Silent Session Drums");
-        Trace.WriteLine(string.Format("Release: {0}", VERSION));
-        Trace.WriteLine("");
-        Trace.TraceInformation("----------------------");
-        Trace.TraceInformation("■ アプリケーションの初期化");
-        Trace.TraceInformation("OS Version: " + Environment.OSVersion);
-        Trace.TraceInformation("ProcessorCount: " + Environment.ProcessorCount.ToString());
-        Trace.TraceInformation("CLR Version: " + Environment.Version.ToString());
-        //---------------------
-        #endregion
-
-        #region [ FFmpegのパス設定 ]
-        if (!string.IsNullOrEmpty(ConfigToml.General.FFmpegPath))
-            FFmpeg.AutoGen.ffmpeg.RootPath = ConfigToml.General.FFmpegPath;
-        #endregion
-
-        #region [ ウィンドウ初期化 ]
-        //---------------------
-        base.Location = new Point(ConfigToml.Window.X, ConfigToml.Window.Y);   // #30675 2013.02.04 ikanick add
-
-
-        base.Title = "";
-
-        base.ClientSize = new Size(ConfigToml.Window.Width, ConfigToml.Window.Height);   // #34510 yyagi 2010.10.31 to change window size got from Config.ini
-
-        if (ConfigToml.Window.FullScreen)                       // #23510 2010.11.02 yyagi: add; to recover window size in case bootup with fullscreen mode
-        {                                                       // #30666 2013.02.02 yyagi: currentClientSize should be always made
-            currentClientSize = new Size(ConfigToml.Window.Width, ConfigToml.Window.Height);
-        }
-
-        base.Icon = Assembly.GetExecutingAssembly().GetManifestResourceStream("TJAPlayer3.TJAPlayer3-f.ico");
-        base.MouseWheel += this.Window_MouseWheel;
-        base.Resize += this.Window_ResizeOrMove;                       // #23510 2010.11.20 yyagi: to set resized window size in Config.ini
-        base.Move += this.Window_ResizeOrMove;
-        //---------------------
-        #endregion
-        #region [ Direct3D9 デバイスの生成 ]
-        //---------------------
-        this.WindowState = ConfigToml.Window.FullScreen ? FDK.Windowing.WindowState.FullScreen : FDK.Windowing.WindowState.Normal;
-        this.VSync = ConfigToml.Window.VSyncWait;
-        base.ClientSize = new Size(ConfigToml.Window.Width, ConfigToml.Window.Height);   // #23510 2010.10.31 yyagi: to recover window size. width and height are able to get from Config.ini.
-                                                                                         //---------------------
-        #endregion
-
-        DTX[0] = null;
-        DTX[1] = null;
-
-        #region [ Skin の初期化 ]
-        //---------------------
-        Trace.TraceInformation("スキンの初期化を行います。");
-        Trace.Indent();
-        try
-        {
-            Skin = new CSkin(TJAPlayer3.app.ConfigToml.General.SkinPath);
-            TJAPlayer3.app.ConfigToml.General.SkinPath = TJAPlayer3.Skin.GetCurrentSkinSubfolderFullName(true);    // 旧指定のSkinフォルダが消滅していた場合に備える
-            this.LogicalSize = new Size(Skin.SkinConfig.General.Width, Skin.SkinConfig.General.Height);
-            Trace.TraceInformation("スキンの初期化を完了しました。");
-        }
-        catch
-        {
-            Trace.TraceInformation("スキンの初期化に失敗しました。");
-            throw;
-        }
-        finally
-        {
-            Trace.Unindent();
-        }
-        //---------------------
-        #endregion
-        //-----------
-        #region [ Timer の初期化 ]
-        //---------------------
-        Trace.TraceInformation("タイマの初期化を行います。");
-        Trace.Indent();
-        try
-        {
-            Timer = new CTimer();
-            Trace.TraceInformation("タイマの初期化を完了しました。");
-        }
-        finally
-        {
-            Trace.Unindent();
-        }
-        //---------------------
-        #endregion
-        //-----------
-
-        #region [ FPS カウンタの初期化 ]
-        //---------------------
-        Trace.TraceInformation("FPSカウンタの初期化を行います。");
-        Trace.Indent();
-        try
-        {
-            FPS = new CFPS();
-            Trace.TraceInformation("FPSカウンタを生成しました。");
-        }
-        finally
-        {
-            Trace.Unindent();
-        }
-        //---------------------
-        #endregion
-        #region [ act文字コンソールの初期化 ]
-        //---------------------
-        Trace.TraceInformation("文字コンソールの初期化を行います。");
-        Trace.Indent();
-        try
-        {
-            act文字コンソール = new C文字コンソール();
-            Trace.TraceInformation("文字コンソールを生成しました。");
-            act文字コンソール.On活性化();
-            Trace.TraceInformation("文字コンソールを活性化しました。");
-            Trace.TraceInformation("文字コンソールの初期化を完了しました。");
-        }
-        catch (Exception exception)
-        {
-            Trace.TraceError(exception.ToString());
-            Trace.TraceError("文字コンソールの初期化に失敗しました。");
-        }
-        finally
-        {
-            Trace.Unindent();
-        }
-        //---------------------
-        #endregion
-        #region [ InputManager の初期化 ]
-        //---------------------
-        Trace.TraceInformation("InputManagerの初期化を行います。");
-        Trace.Indent();
-        try
-        {
-            InputManager = new CInputManager();
-            foreach (IInputDevice device in InputManager.listInputDevices)
-            {
-                if ((device.eInputDeviceType == EInputDeviceType.Joystick) && !ConfigToml.JoystickGUID.ContainsValue(device.GUID))
-                {
-                    int key = 0;
-                    while (ConfigToml.JoystickGUID.ContainsKey(key))
-                    {
-                        key++;
-                    }
-                    ConfigToml.JoystickGUID.Add(key, device.GUID);
-                }
-            }
-            InputCTS = new CancellationTokenSource();
-            Task.Factory.StartNew(() => InputLoop());
-            Trace.TraceInformation("InputManagerの初期化を完了しました。");
-        }
-        catch
-        {
-            Trace.TraceError("InputManagerの初期化に失敗しました。");
-            throw;
-        }
-        finally
-        {
-            Trace.Unindent();
-        }
-        //---------------------
-        #endregion
-        #region [ Pad の初期化 ]
-        //---------------------
-        Trace.TraceInformation("パッドの初期化を行います。");
-        Trace.Indent();
-        try
-        {
-            Pad = new CPad(ConfigIni, ConfigToml, InputManager);
-            Trace.TraceInformation("パッドの初期化を完了しました。");
-        }
-        catch (Exception exception3)
-        {
-            Trace.TraceError(exception3.ToString());
-            Trace.TraceError("パッドの初期化に失敗しました。");
-        }
-        finally
-        {
-            Trace.Unindent();
-        }
-        //---------------------
-        #endregion
-        #region [ SoundManager の初期化 ]
-        //---------------------
-        Trace.TraceInformation("サウンドデバイスの初期化を行います。");
-        Trace.Indent();
-        try
-        {
-            ESoundDeviceType soundDeviceType;
-            switch (TJAPlayer3.app.ConfigToml.SoundDevice.DeviceType)
-            {
-                case 0:
-                    soundDeviceType = ESoundDeviceType.BASS;
-                    break;
-                case 1:
-                    soundDeviceType = ESoundDeviceType.ASIO;
-                    break;
-                case 2:
-                    soundDeviceType = ESoundDeviceType.ExclusiveWASAPI;
-                    break;
-                case 3:
-                    soundDeviceType = ESoundDeviceType.SharedWASAPI;
-                    break;
-                default:
-                    soundDeviceType = ESoundDeviceType.Unknown;
-                    break;
-            }
-            SoundManager = new CSoundManager(soundDeviceType,
-                                        TJAPlayer3.app.ConfigToml.SoundDevice.WASAPIBufferSizeMs,
-                                        0,
-                                        TJAPlayer3.app.ConfigToml.SoundDevice.ASIODevice,
-                                        TJAPlayer3.app.ConfigToml.SoundDevice.BASSBufferSizeMs,
-                                        TJAPlayer3.app.ConfigToml.SoundDevice.UseOSTimer
-            );
-
-
-            Trace.TraceInformation("Initializing loudness scanning, song gain control, and sound group level control...");
-            Trace.Indent();
-            try
-            {
-                actScanningLoudness = new CActScanningLoudness();
-                actScanningLoudness.On活性化();
-                LoudnessMetadataScanner.ScanningStateChanged +=
-                    (_, args) => actScanningLoudness.bIsActivelyScanning = args.IsActivelyScanning;
-                LoudnessMetadataScanner.StartBackgroundScanning();
-
-                SongGainController = new SongGainController();
-                ConfigIniToSongGainControllerBinder.Bind(ConfigToml, SongGainController);
-
-                SoundGroupLevelController = new SoundGroupLevelController(CSound.listインスタンス);
-                ConfigIniToSoundGroupLevelControllerBinder.Bind(ConfigToml, SoundGroupLevelController);
-            }
-            finally
-            {
-                Trace.Unindent();
-                Trace.TraceInformation("Initialized loudness scanning, song gain control, and sound group level control.");
-            }
-
-            ShowWindowTitleWithSoundType();
-            CSoundManager.bIsTimeStretch = TJAPlayer3.app.ConfigToml.PlayOption.TimeStretch;
-            SoundManager.nMasterVolume = TJAPlayer3.app.ConfigToml.MasterVolume;
-            //FDK.CSoundManager.bIsMP3DecodeByWindowsCodec = CDTXMania.ConfigIni.bNoMP3Streaming;
-            Trace.TraceInformation("サウンドデバイスの初期化を完了しました。");
-        }
-        catch (Exception e)
-        {
-            throw new NullReferenceException("サウンドデバイスがひとつも有効になっていないため、サウンドデバイスの初期化ができませんでした。", e);
-        }
-        finally
-        {
-            Trace.Unindent();
-        }
-        //---------------------
-        #endregion
-        #region [ SongsManager の初期化 ]
-        //---------------------
-        Trace.TraceInformation("曲リストの初期化を行います。");
-        Trace.Indent();
-        try
-        {
-            SongsManager = new CSongsManager();
-            //				SongsManager_裏読 = new CSongsManager();
-            EnumSongs = new CEnumSongs();
-            actEnumSongs = new CActEnumSongs();
-            Trace.TraceInformation("曲リストの初期化を完了しました。");
-        }
-        catch (Exception e)
-        {
-            Trace.TraceError(e.ToString());
-            Trace.TraceError("曲リストの初期化に失敗しました。");
-        }
-        finally
-        {
-            Trace.Unindent();
-        }
-        //---------------------
-        #endregion
-        #region [ ステージの初期化 ]
-        //---------------------
-        r現在のステージ = null;
-        r直前のステージ = null;
-        stageStartUp = new CStageStartUp();
-        stageTitle = new CStageTitle();
-        //			stageオプション = new CStageオプション();
-        stageConfig = new CStageConfig();
-        stage選曲 = new CStage選曲();
-        stageSongLoading = new CStageSongLoading();
-        stage演奏ドラム画面 = new CStage演奏画面共通();
-        stageResult = new CStageResult();
-        stageChangeSkin = new CStageChangeSkin();
-        stageEnding = new CStageEnding();
-        stageMaintenance = new CStageMaintenance();
-        this.listトップレベルActivities = new List<CActivity>();
-        this.listトップレベルActivities.Add(actEnumSongs);
-        this.listトップレベルActivities.Add(act文字コンソール);
-        this.listトップレベルActivities.Add(stageStartUp);
-        this.listトップレベルActivities.Add(stageTitle);
-        //			this.listトップレベルActivities.Add( stageオプション );
-        this.listトップレベルActivities.Add(stageConfig);
-        this.listトップレベルActivities.Add(stage選曲);
-        this.listトップレベルActivities.Add(stageSongLoading);
-        this.listトップレベルActivities.Add(stage演奏ドラム画面);
-        this.listトップレベルActivities.Add(stageResult);
-        this.listトップレベルActivities.Add(stageChangeSkin);
-        this.listトップレベルActivities.Add(stageEnding);
-        this.listトップレベルActivities.Add(stageMaintenance);
-        //---------------------
-        #endregion
-        #region Discordの処理
-        this.Discord = new DiscordRichPresence("692578108997632051");
-        this.Discord.Update("Startup");
-        #endregion
-
-        Trace.TraceInformation("アプリケーションの初期化を完了しました。");
-
-
-        #region [ 最初のステージの起動 ]
-        //---------------------
-        Trace.TraceInformation("----------------------");
-        Trace.TraceInformation("■ 起動");
-
-        r現在のステージ = stageStartUp;
-
-        r現在のステージ.On活性化();
-
-        //---------------------
-        #endregion
-    }
 
     private void InputLoop()
     {
