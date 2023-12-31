@@ -16,8 +16,9 @@ public class CConfigToml
                 ConvertFieldName = (x) => x,
                 IgnoreMissingProperties = true,
             };
-            string str = CJudgeTextEncoding.ReadTextFile(FilePath);
-            ConfigToml = Toml.ToModel<CConfigToml>(str, null, tomlModelOptions);
+            string? str = CJudgeTextEncoding.ReadTextFile(FilePath);
+            if (str is not null)
+                ConfigToml = Toml.ToModel<CConfigToml>(str, null, tomlModelOptions);
 
             if (ConfigToml.General.Version == TJAPlayer3.VERSION)
                 ConfigToml.NotExistOrIncorrectVersion = false;
@@ -62,7 +63,7 @@ public class CConfigToml
             get
             {
                 Uri uriRoot = new Uri(System.IO.Path.Combine(TJAPlayer3.strEXEのあるフォルダ, "System/"));
-                if (_SkinPath != null && _SkinPath.Length == 0)
+                if (_SkinPath == string.Empty)
                 {
                     // Config.iniが空の状態でDTXManiaをViewerとして起動_終了すると、strSystemSkinSubfolderFullName が空の状態でここに来る。
                     // → 初期値として Default/ を設定する。
@@ -91,7 +92,7 @@ public class CConfigToml
             }
         }
         private string _SkinPath = "";
-        public string FFmpegPath { get; set; }
+        public string FFmpegPath { get; set; } = "";
         public string FontName { get; set; } = CFontRenderer.DefaultFontName;
     }
 
@@ -235,7 +236,7 @@ public class CConfigToml
             set => SetProperty(
                 ref _songPlaybackLevel,
                 Math.Clamp(value, CSound.MinimumGroupLevel, CSound.MaximumGroupLevel),
-                 nameof(SongPlaybackLevel));
+                    nameof(SongPlaybackLevel));
         }
 
         private int _keyboardSoundLevelIncrement = DefaultKeyboardSoundLevelIncrement;
@@ -249,8 +250,8 @@ public class CConfigToml
                 nameof(KeyboardSoundLevelIncrement));
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private bool SetProperty<T>(ref T storage, T value, string propertyName = null)
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private bool SetProperty<T>(ref T storage, T value, string? propertyName = null)
         {
             if (Equals(storage, value))
             {
@@ -262,7 +263,7 @@ public class CConfigToml
             return true;
         }
 
-        private void OnPropertyChanged(string propertyName)
+        private void OnPropertyChanged(string? propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
