@@ -28,12 +28,12 @@ internal class CActResultParameterPanel : CActivity
     {
         base.On活性化();
         this.ephase = EPhase.Start;
-        this.ctCrown用 = new CCounter(0, 255, 2, TJAPlayer3.Timer);
-        this.ct文字V2用 = new CCounter(0, 180, 3, TJAPlayer3.Timer);
-        this.ctGauge = new CCounter(0, 100, 35, TJAPlayer3.Timer);
+        this.ctCrown用 = new CCounter(0, 255, 2, TJAPlayer3.app.Timer);
+        this.ct文字V2用 = new CCounter(0, 180, 3, TJAPlayer3.app.Timer);
+        this.ctGauge = new CCounter(0, 100, 35, TJAPlayer3.app.Timer);
         for (int index = 0; index < 4; index++)
         {
-            this.ct文字アニメ用[index] = new CCounter(0, 15, 50, TJAPlayer3.Timer);
+            this.ct文字アニメ用[index] = new CCounter(0, 15, 50, TJAPlayer3.app.Timer);
 
             this.ToNextPhase[index] = false;
             this.n表示された桁数[index] = 0;

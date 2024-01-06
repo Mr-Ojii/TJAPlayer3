@@ -42,8 +42,8 @@ internal class CStageSongLoading : CStage
                 strSubTitle == "TJAPlayer3 Developers";
 
 
-            this.ct待機 = new CCounter(0, 600, 5, TJAPlayer3.Timer);
-            this.ct曲名表示 = new CCounter(1, 30, 30, TJAPlayer3.Timer);
+            this.ct待機 = new CCounter(0, 600, 5, TJAPlayer3.app.Timer);
+            this.ct曲名表示 = new CCounter(1, 30, 30, TJAPlayer3.app.Timer);
             try
             {
                 // When performing calibration, inform the player that
@@ -398,7 +398,7 @@ internal class CStageSongLoading : CStage
                     TimeSpan span = (TimeSpan)(DateTime.Now - timeBeginLoad);
                     Trace.TraceInformation("総読込時間:                {0}", span.ToString());
 
-                    TJAPlayer3.Timer.t更新();
+                    TJAPlayer3.app.Timer.t更新();
 
                     base.eフェーズID = CStage.Eフェーズ.NOWLOADING_システムサウンドBGMの完了を待つ;
                     return (int)E曲読込画面の戻り値.継続;
@@ -406,7 +406,7 @@ internal class CStageSongLoading : CStage
 
             case CStage.Eフェーズ.NOWLOADING_システムサウンドBGMの完了を待つ:
                 {
-                    long nCurrentTime = TJAPlayer3.Timer.n現在時刻ms;
+                    long nCurrentTime = TJAPlayer3.app.Timer.n現在時刻ms;
                     if (nCurrentTime < this.nBGM再生開始時刻)
                         this.nBGM再生開始時刻 = nCurrentTime;
 

@@ -140,7 +140,7 @@ internal class CAct演奏Drumsレーン : CActivity
         {
             return;
         }
-        this.ct分岐アニメ進行[player] = new CCounter(0, 300, 2, TJAPlayer3.Timer);
+        this.ct分岐アニメ進行[player] = new CCounter(0, 300, 2, TJAPlayer3.app.Timer);
         this.bState[player] = true;
 
         this.nBefore[player] = n現在;

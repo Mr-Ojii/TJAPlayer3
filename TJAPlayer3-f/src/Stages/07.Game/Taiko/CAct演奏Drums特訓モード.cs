@@ -17,7 +17,7 @@ class CAct演奏Drums特訓モード : CActivity
         base.On活性化();
 
         if (TJAPlayer3.Tx.Tokkun_Background_Up != null)
-            this.ct背景スクロールタイマー = new CCounter(1, TJAPlayer3.Tx.Tokkun_Background_Up.szTextureSize.Width, 16, TJAPlayer3.Timer);
+            this.ct背景スクロールタイマー = new CCounter(1, TJAPlayer3.Tx.Tokkun_Background_Up.szTextureSize.Width, 16, TJAPlayer3.app.Timer);
 
         CDTX dTX = TJAPlayer3.DTX[0];
 
@@ -494,7 +494,7 @@ class CAct演奏Drums特訓モード : CActivity
             this.nスクロール後ms = (long)(dTX.listChip[TJAPlayer3.stage演奏ドラム画面.n現在のトップChip].n発声時刻ms / (((double)TJAPlayer3.app.ConfigToml.PlayOption.PlaySpeed) / 20.0));
             this.bスクロール中 = true;
 
-            this.ctスクロールカウンター = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.Training.ScrollTime, 1, TJAPlayer3.Timer);
+            this.ctスクロールカウンター = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.Training.ScrollTime, 1, TJAPlayer3.app.Timer);
         }
         else
         {

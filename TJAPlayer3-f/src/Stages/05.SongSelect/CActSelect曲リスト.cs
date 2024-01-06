@@ -462,9 +462,9 @@ internal class CActSelect曲リスト : CActivity
         this.t現在選択中の曲を元に曲バーを再構成する();
 
         this.ct三角矢印アニメ = new CCounter();
-        this.ct分岐フェード用タイマー = new CCounter(1, 2, 2500, TJAPlayer3.Timer);
-        this.ctバー展開用タイマー = new CCounter(0, 100, 1, TJAPlayer3.Timer);
-        this.ctバー展開ディレイ用タイマー = new CCounter(0, 200, 1, TJAPlayer3.Timer);
+        this.ct分岐フェード用タイマー = new CCounter(1, 2, 2500, TJAPlayer3.app.Timer);
+        this.ctバー展開用タイマー = new CCounter(0, 100, 1, TJAPlayer3.app.Timer);
+        this.ctバー展開ディレイ用タイマー = new CCounter(0, 200, 1, TJAPlayer3.app.Timer);
 
         int c = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
         #region [ Songs not found画像 ]
@@ -550,7 +550,7 @@ internal class CActSelect曲リスト : CActivity
             this.nスクロールタイマ = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.app.ConfigToml.PlayOption.PlaySpeed) / 20.0));
             TJAPlayer3.stage選曲.t選択曲変更通知();
 
-            this.ct三角矢印アニメ.t開始(0, 1000, 1, TJAPlayer3.Timer);
+            this.ct三角矢印アニメ.t開始(0, 1000, 1, TJAPlayer3.app.Timer);
             this.ct分岐フェード用タイマー.t進行();
             base.b初めての進行描画 = false;
         }

@@ -22,7 +22,7 @@ internal class CAct演奏DrumsチップファイアD : CActivity
             {
                 this.st状態[j].b使用中 = true;
                 //this.st状態[ n ].ct進行 = new CCounter( 0, 9, 20, CDTXMania.Timer );
-                this.st状態[j].ct進行 = new CCounter(0, 6, 25, TJAPlayer3.Timer);
+                this.st状態[j].ct進行 = new CCounter(0, 6, 25, TJAPlayer3.app.Timer);
                 this.st状態[j].judge = judge;
                 this.st状態[j].nPlayer = player;
                 this.st状態_大[j].nPlayer = player;
@@ -37,7 +37,7 @@ internal class CAct演奏DrumsチップファイアD : CActivity
                     case 0x14:
                     case 0x1A:
                     case 0x1B:
-                        this.st状態_大[j].ct進行 = new CCounter(0, 9, 20, TJAPlayer3.Timer);
+                        this.st状態_大[j].ct進行 = new CCounter(0, 9, 20, TJAPlayer3.app.Timer);
                         this.st状態_大[j].judge = judge;
                         this.st状態_大[j].nIsBig = 1;
                         break;

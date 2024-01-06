@@ -14,9 +14,9 @@ internal class CAct演奏Drums背景 : CActivity
 
     public void ClearIn(int player)
     {
-        this.ct上背景クリアインタイマー[player] = new CCounter(0, 100, 2, TJAPlayer3.Timer);
+        this.ct上背景クリアインタイマー[player] = new CCounter(0, 100, 2, TJAPlayer3.app.Timer);
         this.ct上背景クリアインタイマー[player].n現在の値 = 0;
-        this.ct上背景FIFOタイマー = new CCounter(0, 100, 2, TJAPlayer3.Timer);
+        this.ct上背景FIFOタイマー = new CCounter(0, 100, 2, TJAPlayer3.app.Timer);
         this.ct上背景FIFOタイマー.n現在の値 = 0;
     }
 
@@ -32,34 +32,34 @@ internal class CAct演奏Drums背景 : CActivity
         {
             if (TJAPlayer3.Tx.Background_Up[i] != null)
             {
-                this.ct上背景スクロール用タイマー[i] = new CCounter(1, TJAPlayer3.Tx.Background_Up[i].szTextureSize.Width, 16, TJAPlayer3.Timer);
+                this.ct上背景スクロール用タイマー[i] = new CCounter(1, TJAPlayer3.Tx.Background_Up[i].szTextureSize.Width, 16, TJAPlayer3.app.Timer);
 
                 switch (TJAPlayer3.app.Skin.SkinConfig.Game.Background.ScrollPattern[i])
                 {
                     case 0:
-                        this.ct上背景上下用タイマー[i] = new CCounter(1, 100, 30, TJAPlayer3.Timer);
+                        this.ct上背景上下用タイマー[i] = new CCounter(1, 100, 30, TJAPlayer3.app.Timer);
                         break;
 
                     case 1:
                     case 2:
-                        this.ct上背景上下用タイマー[i] = new CCounter(0, 3140, 1, TJAPlayer3.Timer);
+                        this.ct上背景上下用タイマー[i] = new CCounter(0, 3140, 1, TJAPlayer3.app.Timer);
                         break;
                     case 3:
                     default:
                         if (TJAPlayer3.Tx.Background_Up_YMove != null)
-                            this.ct上背景上下用タイマー[i] = new CCounter(1, TJAPlayer3.Tx.Background_Up_YMove[i].szTextureSize.Width, 6, TJAPlayer3.Timer);
+                            this.ct上背景上下用タイマー[i] = new CCounter(1, TJAPlayer3.Tx.Background_Up_YMove[i].szTextureSize.Width, 6, TJAPlayer3.app.Timer);
                         break;
                 }
 
 
-                this.ct上背景桜用タイマー[i] = new CCounter(0, 400, 8, TJAPlayer3.Timer);
+                this.ct上背景桜用タイマー[i] = new CCounter(0, 400, 8, TJAPlayer3.app.Timer);
                 if (TJAPlayer3.Tx.Background_Up_Sakura[i] != null)
-                    this.ct上背景桜スクロール用タイマー[i] = new CCounter(0, TJAPlayer3.Tx.Background_Up_Sakura[i].szTextureSize.Width, 8, TJAPlayer3.Timer);
+                    this.ct上背景桜スクロール用タイマー[i] = new CCounter(0, TJAPlayer3.Tx.Background_Up_Sakura[i].szTextureSize.Width, 8, TJAPlayer3.app.Timer);
                 this.ct上背景クリアインタイマー[i] = new CCounter();
             }
         }
         if (TJAPlayer3.Tx.Background_Down_Scroll != null)
-            this.ct下背景スクロール用タイマー1 = new CCounter(1, TJAPlayer3.Tx.Background_Down_Scroll.szTextureSize.Width, 4, TJAPlayer3.Timer);
+            this.ct下背景スクロール用タイマー1 = new CCounter(1, TJAPlayer3.Tx.Background_Down_Scroll.szTextureSize.Width, 4, TJAPlayer3.app.Timer);
 
         this.ct上背景FIFOタイマー = new CCounter();
         base.On活性化();

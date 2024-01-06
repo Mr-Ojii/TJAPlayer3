@@ -55,7 +55,7 @@ internal class CActRoll : CActivity
                 if (ct連打枠カウンター[player].n現在の値 > 1333 && !FadeOutCounter[player].b進行中)
                 {
                     // 後から変えれるようにする。大体10フレーム分。
-                    FadeOutCounter[player].t開始(0, fadenum - 1, 1, TJAPlayer3.Timer);
+                    FadeOutCounter[player].t開始(0, fadenum - 1, 1, TJAPlayer3.app.Timer);
                 }
                 var opacity = (fadenum - FadeOutCounter[player].n現在の値) * 255 / fadenum;
                 if (TJAPlayer3.Tx.Balloon_Roll != null)
@@ -75,7 +75,7 @@ internal class CActRoll : CActivity
 
     public void t枠表示時間延長(int player)
     {
-        this.ct連打枠カウンター[player] = new CCounter(0, 1500, 1, TJAPlayer3.Timer);
+        this.ct連打枠カウンター[player] = new CCounter(0, 1500, 1, TJAPlayer3.app.Timer);
         FadeOutCounter[player].n現在の値 = 0;
         FadeOutCounter[player].t停止();
     }

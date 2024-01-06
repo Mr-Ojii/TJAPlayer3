@@ -9,12 +9,12 @@ internal class CActFIFOBlack : CActivity
     public void tFadeOut開始()
     {
         this.mode = EFIFOMode.FadeOut;
-        this.counter = new CCounter(0, 100, 5, TJAPlayer3.Timer);
+        this.counter = new CCounter(0, 100, 5, TJAPlayer3.app.Timer);
     }
     public void tFadeIn開始()
     {
         this.mode = EFIFOMode.FadeIn;
-        this.counter = new CCounter(0, 100, 5, TJAPlayer3.Timer);
+        this.counter = new CCounter(0, 100, 5, TJAPlayer3.app.Timer);
     }
 
 

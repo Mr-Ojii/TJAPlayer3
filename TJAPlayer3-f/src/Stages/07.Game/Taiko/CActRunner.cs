@@ -30,7 +30,7 @@ internal class CActRunner : CActivity
                     else
                         stRunners[i].nType = random.Next(1, Type + 1);
 
-                    stRunners[i].ct進行 = new CCounter(0, TJAPlayer3.app.LogicalSize.Width, TJAPlayer3.app.Skin.SkinConfig.Game.Runner.Timer, TJAPlayer3.Timer);
+                    stRunners[i].ct進行 = new CCounter(0, TJAPlayer3.app.LogicalSize.Width, TJAPlayer3.app.Skin.SkinConfig.Game.Runner.Timer, TJAPlayer3.app.Timer);
                     stRunners[i].nOldValue = 0;
                     stRunners[i].nNowPtn = 0;
                     stRunners[i].fX = 0;

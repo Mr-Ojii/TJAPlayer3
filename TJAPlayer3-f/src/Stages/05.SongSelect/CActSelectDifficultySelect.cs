@@ -17,7 +17,7 @@ internal class CActSelectDifficultySelect : CActivity
             return;
         try
         {
-            this.ct分岐表示用タイマー = new CCounter(1, 2, 2500, TJAPlayer3.Timer);
+            this.ct分岐表示用タイマー = new CCounter(1, 2, 2500, TJAPlayer3.app.Timer);
             選択済み = new bool[2] { false, false };
             裏カウント = new int[2] { 0, 0 };
         }
@@ -387,7 +387,7 @@ internal class CActSelectDifficultySelect : CActivity
     internal bool 裏表示 = false;
     internal bool b開いた直後 = true;
     private CCounter ct分岐表示用タイマー;
-    internal CCounter[] ct難易度拡大用 = { new CCounter(0, 180, 1, TJAPlayer3.Timer), new CCounter(0, 180, 1, TJAPlayer3.Timer) };
+    internal CCounter[] ct難易度拡大用 = { new CCounter(0, 180, 1, TJAPlayer3.app.Timer), new CCounter(0, 180, 1, TJAPlayer3.app.Timer) };
 
     private void tBPM小文字表示(int x, int y, long n)
     {

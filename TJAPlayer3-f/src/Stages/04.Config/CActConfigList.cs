@@ -1110,7 +1110,7 @@ internal class CActConfigList : CActivity
         if (base.b初めての進行描画)
         {
             this.nスクロール用タイマ値 = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.app.ConfigToml.PlayOption.PlaySpeed) / 20.0));
-            this.ct三角矢印アニメ.t開始(0, 9, 50, TJAPlayer3.Timer);
+            this.ct三角矢印アニメ.t開始(0, 9, 50, TJAPlayer3.app.Timer);
 
             base.b初めての進行描画 = false;
         }
@@ -1121,7 +1121,7 @@ internal class CActConfigList : CActivity
 
         #region [ 項目スクロールの進行 ]
         //-----------------
-        long n現在時刻 = TJAPlayer3.Timer.n現在時刻ms;
+        long n現在時刻 = TJAPlayer3.app.Timer.n現在時刻ms;
         if (n現在時刻 < this.nスクロール用タイマ値) this.nスクロール用タイマ値 = n現在時刻;
 
         const int INTERVAL = 2;	// [ms]

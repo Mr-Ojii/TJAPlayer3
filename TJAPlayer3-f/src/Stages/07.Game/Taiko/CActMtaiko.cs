@@ -264,7 +264,7 @@ internal class CActMtaiko : CActivity
     public void tBranchEvent(int Before, int After, int player)
     {
         if (After != Before)
-            this.ctレベルアップダウン[player] = new CCounter(0, 1000, 1, TJAPlayer3.Timer);
+            this.ctレベルアップダウン[player] = new CCounter(0, 1000, 1, TJAPlayer3.app.Timer);
 
         this.After[player] = After;
         this.Before[player] = Before;

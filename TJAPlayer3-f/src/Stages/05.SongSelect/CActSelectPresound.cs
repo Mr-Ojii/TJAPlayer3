@@ -20,7 +20,7 @@ internal class CActSelectPresound : CActivity
             this.long再生位置 = -1;
             if ((cスコア.譜面情報.strBGMファイル名 != null) && (cスコア.譜面情報.strBGMファイル名.Length > 0))
             {
-                this.ct再生待ちウェイト = new CCounter(0, 1, 500, TJAPlayer3.Timer);
+                this.ct再生待ちウェイト = new CCounter(0, 1, 500, TJAPlayer3.app.Timer);
             }
         }
     }
@@ -119,7 +119,7 @@ internal class CActSelectPresound : CActivity
         {
             this.ctBGMFadeIn用.t停止();
         }
-        this.ctBGMFadeOut用 = new CCounter(0, 100, 10, TJAPlayer3.Timer);
+        this.ctBGMFadeOut用 = new CCounter(0, 100, 10, TJAPlayer3.app.Timer);
         this.ctBGMFadeOut用.n現在の値 = 100 - TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.BGM選曲画面].nAutomationLevel_現在のサウンド;
     }
     private void tBGMFadeIn開始()
@@ -128,7 +128,7 @@ internal class CActSelectPresound : CActivity
         {
             this.ctBGMFadeOut用.t停止();
         }
-        this.ctBGMFadeIn用 = new CCounter(0, 100, 20, TJAPlayer3.Timer);
+        this.ctBGMFadeIn用 = new CCounter(0, 100, 20, TJAPlayer3.app.Timer);
         this.ctBGMFadeIn用.n現在の値 = TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.BGM選曲画面].nAutomationLevel_現在のサウンド;
     }
     private async void tプレビューサウンドの作成()

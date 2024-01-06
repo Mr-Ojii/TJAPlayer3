@@ -70,7 +70,7 @@ internal class CActPanel : CActivity
             this.txGENRE = TJAPlayer3.Tx.TxCGen(TJAPlayer3.app.Skin.nStrジャンルtoNum(genreName).ToString());
         }
 
-        this.ct進行用 = new CCounter(0, 2000, 2, TJAPlayer3.Timer);
+        this.ct進行用 = new CCounter(0, 2000, 2, TJAPlayer3.app.Timer);
         this.Start();
     }
 

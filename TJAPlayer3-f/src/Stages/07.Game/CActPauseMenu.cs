@@ -66,7 +66,7 @@ internal class CActPauseMenu : CActSelectPopupMenu
                         TJAPlayer3.stage演奏ドラム画面.bPAUSE = false;
 
                         CSoundManager.rc演奏用タイマ.t再開();
-                        TJAPlayer3.Timer.t再開();
+                        TJAPlayer3.app.Timer.t再開();
                         TJAPlayer3.DTX[0].t全チップの再生再開();
                         TJAPlayer3.stage演奏ドラム画面.actAVI.tPauseControl();
                         break;
@@ -78,7 +78,7 @@ internal class CActPauseMenu : CActSelectPopupMenu
 
                     case (int)EOrder.Return:
                         CSoundManager.rc演奏用タイマ.t再開();
-                        TJAPlayer3.Timer.t再開();
+                        TJAPlayer3.app.Timer.t再開();
                         TJAPlayer3.stage演奏ドラム画面.t演奏中止();
                         break;
                     default:

@@ -38,7 +38,7 @@ internal class CActSelectHistoryPanel : CActivity
         {
             if (base.b初めての進行描画)
             {
-                this.ct登場アニメ用 = new CCounter(0, 3000, 1, TJAPlayer3.Timer);
+                this.ct登場アニメ用 = new CCounter(0, 3000, 1, TJAPlayer3.app.Timer);
                 base.b初めての進行描画 = false;
             }
             if (ct登場アニメ用 is null)
@@ -92,7 +92,7 @@ internal class CActSelectHistoryPanel : CActivity
 
     public void tSongChange()
     {
-        this.ct登場アニメ用 = new CCounter(0, 2000, 1, TJAPlayer3.Timer);
+        this.ct登場アニメ用 = new CCounter(0, 2000, 1, TJAPlayer3.app.Timer);
 
         //Dispose
         for (int i = 0; i < (int)Difficulty.Total; i++)

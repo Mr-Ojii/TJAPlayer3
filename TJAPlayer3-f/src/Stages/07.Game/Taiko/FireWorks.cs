@@ -28,7 +28,7 @@ internal class FireWorks : CActivity
                 FireWork[i].Player = nPlayer;
                 FireWork[i].X = x;
                 FireWork[i].Y = y;
-                FireWork[i].Counter = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FireWorks.Ptn - 1, TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FireWorks.Timer, TJAPlayer3.Timer);
+                FireWork[i].Counter = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FireWorks.Ptn - 1, TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FireWorks.Timer, TJAPlayer3.app.Timer);
                 break;
             }
         }

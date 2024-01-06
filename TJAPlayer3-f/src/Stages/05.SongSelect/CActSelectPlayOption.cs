@@ -429,7 +429,7 @@ internal class CActSelectPlayOption : CActivity
         }
     }
 
-    private CCounter[] ct登場退場アニメ用 = { new CCounter(0, 188, 2, TJAPlayer3.Timer), new CCounter(0, 188, 2, TJAPlayer3.Timer) };//Math.PI-Math.Asin(0.95)
+    private CCounter[] ct登場退場アニメ用 = { new CCounter(0, 188, 2, TJAPlayer3.app.Timer), new CCounter(0, 188, 2, TJAPlayer3.app.Timer) };//Math.PI-Math.Asin(0.95)
     private EChangeSEPhase[] ePhase = { EChangeSEPhase.Inactive, EChangeSEPhase.Inactive };
     private int[] NowRow = { 0, 0 };
     private List<ItemTextureList>[] NameTexture = new List<ItemTextureList>[2];

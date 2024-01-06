@@ -10,7 +10,7 @@ class PuchiChara : CActivity
 
     public override void On活性化()
     {
-        Counter = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Ptn - 1, TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Timer, TJAPlayer3.Timer);
+        Counter = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Ptn - 1, TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Timer, TJAPlayer3.app.Timer);
         SineCounter = new CCounter(0, 360, TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.SineTimer, CSoundManager.rc演奏用タイマ);
         base.On活性化();
     }
@@ -24,7 +24,7 @@ class PuchiChara : CActivity
     public void ChangeBPM(double bpm)
     {
         int n値 = Counter.n現在の値;
-        Counter = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Ptn - 1, (int)(TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Timer * bpm / TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Ptn), TJAPlayer3.Timer);
+        Counter = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Ptn - 1, (int)(TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Timer * bpm / TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Ptn), TJAPlayer3.app.Timer);
         Counter.t時間Reset();
         Counter.n現在の値 = n値;
 
@@ -36,7 +36,7 @@ class PuchiChara : CActivity
 
     public void InitializeBPM(double bpm)
     {
-        Counter = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Ptn - 1, (int)(TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Timer * bpm / TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Ptn), TJAPlayer3.Timer);
+        Counter = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Ptn - 1, (int)(TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Timer * bpm / TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Ptn), TJAPlayer3.app.Timer);
 
         SineCounter = new CCounter(1, 360, TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.SineTimer * bpm / 180, CSoundManager.rc演奏用タイマ);
     }

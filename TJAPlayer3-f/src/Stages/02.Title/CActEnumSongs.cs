@@ -64,7 +64,7 @@ internal class CActEnumSongs : CActivity
         try
         {
             this.ctNowEnumeratingSongs = new CCounter();	// 0, 1000, 17, CDTXMania.Timer );
-            this.ctNowEnumeratingSongs.t開始(0, 100, 17, TJAPlayer3.Timer);
+            this.ctNowEnumeratingSongs.t開始(0, 100, 17, TJAPlayer3.app.Timer);
         }
         finally
         {

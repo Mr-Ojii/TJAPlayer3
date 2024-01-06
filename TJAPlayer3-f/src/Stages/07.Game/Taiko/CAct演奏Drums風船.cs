@@ -19,7 +19,7 @@ internal class CAct演奏Drums風船 : CActivity
             this.ct風船アニメ[i] = new CCounter();
         }
 
-        this.ct風船ふきだしアニメ = new CCounter(0, 1, 100, TJAPlayer3.Timer);
+        this.ct風船ふきだしアニメ = new CCounter(0, 1, 100, TJAPlayer3.app.Timer);
         base.On活性化();
     }
 

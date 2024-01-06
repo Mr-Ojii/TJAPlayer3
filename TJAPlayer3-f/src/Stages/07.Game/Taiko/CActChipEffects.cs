@@ -21,7 +21,7 @@ internal class CActChipEffects : CActivity
             if (!st[i].b使用中)
             {
                 st[i].b使用中 = true;
-                st[i].ct進行 = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.Effect.NotesFlash.Ptn, TJAPlayer3.app.Skin.SkinConfig.Game.Effect.NotesFlash.Timer, TJAPlayer3.Timer);
+                st[i].ct進行 = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.Effect.NotesFlash.Ptn, TJAPlayer3.app.Skin.SkinConfig.Game.Effect.NotesFlash.Timer, TJAPlayer3.app.Timer);
                 st[i].nプレイヤー = nPlayer;
                 st[i].Lane = Lane;
                 break;

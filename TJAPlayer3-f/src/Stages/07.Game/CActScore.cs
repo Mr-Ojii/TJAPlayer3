@@ -89,7 +89,7 @@ internal class CActScore : CActivity
     {
         double rev = 1.0;
 
-        this.ctTimer = new CCounter(0, 400, 1, TJAPlayer3.Timer);
+        this.ctTimer = new CCounter(0, 400, 1, TJAPlayer3.app.Timer);
 
         for (int sc = 0; sc < 1; sc++)
         {
@@ -100,7 +100,7 @@ internal class CActScore : CActivity
                     this.stScore[i].b使用中 = true;
                     this.stScore[i].b表示中 = true;
                     this.stScore[i].nAddScore = (int)delta;
-                    this.stScore[i].ctTimer = new CCounter(0, 500, 1, TJAPlayer3.Timer);
+                    this.stScore[i].ctTimer = new CCounter(0, 500, 1, TJAPlayer3.app.Timer);
                     this.stScore[i].bBonusScore = false;
                     this.stScore[i].nPlayer = player;
                     this.n現在表示中のAddScore++;
@@ -123,7 +123,7 @@ internal class CActScore : CActivity
                     this.stScore[i].b使用中 = true;
                     this.stScore[i].b表示中 = true;
                     this.stScore[i].nAddScore = 10000;
-                    this.stScore[i].ctTimer = new CCounter(0, 400, 1, TJAPlayer3.Timer);
+                    this.stScore[i].ctTimer = new CCounter(0, 400, 1, TJAPlayer3.app.Timer);
                     this.stScore[i].bBonusScore = true;
                     this.stScore[i].nPlayer = player;
                     this.n現在表示中のAddScore++;
@@ -237,12 +237,12 @@ internal class CActScore : CActivity
                             this.stScore[i].b使用中 = false;
                             if (ct点数アニメタイマ[stScore[i].nPlayer].b終了値に達してない)
                             {
-                                this.ct点数アニメタイマ[stScore[i].nPlayer] = new CCounter(0, 11, 12, TJAPlayer3.Timer);
+                                this.ct点数アニメタイマ[stScore[i].nPlayer] = new CCounter(0, 11, 12, TJAPlayer3.app.Timer);
                                 this.ct点数アニメタイマ[stScore[i].nPlayer].n現在の値 = 1;
                             }
                             else
                             {
-                                this.ct点数アニメタイマ[stScore[i].nPlayer] = new CCounter(0, 11, 12, TJAPlayer3.Timer);
+                                this.ct点数アニメタイマ[stScore[i].nPlayer] = new CCounter(0, 11, 12, TJAPlayer3.app.Timer);
                             }
                             TJAPlayer3.stage演奏ドラム画面.actDan.Update();
                         }

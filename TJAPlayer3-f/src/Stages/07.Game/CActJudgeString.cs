@@ -58,7 +58,7 @@ internal class CActJudgeString : CActivity
             {
                 if (this.st状態[j].b使用中 == false)
                 {
-                    this.st状態[j].ct進行 = new CCounter(0, 300, 1, TJAPlayer3.Timer);
+                    this.st状態[j].ct進行 = new CCounter(0, 300, 1, TJAPlayer3.app.Timer);
                     this.st状態[j].b使用中 = true;
                     this.st状態[j].judge = judge;
                     this.st状態[j].n相対X座標 = 0;

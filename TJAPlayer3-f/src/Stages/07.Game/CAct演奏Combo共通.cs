@@ -339,9 +339,9 @@ internal class CAct演奏Combo共通 : CActivity
             this.status[i].nジャンプインデックス値 = 99999;
             this.status[i].n前回の時刻_ジャンプ用 = -1;
             this.status[i].nコンボが切れた時刻 = -1;
-            this.ctコンボ加算[i] = new CCounter(0, 12, 12, TJAPlayer3.Timer);
+            this.ctコンボ加算[i] = new CCounter(0, 12, 12, TJAPlayer3.app.Timer);
         }
-        this.ctコンボラメ = new CCounter(0, 29, 20, TJAPlayer3.Timer);
+        this.ctコンボラメ = new CCounter(0, 29, 20, TJAPlayer3.app.Timer);
         base.On活性化();
     }
     public override void On非活性化()
@@ -385,11 +385,11 @@ internal class CAct演奏Combo共通 : CActivity
             //-----------------
             if (this.status[i].nジャンプインデックス値 < 360)
             {
-                if ((this.status[i].n前回の時刻_ジャンプ用 == -1) || (TJAPlayer3.Timer.n現在時刻ms < this.status[i].n前回の時刻_ジャンプ用))
-                    this.status[i].n前回の時刻_ジャンプ用 = TJAPlayer3.Timer.n現在時刻ms;
+                if ((this.status[i].n前回の時刻_ジャンプ用 == -1) || (TJAPlayer3.app.Timer.n現在時刻ms < this.status[i].n前回の時刻_ジャンプ用))
+                    this.status[i].n前回の時刻_ジャンプ用 = TJAPlayer3.app.Timer.n現在時刻ms;
 
                 const long INTERVAL = 2;
-                while ((TJAPlayer3.Timer.n現在時刻ms - this.status[i].n前回の時刻_ジャンプ用) >= INTERVAL)
+                while ((TJAPlayer3.app.Timer.n現在時刻ms - this.status[i].n前回の時刻_ジャンプ用) >= INTERVAL)
                 {
                     if (this.status[i].nジャンプインデックス値 < 2000)
                         this.status[i].nジャンプインデックス値 += 3;
@@ -414,7 +414,7 @@ internal class CAct演奏Combo共通 : CActivity
                         // モード変更
                         this.status[i].e現在のモード = EMode.進行表示中;
                         this.status[i].nジャンプインデックス値 = 0;
-                        this.status[i].n前回の時刻_ジャンプ用 = TJAPlayer3.Timer.n現在時刻ms;
+                        this.status[i].n前回の時刻_ジャンプ用 = TJAPlayer3.app.Timer.n現在時刻ms;
                         goto Retry;
                     }
 
@@ -432,14 +432,14 @@ internal class CAct演奏Combo共通 : CActivity
                         // モード変更
                         this.status[i].e現在のモード = EMode.残像表示中;
                         this.status[i].n残像表示中のCOMBO値 = this.status[i].n現在表示中のCOMBO値;
-                        this.status[i].nコンボが切れた時刻 = TJAPlayer3.Timer.n現在時刻ms;
+                        this.status[i].nコンボが切れた時刻 = TJAPlayer3.app.Timer.n現在時刻ms;
                         goto Retry;
                     }
 
                     if (e今回の状態遷移イベント == EEvent.数値更新)
                     {
                         this.status[i].nジャンプインデックス値 = 0;
-                        this.status[i].n前回の時刻_ジャンプ用 = TJAPlayer3.Timer.n現在時刻ms;
+                        this.status[i].n前回の時刻_ジャンプ用 = TJAPlayer3.app.Timer.n現在時刻ms;
                     }
 
                     this.status[i].n現在表示中のCOMBO値 = this.status[i].nCOMBO値;
@@ -463,7 +463,7 @@ internal class CAct演奏Combo共通 : CActivity
                         this.status[i].e現在のモード = EMode.進行表示中;
                         goto Retry;
                     }
-                    if ((TJAPlayer3.Timer.n現在時刻ms - this.status[i].nコンボが切れた時刻) > 1000)
+                    if ((TJAPlayer3.app.Timer.n現在時刻ms - this.status[i].nコンボが切れた時刻) > 1000)
                     {
                         // モード変更２
                         this.status[i].e現在のモード = EMode.非表示中;

@@ -82,7 +82,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
     {
         this.st叩ききりまショー = new ST叩ききりまショー();
         this.n演奏時間 = (TJAPlayer3.DTX[0].listChip.Count > 0) ? TJAPlayer3.DTX[0].listChip[TJAPlayer3.DTX[0].listChip.Count - 1].n発声時刻ms : 0;
-        this.st叩ききりまショー.ct残り時間 = new CCounter(0, 25000, 1, TJAPlayer3.Timer);
+        this.st叩ききりまショー.ct残り時間 = new CCounter(0, 25000, 1, TJAPlayer3.app.Timer);
         this.st叩ききりまショー.ct加算時間表示 = new CCounter();
         this.st叩ききりまショー.ct加算審査中 = new CCounter();
         this.st叩ききりまショー.b最初のチップが叩かれた = false;
@@ -105,7 +105,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
         this.st叩ききりまショー.n延長アニメ速度 = 0;
         this.n前回の延長時間 = 0;
 
-        this.st叩ききりまショー.ct針アニメ = new CCounter(0, 1000, 1, TJAPlayer3.Timer);
+        this.st叩ききりまショー.ct針アニメ = new CCounter(0, 1000, 1, TJAPlayer3.app.Timer);
 
         this.t叩ききりまショー_判定項目と難易度を決める();
     }
@@ -386,8 +386,8 @@ internal class CAct演奏Drumsゲームモード : CActivity
                 {
                     this.st叩ききりまショー.bタイマー使用中 = true;
                     int nCount = this.st叩ききりまショー.ct残り時間.n現在の値;
-                    this.st叩ききりまショー.ct残り時間 = new CCounter(0, 25000, 1, TJAPlayer3.Timer);
-                    this.st叩ききりまショー.ct針アニメ = new CCounter(0, 1000, 1, TJAPlayer3.Timer);
+                    this.st叩ききりまショー.ct残り時間 = new CCounter(0, 25000, 1, TJAPlayer3.app.Timer);
+                    this.st叩ききりまショー.ct針アニメ = new CCounter(0, 1000, 1, TJAPlayer3.app.Timer);
                     this.st叩ききりまショー.ct残り時間.n現在の値 = nCount;
                 }
 
@@ -760,12 +760,12 @@ internal class CAct演奏Drumsゲームモード : CActivity
 
     private void t加算審査アニメ_Start()
     {
-        this.st叩ききりまショー.ct加算審査中 = new CCounter(0, 2000, 1, TJAPlayer3.Timer);
+        this.st叩ききりまショー.ct加算審査中 = new CCounter(0, 2000, 1, TJAPlayer3.app.Timer);
         this.st叩ききりまショー.b加算アニメ中 = true;
     }
     private void t加算時間描画_Start()
     {
-        this.st叩ききりまショー.ct加算時間表示 = new CCounter(0, 1, 1000, TJAPlayer3.Timer);
+        this.st叩ききりまショー.ct加算時間表示 = new CCounter(0, 1, 1000, TJAPlayer3.app.Timer);
     }
 
     private void t加算時間描画(int addtime)

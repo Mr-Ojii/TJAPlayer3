@@ -35,7 +35,7 @@ internal class FlyingNotes : CActivity
                 Flying[i].Height = Math.Abs(TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FlyingNotes.EndPointY[nPlayer] - TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FlyingNotes.StartPointY[nPlayer]);
                 Flying[i].Width = Math.Abs((TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FlyingNotes.EndPointX[nPlayer] - StartPointX[nPlayer])) / 2;
                 //Console.WriteLine("{0}, {1}", width2P, height2P);
-                Flying[i].Counter = new CCounter(0, (180), TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FlyingNotes.Timer, TJAPlayer3.Timer);
+                Flying[i].Counter = new CCounter(0, (180), TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FlyingNotes.Timer, TJAPlayer3.app.Timer);
                 //Flying[i].Counter = new CCounter(0, 200000, CDTXMania.Skin.Game_Effect_FlyingNotes_Timer, CDTXMania.Timer);
 
                 Flying[i].IncreaseX = (1.00 * Math.Abs((TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FlyingNotes.EndPointX[nPlayer] - StartPointX[nPlayer]))) / (180);

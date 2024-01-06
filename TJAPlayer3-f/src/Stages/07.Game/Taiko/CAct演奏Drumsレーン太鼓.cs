@@ -32,7 +32,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
         this.nDefaultJudgePos[0, 1] = TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[0];
         this.nDefaultJudgePos[1, 0] = TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[1];
         this.nDefaultJudgePos[1, 1] = TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[1];
-        this.ctゴーゴー炎 = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.Effect.Fire.Ptn, 50, TJAPlayer3.Timer);
+        this.ctゴーゴー炎 = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.Effect.Fire.Ptn, 50, TJAPlayer3.app.Timer);
         base.On活性化();
     }
 
@@ -683,7 +683,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 
         //for( int n = 0; n < 1; n++ )
         {
-            this.st状態[nPlayer].ct進行 = new CCounter(0, 14, 20, TJAPlayer3.Timer);
+            this.st状態[nPlayer].ct進行 = new CCounter(0, 14, 20, TJAPlayer3.app.Timer);
             this.st状態[nPlayer].judge = judge;
             this.st状態[nPlayer].nPlayer = nPlayer;
 
@@ -711,7 +711,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 
     public void GOGOSTART()
     {
-        this.ctゴーゴー = new CCounter(0, 17, 18, TJAPlayer3.Timer);
+        this.ctゴーゴー = new CCounter(0, 17, 18, TJAPlayer3.app.Timer);
         if (TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount == 1 && TJAPlayer3.stage選曲.n確定された曲の難易度[0] != (int)Difficulty.Dan) TJAPlayer3.stage演奏ドラム画面.GoGoSplash.StartSplash();
     }
 
@@ -722,7 +722,7 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
         {
             return;
         }
-        this.stBranch[nPlayer].ct分岐アニメ進行 = new CCounter(0, 300, 2, TJAPlayer3.Timer);
+        this.stBranch[nPlayer].ct分岐アニメ進行 = new CCounter(0, 300, 2, TJAPlayer3.app.Timer);
 
         this.stBranch[nPlayer].nBranchレイヤー透明度 = 6;
         this.stBranch[nPlayer].nY座標 = 1;

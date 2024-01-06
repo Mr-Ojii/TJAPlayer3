@@ -118,7 +118,7 @@ internal class CStageResult : CStage
                 "Result" + (TJAPlayer3.app.ConfigToml.PlayOption.AutoPlay[0] == true ? " (Auto)" : "")
             );
 
-            this.ctMountainAndClear = new CCounter(0, 1655, 1, TJAPlayer3.Timer);
+            this.ctMountainAndClear = new CCounter(0, 1655, 1, TJAPlayer3.app.Timer);
 
             base.On活性化();
         }
@@ -142,7 +142,7 @@ internal class CStageResult : CStage
         {
             if (base.b初めての進行描画)
             {
-                this.ct登場用 = new CCounter(0, 100, 5, TJAPlayer3.Timer);
+                this.ct登場用 = new CCounter(0, 100, 5, TJAPlayer3.app.Timer);
                 this.actFI.tFadeIn開始();
                 base.eフェーズID = CStage.Eフェーズ.共通_FadeIn;
                 base.b初めての進行描画 = false;

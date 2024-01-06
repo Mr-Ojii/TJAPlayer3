@@ -74,14 +74,14 @@ internal class CStage選曲 : CStage
             this.eFadeOut完了時の戻り値 = E戻り値.継続;
             this.bBGM再生済み = false;
             for (int i = 0; i < 4; i++)
-                this.ctキー反復用[i] = new CCounter(0, 0, 0, TJAPlayer3.Timer);
+                this.ctキー反復用[i] = new CCounter(0, 0, 0, TJAPlayer3.app.Timer);
 
             if (TJAPlayer3.Tx.SongSelect_Background != null)
-                this.ct背景スクロール用タイマー = new CCounter(0, TJAPlayer3.Tx.SongSelect_Background.szTextureSize.Width, 30, TJAPlayer3.Timer);
-            this.ctカウントダウン用タイマー = new CCounter(0, 100, 1000, TJAPlayer3.Timer);
-            this.ctDifficultySelectIN用タイマー = new CCounter(0, 750, 1, TJAPlayer3.Timer);
-            this.ctDifficultySelectINバー拡大用タイマー = new CCounter(0, 750, 1, TJAPlayer3.Timer);
-            this.ctDifficultySelectOUT用タイマー = new CCounter(0, 500, 1, TJAPlayer3.Timer);
+                this.ct背景スクロール用タイマー = new CCounter(0, TJAPlayer3.Tx.SongSelect_Background.szTextureSize.Width, 30, TJAPlayer3.app.Timer);
+            this.ctカウントダウン用タイマー = new CCounter(0, 100, 1000, TJAPlayer3.app.Timer);
+            this.ctDifficultySelectIN用タイマー = new CCounter(0, 750, 1, TJAPlayer3.app.Timer);
+            this.ctDifficultySelectINバー拡大用タイマー = new CCounter(0, 750, 1, TJAPlayer3.app.Timer);
+            this.ctDifficultySelectOUT用タイマー = new CCounter(0, 500, 1, TJAPlayer3.app.Timer);
 
             //this.actDifficultySelect.bIsDifficltSelect = true;
             base.On活性化();
@@ -129,7 +129,7 @@ internal class CStage選曲 : CStage
             //---------------------
             if (base.b初めての進行描画)
             {
-                this.ct登場時アニメ用共通 = new CCounter(0, 100, 3, TJAPlayer3.Timer);
+                this.ct登場時アニメ用共通 = new CCounter(0, 100, 3, TJAPlayer3.app.Timer);
                 if (TJAPlayer3.r直前のステージ == TJAPlayer3.stageResult)
                 {
                     this.actFIfromResult.tFadeIn開始();

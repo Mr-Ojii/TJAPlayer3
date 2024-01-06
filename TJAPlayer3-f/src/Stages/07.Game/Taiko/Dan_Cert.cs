@@ -31,7 +31,7 @@ internal class Dan_Cert : CActivity
             if (Gauge.IsEnable)
                 Gauge.SetNowSongNum(number);
 
-        Counter_In = new CCounter(0, 999, 1, TJAPlayer3.Timer);
+        Counter_In = new CCounter(0, 999, 1, TJAPlayer3.app.Timer);
         ScreenPoint = new double[] { TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[0] - (TJAPlayer3.Tx.DanC_Screen?.szTextureSize.Width ?? 1280) / 2, 1280 }; //2020.06.06 Mr-Ojii twopointzero氏のソースコードをもとに改良
         TJAPlayer3.stage演奏ドラム画面.ReSetScore(TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].ScoreInit, TJAPlayer3.DTX[0].List_DanSongs[NowShowingNumber].ScoreDiff, 0);
         IsAnimating = true;
@@ -143,12 +143,12 @@ internal class Dan_Cert : CActivity
             {
                 if (Status[i].Timer_Amount != null && Status[i].Timer_Amount.b終了値に達してない)
                 {
-                    Status[i].Timer_Amount = new CCounter(0, 11, 12, TJAPlayer3.Timer);
+                    Status[i].Timer_Amount = new CCounter(0, 11, 12, TJAPlayer3.app.Timer);
                     Status[i].Timer_Amount.n現在の値 = 1;
                 }
                 else
                 {
-                    Status[i].Timer_Amount = new CCounter(0, 11, 12, TJAPlayer3.Timer);
+                    Status[i].Timer_Amount = new CCounter(0, 11, 12, TJAPlayer3.app.Timer);
                 }
             }
 
@@ -349,7 +349,7 @@ internal class Dan_Cert : CActivity
             if (Counter_In.b終了値に達した)
             {
                 Counter_In = null;
-                Counter_Wait = new CCounter(0, 2299, 1, TJAPlayer3.Timer);
+                Counter_Wait = new CCounter(0, 2299, 1, TJAPlayer3.app.Timer);
             }
         }
         if (Counter_Wait != null)
@@ -361,8 +361,8 @@ internal class Dan_Cert : CActivity
             if (Counter_Wait.b終了値に達した)
             {
                 Counter_Wait = null;
-                Counter_Out = new CCounter(0, 499, 1, TJAPlayer3.Timer);
-                Counter_Text = new CCounter(0, 2899, 1, TJAPlayer3.Timer);
+                Counter_Out = new CCounter(0, 499, 1, TJAPlayer3.app.Timer);
+                Counter_Text = new CCounter(0, 2899, 1, TJAPlayer3.app.Timer);
             }
         }
         if (Counter_Text != null)

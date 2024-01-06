@@ -18,7 +18,7 @@ internal class CAct演奏Drumsコンボ吹き出し : CActivity
     // メソッド
     public virtual void Start(int nCombo, int player)
     {
-        this.ct進行[player] = new CCounter(1, 103, 20, TJAPlayer3.Timer);
+        this.ct進行[player] = new CCounter(1, 103, 20, TJAPlayer3.app.Timer);
         this.nCombo_渡[player] = nCombo;
     }
 

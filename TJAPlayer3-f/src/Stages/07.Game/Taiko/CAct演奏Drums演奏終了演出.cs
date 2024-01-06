@@ -15,8 +15,8 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
 
     public void Start()
     {
-        this.ct進行メイン = new CCounter(0, 500, 22, TJAPlayer3.Timer);
-        this.ct進行return用 = new CCounter(0, this.ct進行メイン.n終了値 - 100, 22, TJAPlayer3.Timer);
+        this.ct進行メイン = new CCounter(0, 500, 22, TJAPlayer3.app.Timer);
+        this.ct進行return用 = new CCounter(0, this.ct進行メイン.n終了値 - 100, 22, TJAPlayer3.app.Timer);
         this.bリザルトボイス再生済み = false;
         // モードの決定。クリア失敗・フルコンボも事前に作っとく。
         if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] == (int)Difficulty.Dan)

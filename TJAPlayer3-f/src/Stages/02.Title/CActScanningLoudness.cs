@@ -17,7 +17,7 @@ internal class CActScanningLoudness : CActivity
         try
         {
             this.ctNowScanningLoudness = new CCounter();
-            this.ctNowScanningLoudness.t開始(0, 200, 29, TJAPlayer3.Timer);
+            this.ctNowScanningLoudness.t開始(0, 200, 29, TJAPlayer3.app.Timer);
         }
         finally
         {

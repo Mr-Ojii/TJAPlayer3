@@ -9,14 +9,14 @@ internal class CActFIFOResult : CActivity
     public void tFadeOut開始()
     {
         this.mode = EFIFOMode.FadeOut;
-        this.counter = new CCounter(0, 500, 2, TJAPlayer3.Timer);
+        this.counter = new CCounter(0, 500, 2, TJAPlayer3.app.Timer);
         if (TJAPlayer3.Tx.Result_FadeIn != null)
             TJAPlayer3.Tx.Result_FadeIn.Opacity = 255;
     }
     public void tFadeIn開始()
     {
         this.mode = EFIFOMode.FadeIn;
-        this.counter = new CCounter(0, 100, 5, TJAPlayer3.Timer);
+        this.counter = new CCounter(0, 100, 5, TJAPlayer3.app.Timer);
         if (TJAPlayer3.Tx.Result_FadeIn != null)
             TJAPlayer3.Tx.Result_FadeIn.Opacity = 255;
     }

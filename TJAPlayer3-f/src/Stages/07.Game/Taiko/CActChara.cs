@@ -287,7 +287,7 @@ internal class CActChara : CActivity
                 {
                     if (CharaAction_Balloon_FadeOut[nPlayer].b停止中 && CharaAction_Balloon_Broke[nPlayer].n現在の値 > CharaAction_Balloon_FadeOut_StartMs[nPlayer][0])
                     {
-                        CharaAction_Balloon_FadeOut[nPlayer].t開始(0, TJAPlayer3.app.Skin.SkinConfig.Game.Chara.BalloonFadeOut[nPlayer] - 1, 1, TJAPlayer3.Timer);
+                        CharaAction_Balloon_FadeOut[nPlayer].t開始(0, TJAPlayer3.app.Skin.SkinConfig.Game.Chara.BalloonFadeOut[nPlayer] - 1, 1, TJAPlayer3.app.Timer);
                     }
                     if (TJAPlayer3.Tx.Chara_Balloon_Broke[nPlayer][CharaAction_Balloon_Broke[nPlayer].n現在の値] != null)
                     {
@@ -306,7 +306,7 @@ internal class CActChara : CActivity
                 {
                     if (CharaAction_Balloon_FadeOut[nPlayer].b停止中 && CharaAction_Balloon_Miss[nPlayer].n現在の値 > CharaAction_Balloon_FadeOut_StartMs[nPlayer][1])
                     {
-                        CharaAction_Balloon_FadeOut[nPlayer].t開始(0, TJAPlayer3.app.Skin.SkinConfig.Game.Chara.BalloonFadeOut[nPlayer] - 1, 1, TJAPlayer3.Timer);
+                        CharaAction_Balloon_FadeOut[nPlayer].t開始(0, TJAPlayer3.app.Skin.SkinConfig.Game.Chara.BalloonFadeOut[nPlayer] - 1, 1, TJAPlayer3.app.Timer);
                     }
                     if (TJAPlayer3.Tx.Chara_Balloon_Miss[nPlayer][CharaAction_Balloon_Miss[nPlayer].n現在の値] != null)
                     {

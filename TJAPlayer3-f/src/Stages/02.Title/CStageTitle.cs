@@ -302,7 +302,7 @@ internal class CStageTitle : CStage
         {
             TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
             this.n現在のカーソル行++;
-            this.ct下移動用.t開始(0, 100, 1, TJAPlayer3.Timer);
+            this.ct下移動用.t開始(0, 100, 1, TJAPlayer3.app.Timer);
             if (this.ct上移動用.b進行中)
             {
                 this.ct下移動用.n現在の値 = 100 - this.ct上移動用.n現在の値;
@@ -316,7 +316,7 @@ internal class CStageTitle : CStage
         {
             TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
             this.n現在のカーソル行--;
-            this.ct上移動用.t開始(0, 100, 1, TJAPlayer3.Timer);
+            this.ct上移動用.t開始(0, 100, 1, TJAPlayer3.app.Timer);
             if (this.ct下移動用.b進行中)
             {
                 this.ct上移動用.n現在の値 = 100 - this.ct下移動用.n現在の値;

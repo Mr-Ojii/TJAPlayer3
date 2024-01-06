@@ -21,7 +21,7 @@ internal class CStageEnding : CStage
         Trace.Indent();
         try
         {
-            this.ctAnimation = new CCounter(0, 3000, 1, TJAPlayer3.Timer);
+            this.ctAnimation = new CCounter(0, 3000, 1, TJAPlayer3.app.Timer);
             TJAPlayer3.app.Discord.Update("Ending");
             base.On活性化();
         }

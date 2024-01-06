@@ -71,7 +71,7 @@ internal class CActResultSongBar : CActivity
         }
         if (base.b初めての進行描画)
         {
-            this.ct登場用 = new CCounter(0, 270, 4, TJAPlayer3.Timer);
+            this.ct登場用 = new CCounter(0, 270, 4, TJAPlayer3.app.Timer);
             base.b初めての進行描画 = false;
         }
         this.ct登場用.t進行();

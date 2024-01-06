@@ -47,7 +47,7 @@ internal class CStageConfig : CStage
 
             for (int i = 0; i < 4; i++)													//
             {																				//
-                this.ctキー反復用[i] = new CCounter(0, 0, 0, TJAPlayer3.Timer);			//
+                this.ctキー反復用[i] = new CCounter(0, 0, 0, TJAPlayer3.app.Timer);			//
             }																				//
             this.bメニューにフォーカス中 = true;											// ここまでOPTIONと共通
             this.eItemPanelモード = EItemPanelモード.パッド一覧;

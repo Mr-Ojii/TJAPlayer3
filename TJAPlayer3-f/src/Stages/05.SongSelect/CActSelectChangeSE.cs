@@ -281,8 +281,8 @@ class CActSelectChangeSE : CActivity
         }
     }
 
-    private CCounter[] ct登場退場アニメ用 = { new CCounter(0, 203, 2, TJAPlayer3.Timer), new CCounter(0, 203, 2, TJAPlayer3.Timer) };
-    private CCounter[] ct変更アニメ用 = { new CCounter(0, 255, 1, TJAPlayer3.Timer), new CCounter(0, 255, 1, TJAPlayer3.Timer) };
+    private CCounter[] ct登場退場アニメ用 = { new CCounter(0, 203, 2, TJAPlayer3.app.Timer), new CCounter(0, 203, 2, TJAPlayer3.app.Timer) };
+    private CCounter[] ct変更アニメ用 = { new CCounter(0, 255, 1, TJAPlayer3.app.Timer), new CCounter(0, 255, 1, TJAPlayer3.app.Timer) };
 
     private enum EMoving
     {

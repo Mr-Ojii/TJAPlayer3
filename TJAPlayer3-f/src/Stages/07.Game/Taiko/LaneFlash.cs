@@ -16,7 +16,7 @@ public class LaneFlash : CActivity
 
     public void Start()
     {
-        Counter = new CCounter(0, 100, 2, TJAPlayer3.Timer);
+        Counter = new CCounter(0, 100, 2, TJAPlayer3.app.Timer);
     }
 
     public override void On活性化()

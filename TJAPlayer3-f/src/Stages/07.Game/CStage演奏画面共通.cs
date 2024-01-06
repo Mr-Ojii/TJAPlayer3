@@ -311,7 +311,7 @@ internal class CStage演奏画面共通 : CStage
             this.actDancer.ct踊り子モーション = new CCounter();
         }
 
-        this.ct手つなぎ = new CCounter(0, 60, 20, TJAPlayer3.Timer);
+        this.ct手つなぎ = new CCounter(0, 60, 20, TJAPlayer3.app.Timer);
 
         // Discord Presence の更新
         var difficultyName = ((Difficulty)TJAPlayer3.stage選曲.n確定された曲の難易度[0]).ToString();
@@ -397,7 +397,7 @@ internal class CStage演奏画面共通 : CStage
             {
                 CSoundManager.rc演奏用タイマ.tリセット();
                 //CSoundManager.rc演奏用タイマ.n現在時刻ms += 50000;
-                TJAPlayer3.Timer.tリセット();
+                TJAPlayer3.app.Timer.tリセット();
 
                 // this.actChipFireD.Start( Eレーン.HH );	// #31554 2013.6.12 yyagi
                 // 初チップヒット時のもたつき回避。最初にactChipFireD.Start()するときにJITが掛かって？
@@ -948,12 +948,12 @@ internal class CStage演奏画面共通 : CStage
             this.b連打中[nPlayer] = true;
             if (this.actRoll.ct連打アニメ[nPlayer].b終了値に達してない)
             {
-                this.actRoll.ct連打アニメ[nPlayer] = new CCounter(0, 9, 14, TJAPlayer3.Timer);
+                this.actRoll.ct連打アニメ[nPlayer] = new CCounter(0, 9, 14, TJAPlayer3.app.Timer);
                 this.actRoll.ct連打アニメ[nPlayer].n現在の値 = 1;
             }
             else
             {
-                this.actRoll.ct連打アニメ[nPlayer] = new CCounter(0, 9, 14, TJAPlayer3.Timer);
+                this.actRoll.ct連打アニメ[nPlayer] = new CCounter(0, 9, 14, TJAPlayer3.app.Timer);
             }
 
 
@@ -961,12 +961,12 @@ internal class CStage演奏画面共通 : CStage
             if (pChip.RollEffectLevel >= 100)
             {
                 pChip.RollEffectLevel = 100;
-                pChip.RollInputTime = new CCounter(0, 1500, 1, TJAPlayer3.Timer);
+                pChip.RollInputTime = new CCounter(0, 1500, 1, TJAPlayer3.app.Timer);
                 pChip.RollDelay?.t停止();
             }
             else
             {
-                pChip.RollInputTime = new CCounter(0, 150, 1, TJAPlayer3.Timer);
+                pChip.RollInputTime = new CCounter(0, 150, 1, TJAPlayer3.app.Timer);
                 pChip.RollDelay?.t停止();
             }
 
@@ -1048,17 +1048,17 @@ internal class CStage演奏画面共通 : CStage
             {
                 actChara.アクションタイマーリセット(nPlayer);
                 actChara.bマイどんアクション中[nPlayer] = true;
-                actChara.CharaAction_Balloon_Breaking[nPlayer] = new CCounter(0, TJAPlayer3.app.Skin.Game_Chara_Ptn_Balloon_Breaking[nPlayer] - 1, TJAPlayer3.app.Skin.SkinConfig.Game.Chara.BalloonTimer[nPlayer], TJAPlayer3.Timer);
+                actChara.CharaAction_Balloon_Breaking[nPlayer] = new CCounter(0, TJAPlayer3.app.Skin.Game_Chara_Ptn_Balloon_Breaking[nPlayer] - 1, TJAPlayer3.app.Skin.SkinConfig.Game.Chara.BalloonTimer[nPlayer], TJAPlayer3.app.Timer);
 
             }
             if (this.actBalloon.ct風船アニメ[nPlayer].b終了値に達してない)
             {
-                this.actBalloon.ct風船アニメ[nPlayer] = new CCounter(0, 9, 14, TJAPlayer3.Timer);
+                this.actBalloon.ct風船アニメ[nPlayer] = new CCounter(0, 9, 14, TJAPlayer3.app.Timer);
                 this.actBalloon.ct風船アニメ[nPlayer].n現在の値 = 1;
             }
             else
             {
-                this.actBalloon.ct風船アニメ[nPlayer] = new CCounter(0, 9, 14, TJAPlayer3.Timer);
+                this.actBalloon.ct風船アニメ[nPlayer] = new CCounter(0, 9, 14, TJAPlayer3.app.Timer);
             }
             pChip.nRollCount++;
             this.n風船残り[nPlayer]--;
@@ -1102,8 +1102,8 @@ internal class CStage演奏画面共通 : CStage
                 {
                     actChara.アクションタイマーリセット(nPlayer);
                     actChara.bマイどんアクション中[nPlayer] = true;
-                    actChara.CharaAction_Balloon_Broke[nPlayer] = new CCounter(0, TJAPlayer3.app.Skin.Game_Chara_Ptn_Balloon_Broke[nPlayer] - 1, TJAPlayer3.app.Skin.SkinConfig.Game.Chara.BalloonTimer[nPlayer], TJAPlayer3.Timer);
-                    if (actChara.CharaAction_Balloon_Delay[nPlayer] != null) actChara.CharaAction_Balloon_Delay[nPlayer] = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.Chara.BalloonDelay[nPlayer] - 1, 1, TJAPlayer3.Timer);
+                    actChara.CharaAction_Balloon_Broke[nPlayer] = new CCounter(0, TJAPlayer3.app.Skin.Game_Chara_Ptn_Balloon_Broke[nPlayer] - 1, TJAPlayer3.app.Skin.SkinConfig.Game.Chara.BalloonTimer[nPlayer], TJAPlayer3.app.Timer);
+                    if (actChara.CharaAction_Balloon_Delay[nPlayer] != null) actChara.CharaAction_Balloon_Delay[nPlayer] = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.Chara.BalloonDelay[nPlayer] - 1, 1, TJAPlayer3.app.Timer);
                 }
             }
             else
@@ -1384,7 +1384,7 @@ internal class CStage演奏画面共通 : CStage
             {
                 if (this.actCombo.n現在のコンボ数[i] == 50 || this.actCombo.n現在のコンボ数[i] == 300)
                 {
-                    ctChipAnimeLag[i] = new CCounter(0, 664, 1, TJAPlayer3.Timer);
+                    ctChipAnimeLag[i] = new CCounter(0, 664, 1, TJAPlayer3.app.Timer);
                 }
             }
 
@@ -1512,7 +1512,7 @@ internal class CStage演奏画面共通 : CStage
                         this.actScore.BonusAdd(nPlayer);
                     }
                     this.actScore.ctボーナス加算タイマ[nPlayer].n現在の値 = 0;
-                    this.actScore.ctボーナス加算タイマ[nPlayer] = new CCounter(0, 2, 1000, TJAPlayer3.Timer);
+                    this.actScore.ctボーナス加算タイマ[nPlayer] = new CCounter(0, 2, 1000, TJAPlayer3.app.Timer);
 
                     //combot = new System.Timers.Timer();
                     //if(nPlayer == 0)
@@ -2491,7 +2491,7 @@ internal class CStage演奏画面共通 : CStage
                 TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND変更音].t再生する();
 
                 CSoundManager.rc演奏用タイマ.t一時停止();
-                TJAPlayer3.Timer.t一時停止();
+                TJAPlayer3.app.Timer.t一時停止();
                 TJAPlayer3.DTX[0].t全チップの再生一時停止();
                 this.actAVI.tPauseControl();
 
@@ -2633,7 +2633,7 @@ internal class CStage演奏画面共通 : CStage
             else if ((keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape)))
             {   // escape (exit)
                 CSoundManager.rc演奏用タイマ.t再開();
-                TJAPlayer3.Timer.t再開();
+                TJAPlayer3.app.Timer.t再開();
                 this.t演奏中止();
             }
         }
@@ -2894,8 +2894,8 @@ internal class CStage演奏画面共通 : CStage
                                     {
                                         actChara.アクションタイマーリセット(nPlayer);
                                         actChara.bマイどんアクション中[nPlayer] = true;
-                                        actChara.CharaAction_Balloon_Miss[nPlayer] = new CCounter(0, TJAPlayer3.app.Skin.Game_Chara_Ptn_Balloon_Miss[nPlayer] - 1, TJAPlayer3.app.Skin.SkinConfig.Game.Chara.BalloonTimer[nPlayer], TJAPlayer3.Timer);
-                                        if (actChara.CharaAction_Balloon_Delay[nPlayer] != null) actChara.CharaAction_Balloon_Delay[nPlayer] = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.Chara.BalloonDelay[nPlayer] - 1, 1, TJAPlayer3.Timer);
+                                        actChara.CharaAction_Balloon_Miss[nPlayer] = new CCounter(0, TJAPlayer3.app.Skin.Game_Chara_Ptn_Balloon_Miss[nPlayer] - 1, TJAPlayer3.app.Skin.SkinConfig.Game.Chara.BalloonTimer[nPlayer], TJAPlayer3.app.Timer);
+                                        if (actChara.CharaAction_Balloon_Delay[nPlayer] != null) actChara.CharaAction_Balloon_Delay[nPlayer] = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.Chara.BalloonDelay[nPlayer] - 1, 1, TJAPlayer3.app.Timer);
                                     }
                                 }
                                 chip現在処理中の連打チップ[nPlayer] = null;
@@ -3905,8 +3905,8 @@ internal class CStage演奏画面共通 : CStage
         #endregion
         #region [ タイマを再開して、PAUSEから復帰する ]
         CSoundManager.rc演奏用タイマ.n現在時刻ms = nStartTime;
-        TJAPlayer3.Timer.tリセット();						// これでPAUSE解除されるので、3行先の再開()は不要
-        TJAPlayer3.Timer.n現在時刻ms = nStartTime;				// Debug表示のTime: 表記を正しくするために必要
+        TJAPlayer3.app.Timer.tリセット();						// これでPAUSE解除されるので、3行先の再開()は不要
+        TJAPlayer3.app.Timer.n現在時刻ms = nStartTime;				// Debug表示のTime: 表記を正しくするために必要
         CSoundManager.rc演奏用タイマ.t再開();
         this.bPAUSE = false;								// システムがPAUSE状態だったら、強制解除
         this.actPanel.Start();
@@ -4166,13 +4166,13 @@ internal class CStage演奏画面共通 : CStage
                 {
                     pChip.RollInputTime.t停止();
                     pChip.RollInputTime.n現在の値 = 0;
-                    pChip.RollDelay = new CCounter(0, 1, 1, TJAPlayer3.Timer);
+                    pChip.RollDelay = new CCounter(0, 1, 1, TJAPlayer3.app.Timer);
                 }
 
                 if (pChip.RollDelay != null && pChip.RollDelay.b終了値に達した && pChip.RollEffectLevel > 0)
                 {
                     pChip.RollEffectLevel--;
-                    pChip.RollDelay = new CCounter(0, 1, 1, TJAPlayer3.Timer);
+                    pChip.RollDelay = new CCounter(0, 1, 1, TJAPlayer3.app.Timer);
                     pChip.RollDelay.n現在の値 = 0;
                 }
 

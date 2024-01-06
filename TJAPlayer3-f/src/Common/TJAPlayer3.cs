@@ -181,7 +181,7 @@ internal class TJAPlayer3 : Game
     public static CStage r現在のステージ = null;
     public static CStage r直前のステージ = null;
     public static string strEXEのあるフォルダ => AppContext.BaseDirectory;
-    public static CTimer Timer
+    public CTimer Timer
     {
         get;
         private set;
@@ -629,7 +629,7 @@ internal class TJAPlayer3 : Game
         Timer?.t更新();
         CSoundManager.rc演奏用タイマ?.t更新();
         InputManager?.tSwapEventList();
-        FPS?.tUpdateCounter();
+        FPS.tUpdateCounter();
 
         if (this.Device == null)
             return;
