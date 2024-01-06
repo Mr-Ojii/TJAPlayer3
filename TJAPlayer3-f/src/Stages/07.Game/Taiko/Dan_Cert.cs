@@ -83,7 +83,7 @@ internal class Dan_Cert : CActivity
         if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] == (int)Difficulty.Dan)
             IsAnimating = true;
 
-        Dan_Plate = TJAPlayer3.tCreateTexture(Path.GetDirectoryName(TJAPlayer3.DTX[0].strFilenameの絶対パス) + @"/Dan_Plate.png");
+        Dan_Plate = TJAPlayer3.app.tCreateTexture(Path.GetDirectoryName(TJAPlayer3.DTX[0].strFilenameの絶対パス) + @"/Dan_Plate.png");
         Sound_Section = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Dan/Section.ogg"), ESoundGroup.SoundEffect);
         Sound_Failed = TJAPlayer3.SoundManager.tCreateSound(CSkin.Path(@"Sounds/Dan/Failed.ogg"), ESoundGroup.SoundEffect);
         base.On活性化();

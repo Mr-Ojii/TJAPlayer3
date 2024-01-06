@@ -830,7 +830,7 @@ internal class CActConfigList : CActivity
                     {
                         TJAPlayer3.t安全にDisposeする(ref txSkinSample1);
                     }
-                    txSkinSample1 = TJAPlayer3.tCreateTexture(bitmap);
+                    txSkinSample1 = TJAPlayer3.app.tCreateTexture(bitmap);
                 }
             }
             nSkinSampleIndex = nSkinIndex;
@@ -1254,7 +1254,7 @@ internal class CActConfigList : CActivity
             {
                 using (var bmpItem = prvFont.DrawText(this.list項目リスト[nItem].strName, Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                 {
-                    listMenu[nItem].txMenuItemRight = TJAPlayer3.tCreateTexture(bmpItem);
+                    listMenu[nItem].txMenuItemRight = TJAPlayer3.app.tCreateTexture(bmpItem);
                     // ctItem.t2D描画( CDTXMania.app.Device, ( x + 0x12 ) * Scale.X, ( y + 12 ) * Scale.Y - 20 );
                     // CDTXMania.t安全にDisposeする( ref ctItem );
                 }
@@ -1329,7 +1329,7 @@ internal class CActConfigList : CActivity
             {
                 using (var bmpStr = prvFont.DrawText(strParam, Color.Black, Color.White, Color.Yellow, Color.OrangeRed, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                 {
-                    using (var txStr = TJAPlayer3.tCreateTexture(bmpStr))
+                    using (var txStr = TJAPlayer3.app.tCreateTexture(bmpStr))
                     {
                         txStr.t2D描画(TJAPlayer3.app.Device, x + 400 + TJAPlayer3.app.Skin.SkinConfig.Config.ItemTextCorrectionX, y + 12 + TJAPlayer3.app.Skin.SkinConfig.Config.ItemTextCorrectionX);
                     }
@@ -1347,7 +1347,7 @@ internal class CActConfigList : CActivity
 
                     using (var bmpStr = prvFont.DrawText(strParam, Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                     {
-                        stm.txParam = TJAPlayer3.tCreateTexture(bmpStr);
+                        stm.txParam = TJAPlayer3.app.tCreateTexture(bmpStr);
                     }
 
                     listMenu[nItem] = stm;

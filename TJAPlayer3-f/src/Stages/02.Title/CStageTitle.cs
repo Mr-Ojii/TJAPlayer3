@@ -281,7 +281,7 @@ internal class CStageTitle : CStage
     {
         using (var bmp = pf.DrawText_V(str文字, forecolor, backcolor, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatioVertical))
         {
-            return TJAPlayer3.tCreateTexture(bmp);
+            return TJAPlayer3.app.tCreateTexture(bmp);
         }
     }
 

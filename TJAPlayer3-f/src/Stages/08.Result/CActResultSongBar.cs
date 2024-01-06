@@ -37,7 +37,7 @@ internal class CActResultSongBar : CActivity
 
             using (var bmpSongTitle = pfMusicName.DrawText(title, TJAPlayer3.app.Skin.SkinConfig.Result._MusicNameForeColor, TJAPlayer3.app.Skin.SkinConfig.Result._MusicNameBackColor, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
             {
-                this.txMusicName = TJAPlayer3.tCreateTexture(bmpSongTitle);
+                this.txMusicName = TJAPlayer3.app.tCreateTexture(bmpSongTitle);
                 txMusicName.vcScaling.X = TJAPlayer3.GetSongNameXScaling(ref txMusicName);
             }
         }
@@ -46,7 +46,7 @@ internal class CActResultSongBar : CActivity
         {
             using (var bmpStageText = pfStageText.DrawText(TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.StageText, TJAPlayer3.app.Skin.SkinConfig.Result._StageTextForeColor, TJAPlayer3.app.Skin.SkinConfig.Result._StageTextBackColor, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
             {
-                this.txStageText = TJAPlayer3.tCreateTexture(bmpStageText);
+                this.txStageText = TJAPlayer3.app.tCreateTexture(bmpStageText);
             }
         }
 

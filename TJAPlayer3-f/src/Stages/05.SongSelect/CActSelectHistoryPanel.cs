@@ -109,7 +109,7 @@ internal class CActSelectHistoryPanel : CActivity
                     for (int j = 0; j < 3; j++)
                         if (!string.IsNullOrEmpty(Names[index][j]))
                         {
-                            this.Names[index, j] = TJAPlayer3.tCreateTexture(Font.DrawText(Names[index][j], Color.Black));
+                            this.Names[index, j] = TJAPlayer3.app.tCreateTexture(Font.DrawText(Names[index][j], Color.Black));
                             this.Names[index, j].vcScaling = new Vector2(0.5f);
                         }
                 }

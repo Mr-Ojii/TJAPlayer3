@@ -474,7 +474,7 @@ internal class CActSelect曲リスト : CActivity
 
             using (CFontRenderer pffont = new CFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, 32))
             {
-                this.txSongNotFound = TJAPlayer3.tCreateTexture(pffont.DrawText(s1[c], Color.White));
+                this.txSongNotFound = TJAPlayer3.app.tCreateTexture(pffont.DrawText(s1[c], Color.White));
                 this.txSongNotFound.vcScaling = new Vector2(0.5f);
             }
         }
@@ -492,7 +492,7 @@ internal class CActSelect曲リスト : CActivity
 
             using (CFontRenderer pffont = new CFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, 32))
             {
-                this.txEnumeratingSongs = TJAPlayer3.tCreateTexture(pffont.DrawText(s1[c], Color.White));
+                this.txEnumeratingSongs = TJAPlayer3.app.tCreateTexture(pffont.DrawText(s1[c], Color.White));
                 this.txEnumeratingSongs.vcScaling = new Vector2(0.5f);
             }
         }
@@ -1465,7 +1465,7 @@ internal class CActSelect曲リスト : CActivity
         using (var bmp = titleTextureKey.CCachedFontRenderer.DrawText_V(
             titleTextureKey.str文字, titleTextureKey.forecolor, titleTextureKey.backcolor, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatioVertical))
         {
-            CTexture tx文字テクスチャ = TJAPlayer3.tCreateTexture(bmp);
+            CTexture tx文字テクスチャ = TJAPlayer3.app.tCreateTexture(bmp);
             if (tx文字テクスチャ.szTextureSize.Height > titleTextureKey.maxHeight)
             {
                 tx文字テクスチャ.vcScaling.Y = (float)(((double)titleTextureKey.maxHeight) / tx文字テクスチャ.szTextureSize.Height);

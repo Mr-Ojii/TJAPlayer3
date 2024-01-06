@@ -55,17 +55,17 @@ class TextureLoader
 
     internal CTexture TxC(string FileName)
     {
-        return TJAPlayer3.tCreateTexture(CSkin.Path(BASE + FileName));
+        return TJAPlayer3.app.tCreateTexture(CSkin.Path(BASE + FileName));
     }
     internal CTexture TxCGen(string FileName)
     {
-        return TJAPlayer3.tCreateTexture(CSkin.Path(BASE + GAME + GENRE + FileName + ".png"));
+        return TJAPlayer3.app.tCreateTexture(CSkin.Path(BASE + GAME + GENRE + FileName + ".png"));
     }
 
     public void LoadTexture()
     {
         #region 共通
-        Tile_Black = TJAPlayer3.ColorTexture(SKColors.Black);
+        Tile_Black = TJAPlayer3.app.ColorTexture(SKColors.Black);
         Menu_Title = TxC(@"Menu_Title.png");
         Menu_Highlight = TxC(@"Menu_Highlight.png");
         Enum_Song = TxC(@"Enum_Song.png");

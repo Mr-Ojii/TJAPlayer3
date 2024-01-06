@@ -52,7 +52,7 @@ internal class CActSelectPopupMenu : CActivity
         stqMenuTitle.cItem.strName = title;
         using (var bitmap = prvFont.DrawText(title, Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
         {
-            stqMenuTitle.txName = TJAPlayer3.tCreateTexture(bitmap);
+            stqMenuTitle.txName = TJAPlayer3.app.tCreateTexture(bitmap);
         }
         lciMenuItems = new stQuickMenuItem[menulist.Count];
         for (int i = 0; i < menulist.Count; i++)
@@ -61,7 +61,7 @@ internal class CActSelectPopupMenu : CActivity
             stqm.cItem = menulist[i];
             using (var bitmap = prvFont.DrawText(menulist[i].strName, Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
             {
-                stqm.txName = TJAPlayer3.tCreateTexture(bitmap);
+                stqm.txName = TJAPlayer3.app.tCreateTexture(bitmap);
             }
             lciMenuItems[i] = stqm;
         }
@@ -309,7 +309,7 @@ internal class CActSelectPopupMenu : CActivity
                         prvFont.DrawText(s, Color.White, Color.Black, Color.Yellow, Color.OrangeRed, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio) :
                         prvFont.DrawText(s, Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                     {
-                        using (var ctStr = TJAPlayer3.tCreateTexture(bmpStr))
+                        using (var ctStr = TJAPlayer3.app.tCreateTexture(bmpStr))
                         {
                             ctStr.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Left, 330, 92 + i * 32);
                         }

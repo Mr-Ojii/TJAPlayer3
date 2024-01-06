@@ -82,7 +82,7 @@ internal class CActResultParameterPanel : CActivity
             }
         }
 
-        Dan_Plate = TJAPlayer3.tCreateTexture(Path.GetDirectoryName(TJAPlayer3.DTX[0].strFilenameの絶対パス) + @"/Dan_Plate.png");
+        Dan_Plate = TJAPlayer3.app.tCreateTexture(Path.GetDirectoryName(TJAPlayer3.DTX[0].strFilenameの絶対パス) + @"/Dan_Plate.png");
         this.ephase_v2 = EPhaseV2.Start;
     }
     public override void On非活性化()

@@ -69,7 +69,7 @@ internal class CStageSongLoading : CStage
                     {
                         using (var bmpSongTitle = pfTITLE.DrawText(タイトル, TJAPlayer3.app.Skin.SkinConfig.SongLoading._TitleForeColor, TJAPlayer3.app.Skin.SkinConfig.SongLoading._TitleBackColor, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                         {
-                            this.txTitle = TJAPlayer3.tCreateTexture(bmpSongTitle);
+                            this.txTitle = TJAPlayer3.app.tCreateTexture(bmpSongTitle);
                             this.txTitle.vcScaling.X = TJAPlayer3.GetSongNameXScaling(ref txTitle, 710);
                         }
                     }
@@ -80,7 +80,7 @@ internal class CStageSongLoading : CStage
                         {
                             using (var bmpSongSubTitle = pfSUBTITLE.DrawText(サブタイトル, TJAPlayer3.app.Skin.SkinConfig.SongLoading._SubTitleForeColor, TJAPlayer3.app.Skin.SkinConfig.SongLoading._SubTitleBackColor, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                             {
-                                this.txSubTitle = TJAPlayer3.tCreateTexture(bmpSongSubTitle);
+                                this.txSubTitle = TJAPlayer3.app.tCreateTexture(bmpSongSubTitle);
                             }
                         }
                     }
@@ -330,7 +330,7 @@ internal class CStageSongLoading : CStage
                                     {
                                         using (var bmpSongTitle = pfTitle.DrawText(TJAPlayer3.DTX[0].List_DanSongs[i].Title, TJAPlayer3.app.Skin.SkinConfig.Game.DanC._TitleForeColor, TJAPlayer3.app.Skin.SkinConfig.Game.DanC._TitleBackColor, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                                         {
-                                            TJAPlayer3.DTX[0].List_DanSongs[i].TitleTex = TJAPlayer3.tCreateTexture(bmpSongTitle);
+                                            TJAPlayer3.DTX[0].List_DanSongs[i].TitleTex = TJAPlayer3.app.tCreateTexture(bmpSongTitle);
                                             TJAPlayer3.DTX[0].List_DanSongs[i].TitleTex.vcScaling.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX[0].List_DanSongs[i].TitleTex, 710);
                                         }
                                     }
@@ -342,7 +342,7 @@ internal class CStageSongLoading : CStage
                                     {
                                         using (var bmpSongSubTitle = pfSubTitle.DrawText(TJAPlayer3.DTX[0].List_DanSongs[i].SubTitle, TJAPlayer3.app.Skin.SkinConfig.Game.DanC._SubTitleForeColor, TJAPlayer3.app.Skin.SkinConfig.Game.DanC._SubTitleBackColor, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                                         {
-                                            TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex = TJAPlayer3.tCreateTexture(bmpSongSubTitle);
+                                            TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex = TJAPlayer3.app.tCreateTexture(bmpSongSubTitle);
                                             TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex.vcScaling.X = TJAPlayer3.GetSongNameXScaling(ref TJAPlayer3.DTX[0].List_DanSongs[i].SubTitleTex, 710);
                                         }
                                     }

@@ -19,15 +19,15 @@ class CStageMaintenance : CStage
         try
         {
             //表示用テクスチャの生成
-            don = TJAPlayer3.ColorTexture("#ff4000", Width, Height);
-            ka = TJAPlayer3.ColorTexture("#00c8ff", Width, Height);
+            don = TJAPlayer3.app.ColorTexture("#ff4000", Width, Height);
+            ka = TJAPlayer3.app.ColorTexture("#00c8ff", Width, Height);
             string[] txt = new string[4] { "左ふち", "左面", "右面", "右ふち" };
             using (var pf = new CFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, fontsize))
             {
                 for (int ind = 0; ind < 4; ind++)
                 {
                     using (var bmp = pf.DrawText(txt[ind], Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
-                        str[ind] = TJAPlayer3.tCreateTexture(bmp);
+                        str[ind] = TJAPlayer3.app.tCreateTexture(bmp);
                 }
             }
             TJAPlayer3.app.Discord.Update("Maintenance");

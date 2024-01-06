@@ -1205,15 +1205,11 @@ internal class TJAPlayer3 : Game
 
     #region [ 汎用ヘルパー ]
     //-----------------
-    public static CTexture tCreateTexture(string fileName)
+    public CTexture tCreateTexture(string fileName)
     {
-        if (app == null)
-        {
-            return null;
-        }
         try
         {
-            return new CTexture(app.Device, fileName);
+            return new CTexture(this.Device, fileName);
         }
         catch (CTextureCreateFailedException e)
         {
@@ -1227,15 +1223,11 @@ internal class TJAPlayer3 : Game
             return null;
         }
     }
-    public static CTexture tCreateTexture(SKBitmap image)
+    public CTexture tCreateTexture(SKBitmap image)
     {
-        if (app == null)
-        {
-            return null;
-        }
         try
         {
-            return new CTexture(app.Device, image);
+            return new CTexture(this.Device, image);
         }
         catch (CTextureCreateFailedException e)
         {
@@ -1245,7 +1237,7 @@ internal class TJAPlayer3 : Game
         }
     }
 
-    public static CTexture ColorTexture(string htmlcolor, int width = 64, int height = 64)//2020.05.31 Mr-Ojii 単色塗りつぶしテクスチャの生成。必要かって？Tile_Black・Tile_Whiteがいらなくなるじゃん。あと、メンテモードの画像生成に便利かなって。
+    public CTexture ColorTexture(string htmlcolor, int width = 64, int height = 64)//2020.05.31 Mr-Ojii 単色塗りつぶしテクスチャの生成。必要かって？Tile_Black・Tile_Whiteがいらなくなるじゃん。あと、メンテモードの画像生成に便利かなって。
     {
         if (htmlcolor.Length == 7 && htmlcolor.StartsWith("#"))
             return ColorTexture(SKColor.Parse(htmlcolor.Remove(0, 1)), width, height);
@@ -1259,14 +1251,14 @@ internal class TJAPlayer3 : Game
     /// <param name="width">幅</param>
     /// <param name="height">高さ</param>
     /// <returns></returns>
-    public static CTexture ColorTexture(SKColor color, int width = 64, int height = 64)
+    public CTexture ColorTexture(SKColor color, int width = 64, int height = 64)
     {
         using (var bitmap = new SKBitmap(width, height))
         {
             using(var canvas = new SKCanvas(bitmap))
             {
                 canvas.DrawColor(color);
-                return TJAPlayer3.tCreateTexture(bitmap);
+                return this.tCreateTexture(bitmap);
             }
         }
     }

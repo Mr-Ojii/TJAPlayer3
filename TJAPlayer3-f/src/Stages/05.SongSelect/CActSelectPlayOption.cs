@@ -72,14 +72,14 @@ internal class CActSelectPlayOption : CActivity
         List<ItemTextureList> textures = new List<ItemTextureList>();
         for (int i = 0; i < cItemBases.Count; i++)
         {
-            CTexture NameTexture = TJAPlayer3.tCreateTexture(this.Font.DrawText(cItemBases[i].strName, Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio));
+            CTexture NameTexture = TJAPlayer3.app.tCreateTexture(this.Font.DrawText(cItemBases[i].strName, Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio));
             CTexture[] ListTexture;
             if (cItemBases[i].eItemType == CItemBase.EItemType.List)
             {
                 ListTexture = new CTexture[((CItemList)cItemBases[i]).list項目値.Count];
                 for (int index = 0; index < ((CItemList)cItemBases[i]).list項目値.Count; index++)
                 {
-                    ListTexture[index] = TJAPlayer3.tCreateTexture(this.Font.DrawText(((CItemList)cItemBases[i]).list項目値[index], Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio));
+                    ListTexture[index] = TJAPlayer3.app.tCreateTexture(this.Font.DrawText(((CItemList)cItemBases[i]).list項目値[index], Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio));
                 }
             }
             else
@@ -361,21 +361,21 @@ internal class CActSelectPlayOption : CActivity
 
             if (lci[nPlayer][lci[nPlayer].Count - i - 1].strName.Equals("ばいそく"))
             {
-                using (CTexture texture = TJAPlayer3.tCreateTexture(this.Font.DrawText((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex() * 0.1).ToString("0.0"), Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio)))
+                using (CTexture texture = TJAPlayer3.app.tCreateTexture(this.Font.DrawText((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex() * 0.1).ToString("0.0"), Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio)))
                 {
                     texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionListCorrectionX - texture.szTextureSize.Width / 2, y - (TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2] - TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1]) + TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionListCorrectionY);
                 }
             }
             else if (lci[nPlayer][lci[nPlayer].Count - i - 1].strName.Equals("演奏速度"))
             {
-                using (CTexture texture = TJAPlayer3.tCreateTexture(this.Font.DrawText((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex() * 0.05).ToString("0.00"), Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio)))
+                using (CTexture texture = TJAPlayer3.app.tCreateTexture(this.Font.DrawText((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex() * 0.05).ToString("0.00"), Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio)))
                 {
                     texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionListCorrectionX - texture.szTextureSize.Width / 2, y - (TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2] - TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1]) + TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionListCorrectionY);
                 }
             }
             else if (lci[nPlayer][lci[nPlayer].Count - i - 1].eItemType == CItemBase.EItemType.Integer)
             {
-                using (CTexture texture = TJAPlayer3.tCreateTexture(this.Font.DrawText((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex()).ToString(), Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio)))
+                using (CTexture texture = TJAPlayer3.app.tCreateTexture(this.Font.DrawText((lci[nPlayer][lci[nPlayer].Count - i - 1].GetIndex()).ToString(), Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio)))
                 {
                     texture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionListCorrectionX - texture.szTextureSize.Width / 2, y - (TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2] - TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1]) + TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionListCorrectionY);
                 }

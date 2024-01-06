@@ -13,7 +13,7 @@ internal class CActLyric : CActivity
     public void tSetLyricTexture(SKBitmap bmpLyric)
     {
         TJAPlayer3.t安全にDisposeする(ref this.txLyricTexture);
-        this.txLyricTexture = TJAPlayer3.tCreateTexture(bmpLyric);
+        this.txLyricTexture = TJAPlayer3.app.tCreateTexture(bmpLyric);
     }
     public void tDeleteLyricTexture()
     {

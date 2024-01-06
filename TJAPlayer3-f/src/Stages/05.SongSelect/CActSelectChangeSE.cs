@@ -36,7 +36,7 @@ class CActSelectChangeSE : CActivity
                 if (i < TJAPlayer3.app.Skin.SkinConfig.Sound.SENames.Length)
                     SEName = TJAPlayer3.app.Skin.SkinConfig.Sound.SENames[i];
                 using (var bmp = font.DrawText(SEName, Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
-                    this.SENameList[i] = TJAPlayer3.tCreateTexture(bmp);
+                    this.SENameList[i] = TJAPlayer3.app.tCreateTexture(bmp);
             }
 
         this.SENameChanger(0);

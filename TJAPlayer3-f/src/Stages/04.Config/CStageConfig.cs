@@ -60,11 +60,11 @@ internal class CStageConfig : CStage
                 {
                     using (var bmpStr = prvFont.DrawText(strMenuItem[i], Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                     {
-                        txMenuItemLeft[i, 0] = TJAPlayer3.tCreateTexture(bmpStr);
+                        txMenuItemLeft[i, 0] = TJAPlayer3.app.tCreateTexture(bmpStr);
                     }
                     using (var bmpStr = prvFont.DrawText(strMenuItem[i], Color.White, Color.Black, Color.Yellow, Color.OrangeRed, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                     {
-                        txMenuItemLeft[i, 1] = TJAPlayer3.tCreateTexture(bmpStr);
+                        txMenuItemLeft[i, 1] = TJAPlayer3.app.tCreateTexture(bmpStr);
                     }
                 }
             }
@@ -518,7 +518,7 @@ internal class CStageConfig : CStage
             {
                 this.tx説明文パネル.Dispose();
             }
-            this.tx説明文パネル = TJAPlayer3.tCreateTexture(this.privatefont.DrawText(str[c], Color.White));
+            this.tx説明文パネル = TJAPlayer3.app.tCreateTexture(this.privatefont.DrawText(str[c], Color.White));
         }
         catch (CTextureCreateFailedException e)
         {
@@ -536,7 +536,7 @@ internal class CStageConfig : CStage
             {
                 this.tx説明文パネル.Dispose();
             }
-            this.tx説明文パネル = TJAPlayer3.tCreateTexture(privatefont.DrawText(item.strDescription, Color.White));
+            this.tx説明文パネル = TJAPlayer3.app.tCreateTexture(privatefont.DrawText(item.strDescription, Color.White));
         }
         catch (CTextureCreateFailedException e)
         {
