@@ -246,7 +246,7 @@ public class CTexture : IDisposable
     {
         this.t2D描画(device, x, y, this.rcImageRect);
     }
-    public void t2D描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
+    public void t2D描画(Device device, float x, float y, Rectangle rc画像内の描画領域, EFlipType eFlipType = EFlipType.None)
     {
         if (this.texture == nint.Zero)
             return;
@@ -262,7 +262,7 @@ public class CTexture : IDisposable
         srcrect.h = rc画像内の描画領域.Height;
 
         SDL.SDL_SetTextureColorMod((nint)this.texture, color.R, color.G, color.B);
-        SDL.SDL_RenderCopyExF(device.renderer, (nint)this.texture, ref srcrect, ref dstrect, -(this.fRotation * 180 / Math.PI), nint.Zero, SDL.SDL_RendererFlip.SDL_FLIP_NONE);
+        SDL.SDL_RenderCopyExF(device.renderer, (nint)this.texture, ref srcrect, ref dstrect, -(this.fRotation * 180 / Math.PI), nint.Zero, (SDL.SDL_RendererFlip)eFlipType);
     }
 
 
@@ -286,50 +286,15 @@ public class CTexture : IDisposable
     }
 
     public void t2D上下反転描画(Device device, float x, float y)
-    {
-        this.t2D上下反転描画(device, x, y, this.rcImageRect);
-    }
+        => this.t2D上下反転描画(device, x, y, this.rcImageRect);
     public void t2D上下反転描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
-    {
-        if (this.texture == nint.Zero)
-            throw new InvalidOperationException("Texture is not generated. ");
-
-        dstrect.x = x;
-        dstrect.y = y;
-        dstrect.w = rc画像内の描画領域.Width * this.vcScaling.X;
-        dstrect.h = rc画像内の描画領域.Height * this.vcScaling.Y;
-
-        srcrect.x = rc画像内の描画領域.X;
-        srcrect.y = rc画像内の描画領域.Y;
-        srcrect.w = rc画像内の描画領域.Width;
-        srcrect.h = rc画像内の描画領域.Height;
-
-        SDL.SDL_SetTextureColorMod((nint)this.texture, color.R, color.G, color.B);
-        SDL.SDL_RenderCopyExF(device.renderer, (nint)this.texture, ref srcrect, ref dstrect, 0, nint.Zero, SDL.SDL_RendererFlip.SDL_FLIP_VERTICAL);
-    }
+        => this.t2D描画(device, x, y, rc画像内の描画領域, EFlipType.Vertical);
 
     public void t2D左右反転描画(Device device, float x, float y)
-    {
-        this.t2D左右反転描画(device, x, y, this.rcImageRect);
-    }
+        => this.t2D左右反転描画(device, x, y, this.rcImageRect);
+
     public void t2D左右反転描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
-    {
-        if (this.texture == nint.Zero)
-            throw new InvalidOperationException("Texture is not generated. ");
-
-        dstrect.x = x;
-        dstrect.y = y;
-        dstrect.w = rc画像内の描画領域.Width * this.vcScaling.X;
-        dstrect.h = rc画像内の描画領域.Height * this.vcScaling.Y;
-
-        srcrect.x = rc画像内の描画領域.X;
-        srcrect.y = rc画像内の描画領域.Y;
-        srcrect.w = rc画像内の描画領域.Width;
-        srcrect.h = rc画像内の描画領域.Height;
-
-        SDL.SDL_SetTextureColorMod((nint)this.texture, color.R, color.G, color.B);
-        SDL.SDL_RenderCopyExF(device.renderer, (nint)this.texture, ref srcrect, ref dstrect, 0, nint.Zero, SDL.SDL_RendererFlip.SDL_FLIP_HORIZONTAL);
-    }
+        => this.t2D描画(device, x, y, rc画像内の描画領域, EFlipType.Horizontal);
 
     #region [ IDisposable 実装 ]
     //-----------------
@@ -379,6 +344,14 @@ public class CTexture : IDisposable
     {
         Normal,
         Addition,
+    }
+
+    [Flags]
+    public enum EFlipType
+    {
+        None = 0,
+        Horizontal = 1,
+        Vertical = 2,
     }
 
     #region [ private ]
