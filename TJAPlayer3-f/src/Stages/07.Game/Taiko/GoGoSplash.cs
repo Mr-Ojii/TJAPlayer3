@@ -74,5 +74,5 @@ class GoGoSplash : CActivity
         Splash = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.Effect.GoGoSplash.Ptn - 1, TJAPlayer3.app.Skin.SkinConfig.Game.Effect.GoGoSplash.Timer, TJAPlayer3.app.Timer);
     }
 
-    private CCounter Splash;
+    private CCounter? Splash;
 }
