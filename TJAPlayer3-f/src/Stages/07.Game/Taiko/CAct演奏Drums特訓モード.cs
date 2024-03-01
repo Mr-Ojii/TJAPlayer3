@@ -46,8 +46,8 @@ class CAct演奏Drums特訓モード : CActivity
 
         length = Math.Max(endtime, bgmlength);
 
-        gogoXList = new List<int>();
-        JumpPointList = new List<STJUMPP>();
+        gogoXList.Clear();
+        JumpPointList.Clear();
 
         for (int i = 0; i < dTX.listChip.Count; i++)
         {
@@ -77,8 +77,8 @@ class CAct演奏Drums特訓モード : CActivity
     public override void On非活性化()
     {
         length = 1;
-        gogoXList = null;
-        JumpPointList = null;
+        gogoXList.Clear();
+        JumpPointList.Clear();
 
         this.ctスクロールカウンター = null;
         this.ct背景スクロールタイマー = null;
@@ -243,7 +243,7 @@ class CAct演奏Drums特訓モード : CActivity
             if (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.A))
                 this.t現在の位置にジャンプポイントを設定する();
 
-            if (this.bスクロール中)
+            if (this.bスクロール中 && this.ctスクロールカウンター != null)
             {
                 CSoundManager.rc演奏用タイマ.n現在時刻ms = EasingCircular(this.ctスクロールカウンター.n現在の値, (int)this.nスクロール前ms, (int)this.nスクロール後ms - (int)this.nスクロール前ms, this.ctスクロールカウンター.n終了値);
 
@@ -535,12 +535,12 @@ class CAct演奏Drums特訓モード : CActivity
     private bool b特訓PAUSE;
     private bool bスクロール中;
 
-    private CCounter ctスクロールカウンター;
-    private CCounter ct背景スクロールタイマー;
+    private CCounter? ctスクロールカウンター;
+    private CCounter? ct背景スクロールタイマー;
     private long length = 1;
 
-    private List<int> gogoXList;
-    private List<STJUMPP> JumpPointList;
+    private List<int> gogoXList = new();
+    private List<STJUMPP> JumpPointList = new();
     private long[] LBlue = new long[] { 0, 0, 0, 0, 0 };
     private long[] RBlue = new long[] { 0, 0, 0, 0, 0 };
 
