@@ -18,7 +18,7 @@ internal class CActComboVoice : CActivity
             var index = ListCombo[player][VoiceIndex[player]];
             if (nCombo == index.nCombo)
             {
-                index.soundComboVoice.t再生を開始する();
+                index.soundComboVoice?.t再生を開始する();
                 VoiceIndex[player]++;
             }
         }
@@ -57,7 +57,7 @@ internal class CActComboVoice : CActivity
                     comboVoice.nPlayer = i;
                     comboVoice.strFilePath = item;
                     comboVoice.soundComboVoice = TJAPlayer3.SoundManager.tCreateSound(item, ESoundGroup.Voice);
-                    if (TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.app.ConfigToml.PlayOption.UsePanning) //2020.05.06 Mr-Ojii 左右に出したかったから追加。
+                    if (comboVoice.soundComboVoice != null && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.app.ConfigToml.PlayOption.UsePanning) //2020.05.06 Mr-Ojii 左右に出したかったから追加。
                     {
                         if (i == 0)
                             comboVoice.soundComboVoice.nPanning = -100;
@@ -96,7 +96,7 @@ internal class CActComboVoice : CActivity
 
     #region [ private ]
     //-----------------
-    int[] VoiceIndex;
+    int[] VoiceIndex = new int[] { 0, 0 };
     readonly List<CComboVoice>[] ListCombo = new List<CComboVoice>[2];
     //-----------------
     #endregion
@@ -107,7 +107,7 @@ internal class CActComboVoice : CActivity
         public int nCombo;
         public int nPlayer;
         public string strFilePath;
-        public CSound soundComboVoice;
+        public CSound? soundComboVoice;
 
         public CComboVoice()
         {
@@ -118,8 +118,9 @@ internal class CActComboVoice : CActivity
             soundComboVoice = null;
         }
 
-        public int CompareTo(CComboVoice other)
+        public int CompareTo(CComboVoice? other)
         {
+            if (other is null) return 1;
             if (this.nCombo > other.nCombo) return 1;
             else if (this.nCombo < other.nCombo) return -1;
 
