@@ -98,7 +98,7 @@ internal class CActFIFOStart : CActivity
 
     #region [ private ]
     //-----------------
-    private CCounter counter;
+    private CCounter? counter = null;
     private EFIFOMode mode;
     //-----------------
     #endregion

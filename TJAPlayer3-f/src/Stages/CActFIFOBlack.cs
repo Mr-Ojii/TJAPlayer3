@@ -58,7 +58,7 @@ internal class CActFIFOBlack : CActivity
 
     #region [ private ]
     //-----------------
-    private CCounter counter;
+    private CCounter? counter = null;
     private EFIFOMode mode;
     //-----------------
     #endregion

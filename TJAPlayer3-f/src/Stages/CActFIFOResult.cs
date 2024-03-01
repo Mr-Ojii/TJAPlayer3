@@ -22,7 +22,8 @@ internal class CActFIFOResult : CActivity
     }
     public void tFadeIn完了()		// #25406 2011.6.9 yyagi
     {
-        this.counter.n現在の値 = this.counter.n終了値;
+        if (this.counter != null)
+            this.counter.n現在の値 = this.counter.n終了値;
     }
 
     // CActivity 実装
@@ -96,7 +97,7 @@ internal class CActFIFOResult : CActivity
 
     #region [ private ]
     //-----------------
-    private CCounter counter;
+    private CCounter? counter = null;
     private EFIFOMode mode;
     //-----------------
     #endregion
