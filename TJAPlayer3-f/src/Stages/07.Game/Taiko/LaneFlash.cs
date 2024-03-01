@@ -44,7 +44,7 @@ public class LaneFlash : CActivity
         return base.On進行描画();
     }
 
-    private CTexture Texture;
-    private CCounter Counter;
+    private CTexture? Texture;
+    private CCounter? Counter;
     private int Player;
 }
