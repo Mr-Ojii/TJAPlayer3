@@ -302,7 +302,7 @@ internal class CDTX : CActivity
         public long n再生開始時刻 = 0;
         public int n内部番号;
         public int n表記上の番号;
-        public CSound rSound = null;
+        public CSound? rSound = null;
         public string strFilename = "";
 
         public override string ToString()
