@@ -53,8 +53,7 @@ internal class CAct演奏ゲージ共通 : CActivity
 
 
             int[] nRectX = new int[] { (int)(this.db現在のゲージ値[0] / 2) * 14, (int)(this.db現在のゲージ値[1] / 2) * 14};
-            int 虹ベース = ct虹アニメ.n現在の値 + 1;
-            if (虹ベース == ct虹アニメ.n終了値 + 1) 虹ベース = 0;
+            int 虹ベース = this.ct虹アニメ != null ? (ct虹アニメ.n現在の値 + 1) % (ct虹アニメ.n終了値 + 1) : 0;
             /*
 
             新虹ゲージの仕様  2018/08/10 ろみゅ～？
@@ -77,7 +76,7 @@ internal class CAct演奏ゲージ共通 : CActivity
                 {
                     TJAPlayer3.Tx.Gauge_Danc.t2D描画(TJAPlayer3.app.Device, 492, 144, new Rectangle(0, 0, nRectX[0], 44));
 
-                    if (TJAPlayer3.Tx.Gauge_Line_Danc != null)
+                    if (TJAPlayer3.Tx.Gauge_Line_Danc != null && this.ct虹アニメ != null && this.ct虹透明度 != null)
                     {
                         if (this.db現在のゲージ値[0] >= 100.0)
                         {
@@ -105,7 +104,7 @@ internal class CAct演奏ゲージ共通 : CActivity
                     if (TJAPlayer3.Tx.Gauge[nPlayer] != null)
                     {
                         TJAPlayer3.Tx.Gauge[nPlayer].t2D描画(TJAPlayer3.app.Device, 492, gaugePosY[nPlayer], new Rectangle(0, 0, nRectX[nPlayer], 44));
-                        if (TJAPlayer3.Tx.Gauge_Line[nPlayer] != null)
+                        if (TJAPlayer3.Tx.Gauge_Line[nPlayer] != null && this.ct虹アニメ != null && this.ct虹透明度 != null)
                         {
                             if (this.db現在のゲージ値[nPlayer] >= 100.0)
                             {
@@ -143,7 +142,7 @@ internal class CAct演奏ゲージ共通 : CActivity
                 int[] nSoulFire = new int[] { 52, 443, 0, 0 };
                 for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
                 {
-                    if (this.db現在のゲージ値[i] >= 100.0)
+                    if (this.db現在のゲージ値[i] >= 100.0 && this.ct炎 != null)
                     {
                         this.ct炎.t進行Loop();
                         TJAPlayer3.Tx.Gauge_Soul_Fire.t2D描画(TJAPlayer3.app.Device, 1112, nSoulFire[i], new Rectangle(230 * (this.ct炎.n現在の値), 0, 230, 230));
@@ -572,7 +571,7 @@ internal class CAct演奏ゲージ共通 : CActivity
     #endregion
 
     public double[] db現在のゲージ値 { get; private set; } = new double[4];
-    private CCounter ct炎;
-    private CCounter ct虹アニメ;
-    private CCounter ct虹透明度;
+    private CCounter? ct炎;
+    private CCounter? ct虹アニメ;
+    private CCounter? ct虹透明度;
 }
