@@ -1,4 +1,5 @@
-﻿using FDK;
+﻿using DiscordRPC.Logging;
+using FDK;
 
 namespace TJAPlayer3;
 
@@ -94,7 +95,7 @@ internal class CStageTitle : CStage
 
             #region [ カーソル上移動 ]
             //---------------------
-            if (this.ct上移動用.b進行中)
+            if (this.ct上移動用 != null && this.ct上移動用.b進行中)
             {
                 this.ct上移動用.t進行();
                 if (this.ct上移動用.b終了値に達した)
@@ -106,7 +107,7 @@ internal class CStageTitle : CStage
             #endregion
             #region [ カーソル下移動 ]
             //---------------------
-            if (this.ct下移動用.b進行中)
+            if (this.ct下移動用 != null && this.ct下移動用.b進行中)
             {
                 this.ct下移動用.t進行();
                 if (this.ct下移動用.b終了値に達した)
@@ -178,12 +179,12 @@ internal class CStageTitle : CStage
                     TJAPlayer3.Tx.Title_InBar.t2D描画(TJAPlayer3.app.Device, MENU_XT[i] - TJAPlayer3.Tx.Title_InBar.szTextureSize.Width / 2, MENU_YT);
                 }
 
-                if (this.ct下移動用.b進行中)
+                if (this.ct下移動用 != null && this.ct下移動用.b進行中)
                 {
                     TJAPlayer3.Tx.Title_AcBar.vcScaling.X = this.ct下移動用.n現在の値 * 0.01f;
                     TJAPlayer3.Tx.Title_AcBar.t2D描画(TJAPlayer3.app.Device, MENU_XT[this.n現在のカーソル行] - TJAPlayer3.Tx.Title_AcBar.szTextureSize.Width / 2 * this.ct下移動用.n現在の値 * 0.01f, MENU_YT);
                 }
-                else if (this.ct上移動用.b進行中)
+                else if (this.ct上移動用 != null && this.ct上移動用.b進行中)
                 {
                     TJAPlayer3.Tx.Title_AcBar.vcScaling.X = this.ct上移動用.n現在の値 * 0.01f;
                     TJAPlayer3.Tx.Title_AcBar.t2D描画(TJAPlayer3.app.Device, MENU_XT[this.n現在のカーソル行] - TJAPlayer3.Tx.Title_AcBar.szTextureSize.Width / 2 * this.ct上移動用.n現在の値 * 0.01f, MENU_YT);
@@ -196,10 +197,14 @@ internal class CStageTitle : CStage
 
                 for (int i = 0; i < 3; i++)
                 {
+                    CTexture? tex = null;
                     if (i != this.n現在のカーソル行)
-                        texttexture[i].t2D描画(TJAPlayer3.app.Device, MENU_XT[i] - texttexture[i].szTextureSize.Width / 2, MENU_YT + 30);
+                        tex = texttexture[i];
                     else
-                        texttexture[i + 3].t2D描画(TJAPlayer3.app.Device, MENU_XT[i] - texttexture[i + 3].szTextureSize.Width / 2, MENU_YT + 30);
+                        tex = texttexture[i + 3];
+
+                    if (tex != null)
+                        tex.t2D描画(TJAPlayer3.app.Device, MENU_XT[i] - tex.szTextureSize.Width / 2, MENU_YT + 30);
                 }
             }
 
@@ -285,11 +290,11 @@ internal class CStageTitle : CStage
         }
     }
 
-    CTexture[] texttexture = new CTexture[6];
+    CTexture?[] texttexture = new CTexture?[6];
     private CActFIFOBlack actFI;
     private CActFIFOBlack actFO;
-    private CCounter ct下移動用;
-    private CCounter ct上移動用;
+    private CCounter? ct下移動用;
+    private CCounter? ct上移動用;
     //縦スタイル用
     private readonly int[] MENU_XT = { 300, 640, 980 };
     private const int MENU_YT = 100;
@@ -302,11 +307,14 @@ internal class CStageTitle : CStage
         {
             TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
             this.n現在のカーソル行++;
-            this.ct下移動用.t開始(0, 100, 1, TJAPlayer3.app.Timer);
-            if (this.ct上移動用.b進行中)
+            if (this.ct下移動用 != null)
             {
-                this.ct下移動用.n現在の値 = 100 - this.ct上移動用.n現在の値;
-                this.ct上移動用.t停止();
+                this.ct下移動用.t開始(0, 100, 1, TJAPlayer3.app.Timer);
+                if (this.ct上移動用 != null && this.ct上移動用.b進行中)
+                {
+                    this.ct下移動用.n現在の値 = 100 - this.ct上移動用.n現在の値;
+                    this.ct上移動用.t停止();
+                }
             }
         }
     }
@@ -316,11 +324,14 @@ internal class CStageTitle : CStage
         {
             TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
             this.n現在のカーソル行--;
-            this.ct上移動用.t開始(0, 100, 1, TJAPlayer3.app.Timer);
-            if (this.ct下移動用.b進行中)
+            if (this.ct上移動用 != null)
             {
-                this.ct上移動用.n現在の値 = 100 - this.ct下移動用.n現在の値;
-                this.ct下移動用.t停止();
+                this.ct上移動用.t開始(0, 100, 1, TJAPlayer3.app.Timer);
+                if (this.ct下移動用 != null && this.ct下移動用.b進行中)
+                {
+                    this.ct上移動用.n現在の値 = 100 - this.ct下移動用.n現在の値;
+                    this.ct下移動用.t停止();
+                }
             }
         }
     }
