@@ -411,7 +411,7 @@ internal class CActResultParameterPanel : CActivity
     private bool AllPlayerCannotGetCrown = false;
     private CCounter ctCrown用 = new CCounter();
 
-    private CTexture Dan_Plate;
+    private CTexture? Dan_Plate;
     #region[V1]
     private CCounter[] ct文字アニメ用 = new CCounter[4];
     private int[] n表示された桁数 = new int[4] { 0, 0, 0, 0 };
