@@ -21,13 +21,13 @@ internal class CActPanel : CActivity
     /// <param name="songName">曲名</param>
     /// <param name="genreName">ジャンル名</param>
     /// <param name="stageText">曲数</param>
-    public void SetPanelString(string songName, string subtitle, string genreName, string stageText = null)
+    public void SetPanelString(string songName, string subtitle, string genreName, string? stageText = null)
     {
         if (!base.b活性化してる)
             return;
 
         TJAPlayer3.t安全にDisposeする(ref this.txPanel);
-        if (!string.IsNullOrEmpty(songName))
+        if (!string.IsNullOrEmpty(songName) && this.pfMusicName != null)
         {
             try
             {
@@ -41,7 +41,7 @@ internal class CActPanel : CActivity
                 {
                     this.txMusicName.vcScaling.X = TJAPlayer3.GetSongNameXScaling(ref txMusicName);
                 }
-                if (!string.IsNullOrEmpty(subtitle))
+                if (!string.IsNullOrEmpty(subtitle) && this.pfSubTitleName != null)
                 {
                     using (var bmpSubTitle = pfSubTitleName.DrawText(subtitle, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._MusicNameForeColor, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._MusicNameBackColor, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                     {
@@ -52,10 +52,12 @@ internal class CActPanel : CActivity
                         this.txSubTitleName.vcScaling.X = TJAPlayer3.GetSongNameXScaling(ref txSubTitleName, 520);
                     }
                 }
-
-                using (var bmpDiff = pfMusicName.DrawText(stageText, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._StageTextForeColor, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._StageTextBackColor, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
+                if (!string.IsNullOrEmpty(stageText))
                 {
-                    this.tx難易度とステージ数 = TJAPlayer3.app.tCreateTexture(bmpDiff);
+                    using (var bmpDiff = pfMusicName.DrawText(stageText, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._StageTextForeColor, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._StageTextBackColor, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
+                    {
+                        this.tx難易度とステージ数 = TJAPlayer3.app.tCreateTexture(bmpDiff);
+                    }
                 }
             }
             catch (CTextureCreateFailedException e)
@@ -114,7 +116,7 @@ internal class CActPanel : CActivity
     public override int On進行描画()
     {
         if (TJAPlayer3.stage演奏ドラム画面.actDan.IsAnimating) return 0;
-        if (!base.b活性化してない && !this.bMute)
+        if (!base.b活性化してない && !this.bMute && this.ct進行用 != null)
         {
             this.ct進行用.t進行Loop();
             if (this.bFirst)
@@ -179,7 +181,8 @@ internal class CActPanel : CActivity
                             this.txSubTitleName.Opacity = 255;
                         if (this.txGENRE != null)
                             this.txGENRE.Opacity = 255;
-                        this.tx難易度とステージ数.Opacity = 0;
+                        if (this.tx難易度とステージ数 != null)
+                            this.tx難易度とステージ数.Opacity = 0;
                     }
                     else if (this.ct進行用.n現在の値 >= 745 && this.ct進行用.n現在の値 < 1000)
                     {
@@ -188,7 +191,8 @@ internal class CActPanel : CActivity
                             this.txSubTitleName.Opacity = 255 - (this.ct進行用.n現在の値 - 745);
                         if (this.txGENRE != null)
                             this.txGENRE.Opacity = 255 - (this.ct進行用.n現在の値 - 745);
-                        this.tx難易度とステージ数.Opacity = this.ct進行用.n現在の値 - 745;
+                        if (this.tx難易度とステージ数 != null)
+                            this.tx難易度とステージ数.Opacity = this.ct進行用.n現在の値 - 745;
                     }
                     else if (this.ct進行用.n現在の値 >= 1000 && this.ct進行用.n現在の値 <= 1745)
                     {
@@ -197,7 +201,8 @@ internal class CActPanel : CActivity
                             this.txSubTitleName.Opacity = 0;
                         if (this.txGENRE != null)
                             this.txGENRE.Opacity = 0;
-                        this.tx難易度とステージ数.Opacity = 255;
+                        if (this.tx難易度とステージ数 != null)
+                            this.tx難易度とステージ数.Opacity = 255;
                     }
                     else if (this.ct進行用.n現在の値 >= 1745)
                     {
@@ -206,7 +211,8 @@ internal class CActPanel : CActivity
                             this.txSubTitleName.Opacity = this.ct進行用.n現在の値 - 1745;
                         if (this.txGENRE != null)
                             this.txGENRE.Opacity = this.ct進行用.n現在の値 - 1745;
-                        this.tx難易度とステージ数.Opacity = 255 - (this.ct進行用.n現在の値 - 1745);
+                        if (this.tx難易度とステージ数 != null)
+                            this.tx難易度とステージ数.Opacity = 255 - (this.ct進行用.n現在の値 - 1745);
                     }
                     #endregion
                     if (this.b初めての進行描画)
@@ -264,18 +270,17 @@ internal class CActPanel : CActivity
 
     #region [ private ]
     //-----------------
-    private CCounter ct進行用;
-
-    private CTexture txPanel;
+    private CCounter? ct進行用;
     private bool bMute;
     private bool bFirst;
 
-    private CTexture txMusicName;
-    private CTexture txSubTitleName;
-    private CTexture tx難易度とステージ数;
-    private CTexture txGENRE;
-    private CCachedFontRenderer pfMusicName;
-    private CCachedFontRenderer pfSubTitleName;
+    private CTexture? txPanel,
+                    txMusicName,
+                    txSubTitleName,
+                    tx難易度とステージ数,
+                    txGENRE;
+    private CCachedFontRenderer? pfMusicName,
+                                pfSubTitleName;
     //-----------------
     #endregion
 }
