@@ -1146,7 +1146,7 @@ internal class CDTX : CActivity
                         if (this.bOFFSETの値がマイナスである == false)
                             chip.n発声時刻ms += this.nOFFSET;
                         ms = chip.n発声時刻ms;
-                        if (this.listBPM.TryGetValue(chip.n整数値_内部番号, out CBPM cBPM))
+                        if (this.listBPM.TryGetValue(chip.n整数値_内部番号, out var cBPM))
                         {
                             bpm = (cBPM.n表記上の番号 == 0 ? 0.0 : this.BASEBPM) + cBPM.dbBPM値;
                             this.dbNowBPM = bpm;
@@ -1248,7 +1248,7 @@ internal class CDTX : CActivity
         #region [ チップの種類を分類し、対応するフラグを立てる ]
         foreach (CChip chip in this.listChip)
         {
-            if ((chip.nチャンネル番号 == 0x01 && this.listWAV.TryGetValue(chip.n整数値_内部番号, out CWAV cwav)) && !cwav.bUse)
+            if ((chip.nチャンネル番号 == 0x01 && this.listWAV.TryGetValue(chip.n整数値_内部番号, out var cwav)) && !cwav.bUse)
             {
                 cwav.bUse = true;
             }
@@ -4982,7 +4982,7 @@ internal class CDTX : CActivity
             #endregion
 
             int duration = 0;
-            if (listWAV.TryGetValue(pChip.n整数値_内部番号, out CDTX.CWAV wc))
+            if (listWAV.TryGetValue(pChip.n整数値_内部番号, out var wc))
             {
                 duration = (wc.rSound == null) ? 0 : (int)wc.rSound.nDurationms; // #23664 durationに再生速度が加味されておらず、低速再生でBGMが途切れる問題を修正 (発声時刻msは、DTX読み込み時に再生速度加味済)
             }
