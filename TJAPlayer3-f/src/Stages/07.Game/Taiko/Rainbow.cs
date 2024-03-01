@@ -111,12 +111,12 @@ internal class Rainbow : CActivity
                         if (this.Rainbow2P[f].Counter.n現在の値 < 82)
                         {
                             int nRectX = ((this.Rainbow2P[f].Counter.n現在の値 * 920) / 85);
-                            TJAPlayer3.Tx.Effects_Rainbow.t2D上下反転描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[1] - 54, 410, new Rectangle(0, 0, nRectX, 410));
+                            TJAPlayer3.Tx.Effects_Rainbow.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[1] - 54, 410, new Rectangle(0, 0, nRectX, 410), CTexture.EFlipType.Vertical);
                         }
                         else if (this.Rainbow2P[f].Counter.n現在の値 >= 82)
                         {
                             int nRectX = (((this.Rainbow2P[f].Counter.n現在の値 - 82) * 920) / 85);
-                            TJAPlayer3.Tx.Effects_Rainbow.t2D上下反転描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[1] - 54 + (int)(TJAPlayer3.Tx.Effects_Rainbow.vcScaling.X * nRectX), 410, new Rectangle(nRectX, 0, 920 - nRectX, 410));
+                            TJAPlayer3.Tx.Effects_Rainbow.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[1] - 54 + (int)(TJAPlayer3.Tx.Effects_Rainbow.vcScaling.X * nRectX), 410, new Rectangle(nRectX, 0, 920 - nRectX, 410), CTexture.EFlipType.Vertical);
                         }
 
                     }

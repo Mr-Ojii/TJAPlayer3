@@ -4060,8 +4060,8 @@ internal class CStage演奏画面共通 : CStage
                             {
                                 if (nPlayer == 0)
                                 {
-                                    TJAPlayer3.Tx.Notes_Arm.t2D上下反転描画(device, x + 25, (y + 74) + nHand);
-                                    TJAPlayer3.Tx.Notes_Arm.t2D上下反転描画(device, x + 60, (y + 104) - nHand);
+                                    TJAPlayer3.Tx.Notes_Arm.t2D描画(device, x + 25, (y + 74) + nHand, CTexture.EFlipType.Vertical);
+                                    TJAPlayer3.Tx.Notes_Arm.t2D描画(device, x + 60, (y + 104) - nHand, CTexture.EFlipType.Vertical);
                                 }
                                 else if (nPlayer == 1)
                                 {
@@ -4082,8 +4082,8 @@ internal class CStage演奏画面共通 : CStage
                             {
                                 if (nPlayer == 0)
                                 {
-                                    TJAPlayer3.Tx.Notes_Arm.t2D上下反転描画(device, x + 25, (y + 74) + nHand);
-                                    TJAPlayer3.Tx.Notes_Arm.t2D上下反転描画(device, x + 60, (y + 104) - nHand);
+                                    TJAPlayer3.Tx.Notes_Arm.t2D描画(device, x + 25, (y + 74) + nHand, CTexture.EFlipType.Vertical);
+                                    TJAPlayer3.Tx.Notes_Arm.t2D描画(device, x + 60, (y + 104) - nHand, CTexture.EFlipType.Vertical);
                                 }
                                 else if (nPlayer == 1)
                                 {
@@ -4231,29 +4231,29 @@ internal class CStage演奏画面共通 : CStage
                                 TJAPlayer3.Tx.Notes.color = normalColor;
                             TJAPlayer3.Tx.Notes.vcScaling.X = (index - 65.0f + f末端ノーツのテクスチャ位置調整 + 1) / 128.0f;
 
-                            TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 64, y, new Rectangle(781, 0, 128, 130));
+                            TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 + 64, y, new Rectangle(781, 0, 128, 130), CTexture.EFlipType.Horizontal);
 
                             TJAPlayer3.Tx.Notes.vcScaling.X = 1.0f;
 
-                            TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 - 130 + f末端ノーツのテクスチャ位置調整, y, new Rectangle(910, num9, 130, 130));
+                            TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 - 130 + f末端ノーツのテクスチャ位置調整, y, new Rectangle(910, num9, 130, 130), CTexture.EFlipType.Horizontal);
 
                             if (TJAPlayer3.app.Skin.SkinConfig.Game._RollColorMode == CSkin.ERollColorMode.All)
                                 TJAPlayer3.Tx.Notes.color = effectedColor;
                             else
                                 TJAPlayer3.Tx.Notes.color = normalColor;
 
-                            TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x, y, new Rectangle(650, num9, 130, 130));
+                            TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x, y, new Rectangle(650, num9, 130, 130), CTexture.EFlipType.Horizontal);
                             TJAPlayer3.Tx.Notes.color = normalColor;
                             #endregion
                         }
                         if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
                         {
                             TJAPlayer3.Tx.SENotes.vcScaling.X = index - 44;
-                            TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
+                            TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x末端 + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30), CTexture.EFlipType.Horizontal);
                             TJAPlayer3.Tx.SENotes.vcScaling.X = 1.0f;
-                            TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
-                            TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
-                            TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 46 - 30, y + nSenotesY, new Rectangle(58, 270, 78, 30));
+                            TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30), CTexture.EFlipType.Horizontal);
+                            TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30), CTexture.EFlipType.Horizontal);
+                            TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x末端 + 46 - 30, y + nSenotesY, new Rectangle(58, 270, 78, 30), CTexture.EFlipType.Horizontal);
                         }
                     }
                 }
@@ -4308,28 +4308,28 @@ internal class CStage演奏画面共通 : CStage
 
                             TJAPlayer3.Tx.Notes.vcScaling.X = (index - 65 + f末端ノーツのテクスチャ位置調整 + 1) / 128f;
 
-                            TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 64, y, new Rectangle(1171, 0, 128, 130));
+                            TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 + 64, y, new Rectangle(1171, 0, 128, 130), CTexture.EFlipType.Horizontal);
 
                             TJAPlayer3.Tx.Notes.vcScaling.X = 1.0f;
-                            TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 - 130 + f末端ノーツのテクスチャ位置調整, y, new Rectangle(1300, num9, 130, 130));
+                            TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x末端 - 130 + f末端ノーツのテクスチャ位置調整, y, new Rectangle(1300, num9, 130, 130), CTexture.EFlipType.Horizontal);
 
                             if (TJAPlayer3.app.Skin.SkinConfig.Game._RollColorMode == CSkin.ERollColorMode.All)
                                 TJAPlayer3.Tx.Notes.color = effectedColor;
                             else
                                 TJAPlayer3.Tx.Notes.color = normalColor;
 
-                            TJAPlayer3.Tx.Notes.t2D左右反転描画(TJAPlayer3.app.Device, x, y, new Rectangle(1040, num9, 130, 130));
+                            TJAPlayer3.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x, y, new Rectangle(1040, num9, 130, 130), CTexture.EFlipType.Horizontal);
                             TJAPlayer3.Tx.Notes.color = normalColor;
                             #endregion
                         }
                         if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
                         {
                             TJAPlayer3.Tx.SENotes.vcScaling.X = index - 44;
-                            TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
+                            TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x末端 + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30), CTexture.EFlipType.Horizontal);
                             TJAPlayer3.Tx.SENotes.vcScaling.X = 1.0f;
-                            TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30));
-                            TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
-                            TJAPlayer3.Tx.SENotes.t2D左右反転描画(TJAPlayer3.app.Device, x末端 + 46 - 30, y + nSenotesY, new Rectangle(58, 270, 78, 30));
+                            TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 30, y + nSenotesY, new Rectangle(0, 240, 60, 30), CTexture.EFlipType.Horizontal);
+                            TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30), CTexture.EFlipType.Horizontal);
+                            TJAPlayer3.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x末端 + 46 - 30, y + nSenotesY, new Rectangle(58, 270, 78, 30), CTexture.EFlipType.Horizontal);
                         }
                     }
                 }

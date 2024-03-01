@@ -243,9 +243,11 @@ public class CTexture : IDisposable
     /// <param name="x">描画位置（テクスチャの左上位置の X 座標[dot]）。</param>
     /// <param name="y">描画位置（テクスチャの左上位置の Y 座標[dot]）。</param>
     public void t2D描画(Device device, float x, float y)
-    {
-        this.t2D描画(device, x, y, this.rcImageRect);
-    }
+        => this.t2D描画(device, x, y, this.rcImageRect);
+
+    public void t2D描画(Device device, float x, float y, EFlipType eFlipType)
+        => this.t2D描画(device, x, y, this.rcImageRect, eFlipType);
+
     public void t2D描画(Device device, float x, float y, Rectangle rc画像内の描画領域, EFlipType eFlipType = EFlipType.None)
     {
         if (this.texture == nint.Zero)
@@ -284,17 +286,6 @@ public class CTexture : IDisposable
         SDL.SDL_SetTextureColorMod((nint)this.texture, color.R, color.G, color.B);
         SDL.SDL_RenderCopyF(device.renderer, (nint)this.texture, ref srcrect, ref dstrect);
     }
-
-    public void t2D上下反転描画(Device device, float x, float y)
-        => this.t2D上下反転描画(device, x, y, this.rcImageRect);
-    public void t2D上下反転描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
-        => this.t2D描画(device, x, y, rc画像内の描画領域, EFlipType.Vertical);
-
-    public void t2D左右反転描画(Device device, float x, float y)
-        => this.t2D左右反転描画(device, x, y, this.rcImageRect);
-
-    public void t2D左右反転描画(Device device, float x, float y, Rectangle rc画像内の描画領域)
-        => this.t2D描画(device, x, y, rc画像内の描画領域, EFlipType.Horizontal);
 
     #region [ IDisposable 実装 ]
     //-----------------
@@ -350,7 +341,13 @@ public class CTexture : IDisposable
     public enum EFlipType
     {
         None = 0,
+        /// <summary>
+        /// 左右反転
+        /// </summary>
         Horizontal = 1,
+        /// <summary>
+        /// 上下反転
+        /// </summary>
         Vertical = 2,
     }
 
