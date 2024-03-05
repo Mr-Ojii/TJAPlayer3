@@ -144,8 +144,9 @@ internal class CActResultParameterPanel : CActivity
             {
                 if (TJAPlayer3.Tx.Result_v2_Panel != null)
                 {
-                    if (TJAPlayer3.Tx.Result_v2_Panel[i] != null)
-                        TJAPlayer3.Tx.Result_v2_Panel[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Result.v2PanelX[i], TJAPlayer3.app.Skin.SkinConfig.Result.v2PanelY[i]);
+                    var paneli = TJAPlayer3.Tx.Result_v2_Panel[i];
+                    if (paneli != null)
+                        paneli.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Result.v2PanelX[i], TJAPlayer3.app.Skin.SkinConfig.Result.v2PanelY[i]);
                 }
                 if (TJAPlayer3.Tx.Result_v2_GaugeBack != null)
                 {
@@ -520,7 +521,7 @@ internal class CActResultParameterPanel : CActivity
 
     private void t小文字表示V2(int x, int y, long n, bool score, EPhaseV2 phase_v2, int nPlayer)
     {
-        if (phase_v2 > ephase_v2)
+        if (phase_v2 > ephase_v2 || TJAPlayer3.Tx.Result_v2_Number == null)
             return;
 
         else if (phase_v2 == ephase_v2)
@@ -556,17 +557,14 @@ internal class CActResultParameterPanel : CActivity
         {
             int Num = (int)(n / Math.Pow(10, index) % 10);
 
-            if (TJAPlayer3.Tx.Result_v2_Number != null)
-            {
-                Rectangle rectangle = new Rectangle(TJAPlayer3.Tx.Result_v2_Number.szTextureSize.Width / 10 * Num, 0, TJAPlayer3.Tx.Result_v2_Number.szTextureSize.Width / 10, TJAPlayer3.Tx.Result_v2_Number.szTextureSize.Height);
+            Rectangle rectangle = new Rectangle(TJAPlayer3.Tx.Result_v2_Number.szTextureSize.Width / 10 * Num, 0, TJAPlayer3.Tx.Result_v2_Number.szTextureSize.Width / 10, TJAPlayer3.Tx.Result_v2_Number.szTextureSize.Height);
 
-                TJAPlayer3.Tx.Result_v2_Number.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x, y, rectangle);
+            TJAPlayer3.Tx.Result_v2_Number.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x, y, rectangle);
 
-                if (score)
-                    x -= TJAPlayer3.Tx.Result_v2_Number.szTextureSize.Width / 10;
-                else
-                    x -= TJAPlayer3.Tx.Result_v2_Number.szTextureSize.Width / 16;
-            }
+            if (score)
+                x -= TJAPlayer3.Tx.Result_v2_Number.szTextureSize.Width / 10;
+            else
+                x -= TJAPlayer3.Tx.Result_v2_Number.szTextureSize.Width / 16;
         }
     }
     private enum EPhaseV2 : int
