@@ -143,14 +143,15 @@ internal class CStageSongLoading : CStage
         }
         //-----------------------------
         #endregion
-        this.ct待機.t進行();
 
         #region [ ESC押下時は選曲画面に戻る ]
-        if (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
+        if (this.ct待機 == null || this.ct曲名表示 == null || TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
         {
             return (int)E曲読込画面の戻り値.読込中止;
         }
         #endregion
+
+        this.ct待機.t進行();
 
         #region [ 背景、音符＋タイトル表示 ]
         //-----------------------------
@@ -433,15 +434,15 @@ internal class CStageSongLoading : CStage
     //-----------------
     private long nBGMの総再生時間ms;
     private long nBGM再生開始時刻;
-    private string strTitle;
-    private string strSubTitle;
-    private CTexture txTitle;
-    private CTexture txSubTitle;
+    private string? strTitle;
+    private string? strSubTitle;
+    private CTexture? txTitle;
+    private CTexture? txSubTitle;
     private DateTime timeBeginLoad;
     private DateTime timeBeginLoadWAV;
     private int nWAVcount;
-    private CCounter ct待機;
-    private CCounter ct曲名表示;
+    private CCounter? ct待機;
+    private CCounter? ct曲名表示;
     //-----------------
     #endregion
 }
