@@ -66,13 +66,14 @@ public class CTexture : IDisposable
     }
     public Vector2 vcScaling;
 
+    private bool bTextureDisposed => this.texture != nint.Zero;
+
     // コンストラクタ
 
     public CTexture()
     {
         this._opacity = 0xff;
         this.texture = nint.Zero;
-        this.bTextureDisposed = true;
         this.fRotation = 0f;
         this.vcScaling = new Vector2(1f, 1f);
         this.filename = "";
@@ -131,8 +132,6 @@ public class CTexture : IDisposable
             this.color = Color.FromArgb(255, 255, 255, 255);
             this.eBlendMode = EBlendMode.Normal;
             this.Opacity = 255;
-
-            this.bTextureDisposed = false;
         }
         catch
         {
@@ -296,7 +295,6 @@ public class CTexture : IDisposable
             // テクスチャの破棄
             if (this.texture != nint.Zero)
             {
-                this.bTextureDisposed = true;
                 SDL.SDL_DestroyTexture((nint)this.texture);
                 this.texture = nint.Zero;
             }
@@ -366,7 +364,7 @@ public class CTexture : IDisposable
     private string filename;
     protected Rectangle rcImageRect;                              // テクスチャ作ったらあとは不変
     private int _opacity;
-    private bool bDisposed, bTextureDisposed;
+    private bool bDisposed;
     private EBlendMode _eBlendMode;
     private Color _color;
     private MakeType maketype = MakeType.bytearray;
