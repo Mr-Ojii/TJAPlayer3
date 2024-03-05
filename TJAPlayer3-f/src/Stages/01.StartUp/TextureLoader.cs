@@ -53,11 +53,11 @@ class TextureLoader
         this.IsLoaded = false;
     }
 
-    internal CTexture TxC(string FileName)
+    internal CTexture? TxC(string FileName)
     {
         return TJAPlayer3.app.tCreateTexture(CSkin.Path(BASE + FileName));
     }
-    internal CTexture TxCGen(string FileName)
+    internal CTexture? TxCGen(string FileName)
     {
         return TJAPlayer3.app.tCreateTexture(CSkin.Path(BASE + GAME + GENRE + FileName + ".png"));
     }
@@ -1030,7 +1030,7 @@ class TextureLoader
     }
 
     #region 共通
-    public CTexture Tile_Black,
+    public CTexture? Tile_Black,
         Menu_Title,
         Menu_Highlight,
         Enum_Song,
@@ -1040,17 +1040,17 @@ class TextureLoader
         Crown_t,
         DanC_Crown_t,
         Difficulty_Icons;
-    public CTexture[] NamePlate;
+    public CTexture?[] NamePlate;
     #endregion
 
     #region 1_タイトル画面
-    public CTexture Title_Background,
+    public CTexture? Title_Background,
         Title_AcBar,
         Title_InBar;
     #endregion
 
     #region 2_コンフィグ画面
-    public CTexture Config_Background,
+    public CTexture? Config_Background,
         Config_Cursor,
         Config_ItemBox,
         Config_Arrow,
@@ -1059,7 +1059,7 @@ class TextureLoader
     #endregion
 
     #region 3_選曲画面
-    public CTexture SongSelect_Background,
+    public CTexture? SongSelect_Background,
         SongSelect_Header,
         SongSelect_Footer,
         SongSelect_Difficulty,
@@ -1079,7 +1079,7 @@ class TextureLoader
         SongSelect_ItemNumber,
         SongSelect_ItemNumber_BG,
         SongSelect_GenreText;
-    public CTexture[] SongSelect_GenreBack,
+    public CTexture?[] SongSelect_GenreBack,
         SongSelect_Lyric_Text,
         SongSelect_Box_Center_Genre,
         SongSelect_Box_Center_Header_Genre,
@@ -1092,7 +1092,7 @@ class TextureLoader
         SongSelect_Counter_Back = new CTexture[2],
         SongSelect_Counter_Num = new CTexture[2];
     #region[3.5_難易度選択]
-    public CTexture Difficulty_Dan_Box,
+    public CTexture? Difficulty_Dan_Box,
         Difficulty_Dan_Box_Selecting,
         Difficulty_Star,
         Difficulty_Branch,
@@ -1105,7 +1105,7 @@ class TextureLoader
         ChangeSE_Num,
         PlayOption_List,
         PlayOption_Active;
-    public CTexture[] Difficulty_Bar = new CTexture[5],
+    public CTexture?[] Difficulty_Bar = new CTexture[5],
         Difficulty_Bar_Etc = new CTexture[3],
         Difficulty_Anc = new CTexture[2],
         Difficulty_Anc_Same = new CTexture[2],
@@ -1117,7 +1117,7 @@ class TextureLoader
     #endregion
 
     #region 4_読み込み画面
-    public CTexture SongLoading_BG,
+    public CTexture? SongLoading_BG,
         SongLoading_Plate,
         SongLoading_v2_BG,
         SongLoading_v2_Plate;
@@ -1125,18 +1125,18 @@ class TextureLoader
 
     #region 5_演奏画面
     #region 共通
-    public CTexture Notes,
+    public CTexture? Notes,
         Notes_White,
         Judge_Frame,
         SENotes,
         Notes_Arm,
         Judge;
-    public CTexture Judge_Meter,
+    public CTexture? Judge_Meter,
         Bar,
         Bar_Branch;
     #endregion
     #region キャラクター
-    public CTexture[][] Chara_Normal = new CTexture[2][],
+    public CTexture?[][] Chara_Normal = new CTexture[2][],
         Chara_Normal_Cleared = new CTexture[2][],
         Chara_Normal_Maxed = new CTexture[2][],
         Chara_GoGoTime = new CTexture[2][],
@@ -1152,18 +1152,18 @@ class TextureLoader
         Chara_Balloon_Miss = new CTexture[2][];
     #endregion
     #region 踊り子
-    public CTexture[][] Dancer;
+    public CTexture?[][] Dancer;
     #endregion
     #region モブ
-    public CTexture[] Mob;
-    public CTexture Mob_Footer;
+    public CTexture?[] Mob;
+    public CTexture? Mob_Footer;
     #endregion
     #region 背景
-    public CTexture Background,
+    public CTexture? Background,
         Background_Down,
         Background_Down_Clear,
         Background_Down_Scroll;
-    public CTexture[] Background_Up,
+    public CTexture?[] Background_Up,
         Background_Up_Clear,
         Background_Up_YMove,
         Background_Up_YMove_Clear,
@@ -1171,9 +1171,9 @@ class TextureLoader
         Background_Up_Sakura_Clear;
     #endregion
     #region 太鼓
-    public CTexture[] Taiko_Frame, // MTaiko下敷き
+    public CTexture?[] Taiko_Frame, // MTaiko下敷き
         Taiko_Background;
-    public CTexture Taiko_Base,
+    public CTexture? Taiko_Base,
         Taiko_Don_Left,
         Taiko_Don_Right,
         Taiko_Ka_Left,
@@ -1182,64 +1182,64 @@ class TextureLoader
         Taiko_LevelDown,
         Taiko_Combo_Effect,
         Taiko_Combo_Text;
-    public CTexture[] Couse_Symbol, // コースシンボル
+    public CTexture?[] Couse_Symbol, // コースシンボル
         Taiko_PlayerNumber,
         Taiko_NamePlate; // ネームプレート
-    public CTexture[] Taiko_Score,
+    public CTexture?[] Taiko_Score,
         Taiko_Combo;
     #endregion
     #region ゲージ
-    public CTexture[] Gauge,
+    public CTexture?[] Gauge,
         Gauge_Base,
         Gauge_Line,
         Gauge_Rainbow,
         Gauge_Soul_Explosion,
         Gauge_Rainbow_Danc;
-    public CTexture Gauge_Soul,
+    public CTexture? Gauge_Soul,
         Gauge_Danc,
         Gauge_Base_Danc,
         Gauge_Line_Danc,
         Gauge_Soul_Fire;
     #endregion
     #region 吹き出し
-    public CTexture[] Balloon_Combo;
-    public CTexture Balloon_Roll,
+    public CTexture?[] Balloon_Combo;
+    public CTexture? Balloon_Roll,
         Balloon_Balloon,
         Balloon_Number_Roll,
         Balloon_Number_Combo/*,*/
                             /*Balloon_Broken*/;
-    public CTexture[] Balloon_Breaking;
+    public CTexture?[] Balloon_Breaking;
     #endregion
     #region エフェクト
-    public CTexture Effects_Hit_Explosion,
+    public CTexture? Effects_Hit_Explosion,
         Effects_Hit_Explosion_Big,
         Effects_Fire,
         Effects_Rainbow,
         Effects_GoGoSplash,
         Effects_Hit_FireWorks;
-    public CTexture[] Effects_Hit_Perfect,
+    public CTexture?[] Effects_Hit_Perfect,
         Effects_Hit_Good,
         Effects_Hit_Perfect_Big,
         Effects_Hit_Good_Big;
-    public CTexture[] Effects_Roll;
+    public CTexture?[] Effects_Roll;
     #endregion
     #region レーン
-    public CTexture[] Lane_Base,
+    public CTexture?[] Lane_Base,
         Lane_Text;
-    public CTexture Lane_Red,
+    public CTexture? Lane_Red,
         Lane_Blue,
         Lane_Yellow;
-    public CTexture Lane_Background_Main,
+    public CTexture? Lane_Background_Main,
         Lane_Background_Sub,
         Lane_Background_GoGo;
     #endregion
     #region 終了演出
-    public CTexture[] End_Failed_L,
+    public CTexture?[] End_Failed_L,
         End_Failed_R,
         End_Clear_L,
         End_Clear_R,
         End_Fan;
-    public CTexture End_Failed_Text,
+    public CTexture? End_Failed_Text,
         End_Failed_Impact,
         End_Clear_Text,
         End_Clear_Text_Effect,
@@ -1252,27 +1252,27 @@ class TextureLoader
         End_DonderFullCombo_Text_Effect;
     #endregion
     #region ゲームモード
-    public CTexture GameMode_Timer_Frame,
+    public CTexture? GameMode_Timer_Frame,
         GameMode_Timer_Tick;
     #endregion
     #region ステージ失敗
-    public CTexture Failed_Game,
+    public CTexture? Failed_Game,
         Failed_Stage;
     #endregion
     #region ランナー
-    public CTexture Runner;
+    public CTexture? Runner;
     #endregion
     #region DanC
-    public CTexture DanC_Background;
-    public CTexture[] DanC_Gauge = new CTexture[4];
-    public CTexture DanC_Base;
-    public CTexture DanC_Failed;
-    public CTexture DanC_Number,
+    public CTexture? DanC_Background;
+    public CTexture?[] DanC_Gauge = new CTexture[4];
+    public CTexture? DanC_Base;
+    public CTexture? DanC_Failed;
+    public CTexture? DanC_Number,
         DanC_ExamType,
         DanC_ExamRange,
         DanC_ExamUnit;
-    public CTexture DanC_Screen;
-    public CTexture DanC_V2_Background,
+    public CTexture? DanC_Screen;
+    public CTexture? DanC_V2_Background,
         DanC_V2_Base,
         DanC_V2_Failed_Text,
         DanC_V2_Failed_Cover,
@@ -1282,13 +1282,13 @@ class TextureLoader
         DanC_V2_ExamType_Box,
         DanC_V2_Panel,
         DanC_V2_SoulGauge_Box;
-    public CTexture[] DanC_V2_Gauge = new CTexture[4];
+    public CTexture?[] DanC_V2_Gauge = new CTexture[4];
     #endregion
     #region PuchiChara
-    public CTexture[] PuchiChara;
+    public CTexture?[] PuchiChara;
     #endregion
     #region Training
-    public CTexture Tokkun_DownBG,
+    public CTexture? Tokkun_DownBG,
         Tokkun_BigTaiko,
         Tokkun_ProgressBar,
         Tokkun_ProgressBarWhite,
@@ -1302,7 +1302,7 @@ class TextureLoader
     #endregion
 
     #region 6_結果発表
-    public CTexture Result_Background,
+    public CTexture? Result_Background,
         Result_FadeIn,
         Result_Gauge,
         Result_Gauge_Base,
@@ -1318,13 +1318,13 @@ class TextureLoader
         Result_v2_GaugeBack,
         Result_v2_GaugeBase,
         Result_v2_Gauge;
-    public CTexture[] Result_v2_Background = new CTexture[2],
+    public CTexture?[] Result_v2_Background = new CTexture[2],
         Result_v2_Mountain = new CTexture[2],
         Result_v2_Panel = new CTexture[2];
     #endregion
 
     #region 7_終了画面
-    public CTexture Exit_Curtain,
+    public CTexture? Exit_Curtain,
                     Exit_Text;
     #endregion
 
