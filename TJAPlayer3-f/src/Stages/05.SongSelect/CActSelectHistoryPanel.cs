@@ -72,7 +72,7 @@ internal class CActSelectHistoryPanel : CActivity
     #region [ private ]
     //-----------------
     private CCounter? ct登場アニメ用;
-    private CTexture[,] Names = new CTexture[(int)Difficulty.Total, 3];
+    private CTexture?[,] Names = new CTexture?[(int)Difficulty.Total, 3];
     private CCachedFontRenderer? Font;
     //-----------------
 
@@ -101,16 +101,17 @@ internal class CActSelectHistoryPanel : CActivity
 
         if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア != null)
         {
-            string[][] Names = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.strHiScorerName;
+            string[][] HiScorerName = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.strHiScorerName;
 
             if (Font != null)
                 for (int index = 0; index < (int)Difficulty.Total; index++)
                 {
                     for (int j = 0; j < 3; j++)
-                        if (!string.IsNullOrEmpty(Names[index][j]))
+                        if (!string.IsNullOrEmpty(HiScorerName[index][j]))
                         {
-                            this.Names[index, j] = TJAPlayer3.app.tCreateTexture(Font.DrawText(Names[index][j], Color.Black));
-                            this.Names[index, j].vcScaling = new Vector2(0.5f);
+                            var name = this.Names[index, j] = TJAPlayer3.app.tCreateTexture(Font.DrawText(HiScorerName[index][j], Color.Black));
+                            if (name != null)
+                                name.vcScaling = new Vector2(0.5f);
                         }
                 }
         }
