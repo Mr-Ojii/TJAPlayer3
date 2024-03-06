@@ -36,7 +36,7 @@ internal class CActMob : CActivity
             ctMobPtn.t進行LoopDb();
             if (TJAPlayer3.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= 100)
             {
-                TJAPlayer3.Tx.Mob[(int)ctMobPtn.db現在の値]?.t2D描画(TJAPlayer3.app.Device, 0, (720 - (TJAPlayer3.Tx.Mob[0].szTextureSize.Height - 70)) + -((float)Math.Sin((float)this.ctMob.db現在の値 * (Math.PI / 180)) * 70));
+                TJAPlayer3.app.Tx.Mob[(int)ctMobPtn.db現在の値]?.t2D描画(TJAPlayer3.app.Device, 0, (720 - (TJAPlayer3.app.Tx.Mob[0].szTextureSize.Height - 70)) + -((float)Math.Sin((float)this.ctMob.db現在の値 * (Math.PI / 180)) * 70));
             }
         }
         return base.On進行描画();

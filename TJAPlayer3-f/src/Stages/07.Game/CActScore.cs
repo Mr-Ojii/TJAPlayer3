@@ -373,28 +373,28 @@ internal class CActScore : CActivity
                 switch (mode)
                 {
                     case 0:
-                        if (TJAPlayer3.Tx.Taiko_Score[0] != null)
+                        if (TJAPlayer3.app.Tx.Taiko_Score[0] != null)
                         {
-                            TJAPlayer3.Tx.Taiko_Score[0].Opacity = alpha;
-                            TJAPlayer3.Tx.Taiko_Score[0].vcScaling.Y = ScoreScale[this.ct点数アニメタイマ[player].n現在の値];
-                            TJAPlayer3.Tx.Taiko_Score[0].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
+                            TJAPlayer3.app.Tx.Taiko_Score[0].Opacity = alpha;
+                            TJAPlayer3.app.Tx.Taiko_Score[0].vcScaling.Y = ScoreScale[this.ct点数アニメタイマ[player].n現在の値];
+                            TJAPlayer3.app.Tx.Taiko_Score[0].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
 
                         }
                         break;
                     case 1:
-                        if (TJAPlayer3.Tx.Taiko_Score[1] != null)
+                        if (TJAPlayer3.app.Tx.Taiko_Score[1] != null)
                         {
-                            TJAPlayer3.Tx.Taiko_Score[1].Opacity = alpha;
-                            TJAPlayer3.Tx.Taiko_Score[1].vcScaling.Y = 1;
-                            TJAPlayer3.Tx.Taiko_Score[1].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
+                            TJAPlayer3.app.Tx.Taiko_Score[1].Opacity = alpha;
+                            TJAPlayer3.app.Tx.Taiko_Score[1].vcScaling.Y = 1;
+                            TJAPlayer3.app.Tx.Taiko_Score[1].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
                         }
                         break;
                     case 2:
-                        if (TJAPlayer3.Tx.Taiko_Score[2] != null)
+                        if (TJAPlayer3.app.Tx.Taiko_Score[2] != null)
                         {
-                            TJAPlayer3.Tx.Taiko_Score[2].Opacity = alpha;
-                            TJAPlayer3.Tx.Taiko_Score[2].vcScaling.Y = 1;
-                            TJAPlayer3.Tx.Taiko_Score[2].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
+                            TJAPlayer3.app.Tx.Taiko_Score[2].Opacity = alpha;
+                            TJAPlayer3.app.Tx.Taiko_Score[2].vcScaling.Y = 1;
+                            TJAPlayer3.app.Tx.Taiko_Score[2].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
                         }
                         break;
                 }

@@ -84,16 +84,16 @@ internal class CAct演奏Drums連打キャラ : CActivity
                         RollCharas[i].X += RollCharas[i].XAdd;
                         RollCharas[i].Y += RollCharas[i].YAdd;
                     }
-                    if (RollCharas[i].Type < TJAPlayer3.Tx.Effects_Roll.Length)
+                    if (RollCharas[i].Type < TJAPlayer3.app.Tx.Effects_Roll.Length)
                     {
-                        TJAPlayer3.Tx.Effects_Roll[RollCharas[i].Type]?.t2D描画(TJAPlayer3.app.Device, RollCharas[i].X, RollCharas[i].Y);
+                        TJAPlayer3.app.Tx.Effects_Roll[RollCharas[i].Type]?.t2D描画(TJAPlayer3.app.Device, RollCharas[i].X, RollCharas[i].Y);
                         // 画面外にいたら描画をやめさせる
-                        if (RollCharas[i].X < 0 - TJAPlayer3.Tx.Effects_Roll[RollCharas[i].Type].szTextureSize.Width || RollCharas[i].X > TJAPlayer3.app.LogicalSize.Width)
+                        if (RollCharas[i].X < 0 - TJAPlayer3.app.Tx.Effects_Roll[RollCharas[i].Type].szTextureSize.Width || RollCharas[i].X > TJAPlayer3.app.LogicalSize.Width)
                         {
                             RollCharas[i].Counter.t停止();
                             RollCharas[i].IsUsing = false;
                         }
-                        if (RollCharas[i].Y < 0 - TJAPlayer3.Tx.Effects_Roll[RollCharas[i].Type].szTextureSize.Height || RollCharas[i].Y > TJAPlayer3.app.LogicalSize.Height)
+                        if (RollCharas[i].Y < 0 - TJAPlayer3.app.Tx.Effects_Roll[RollCharas[i].Type].szTextureSize.Height || RollCharas[i].Y > TJAPlayer3.app.LogicalSize.Height)
                         {
                             RollCharas[i].Counter.t停止();
                             RollCharas[i].IsUsing = false;

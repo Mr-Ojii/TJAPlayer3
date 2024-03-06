@@ -37,21 +37,21 @@ internal class CActFIFOStart : CActivity
 
         if (TJAPlayer3.app.ConfigToml.EnableSkinV2)
         {
-            if (TJAPlayer3.Tx.SongLoading_v2_BG != null)
+            if (TJAPlayer3.app.Tx.SongLoading_v2_BG != null)
             {
                 if (this.mode == EFIFOMode.FadeOut)
                 {
                     int x = Math.Max(1000 - this.counter.n現在の値, 0);
                     int num = Math.Min(100, x);
-                    TJAPlayer3.Tx.SongLoading_v2_BG.t2D幕用描画(TJAPlayer3.app.Device, -x, 0, new Rectangle(0, 0, TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Width / 2, TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Height), true, num);
-                    TJAPlayer3.Tx.SongLoading_v2_BG.t2D幕用描画(TJAPlayer3.app.Device, (TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Width / 2) + x, 0, new Rectangle(TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Width / 2, 0, TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Width / 2, TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Height), false, num);
+                    TJAPlayer3.app.Tx.SongLoading_v2_BG.t2D幕用描画(TJAPlayer3.app.Device, -x, 0, new Rectangle(0, 0, TJAPlayer3.app.Tx.SongLoading_v2_BG.szTextureSize.Width / 2, TJAPlayer3.app.Tx.SongLoading_v2_BG.szTextureSize.Height), true, num);
+                    TJAPlayer3.app.Tx.SongLoading_v2_BG.t2D幕用描画(TJAPlayer3.app.Device, (TJAPlayer3.app.Tx.SongLoading_v2_BG.szTextureSize.Width / 2) + x, 0, new Rectangle(TJAPlayer3.app.Tx.SongLoading_v2_BG.szTextureSize.Width / 2, 0, TJAPlayer3.app.Tx.SongLoading_v2_BG.szTextureSize.Width / 2, TJAPlayer3.app.Tx.SongLoading_v2_BG.szTextureSize.Height), false, num);
                 }
                 else
                 {
                     int x = Math.Max(this.counter.n現在の値 - 500, 0);
                     int num = Math.Min(100, x);
-                    TJAPlayer3.Tx.SongLoading_v2_BG.t2D幕用描画(TJAPlayer3.app.Device, -x, 0, new Rectangle(0, 0, TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Width / 2, TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Height), true, num);
-                    TJAPlayer3.Tx.SongLoading_v2_BG.t2D幕用描画(TJAPlayer3.app.Device, (TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Width / 2) + x, 0, new Rectangle(TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Width / 2, 0, TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Width / 2, TJAPlayer3.Tx.SongLoading_v2_BG.szTextureSize.Height), false, num);
+                    TJAPlayer3.app.Tx.SongLoading_v2_BG.t2D幕用描画(TJAPlayer3.app.Device, -x, 0, new Rectangle(0, 0, TJAPlayer3.app.Tx.SongLoading_v2_BG.szTextureSize.Width / 2, TJAPlayer3.app.Tx.SongLoading_v2_BG.szTextureSize.Height), true, num);
+                    TJAPlayer3.app.Tx.SongLoading_v2_BG.t2D幕用描画(TJAPlayer3.app.Device, (TJAPlayer3.app.Tx.SongLoading_v2_BG.szTextureSize.Width / 2) + x, 0, new Rectangle(TJAPlayer3.app.Tx.SongLoading_v2_BG.szTextureSize.Width / 2, 0, TJAPlayer3.app.Tx.SongLoading_v2_BG.szTextureSize.Width / 2, TJAPlayer3.app.Tx.SongLoading_v2_BG.szTextureSize.Height), false, num);
                 }
             }
         }
@@ -59,19 +59,19 @@ internal class CActFIFOStart : CActivity
         {
             if (this.mode == EFIFOMode.FadeOut)
             {
-                if (TJAPlayer3.Tx.SongLoading_BG != null)
+                if (TJAPlayer3.app.Tx.SongLoading_BG != null)
                 {
                     int y = this.counter.n現在の値 >= 840 ? 840 : this.counter.n現在の値;
-                    TJAPlayer3.Tx.SongLoading_BG.t2D描画(TJAPlayer3.app.Device, 0, TJAPlayer3.app.LogicalSize.Height - y);
+                    TJAPlayer3.app.Tx.SongLoading_BG.t2D描画(TJAPlayer3.app.Device, 0, TJAPlayer3.app.LogicalSize.Height - y);
                 }
             }
             else
             {
-                if (TJAPlayer3.Tx.SongLoading_BG != null)
+                if (TJAPlayer3.app.Tx.SongLoading_BG != null)
                 {
                     int y = this.counter.n現在の値;
-                    int sa = (TJAPlayer3.Tx.SongLoading_BG.szTextureSize.Height - TJAPlayer3.app.LogicalSize.Height) / 2;
-                    TJAPlayer3.Tx.SongLoading_BG.t2D描画(TJAPlayer3.app.Device, 0, -sa - y);
+                    int sa = (TJAPlayer3.app.Tx.SongLoading_BG.szTextureSize.Height - TJAPlayer3.app.LogicalSize.Height) / 2;
+                    TJAPlayer3.app.Tx.SongLoading_BG.t2D描画(TJAPlayer3.app.Device, 0, -sa - y);
                 }
             }
         }

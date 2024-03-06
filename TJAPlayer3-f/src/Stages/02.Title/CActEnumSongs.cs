@@ -86,15 +86,15 @@ internal class CActEnumSongs : CActivity
             return 0;
         }
 
-        if (TJAPlayer3.Tx.Enum_Song != null && this.ctNowEnumeratingSongs != null)
+        if (TJAPlayer3.app.Tx.Enum_Song != null && this.ctNowEnumeratingSongs != null)
         {
             this.ctNowEnumeratingSongs.t進行Loop();
-            TJAPlayer3.Tx.Enum_Song.Opacity = (int)(176.0 + 80.0 * Math.Sin((double)(2 * Math.PI * this.ctNowEnumeratingSongs.n現在の値 * 2 / 100.0)));
-            TJAPlayer3.Tx.Enum_Song.t2D描画(TJAPlayer3.app.Device, 18, 7);
+            TJAPlayer3.app.Tx.Enum_Song.Opacity = (int)(176.0 + 80.0 * Math.Sin((double)(2 * Math.PI * this.ctNowEnumeratingSongs.n現在の値 * 2 / 100.0)));
+            TJAPlayer3.app.Tx.Enum_Song.t2D描画(TJAPlayer3.app.Device, 18, 7);
         }
-        if (bコマンドでの曲データ取得 && TJAPlayer3.Tx.Config_Enum_Song != null && this.txMessage != null)
+        if (bコマンドでの曲データ取得 && TJAPlayer3.app.Tx.Config_Enum_Song != null && this.txMessage != null)
         {
-            TJAPlayer3.Tx.Config_Enum_Song.t2D描画(TJAPlayer3.app.Device, 180, 177);
+            TJAPlayer3.app.Tx.Config_Enum_Song.t2D描画(TJAPlayer3.app.Device, 180, 177);
             this.txMessage.t2D描画(TJAPlayer3.app.Device, 190, 197);
         }
 

@@ -61,7 +61,7 @@ internal class CStageEnding : CStage
 
             this.ctAnimation.t進行();
 
-            if (TJAPlayer3.Tx.Exit_Curtain != null && TJAPlayer3.Tx.Exit_Text != null)
+            if (TJAPlayer3.app.Tx.Exit_Curtain != null && TJAPlayer3.app.Tx.Exit_Text != null)
             {
                 double t = this.ctAnimation.n現在の値, c = -1300, b = 1300, d = this.ctAnimation.n終了値;
                 t = t / d - 1;
@@ -91,9 +91,9 @@ internal class CStageEnding : CStage
                     y = (int)((c2 * (7.5625 * t2 * t2 + 0.984375) + b2) * 0.5);
                 }
 
-                TJAPlayer3.Tx.Exit_Curtain.t2D描画(TJAPlayer3.app.Device, x, 0);
+                TJAPlayer3.app.Tx.Exit_Curtain.t2D描画(TJAPlayer3.app.Device, x, 0);
 
-                TJAPlayer3.Tx.Exit_Text.t2D描画(TJAPlayer3.app.Device, 0, y);
+                TJAPlayer3.app.Tx.Exit_Text.t2D描画(TJAPlayer3.app.Device, 0, y);
             }
 
             if (this.ctAnimation.b終了値に達した && !TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDゲーム終了音].b再生中)

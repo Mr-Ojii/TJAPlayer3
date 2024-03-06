@@ -338,10 +338,10 @@ internal class CActSelectPlayOption : CActivity
     /// <param name="y">下中央基準のY</param>
     private void tDrawBox(float x, float y, int nPlayer)
     {
-        if (TJAPlayer3.Tx.PlayOption_List != null && TJAPlayer3.Tx.PlayOption_Active != null)
+        if (TJAPlayer3.app.Tx.PlayOption_List != null && TJAPlayer3.app.Tx.PlayOption_Active != null)
         {
-            TJAPlayer3.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2], TJAPlayer3.Tx.PlayOption_List.szTextureSize.Width, TJAPlayer3.Tx.PlayOption_List.szTextureSize.Height - TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2]));//下部
-            y -= TJAPlayer3.Tx.PlayOption_List.szTextureSize.Height - TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2];
+            TJAPlayer3.app.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2], TJAPlayer3.app.Tx.PlayOption_List.szTextureSize.Width, TJAPlayer3.app.Tx.PlayOption_List.szTextureSize.Height - TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2]));//下部
+            y -= TJAPlayer3.app.Tx.PlayOption_List.szTextureSize.Height - TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2];
         }
         else
         {
@@ -350,11 +350,11 @@ internal class CActSelectPlayOption : CActivity
 
         for (int i = 0; i < lci[nPlayer].Count; i++)
         {
-            if (TJAPlayer3.Tx.PlayOption_List != null && TJAPlayer3.Tx.PlayOption_Active != null)
+            if (TJAPlayer3.app.Tx.PlayOption_List != null && TJAPlayer3.app.Tx.PlayOption_Active != null)
             {
-                TJAPlayer3.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1], TJAPlayer3.Tx.PlayOption_List.szTextureSize.Width, TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2] - TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1]));//リスト本体
+                TJAPlayer3.app.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1], TJAPlayer3.app.Tx.PlayOption_List.szTextureSize.Width, TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2] - TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1]));//リスト本体
                 if (lci[nPlayer].Count - i == NowRow[nPlayer] + 1)
-                    TJAPlayer3.Tx.PlayOption_Active.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y);
+                    TJAPlayer3.app.Tx.PlayOption_Active.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y);
             }
 
             this.NameTexture[nPlayer][lci[nPlayer].Count - i - 1].ItemNameTexture.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionNameCorrectionX, y - (TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2] - TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1]) + TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionListCorrectionY);
@@ -388,9 +388,9 @@ internal class CActSelectPlayOption : CActivity
             y -= TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2] - TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1];
         }
 
-        if (TJAPlayer3.Tx.PlayOption_List != null && TJAPlayer3.Tx.PlayOption_Active != null)
+        if (TJAPlayer3.app.Tx.PlayOption_List != null && TJAPlayer3.app.Tx.PlayOption_Active != null)
         {
-            TJAPlayer3.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[0], TJAPlayer3.Tx.PlayOption_List.szTextureSize.Width, TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1] - TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[0]));//上部
+            TJAPlayer3.app.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[0], TJAPlayer3.app.Tx.PlayOption_List.szTextureSize.Width, TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1] - TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[0]));//上部
         }
 
     }

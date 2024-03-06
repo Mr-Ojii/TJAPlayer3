@@ -1240,8 +1240,8 @@ internal class CActConfigList : CActivity
 
             #region [ 現在の行の項目パネル枠を描画。]
             //-----------------
-            if (TJAPlayer3.Tx.Config_ItemBox != null)
-                TJAPlayer3.Tx.Config_ItemBox.t2D描画(TJAPlayer3.app.Device, x, y);
+            if (TJAPlayer3.app.Tx.Config_ItemBox != null)
+                TJAPlayer3.app.Tx.Config_ItemBox.t2D描画(TJAPlayer3.app.Device, x, y);
             //-----------------
             #endregion
             #region [ 現在の行の項目名を描画。]
@@ -1387,10 +1387,10 @@ internal class CActConfigList : CActivity
 
             // 描画。
 
-            if (TJAPlayer3.Tx.Config_Arrow != null)
+            if (TJAPlayer3.app.Tx.Config_Arrow != null)
             {
-                TJAPlayer3.Tx.Config_Arrow.t2D描画(TJAPlayer3.app.Device, x, y_upper, new Rectangle(0, 0, 0x40, 0x18));
-                TJAPlayer3.Tx.Config_Arrow.t2D描画(TJAPlayer3.app.Device, x, y_lower, new Rectangle(0, 0x18, 0x40, 0x18));
+                TJAPlayer3.app.Tx.Config_Arrow.t2D描画(TJAPlayer3.app.Device, x, y_upper, new Rectangle(0, 0, 0x40, 0x18));
+                TJAPlayer3.app.Tx.Config_Arrow.t2D描画(TJAPlayer3.app.Device, x, y_lower, new Rectangle(0, 0x18, 0x40, 0x18));
             }
         }
         //-----------------

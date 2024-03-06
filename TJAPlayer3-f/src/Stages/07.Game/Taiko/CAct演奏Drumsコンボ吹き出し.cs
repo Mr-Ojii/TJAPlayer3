@@ -57,42 +57,42 @@ internal class CAct演奏Drumsコンボ吹き出し : CActivity
                     }
                 }
 
-                if (TJAPlayer3.Tx.Balloon_Combo[i] != null)
+                if (TJAPlayer3.app.Tx.Balloon_Combo[i] != null)
                 {
                     //半透明4f
                     if (this.ct進行[i].n現在の値 == 1 || this.ct進行[i].n現在の値 == 103)
                     {
-                        TJAPlayer3.Tx.Balloon_Combo[i].Opacity = 64;
-                        TJAPlayer3.Tx.Balloon_Number_Combo.Opacity = 64;
+                        TJAPlayer3.app.Tx.Balloon_Combo[i].Opacity = 64;
+                        TJAPlayer3.app.Tx.Balloon_Number_Combo.Opacity = 64;
                     }
                     else if (this.ct進行[i].n現在の値 == 2 || this.ct進行[i].n現在の値 == 102)
                     {
-                        TJAPlayer3.Tx.Balloon_Combo[i].Opacity = 128;
-                        TJAPlayer3.Tx.Balloon_Number_Combo.Opacity = 128;
+                        TJAPlayer3.app.Tx.Balloon_Combo[i].Opacity = 128;
+                        TJAPlayer3.app.Tx.Balloon_Number_Combo.Opacity = 128;
                     }
                     else if (this.ct進行[i].n現在の値 == 3 || this.ct進行[i].n現在の値 == 101)
                     {
-                        TJAPlayer3.Tx.Balloon_Combo[i].Opacity = 192;
-                        TJAPlayer3.Tx.Balloon_Number_Combo.Opacity = 192;
+                        TJAPlayer3.app.Tx.Balloon_Combo[i].Opacity = 192;
+                        TJAPlayer3.app.Tx.Balloon_Number_Combo.Opacity = 192;
                     }
                     else if (this.ct進行[i].n現在の値 >= 4 && this.ct進行[i].n現在の値 <= 100)
                     {
-                        TJAPlayer3.Tx.Balloon_Combo[i].Opacity = 255;
-                        TJAPlayer3.Tx.Balloon_Number_Combo.Opacity = 255;
+                        TJAPlayer3.app.Tx.Balloon_Combo[i].Opacity = 255;
+                        TJAPlayer3.app.Tx.Balloon_Number_Combo.Opacity = 255;
                     }
 
                     if (this.ct進行[i].b進行中)
                     {
-                        TJAPlayer3.Tx.Balloon_Combo[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboY[i]);
+                        TJAPlayer3.app.Tx.Balloon_Combo[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboY[i]);
                         if (this.nCombo_渡[i] < 1000) //2016.08.23 kairera0467 仮実装。
                         {
                             this.t小文字表示(TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboNumberX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboNumberY[i], string.Format("{0,4:###0}", this.nCombo_渡[i]));
-                            TJAPlayer3.Tx.Balloon_Number_Combo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboTextX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboTextY[i], new Rectangle(0, 54, 77, 32));
+                            TJAPlayer3.app.Tx.Balloon_Number_Combo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboTextX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboTextY[i], new Rectangle(0, 54, 77, 32));
                         }
                         else
                         {
                             this.t小文字表示(TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboNumberExX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboNumberExY[i], string.Format("{0,4:###0}", this.nCombo_渡[i]));
-                            TJAPlayer3.Tx.Balloon_Number_Combo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboTextExX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboTextExY[i], new Rectangle(0, 54, 77, 32));
+                            TJAPlayer3.app.Tx.Balloon_Number_Combo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboTextExX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboTextExY[i], new Rectangle(0, 54, 77, 32));
                         }
                     }
                 }
@@ -129,7 +129,7 @@ internal class CAct演奏Drumsコンボ吹き出し : CActivity
             if (this.st小文字位置.TryGetValue(ch, out var pt))
             {
                 Rectangle rectangle = new Rectangle(pt.X, pt.Y, 44, 54);
-                TJAPlayer3.Tx.Balloon_Number_Combo?.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
+                TJAPlayer3.app.Tx.Balloon_Number_Combo?.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
             }
             x += 40;
         }

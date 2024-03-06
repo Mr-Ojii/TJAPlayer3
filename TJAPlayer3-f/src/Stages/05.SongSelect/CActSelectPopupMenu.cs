@@ -246,9 +246,9 @@ internal class CActSelectPopupMenu : CActivity
                 #endregion
             }
             #region [ ポップアップメニュー 背景描画 ]
-            if (TJAPlayer3.Tx.Menu_Title != null)
+            if (TJAPlayer3.app.Tx.Menu_Title != null)
             {
-                TJAPlayer3.Tx.Menu_Title.t2D描画(TJAPlayer3.app.Device, 160, 40);
+                TJAPlayer3.app.Tx.Menu_Title.t2D描画(TJAPlayer3.app.Device, 160, 40);
             }
             #endregion
             #region [ ソートメニュータイトル描画 ]
@@ -256,20 +256,20 @@ internal class CActSelectPopupMenu : CActivity
             stqMenuTitle.txName.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Left, x, y);
             #endregion
             #region [ カーソル描画 ]
-            if (TJAPlayer3.Tx.Menu_Highlight != null)
+            if (TJAPlayer3.app.Tx.Menu_Highlight != null)
             {
                 int height = 32;
                 int curX = 180;
                 int curY = 46 + (height * (this.n現在の選択行 + 1));
-                TJAPlayer3.Tx.Menu_Highlight.t2D描画(TJAPlayer3.app.Device, curX, curY, new Rectangle(0, 0, 16, 32));
+                TJAPlayer3.app.Tx.Menu_Highlight.t2D描画(TJAPlayer3.app.Device, curX, curY, new Rectangle(0, 0, 16, 32));
                 curX += 0x10;
                 Rectangle rectangle = new Rectangle(8, 0, 0x10, 0x20);
                 for (int j = 0; j < 16; j++)
                 {
-                    TJAPlayer3.Tx.Menu_Highlight.t2D描画(TJAPlayer3.app.Device, curX, curY, rectangle);
+                    TJAPlayer3.app.Tx.Menu_Highlight.t2D描画(TJAPlayer3.app.Device, curX, curY, rectangle);
                     curX += 16;
                 }
-                TJAPlayer3.Tx.Menu_Highlight.t2D描画(TJAPlayer3.app.Device, curX, curY, new Rectangle(0x10, 0, 16, 32));
+                TJAPlayer3.app.Tx.Menu_Highlight.t2D描画(TJAPlayer3.app.Device, curX, curY, new Rectangle(0x10, 0, 16, 32));
             }
             #endregion
             #region [ ソート候補文字列描画 ]

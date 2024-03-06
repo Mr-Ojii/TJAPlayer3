@@ -13,7 +13,7 @@ internal class CActRunner : CActivity
 
     public void Start(int Player, bool IsMiss, CDTX.CChip pChip)
     {
-        if (TJAPlayer3.Tx.Runner == null)
+        if (TJAPlayer3.app.Tx.Runner == null)
             return;
 
         if (pChip.nチャンネル番号 < 0x15 || (pChip.nチャンネル番号 >= 0x1A))
@@ -88,7 +88,7 @@ internal class CActRunner : CActivity
                     int Width = TJAPlayer3.app.LogicalSize.Width / Ptn;
                     stRunners[i].nNowPtn = (int)stRunners[i].fX / Width;
                 }
-                TJAPlayer3.Tx.Runner?.t2D描画(TJAPlayer3.app.Device, (int)(StartPoint_X[stRunners[i].nPlayer] + stRunners[i].fX), StartPoint_Y[stRunners[i].nPlayer], new Rectangle(stRunners[i].nNowPtn * Size[0], stRunners[i].nType * Size[1], Size[0], Size[1]));
+                TJAPlayer3.app.Tx.Runner?.t2D描画(TJAPlayer3.app.Device, (int)(StartPoint_X[stRunners[i].nPlayer] + stRunners[i].fX), StartPoint_Y[stRunners[i].nPlayer], new Rectangle(stRunners[i].nNowPtn * Size[0], stRunners[i].nType * Size[1], Size[0], Size[1]));
             }
         }
         return base.On進行描画();

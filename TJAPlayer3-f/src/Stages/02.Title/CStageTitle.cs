@@ -155,8 +155,8 @@ internal class CStageTitle : CStage
 
             // 描画
 
-            if (TJAPlayer3.Tx.Title_Background != null)
-                TJAPlayer3.Tx.Title_Background.t2D描画(TJAPlayer3.app.Device, 0, 0);
+            if (TJAPlayer3.app.Tx.Title_Background != null)
+                TJAPlayer3.app.Tx.Title_Background.t2D描画(TJAPlayer3.app.Device, 0, 0);
 
             #region[ バージョン表示 ]
             //string strVersion = "KTT:J:A:I:2017072200";
@@ -172,27 +172,27 @@ internal class CStageTitle : CStage
             #endregion
 
 
-            if (TJAPlayer3.Tx.Title_InBar != null && TJAPlayer3.Tx.Title_AcBar != null)
+            if (TJAPlayer3.app.Tx.Title_InBar != null && TJAPlayer3.app.Tx.Title_AcBar != null)
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    TJAPlayer3.Tx.Title_InBar.t2D描画(TJAPlayer3.app.Device, MENU_XT[i] - TJAPlayer3.Tx.Title_InBar.szTextureSize.Width / 2, MENU_YT);
+                    TJAPlayer3.app.Tx.Title_InBar.t2D描画(TJAPlayer3.app.Device, MENU_XT[i] - TJAPlayer3.app.Tx.Title_InBar.szTextureSize.Width / 2, MENU_YT);
                 }
 
                 if (this.ct下移動用 != null && this.ct下移動用.b進行中)
                 {
-                    TJAPlayer3.Tx.Title_AcBar.vcScaling.X = this.ct下移動用.n現在の値 * 0.01f;
-                    TJAPlayer3.Tx.Title_AcBar.t2D描画(TJAPlayer3.app.Device, MENU_XT[this.n現在のカーソル行] - TJAPlayer3.Tx.Title_AcBar.szTextureSize.Width / 2 * this.ct下移動用.n現在の値 * 0.01f, MENU_YT);
+                    TJAPlayer3.app.Tx.Title_AcBar.vcScaling.X = this.ct下移動用.n現在の値 * 0.01f;
+                    TJAPlayer3.app.Tx.Title_AcBar.t2D描画(TJAPlayer3.app.Device, MENU_XT[this.n現在のカーソル行] - TJAPlayer3.app.Tx.Title_AcBar.szTextureSize.Width / 2 * this.ct下移動用.n現在の値 * 0.01f, MENU_YT);
                 }
                 else if (this.ct上移動用 != null && this.ct上移動用.b進行中)
                 {
-                    TJAPlayer3.Tx.Title_AcBar.vcScaling.X = this.ct上移動用.n現在の値 * 0.01f;
-                    TJAPlayer3.Tx.Title_AcBar.t2D描画(TJAPlayer3.app.Device, MENU_XT[this.n現在のカーソル行] - TJAPlayer3.Tx.Title_AcBar.szTextureSize.Width / 2 * this.ct上移動用.n現在の値 * 0.01f, MENU_YT);
+                    TJAPlayer3.app.Tx.Title_AcBar.vcScaling.X = this.ct上移動用.n現在の値 * 0.01f;
+                    TJAPlayer3.app.Tx.Title_AcBar.t2D描画(TJAPlayer3.app.Device, MENU_XT[this.n現在のカーソル行] - TJAPlayer3.app.Tx.Title_AcBar.szTextureSize.Width / 2 * this.ct上移動用.n現在の値 * 0.01f, MENU_YT);
                 }
                 else
                 {
-                    TJAPlayer3.Tx.Title_AcBar.vcScaling.X = 1.0f;
-                    TJAPlayer3.Tx.Title_AcBar.t2D描画(TJAPlayer3.app.Device, MENU_XT[this.n現在のカーソル行] - TJAPlayer3.Tx.Title_AcBar.szTextureSize.Width / 2, MENU_YT);
+                    TJAPlayer3.app.Tx.Title_AcBar.vcScaling.X = 1.0f;
+                    TJAPlayer3.app.Tx.Title_AcBar.t2D描画(TJAPlayer3.app.Device, MENU_XT[this.n現在のカーソル行] - TJAPlayer3.app.Tx.Title_AcBar.szTextureSize.Width / 2, MENU_YT);
                 }
 
                 for (int i = 0; i < 3; i++)

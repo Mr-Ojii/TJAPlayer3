@@ -38,12 +38,12 @@ internal class CActDancer : CActivity
 
             if (TJAPlayer3.app.ConfigToml.Game.ShowDancer)
             {
-                for (int i = 0; i < TJAPlayer3.Tx.Dancer.Length; i++)
+                for (int i = 0; i < TJAPlayer3.app.Tx.Dancer.Length; i++)
                 {
-                    if (TJAPlayer3.Tx.Dancer[i][this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]] != null)
+                    if (TJAPlayer3.app.Tx.Dancer[i][this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]] != null)
                     {
                         if ((int)TJAPlayer3.stage演奏ドラム画面.actGauge.db現在のゲージ値[0] >= TJAPlayer3.app.Skin.SkinConfig.Game.Dancer.Gauge[i])
-                            TJAPlayer3.Tx.Dancer[i][this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.app.Skin.SkinConfig.Game.Dancer.X[i], TJAPlayer3.app.Skin.SkinConfig.Game.Dancer.Y[i]);
+                            TJAPlayer3.app.Tx.Dancer[i][this.ar踊り子モーション番号[(int)this.ct踊り子モーション.db現在の値]].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.app.Skin.SkinConfig.Game.Dancer.X[i], TJAPlayer3.app.Skin.SkinConfig.Game.Dancer.Y[i]);
                     }
                 }
             }

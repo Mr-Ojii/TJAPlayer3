@@ -165,30 +165,30 @@ class CActSelectChangeSE : CActivity
 
     private void boxたちの描画(int x, int y, int nPlayer)
     {
-        if (TJAPlayer3.Tx.ChangeSE_Box != null)
-            TJAPlayer3.Tx.ChangeSE_Box.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y);
+        if (TJAPlayer3.app.Tx.ChangeSE_Box != null)
+            TJAPlayer3.app.Tx.ChangeSE_Box.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y);
 
-        if (TJAPlayer3.Tx.ChangeSE_Num != null)
+        if (TJAPlayer3.app.Tx.ChangeSE_Num != null)
         {
             for (int i = 0; i < TJAPlayer3.app.Skin.SECount.ToString().Length; i++)
             {
                 var number = (int)(TJAPlayer3.app.Skin.SECount / Math.Pow(10, TJAPlayer3.app.Skin.SECount.ToString().Length - i - 1) % 10);
-                Rectangle rectangle = new Rectangle(TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Width / 10 * number, 0, TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Width / 10, TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Height);
-                TJAPlayer3.Tx.ChangeSE_Num.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (i * TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Width / 10) + 20, y - 260, rectangle);
+                Rectangle rectangle = new Rectangle(TJAPlayer3.app.Tx.ChangeSE_Num.szTextureSize.Width / 10 * number, 0, TJAPlayer3.app.Tx.ChangeSE_Num.szTextureSize.Width / 10, TJAPlayer3.app.Tx.ChangeSE_Num.szTextureSize.Height);
+                TJAPlayer3.app.Tx.ChangeSE_Num.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (i * TJAPlayer3.app.Tx.ChangeSE_Num.szTextureSize.Width / 10) + 20, y - 260, rectangle);
             }
             for (int i = 0; i < (TJAPlayer3.app.Skin.NowSENum[nPlayer] + 1).ToString().Length; i++)
             {
                 var number = (int)((TJAPlayer3.app.Skin.NowSENum[nPlayer] + 1) / Math.Pow(10, i) % 10);
-                Rectangle rectangle = new Rectangle(TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Width / 10 * number, 0, TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Width / 10, TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Height);
-                TJAPlayer3.Tx.ChangeSE_Num.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x - (i * TJAPlayer3.Tx.ChangeSE_Num.szTextureSize.Width / 10) - 20, y - 260, rectangle);
+                Rectangle rectangle = new Rectangle(TJAPlayer3.app.Tx.ChangeSE_Num.szTextureSize.Width / 10 * number, 0, TJAPlayer3.app.Tx.ChangeSE_Num.szTextureSize.Width / 10, TJAPlayer3.app.Tx.ChangeSE_Num.szTextureSize.Height);
+                TJAPlayer3.app.Tx.ChangeSE_Num.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x - (i * TJAPlayer3.app.Tx.ChangeSE_Num.szTextureSize.Width / 10) - 20, y - 260, rectangle);
             }
         }
         if (eMoving[nPlayer] == EMoving.None)
         {
-            if (TJAPlayer3.Tx.ChangeSE_Note != null)
+            if (TJAPlayer3.app.Tx.ChangeSE_Note != null)
             {
-                TJAPlayer3.Tx.ChangeSE_Note.Opacity = 0xff;
-                TJAPlayer3.Tx.ChangeSE_Note.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y);
+                TJAPlayer3.app.Tx.ChangeSE_Note.Opacity = 0xff;
+                TJAPlayer3.app.Tx.ChangeSE_Note.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y);
             }
             this.SEName[nPlayer].Opacity = 0xff;
             this.SEName[nPlayer]?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y - 50);
@@ -196,12 +196,12 @@ class CActSelectChangeSE : CActivity
         else if (eMoving[nPlayer] == EMoving.LeftMoving)
         {
             this.ct変更アニメ用[nPlayer].t進行();
-            if (TJAPlayer3.Tx.ChangeSE_Note != null)
+            if (TJAPlayer3.app.Tx.ChangeSE_Note != null)
             {
-                TJAPlayer3.Tx.ChangeSE_Note.Opacity = ct変更アニメ用[nPlayer].n現在の値;
-                TJAPlayer3.Tx.ChangeSE_Note.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (int)((ct変更アニメ用[nPlayer].n現在の値 - ct変更アニメ用[nPlayer].n終了値) * 0.5f), y);
-                TJAPlayer3.Tx.ChangeSE_Note.Opacity = ct変更アニメ用[nPlayer].n終了値 - ct変更アニメ用[nPlayer].n現在の値;
-                TJAPlayer3.Tx.ChangeSE_Note.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (int)((ct変更アニメ用[nPlayer].n現在の値) * 0.5f), y);
+                TJAPlayer3.app.Tx.ChangeSE_Note.Opacity = ct変更アニメ用[nPlayer].n現在の値;
+                TJAPlayer3.app.Tx.ChangeSE_Note.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (int)((ct変更アニメ用[nPlayer].n現在の値 - ct変更アニメ用[nPlayer].n終了値) * 0.5f), y);
+                TJAPlayer3.app.Tx.ChangeSE_Note.Opacity = ct変更アニメ用[nPlayer].n終了値 - ct変更アニメ用[nPlayer].n現在の値;
+                TJAPlayer3.app.Tx.ChangeSE_Note.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (int)((ct変更アニメ用[nPlayer].n現在の値) * 0.5f), y);
             }
             this.NameMoving[nPlayer].Opacity = ct変更アニメ用[nPlayer].n終了値 - ct変更アニメ用[nPlayer].n現在の値;
             this.NameMoving[nPlayer]?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x + (int)((ct変更アニメ用[nPlayer].n現在の値) * 0.5f), y - 50);
@@ -213,12 +213,12 @@ class CActSelectChangeSE : CActivity
         else
         {
             this.ct変更アニメ用[nPlayer].t進行();
-            if (TJAPlayer3.Tx.ChangeSE_Note != null)
+            if (TJAPlayer3.app.Tx.ChangeSE_Note != null)
             {
-                TJAPlayer3.Tx.ChangeSE_Note.Opacity = ct変更アニメ用[nPlayer].n現在の値;
-                TJAPlayer3.Tx.ChangeSE_Note.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x - (int)((ct変更アニメ用[nPlayer].n現在の値 - ct変更アニメ用[nPlayer].n終了値) * 0.5f), y);
-                TJAPlayer3.Tx.ChangeSE_Note.Opacity = ct変更アニメ用[nPlayer].n終了値 - ct変更アニメ用[nPlayer].n現在の値;
-                TJAPlayer3.Tx.ChangeSE_Note.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x - (int)((ct変更アニメ用[nPlayer].n現在の値) * 0.5f), y);
+                TJAPlayer3.app.Tx.ChangeSE_Note.Opacity = ct変更アニメ用[nPlayer].n現在の値;
+                TJAPlayer3.app.Tx.ChangeSE_Note.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x - (int)((ct変更アニメ用[nPlayer].n現在の値 - ct変更アニメ用[nPlayer].n終了値) * 0.5f), y);
+                TJAPlayer3.app.Tx.ChangeSE_Note.Opacity = ct変更アニメ用[nPlayer].n終了値 - ct変更アニメ用[nPlayer].n現在の値;
+                TJAPlayer3.app.Tx.ChangeSE_Note.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x - (int)((ct変更アニメ用[nPlayer].n現在の値) * 0.5f), y);
             }
 
             this.NameMoving[nPlayer].Opacity = ct変更アニメ用[nPlayer].n終了値 - ct変更アニメ用[nPlayer].n現在の値;

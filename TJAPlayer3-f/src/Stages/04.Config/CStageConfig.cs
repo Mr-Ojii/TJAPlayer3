@@ -147,21 +147,21 @@ internal class CStageConfig : CStage
 
         #region [ 背景 ]
         //---------------------
-        if (TJAPlayer3.Tx.Config_Background != null)
-            TJAPlayer3.Tx.Config_Background.t2D描画(TJAPlayer3.app.Device, 0, 0);
+        if (TJAPlayer3.app.Tx.Config_Background != null)
+            TJAPlayer3.app.Tx.Config_Background.t2D描画(TJAPlayer3.app.Device, 0, 0);
         //---------------------
         #endregion
         #region [ メニューカーソル ]
         //---------------------
-        if (TJAPlayer3.Tx.Config_Cursor != null)
+        if (TJAPlayer3.app.Tx.Config_Cursor != null)
         {
             Rectangle rectangle;
-            TJAPlayer3.Tx.Config_Cursor.Opacity = this.bメニューにフォーカス中 ? 255 : 128;
+            TJAPlayer3.app.Tx.Config_Cursor.Opacity = this.bメニューにフォーカス中 ? 255 : 128;
             int x = 110;
             int y = (int)(140 + (this.n現在のメニュー番号 * 38));
             int num3 = 340;
-            TJAPlayer3.Tx.Config_Cursor.t2D描画(TJAPlayer3.app.Device, x, y, new Rectangle(0, 0, 32, 48));
-            TJAPlayer3.Tx.Config_Cursor.t2D描画(TJAPlayer3.app.Device, (x + num3) - 32, y, new Rectangle(20, 0, 32, 48));
+            TJAPlayer3.app.Tx.Config_Cursor.t2D描画(TJAPlayer3.app.Device, x, y, new Rectangle(0, 0, 32, 48));
+            TJAPlayer3.app.Tx.Config_Cursor.t2D描画(TJAPlayer3.app.Device, (x + num3) - 32, y, new Rectangle(20, 0, 32, 48));
             x += 32;
             for (num3 -= 64; num3 > 0; num3 -= rectangle.Width)
             {
@@ -170,7 +170,7 @@ internal class CStageConfig : CStage
                 {
                     rectangle.Width -= 32 - num3;
                 }
-                TJAPlayer3.Tx.Config_Cursor.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
+                TJAPlayer3.app.Tx.Config_Cursor.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
                 x += rectangle.Width;
             }
         }

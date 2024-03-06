@@ -16,8 +16,8 @@ class CAct演奏Drums特訓モード : CActivity
 
         base.On活性化();
 
-        if (TJAPlayer3.Tx.Tokkun_Background_Up != null)
-            this.ct背景スクロールタイマー = new CCounter(1, TJAPlayer3.Tx.Tokkun_Background_Up.szTextureSize.Width, 16, TJAPlayer3.app.Timer);
+        if (TJAPlayer3.app.Tx.Tokkun_Background_Up != null)
+            this.ct背景スクロールタイマー = new CCounter(1, TJAPlayer3.app.Tx.Tokkun_Background_Up.szTextureSize.Width, 16, TJAPlayer3.app.Timer);
 
         CDTX dTX = TJAPlayer3.DTX[0];
 
@@ -61,7 +61,7 @@ class CAct演奏Drums特訓モード : CActivity
 
                 var current = ((double)(pChip.db発声時刻ms * (((double)TJAPlayer3.app.ConfigToml.PlayOption.PlaySpeed) / 20.0)));
                 var width = 0;
-                if (TJAPlayer3.Tx.Tokkun_ProgressBar != null) width = TJAPlayer3.Tx.Tokkun_ProgressBar.szTextureSize.Width;
+                if (TJAPlayer3.app.Tx.Tokkun_ProgressBar != null) width = TJAPlayer3.app.Tx.Tokkun_ProgressBar.szTextureSize.Width;
 
                 this.gogoXList.Add((int)(width * (current / length)));
             }
@@ -276,25 +276,25 @@ class CAct演奏Drums特訓モード : CActivity
         var currentWhite = (double)(this.n最終演奏位置ms);
         var percentageWhite = currentWhite / length;
 
-        if (TJAPlayer3.Tx.Tokkun_ProgressBarWhite != null) TJAPlayer3.Tx.Tokkun_ProgressBarWhite.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Training.ProgressBarXY[0], TJAPlayer3.app.Skin.SkinConfig.Game.Training.ProgressBarXY[1], new Rectangle(1, 1, (int)(TJAPlayer3.Tx.Tokkun_ProgressBarWhite.szTextureSize.Width * percentageWhite), TJAPlayer3.Tx.Tokkun_ProgressBarWhite.szTextureSize.Height));
-        if (TJAPlayer3.Tx.Tokkun_ProgressBar != null) TJAPlayer3.Tx.Tokkun_ProgressBar.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Training.ProgressBarXY[0], TJAPlayer3.app.Skin.SkinConfig.Game.Training.ProgressBarXY[1], new Rectangle(1, 1, (int)(TJAPlayer3.Tx.Tokkun_ProgressBar.szTextureSize.Width * percentage), TJAPlayer3.Tx.Tokkun_ProgressBar.szTextureSize.Height));
-        if (TJAPlayer3.Tx.Tokkun_GoGoPoint != null)
+        if (TJAPlayer3.app.Tx.Tokkun_ProgressBarWhite != null) TJAPlayer3.app.Tx.Tokkun_ProgressBarWhite.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Training.ProgressBarXY[0], TJAPlayer3.app.Skin.SkinConfig.Game.Training.ProgressBarXY[1], new Rectangle(1, 1, (int)(TJAPlayer3.app.Tx.Tokkun_ProgressBarWhite.szTextureSize.Width * percentageWhite), TJAPlayer3.app.Tx.Tokkun_ProgressBarWhite.szTextureSize.Height));
+        if (TJAPlayer3.app.Tx.Tokkun_ProgressBar != null) TJAPlayer3.app.Tx.Tokkun_ProgressBar.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Training.ProgressBarXY[0], TJAPlayer3.app.Skin.SkinConfig.Game.Training.ProgressBarXY[1], new Rectangle(1, 1, (int)(TJAPlayer3.app.Tx.Tokkun_ProgressBar.szTextureSize.Width * percentage), TJAPlayer3.app.Tx.Tokkun_ProgressBar.szTextureSize.Height));
+        if (TJAPlayer3.app.Tx.Tokkun_GoGoPoint != null)
         {
             foreach (int xpos in gogoXList)
             {
-                TJAPlayer3.Tx.Tokkun_GoGoPoint.t2D描画(TJAPlayer3.app.Device, xpos + TJAPlayer3.app.Skin.SkinConfig.Game.Training.ProgressBarXY[0] - (TJAPlayer3.Tx.Tokkun_GoGoPoint.szTextureSize.Width / 2), TJAPlayer3.app.Skin.SkinConfig.Game.Training.GoGoPointY);
+                TJAPlayer3.app.Tx.Tokkun_GoGoPoint.t2D描画(TJAPlayer3.app.Device, xpos + TJAPlayer3.app.Skin.SkinConfig.Game.Training.ProgressBarXY[0] - (TJAPlayer3.app.Tx.Tokkun_GoGoPoint.szTextureSize.Width / 2), TJAPlayer3.app.Skin.SkinConfig.Game.Training.GoGoPointY);
             }
         }
 
-        if (TJAPlayer3.Tx.Tokkun_JumpPoint != null)
+        if (TJAPlayer3.app.Tx.Tokkun_JumpPoint != null)
         {
             foreach (STJUMPP xpos in JumpPointList)
             {
                 var width = 0;
-                if (TJAPlayer3.Tx.Tokkun_ProgressBar != null) width = TJAPlayer3.Tx.Tokkun_ProgressBar.szTextureSize.Width;
+                if (TJAPlayer3.app.Tx.Tokkun_ProgressBar != null) width = TJAPlayer3.app.Tx.Tokkun_ProgressBar.szTextureSize.Width;
 
                 int x = (int)((double)width * ((double)xpos.Time / (double)length));
-                TJAPlayer3.Tx.Tokkun_JumpPoint.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.app.Skin.SkinConfig.Game.Training.ProgressBarXY[0] - (TJAPlayer3.Tx.Tokkun_JumpPoint.szTextureSize.Width / 2), TJAPlayer3.app.Skin.SkinConfig.Game.Training.JumpPointY);
+                TJAPlayer3.app.Tx.Tokkun_JumpPoint.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.app.Skin.SkinConfig.Game.Training.ProgressBarXY[0] - (TJAPlayer3.app.Tx.Tokkun_JumpPoint.szTextureSize.Width / 2), TJAPlayer3.app.Skin.SkinConfig.Game.Training.JumpPointY);
             }
         }
 
@@ -307,48 +307,48 @@ class CAct演奏Drums特訓モード : CActivity
         {
             this.ct背景スクロールタイマー.t進行Loop();
 
-            double TexSize = TJAPlayer3.app.LogicalSize.Width / TJAPlayer3.Tx.Tokkun_Background_Up.szTextureSize.Width;
+            double TexSize = TJAPlayer3.app.LogicalSize.Width / TJAPlayer3.app.Tx.Tokkun_Background_Up.szTextureSize.Width;
             // LogicalWidthをテクスチャサイズで割ったものを切り上げて、プラス+1足す。
             int ForLoop = (int)Math.Ceiling(TexSize) + 1;
-            TJAPlayer3.Tx.Tokkun_Background_Up.t2D描画(TJAPlayer3.app.Device, 0 - this.ct背景スクロールタイマー.n現在の値, TJAPlayer3.app.Skin.SkinConfig.Game.Background.ScrollY[0]);
+            TJAPlayer3.app.Tx.Tokkun_Background_Up.t2D描画(TJAPlayer3.app.Device, 0 - this.ct背景スクロールタイマー.n現在の値, TJAPlayer3.app.Skin.SkinConfig.Game.Background.ScrollY[0]);
             for (int l = 1; l < ForLoop + 1; l++)
             {
-                TJAPlayer3.Tx.Tokkun_Background_Up.t2D描画(TJAPlayer3.app.Device, +(l * TJAPlayer3.Tx.Tokkun_Background_Up.szTextureSize.Width) - this.ct背景スクロールタイマー.n現在の値, TJAPlayer3.app.Skin.SkinConfig.Game.Background.ScrollY[0]);
+                TJAPlayer3.app.Tx.Tokkun_Background_Up.t2D描画(TJAPlayer3.app.Device, +(l * TJAPlayer3.app.Tx.Tokkun_Background_Up.szTextureSize.Width) - this.ct背景スクロールタイマー.n現在の値, TJAPlayer3.app.Skin.SkinConfig.Game.Background.ScrollY[0]);
             }
         }
 
-        if (TJAPlayer3.Tx.Tokkun_DownBG != null) TJAPlayer3.Tx.Tokkun_DownBG.t2D描画(TJAPlayer3.app.Device, 0, 360);
-        if (TJAPlayer3.Tx.Tokkun_BigTaiko != null) TJAPlayer3.Tx.Tokkun_BigTaiko.t2D描画(TJAPlayer3.app.Device, 334, 400);
+        if (TJAPlayer3.app.Tx.Tokkun_DownBG != null) TJAPlayer3.app.Tx.Tokkun_DownBG.t2D描画(TJAPlayer3.app.Device, 0, 360);
+        if (TJAPlayer3.app.Tx.Tokkun_BigTaiko != null) TJAPlayer3.app.Tx.Tokkun_BigTaiko.t2D描画(TJAPlayer3.app.Device, 334, 400);
 
         return base.On進行描画();
     }
 
     public void On進行描画_小節_速度()
     {
-        if (TJAPlayer3.Tx.Tokkun_Speed_Measure != null)
-            TJAPlayer3.Tx.Tokkun_Speed_Measure.t2D描画(TJAPlayer3.app.Device, 0, 360);
+        if (TJAPlayer3.app.Tx.Tokkun_Speed_Measure != null)
+            TJAPlayer3.app.Tx.Tokkun_Speed_Measure.t2D描画(TJAPlayer3.app.Device, 0, 360);
         var maxMeasureStr = this.n小節の総数.ToString();
         var measureStr = TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0].ToString();
-        if (TJAPlayer3.Tx.Tokkun_SmallNumber != null)
+        if (TJAPlayer3.app.Tx.Tokkun_SmallNumber != null)
         {
             var x = TJAPlayer3.app.Skin.SkinConfig.Game.Training.MaxMeasureCountXY[0];
             foreach (char c in maxMeasureStr)
             {
                 var currentNum = int.Parse(c.ToString());
-                TJAPlayer3.Tx.Tokkun_SmallNumber.t2D描画(TJAPlayer3.app.Device, x, TJAPlayer3.app.Skin.SkinConfig.Game.Training.MaxMeasureCountXY[1], new Rectangle(TJAPlayer3.app.Skin.SkinConfig.Game.Training.SmallNumberWidth * currentNum, 0, TJAPlayer3.app.Skin.SkinConfig.Game.Training.SmallNumberWidth, TJAPlayer3.Tx.Tokkun_SmallNumber.szTextureSize.Height));
+                TJAPlayer3.app.Tx.Tokkun_SmallNumber.t2D描画(TJAPlayer3.app.Device, x, TJAPlayer3.app.Skin.SkinConfig.Game.Training.MaxMeasureCountXY[1], new Rectangle(TJAPlayer3.app.Skin.SkinConfig.Game.Training.SmallNumberWidth * currentNum, 0, TJAPlayer3.app.Skin.SkinConfig.Game.Training.SmallNumberWidth, TJAPlayer3.app.Tx.Tokkun_SmallNumber.szTextureSize.Height));
                 x += TJAPlayer3.app.Skin.SkinConfig.Game.Training.SmallNumberWidth - 2;
             }
         }
 
         var subtractVal = (TJAPlayer3.app.Skin.SkinConfig.Game.Training.BigNumberWidth - 2) * (measureStr.Length - 1);
 
-        if (TJAPlayer3.Tx.Tokkun_BigNumber != null)
+        if (TJAPlayer3.app.Tx.Tokkun_BigNumber != null)
         {
             var x = TJAPlayer3.app.Skin.SkinConfig.Game.Training.CurrentMeasureCountXY[0];
             foreach (char c in measureStr)
             {
                 var currentNum = int.Parse(c.ToString());
-                TJAPlayer3.Tx.Tokkun_BigNumber.t2D描画(TJAPlayer3.app.Device, x - subtractVal, TJAPlayer3.app.Skin.SkinConfig.Game.Training.CurrentMeasureCountXY[1], new Rectangle(TJAPlayer3.app.Skin.SkinConfig.Game.Training.BigNumberWidth * currentNum, 0, TJAPlayer3.app.Skin.SkinConfig.Game.Training.BigNumberWidth, TJAPlayer3.Tx.Tokkun_BigNumber.szTextureSize.Height));
+                TJAPlayer3.app.Tx.Tokkun_BigNumber.t2D描画(TJAPlayer3.app.Device, x - subtractVal, TJAPlayer3.app.Skin.SkinConfig.Game.Training.CurrentMeasureCountXY[1], new Rectangle(TJAPlayer3.app.Skin.SkinConfig.Game.Training.BigNumberWidth * currentNum, 0, TJAPlayer3.app.Skin.SkinConfig.Game.Training.BigNumberWidth, TJAPlayer3.app.Tx.Tokkun_BigNumber.szTextureSize.Height));
                 x += TJAPlayer3.app.Skin.SkinConfig.Game.Training.BigNumberWidth - 2;
             }
 
@@ -360,7 +360,7 @@ class CAct演奏Drums特訓モード : CActivity
             var playSpdStr = Decimal.Round((decimal)playSpdI, 1, MidpointRounding.AwayFromZero).ToString();
             var decimalStr = (playSpdStr == "0") ? "0" : playSpdStr[2].ToString();
 
-            TJAPlayer3.Tx.Tokkun_BigNumber.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Training.SpeedDisplayXY[0], TJAPlayer3.app.Skin.SkinConfig.Game.Training.SpeedDisplayXY[1], new Rectangle(TJAPlayer3.app.Skin.SkinConfig.Game.Training.BigNumberWidth * int.Parse(decimalStr), 0, TJAPlayer3.app.Skin.SkinConfig.Game.Training.BigNumberWidth, TJAPlayer3.Tx.Tokkun_BigNumber.szTextureSize.Height));
+            TJAPlayer3.app.Tx.Tokkun_BigNumber.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Training.SpeedDisplayXY[0], TJAPlayer3.app.Skin.SkinConfig.Game.Training.SpeedDisplayXY[1], new Rectangle(TJAPlayer3.app.Skin.SkinConfig.Game.Training.BigNumberWidth * int.Parse(decimalStr), 0, TJAPlayer3.app.Skin.SkinConfig.Game.Training.BigNumberWidth, TJAPlayer3.app.Tx.Tokkun_BigNumber.szTextureSize.Height));
 
             x = TJAPlayer3.app.Skin.SkinConfig.Game.Training.SpeedDisplayXY[0] - 25;
 
@@ -369,7 +369,7 @@ class CAct演奏Drums特訓モード : CActivity
             foreach (char c in ((int)playSpd).ToString())
             {
                 var currentNum = int.Parse(c.ToString());
-                TJAPlayer3.Tx.Tokkun_BigNumber.t2D描画(TJAPlayer3.app.Device, x - subtractVal, TJAPlayer3.app.Skin.SkinConfig.Game.Training.SpeedDisplayXY[1], new Rectangle(TJAPlayer3.app.Skin.SkinConfig.Game.Training.BigNumberWidth * currentNum, 0, TJAPlayer3.app.Skin.SkinConfig.Game.Training.BigNumberWidth, TJAPlayer3.Tx.Tokkun_BigNumber.szTextureSize.Height));
+                TJAPlayer3.app.Tx.Tokkun_BigNumber.t2D描画(TJAPlayer3.app.Device, x - subtractVal, TJAPlayer3.app.Skin.SkinConfig.Game.Training.SpeedDisplayXY[1], new Rectangle(TJAPlayer3.app.Skin.SkinConfig.Game.Training.BigNumberWidth * currentNum, 0, TJAPlayer3.app.Skin.SkinConfig.Game.Training.BigNumberWidth, TJAPlayer3.app.Tx.Tokkun_BigNumber.szTextureSize.Height));
                 x += TJAPlayer3.app.Skin.SkinConfig.Game.Training.BigNumberWidth - 2;
             }
         }

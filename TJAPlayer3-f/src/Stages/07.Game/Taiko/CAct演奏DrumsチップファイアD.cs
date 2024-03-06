@@ -87,26 +87,26 @@ internal class CAct演奏DrumsチップファイアD : CActivity
 
                         // (When performing calibration, reduce visual distraction
                         // and current judgment feedback near the judgment position.)
-                        if (TJAPlayer3.Tx.Effects_Hit_Explosion != null && !TJAPlayer3.IsPerformingCalibration)
+                        if (TJAPlayer3.app.Tx.Effects_Hit_Explosion != null && !TJAPlayer3.IsPerformingCalibration)
                         {
                             int n = this.st状態[i].nIsBig == 1 ? 520 : 0;
-                            int nX = (TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[this.st状態[i].nPlayer]) - ((TJAPlayer3.Tx.Effects_Hit_Explosion.szTextureSize.Width / 7) / 2);
-                            int nY = (TJAPlayer3.app.Skin.SkinConfig.Game.JudgePointY[this.st状態[i].nPlayer]) - ((TJAPlayer3.Tx.Effects_Hit_Explosion.szTextureSize.Height / 4) / 2);
+                            int nX = (TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[this.st状態[i].nPlayer]) - ((TJAPlayer3.app.Tx.Effects_Hit_Explosion.szTextureSize.Width / 7) / 2);
+                            int nY = (TJAPlayer3.app.Skin.SkinConfig.Game.JudgePointY[this.st状態[i].nPlayer]) - ((TJAPlayer3.app.Tx.Effects_Hit_Explosion.szTextureSize.Height / 4) / 2);
 
                             switch (st状態[i].judge)
                             {
                                 case EJudge.Perfect:
                                 case EJudge.AutoPerfect:
-                                    if (!this.st状態_大[i].ct進行.b停止中 && TJAPlayer3.Tx.Effects_Hit_Explosion_Big != null && this.st状態_大[i].nIsBig == 1)
-                                        TJAPlayer3.Tx.Effects_Hit_Explosion.t2D描画(TJAPlayer3.app.Device, nX, nY, new Rectangle(this.st状態[i].ct進行.n現在の値 * 260, n + 520, 260, 260));
+                                    if (!this.st状態_大[i].ct進行.b停止中 && TJAPlayer3.app.Tx.Effects_Hit_Explosion_Big != null && this.st状態_大[i].nIsBig == 1)
+                                        TJAPlayer3.app.Tx.Effects_Hit_Explosion.t2D描画(TJAPlayer3.app.Device, nX, nY, new Rectangle(this.st状態[i].ct進行.n現在の値 * 260, n + 520, 260, 260));
                                     else
-                                        TJAPlayer3.Tx.Effects_Hit_Explosion.t2D描画(TJAPlayer3.app.Device, nX, nY, new Rectangle(this.st状態[i].ct進行.n現在の値 * 260, n, 260, 260));
+                                        TJAPlayer3.app.Tx.Effects_Hit_Explosion.t2D描画(TJAPlayer3.app.Device, nX, nY, new Rectangle(this.st状態[i].ct進行.n現在の値 * 260, n, 260, 260));
                                     break;
                                 case EJudge.Good:
-                                    if (!this.st状態_大[i].ct進行.b停止中 && TJAPlayer3.Tx.Effects_Hit_Explosion_Big != null && this.st状態_大[i].nIsBig == 1)
-                                        TJAPlayer3.Tx.Effects_Hit_Explosion.t2D描画(TJAPlayer3.app.Device, nX, nY, new Rectangle(this.st状態[i].ct進行.n現在の値 * 260, n + 780, 260, 260));
+                                    if (!this.st状態_大[i].ct進行.b停止中 && TJAPlayer3.app.Tx.Effects_Hit_Explosion_Big != null && this.st状態_大[i].nIsBig == 1)
+                                        TJAPlayer3.app.Tx.Effects_Hit_Explosion.t2D描画(TJAPlayer3.app.Device, nX, nY, new Rectangle(this.st状態[i].ct進行.n現在の値 * 260, n + 780, 260, 260));
                                     else
-                                        TJAPlayer3.Tx.Effects_Hit_Explosion.t2D描画(TJAPlayer3.app.Device, nX, nY, new Rectangle(this.st状態[i].ct進行.n現在の値 * 260, n + 260, 260, 260));
+                                        TJAPlayer3.app.Tx.Effects_Hit_Explosion.t2D描画(TJAPlayer3.app.Device, nX, nY, new Rectangle(this.st状態[i].ct進行.n現在の値 * 260, n + 260, 260, 260));
                                     break;
                                 case EJudge.Miss:
                                 case EJudge.Bad:
@@ -126,7 +126,7 @@ internal class CAct演奏DrumsチップファイアD : CActivity
                     {
                         this.st状態_大[i].ct進行.t停止();
                     }
-                    if (TJAPlayer3.Tx.Effects_Hit_Explosion_Big != null && this.st状態_大[i].nIsBig == 1)
+                    if (TJAPlayer3.app.Tx.Effects_Hit_Explosion_Big != null && this.st状態_大[i].nIsBig == 1)
                     {
 
                         switch (st状態_大[i].judge)
@@ -137,9 +137,9 @@ internal class CAct演奏DrumsチップファイアD : CActivity
                                 {
                                     float f倍率 = 0.5f + ((this.st状態_大[i].ct進行.n現在の値 * 0.5f) / 10.0f);
 
-                                    TJAPlayer3.Tx.Effects_Hit_Explosion_Big.Opacity = 255;
-                                    TJAPlayer3.Tx.Effects_Hit_Explosion_Big.vcScaling = new Vector2(f倍率);
-                                    TJAPlayer3.Tx.Effects_Hit_Explosion_Big.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[this.st状態_大[i].nPlayer], TJAPlayer3.app.Skin.SkinConfig.Game.JudgePointY[this.st状態[i].nPlayer]);
+                                    TJAPlayer3.app.Tx.Effects_Hit_Explosion_Big.Opacity = 255;
+                                    TJAPlayer3.app.Tx.Effects_Hit_Explosion_Big.vcScaling = new Vector2(f倍率);
+                                    TJAPlayer3.app.Tx.Effects_Hit_Explosion_Big.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[this.st状態_大[i].nPlayer], TJAPlayer3.app.Skin.SkinConfig.Game.JudgePointY[this.st状態[i].nPlayer]);
                                 }
                                 break;
 

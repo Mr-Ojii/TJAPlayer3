@@ -76,8 +76,8 @@ internal class CStage選曲 : CStage
             for (int i = 0; i < 4; i++)
                 this.ctキー反復用[i] = new CCounter(0, 0, 0, TJAPlayer3.app.Timer);
 
-            if (TJAPlayer3.Tx.SongSelect_Background != null)
-                this.ct背景スクロール用タイマー = new CCounter(0, TJAPlayer3.Tx.SongSelect_Background.szTextureSize.Width, 30, TJAPlayer3.app.Timer);
+            if (TJAPlayer3.app.Tx.SongSelect_Background != null)
+                this.ct背景スクロール用タイマー = new CCounter(0, TJAPlayer3.app.Tx.SongSelect_Background.szTextureSize.Width, 30, TJAPlayer3.app.Timer);
             this.ctカウントダウン用タイマー = new CCounter(0, 100, 1000, TJAPlayer3.app.Timer);
             this.ctDifficultySelectIN用タイマー = new CCounter(0, 750, 1, TJAPlayer3.app.Timer);
             this.ctDifficultySelectINバー拡大用タイマー = new CCounter(0, 750, 1, TJAPlayer3.app.Timer);
@@ -148,7 +148,7 @@ internal class CStage選曲 : CStage
 
             this.ct登場時アニメ用共通.t進行();
 
-            TJAPlayer3.Tx.SongSelect_Background?.t2D描画(TJAPlayer3.app.Device, 0, 0);
+            TJAPlayer3.app.Tx.SongSelect_Background?.t2D描画(TJAPlayer3.app.Device, 0, 0);
 
             if (act曲リスト.r現在選択中の曲 != null)
             {
@@ -161,13 +161,13 @@ internal class CStage選曲 : CStage
                 {
                     nGenreBack = TJAPlayer3.app.Skin.nStrジャンルtoNum(act曲リスト.r現在選択中の曲.r親ノード.strGenre);
                 }
-                if (TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack] != null)
+                if (TJAPlayer3.app.Tx.SongSelect_GenreBack[nGenreBack] != null)
                 {
-                    for (int i = 0; i < (TJAPlayer3.app.LogicalSize.Width / TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack].szTextureSize.Width) + 2; i++)
+                    for (int i = 0; i < (TJAPlayer3.app.LogicalSize.Width / TJAPlayer3.app.Tx.SongSelect_GenreBack[nGenreBack].szTextureSize.Width) + 2; i++)
                     {
-                        if (TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack] != null && ct背景スクロール用タイマー != null)
+                        if (TJAPlayer3.app.Tx.SongSelect_GenreBack[nGenreBack] != null && ct背景スクロール用タイマー != null)
                         {
-                            TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack].t2D描画(TJAPlayer3.app.Device, -ct背景スクロール用タイマー.n現在の値 + TJAPlayer3.Tx.SongSelect_GenreBack[nGenreBack].szTextureSize.Width * i, 0);
+                            TJAPlayer3.app.Tx.SongSelect_GenreBack[nGenreBack].t2D描画(TJAPlayer3.app.Device, -ct背景スクロール用タイマー.n現在の値 + TJAPlayer3.app.Tx.SongSelect_GenreBack[nGenreBack].szTextureSize.Width * i, 0);
                         }
                     }
                 }
@@ -198,7 +198,7 @@ internal class CStage選曲 : CStage
                     this.ctDifficultySelectINバー拡大用タイマー.t時間Reset();
                 }
 
-                if (TJAPlayer3.Tx.Difficulty_Center_Bar != null)
+                if (TJAPlayer3.app.Tx.Difficulty_Center_Bar != null)
                 {
                     //Bar_Centerの拡大アニメーション
                     int width = Math.Max(Math.Min(
@@ -215,7 +215,7 @@ internal class CStage選曲 : CStage
 
                     int xdiff = TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.BarCenterX - width / 2;
 
-                    int wh = Math.Min(TJAPlayer3.Tx.Difficulty_Center_Bar.szTextureSize.Width / 3, TJAPlayer3.Tx.Difficulty_Center_Bar.szTextureSize.Height / 3);
+                    int wh = Math.Min(TJAPlayer3.app.Tx.Difficulty_Center_Bar.szTextureSize.Width / 3, TJAPlayer3.app.Tx.Difficulty_Center_Bar.szTextureSize.Height / 3);
 
                     for (int i = 0; i < width / wh + 1; i++)
                     {
@@ -223,39 +223,39 @@ internal class CStage選曲 : CStage
                         {
                             if (i == 0 && j == 0)
                             {
-                                TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh + ydiff, new Rectangle(0, 0, wh, wh));
+                                TJAPlayer3.app.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh + ydiff, new Rectangle(0, 0, wh, wh));
                             }
                             else if (i == 0 && j == (height / wh))
                             {
-                                TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh - (wh - height % wh) + ydiff, new Rectangle(0, wh * 2, wh, wh));
+                                TJAPlayer3.app.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh - (wh - height % wh) + ydiff, new Rectangle(0, wh * 2, wh, wh));
                             }
                             else if (i == (width / wh) && j == 0)
                             {
-                                TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh - (wh - width % wh) + xdiff, j * wh + ydiff, new Rectangle(wh * 2, 0, wh, wh));
+                                TJAPlayer3.app.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh - (wh - width % wh) + xdiff, j * wh + ydiff, new Rectangle(wh * 2, 0, wh, wh));
                             }
                             else if (i == (width / wh) && j == (height / wh))
                             {
-                                TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh - (wh - width % wh) + xdiff, j * wh - (wh - height % wh) + ydiff, new Rectangle(wh * 2, wh * 2, wh, wh));
+                                TJAPlayer3.app.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh - (wh - width % wh) + xdiff, j * wh - (wh - height % wh) + ydiff, new Rectangle(wh * 2, wh * 2, wh, wh));
                             }
                             else if (i == 0)
                             {
-                                TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh + ydiff, new Rectangle(0, wh, wh, wh));
+                                TJAPlayer3.app.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh + ydiff, new Rectangle(0, wh, wh, wh));
                             }
                             else if (j == 0)
                             {
-                                TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh + ydiff, new Rectangle(wh, 0, wh, wh));
+                                TJAPlayer3.app.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh + ydiff, new Rectangle(wh, 0, wh, wh));
                             }
                             else if (i == (width / wh))
                             {
-                                TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh - (wh - width % wh) + xdiff, j * wh + ydiff, new Rectangle(wh * 2, wh, wh, wh));
+                                TJAPlayer3.app.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh - (wh - width % wh) + xdiff, j * wh + ydiff, new Rectangle(wh * 2, wh, wh, wh));
                             }
                             else if (j == (height / wh))
                             {
-                                TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh - (wh - height % wh) + ydiff, new Rectangle(wh, wh * 2, wh, wh));
+                                TJAPlayer3.app.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh - (wh - height % wh) + ydiff, new Rectangle(wh, wh * 2, wh, wh));
                             }
                             else
                             {
-                                TJAPlayer3.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh + ydiff, new Rectangle(wh, wh, wh, wh));
+                                TJAPlayer3.app.Tx.Difficulty_Center_Bar.t2D描画(TJAPlayer3.app.Device, i * wh + xdiff, j * wh + ydiff, new Rectangle(wh, wh, wh, wh));
                             }
                         }
                     }
@@ -306,27 +306,27 @@ internal class CStage選曲 : CStage
                 this.actDifficultySelect.On進行描画();
             }
 
-            if (TJAPlayer3.Tx.SongSelect_Header != null)
-                TJAPlayer3.Tx.SongSelect_Header.t2D描画(TJAPlayer3.app.Device, 0, 0);
+            if (TJAPlayer3.app.Tx.SongSelect_Header != null)
+                TJAPlayer3.app.Tx.SongSelect_Header.t2D描画(TJAPlayer3.app.Device, 0, 0);
 
-            if (TJAPlayer3.Tx.SongSelect_Footer != null)
-                TJAPlayer3.Tx.SongSelect_Footer.t2D描画(TJAPlayer3.app.Device, 0, TJAPlayer3.app.LogicalSize.Height - TJAPlayer3.Tx.SongSelect_Footer.szTextureSize.Height);
+            if (TJAPlayer3.app.Tx.SongSelect_Footer != null)
+                TJAPlayer3.app.Tx.SongSelect_Footer.t2D描画(TJAPlayer3.app.Device, 0, TJAPlayer3.app.LogicalSize.Height - TJAPlayer3.app.Tx.SongSelect_Footer.szTextureSize.Height);
 
             #region ネームプレート
             for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
             {
-                if (TJAPlayer3.Tx.NamePlate[i] != null)
+                if (TJAPlayer3.app.Tx.NamePlate[i] != null)
                 {
-                    TJAPlayer3.Tx.NamePlate[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.SongSelect.NamePlateX[i], TJAPlayer3.app.Skin.SkinConfig.SongSelect.NamePlateY[i]);
+                    TJAPlayer3.app.Tx.NamePlate[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.SongSelect.NamePlateX[i], TJAPlayer3.app.Skin.SkinConfig.SongSelect.NamePlateY[i]);
                 }
             }
-            if (TJAPlayer3.Tx.SongSelect_Auto != null)
+            if (TJAPlayer3.app.Tx.SongSelect_Auto != null)
             {
                 for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
                 {
                     if (TJAPlayer3.app.ConfigToml.PlayOption.AutoPlay[i])
                     {
-                        TJAPlayer3.Tx.SongSelect_Auto.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.SongSelect.NamePlateAutoX[i], TJAPlayer3.app.Skin.SkinConfig.SongSelect.NamePlateAutoY[i]);
+                        TJAPlayer3.app.Tx.SongSelect_Auto.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.SongSelect.NamePlateAutoX[i], TJAPlayer3.app.Skin.SkinConfig.SongSelect.NamePlateAutoY[i]);
                     }
                 }
             }
@@ -349,15 +349,15 @@ internal class CStage選曲 : CStage
                 TJAPlayer3.app.act文字コンソール.tPrint(0, 32, C文字コンソール.EFontType.赤, "Reg.Speed : " + TJAPlayer3.app.ConfigToml.RegSpeedBPM.ToString());
             #endregion
 
-            if (TJAPlayer3.app.ConfigToml.SongSelect.CountDownTimer && TJAPlayer3.Tx.SongSelect_Counter_Back[0] != null && TJAPlayer3.Tx.SongSelect_Counter_Back[1] != null && TJAPlayer3.Tx.SongSelect_Counter_Num[0] != null && TJAPlayer3.Tx.SongSelect_Counter_Num[1] != null)
+            if (TJAPlayer3.app.ConfigToml.SongSelect.CountDownTimer && TJAPlayer3.app.Tx.SongSelect_Counter_Back[0] != null && TJAPlayer3.app.Tx.SongSelect_Counter_Back[1] != null && TJAPlayer3.app.Tx.SongSelect_Counter_Num[0] != null && TJAPlayer3.app.Tx.SongSelect_Counter_Num[1] != null)
             {
                 This_counter = (100 - this.ctカウントダウン用タイマー.n現在の値);
                 int dotinum = 1;
                 if (This_counter >= 10)
                     dotinum = 0;
-                TJAPlayer3.Tx.SongSelect_Counter_Back[dotinum].t2D描画(TJAPlayer3.app.Device, 880, 0);
+                TJAPlayer3.app.Tx.SongSelect_Counter_Back[dotinum].t2D描画(TJAPlayer3.app.Device, 880, 0);
                 for (int countdig = 0; countdig < This_counter.ToString().Length; countdig++)
-                    TJAPlayer3.Tx.SongSelect_Counter_Num[dotinum].t2D描画(TJAPlayer3.app.Device, (int)(((countdig + (This_counter.ToString().Length - 1) / 2.0) - (This_counter.ToString().Length - 1)) * 48.0) + TJAPlayer3.app.Skin.SkinConfig.SongSelect.CounterX, TJAPlayer3.app.Skin.SkinConfig.SongSelect.CounterY, new Rectangle((TJAPlayer3.Tx.SongSelect_Counter_Num[dotinum].szTextureSize.Width / 10) * (This_counter / (int)Math.Pow(10, This_counter.ToString().Length - countdig - 1) % 10), 0, TJAPlayer3.Tx.SongSelect_Counter_Num[dotinum].szTextureSize.Width / 10, TJAPlayer3.Tx.SongSelect_Counter_Num[dotinum].szTextureSize.Height));
+                    TJAPlayer3.app.Tx.SongSelect_Counter_Num[dotinum].t2D描画(TJAPlayer3.app.Device, (int)(((countdig + (This_counter.ToString().Length - 1) / 2.0) - (This_counter.ToString().Length - 1)) * 48.0) + TJAPlayer3.app.Skin.SkinConfig.SongSelect.CounterX, TJAPlayer3.app.Skin.SkinConfig.SongSelect.CounterY, new Rectangle((TJAPlayer3.app.Tx.SongSelect_Counter_Num[dotinum].szTextureSize.Width / 10) * (This_counter / (int)Math.Pow(10, This_counter.ToString().Length - countdig - 1) % 10), 0, TJAPlayer3.app.Tx.SongSelect_Counter_Num[dotinum].szTextureSize.Width / 10, TJAPlayer3.app.Tx.SongSelect_Counter_Num[dotinum].szTextureSize.Height));
             }
 
             if (this.act曲リスト.n現在選択中の曲の難易度レベル[0] != (int)Difficulty.Dan)
@@ -365,8 +365,8 @@ internal class CStage選曲 : CStage
 
             this.actHistoryPanel.On進行描画();
 
-            if (act曲リスト.r現在選択中の曲 != null && TJAPlayer3.Tx.SongSelect_Difficulty != null)
-                TJAPlayer3.Tx.SongSelect_Difficulty.t2D描画(TJAPlayer3.app.Device, 830, 40, new Rectangle(0, 70 * this.n現在選択中の曲の難易度[0], 260, 70));
+            if (act曲リスト.r現在選択中の曲 != null && TJAPlayer3.app.Tx.SongSelect_Difficulty != null)
+                TJAPlayer3.app.Tx.SongSelect_Difficulty.t2D描画(TJAPlayer3.app.Device, 830, 40, new Rectangle(0, 70 * this.n現在選択中の曲の難易度[0], 260, 70));
 
             if (!this.bBGM再生済み && (base.eフェーズID == CStage.Eフェーズ.共通_通常状態))
             {
@@ -376,10 +376,10 @@ internal class CStage選曲 : CStage
 
             if (現在の選曲画面状況 == E選曲画面.Dan選択)
             {
-                if (TJAPlayer3.Tx.Difficulty_Dan_Box != null && TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting != null)
+                if (TJAPlayer3.app.Tx.Difficulty_Dan_Box != null && TJAPlayer3.app.Tx.Difficulty_Dan_Box_Selecting != null)
                 {
-                    TJAPlayer3.Tx.Difficulty_Dan_Box.t2D描画(TJAPlayer3.app.Device, 0, 0);
-                    TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szTextureSize.Width / 2 * DanSelectingRow, 0, new Rectangle(TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szTextureSize.Width / 2 * DanSelectingRow, 0, TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szTextureSize.Width / 2, TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting.szTextureSize.Height));
+                    TJAPlayer3.app.Tx.Difficulty_Dan_Box.t2D描画(TJAPlayer3.app.Device, 0, 0);
+                    TJAPlayer3.app.Tx.Difficulty_Dan_Box_Selecting.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Tx.Difficulty_Dan_Box_Selecting.szTextureSize.Width / 2 * DanSelectingRow, 0, new Rectangle(TJAPlayer3.app.Tx.Difficulty_Dan_Box_Selecting.szTextureSize.Width / 2 * DanSelectingRow, 0, TJAPlayer3.app.Tx.Difficulty_Dan_Box_Selecting.szTextureSize.Width / 2, TJAPlayer3.app.Tx.Difficulty_Dan_Box_Selecting.szTextureSize.Height));
                 }
             }
 
@@ -856,7 +856,7 @@ internal class CStage選曲 : CStage
                                         case C曲リストノード.ENodeType.SCORE:
                                             if (!((this.n現在選択中の曲の難易度[0] == (int)Difficulty.Dan || this.n現在選択中の曲の難易度[0] == (int)Difficulty.Tower) && (TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2 || TJAPlayer3.app.ConfigToml.PlayOption._GameMode == EGame.特訓モード)))
                                             {
-                                                if (this.n現在選択中の曲の難易度[0] == (int)Difficulty.Dan && TJAPlayer3.Tx.Difficulty_Dan_Box != null && TJAPlayer3.Tx.Difficulty_Dan_Box_Selecting != null)
+                                                if (this.n現在選択中の曲の難易度[0] == (int)Difficulty.Dan && TJAPlayer3.app.Tx.Difficulty_Dan_Box != null && TJAPlayer3.app.Tx.Difficulty_Dan_Box_Selecting != null)
                                                 {
                                                     if (TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDDANするカッ].b読み込み成功)
                                                         TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDDANするカッ].t再生する();

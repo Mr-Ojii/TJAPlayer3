@@ -14,7 +14,7 @@ internal class FlyingNotes : CActivity
     // メソッド
     public virtual void Start(int nLane, int nPlayer, bool isRoll = false)
     {
-        if (TJAPlayer3.Tx.Notes == null)
+        if (TJAPlayer3.app.Tx.Notes == null)
             return;
 
         for (int i = 0; i < 128; i++)
@@ -118,7 +118,7 @@ internal class FlyingNotes : CActivity
 
                     }
 
-                    TJAPlayer3.Tx.Notes?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, (int)Flying[i].X, (int)Flying[i].Y, new Rectangle(Flying[i].Lane * 130, 0, 130, 130));
+                    TJAPlayer3.app.Tx.Notes?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, (int)Flying[i].X, (int)Flying[i].Y, new Rectangle(Flying[i].Lane * 130, 0, 130, 130));
 
                 }
             }

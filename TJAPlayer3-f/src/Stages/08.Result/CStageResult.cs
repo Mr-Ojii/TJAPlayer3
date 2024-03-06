@@ -164,61 +164,61 @@ internal class CStageResult : CStage
             // 描画
             if (TJAPlayer3.app.ConfigToml.EnableSkinV2)
             {
-                if (TJAPlayer3.Tx.Result_v2_Background != null)
+                if (TJAPlayer3.app.Tx.Result_v2_Background != null)
                 {
-                    if (TJAPlayer3.Tx.Result_v2_Background[0] != null)
-                        TJAPlayer3.Tx.Result_v2_Background[0].t2D描画(TJAPlayer3.app.Device, 0, 0);
+                    if (TJAPlayer3.app.Tx.Result_v2_Background[0] != null)
+                        TJAPlayer3.app.Tx.Result_v2_Background[0].t2D描画(TJAPlayer3.app.Device, 0, 0);
                     for (int ind = 0; ind < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; ind++)
                     {
-                        if (this.cRecords[ind].Gauge >= 80.0 && TJAPlayer3.Tx.Result_v2_Background[1] != null)
+                        if (this.cRecords[ind].Gauge >= 80.0 && TJAPlayer3.app.Tx.Result_v2_Background[1] != null)
                         {
-                            TJAPlayer3.Tx.Result_v2_Background[1].Opacity = Math.Min(this.ctMountainAndClear.n現在の値, 255);
-                            TJAPlayer3.Tx.Result_v2_Background[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount * ind, 0, new Rectangle(TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount * ind, 0, TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount, TJAPlayer3.Tx.Result_v2_Background[1].szTextureSize.Height));
+                            TJAPlayer3.app.Tx.Result_v2_Background[1].Opacity = Math.Min(this.ctMountainAndClear.n現在の値, 255);
+                            TJAPlayer3.app.Tx.Result_v2_Background[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount * ind, 0, new Rectangle(TJAPlayer3.app.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount * ind, 0, TJAPlayer3.app.Tx.Result_v2_Background[1].szTextureSize.Width / TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount, TJAPlayer3.app.Tx.Result_v2_Background[1].szTextureSize.Height));
                         }
                     }
                 }
-                if (TJAPlayer3.Tx.Result_v2_Mountain != null && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount == 1)
+                if (TJAPlayer3.app.Tx.Result_v2_Mountain != null && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount == 1)
                 {
-                    if (TJAPlayer3.Tx.Result_v2_Mountain[0] != null)
+                    if (TJAPlayer3.app.Tx.Result_v2_Mountain[0] != null)
                         if (this.ctMountainAndClear.n現在の値 <= 255 || this.cRecords[0].Gauge < 80.0)
-                            TJAPlayer3.Tx.Result_v2_Mountain[0].t2D描画(TJAPlayer3.app.Device, 0, 0);
-                    if (this.cRecords[0].Gauge >= 80.0 && TJAPlayer3.Tx.Result_v2_Mountain[1] != null)
+                            TJAPlayer3.app.Tx.Result_v2_Mountain[0].t2D描画(TJAPlayer3.app.Device, 0, 0);
+                    if (this.cRecords[0].Gauge >= 80.0 && TJAPlayer3.app.Tx.Result_v2_Mountain[1] != null)
                     {
-                        TJAPlayer3.Tx.Result_v2_Mountain[1].Opacity = Math.Min(this.ctMountainAndClear.n現在の値, 255);
+                        TJAPlayer3.app.Tx.Result_v2_Mountain[1].Opacity = Math.Min(this.ctMountainAndClear.n現在の値, 255);
                         if (this.ctMountainAndClear.n現在の値 <= 255 || this.ctMountainAndClear.n現在の値 == this.ctMountainAndClear.n終了値)
                         {
-                            TJAPlayer3.Tx.Result_v2_Mountain[1].vcScaling.Y = 1f;
+                            TJAPlayer3.app.Tx.Result_v2_Mountain[1].vcScaling.Y = 1f;
                         }
                         else if (this.ctMountainAndClear.n現在の値 <= 555)
                         {
-                            TJAPlayer3.Tx.Result_v2_Mountain[1].vcScaling.Y = 1.0f - (this.ctMountainAndClear.n現在の値 - 255) / 300f * 0.4f;
+                            TJAPlayer3.app.Tx.Result_v2_Mountain[1].vcScaling.Y = 1.0f - (this.ctMountainAndClear.n現在の値 - 255) / 300f * 0.4f;
                         }
                         else if (this.ctMountainAndClear.n現在の値 <= 1155)
                         {
                             //600msで150degなので4で割る
-                            TJAPlayer3.Tx.Result_v2_Mountain[1].vcScaling.Y = (float)((Math.Sin((this.ctMountainAndClear.n現在の値 - 555) / 4.0 / 180.0 * Math.PI) * 0.8f) + 0.6f);
+                            TJAPlayer3.app.Tx.Result_v2_Mountain[1].vcScaling.Y = (float)((Math.Sin((this.ctMountainAndClear.n現在の値 - 555) / 4.0 / 180.0 * Math.PI) * 0.8f) + 0.6f);
                         }
                         else
                         {
-                            TJAPlayer3.Tx.Result_v2_Mountain[1].vcScaling.Y = (float)Math.Sin((this.ctMountainAndClear.n現在の値 - 1155) / 500f * Math.PI) * 0.3f + 1f;
+                            TJAPlayer3.app.Tx.Result_v2_Mountain[1].vcScaling.Y = (float)Math.Sin((this.ctMountainAndClear.n現在の値 - 1155) / 500f * Math.PI) * 0.3f + 1f;
                         }
-                        TJAPlayer3.Tx.Result_v2_Mountain[1].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, TJAPlayer3.app.LogicalSize.Width / 2, TJAPlayer3.app.LogicalSize.Height);
+                        TJAPlayer3.app.Tx.Result_v2_Mountain[1].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, TJAPlayer3.app.LogicalSize.Width / 2, TJAPlayer3.app.LogicalSize.Height);
                     }
                 }
-                if (TJAPlayer3.Tx.Result_v2_Header != null)
+                if (TJAPlayer3.app.Tx.Result_v2_Header != null)
                 {
-                    TJAPlayer3.Tx.Result_v2_Header.t2D描画(TJAPlayer3.app.Device, 0, 0);
+                    TJAPlayer3.app.Tx.Result_v2_Header.t2D描画(TJAPlayer3.app.Device, 0, 0);
                 }
             }
             else
             {
-                if (TJAPlayer3.Tx.Result_Background != null)
+                if (TJAPlayer3.app.Tx.Result_Background != null)
                 {
-                    TJAPlayer3.Tx.Result_Background.t2D描画(TJAPlayer3.app.Device, 0, 0);
+                    TJAPlayer3.app.Tx.Result_Background.t2D描画(TJAPlayer3.app.Device, 0, 0);
                 }
-                if (TJAPlayer3.Tx.Result_Header != null)
+                if (TJAPlayer3.app.Tx.Result_Header != null)
                 {
-                    TJAPlayer3.Tx.Result_Header.t2D描画(TJAPlayer3.app.Device, 0, 0);
+                    TJAPlayer3.app.Tx.Result_Header.t2D描画(TJAPlayer3.app.Device, 0, 0);
                 }
             }
             if (this.actParameterPanel.On進行描画() == 0)
@@ -242,9 +242,9 @@ internal class CStageResult : CStage
             #region ネームプレート
             for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
             {
-                if (TJAPlayer3.Tx.NamePlate[i] != null)
+                if (TJAPlayer3.app.Tx.NamePlate[i] != null)
                 {
-                    TJAPlayer3.Tx.NamePlate[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.ConfigToml.EnableSkinV2 ? TJAPlayer3.app.Skin.SkinConfig.Result.v2NamePlateX[i] : TJAPlayer3.app.Skin.SkinConfig.Result.NamePlateX[i], TJAPlayer3.app.ConfigToml.EnableSkinV2 ? TJAPlayer3.app.Skin.SkinConfig.Result.v2NamePlateY[i] : TJAPlayer3.app.Skin.SkinConfig.Result.NamePlateY[i]);
+                    TJAPlayer3.app.Tx.NamePlate[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.ConfigToml.EnableSkinV2 ? TJAPlayer3.app.Skin.SkinConfig.Result.v2NamePlateX[i] : TJAPlayer3.app.Skin.SkinConfig.Result.NamePlateX[i], TJAPlayer3.app.ConfigToml.EnableSkinV2 ? TJAPlayer3.app.Skin.SkinConfig.Result.v2NamePlateY[i] : TJAPlayer3.app.Skin.SkinConfig.Result.NamePlateY[i]);
                 }
             }
             #endregion

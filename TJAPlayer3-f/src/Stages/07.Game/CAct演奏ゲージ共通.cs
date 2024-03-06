@@ -70,27 +70,27 @@ internal class CAct演奏ゲージ共通 : CActivity
 
             if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] == (int)Difficulty.Dan)
             {
-                TJAPlayer3.Tx.Gauge_Base_Danc?.t2D描画(TJAPlayer3.app.Device, 492, 144, new Rectangle(0, 0, 700, 44));
+                TJAPlayer3.app.Tx.Gauge_Base_Danc?.t2D描画(TJAPlayer3.app.Device, 492, 144, new Rectangle(0, 0, 700, 44));
 
-                if (TJAPlayer3.Tx.Gauge_Danc != null)
+                if (TJAPlayer3.app.Tx.Gauge_Danc != null)
                 {
-                    TJAPlayer3.Tx.Gauge_Danc.t2D描画(TJAPlayer3.app.Device, 492, 144, new Rectangle(0, 0, nRectX[0], 44));
+                    TJAPlayer3.app.Tx.Gauge_Danc.t2D描画(TJAPlayer3.app.Device, 492, 144, new Rectangle(0, 0, nRectX[0], 44));
 
-                    if (TJAPlayer3.Tx.Gauge_Line_Danc != null && this.ct虹アニメ != null && this.ct虹透明度 != null)
+                    if (TJAPlayer3.app.Tx.Gauge_Line_Danc != null && this.ct虹アニメ != null && this.ct虹透明度 != null)
                     {
                         if (this.db現在のゲージ値[0] >= 100.0)
                         {
                             this.ct虹アニメ.t進行Loop();
                             this.ct虹透明度.t進行Loop();
-                            if (TJAPlayer3.Tx.Gauge_Rainbow_Danc[this.ct虹アニメ.n現在の値] != null)
+                            if (TJAPlayer3.app.Tx.Gauge_Rainbow_Danc[this.ct虹アニメ.n現在の値] != null)
                             {
-                                TJAPlayer3.Tx.Gauge_Rainbow_Danc[this.ct虹アニメ.n現在の値].Opacity = 255;
-                                TJAPlayer3.Tx.Gauge_Rainbow_Danc[this.ct虹アニメ.n現在の値].t2D描画(TJAPlayer3.app.Device, 492, 144);
-                                TJAPlayer3.Tx.Gauge_Rainbow_Danc[虹ベース].Opacity = (ct虹透明度.n現在の値 * 255 / ct虹透明度.n終了値) / 1;
-                                TJAPlayer3.Tx.Gauge_Rainbow_Danc[虹ベース].t2D描画(TJAPlayer3.app.Device, 492, 144);
+                                TJAPlayer3.app.Tx.Gauge_Rainbow_Danc[this.ct虹アニメ.n現在の値].Opacity = 255;
+                                TJAPlayer3.app.Tx.Gauge_Rainbow_Danc[this.ct虹アニメ.n現在の値].t2D描画(TJAPlayer3.app.Device, 492, 144);
+                                TJAPlayer3.app.Tx.Gauge_Rainbow_Danc[虹ベース].Opacity = (ct虹透明度.n現在の値 * 255 / ct虹透明度.n終了値) / 1;
+                                TJAPlayer3.app.Tx.Gauge_Rainbow_Danc[虹ベース].t2D描画(TJAPlayer3.app.Device, 492, 144);
                             }
                         }
-                        TJAPlayer3.Tx.Gauge_Line_Danc.t2D描画(TJAPlayer3.app.Device, 492, 144);
+                        TJAPlayer3.app.Tx.Gauge_Line_Danc.t2D描画(TJAPlayer3.app.Device, 492, 144);
                     }
                 }
             }
@@ -100,43 +100,43 @@ internal class CAct演奏ゲージ共通 : CActivity
                 int[] clearPosY= new int[] { 144, 554 };
                 for (int nPlayer = 0; nPlayer < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; nPlayer++)
                 {
-                    TJAPlayer3.Tx.Gauge_Base[nPlayer]?.t2D描画(TJAPlayer3.app.Device, 492, gaugePosY[nPlayer], new Rectangle(0, 0, 700, 44));
-                    if (TJAPlayer3.Tx.Gauge[nPlayer] != null)
+                    TJAPlayer3.app.Tx.Gauge_Base[nPlayer]?.t2D描画(TJAPlayer3.app.Device, 492, gaugePosY[nPlayer], new Rectangle(0, 0, 700, 44));
+                    if (TJAPlayer3.app.Tx.Gauge[nPlayer] != null)
                     {
-                        TJAPlayer3.Tx.Gauge[nPlayer].t2D描画(TJAPlayer3.app.Device, 492, gaugePosY[nPlayer], new Rectangle(0, 0, nRectX[nPlayer], 44));
-                        if (TJAPlayer3.Tx.Gauge_Line[nPlayer] != null && this.ct虹アニメ != null && this.ct虹透明度 != null)
+                        TJAPlayer3.app.Tx.Gauge[nPlayer].t2D描画(TJAPlayer3.app.Device, 492, gaugePosY[nPlayer], new Rectangle(0, 0, nRectX[nPlayer], 44));
+                        if (TJAPlayer3.app.Tx.Gauge_Line[nPlayer] != null && this.ct虹アニメ != null && this.ct虹透明度 != null)
                         {
                             if (this.db現在のゲージ値[nPlayer] >= 100.0)
                             {
                                 this.ct虹アニメ.t進行Loop();
                                 this.ct虹透明度.t進行Loop();
-                                if (TJAPlayer3.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値] != null)
+                                if (TJAPlayer3.app.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値] != null)
                                 {
                                     CTexture.EFlipType eFlipType = (nPlayer == 0) ? CTexture.EFlipType.None : CTexture.EFlipType.Vertical;
-                                    TJAPlayer3.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値].Opacity = 255;
+                                    TJAPlayer3.app.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値].Opacity = 255;
                                     //どうにかしたい
-                                    TJAPlayer3.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値].t2D描画(TJAPlayer3.app.Device, 492, gaugePosY[nPlayer], eFlipType);
-                                    TJAPlayer3.Tx.Gauge_Rainbow[虹ベース].Opacity = ct虹透明度.n現在の値 * 255 / ct虹透明度.n終了値;
-                                    TJAPlayer3.Tx.Gauge_Rainbow[虹ベース].t2D描画(TJAPlayer3.app.Device, 492, gaugePosY[nPlayer], eFlipType);
+                                    TJAPlayer3.app.Tx.Gauge_Rainbow[this.ct虹アニメ.n現在の値].t2D描画(TJAPlayer3.app.Device, 492, gaugePosY[nPlayer], eFlipType);
+                                    TJAPlayer3.app.Tx.Gauge_Rainbow[虹ベース].Opacity = ct虹透明度.n現在の値 * 255 / ct虹透明度.n終了値;
+                                    TJAPlayer3.app.Tx.Gauge_Rainbow[虹ベース].t2D描画(TJAPlayer3.app.Device, 492, gaugePosY[nPlayer], eFlipType);
                                 }
                             }
-                            TJAPlayer3.Tx.Gauge_Line[nPlayer].t2D描画(TJAPlayer3.app.Device, 492, gaugePosY[nPlayer]);
+                            TJAPlayer3.app.Tx.Gauge_Line[nPlayer].t2D描画(TJAPlayer3.app.Device, 492, gaugePosY[nPlayer]);
                         }
                         #region[ 「クリア」文字 ]
                         if (this.db現在のゲージ値[nPlayer] >= 80.0)
                         {
-                            TJAPlayer3.Tx.Gauge[nPlayer].t2D描画(TJAPlayer3.app.Device, 1038, clearPosY[nPlayer], new Rectangle(0, 44, 58, 24));
+                            TJAPlayer3.app.Tx.Gauge[nPlayer].t2D描画(TJAPlayer3.app.Device, 1038, clearPosY[nPlayer], new Rectangle(0, 44, 58, 24));
                         }
                         else
                         {
-                            TJAPlayer3.Tx.Gauge[nPlayer].t2D描画(TJAPlayer3.app.Device, 1038, clearPosY[nPlayer], new Rectangle(58, 44, 58, 24));
+                            TJAPlayer3.app.Tx.Gauge[nPlayer].t2D描画(TJAPlayer3.app.Device, 1038, clearPosY[nPlayer], new Rectangle(58, 44, 58, 24));
                         }
                         #endregion
                     }
                 }
             }
 
-            if (TJAPlayer3.Tx.Gauge_Soul_Fire != null)
+            if (TJAPlayer3.app.Tx.Gauge_Soul_Fire != null)
             {
                 //仮置き
                 int[] nSoulFire = new int[] { 52, 443, 0, 0 };
@@ -145,11 +145,11 @@ internal class CAct演奏ゲージ共通 : CActivity
                     if (this.db現在のゲージ値[i] >= 100.0 && this.ct炎 != null)
                     {
                         this.ct炎.t進行Loop();
-                        TJAPlayer3.Tx.Gauge_Soul_Fire.t2D描画(TJAPlayer3.app.Device, 1112, nSoulFire[i], new Rectangle(230 * (this.ct炎.n現在の値), 0, 230, 230));
+                        TJAPlayer3.app.Tx.Gauge_Soul_Fire.t2D描画(TJAPlayer3.app.Device, 1112, nSoulFire[i], new Rectangle(230 * (this.ct炎.n現在の値), 0, 230, 230));
                     }
                 }
             }
-            if (TJAPlayer3.Tx.Gauge_Soul != null)
+            if (TJAPlayer3.app.Tx.Gauge_Soul != null)
             {
                 //仮置き
                 int[] nSoulY = new int[] { 125, 516, 0, 0 };
@@ -157,11 +157,11 @@ internal class CAct演奏ゲージ共通 : CActivity
                 {
                     if (this.db現在のゲージ値[i] >= 80.0)
                     {
-                        TJAPlayer3.Tx.Gauge_Soul.t2D描画(TJAPlayer3.app.Device, 1184, nSoulY[i], new Rectangle(0, 0, 80, 80));
+                        TJAPlayer3.app.Tx.Gauge_Soul.t2D描画(TJAPlayer3.app.Device, 1184, nSoulY[i], new Rectangle(0, 0, 80, 80));
                     }
                     else
                     {
-                        TJAPlayer3.Tx.Gauge_Soul.t2D描画(TJAPlayer3.app.Device, 1184, nSoulY[i], new Rectangle(0, 80, 80, 80));
+                        TJAPlayer3.app.Tx.Gauge_Soul.t2D描画(TJAPlayer3.app.Device, 1184, nSoulY[i], new Rectangle(0, 80, 80, 80));
                     }
                 }
             }

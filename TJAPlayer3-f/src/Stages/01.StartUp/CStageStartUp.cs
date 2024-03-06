@@ -104,7 +104,7 @@ internal class CStageStartUp : CStage
 
                 case CStage.Eフェーズ.起動7_完了:
                     this.list進行文字列.Add("LOADING TEXTURES...");
-                    TJAPlayer3.Tx.LoadTexture();
+                    TJAPlayer3.app.Tx.LoadTexture();
                     this.list進行文字列.Add("LOADING TEXTURES...OK");
                     this.str現在進行中 = "Setup done.";
                     break;
@@ -127,7 +127,7 @@ internal class CStageStartUp : CStage
             //-----------------
             #endregion
 
-            if (es != null && es.IsSongListEnumCompletelyDone && TJAPlayer3.Tx.IsLoaded)							// 曲リスト作成が終わったら
+            if (es != null && es.IsSongListEnumCompletelyDone && TJAPlayer3.app.Tx.IsLoaded)							// 曲リスト作成が終わったら
             {
                 TJAPlayer3.SongsManager = es.SongsManager;		// 最後に、曲リストを拾い上げる
                 return 1;

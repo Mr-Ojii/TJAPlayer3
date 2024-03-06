@@ -62,8 +62,8 @@ internal class C文字コンソール : CActivity
     // CActivity 実装
     public override void On活性化()
     {
-        this.txフォント8x16[0] = TJAPlayer3.Tx.TxC(@"Console_Font.png");
-        this.txフォント8x16[1] = TJAPlayer3.Tx.TxC(@"Console_Font_Small.png");
+        this.txフォント8x16[0] = TJAPlayer3.app.Tx.TxC(@"Console_Font.png");
+        this.txフォント8x16[1] = TJAPlayer3.app.Tx.TxC(@"Console_Font_Small.png");
         base.On活性化();
     }
     public override void On非活性化()

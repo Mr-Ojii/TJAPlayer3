@@ -51,13 +51,13 @@ class PuchiChara : CActivity
     public int On進行描画(int x, int y, bool isGrowing, int nPlayer, int alpha = 255, bool isBalloon = false)
     {
         if (!TJAPlayer3.app.ConfigToml.Game.ShowPuchiChara) return base.On進行描画();
-        if (Counter == null || SineCounter == null || TJAPlayer3.Tx.PuchiChara[nPlayer] == null) return base.On進行描画();
+        if (Counter == null || SineCounter == null || TJAPlayer3.app.Tx.PuchiChara[nPlayer] == null) return base.On進行描画();
         Counter.t進行Loop();
         SineCounter.t進行LoopDb();
         var sineY = Math.Sin(SineCounter.db現在の値 * (Math.PI / 180)) * (TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Sine * (isBalloon ? TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Scale[1] : TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Scale[0]));
-        TJAPlayer3.Tx.PuchiChara[nPlayer].vcScaling = new Vector2((isBalloon ? TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Scale[1] : TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Scale[0]));
-        TJAPlayer3.Tx.PuchiChara[nPlayer].Opacity = alpha;
-        TJAPlayer3.Tx.PuchiChara[nPlayer].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x, y + (int)sineY, new Rectangle(Counter.n現在の値 * TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Width, (isGrowing ? TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Height : 0), TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Width, TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Height));
+        TJAPlayer3.app.Tx.PuchiChara[nPlayer].vcScaling = new Vector2((isBalloon ? TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Scale[1] : TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Scale[0]));
+        TJAPlayer3.app.Tx.PuchiChara[nPlayer].Opacity = alpha;
+        TJAPlayer3.app.Tx.PuchiChara[nPlayer].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, x, y + (int)sineY, new Rectangle(Counter.n現在の値 * TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Width, (isGrowing ? TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Height : 0), TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Width, TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Height));
         return base.On進行描画();
     }
 

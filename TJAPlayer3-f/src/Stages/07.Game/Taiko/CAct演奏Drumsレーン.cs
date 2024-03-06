@@ -20,8 +20,8 @@ internal class CAct演奏Drumsレーン : CActivity
             this.nAfter[i] = 0;
             this.bState[i] = false;
         }
-        if (TJAPlayer3.Tx.Lane_Base[0] != null)
-            TJAPlayer3.Tx.Lane_Base[0].Opacity = 255;
+        if (TJAPlayer3.app.Tx.Lane_Base[0] != null)
+            TJAPlayer3.app.Tx.Lane_Base[0].Opacity = 255;
         base.On活性化();
     }
 
@@ -58,74 +58,74 @@ internal class CAct演奏Drumsレーン : CActivity
                     //普通→玄人
                     if (nBefore[i] == 0 && nAfter[i] == 1)
                     {
-                        TJAPlayer3.Tx.Lane_Base[1].Opacity = this.ct分岐アニメ進行[i].n現在の値 > 100 ? 255 : ((this.ct分岐アニメ進行[i].n現在の値 * 0xff) / 100);
-                        TJAPlayer3.Tx.Lane_Base[0].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
-                        TJAPlayer3.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
+                        TJAPlayer3.app.Tx.Lane_Base[1].Opacity = this.ct分岐アニメ進行[i].n現在の値 > 100 ? 255 : ((this.ct分岐アニメ進行[i].n現在の値 * 0xff) / 100);
+                        TJAPlayer3.app.Tx.Lane_Base[0].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
+                        TJAPlayer3.app.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
                     }
                     //普通→達人
                     if (nBefore[i] == 0 && nAfter[i] == 2)
                     {
-                        TJAPlayer3.Tx.Lane_Base[0].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
+                        TJAPlayer3.app.Tx.Lane_Base[0].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
                         if (this.ct分岐アニメ進行[i].n現在の値 < 100)
                         {
-                            TJAPlayer3.Tx.Lane_Base[1].Opacity = this.ct分岐アニメ進行[i].n現在の値 > 100 ? 255 : ((this.ct分岐アニメ進行[i].n現在の値 * 0xff) / 100);
-                            TJAPlayer3.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
+                            TJAPlayer3.app.Tx.Lane_Base[1].Opacity = this.ct分岐アニメ進行[i].n現在の値 > 100 ? 255 : ((this.ct分岐アニメ進行[i].n現在の値 * 0xff) / 100);
+                            TJAPlayer3.app.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
                         }
                         else if (this.ct分岐アニメ進行[i].n現在の値 >= 100 && this.ct分岐アニメ進行[i].n現在の値 < 150)
                         {
-                            TJAPlayer3.Tx.Lane_Base[1].Opacity = 255;
-                            TJAPlayer3.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
+                            TJAPlayer3.app.Tx.Lane_Base[1].Opacity = 255;
+                            TJAPlayer3.app.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
                         }
                         else if (this.ct分岐アニメ進行[i].n現在の値 >= 150)
                         {
-                            TJAPlayer3.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
-                            TJAPlayer3.Tx.Lane_Base[2].Opacity = this.ct分岐アニメ進行[i].n現在の値 > 250 ? 255 : (((this.ct分岐アニメ進行[i].n現在の値 - 150) * 0xff) / 100);
-                            TJAPlayer3.Tx.Lane_Base[2].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
+                            TJAPlayer3.app.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
+                            TJAPlayer3.app.Tx.Lane_Base[2].Opacity = this.ct分岐アニメ進行[i].n現在の値 > 250 ? 255 : (((this.ct分岐アニメ進行[i].n現在の値 - 150) * 0xff) / 100);
+                            TJAPlayer3.app.Tx.Lane_Base[2].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
                         }
                     }
                     #endregion
                     #region[ 玄人譜面_レベルアップ ]
                     if (nBefore[i] == 1 && nAfter[i] == 2)
                     {
-                        TJAPlayer3.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
-                        TJAPlayer3.Tx.Lane_Base[2].Opacity = this.ct分岐アニメ進行[i].n現在の値 > 100 ? 255 : ((this.ct分岐アニメ進行[i].n現在の値 * 0xff) / 100);
-                        TJAPlayer3.Tx.Lane_Base[2].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
+                        TJAPlayer3.app.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
+                        TJAPlayer3.app.Tx.Lane_Base[2].Opacity = this.ct分岐アニメ進行[i].n現在の値 > 100 ? 255 : ((this.ct分岐アニメ進行[i].n現在の値 * 0xff) / 100);
+                        TJAPlayer3.app.Tx.Lane_Base[2].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
                     }
                     #endregion
                     #region[ 玄人譜面_レベルダウン ]
                     if (nBefore[i] == 1 && nAfter[i] == 0)
                     {
-                        TJAPlayer3.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
-                        TJAPlayer3.Tx.Lane_Base[0].Opacity = this.ct分岐アニメ進行[i].n現在の値 > 100 ? 255 : ((this.ct分岐アニメ進行[i].n現在の値 * 0xff) / 100);
-                        TJAPlayer3.Tx.Lane_Base[0].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
+                        TJAPlayer3.app.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
+                        TJAPlayer3.app.Tx.Lane_Base[0].Opacity = this.ct分岐アニメ進行[i].n現在の値 > 100 ? 255 : ((this.ct分岐アニメ進行[i].n現在の値 * 0xff) / 100);
+                        TJAPlayer3.app.Tx.Lane_Base[0].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
                     }
                     #endregion
                     #region[ 達人譜面_レベルダウン ]
                     if (nBefore[i] == 2 && nAfter[i] == 0)
                     {
-                        TJAPlayer3.Tx.Lane_Base[2].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
+                        TJAPlayer3.app.Tx.Lane_Base[2].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
                         if (this.ct分岐アニメ進行[i].n現在の値 < 100)
                         {
-                            TJAPlayer3.Tx.Lane_Base[1].Opacity = this.ct分岐アニメ進行[i].n現在の値 > 100 ? 255 : ((this.ct分岐アニメ進行[i].n現在の値 * 0xff) / 100);
-                            TJAPlayer3.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
+                            TJAPlayer3.app.Tx.Lane_Base[1].Opacity = this.ct分岐アニメ進行[i].n現在の値 > 100 ? 255 : ((this.ct分岐アニメ進行[i].n現在の値 * 0xff) / 100);
+                            TJAPlayer3.app.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
                         }
                         else if (this.ct分岐アニメ進行[i].n現在の値 >= 100 && this.ct分岐アニメ進行[i].n現在の値 < 150)
                         {
-                            TJAPlayer3.Tx.Lane_Base[1].Opacity = 255;
-                            TJAPlayer3.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
+                            TJAPlayer3.app.Tx.Lane_Base[1].Opacity = 255;
+                            TJAPlayer3.app.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
                         }
                         else if (this.ct分岐アニメ進行[i].n現在の値 >= 150)
                         {
-                            TJAPlayer3.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
-                            TJAPlayer3.Tx.Lane_Base[0].Opacity = this.ct分岐アニメ進行[i].n現在の値 > 250 ? 255 : (((this.ct分岐アニメ進行[i].n現在の値 - 150) * 0xff) / 100);
-                            TJAPlayer3.Tx.Lane_Base[0].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
+                            TJAPlayer3.app.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
+                            TJAPlayer3.app.Tx.Lane_Base[0].Opacity = this.ct分岐アニメ進行[i].n現在の値 > 250 ? 255 : (((this.ct分岐アニメ進行[i].n現在の値 - 150) * 0xff) / 100);
+                            TJAPlayer3.app.Tx.Lane_Base[0].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
                         }
                     }
                     if (nBefore[i] == 2 && nAfter[i] == 1)
                     {
-                        TJAPlayer3.Tx.Lane_Base[2].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
-                        TJAPlayer3.Tx.Lane_Base[2].Opacity = this.ct分岐アニメ進行[i].n現在の値 > 100 ? 255 : ((this.ct分岐アニメ進行[i].n現在の値 * 0xff) / 100);
-                        TJAPlayer3.Tx.Lane_Base[2].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
+                        TJAPlayer3.app.Tx.Lane_Base[2].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
+                        TJAPlayer3.app.Tx.Lane_Base[2].Opacity = this.ct分岐アニメ進行[i].n現在の値 > 100 ? 255 : ((this.ct分岐アニメ進行[i].n現在の値 * 0xff) / 100);
+                        TJAPlayer3.app.Tx.Lane_Base[2].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
                     }
                     #endregion
                 }

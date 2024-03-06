@@ -1118,7 +1118,7 @@ internal class TJAPlayer3 : Game
 
             actScanningLoudness.On進行描画();
 
-            if (r現在のステージ != null && r現在のステージ.eStageID != CStage.EStage.StartUp && TJAPlayer3.Tx.Network_Connection != null)
+            if (r現在のステージ != null && r現在のステージ.eStageID != CStage.EStage.StartUp && TJAPlayer3.app.Tx.Network_Connection != null)
             {
                 if (Math.Abs(CSoundManager.rc演奏用タイマ.nシステム時刻ms - this.前回のシステム時刻ms) > 10000)
                 {
@@ -1137,12 +1137,12 @@ internal class TJAPlayer3 : Game
                         }
                     });
                 }
-                TJAPlayer3.Tx.Network_Connection.t2D描画(app.Device, this.LogicalSize.Width - (TJAPlayer3.Tx.Network_Connection.szTextureSize.Width / 2), this.LogicalSize.Height - TJAPlayer3.Tx.Network_Connection.szTextureSize.Height, new Rectangle((TJAPlayer3.Tx.Network_Connection.szTextureSize.Width / 2) * (this.bネットワークに接続中 ? 0 : 1), 0, TJAPlayer3.Tx.Network_Connection.szTextureSize.Width / 2, TJAPlayer3.Tx.Network_Connection.szTextureSize.Height));
+                TJAPlayer3.app.Tx.Network_Connection.t2D描画(app.Device, this.LogicalSize.Width - (TJAPlayer3.app.Tx.Network_Connection.szTextureSize.Width / 2), this.LogicalSize.Height - TJAPlayer3.app.Tx.Network_Connection.szTextureSize.Height, new Rectangle((TJAPlayer3.app.Tx.Network_Connection.szTextureSize.Width / 2) * (this.bネットワークに接続中 ? 0 : 1), 0, TJAPlayer3.app.Tx.Network_Connection.szTextureSize.Width / 2, TJAPlayer3.app.Tx.Network_Connection.szTextureSize.Height));
             }
             // オーバレイを描画する(テクスチャの生成されていない起動ステージは例外
-            if (r現在のステージ != null && r現在のステージ.eStageID != CStage.EStage.StartUp && TJAPlayer3.Tx.Overlay != null)
+            if (r現在のステージ != null && r現在のステージ.eStageID != CStage.EStage.StartUp && TJAPlayer3.app.Tx.Overlay != null)
             {
-                TJAPlayer3.Tx.Overlay.t2D描画(app.Device, 0, 0);
+                TJAPlayer3.app.Tx.Overlay.t2D描画(app.Device, 0, 0);
             }
         }
 
@@ -1338,7 +1338,7 @@ internal class TJAPlayer3 : Game
     private long 前回のシステム時刻ms = long.MinValue;
     private static CDTX[] dtx = new CDTX[4];
 
-    public static TextureLoader Tx = new TextureLoader();
+    public TextureLoader Tx = new TextureLoader();
 
     private List<CActivity> listトップレベルActivities;
     private int n進行描画の戻り値;
@@ -1681,8 +1681,8 @@ internal class TJAPlayer3 : Game
         TJAPlayer3.app.Skin = new CSkin(TJAPlayer3.app.ConfigToml.General.SkinPath);
 
 
-        TJAPlayer3.Tx.DisposeTexture();
-        TJAPlayer3.Tx.LoadTexture();
+        TJAPlayer3.app.Tx.DisposeTexture();
+        TJAPlayer3.app.Tx.LoadTexture();
 
         TJAPlayer3.app.act文字コンソール.On活性化();
     }
