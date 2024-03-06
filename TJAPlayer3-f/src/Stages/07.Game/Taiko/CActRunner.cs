@@ -71,25 +71,24 @@ internal class CActRunner : CActivity
     {
         for (int i = 0; i < 128; i++)
         {
-            var si = stRunners[i];
-            if (si.b使用中 && si.ct進行 != null)
+            if (stRunners[i].b使用中)
             {
-                si.nOldValue = si.ct進行.n現在の値;
-                si.ct進行.t進行();
-                if (si.ct進行.b終了値に達した || si.fX > TJAPlayer3.app.LogicalSize.Width)
+                stRunners[i].nOldValue = stRunners[i].ct進行.n現在の値;
+                stRunners[i].ct進行.t進行();
+                if (stRunners[i].ct進行.b終了値に達した || stRunners[i].fX > TJAPlayer3.app.LogicalSize.Width)
                 {
-                    si.ct進行.t停止();
-                    si.b使用中 = false;
+                    stRunners[i].ct進行.t停止();
+                    stRunners[i].b使用中 = false;
                 }
-                for (int n = si.nOldValue; n < si.ct進行.n現在の値; n++)
+                for (int n = stRunners[i].nOldValue; n < stRunners[i].ct進行.n現在の値; n++)
                 {
                     //AkasokoPullyou様のソースコードを参考にして、ランナーの逆流を防止
                     double dbBPM = Math.Abs(TJAPlayer3.stage演奏ドラム画面.actPlayInfo.dbBPM);
-                    si.fX += (float)dbBPM / 18;
+                    stRunners[i].fX += (float)dbBPM / 18;
                     int Width = TJAPlayer3.app.LogicalSize.Width / Ptn;
-                    si.nNowPtn = (int)si.fX / Width;
+                    stRunners[i].nNowPtn = (int)stRunners[i].fX / Width;
                 }
-                TJAPlayer3.Tx.Runner?.t2D描画(TJAPlayer3.app.Device, (int)(StartPoint_X[si.nPlayer] + si.fX), StartPoint_Y[si.nPlayer], new Rectangle(si.nNowPtn * Size[0], si.nType * Size[1], Size[0], Size[1]));
+                TJAPlayer3.Tx.Runner?.t2D描画(TJAPlayer3.app.Device, (int)(StartPoint_X[stRunners[i].nPlayer] + stRunners[i].fX), StartPoint_Y[stRunners[i].nPlayer], new Rectangle(stRunners[i].nNowPtn * Size[0], stRunners[i].nType * Size[1], Size[0], Size[1]));
             }
         }
         return base.On進行描画();
@@ -106,21 +105,21 @@ internal class CActRunner : CActivity
         public int nOldValue;
         public int nNowPtn;
         public float fX;
-        public CCounter? ct進行;
+        public CCounter ct進行;
     }
     private STRunner[] stRunners = new STRunner[128];
     Random random = new Random();
 
     // ランナー画像のサイズ。 X, Y
-    private int[] Size = new int[2];
+    private int[] Size;
     // ランナーのコマ数
     private int Ptn;
     // ランナーのキャラクターのバリエーション(ミス時を含まない)。
     private int Type;
     // スタート地点のX座標 1P, 2P
-    private int[] StartPoint_X = new int[2];
+    private int[] StartPoint_X;
     // スタート地点のY座標 1P, 2P
-    private int[] StartPoint_Y = new int[2];
+    private int[] StartPoint_Y;
     //-----------------
     #endregion
 }
