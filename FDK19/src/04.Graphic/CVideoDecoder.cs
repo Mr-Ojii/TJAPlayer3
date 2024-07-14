@@ -142,7 +142,7 @@ public unsafe class CVideoDecoder : IDisposable
         lastTexture = new CTexture(device, new SKBitmap(FrameSize.Width, FrameSize.Height));
     }
 
-    public void GetNowFrame(ref CTexture Texture)
+    public void GetNowFrame(ref CTexture? Texture)
     {
         if (this.bPlaying && decodedframes.Count != 0)
         {

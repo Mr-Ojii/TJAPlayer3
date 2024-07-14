@@ -36,11 +36,13 @@ internal class CAct演奏AVI : CActivity
     {
         if (!base.b活性化してない)
         {
-            if (this.rVD is null || this.tx描画用 is null)
+            if (this.rVD is null)
                 return 0;
 
             this.rVD.GetNowFrame(ref this.tx描画用);
 
+            if (this.tx描画用 is null)
+                return 0;
             this.tx描画用.vcScaling.X = this.ratio1;
             this.tx描画用.vcScaling.Y = this.ratio1;
 
