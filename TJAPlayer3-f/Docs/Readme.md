@@ -1,5 +1,5 @@
 # TJAPlayer3-f
-最終更新日:2023/10/25(Mr-Ojii)
+最終更新日:2024/07/14(Mr-Ojii)
 
 このReadmeはTJAPlayer3のReadmeを基に作成いたしました。
 
@@ -80,7 +80,7 @@ MITライセンスのルールのもと、改造・再配布を行うことは�
 
 
 ## 実行方法
-### Windows環境  
+### Windows環境
 ダウンロード後、zipファイルを解凍し、フォルダ内に入っているTJAPlayer3-f.exeを実行してください。
 
 ### macOS環境
@@ -98,8 +98,8 @@ chmod +x TJAPlayer3-f.AppImage
 
 ## 開発環境(動作確認環境)
 #### OS
-* Windows 11(Ver.22H2) (x64)
-* macOS 14.0 (arm64)
+* Windows 11(Ver.23H2) (x64)
+* macOS 14.5 (arm64)
 
 #### Editor
 * Visual Studio Community 2022
@@ -179,8 +179,8 @@ Fork元より使用しているライブラリ
 以下のライブラリを追加いたしました。
 * [ReadJEnc](https://github.com/hnx8/ReadJEnc)
 * [FFmpeg.AutoGen](https://github.com/Ruslan-B/FFmpeg.AutoGen)
-* [SDL2](https://www.libsdl.org/)
-* [ppy/SDL2-CS](https://github.com/ppy/SDL2-CS)
+* [SDL3](https://www.libsdl.org/)
+* [ppy/SDL3-CS](https://github.com/ppy/SDL3-CS)
 * [discord-rpc-csharp](https://github.com/Lachee/discord-rpc-csharp)
 * [M+ FONTS](https://osdn.net/projects/mplus-fonts/)
 * [managed-midi](https://github.com/atsushieno/managed-midi)
@@ -196,7 +196,7 @@ Fork元より使用しているライブラリ
 ## FFmpegについて
 `TJAPlayer3-f`と同じフォルダに`FFmpeg`フォルダを作成し、  
 その中にOSとTJAPlayer3-fのアーキテクチャに対応したフォルダを作成し、
-`TJAPlayer3-f`のアーキテクチャに対応したFFmpeg 6.0バイナリ(Shared)を置くことにより、
+`TJAPlayer3-f`のアーキテクチャに対応したFFmpeg 7.0バイナリ(Shared)を置くことにより、
 
 + FFmpegが対応している動画ファイルの再生
 + FFmpegが対応している音声ファイルの再生
@@ -217,19 +217,7 @@ Fork元より使用しているライブラリ
 
 
 ## BASSについて
-このリポジトリにはあらかじめBASSライブラリが同梱されています。  
-
-### 各種バージョン
-|Module     | Version |
-|:----------|:--------|
-|BASS       |2.4.16.7 |
-|BASSmix    |2.4.12   |
-|BASS FX    |2.4.12.6 |
-|BASSWASAPI |2.4.3.1  |
-|BASSASIO   |1.4.1    |
-
-(2022/09/06現在)
-
+このリポジトリにはあらかじめBASSライブラリが同梱されています。
 
 ## 謝辞
 このTJAPlayer3-fのもととなるソフトウェアを作成・メンテナンスしてきた中でも  
