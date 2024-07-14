@@ -56,23 +56,6 @@ public class GameWindow : IDisposable
         }
     }
 
-    public int X
-    {
-        get
-        {
-            SDL.SDL_GetWindowPosition(_window_handle, out int x, out int y);
-            return x;
-        }
-    }
-    public int Y
-    {
-        get
-        {
-            SDL.SDL_GetWindowPosition(_window_handle, out int x, out int y);
-            return y;
-        }
-    }
-
     public Point Location
     {
         get

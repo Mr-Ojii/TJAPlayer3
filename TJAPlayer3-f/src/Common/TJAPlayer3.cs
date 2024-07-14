@@ -1698,8 +1698,8 @@ internal class TJAPlayer3 : Game
     {
         if (!ConfigToml.Window.FullScreen)
         {
-            ConfigToml.Window.X = this.X;   // #30675 2013.02.04 ikanick add
-            ConfigToml.Window.Y = this.Y;   //
+            ConfigToml.Window.X = this.Location.X;   // #30675 2013.02.04 ikanick add
+            ConfigToml.Window.Y = this.Location.Y;   //
         }
 
         ConfigToml.Window.Width = (ConfigToml.Window.FullScreen) ? currentClientSize.Width : this.ClientSize.Width;    // #23510 2010.10.31 yyagi add
