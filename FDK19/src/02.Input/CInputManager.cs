@@ -28,9 +28,13 @@ public class CInputManager : IDisposable
         #region [ Enumerate joypad ]
         try
         {
-            for (int joynum = 0; joynum < SDL2.SDL.SDL_NumJoysticks(); joynum++)
+            var joysticks = SDL.SDL3.SDL_GetJoysticks();
+            if (joysticks is not null)
             {
-                this.listInputDevices.Add(new CInputJoystick(joynum));
+                for (int joynum = 0; joynum < joysticks.Count; joynum++)
+                {
+                    this.listInputDevices.Add(new CInputJoystick(joysticks[joynum]));
+                }
             }
         }
         catch (Exception e)

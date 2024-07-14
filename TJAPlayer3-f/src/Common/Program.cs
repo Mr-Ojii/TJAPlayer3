@@ -1,5 +1,5 @@
 ﻿using FDK;
-using SDL2;
+using SDL;
 
 namespace TJAPlayer3;
 
@@ -186,9 +186,15 @@ internal class Program
         }
         else
         {
-            string msg = $"TJAPlayer3-f(Ver.{Assembly.GetExecutingAssembly().GetName().Version}) is already running.";
-            if (SDL.SDL_ShowSimpleMessageBox(SDL.SDL_MessageBoxFlags.SDL_MESSAGEBOX_WARNING, "TJAPlayer3-f", msg, 0) != 0)
-                Console.WriteLine(msg);
+            unsafe
+            {
+                var msg = Encoding.UTF8.GetBytes($"TJAPlayer3-f(Ver.{Assembly.GetExecutingAssembly().GetName().Version}) is already running.");
+                var app = "TJAPlayer3-f"u8;
+                fixed(byte* pmsg = msg)
+                    fixed(byte* papp = app)
+                        if (SDL3.SDL_ShowSimpleMessageBox(SDL_MessageBoxFlags.SDL_MESSAGEBOX_WARNING, papp, pmsg, null) != 0)
+                            Console.WriteLine(msg);
+            }
         }
     }
 

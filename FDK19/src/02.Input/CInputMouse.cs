@@ -1,8 +1,8 @@
-﻿using SDL2;
+﻿using SDL;
 
 namespace FDK;
 
-public class CInputMouse : IInputDevice, IDisposable
+public unsafe class CInputMouse : IInputDevice, IDisposable
 {
     // コンストラクタ
 
@@ -16,6 +16,16 @@ public class CInputMouse : IInputDevice, IDisposable
             this.bMouseState[i] = false;
         this.listInputEvents = new List<STInputEvent>();
         this.listEventBuffer = new ConcurrentQueue<STInputEvent>();
+    }
+
+    public static Point Position
+    {
+        get
+        {
+            float x, y;
+            SDL3.SDL_GetMouseState(&x, &y);
+            return new Point((int)x, (int)y);
+        }
     }
 
     // メソッド
@@ -32,7 +42,8 @@ public class CInputMouse : IInputDevice, IDisposable
         if (bIsWindowActive)
         {
             //-----------------------------
-            uint currentState = SDL.SDL_GetMouseState(out int _, out int _);
+            float x, y;
+            uint currentState = SDL.SDL3.SDL_GetMouseState(&x, &y);
 
             {
                 for (int j = 0; j < Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length; j++)
@@ -144,9 +155,9 @@ public class CInputMouse : IInputDevice, IDisposable
 
     private uint[] masklist = new uint[]
     {
-        SDL.SDL_BUTTON_LMASK,
-        SDL.SDL_BUTTON_MMASK,
-        SDL.SDL_BUTTON_RMASK
+        SDL3.SDL_BUTTON_LMASK,
+        SDL3.SDL_BUTTON_MMASK,
+        SDL3.SDL_BUTTON_RMASK
     };
     //-----------------
     #endregion

@@ -1,5 +1,5 @@
 ﻿using SlimDXKey = SlimDXKeys.Key;
-using SDLKey = SDL2.SDL.SDL_Scancode;
+using SDLKey = SDL.SDL_Scancode;
 
 namespace FDK;
 

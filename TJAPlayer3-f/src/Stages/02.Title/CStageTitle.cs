@@ -1,5 +1,4 @@
-﻿using DiscordRPC.Logging;
-using FDK;
+﻿using FDK;
 
 namespace TJAPlayer3;
 
@@ -211,8 +210,7 @@ internal class CStageTitle : CStage
             // URLの座標が押されたらブラウザで開いてやる 兼 マウスクリックのテスト
             // クライアント領域内のカーソル座標を取得する。
             // point.X、point.Yは負の値になることもある。
-            SDL2.SDL.SDL_GetMouseState(out int x, out int y);
-            var point = new Point(x, y);
+            var point = CInputMouse.Position;
             // クライアント領域の横幅を取得して、LogicalWidthで割る。もちろんdouble型。
             var scaling = 1.000 * TJAPlayer3.app.ClientSize.Width / TJAPlayer3.app.LogicalSize.Width;
             if (TJAPlayer3.app.InputManager.Mouse.bIsKeyPressed((int)SlimDXKeys.Mouse.Left))

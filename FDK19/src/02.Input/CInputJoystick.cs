@@ -1,17 +1,18 @@
-﻿using SDL2;
+﻿using SDL;
 
 namespace FDK;
 
-public class CInputJoystick : IInputDevice, IDisposable
+public unsafe class CInputJoystick : IInputDevice, IDisposable
 {
     // コンストラクタ
 
-    public CInputJoystick(int joystickindex)
+    public CInputJoystick(SDL_JoystickID joystickindex)
     {
-        this.joystick_handle = SDL.SDL_JoystickOpen(joystickindex);
+        this.joystick_handle = SDL3.SDL_OpenJoystick(joystickindex);
         this.eInputDeviceType = EInputDeviceType.Joystick;
-        this.ID = joystickindex;
-        this.GUID = SDL.SDL_JoystickGetGUID(joystick_handle).ToString();
+        this.ID = (int)joystickindex;
+        string? _guid = SDL3.SDL_GetJoystickGUID(joystick_handle).ToString();
+        this.GUID = _guid is null ? "" : _guid;
 
         for (int i = 0; i < this.bButtonState.Length; i++)
             this.bButtonState[i] = false;
@@ -55,7 +56,7 @@ public class CInputJoystick : IInputDevice, IDisposable
             {
                 #region [ X軸－ ]
                 //-----------------------------
-                if (SDL.SDL_JoystickGetAxis(joystick_handle, 0) < -16384)
+                if (SDL3.SDL_GetJoystickAxis(joystick_handle, 0) < -16384)
                 {
                     if (this.btmpButtonState[0] == false)
                     {
@@ -97,7 +98,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                 #endregion
                 #region [ X軸＋ ]
                 //-----------------------------
-                if (SDL.SDL_JoystickGetAxis(joystick_handle, 0) > 16384)
+                if (SDL3.SDL_GetJoystickAxis(joystick_handle, 0) > 16384)
                 {
                     if (this.btmpButtonState[1] == false)
                     {
@@ -139,7 +140,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                 #endregion
                 #region [ Y軸－ ]
                 //-----------------------------
-                if (SDL.SDL_JoystickGetAxis(joystick_handle, 1) < -16384)
+                if (SDL3.SDL_GetJoystickAxis(joystick_handle, 1) < -16384)
                 {
                     if (this.btmpButtonState[2] == false)
                     {
@@ -181,7 +182,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                 #endregion
                 #region [ Y軸＋ ]
                 //-----------------------------
-                if (SDL.SDL_JoystickGetAxis(joystick_handle, 1) > 16384)
+                if (SDL3.SDL_GetJoystickAxis(joystick_handle, 1) > 16384)
                 {
                     if (this.btmpButtonState[3] == false)
                     {
@@ -223,7 +224,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                 #endregion
                 #region [ Z軸－ ]
                 //-----------------------------
-                if (SDL.SDL_JoystickGetAxis(joystick_handle, 2) < -16384)
+                if (SDL3.SDL_GetJoystickAxis(joystick_handle, 2) < -16384)
                 {
                     if (this.btmpButtonState[4] == false)
                     {
@@ -265,7 +266,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                 #endregion
                 #region [ Z軸＋ ]
                 //-----------------------------
-                if (SDL.SDL_JoystickGetAxis(joystick_handle, 2) > 16384)
+                if (SDL3.SDL_GetJoystickAxis(joystick_handle, 2) > 16384)
                 {
                     if (this.btmpButtonState[5] == false)
                     {
@@ -307,7 +308,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                 #endregion
                 #region [ Z軸回転－ ]
                 //-----------------------------
-                if (SDL.SDL_JoystickGetAxis(joystick_handle, 3) < -16384)
+                if (SDL3.SDL_GetJoystickAxis(joystick_handle, 3) < -16384)
                 {
                     if (this.btmpButtonState[6] == false)
                     {
@@ -349,7 +350,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                 #endregion
                 #region [ Z軸回転＋ ]
                 //-----------------------------
-                if (SDL.SDL_JoystickGetAxis(joystick_handle, 3) > 16384)
+                if (SDL3.SDL_GetJoystickAxis(joystick_handle, 3) > 16384)
                 {
                     if (this.btmpButtonState[7] == false)
                     {
@@ -394,7 +395,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                 bool bIsButtonPressedReleased = false;
                 for (int j = 0; j < 128; j++)
                 {
-                    bool buttonState = (SDL.SDL_JoystickGetButton(joystick_handle, j) == 1);
+                    bool buttonState = (SDL3.SDL_GetJoystickButton(joystick_handle, j) == 1);
                     if (this.btmpButtonState[8 + j] == false && buttonState)
                     {
                         if (CSoundManager.rc演奏用タイマ is not null)
@@ -434,7 +435,7 @@ public class CInputJoystick : IInputDevice, IDisposable
                 #endregion
                 // #24341 2011.3.12 yyagi: POV support
                 #region [ POV HAT 4/8way (only single POV switch is supported)]
-                byte hatState = SDL.SDL_JoystickGetHat(joystick_handle, 0);
+                byte hatState = SDL3.SDL_GetJoystickHat(joystick_handle, 0);
 
                 for (int nWay = 0; nWay < 8; nWay++)
                 {
@@ -538,9 +539,9 @@ public class CInputJoystick : IInputDevice, IDisposable
     {
         if (!this.bDisposed)
         {
-            if (SDL.SDL_JoystickGetAttached(joystick_handle) == SDL.SDL_bool.SDL_TRUE)
+            if (SDL3.SDL_JoystickConnected(joystick_handle) == SDL.SDL_bool.SDL_TRUE)
             {
-                SDL.SDL_JoystickClose(joystick_handle);
+                SDL3.SDL_CloseJoystick(joystick_handle);
             }
             this.listInputEvents.Clear();
             this.listEventBuffer.Clear();
@@ -564,18 +565,18 @@ public class CInputJoystick : IInputDevice, IDisposable
     private ConcurrentQueue<STInputEvent> listEventBuffer;
     private bool bDisposed;
 
-    private IntPtr joystick_handle;
+    private SDL_Joystick* joystick_handle;
 
-    private byte[] hatList = new byte[]
+    private uint[] hatList =
     {
-        SDL.SDL_HAT_UP,
-        SDL.SDL_HAT_RIGHTUP,
-        SDL.SDL_HAT_RIGHT,
-        SDL.SDL_HAT_RIGHTDOWN,
-        SDL.SDL_HAT_DOWN,
-        SDL.SDL_HAT_LEFTDOWN,
-        SDL.SDL_HAT_LEFT,
-        SDL.SDL_HAT_LEFTUP,
+        SDL3.SDL_HAT_UP,
+        SDL3.SDL_HAT_RIGHTUP,
+        SDL3.SDL_HAT_RIGHT,
+        SDL3.SDL_HAT_RIGHTDOWN,
+        SDL3.SDL_HAT_DOWN,
+        SDL3.SDL_HAT_LEFTDOWN,
+        SDL3.SDL_HAT_LEFT,
+        SDL3.SDL_HAT_LEFTUP,
     };
     //-----------------
     #endregion

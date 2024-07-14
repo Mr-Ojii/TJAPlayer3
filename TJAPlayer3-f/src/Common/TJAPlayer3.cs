@@ -293,7 +293,7 @@ internal class TJAPlayer3 : Game
         #endregion
         #region [ Direct3D9 デバイスの生成 ]
         //---------------------
-        this.WindowState = ConfigToml.Window.FullScreen ? FDK.Windowing.WindowState.FullScreen : FDK.Windowing.WindowState.Normal;
+        this.FullScreen = ConfigToml.Window.FullScreen;
         this.VSync = ConfigToml.Window.VSyncWait;
         base.ClientSize = new Size(ConfigToml.Window.Width, ConfigToml.Window.Height);   // #23510 2010.10.31 yyagi: to recover window size. width and height are able to get from Config.ini.
                                                                                          //---------------------
@@ -585,7 +585,7 @@ internal class TJAPlayer3 : Game
 
     public void t全画面_ウィンドウモード切り替え()
     {
-        if ((ConfigToml != null) && (ConfigToml.Window.FullScreen != (this.WindowState == FDK.Windowing.WindowState.FullScreen)))
+        if ((ConfigToml != null) && (ConfigToml.Window.FullScreen != this.FullScreen))
         {
             if (ConfigToml.Window.FullScreen)   // #23510 2010.10.27 yyagi: backup current window size before going fullscreen mode
             {
@@ -593,7 +593,7 @@ internal class TJAPlayer3 : Game
                 ConfigToml.Window.Width = this.ClientSize.Width;
                 ConfigToml.Window.Height = this.ClientSize.Height;
             }
-            this.WindowState = ConfigToml.Window.FullScreen ? FDK.Windowing.WindowState.FullScreen : FDK.Windowing.WindowState.Normal;
+            this.FullScreen = ConfigToml.Window.FullScreen;
             if (!ConfigToml.Window.FullScreen)    // #23510 2010.10.27 yyagi: to resume window size from backuped value
             {
                 base.ClientSize =

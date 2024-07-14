@@ -1,4 +1,4 @@
-﻿using SDL2;
+﻿using SDL;
 
 namespace FDK;
 
@@ -35,12 +35,13 @@ public class CInputKeyboard : IInputDevice, IDisposable
             unsafe
             {
                 //-----------------------------
-                byte* currentState = (byte*)SDL.SDL_GetKeyboardState(out int _);
+                int numkeys;
+                byte* currentState = (byte*)SDL3.SDL_GetKeyboardState(&numkeys);
 
                 for (int index = 0; index < (int)SDL.SDL_Scancode.SDL_NUM_SCANCODES; index++)
                 {
                     // #xxxxx: 2022.02.09 Mr-Ojii: SDLK (SDL.SDL_Scancode) を SlimDX.DirectInput.Key に変換。
-                    if (!DeviceConstantConverter.SDLKToKey.TryGetValue((SDL.SDL_Scancode)index, out var key))
+                    if (!DeviceConstantConverter.SDLKToKey.TryGetValue((SDL_Scancode)index, out var key))
                         continue;
 
                     if (currentState[index] == 1)
