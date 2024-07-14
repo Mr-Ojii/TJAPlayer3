@@ -73,13 +73,11 @@ public unsafe class CVideoDecoder : IDisposable
         frameconv.Dispose();
 
         ffmpeg.avcodec_flush_buffers(codec_context);
-        if (ffmpeg.avcodec_close(codec_context) < 0)
-            Trace.TraceError("codec context close error.");
+        fixed (AVCodecContext** pcodec_context = &codec_context)
+            ffmpeg.avcodec_free_context(pcodec_context);
         video_stream = null;
-        fixed (AVFormatContext** format_contexttmp = &format_context)
-        {
-            ffmpeg.avformat_close_input(format_contexttmp);
-        }
+        fixed (AVFormatContext** pformat_context = &format_context)
+            ffmpeg.avformat_close_input(pformat_context);
         if (lastTexture != null)
             lastTexture.Dispose();
         while (decodedframes.TryDequeue(out CDecodedFrame? frame))
