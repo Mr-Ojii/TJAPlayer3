@@ -1702,8 +1702,8 @@ internal class TJAPlayer3 : Game
             ConfigToml.Window.Y = this.Y;   //
         }
 
-        ConfigToml.Window.Width = (ConfigToml.Window.FullScreen) ? currentClientSize.Width : this.ClientWidth;    // #23510 2010.10.31 yyagi add
-        ConfigToml.Window.Height = (ConfigToml.Window.FullScreen) ? currentClientSize.Height : this.ClientHeight;
+        ConfigToml.Window.Width = (ConfigToml.Window.FullScreen) ? currentClientSize.Width : this.ClientSize.Width;    // #23510 2010.10.31 yyagi add
+        ConfigToml.Window.Height = (ConfigToml.Window.FullScreen) ? currentClientSize.Height : this.ClientSize.Height;
     }
 
     #endregion

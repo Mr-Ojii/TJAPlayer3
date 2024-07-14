@@ -36,23 +36,6 @@ public class GameWindow : IDisposable
         }
     }
 
-    public int ClientWidth
-    {
-        get
-        {
-            SDL.SDL_GetWindowSize(_window_handle, out int width, out int _);
-            return width;
-        }
-    }
-    public int ClientHeight
-    {
-        get
-        {
-            SDL.SDL_GetWindowSize(_window_handle, out int _, out int height);
-            return height;
-        }
-    }
-
     public bool Focused
     {
         get
