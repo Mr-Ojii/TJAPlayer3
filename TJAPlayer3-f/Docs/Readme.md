@@ -1,5 +1,5 @@
 # TJAPlayer3-f
-最終更新日:2024/07/14(Mr-Ojii)
+最終更新日:2024/08/19(Mr-Ojii)
 
 このReadmeはTJAPlayer3のReadmeを基に作成いたしました。
 
@@ -99,7 +99,7 @@ chmod +x TJAPlayer3-f.AppImage
 ## 開発環境(動作確認環境)
 #### OS
 * Windows 11(Ver.23H2) (x64)
-* macOS 14.5 (arm64)
+* macOS 14.6.1 (arm64)
 
 #### Editor
 * Visual Studio Community 2022
