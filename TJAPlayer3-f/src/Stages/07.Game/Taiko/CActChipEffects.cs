@@ -18,12 +18,13 @@ internal class CActChipEffects : CActivity
 
         for (int i = 0; i < 128; i++)
         {
-            if (!st[i].b使用中)
+            var si = chipEffects[i];
+            if (!si.b使用中)
             {
-                st[i].b使用中 = true;
-                st[i].ct進行 = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.Effect.NotesFlash.Ptn, TJAPlayer3.app.Skin.SkinConfig.Game.Effect.NotesFlash.Timer, TJAPlayer3.app.Timer);
-                st[i].nプレイヤー = nPlayer;
-                st[i].Lane = Lane;
+                si.b使用中 = true;
+                si.ct進行 = new CCounter(0, TJAPlayer3.app.Skin.SkinConfig.Game.Effect.NotesFlash.Ptn, TJAPlayer3.app.Skin.SkinConfig.Game.Effect.NotesFlash.Timer, TJAPlayer3.app.Timer);
+                si.nプレイヤー = nPlayer;
+                si.Lane = Lane;
                 break;
             }
         }
@@ -35,7 +36,7 @@ internal class CActChipEffects : CActivity
     {
         for (int i = 0; i < 128; i++)
         {
-            st[i] = new STチップエフェクト
+            chipEffects[i] = new CChipEffect
             {
                 b使用中 = false,
                 ct進行 = new CCounter()
@@ -47,8 +48,8 @@ internal class CActChipEffects : CActivity
     {
         for (int i = 0; i < 128; i++)
         {
-            st[i].ct進行 = null;
-            st[i].b使用中 = false;
+            chipEffects[i].ct進行 = null;
+            chipEffects[i].b使用中 = false;
         }
         base.On非活性化();
     }
@@ -56,7 +57,7 @@ internal class CActChipEffects : CActivity
     {
         for (int i = 0; i < 128; i++)
         {
-            var si = st[i];
+            var si = chipEffects[i];
             if (!si.b使用中 || si.ct進行 == null)
                 continue;
 
@@ -96,15 +97,14 @@ internal class CActChipEffects : CActivity
 
     #region [ private ]
     //-----------------
-    [StructLayout(LayoutKind.Sequential)]
-    private struct STチップエフェクト
+    private class CChipEffect
     {
         public bool b使用中;
         public CCounter? ct進行;
         public int nプレイヤー;
         public int Lane;
     }
-    private STチップエフェクト[] st = new STチップエフェクト[128];
+    private CChipEffect[] chipEffects = new CChipEffect[128];
     //-----------------
     #endregion
 }
