@@ -77,12 +77,14 @@ internal class CStageResult : CStage
                     json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].LastPlay = this.cRecords[i];
 
                     //HiScoreの更新
-                    int j;
-                    for (j = 0; j < json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore.Count; j++)
-                        if (this.cRecords[i].Score >= json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore[j].Score)
-                            break;
+                    {
+                        int j;
+                        for (j = 0; j < json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore.Count; j++)
+                            if (this.cRecords[i].Score >= json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore[j].Score)
+                                break;
 
-                    json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore.Insert(j, this.cRecords[i]);
+                        json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore.Insert(j, this.cRecords[i]);
+                    }
 
                     //3個以上だった場合、3個に丸める
                     while (json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore.Count > 3)
@@ -101,8 +103,8 @@ internal class CStageResult : CStage
                     cスコア.譜面情報.nCrown[TJAPlayer3.stage選曲.n確定された曲の難易度[i]] = json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].Crown;
                     for (int k = 0; k < json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore.Count; k++)
                     {
-                        cスコア.譜面情報.nHiScore[TJAPlayer3.stage選曲.n確定された曲の難易度[i]][j] = (int)json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore[j].Score;
-                        cスコア.譜面情報.strHiScorerName[TJAPlayer3.stage選曲.n確定された曲の難易度[i]][j] = json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore[j].PlayerName;
+                        cスコア.譜面情報.nHiScore[TJAPlayer3.stage選曲.n確定された曲の難易度[i]][k] = (int)json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore[k].Score;
+                        cスコア.譜面情報.strHiScorerName[TJAPlayer3.stage選曲.n確定された曲の難易度[i]][k] = json.Records[TJAPlayer3.stage選曲.n確定された曲の難易度[i]].HiScore[k].PlayerName;
                     }
                     TJAPlayer3.stage選曲.r確定されたスコア = cスコア;
                     #endregion
