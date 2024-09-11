@@ -127,7 +127,7 @@ public class CConfigToml
             get { return _DeviceType; }
             set { _DeviceType = Math.Clamp(value, 0, 4); }
         }
-        private int _DeviceType = (int)(OperatingSystem.IsWindows() ? (COS.bIsWin10OrLater() ? ESoundDeviceTypeForConfig.WASAPI_Shared : ESoundDeviceTypeForConfig.WASAPI_Exclusive) : ESoundDeviceTypeForConfig.BASS);
+        private int _DeviceType = (int)(OperatingSystem.IsWindows() ? ESoundDeviceTypeForConfig.WASAPI_Shared : ESoundDeviceTypeForConfig.BASS);
         public int WASAPIBufferSizeMs
         {
             get { return _WASAPIBufferSizeMs; }
