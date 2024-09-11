@@ -99,6 +99,9 @@ internal class CSoundDeviceWASAPI : ISoundDevice
         this.tmSystemTimer = new CTimer();
         this.b最初の実出力遅延算出 = true;
 
+        if (!OperatingSystem.IsWindows())
+            throw new PlatformNotSupportedException("WASAPI is supported on Windows only.");
+
         // BASS の設定。
 
         this.bIsBASSSoundFree = true;

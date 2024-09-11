@@ -12,6 +12,9 @@ public static class CEnumerateAllAsioDevices
 {
     public static string[] GetAllASIODevices()
     {
+        if (!OperatingSystem.IsWindows())
+            return new string[] { "None" };
+
         try
         {
             string[] bassAsioDevName = new string[BassAsio.DeviceCount];
@@ -113,6 +116,9 @@ internal class CSoundDeviceASIO : ISoundDevice
         this.SystemTimemsWhenUpdatingElapsedTime = CTimer.nUnused;
         this.tmSystemTimer = new CTimer();
         this.nASIODevice = _nASIODevice;
+
+        if (!OperatingSystem.IsWindows())
+            throw new PlatformNotSupportedException("ASIO is supported on Windows only.");
 
         // BASS の設定。
 
