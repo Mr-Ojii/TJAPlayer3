@@ -34,11 +34,8 @@ internal class CAct演奏AVI : CActivity
 
     public unsafe int t進行描画()
     {
-        if (!base.b活性化してない)
+        if (!base.b活性化してない && this.rVD is not null)
         {
-            if (this.rVD is null)
-                return 0;
-
             this.rVD.GetNowFrame(ref this.tx描画用);
 
             if (this.tx描画用 is null)
@@ -56,7 +53,7 @@ internal class CAct演奏AVI : CActivity
 
     public void t窓表示()
     {
-        if (this.rVD == null || this.tx描画用 == null || !TJAPlayer3.app.ConfigToml.Game.Background._ClipDispType.HasFlag(EClipDispType.Window))
+        if (this.rVD is null || this.tx描画用 is null || !TJAPlayer3.app.ConfigToml.Game.Background._ClipDispType.HasFlag(EClipDispType.Window))
             return;
 
         float[] fRatio = new float[] { 640.0f - 4.0f, 360.0f - 4.0f }; //中央下表示

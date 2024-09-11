@@ -386,21 +386,22 @@ internal class CSkin : IDisposable
     public void SortLoader()
     {
         string strFileName = Path(@"SortConfig.toml");
-        if (File.Exists(strFileName))
+        if (!File.Exists(strFileName))
+            return;
+        try
         {
-            try
-            {
-                string str = CJudgeTextEncoding.ReadTextFile(strFileName);
+            string? str = CJudgeTextEncoding.ReadTextFile(strFileName);
+            if (string.IsNullOrEmpty(str))
+                return;
 
-                var tmpSortList = Toml.ToModel<Dictionary<string, Dictionary<string, int>>>(str);
+            var tmpSortList = Toml.ToModel<Dictionary<string, Dictionary<string, int>>>(str);
 
-                if (tmpSortList.Count != 0)
-                    this.SortList = tmpSortList;
-            }
-            catch (Exception e)
-            {
-                Trace.TraceWarning(e.ToString());
-            }
+            if (tmpSortList.Count != 0)
+                this.SortList = tmpSortList;
+        }
+        catch (Exception e)
+        {
+            Trace.TraceWarning(e.ToString());
         }
     }
 
@@ -568,7 +569,7 @@ internal class CSkin : IDisposable
     /// </summary>
     /// <param name="skinpath">スキンが格納されたパス名(フルパス)</param>
     /// <returns>スキン名</returns>
-    public static string GetSkinName(string skinPathFullName)
+    public static string? GetSkinName(string skinPathFullName)
     {
         if (skinPathFullName != null)
         {
@@ -579,9 +580,9 @@ internal class CSkin : IDisposable
         }
         return null;
     }
-    public static string[] GetSkinName(string[] skinPathFullNames)
+    public static string?[] GetSkinName(string[] skinPathFullNames)
     {
-        string[] ret = new string[skinPathFullNames.Length];
+        string?[] ret = new string[skinPathFullNames.Length];
         for (int i = 0; i < skinPathFullNames.Length; i++)
         {
             ret[i] = GetSkinName(skinPathFullNames[i]);
@@ -590,7 +591,7 @@ internal class CSkin : IDisposable
     }
 
 
-    public string GetSkinSubfolderFullNameFromSkinName(string skinName)
+    public string? GetSkinSubfolderFullNameFromSkinName(string skinName)
     {
         foreach (string s in strSystemSkinSubfolders)
         {
@@ -632,8 +633,9 @@ internal class CSkin : IDisposable
         var skinConfigPath = Path(@"SkinConfig.toml");
         if (!File.Exists(skinConfigPath))
             return;
-
-        string strToml = CJudgeTextEncoding.ReadTextFile(skinConfigPath);
+        string? strToml = CJudgeTextEncoding.ReadTextFile(skinConfigPath);
+        if (string.IsNullOrEmpty(strToml))
+            return;
         TomlModelOptions tomlModelOptions = new()
         {
             ConvertPropertyName = (x) => x,

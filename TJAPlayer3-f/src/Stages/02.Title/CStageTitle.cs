@@ -280,7 +280,7 @@ internal class CStageTitle : CStage
 
     #region [ private ]
     //-----------------
-    private CTexture 文字テクスチャを生成する(string str文字, Color forecolor, Color backcolor, CFontRenderer pf)
+    private CTexture? 文字テクスチャを生成する(string str文字, Color forecolor, Color backcolor, CFontRenderer pf)
     {
         using (var bmp = pf.DrawText_V(str文字, forecolor, backcolor, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatioVertical))
         {
