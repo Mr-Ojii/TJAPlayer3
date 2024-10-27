@@ -117,6 +117,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         cd ${{ github.workspace }}/artifacts
+        mv ./*/*.zip ./
         RELEASE_NAME=TJAPlayer3-f-prerelease-${{ needs.get_rev_list_count.outputs.rev_list_count }}
         TAG_NAME=prerelease-${{ needs.get_rev_list_count.outputs.rev_list_count }}
         gh release create "${TAG_NAME}" ${{ github.workspace }}/artifacts/*.zip -t "${RELEASE_NAME}" -p
@@ -127,6 +128,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         cd ${{ github.workspace }}/artifacts
+        mv ./*/*.zip ./
         VERSION=$(echo ${{ github.ref }} | sed -e "s#refs/tags/##g")
         RELEASE_NAME=${VERSION}
         TAG_NAME=${VERSION}
