@@ -76,9 +76,9 @@ jobs:
 
     - name: Upload Artifact(Pre)
       if: (startsWith(github.ref, 'refs/tags/Ver')) != true
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: TJAPlayer3-f
+        name: TJAPlayer3-f-${{ matrix.config.platform }}-${{ needs.get_rev_list_count.outputs.rev_list_count }}
         path: ${{ github.workspace }}/TJAPlayer3-f-PreRelease-${{ matrix.config.platform }}-${{ needs.get_rev_list_count.outputs.rev_list_count }}.zip
 
     #Release
@@ -90,9 +90,9 @@ jobs:
 
     - name: Upload Artifact
       if: (startsWith(github.ref, 'refs/tags/Ver'))
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: TJAPlayer3-f
+        name: TJAPlayer3-f-${{ matrix.config.os-platform }}
         path: ${{ github.workspace }}/TJAPlayer3-f-${{ matrix.config.os-platform }}.zip
 
 
@@ -106,9 +106,8 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Download Artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
-        name: TJAPlayer3-f
         path: artifacts
 
     # https://gist.github.com/superbrothers/af84a2f8af394a62352e06537a640746
