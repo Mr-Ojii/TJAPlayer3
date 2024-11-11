@@ -53,7 +53,7 @@ internal class CActSelectHistoryPanel : CActivity
                 {
                     if (TJAPlayer3.app.Tx.SongSelect_ScoreWindow[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]] != null && TJAPlayer3.app.Tx.SongSelect_ScoreWindow_Text != null)
                     {
-                        TJAPlayer3.app.Tx.SongSelect_ScoreWindow[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]].t2D描画(TJAPlayer3.app.Device, x[i], y[i]);
+                        TJAPlayer3.app.Tx.SongSelect_ScoreWindow[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]]?.t2D描画(TJAPlayer3.app.Device, x[i], y[i]);
                         for (int j = 0; j < 3; j++)
                         {
                             this.Names[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i], j]?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.UpRight, x[i] + xdiff + 50, y[i] + 65 + j * 70);
