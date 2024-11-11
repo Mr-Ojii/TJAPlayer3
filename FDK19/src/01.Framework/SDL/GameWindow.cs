@@ -18,13 +18,12 @@ public unsafe class GameWindow : IDisposable
         {
             int width, height;
             SDL_RendererLogicalPresentation _rlp;
-            SDL_ScaleMode _sm;
-            SDL3.SDL_GetRenderLogicalPresentation(_renderer_handle, &width, &height, &_rlp, &_sm);
+            SDL3.SDL_GetRenderLogicalPresentation(_renderer_handle, &width, &height, &_rlp);
             return new Size(width, height);
         }
         set
         {
-            SDL3.SDL_SetRenderLogicalPresentation(_renderer_handle, value.Width, value.Height, _renderer_logical_presentation, _scale_mode);
+            SDL3.SDL_SetRenderLogicalPresentation(_renderer_handle, value.Width, value.Height, _renderer_logical_presentation);
         }
     }
 
@@ -94,7 +93,7 @@ public unsafe class GameWindow : IDisposable
             {
                 fixed (void* ptr = bmp.Pixels)
                 {
-                    var surface = SDL3.SDL_CreateSurfaceFrom((nint)ptr, bmp.Width, bmp.Height, bmp.Width * 4, SDL_PixelFormatEnum.SDL_PIXELFORMAT_ARGB8888);
+                    var surface = SDL3.SDL_CreateSurfaceFrom(bmp.Width, bmp.Height, SDL_PixelFormat.SDL_PIXELFORMAT_ARGB8888, (nint)ptr, bmp.Width * 4);
                     SDL3.SDL_SetWindowIcon(_window_handle, surface);
                     SDL3.SDL_DestroySurface(surface);
                 }
@@ -110,7 +109,7 @@ public unsafe class GameWindow : IDisposable
         }
         set
         {
-            SDL3.SDL_SetWindowFullscreen(_window_handle, value ? SDL_bool.SDL_TRUE : SDL_bool.SDL_FALSE);
+            SDL3.SDL_SetWindowFullscreen(_window_handle, value);
             _full_screen = value;
         }
     }
@@ -120,9 +119,7 @@ public unsafe class GameWindow : IDisposable
     {
         get
         {
-            SDL_RendererInfo info;
-            SDL3.SDL_GetRendererInfo(this._renderer_handle, &info);
-            string? _renderer_name = Marshal.PtrToStringUTF8((nint)info.name);
+            string? _renderer_name = SDL3.SDL_GetRendererName(this._renderer_handle);
             if (_renderer_name is null)
                 return "null";
             else
@@ -151,7 +148,7 @@ public unsafe class GameWindow : IDisposable
             throw new Exception("Failed to create renderer.");
         }
         this.Device = new Device(_window_handle, _renderer_handle);
-        SDL3.SDL_SetRenderLogicalPresentation(_renderer_handle, width, height, _renderer_logical_presentation, _scale_mode);
+        SDL3.SDL_SetRenderLogicalPresentation(_renderer_handle, width, height, _renderer_logical_presentation);
     }
 
     public void Run()
@@ -167,7 +164,7 @@ public unsafe class GameWindow : IDisposable
 
             this.OnRenderFrame(new EventArgs());
 
-            while (SDL3.SDL_PollEvent(&poll_event) != 0)
+            while (SDL3.SDL_PollEvent(&poll_event))
             {
                 switch ((SDL_EventType)poll_event.type)
                 {
@@ -279,5 +276,4 @@ public unsafe class GameWindow : IDisposable
     private bool _focused;
 
     private const SDL_RendererLogicalPresentation _renderer_logical_presentation = SDL_RendererLogicalPresentation.SDL_LOGICAL_PRESENTATION_LETTERBOX;
-    private const SDL_ScaleMode _scale_mode = SDL_ScaleMode.SDL_SCALEMODE_LINEAR;
 }

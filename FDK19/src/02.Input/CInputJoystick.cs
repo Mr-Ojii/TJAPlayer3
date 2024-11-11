@@ -395,7 +395,7 @@ public unsafe class CInputJoystick : IInputDevice, IDisposable
                 bool bIsButtonPressedReleased = false;
                 for (int j = 0; j < 128; j++)
                 {
-                    bool buttonState = (SDL3.SDL_GetJoystickButton(joystick_handle, j) == 1);
+                    bool buttonState = SDL3.SDL_GetJoystickButton(joystick_handle, j);
                     if (this.btmpButtonState[8 + j] == false && buttonState)
                     {
                         if (CSoundManager.rc演奏用タイマ is not null)
@@ -539,7 +539,7 @@ public unsafe class CInputJoystick : IInputDevice, IDisposable
     {
         if (!this.bDisposed)
         {
-            if (SDL3.SDL_JoystickConnected(joystick_handle) == SDL.SDL_bool.SDL_TRUE)
+            if (SDL3.SDL_JoystickConnected(joystick_handle))
             {
                 SDL3.SDL_CloseJoystick(joystick_handle);
             }

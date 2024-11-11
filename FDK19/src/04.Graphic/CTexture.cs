@@ -117,7 +117,7 @@ public unsafe class CTexture : IDisposable
         {
             this.rcImageRect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
 
-            this.texture = SDL3.SDL_CreateTexture(device.renderer, SDL_PixelFormatEnum.SDL_PIXELFORMAT_ARGB8888, (int)SDL.SDL_TextureAccess.SDL_TEXTUREACCESS_TARGET, bitmap.Width, bitmap.Height);
+            this.texture = SDL3.SDL_CreateTexture(device.renderer, SDL_PixelFormat.SDL_PIXELFORMAT_ARGB8888, SDL_TextureAccess.SDL_TEXTUREACCESS_TARGET, bitmap.Width, bitmap.Height);
 
             if (this.texture == null)
                 throw new Exception("Failed to create texture.");

@@ -43,12 +43,12 @@ public unsafe class CInputMouse : IInputDevice, IDisposable
         {
             //-----------------------------
             float x, y;
-            uint currentState = SDL.SDL3.SDL_GetMouseState(&x, &y);
+            SDL_MouseButtonFlags currentState = SDL3.SDL_GetMouseState(&x, &y);
 
             {
                 for (int j = 0; j < Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length; j++)
                 {
-                    if (this.btmpMouseState[j] == false && ((currentState & masklist[j]) != 0))
+                    if (this.btmpMouseState[j] == false && currentState.HasFlag(masklist[j]))
                     {
                         if (CSoundManager.rc演奏用タイマ is not null)
                         {
@@ -153,11 +153,11 @@ public unsafe class CInputMouse : IInputDevice, IDisposable
     private bool[] btmpMouseState = new bool[Enum.GetNames(typeof(SlimDXKeys.Mouse)).Length];
     public ConcurrentQueue<STInputEvent> listEventBuffer;
 
-    private uint[] masklist = new uint[]
+    private SDL_MouseButtonFlags[] masklist =
     {
-        SDL3.SDL_BUTTON_LMASK,
-        SDL3.SDL_BUTTON_MMASK,
-        SDL3.SDL_BUTTON_RMASK
+        SDL_MouseButtonFlags.SDL_BUTTON_LMASK,
+        SDL_MouseButtonFlags.SDL_BUTTON_MMASK,
+        SDL_MouseButtonFlags.SDL_BUTTON_RMASK,
     };
     //-----------------
     #endregion

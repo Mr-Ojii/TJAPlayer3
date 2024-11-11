@@ -38,7 +38,7 @@ public class CInputKeyboard : IInputDevice, IDisposable
                 int numkeys;
                 byte* currentState = (byte*)SDL3.SDL_GetKeyboardState(&numkeys);
 
-                for (int index = 0; index < (int)SDL.SDL_Scancode.SDL_NUM_SCANCODES; index++)
+                for (int index = 0; index < (int)SDL.SDL_Scancode.SDL_SCANCODE_COUNT; index++)
                 {
                     // #xxxxx: 2022.02.09 Mr-Ojii: SDLK (SDL.SDL_Scancode) を SlimDX.DirectInput.Key に変換。
                     if (!DeviceConstantConverter.SDLKToKey.TryGetValue((SDL_Scancode)index, out var key))

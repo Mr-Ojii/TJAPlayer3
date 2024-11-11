@@ -191,9 +191,10 @@ internal class Program
                 var msg = Encoding.UTF8.GetBytes($"TJAPlayer3-f(Ver.{Assembly.GetExecutingAssembly().GetName().Version}) is already running.");
                 var app = "TJAPlayer3-f"u8;
                 fixed(byte* pmsg = msg)
-                    fixed(byte* papp = app)
-                        if (SDL3.SDL_ShowSimpleMessageBox(SDL_MessageBoxFlags.SDL_MESSAGEBOX_WARNING, papp, pmsg, null) != 0)
-                            Console.WriteLine(msg);
+                    fixed(byte* papp = app) {
+                        SDL3.SDL_ShowSimpleMessageBox(SDL_MessageBoxFlags.SDL_MESSAGEBOX_WARNING, papp, pmsg, null);
+                        Console.WriteLine(msg);
+                    }
             }
         }
     }
