@@ -45,7 +45,8 @@ internal class CActEnumSongs : CActivity
                 using (CFontRenderer pffont = new CFontRenderer(CFontRenderer.DefaultFontName, 32, CFontRenderer.FontStyle.Bold))
                 {
                     this.txMessage = TJAPlayer3.app.tCreateTexture(pffont.DrawText(strMessage[ci], Color.White));
-                    this.txMessage.vcScaling = new Vector2(0.5f);
+                    if (this.txMessage != null)
+                        this.txMessage.vcScaling = new Vector2(0.5f);
                 }
             }
             else
