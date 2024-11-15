@@ -34,25 +34,25 @@ internal class CActSortSongs : CActSelectPopupMenu
             case EOrder.Path:
                 nSortOrder *= 2;    // 0,1  => -1, 1
                 nSortOrder -= 1;
-                this.act曲リスト.t曲リストのソート(
+                this.act曲リスト?.t曲リストのソート(
                     CSongsManager.t曲リストのソート1_絶対パス順, nSortOrder
                 );
-                this.act曲リスト.t選択曲が変更された(true);
+                this.act曲リスト?.t選択曲が変更された(true);
                 break;
             case EOrder.Title:
                 nSortOrder *= 2;    // 0,1  => -1, 1
                 nSortOrder -= 1;
-                this.act曲リスト.t曲リストのソート(
+                this.act曲リスト?.t曲リストのソート(
                     CSongsManager.t曲リストのソート2_タイトル順, nSortOrder
                 );
-                this.act曲リスト.t選択曲が変更された(true);
+                this.act曲リスト?.t選択曲が変更された(true);
                 break;
             //ジャンル順
             case EOrder.Genre:
-                this.act曲リスト.t曲リストのソート(
+                this.act曲リスト?.t曲リストのソート(
                     CSongsManager.t曲リストのソート9_ジャンル順, nSortOrder
                 );
-                this.act曲リスト.t選択曲が変更された(true);
+                this.act曲リスト?.t選択曲が変更された(true);
                 break;
             case EOrder.Return:
                 this.tDeativatePopupMenu();
@@ -80,7 +80,7 @@ internal class CActSortSongs : CActSelectPopupMenu
     #region [ private ]
     //-----------------
 
-    private CActSelect曲リスト act曲リスト;
+    private CActSelect曲リスト? act曲リスト;
 
     private enum EOrder : int
     {
