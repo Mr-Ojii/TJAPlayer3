@@ -1,4 +1,5 @@
-﻿using FDK;
+﻿using System.Runtime.CompilerServices;
+using FDK;
 
 namespace TJAPlayer3;
 
@@ -475,7 +476,8 @@ internal class CActSelect曲リスト : CActivity
             using (CFontRenderer pffont = new CFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, 32))
             {
                 this.txSongNotFound = TJAPlayer3.app.tCreateTexture(pffont.DrawText(s1[c], Color.White));
-                this.txSongNotFound.vcScaling = new Vector2(0.5f);
+                if (this.txSongNotFound != null)
+                    this.txSongNotFound.vcScaling = new Vector2(0.5f);
             }
         }
         catch (CTextureCreateFailedException e)
@@ -493,7 +495,8 @@ internal class CActSelect曲リスト : CActivity
             using (CFontRenderer pffont = new CFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, 32))
             {
                 this.txEnumeratingSongs = TJAPlayer3.app.tCreateTexture(pffont.DrawText(s1[c], Color.White));
-                this.txEnumeratingSongs.vcScaling = new Vector2(0.5f);
+                if (this.txEnumeratingSongs != null)
+                    this.txEnumeratingSongs.vcScaling = new Vector2(0.5f);
             }
         }
         catch (CTextureCreateFailedException e)
@@ -651,33 +654,33 @@ internal class CActSelect曲リスト : CActivity
         if (TJAPlayer3.app.Tx.SongSelect_Bar_BackBox != null)
             TJAPlayer3.app.Tx.SongSelect_Bar_BackBox.Opacity = 全体Opacity;
 
-        for (int i = 0; i < TJAPlayer3.app.Tx.SongSelect_Lyric_Text.Length; i++)
-            if (TJAPlayer3.app.Tx.SongSelect_Lyric_Text[i] != null)
-                TJAPlayer3.app.Tx.SongSelect_Lyric_Text[i].Opacity = 全体Opacity;
+        foreach (var i in TJAPlayer3.app.Tx.SongSelect_Lyric_Text)
+            if (i != null)
+                i.Opacity = 全体Opacity;
 
-        for (int i = 0; i < TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre.Length; i++)
-            if (TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre[i] != null)
-                TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre[i].Opacity = 全体Opacity;
+        foreach (var i in TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre)
+            if (i != null)
+                i.Opacity = 全体Opacity;
 
-        for (int i = 0; i < TJAPlayer3.app.Tx.SongSelect_Box_Center_Genre.Length; i++)
-            if (TJAPlayer3.app.Tx.SongSelect_Box_Center_Genre[i] != null)
-                TJAPlayer3.app.Tx.SongSelect_Box_Center_Genre[i].Opacity = 全体Opacity;
+        foreach (var i in TJAPlayer3.app.Tx.SongSelect_Box_Center_Genre)
+            if (i != null)
+                i.Opacity = 全体Opacity;
 
-        for (int i = 0; i < TJAPlayer3.app.Tx.SongSelect_Box_Center_Header_Genre.Length; i++)
-            if (TJAPlayer3.app.Tx.SongSelect_Box_Center_Header_Genre[i] != null)
-                TJAPlayer3.app.Tx.SongSelect_Box_Center_Header_Genre[i].Opacity = 全体Opacity;
+        foreach (var i in TJAPlayer3.app.Tx.SongSelect_Box_Center_Header_Genre)
+            if (i != null)
+                i.Opacity = 全体Opacity;
 
-        for (int i = 0; i < TJAPlayer3.app.Tx.SongSelect_Box_Center_Text_Genre.Length; i++)
-            if (TJAPlayer3.app.Tx.SongSelect_Box_Center_Text_Genre[i] != null)
-                TJAPlayer3.app.Tx.SongSelect_Box_Center_Text_Genre[i].Opacity = 全体Opacity;
+        foreach (var i in TJAPlayer3.app.Tx.SongSelect_Box_Center_Text_Genre)
+            if (i != null)
+                i.Opacity = 全体Opacity;
 
-        for (int i = 0; i < TJAPlayer3.app.Tx.SongSelect_Bar_Box_Genre.Length; i++)
-            if (TJAPlayer3.app.Tx.SongSelect_Bar_Box_Genre[i] != null)
-                TJAPlayer3.app.Tx.SongSelect_Bar_Box_Genre[i].Opacity = 全体Opacity;
+        foreach (var i in TJAPlayer3.app.Tx.SongSelect_Bar_Box_Genre)
+            if (i != null)
+                i.Opacity = 全体Opacity;
 
-        for (int i = 0; i < TJAPlayer3.app.Tx.SongSelect_Bar_Genre.Length; i++)
-            if (TJAPlayer3.app.Tx.SongSelect_Bar_Genre[i] != null)
-                TJAPlayer3.app.Tx.SongSelect_Bar_Genre[i].Opacity = 全体Opacity;
+        foreach (var i in TJAPlayer3.app.Tx.SongSelect_Bar_Genre)
+            if (i != null)
+                i.Opacity = 全体Opacity;
         //------------ぐちゃぐちゃで意味わからんよね。ごめんね。
         //こう見てみると、意外にテクスチャ少なめ？
 
@@ -846,9 +849,17 @@ internal class CActSelect曲リスト : CActivity
             {
                 int ForLoop = (int)(1280 / 100) + 1;
                 for (int i = 0; i < ForLoop; i++)
-                    TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre[GenreBack].t2D描画(TJAPlayer3.app.Device, i * 100, TJAPlayer3.app.Skin.SkinConfig.SongSelect.OverallY - 69, new Rectangle(100, 0, 100, TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre[GenreBack].szTextureSize.Height));
-                TJAPlayer3.app.Tx.SongSelect_Box_Center_Header_Genre[GenreBack].vcScaling = new Vector2(1f);
-                TJAPlayer3.app.Tx.SongSelect_Box_Center_Header_Genre[GenreBack].t2D元サイズ基準描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, BoxCenterx, TJAPlayer3.app.Skin.SkinConfig.SongSelect.OverallY + TJAPlayer3.app.Skin.SkinConfig.SongSelect.BoxHeaderCorrectionY - 19, new Rectangle(0, 0, TJAPlayer3.app.Tx.SongSelect_Box_Center_Header_Genre[GenreBack].szTextureSize.Width, 62));
+                {
+                    CTexture? back_genre = TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre[GenreBack];
+                    if (back_genre != null)
+                        back_genre.t2D描画(TJAPlayer3.app.Device, i * 100, TJAPlayer3.app.Skin.SkinConfig.SongSelect.OverallY - 69, new Rectangle(100, 0, 100, back_genre.szTextureSize.Height));
+                }
+                CTexture? header_genre = TJAPlayer3.app.Tx.SongSelect_Box_Center_Header_Genre[GenreBack];
+                if (header_genre != null)
+                {
+                    header_genre.vcScaling = new Vector2(1f);
+                    header_genre.t2D元サイズ基準描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, BoxCenterx, TJAPlayer3.app.Skin.SkinConfig.SongSelect.OverallY + TJAPlayer3.app.Skin.SkinConfig.SongSelect.BoxHeaderCorrectionY - 19, new Rectangle(0, 0, header_genre.szTextureSize.Width, 62));
+                }
             }
         }
 
@@ -908,8 +919,7 @@ internal class CActSelect曲リスト : CActivity
                         }
                         int sixx = TJAPlayer3.app.Skin.SkinConfig.SongSelect.BarX[5] + 100 + lo * 100;
                         sixx -= this.n現在のスクロールカウンタ;
-                        if (TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre[genre] != null)
-                            TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre[genre].t2D描画(TJAPlayer3.app.Device, sixx, TJAPlayer3.app.Skin.SkinConfig.SongSelect.OverallY - 69, new Rectangle(sixbasho * 100, 0, 100, TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre[nnGenreBack].szTextureSize.Height));
+                        TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre[genre]?.t2D描画(TJAPlayer3.app.Device, sixx, TJAPlayer3.app.Skin.SkinConfig.SongSelect.OverallY - 69, new Rectangle(sixbasho * 100, 0, 100, TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre[nnGenreBack].szTextureSize.Height));
                     }
                 }
 
@@ -923,15 +933,13 @@ internal class CActSelect曲リスト : CActivity
                         basho = 2;
                     if (n見た目の行番号 != 5 && n見た目の行番号 != 6 && n見た目の行番号 != 7)
                     {
-                        if (TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre[genre] != null)
-                            TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre[genre].t2D描画(TJAPlayer3.app.Device, xAnime, TJAPlayer3.app.Skin.SkinConfig.SongSelect.OverallY - 69, new Rectangle(basho * 100, 0, 100, TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre[nnGenreBack].szTextureSize.Height));
+                        TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre[genre]?.t2D描画(TJAPlayer3.app.Device, xAnime, TJAPlayer3.app.Skin.SkinConfig.SongSelect.OverallY - 69, new Rectangle(basho * 100, 0, 100, TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre[nnGenreBack].szTextureSize.Height));
                     }
                     else if (n見た目の行番号 != 6)
                     {
                         int fivesevenx = TJAPlayer3.app.Skin.SkinConfig.SongSelect.BarX[n見た目の行番号];
                         fivesevenx -= this.n現在のスクロールカウンタ;
-                        if (TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre[genre] != null)
-                            TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre[genre].t2D描画(TJAPlayer3.app.Device, fivesevenx, TJAPlayer3.app.Skin.SkinConfig.SongSelect.OverallY - 69, new Rectangle(basho * 100, 0, 100, TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre[nnGenreBack].szTextureSize.Height));
+                        TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre[genre]?.t2D描画(TJAPlayer3.app.Device, fivesevenx, TJAPlayer3.app.Skin.SkinConfig.SongSelect.OverallY - 69, new Rectangle(basho * 100, 0, 100, TJAPlayer3.app.Tx.SongSelect_Bar_Center_Back_Genre[nnGenreBack].szTextureSize.Height));
                     }
                 }
             }
@@ -939,10 +947,11 @@ internal class CActSelect曲リスト : CActivity
             if (this.r現在選択中の曲.r親ノード != null)
             {
                 int genreheader = TJAPlayer3.app.Skin.nStrジャンルtoNum(this.r現在選択中の曲.r親ノード.strGenre);
-                if (TJAPlayer3.app.Tx.SongSelect_Box_Center_Header_Genre[genreheader] != null)
+                CTexture? genre_header_tex = TJAPlayer3.app.Tx.SongSelect_Box_Center_Header_Genre[genreheader];
+                if (genre_header_tex != null)
                 {
-                    TJAPlayer3.app.Tx.SongSelect_Box_Center_Header_Genre[genreheader].vcScaling = new Vector2(1f);
-                    TJAPlayer3.app.Tx.SongSelect_Box_Center_Header_Genre[genreheader].t2D元サイズ基準描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, BoxCenterx, TJAPlayer3.app.Skin.SkinConfig.SongSelect.OverallY + TJAPlayer3.app.Skin.SkinConfig.SongSelect.BoxHeaderCorrectionY - 19, new Rectangle(0, 0, TJAPlayer3.app.Tx.SongSelect_Box_Center_Header_Genre[nnGenreBack].szTextureSize.Width, 62));
+                    genre_header_tex.vcScaling = new Vector2(1f);
+                    genre_header_tex.t2D元サイズ基準描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, BoxCenterx, TJAPlayer3.app.Skin.SkinConfig.SongSelect.OverallY + TJAPlayer3.app.Skin.SkinConfig.SongSelect.BoxHeaderCorrectionY - 19, new Rectangle(0, 0, TJAPlayer3.app.Tx.SongSelect_Box_Center_Header_Genre[nnGenreBack].szTextureSize.Width, 62));
                 }
             }
         }
@@ -1325,8 +1334,8 @@ internal class CActSelect曲リスト : CActivity
     private CCounter ct分岐フェード用タイマー;
     private CCounter ctバー展開用タイマー;
     private CCounter ctバー展開ディレイ用タイマー;
-    private CCachedFontRenderer pfMusicName;
-    private CCachedFontRenderer pfSubtitle;
+    private CCachedFontRenderer? pfMusicName;
+    private CCachedFontRenderer? pfSubtitle;
     internal CTexture タイトルtmp;
     internal CTexture サブタイトルtmp;
 
@@ -1339,9 +1348,9 @@ internal class CActSelect曲リスト : CActivity
     private int n目標のスクロールカウンタ;
 
     private STバー情報[] stバー情報 = new STバー情報[13];
-    private CTexture txSongNotFound, txEnumeratingSongs;
-    internal TitleTextureKey ttk選択している曲の曲名;
-    internal TitleTextureKey ttk選択している曲のサブタイトル;
+    private CTexture? txSongNotFound, txEnumeratingSongs;
+    internal TitleTextureKey? ttk選択している曲の曲名;
+    internal TitleTextureKey? ttk選択している曲のサブタイトル;
 
     private int nCurrentPosition = 0;
     private int nNumOfItems = 0;
@@ -1460,12 +1469,14 @@ internal class CActSelect曲リスト : CActivity
         return texture;
     }
 
-    private static CTexture GenerateTitleTexture(TitleTextureKey titleTextureKey)
+    private static CTexture? GenerateTitleTexture(TitleTextureKey titleTextureKey)
     {
         using (var bmp = titleTextureKey.CCachedFontRenderer.DrawText_V(
             titleTextureKey.str文字, titleTextureKey.forecolor, titleTextureKey.backcolor, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatioVertical))
         {
-            CTexture tx文字テクスチャ = TJAPlayer3.app.tCreateTexture(bmp);
+            CTexture? tx文字テクスチャ = TJAPlayer3.app.tCreateTexture(bmp);
+            if (tx文字テクスチャ == null)
+                return null;
             if (tx文字テクスチャ.szTextureSize.Height > titleTextureKey.maxHeight)
             {
                 tx文字テクスチャ.vcScaling.Y = (float)(((double)titleTextureKey.maxHeight) / tx文字テクスチャ.szTextureSize.Height);
