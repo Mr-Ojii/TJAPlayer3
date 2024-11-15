@@ -7,28 +7,28 @@ public class CFontRenderer : IDisposable
     #region[static系]
     public static void SetTextCorrectionX_Chara_List_Vertical(string[] list)
     {
-        if (list != null)
-            CorrectionX_Chara_List_Vertical = list.Where(c => c != null).ToArray();
+        if (list is not null)
+            CorrectionX_Chara_List_Vertical = list.Where(c => c is not null).ToArray();
     }
     public static void SetTextCorrectionX_Chara_List_Value_Vertical(int[] list)
     {
-        if (list != null)
+        if (list is not null)
             CorrectionX_Chara_List_Value_Vertical = list;
     }
     public static void SetTextCorrectionY_Chara_List_Vertical(string[] list)
     {
-        if (list != null)
-            CorrectionY_Chara_List_Vertical = list.Where(c => c != null).ToArray();
+        if (list is not null)
+            CorrectionY_Chara_List_Vertical = list.Where(c => c is not null).ToArray();
     }
     public static void SetTextCorrectionY_Chara_List_Value_Vertical(int[] list)
     {
-        if (list != null)
+        if (list is not null)
             CorrectionY_Chara_List_Value_Vertical = list;
     }
     public static void SetRotate_Chara_List_Vertical(string[] list)
     {
-        if (list != null)
-            Rotate_Chara_List_Vertical = list.Where(c => c != null).ToArray();
+        if (list is not null)
+            Rotate_Chara_List_Vertical = list.Where(c => c is not null).ToArray();
     }
 
     private static string[] CorrectionX_Chara_List_Vertical = new string[0];
@@ -199,7 +199,7 @@ public class CFontRenderer : IDisposable
             for (int i = 0; i < strImageList.Length; i++)
             {
                 int Correction_X = 0, Correction_Y = 0;
-                if (CorrectionX_Chara_List_Vertical != null && CorrectionX_Chara_List_Value_Vertical != null)
+                if (CorrectionX_Chara_List_Vertical is not null && CorrectionX_Chara_List_Value_Vertical is not null)
                 {
                     int Xindex = Array.IndexOf(CorrectionX_Chara_List_Vertical, strList[i]);
                     if (-1 < Xindex && Xindex < CorrectionX_Chara_List_Value_Vertical.Length && CorrectionX_Chara_List_Vertical.Contains(strList[i]))
@@ -219,7 +219,7 @@ public class CFontRenderer : IDisposable
                     }
                 }
 
-                if (CorrectionY_Chara_List_Vertical != null && CorrectionY_Chara_List_Value_Vertical != null)
+                if (CorrectionY_Chara_List_Vertical is not null && CorrectionY_Chara_List_Value_Vertical is not null)
                 {
                     int Yindex = Array.IndexOf(CorrectionY_Chara_List_Vertical, strList[i]);
                     if (-1 < Yindex && Yindex < CorrectionY_Chara_List_Value_Vertical.Length && CorrectionY_Chara_List_Vertical.Contains(strList[i]))

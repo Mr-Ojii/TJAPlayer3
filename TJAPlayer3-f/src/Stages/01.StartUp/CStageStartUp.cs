@@ -127,7 +127,7 @@ internal class CStageStartUp : CStage
             //-----------------
             #endregion
 
-            if (es != null && es.IsSongListEnumCompletelyDone && TJAPlayer3.app.Tx.IsLoaded)							// 曲リスト作成が終わったら
+            if (es is not null && es.IsSongListEnumCompletelyDone && TJAPlayer3.app.Tx.IsLoaded)							// 曲リスト作成が終わったら
             {
                 TJAPlayer3.SongsManager = es.SongsManager;		// 最後に、曲リストを拾い上げる
                 return 1;

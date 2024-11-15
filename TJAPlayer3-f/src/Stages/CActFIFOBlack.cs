@@ -29,13 +29,13 @@ internal class CActFIFOBlack : CActivity
     }
     public override int On進行描画()
     {
-        if (base.b活性化してない || (this.counter == null))
+        if (base.b活性化してない || (this.counter is null))
         {
             return 0;
         }
         this.counter.t進行();
         // Size clientSize = CDTXMania.app.Window.ClientSize;	// #23510 2010.10.31 yyagi: delete as of no one use this any longer.
-        if (TJAPlayer3.app.Tx.Tile_Black != null)
+        if (TJAPlayer3.app.Tx.Tile_Black is not null)
         {
             TJAPlayer3.app.Tx.Tile_Black.Opacity = (this.mode == EFIFOMode.FadeIn) ? (((100 - this.counter.n現在の値) * 0xff) / 100) : ((this.counter.n現在の値 * 0xff) / 100);
             for (int i = 0; i <= (TJAPlayer3.app.LogicalSize.Width / 64); i++)		// #23510 2010.10.31 yyagi: change "clientSize.Width" to "640" to fix FIFO drawing size

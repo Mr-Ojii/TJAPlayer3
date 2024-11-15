@@ -518,20 +518,20 @@ class TextureLoader
         #endregion
         #region エフェクト
         Effects_Hit_Explosion = TxC(GAME + EFFECTS + @"Hit/Explosion.png");
-        if (Effects_Hit_Explosion != null) Effects_Hit_Explosion.eBlendMode = TJAPlayer3.app.Skin.SkinConfig.Game.Effect.HitExplosion.AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
+        if (Effects_Hit_Explosion is not null) Effects_Hit_Explosion.eBlendMode = TJAPlayer3.app.Skin.SkinConfig.Game.Effect.HitExplosion.AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
         Effects_Hit_Explosion_Big = TxC(GAME + EFFECTS + @"Hit/Explosion_Big.png");
-        if (Effects_Hit_Explosion_Big != null) Effects_Hit_Explosion_Big.eBlendMode = TJAPlayer3.app.Skin.SkinConfig.Game.Effect.HitExplosion.BigAddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
+        if (Effects_Hit_Explosion_Big is not null) Effects_Hit_Explosion_Big.eBlendMode = TJAPlayer3.app.Skin.SkinConfig.Game.Effect.HitExplosion.BigAddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
         Effects_Hit_FireWorks = TxC(GAME + EFFECTS + @"Hit/FireWorks.png");
-        if (Effects_Hit_FireWorks != null) Effects_Hit_FireWorks.eBlendMode = TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FireWorks.AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
+        if (Effects_Hit_FireWorks is not null) Effects_Hit_FireWorks.eBlendMode = TJAPlayer3.app.Skin.SkinConfig.Game.Effect.FireWorks.AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
 
 
         Effects_Fire = TxC(GAME + EFFECTS + @"Fire.png");
-        if (Effects_Fire != null) Effects_Fire.eBlendMode = TJAPlayer3.app.Skin.SkinConfig.Game.Effect.Fire.AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
+        if (Effects_Fire is not null) Effects_Fire.eBlendMode = TJAPlayer3.app.Skin.SkinConfig.Game.Effect.Fire.AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
 
         Effects_Rainbow = TxC(GAME + EFFECTS + @"Rainbow.png");
 
         Effects_GoGoSplash = TxC(GAME + EFFECTS + @"GoGoSplash.png");
-        if (Effects_GoGoSplash != null) Effects_GoGoSplash.eBlendMode = TJAPlayer3.app.Skin.SkinConfig.Game.Effect.GoGoSplash.AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
+        if (Effects_GoGoSplash is not null) Effects_GoGoSplash.eBlendMode = TJAPlayer3.app.Skin.SkinConfig.Game.Effect.GoGoSplash.AddBlend ? CTexture.EBlendMode.Addition : CTexture.EBlendMode.Normal;
         Effects_Hit_Perfect = new CTexture[15];
         Effects_Hit_Perfect_Big = new CTexture[15];
         Effects_Hit_Good = new CTexture[15];
@@ -598,9 +598,9 @@ class TextureLoader
         End_DonderFullCombo_R = TxC(GAME + END + @"DonderFullCombo_R.png");
         End_DonderFullCombo_Text = TxC(GAME + END + @"DonderFullCombo_Text.png");
         End_DonderFullCombo_Text_Effect = TxC(GAME + END + @"DonderFullCombo_Text_Effect.png");
-        if (End_Clear_Text_Effect != null) End_Clear_Text_Effect.eBlendMode = CTexture.EBlendMode.Addition;
-        if (End_FullCombo_Text_Effect != null) End_FullCombo_Text_Effect.eBlendMode = CTexture.EBlendMode.Addition;
-        if (End_DonderFullCombo_Text_Effect != null) End_DonderFullCombo_Text_Effect.eBlendMode = CTexture.EBlendMode.Addition;
+        if (End_Clear_Text_Effect is not null) End_Clear_Text_Effect.eBlendMode = CTexture.EBlendMode.Addition;
+        if (End_FullCombo_Text_Effect is not null) End_FullCombo_Text_Effect.eBlendMode = CTexture.EBlendMode.Addition;
+        if (End_DonderFullCombo_Text_Effect is not null) End_DonderFullCombo_Text_Effect.eBlendMode = CTexture.EBlendMode.Addition;
         #endregion
         #region ゲームモード
         GameMode_Timer_Tick = TxC(GAME + GAMEMODE + @"Timer_Tick.png");
@@ -836,7 +836,7 @@ class TextureLoader
 
         #endregion
         #region 踊り子
-        if (Dancer != null)
+        if (Dancer is not null)
             for (int i = 0; i < Dancer.Length; i++)
             {
                 TJAPlayer3.t安全にDisposeする(ref Dancer[i]);

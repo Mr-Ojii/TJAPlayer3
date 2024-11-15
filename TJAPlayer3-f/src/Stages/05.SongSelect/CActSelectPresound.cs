@@ -14,11 +14,11 @@ internal class CActSelectPresound : CActivity
         Cスコア cスコア = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア;
 
         this.tサウンドの停止MT();
-        if ((cスコア != null) && ((!(cスコア.FileInfo.DirAbsolutePath + cスコア.譜面情報.strBGMファイル名).Equals(this.str現在のファイル名) || (this.sound == null)) || !this.sound.bPlaying))
+        if ((cスコア is not null) && ((!(cスコア.FileInfo.DirAbsolutePath + cスコア.譜面情報.strBGMファイル名).Equals(this.str現在のファイル名) || (this.sound is null)) || !this.sound.bPlaying))
         {
             this.tBGMFadeIn開始();
             this.long再生位置 = -1;
-            if ((cスコア.譜面情報.strBGMファイル名 != null) && (cスコア.譜面情報.strBGMファイル名.Length > 0))
+            if ((cスコア.譜面情報.strBGMファイル名 is not null) && (cスコア.譜面情報.strBGMファイル名.Length > 0))
             {
                 this.ct再生待ちウェイト = new CCounter(0, 1, 500, TJAPlayer3.app.Timer);
             }
@@ -43,7 +43,7 @@ internal class CActSelectPresound : CActivity
     public override void On非活性化()
     {
         this.tサウンドの停止MT();
-        if (token != null)
+        if (token is not null)
         {
             token.Cancel();
             token.Dispose();
@@ -58,7 +58,7 @@ internal class CActSelectPresound : CActivity
     {
         if (!base.b活性化してない)
         {
-            if ((this.ctBGMFadeIn用 != null) && this.ctBGMFadeIn用.b進行中)
+            if ((this.ctBGMFadeIn用 is not null) && this.ctBGMFadeIn用.b進行中)
             {
                 this.ctBGMFadeIn用.t進行();
                 TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.BGM選曲画面].nAutomationLevel_現在のサウンド = this.ctBGMFadeIn用.n現在の値;
@@ -67,7 +67,7 @@ internal class CActSelectPresound : CActivity
                     this.ctBGMFadeIn用.t停止();
                 }
             }
-            if ((this.ctBGMFadeOut用 != null) && this.ctBGMFadeOut用.b進行中)
+            if ((this.ctBGMFadeOut用 is not null) && this.ctBGMFadeOut用.b進行中)
             {
                 this.ctBGMFadeOut用.t進行();
                 TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.BGM選曲画面].nAutomationLevel_現在のサウンド = CSound.MaximumAutomationLevel - this.ctBGMFadeOut用.n現在の値;
@@ -79,7 +79,7 @@ internal class CActSelectPresound : CActivity
 
             this.t進行処理_プレビューサウンド();
 
-            if (this.sound != null)
+            if (this.sound is not null)
             {
                 Cスコア cスコア = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア;
                 if (long再生位置 == -1)
@@ -115,7 +115,7 @@ internal class CActSelectPresound : CActivity
 
     private void tBGMFadeOut開始()
     {
-        if (this.ctBGMFadeIn用 != null)
+        if (this.ctBGMFadeIn用 is not null)
         {
             this.ctBGMFadeIn用.t停止();
         }
@@ -124,7 +124,7 @@ internal class CActSelectPresound : CActivity
     }
     private void tBGMFadeIn開始()
     {
-        if (this.ctBGMFadeOut用 != null)
+        if (this.ctBGMFadeOut用 is not null)
         {
             this.ctBGMFadeOut用.t停止();
         }
@@ -134,7 +134,7 @@ internal class CActSelectPresound : CActivity
     private async void tプレビューサウンドの作成()
     {
         Cスコア cスコア = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア;
-        if ((cスコア != null) && !string.IsNullOrEmpty(cスコア.譜面情報.strBGMファイル名) && TJAPlayer3.stage選曲.eフェーズID != CStage.Eフェーズ.選曲_NowLoading画面へのFadeOut)
+        if ((cスコア is not null) && !string.IsNullOrEmpty(cスコア.譜面情報.strBGMファイル名) && TJAPlayer3.stage選曲.eフェーズID != CStage.Eフェーズ.選曲_NowLoading画面へのFadeOut)
         {
             string strPreviewFilename = cスコア.FileInfo.DirAbsolutePath + cスコア.譜面情報.strBGMファイル名;
             try
@@ -179,7 +179,7 @@ internal class CActSelectPresound : CActivity
             {
                 Trace.TraceError(e.ToString());
                 Trace.TraceError("プレビューサウンドの生成に失敗しました。({0})", strPreviewFilename);
-                if (this.sound != null)
+                if (this.sound is not null)
                 {
                     this.sound.Dispose();
                 }
@@ -189,7 +189,7 @@ internal class CActSelectPresound : CActivity
     }
     private void t進行処理_プレビューサウンド()
     {
-        if ((this.ct再生待ちウェイト != null) && this.ct再生待ちウェイト.b進行中)
+        if ((this.ct再生待ちウェイト is not null) && this.ct再生待ちウェイト.b進行中)
         {
             this.ct再生待ちウェイト.t進行();
             if (this.ct再生待ちウェイト.b終了値に達した)
@@ -208,9 +208,9 @@ internal class CActSelectPresound : CActivity
 
     public void tサウンドの停止MT()
     {
-        if (this.sound != null)
+        if (this.sound is not null)
         {
-            if (token != null)
+            if (token is not null)
             {
                 token.Cancel();
             }

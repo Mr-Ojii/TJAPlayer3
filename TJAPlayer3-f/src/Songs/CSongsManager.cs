@@ -81,7 +81,7 @@ internal class CSongsManager
                 c曲リストノード.eNodeType = C曲リストノード.ENodeType.SCORE;
 
                 c曲リストノード.r親ノード = node親;
-                c曲リストノード.strBreadcrumbs = (c曲リストノード.r親ノード == null) ?
+                c曲リストノード.strBreadcrumbs = (c曲リストノード.r親ノード is null) ?
                     str基点フォルダ + fileinfo.Name : c曲リストノード.r親ノード.strBreadcrumbs + " > " + str基点フォルダ + fileinfo.Name;
 
                 c曲リストノード.strTitle = dtx.TITLE;
@@ -91,14 +91,14 @@ internal class CSongsManager
                 }
                 else
                 {
-                    if (c曲リストノード.r親ノード != null && c曲リストノード.r親ノード.strGenre != "")
+                    if (c曲リストノード.r親ノード is not null && c曲リストノード.r親ノード.strGenre != "")
                     {
                         // .tjaのジャンルが存在しなくて、かつ親ノードにジャンルが指定されていればそちらを読み込む。
                         c曲リストノード.strGenre = c曲リストノード.r親ノード.strGenre;
                     }
                 }
 
-                if (c曲リストノード.r親ノード != null)
+                if (c曲リストノード.r親ノード is not null)
                 {
                     c曲リストノード.ForeColor = c曲リストノード.r親ノード.ForeColor;
                     c曲リストノード.BackColor = c曲リストノード.r親ノード.BackColor;
@@ -118,7 +118,7 @@ internal class CSongsManager
                 c曲リストノード.arスコア.譜面情報.SubTitle = dtx.SUBTITLE;
                 c曲リストノード.arスコア.譜面情報.Genre = dtx.GENRE;
                 c曲リストノード.arスコア.譜面情報.Bpm = dtx.BPM;
-                c曲リストノード.arスコア.譜面情報.strBGMファイル名 = dtx.strBGM_PATH == null ? "" : dtx.strBGM_PATH;
+                c曲リストノード.arスコア.譜面情報.strBGMファイル名 = dtx.strBGM_PATH is null ? "" : dtx.strBGM_PATH;
                 c曲リストノード.arスコア.譜面情報.SongVol = dtx.SongVol;
                 c曲リストノード.arスコア.譜面情報.SongLoudnessMetadata = dtx.SongLoudnessMetadata;
                 c曲リストノード.arスコア.譜面情報.nデモBGMオフセット = dtx.nデモBGMオフセット;
@@ -205,7 +205,7 @@ internal class CSongsManager
                 c曲リストノード.r親ノード = node親;
                 c曲リストノード.Openindex = 1;
 
-                c曲リストノード.strBreadcrumbs = (c曲リストノード.r親ノード == null) ?
+                c曲リストノード.strBreadcrumbs = (c曲リストノード.r親ノード is null) ?
                     c曲リストノード.strTitle : c曲リストノード.r親ノード.strBreadcrumbs + " > " + c曲リストノード.strTitle;
 
 
@@ -251,7 +251,7 @@ internal class CSongsManager
             itemRandom.nスコア数 = (int)Difficulty.Total;
             itemRandom.r親ノード = ノードリスト[0].r親ノード;
 
-            itemRandom.strBreadcrumbs = (itemRandom.r親ノード == null) ?
+            itemRandom.strBreadcrumbs = (itemRandom.r親ノード is null) ?
                 itemRandom.strTitle : itemRandom.r親ノード.strBreadcrumbs + " > " + itemRandom.strTitle;
 
             itemRandom.arスコア = new Cスコア();
@@ -268,7 +268,7 @@ internal class CSongsManager
             {
                 StringBuilder sb = new StringBuilder(0x100);
                 sb.Append(string.Format("nID#{0:D3}", itemRandom.nID));
-                if (itemRandom.r親ノード != null)
+                if (itemRandom.r親ノード is not null)
                 {
                     sb.Append(string.Format("(in#{0:D3}):", itemRandom.r親ノード.nID));
                 }
@@ -303,7 +303,7 @@ internal class CSongsManager
                     itemBack.nスコア数 = 1;
                     itemBack.r親ノード = c曲リストノード;
 
-                    itemBack.strBreadcrumbs = (itemBack.r親ノード == null) ?
+                    itemBack.strBreadcrumbs = (itemBack.r親ノード is null) ?
                         itemBack.strTitle : itemBack.r親ノード.strBreadcrumbs + " > " + itemBack.strTitle;
 
                     itemBack.arスコア = new Cスコア();
@@ -319,7 +319,7 @@ internal class CSongsManager
                     {
                         StringBuilder sb = new StringBuilder(0x100);
                         sb.Append(string.Format("nID#{0:D3}", itemBack.nID));
-                        if (itemBack.r親ノード != null)
+                        if (itemBack.r親ノード is not null)
                         {
                             sb.Append(string.Format("(in#{0:D3}):", itemBack.r親ノード.nID));
                         }
@@ -386,7 +386,7 @@ internal class CSongsManager
 
         foreach (C曲リストノード c曲リストノード in ノードリスト)
         {
-            if ((c曲リストノード.list子リスト != null) && (c曲リストノード.list子リスト.Count > 1))
+            if ((c曲リストノード.list子リスト is not null) && (c曲リストノード.list子リスト.Count > 1))
             {
                 t曲リストのソート1_絶対パス順(c曲リストノード.list子リスト);
             }

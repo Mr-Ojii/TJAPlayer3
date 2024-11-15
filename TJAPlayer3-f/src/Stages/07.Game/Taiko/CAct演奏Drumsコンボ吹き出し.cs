@@ -57,7 +57,7 @@ internal class CAct演奏Drumsコンボ吹き出し : CActivity
                     }
                 }
 
-                if (TJAPlayer3.app.Tx.Balloon_Combo[i] != null)
+                if (TJAPlayer3.app.Tx.Balloon_Combo[i] is not null)
                 {
                     //半透明4f
                     if (this.ct進行[i].n現在の値 == 1 || this.ct進行[i].n現在の値 == 103)

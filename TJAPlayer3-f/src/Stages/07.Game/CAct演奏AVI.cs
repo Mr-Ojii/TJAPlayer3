@@ -19,7 +19,7 @@ internal class CAct演奏AVI : CActivity
             return;
 
         this.rVD = rVD;
-        if (this.rVD != null)
+        if (this.rVD is not null)
         {
             this.ratio1 = Math.Min((float)TJAPlayer3.app.LogicalSize.Height / ((float)this.rVD.FrameSize.Height), (float)TJAPlayer3.app.LogicalSize.Width / ((float)this.rVD.FrameSize.Height));
 
@@ -73,7 +73,7 @@ internal class CAct演奏AVI : CActivity
     }
     public override void On非活性化()
     {
-        if (this.tx描画用 != null)
+        if (this.tx描画用 is not null)
         {
             this.tx描画用.Dispose();
             this.tx描画用 = null;

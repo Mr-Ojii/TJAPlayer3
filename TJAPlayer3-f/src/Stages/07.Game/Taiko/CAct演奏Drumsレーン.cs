@@ -20,7 +20,7 @@ internal class CAct演奏Drumsレーン : CActivity
             this.nAfter[i] = 0;
             this.bState[i] = false;
         }
-        if (TJAPlayer3.app.Tx.Lane_Base[0] != null)
+        if (TJAPlayer3.app.Tx.Lane_Base[0] is not null)
             TJAPlayer3.app.Tx.Lane_Base[0].Opacity = 255;
         base.On活性化();
     }

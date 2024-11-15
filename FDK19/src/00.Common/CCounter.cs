@@ -181,7 +181,7 @@ public class CCounter
     /// </summary>
     public void t進行()
     {
-        if ((this.timer != null) && (this.n現在の経過時間ms != CTimer.nUnused))
+        if ((this.timer is not null) && (this.n現在の経過時間ms != CTimer.nUnused))
         {
             long num = this.timer.n現在時刻ms;
             if (num < this.n現在の経過時間ms)
@@ -203,7 +203,7 @@ public class CCounter
     /// </summary>
     public void t時間Reset()
     {
-        if ((this.timer != null) && (this.n現在の経過時間ms != CTimer.nUnused))
+        if ((this.timer is not null) && (this.n現在の経過時間ms != CTimer.nUnused))
         {
             this.n現在の経過時間ms = this.timer.n現在時刻ms;
         }
@@ -216,7 +216,7 @@ public class CCounter
     /// </summary>
     public void t時間Resetdb()
     {
-        if ((this.timerdb != null) && (this.db現在の経過時間 != CSoundTimer.nUnused))
+        if ((this.timerdb is not null) && (this.db現在の経過時間 != CSoundTimer.nUnused))
         {
             this.db現在の経過時間 = this.timerdb.n現在時刻ms;
         }
@@ -229,7 +229,7 @@ public class CCounter
     /// </summary>
     public void t進行db()
     {
-        if ((this.timerdb != null) && (this.db現在の経過時間 != CSoundTimer.nUnused))
+        if ((this.timerdb is not null) && (this.db現在の経過時間 != CSoundTimer.nUnused))
         {
             double num = this.timerdb.n現在時刻ms;
             if (num < this.db現在の経過時間)
@@ -251,7 +251,7 @@ public class CCounter
     /// </summary>
     public void t進行Loop()
     {
-        if ((this.timer != null) && (this.n現在の経過時間ms != CTimer.nUnused))
+        if ((this.timer is not null) && (this.n現在の経過時間ms != CTimer.nUnused))
         {
             long num = this.timer.n現在時刻ms;
             if (num < this.n現在の経過時間ms)
@@ -273,7 +273,7 @@ public class CCounter
     /// </summary>
     public void t進行LoopDb()
     {
-        if ((this.timerdb != null) && (this.db現在の経過時間 != CSoundTimer.nUnused))
+        if ((this.timerdb is not null) && (this.db現在の経過時間 != CSoundTimer.nUnused))
         {
             double num = this.timerdb.n現在時刻ms;
             if (num < this.n現在の経過時間ms)

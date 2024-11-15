@@ -43,7 +43,7 @@ internal class CActStageFailed : CActivity
         {
             return 0;
         }
-        if ((this.ct進行 == null) || this.ct進行.b停止中)
+        if ((this.ct進行 is null) || this.ct進行.b停止中)
         {
             return 0;
         }
@@ -51,7 +51,7 @@ internal class CActStageFailed : CActivity
 
         if (TJAPlayer3.app.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー || TJAPlayer3.app.ConfigToml.PlayOption._GameMode == EGame.完走叩ききりまショー激辛)
         {
-            if (TJAPlayer3.app.Tx.Tile_Black != null)
+            if (TJAPlayer3.app.Tx.Tile_Black is not null)
             {
                 for (int i = 0; i <= (TJAPlayer3.app.LogicalSize.Width / 64); i++)
                 {
@@ -63,7 +63,7 @@ internal class CActStageFailed : CActivity
             }
             if (this.ct進行.n現在の値 > 1500)
             {
-                if (TJAPlayer3.app.Tx.Failed_Game != null)
+                if (TJAPlayer3.app.Tx.Failed_Game is not null)
                     TJAPlayer3.app.Tx.Failed_Game.t2D描画(TJAPlayer3.app.Device, 0, 0);
 
                 int num = (TJAPlayer3.DTX[0].listChip.Count > 0) ? TJAPlayer3.DTX[0].listChip[TJAPlayer3.DTX[0].listChip.Count - 1].n発声時刻ms : 0;
@@ -77,7 +77,7 @@ internal class CActStageFailed : CActivity
             if (this.ct進行.n現在の値 < 100)
             {
                 int x = (int)(640.0 * Math.Cos((Math.PI / 2 * this.ct進行.n現在の値) / 100.0));
-                if ((x != 640) && (TJAPlayer3.app.Tx.Failed_Stage != null))
+                if ((x != 640) && (TJAPlayer3.app.Tx.Failed_Stage is not null))
                 {
                     TJAPlayer3.app.Tx.Failed_Stage.t2D描画(TJAPlayer3.app.Device, 0, 0, new Rectangle(x, 0, 640 - x, 720));
                     TJAPlayer3.app.Tx.Failed_Stage.t2D描画(TJAPlayer3.app.Device, 640 + x, 0, new Rectangle(640, 0, 640 - x, 720));
@@ -85,7 +85,7 @@ internal class CActStageFailed : CActivity
             }
             else
             {
-                if (TJAPlayer3.app.Tx.Failed_Stage != null)
+                if (TJAPlayer3.app.Tx.Failed_Stage is not null)
                 {
                     TJAPlayer3.app.Tx.Failed_Stage.t2D描画(TJAPlayer3.app.Device, 0, 0);
                 }
@@ -93,7 +93,7 @@ internal class CActStageFailed : CActivity
                 {
                     int num2 = Random.Shared.Next(5) - 2;
                     int y = Random.Shared.Next(5) - 2;
-                    if (TJAPlayer3.app.Tx.Failed_Stage != null)
+                    if (TJAPlayer3.app.Tx.Failed_Stage is not null)
                     {
                         TJAPlayer3.app.Tx.Failed_Stage.t2D描画(TJAPlayer3.app.Device, num2, y);
                     }
@@ -140,7 +140,7 @@ internal class CActStageFailed : CActivity
     private void t文字表示(int x, int y, string str)
     {
         //描画するテクスチャがないなら、以後の計算は無駄
-        if (TJAPlayer3.app.Tx.Balloon_Number_Roll == null)
+        if (TJAPlayer3.app.Tx.Balloon_Number_Roll is null)
             return;
 
         foreach (char ch in str)

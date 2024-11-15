@@ -14,7 +14,7 @@ internal class FlyingNotes : CActivity
     // メソッド
     public virtual void Start(int nLane, int nPlayer, bool isRoll = false)
     {
-        if (TJAPlayer3.app.Tx.Notes == null)
+        if (TJAPlayer3.app.Tx.Notes is null)
             return;
 
         for (int i = 0; i < 128; i++)

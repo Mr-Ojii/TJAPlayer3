@@ -13,7 +13,7 @@ internal class CActRunner : CActivity
 
     public void Start(int Player, bool IsMiss, CDTX.CChip pChip)
     {
-        if (TJAPlayer3.app.Tx.Runner == null)
+        if (TJAPlayer3.app.Tx.Runner is null)
             return;
 
         if (pChip.nチャンネル番号 < 0x15 || (pChip.nチャンネル番号 >= 0x1A))

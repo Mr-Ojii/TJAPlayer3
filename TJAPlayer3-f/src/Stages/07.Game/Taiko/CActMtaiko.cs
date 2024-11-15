@@ -68,7 +68,7 @@ internal class CActMtaiko : CActivity
         for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
             TJAPlayer3.app.Tx.Taiko_Base?.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.X[i], TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.Y[i]);
 
-        if (TJAPlayer3.app.Tx.Taiko_Don_Left != null && TJAPlayer3.app.Tx.Taiko_Don_Right != null && TJAPlayer3.app.Tx.Taiko_Ka_Left != null && TJAPlayer3.app.Tx.Taiko_Ka_Right != null)
+        if (TJAPlayer3.app.Tx.Taiko_Don_Left is not null && TJAPlayer3.app.Tx.Taiko_Don_Right is not null && TJAPlayer3.app.Tx.Taiko_Ka_Left is not null && TJAPlayer3.app.Tx.Taiko_Ka_Right is not null)
         {
             TJAPlayer3.app.Tx.Taiko_Ka_Left.Opacity = this.stパッド状態[0].n明るさ * 73;
             TJAPlayer3.app.Tx.Taiko_Ka_Right.Opacity = this.stパッド状態[1].n明るさ * 73;
@@ -81,7 +81,7 @@ internal class CActMtaiko : CActivity
             TJAPlayer3.app.Tx.Taiko_Don_Right.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.X[0] + TJAPlayer3.app.Tx.Taiko_Ka_Right.szTextureSize.Width / 2, TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.Y[0], new Rectangle(TJAPlayer3.app.Tx.Taiko_Ka_Right.szTextureSize.Width / 2, 0, TJAPlayer3.app.Tx.Taiko_Ka_Right.szTextureSize.Width / 2, TJAPlayer3.app.Tx.Taiko_Ka_Right.szTextureSize.Height));
         }
 
-        if (TJAPlayer3.app.Tx.Taiko_Don_Left != null && TJAPlayer3.app.Tx.Taiko_Don_Right != null && TJAPlayer3.app.Tx.Taiko_Ka_Left != null && TJAPlayer3.app.Tx.Taiko_Ka_Right != null)
+        if (TJAPlayer3.app.Tx.Taiko_Don_Left is not null && TJAPlayer3.app.Tx.Taiko_Don_Right is not null && TJAPlayer3.app.Tx.Taiko_Ka_Left is not null && TJAPlayer3.app.Tx.Taiko_Ka_Right is not null)
         {
             TJAPlayer3.app.Tx.Taiko_Ka_Left.Opacity = this.stパッド状態[4].n明るさ * 73;
             TJAPlayer3.app.Tx.Taiko_Ka_Right.Opacity = this.stパッド状態[5].n明るさ * 73;
@@ -105,7 +105,7 @@ internal class CActMtaiko : CActivity
                 }
             }
 
-            if ((this.ctレベルアップダウン[i].b進行中 && (TJAPlayer3.app.Tx.Taiko_LevelUp != null && TJAPlayer3.app.Tx.Taiko_LevelDown != null)) && !TJAPlayer3.app.ConfigToml.Game.NoInfo)
+            if ((this.ctレベルアップダウン[i].b進行中 && (TJAPlayer3.app.Tx.Taiko_LevelUp is not null && TJAPlayer3.app.Tx.Taiko_LevelDown is not null)) && !TJAPlayer3.app.ConfigToml.Game.NoInfo)
             {
                 //this.ctレベルアップダウン[ i ].n現在の値 = 110;
 
@@ -166,7 +166,7 @@ internal class CActMtaiko : CActivity
 
         for (int nPlayer = 0; nPlayer < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; nPlayer++)
         {
-            if (TJAPlayer3.app.Tx.Couse_Symbol[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] != null)
+            if (TJAPlayer3.app.Tx.Couse_Symbol[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]] is not null)
             {
                 TJAPlayer3.app.Tx.Couse_Symbol[TJAPlayer3.stage選曲.n確定された曲の難易度[nPlayer]].t2D描画(TJAPlayer3.app.Device,
                     TJAPlayer3.app.Skin.SkinConfig.Game.CourseSymbol.X[nPlayer],
@@ -176,7 +176,7 @@ internal class CActMtaiko : CActivity
 
             if (TJAPlayer3.app.ConfigToml.PlayOption.Shinuchi[nPlayer])
             {
-                if (TJAPlayer3.app.Tx.Couse_Symbol[(int)Difficulty.Total] != null)
+                if (TJAPlayer3.app.Tx.Couse_Symbol[(int)Difficulty.Total] is not null)
                 {
                     TJAPlayer3.app.Tx.Couse_Symbol[(int)Difficulty.Total].t2D描画(TJAPlayer3.app.Device,
                         TJAPlayer3.app.Skin.SkinConfig.Game.CourseSymbol.X[nPlayer],
@@ -186,12 +186,12 @@ internal class CActMtaiko : CActivity
 
             }
 
-            if (TJAPlayer3.app.Tx.Taiko_NamePlate[nPlayer] != null)
+            if (TJAPlayer3.app.Tx.Taiko_NamePlate[nPlayer] is not null)
             {
                 TJAPlayer3.app.Tx.Taiko_NamePlate[nPlayer].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.NamePlateX[nPlayer], TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.NamePlateY[nPlayer]);
             }
 
-            if (TJAPlayer3.app.Tx.Taiko_PlayerNumber[nPlayer] != null)
+            if (TJAPlayer3.app.Tx.Taiko_PlayerNumber[nPlayer] is not null)
             {
                 TJAPlayer3.app.Tx.Taiko_PlayerNumber[nPlayer].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.PlayerNumberX[nPlayer], TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.PlayerNumberY[nPlayer]);
             }

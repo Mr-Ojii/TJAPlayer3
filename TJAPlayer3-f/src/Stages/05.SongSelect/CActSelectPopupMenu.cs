@@ -72,7 +72,7 @@ internal class CActSelectPopupMenu : CActivity
 
     private void ConditionallyInitializePrvFont()
     {
-        if (prvFont == null)
+        if (prvFont is null)
         {
             prvFont = new CCachedFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, 18);
         }
@@ -246,7 +246,7 @@ internal class CActSelectPopupMenu : CActivity
                 #endregion
             }
             #region [ ポップアップメニュー 背景描画 ]
-            if (TJAPlayer3.app.Tx.Menu_Title != null)
+            if (TJAPlayer3.app.Tx.Menu_Title is not null)
             {
                 TJAPlayer3.app.Tx.Menu_Title.t2D描画(TJAPlayer3.app.Device, 160, 40);
             }
@@ -256,7 +256,7 @@ internal class CActSelectPopupMenu : CActivity
             stqMenuTitle.txName.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Left, x, y);
             #endregion
             #region [ カーソル描画 ]
-            if (TJAPlayer3.app.Tx.Menu_Highlight != null)
+            if (TJAPlayer3.app.Tx.Menu_Highlight is not null)
             {
                 int height = 32;
                 int curX = 180;
@@ -277,7 +277,7 @@ internal class CActSelectPopupMenu : CActivity
             {
                 bool bItemBold = (i == nItemSelecting && !bShowAllItems) ? true : false;
                 //font.t文字列描画( 190, 80 + i * 32, lciMenuItems[ i ].cItem.strName, bItemBold, 1.0f );
-                if (lciMenuItems[i].txName != null)
+                if (lciMenuItems[i].txName is not null)
                 {
                     lciMenuItems[i].txName.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Left, 180, 92 + i * 32);
                 }

@@ -38,7 +38,7 @@ internal class CActScanningLoudness : CActivity
         {
             return 0;
         }
-        if (bIsActivelyScanning && TJAPlayer3.app.Tx.Scanning_Loudness != null && this.ctNowScanningLoudness != null)
+        if (bIsActivelyScanning && TJAPlayer3.app.Tx.Scanning_Loudness is not null && this.ctNowScanningLoudness is not null)
         {
             this.ctNowScanningLoudness.t進行Loop();
             TJAPlayer3.app.Tx.Scanning_Loudness.Opacity = (int)(176.0 + 80.0 * Math.Sin((double)(2 * Math.PI * this.ctNowScanningLoudness.n現在の値 / 100.0)));

@@ -826,7 +826,7 @@ internal class CActConfigList : CActivity
             {
                 using (var bitmap = image.Resize(new SKSizeI(image.Width / 4, image.Height / 4), SKFilterQuality.Medium))
                 {
-                    if (txSkinSample1 != null)
+                    if (txSkinSample1 is not null)
                     {
                         TJAPlayer3.t安全にDisposeする(ref txSkinSample1);
                     }
@@ -963,7 +963,7 @@ internal class CActConfigList : CActivity
         this.eメニュー種別 = Eメニュー種別.Unknown;
 
         #region [ スキン選択肢と、現在選択中のスキン(index)の準備 #28195 2012.5.2 yyagi ]
-        int ns = (TJAPlayer3.app.Skin.strSystemSkinSubfolders == null) ? 0 : TJAPlayer3.app.Skin.strSystemSkinSubfolders.Length;
+        int ns = (TJAPlayer3.app.Skin.strSystemSkinSubfolders is null) ? 0 : TJAPlayer3.app.Skin.strSystemSkinSubfolders.Length;
         skinSubFolders = new string[ns];
         for (int i = 0; i < ns; i++)
         {
@@ -1078,15 +1078,15 @@ internal class CActConfigList : CActivity
     /// </summary>
     private void OnListMenuの解放()
     {
-        if (listMenu != null)
+        if (listMenu is not null)
         {
             for (int i = 0; i < listMenu.Length; i++)
             {
-                if (listMenu[i].txParam != null)
+                if (listMenu[i].txParam is not null)
                 {
                     listMenu[i].txParam.Dispose();
                 }
-                if (listMenu[i].txMenuItemRight != null)
+                if (listMenu[i].txMenuItemRight is not null)
                 {
                     listMenu[i].txMenuItemRight.Dispose();
                 }
@@ -1240,13 +1240,13 @@ internal class CActConfigList : CActivity
 
             #region [ 現在の行の項目パネル枠を描画。]
             //-----------------
-            if (TJAPlayer3.app.Tx.Config_ItemBox != null)
+            if (TJAPlayer3.app.Tx.Config_ItemBox is not null)
                 TJAPlayer3.app.Tx.Config_ItemBox.t2D描画(TJAPlayer3.app.Device, x, y);
             //-----------------
             #endregion
             #region [ 現在の行の項目名を描画。]
             //-----------------
-            if (listMenu[nItem].txMenuItemRight != null)	// 自前のキャッシュに含まれているようなら、再レンダリングせずキャッシュを使用
+            if (listMenu[nItem].txMenuItemRight is not null)	// 自前のキャッシュに含まれているようなら、再レンダリングせずキャッシュを使用
             {
                 listMenu[nItem].txMenuItemRight.t2D描画(TJAPlayer3.app.Device, x + 20 + TJAPlayer3.app.Skin.SkinConfig.Config.ItemTextCorrectionX, y + 12 + TJAPlayer3.app.Skin.SkinConfig.Config.ItemTextCorrectionY);
             }
@@ -1314,7 +1314,7 @@ internal class CActConfigList : CActivity
                         if (this.list項目リスト[this.n現在の選択項目] == this.iSystemSkinSubfolder)
                         {
                             tGenerateSkinSample();		// 最初にSkinの選択肢にきたとき(Enterを押す前)に限り、サンプル生成が発生する。
-                            if (txSkinSample1 != null)
+                            if (txSkinSample1 is not null)
                             {
                                 txSkinSample1.t2D描画(TJAPlayer3.app.Device, 124, 409);
                             }
@@ -1338,12 +1338,12 @@ internal class CActConfigList : CActivity
             else
             {
                 int nIndex = this.list項目リスト[nItem].GetIndex();
-                if (listMenu[nItem].nParam != nIndex || listMenu[nItem].txParam == null)
+                if (listMenu[nItem].nParam != nIndex || listMenu[nItem].txParam is null)
                 {
                     stMenuItemRight stm = listMenu[nItem];
                     stm.nParam = nIndex;
                     object o = this.list項目リスト[nItem].objValue();
-                    stm.strParam = (o == null) ? "" : o.ToString();
+                    stm.strParam = (o is null) ? "" : o.ToString();
 
                     using (var bmpStr = prvFont.DrawText(strParam, Color.White, Color.Black, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                     {
@@ -1387,7 +1387,7 @@ internal class CActConfigList : CActivity
 
             // 描画。
 
-            if (TJAPlayer3.app.Tx.Config_Arrow != null)
+            if (TJAPlayer3.app.Tx.Config_Arrow is not null)
             {
                 TJAPlayer3.app.Tx.Config_Arrow.t2D描画(TJAPlayer3.app.Device, x, y_upper, new Rectangle(0, 0, 0x40, 0x18));
                 TJAPlayer3.app.Tx.Config_Arrow.t2D描画(TJAPlayer3.app.Device, x, y_lower, new Rectangle(0, 0x18, 0x40, 0x18));

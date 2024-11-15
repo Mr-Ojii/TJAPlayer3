@@ -145,7 +145,7 @@ internal class CStageSongLoading : CStage
         #endregion
 
         #region [ ESC押下時は選曲画面に戻る ]
-        if (this.ct待機 == null || this.ct曲名表示 == null || TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
+        if (this.ct待機 is null || this.ct曲名表示 is null || TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.Escape))
         {
             return (int)E曲読込画面の戻り値.読込中止;
         }
@@ -158,12 +158,12 @@ internal class CStageSongLoading : CStage
         this.ct曲名表示.t進行();
         if (TJAPlayer3.app.ConfigToml.EnableSkinV2)
         {
-            if (TJAPlayer3.app.Tx.SongLoading_v2_BG != null)
+            if (TJAPlayer3.app.Tx.SongLoading_v2_BG is not null)
                 TJAPlayer3.app.Tx.SongLoading_v2_BG.t2D描画(TJAPlayer3.app.Device, 0, 0);
         }
         else
         {
-            if (TJAPlayer3.app.Tx.SongLoading_BG != null)
+            if (TJAPlayer3.app.Tx.SongLoading_BG is not null)
                 TJAPlayer3.app.Tx.SongLoading_BG.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Center, TJAPlayer3.app.LogicalSize.Width / 2, TJAPlayer3.app.LogicalSize.Height / 2);
         }
 
@@ -171,7 +171,7 @@ internal class CStageSongLoading : CStage
         {
             if (TJAPlayer3.app.ConfigToml.EnableSkinV2)
             {
-                if (TJAPlayer3.app.Tx.SongLoading_v2_Plate != null)
+                if (TJAPlayer3.app.Tx.SongLoading_v2_Plate is not null)
                 {
                     TJAPlayer3.app.Tx.SongLoading_v2_Plate.Opacity = CConvert.nParsentTo255((this.ct曲名表示.n現在の値 / 30.0));
                     if (TJAPlayer3.app.Skin.SkinConfig.SongLoading._v2PlateReferencePoint == CSkin.EReferencePoint.Left)
@@ -188,7 +188,7 @@ internal class CStageSongLoading : CStage
                     }
                 }
 
-                if (this.txTitle != null)
+                if (this.txTitle is not null)
                 {
                     int nサブタイトル補正 = string.IsNullOrEmpty(TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.SubTitle) ? 15 : 0;
 
@@ -206,7 +206,7 @@ internal class CStageSongLoading : CStage
                         this.txTitle.t2D描画(TJAPlayer3.app.Device, (TJAPlayer3.app.Skin.SkinConfig.SongLoading.v2TitleX - ((this.txTitle.szTextureSize.Width * txTitle.vcScaling.X) / 2)), TJAPlayer3.app.Skin.SkinConfig.SongLoading.v2TitleY - (this.txTitle.szTextureSize.Height / 2) + nサブタイトル補正);
                     }
                 }
-                if (this.txSubTitle != null)
+                if (this.txSubTitle is not null)
                 {
                     this.txSubTitle.Opacity = CConvert.nParsentTo255((this.ct曲名表示.n現在の値 / 30.0));
                     if (TJAPlayer3.app.Skin.SkinConfig.SongLoading._v2SubTitleReferencePoint == CSkin.EReferencePoint.Left)
@@ -225,7 +225,7 @@ internal class CStageSongLoading : CStage
             }
             else
             {
-                if (TJAPlayer3.app.Tx.SongLoading_Plate != null)
+                if (TJAPlayer3.app.Tx.SongLoading_Plate is not null)
                 {
                     TJAPlayer3.app.Tx.SongLoading_Plate.Opacity = CConvert.nParsentTo255((this.ct曲名表示.n現在の値 / 30.0));
                     if (TJAPlayer3.app.Skin.SkinConfig.SongLoading._PlateReferencePoint == CSkin.EReferencePoint.Left)
@@ -242,7 +242,7 @@ internal class CStageSongLoading : CStage
                     }
                 }
 
-                if (this.txTitle != null)
+                if (this.txTitle is not null)
                 {
                     int nサブタイトル補正 = string.IsNullOrEmpty(TJAPlayer3.stage選曲.r確定されたスコア.譜面情報.SubTitle) ? 15 : 0;
 
@@ -260,7 +260,7 @@ internal class CStageSongLoading : CStage
                         this.txTitle.t2D描画(TJAPlayer3.app.Device, (TJAPlayer3.app.Skin.SkinConfig.SongLoading.TitleX - ((this.txTitle.szTextureSize.Width * txTitle.vcScaling.X) / 2)), TJAPlayer3.app.Skin.SkinConfig.SongLoading.TitleY - (this.txTitle.szTextureSize.Height / 2) + nサブタイトル補正);
                     }
                 }
-                if (this.txSubTitle != null)
+                if (this.txSubTitle is not null)
                 {
                     this.txSubTitle.Opacity = CConvert.nParsentTo255((this.ct曲名表示.n現在の値 / 30.0));
                     if (TJAPlayer3.app.Skin.SkinConfig.SongLoading._SubTitleReferencePoint == CSkin.EReferencePoint.Left)
@@ -297,10 +297,10 @@ internal class CStageSongLoading : CStage
 
                     CScoreJson json = CScoreJson.Load(str + ".score.json");
 
-                    if ((TJAPlayer3.DTX[0] != null) && TJAPlayer3.DTX[0].b活性化してる)
+                    if ((TJAPlayer3.DTX[0] is not null) && TJAPlayer3.DTX[0].b活性化してる)
                         TJAPlayer3.DTX[0].On非活性化();
 
-                    //if( CDTXMania.DTX == null )
+                    //if( CDTXMania.DTX is null )
                     {
                         bool bSession = TJAPlayer3.app.ConfigToml.PlayOption.Session &&
                                         TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount == 2 &&
@@ -321,7 +321,7 @@ internal class CStageSongLoading : CStage
                         Trace.TraceInformation("DTX読込所要時間:           {0}", span.ToString());
 
                         // 段位認定モード用。
-                        if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] == (int)Difficulty.Dan && TJAPlayer3.DTX[0].List_DanSongs != null)
+                        if (TJAPlayer3.stage選曲.n確定された曲の難易度[0] == (int)Difficulty.Dan && TJAPlayer3.DTX[0].List_DanSongs is not null)
                         {
                             for (int i = 0; i < TJAPlayer3.DTX[0].List_DanSongs.Count; i++)
                             {

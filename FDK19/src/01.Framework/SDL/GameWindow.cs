@@ -136,13 +136,13 @@ public unsafe class GameWindow : IDisposable
     {
         SDL3.SDL_Init(SDL_InitFlags.SDL_INIT_VIDEO | SDL_InitFlags.SDL_INIT_JOYSTICK);
         _window_handle = SDL3.SDL_CreateWindow(title, width, height, SDL_WindowFlags.SDL_WINDOW_HIGH_PIXEL_DENSITY | SDL_WindowFlags.SDL_WINDOW_HIDDEN | SDL_WindowFlags.SDL_WINDOW_RESIZABLE);
-        if (_window_handle == null)
+        if (_window_handle is null)
             throw new Exception("Failed to create window.");
 
         _window_id = SDL3.SDL_GetWindowID(_window_handle);
 
         _renderer_handle = SDL3.SDL_CreateRenderer(_window_handle, (byte*)null);
-        if (_renderer_handle == null)
+        if (_renderer_handle is null)
         {
             SDL3.SDL_DestroyWindow(_window_handle);
             throw new Exception("Failed to create renderer.");

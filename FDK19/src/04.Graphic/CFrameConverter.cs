@@ -19,7 +19,7 @@ public unsafe class CFrameConverter : IDisposable
                 CVPxfmt,
                 ffmpeg.SWS_FAST_BILINEAR, null, null, null);
 
-            if (convert_context == null) throw new ApplicationException("Could not initialize the conversion context.\n");
+            if (convert_context is null) throw new ApplicationException("Could not initialize the conversion context.\n");
             this.IsConvert = true;
             this.convert_frame = ffmpeg.av_frame_alloc();
         }

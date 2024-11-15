@@ -28,17 +28,17 @@ public unsafe static class CAudioDecoder
                 break;
             }
         }
-        if (audio_stream == null)
+        if (audio_stream is null)
             throw new FileLoadException("No audio stream ...\n");
 
         // find decoder
         AVCodec* codec = ffmpeg.avcodec_find_decoder(audio_stream->codecpar->codec_id);
-        if (codec == null)
+        if (codec is null)
             throw new NotSupportedException("No supported decoder ...\n");
 
         // alloc codec context
         AVCodecContext* codec_context = ffmpeg.avcodec_alloc_context3(codec);
-        if (codec_context == null)
+        if (codec_context is null)
             throw new OutOfMemoryException("avcodec_alloc_context3 failed\n");
 
         // open codec
@@ -112,10 +112,10 @@ public unsafe static class CAudioDecoder
 
                             if ((AVSampleFormat)frame->format != AVSampleFormat.AV_SAMPLE_FMT_FLT)
                             {
-                                if (swr == null)
+                                if (swr is null)
                                 {
                                     swr = ffmpeg.swr_alloc();
-                                    if (swr == null)
+                                    if (swr is null)
                                     {
                                         Trace.TraceError("swr_alloc error.\n");
                                         break;

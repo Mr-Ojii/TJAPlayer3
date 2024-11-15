@@ -142,17 +142,17 @@ internal class CActResultParameterPanel : CActivity
 
             for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
             {
-                if (TJAPlayer3.app.Tx.Result_v2_Panel != null)
+                if (TJAPlayer3.app.Tx.Result_v2_Panel is not null)
                 {
                     var paneli = TJAPlayer3.app.Tx.Result_v2_Panel[i];
-                    if (paneli != null)
+                    if (paneli is not null)
                         paneli.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Result.v2PanelX[i], TJAPlayer3.app.Skin.SkinConfig.Result.v2PanelY[i]);
                 }
-                if (TJAPlayer3.app.Tx.Result_v2_GaugeBack != null)
+                if (TJAPlayer3.app.Tx.Result_v2_GaugeBack is not null)
                 {
                     TJAPlayer3.app.Tx.Result_v2_GaugeBack.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Result.v2GaugeBackX[i], TJAPlayer3.app.Skin.SkinConfig.Result.v2GaugeBackY[i]);
                 }
-                if (TJAPlayer3.app.Tx.Result_v2_GaugeBase != null && TJAPlayer3.app.Tx.Result_v2_Gauge != null)
+                if (TJAPlayer3.app.Tx.Result_v2_GaugeBase is not null && TJAPlayer3.app.Tx.Result_v2_Gauge is not null)
                 {
                     int width = (int)(TJAPlayer3.app.Tx.Result_v2_Gauge.szTextureSize.Width * (Math.Min((TJAPlayer3.stageResult.cRecords[i].Gauge / 100f), this.ctGauge.n現在の値 / 100f))) / (TJAPlayer3.app.Tx.Result_v2_Gauge.szTextureSize.Width / 50) * (TJAPlayer3.app.Tx.Result_v2_Gauge.szTextureSize.Width / 50);// 2020/10/13 Mr-Ojii 最後の意味が無いように見える乗算、除算には意味があります。消さないで。
                     Rectangle rec = new Rectangle(0, 0, width, TJAPlayer3.app.Tx.Result_v2_Gauge.szTextureSize.Height);
@@ -179,7 +179,7 @@ internal class CActResultParameterPanel : CActivity
                 }
                 else
                 {
-                    if (CrownState[i] != 0 && TJAPlayer3.app.Tx.Crown_t != null)
+                    if (CrownState[i] != 0 && TJAPlayer3.app.Tx.Crown_t is not null)
                     {
                         TJAPlayer3.app.Tx.Crown_t.Opacity = this.ctCrown用.n現在の値;
                         TJAPlayer3.app.Tx.Crown_t.vcScaling.X = ((this.ctCrown用.n終了値 - this.ctCrown用.n現在の値) / 255f) * 2f + 1.0f;
@@ -235,20 +235,20 @@ internal class CActResultParameterPanel : CActivity
 
             for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
             {
-                if (TJAPlayer3.app.Tx.Result_Panel != null)
+                if (TJAPlayer3.app.Tx.Result_Panel is not null)
                 {
                     TJAPlayer3.app.Tx.Result_Panel.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Result.PanelX[i], TJAPlayer3.app.Skin.SkinConfig.Result.PanelY[i]);
                 }
-                if (TJAPlayer3.app.Tx.Result_Score_Text != null)
+                if (TJAPlayer3.app.Tx.Result_Score_Text is not null)
                 {
                     int[] s_y = { 249, 543 };
                     TJAPlayer3.app.Tx.Result_Score_Text.t2D描画(TJAPlayer3.app.Device, 753, s_y[i]); //点
                 }
-                if (TJAPlayer3.app.Tx.Result_Judge != null)
+                if (TJAPlayer3.app.Tx.Result_Judge is not null)
                 {
                     TJAPlayer3.app.Tx.Result_Judge.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Result.JudgeX[i], TJAPlayer3.app.Skin.SkinConfig.Result.JudgeY[i]);
                 }
-                if (TJAPlayer3.app.Tx.Result_Gauge_Base != null && TJAPlayer3.app.Tx.Result_Gauge != null)
+                if (TJAPlayer3.app.Tx.Result_Gauge_Base is not null && TJAPlayer3.app.Tx.Result_Gauge is not null)
                 {
                     double Rate = TJAPlayer3.stageResult.cRecords[i].Gauge;
                     TJAPlayer3.app.Tx.Result_Gauge_Base.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Result.GaugeBaseX[i], TJAPlayer3.app.Skin.SkinConfig.Result.GaugeBaseY[i], new Rectangle(0, 0, 691, 47));
@@ -359,11 +359,11 @@ internal class CActResultParameterPanel : CActivity
 
                     #endregion
                 }
-                if (TJAPlayer3.app.Tx.Gauge_Soul != null)
+                if (TJAPlayer3.app.Tx.Gauge_Soul is not null)
                 {
                     int[] y_Fire = { 34, 328 };
                     int[] y_Soul = { 107, 401 };
-                    if (TJAPlayer3.app.Tx.Gauge_Soul_Fire != null && TJAPlayer3.stageResult.cRecords[i].Gauge >= 100.0f)
+                    if (TJAPlayer3.app.Tx.Gauge_Soul_Fire is not null && TJAPlayer3.stageResult.cRecords[i].Gauge >= 100.0f)
                         TJAPlayer3.app.Tx.Gauge_Soul_Fire.t2D描画(TJAPlayer3.app.Device, 1100, y_Fire[i], new Rectangle(0, 0, 230, 230));
                     TJAPlayer3.app.Tx.Gauge_Soul.t2D描画(TJAPlayer3.app.Device, 1174, y_Soul[i], new Rectangle(0, 0, 80, 80));
                 }
@@ -387,7 +387,7 @@ internal class CActResultParameterPanel : CActivity
                 }
                 else
                 {
-                    if (CrownState[i] != 0 && TJAPlayer3.app.Tx.Crown_t != null)
+                    if (CrownState[i] != 0 && TJAPlayer3.app.Tx.Crown_t is not null)
                     {
                         TJAPlayer3.app.Tx.Crown_t.Opacity = this.ctCrown用.n現在の値;
                         TJAPlayer3.app.Tx.Crown_t.vcScaling.X = ((this.ctCrown用.n終了値 - this.ctCrown用.n現在の値) / 255f) * 2f + 1.0f;
@@ -431,7 +431,7 @@ internal class CActResultParameterPanel : CActivity
 
             if (ephase == phase && !this.ToNextPhase[nPlayer] && index == this.n表示された桁数[nPlayer])
             {
-                if (TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND回転音] != null && !TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND回転音].b再生中)
+                if (TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND回転音] is not null && !TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND回転音].b再生中)
                     TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUND回転音].t再生する();
                 Num = this.ct文字アニメ用[nPlayer].n現在の値 % 10;
                 IsDigit = true;
@@ -439,10 +439,10 @@ internal class CActResultParameterPanel : CActivity
 
             if (score)
             {
-                if (TJAPlayer3.app.Tx.Result_Score_Number != null)
+                if (TJAPlayer3.app.Tx.Result_Score_Number is not null)
                 {
                     Rectangle rectangle = new Rectangle(24 * Num, 0, 24, TJAPlayer3.app.Tx.Result_Score_Number.szTextureSize.Height);
-                    if (TJAPlayer3.app.Tx.Result_Score_Number != null)
+                    if (TJAPlayer3.app.Tx.Result_Score_Number is not null)
                     {
                         TJAPlayer3.app.Tx.Result_Score_Number.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
                     }
@@ -451,10 +451,10 @@ internal class CActResultParameterPanel : CActivity
             }
             else
             {
-                if (TJAPlayer3.app.Tx.Result_Number != null)
+                if (TJAPlayer3.app.Tx.Result_Number is not null)
                 {
                     Rectangle rectangle = new Rectangle(32 * Num, 0, 32, TJAPlayer3.app.Tx.Result_Number.szTextureSize.Height / 2);
-                    if (TJAPlayer3.app.Tx.Result_Number != null)
+                    if (TJAPlayer3.app.Tx.Result_Number is not null)
                     {
                         TJAPlayer3.app.Tx.Result_Number.t2D描画(TJAPlayer3.app.Device, x, y, rectangle);
                     }
@@ -521,7 +521,7 @@ internal class CActResultParameterPanel : CActivity
 
     private void t小文字表示V2(int x, int y, long n, bool score, EPhaseV2 phase_v2, int nPlayer)
     {
-        if (phase_v2 > ephase_v2 || TJAPlayer3.app.Tx.Result_v2_Number == null)
+        if (phase_v2 > ephase_v2 || TJAPlayer3.app.Tx.Result_v2_Number is null)
             return;
 
         else if (phase_v2 == ephase_v2)

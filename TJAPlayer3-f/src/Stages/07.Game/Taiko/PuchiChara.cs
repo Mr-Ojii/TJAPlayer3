@@ -51,7 +51,7 @@ class PuchiChara : CActivity
     public int On進行描画(int x, int y, bool isGrowing, int nPlayer, int alpha = 255, bool isBalloon = false)
     {
         if (!TJAPlayer3.app.ConfigToml.Game.ShowPuchiChara) return base.On進行描画();
-        if (Counter == null || SineCounter == null || TJAPlayer3.app.Tx.PuchiChara[nPlayer] == null) return base.On進行描画();
+        if (Counter is null || SineCounter is null || TJAPlayer3.app.Tx.PuchiChara[nPlayer] is null) return base.On進行描画();
         Counter.t進行Loop();
         SineCounter.t進行LoopDb();
         var sineY = Math.Sin(SineCounter.db現在の値 * (Math.PI / 180)) * (TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Sine * (isBalloon ? TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Scale[1] : TJAPlayer3.app.Skin.SkinConfig.Game.PuchiChara.Scale[0]));

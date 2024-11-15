@@ -116,7 +116,7 @@ internal class CActConfigKeyAssign : CActivity
                 TJAPlayer3.app.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].ID = 0;
                 TJAPlayer3.app.ConfigIni.KeyAssign[(int)this.pad][this.n現在の選択行].Code = 0;
             }
-            if (TJAPlayer3.app.Tx.Menu_Highlight != null)
+            if (TJAPlayer3.app.Tx.Menu_Highlight is not null)
             {
                 int num = 20;
                 int num2 = 0x144;
@@ -167,7 +167,7 @@ internal class CActConfigKeyAssign : CActivity
             y += num5;
             tDrawText(x + 20, y, "<< Return to List", this.n現在の選択行 == 0x11, 0.75f);
             y += num5;
-            if (this.bキー入力待ち && (TJAPlayer3.app.Tx.Config_KeyAssign != null))
+            if (this.bキー入力待ち && (TJAPlayer3.app.Tx.Config_KeyAssign is not null))
             {
                 TJAPlayer3.app.Tx.Config_KeyAssign.t2D描画(TJAPlayer3.app.Device, 0x185, 0xd7);
             }

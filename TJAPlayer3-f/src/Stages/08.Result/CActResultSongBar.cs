@@ -54,7 +54,7 @@ internal class CActResultSongBar : CActivity
     }
     public override void On非活性化()
     {
-        if (this.ct登場用 != null)
+        if (this.ct登場用 is not null)
         {
             this.ct登場用 = null;
         }

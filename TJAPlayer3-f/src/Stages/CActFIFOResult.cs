@@ -10,19 +10,19 @@ internal class CActFIFOResult : CActivity
     {
         this.mode = EFIFOMode.FadeOut;
         this.counter = new CCounter(0, 500, 2, TJAPlayer3.app.Timer);
-        if (TJAPlayer3.app.Tx.Result_FadeIn != null)
+        if (TJAPlayer3.app.Tx.Result_FadeIn is not null)
             TJAPlayer3.app.Tx.Result_FadeIn.Opacity = 255;
     }
     public void tFadeIn開始()
     {
         this.mode = EFIFOMode.FadeIn;
         this.counter = new CCounter(0, 100, 5, TJAPlayer3.app.Timer);
-        if (TJAPlayer3.app.Tx.Result_FadeIn != null)
+        if (TJAPlayer3.app.Tx.Result_FadeIn is not null)
             TJAPlayer3.app.Tx.Result_FadeIn.Opacity = 255;
     }
     public void tFadeIn完了()		// #25406 2011.6.9 yyagi
     {
-        if (this.counter != null)
+        if (this.counter is not null)
             this.counter.n現在の値 = this.counter.n終了値;
     }
 
@@ -37,7 +37,7 @@ internal class CActFIFOResult : CActivity
     }
     public override int On進行描画()
     {
-        if (base.b活性化してない || (this.counter == null))
+        if (base.b活性化してない || (this.counter is null))
         {
             return 0;
         }
@@ -45,7 +45,7 @@ internal class CActFIFOResult : CActivity
 
         if (TJAPlayer3.app.ConfigToml.EnableSkinV2)
         {
-            if (TJAPlayer3.app.Tx.Tile_Black != null)
+            if (TJAPlayer3.app.Tx.Tile_Black is not null)
             {
                 TJAPlayer3.app.Tx.Tile_Black.Opacity = (this.mode == EFIFOMode.FadeIn) ? (((100 - this.counter.n現在の値) * 0xff) / 100) : ((this.counter.n現在の値 * 0xff) / 500);
                 for (int i = 0; i <= (TJAPlayer3.app.LogicalSize.Width / 64); i++)      // #23510 2010.10.31 yyagi: change "clientSize.Width" to "640" to fix FIFO drawing size
@@ -59,7 +59,7 @@ internal class CActFIFOResult : CActivity
         }
         else
         {
-            if (TJAPlayer3.app.Tx.Result_FadeIn != null)
+            if (TJAPlayer3.app.Tx.Result_FadeIn is not null)
             {
                 if (this.mode == EFIFOMode.FadeOut)
                 {

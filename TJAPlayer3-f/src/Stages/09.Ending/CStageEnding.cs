@@ -61,7 +61,7 @@ internal class CStageEnding : CStage
 
             this.ctAnimation.t進行();
 
-            if (TJAPlayer3.app.Tx.Exit_Curtain != null && TJAPlayer3.app.Tx.Exit_Text != null)
+            if (TJAPlayer3.app.Tx.Exit_Curtain is not null && TJAPlayer3.app.Tx.Exit_Text is not null)
             {
                 double t = this.ctAnimation.n現在の値, c = -1300, b = 1300, d = this.ctAnimation.n終了値;
                 t = t / d - 1;

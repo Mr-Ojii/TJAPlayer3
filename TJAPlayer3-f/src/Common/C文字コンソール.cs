@@ -70,7 +70,7 @@ internal class C文字コンソール : CActivity
     {
         for (int i = 0; i < 2; i++)
         {
-            if (this.txフォント8x16[i] != null)
+            if (this.txフォント8x16[i] is not null)
             {
                 this.txフォント8x16[i]?.Dispose();
                 this.txフォント8x16[i] = null;

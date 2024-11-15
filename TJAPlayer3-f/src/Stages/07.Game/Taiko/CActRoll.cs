@@ -58,13 +58,13 @@ internal class CActRoll : CActivity
                     FadeOutCounter[player].t開始(0, fadenum - 1, 1, TJAPlayer3.app.Timer);
                 }
                 var opacity = (fadenum - FadeOutCounter[player].n現在の値) * 255 / fadenum;
-                if (TJAPlayer3.app.Tx.Balloon_Roll != null)
+                if (TJAPlayer3.app.Tx.Balloon_Roll is not null)
                     TJAPlayer3.app.Tx.Balloon_Roll.Opacity = opacity;
-                if (TJAPlayer3.app.Tx.Balloon_Number_Roll != null)
+                if (TJAPlayer3.app.Tx.Balloon_Number_Roll is not null)
                     TJAPlayer3.app.Tx.Balloon_Number_Roll.Opacity = opacity;
 
 
-                if (TJAPlayer3.app.Tx.Balloon_Roll != null)
+                if (TJAPlayer3.app.Tx.Balloon_Roll is not null)
                     TJAPlayer3.app.Tx.Balloon_Roll.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.RollFrameX[player], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.RollFrameY[player]);
                 this.t文字表示(TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.RollNumberX[player], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.RollNumberY[player], n連打数, player);
             }
@@ -109,7 +109,7 @@ internal class CActRoll : CActivity
             int i = (int)(n連打 / Math.Pow(10, index) % 10);
             Rectangle rectangle = new Rectangle(TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.NumberSize[0] * i, 0, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.NumberSize[0], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.NumberSize[1]);
 
-            if (TJAPlayer3.app.Tx.Balloon_Number_Roll != null)
+            if (TJAPlayer3.app.Tx.Balloon_Number_Roll is not null)
             {
                 TJAPlayer3.app.Tx.Balloon_Number_Roll.vcScaling.X = TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.RollNumberScale;
                 TJAPlayer3.app.Tx.Balloon_Number_Roll.vcScaling.Y = TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.RollNumberScale + RollScale[this.ct連打アニメ[nPlayer].n現在の値];

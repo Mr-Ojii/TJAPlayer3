@@ -25,7 +25,7 @@ internal class CActSelectHistoryPanel : CActivity
         for (int i = 0; i < (int)Difficulty.Total; i++)
             for (int j = 0; j < 3; j++)
                 TJAPlayer3.t安全にDisposeする(ref this.Names[i, j]);
-        if (Font != null)
+        if (Font is not null)
         {
             Font.Dispose();
             Font = null;
@@ -49,9 +49,9 @@ internal class CActSelectHistoryPanel : CActivity
             int xdiff = 170;
             for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
             {
-                if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア != null && this.ct登場アニメ用.b終了値に達した && TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.eNodeType == C曲リストノード.ENodeType.SCORE)
+                if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア is not null && this.ct登場アニメ用.b終了値に達した && TJAPlayer3.stage選曲.act曲リスト.r現在選択中の曲.eNodeType == C曲リストノード.ENodeType.SCORE)
                 {
-                    if (TJAPlayer3.app.Tx.SongSelect_ScoreWindow[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]] != null && TJAPlayer3.app.Tx.SongSelect_ScoreWindow_Text != null)
+                    if (TJAPlayer3.app.Tx.SongSelect_ScoreWindow[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]] is not null && TJAPlayer3.app.Tx.SongSelect_ScoreWindow_Text is not null)
                     {
                         TJAPlayer3.app.Tx.SongSelect_ScoreWindow[TJAPlayer3.stage選曲.n現在選択中の曲の難易度[i]]?.t2D描画(TJAPlayer3.app.Device, x[i], y[i]);
                         for (int j = 0; j < 3; j++)
@@ -78,7 +78,7 @@ internal class CActSelectHistoryPanel : CActivity
 
     private void t小文字表示(int x, int y, long n)
     {
-        if (TJAPlayer3.app.Tx.SongSelect_ScoreWindow_Text == null)
+        if (TJAPlayer3.app.Tx.SongSelect_ScoreWindow_Text is null)
             return;
 
         for (int index = 0; index < n.ToString().Length; index++)
@@ -99,18 +99,18 @@ internal class CActSelectHistoryPanel : CActivity
             for (int j = 0; j < 3; j++)
                 TJAPlayer3.t安全にDisposeする(ref this.Names[i, j]);
 
-        if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア != null)
+        if (TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア is not null)
         {
             string[][] HiScorerName = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア.譜面情報.strHiScorerName;
 
-            if (Font != null)
+            if (Font is not null)
                 for (int index = 0; index < (int)Difficulty.Total; index++)
                 {
                     for (int j = 0; j < 3; j++)
                         if (!string.IsNullOrEmpty(HiScorerName[index][j]))
                         {
                             var name = this.Names[index, j] = TJAPlayer3.app.tCreateTexture(Font.DrawText(HiScorerName[index][j], Color.Black));
-                            if (name != null)
+                            if (name is not null)
                                 name.vcScaling = new Vector2(0.5f);
                         }
                 }

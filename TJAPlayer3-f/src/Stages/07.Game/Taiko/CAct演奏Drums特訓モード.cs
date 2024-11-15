@@ -16,7 +16,7 @@ class CAct演奏Drums特訓モード : CActivity
 
         base.On活性化();
 
-        if (TJAPlayer3.app.Tx.Tokkun_Background_Up != null)
+        if (TJAPlayer3.app.Tx.Tokkun_Background_Up is not null)
             this.ct背景スクロールタイマー = new CCounter(1, TJAPlayer3.app.Tx.Tokkun_Background_Up.szTextureSize.Width, 16, TJAPlayer3.app.Timer);
 
         CDTX dTX = TJAPlayer3.DTX[0];
@@ -61,7 +61,7 @@ class CAct演奏Drums特訓モード : CActivity
 
                 var current = ((double)(pChip.db発声時刻ms * (((double)TJAPlayer3.app.ConfigToml.PlayOption.PlaySpeed) / 20.0)));
                 var width = 0;
-                if (TJAPlayer3.app.Tx.Tokkun_ProgressBar != null) width = TJAPlayer3.app.Tx.Tokkun_ProgressBar.szTextureSize.Width;
+                if (TJAPlayer3.app.Tx.Tokkun_ProgressBar is not null) width = TJAPlayer3.app.Tx.Tokkun_ProgressBar.szTextureSize.Width;
 
                 this.gogoXList.Add((int)(width * (current / length)));
             }
@@ -243,7 +243,7 @@ class CAct演奏Drums特訓モード : CActivity
             if (TJAPlayer3.app.InputManager.Keyboard.bIsKeyPressed((int)SlimDXKeys.Key.A))
                 this.t現在の位置にジャンプポイントを設定する();
 
-            if (this.bスクロール中 && this.ctスクロールカウンター != null)
+            if (this.bスクロール中 && this.ctスクロールカウンター is not null)
             {
                 CSoundManager.rc演奏用タイマ.n現在時刻ms = EasingCircular(this.ctスクロールカウンター.n現在の値, (int)this.nスクロール前ms, (int)this.nスクロール後ms - (int)this.nスクロール前ms, this.ctスクロールカウンター.n終了値);
 
@@ -276,9 +276,9 @@ class CAct演奏Drums特訓モード : CActivity
         var currentWhite = (double)(this.n最終演奏位置ms);
         var percentageWhite = currentWhite / length;
 
-        if (TJAPlayer3.app.Tx.Tokkun_ProgressBarWhite != null) TJAPlayer3.app.Tx.Tokkun_ProgressBarWhite.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Training.ProgressBarXY[0], TJAPlayer3.app.Skin.SkinConfig.Game.Training.ProgressBarXY[1], new Rectangle(1, 1, (int)(TJAPlayer3.app.Tx.Tokkun_ProgressBarWhite.szTextureSize.Width * percentageWhite), TJAPlayer3.app.Tx.Tokkun_ProgressBarWhite.szTextureSize.Height));
-        if (TJAPlayer3.app.Tx.Tokkun_ProgressBar != null) TJAPlayer3.app.Tx.Tokkun_ProgressBar.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Training.ProgressBarXY[0], TJAPlayer3.app.Skin.SkinConfig.Game.Training.ProgressBarXY[1], new Rectangle(1, 1, (int)(TJAPlayer3.app.Tx.Tokkun_ProgressBar.szTextureSize.Width * percentage), TJAPlayer3.app.Tx.Tokkun_ProgressBar.szTextureSize.Height));
-        if (TJAPlayer3.app.Tx.Tokkun_GoGoPoint != null)
+        if (TJAPlayer3.app.Tx.Tokkun_ProgressBarWhite is not null) TJAPlayer3.app.Tx.Tokkun_ProgressBarWhite.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Training.ProgressBarXY[0], TJAPlayer3.app.Skin.SkinConfig.Game.Training.ProgressBarXY[1], new Rectangle(1, 1, (int)(TJAPlayer3.app.Tx.Tokkun_ProgressBarWhite.szTextureSize.Width * percentageWhite), TJAPlayer3.app.Tx.Tokkun_ProgressBarWhite.szTextureSize.Height));
+        if (TJAPlayer3.app.Tx.Tokkun_ProgressBar is not null) TJAPlayer3.app.Tx.Tokkun_ProgressBar.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Training.ProgressBarXY[0], TJAPlayer3.app.Skin.SkinConfig.Game.Training.ProgressBarXY[1], new Rectangle(1, 1, (int)(TJAPlayer3.app.Tx.Tokkun_ProgressBar.szTextureSize.Width * percentage), TJAPlayer3.app.Tx.Tokkun_ProgressBar.szTextureSize.Height));
+        if (TJAPlayer3.app.Tx.Tokkun_GoGoPoint is not null)
         {
             foreach (int xpos in gogoXList)
             {
@@ -286,12 +286,12 @@ class CAct演奏Drums特訓モード : CActivity
             }
         }
 
-        if (TJAPlayer3.app.Tx.Tokkun_JumpPoint != null)
+        if (TJAPlayer3.app.Tx.Tokkun_JumpPoint is not null)
         {
             foreach (STJUMPP xpos in JumpPointList)
             {
                 var width = 0;
-                if (TJAPlayer3.app.Tx.Tokkun_ProgressBar != null) width = TJAPlayer3.app.Tx.Tokkun_ProgressBar.szTextureSize.Width;
+                if (TJAPlayer3.app.Tx.Tokkun_ProgressBar is not null) width = TJAPlayer3.app.Tx.Tokkun_ProgressBar.szTextureSize.Width;
 
                 int x = (int)((double)width * ((double)xpos.Time / (double)length));
                 TJAPlayer3.app.Tx.Tokkun_JumpPoint.t2D描画(TJAPlayer3.app.Device, x + TJAPlayer3.app.Skin.SkinConfig.Game.Training.ProgressBarXY[0] - (TJAPlayer3.app.Tx.Tokkun_JumpPoint.szTextureSize.Width / 2), TJAPlayer3.app.Skin.SkinConfig.Game.Training.JumpPointY);
@@ -303,7 +303,7 @@ class CAct演奏Drums特訓モード : CActivity
 
     public int On進行描画_背景()
     {
-        if (this.ct背景スクロールタイマー != null)
+        if (this.ct背景スクロールタイマー is not null)
         {
             this.ct背景スクロールタイマー.t進行Loop();
 
@@ -317,19 +317,19 @@ class CAct演奏Drums特訓モード : CActivity
             }
         }
 
-        if (TJAPlayer3.app.Tx.Tokkun_DownBG != null) TJAPlayer3.app.Tx.Tokkun_DownBG.t2D描画(TJAPlayer3.app.Device, 0, 360);
-        if (TJAPlayer3.app.Tx.Tokkun_BigTaiko != null) TJAPlayer3.app.Tx.Tokkun_BigTaiko.t2D描画(TJAPlayer3.app.Device, 334, 400);
+        if (TJAPlayer3.app.Tx.Tokkun_DownBG is not null) TJAPlayer3.app.Tx.Tokkun_DownBG.t2D描画(TJAPlayer3.app.Device, 0, 360);
+        if (TJAPlayer3.app.Tx.Tokkun_BigTaiko is not null) TJAPlayer3.app.Tx.Tokkun_BigTaiko.t2D描画(TJAPlayer3.app.Device, 334, 400);
 
         return base.On進行描画();
     }
 
     public void On進行描画_小節_速度()
     {
-        if (TJAPlayer3.app.Tx.Tokkun_Speed_Measure != null)
+        if (TJAPlayer3.app.Tx.Tokkun_Speed_Measure is not null)
             TJAPlayer3.app.Tx.Tokkun_Speed_Measure.t2D描画(TJAPlayer3.app.Device, 0, 360);
         var maxMeasureStr = this.n小節の総数.ToString();
         var measureStr = TJAPlayer3.stage演奏ドラム画面.actPlayInfo.NowMeasure[0].ToString();
-        if (TJAPlayer3.app.Tx.Tokkun_SmallNumber != null)
+        if (TJAPlayer3.app.Tx.Tokkun_SmallNumber is not null)
         {
             var x = TJAPlayer3.app.Skin.SkinConfig.Game.Training.MaxMeasureCountXY[0];
             foreach (char c in maxMeasureStr)
@@ -342,7 +342,7 @@ class CAct演奏Drums特訓モード : CActivity
 
         var subtractVal = (TJAPlayer3.app.Skin.SkinConfig.Game.Training.BigNumberWidth - 2) * (measureStr.Length - 1);
 
-        if (TJAPlayer3.app.Tx.Tokkun_BigNumber != null)
+        if (TJAPlayer3.app.Tx.Tokkun_BigNumber is not null)
         {
             var x = TJAPlayer3.app.Skin.SkinConfig.Game.Training.CurrentMeasureCountXY[0];
             foreach (char c in measureStr)

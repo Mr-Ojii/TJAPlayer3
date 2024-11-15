@@ -12,7 +12,7 @@ internal class Rainbow : CActivity
 
     public virtual void Start(int player)
     {
-        if (TJAPlayer3.app.Tx.Effects_Rainbow != null)
+        if (TJAPlayer3.app.Tx.Effects_Rainbow is not null)
         {
             for (int i = 0; i < 2; i++)
             {
@@ -70,7 +70,7 @@ internal class Rainbow : CActivity
                         this.Rainbow1P[f].IsUsing = false;
                     }
 
-                    if (TJAPlayer3.app.Tx.Effects_Rainbow != null && this.Rainbow1P[f].Player == 0) //画像が出来るまで
+                    if (TJAPlayer3.app.Tx.Effects_Rainbow is not null && this.Rainbow1P[f].Player == 0) //画像が出来るまで
                     {
                         //this.st虹[f].ct進行.n現在の値 = 164;
 
@@ -103,7 +103,7 @@ internal class Rainbow : CActivity
                         this.Rainbow2P[f].IsUsing = false;
                     }
 
-                    if (TJAPlayer3.app.Tx.Effects_Rainbow != null && this.Rainbow2P[f].Player == 1) //画像が出来るまで
+                    if (TJAPlayer3.app.Tx.Effects_Rainbow is not null && this.Rainbow2P[f].Player == 1) //画像が出来るまで
                     {
                         //this.st虹[f].ct進行.n現在の値 = 164;
                         TJAPlayer3.app.Tx.Effects_Rainbow.vcScaling.X = 1.0f - ((float)(TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[1] - TJAPlayer3.stage演奏ドラム画面.actLaneTaiko.nDefaultJudgePos[1, 0]) / (float)TJAPlayer3.app.Tx.Effects_Rainbow.szTextureSize.Width);

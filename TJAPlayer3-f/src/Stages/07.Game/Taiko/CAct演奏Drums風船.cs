@@ -64,13 +64,13 @@ internal class CAct演奏Drums風船 : CActivity
             {
                 if (n残り打数[j] < n連打数)
                 {
-                    if (TJAPlayer3.app.Tx.Balloon_Breaking[j] != null)
+                    if (TJAPlayer3.app.Tx.Balloon_Breaking[j] is not null)
                         TJAPlayer3.app.Tx.Balloon_Breaking[j].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.BalloonX[nPlayer] + (this.ct風船ふきだしアニメ.n現在の値 == 1 ? 3 : 0) + TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] - 414, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.BalloonY[nPlayer]);
                     break;
                 }
             }
             //1P:31 2P:329
-            if (TJAPlayer3.app.Tx.Balloon_Balloon != null)
+            if (TJAPlayer3.app.Tx.Balloon_Balloon is not null)
                 TJAPlayer3.app.Tx.Balloon_Balloon.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.BalloonFrameX[nPlayer] + TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] - 414, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.BalloonFrameY[nPlayer]);
             this.t文字表示(TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.BalloonNumberX[nPlayer] + TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] - 414, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.BalloonNumberY[nPlayer], n連打数, nPlayer);
             //CDTXMania.act文字コンソール.tPrint( 0, 0, C文字コンソール.EFontType.白, n連打数.ToString() );
@@ -119,7 +119,7 @@ internal class CAct演奏Drums風船 : CActivity
             int i = (int)(n連打 / Math.Pow(10, index) % 10);
             Rectangle rectangle = new Rectangle(TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.NumberSize[0] * i, 0, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.NumberSize[0], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.NumberSize[1]);
 
-            if (TJAPlayer3.app.Tx.Balloon_Number_Roll != null)
+            if (TJAPlayer3.app.Tx.Balloon_Number_Roll is not null)
             {
                 TJAPlayer3.app.Tx.Balloon_Number_Roll.Opacity = 255;
                 TJAPlayer3.app.Tx.Balloon_Number_Roll.vcScaling.X = TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.BalloonNumberScale;

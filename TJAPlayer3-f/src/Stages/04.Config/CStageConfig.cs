@@ -94,7 +94,7 @@ internal class CStageConfig : CStage
         try
         {
             TJAPlayer3.app.ConfigIni.t書き出し(TJAPlayer3.strEXEのあるフォルダ + "Config.ini");	// CONFIGだけ
-            if (this.privatefont != null)                                                    // 以下OPTIONと共通
+            if (this.privatefont is not null)                                                    // 以下OPTIONと共通
             {
                 this.privatefont.Dispose();
                 this.privatefont = null;
@@ -147,13 +147,13 @@ internal class CStageConfig : CStage
 
         #region [ 背景 ]
         //---------------------
-        if (TJAPlayer3.app.Tx.Config_Background != null)
+        if (TJAPlayer3.app.Tx.Config_Background is not null)
             TJAPlayer3.app.Tx.Config_Background.t2D描画(TJAPlayer3.app.Device, 0, 0);
         //---------------------
         #endregion
         #region [ メニューカーソル ]
         //---------------------
-        if (TJAPlayer3.app.Tx.Config_Cursor != null)
+        if (TJAPlayer3.app.Tx.Config_Cursor is not null)
         {
             Rectangle rectangle;
             TJAPlayer3.app.Tx.Config_Cursor.Opacity = this.bメニューにフォーカス中 ? 255 : 128;
@@ -191,7 +191,7 @@ internal class CStageConfig : CStage
         #endregion
         #region [ 説明文パネル ]
         //---------------------
-        if (this.tx説明文パネル != null)
+        if (this.tx説明文パネル is not null)
             this.tx説明文パネル.t2D描画(TJAPlayer3.app.Device, 67, 382);
         //---------------------
         #endregion
@@ -514,7 +514,7 @@ internal class CStageConfig : CStage
 
             int c = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
 
-            if (this.tx説明文パネル != null)
+            if (this.tx説明文パネル is not null)
             {
                 this.tx説明文パネル.Dispose();
             }
@@ -532,7 +532,7 @@ internal class CStageConfig : CStage
         try
         {
             CItemBase item = this.actList.ib現在の選択項目;
-            if (this.tx説明文パネル != null)
+            if (this.tx説明文パネル is not null)
             {
                 this.tx説明文パネル.Dispose();
             }

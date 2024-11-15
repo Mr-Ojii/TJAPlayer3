@@ -33,7 +33,7 @@ public class LaneFlash : CActivity
 
     public override int On進行描画()
     {
-        if (Texture == null || Counter == null) return base.On進行描画();
+        if (Texture is null || Counter is null) return base.On進行描画();
         if (!Counter.b停止中)
         {
             Counter.t進行();

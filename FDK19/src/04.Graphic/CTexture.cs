@@ -16,7 +16,7 @@ public unsafe class CTexture : IDisposable
         }
         set
         {
-            if (this.texture == null)
+            if (this.texture is null)
                 return;
 
             this._opacity = Math.Clamp(value, 0, 0xff);
@@ -49,7 +49,7 @@ public unsafe class CTexture : IDisposable
         }
         set
         {
-            if (this.texture == null)
+            if (this.texture is null)
                 return;
 
             this._eBlendMode = value;
@@ -66,7 +66,7 @@ public unsafe class CTexture : IDisposable
     }
     public Vector2 vcScaling;
 
-    private bool bTextureDisposed => this.texture != null;
+    private bool bTextureDisposed => this.texture is not null;
 
     // コンストラクタ
 
@@ -119,7 +119,7 @@ public unsafe class CTexture : IDisposable
 
             this.texture = SDL3.SDL_CreateTexture(device.renderer, SDL_PixelFormat.SDL_PIXELFORMAT_ARGB8888, SDL_TextureAccess.SDL_TEXTUREACCESS_TARGET, bitmap.Width, bitmap.Height);
 
-            if (this.texture == null)
+            if (this.texture is null)
                 throw new Exception("Failed to create texture.");
 
             //SKColorはArgb8888で格納されるが、無駄コピーが発生するのでどうにかしたい
@@ -143,7 +143,7 @@ public unsafe class CTexture : IDisposable
     // メソッド
     public void UpdateTexture(nint bitmap, Size size)
     {
-        if (texture == null || this.szTextureSize != size)
+        if (texture is null || this.szTextureSize != size)
             return;
 
         SDL_Rect rect = new SDL_Rect()
@@ -249,7 +249,7 @@ public unsafe class CTexture : IDisposable
 
     public void t2D描画(Device device, float x, float y, Rectangle rc画像内の描画領域, EFlipType eFlipType = EFlipType.None)
     {
-        if (this.texture == null)
+        if (this.texture is null)
             return;
 
         dstrect.x = x;
@@ -271,7 +271,7 @@ public unsafe class CTexture : IDisposable
 
     public void t2D幕用描画(Device device, float x, float y, Rectangle rc画像内の描画領域, bool left, int num = 0)
     {
-        if (this.texture == null)
+        if (this.texture is null)
             return;
 
         dstrect.x = x;
@@ -297,7 +297,7 @@ public unsafe class CTexture : IDisposable
         if (!this.bDisposed)
         {
             // テクスチャの破棄
-            if (this.texture != null)
+            if (this.texture is not null)
             {
                 SDL3.SDL_DestroyTexture(this.texture);
                 this.texture = null;

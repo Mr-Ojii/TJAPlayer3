@@ -57,7 +57,7 @@ internal class CActComboVoice : CActivity
                     comboVoice.nPlayer = i;
                     comboVoice.strFilePath = item;
                     comboVoice.soundComboVoice = TJAPlayer3.SoundManager.tCreateSound(item, ESoundGroup.Voice);
-                    if (comboVoice.soundComboVoice != null && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.app.ConfigToml.PlayOption.UsePanning) //2020.05.06 Mr-Ojii 左右に出したかったから追加。
+                    if (comboVoice.soundComboVoice is not null && TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount >= 2 && TJAPlayer3.app.ConfigToml.PlayOption.UsePanning) //2020.05.06 Mr-Ojii 左右に出したかったから追加。
                     {
                         if (i == 0)
                             comboVoice.soundComboVoice.nPanning = -100;
@@ -83,7 +83,7 @@ internal class CActComboVoice : CActivity
         {
             foreach (var item in ListCombo[i])
             {
-                if (item.soundComboVoice != null)
+                if (item.soundComboVoice is not null)
                 {
                     item.soundComboVoice?.t解放する();
                     item.soundComboVoice = null;

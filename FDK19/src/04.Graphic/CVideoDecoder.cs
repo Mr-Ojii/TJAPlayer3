@@ -34,12 +34,12 @@ public unsafe class CVideoDecoder : IDisposable
                     break;
                 }
             }
-            if (video_stream == null)
+            if (video_stream is null)
                 throw new FileLoadException("No video stream ...\n");
 
             // find decoder
             AVCodec* codec = ffmpeg.avcodec_find_decoder(video_stream->codecpar->codec_id);
-            if (codec == null)
+            if (codec is null)
                 throw new NotSupportedException("No supported decoder ...\n");
 
             codec_context = ffmpeg.avcodec_alloc_context3(codec);
@@ -78,7 +78,7 @@ public unsafe class CVideoDecoder : IDisposable
         video_stream = null;
         fixed (AVFormatContext** pformat_context = &format_context)
             ffmpeg.avformat_close_input(pformat_context);
-        if (lastTexture != null)
+        if (lastTexture is not null)
             lastTexture.Dispose();
         while (decodedframes.TryDequeue(out CDecodedFrame? frame))
             frame.Dispose();
@@ -135,7 +135,7 @@ public unsafe class CVideoDecoder : IDisposable
         while (decodedframes.TryDequeue(out CDecodedFrame? frame))
             frame.RemoveFrame();
         this.EnqueueFrames();
-        if (lastTexture != null)
+        if (lastTexture is not null)
             lastTexture.Dispose();
         lastTexture = new CTexture(device, new SKBitmap(FrameSize.Width, FrameSize.Height));
     }
@@ -172,7 +172,7 @@ public unsafe class CVideoDecoder : IDisposable
                 this.EnqueueFrames();
         }
 
-        if (lastTexture == null)
+        if (lastTexture is null)
             lastTexture = new CTexture(this.device, new SKBitmap(FrameSize.Width, FrameSize.Height));
 
         if (Texture == lastTexture)

@@ -397,7 +397,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
             if ((this.st叩ききりまショー.ct残り時間.n現在の値 >= 20000) && this.st叩ききりまショー.ct残り時間.n現在の値 != 25000)
                 this.t叩ききりまショー_評価をして残り時間を延長する();
 
-            if (TJAPlayer3.app.Tx.Tile_Black != null)
+            if (TJAPlayer3.app.Tx.Tile_Black is not null)
             {
                 if (this.st叩ききりまショー.ct残り時間.n現在の値 >= 22000 && this.st叩ききりまショー.ct残り時間.n現在の値 < 23000)
                     TJAPlayer3.app.Tx.Tile_Black.Opacity = 64;
@@ -428,9 +428,9 @@ internal class CAct演奏Drumsゲームモード : CActivity
             //CDTXMania.act文字コンソール.tPrint( 100, 16 * 7, C文字コンソール.EFontType.白, this.st叩ききりまショー.ct加算審査中.n現在の値.ToString() );
 
             #region[ 残り時間描画 ]
-            if (TJAPlayer3.app.Tx.Taiko_Combo != null)
+            if (TJAPlayer3.app.Tx.Taiko_Combo is not null)
             {
-                if (TJAPlayer3.app.Tx.GameMode_Timer_Frame != null)
+                if (TJAPlayer3.app.Tx.GameMode_Timer_Frame is not null)
                     TJAPlayer3.app.Tx.GameMode_Timer_Frame.t2D描画(TJAPlayer3.app.Device, 230, 84);
                 this.st叩ききりまショー.ct針アニメ.t進行Loop();
 
@@ -781,7 +781,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
             if (int.TryParse(ch.ToString(), out var i))
             {
                 Rectangle rectangle = new Rectangle(TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboSize[0] * i, 0, TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboSize[0], TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboSize[1]);
-                if (TJAPlayer3.app.Tx.Taiko_Combo[0] != null)
+                if (TJAPlayer3.app.Tx.Taiko_Combo[0] is not null)
                 {
                     if (this.st叩ききりまショー.bタイマー使用中)
                         TJAPlayer3.app.Tx.Taiko_Combo[0].Opacity = 255;
@@ -807,7 +807,7 @@ internal class CAct演奏Drumsゲームモード : CActivity
                 if (cFont[i] == ch)
                 {
                     Rectangle rectangle = new Rectangle(TJAPlayer3.app.Skin.SkinConfig.Game.Score.Size[0] * i, 0, TJAPlayer3.app.Skin.SkinConfig.Game.Score.Size[0], TJAPlayer3.app.Skin.SkinConfig.Game.Score.Size[1]);
-                    if (TJAPlayer3.app.Tx.Taiko_Score[0] != null)
+                    if (TJAPlayer3.app.Tx.Taiko_Score[0] is not null)
                     {
                         TJAPlayer3.app.Tx.Taiko_Score[0].vcScaling.Y = 1f;
                         TJAPlayer3.app.Tx.Taiko_Score[0].t2D描画(TJAPlayer3.app.Device, x, y, rectangle);

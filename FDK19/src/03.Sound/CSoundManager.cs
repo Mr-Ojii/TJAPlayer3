@@ -74,7 +74,7 @@ public class CSoundManager  // : CSound
 
     public long GetSoundDelay()
     {
-        if (SoundDevice != null)
+        if (SoundDevice is not null)
         {
             return SoundDevice.nBufferSizems;
         }
@@ -84,7 +84,7 @@ public class CSoundManager  // : CSound
         }
     }
 
-    public float CPUUsage => (SoundDevice != null ? SoundDevice.CPUUsage : 0);
+    public float CPUUsage => (SoundDevice is not null ? SoundDevice.CPUUsage : 0);
 
     #endregion
 
@@ -165,7 +165,7 @@ public class CSoundManager  // : CSound
     {
         #region [ すでにサウンドデバイスと演奏タイマが構築されていれば解放する。]
         //-----------------
-        if (SoundDevice != null)
+        if (SoundDevice is not null)
         {
             // すでに生成済みのサウンドがあれば初期状態に戻す。
 

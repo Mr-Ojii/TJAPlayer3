@@ -45,7 +45,7 @@ public class CPad
         // すべての入力デバイスについて…
         foreach (IInputDevice device in this.rInputManager.listInputDevices)
         {
-            if ((device.listInputEvents == null) || (device.listInputEvents.Count == 0))
+            if ((device.listInputEvents is null) || (device.listInputEvents.Count == 0))
                 continue;
 
             foreach (STInputEvent event2 in device.listInputEvents)

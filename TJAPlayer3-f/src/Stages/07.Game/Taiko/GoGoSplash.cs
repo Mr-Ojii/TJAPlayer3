@@ -26,7 +26,7 @@ class GoGoSplash : CActivity
     /// <returns></returns>
     public override int On進行描画()
     {
-        if (Splash == null) return base.On進行描画();
+        if (Splash is null) return base.On進行描画();
         Splash.t進行();
         if (Splash.b終了値に達した)
         {
@@ -39,7 +39,7 @@ class GoGoSplash : CActivity
             {
                 if (i > TJAPlayer3.app.Skin.SkinConfig.Game.Effect.GoGoSplash.Y.Length) break;
                 // Yの配列がiよりも小さかったらそこでキャンセルする。
-                if (TJAPlayer3.app.Skin.SkinConfig.Game.Effect.GoGoSplash.Rotate && TJAPlayer3.app.Tx.Effects_GoGoSplash != null)
+                if (TJAPlayer3.app.Skin.SkinConfig.Game.Effect.GoGoSplash.Rotate && TJAPlayer3.app.Tx.Effects_GoGoSplash is not null)
                 {
                     // Switch文を使いたかったが、定数じゃないから使えねぇ!!!!
                     if (i == 0)

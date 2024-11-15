@@ -83,7 +83,7 @@ public class CSoundTimer : CTimerBase
         // 特になし； ISoundDevice の解放は呼び出し元で行うこと。
 
         //sendinputスレッド削除
-        if (timer != null)
+        if (timer is not null)
         {
             timer.Change(System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
             // ここで、実際にtimerが停止したことを確認するコードを追加すべきだが、やり方わからず。

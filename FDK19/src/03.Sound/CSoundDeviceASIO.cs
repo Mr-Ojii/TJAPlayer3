@@ -147,7 +147,7 @@ internal class CSoundDeviceASIO : ISoundDevice
         //Debug.WriteLine( "BassAsio.BASS_ASIO_GetDeviceInfo():" );
         //            int a, count = 0;
         //            BASS_ASIO_DEVICEINFO asioDevInfo;
-        //            for ( a = 0; ( asioDevInfo = BassAsio.BASS_ASIO_GetDeviceInfo( a ) ) != null; a++ )
+        //            for ( a = 0; ( asioDevInfo = BassAsio.BASS_ASIO_GetDeviceInfo( a ) ) is not null; a++ )
         //            {
         //                Trace.TraceInformation( "ASIO Device {0}: {1}, driver={2}", a, asioDevInfo.name, asioDevInfo.driver );
         //                count++; // count it

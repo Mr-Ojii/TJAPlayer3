@@ -202,14 +202,14 @@ internal class CAct演奏Combo共通 : CActivity
 
         for (int i = 0; i < n桁数; i++)
         {
-            if (TJAPlayer3.app.Tx.Taiko_Combo[0] != null)
+            if (TJAPlayer3.app.Tx.Taiko_Combo[0] is not null)
                 TJAPlayer3.app.Tx.Taiko_Combo[0].Opacity = 255;
-            if (TJAPlayer3.app.Tx.Taiko_Combo[1] != null)
+            if (TJAPlayer3.app.Tx.Taiko_Combo[1] is not null)
                 TJAPlayer3.app.Tx.Taiko_Combo[1].Opacity = 255;
 
             if (n桁数 <= 1)
             {
-                if (TJAPlayer3.app.Tx.Taiko_Combo[0] != null)
+                if (TJAPlayer3.app.Tx.Taiko_Combo[0] is not null)
                 {
                     var yScalling = ComboScale[this.ctコンボ加算[nPlayer].n現在の値];
                     TJAPlayer3.app.Tx.Taiko_Combo[0].vcScaling.Y = TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboScale[0] + yScalling;
@@ -220,7 +220,7 @@ internal class CAct演奏Combo共通 : CActivity
             else if (n桁数 <= 2)
             {
                 //int[] arComboX = { CDTXMania.Skin.Game_Taiko_Combo_X[nPlayer] + CDTXMania.Skin.Game_Taiko_Combo_Padding[0], CDTXMania.Skin.Game_Taiko_Combo_X[nPlayer] - CDTXMania.Skin.Game_Taiko_Combo_Padding[0] };
-                if (TJAPlayer3.app.Tx.Taiko_Combo[0] != null)
+                if (TJAPlayer3.app.Tx.Taiko_Combo[0] is not null)
                 {
                     var yScalling = ComboScale[this.ctコンボ加算[nPlayer].n現在の値];
                     TJAPlayer3.app.Tx.Taiko_Combo[0].vcScaling.Y = TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboScale[0] + yScalling;
@@ -230,7 +230,7 @@ internal class CAct演奏Combo共通 : CActivity
             }
             else if (n桁数 == 3)
             {
-                if (TJAPlayer3.app.Tx.Taiko_Combo[1] != null)
+                if (TJAPlayer3.app.Tx.Taiko_Combo[1] is not null)
                 {
                     var yScalling = ComboScale_Ex[this.ctコンボ加算[nPlayer].n現在の値, 0];
                     TJAPlayer3.app.Tx.Taiko_Combo[1].vcScaling.Y = TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboScale[1] + yScalling;
@@ -238,7 +238,7 @@ internal class CAct演奏Combo共通 : CActivity
                     var yJumping = TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboExIsJumping ? (int)ComboScale_Ex[this.ctコンボ加算[nPlayer].n現在の値, 1] : 0;
                     TJAPlayer3.app.Tx.Taiko_Combo[1].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, rightX - TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboPadding[1] * i, TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboExY[nPlayer] + yJumping, new Rectangle(n位の数[i] * TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboSizeEx[0], 0, TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboSizeEx[0], TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboSizeEx[1]));
                 }
-                if (TJAPlayer3.app.Tx.Taiko_Combo_Effect != null)
+                if (TJAPlayer3.app.Tx.Taiko_Combo_Effect is not null)
                 {
                     TJAPlayer3.app.Tx.Taiko_Combo_Effect.eBlendMode = CTexture.EBlendMode.Addition;
                     if (this.ctコンボラメ.n現在の値 < 14)
@@ -273,7 +273,7 @@ internal class CAct演奏Combo共通 : CActivity
             }
             else
             {
-                if (TJAPlayer3.app.Tx.Taiko_Combo[1] != null)
+                if (TJAPlayer3.app.Tx.Taiko_Combo[1] is not null)
                 {
                     var yScalling = ComboScale_Ex[this.ctコンボ加算[nPlayer].n現在の値, 0];
                     TJAPlayer3.app.Tx.Taiko_Combo[1].vcScaling.Y = TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboScale[2] + yScalling;
@@ -281,7 +281,7 @@ internal class CAct演奏Combo共通 : CActivity
                     var yJumping = TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboExIsJumping ? (int)ComboScale_Ex[this.ctコンボ加算[nPlayer].n現在の値, 1] : 0;
                     TJAPlayer3.app.Tx.Taiko_Combo[1].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, rightX - TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboPadding[2] * i, TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboEx4Y[nPlayer] + yJumping, new Rectangle(n位の数[i] * TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboSizeEx[0], 0, TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboSizeEx[0], TJAPlayer3.app.Skin.SkinConfig.Game.Taiko.ComboSizeEx[1]));
                 }
-                if (TJAPlayer3.app.Tx.Taiko_Combo_Effect != null)
+                if (TJAPlayer3.app.Tx.Taiko_Combo_Effect is not null)
                 {
                     TJAPlayer3.app.Tx.Taiko_Combo_Effect.eBlendMode = CTexture.EBlendMode.Addition;
                     if (this.ctコンボラメ.n現在の値 < 14)
@@ -346,7 +346,7 @@ internal class CAct演奏Combo共通 : CActivity
     }
     public override void On非活性化()
     {
-        if (this.status != null)
+        if (this.status is not null)
             this.status = null;
 
         base.On非活性化();

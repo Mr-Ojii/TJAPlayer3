@@ -27,7 +27,7 @@ internal class CActPanel : CActivity
             return;
 
         TJAPlayer3.t安全にDisposeする(ref this.txPanel);
-        if (!string.IsNullOrEmpty(songName) && this.pfMusicName != null)
+        if (!string.IsNullOrEmpty(songName) && this.pfMusicName is not null)
         {
             try
             {
@@ -37,17 +37,17 @@ internal class CActPanel : CActivity
                 {
                     this.txMusicName = TJAPlayer3.app.tCreateTexture(bmpSongTitle);
                 }
-                if (txMusicName != null)
+                if (txMusicName is not null)
                 {
                     this.txMusicName.vcScaling.X = TJAPlayer3.GetSongNameXScaling(ref txMusicName);
                 }
-                if (!string.IsNullOrEmpty(subtitle) && this.pfSubTitleName != null)
+                if (!string.IsNullOrEmpty(subtitle) && this.pfSubTitleName is not null)
                 {
                     using (var bmpSubTitle = pfSubTitleName.DrawText(subtitle, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._MusicNameForeColor, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._MusicNameBackColor, TJAPlayer3.app.Skin.SkinConfig.Font.EdgeRatio))
                     {
                         this.txSubTitleName = TJAPlayer3.app.tCreateTexture(bmpSubTitle);
                     }
-                    if (txSubTitleName != null)
+                    if (txSubTitleName is not null)
                     {
                         this.txSubTitleName.vcScaling.X = TJAPlayer3.GetSongNameXScaling(ref txSubTitleName, 520);
                     }
@@ -116,19 +116,19 @@ internal class CActPanel : CActivity
     public override int On進行描画()
     {
         if (TJAPlayer3.stage演奏ドラム画面.actDan.IsAnimating) return 0;
-        if (!base.b活性化してない && !this.bMute && this.ct進行用 != null)
+        if (!base.b活性化してない && !this.bMute && this.ct進行用 is not null)
         {
             this.ct進行用.t進行Loop();
             if (this.bFirst)
             {
                 this.ct進行用.n現在の値 = 300;
             }
-            if (this.txGENRE != null)
+            if (this.txGENRE is not null)
                 this.txGENRE.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.GenreX, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.GenreY);
 
             if (!TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.StageTextDisp)
             {
-                if (this.txMusicName != null)
+                if (this.txMusicName is not null)
                 {
                     float fRate = 660.0f / this.txMusicName.szTextureSize.Width;
                     if (this.txMusicName.szTextureSize.Width <= 660.0f)
@@ -146,7 +146,7 @@ internal class CActPanel : CActivity
                     {
                         this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameX - (this.txMusicName.szTextureSize.Width * fRate), TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameY);
                     }
-                    if (this.txSubTitleName != null)
+                    if (this.txSubTitleName is not null)
                     {
                         fRate = 600.0f / this.txSubTitleName.szTextureSize.Width;
                         if (this.txSubTitleName.szTextureSize.Width <= 600.0f)
@@ -171,47 +171,47 @@ internal class CActPanel : CActivity
             {
                 #region[ 透明度制御 ]
 
-                if (this.txMusicName != null)
+                if (this.txMusicName is not null)
                 {
                     if (this.ct進行用.n現在の値 < 745)
                     {
                         this.bFirst = false;
                         this.txMusicName.Opacity = 255;
-                        if (this.txSubTitleName != null)
+                        if (this.txSubTitleName is not null)
                             this.txSubTitleName.Opacity = 255;
-                        if (this.txGENRE != null)
+                        if (this.txGENRE is not null)
                             this.txGENRE.Opacity = 255;
-                        if (this.tx難易度とステージ数 != null)
+                        if (this.tx難易度とステージ数 is not null)
                             this.tx難易度とステージ数.Opacity = 0;
                     }
                     else if (this.ct進行用.n現在の値 >= 745 && this.ct進行用.n現在の値 < 1000)
                     {
                         this.txMusicName.Opacity = 255 - (this.ct進行用.n現在の値 - 745);
-                        if (this.txSubTitleName != null)
+                        if (this.txSubTitleName is not null)
                             this.txSubTitleName.Opacity = 255 - (this.ct進行用.n現在の値 - 745);
-                        if (this.txGENRE != null)
+                        if (this.txGENRE is not null)
                             this.txGENRE.Opacity = 255 - (this.ct進行用.n現在の値 - 745);
-                        if (this.tx難易度とステージ数 != null)
+                        if (this.tx難易度とステージ数 is not null)
                             this.tx難易度とステージ数.Opacity = this.ct進行用.n現在の値 - 745;
                     }
                     else if (this.ct進行用.n現在の値 >= 1000 && this.ct進行用.n現在の値 <= 1745)
                     {
                         this.txMusicName.Opacity = 0;
-                        if (this.txSubTitleName != null)
+                        if (this.txSubTitleName is not null)
                             this.txSubTitleName.Opacity = 0;
-                        if (this.txGENRE != null)
+                        if (this.txGENRE is not null)
                             this.txGENRE.Opacity = 0;
-                        if (this.tx難易度とステージ数 != null)
+                        if (this.tx難易度とステージ数 is not null)
                             this.tx難易度とステージ数.Opacity = 255;
                     }
                     else if (this.ct進行用.n現在の値 >= 1745)
                     {
                         this.txMusicName.Opacity = this.ct進行用.n現在の値 - 1745;
-                        if (this.txSubTitleName != null)
+                        if (this.txSubTitleName is not null)
                             this.txSubTitleName.Opacity = this.ct進行用.n現在の値 - 1745;
-                        if (this.txGENRE != null)
+                        if (this.txGENRE is not null)
                             this.txGENRE.Opacity = this.ct進行用.n現在の値 - 1745;
-                        if (this.tx難易度とステージ数 != null)
+                        if (this.tx難易度とステージ数 is not null)
                             this.tx難易度とステージ数.Opacity = 255 - (this.ct進行用.n現在の値 - 1745);
                     }
                     #endregion
@@ -231,7 +231,7 @@ internal class CActPanel : CActivity
                     {
                         this.txMusicName.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameX - (this.txMusicName.szTextureSize.Width * txMusicName.vcScaling.X), TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameY);
                     }
-                    if (this.txSubTitleName != null)
+                    if (this.txSubTitleName is not null)
                     {
                         if (TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._SubTitleNameReferencePoint == CSkin.EReferencePoint.Center)
                         {
@@ -247,7 +247,7 @@ internal class CActPanel : CActivity
                         }
                     }
                 }
-                if (this.tx難易度とステージ数 != null)
+                if (this.tx難易度とステージ数 is not null)
                     if (TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont._MusicNameReferencePoint == CSkin.EReferencePoint.Center)
                     {
                         this.tx難易度とステージ数.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameX - (this.tx難易度とステージ数.szTextureSize.Width / 2), TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.MusicNameY);

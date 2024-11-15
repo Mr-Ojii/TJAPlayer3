@@ -29,7 +29,7 @@ internal class CActFIFOStart : CActivity
     }
     public override int On進行描画()
     {
-        if (base.b活性化してない || (this.counter == null))
+        if (base.b活性化してない || (this.counter is null))
         {
             return 0;
         }
@@ -37,7 +37,7 @@ internal class CActFIFOStart : CActivity
 
         if (TJAPlayer3.app.ConfigToml.EnableSkinV2)
         {
-            if (TJAPlayer3.app.Tx.SongLoading_v2_BG != null)
+            if (TJAPlayer3.app.Tx.SongLoading_v2_BG is not null)
             {
                 if (this.mode == EFIFOMode.FadeOut)
                 {
@@ -59,7 +59,7 @@ internal class CActFIFOStart : CActivity
         {
             if (this.mode == EFIFOMode.FadeOut)
             {
-                if (TJAPlayer3.app.Tx.SongLoading_BG != null)
+                if (TJAPlayer3.app.Tx.SongLoading_BG is not null)
                 {
                     int y = this.counter.n現在の値 >= 840 ? 840 : this.counter.n現在の値;
                     TJAPlayer3.app.Tx.SongLoading_BG.t2D描画(TJAPlayer3.app.Device, 0, TJAPlayer3.app.LogicalSize.Height - y);
@@ -67,7 +67,7 @@ internal class CActFIFOStart : CActivity
             }
             else
             {
-                if (TJAPlayer3.app.Tx.SongLoading_BG != null)
+                if (TJAPlayer3.app.Tx.SongLoading_BG is not null)
                 {
                     int y = this.counter.n現在の値;
                     int sa = (TJAPlayer3.app.Tx.SongLoading_BG.szTextureSize.Height - TJAPlayer3.app.LogicalSize.Height) / 2;

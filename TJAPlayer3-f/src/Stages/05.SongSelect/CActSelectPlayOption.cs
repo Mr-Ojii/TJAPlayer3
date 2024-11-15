@@ -201,7 +201,7 @@ internal class CActSelectPlayOption : CActivity
 
     public override void On非活性化()
     {
-        if (this.Font != null)
+        if (this.Font is not null)
             this.Font.Dispose();
 
         int count = NameTexture[0].Count;
@@ -338,7 +338,7 @@ internal class CActSelectPlayOption : CActivity
     /// <param name="y">下中央基準のY</param>
     private void tDrawBox(float x, float y, int nPlayer)
     {
-        if (TJAPlayer3.app.Tx.PlayOption_List != null && TJAPlayer3.app.Tx.PlayOption_Active != null)
+        if (TJAPlayer3.app.Tx.PlayOption_List is not null && TJAPlayer3.app.Tx.PlayOption_Active is not null)
         {
             TJAPlayer3.app.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2], TJAPlayer3.app.Tx.PlayOption_List.szTextureSize.Width, TJAPlayer3.app.Tx.PlayOption_List.szTextureSize.Height - TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2]));//下部
             y -= TJAPlayer3.app.Tx.PlayOption_List.szTextureSize.Height - TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2];
@@ -350,7 +350,7 @@ internal class CActSelectPlayOption : CActivity
 
         for (int i = 0; i < lci[nPlayer].Count; i++)
         {
-            if (TJAPlayer3.app.Tx.PlayOption_List != null && TJAPlayer3.app.Tx.PlayOption_Active != null)
+            if (TJAPlayer3.app.Tx.PlayOption_List is not null && TJAPlayer3.app.Tx.PlayOption_Active is not null)
             {
                 TJAPlayer3.app.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1], TJAPlayer3.app.Tx.PlayOption_List.szTextureSize.Width, TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2] - TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1]));//リスト本体
                 if (lci[nPlayer].Count - i == NowRow[nPlayer] + 1)
@@ -388,7 +388,7 @@ internal class CActSelectPlayOption : CActivity
             y -= TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[2] - TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1];
         }
 
-        if (TJAPlayer3.app.Tx.PlayOption_List != null && TJAPlayer3.app.Tx.PlayOption_Active != null)
+        if (TJAPlayer3.app.Tx.PlayOption_List is not null && TJAPlayer3.app.Tx.PlayOption_Active is not null)
         {
             TJAPlayer3.app.Tx.PlayOption_List.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.Down, x, y, new Rectangle(0, TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[0], TJAPlayer3.app.Tx.PlayOption_List.szTextureSize.Width, TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[1] - TJAPlayer3.app.Skin.SkinConfig.SongSelect.Difficulty.PlayOptionBoxSectionY[0]));//上部
         }
@@ -420,7 +420,7 @@ internal class CActSelectPlayOption : CActivity
         {
 
             this.ItemNameTexture?.Dispose();
-            if (this.ItemListTexture != null)
+            if (this.ItemListTexture is not null)
             {
                 int count = this.ItemListTexture.Length;
                 for (int index = 0; index < count; index++)

@@ -94,7 +94,7 @@ internal class CStageTitle : CStage
 
             #region [ カーソル上移動 ]
             //---------------------
-            if (this.ct上移動用 != null && this.ct上移動用.b進行中)
+            if (this.ct上移動用 is not null && this.ct上移動用.b進行中)
             {
                 this.ct上移動用.t進行();
                 if (this.ct上移動用.b終了値に達した)
@@ -106,7 +106,7 @@ internal class CStageTitle : CStage
             #endregion
             #region [ カーソル下移動 ]
             //---------------------
-            if (this.ct下移動用 != null && this.ct下移動用.b進行中)
+            if (this.ct下移動用 is not null && this.ct下移動用.b進行中)
             {
                 this.ct下移動用.t進行();
                 if (this.ct下移動用.b終了値に達した)
@@ -154,7 +154,7 @@ internal class CStageTitle : CStage
 
             // 描画
 
-            if (TJAPlayer3.app.Tx.Title_Background != null)
+            if (TJAPlayer3.app.Tx.Title_Background is not null)
                 TJAPlayer3.app.Tx.Title_Background.t2D描画(TJAPlayer3.app.Device, 0, 0);
 
             #region[ バージョン表示 ]
@@ -171,19 +171,19 @@ internal class CStageTitle : CStage
             #endregion
 
 
-            if (TJAPlayer3.app.Tx.Title_InBar != null && TJAPlayer3.app.Tx.Title_AcBar != null)
+            if (TJAPlayer3.app.Tx.Title_InBar is not null && TJAPlayer3.app.Tx.Title_AcBar is not null)
             {
                 for (int i = 0; i < 3; i++)
                 {
                     TJAPlayer3.app.Tx.Title_InBar.t2D描画(TJAPlayer3.app.Device, MENU_XT[i] - TJAPlayer3.app.Tx.Title_InBar.szTextureSize.Width / 2, MENU_YT);
                 }
 
-                if (this.ct下移動用 != null && this.ct下移動用.b進行中)
+                if (this.ct下移動用 is not null && this.ct下移動用.b進行中)
                 {
                     TJAPlayer3.app.Tx.Title_AcBar.vcScaling.X = this.ct下移動用.n現在の値 * 0.01f;
                     TJAPlayer3.app.Tx.Title_AcBar.t2D描画(TJAPlayer3.app.Device, MENU_XT[this.n現在のカーソル行] - TJAPlayer3.app.Tx.Title_AcBar.szTextureSize.Width / 2 * this.ct下移動用.n現在の値 * 0.01f, MENU_YT);
                 }
-                else if (this.ct上移動用 != null && this.ct上移動用.b進行中)
+                else if (this.ct上移動用 is not null && this.ct上移動用.b進行中)
                 {
                     TJAPlayer3.app.Tx.Title_AcBar.vcScaling.X = this.ct上移動用.n現在の値 * 0.01f;
                     TJAPlayer3.app.Tx.Title_AcBar.t2D描画(TJAPlayer3.app.Device, MENU_XT[this.n現在のカーソル行] - TJAPlayer3.app.Tx.Title_AcBar.szTextureSize.Width / 2 * this.ct上移動用.n現在の値 * 0.01f, MENU_YT);
@@ -202,7 +202,7 @@ internal class CStageTitle : CStage
                     else
                         tex = texttexture[i + 3];
 
-                    if (tex != null)
+                    if (tex is not null)
                         tex.t2D描画(TJAPlayer3.app.Device, MENU_XT[i] - tex.szTextureSize.Width / 2, MENU_YT + 30);
                 }
             }
@@ -305,10 +305,10 @@ internal class CStageTitle : CStage
         {
             TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
             this.n現在のカーソル行++;
-            if (this.ct下移動用 != null)
+            if (this.ct下移動用 is not null)
             {
                 this.ct下移動用.t開始(0, 100, 1, TJAPlayer3.app.Timer);
-                if (this.ct上移動用 != null && this.ct上移動用.b進行中)
+                if (this.ct上移動用 is not null && this.ct上移動用.b進行中)
                 {
                     this.ct下移動用.n現在の値 = 100 - this.ct上移動用.n現在の値;
                     this.ct上移動用.t停止();
@@ -322,10 +322,10 @@ internal class CStageTitle : CStage
         {
             TJAPlayer3.app.Skin.SystemSounds[Eシステムサウンド.SOUNDカーソル移動音].t再生する();
             this.n現在のカーソル行--;
-            if (this.ct上移動用 != null)
+            if (this.ct上移動用 is not null)
             {
                 this.ct上移動用.t開始(0, 100, 1, TJAPlayer3.app.Timer);
-                if (this.ct下移動用 != null && this.ct下移動用.b進行中)
+                if (this.ct下移動用 is not null && this.ct下移動用.b進行中)
                 {
                     this.ct上移動用.n現在の値 = 100 - this.ct下移動用.n現在の値;
                     this.ct下移動用.t停止();

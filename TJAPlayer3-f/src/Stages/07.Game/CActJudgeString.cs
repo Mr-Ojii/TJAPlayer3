@@ -169,7 +169,7 @@ internal class CActJudgeString : CActivity
         }
         for (int j = 0; j < 12; j++)
         {
-            if (!this.st状態[j].ct進行.b停止中 && TJAPlayer3.app.Tx.Judge != null)
+            if (!this.st状態[j].ct進行.b停止中 && TJAPlayer3.app.Tx.Judge is not null)
             {
                 int baseY = TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[this.st状態[j].nPlayer] - 53;
                 int x = TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[this.st状態[j].nPlayer] - TJAPlayer3.app.Tx.Judge.szTextureSize.Width / 2;

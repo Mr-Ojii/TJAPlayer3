@@ -34,7 +34,7 @@ internal class CSkiaSharpTextRenderer : ITextRenderer
         if (File.Exists(fontpath))
             paint.Typeface = SKTypeface.FromFile(fontpath, 0);
 
-        if (paint.Typeface == null)
+        if (paint.Typeface is null)
             throw new FileNotFoundException(fontpath);
 
         paint.TextSize = (pt * 1.3f);
