@@ -91,14 +91,10 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
     {
         this.ct進行メイン = null;
 
-        if (this.soundFailed is not null)
-            this.soundFailed.t解放する();
-        if (this.soundClear is not null)
-            this.soundClear.t解放する();
-        if (this.soundFullCombo is not null)
-            this.soundFullCombo.t解放する();
-        if (this.soundDonderFullCombo is not null)
-            this.soundDonderFullCombo.t解放する();
+        this.soundFailed?.t解放する();
+        this.soundClear?.t解放する();
+        this.soundFullCombo?.t解放する();
+        this.soundDonderFullCombo?.t解放する();
         base.On非活性化();
     }
 
@@ -176,10 +172,8 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
                             }
                             else if (this.ct進行メイン.n現在の値 <= 25)
                             {
-                                if (TJAPlayer3.app.Tx.End_Failed_L[0] is not null)
-                                    TJAPlayer3.app.Tx.End_Failed_L[0].t2D描画(TJAPlayer3.app.Device, 697 - (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
-                                if (TJAPlayer3.app.Tx.End_Failed_R[0] is not null)
-                                    TJAPlayer3.app.Tx.End_Failed_R[0].t2D描画(TJAPlayer3.app.Device, 738 + (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Failed_L[0]?.t2D描画(TJAPlayer3.app.Device, 697 - (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Failed_R[0]?.t2D描画(TJAPlayer3.app.Device, 738 + (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
                             }
                             else if (this.ct進行メイン.n現在の値 <= 35)
                             {
@@ -211,8 +205,8 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
                             }
                             else
                             {
-                                TJAPlayer3.app.Tx.End_Failed_L[3].t2D描画(TJAPlayer3.app.Device, 467, y[i] - 30);
-                                TJAPlayer3.app.Tx.End_Failed_R[3].t2D描画(TJAPlayer3.app.Device, 968, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Failed_L[3]?.t2D描画(TJAPlayer3.app.Device, 467, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Failed_R[3]?.t2D描画(TJAPlayer3.app.Device, 968, y[i] - 30);
                             }
                             #endregion
                             #region[ Impact ]
@@ -335,10 +329,8 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
                             }
                             else if (this.ct進行メイン.n現在の値 <= 35)
                             {
-                                if (TJAPlayer3.app.Tx.End_Clear_L[0] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_L[0].t2D描画(TJAPlayer3.app.Device, 697 - (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
-                                if (TJAPlayer3.app.Tx.End_Clear_R[0] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_R[0].t2D描画(TJAPlayer3.app.Device, 738 + (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_L[0]?.t2D描画(TJAPlayer3.app.Device, 697 - (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_R[0]?.t2D描画(TJAPlayer3.app.Device, 738 + (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
                             }
                             else if (this.ct進行メイン.n現在の値 <= 46)
                             {
@@ -348,38 +340,29 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
                                     float[] fRet = new float[] { 1.0f, 0.99f, 0.98f, 0.97f, 0.96f, 0.95f, 0.96f, 0.97f, 0.98f, 0.99f, 1.0f };
                                     TJAPlayer3.app.Tx.End_Clear_L[0].t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
                                     TJAPlayer3.app.Tx.End_Clear_L[0].vcScaling = new Vector2(fRet[this.ct進行メイン.n現在の値 - 36], 1.0f);
-                                    //CDTXMania.Tx.End_Clear_R[ 0 ].t2D描画( CDTXMania.app.Device, 956 + (( this.ct進行メイン.n現在の値 - 36 ) / 2), 180 );
                                     TJAPlayer3.app.Tx.End_Clear_R[0].t2D描画(TJAPlayer3.app.Device, 1136 - 180 * fRet[this.ct進行メイン.n現在の値 - 36], y[i] - 30);
                                     TJAPlayer3.app.Tx.End_Clear_R[0].vcScaling = new Vector2(fRet[this.ct進行メイン.n現在の値 - 36], 1.0f);
                                 }
                             }
                             else if (this.ct進行メイン.n現在の値 <= 49)
                             {
-                                if (TJAPlayer3.app.Tx.End_Clear_L[1] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_L[1].t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
-                                if (TJAPlayer3.app.Tx.End_Clear_R[1] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_R[1].t2D描画(TJAPlayer3.app.Device, 956, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_L[1]?.t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_R[1]?.t2D描画(TJAPlayer3.app.Device, 956, y[i] - 30);
                             }
                             else if (this.ct進行メイン.n現在の値 <= 54)
                             {
-                                if (TJAPlayer3.app.Tx.End_Clear_L[2] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_L[2].t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
-                                if (TJAPlayer3.app.Tx.End_Clear_R[2] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_R[2].t2D描画(TJAPlayer3.app.Device, 956, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_L[2]?.t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_R[2]?.t2D描画(TJAPlayer3.app.Device, 956, y[i] - 30);
                             }
                             else if (this.ct進行メイン.n現在の値 <= 58)
                             {
-                                if (TJAPlayer3.app.Tx.End_Clear_L[3] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_L[3].t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
-                                if (TJAPlayer3.app.Tx.End_Clear_R[3] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_R[3].t2D描画(TJAPlayer3.app.Device, 956, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_L[3]?.t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_R[3]?.t2D描画(TJAPlayer3.app.Device, 956, y[i] - 30);
                             }
                             else
                             {
-                                if (TJAPlayer3.app.Tx.End_Clear_L[4] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_L[4].t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
-                                if (TJAPlayer3.app.Tx.End_Clear_R[4] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_R[4].t2D描画(TJAPlayer3.app.Device, 956, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_L[4]?.t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_R[4]?.t2D描画(TJAPlayer3.app.Device, 956, y[i] - 30);
                             }
                             #endregion
                         }
@@ -559,10 +542,8 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
                             }
                             else if (this.ct進行メイン.n現在の値 <= 35)
                             {
-                                if (TJAPlayer3.app.Tx.End_Clear_L[0] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_L[0].t2D描画(TJAPlayer3.app.Device, 697 - (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
-                                if (TJAPlayer3.app.Tx.End_Clear_R[0] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_R[0].t2D描画(TJAPlayer3.app.Device, 738 + (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_L[0]?.t2D描画(TJAPlayer3.app.Device, 697 - (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_R[0]?.t2D描画(TJAPlayer3.app.Device, 738 + (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
                             }
                             else if (this.ct進行メイン.n現在の値 <= 46)
                             {
@@ -572,31 +553,24 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
                                     float[] fRet = new float[] { 1.0f, 0.99f, 0.98f, 0.97f, 0.96f, 0.95f, 0.96f, 0.97f, 0.98f, 0.99f, 1.0f };
                                     TJAPlayer3.app.Tx.End_Clear_L[0].t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
                                     TJAPlayer3.app.Tx.End_Clear_L[0].vcScaling = new Vector2(fRet[this.ct進行メイン.n現在の値 - 36], 1.0f);
-                                    //CDTXMania.Tx.End_Clear_R[ 0 ].t2D描画( CDTXMania.app.Device, 956 + (( this.ct進行メイン.n現在の値 - 36 ) / 2), 180 );
                                     TJAPlayer3.app.Tx.End_Clear_R[0].t2D描画(TJAPlayer3.app.Device, 1136 - 180 * fRet[this.ct進行メイン.n現在の値 - 36], y[i] - 30);
                                     TJAPlayer3.app.Tx.End_Clear_R[0].vcScaling = new Vector2(fRet[this.ct進行メイン.n現在の値 - 36], 1.0f);
                                 }
                             }
                             else if (this.ct進行メイン.n現在の値 <= 49)
                             {
-                                if (TJAPlayer3.app.Tx.End_Clear_L[1] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_L[1].t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
-                                if (TJAPlayer3.app.Tx.End_Clear_R[1] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_R[1].t2D描画(TJAPlayer3.app.Device, 956, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_L[1]?.t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_R[1]?.t2D描画(TJAPlayer3.app.Device, 956, y[i] - 30);
                             }
                             else if (this.ct進行メイン.n現在の値 <= 54)
                             {
-                                if (TJAPlayer3.app.Tx.End_Clear_L[2] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_L[2].t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
-                                if (TJAPlayer3.app.Tx.End_Clear_R[2] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_R[2].t2D描画(TJAPlayer3.app.Device, 956, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_L[2]?.t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_R[2]?.t2D描画(TJAPlayer3.app.Device, 956, y[i] - 30);
                             }
                             else if (this.ct進行メイン.n現在の値 <= 58)
                             {
-                                if (TJAPlayer3.app.Tx.End_Clear_L[3] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_L[3].t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
-                                if (TJAPlayer3.app.Tx.End_Clear_R[3] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_R[3].t2D描画(TJAPlayer3.app.Device, 956, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_L[3]?.t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_R[3]?.t2D描画(TJAPlayer3.app.Device, 956, y[i] - 30);
                             }
                             else if (this.ct進行メイン.n現在の値 <= 68)
                             {
@@ -608,18 +582,15 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
                                     if (TJAPlayer3.app.Tx.End_Clear_R[4] is not null)
                                         TJAPlayer3.app.Tx.End_Clear_R[4].vcScaling.Y = 0.8f + xratio * 0.2f;
                                 }
-                                if (TJAPlayer3.app.Tx.End_Clear_L[4] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_L[4].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, 466, y[i] + TJAPlayer3.app.Tx.End_Clear_L[4].szTextureSize.Height - 30);
-                                if (TJAPlayer3.app.Tx.End_Clear_R[4] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_R[4].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, 956, y[i] + TJAPlayer3.app.Tx.End_Clear_L[4].szTextureSize.Height - 30);
+
+                                TJAPlayer3.app.Tx.End_Clear_L[4]?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, 466, y[i] + TJAPlayer3.app.Tx.End_Clear_L[4].szTextureSize.Height - 30);
+                                TJAPlayer3.app.Tx.End_Clear_R[4]?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, 956, y[i] + TJAPlayer3.app.Tx.End_Clear_L[4].szTextureSize.Height - 30);
                             }
                             else if (this.ct進行メイン.n現在の値 <= 88)
                             {
                                 int ysin = (int)(Math.Sin((this.ct進行メイン.n現在の値 - 68) / 20.0 * Math.PI) * 150.0);
-                                if (TJAPlayer3.app.Tx.End_Clear_L[4] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_L[4].t2D描画(TJAPlayer3.app.Device, 466 - ((this.ct進行メイン.n現在の値 - 68) * 8), y[i] - ysin - 30);
-                                if (TJAPlayer3.app.Tx.End_Clear_R[4] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_R[4].t2D描画(TJAPlayer3.app.Device, 956 + ((this.ct進行メイン.n現在の値 - 68) * 8), y[i] - ysin - 30);
+                                TJAPlayer3.app.Tx.End_Clear_L[4]?.t2D描画(TJAPlayer3.app.Device, 466 - ((this.ct進行メイン.n現在の値 - 68) * 8), y[i] - ysin - 30);
+                                TJAPlayer3.app.Tx.End_Clear_R[4]?.t2D描画(TJAPlayer3.app.Device, 956 + ((this.ct進行メイン.n現在の値 - 68) * 8), y[i] - ysin - 30);
                             }
                             else
                             {
@@ -631,10 +602,9 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
                                     if (TJAPlayer3.app.Tx.End_Clear_R[4] is not null)
                                         TJAPlayer3.app.Tx.End_Clear_R[4].vcScaling.Y = 0.8f + xratio * 0.2f;
                                 }
-                                if (TJAPlayer3.app.Tx.End_Clear_L[4] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_L[4].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, 306, y[i] + TJAPlayer3.app.Tx.End_Clear_L[4].szTextureSize.Height - 30);
-                                if (TJAPlayer3.app.Tx.End_Clear_R[4] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_R[4].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, 1116, y[i] + TJAPlayer3.app.Tx.End_Clear_L[4].szTextureSize.Height - 30);
+
+                                TJAPlayer3.app.Tx.End_Clear_L[4]?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, 306, y[i] + TJAPlayer3.app.Tx.End_Clear_L[4].szTextureSize.Height - 30);
+                                TJAPlayer3.app.Tx.End_Clear_R[4]?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, 1116, y[i] + TJAPlayer3.app.Tx.End_Clear_L[4].szTextureSize.Height - 30);
                             }
                             #endregion
                             #region[ 扇1 ]
@@ -814,10 +784,8 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
                             }
                             else if (this.ct進行メイン.n現在の値 <= 35)
                             {
-                                if (TJAPlayer3.app.Tx.End_Clear_L[0] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_L[0].t2D描画(TJAPlayer3.app.Device, 697 - (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
-                                if (TJAPlayer3.app.Tx.End_Clear_R[0] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_R[0].t2D描画(TJAPlayer3.app.Device, 738 + (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_L[0]?.t2D描画(TJAPlayer3.app.Device, 697 - (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_R[0]?.t2D描画(TJAPlayer3.app.Device, 738 + (int)((this.ct進行メイン.n現在の値 - 12) * 10), y[i] - 30);
                             }
                             else if (this.ct進行メイン.n現在の値 <= 46)
                             {
@@ -834,24 +802,18 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
                             }
                             else if (this.ct進行メイン.n現在の値 <= 49)
                             {
-                                if (TJAPlayer3.app.Tx.End_Clear_L[1] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_L[1].t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
-                                if (TJAPlayer3.app.Tx.End_Clear_R[1] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_R[1].t2D描画(TJAPlayer3.app.Device, 956, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_L[1]?.t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_R[1]?.t2D描画(TJAPlayer3.app.Device, 956, y[i] - 30);
                             }
                             else if (this.ct進行メイン.n現在の値 <= 54)
                             {
-                                if (TJAPlayer3.app.Tx.End_Clear_L[2] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_L[2].t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
-                                if (TJAPlayer3.app.Tx.End_Clear_R[2] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_R[2].t2D描画(TJAPlayer3.app.Device, 956, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_L[2]?.t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_R[2]?.t2D描画(TJAPlayer3.app.Device, 956, y[i] - 30);
                             }
                             else if (this.ct進行メイン.n現在の値 <= 58)
                             {
-                                if (TJAPlayer3.app.Tx.End_Clear_L[3] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_L[3].t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
-                                if (TJAPlayer3.app.Tx.End_Clear_R[3] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_R[3].t2D描画(TJAPlayer3.app.Device, 956, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_L[3]?.t2D描画(TJAPlayer3.app.Device, 466, y[i] - 30);
+                                TJAPlayer3.app.Tx.End_Clear_R[3]?.t2D描画(TJAPlayer3.app.Device, 956, y[i] - 30);
                             }
                             else if (this.ct進行メイン.n現在の値 <= 68)
                             {
@@ -863,10 +825,8 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
                                     if (TJAPlayer3.app.Tx.End_Clear_R[4] is not null)
                                         TJAPlayer3.app.Tx.End_Clear_R[4].vcScaling.Y = 0.8f + xratio * 0.2f;
                                 }
-                                if (TJAPlayer3.app.Tx.End_Clear_L[4] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_L[4].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, 466, y[i] + TJAPlayer3.app.Tx.End_Clear_L[4].szTextureSize.Height - 30);
-                                if (TJAPlayer3.app.Tx.End_Clear_R[4] is not null)
-                                    TJAPlayer3.app.Tx.End_Clear_R[4].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, 956, y[i] + TJAPlayer3.app.Tx.End_Clear_L[4].szTextureSize.Height - 30);
+                                TJAPlayer3.app.Tx.End_Clear_L[4]?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, 466, y[i] + TJAPlayer3.app.Tx.End_Clear_L[4].szTextureSize.Height - 30);
+                                TJAPlayer3.app.Tx.End_Clear_R[4]?.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, 956, y[i] + TJAPlayer3.app.Tx.End_Clear_L[4].szTextureSize.Height - 30);
                             }
                             else if (this.ct進行メイン.n現在の値 <= 88)
                             {
@@ -997,10 +957,10 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
     bool bリザルトボイス再生済み;
     CCounter ct進行メイン;
     CCounter ct進行return用;
-    CSound soundFailed;
-    CSound soundClear;
-    CSound soundFullCombo;
-    CSound soundDonderFullCombo;
+    CSound? soundFailed;
+    CSound? soundClear;
+    CSound? soundFullCombo;
+    CSound? soundDonderFullCombo;
     EndMode[] Mode;
     enum EndMode
     {
