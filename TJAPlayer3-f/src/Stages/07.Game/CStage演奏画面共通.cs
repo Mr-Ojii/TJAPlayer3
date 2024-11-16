@@ -3135,7 +3135,7 @@ internal class CStage演奏画面共通 : CStage
                         pChip.bHit = true;
                         if (pChip.nコース == this.n現在のコース[nPlayer])
                         {
-                            if (dTX.listBPM.TryGetValue(pChip.n整数値_内部番号, out CDTX.CBPM cBPM))
+                            if (dTX.listBPM.TryGetValue(pChip.n整数値_内部番号, out CDTX.CBPM? cBPM))
                             {
                                 this.actPlayInfo.dbBPM = cBPM.dbBPM値;// + dTX.BASEBPM;
                             }
@@ -3323,7 +3323,7 @@ internal class CStage演奏画面共通 : CStage
                     {
                         //Debug.WriteLine( "[DA(AddMixer)] BAR=" + pChip.n発声位置 / 384 + " ch=" + pChip.nチャンネル番号.ToString( "x2" ) + ", wav=" + pChip.n整数値.ToString( "x2" ) + ", time=" + pChip.n発声時刻ms );
                         pChip.bHit = true;
-                        if (TJAPlayer3.DTX[0].listWAV.TryGetValue(pChip.n整数値_内部番号, out CDTX.CWAV wc))	// 参照が遠いので後日最適化する
+                        if (TJAPlayer3.DTX[0].listWAV.TryGetValue(pChip.n整数値_内部番号, out CDTX.CWAV? wc))	// 参照が遠いので後日最適化する
                         {
                             if (wc.rSound is not null)
                             {
@@ -3340,7 +3340,7 @@ internal class CStage演奏画面共通 : CStage
                     {
                         //Debug.WriteLine( "[DB(RemoveMixer)] BAR=" + pChip.n発声位置 / 384 + " ch=" + pChip.nチャンネル番号.ToString( "x2" ) + ", wav=" + pChip.n整数値.ToString( "x2" ) + ", time=" + pChip.n発声時刻ms );
                         pChip.bHit = true;
-                        if (TJAPlayer3.DTX[0].listWAV.TryGetValue(pChip.n整数値_内部番号, out CDTX.CWAV wc))	// 参照が遠いので後日最適化する
+                        if (TJAPlayer3.DTX[0].listWAV.TryGetValue(pChip.n整数値_内部番号, out CDTX.CWAV? wc))	// 参照が遠いので後日最適化する
                         {
                             if (wc.rSound is not null)
                             {
@@ -3373,7 +3373,7 @@ internal class CStage演奏画面共通 : CStage
                 case 0xDE: //Judgeに応じたCourseを取得//2020.04.25 Mr-Ojii akasoko26さんのコードをもとに変更
                     if (!pChip.bHit && (pChip.TimeSpan < 0))
                     {
-                        if (dTX.listBRANCH.TryGetValue(pChip.n整数値_内部番号, out CDTX.CBRANCH cBranch))
+                        if (dTX.listBRANCH.TryGetValue(pChip.n整数値_内部番号, out CDTX.CBRANCH? cBranch))
                         {
                             if (!this.bLEVELHOLD[nPlayer])
                             {
