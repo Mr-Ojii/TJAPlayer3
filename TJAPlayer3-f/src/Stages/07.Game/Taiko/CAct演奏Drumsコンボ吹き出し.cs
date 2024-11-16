@@ -37,63 +37,64 @@ internal class CAct演奏Drumsコンボ吹き出し : CActivity
     public override void On非活性化()
     {
         for (int i = 0; i < 2; i++)
-        {
             this.ct進行[i] = null;
-        }
+
         base.On非活性化();
     }
     public override int On進行描画()
     {
-        if (!base.b活性化してない)
+        if (base.b活性化してない)
+            return 0;
+
+        for (int i = 0; i < 2; i++)
         {
-            for (int i = 0; i < 2; i++)
+            if (!this.ct進行[i].b停止中)
             {
-                if (!this.ct進行[i].b停止中)
+                this.ct進行[i].t進行();
+                if (this.ct進行[i].b終了値に達した)
                 {
-                    this.ct進行[i].t進行();
-                    if (this.ct進行[i].b終了値に達した)
-                    {
-                        this.ct進行[i].t停止();
-                    }
+                    this.ct進行[i].t停止();
+                }
+            }
+
+            CTexture? combo = TJAPlayer3.app.Tx.Balloon_Combo[i];
+            CTexture? num_combo = TJAPlayer3.app.Tx.Balloon_Number_Combo;
+            if (combo is not null && num_combo is not null)
+            {
+                //半透明4f
+                if (this.ct進行[i].n現在の値 == 1 || this.ct進行[i].n現在の値 == 103)
+                {
+                    combo.Opacity = 64;
+                    num_combo.Opacity = 64;
+                }
+                else if (this.ct進行[i].n現在の値 == 2 || this.ct進行[i].n現在の値 == 102)
+                {
+                    combo.Opacity = 128;
+                    num_combo.Opacity = 128;
+                }
+                else if (this.ct進行[i].n現在の値 == 3 || this.ct進行[i].n現在の値 == 101)
+                {
+                    combo.Opacity = 192;
+                    num_combo.Opacity = 192;
+                }
+                else if (this.ct進行[i].n現在の値 >= 4 && this.ct進行[i].n現在の値 <= 100)
+                {
+                    combo.Opacity = 255;
+                    num_combo.Opacity = 255;
                 }
 
-                if (TJAPlayer3.app.Tx.Balloon_Combo[i] is not null)
+                if (this.ct進行[i].b進行中)
                 {
-                    //半透明4f
-                    if (this.ct進行[i].n現在の値 == 1 || this.ct進行[i].n現在の値 == 103)
+                    combo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboY[i]);
+                    if (this.nCombo_渡[i] < 1000) //2016.08.23 kairera0467 仮実装。
                     {
-                        TJAPlayer3.app.Tx.Balloon_Combo[i].Opacity = 64;
-                        TJAPlayer3.app.Tx.Balloon_Number_Combo.Opacity = 64;
+                        this.t小文字表示(TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboNumberX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboNumberY[i], string.Format("{0,4:###0}", this.nCombo_渡[i]));
+                        num_combo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboTextX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboTextY[i], new Rectangle(0, 54, 77, 32));
                     }
-                    else if (this.ct進行[i].n現在の値 == 2 || this.ct進行[i].n現在の値 == 102)
+                    else
                     {
-                        TJAPlayer3.app.Tx.Balloon_Combo[i].Opacity = 128;
-                        TJAPlayer3.app.Tx.Balloon_Number_Combo.Opacity = 128;
-                    }
-                    else if (this.ct進行[i].n現在の値 == 3 || this.ct進行[i].n現在の値 == 101)
-                    {
-                        TJAPlayer3.app.Tx.Balloon_Combo[i].Opacity = 192;
-                        TJAPlayer3.app.Tx.Balloon_Number_Combo.Opacity = 192;
-                    }
-                    else if (this.ct進行[i].n現在の値 >= 4 && this.ct進行[i].n現在の値 <= 100)
-                    {
-                        TJAPlayer3.app.Tx.Balloon_Combo[i].Opacity = 255;
-                        TJAPlayer3.app.Tx.Balloon_Number_Combo.Opacity = 255;
-                    }
-
-                    if (this.ct進行[i].b進行中)
-                    {
-                        TJAPlayer3.app.Tx.Balloon_Combo[i].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboY[i]);
-                        if (this.nCombo_渡[i] < 1000) //2016.08.23 kairera0467 仮実装。
-                        {
-                            this.t小文字表示(TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboNumberX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboNumberY[i], string.Format("{0,4:###0}", this.nCombo_渡[i]));
-                            TJAPlayer3.app.Tx.Balloon_Number_Combo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboTextX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboTextY[i], new Rectangle(0, 54, 77, 32));
-                        }
-                        else
-                        {
-                            this.t小文字表示(TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboNumberExX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboNumberExY[i], string.Format("{0,4:###0}", this.nCombo_渡[i]));
-                            TJAPlayer3.app.Tx.Balloon_Number_Combo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboTextExX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboTextExY[i], new Rectangle(0, 54, 77, 32));
-                        }
+                        this.t小文字表示(TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboNumberExX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboNumberExY[i], string.Format("{0,4:###0}", this.nCombo_渡[i]));
+                        num_combo.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboTextExX[i], TJAPlayer3.app.Skin.SkinConfig.Game.Balloon.ComboTextExY[i], new Rectangle(0, 54, 77, 32));
                     }
                 }
             }
