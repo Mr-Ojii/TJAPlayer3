@@ -756,7 +756,7 @@ internal class CStage演奏画面共通 : CStage
     protected DateTime dtLastQueueOperation;				//
     protected double db再生速度;
 
-    protected CTexture tx背景;
+    protected CTexture? tx背景;
 
     public CBRANCHSCORE[] CBranchScore = new CBRANCHSCORE[6];
     public bool[] bIsGOGOTIME = new bool[4];
