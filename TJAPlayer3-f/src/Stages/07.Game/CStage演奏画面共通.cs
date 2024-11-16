@@ -4059,15 +4059,18 @@ internal class CStage演奏画面共通 : CStage
                         {
                             if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
                             {
-                                if (nPlayer == 0)
+                                if (TJAPlayer3.app.Tx.Notes_Arm is not null)
                                 {
-                                    TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 25, (y + 74) + nHand, CTexture.EFlipType.Vertical);
-                                    TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 60, (y + 104) - nHand, CTexture.EFlipType.Vertical);
-                                }
-                                else if (nPlayer == 1)
-                                {
-                                    TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 25, (y - 44) + nHand);
-                                    TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 60, (y - 14) - nHand);
+                                    if (nPlayer == 0)
+                                    {
+                                        TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 25, (y + 74) + nHand, CTexture.EFlipType.Vertical);
+                                        TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 60, (y + 104) - nHand, CTexture.EFlipType.Vertical);
+                                    }
+                                    else if (nPlayer == 1)
+                                    {
+                                        TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 25, (y - 44) + nHand);
+                                        TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 60, (y - 14) - nHand);
+                                    }
                                 }
                                 TJAPlayer3.app.Tx.Notes.t2D描画(device, x, y, new Rectangle(1690, num9, 130, 130));
                             }
@@ -4081,15 +4084,18 @@ internal class CStage演奏画面共通 : CStage
                         {
                             if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
                             {
-                                if (nPlayer == 0)
+                                if (TJAPlayer3.app.Tx.Notes_Arm is not null)
                                 {
-                                    TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 25, (y + 74) + nHand, CTexture.EFlipType.Vertical);
-                                    TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 60, (y + 104) - nHand, CTexture.EFlipType.Vertical);
-                                }
-                                else if (nPlayer == 1)
-                                {
-                                    TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 25, (y - 44) + nHand);
-                                    TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 60, (y - 14) - nHand);
+                                    if (nPlayer == 0)
+                                    {
+                                        TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 25, (y + 74) + nHand, CTexture.EFlipType.Vertical);
+                                        TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 60, (y + 104) - nHand, CTexture.EFlipType.Vertical);
+                                    }
+                                    else if (nPlayer == 1)
+                                    {
+                                        TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 25, (y - 44) + nHand);
+                                        TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 60, (y - 14) - nHand);
+                                    }
                                 }
                                 TJAPlayer3.app.Tx.Notes.t2D描画(device, x, y, new Rectangle(1820, num9, 130, 130));
                             }
