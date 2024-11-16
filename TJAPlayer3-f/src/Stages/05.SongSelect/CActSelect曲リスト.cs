@@ -516,11 +516,6 @@ internal class CActSelect曲リスト : CActivity
         if (this.b活性化してない)
             return;
 
-        for (int i = 0; i < 13; i++)
-        {
-            this.stバー情報[i].ttkタイトル = this.ttk曲名テクスチャを生成する(this.stバー情報[i].song.strTitle, this.stバー情報[i].song.ForeColor, this.stバー情報[i].song.BackColor);
-        }
-
         TJAPlayer3.t安全にDisposeする(ref pfMusicName);
         TJAPlayer3.t安全にDisposeする(ref pfSubtitle);
 
