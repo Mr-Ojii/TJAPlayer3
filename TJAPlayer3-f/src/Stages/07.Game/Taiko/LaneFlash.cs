@@ -8,7 +8,7 @@ namespace TJAPlayer3;
 public class LaneFlash : CActivity
 {
 
-    public LaneFlash(ref CTexture texture, int player)
+    public LaneFlash(ref CTexture? texture, int player)
     {
         Texture = texture;
         Player = player;
