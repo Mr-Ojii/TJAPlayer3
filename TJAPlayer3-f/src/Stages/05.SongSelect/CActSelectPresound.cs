@@ -104,14 +104,14 @@ internal class CActSelectPresound : CActivity
 
     #region [ private ]
     //-----------------
-    private CancellationTokenSource token; // 2019.03.23 kairera0467 マルチスレッドの中断処理を行うためのトークン
-    private CCounter ctBGMFadeOut用;
-    private CCounter ctBGMFadeIn用;
-    private CCounter ct再生待ちウェイト;
+    private CancellationTokenSource? token; // 2019.03.23 kairera0467 マルチスレッドの中断処理を行うためのトークン
+    private CCounter?   ctBGMFadeOut用,
+                        ctBGMFadeIn用,
+                        ct再生待ちウェイト;
     private long long再生位置;
     private long long再生開始時のシステム時刻;
-    private CSound sound;
-    private string str現在のファイル名;
+    private CSound? sound;
+    private string? str現在のファイル名;
 
     private void tBGMFadeOut開始()
     {
@@ -141,13 +141,13 @@ internal class CActSelectPresound : CActivity
             {
                 // 2020.06.15 Mr-Ojii TJAP2fPCより拝借-----------
                 // 2019.03.22 kairera0467 簡易マルチスレッド化
-                CSound tmps = await Task.Run<CSound>(() =>
+                CSound? tmps = await Task.Run<CSound?>(() =>
                 {
                     token = new CancellationTokenSource();
                     return this.tプレビューサウンドの作成MT(strPreviewFilename);
                 });
 
-                token.Token.ThrowIfCancellationRequested();
+                token?.Token.ThrowIfCancellationRequested();
                 this.tサウンドの停止MT();
 
                 this.sound = tmps;
@@ -159,15 +159,16 @@ internal class CActSelectPresound : CActivity
                 //                           If is not yet available then we wish to queue scanning.
                 var loudnessMetadata = cスコア.譜面情報.SongLoudnessMetadata
                                         ?? LoudnessMetadataScanner.LoadForAudioPath(strPreviewFilename);
-                TJAPlayer3.SongGainController.Set(cスコア.譜面情報.SongVol, loudnessMetadata, this.sound);
+                if (this.sound is not null)
+                    TJAPlayer3.SongGainController.Set(cスコア.譜面情報.SongVol, loudnessMetadata, this.sound);
 
                 this.long再生位置 = -1;
-                this.sound.t再生を開始する(true);
+                this.sound?.t再生を開始する(true);
                 if (this.long再生位置 == -1)
                 {
                     this.long再生開始時のシステム時刻 = CSoundManager.rc演奏用タイマ.nシステム時刻ms;
                     this.long再生位置 = cスコア.譜面情報.nデモBGMオフセット;
-                    this.sound.t再生位置を変更する(cスコア.譜面情報.nデモBGMオフセット);
+                    this.sound?.t再生位置を変更する(cスコア.譜面情報.nデモBGMオフセット);
                     this.long再生位置 = CSoundManager.rc演奏用タイマ.nシステム時刻ms - this.long再生開始時のシステム時刻;
                 }
 
@@ -226,7 +227,7 @@ internal class CActSelectPresound : CActivity
     /// <param name="path">サウンドファイルのパス</param>
     /// <param name="token">中断用トークン</param>
     /// <returns></returns>
-    private CSound tプレビューサウンドの作成MT(string path)
+    private CSound? tプレビューサウンドの作成MT(string path)
     {
         try
         {
