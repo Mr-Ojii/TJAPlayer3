@@ -204,7 +204,7 @@ internal class CStage演奏画面共通 : CStage
         this.n分岐した回数 = new int[4];
         this.ShownLyric = 0;
         this.ShownLyric2 = 0;
-        using(var fontLyric = new CCachedFontRenderer(TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.LyricFontName, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.LyricFontSize))
+        using (var fontLyric = new CCachedFontRenderer(TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.LyricFontName, TJAPlayer3.app.Skin.SkinConfig.Game.PanelFont.LyricFontSize))
         {
             foreach (var lyric in TJAPlayer3.DTX[0].listLyric)
             {
@@ -3430,7 +3430,7 @@ internal class CStage演奏画面共通 : CStage
                     if (!pChip.bHit && (pChip.TimeSpan < 0))
                     {
                         //1Pの歌詞のみ表示
-                        if(nPlayer != 0)
+                        if (nPlayer != 0)
                             break;
 
                         if (this.listLyric.Count > ShownLyric && dTX.nPlayerSide == nPlayer)
@@ -4009,7 +4009,8 @@ internal class CStage演奏画面共通 : CStage
 
                 x = (x) - ((int)((130.0 * 1.0) / 2.0));
                 TJAPlayer3.app.Tx.Notes.eBlendMode = CTexture.EBlendMode.Normal;
-                TJAPlayer3.app.Tx.SENotes.eBlendMode = CTexture.EBlendMode.Normal;
+                if (TJAPlayer3.app.Tx.SENotes is not null)
+                    TJAPlayer3.app.Tx.SENotes.eBlendMode = CTexture.EBlendMode.Normal;
                 var device = TJAPlayer3.app.Device;
                 switch (pChip.nチャンネル番号)
                 {
@@ -4018,7 +4019,7 @@ internal class CStage演奏画面共通 : CStage
                         {
                             if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
                                 TJAPlayer3.app.Tx.Notes.t2D描画(device, x, y, new Rectangle(130, num9, 130, 130));
-                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
+                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
                                 TJAPlayer3.app.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
                         }
                         break;
@@ -4028,7 +4029,7 @@ internal class CStage演奏画面共通 : CStage
                         {
                             if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
                                 TJAPlayer3.app.Tx.Notes.t2D描画(device, x, y, new Rectangle(260, num9, 130, 130));
-                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
+                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
                                 TJAPlayer3.app.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
                         }
                         break;
@@ -4039,7 +4040,7 @@ internal class CStage演奏画面共通 : CStage
                             if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
                                 TJAPlayer3.app.Tx.Notes.t2D描画(device, x, y, new Rectangle(390, num9, 130, 130));
 
-                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
+                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
                                 TJAPlayer3.app.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
                         }
                         break;
@@ -4048,7 +4049,7 @@ internal class CStage演奏画面共通 : CStage
                         {
                             if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
                                 TJAPlayer3.app.Tx.Notes.t2D描画(device, x, y, new Rectangle(520, num9, 130, 130));
-                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
+                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
                                 TJAPlayer3.app.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
                         }
                         break;
@@ -4070,7 +4071,7 @@ internal class CStage演奏画面共通 : CStage
                                 }
                                 TJAPlayer3.app.Tx.Notes.t2D描画(device, x, y, new Rectangle(1690, num9, 130, 130));
                             }
-                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
+                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
                                 TJAPlayer3.app.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 390, 136, 30));
                         }
                         break;
@@ -4092,7 +4093,7 @@ internal class CStage演奏画面共通 : CStage
                                 }
                                 TJAPlayer3.app.Tx.Notes.t2D描画(device, x, y, new Rectangle(1820, num9, 130, 130));
                             }
-                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
+                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
                                 TJAPlayer3.app.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 420, 136, 30));
                         }
                         break;
@@ -4210,7 +4211,7 @@ internal class CStage演奏画面共通 : CStage
                             TJAPlayer3.app.Tx.Notes.color = normalColor;
                             #endregion
                         }
-                        if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
+                        if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
                         {
                             TJAPlayer3.app.Tx.SENotes.vcScaling.X = index - 44;
                             TJAPlayer3.app.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
@@ -4246,7 +4247,7 @@ internal class CStage演奏画面共通 : CStage
                             TJAPlayer3.app.Tx.Notes.color = normalColor;
                             #endregion
                         }
-                        if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
+                        if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
                         {
                             TJAPlayer3.app.Tx.SENotes.vcScaling.X = index - 44;
                             TJAPlayer3.app.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x末端 + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30), CTexture.EFlipType.Horizontal);
@@ -4286,7 +4287,7 @@ internal class CStage演奏画面共通 : CStage
                             TJAPlayer3.app.Tx.Notes.color = normalColor;
                             #endregion
                         }
-                        if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
+                        if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
                         {
                             TJAPlayer3.app.Tx.SENotes.vcScaling.X = index - 44;
                             TJAPlayer3.app.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30));
@@ -4322,7 +4323,7 @@ internal class CStage演奏画面共通 : CStage
                             TJAPlayer3.app.Tx.Notes.color = normalColor;
                             #endregion
                         }
-                        if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
+                        if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
                         {
                             TJAPlayer3.app.Tx.SENotes.vcScaling.X = index - 44;
                             TJAPlayer3.app.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x末端 + 90, y + nSenotesY, new Rectangle(60, 240, 1, 30), CTexture.EFlipType.Horizontal);
@@ -4343,7 +4344,7 @@ internal class CStage演奏画面共通 : CStage
                     if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
                         TJAPlayer3.app.Tx.Notes.t2D描画(TJAPlayer3.app.Device, x, y, new Rectangle(1430, num9, 260, 130));
 
-                    if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH)
+                    if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
                         TJAPlayer3.app.Tx.SENotes.t2D描画(TJAPlayer3.app.Device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
                 }
             }
