@@ -13,7 +13,7 @@ internal class CAct演奏AVI : CActivity
 
     // メソッド
 
-    public void Start(CVideoDecoder rVD)
+    public void Start(CVideoDecoder? rVD)
     {
         if (!TJAPlayer3.app.ConfigToml.Game.Background.Movie)
             return;

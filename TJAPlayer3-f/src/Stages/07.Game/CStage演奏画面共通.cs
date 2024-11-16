@@ -3040,12 +3040,10 @@ internal class CStage演奏画面共通 : CStage
                 case 0x54:  // 動画再生
                     if (!pChip.bHit && (pChip.TimeSpan < 0) && pChip.nPlayerSide == 0)
                     {
-                        if ((dTX.listVD.TryGetValue(pChip.n整数値, out CVideoDecoder vd)))
+                        if ((dTX.listVD.TryGetValue(pChip.n整数値, out CVideoDecoder? vd)))
                         {
-                            if (TJAPlayer3.app.ConfigToml.Game.Background.Movie && vd is not null)
-                            {
+                            if (TJAPlayer3.app.ConfigToml.Game.Background.Movie)
                                 this.actAVI.Start(vd);
-                            }
                         }
                         pChip.bHit = true;
                     }
