@@ -1659,14 +1659,14 @@ internal class CStage演奏画面共通 : CStage
     /// <param name="nowTime">判定時の時間。</param>
     /// <param name="player">プレイヤー。</param>
     /// <returns>最も判定枠に近いノーツ。</returns>
-    protected CDTX.CChip GetChipOfNearest(long nowTime, int player)
+    protected CDTX.CChip? GetChipOfNearest(long nowTime, int player)
     {
         var nearestChip = new CDTX.CChip();
         var count = TJAPlayer3.DTX[player].listChip.Count;
         var chips = TJAPlayer3.DTX[player].listChip;
         var startPosision = NowProcessingChip[player];
-        CDTX.CChip pastChip; // 判定されるべき過去ノート
-        CDTX.CChip futureChip; // 判定されるべき未来ノート
+        CDTX.CChip? pastChip; // 判定されるべき過去ノート
+        CDTX.CChip? futureChip; // 判定されるべき未来ノート
         var pastJudge = EJudge.Miss;
         var futureJudge = EJudge.Miss;
 
@@ -1681,7 +1681,7 @@ internal class CStage演奏画面共通 : CStage
         }
 
         #region 過去のノーツで、かつ可判定以上のノーツの決定
-        CDTX.CChip afterChip = null;
+        CDTX.CChip? afterChip = null;
         for (int pastNote = startPosision - 1; ; pastNote--)
         {
             if (pastNote < 0)
@@ -1807,14 +1807,14 @@ internal class CStage演奏画面共通 : CStage
     /// <param name="player">プレイヤー。</param>
     /// <param name="don">ドンかどうか。</param>
     /// <returns>最も判定枠に近いノーツ。</returns>
-    protected CDTX.CChip GetChipOfNearest(long nowTime, int player, bool don)
+    protected CDTX.CChip? GetChipOfNearest(long nowTime, int player, bool don)
     {
         var nearestChip = new CDTX.CChip();
         var count = TJAPlayer3.DTX[player].listChip.Count;
         var chips = TJAPlayer3.DTX[player].listChip;
         var startPosision = NowProcessingChip[player];
-        CDTX.CChip pastChip; // 判定されるべき過去ノート
-        CDTX.CChip futureChip; // 判定されるべき未来ノート
+        CDTX.CChip? pastChip; // 判定されるべき過去ノート
+        CDTX.CChip? futureChip; // 判定されるべき未来ノート
         var pastJudge = EJudge.Miss;
         var futureJudge = EJudge.Miss;
 
@@ -1838,7 +1838,7 @@ internal class CStage演奏画面共通 : CStage
         }
 
         #region 過去のノーツで、かつ可判定以上のノーツの決定
-        CDTX.CChip afterChip = null;
+        CDTX.CChip? afterChip = null;
         for (int pastNote = startPosision - 1; ; pastNote--)
         {
             if (pastNote < 0)
@@ -2118,7 +2118,7 @@ internal class CStage演奏画面共通 : CStage
                 var padTo = nPadtmp - (nUsePlayer * 4);
                 var isDon = padTo < 2 ? true : false;
 
-                CDTX.CChip chipNoHit = chip現在処理中の連打チップ[nUsePlayer] is null ? GetChipOfNearest(nTime, nUsePlayer, isDon) : GetChipOfNearest(nTime, nUsePlayer);
+                CDTX.CChip? chipNoHit = chip現在処理中の連打チップ[nUsePlayer] is null ? GetChipOfNearest(nTime, nUsePlayer, isDon) : GetChipOfNearest(nTime, nUsePlayer);
                 EJudge e判定 = (chipNoHit is not null) ? this.e指定時刻からChipのJUDGEを返す(nTime, chipNoHit) : EJudge.Miss;
 
                 bool b太鼓音再生フラグ = true;
@@ -4423,7 +4423,7 @@ internal class CStage演奏画面共通 : CStage
         //常時イベントが発生しているメソッドのほうがいいんじゃないかという予想。
         for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
         {
-            CDTX.CChip chipNoHit = GetChipOfNearest((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.app.ConfigToml.PlayOption.PlaySpeed) / 20.0)), i);
+            CDTX.CChip? chipNoHit = GetChipOfNearest((long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.app.ConfigToml.PlayOption.PlaySpeed) / 20.0)), i);
 
             if (chipNoHit is not null && (chipNoHit.nチャンネル番号 == 0x13 || chipNoHit.nチャンネル番号 == 0x14 || chipNoHit.nチャンネル番号 == 0x1A || chipNoHit.nチャンネル番号 == 0x1B))
             {
