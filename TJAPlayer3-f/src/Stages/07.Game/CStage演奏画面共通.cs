@@ -3922,200 +3922,196 @@ internal class CStage演奏画面共通 : CStage
     protected void t進行描画_チップ_Taiko(ref CDTX dTX, ref CDTX.CChip pChip, int nPlayer)
     {
         #region[ 作り直したもの ]
-        if (pChip.b可視 && !pChip.bHit)
+        if (!pChip.b可視 || pChip.bHit || CSoundManager.rc演奏用タイマ is null)
+            return;
+
+        long nPlayTime = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.app.ConfigToml.PlayOption.PlaySpeed) / 20.0));
+        if ((!pChip.bHit) && (pChip.n発声時刻ms <= nPlayTime))
         {
-            long nPlayTime = (long)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.app.ConfigToml.PlayOption.PlaySpeed) / 20.0));
-            if ((!pChip.bHit) && (pChip.n発声時刻ms <= nPlayTime))
+            bool bAutoPlay = false;
+            switch (nPlayer)
             {
-                bool bAutoPlay = false;
-                switch (nPlayer)
-                {
-                    case 0:
-                        bAutoPlay = TJAPlayer3.app.ConfigToml.PlayOption.AutoPlay[0];
-                        break;
-                    case 1:
-                        bAutoPlay = TJAPlayer3.app.ConfigToml.PlayOption.AutoPlay[1];
-                        break;
-                    case 2:
-                    case 3:
-                        bAutoPlay = true;
-                        break;
-                }
-
-                if (bAutoPlay && !this.bPAUSE)
-                {
-                    pChip.bHit = true;
-                    if (pChip.nチャンネル番号 != 0x1F)
-                        this.FlyingNotes.Start(pChip.nチャンネル番号 < 0x1A ? (pChip.nチャンネル番号 - 0x10) : (pChip.nチャンネル番号 - 0x17), nPlayer);
-                    //this.actChipFireTaiko.Start(pChip.nチャンネル番号 < 0x1A ? (pChip.nチャンネル番号 - 0x10) : (pChip.nチャンネル番号 - 0x17), nPlayer);
-                    int nLane = (pChip.nチャンネル番号 == 0x12 || pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1B) ? 1 : 0;
-                    TJAPlayer3.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start((nLane == 0 ? PlayerLane.FlashType.Red : PlayerLane.FlashType.Blue));
-                    TJAPlayer3.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Hit);
-                    this.actMtaiko.tMtaikoEvent(pChip.nチャンネル番号, this.nHand[nPlayer], nPlayer);
-
-                    int n大音符 = (pChip.nチャンネル番号 == 0x11 || pChip.nチャンネル番号 == 0x12 ? 2 : 0);
-
-                    this.tチップのヒット処理(pChip.n発声時刻ms, pChip, true, nLane + n大音符, nPlayer);
-                    this.tサウンド再生(pChip);
-                    return;
-                }
+                case 0:
+                    bAutoPlay = TJAPlayer3.app.ConfigToml.PlayOption.AutoPlay[0];
+                    break;
+                case 1:
+                    bAutoPlay = TJAPlayer3.app.ConfigToml.PlayOption.AutoPlay[1];
+                    break;
+                case 2:
+                case 3:
+                    bAutoPlay = true;
+                    break;
             }
 
-
-            if (pChip.nノーツ出現時刻ms != 0 && (nPlayTime < pChip.n発声時刻ms - pChip.nノーツ出現時刻ms))
-                pChip.bShow = false;
-            else
-                pChip.bShow = true;
-
-            int x = 0;
-            int y = TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[nPlayer];
-
-            if (pChip.nノーツ移動開始時刻ms != 0 && (nPlayTime < pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms))
+            if (bAutoPlay && !this.bPAUSE)
             {
-                x = (int)((((pChip.n発声時刻ms) - (pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms)) * pChip.dbBPM * pChip.dbSCROLL * this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer]) / 502.8594 / 5.0); // 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
+                pChip.bHit = true;
+                if (pChip.nチャンネル番号 != 0x1F)
+                    this.FlyingNotes.Start(pChip.nチャンネル番号 < 0x1A ? (pChip.nチャンネル番号 - 0x10) : (pChip.nチャンネル番号 - 0x17), nPlayer);
+                //this.actChipFireTaiko.Start(pChip.nチャンネル番号 < 0x1A ? (pChip.nチャンネル番号 - 0x10) : (pChip.nチャンネル番号 - 0x17), nPlayer);
+                int nLane = (pChip.nチャンネル番号 == 0x12 || pChip.nチャンネル番号 == 0x14 || pChip.nチャンネル番号 == 0x1B) ? 1 : 0;
+                TJAPlayer3.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start((nLane == 0 ? PlayerLane.FlashType.Red : PlayerLane.FlashType.Blue));
+                TJAPlayer3.stage演奏ドラム画面.actTaikoLaneFlash.PlayerLane[nPlayer].Start(PlayerLane.FlashType.Hit);
+                this.actMtaiko.tMtaikoEvent(pChip.nチャンネル番号, this.nHand[nPlayer], nPlayer);
+
+                int n大音符 = (pChip.nチャンネル番号 == 0x11 || pChip.nチャンネル番号 == 0x12 ? 2 : 0);
+
+                this.tチップのヒット処理(pChip.n発声時刻ms, pChip, true, nLane + n大音符, nPlayer);
+                this.tサウンド再生(pChip);
+                return;
             }
-            else
-            {
-                x = pChip.nバーからの距離dot;
-            }
-
-            x += (TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[nPlayer]);
-
-            #region[ 両手待ち時 ]
-            if ((pChip.eNoteState == ENoteState.waitleft || pChip.eNoteState == ENoteState.waitright) && TJAPlayer3.app.ConfigToml.Game.BigNotesJudgeFrame)
-            {
-                x = (TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[pChip.nPlayerSide]);
-            }
-            #endregion
-
-            if (pChip.dbSCROLL_Y != 0.0)
-                y = TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[nPlayer] + pChip.nバーからの距離dot_Y;
-
-            if (pChip.TimeSpan < 0)
-            {
-                this.actGame.st叩ききりまショー.b最初のチップが叩かれた = true;
-            }
-
-            if ((1400 > x) && TJAPlayer3.app.Tx.Notes is not null)
-            {
-                int num9 = this.n顔座標[nPlayer];
-
-                int nSenotesY = TJAPlayer3.app.Skin.SkinConfig.Game.SENotesOffsetY[nPlayer];
-                this.ct手つなぎ.t進行Loop();
-                int nHand = this.ct手つなぎ.n現在の値 < 30 ? this.ct手つなぎ.n現在の値 : 60 - this.ct手つなぎ.n現在の値;
+        }
 
 
-                x = (x) - ((int)((130.0 * 1.0) / 2.0));
-                TJAPlayer3.app.Tx.Notes.eBlendMode = CTexture.EBlendMode.Normal;
-                if (TJAPlayer3.app.Tx.SENotes is not null)
-                    TJAPlayer3.app.Tx.SENotes.eBlendMode = CTexture.EBlendMode.Normal;
-                var device = TJAPlayer3.app.Device;
-                switch (pChip.nチャンネル番号)
-                {
-                    case 0x11:
-                        if (TJAPlayer3.app.Tx.Notes is not null && pChip.bShow)
-                        {
-                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
-                                TJAPlayer3.app.Tx.Notes.t2D描画(device, x, y, new Rectangle(130, num9, 130, 130));
-                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
-                                TJAPlayer3.app.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
-                        }
-                        break;
+        if (pChip.nノーツ出現時刻ms != 0 && (nPlayTime < pChip.n発声時刻ms - pChip.nノーツ出現時刻ms))
+            pChip.bShow = false;
+        else
+            pChip.bShow = true;
 
-                    case 0x12:
-                        if (TJAPlayer3.app.Tx.Notes is not null && pChip.bShow)
-                        {
-                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
-                                TJAPlayer3.app.Tx.Notes.t2D描画(device, x, y, new Rectangle(260, num9, 130, 130));
-                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
-                                TJAPlayer3.app.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
-                        }
-                        break;
+        int x = 0;
+        int y = TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[nPlayer];
 
-                    case 0x13:
-                        if (TJAPlayer3.app.Tx.Notes is not null && pChip.bShow)
-                        {
-                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
-                                TJAPlayer3.app.Tx.Notes.t2D描画(device, x, y, new Rectangle(390, num9, 130, 130));
-
-                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
-                                TJAPlayer3.app.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
-                        }
-                        break;
-                    case 0x14:
-                        if (TJAPlayer3.app.Tx.Notes is not null && pChip.bShow)
-                        {
-                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
-                                TJAPlayer3.app.Tx.Notes.t2D描画(device, x, y, new Rectangle(520, num9, 130, 130));
-                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
-                                TJAPlayer3.app.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
-                        }
-                        break;
-
-                    case 0x1A:
-                        if (TJAPlayer3.app.Tx.Notes is not null)
-                        {
-                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
-                            {
-                                if (TJAPlayer3.app.Tx.Notes_Arm is not null)
-                                {
-                                    if (nPlayer == 0)
-                                    {
-                                        TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 25, (y + 74) + nHand, CTexture.EFlipType.Vertical);
-                                        TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 60, (y + 104) - nHand, CTexture.EFlipType.Vertical);
-                                    }
-                                    else if (nPlayer == 1)
-                                    {
-                                        TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 25, (y - 44) + nHand);
-                                        TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 60, (y - 14) - nHand);
-                                    }
-                                }
-                                TJAPlayer3.app.Tx.Notes.t2D描画(device, x, y, new Rectangle(1690, num9, 130, 130));
-                            }
-                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
-                                TJAPlayer3.app.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 390, 136, 30));
-                        }
-                        break;
-
-                    case 0x1B:
-                        if (TJAPlayer3.app.Tx.Notes is not null)
-                        {
-                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
-                            {
-                                if (TJAPlayer3.app.Tx.Notes_Arm is not null)
-                                {
-                                    if (nPlayer == 0)
-                                    {
-                                        TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 25, (y + 74) + nHand, CTexture.EFlipType.Vertical);
-                                        TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 60, (y + 104) - nHand, CTexture.EFlipType.Vertical);
-                                    }
-                                    else if (nPlayer == 1)
-                                    {
-                                        TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 25, (y - 44) + nHand);
-                                        TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 60, (y - 14) - nHand);
-                                    }
-                                }
-                                TJAPlayer3.app.Tx.Notes.t2D描画(device, x, y, new Rectangle(1820, num9, 130, 130));
-                            }
-                            if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
-                                TJAPlayer3.app.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 420, 136, 30));
-                        }
-                        break;
-
-                    case 0x1F:
-                        break;
-                }
-            }
+        if (pChip.nノーツ移動開始時刻ms != 0 && (nPlayTime < pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms))
+        {
+            x = (int)((((pChip.n発声時刻ms) - (pChip.n発声時刻ms - pChip.nノーツ移動開始時刻ms)) * pChip.dbBPM * pChip.dbSCROLL * this.actScrollSpeed.db現在の譜面スクロール速度[nPlayer]) / 502.8594 / 5.0); // 2020.04.18 Mr-Ojii rhimm様のコードを参考にばいそくの計算の修正
         }
         else
         {
-            return;
+            x = pChip.nバーからの距離dot;
+        }
+
+        x += (TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[nPlayer]);
+
+        #region[ 両手待ち時 ]
+        if ((pChip.eNoteState == ENoteState.waitleft || pChip.eNoteState == ENoteState.waitright) && TJAPlayer3.app.ConfigToml.Game.BigNotesJudgeFrame)
+        {
+            x = (TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[pChip.nPlayerSide]);
+        }
+        #endregion
+
+        if (pChip.dbSCROLL_Y != 0.0)
+            y = TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[nPlayer] + pChip.nバーからの距離dot_Y;
+
+        if (pChip.TimeSpan < 0)
+        {
+            this.actGame.st叩ききりまショー.b最初のチップが叩かれた = true;
+        }
+
+        if ((1400 > x) && TJAPlayer3.app.Tx.Notes is not null)
+        {
+            int num9 = this.n顔座標[nPlayer];
+
+            int nSenotesY = TJAPlayer3.app.Skin.SkinConfig.Game.SENotesOffsetY[nPlayer];
+            this.ct手つなぎ.t進行Loop();
+            int nHand = this.ct手つなぎ.n現在の値 < 30 ? this.ct手つなぎ.n現在の値 : 60 - this.ct手つなぎ.n現在の値;
+
+
+            x = (x) - ((int)((130.0 * 1.0) / 2.0));
+            TJAPlayer3.app.Tx.Notes.eBlendMode = CTexture.EBlendMode.Normal;
+            if (TJAPlayer3.app.Tx.SENotes is not null)
+                TJAPlayer3.app.Tx.SENotes.eBlendMode = CTexture.EBlendMode.Normal;
+            var device = TJAPlayer3.app.Device;
+            switch (pChip.nチャンネル番号)
+            {
+                case 0x11:
+                    if (TJAPlayer3.app.Tx.Notes is not null && pChip.bShow)
+                    {
+                        if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
+                            TJAPlayer3.app.Tx.Notes.t2D描画(device, x, y, new Rectangle(130, num9, 130, 130));
+                        if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
+                            TJAPlayer3.app.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+                    }
+                    break;
+
+                case 0x12:
+                    if (TJAPlayer3.app.Tx.Notes is not null && pChip.bShow)
+                    {
+                        if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
+                            TJAPlayer3.app.Tx.Notes.t2D描画(device, x, y, new Rectangle(260, num9, 130, 130));
+                        if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
+                            TJAPlayer3.app.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+                    }
+                    break;
+
+                case 0x13:
+                    if (TJAPlayer3.app.Tx.Notes is not null && pChip.bShow)
+                    {
+                        if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
+                            TJAPlayer3.app.Tx.Notes.t2D描画(device, x, y, new Rectangle(390, num9, 130, 130));
+
+                        if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
+                            TJAPlayer3.app.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+                    }
+                    break;
+                case 0x14:
+                    if (TJAPlayer3.app.Tx.Notes is not null && pChip.bShow)
+                    {
+                        if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
+                            TJAPlayer3.app.Tx.Notes.t2D描画(device, x, y, new Rectangle(520, num9, 130, 130));
+                        if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
+                            TJAPlayer3.app.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 30 * pChip.nSenote, 136, 30));
+                    }
+                    break;
+
+                case 0x1A:
+                    if (TJAPlayer3.app.Tx.Notes is not null)
+                    {
+                        if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
+                        {
+                            if (TJAPlayer3.app.Tx.Notes_Arm is not null)
+                            {
+                                if (nPlayer == 0)
+                                {
+                                    TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 25, (y + 74) + nHand, CTexture.EFlipType.Vertical);
+                                    TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 60, (y + 104) - nHand, CTexture.EFlipType.Vertical);
+                                }
+                                else if (nPlayer == 1)
+                                {
+                                    TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 25, (y - 44) + nHand);
+                                    TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 60, (y - 14) - nHand);
+                                }
+                            }
+                            TJAPlayer3.app.Tx.Notes.t2D描画(device, x, y, new Rectangle(1690, num9, 130, 130));
+                        }
+                        if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
+                            TJAPlayer3.app.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 390, 136, 30));
+                    }
+                    break;
+
+                case 0x1B:
+                    if (TJAPlayer3.app.Tx.Notes is not null)
+                    {
+                        if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] == EStealthMode.OFF)
+                        {
+                            if (TJAPlayer3.app.Tx.Notes_Arm is not null)
+                            {
+                                if (nPlayer == 0)
+                                {
+                                    TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 25, (y + 74) + nHand, CTexture.EFlipType.Vertical);
+                                    TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 60, (y + 104) - nHand, CTexture.EFlipType.Vertical);
+                                }
+                                else if (nPlayer == 1)
+                                {
+                                    TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 25, (y - 44) + nHand);
+                                    TJAPlayer3.app.Tx.Notes_Arm.t2D描画(device, x + 60, (y - 14) - nHand);
+                                }
+                            }
+                            TJAPlayer3.app.Tx.Notes.t2D描画(device, x, y, new Rectangle(1820, num9, 130, 130));
+                        }
+                        if (TJAPlayer3.app.ConfigToml.PlayOption._Stealth[nPlayer] != EStealthMode.STEALTH && TJAPlayer3.app.Tx.SENotes is not null)
+                            TJAPlayer3.app.Tx.SENotes.t2D描画(device, x - 2, y + nSenotesY, new Rectangle(0, 420, 136, 30));
+                    }
+                    break;
+
+                case 0x1F:
+                    break;
+            }
         }
         #endregion
     }
     protected void t進行描画_チップ_Taiko連打(ref CDTX dTX, ref CDTX.CChip pChip, int nPlayer)
     {
-        if (pChip.nチャンネル番号 < 0x15 || pChip.nチャンネル番号 > 0x17)
+        if (pChip.nチャンネル番号 < 0x15 || pChip.nチャンネル番号 > 0x17 || CSoundManager.rc演奏用タイマ is null)
             return;
 
         int nSenotesY = TJAPlayer3.app.Skin.SkinConfig.Game.SENotesOffsetY[nPlayer];
@@ -4360,7 +4356,7 @@ internal class CStage演奏画面共通 : CStage
 
     protected void t進行描画_チップ_小節線(ref CDTX dTX, ref CDTX.CChip pChip, int nPlayer)
     {
-        if (pChip.nコース != this.n現在のコース[nPlayer])
+        if (pChip.nコース != this.n現在のコース[nPlayer] || CSoundManager.rc演奏用タイマ is null)
             return;
 
         int x = TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldX[nPlayer] + pChip.nバーからの距離dot;
@@ -4401,6 +4397,9 @@ internal class CStage演奏画面共通 : CStage
     /// </summary>
     protected void t全体制御メソッド()
     {
+        if (CSoundManager.rc演奏用タイマ is null)
+            return;
+
         int time = (int)(CSoundManager.rc演奏用タイマ.n現在時刻ms * (((double)TJAPlayer3.app.ConfigToml.PlayOption.PlaySpeed) / 20.0));
         //CDTXMania.act文字コンソール.tPrint( 0, 16, C文字コンソール.EFontType.白, t.ToString() );
 
