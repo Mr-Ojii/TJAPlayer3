@@ -4380,7 +4380,7 @@ internal class CStage演奏画面共通 : CStage
                 TJAPlayer3.app.act文字コンソール.tPrint(x + 8, y - 26, C文字コンソール.EFontType.白, pChip.n整数値_内部番号.ToString());
             }
         }
-        if ((pChip.b可視) && (TJAPlayer3.app.Tx.Bar is not null))
+        if ((pChip.b可視) && (TJAPlayer3.app.Tx.Bar is not null) && (TJAPlayer3.app.Tx.Bar_Branch is not null))
         {
             if (x >= 0)
             {
