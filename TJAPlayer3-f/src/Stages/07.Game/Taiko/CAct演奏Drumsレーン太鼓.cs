@@ -116,29 +116,11 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
             if (TJAPlayer3.stage演奏ドラム画面.bUseBranch[i] == true)
             {
                 #region[ 動いていない ]
-                switch (TJAPlayer3.stage演奏ドラム画面.n次回のコース[i])
+                CTexture? base_tex = TJAPlayer3.app.Tx.Lane_Base[TJAPlayer3.stage演奏ドラム画面.n次回のコース[i]];
+                if (base_tex is not null)
                 {
-                    case 0:
-                        if (TJAPlayer3.app.Tx.Lane_Base[0] is not null)
-                        {
-                            TJAPlayer3.app.Tx.Lane_Base[0].Opacity = 255;
-                            TJAPlayer3.app.Tx.Lane_Base[0].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
-                        }
-                        break;
-                    case 1:
-                        if (TJAPlayer3.app.Tx.Lane_Base[1] is not null)
-                        {
-                            TJAPlayer3.app.Tx.Lane_Base[1].Opacity = 255;
-                            TJAPlayer3.app.Tx.Lane_Base[1].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
-                        }
-                        break;
-                    case 2:
-                        if (TJAPlayer3.app.Tx.Lane_Base[2] is not null)
-                        {
-                            TJAPlayer3.app.Tx.Lane_Base[2].Opacity = 255;
-                            TJAPlayer3.app.Tx.Lane_Base[2].t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
-                        }
-                        break;
+                    base_tex.Opacity = 255;
+                    base_tex.t2D描画(TJAPlayer3.app.Device, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldBGX[i], TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
                 }
                 #endregion
 
@@ -271,20 +253,11 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
                 {
                     if (!this.stBranch[i].ct分岐アニメ進行.b進行中)
                     {
-                        switch (TJAPlayer3.stage演奏ドラム画面.n次回のコース[i])
+                        CTexture? lane_tex = TJAPlayer3.app.Tx.Lane_Text[TJAPlayer3.stage演奏ドラム画面.n次回のコース[i]];
+                        if (lane_tex is not null)
                         {
-                            case 0:
-                                TJAPlayer3.app.Tx.Lane_Text[0].Opacity = 255;
-                                TJAPlayer3.app.Tx.Lane_Text[0].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
-                                break;
-                            case 1:
-                                TJAPlayer3.app.Tx.Lane_Text[1].Opacity = 255;
-                                TJAPlayer3.app.Tx.Lane_Text[1].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
-                                break;
-                            case 2:
-                                TJAPlayer3.app.Tx.Lane_Text[2].Opacity = 255;
-                                TJAPlayer3.app.Tx.Lane_Text[2].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
-                                break;
+                            lane_tex.Opacity = 255;
+                            lane_tex.t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
                         }
                     }
                     if (this.stBranch[i].ct分岐アニメ進行.b進行中)
@@ -461,20 +434,11 @@ internal class CAct演奏Drumsレーン太鼓 : CActivity
 
                     if (this.stBranch[i].nY座標 == 0)
                     {
-                        switch (TJAPlayer3.stage演奏ドラム画面.n次回のコース[i])
+                        CTexture? lane_tex = TJAPlayer3.app.Tx.Lane_Text[TJAPlayer3.stage演奏ドラム画面.n次回のコース[i]];
+                        if (lane_tex is not null)
                         {
-                            case 0:
-                                TJAPlayer3.app.Tx.Lane_Text[0].Opacity = 255;
-                                TJAPlayer3.app.Tx.Lane_Text[0].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
-                                break;
-                            case 1:
-                                TJAPlayer3.app.Tx.Lane_Text[1].Opacity = 255;
-                                TJAPlayer3.app.Tx.Lane_Text[1].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
-                                break;
-                            case 2:
-                                TJAPlayer3.app.Tx.Lane_Text[2].Opacity = 255;
-                                TJAPlayer3.app.Tx.Lane_Text[2].t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
-                                break;
+                            lane_tex.Opacity = 255;
+                            lane_tex.t2D描画(TJAPlayer3.app.Device, 333, TJAPlayer3.app.Skin.SkinConfig.Game.ScrollFieldY[i]);
                         }
                     }
 
