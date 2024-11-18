@@ -79,7 +79,7 @@ internal class CActSelectPresound : CActivity
 
             this.t進行処理_プレビューサウンド();
 
-            if (this.sound is not null)
+            if (this.sound is not null && CSoundManager.rc演奏用タイマ is not null)
             {
                 Cスコア cスコア = TJAPlayer3.stage選曲.act曲リスト.r現在選択中のスコア;
                 if (long再生位置 == -1)
@@ -164,7 +164,7 @@ internal class CActSelectPresound : CActivity
 
                 this.long再生位置 = -1;
                 this.sound?.t再生を開始する(true);
-                if (this.long再生位置 == -1)
+                if (this.long再生位置 == -1 && CSoundManager.rc演奏用タイマ is not null)
                 {
                     this.long再生開始時のシステム時刻 = CSoundManager.rc演奏用タイマ.nシステム時刻ms;
                     this.long再生位置 = cスコア.譜面情報.nデモBGMオフセット;
