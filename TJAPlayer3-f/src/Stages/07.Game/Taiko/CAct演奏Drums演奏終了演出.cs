@@ -48,7 +48,7 @@ internal class CAct演奏Drums演奏終了演出 : CActivity
                     if (i == 0)
                         this.soundFailed?.t再生を開始する();
                 }
-                else if (TJAPlayer3.stage演奏ドラム画面.nヒット数[i].Miss != 0 && TJAPlayer3.stage演奏ドラム画面.nヒット数[i].Bad != 0)
+                else if (TJAPlayer3.stage演奏ドラム画面.nヒット数[i].Miss != 0 || TJAPlayer3.stage演奏ドラム画面.nヒット数[i].Bad != 0)
                 {
                     this.Mode[i] = EndMode.StageCleared;
                     if (i == 0)
