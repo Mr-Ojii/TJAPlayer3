@@ -53,7 +53,7 @@ internal class CStageConfig : CStage
             this.eItemPanelモード = EItemPanelモード.パッド一覧;
 
             string[] strMenuItem = { "System", "Drums", "Exit" };
-            txMenuItemLeft = new CTexture[strMenuItem.Length, 2];
+            txMenuItemLeft = new CTexture?[strMenuItem.Length, 2];
             using (var prvFont = new CFontRenderer(TJAPlayer3.app.ConfigToml.General.FontName, 20))
             {
                 for (int i = 0; i < strMenuItem.Length; i++)
@@ -104,12 +104,15 @@ internal class CStageConfig : CStage
                 this.ctキー反復用[i] = null;
             }
             TJAPlayer3.t安全にDisposeする(ref this.tx説明文パネル);
-            for (int i = 0; i < txMenuItemLeft.GetLength(0); i++)
+            if (this.txMenuItemLeft is not null)
             {
-                txMenuItemLeft[i, 0].Dispose();
-                txMenuItemLeft[i, 0] = null;
-                txMenuItemLeft[i, 1].Dispose();
-                txMenuItemLeft[i, 1] = null;
+                for (int i = 0; i < txMenuItemLeft.GetLength(0); i++)
+                {
+                    txMenuItemLeft[i, 0]?.Dispose();
+                    txMenuItemLeft[i, 0] = null;
+                    txMenuItemLeft[i, 1]?.Dispose();
+                    txMenuItemLeft[i, 1] = null;
+                }
             }
             txMenuItemLeft = null;
             base.On非活性化();
@@ -180,12 +183,19 @@ internal class CStageConfig : CStage
         //---------------------
         int menuY = 162 - 22;
         int stepY = 39;
-        for (int i = 0; i < txMenuItemLeft.GetLength(0); i++)
+        if (this.txMenuItemLeft is not null)
         {
-            int flag = (this.n現在のメニュー番号 == i) ? 1 : 0;
-            int num4 = txMenuItemLeft[i, flag].szTextureSize.Width;
-            txMenuItemLeft[i, flag].t2D描画(TJAPlayer3.app.Device, 282 - (num4 / 2) + TJAPlayer3.app.Skin.SkinConfig.Config.ItemTextCorrectionX, menuY + TJAPlayer3.app.Skin.SkinConfig.Config.ItemTextCorrectionY); //55
-            menuY += stepY;
+            for (int i = 0; i < txMenuItemLeft.GetLength(0); i++)
+            {
+                int flag = (this.n現在のメニュー番号 == i) ? 1 : 0;
+                CTexture? tx_item = txMenuItemLeft[i, flag];
+                if (tx_item is not null)
+                {
+                    int num4 = tx_item.szTextureSize.Width;
+                    tx_item.t2D描画(TJAPlayer3.app.Device, 282 - (num4 / 2) + TJAPlayer3.app.Skin.SkinConfig.Config.ItemTextCorrectionX, menuY + TJAPlayer3.app.Skin.SkinConfig.Config.ItemTextCorrectionY); //55
+                }
+                menuY += stepY;
+            }
         }
         //---------------------
         #endregion
@@ -408,14 +418,14 @@ internal class CStageConfig : CStage
     private const int DESC_H = 0x80;
     private const int DESC_W = 220;
     private EItemPanelモード eItemPanelモード;
-    private CCachedFontRenderer privatefont;
+    private CCachedFontRenderer? privatefont;
     private int n現在のメニュー番号;
     //private CTexture txMenuカーソル;
     //private CTexture tx下部パネル;
     //private CTexture tx上部パネル;
-    private CTexture tx説明文パネル;
+    private CTexture? tx説明文パネル;
     //private CTexture tx背景;
-    private CTexture[,] txMenuItemLeft;
+    private CTexture?[,]? txMenuItemLeft;
 
     private void tカーソルを下へ移動する()
     {
@@ -514,11 +524,9 @@ internal class CStageConfig : CStage
 
             int c = (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja") ? 0 : 1;
 
-            if (this.tx説明文パネル is not null)
-            {
-                this.tx説明文パネル.Dispose();
-            }
-            this.tx説明文パネル = TJAPlayer3.app.tCreateTexture(this.privatefont.DrawText(str[c], Color.White));
+            this.tx説明文パネル?.Dispose();
+            if (this.privatefont is not null)
+                this.tx説明文パネル = TJAPlayer3.app.tCreateTexture(this.privatefont.DrawText(str[c], Color.White));
         }
         catch (CTextureCreateFailedException e)
         {
@@ -532,11 +540,9 @@ internal class CStageConfig : CStage
         try
         {
             CItemBase item = this.actList.ib現在の選択項目;
-            if (this.tx説明文パネル is not null)
-            {
-                this.tx説明文パネル.Dispose();
-            }
-            this.tx説明文パネル = TJAPlayer3.app.tCreateTexture(privatefont.DrawText(item.strDescription, Color.White));
+            this.tx説明文パネル?.Dispose();
+            if (this.privatefont is not null)
+                this.tx説明文パネル = TJAPlayer3.app.tCreateTexture(privatefont.DrawText(item.strDescription, Color.White));
         }
         catch (CTextureCreateFailedException e)
         {
