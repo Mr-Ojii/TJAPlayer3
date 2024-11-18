@@ -216,7 +216,7 @@ internal class CActScore : CActivity
                 }
             }
 
-            for(int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
+            for (int i = 0; i < TJAPlayer3.app.ConfigToml.PlayOption.PlayerCount; i++)
             {
                 this.t小文字表示(TJAPlayer3.app.Skin.SkinConfig.Game.Score.X[i], TJAPlayer3.app.Skin.SkinConfig.Game.Score.Y[i], string.Format("{0,7:######0}", this.n現在表示中のスコア[i]), 0, 256, i);
             }
@@ -373,30 +373,38 @@ internal class CActScore : CActivity
                 switch (mode)
                 {
                     case 0:
-                        if (TJAPlayer3.app.Tx.Taiko_Score[0] is not null)
                         {
-                            TJAPlayer3.app.Tx.Taiko_Score[0].Opacity = alpha;
-                            TJAPlayer3.app.Tx.Taiko_Score[0].vcScaling.Y = ScoreScale[this.ct点数アニメタイマ[player].n現在の値];
-                            TJAPlayer3.app.Tx.Taiko_Score[0].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
-
+                            CTexture? tx_score = TJAPlayer3.app.Tx.Taiko_Score[0];
+                            if (tx_score is not null)
+                            {
+                                tx_score.Opacity = alpha;
+                                tx_score.vcScaling.Y = ScoreScale[this.ct点数アニメタイマ[player].n現在の値];
+                                tx_score.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
+                            }
+                            break;
                         }
-                        break;
                     case 1:
-                        if (TJAPlayer3.app.Tx.Taiko_Score[1] is not null)
                         {
-                            TJAPlayer3.app.Tx.Taiko_Score[1].Opacity = alpha;
-                            TJAPlayer3.app.Tx.Taiko_Score[1].vcScaling.Y = 1;
-                            TJAPlayer3.app.Tx.Taiko_Score[1].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
+                            CTexture? tx_score = TJAPlayer3.app.Tx.Taiko_Score[1];
+                            if (tx_score is not null)
+                            {
+                                tx_score.Opacity = alpha;
+                                tx_score.vcScaling.Y = 1;
+                                tx_score.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
+                            }
+                            break;
                         }
-                        break;
                     case 2:
-                        if (TJAPlayer3.app.Tx.Taiko_Score[2] is not null)
                         {
-                            TJAPlayer3.app.Tx.Taiko_Score[2].Opacity = alpha;
-                            TJAPlayer3.app.Tx.Taiko_Score[2].vcScaling.Y = 1;
-                            TJAPlayer3.app.Tx.Taiko_Score[2].t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
+                            CTexture? tx_score = TJAPlayer3.app.Tx.Taiko_Score[2];
+                            if (tx_score is not null)
+                            {
+                                tx_score.Opacity = alpha;
+                                tx_score.vcScaling.Y = 1;
+                                tx_score.t2D拡大率考慮描画(TJAPlayer3.app.Device, CTexture.RefPnt.DownLeft, x, y, rectangle);
+                            }
+                            break;
                         }
-                        break;
                 }
                 x += TJAPlayer3.app.Skin.SkinConfig.Game.Score.Padding;
             }
