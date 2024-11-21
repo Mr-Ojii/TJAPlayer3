@@ -529,6 +529,7 @@ internal class CSkin : IDisposable
             return;
         #endregion
         #region [ カレントのSkinパスが消滅しているので、以下で再設定する。]
+        /// メモ：ここDefaultのままになっているが、変えたほうが良いのではないか。
         /// 以下の優先順位で現在使用中のSkinパスを再設定する。
         /// 1. System/Default/
         /// 2. System/*****/ で最初にenumerateされたもの

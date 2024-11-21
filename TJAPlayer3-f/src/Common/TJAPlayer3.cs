@@ -308,7 +308,7 @@ internal class TJAPlayer3 : Game
         Trace.Indent();
         try
         {
-            Skin = new CSkin(TJAPlayer3.app.ConfigToml.General.SkinPath);
+            Skin = new CSkin(TJAPlayer3.app.ConfigToml.General._AbsSkinPath);
             TJAPlayer3.app.ConfigToml.General.SkinPath = TJAPlayer3.app.Skin.GetCurrentSkinSubfolderFullName(true);    // 旧指定のSkinフォルダが消滅していた場合に備える
             this.LogicalSize = new Size(Skin.SkinConfig.General.Width, Skin.SkinConfig.General.Height);
             Trace.TraceInformation("スキンの初期化を完了しました。");
@@ -1678,7 +1678,7 @@ internal class TJAPlayer3 : Game
 
         TJAPlayer3.app.Skin.Dispose();
         TJAPlayer3.app.Skin = null;
-        TJAPlayer3.app.Skin = new CSkin(TJAPlayer3.app.ConfigToml.General.SkinPath);
+        TJAPlayer3.app.Skin = new CSkin(TJAPlayer3.app.ConfigToml.General._AbsSkinPath);
 
 
         TJAPlayer3.app.Tx.DisposeTexture();

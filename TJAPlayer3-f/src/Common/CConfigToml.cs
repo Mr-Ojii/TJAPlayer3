@@ -63,13 +63,13 @@ public class CConfigToml
             get
             {
                 Uri uriRoot = new Uri(System.IO.Path.Combine(TJAPlayer3.strEXEのあるフォルダ, "System/"));
-                if (_SkinPath == string.Empty)
+                if (_AbsSkinPath == string.Empty)
                 {
                     // Config.iniが空の状態でDTXManiaをViewerとして起動_終了すると、strSystemSkinSubfolderFullName が空の状態でここに来る。
                     // → 初期値として Default/ を設定する。
-                    _SkinPath = System.IO.Path.Combine(TJAPlayer3.strEXEのあるフォルダ, "System/Default/");
+                    _AbsSkinPath = System.IO.Path.Combine(TJAPlayer3.strEXEのあるフォルダ, "System/Default/");
                 }
-                Uri uriPath = new Uri(System.IO.Path.Combine(this._SkinPath, "./"));
+                Uri uriPath = new Uri(System.IO.Path.Combine(this._AbsSkinPath, "./"));
                 string relPath = uriRoot.MakeRelativeUri(uriPath).ToString();				// 相対パスを取得
                 return System.Web.HttpUtility.UrlDecode(relPath);						// デコードする
             }
@@ -88,10 +88,10 @@ public class CConfigToml
                 {
                     absSkinPath += '/';
                 }
-                this._SkinPath = absSkinPath;
+                this._AbsSkinPath = absSkinPath;
             }
         }
-        private string _SkinPath = "";
+        public string _AbsSkinPath = "";
         public string FFmpegPath { get; set; } = "";
         public string FontName { get; set; } = CFontRenderer.DefaultFontName;
     }

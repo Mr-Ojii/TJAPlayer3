@@ -1604,7 +1604,7 @@ internal class CActConfigList : CActivity
         TJAPlayer3.app.ConfigToml.PlayOption.Risky = this.iSystemRisky.nValue;										// #23559 2011.7.27 yyagi
 
         TJAPlayer3.app.ConfigToml.General.SkinPath = skinSubFolders[nSkinIndex];				// #28195 2012.5.2 yyagi
-        TJAPlayer3.app.Skin.SetCurrentSkinSubfolderFullName(TJAPlayer3.app.ConfigToml.General.SkinPath, true);
+        TJAPlayer3.app.Skin.SetCurrentSkinSubfolderFullName(TJAPlayer3.app.ConfigToml.General._AbsSkinPath, true);
 
         TJAPlayer3.app.ConfigToml.SoundDevice.DeviceType = this.iSystemSoundType.n現在選択されている項目番号;		// #24820 2013.1.3 yyagi
         TJAPlayer3.app.ConfigToml.SoundDevice.WASAPIBufferSizeMs = this.iSystemWASAPIBufferSizeMs.nValue;               // #24820 2013.1.15 yyagi
