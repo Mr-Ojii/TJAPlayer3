@@ -1,5 +1,6 @@
 ﻿using SDL;
 using SkiaSharp;
+using System.Threading;
 
 namespace FDK;
 
@@ -372,8 +373,10 @@ public unsafe class CTexture : IDisposable
     private EBlendMode _eBlendMode;
     private Color _color;
     private MakeType maketype = MakeType.bytearray;
-    private SDL_FRect srcrect;
-    private SDL_FRect dstrect;
+    [ThreadStatic]
+    private static SDL_FRect srcrect;
+    [ThreadStatic]
+    private static SDL_FRect dstrect;
     //-----------------
     #endregion
 }
