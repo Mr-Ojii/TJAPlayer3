@@ -67,7 +67,7 @@ public unsafe class CTexture : IDisposable
     }
     public Vector2 vcScaling;
 
-    private bool bTextureDisposed => this.texture is not null;
+    private bool bTextureDisposed => this.texture is null;
 
     // コンストラクタ
 
