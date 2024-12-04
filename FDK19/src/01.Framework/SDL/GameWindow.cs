@@ -239,7 +239,36 @@ public unsafe class GameWindow : IDisposable
         unsafe
         {
             SDL_Surface* sshot = SDL3.SDL_RenderReadPixels(this._renderer_handle, null);
-            SDL3.SDL_SaveBMP(sshot, strFullPath);
+            if (strFullPath.EndsWith("bmp"))
+                SDL3.SDL_SaveBMP(sshot, strFullPath);
+            else
+            {
+                SKEncodedImageFormat fmt = SKEncodedImageFormat.Png;
+                if (strFullPath.EndsWith("jpg") || strFullPath.EndsWith("jpeg"))
+                    fmt = SKEncodedImageFormat.Jpeg;
+                else if (strFullPath.EndsWith("webp"))
+                    fmt = SKEncodedImageFormat.Webp;
+
+                var io = SDL3.SDL_IOFromDynamicMem();
+                if (SDL3.SDL_SaveBMP_IO(sshot, io, false))
+                {
+                    var io_size = SDL3.SDL_GetIOSize(io);
+                    byte[] arr = ArrayPool<byte>.Shared.Rent((int)io_size);
+                    SDL3.SDL_SeekIO(io, 0, SDL_IOWhence.SDL_IO_SEEK_SET);
+                    fixed (byte* ptr = arr)
+                        SDL3.SDL_ReadIO(io, (nint)ptr, (nuint)io_size);
+                    using (var bmp = SKBitmap.Decode(arr))
+                    {
+                        using (var str = File.Create(strFullPath))
+                        {
+                            var data = bmp.Encode(fmt, 100);
+                            data.SaveTo(str);
+                        }
+                    }
+                    ArrayPool<byte>.Shared.Return(arr);
+                }
+                SDL3.SDL_CloseIO(io);
+            }
             SDL3.SDL_DestroySurface(sshot);
         }
 
