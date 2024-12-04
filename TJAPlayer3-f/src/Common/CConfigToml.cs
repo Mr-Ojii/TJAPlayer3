@@ -94,6 +94,7 @@ public class CConfigToml
         public string _AbsSkinPath = "";
         public string FFmpegPath { get; set; } = "";
         public string FontName { get; set; } = CFontRenderer.DefaultFontName;
+        public string ScreenShotExt { get; set; } = ".png";
     }
 
     public CWindow Window { get; set; } = new();
@@ -473,6 +474,10 @@ public class CConfigToml
             sw.WriteLine("# フォントレンダリングに使用するフォント名");
             sw.WriteLine("# Font name used for font rendering.");
             sw.WriteLine("{0} = \"{1}\"", nameof(this.General.FontName), this.General.FontName);
+            sw.WriteLine();
+            sw.WriteLine("# スクリーンショットの拡張子 (\".bmp\" or \".jpg\" or \".png\" or \".webp\")");
+            sw.WriteLine("# Extension for screen shot file. (\".bmp\" or \".jpg\" or \".png\" or \".webp\")");
+            sw.WriteLine("{0} = \"{1}\"", nameof(this.General.ScreenShotExt), this.General.ScreenShotExt);
             sw.WriteLine();
             sw.WriteLine("[{0}]", nameof(this.Window));
             sw.WriteLine("# フルスクリーンにするか");

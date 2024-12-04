@@ -1155,7 +1155,7 @@ internal class TJAPlayer3 : Game
                     // Debug.WriteLine( "capture: " + string.Format( "{0:2x}", (int) e.KeyCode ) + " " + (int) e.KeyCode );
                     string strFullPath =
                         Path.Combine(TJAPlayer3.strEXEのあるフォルダ, "Capture_img");
-                    strFullPath = Path.Combine(strFullPath, DateTime.Now.ToString("yyyyMMddHHmmss") + ".png");
+                    strFullPath = Path.Combine(strFullPath, DateTime.Now.ToString("yyyyMMddHHmmss") + ConfigToml.General.ScreenShotExt);
                     this.SaveScreen(strFullPath);
                 }
             if (ConfigIni.KeyAssign.FullScreen[i].Code > 0)
