@@ -1,4 +1,4 @@
-﻿using ManagedBass;
+﻿using System.Buffers;
 using SDL;
 using SkiaSharp;
 
@@ -87,17 +87,21 @@ public unsafe class GameWindow : IDisposable
     {
         set
         {
-            byte[] bytes = new byte[value.Length];
-            value.Read(bytes, 0, bytes.Length);
-            using (SKBitmap bmp = SKBitmap.Decode(bytes))
+            byte[] arr = ArrayPool<byte>.Shared.Rent((int)value.Length);
+            Span<byte> bytes = new Span<byte>(arr, 0, (int)value.Length);
+            if (value.Read(bytes) > 0)
             {
-                fixed (void* ptr = bmp.Pixels)
+                using (SKBitmap bmp = SKBitmap.Decode(bytes))
                 {
-                    var surface = SDL3.SDL_CreateSurfaceFrom(bmp.Width, bmp.Height, SDL_PixelFormat.SDL_PIXELFORMAT_ARGB8888, (nint)ptr, bmp.Width * 4);
-                    SDL3.SDL_SetWindowIcon(_window_handle, surface);
-                    SDL3.SDL_DestroySurface(surface);
+                    fixed (void* ptr = bmp.Pixels)
+                    {
+                        var surface = SDL3.SDL_CreateSurfaceFrom(bmp.Width, bmp.Height, SDL_PixelFormat.SDL_PIXELFORMAT_ARGB8888, (nint)ptr, bmp.Width * 4);
+                        SDL3.SDL_SetWindowIcon(_window_handle, surface);
+                        SDL3.SDL_DestroySurface(surface);
+                    }
                 }
             }
+            ArrayPool<byte>.Shared.Return(arr);
         }
     }
 
