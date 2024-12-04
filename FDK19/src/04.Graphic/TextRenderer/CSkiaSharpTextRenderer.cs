@@ -13,6 +13,7 @@ internal class CSkiaSharpTextRenderer : ITextRenderer
     public CSkiaSharpTextRenderer(string fontpath, int pt, CFontRenderer.FontStyle style)
     {
         paint = new SKPaint();
+        font = new SKFont();
 
         SKFontStyleWeight weight = SKFontStyleWeight.Normal;
         SKFontStyleWidth width = SKFontStyleWidth.Normal;
@@ -28,27 +29,28 @@ internal class CSkiaSharpTextRenderer : ITextRenderer
         }
 
         if (SKFontManager.Default.FontFamilies.Contains(fontpath))
-            paint.Typeface = SKTypeface.FromFamilyName(fontpath, weight, width, slant);
+            font.Typeface = SKTypeface.FromFamilyName(fontpath, weight, width, slant);
 
         //stream・filepathから生成した場合に、style設定をどうすればいいのかがわからない
         if (File.Exists(fontpath))
-            paint.Typeface = SKTypeface.FromFile(fontpath, 0);
+            font.Typeface = SKTypeface.FromFile(fontpath, 0);
 
-        if (paint.Typeface is null)
+        if (font.Typeface is null)
             throw new FileNotFoundException(fontpath);
 
-        paint.TextSize = (pt * 1.3f);
+        font.Size = (pt * 1.3f);
         paint.IsAntialias = true;
     }
 
     public CSkiaSharpTextRenderer(Stream fontstream, int pt, CFontRenderer.FontStyle style)
     {
         paint = new SKPaint();
+        font = new SKFont();
 
         //stream・filepathから生成した場合に、style設定をどうすればいいのかがわからない
-        paint.Typeface = SKFontManager.Default.CreateTypeface(fontstream);
+        font.Typeface = SKFontManager.Default.CreateTypeface(fontstream);
 
-        paint.TextSize = (pt * 1.3f);
+        font.Size = (pt * 1.3f);
         paint.IsAntialias = true;
     }
 
@@ -65,9 +67,8 @@ internal class CSkiaSharpTextRenderer : ITextRenderer
 
         for (int i = 0; i < strs.Length; i++)
         {
-            SKRect bounds = new SKRect();
-            int width = (int)Math.Ceiling(this.paint.MeasureText(drawstr, ref bounds)) + 50;
-            int height = (int)Math.Ceiling(paint.FontMetrics.Descent - paint.FontMetrics.Ascent) + 50;
+            int width = (int)Math.Ceiling(this.font.MeasureText(drawstr)) + 50;
+            int height = (int)Math.Ceiling(font.Metrics.Descent - font.Metrics.Ascent) + 50;
 
             //少し大きめにとる(定数じゃない方法を考えましょう)
             SKBitmap bitmap = new SKBitmap(width, height, SKColorType.Rgba8888, SKAlphaType.Premul);
@@ -76,8 +77,8 @@ internal class CSkiaSharpTextRenderer : ITextRenderer
                 if (drawMode.HasFlag(CFontRenderer.DrawMode.Edge))
                 {
                     SKPaint edgePaint = new SKPaint();
-                    SKPath path = paint.GetTextPath(strs[i], 25, -paint.FontMetrics.Ascent + 25);
-                    edgePaint.StrokeWidth = paint.TextSize * 8 / edge_Ratio;
+                    SKPath path = font.GetTextPath(strs[i], new SKPoint(25, -font.Metrics.Ascent + 25));
+                    edgePaint.StrokeWidth = font.Size * 8 / edge_Ratio;
                     //https://docs.microsoft.com/ja-jp/xamarin/xamarin-forms/user-interface/graphics/skiasharp/paths/paths
                     edgePaint.StrokeJoin = SKStrokeJoin.Round;
                     edgePaint.Color = new SKColor(edgeColor.R, edgeColor.G, edgeColor.B, edgeColor.A);
@@ -106,7 +107,7 @@ internal class CSkiaSharpTextRenderer : ITextRenderer
                     paint.Color = new SKColor(fontColor.R, fontColor.G, fontColor.B);
                 }
 
-                canvas.DrawText(strs[i], 25, -paint.FontMetrics.Ascent + 25, paint);
+                canvas.DrawText(strs[i], 25, -font.Metrics.Ascent + 25, SKTextAlign.Left, font, paint);
                 canvas.Flush();
             }
 
@@ -127,7 +128,7 @@ internal class CSkiaSharpTextRenderer : ITextRenderer
             else
             {
                 bitmap.Dispose();
-                images[i] = new SKBitmap((int)paint.TextSize, (int)Math.Ceiling(paint.FontMetrics.Descent - paint.FontMetrics.Ascent));
+                images[i] = new SKBitmap((int)font.Size, (int)Math.Ceiling(font.Metrics.Descent - font.Metrics.Ascent));
             }
         }
 
@@ -160,4 +161,5 @@ internal class CSkiaSharpTextRenderer : ITextRenderer
     }
 
     private SKPaint paint;
+    private SKFont font;
 }
