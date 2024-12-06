@@ -9,28 +9,28 @@ public class CInputMIDI : IInputDevice, IDisposable
 
     // コンストラクタ
 
-    public CInputMIDI(uint nID)
+    public CInputMIDI(int nID, string GUID)
     {
         this.hMidiIn = IntPtr.Zero;
         this.listEventBuffer = new ConcurrentQueue<STInputEvent>();
         this.listInputEvents = new List<STInputEvent>();
         this.eInputDeviceType = EInputDeviceType.MidiIn;
-        this.GUID = "";
-        this.ID = (int)nID;
+        this.GUID = GUID;
+        this.ID = nID;
         this.strDeviceName = "";    // CInputManagerで初期化する
     }
 
     // メソッド
 
-    public unsafe void tメッセージからMIDI信号のみ受信(int dev, long time, byte[] buf, int count)
+    public unsafe void tメッセージからMIDI信号のみ受信(string dev, long time, byte[] buf, int count)
     {
-        if (this.ID == dev)
+        if (this.GUID == dev)
         {
             int nMIDIevent = buf[count * 3];
             int nPara1 = buf[count * 3 + 1];
             int nPara2 = buf[count * 3 + 2];
 
-            if ((nMIDIevent == 0x90) && (nPara2 != 0))      // Note ON
+            if ((nMIDIevent >= 0x90) && (nMIDIevent <= 0x9f) && (nPara2 != 0))      // Note ON
             {
                 STInputEvent item = new STInputEvent()
                 {

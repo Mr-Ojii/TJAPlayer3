@@ -1,4 +1,5 @@
 ﻿using Commons.Music.Midi;
+using CoreMidi;
 
 namespace FDK;
 
@@ -52,7 +53,7 @@ public class CInputManager : IDisposable
                 var midiintmp = MidiAccessManager.Default.OpenInputAsync(midiinlisttmp[i].Id).Result;
                 midiintmp.MessageReceived += onMessageRecevied;
                 this.midiInputs.Add(midiintmp);
-                CInputMIDI item = new CInputMIDI(uint.Parse(midiinlisttmp[i].Id));
+                CInputMIDI item = new CInputMIDI(i, midiinlisttmp[i].Id);
                 this.listInputDevices.Add(item);
             }
         }
@@ -198,7 +199,7 @@ public class CInputManager : IDisposable
         if (CSoundManager.rc演奏用タイマ is not null)
             time = CSoundManager.rc演奏用タイマ.nシステム時刻ms; // lock前に取得。演奏用タイマと同じタイマを使うことで、BGMと譜面、入力ずれを防ぐ。
 
-        int dev = int.Parse(((IMidiInput)sender).Details.Id);
+        string dev = ((IMidiInput)sender).Details.Id;
 
         lock (this.objMidiIn排他用)
         {
@@ -206,8 +207,11 @@ public class CInputManager : IDisposable
             {
                 foreach (IInputDevice device in this.listInputDevices)
                 {
+                    if (device.eInputDeviceType != EInputDeviceType.MidiIn)
+                        continue;
+
                     CInputMIDI tmidi = (CInputMIDI)device;
-                    if ((tmidi is not null) && (tmidi.ID == dev))
+                    if ((tmidi is not null) && (tmidi.GUID == dev))
                     {
                         for (int i = 0; i < e.Length / 3; i++)
                             tmidi.tメッセージからMIDI信号のみ受信(dev, time, e.Data, i);
